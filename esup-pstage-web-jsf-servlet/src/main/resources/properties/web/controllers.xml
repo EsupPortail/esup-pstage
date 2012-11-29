@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- /properties/web/controllers.xml This file declares the visual beans 
+		used by the web interface. It should not be modified but by the developers. 
+		This file is referenced by /properties/applicationContext.xml. -->
+
+	
+
+	<bean id="sessionController"
+		class="org.esupportail.pstage.web.controllers.SessionController"
+		parent="abstractDomainAwareBean" scope="session">
+		<description>
+			A bean to store the context of the application.
+		</description>
+		<property name="exceptionController" ref="exceptionController">
+			<description>The exception controller.</description>
+		</property>
+		<property name="casLogoutUrl" value="${cas.url}/logout?service=%s">
+			<description>The CAS logout URL.</description>
+		</property>
+		<property name="authenticator" ref="authenticator">
+			<description>The authenticator service.</description>
+		</property>
+	</bean>
+
+	<bean id="abstractContextAwareController" abstract="true"
+		parent="abstractDomainAwareBean" scope="session">
+		<description>
+			An abstract bean to factorize the declaration of beans of
+			which class inherits from AbstractContextAwareController.
+		</description>
+		<property name="sessionController" ref="sessionController">
+			<description>The session controller.</description>
+		</property>
+	</bean>
+
+	<bean id="exceptionController"
+		class="org.esupportail.commons.web.controllers.ExceptionController"
+		scope="session">
+		<description>A bean to manage exception reports.</description>
+	</bean>
+
+
+</beans>

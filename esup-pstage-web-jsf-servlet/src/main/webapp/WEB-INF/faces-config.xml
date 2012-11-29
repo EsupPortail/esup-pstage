@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /properties/jsf/application.xml The configuration file of Java Server 
+	Faces that gives the main configuration of the application . This file is 
+	referenced by /webapp/WEB-INF/web.xml. It should not be modified but by the 
+	developers. -->
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+
+	<application>
+		<el-resolver>org.esupportail.commons.jsf.ResourceBundleFacesELResolver</el-resolver>
+		<locale-config>
+			<default-locale>fr</default-locale>
+			<supported-locale>fr</supported-locale>
+			<supported-locale>en</supported-locale>
+		</locale-config>
+		<message-bundle>properties.i18n.bundles.JsfMessages</message-bundle>
+
+	</application>
+	<factory>
+		<exception-handler-factory>org.esupportail.commons.exceptions.ExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+</faces-config>

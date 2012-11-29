@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:e="http://commons.esup-portail.org"
+	template="/stylesheets/template.xhtml">
+	<ui:define name="navigation">
+		<p:menubar>
+			<p:submenu icon="ui-icon ui-icon-info" >
+				<p:menuitem value="#{msgs['BLANK.MENU']}" url="#" onclick="info.show();"></p:menuitem>
+			</p:submenu>
+
+			<p:submenu label="Finder">
+				<p:menuitem value="Exemple" onclick="demo.show();" url="#" ></p:menuitem>
+			</p:submenu>
+
+			<p:submenu label="Edit">
+				<p:menuitem value="Undo" url="#"  onclick="demo.show();" helpText="âZ"></p:menuitem>
+				<p:menuitem value="Redo" url="#"  onclick="demo.show();" helpText="âY"></p:menuitem>
+			</p:submenu>
+
+			<p:submenu label="View">
+				<p:menuitem value="Source" url="#" onclick="demo.show();"></p:menuitem>
+			</p:submenu>
+		</p:menubar>
+	</ui:define>
+	<ui:define name="content">
+
+		<p:growl showDetail="true"/>
+		<p:dialog header="#{msgs['BLANK.MENU.TITLE']}" draggable="true"
+			widgetVar="info" showEffect="fade" hideEffect="fade" width="450">
+			<h:form>
+				<h:panelGrid columns="1" style="width:100%;text-align:center;">
+					<p:graphicImage value="/media/images/esup.png" />
+					<h:outputText value="#{applicationService.name}"
+						style="font-size:16px" />
+					<h:outputText value="#{msgs['ABOUT.VERSION']} #{applicationService.version}" />
+					<h:outputText value="#{applicationService.copyright}" />
+				</h:panelGrid>
+				<br/>
+				<h:panelGrid columns="2">
+					<h:outputText value="#{msgs['ABOUT.AUTHOR']} : " style="font-weight:bold" />
+					<h:outputText value="#{msgs['ABOUT.AUTHOR.NAME']}" />
+
+					<h:outputText value="#{msgs['ABOUT.SOCIETY']} : " style="font-weight:bold" />
+					<h:outputText value="#{msgs['ABOUT.SOCIETY.NAME']}" />
+
+				</h:panelGrid>
+
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="#{applicationService.name}" modal="true"
+			showEffect="fade" resizable="false" visible="true" width="500"
+			widgetVar="welcome">
+			<h:outputText value="#{msgs['BLANK.WELCOME']}" />
+		</p:dialog>
+		
+		<p:dialog header="Demo" 
+			showEffect="fade" resizable="true" 
+			widgetVar="demo" width="600">
+			<h:outputText value="Ces menus ne sont disponibles que pour une dÃ©monstration." />
+		</p:dialog>
+
+		<p:dock>
+			<p:menuitem icon="/media/images/finder.png" url="#"
+				onclick="info.show();" />
+			<p:menuitem icon="/media/images/terminal.png"
+				url="#" onclick="welcome.show();" />
+		</p:dock>
+		<script type="text/javascript">
+	jQuery(function() {
+		var title = '#{msgs['BLANK.INFORMATION']}';
+		var describe = '#{msgs['BLANK.INFORMATION.DESCRIBE']}';
+		jQuery.gritter
+				.add({
+					title : title,
+					text : describe,
+					image : '/javax.faces.resource/growl/assets/info.png.xhtml?ln=primefaces&amp;v=2.2'
+				});
+	});
+</script>
+	</ui:define>
+</ui:composition>

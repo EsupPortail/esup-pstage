@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:e="http://commons.esup-portail.org"
+	template="/stylesheets/template.xhtml">
+	<ui:define name="content">
+		<e:section value="ERROR" />
+		<hr/>
+		<h:outputText id="exceptionName"
+			value="#{exceptionController.exceptionName}" />
+		<hr/>
+		<h:outputText id="exceptionMessage"
+			value="#{exceptionController.exceptionMessage}" />
+		<hr/>
+		<e:subSection value="TRACE" />
+		<h:outputText value="#{exceptionController.exceptionShortStackTrace }" />
+		<hr/>
+		<h:form>
+			<p:commandButton value="#{msgs['_.BUTTON.BACK_WELCOME']}"
+				action="#{exceptionController.restart}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

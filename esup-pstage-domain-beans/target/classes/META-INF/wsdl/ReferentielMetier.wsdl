@@ -1,0 +1,1928 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="gouv.education.apogee.commun.servicesmetiers.ReferentielMetier_18062010-impl" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="gouv.education.apogee.commun.servicesmetiers.ReferentielMetier_18062010-impl" xmlns:intf="gouv.education.apogee.commun.servicesmetiers.ReferentielMetier_18062010-impl" xmlns:tns1="gouv.education.apogee.commun.servicesmetiers.ReferentielMetier_18062010" xmlns:tns10="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns11="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns12="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns13="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns14="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns15="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns16="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns17="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns18="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns19="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns2="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns20="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns21="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns22="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv" xmlns:tns23="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv" xmlns:tns3="exception.transverse.commun.apogee.education.gouv" xmlns:tns4="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns5="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns6="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns7="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns8="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:tns9="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.3
+Built on Dec 22, 2008 (02:17:58 CET)-->
+ <wsdl:types>
+  <schema targetNamespace="gouv.education.apogee.commun.servicesmetiers.ReferentielMetier_18062010" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <element name="recupererPeriodeExamen">
+    <complexType>
+     <sequence>
+      <element name="_codPeriodeExam" type="xsd:string"/>
+      <element name="_codCtreIncomp" type="xsd:string"/>
+      <element name="_date" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererPeriodeExamenResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererPeriodeExamenReturn" type="tns2:PeriodeExaDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="fault" type="tns3:WebBaseException"/>
+   <element name="recupererCentreIncompEpr">
+    <complexType>
+     <sequence>
+      <element name="_codCtreIncomp" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererCentreIncompEprResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererCentreIncompEprReturn" type="tns4:CentreIncompDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererTypeEpreuve">
+    <complexType>
+     <sequence>
+      <element name="_codTypEpr" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererTypeEpreuveResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererTypeEpreuveReturn" type="tns5:TypEpreuveDTO2"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererNatureEpreuve">
+    <complexType>
+     <sequence>
+      <element name="_codNatEpr" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererNatureEpreuveResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererNatureEpreuveReturn" type="tns6:NatureEprDTO2"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererFormuleExam">
+    <complexType>
+     <sequence>
+      <element name="_codFex" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererFormuleExamResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererFormuleExamReturn" type="tns7:FormuleExamenDTO2"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererCGE">
+    <complexType>
+     <sequence>
+      <element name="_codCge" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererCGEResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererCGEReturn" type="tns8:CentreGestionDTO2"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererRegimeInscription">
+    <complexType>
+     <sequence>
+      <element name="_codRegIns" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererRegimeInscriptionResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererRegimeInscriptionReturn" type="tns9:RegimeInscDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererCentreInscriptionPedagogique">
+    <complexType>
+     <sequence>
+      <element name="_codCtreInsPedag" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererCentreInscriptionPedagogiqueResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererCentreInscriptionPedagogiqueReturn" type="tns10:CentreInsPedDTO2"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererPeriodeEnseignementElp">
+    <complexType>
+     <sequence>
+      <element name="_codPerEnsElp" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererPeriodeEnseignementElpResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererPeriodeEnseignementElpReturn" type="tns11:PeriodeElpDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererUniteParcoursSISE">
+    <complexType>
+     <sequence>
+      <element name="_codEtpSISE" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererUniteParcoursSISEResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererUniteParcoursSISEReturn" type="tns12:EtapeSisDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererCycleSISE">
+    <complexType>
+     <sequence>
+      <element name="_codCycleSISE" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererCycleSISEResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererCycleSISEReturn" type="tns13:CycleDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererTypeDiplome">
+    <complexType>
+     <sequence>
+      <element name="_codTypDip" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererTypeDiplomeResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererTypeDiplomeReturn" type="tns14:TypeDiplomeDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererNatureDiplome">
+    <complexType>
+     <sequence>
+      <element name="_codNatDip" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererNatureDiplomeResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererNatureDiplomeReturn" type="tns15:NatureDiplomeDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererSecteurDisciplinaire">
+    <complexType>
+     <sequence>
+      <element name="_codSectDiscip" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererSecteurDisciplinaireResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererSecteurDisciplinaireReturn" type="tns16:SecteurDisciplinaireDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererDomaineFormation">
+    <complexType>
+     <sequence>
+      <element name="_codDomForm" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererDomaineFormationResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererDomaineFormationReturn" type="tns17:DomaineFormationDiplomeDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererComposante">
+    <complexType>
+     <sequence>
+      <element name="_codCmp" type="xsd:string"/>
+      <element name="_sens" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererComposanteResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererComposanteReturn" type="tns18:ComposanteDTO2"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererComposante_v2">
+    <complexType>
+     <sequence>
+      <element name="_codCmp" type="xsd:string"/>
+      <element name="_sens" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererComposante_v2Response">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererComposante_v2Return" type="tns21:ComposanteDTO3"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererInformationEtabRef">
+    <complexType>
+     <sequence>
+      <element name="_codVap" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererInformationEtabRefResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererInformationEtabRefReturn" type="tns22:VariableAppliWSEtabRefDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererSignataire">
+    <complexType>
+     <sequence>
+      <element name="_codSig" type="xsd:string"/>
+      <element name="_temoinEnService" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="recupererSignataireResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="recupererSignataireReturn" type="tns23:SignataireWSSignataireDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema targetNamespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="PeriodeExaDTO">
+    <sequence>
+     <element name="codCtreIncomp" nillable="true" type="xsd:string"/>
+     <element name="codPeriodeExam" nillable="true" type="xsd:string"/>
+     <element name="datDebPeriodeExam" nillable="true" type="xsd:string"/>
+     <element name="datFinPeriodeExam" nillable="true" type="xsd:string"/>
+     <element name="libPeriodeExam" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="exception.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="TableauString">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="WebBaseException">
+    <sequence>
+     <element name="domaine" nillable="true" type="xsd:string"/>
+     <element name="element" nillable="true" type="xsd:string"/>
+     <element name="lastErrorMsg" nillable="true" type="xsd:string"/>
+     <element name="messages" nillable="true" type="tns3:TableauString"/>
+     <element name="nature" nillable="true" type="xsd:string"/>
+     <element name="type" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="CentreIncompDTO">
+    <sequence>
+     <element name="codCtreIncomp" nillable="true" type="xsd:string"/>
+     <element name="libCtreIncomp" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="TypEpreuveDTO2">
+    <sequence>
+     <element name="codTypEpr" nillable="true" type="xsd:string"/>
+     <element name="libTypEpr" nillable="true" type="xsd:string"/>
+     <element name="licTypEpr" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="NatureEprDTO2">
+    <sequence>
+     <element name="codNatEpr" nillable="true" type="xsd:string"/>
+     <element name="libNatEpr" nillable="true" type="xsd:string"/>
+     <element name="licNatEpr" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="FormuleExamenDTO2">
+    <sequence>
+     <element name="codFex" nillable="true" type="xsd:string"/>
+     <element name="libFex" nillable="true" type="xsd:string"/>
+     <element name="licFex" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="CentreGestionDTO2">
+    <sequence>
+     <element name="codCge" nillable="true" type="xsd:string"/>
+     <element name="libCge" nillable="true" type="xsd:string"/>
+     <element name="licCge" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="RegimeInscDTO">
+    <sequence>
+     <element name="codRegIns" nillable="true" type="xsd:string"/>
+     <element name="libRegIns" nillable="true" type="xsd:string"/>
+     <element name="licRegIns" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="CentreInsPedDTO2">
+    <sequence>
+     <element name="codCtreInsPedag" nillable="true" type="xsd:string"/>
+     <element name="libCtreInsPedag" nillable="true" type="xsd:string"/>
+     <element name="licCtreInsPedag" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="PeriodeElpDTO">
+    <sequence>
+     <element name="codPerEnsElp" nillable="true" type="xsd:string"/>
+     <element name="libPerEnsElp" nillable="true" type="xsd:string"/>
+     <element name="licPerEnsElp" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="EtapeSisDTO">
+    <sequence>
+     <element name="codEtpSISE" nillable="true" type="xsd:string"/>
+     <element name="libEtpSISE" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="CycleDTO">
+    <sequence>
+     <element name="codCycleSISE" nillable="true" type="xsd:string"/>
+     <element name="libCycleSISE" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="TypeDiplomeDTO">
+    <sequence>
+     <element name="codTypDip" nillable="true" type="xsd:string"/>
+     <element name="libTypDip" nillable="true" type="xsd:string"/>
+     <element name="licTypDip" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="NatureDiplomeDTO">
+    <sequence>
+     <element name="codNatDip" nillable="true" type="xsd:string"/>
+     <element name="libNatDip" nillable="true" type="xsd:string"/>
+     <element name="licNatDip" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="SecteurDisciplinaireDTO">
+    <sequence>
+     <element name="codSectDiscip" nillable="true" type="xsd:string"/>
+     <element name="libSectDiscip" nillable="true" type="xsd:string"/>
+     <element name="licSectDiscip" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="DomaineFormationDiplomeDTO">
+    <sequence>
+     <element name="codDomForm" nillable="true" type="xsd:string"/>
+     <element name="libDomForm" nillable="true" type="xsd:string"/>
+     <element name="temEnSve" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="AdresseComposanteDTO">
+    <sequence>
+     <element name="codComAdrCmp" nillable="true" type="xsd:string"/>
+     <element name="codPosAdrCmp" nillable="true" type="xsd:string"/>
+     <element name="libAdr1Cmp" nillable="true" type="xsd:string"/>
+     <element name="libAdr2Cmp" nillable="true" type="xsd:string"/>
+     <element name="libAdr3Cmp" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="TableauComposanteDTO2">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns18:ComposanteDTO2"/>
+    </sequence>
+   </complexType>
+   <complexType name="ComposanteDTO2">
+    <sequence>
+     <element name="adresseComposante" nillable="true" type="tns19:AdresseComposanteDTO"/>
+     <element name="codCmp" nillable="true" type="xsd:string"/>
+     <element name="codNatCmp" nillable="true" type="xsd:string"/>
+     <element name="codRneCmp" nillable="true" type="xsd:string"/>
+     <element name="libCmp" nillable="true" type="xsd:string"/>
+     <element name="libWebCmp" nillable="true" type="xsd:string"/>
+     <element name="listeComposanteFils" nillable="true" type="tns18:TableauComposanteDTO2"/>
+     <element name="listeComposantePere" nillable="true" type="tns18:TableauComposanteDTO2"/>
+     <element name="temElcCmp" nillable="true" type="xsd:string"/>
+     <element name="temEnSveCmp" nillable="true" type="xsd:string"/>
+     <element name="typeComposante" nillable="true" type="tns20:TypeComposanteDTO"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="TypeComposanteDTO">
+    <sequence>
+     <element name="codTypCmp" nillable="true" type="xsd:string"/>
+     <element name="libTypCmp" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="TableauComposanteDTO3">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns21:ComposanteDTO3"/>
+    </sequence>
+   </complexType>
+   <complexType name="ComposanteDTO3">
+    <sequence>
+     <element name="adresseComposante" nillable="true" type="tns19:AdresseComposanteDTO"/>
+     <element name="codCmp" nillable="true" type="xsd:string"/>
+     <element name="codNatCmp" nillable="true" type="xsd:string"/>
+     <element name="codRneCmp" nillable="true" type="xsd:string"/>
+     <element name="codSig" nillable="true" type="xsd:string"/>
+     <element name="libCmp" nillable="true" type="xsd:string"/>
+     <element name="libWebCmp" nillable="true" type="xsd:string"/>
+     <element name="listeComposanteFils" nillable="true" type="tns21:TableauComposanteDTO3"/>
+     <element name="listeComposantePere" nillable="true" type="tns21:TableauComposanteDTO3"/>
+     <element name="temElcCmp" nillable="true" type="xsd:string"/>
+     <element name="temEnSveCmp" nillable="true" type="xsd:string"/>
+     <element name="typeComposante" nillable="true" type="tns20:TypeComposanteDTO"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="VariableAppliWSEtabRefDTO">
+    <sequence>
+     <element name="codVap" nillable="true" type="xsd:string"/>
+     <element name="libVap" nillable="true" type="xsd:string"/>
+     <element name="parVap" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="SignataireWSSignataireDTO.recupererSignataire.WSReferentiel.dto.transverse.commun.apogee.education.gouv" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="ComposanteDTO3.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureEprDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CycleDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeExaDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="NatureDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreIncompDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="RegimeInscDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="AdresseComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="exception.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreGestionDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="FormuleExamenDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="CentreInsPedDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="VariableAppliWSEtabRefDTO.recupererInformationEtabRef.WSReferentiel.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="SecteurDisciplinaireDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="EtapeSisDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypEpreuveDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="TypeComposanteDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="DomaineFormationDiplomeDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="PeriodeElpDTO.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <import namespace="ComposanteDTO2.pedagogique.dto.transverse.commun.apogee.education.gouv"/>
+   <complexType name="SignataireWSSignataireDTO">
+    <sequence>
+     <element name="codSig" nillable="true" type="xsd:string"/>
+     <element name="nomSig" nillable="true" type="xsd:string"/>
+     <element name="quaSig" nillable="true" type="xsd:string"/>
+     <element name="temEnSveSig" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="recupererTypeEpreuveRequest">
+
+      <wsdl:part element="tns1:recupererTypeEpreuve" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererCycleSISEResponse">
+
+      <wsdl:part element="tns1:recupererCycleSISEResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererFormuleExamRequest">
+
+      <wsdl:part element="tns1:recupererFormuleExam" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="WebBaseException">
+
+      <wsdl:part element="tns1:fault" name="fault"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererSignataireResponse">
+
+      <wsdl:part element="tns1:recupererSignataireResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererCentreIncompEprResponse">
+
+      <wsdl:part element="tns1:recupererCentreIncompEprResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererComposante_v2Response">
+
+      <wsdl:part element="tns1:recupererComposante_v2Response" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererRegimeInscriptionResponse">
+
+      <wsdl:part element="tns1:recupererRegimeInscriptionResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererUniteParcoursSISERequest">
+
+      <wsdl:part element="tns1:recupererUniteParcoursSISE" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererTypeEpreuveResponse">
+
+      <wsdl:part element="tns1:recupererTypeEpreuveResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererTypeDiplomeResponse">
+
+      <wsdl:part element="tns1:recupererTypeDiplomeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererDomaineFormationRequest">
+
+      <wsdl:part element="tns1:recupererDomaineFormation" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererCentreIncompEprRequest">
+
+      <wsdl:part element="tns1:recupererCentreIncompEpr" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererPeriodeEnseignementElpResponse">
+
+      <wsdl:part element="tns1:recupererPeriodeEnseignementElpResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererNatureDiplomeRequest">
+
+      <wsdl:part element="tns1:recupererNatureDiplome" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererComposanteResponse">
+
+      <wsdl:part element="tns1:recupererComposanteResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererUniteParcoursSISEResponse">
+
+      <wsdl:part element="tns1:recupererUniteParcoursSISEResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererCGERequest">
+
+      <wsdl:part element="tns1:recupererCGE" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererFormuleExamResponse">
+
+      <wsdl:part element="tns1:recupererFormuleExamResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererNatureEpreuveRequest">
+
+      <wsdl:part element="tns1:recupererNatureEpreuve" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererRegimeInscriptionRequest">
+
+      <wsdl:part element="tns1:recupererRegimeInscription" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererComposanteRequest">
+
+      <wsdl:part element="tns1:recupererComposante" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererSecteurDisciplinaireRequest">
+
+      <wsdl:part element="tns1:recupererSecteurDisciplinaire" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererNatureDiplomeResponse">
+
+      <wsdl:part element="tns1:recupererNatureDiplomeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererNatureEpreuveResponse">
+
+      <wsdl:part element="tns1:recupererNatureEpreuveResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererInformationEtabRefRequest">
+
+      <wsdl:part element="tns1:recupererInformationEtabRef" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererComposante_v2Request">
+
+      <wsdl:part element="tns1:recupererComposante_v2" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererCycleSISERequest">
+
+      <wsdl:part element="tns1:recupererCycleSISE" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererPeriodeExamenResponse">
+
+      <wsdl:part element="tns1:recupererPeriodeExamenResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererPeriodeExamenRequest">
+
+      <wsdl:part element="tns1:recupererPeriodeExamen" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererCentreInscriptionPedagogiqueResponse">
+
+      <wsdl:part element="tns1:recupererCentreInscriptionPedagogiqueResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererSecteurDisciplinaireResponse">
+
+      <wsdl:part element="tns1:recupererSecteurDisciplinaireResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererCGEResponse">
+
+      <wsdl:part element="tns1:recupererCGEResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererSignataireRequest">
+
+      <wsdl:part element="tns1:recupererSignataire" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererCentreInscriptionPedagogiqueRequest">
+
+      <wsdl:part element="tns1:recupererCentreInscriptionPedagogique" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererTypeDiplomeRequest">
+
+      <wsdl:part element="tns1:recupererTypeDiplome" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererDomaineFormationResponse">
+
+      <wsdl:part element="tns1:recupererDomaineFormationResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererInformationEtabRefResponse">
+
+      <wsdl:part element="tns1:recupererInformationEtabRefResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="recupererPeriodeEnseignementElpRequest">
+
+      <wsdl:part element="tns1:recupererPeriodeEnseignementElp" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ReferentielMetierServiceInterface">
+
+      <wsdl:operation name="recupererPeriodeExamen">
+
+         <wsdl:input message="intf:recupererPeriodeExamenRequest" name="recupererPeriodeExamenRequest"/>
+
+         <wsdl:output message="intf:recupererPeriodeExamenResponse" name="recupererPeriodeExamenResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererCentreIncompEpr">
+
+         <wsdl:input message="intf:recupererCentreIncompEprRequest" name="recupererCentreIncompEprRequest"/>
+
+         <wsdl:output message="intf:recupererCentreIncompEprResponse" name="recupererCentreIncompEprResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererTypeEpreuve">
+
+         <wsdl:input message="intf:recupererTypeEpreuveRequest" name="recupererTypeEpreuveRequest"/>
+
+         <wsdl:output message="intf:recupererTypeEpreuveResponse" name="recupererTypeEpreuveResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererNatureEpreuve">
+
+         <wsdl:input message="intf:recupererNatureEpreuveRequest" name="recupererNatureEpreuveRequest"/>
+
+         <wsdl:output message="intf:recupererNatureEpreuveResponse" name="recupererNatureEpreuveResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererFormuleExam">
+
+         <wsdl:input message="intf:recupererFormuleExamRequest" name="recupererFormuleExamRequest"/>
+
+         <wsdl:output message="intf:recupererFormuleExamResponse" name="recupererFormuleExamResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererCGE">
+
+         <wsdl:input message="intf:recupererCGERequest" name="recupererCGERequest"/>
+
+         <wsdl:output message="intf:recupererCGEResponse" name="recupererCGEResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererRegimeInscription">
+
+         <wsdl:input message="intf:recupererRegimeInscriptionRequest" name="recupererRegimeInscriptionRequest"/>
+
+         <wsdl:output message="intf:recupererRegimeInscriptionResponse" name="recupererRegimeInscriptionResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererCentreInscriptionPedagogique">
+
+         <wsdl:input message="intf:recupererCentreInscriptionPedagogiqueRequest" name="recupererCentreInscriptionPedagogiqueRequest"/>
+
+         <wsdl:output message="intf:recupererCentreInscriptionPedagogiqueResponse" name="recupererCentreInscriptionPedagogiqueResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererPeriodeEnseignementElp">
+
+         <wsdl:input message="intf:recupererPeriodeEnseignementElpRequest" name="recupererPeriodeEnseignementElpRequest"/>
+
+         <wsdl:output message="intf:recupererPeriodeEnseignementElpResponse" name="recupererPeriodeEnseignementElpResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererUniteParcoursSISE">
+
+         <wsdl:input message="intf:recupererUniteParcoursSISERequest" name="recupererUniteParcoursSISERequest"/>
+
+         <wsdl:output message="intf:recupererUniteParcoursSISEResponse" name="recupererUniteParcoursSISEResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererCycleSISE">
+
+         <wsdl:input message="intf:recupererCycleSISERequest" name="recupererCycleSISERequest"/>
+
+         <wsdl:output message="intf:recupererCycleSISEResponse" name="recupererCycleSISEResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererTypeDiplome">
+
+         <wsdl:input message="intf:recupererTypeDiplomeRequest" name="recupererTypeDiplomeRequest"/>
+
+         <wsdl:output message="intf:recupererTypeDiplomeResponse" name="recupererTypeDiplomeResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererNatureDiplome">
+
+         <wsdl:input message="intf:recupererNatureDiplomeRequest" name="recupererNatureDiplomeRequest"/>
+
+         <wsdl:output message="intf:recupererNatureDiplomeResponse" name="recupererNatureDiplomeResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererSecteurDisciplinaire">
+
+         <wsdl:input message="intf:recupererSecteurDisciplinaireRequest" name="recupererSecteurDisciplinaireRequest"/>
+
+         <wsdl:output message="intf:recupererSecteurDisciplinaireResponse" name="recupererSecteurDisciplinaireResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererDomaineFormation">
+
+         <wsdl:input message="intf:recupererDomaineFormationRequest" name="recupererDomaineFormationRequest"/>
+
+         <wsdl:output message="intf:recupererDomaineFormationResponse" name="recupererDomaineFormationResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererComposante">
+
+         <wsdl:input message="intf:recupererComposanteRequest" name="recupererComposanteRequest"/>
+
+         <wsdl:output message="intf:recupererComposanteResponse" name="recupererComposanteResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererComposante_v2">
+
+         <wsdl:input message="intf:recupererComposante_v2Request" name="recupererComposante_v2Request"/>
+
+         <wsdl:output message="intf:recupererComposante_v2Response" name="recupererComposante_v2Response"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererInformationEtabRef">
+
+         <wsdl:input message="intf:recupererInformationEtabRefRequest" name="recupererInformationEtabRefRequest"/>
+
+         <wsdl:output message="intf:recupererInformationEtabRefResponse" name="recupererInformationEtabRefResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererSignataire">
+
+         <wsdl:input message="intf:recupererSignataireRequest" name="recupererSignataireRequest"/>
+
+         <wsdl:output message="intf:recupererSignataireResponse" name="recupererSignataireResponse"/>
+
+         <wsdl:fault message="intf:WebBaseException" name="WebBaseException"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ReferentielMetierSoapBinding" type="intf:ReferentielMetierServiceInterface">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="recupererPeriodeExamen">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererPeriodeExamenRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererPeriodeExamenResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererCentreIncompEpr">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererCentreIncompEprRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererCentreIncompEprResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererTypeEpreuve">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererTypeEpreuveRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererTypeEpreuveResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererNatureEpreuve">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererNatureEpreuveRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererNatureEpreuveResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererFormuleExam">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererFormuleExamRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererFormuleExamResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererCGE">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererCGERequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererCGEResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererRegimeInscription">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererRegimeInscriptionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererRegimeInscriptionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererCentreInscriptionPedagogique">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererCentreInscriptionPedagogiqueRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererCentreInscriptionPedagogiqueResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererPeriodeEnseignementElp">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererPeriodeEnseignementElpRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererPeriodeEnseignementElpResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererUniteParcoursSISE">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererUniteParcoursSISERequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererUniteParcoursSISEResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererCycleSISE">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererCycleSISERequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererCycleSISEResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererTypeDiplome">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererTypeDiplomeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererTypeDiplomeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererNatureDiplome">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererNatureDiplomeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererNatureDiplomeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererSecteurDisciplinaire">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererSecteurDisciplinaireRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererSecteurDisciplinaireResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererDomaineFormation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererDomaineFormationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererDomaineFormationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererComposante">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererComposanteRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererComposanteResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererComposante_v2">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererComposante_v2Request">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererComposante_v2Response">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererInformationEtabRef">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererInformationEtabRefRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererInformationEtabRefResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="recupererSignataire">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="recupererSignataireRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="recupererSignataireResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="WebBaseException">
+
+            <wsdlsoap:fault name="WebBaseException" use="literal"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ReferentielMetierServiceInterfaceService">
+
+      <wsdl:port binding="intf:ReferentielMetierSoapBinding" name="ReferentielMetier">
+
+         <wsdlsoap:address location="http://apo-webservices.univ-rennes1.fr/services/ReferentielMetier"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
