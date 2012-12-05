@@ -3,6 +3,7 @@ package org.esupportail.pstage.domain.referentiel;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDaoWS;
 import org.esupportail.pstage.domain.beans.EtudiantRef;
 
 /**
@@ -14,6 +15,10 @@ import org.esupportail.pstage.domain.beans.EtudiantRef;
 public class StudentDataRepositoryDomainWS implements
 	StudentDataRepositoryDomain {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -885157544610644035L;
 	/**
 	 * 
 	 */
@@ -92,11 +97,5 @@ public class StudentDataRepositoryDomainWS implements
 			StudentDataRepositoryDaoWS studentDataRepositoryDaoWS) {
 		this.studentDataRepositoryDaoWS = studentDataRepositoryDaoWS;
 	}
-
-
-
-	
-
-
 
 }

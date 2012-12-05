@@ -10,8 +10,12 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.rmi.MarshalException;
-import java.rmi.server.ExportException;
+
+import org.esupportail.pstage.exceptions.ExportException;
+import org.exolab.castor.xml.MarshalException;
+import org.exolab.castor.xml.Marshaller;
+import org.exolab.castor.xml.Unmarshaller;
+import org.exolab.castor.xml.ValidationException;
 
 
 
@@ -37,6 +41,7 @@ public class CastorService implements Serializable {
 	/**
 	 * Xml to Object.
 	 */
+	@SuppressWarnings("unused")
 	private Unmarshaller castorUnMarshaller;	
 
 	/**
@@ -54,11 +59,6 @@ public class CastorService implements Serializable {
 	public CastorService() {
 		super();
 	}
-
-	
-	
-
-
 	
 	/*
 	 ******************* METHODS ********************** */
@@ -67,9 +67,11 @@ public class CastorService implements Serializable {
 	 * Generate the xml in the file.
 	 * @param object 
 	 * @param fileName 
+	 * @throws ExportException 
 	 */
+	@SuppressWarnings("resource")
 	public void objectToFileXml(final Object object, 
-			final String fileName ) {
+			final String fileName ){
 		
 		Writer writer = new StringWriter();
 		OutputStreamWriter out = null;
@@ -85,13 +87,12 @@ public class CastorService implements Serializable {
 			out.close();
 			writer.close();
 			
-			
 		} catch (MarshalException e) {
-			throw new ExportException("problem marhsalling MarshalException ", e);
+			throw new ExportException("Problem marshalling MarshalException ", e);
 		} catch (ValidationException e) {
-			throw new ExportException("problem marhsalling ValidationException ", e);
+			throw new ExportException("Problem marshalling ValidationException ", e);
 		} catch (IOException e) {
-			throw new ExportException("problem marhsalling IOException ", e);
+			throw new ExportException("Problem marshalling IOException ", e);
 		}
 	}
 	

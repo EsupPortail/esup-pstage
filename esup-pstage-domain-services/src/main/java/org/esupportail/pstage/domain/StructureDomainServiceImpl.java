@@ -6,26 +6,32 @@ package org.esupportail.pstage.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException_Exception;
+import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException_Exception;
 import org.esupportail.pstagedata.remote.AccordPartenariatDTO;
-import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException;
+import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException_Exception;
 import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.ContactDeleteException;
+import org.esupportail.pstagedata.remote.ContactDeleteException_Exception;
 import org.esupportail.pstagedata.remote.CritereRechercheStructureAdresseDTO;
 import org.esupportail.pstagedata.remote.DataAddException_Exception;
 import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
 import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException;
+import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException_Exception;
 import org.esupportail.pstagedata.remote.RemoteServices;
 import org.esupportail.pstagedata.remote.ServiceDTO;
+import org.esupportail.pstagedata.remote.ServiceDeleteException_Exception;
 import org.esupportail.pstagedata.remote.StructureDTO;
-import org.esupportail.pstagedata.remote.StructureDeleteException;
-import org.esupportail.pstagedata.remote.StructureNumSiretException;
+import org.esupportail.pstagedata.remote.StructureDeleteException_Exception;
+import org.esupportail.pstagedata.remote.StructureNumSiretException_Exception;
 import org.esupportail.pstagedata.remote.TicketStructureDTO;
-import org.esupportail.pstagedata.remote.UnvalidNumSiretException;
+import org.esupportail.pstagedata.remote.UnvalidNumSiretException_Exception;
 import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 
 /**
@@ -117,14 +123,14 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#addAccord(org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO)
 	 */
-	public int addAccord(AccordPartenariatDTO accord) throws DataAddException_Exception,WebServiceDataBaseException_Exception, AccordAlreadyExistingForContactException, AccordAlreadyExistingForStructureException{
+	public int addAccord(AccordPartenariatDTO accord) throws DataAddException_Exception,WebServiceDataBaseException_Exception, AccordAlreadyExistingForContactException_Exception, AccordAlreadyExistingForStructureException_Exception{
 		return this.remoteServices.addAccord(accord);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#updateAccord(org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO)
 	 */
-	public boolean updateAccord(AccordPartenariatDTO accord) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception, AccordAlreadyExistingForContactException, AccordAlreadyExistingForStructureException{
+	public boolean updateAccord(AccordPartenariatDTO accord) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception, AccordAlreadyExistingForContactException_Exception, AccordAlreadyExistingForStructureException_Exception{
 		return this.remoteServices.updateAccord(accord);
 	}
 	
@@ -203,21 +209,21 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#addContact(org.esupportail.pstagedata.domain.dto.ContactDTO)
 	 */
-	public int addContact(ContactDTO c) throws DataAddException_Exception,WebServiceDataBaseException_Exception, MailAlreadyUsedForStructureException{
+	public int addContact(ContactDTO c) throws DataAddException_Exception,WebServiceDataBaseException_Exception, MailAlreadyUsedForStructureException_Exception{
 		return this.remoteServices.addContact(c);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#updateContact(org.esupportail.pstagedata.domain.dto.ContactDTO)
 	 */
-	public boolean updateContact(ContactDTO c) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception, MailAlreadyUsedForStructureException{
+	public boolean updateContact(ContactDTO c) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception, MailAlreadyUsedForStructureException_Exception{
 		return this.remoteServices.updateContact(c);
 	}
 
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#updateCompteContact(org.esupportail.pstagedata.domain.dto.ContactDTO)
 	 */
-	public boolean updateCompteContact(ContactDTO c) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception, AccountAlreadyExistingForCoupleMailStructureException{
+	public boolean updateCompteContact(ContactDTO c) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception, AccountAlreadyExistingForCoupleMailStructureException_Exception{
 		return this.remoteServices.updateCompteContact(c);
 	}
 	
@@ -232,13 +238,21 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	 * @see org.esupportail.pstage.domain.StructureDomainService#updateContactDerniereConnexion(int, java.util.Date)
 	 */
 	public boolean updateContactDerniereConnexion(int idContact, Date avantDerniereConnexion) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception{
-		return this.remoteServices.updateContactDerniereConnexion(idContact, avantDerniereConnexion);
+		GregorianCalendar gCalendar = new GregorianCalendar();
+		XMLGregorianCalendar tmp = null;
+		gCalendar.setTime(avantDerniereConnexion);
+		try {
+			tmp = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+		} catch (DatatypeConfigurationException dce) {
+			throw new DataUpdateException_Exception(dce.getMessage(),dce.getCause());
+		}
+		return this.remoteServices.updateContactDerniereConnexion(idContact, tmp);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#deleteContact(int)
 	 */
-	public boolean deleteContact(int idContact) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception, ContactDeleteException{
+	public boolean deleteContact(int idContact) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception, ContactDeleteException_Exception{
 		return this.remoteServices.deleteContact(idContact);
 	}
 	/* ****************************************************************************
@@ -296,7 +310,7 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#deleteService(int)
 	 */
-	public boolean deleteService(int idService) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception, ServiceDeleteException{
+	public boolean deleteService(int idService) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception, ServiceDeleteException_Exception{
 		return this.remoteServices.deleteService(idService);
 	}
 	
@@ -465,7 +479,19 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresAvecAccordAValiderFromRaisonSociale(java.lang.String, java.util.Date, java.util.Date)
 	 */
 	public List<StructureDTO> getStructuresAvecAccordAValiderFromRaisonSociale(String raisonSociale, Date dateDebut, Date dateFin){
-		List<StructureDTO> ls = this.remoteServices.getStructuresAvecAccordAValiderFromRaisonSociale(raisonSociale, dateDebut, dateFin);
+		GregorianCalendar gCalendar = new GregorianCalendar();
+		XMLGregorianCalendar tmp1 = null;
+		XMLGregorianCalendar tmp2 = null;
+		try {
+			gCalendar.setTime(dateDebut);
+			tmp1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+			gCalendar = new GregorianCalendar();
+			gCalendar.setTime(dateFin);
+			tmp2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+		} catch (DatatypeConfigurationException dce) {
+			dce.printStackTrace();
+		}
+		List<StructureDTO> ls = this.remoteServices.getStructuresAvecAccordAValiderFromRaisonSociale(raisonSociale, tmp1, tmp2);
 		setObjects(ls);
 		return ls;
 	}
@@ -474,7 +500,19 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresAvecAccordValidesFromRaisonSociale(java.lang.String, java.util.Date, java.util.Date)
 	 */
 	public List<StructureDTO> getStructuresAvecAccordValidesFromRaisonSociale(String raisonSociale, Date dateDebut, Date dateFin){
-		List<StructureDTO> ls = this.remoteServices.getStructuresAvecAccordValidesFromRaisonSociale(raisonSociale, dateDebut, dateFin);
+		GregorianCalendar gCalendar = new GregorianCalendar();
+		XMLGregorianCalendar tmp1 = null;
+		XMLGregorianCalendar tmp2 = null;
+		try {
+			gCalendar.setTime(dateDebut);
+			tmp1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+			gCalendar = new GregorianCalendar();
+			gCalendar.setTime(dateFin);
+			tmp2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+		} catch (DatatypeConfigurationException dce) {
+			dce.printStackTrace();
+		}
+		List<StructureDTO> ls = this.remoteServices.getStructuresAvecAccordValidesFromRaisonSociale(raisonSociale, tmp1, tmp2);
 		setObjects(ls);
 		return ls;
 	}
@@ -512,8 +550,8 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 				s.setStatutJuridique(this.nomenclatureDomainService.getStatutJuridiqueFromId(s.getIdStatutJuridique()));
 			if (s.getIdEffectif() > 0)
 				s.setEffectif(this.nomenclatureDomainService.getEffectifFromId(s.getIdEffectif()));
-			if (s.getCodeNAF_N5() != null && !s.getCodeNAF_N5().isEmpty())
-				s.setNafN5(this.nomenclatureDomainService.getNafN5FromCode(s.getCodeNAF_N5()));
+			if (s.getCodeNAFN5() != null && !s.getCodeNAFN5().isEmpty())
+				s.setNafN5(this.nomenclatureDomainService.getNafN5FromCode(s.getCodeNAFN5()));
 			if (s.getIdPays() > 0)
 				s.setPays(this.nomenclatureDomainService.getPaysFromId(s.getIdPays()));
 		}
@@ -522,14 +560,14 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#addStructure(org.esupportail.pstagedata.domain.dto.StructureDTO)
 	 */
-	public int addStructure(StructureDTO s) throws DataAddException_Exception,WebServiceDataBaseException_Exception, UnvalidNumSiretException, StructureNumSiretException{
+	public int addStructure(StructureDTO s) throws DataAddException_Exception,WebServiceDataBaseException_Exception, UnvalidNumSiretException_Exception, StructureNumSiretException_Exception{
 		return this.remoteServices.addStructure(s);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#updateStructure(org.esupportail.pstagedata.domain.dto.StructureDTO)
 	 */
-	public boolean updateStructure(StructureDTO s) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception, UnvalidNumSiretException, StructureNumSiretException{
+	public boolean updateStructure(StructureDTO s) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception, UnvalidNumSiretException_Exception, StructureNumSiretException_Exception{
 		return this.remoteServices.updateStructure(s);
 	}
 	
@@ -557,7 +595,7 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#deleteStructure(int)
 	 */
-	public boolean deleteStructure(int idStructure) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception, StructureDeleteException{
+	public boolean deleteStructure(int idStructure) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception, StructureDeleteException_Exception{
 		return this.remoteServices.deleteStructure(idStructure);
 	}
 

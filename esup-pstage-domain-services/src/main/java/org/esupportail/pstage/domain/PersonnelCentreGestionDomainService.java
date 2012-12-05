@@ -7,10 +7,12 @@ package org.esupportail.pstage.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import org.esupportail.pstagedata.remote.AffectationAlreadyExistingForCodeException_Exception;
 import org.esupportail.pstagedata.remote.AffectationDTO;
 import org.esupportail.pstagedata.remote.DataAddException_Exception;
 import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
 import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
+import org.esupportail.pstagedata.remote.PersonalAlreadyExistingForCentreException_Exception;
 import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
 import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 
@@ -70,7 +72,7 @@ public interface PersonnelCentreGestionDomainService extends Serializable {
 	 * @throws DataDeleteException_Exception 
 	 * @throws WebServiceDataBaseException_Exception
 	 */
-	public int addPersonnelCentreGestion(PersonnelCentreGestionDTO pg) throws DataAddException_Exception,WebServiceDataBaseException_Exception;
+	public int addPersonnelCentreGestion(PersonnelCentreGestionDTO pg) throws DataAddException_Exception,WebServiceDataBaseException_Exception,PersonalAlreadyExistingForCentreException_Exception;
 
 	/**
 	 * @param cp
@@ -98,6 +100,6 @@ public interface PersonnelCentreGestionDomainService extends Serializable {
 	 * @throws DataAddException_Exception 
 	 * @throws WebServiceDataBaseException_Exception
 	 */
-	public int addAffectation(AffectationDTO a) throws DataAddException_Exception,WebServiceDataBaseException_Exception;
+	public int addAffectation(AffectationDTO a) throws DataAddException_Exception,WebServiceDataBaseException_Exception,AffectationAlreadyExistingForCodeException_Exception;
 
 }

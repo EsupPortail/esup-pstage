@@ -35,6 +35,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RecupererDepartementResponse }
+     * 
+     */
+    public RecupererDepartementResponse createRecupererDepartementResponse() {
+        return new RecupererDepartementResponse();
+    }
+
+    /**
+     * Create an instance of {@link RecupererDepartement }
+     * 
+     */
+    public RecupererDepartement createRecupererDepartement() {
+        return new RecupererDepartement();
+    }
+
+    /**
      * Create an instance of {@link RecupererCommune }
      * 
      */
@@ -51,35 +67,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RecupererPays }
-     * 
-     */
-    public RecupererPays createRecupererPays() {
-        return new RecupererPays();
-    }
-
-    /**
-     * Create an instance of {@link RecupererDepartement }
-     * 
-     */
-    public RecupererDepartement createRecupererDepartement() {
-        return new RecupererDepartement();
-    }
-
-    /**
-     * Create an instance of {@link RecupererDepartementResponse }
-     * 
-     */
-    public RecupererDepartementResponse createRecupererDepartementResponse() {
-        return new RecupererDepartementResponse();
-    }
-
-    /**
      * Create an instance of {@link RecupererPaysResponse }
      * 
      */
     public RecupererPaysResponse createRecupererPaysResponse() {
         return new RecupererPaysResponse();
+    }
+
+    /**
+     * Create an instance of {@link RecupererPays }
+     * 
+     */
+    public RecupererPays createRecupererPays() {
+        return new RecupererPays();
     }
 
     /**

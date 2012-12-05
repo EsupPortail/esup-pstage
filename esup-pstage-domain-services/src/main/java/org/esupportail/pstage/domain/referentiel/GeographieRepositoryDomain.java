@@ -1,5 +1,7 @@
 package org.esupportail.pstage.domain.referentiel;
 
+import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
+
 import java.io.Serializable;
 import java.util.List;
 

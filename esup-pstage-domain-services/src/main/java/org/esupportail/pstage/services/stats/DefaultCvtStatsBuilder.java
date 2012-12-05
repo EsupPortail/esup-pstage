@@ -3,6 +3,7 @@ package org.esupportail.pstage.services.stats;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.esupportail.pstage.utils.Configuration;
 import org.springframework.beans.factory.InitializingBean;
 
 public class DefaultCvtStatsBuilder extends AbstractStatsBuilder implements InitializingBean{

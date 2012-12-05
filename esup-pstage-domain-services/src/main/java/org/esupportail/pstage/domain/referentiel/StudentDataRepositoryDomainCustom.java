@@ -3,6 +3,7 @@ package org.esupportail.pstage.domain.referentiel;
 import java.util.List;
 
 import org.esupportail.pstage.domain.beans.EtudiantRef;
+import org.esupportail.pstage.utils.Configuration;
 
 /**
  * 
@@ -10,9 +11,12 @@ import org.esupportail.pstage.domain.beans.EtudiantRef;
  *
  */
 
-public class StudentDataRepositoryDomainCustom implements
-	StudentDataRepositoryDomain {
+public class StudentDataRepositoryDomainCustom implements StudentDataRepositoryDomain {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2594937934141017572L;
 
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRef(java.lang.String, java.lang.String)
@@ -21,7 +25,7 @@ public class StudentDataRepositoryDomainCustom implements
 		throw new UnsupportedOperationException(Configuration.getString("method.nom.implementee"));
 	}
 
-	
+
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String)
 	 */
@@ -37,10 +41,4 @@ public class StudentDataRepositoryDomainCustom implements
 			String name, String firstName) {
 		throw new UnsupportedOperationException(Configuration.getString("method.nom.implementee"));
 	}
-
-
-	
-
-
-
 }

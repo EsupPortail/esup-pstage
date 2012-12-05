@@ -56,19 +56,18 @@ public class LdapComposanteAttributesMapper  implements AttributesMapper, Serial
 		return attributes;
 	}
 
-	
+
 	@SuppressWarnings("unchecked")
 	public Object mapFromAttributes(final Attributes attrs) throws NamingException {
-	
+
 		LdapGroupImpl ldapGroup = new LdapGroupImpl();
-		
+
 		for (String ldapAttributeName : attributes) {
 			Attribute attribute = attrs.get(ldapAttributeName);
 			List<String> listAttr = new ArrayList<String>();
 			// The attribute exists
 			if (attribute != null) {
-				NamingEnumeration<Object> attrValueEnum =
-					(NamingEnumeration<Object>) attribute.getAll();
+				NamingEnumeration<Object> attrValueEnum = (NamingEnumeration<Object>) attribute.getAll();
 				while (attrValueEnum.hasMore()) {
 					Object attributeValue = attrValueEnum.next();
 					// Convert everything except byte[] to String

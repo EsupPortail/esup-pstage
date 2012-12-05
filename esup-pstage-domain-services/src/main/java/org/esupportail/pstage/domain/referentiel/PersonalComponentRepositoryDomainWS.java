@@ -3,6 +3,7 @@ package org.esupportail.pstage.domain.referentiel;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.esupportail.pstage.dao.referentiel.PersonalComponentRepositoryDaoWS;
 
 
 
@@ -14,6 +15,11 @@ import org.apache.log4j.Logger;
 
 public class PersonalComponentRepositoryDomainWS implements
 		PersonalComponentRepositoryDomain {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 315467803408970453L;
 
 	/**
 	 * 

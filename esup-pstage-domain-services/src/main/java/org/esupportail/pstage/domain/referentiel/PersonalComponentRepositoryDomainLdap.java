@@ -2,6 +2,8 @@ package org.esupportail.pstage.domain.referentiel;
 
 import java.util.Map;
 
+import org.esupportail.pstage.dao.referentiel.PersonalComponentRepositoryDao;
+
 
 /**
  * 

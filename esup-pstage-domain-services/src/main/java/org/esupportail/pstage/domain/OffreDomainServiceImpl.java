@@ -5,9 +5,13 @@
 package org.esupportail.pstage.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.esupportail.pstagedata.remote.ContactDTO;
 import org.esupportail.pstagedata.remote.CritereRechercheOffreDTO;
@@ -16,7 +20,6 @@ import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
 import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
 import org.esupportail.pstagedata.remote.DureeDiffusionDTO;
 import org.esupportail.pstagedata.remote.FichierDTO;
-import org.esupportail.pstagedata.remote.ModeCandidatureDTO;
 import org.esupportail.pstagedata.remote.OffreDTO;
 import org.esupportail.pstagedata.remote.OffreDiffusionDTO;
 import org.esupportail.pstagedata.remote.RemoteServices;
@@ -160,7 +163,15 @@ public class OffreDomainServiceImpl implements Serializable, OffreDomainService{
 	 * @see org.esupportail.pstage.domain.OffreDomainService#updateDiffusionOffre(int, java.lang.String, java.util.Date)
 	 */
 	public boolean updateDiffusionOffre(int idOffre, String loginDffusion, Date dateFinDiffusion) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
-		return this.remoteServices.updateDiffusionOffre(idOffre, loginDffusion, dateFinDiffusion);
+		GregorianCalendar gCalendar = new GregorianCalendar();
+		XMLGregorianCalendar tmp = null;
+		gCalendar.setTime(dateFinDiffusion);
+		try {
+			tmp = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
+		} catch (DatatypeConfigurationException dce) {
+			throw new DataUpdateException_Exception(dce.getMessage(),dce.getCause());
+		}
+		return this.remoteServices.updateDiffusionOffre(idOffre, loginDffusion, tmp);
 	}
 	
 	/**
@@ -326,22 +337,17 @@ public class OffreDomainServiceImpl implements Serializable, OffreDomainService{
 				if (o.getIdQualificationSimplifiee() > 0){
 					o.setFapQualificationSimplifiee(this.nomenclatureDomainService.getFapQualificationSimplifieeFromId(o.getIdQualificationSimplifiee()));
 				}
-				if (StringUtils.hasText(o.getCodeFAP_N3())){
-					//o.setFapN3(this.nomenclatureDomainService.getFapN3FromCode(o.getCodeFAP_N3()));
-					o.setFapN1(this.nomenclatureDomainService.getFapN1FromCode(o.getCodeFAP_N3()));
+				if (StringUtils.hasText(o.getCodeFAPN3())){
+					o.setFapN1(this.nomenclatureDomainService.getFapN1FromCode(o.getCodeFAPN3()));
 				}
 				if (o.getIdTempsTravail() > 0){
 					o.setTempsTravail(this.nomenclatureDomainService.getTempsTravailFromId(o.getIdTempsTravail()));
 				}
-				
-				List<ModeCandidatureDTO> lm = new ArrayList<ModeCandidatureDTO>();
-				
 				if(o.getIdsModeCandidature()!=null && !o.getIdsModeCandidature().isEmpty()){
 					for(int i : o.getIdsModeCandidature()){
-						lm.add(this.nomenclatureDomainService.getModeCandidatureFromId(i));
+						o.getModesCandidature().add(this.nomenclatureDomainService.getModeCandidatureFromId(i));
 					}
 				}
-				o.setModesCandidature(lm);
 				if (o.getIdNiveauFormation() > 0){
 					o.setNiveauFormation(this.nomenclatureDomainService.getNiveauFormationFromId(o.getIdNiveauFormation()));
 				}

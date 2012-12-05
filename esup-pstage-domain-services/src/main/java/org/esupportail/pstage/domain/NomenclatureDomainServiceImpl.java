@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.esupportail.commons.annotations.cache.SessionCache;
 import org.esupportail.pstagedata.remote.AffectationDTO;
 import org.esupportail.pstagedata.remote.AssuranceDTO;
 import org.esupportail.pstagedata.remote.CaisseRegimeDTO;

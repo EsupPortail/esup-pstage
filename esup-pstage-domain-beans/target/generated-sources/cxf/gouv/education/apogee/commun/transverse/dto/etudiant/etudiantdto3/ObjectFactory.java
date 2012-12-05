@@ -30,19 +30,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TableauPeriodeExaDTO }
-     * 
-     */
-    public TableauPeriodeExaDTO createTableauPeriodeExaDTO() {
-        return new TableauPeriodeExaDTO();
-    }
-
-    /**
      * Create an instance of {@link EtudiantDTO3 }
      * 
      */
     public EtudiantDTO3 createEtudiantDTO3() {
         return new EtudiantDTO3();
+    }
+
+    /**
+     * Create an instance of {@link TableauPeriodeExaDTO }
+     * 
+     */
+    public TableauPeriodeExaDTO createTableauPeriodeExaDTO() {
+        return new TableauPeriodeExaDTO();
     }
 
 }

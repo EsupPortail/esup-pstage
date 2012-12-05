@@ -2,6 +2,7 @@ package org.esupportail.pstage.services.stats;
 
 import java.util.Map;
 
+import org.esupportail.pstage.utils.Configuration;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 

@@ -4,6 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.esupportail.pstage.dao.referentiel.StudentComponentRepositoryDaoWS;
+import org.esupportail.pstage.domain.beans.EtabRef;
+import org.esupportail.pstage.domain.beans.SignataireRef;
 
 
 /**
@@ -12,9 +15,12 @@ import org.apache.log4j.Logger;
  *
  */
 
-public class StudentComponentRepositoryDomainWS implements
-	StudentComponentRepositoryDomain {
+public class StudentComponentRepositoryDomainWS implements StudentComponentRepositoryDomain {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9006972118347383714L;
 	/**
 	 * 
 	 */
@@ -55,7 +61,6 @@ public class StudentComponentRepositoryDomainWS implements
 		return etapes;
 	}
 
-
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.StudentComponentRepositoryDomain#getSigCompoRef(java.lang.String, java.lang.String)
 	 */
@@ -63,7 +68,6 @@ public class StudentComponentRepositoryDomainWS implements
 		SignataireRef sigRef = studentComponentRepositoryDaoWS.getSigCompoRef(universityCode, composante);
 		return sigRef;
 	}
-
 
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.StudentComponentRepositoryDomain#getComposantesPrincipalesRef(java.lang.String, java.util.Map)
@@ -96,9 +100,4 @@ public class StudentComponentRepositoryDomainWS implements
 			StudentComponentRepositoryDaoWS studentComponentRepositoryDaoWS) {
 		this.studentComponentRepositoryDaoWS = studentComponentRepositoryDaoWS;
 	}
-
-
-
-
-
 }

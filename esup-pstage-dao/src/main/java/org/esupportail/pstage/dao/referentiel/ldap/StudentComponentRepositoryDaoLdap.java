@@ -9,16 +9,17 @@ import org.esupportail.commons.services.ldap.LdapException;
 import org.esupportail.commons.services.ldap.LdapGroup;
 import org.esupportail.commons.services.ldap.LdapGroupService;
 import org.esupportail.pstage.dao.referentiel.StudentComponentRepositoryDao;
-import org.esupportail.pstage.map.EtabRef;
-import org.esupportail.pstage.map.SignataireRef;
-import org.esupportail.pstage.services.ldap.LdapGroupeAttributs;
+import org.esupportail.pstage.domain.beans.EtabRef;
+import org.esupportail.pstage.domain.beans.LdapGroupeAttributs;
+import org.esupportail.pstage.domain.beans.SignataireRef;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.filter.OrFilter;
 import org.springframework.ldap.filter.WhitespaceWildcardsFilter;
+import org.springframework.util.Assert;
 
 public class StudentComponentRepositoryDaoLdap implements
-		StudentComponentRepositoryDao {
+StudentComponentRepositoryDao {
 	/**
 	 * 
 	 */
@@ -30,145 +31,119 @@ public class StudentComponentRepositoryDaoLdap implements
 	 * Elle sert sutout pour l'attribut ou=Etape 
 	 */
 	private LdapGroupService ldapGroupServiceSpecial;
-	private LdapGroupeAttributs ldapGroupeAttributs;
-	
 	/**
 	 * Groupe service pour la recheches des composantes Ldap 
 	 */
 	private LdapGroupService composanteLdapGroupService;
-	
-	
-	
 	/**
-	 * @param composanteLdapGroupService the composanteLdapGroupService to set
+	 * 
 	 */
-	public void setComposanteLdapGroupService(
-			LdapGroupService cldgserice) {
-		this.composanteLdapGroupService = cldgserice;
+	private LdapGroupeAttributs ldapGroupeAttributs;
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		Assert.notNull(ldapGroupeAttributs,"La propriété ldapGroupeAttributs ne peut être null.");
 	}
 
-
-	
 	/**
 	 * recherche informations Etablissement de Reference
 	 */
 	@Override
 	public EtabRef getEtabRef(String universityCode) {
-		 // FIXME 
+		// FIXME 
 		return null;
 	}
 
 	@Override
 	public Map<String, String> getEtapesRef(String universityCode) {
 		List<LdapGroup> ldapGroups =null;
-		
+
 		Map<String, String> composantes=null ;
-		 AndFilter filter = new AndFilter();
-	     WhitespaceWildcardsFilter espaceFiltre = new WhitespaceWildcardsFilter(ldapGroupeAttributs.getLdapCodePrincipalesFormations(), " ");
-        filter.and(espaceFiltre);
-	    String encode = filter.encode();   
-	   encode=encode.substring(1, encode.length()-1);
-	   if(logger.isInfoEnabled()){
-	    	logger.info(" le filtre ldap " + encode);
-	    }
+		AndFilter filter = new AndFilter();
+		WhitespaceWildcardsFilter espaceFiltre = new WhitespaceWildcardsFilter(ldapGroupeAttributs.getLdapCodePrincipalesFormations(), " ");
+		filter.and(espaceFiltre);
+		String encode = filter.encode();   
+		encode=encode.substring(1, encode.length()-1);
+		if(logger.isInfoEnabled()){
+			logger.info("Filtre ldap " + encode);
+		}
 		try {
-			
-		 ldapGroups= ldapGroupServiceSpecial.getLdapGroupsFromFilter(encode);
-		
+
+			ldapGroups= ldapGroupServiceSpecial.getLdapGroupsFromFilter(encode);
+
 		}
 		catch (LdapException ldae) {
-
-	    	   StringBuilder builder = new StringBuilder();
-			builder.append(" Probleme pendant appel de ");
-			builder.append(" getLdapGroupsFromFilter  dans la classe ");
-			builder.append(this.getClass().getSimpleName());
-			logger.error(builder.toString(),ldae.getCause());
-	        if(logger.isDebugEnabled()){
-	        	logger.debug(builder.toString(), ldae);
-			}
+			logger.error("Probleme pendant l'appel de getLdapGroupsFromFilter dans la classe "+this.getClass().getSimpleName()+" : ",ldae.getCause());
 		}
-		
-		 if(!ldapGroups.isEmpty()){
-				
-	    	   String compCode=null;
-	    	   String compLibelle =null;
-	    	   composantes = new LinkedHashMap<String, String>(ldapGroups.size());
-	       //on formate pour le map
-	    	   for(LdapGroup group : ldapGroups){
-	    	compCode = group.getAttribute(ldapGroupeAttributs.getLdapComposanteCode());
-	    	compLibelle = group.getAttribute(ldapGroupeAttributs.getLdapComposanteLibelle());
-	    	composantes.put(compCode, compLibelle);
-		 }	
+
+		if(!ldapGroups.isEmpty()){
+
+			String compCode=null;
+			String compLibelle =null;
+			composantes = new LinkedHashMap<String, String>(ldapGroups.size());
+			//on formate pour le map
+			for(LdapGroup group : ldapGroups){
+				compCode = group.getAttribute(ldapGroupeAttributs.getLdapComposanteCode());
+				compLibelle = group.getAttribute(ldapGroupeAttributs.getLdapComposanteLibelle());
+				composantes.put(compCode, compLibelle);
+			}	
 		}
 		return composantes;
 	}
-		
 
 	@Override
 	public SignataireRef getSigCompoRef(String universityCode, String Composante) {
-		// FIXME 
 		return null;
 	}
-/**
- * Recherches des de composantes ufrs
- */
+
+	/**
+	 * Recherches des de composantes ufrs
+	 */
 	@Override
 	public Map<String, String> getComposantesPrincipalesRef(String universityCode,
 			Map<String, String> lesComposantes) {
-		
-	     List<LdapGroup> ldapGroups =null;
+
+		List<LdapGroup> ldapGroups =null;
 		Map<String, String> composantes=null;
-		
-		 AndFilter filter = new AndFilter();       
-       String valFormationsPrincipales= ldapGroupeAttributs.getLdapValCodeFormationsPrincipales();
-       String  codeFormationsPrincipales = ldapGroupeAttributs.getLdapCodePrincipalesFormations();
+
+		AndFilter filter = new AndFilter();       
+		String valFormationsPrincipales= ldapGroupeAttributs.getLdapValCodeFormationsPrincipales();
+		String  codeFormationsPrincipales = ldapGroupeAttributs.getLdapCodePrincipalesFormations();
 		if(valFormationsPrincipales.contains(LdapGroupeAttributs.sperateurValeurLdap)){
 			String[]  valsFormaPrinc = valFormationsPrincipales.split(LdapGroupeAttributs.sperateurValeurLdap);
-	    	OrFilter filtreOu = new OrFilter();
-	    	for(String valFormaPrinc : valsFormaPrinc){
-	    		filtreOu.or(new EqualsFilter(codeFormationsPrincipales, valFormaPrinc));
-	    	}
-	    	filter.and(filtreOu);
-		}else {
-			//un seul attribut
-			 filter.and(new EqualsFilter(codeFormationsPrincipales, valFormationsPrincipales));
-			
-		}
-	    String encode = filter.encode();   
-	   encode=encode.substring(1, encode.length()-1);
-	   if(logger.isInfoEnabled())
-	    	logger.info(" le filtre ldap " + encode);
-	    
-		try {
-			
-		 ldapGroups= composanteLdapGroupService.getLdapGroupsFromFilter(encode);
-		 if(!ldapGroups.isEmpty()){
-				
-	    	   String compCode=null;
-	    	   String compLibelle =null;
-	    	   composantes = new LinkedHashMap<String, String>(ldapGroups.size());
-	       //on formate pour le map
-	    	   for(LdapGroup group : ldapGroups){
-	    	compCode = group.getAttribute(ldapGroupeAttributs.getLdapComposanteCode());
-	    	compLibelle = group.getAttribute(ldapGroupeAttributs.getLdapComposanteLibelle());
-	    	composantes.put(compCode, compLibelle);
-		 }	
-		}
-		
-		}
-		catch (LdapException ldae) {
-
-	    	   StringBuilder builder = new StringBuilder();
-			builder.append(" Probleme pendant appel de ");
-			builder.append(" getLdapGroupsFromFilter  dans la classe ");
-			builder.append(this.getClass().getSimpleName());
-			logger.error(builder.toString(),ldae.getCause());
-	        if(logger.isDebugEnabled()){
-	        	logger.debug(builder.toString(), ldae);
+			OrFilter filtreOu = new OrFilter();
+			for(String valFormaPrinc : valsFormaPrinc){
+				filtreOu.or(new EqualsFilter(codeFormationsPrincipales, valFormaPrinc));
 			}
+			filter.and(filtreOu);
+		} else {
+			//un seul attribut
+			filter.and(new EqualsFilter(codeFormationsPrincipales, valFormationsPrincipales));
+
 		}
-		
-		
+		String encode = filter.encode();   
+		encode=encode.substring(1, encode.length()-1);
+		if(logger.isInfoEnabled())
+			logger.info("Filtre ldap " + encode);
+
+		try {
+			ldapGroups= composanteLdapGroupService.getLdapGroupsFromFilter(encode);
+			if(!ldapGroups.isEmpty()){
+
+				String compCode=null;
+				String compLibelle =null;
+				composantes = new LinkedHashMap<String, String>(ldapGroups.size());
+				//on formate pour le map
+				for(LdapGroup group : ldapGroups){
+					compCode = group.getAttribute(ldapGroupeAttributs.getLdapComposanteCode());
+					compLibelle = group.getAttribute(ldapGroupeAttributs.getLdapComposanteLibelle());
+					composantes.put(compCode, compLibelle);
+				}	
+			}
+
+		} catch (LdapException ldae) {
+			logger.error("Probleme pendant l'appel de getLdapGroupsFromFilter dans la classe "+this.getClass().getSimpleName()+" : ",ldae.getCause());
+		}
 		return composantes;
 	}
 
@@ -186,5 +161,11 @@ public class StudentComponentRepositoryDaoLdap implements
 		this.ldapGroupeAttributs = ldapGroupeAttributs;
 	}
 
-
+	/**
+	 * @param composanteLdapGroupService the composanteLdapGroupService to set
+	 */
+	public void setComposanteLdapGroupService(
+			LdapGroupService cldgserice) {
+		this.composanteLdapGroupService = cldgserice;
+	}
 }

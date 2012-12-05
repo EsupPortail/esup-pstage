@@ -27,7 +27,7 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	 * 
 	 */
 	/* ***************************************************************
-	 * PropriÃ¯Â¿Â½tÃ¯Â¿Â½s
+	 * Proprietes
 	 ****************************************************************/
 	/**
 	 * theUfr

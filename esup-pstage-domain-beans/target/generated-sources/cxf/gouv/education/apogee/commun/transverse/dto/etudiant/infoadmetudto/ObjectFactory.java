@@ -30,6 +30,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TableauIndBacDTO }
+     * 
+     */
+    public TableauIndBacDTO createTableauIndBacDTO() {
+        return new TableauIndBacDTO();
+    }
+
+    /**
      * Create an instance of {@link InfoAdmEtuDTO }
      * 
      */
@@ -43,14 +51,6 @@ public class ObjectFactory {
      */
     public TableauBlocages createTableauBlocages() {
         return new TableauBlocages();
-    }
-
-    /**
-     * Create an instance of {@link TableauIndBacDTO }
-     * 
-     */
-    public TableauIndBacDTO createTableauIndBacDTO() {
-        return new TableauIndBacDTO();
     }
 
 }

@@ -997,6 +997,10 @@
 <xs:complexType name="StructureDeleteException">
 <xs:sequence />
 </xs:complexType>
+<xs:element name="ServiceDeleteException" type="tns:ServiceDeleteException" />
+<xs:complexType name="ServiceDeleteException">
+<xs:sequence />
+</xs:complexType>
 <xs:element name="AffectationAlreadyExistingForCodeException" type="tns:AffectationAlreadyExistingForCodeException" />
 <xs:complexType name="AffectationAlreadyExistingForCodeException">
 <xs:sequence />
@@ -6959,6 +6963,10 @@
     <wsdl:part element="tns:getTotalConventionsParDepLieuStage" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="ServiceDeleteException">
+    <wsdl:part element="tns:ServiceDeleteException" name="ServiceDeleteException">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getStructuresFromNomServiceEtDepartementResponse">
     <wsdl:part element="tns:getStructuresFromNomServiceEtDepartementResponse" name="parameters">
     </wsdl:part>
@@ -8604,6 +8612,8 @@
       <wsdl:output message="tns:deleteServiceResponse" name="deleteServiceResponse">
     </wsdl:output>
       <wsdl:fault message="tns:WebServiceDataBaseException" name="WebServiceDataBaseException">
+    </wsdl:fault>
+      <wsdl:fault message="tns:ServiceDeleteException" name="ServiceDeleteException">
     </wsdl:fault>
       <wsdl:fault message="tns:DataDeleteException" name="DataDeleteException">
     </wsdl:fault>
@@ -11623,6 +11633,9 @@
       <wsdl:fault name="WebServiceDataBaseException">
         <soap:fault name="WebServiceDataBaseException" use="literal" />
       </wsdl:fault>
+      <wsdl:fault name="ServiceDeleteException">
+        <soap:fault name="ServiceDeleteException" use="literal" />
+      </wsdl:fault>
       <wsdl:fault name="DataDeleteException">
         <soap:fault name="DataDeleteException" use="literal" />
       </wsdl:fault>
@@ -12671,7 +12684,7 @@
   </wsdl:binding>
   <wsdl:service name="RemoteServicesImplService">
     <wsdl:port binding="tns:RemoteServicesImplServiceSoapBinding" name="RemoteServicesImplPort">
-      <soap:address location="http://localhost:8080/esup-pstagedata/cxf/RemoteServices" />
+      <soap:address location="http://172.17.122.92:8080/esup-pstagedata/cxf/RemoteServices" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

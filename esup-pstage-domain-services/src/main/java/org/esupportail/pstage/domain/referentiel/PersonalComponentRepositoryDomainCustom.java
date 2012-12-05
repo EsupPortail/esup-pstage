@@ -12,7 +12,10 @@ import java.util.Map;
 public class PersonalComponentRepositoryDomainCustom implements
 		PersonalComponentRepositoryDomain {
 
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1107987713787496535L;
 
 	@Override
 	public Map<String, String> getComposantesRef(String universityCode) {

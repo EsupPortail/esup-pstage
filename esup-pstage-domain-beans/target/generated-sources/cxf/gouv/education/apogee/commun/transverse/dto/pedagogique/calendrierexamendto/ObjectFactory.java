@@ -30,19 +30,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CalendrierExamenDTO }
-     * 
-     */
-    public CalendrierExamenDTO createCalendrierExamenDTO() {
-        return new CalendrierExamenDTO();
-    }
-
-    /**
      * Create an instance of {@link TableauEpreuveDTO4 }
      * 
      */
     public TableauEpreuveDTO4 createTableauEpreuveDTO4() {
         return new TableauEpreuveDTO4();
+    }
+
+    /**
+     * Create an instance of {@link CalendrierExamenDTO }
+     * 
+     */
+    public CalendrierExamenDTO createCalendrierExamenDTO() {
+        return new CalendrierExamenDTO();
     }
 
 }

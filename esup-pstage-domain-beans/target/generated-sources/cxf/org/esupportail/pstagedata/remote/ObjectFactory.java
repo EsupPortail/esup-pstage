@@ -605,6 +605,7 @@ public class ObjectFactory {
     private final static QName _GetEtapeFromIdResponse_QNAME = new QName("http://remote.pstagedata.esupportail.org/", "getEtapeFromIdResponse");
     private final static QName _GetNombreAffectation_QNAME = new QName("http://remote.pstagedata.esupportail.org/", "getNombreAffectation");
     private final static QName _GetTotalConventionsParDepLieuStage_QNAME = new QName("http://remote.pstagedata.esupportail.org/", "getTotalConventionsParDepLieuStage");
+    private final static QName _ServiceDeleteException_QNAME = new QName("http://remote.pstagedata.esupportail.org/", "ServiceDeleteException");
     private final static QName _GetStructuresFromNomServiceEtDepartementResponse_QNAME = new QName("http://remote.pstagedata.esupportail.org/", "getStructuresFromNomServiceEtDepartementResponse");
     private final static QName _GetAnneesConventions_QNAME = new QName("http://remote.pstagedata.esupportail.org/", "getAnneesConventions");
     private final static QName _GetConventionsFromCodUnivResponse_QNAME = new QName("http://remote.pstagedata.esupportail.org/", "getConventionsFromCodUnivResponse");
@@ -639,483 +640,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureType }
+     * Create an instance of {@link GetStructureFromContactMailEntrepriseAvecCompteResponse }
      * 
      */
-    public GetNumberOfConventionsByStudyAndStructureType createGetNumberOfConventionsByStudyAndStructureType() {
-        return new GetNumberOfConventionsByStudyAndStructureType();
+    public GetStructureFromContactMailEntrepriseAvecCompteResponse createGetStructureFromContactMailEntrepriseAvecCompteResponse() {
+        return new GetStructureFromContactMailEntrepriseAvecCompteResponse();
     }
 
     /**
-     * Create an instance of {@link GetCentreDroitEcritureFromCodUniv }
+     * Create an instance of {@link GetStructuresFromAdresse }
      * 
      */
-    public GetCentreDroitEcritureFromCodUniv createGetCentreDroitEcritureFromCodUniv() {
-        return new GetCentreDroitEcritureFromCodUniv();
+    public GetStructuresFromAdresse createGetStructuresFromAdresse() {
+        return new GetStructuresFromAdresse();
     }
 
     /**
-     * Create an instance of {@link GetNombreCritereGestion }
+     * Create an instance of {@link GetIndemnisationsResponse }
      * 
      */
-    public GetNombreCritereGestion createGetNombreCritereGestion() {
-        return new GetNombreCritereGestion();
-    }
-
-    /**
-     * Create an instance of {@link CentreEtablissementDejaExistantException }
-     * 
-     */
-    public CentreEtablissementDejaExistantException createCentreEtablissementDejaExistantException() {
-        return new CentreEtablissementDejaExistantException();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructure }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndStructure createGetNumberOfConventionsByDepartmentAndStructure() {
-        return new GetNumberOfConventionsByDepartmentAndStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndServiceDep }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndServiceDep createGetNumberOfConventionsByStepAndServiceDep() {
-        return new GetNumberOfConventionsByStepAndServiceDep();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffers }
-     * 
-     */
-    public GetNumberOfOffers createGetNumberOfOffers() {
-        return new GetNumberOfOffers();
-    }
-
-    /**
-     * Create an instance of {@link ObjetMetiersDTO }
-     * 
-     */
-    public ObjetMetiersDTO createObjetMetiersDTO() {
-        return new ObjetMetiersDTO();
-    }
-
-    /**
-     * Create an instance of {@link UfrDTO }
-     * 
-     */
-    public UfrDTO createUfrDTO() {
-        return new UfrDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByFormation }
-     * 
-     */
-    public GetNumberOfOffersByFormation createGetNumberOfOffersByFormation() {
-        return new GetNumberOfOffersByFormation();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreConventionByUfrResponse }
-     * 
-     */
-    public UpdateCentreConventionByUfrResponse createUpdateCentreConventionByUfrResponse() {
-        return new UpdateCentreConventionByUfrResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAssurancesResponse }
-     * 
-     */
-    public GetAssurancesResponse createGetAssurancesResponse() {
-        return new GetAssurancesResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetModeValidationStages }
-     * 
-     */
-    public GetModeValidationStages createGetModeValidationStages() {
-        return new GetModeValidationStages();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrsResponse }
-     * 
-     */
-    public GetUfrsResponse createGetUfrsResponse() {
-        return new GetUfrsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndWorkDurationResponse }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndWorkDurationResponse createGetNumberOfConventionsByDepartmentAndWorkDurationResponse() {
-        return new GetNumberOfConventionsByDepartmentAndWorkDurationResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreGestionResponse }
-     * 
-     */
-    public UpdateCentreGestionResponse createUpdateCentreGestionResponse() {
-        return new UpdateCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAccordsNonValides }
-     * 
-     */
-    public GetAccordsNonValides createGetAccordsNonValides() {
-        return new GetAccordsNonValides();
-    }
-
-    /**
-     * Create an instance of {@link AddAffectationResponse }
-     * 
-     */
-    public AddAffectationResponse createAddAffectationResponse() {
-        return new AddAffectationResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureSize }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndStructureSize createGetNumberOfConventionsByStepAndStructureSize() {
-        return new GetNumberOfConventionsByStepAndStructureSize();
-    }
-
-    /**
-     * Create an instance of {@link DeleteCentreGestionResponse }
-     * 
-     */
-    public DeleteCentreGestionResponse createDeleteCentreGestionResponse() {
-        return new DeleteCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParStructureTypeResponse }
-     * 
-     */
-    public GetTotalConventionsParStructureTypeResponse createGetTotalConventionsParStructureTypeResponse() {
-        return new GetTotalConventionsParStructureTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link NomenclatureCodeDTO }
-     * 
-     */
-    public NomenclatureCodeDTO createNomenclatureCodeDTO() {
-        return new NomenclatureCodeDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructureTypeResponse }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndStructureTypeResponse createGetNumberOfConventionsByDepartmentAndStructureTypeResponse() {
-        return new GetNumberOfConventionsByDepartmentAndStructureTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsFromCriteresExportResponse }
-     * 
-     */
-    public GetConventionsFromCriteresExportResponse createGetConventionsFromCriteresExportResponse() {
-        return new GetConventionsFromCriteresExportResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddTicketStructureResponse }
-     * 
-     */
-    public AddTicketStructureResponse createAddTicketStructureResponse() {
-        return new AddTicketStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStructureValidation }
-     * 
-     */
-    public UpdateStructureValidation createUpdateStructureValidation() {
-        return new UpdateStructureValidation();
-    }
-
-    /**
-     * Create an instance of {@link DeletePersonnelCentreGestion }
-     * 
-     */
-    public DeletePersonnelCentreGestion createDeletePersonnelCentreGestion() {
-        return new DeletePersonnelCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link GetFapN3 }
-     * 
-     */
-    public GetFapN3 createGetFapN3() {
-        return new GetFapN3();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresAvecAccordAValiderFromRaisonSocialeResponse }
-     * 
-     */
-    public GetStructuresAvecAccordAValiderFromRaisonSocialeResponse createGetStructuresAvecAccordAValiderFromRaisonSocialeResponse() {
-        return new GetStructuresAvecAccordAValiderFromRaisonSocialeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromRaisonSociale }
-     * 
-     */
-    public GetStructuresFromRaisonSociale createGetStructuresFromRaisonSociale() {
-        return new GetStructuresFromRaisonSociale();
-    }
-
-    /**
-     * Create an instance of {@link GetAnneesOffresResponse }
-     * 
-     */
-    public GetAnneesOffresResponse createGetAnneesOffresResponse() {
-        return new GetAnneesOffresResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddEnseignant }
-     * 
-     */
-    public AddEnseignant createAddEnseignant() {
-        return new AddEnseignant();
-    }
-
-    /**
-     * Create an instance of {@link AddUfr }
-     * 
-     */
-    public AddUfr createAddUfr() {
-        return new AddUfr();
-    }
-
-    /**
-     * Create an instance of {@link UpdateOffrePourvueResponse }
-     * 
-     */
-    public UpdateOffrePourvueResponse createUpdateOffrePourvueResponse() {
-        return new UpdateOffrePourvueResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromRaisonSocialeResponse }
-     * 
-     */
-    public GetStructuresFromRaisonSocialeResponse createGetStructuresFromRaisonSocialeResponse() {
-        return new GetStructuresFromRaisonSocialeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEtapesFromIdsCentreGestionFromCodUniv }
-     * 
-     */
-    public GetEtapesFromIdsCentreGestionFromCodUniv createGetEtapesFromIdsCentreGestionFromCodUniv() {
-        return new GetEtapesFromIdsCentreGestionFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link UpdateConvention }
-     * 
-     */
-    public UpdateConvention createUpdateConvention() {
-        return new UpdateConvention();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreCentreGestionResponse }
-     * 
-     */
-    public GetNombreCentreGestionResponse createGetNombreCentreGestionResponse() {
-        return new GetNombreCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteCritereResponse }
-     * 
-     */
-    public DeleteCritereResponse createDeleteCritereResponse() {
-        return new DeleteCritereResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndTypeResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndTypeResponse createGetNumberOfConventionsByStudyAndTypeResponse() {
-        return new GetNumberOfConventionsByStudyAndTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEtapesFromIdsCentreGestionResponse }
-     * 
-     */
-    public GetEtapesFromIdsCentreGestionResponse createGetEtapesFromIdsCentreGestionResponse() {
-        return new GetEtapesFromIdsCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParJourSemaineResponse }
-     * 
-     */
-    public GetTotalConventionsParJourSemaineResponse createGetTotalConventionsParJourSemaineResponse() {
-        return new GetTotalConventionsParJourSemaineResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrs }
-     * 
-     */
-    public GetUfrs createGetUfrs() {
-        return new GetUfrs();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreFromUidResponse }
-     * 
-     */
-    public GetCentreFromUidResponse createGetCentreFromUidResponse() {
-        return new GetCentreFromUidResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteConvention }
-     * 
-     */
-    public DeleteConvention createDeleteConvention() {
-        return new DeleteConvention();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndServiceCountry }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndServiceCountry createGetNumberOfConventionsByDepartmentAndServiceCountry() {
-        return new GetNumberOfConventionsByDepartmentAndServiceCountry();
-    }
-
-    /**
-     * Create an instance of {@link IndemnisationDTO }
-     * 
-     */
-    public IndemnisationDTO createIndemnisationDTO() {
-        return new IndemnisationDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParStructureActiviteResponse }
-     * 
-     */
-    public GetTotalConventionsParStructureActiviteResponse createGetTotalConventionsParStructureActiviteResponse() {
-        return new GetTotalConventionsParStructureActiviteResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreConventionByCentreGestionFromCodUnivResponse }
-     * 
-     */
-    public GetNombreConventionByCentreGestionFromCodUnivResponse createGetNombreConventionByCentreGestionFromCodUnivResponse() {
-        return new GetNombreConventionByCentreGestionFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndWorkDurationResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndWorkDurationResponse createGetNumberOfConventionsByStepAndWorkDurationResponse() {
-        return new GetNumberOfConventionsByStepAndWorkDurationResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNafN5FromCodeNafN1Response }
-     * 
-     */
-    public GetNafN5FromCodeNafN1Response createGetNafN5FromCodeNafN1Response() {
-        return new GetNafN5FromCodeNafN1Response();
-    }
-
-    /**
-     * Create an instance of {@link FapN1DTO }
-     * 
-     */
-    public FapN1DTO createFapN1DTO() {
-        return new FapN1DTO();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParPaysDuService }
-     * 
-     */
-    public GetTotalConventionsParPaysDuService createGetTotalConventionsParPaysDuService() {
-        return new GetTotalConventionsParPaysDuService();
-    }
-
-    /**
-     * Create an instance of {@link DeleteStructureResponse }
-     * 
-     */
-    public DeleteStructureResponse createDeleteStructureResponse() {
-        return new DeleteStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndTypeResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndTypeResponse createGetNumberOfConventionsByStepAndTypeResponse() {
-        return new GetNumberOfConventionsByStepAndTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetServiceFromIdResponse }
-     * 
-     */
-    public GetServiceFromIdResponse createGetServiceFromIdResponse() {
-        return new GetServiceFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndStructure }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndStructure createGetNumberOfConventionsByStepAndStructure() {
-        return new GetNumberOfConventionsByStepAndStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetEtapes }
-     * 
-     */
-    public GetEtapes createGetEtapes() {
-        return new GetEtapes();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionFromExportResponse }
-     * 
-     */
-    public GetConventionFromExportResponse createGetConventionFromExportResponse() {
-        return new GetConventionFromExportResponse();
-    }
-
-    /**
-     * Create an instance of {@link EnseignantDTO }
-     * 
-     */
-    public EnseignantDTO createEnseignantDTO() {
-        return new EnseignantDTO();
+    public GetIndemnisationsResponse createGetIndemnisationsResponse() {
+        return new GetIndemnisationsResponse();
     }
 
     /**
@@ -1127,139 +672,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AddAdminStructure }
+     * Create an instance of {@link AddFichierResponse }
      * 
      */
-    public AddAdminStructure createAddAdminStructure() {
-        return new AddAdminStructure();
-    }
-
-    /**
-     * Create an instance of {@link AddOffreModeCandidature }
-     * 
-     */
-    public AddOffreModeCandidature createAddOffreModeCandidature() {
-        return new AddOffreModeCandidature();
-    }
-
-    /**
-     * Create an instance of {@link NatureTravailDTO }
-     * 
-     */
-    public NatureTravailDTO createNatureTravailDTO() {
-        return new NatureTravailDTO();
-    }
-
-    /**
-     * Create an instance of {@link AddCentreGestionSuperviseur }
-     * 
-     */
-    public AddCentreGestionSuperviseur createAddCentreGestionSuperviseur() {
-        return new AddCentreGestionSuperviseur();
-    }
-
-    /**
-     * Create an instance of {@link GetNafN5FromCodeNafN5Response }
-     * 
-     */
-    public GetNafN5FromCodeNafN5Response createGetNafN5FromCodeNafN5Response() {
-        return new GetNafN5FromCodeNafN5Response();
-    }
-
-    /**
-     * Create an instance of {@link GetDroitAdministration }
-     * 
-     */
-    public GetDroitAdministration createGetDroitAdministration() {
-        return new GetDroitAdministration();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndThemeResponse }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndThemeResponse createGetNumberOfConventionsByDepartmentAndThemeResponse() {
-        return new GetNumberOfConventionsByDepartmentAndThemeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureSizeResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndStructureSizeResponse createGetNumberOfConventionsByStudyAndStructureSizeResponse() {
-        return new GetNumberOfConventionsByStudyAndStructureSizeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetPaysResponse }
-     * 
-     */
-    public GetPaysResponse createGetPaysResponse() {
-        return new GetPaysResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTypesOffre }
-     * 
-     */
-    public GetTypesOffre createGetTypesOffre() {
-        return new GetTypesOffre();
-    }
-
-    /**
-     * Create an instance of {@link DeleteContactResponse }
-     * 
-     */
-    public DeleteContactResponse createDeleteContactResponse() {
-        return new DeleteContactResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCentresEtablissementFromCodUnivResponse }
-     * 
-     */
-    public GetCentresEtablissementFromCodUnivResponse createGetCentresEtablissementFromCodUnivResponse() {
-        return new GetCentresEtablissementFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreGestion }
-     * 
-     */
-    public UpdateCentreGestion createUpdateCentreGestion() {
-        return new UpdateCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndTypeResponse }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndTypeResponse createGetNumberOfConventionsByDepartmentAndTypeResponse() {
-        return new GetNumberOfConventionsByDepartmentAndTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link CritereRechercheConventionDTO }
-     * 
-     */
-    public CritereRechercheConventionDTO createCritereRechercheConventionDTO() {
-        return new CritereRechercheConventionDTO();
-    }
-
-    /**
-     * Create an instance of {@link UpdateContactDerniereConnexionResponse }
-     * 
-     */
-    public UpdateContactDerniereConnexionResponse createUpdateContactDerniereConnexionResponse() {
-        return new UpdateContactDerniereConnexionResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreConventionByEtapeResponse }
-     * 
-     */
-    public UpdateCentreConventionByEtapeResponse createUpdateCentreConventionByEtapeResponse() {
-        return new UpdateCentreConventionByEtapeResponse();
+    public AddFichierResponse createAddFichierResponse() {
+        return new AddFichierResponse();
     }
 
     /**
@@ -1271,358 +688,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetNumberOfOffersByStructureCountryResponse }
-     * 
-     */
-    public GetNumberOfOffersByStructureCountryResponse createGetNumberOfOffersByStructureCountryResponse() {
-        return new GetNumberOfOffersByStructureCountryResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetIndemnisations }
-     * 
-     */
-    public GetIndemnisations createGetIndemnisations() {
-        return new GetIndemnisations();
-    }
-
-    /**
-     * Create an instance of {@link DeleteAdminStructure }
-     * 
-     */
-    public DeleteAdminStructure createDeleteAdminStructure() {
-        return new DeleteAdminStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromTelephone }
-     * 
-     */
-    public GetStructuresFromTelephone createGetStructuresFromTelephone() {
-        return new GetStructuresFromTelephone();
-    }
-
-    /**
-     * Create an instance of {@link GetFapN2Response }
-     * 
-     */
-    public GetFapN2Response createGetFapN2Response() {
-        return new GetFapN2Response();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParJourSemaine }
-     * 
-     */
-    public GetTotalConventionsParJourSemaine createGetTotalConventionsParJourSemaine() {
-        return new GetTotalConventionsParJourSemaine();
-    }
-
-    /**
-     * Create an instance of {@link PersonneDTO }
-     * 
-     */
-    public PersonneDTO createPersonneDTO() {
-        return new PersonneDTO();
-    }
-
-    /**
-     * Create an instance of {@link AddPersonnelCentreGestionResponse }
-     * 
-     */
-    public AddPersonnelCentreGestionResponse createAddPersonnelCentreGestionResponse() {
-        return new AddPersonnelCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCentresEtablissement }
-     * 
-     */
-    public GetCentresEtablissement createGetCentresEtablissement() {
-        return new GetCentresEtablissement();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromFaxResponse }
-     * 
-     */
-    public GetStructuresFromFaxResponse createGetStructuresFromFaxResponse() {
-        return new GetStructuresFromFaxResponse();
-    }
-
-    /**
-     * Create an instance of {@link CleanFichiersResponse }
-     * 
-     */
-    public CleanFichiersResponse createCleanFichiersResponse() {
-        return new CleanFichiersResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromRaisonSocialeEtDepartement }
-     * 
-     */
-    public GetStructuresFromRaisonSocialeEtDepartement createGetStructuresFromRaisonSocialeEtDepartement() {
-        return new GetStructuresFromRaisonSocialeEtDepartement();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndNbDaysPerWeekResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndNbDaysPerWeekResponse createGetNumberOfConventionsByStudyAndNbDaysPerWeekResponse() {
-        return new GetNumberOfConventionsByStudyAndNbDaysPerWeekResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParStructureActivite }
-     * 
-     */
-    public GetTotalConventionsParStructureActivite createGetTotalConventionsParStructureActivite() {
-        return new GetTotalConventionsParStructureActivite();
-    }
-
-    /**
-     * Create an instance of {@link GetAnneesConvention }
-     * 
-     */
-    public GetAnneesConvention createGetAnneesConvention() {
-        return new GetAnneesConvention();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndIndemnityResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndIndemnityResponse createGetNumberOfConventionsByStudyAndIndemnityResponse() {
-        return new GetNumberOfConventionsByStudyAndIndemnityResponse();
-    }
-
-    /**
-     * Create an instance of {@link WebServiceDataBaseException }
-     * 
-     */
-    public WebServiceDataBaseException createWebServiceDataBaseException() {
-        return new WebServiceDataBaseException();
-    }
-
-    /**
-     * Create an instance of {@link GetTypesStructure }
-     * 
-     */
-    public GetTypesStructure createGetTypesStructure() {
-        return new GetTypesStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresSansAccordFromRaisonSocialeResponse }
-     * 
-     */
-    public GetStructuresSansAccordFromRaisonSocialeResponse createGetStructuresSansAccordFromRaisonSocialeResponse() {
-        return new GetStructuresSansAccordFromRaisonSocialeResponse();
-    }
-
-    /**
-     * Create an instance of {@link NomenclatureCodeEnfantDTO }
-     * 
-     */
-    public NomenclatureCodeEnfantDTO createNomenclatureCodeEnfantDTO() {
-        return new NomenclatureCodeEnfantDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetLangueConventionsResponse }
-     * 
-     */
-    public GetLangueConventionsResponse createGetLangueConventionsResponse() {
-        return new GetLangueConventionsResponse();
-    }
-
-    /**
-     * Create an instance of {@link CountAccordAValiderResponse }
-     * 
-     */
-    public CountAccordAValiderResponse createCountAccordAValiderResponse() {
-        return new CountAccordAValiderResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByLevel }
-     * 
-     */
-    public GetNumberOfOffersByLevel createGetNumberOfOffersByLevel() {
-        return new GetNumberOfOffersByLevel();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreGestionResponse }
-     * 
-     */
-    public GetCentreGestionResponse createGetCentreGestionResponse() {
-        return new GetCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetFapQualifications }
-     * 
-     */
-    public GetFapQualifications createGetFapQualifications() {
-        return new GetFapQualifications();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndActivity }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndActivity createGetNumberOfConventionsByStudyAndActivity() {
-        return new GetNumberOfConventionsByStudyAndActivity();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrFromIdFromCodUnivResponse }
-     * 
-     */
-    public GetUfrFromIdFromCodUnivResponse createGetUfrFromIdFromCodUnivResponse() {
-        return new GetUfrFromIdFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link CentreReferenceException }
-     * 
-     */
-    public CentreReferenceException createCentreReferenceException() {
-        return new CentreReferenceException();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndActivityResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndActivityResponse createGetNumberOfConventionsByStepAndActivityResponse() {
-        return new GetNumberOfConventionsByStepAndActivityResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteFichier }
-     * 
-     */
-    public DeleteFichier createDeleteFichier() {
-        return new DeleteFichier();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndTeacherGuideResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndTeacherGuideResponse createGetNumberOfConventionsByStepAndTeacherGuideResponse() {
-        return new GetNumberOfConventionsByStepAndTeacherGuideResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestionFromIdAndCentre }
-     * 
-     */
-    public GetPersonnelCentreGestionFromIdAndCentre createGetPersonnelCentreGestionFromIdAndCentre() {
-        return new GetPersonnelCentreGestionFromIdAndCentre();
-    }
-
-    /**
-     * Create an instance of {@link TypeOffreDTO }
-     * 
-     */
-    public TypeOffreDTO createTypeOffreDTO() {
-        return new TypeOffreDTO();
-    }
-
-    /**
-     * Create an instance of {@link AddAdminStructureResponse }
-     * 
-     */
-    public AddAdminStructureResponse createAddAdminStructureResponse() {
-        return new AddAdminStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrsFromCodUnivResponse }
-     * 
-     */
-    public GetUfrsFromCodUnivResponse createGetUfrsFromCodUnivResponse() {
-        return new GetUfrsFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetInterlocuteur }
-     * 
-     */
-    public GetInterlocuteur createGetInterlocuteur() {
-        return new GetInterlocuteur();
-    }
-
-    /**
-     * Create an instance of {@link AddOffreResponse }
-     * 
-     */
-    public AddOffreResponse createAddOffreResponse() {
-        return new AddOffreResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestionFromNom }
-     * 
-     */
-    public GetPersonnelCentreGestionFromNom createGetPersonnelCentreGestionFromNom() {
-        return new GetPersonnelCentreGestionFromNom();
-    }
-
-    /**
-     * Create an instance of {@link GetNatureTravailsResponse }
-     * 
-     */
-    public GetNatureTravailsResponse createGetNatureTravailsResponse() {
-        return new GetNatureTravailsResponse();
-    }
-
-    /**
-     * Create an instance of {@link ContactDTO }
-     * 
-     */
-    public ContactDTO createContactDTO() {
-        return new ContactDTO();
-    }
-
-    /**
-     * Create an instance of {@link DeleteFichierResponse }
-     * 
-     */
-    public DeleteFichierResponse createDeleteFichierResponse() {
-        return new DeleteFichierResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByPublication }
-     * 
-     */
-    public GetNumberOfOffersByPublication createGetNumberOfOffersByPublication() {
-        return new GetNumberOfOffersByPublication();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreAffectationResponse }
-     * 
-     */
-    public GetNombreAffectationResponse createGetNombreAffectationResponse() {
-        return new GetNombreAffectationResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddStructure }
-     * 
-     */
-    public AddStructure createAddStructure() {
-        return new AddStructure();
-    }
-
-    /**
      * Create an instance of {@link GetCentreGestionFromNomCentreResponse }
      * 
      */
@@ -1631,459 +696,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link UpdateDiffusionOffreResponse }
+     * Create an instance of {@link UpdateStructureValidationResponse }
      * 
      */
-    public UpdateDiffusionOffreResponse createUpdateDiffusionOffreResponse() {
-        return new UpdateDiffusionOffreResponse();
+    public UpdateStructureValidationResponse createUpdateStructureValidationResponse() {
+        return new UpdateStructureValidationResponse();
     }
 
     /**
-     * Create an instance of {@link GetCentresEtablissementFromCodUniv }
+     * Create an instance of {@link GetEtapesFromCodUnivResponse }
      * 
      */
-    public GetCentresEtablissementFromCodUniv createGetCentresEtablissementFromCodUniv() {
-        return new GetCentresEtablissementFromCodUniv();
+    public GetEtapesFromCodUnivResponse createGetEtapesFromCodUnivResponse() {
+        return new GetEtapesFromCodUnivResponse();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndTeacherGuide }
+     * Create an instance of {@link CiviliteDTO }
      * 
      */
-    public GetNumberOfConventionsByStudyAndTeacherGuide createGetNumberOfConventionsByStudyAndTeacherGuide() {
-        return new GetNumberOfConventionsByStudyAndTeacherGuide();
-    }
-
-    /**
-     * Create an instance of {@link GetOrigineStages }
-     * 
-     */
-    public GetOrigineStages createGetOrigineStages() {
-        return new GetOrigineStages();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentResponse }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentResponse createGetNumberOfConventionsByDepartmentResponse() {
-        return new GetNumberOfConventionsByDepartmentResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddCentreGestionResponse }
-     * 
-     */
-    public AddCentreGestionResponse createAddCentreGestionResponse() {
-        return new AddCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAvenantResponse }
-     * 
-     */
-    public UpdateAvenantResponse createUpdateAvenantResponse() {
-        return new UpdateAvenantResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByActivity }
-     * 
-     */
-    public GetNumberOfOffersByActivity createGetNumberOfOffersByActivity() {
-        return new GetNumberOfOffersByActivity();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrFromId }
-     * 
-     */
-    public GetUfrFromId createGetUfrFromId() {
-        return new GetUfrFromId();
-    }
-
-    /**
-     * Create an instance of {@link AdminStructureAccountException }
-     * 
-     */
-    public AdminStructureAccountException createAdminStructureAccountException() {
-        return new AdminStructureAccountException();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreEtablissement }
-     * 
-     */
-    public GetCentreEtablissement createGetCentreEtablissement() {
-        return new GetCentreEtablissement();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreConventionByEnseignantFromCodUniv }
-     * 
-     */
-    public GetNombreConventionByEnseignantFromCodUniv createGetNombreConventionByEnseignantFromCodUniv() {
-        return new GetNombreConventionByEnseignantFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndWayToFindResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndWayToFindResponse createGetNumberOfConventionsByStepAndWayToFindResponse() {
-        return new GetNumberOfConventionsByStepAndWayToFindResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndServiceDepResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndServiceDepResponse createGetNumberOfConventionsByStudyAndServiceDepResponse() {
-        return new GetNumberOfConventionsByStudyAndServiceDepResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyResponse createGetNumberOfConventionsByStudyResponse() {
-        return new GetNumberOfConventionsByStudyResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsFromCodUnivResponse }
-     * 
-     */
-    public GetConventionsFromCodUnivResponse createGetConventionsFromCodUnivResponse() {
-        return new GetConventionsFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetContactEntrepriseAvecCompteFromMailAndIdStructure }
-     * 
-     */
-    public GetContactEntrepriseAvecCompteFromMailAndIdStructure createGetContactEntrepriseAvecCompteFromMailAndIdStructure() {
-        return new GetContactEntrepriseAvecCompteFromMailAndIdStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetConfidentialite }
-     * 
-     */
-    public GetConfidentialite createGetConfidentialite() {
-        return new GetConfidentialite();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreGestionListResponse }
-     * 
-     */
-    public GetCentreGestionListResponse createGetCentreGestionListResponse() {
-        return new GetCentreGestionListResponse();
-    }
-
-    /**
-     * Create an instance of {@link AffectationDTO }
-     * 
-     */
-    public AffectationDTO createAffectationDTO() {
-        return new AffectationDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParEnseignantTuteur }
-     * 
-     */
-    public GetTotalConventionsParEnseignantTuteur createGetTotalConventionsParEnseignantTuteur() {
-        return new GetTotalConventionsParEnseignantTuteur();
-    }
-
-    /**
-     * Create an instance of {@link GetNiveauxFormationResponse }
-     * 
-     */
-    public GetNiveauxFormationResponse createGetNiveauxFormationResponse() {
-        return new GetNiveauxFormationResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAffectationFromCodUnivResponse }
-     * 
-     */
-    public GetAffectationFromCodUnivResponse createGetAffectationFromCodUnivResponse() {
-        return new GetAffectationFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestionFromIdAndCentreResponse }
-     * 
-     */
-    public GetPersonnelCentreGestionFromIdAndCentreResponse createGetPersonnelCentreGestionFromIdAndCentreResponse() {
-        return new GetPersonnelCentreGestionFromIdAndCentreResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionFromId }
-     * 
-     */
-    public GetConventionFromId createGetConventionFromId() {
-        return new GetConventionFromId();
-    }
-
-    /**
-     * Create an instance of {@link DeleteStructure }
-     * 
-     */
-    public DeleteStructure createDeleteStructure() {
-        return new DeleteStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndNbDaysPerWeekResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndNbDaysPerWeekResponse createGetNumberOfConventionsByStepAndNbDaysPerWeekResponse() {
-        return new GetNumberOfConventionsByStepAndNbDaysPerWeekResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteTicketStructureResponse }
-     * 
-     */
-    public DeleteTicketStructureResponse createDeleteTicketStructureResponse() {
-        return new DeleteTicketStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link StatutJuridiqueDTO }
-     * 
-     */
-    public StatutJuridiqueDTO createStatutJuridiqueDTO() {
-        return new StatutJuridiqueDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetCaisseRegimesResponse }
-     * 
-     */
-    public GetCaisseRegimesResponse createGetCaisseRegimesResponse() {
-        return new GetCaisseRegimesResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParTypeResponse }
-     * 
-     */
-    public GetTotalConventionsParTypeResponse createGetTotalConventionsParTypeResponse() {
-        return new GetTotalConventionsParTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestion }
-     * 
-     */
-    public GetPersonnelCentreGestion createGetPersonnelCentreGestion() {
-        return new GetPersonnelCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromAdresseResponse }
-     * 
-     */
-    public GetStructuresFromAdresseResponse createGetStructuresFromAdresseResponse() {
-        return new GetStructuresFromAdresseResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateConventionResponse }
-     * 
-     */
-    public UpdateConventionResponse createUpdateConventionResponse() {
-        return new UpdateConventionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTempsTravail }
-     * 
-     */
-    public GetTempsTravail createGetTempsTravail() {
-        return new GetTempsTravail();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndWorkDuration }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndWorkDuration createGetNumberOfConventionsByStepAndWorkDuration() {
-        return new GetNumberOfConventionsByStepAndWorkDuration();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromRaisonSocialeEtPaysResponse }
-     * 
-     */
-    public GetStructuresFromRaisonSocialeEtPaysResponse createGetStructuresFromRaisonSocialeEtPaysResponse() {
-        return new GetStructuresFromRaisonSocialeEtPaysResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByStructureSizeResponse }
-     * 
-     */
-    public GetNumberOfOffersByStructureSizeResponse createGetNumberOfOffersByStructureSizeResponse() {
-        return new GetNumberOfOffersByStructureSizeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsFromCriteres }
-     * 
-     */
-    public GetConventionsFromCriteres createGetConventionsFromCriteres() {
-        return new GetConventionsFromCriteres();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreFromCritereResponse }
-     * 
-     */
-    public GetCentreFromCritereResponse createGetCentreFromCritereResponse() {
-        return new GetCentreFromCritereResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreEntreprise }
-     * 
-     */
-    public GetCentreEntreprise createGetCentreEntreprise() {
-        return new GetCentreEntreprise();
-    }
-
-    /**
-     * Create an instance of {@link AddEtapeResponse }
-     * 
-     */
-    public AddEtapeResponse createAddEtapeResponse() {
-        return new AddEtapeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEffectifsResponse }
-     * 
-     */
-    public GetEffectifsResponse createGetEffectifsResponse() {
-        return new GetEffectifsResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdatePersonnelCentreGestion }
-     * 
-     */
-    public UpdatePersonnelCentreGestion createUpdatePersonnelCentreGestion() {
-        return new UpdatePersonnelCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndActivity }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndActivity createGetNumberOfConventionsByStepAndActivity() {
-        return new GetNumberOfConventionsByStepAndActivity();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreGestionFromNomCentre }
-     * 
-     */
-    public GetCentreGestionFromNomCentre createGetCentreGestionFromNomCentre() {
-        return new GetCentreGestionFromNomCentre();
-    }
-
-    /**
-     * Create an instance of {@link GetServiceFromIdContact }
-     * 
-     */
-    public GetServiceFromIdContact createGetServiceFromIdContact() {
-        return new GetServiceFromIdContact();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAdminStructureResponse }
-     * 
-     */
-    public UpdateAdminStructureResponse createUpdateAdminStructureResponse() {
-        return new UpdateAdminStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrsFromCodUniv }
-     * 
-     */
-    public GetUfrsFromCodUniv createGetUfrsFromCodUniv() {
-        return new GetUfrsFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetAccordFromIdStructureResponse }
-     * 
-     */
-    public GetAccordFromIdStructureResponse createGetAccordFromIdStructureResponse() {
-        return new GetAccordFromIdStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructureFromContactMailEntrepriseAvecCompte }
-     * 
-     */
-    public GetStructureFromContactMailEntrepriseAvecCompte createGetStructureFromContactMailEntrepriseAvecCompte() {
-        return new GetStructureFromContactMailEntrepriseAvecCompte();
-    }
-
-    /**
-     * Create an instance of {@link AdminStructureDTO }
-     * 
-     */
-    public AdminStructureDTO createAdminStructureDTO() {
-        return new AdminStructureDTO();
-    }
-
-    /**
-     * Create an instance of {@link PersonalAlreadyExistingForCentreException }
-     * 
-     */
-    public PersonalAlreadyExistingForCentreException createPersonalAlreadyExistingForCentreException() {
-        return new PersonalAlreadyExistingForCentreException();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsEtudiantFromCodUniv }
-     * 
-     */
-    public GetConventionsEtudiantFromCodUniv createGetConventionsEtudiantFromCodUniv() {
-        return new GetConventionsEtudiantFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetCodeUFRFromCodeEtapeFromCodUniv }
-     * 
-     */
-    public GetCodeUFRFromCodeEtapeFromCodUniv createGetCodeUFRFromCodeEtapeFromCodUniv() {
-        return new GetCodeUFRFromCodeEtapeFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreDroitEcriture }
-     * 
-     */
-    public GetCentreDroitEcriture createGetCentreDroitEcriture() {
-        return new GetCentreDroitEcriture();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndTheme }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndTheme createGetNumberOfConventionsByDepartmentAndTheme() {
-        return new GetNumberOfConventionsByDepartmentAndTheme();
+    public CiviliteDTO createCiviliteDTO() {
+        return new CiviliteDTO();
     }
 
     /**
@@ -2095,283 +728,139 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetEtudiantFromId }
+     * Create an instance of {@link UpdateServiceInfosAJourResponse }
      * 
      */
-    public GetEtudiantFromId createGetEtudiantFromId() {
-        return new GetEtudiantFromId();
+    public UpdateServiceInfosAJourResponse createUpdateServiceInfosAJourResponse() {
+        return new UpdateServiceInfosAJourResponse();
     }
 
     /**
-     * Create an instance of {@link GetNombreAffectation }
+     * Create an instance of {@link GetTypesOffre }
      * 
      */
-    public GetNombreAffectation createGetNombreAffectation() {
-        return new GetNombreAffectation();
+    public GetTypesOffre createGetTypesOffre() {
+        return new GetTypesOffre();
     }
 
     /**
-     * Create an instance of {@link GetUfrsFromIdsCentreGestionFromCodUniv }
+     * Create an instance of {@link AddCentreGestion }
      * 
      */
-    public GetUfrsFromIdsCentreGestionFromCodUniv createGetUfrsFromIdsCentreGestionFromCodUniv() {
-        return new GetUfrsFromIdsCentreGestionFromCodUniv();
+    public AddCentreGestion createAddCentreGestion() {
+        return new AddCentreGestion();
     }
 
     /**
-     * Create an instance of {@link GetEtapeFromIdResponse }
+     * Create an instance of {@link GetNumberOfConventionsByStepAndWorkDurationResponse }
      * 
      */
-    public GetEtapeFromIdResponse createGetEtapeFromIdResponse() {
-        return new GetEtapeFromIdResponse();
+    public GetNumberOfConventionsByStepAndWorkDurationResponse createGetNumberOfConventionsByStepAndWorkDurationResponse() {
+        return new GetNumberOfConventionsByStepAndWorkDurationResponse();
     }
 
     /**
-     * Create an instance of {@link AddAvenantResponse }
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructure }
      * 
      */
-    public AddAvenantResponse createAddAvenantResponse() {
-        return new AddAvenantResponse();
+    public GetNumberOfConventionsByStudyAndStructure createGetNumberOfConventionsByStudyAndStructure() {
+        return new GetNumberOfConventionsByStudyAndStructure();
     }
 
     /**
-     * Create an instance of {@link PaysDTO }
+     * Create an instance of {@link FapN3DTO }
      * 
      */
-    public PaysDTO createPaysDTO() {
-        return new PaysDTO();
+    public FapN3DTO createFapN3DTO() {
+        return new FapN3DTO();
     }
 
     /**
-     * Create an instance of {@link StatisticItemDTO }
+     * Create an instance of {@link GetTicketStructureValideResponse }
      * 
      */
-    public StatisticItemDTO createStatisticItemDTO() {
-        return new StatisticItemDTO();
+    public GetTicketStructureValideResponse createGetTicketStructureValideResponse() {
+        return new GetTicketStructureValideResponse();
     }
 
     /**
-     * Create an instance of {@link UpdateServiceInfosAJour }
+     * Create an instance of {@link GetEtudiantFromIdResponse }
      * 
      */
-    public UpdateServiceInfosAJour createUpdateServiceInfosAJour() {
-        return new UpdateServiceInfosAJour();
+    public GetEtudiantFromIdResponse createGetEtudiantFromIdResponse() {
+        return new GetEtudiantFromIdResponse();
     }
 
     /**
-     * Create an instance of {@link AddAvenant }
+     * Create an instance of {@link GetAssurancesResponse }
      * 
      */
-    public AddAvenant createAddAvenant() {
-        return new AddAvenant();
+    public GetAssurancesResponse createGetAssurancesResponse() {
+        return new GetAssurancesResponse();
     }
 
     /**
-     * Create an instance of {@link GetStructuresAvecAccordValidesFromRaisonSocialeResponse }
+     * Create an instance of {@link GetNumberOfConventionsByStep }
      * 
      */
-    public GetStructuresAvecAccordValidesFromRaisonSocialeResponse createGetStructuresAvecAccordValidesFromRaisonSocialeResponse() {
-        return new GetStructuresAvecAccordValidesFromRaisonSocialeResponse();
+    public GetNumberOfConventionsByStep createGetNumberOfConventionsByStep() {
+        return new GetNumberOfConventionsByStep();
     }
 
     /**
-     * Create an instance of {@link GetTotalConventionsParDepLieuStageResponse }
+     * Create an instance of {@link DeleteContact }
      * 
      */
-    public GetTotalConventionsParDepLieuStageResponse createGetTotalConventionsParDepLieuStageResponse() {
-        return new GetTotalConventionsParDepLieuStageResponse();
+    public DeleteContact createDeleteContact() {
+        return new DeleteContact();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfOffersByStructureDepResponse }
+     * Create an instance of {@link GetOffreDiffusionFromIdOffreResponse }
      * 
      */
-    public GetNumberOfOffersByStructureDepResponse createGetNumberOfOffersByStructureDepResponse() {
-        return new GetNumberOfOffersByStructureDepResponse();
+    public GetOffreDiffusionFromIdOffreResponse createGetOffreDiffusionFromIdOffreResponse() {
+        return new GetOffreDiffusionFromIdOffreResponse();
     }
 
     /**
-     * Create an instance of {@link GetTotalConventionsParType }
+     * Create an instance of {@link GetNafN5FromCodeNafN1Response }
      * 
      */
-    public GetTotalConventionsParType createGetTotalConventionsParType() {
-        return new GetTotalConventionsParType();
+    public GetNafN5FromCodeNafN1Response createGetNafN5FromCodeNafN1Response() {
+        return new GetNafN5FromCodeNafN1Response();
     }
 
     /**
-     * Create an instance of {@link GetPays }
+     * Create an instance of {@link GetNumberOfOffersByStructureDep }
      * 
      */
-    public GetPays createGetPays() {
-        return new GetPays();
+    public GetNumberOfOffersByStructureDep createGetNumberOfOffersByStructureDep() {
+        return new GetNumberOfOffersByStructureDep();
     }
 
     /**
-     * Create an instance of {@link NiveauCentreDTO }
+     * Create an instance of {@link GetUfrsResponse }
      * 
      */
-    public NiveauCentreDTO createNiveauCentreDTO() {
-        return new NiveauCentreDTO();
+    public GetUfrsResponse createGetUfrsResponse() {
+        return new GetUfrsResponse();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndTeacherGuide }
+     * Create an instance of {@link GetEnseignantsFromCodUnivResponse }
      * 
      */
-    public GetNumberOfConventionsByStepAndTeacherGuide createGetNumberOfConventionsByStepAndTeacherGuide() {
-        return new GetNumberOfConventionsByStepAndTeacherGuide();
+    public GetEnseignantsFromCodUnivResponse createGetEnseignantsFromCodUnivResponse() {
+        return new GetEnseignantsFromCodUnivResponse();
     }
 
     /**
-     * Create an instance of {@link UniteGratificationDTO }
+     * Create an instance of {@link GetNumberOfOffersByLevel }
      * 
      */
-    public UniteGratificationDTO createUniteGratificationDTO() {
-        return new UniteGratificationDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreFromCritere }
-     * 
-     */
-    public GetCentreFromCritere createGetCentreFromCritere() {
-        return new GetCentreFromCritere();
-    }
-
-    /**
-     * Create an instance of {@link GetAffectationFromCodeAffectationResponse }
-     * 
-     */
-    public GetAffectationFromCodeAffectationResponse createGetAffectationFromCodeAffectationResponse() {
-        return new GetAffectationFromCodeAffectationResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStatutsJuridiques }
-     * 
-     */
-    public GetStatutsJuridiques createGetStatutsJuridiques() {
-        return new GetStatutsJuridiques();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreConventionByCentreGestion }
-     * 
-     */
-    public GetNombreConventionByCentreGestion createGetNombreConventionByCentreGestion() {
-        return new GetNombreConventionByCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndActivity }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndActivity createGetNumberOfConventionsByDepartmentAndActivity() {
-        return new GetNumberOfConventionsByDepartmentAndActivity();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByStructureResponse }
-     * 
-     */
-    public GetNumberOfOffersByStructureResponse createGetNumberOfOffersByStructureResponse() {
-        return new GetNumberOfOffersByStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEtudiantsResponse }
-     * 
-     */
-    public GetEtudiantsResponse createGetEtudiantsResponse() {
-        return new GetEtudiantsResponse();
-    }
-
-    /**
-     * Create an instance of {@link FapN2DTO }
-     * 
-     */
-    public FapN2DTO createFapN2DTO() {
-        return new FapN2DTO();
-    }
-
-    /**
-     * Create an instance of {@link GetContrats }
-     * 
-     */
-    public GetContrats createGetContrats() {
-        return new GetContrats();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByType }
-     * 
-     */
-    public GetNumberOfOffersByType createGetNumberOfOffersByType() {
-        return new GetNumberOfOffersByType();
-    }
-
-    /**
-     * Create an instance of {@link NomenclatureIdEnfantDTO }
-     * 
-     */
-    public NomenclatureIdEnfantDTO createNomenclatureIdEnfantDTO() {
-        return new NomenclatureIdEnfantDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureTypeResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndStructureTypeResponse createGetNumberOfConventionsByStepAndStructureTypeResponse() {
-        return new GetNumberOfConventionsByStepAndStructureTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndServiceCountryResponse }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndServiceCountryResponse createGetNumberOfConventionsByDepartmentAndServiceCountryResponse() {
-        return new GetNumberOfConventionsByDepartmentAndServiceCountryResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetServiceFromIdContactResponse }
-     * 
-     */
-    public GetServiceFromIdContactResponse createGetServiceFromIdContactResponse() {
-        return new GetServiceFromIdContactResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAvenant }
-     * 
-     */
-    public UpdateAvenant createUpdateAvenant() {
-        return new UpdateAvenant();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrFromIdResponse }
-     * 
-     */
-    public GetUfrFromIdResponse createGetUfrFromIdResponse() {
-        return new GetUfrFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCaisseRegimes }
-     * 
-     */
-    public GetCaisseRegimes createGetCaisseRegimes() {
-        return new GetCaisseRegimes();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrsFromIdsCentreGestion }
-     * 
-     */
-    public GetUfrsFromIdsCentreGestion createGetUfrsFromIdsCentreGestion() {
-        return new GetUfrsFromIdsCentreGestion();
+    public GetNumberOfOffersByLevel createGetNumberOfOffersByLevel() {
+        return new GetNumberOfOffersByLevel();
     }
 
     /**
@@ -2383,139 +872,123 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeleteOffreDiffusionFromIdResponse }
+     * Create an instance of {@link AddPersonnelCentreGestion }
      * 
      */
-    public DeleteOffreDiffusionFromIdResponse createDeleteOffreDiffusionFromIdResponse() {
-        return new DeleteOffreDiffusionFromIdResponse();
+    public AddPersonnelCentreGestion createAddPersonnelCentreGestion() {
+        return new AddPersonnelCentreGestion();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndIndemnity }
+     * Create an instance of {@link UpdateConventionResponse }
      * 
      */
-    public GetNumberOfConventionsByDepartmentAndIndemnity createGetNumberOfConventionsByDepartmentAndIndemnity() {
-        return new GetNumberOfConventionsByDepartmentAndIndemnity();
+    public UpdateConventionResponse createUpdateConventionResponse() {
+        return new UpdateConventionResponse();
     }
 
     /**
-     * Create an instance of {@link UpdateRejetOffre }
+     * Create an instance of {@link GetFapQualificationsSimplifiees }
      * 
      */
-    public UpdateRejetOffre createUpdateRejetOffre() {
-        return new UpdateRejetOffre();
+    public GetFapQualificationsSimplifiees createGetFapQualificationsSimplifiees() {
+        return new GetFapQualificationsSimplifiees();
     }
 
     /**
-     * Create an instance of {@link GetFapQualificationsResponse }
+     * Create an instance of {@link GetConventionsFromCriteres }
      * 
      */
-    public GetFapQualificationsResponse createGetFapQualificationsResponse() {
-        return new GetFapQualificationsResponse();
+    public GetConventionsFromCriteres createGetConventionsFromCriteres() {
+        return new GetConventionsFromCriteres();
     }
 
     /**
-     * Create an instance of {@link GetContactFromIdResponse }
+     * Create an instance of {@link GetStructuresFromRaisonSocialeResponse }
      * 
      */
-    public GetContactFromIdResponse createGetContactFromIdResponse() {
-        return new GetContactFromIdResponse();
+    public GetStructuresFromRaisonSocialeResponse createGetStructuresFromRaisonSocialeResponse() {
+        return new GetStructuresFromRaisonSocialeResponse();
     }
 
     /**
-     * Create an instance of {@link GetTotalConventionsParTpsDeTravailResponse }
+     * Create an instance of {@link UpdateCentreConventionByEtapeCodUnivResponse }
      * 
      */
-    public GetTotalConventionsParTpsDeTravailResponse createGetTotalConventionsParTpsDeTravailResponse() {
-        return new GetTotalConventionsParTpsDeTravailResponse();
+    public UpdateCentreConventionByEtapeCodUnivResponse createUpdateCentreConventionByEtapeCodUnivResponse() {
+        return new UpdateCentreConventionByEtapeCodUnivResponse();
     }
 
     /**
-     * Create an instance of {@link GetNombreContactByCentreGestion }
+     * Create an instance of {@link GetTotalConventionsParIndemniteResponse }
      * 
      */
-    public GetNombreContactByCentreGestion createGetNombreContactByCentreGestion() {
-        return new GetNombreContactByCentreGestion();
+    public GetTotalConventionsParIndemniteResponse createGetTotalConventionsParIndemniteResponse() {
+        return new GetTotalConventionsParIndemniteResponse();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndThemeResponse }
+     * Create an instance of {@link GetTotalConventionsParTpsDeTravail }
      * 
      */
-    public GetNumberOfConventionsByStepAndThemeResponse createGetNumberOfConventionsByStepAndThemeResponse() {
-        return new GetNumberOfConventionsByStepAndThemeResponse();
+    public GetTotalConventionsParTpsDeTravail createGetTotalConventionsParTpsDeTravail() {
+        return new GetTotalConventionsParTpsDeTravail();
     }
 
     /**
-     * Create an instance of {@link UpdateDiffusionOffre }
+     * Create an instance of {@link UpdateService }
      * 
      */
-    public UpdateDiffusionOffre createUpdateDiffusionOffre() {
-        return new UpdateDiffusionOffre();
+    public UpdateService createUpdateService() {
+        return new UpdateService();
     }
 
     /**
-     * Create an instance of {@link GetTotalConventionsParStructure }
+     * Create an instance of {@link UpdateAvenant }
      * 
      */
-    public GetTotalConventionsParStructure createGetTotalConventionsParStructure() {
-        return new GetTotalConventionsParStructure();
+    public UpdateAvenant createUpdateAvenant() {
+        return new UpdateAvenant();
     }
 
     /**
-     * Create an instance of {@link CritereRechercheStructureAncienDTO }
+     * Create an instance of {@link GetDureeDiffusion }
      * 
      */
-    public CritereRechercheStructureAncienDTO createCritereRechercheStructureAncienDTO() {
-        return new CritereRechercheStructureAncienDTO();
+    public GetDureeDiffusion createGetDureeDiffusion() {
+        return new GetDureeDiffusion();
     }
 
     /**
-     * Create an instance of {@link GetNombrePersonnelCentreGestionResponse }
+     * Create an instance of {@link UpdateCentreConventionByEtapeResponse }
      * 
      */
-    public GetNombrePersonnelCentreGestionResponse createGetNombrePersonnelCentreGestionResponse() {
-        return new GetNombrePersonnelCentreGestionResponse();
+    public UpdateCentreConventionByEtapeResponse createUpdateCentreConventionByEtapeResponse() {
+        return new UpdateCentreConventionByEtapeResponse();
     }
 
     /**
-     * Create an instance of {@link AdresseDTO }
+     * Create an instance of {@link GetNumberOfOffersByFunctionResponse }
      * 
      */
-    public AdresseDTO createAdresseDTO() {
-        return new AdresseDTO();
+    public GetNumberOfOffersByFunctionResponse createGetNumberOfOffersByFunctionResponse() {
+        return new GetNumberOfOffersByFunctionResponse();
     }
 
     /**
-     * Create an instance of {@link NafN5DTO }
+     * Create an instance of {@link GetFapN3 }
      * 
      */
-    public NafN5DTO createNafN5DTO() {
-        return new NafN5DTO();
+    public GetFapN3 createGetFapN3() {
+        return new GetFapN3();
     }
 
     /**
-     * Create an instance of {@link DeleteAccord }
+     * Create an instance of {@link GetFapN1Response }
      * 
      */
-    public DeleteAccord createDeleteAccord() {
-        return new DeleteAccord();
-    }
-
-    /**
-     * Create an instance of {@link UnvalidNumSiretException }
-     * 
-     */
-    public UnvalidNumSiretException createUnvalidNumSiretException() {
-        return new UnvalidNumSiretException();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsEtudiant }
-     * 
-     */
-    public GetConventionsEtudiant createGetConventionsEtudiant() {
-        return new GetConventionsEtudiant();
+    public GetFapN1Response createGetFapN1Response() {
+        return new GetFapN1Response();
     }
 
     /**
@@ -2527,11 +1000,683 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link NafN1DTO }
+     * 
+     */
+    public NafN1DTO createNafN1DTO() {
+        return new NafN1DTO();
+    }
+
+    /**
+     * Create an instance of {@link GetStructureFromIdService }
+     * 
+     */
+    public GetStructureFromIdService createGetStructureFromIdService() {
+        return new GetStructureFromIdService();
+    }
+
+    /**
+     * Create an instance of {@link GetNafN5FromCodeNafN5Response }
+     * 
+     */
+    public GetNafN5FromCodeNafN5Response createGetNafN5FromCodeNafN5Response() {
+        return new GetNafN5FromCodeNafN5Response();
+    }
+
+    /**
+     * Create an instance of {@link GetCriteresParCategorieEtParNiveauResponse }
+     * 
+     */
+    public GetCriteresParCategorieEtParNiveauResponse createGetCriteresParCategorieEtParNiveauResponse() {
+        return new GetCriteresParCategorieEtParNiveauResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddConvention }
+     * 
+     */
+    public AddConvention createAddConvention() {
+        return new AddConvention();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresAvecAccordValidesFromRaisonSocialeResponse }
+     * 
+     */
+    public GetStructuresAvecAccordValidesFromRaisonSocialeResponse createGetStructuresAvecAccordValidesFromRaisonSocialeResponse() {
+        return new GetStructuresAvecAccordValidesFromRaisonSocialeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetLangueConventions }
+     * 
+     */
+    public GetLangueConventions createGetLangueConventions() {
+        return new GetLangueConventions();
+    }
+
+    /**
+     * Create an instance of {@link NatureTravailDTO }
+     * 
+     */
+    public NatureTravailDTO createNatureTravailDTO() {
+        return new NatureTravailDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetEtapeFromIdResponse }
+     * 
+     */
+    public GetEtapeFromIdResponse createGetEtapeFromIdResponse() {
+        return new GetEtapeFromIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateServiceInfosAJour }
+     * 
+     */
+    public UpdateServiceInfosAJour createUpdateServiceInfosAJour() {
+        return new UpdateServiceInfosAJour();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByCandidateFound }
+     * 
+     */
+    public GetNumberOfOffersByCandidateFound createGetNumberOfOffersByCandidateFound() {
+        return new GetNumberOfOffersByCandidateFound();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParOrigineStageResponse }
+     * 
+     */
+    public GetTotalConventionsParOrigineStageResponse createGetTotalConventionsParOrigineStageResponse() {
+        return new GetTotalConventionsParOrigineStageResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndServiceDep }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndServiceDep createGetNumberOfConventionsByStepAndServiceDep() {
+        return new GetNumberOfConventionsByStepAndServiceDep();
+    }
+
+    /**
+     * Create an instance of {@link AddCentreGestionSuperviseur }
+     * 
+     */
+    public AddCentreGestionSuperviseur createAddCentreGestionSuperviseur() {
+        return new AddCentreGestionSuperviseur();
+    }
+
+    /**
+     * Create an instance of {@link GetAccordFromIdStructure }
+     * 
+     */
+    public GetAccordFromIdStructure createGetAccordFromIdStructure() {
+        return new GetAccordFromIdStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndServiceDepResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndServiceDepResponse createGetNumberOfConventionsByStudyAndServiceDepResponse() {
+        return new GetNumberOfConventionsByStudyAndServiceDepResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsFromCodUnivResponse }
+     * 
+     */
+    public GetConventionsFromCodUnivResponse createGetConventionsFromCodUnivResponse() {
+        return new GetConventionsFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAdminStructureFromEppn }
+     * 
+     */
+    public GetAdminStructureFromEppn createGetAdminStructureFromEppn() {
+        return new GetAdminStructureFromEppn();
+    }
+
+    /**
+     * Create an instance of {@link GetCodeUFRFromCodeEtapeFromCodUnivResponse }
+     * 
+     */
+    public GetCodeUFRFromCodeEtapeFromCodUnivResponse createGetCodeUFRFromCodeEtapeFromCodUnivResponse() {
+        return new GetCodeUFRFromCodeEtapeFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddAffectationResponse }
+     * 
+     */
+    public AddAffectationResponse createAddAffectationResponse() {
+        return new AddAffectationResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreCentreGestionResponse }
+     * 
+     */
+    public GetNombreCentreGestionResponse createGetNombreCentreGestionResponse() {
+        return new GetNombreCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteOffreLogiqueResponse }
+     * 
+     */
+    public DeleteOffreLogiqueResponse createDeleteOffreLogiqueResponse() {
+        return new DeleteOffreLogiqueResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAdminStructureFromLoginResponse }
+     * 
+     */
+    public GetAdminStructureFromLoginResponse createGetAdminStructureFromLoginResponse() {
+        return new GetAdminStructureFromLoginResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUfrs }
+     * 
+     */
+    public GetUfrs createGetUfrs() {
+        return new GetUfrs();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCentreConventionByUfrCodUnivResponse }
+     * 
+     */
+    public UpdateCentreConventionByUfrCodUnivResponse createUpdateCentreConventionByUfrCodUnivResponse() {
+        return new UpdateCentreConventionByUfrCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link AffectationDTO }
+     * 
+     */
+    public AffectationDTO createAffectationDTO() {
+        return new AffectationDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetServiceFromIdContactResponse }
+     * 
+     */
+    public GetServiceFromIdContactResponse createGetServiceFromIdContactResponse() {
+        return new GetServiceFromIdContactResponse();
+    }
+
+    /**
+     * Create an instance of {@link CentreGestionDTO }
+     * 
+     */
+    public CentreGestionDTO createCentreGestionDTO() {
+        return new CentreGestionDTO();
+    }
+
+    /**
+     * Create an instance of {@link ContratOffreDTO }
+     * 
+     */
+    public ContratOffreDTO createContratOffreDTO() {
+        return new ContratOffreDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreFromUidFromCodUnivResponse }
+     * 
+     */
+    public GetCentreFromUidFromCodUnivResponse createGetCentreFromUidFromCodUnivResponse() {
+        return new GetCentreFromUidFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link UnvalidNumSiretException }
+     * 
+     */
+    public UnvalidNumSiretException createUnvalidNumSiretException() {
+        return new UnvalidNumSiretException();
+    }
+
+    /**
+     * Create an instance of {@link GetContactEntrepriseAvecCompteFromMailAndIdStructureResponse }
+     * 
+     */
+    public GetContactEntrepriseAvecCompteFromMailAndIdStructureResponse createGetContactEntrepriseAvecCompteFromMailAndIdStructureResponse() {
+        return new GetContactEntrepriseAvecCompteFromMailAndIdStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUfrsFromIdsCentreGestionFromCodUnivResponse }
+     * 
+     */
+    public GetUfrsFromIdsCentreGestionFromCodUnivResponse createGetUfrsFromIdsCentreGestionFromCodUnivResponse() {
+        return new GetUfrsFromIdsCentreGestionFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndWayToFindResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndWayToFindResponse createGetNumberOfConventionsByDepartmentAndWayToFindResponse() {
+        return new GetNumberOfConventionsByDepartmentAndWayToFindResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreDroitEcritureFromCodUniv }
+     * 
+     */
+    public GetCentreDroitEcritureFromCodUniv createGetCentreDroitEcritureFromCodUniv() {
+        return new GetCentreDroitEcritureFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetEtudiantsResponse }
+     * 
+     */
+    public GetEtudiantsResponse createGetEtudiantsResponse() {
+        return new GetEtudiantsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepResponse createGetNumberOfConventionsByStepResponse() {
+        return new GetNumberOfConventionsByStepResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByStructureTypeResponse }
+     * 
+     */
+    public GetNumberOfOffersByStructureTypeResponse createGetNumberOfOffersByStructureTypeResponse() {
+        return new GetNumberOfOffersByStructureTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link TempsTravailDTO }
+     * 
+     */
+    public TempsTravailDTO createTempsTravailDTO() {
+        return new TempsTravailDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreGestionListResponse }
+     * 
+     */
+    public GetCentreGestionListResponse createGetCentreGestionListResponse() {
+        return new GetCentreGestionListResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreFromUidResponse }
+     * 
+     */
+    public GetCentreFromUidResponse createGetCentreFromUidResponse() {
+        return new GetCentreFromUidResponse();
+    }
+
+    /**
+     * Create an instance of {@link StructureNumSiretException }
+     * 
+     */
+    public StructureNumSiretException createStructureNumSiretException() {
+        return new StructureNumSiretException();
+    }
+
+    /**
+     * Create an instance of {@link CountOffreADiffuser }
+     * 
+     */
+    public CountOffreADiffuser createCountOffreADiffuser() {
+        return new CountOffreADiffuser();
+    }
+
+    /**
+     * Create an instance of {@link AddService }
+     * 
+     */
+    public AddService createAddService() {
+        return new AddService();
+    }
+
+    /**
      * Create an instance of {@link GetNumberOfOffersByFormationResponse }
      * 
      */
     public GetNumberOfOffersByFormationResponse createGetNumberOfOffersByFormationResponse() {
         return new GetNumberOfOffersByFormationResponse();
+    }
+
+    /**
+     * Create an instance of {@link EtapeDTO }
+     * 
+     */
+    public EtapeDTO createEtapeDTO() {
+        return new EtapeDTO();
+    }
+
+    /**
+     * Create an instance of {@link DataDeleteException }
+     * 
+     */
+    public DataDeleteException createDataDeleteException() {
+        return new DataDeleteException();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByStructureCountry }
+     * 
+     */
+    public GetNumberOfOffersByStructureCountry createGetNumberOfOffersByStructureCountry() {
+        return new GetNumberOfOffersByStructureCountry();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndServiceCountry }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndServiceCountry createGetNumberOfConventionsByStudyAndServiceCountry() {
+        return new GetNumberOfConventionsByStudyAndServiceCountry();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndNbDaysPerWeekResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndNbDaysPerWeekResponse createGetNumberOfConventionsByStepAndNbDaysPerWeekResponse() {
+        return new GetNumberOfConventionsByStepAndNbDaysPerWeekResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTypeConventions }
+     * 
+     */
+    public GetTypeConventions createGetTypeConventions() {
+        return new GetTypeConventions();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndServiceCountry }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndServiceCountry createGetNumberOfConventionsByStepAndServiceCountry() {
+        return new GetNumberOfConventionsByStepAndServiceCountry();
+    }
+
+    /**
+     * Create an instance of {@link UpdateOffrePourvueResponse }
+     * 
+     */
+    public UpdateOffrePourvueResponse createUpdateOffrePourvueResponse() {
+        return new UpdateOffrePourvueResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByLevelResponse }
+     * 
+     */
+    public GetNumberOfOffersByLevelResponse createGetNumberOfOffersByLevelResponse() {
+        return new GetNumberOfOffersByLevelResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCentreConventionByUfrResponse }
+     * 
+     */
+    public UpdateCentreConventionByUfrResponse createUpdateCentreConventionByUfrResponse() {
+        return new UpdateCentreConventionByUfrResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesOffresResponse }
+     * 
+     */
+    public GetAnneesOffresResponse createGetAnneesOffresResponse() {
+        return new GetAnneesOffresResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombrePersonnelCentreGestion }
+     * 
+     */
+    public GetNombrePersonnelCentreGestion createGetNombrePersonnelCentreGestion() {
+        return new GetNombrePersonnelCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetTypesStructure }
+     * 
+     */
+    public GetTypesStructure createGetTypesStructure() {
+        return new GetTypesStructure();
+    }
+
+    /**
+     * Create an instance of {@link AddEtudiantResponse }
+     * 
+     */
+    public AddEtudiantResponse createAddEtudiantResponse() {
+        return new AddEtudiantResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParDepLieuStageResponse }
+     * 
+     */
+    public GetTotalConventionsParDepLieuStageResponse createGetTotalConventionsParDepLieuStageResponse() {
+        return new GetTotalConventionsParDepLieuStageResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesConvention }
+     * 
+     */
+    public GetAnneesConvention createGetAnneesConvention() {
+        return new GetAnneesConvention();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndTeacherGuideResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndTeacherGuideResponse createGetNumberOfConventionsByStepAndTeacherGuideResponse() {
+        return new GetNumberOfConventionsByStepAndTeacherGuideResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByValidationResponse }
+     * 
+     */
+    public GetNumberOfOffersByValidationResponse createGetNumberOfOffersByValidationResponse() {
+        return new GetNumberOfOffersByValidationResponse();
+    }
+
+    /**
+     * Create an instance of {@link PaysDTO }
+     * 
+     */
+    public PaysDTO createPaysDTO() {
+        return new PaysDTO();
+    }
+
+    /**
+     * Create an instance of {@link CountOffreADiffuserResponse }
+     * 
+     */
+    public CountOffreADiffuserResponse createCountOffreADiffuserResponse() {
+        return new CountOffreADiffuserResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructureSize }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndStructureSize createGetNumberOfConventionsByDepartmentAndStructureSize() {
+        return new GetNumberOfConventionsByDepartmentAndStructureSize();
+    }
+
+    /**
+     * Create an instance of {@link GetInterlocuteurResponse }
+     * 
+     */
+    public GetInterlocuteurResponse createGetInterlocuteurResponse() {
+        return new GetInterlocuteurResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCompteContact }
+     * 
+     */
+    public UpdateCompteContact createUpdateCompteContact() {
+        return new UpdateCompteContact();
+    }
+
+    /**
+     * Create an instance of {@link GetAccordFromId }
+     * 
+     */
+    public GetAccordFromId createGetAccordFromId() {
+        return new GetAccordFromId();
+    }
+
+    /**
+     * Create an instance of {@link PersonalAlreadyExistingForCentreException }
+     * 
+     */
+    public PersonalAlreadyExistingForCentreException createPersonalAlreadyExistingForCentreException() {
+        return new PersonalAlreadyExistingForCentreException();
+    }
+
+    /**
+     * Create an instance of {@link AddContact }
+     * 
+     */
+    public AddContact createAddContact() {
+        return new AddContact();
+    }
+
+    /**
+     * Create an instance of {@link UpdateAdminStructureResponse }
+     * 
+     */
+    public UpdateAdminStructureResponse createUpdateAdminStructureResponse() {
+        return new UpdateAdminStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetFapN1 }
+     * 
+     */
+    public GetFapN1 createGetFapN1() {
+        return new GetFapN1();
+    }
+
+    /**
+     * Create an instance of {@link GetNatureTravails }
+     * 
+     */
+    public GetNatureTravails createGetNatureTravails() {
+        return new GetNatureTravails();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructureTypeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndStructureTypeResponse createGetNumberOfConventionsByDepartmentAndStructureTypeResponse() {
+        return new GetNumberOfConventionsByDepartmentAndStructureTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCentreGestionResponse }
+     * 
+     */
+    public UpdateCentreGestionResponse createUpdateCentreGestionResponse() {
+        return new UpdateCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionFromExport }
+     * 
+     */
+    public GetConventionFromExport createGetConventionFromExport() {
+        return new GetConventionFromExport();
+    }
+
+    /**
+     * Create an instance of {@link AddOffreDiffusionResponse }
+     * 
+     */
+    public AddOffreDiffusionResponse createAddOffreDiffusionResponse() {
+        return new AddOffreDiffusionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAccordsNonValidesResponse }
+     * 
+     */
+    public GetAccordsNonValidesResponse createGetAccordsNonValidesResponse() {
+        return new GetAccordsNonValidesResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndWorkDuration }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndWorkDuration createGetNumberOfConventionsByDepartmentAndWorkDuration() {
+        return new GetNumberOfConventionsByDepartmentAndWorkDuration();
+    }
+
+    /**
+     * Create an instance of {@link GetAffectationResponse }
+     * 
+     */
+    public GetAffectationResponse createGetAffectationResponse() {
+        return new GetAffectationResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParStructureTypeResponse }
+     * 
+     */
+    public GetTotalConventionsParStructureTypeResponse createGetTotalConventionsParStructureTypeResponse() {
+        return new GetTotalConventionsParStructureTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreConventionByCentreGestionFromCodUniv }
+     * 
+     */
+    public GetNombreConventionByCentreGestionFromCodUniv createGetNombreConventionByCentreGestionFromCodUniv() {
+        return new GetNombreConventionByCentreGestionFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetAccordFromIdContact }
+     * 
+     */
+    public GetAccordFromIdContact createGetAccordFromIdContact() {
+        return new GetAccordFromIdContact();
+    }
+
+    /**
+     * Create an instance of {@link GetContactFromId }
+     * 
+     */
+    public GetContactFromId createGetContactFromId() {
+        return new GetContactFromId();
     }
 
     /**
@@ -2551,1323 +1696,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AddService }
+     * Create an instance of {@link GetConventionsFromCodUniv }
      * 
      */
-    public AddService createAddService() {
-        return new AddService();
+    public GetConventionsFromCodUniv createGetConventionsFromCodUniv() {
+        return new GetConventionsFromCodUniv();
     }
 
     /**
-     * Create an instance of {@link GetServiceFromId }
+     * Create an instance of {@link GetNiveauxFormationResponse }
      * 
      */
-    public GetServiceFromId createGetServiceFromId() {
-        return new GetServiceFromId();
+    public GetNiveauxFormationResponse createGetNiveauxFormationResponse() {
+        return new GetNiveauxFormationResponse();
     }
 
     /**
-     * Create an instance of {@link GetOffresFromCriteres }
+     * Create an instance of {@link GetIndemnisations }
      * 
      */
-    public GetOffresFromCriteres createGetOffresFromCriteres() {
-        return new GetOffresFromCriteres();
+    public GetIndemnisations createGetIndemnisations() {
+        return new GetIndemnisations();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfOffersByValidation }
+     * Create an instance of {@link GetTotalConventionsParTpsDeTravailResponse }
      * 
      */
-    public GetNumberOfOffersByValidation createGetNumberOfOffersByValidation() {
-        return new GetNumberOfOffersByValidation();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndServiceCountry }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndServiceCountry createGetNumberOfConventionsByStepAndServiceCountry() {
-        return new GetNumberOfConventionsByStepAndServiceCountry();
-    }
-
-    /**
-     * Create an instance of {@link GetEtapesFromCodUniv }
-     * 
-     */
-    public GetEtapesFromCodUniv createGetEtapesFromCodUniv() {
-        return new GetEtapesFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link AdminStructureLoginEppnAlreadyUsedException }
-     * 
-     */
-    public AdminStructureLoginEppnAlreadyUsedException createAdminStructureLoginEppnAlreadyUsedException() {
-        return new AdminStructureLoginEppnAlreadyUsedException();
-    }
-
-    /**
-     * Create an instance of {@link GetContratsResponse }
-     * 
-     */
-    public GetContratsResponse createGetContratsResponse() {
-        return new GetContratsResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateServiceInfosAJourResponse }
-     * 
-     */
-    public UpdateServiceInfosAJourResponse createUpdateServiceInfosAJourResponse() {
-        return new UpdateServiceInfosAJourResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndServiceDepResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndServiceDepResponse createGetNumberOfConventionsByStepAndServiceDepResponse() {
-        return new GetNumberOfConventionsByStepAndServiceDepResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStructure }
-     * 
-     */
-    public UpdateStructure createUpdateStructure() {
-        return new UpdateStructure();
-    }
-
-    /**
-     * Create an instance of {@link AddAffectation }
-     * 
-     */
-    public AddAffectation createAddAffectation() {
-        return new AddAffectation();
-    }
-
-    /**
-     * Create an instance of {@link GetEtapesResponse }
-     * 
-     */
-    public GetEtapesResponse createGetEtapesResponse() {
-        return new GetEtapesResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParOrigineStage }
-     * 
-     */
-    public GetTotalConventionsParOrigineStage createGetTotalConventionsParOrigineStage() {
-        return new GetTotalConventionsParOrigineStage();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByActivityResponse }
-     * 
-     */
-    public GetNumberOfOffersByActivityResponse createGetNumberOfOffersByActivityResponse() {
-        return new GetNumberOfOffersByActivityResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParEnseignantTuteurResponse }
-     * 
-     */
-    public GetTotalConventionsParEnseignantTuteurResponse createGetTotalConventionsParEnseignantTuteurResponse() {
-        return new GetTotalConventionsParEnseignantTuteurResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestionListResponse }
-     * 
-     */
-    public GetPersonnelCentreGestionListResponse createGetPersonnelCentreGestionListResponse() {
-        return new GetPersonnelCentreGestionListResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndWorkDurationResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndWorkDurationResponse createGetNumberOfConventionsByStudyAndWorkDurationResponse() {
-        return new GetNumberOfConventionsByStudyAndWorkDurationResponse();
-    }
-
-    /**
-     * Create an instance of {@link AccordAlreadyExistingForContactException }
-     * 
-     */
-    public AccordAlreadyExistingForContactException createAccordAlreadyExistingForContactException() {
-        return new AccordAlreadyExistingForContactException();
-    }
-
-    /**
-     * Create an instance of {@link GetTypeConventions }
-     * 
-     */
-    public GetTypeConventions createGetTypeConventions() {
-        return new GetTypeConventions();
-    }
-
-    /**
-     * Create an instance of {@link GetEnseignantFromIdResponse }
-     * 
-     */
-    public GetEnseignantFromIdResponse createGetEnseignantFromIdResponse() {
-        return new GetEnseignantFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByLocalStudentResponse }
-     * 
-     */
-    public GetNumberOfOffersByLocalStudentResponse createGetNumberOfOffersByLocalStudentResponse() {
-        return new GetNumberOfOffersByLocalStudentResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateContactInfosAJourResponse }
-     * 
-     */
-    public UpdateContactInfosAJourResponse createUpdateContactInfosAJourResponse() {
-        return new UpdateContactInfosAJourResponse();
-    }
-
-    /**
-     * Create an instance of {@link AvenantDTO }
-     * 
-     */
-    public AvenantDTO createAvenantDTO() {
-        return new AvenantDTO();
-    }
-
-    /**
-     * Create an instance of {@link AddEtape }
-     * 
-     */
-    public AddEtape createAddEtape() {
-        return new AddEtape();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromFax }
-     * 
-     */
-    public GetStructuresFromFax createGetStructuresFromFax() {
-        return new GetStructuresFromFax();
-    }
-
-    /**
-     * Create an instance of {@link PersonnelCentreGestionDTO }
-     * 
-     */
-    public PersonnelCentreGestionDTO createPersonnelCentreGestionDTO() {
-        return new PersonnelCentreGestionDTO();
-    }
-
-    /**
-     * Create an instance of {@link DataAddException }
-     * 
-     */
-    public DataAddException createDataAddException() {
-        return new DataAddException();
-    }
-
-    /**
-     * Create an instance of {@link GetModeVersGratifications }
-     * 
-     */
-    public GetModeVersGratifications createGetModeVersGratifications() {
-        return new GetModeVersGratifications();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByStructureTypeResponse }
-     * 
-     */
-    public GetNumberOfOffersByStructureTypeResponse createGetNumberOfOffersByStructureTypeResponse() {
-        return new GetNumberOfOffersByStructureTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link ServiceDTO }
-     * 
-     */
-    public ServiceDTO createServiceDTO() {
-        return new ServiceDTO();
-    }
-
-    /**
-     * Create an instance of {@link DeleteEnseignant }
-     * 
-     */
-    public DeleteEnseignant createDeleteEnseignant() {
-        return new DeleteEnseignant();
-    }
-
-    /**
-     * Create an instance of {@link GetNafN5FromCodeNafN1 }
-     * 
-     */
-    public GetNafN5FromCodeNafN1 createGetNafN5FromCodeNafN1() {
-        return new GetNafN5FromCodeNafN1();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreConventionByEtapeCodUniv }
-     * 
-     */
-    public UpdateCentreConventionByEtapeCodUniv createUpdateCentreConventionByEtapeCodUniv() {
-        return new UpdateCentreConventionByEtapeCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetCodeUFRFromCodeEtape }
-     * 
-     */
-    public GetCodeUFRFromCodeEtape createGetCodeUFRFromCodeEtape() {
-        return new GetCodeUFRFromCodeEtape();
-    }
-
-    /**
-     * Create an instance of {@link OffreDTO }
-     * 
-     */
-    public OffreDTO createOffreDTO() {
-        return new OffreDTO();
-    }
-
-    /**
-     * Create an instance of {@link DeleteEtudiantResponse }
-     * 
-     */
-    public DeleteEtudiantResponse createDeleteEtudiantResponse() {
-        return new DeleteEtudiantResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructureFromId }
-     * 
-     */
-    public GetStructureFromId createGetStructureFromId() {
-        return new GetStructureFromId();
-    }
-
-    /**
-     * Create an instance of {@link UfrAlreadyExistingForCodeException }
-     * 
-     */
-    public UfrAlreadyExistingForCodeException createUfrAlreadyExistingForCodeException() {
-        return new UfrAlreadyExistingForCodeException();
-    }
-
-    /**
-     * Create an instance of {@link GetModeVersGratificationsResponse }
-     * 
-     */
-    public GetModeVersGratificationsResponse createGetModeVersGratificationsResponse() {
-        return new GetModeVersGratificationsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructureFromContactMailEntrepriseAvecCompteResponse }
-     * 
-     */
-    public GetStructureFromContactMailEntrepriseAvecCompteResponse createGetStructureFromContactMailEntrepriseAvecCompteResponse() {
-        return new GetStructureFromContactMailEntrepriseAvecCompteResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTypesStructureResponse }
-     * 
-     */
-    public GetTypesStructureResponse createGetTypesStructureResponse() {
-        return new GetTypesStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddTicketStructure }
-     * 
-     */
-    public AddTicketStructure createAddTicketStructure() {
-        return new AddTicketStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParTailleStructure }
-     * 
-     */
-    public GetTotalConventionsParTailleStructure createGetTotalConventionsParTailleStructure() {
-        return new GetTotalConventionsParTailleStructure();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStructureInfosAJour }
-     * 
-     */
-    public UpdateStructureInfosAJour createUpdateStructureInfosAJour() {
-        return new UpdateStructureInfosAJour();
-    }
-
-    /**
-     * Create an instance of {@link GetInterlocuteurResponse }
-     * 
-     */
-    public GetInterlocuteurResponse createGetInterlocuteurResponse() {
-        return new GetInterlocuteurResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddServiceResponse }
-     * 
-     */
-    public AddServiceResponse createAddServiceResponse() {
-        return new AddServiceResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddPersonnelCentreGestion }
-     * 
-     */
-    public AddPersonnelCentreGestion createAddPersonnelCentreGestion() {
-        return new AddPersonnelCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndTheme }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndTheme createGetNumberOfConventionsByStepAndTheme() {
-        return new GetNumberOfConventionsByStepAndTheme();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndServiceCountry }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndServiceCountry createGetNumberOfConventionsByStudyAndServiceCountry() {
-        return new GetNumberOfConventionsByStudyAndServiceCountry();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndActivityResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndActivityResponse createGetNumberOfConventionsByStudyAndActivityResponse() {
-        return new GetNumberOfConventionsByStudyAndActivityResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetContactFromLogin }
-     * 
-     */
-    public GetContactFromLogin createGetContactFromLogin() {
-        return new GetContactFromLogin();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructureType }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndStructureType createGetNumberOfConventionsByDepartmentAndStructureType() {
-        return new GetNumberOfConventionsByDepartmentAndStructureType();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStructureInfosAJourResponse }
-     * 
-     */
-    public UpdateStructureInfosAJourResponse createUpdateStructureInfosAJourResponse() {
-        return new UpdateStructureInfosAJourResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEtapesFromCodUnivResponse }
-     * 
-     */
-    public GetEtapesFromCodUnivResponse createGetEtapesFromCodUnivResponse() {
-        return new GetEtapesFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddAccord }
-     * 
-     */
-    public AddAccord createAddAccord() {
-        return new AddAccord();
-    }
-
-    /**
-     * Create an instance of {@link UpdateFichierResponse }
-     * 
-     */
-    public UpdateFichierResponse createUpdateFichierResponse() {
-        return new UpdateFichierResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreGestionSuperviseurResponse }
-     * 
-     */
-    public GetCentreGestionSuperviseurResponse createGetCentreGestionSuperviseurResponse() {
-        return new GetCentreGestionSuperviseurResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByStructureCountry }
-     * 
-     */
-    public GetNumberOfOffersByStructureCountry createGetNumberOfOffersByStructureCountry() {
-        return new GetNumberOfOffersByStructureCountry();
-    }
-
-    /**
-     * Create an instance of {@link GetCritereGestionFromIdCentreResponse }
-     * 
-     */
-    public GetCritereGestionFromIdCentreResponse createGetCritereGestionFromIdCentreResponse() {
-        return new GetCritereGestionFromIdCentreResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAffectationFromCodeAffectation }
-     * 
-     */
-    public GetAffectationFromCodeAffectation createGetAffectationFromCodeAffectation() {
-        return new GetAffectationFromCodeAffectation();
-    }
-
-    /**
-     * Create an instance of {@link GetServicesFromIdStructure }
-     * 
-     */
-    public GetServicesFromIdStructure createGetServicesFromIdStructure() {
-        return new GetServicesFromIdStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParTheme }
-     * 
-     */
-    public GetTotalConventionsParTheme createGetTotalConventionsParTheme() {
-        return new GetTotalConventionsParTheme();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByValidationResponse }
-     * 
-     */
-    public GetNumberOfOffersByValidationResponse createGetNumberOfOffersByValidationResponse() {
-        return new GetNumberOfOffersByValidationResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTicketStructureValide }
-     * 
-     */
-    public GetTicketStructureValide createGetTicketStructureValide() {
-        return new GetTicketStructureValide();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsFromCriteresResponse }
-     * 
-     */
-    public GetConventionsFromCriteresResponse createGetConventionsFromCriteresResponse() {
-        return new GetConventionsFromCriteresResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndStructureResponse createGetNumberOfConventionsByStepAndStructureResponse() {
-        return new GetNumberOfConventionsByStepAndStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link CountAccordAValider }
-     * 
-     */
-    public CountAccordAValider createCountAccordAValider() {
-        return new CountAccordAValider();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndNbDaysPerWeek }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndNbDaysPerWeek createGetNumberOfConventionsByDepartmentAndNbDaysPerWeek() {
-        return new GetNumberOfConventionsByDepartmentAndNbDaysPerWeek();
-    }
-
-    /**
-     * Create an instance of {@link ThemeDTO }
-     * 
-     */
-    public ThemeDTO createThemeDTO() {
-        return new ThemeDTO();
-    }
-
-    /**
-     * Create an instance of {@link UpdateContactInfosAJour }
-     * 
-     */
-    public UpdateContactInfosAJour createUpdateContactInfosAJour() {
-        return new UpdateContactInfosAJour();
-    }
-
-    /**
-     * Create an instance of {@link OrigineStageDTO }
-     * 
-     */
-    public OrigineStageDTO createOrigineStageDTO() {
-        return new OrigineStageDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestionFromNomResponse }
-     * 
-     */
-    public GetPersonnelCentreGestionFromNomResponse createGetPersonnelCentreGestionFromNomResponse() {
-        return new GetPersonnelCentreGestionFromNomResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureType }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndStructureType createGetNumberOfConventionsByStepAndStructureType() {
-        return new GetNumberOfConventionsByStepAndStructureType();
-    }
-
-    /**
-     * Create an instance of {@link GetAssurances }
-     * 
-     */
-    public GetAssurances createGetAssurances() {
-        return new GetAssurances();
-    }
-
-    /**
-     * Create an instance of {@link UpdateContact }
-     * 
-     */
-    public UpdateContact createUpdateContact() {
-        return new UpdateContact();
-    }
-
-    /**
-     * Create an instance of {@link EtudiantDTO }
-     * 
-     */
-    public EtudiantDTO createEtudiantDTO() {
-        return new EtudiantDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetEnseignantsFromCodUnivResponse }
-     * 
-     */
-    public GetEnseignantsFromCodUnivResponse createGetEnseignantsFromCodUnivResponse() {
-        return new GetEnseignantsFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link NafN1DTO }
-     * 
-     */
-    public NafN1DTO createNafN1DTO() {
-        return new NafN1DTO();
-    }
-
-    /**
-     * Create an instance of {@link GetAnneesConventionsResponse }
-     * 
-     */
-    public GetAnneesConventionsResponse createGetAnneesConventionsResponse() {
-        return new GetAnneesConventionsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreCentreGestion }
-     * 
-     */
-    public GetNombreCentreGestion createGetNombreCentreGestion() {
-        return new GetNombreCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link GetCritereGestionFromIdCentre }
-     * 
-     */
-    public GetCritereGestionFromIdCentre createGetCritereGestionFromIdCentre() {
-        return new GetCritereGestionFromIdCentre();
-    }
-
-    /**
-     * Create an instance of {@link GetConventions }
-     * 
-     */
-    public GetConventions createGetConventions() {
-        return new GetConventions();
-    }
-
-    /**
-     * Create an instance of {@link TypeStructureDTO }
-     * 
-     */
-    public TypeStructureDTO createTypeStructureDTO() {
-        return new TypeStructureDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresPaysEtrangerFromRaisonSociale }
-     * 
-     */
-    public GetStructuresPaysEtrangerFromRaisonSociale createGetStructuresPaysEtrangerFromRaisonSociale() {
-        return new GetStructuresPaysEtrangerFromRaisonSociale();
-    }
-
-    /**
-     * Create an instance of {@link AddOffre }
-     * 
-     */
-    public AddOffre createAddOffre() {
-        return new AddOffre();
-    }
-
-    /**
-     * Create an instance of {@link UpdateServiceResponse }
-     * 
-     */
-    public UpdateServiceResponse createUpdateServiceResponse() {
-        return new UpdateServiceResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetContactsFromIdServiceResponse }
-     * 
-     */
-    public GetContactsFromIdServiceResponse createGetContactsFromIdServiceResponse() {
-        return new GetContactsFromIdServiceResponse();
-    }
-
-    /**
-     * Create an instance of {@link DataDeleteException }
-     * 
-     */
-    public DataDeleteException createDataDeleteException() {
-        return new DataDeleteException();
-    }
-
-    /**
-     * Create an instance of {@link LangueConventionDTO }
-     * 
-     */
-    public LangueConventionDTO createLangueConventionDTO() {
-        return new LangueConventionDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetModeValidationStagesResponse }
-     * 
-     */
-    public GetModeValidationStagesResponse createGetModeValidationStagesResponse() {
-        return new GetModeValidationStagesResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndWorkDuration }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndWorkDuration createGetNumberOfConventionsByStudyAndWorkDuration() {
-        return new GetNumberOfConventionsByStudyAndWorkDuration();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsByEnseignant }
-     * 
-     */
-    public GetConventionsByEnseignant createGetConventionsByEnseignant() {
-        return new GetConventionsByEnseignant();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreDroitEcritureFromCodUnivResponse }
-     * 
-     */
-    public GetCentreDroitEcritureFromCodUnivResponse createGetCentreDroitEcritureFromCodUnivResponse() {
-        return new GetCentreDroitEcritureFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreDroitEcritureResponse }
-     * 
-     */
-    public GetCentreDroitEcritureResponse createGetCentreDroitEcritureResponse() {
-        return new GetCentreDroitEcritureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreGestion }
-     * 
-     */
-    public GetCentreGestion createGetCentreGestion() {
-        return new GetCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link CritereDTO }
-     * 
-     */
-    public CritereDTO createCritereDTO() {
-        return new CritereDTO();
-    }
-
-    /**
-     * Create an instance of {@link AddStructureResponse }
-     * 
-     */
-    public AddStructureResponse createAddStructureResponse() {
-        return new AddStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructureFromIdService }
-     * 
-     */
-    public GetStructureFromIdService createGetStructureFromIdService() {
-        return new GetStructureFromIdService();
-    }
-
-    /**
-     * Create an instance of {@link GetConfidentialiteResponse }
-     * 
-     */
-    public GetConfidentialiteResponse createGetConfidentialiteResponse() {
-        return new GetConfidentialiteResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAdminsStructure }
-     * 
-     */
-    public GetAdminsStructure createGetAdminsStructure() {
-        return new GetAdminsStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsResponse }
-     * 
-     */
-    public GetConventionsResponse createGetConventionsResponse() {
-        return new GetConventionsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsByEnseignantResponse }
-     * 
-     */
-    public GetConventionsByEnseignantResponse createGetConventionsByEnseignantResponse() {
-        return new GetConventionsByEnseignantResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNiveauxFormation }
-     * 
-     */
-    public GetNiveauxFormation createGetNiveauxFormation() {
-        return new GetNiveauxFormation();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByFunction }
-     * 
-     */
-    public GetNumberOfOffersByFunction createGetNumberOfOffersByFunction() {
-        return new GetNumberOfOffersByFunction();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsFromCriteresByEnseignantTuteur }
-     * 
-     */
-    public GetConventionsFromCriteresByEnseignantTuteur createGetConventionsFromCriteresByEnseignantTuteur() {
-        return new GetConventionsFromCriteresByEnseignantTuteur();
-    }
-
-    /**
-     * Create an instance of {@link GetContactFromLoginResponse }
-     * 
-     */
-    public GetContactFromLoginResponse createGetContactFromLoginResponse() {
-        return new GetContactFromLoginResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetUniteGratificationsResponse }
-     * 
-     */
-    public GetUniteGratificationsResponse createGetUniteGratificationsResponse() {
-        return new GetUniteGratificationsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresAncien }
-     * 
-     */
-    public GetStructuresAncien createGetStructuresAncien() {
-        return new GetStructuresAncien();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCompteContact }
-     * 
-     */
-    public UpdateCompteContact createUpdateCompteContact() {
-        return new UpdateCompteContact();
-    }
-
-    /**
-     * Create an instance of {@link GetAdminStructureFromEppn }
-     * 
-     */
-    public GetAdminStructureFromEppn createGetAdminStructureFromEppn() {
-        return new GetAdminStructureFromEppn();
-    }
-
-    /**
-     * Create an instance of {@link GetCodeUFRFromCodeEtapeResponse }
-     * 
-     */
-    public GetCodeUFRFromCodeEtapeResponse createGetCodeUFRFromCodeEtapeResponse() {
-        return new GetCodeUFRFromCodeEtapeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetThemesResponse }
-     * 
-     */
-    public GetThemesResponse createGetThemesResponse() {
-        return new GetThemesResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddConventionResponse }
-     * 
-     */
-    public AddConventionResponse createAddConventionResponse() {
-        return new AddConventionResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddUfrResponse }
-     * 
-     */
-    public AddUfrResponse createAddUfrResponse() {
-        return new AddUfrResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteAvenant }
-     * 
-     */
-    public DeleteAvenant createDeleteAvenant() {
-        return new DeleteAvenant();
-    }
-
-    /**
-     * Create an instance of {@link GetOffresFromIdStructureAndIdsCentreGestionResponse }
-     * 
-     */
-    public GetOffresFromIdStructureAndIdsCentreGestionResponse createGetOffresFromIdStructureAndIdsCentreGestionResponse() {
-        return new GetOffresFromIdStructureAndIdsCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAffectation }
-     * 
-     */
-    public GetAffectation createGetAffectation() {
-        return new GetAffectation();
-    }
-
-    /**
-     * Create an instance of {@link GetAffectationResponse }
-     * 
-     */
-    public GetAffectationResponse createGetAffectationResponse() {
-        return new GetAffectationResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAdminStructureFromLoginResponse }
-     * 
-     */
-    public GetAdminStructureFromLoginResponse createGetAdminStructureFromLoginResponse() {
-        return new GetAdminStructureFromLoginResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateFichier }
-     * 
-     */
-    public UpdateFichier createUpdateFichier() {
-        return new UpdateFichier();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreConventionByEnseignant }
-     * 
-     */
-    public GetNombreConventionByEnseignant createGetNombreConventionByEnseignant() {
-        return new GetNombreConventionByEnseignant();
-    }
-
-    /**
-     * Create an instance of {@link CiviliteDTO }
-     * 
-     */
-    public CiviliteDTO createCiviliteDTO() {
-        return new CiviliteDTO();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAdminStructureDerniereConnexionResponse }
-     * 
-     */
-    public UpdateAdminStructureDerniereConnexionResponse createUpdateAdminStructureDerniereConnexionResponse() {
-        return new UpdateAdminStructureDerniereConnexionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructure }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndStructure createGetNumberOfConventionsByStudyAndStructure() {
-        return new GetNumberOfConventionsByStudyAndStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsFromCriteresExport }
-     * 
-     */
-    public GetConventionsFromCriteresExport createGetConventionsFromCriteresExport() {
-        return new GetConventionsFromCriteresExport();
-    }
-
-    /**
-     * Create an instance of {@link ContratOffreDTO }
-     * 
-     */
-    public ContratOffreDTO createContratOffreDTO() {
-        return new ContratOffreDTO();
-    }
-
-    /**
-     * Create an instance of {@link DeleteOffreModeCandidatureFromIdResponse }
-     * 
-     */
-    public DeleteOffreModeCandidatureFromIdResponse createDeleteOffreModeCandidatureFromIdResponse() {
-        return new DeleteOffreModeCandidatureFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParStructureType }
-     * 
-     */
-    public GetTotalConventionsParStructureType createGetTotalConventionsParStructureType() {
-        return new GetTotalConventionsParStructureType();
-    }
-
-    /**
-     * Create an instance of {@link AddAccordResponse }
-     * 
-     */
-    public AddAccordResponse createAddAccordResponse() {
-        return new AddAccordResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreConventionByEnseignantFromCodUnivResponse }
-     * 
-     */
-    public GetNombreConventionByEnseignantFromCodUnivResponse createGetNombreConventionByEnseignantFromCodUnivResponse() {
-        return new GetNombreConventionByEnseignantFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEtapeFromIdFromCodUnivResponse }
-     * 
-     */
-    public GetEtapeFromIdFromCodUnivResponse createGetEtapeFromIdFromCodUnivResponse() {
-        return new GetEtapeFromIdFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link CritereRechercheStructureAdresseDTO }
-     * 
-     */
-    public CritereRechercheStructureAdresseDTO createCritereRechercheStructureAdresseDTO() {
-        return new CritereRechercheStructureAdresseDTO();
-    }
-
-    /**
-     * Create an instance of {@link RemoteException }
-     * 
-     */
-    public RemoteException createRemoteException() {
-        return new RemoteException();
-    }
-
-    /**
-     * Create an instance of {@link GetNafN1Response }
-     * 
-     */
-    public GetNafN1Response createGetNafN1Response() {
-        return new GetNafN1Response();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestionList }
-     * 
-     */
-    public GetPersonnelCentreGestionList createGetPersonnelCentreGestionList() {
-        return new GetPersonnelCentreGestionList();
-    }
-
-    /**
-     * Create an instance of {@link DeleteServiceResponse }
-     * 
-     */
-    public DeleteServiceResponse createDeleteServiceResponse() {
-        return new DeleteServiceResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAffectationFromCodeAffectationCodUnivResponse }
-     * 
-     */
-    public GetAffectationFromCodeAffectationCodUnivResponse createGetAffectationFromCodeAffectationCodUnivResponse() {
-        return new GetAffectationFromCodeAffectationCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetUnitesDurees }
-     * 
-     */
-    public GetUnitesDurees createGetUnitesDurees() {
-        return new GetUnitesDurees();
-    }
-
-    /**
-     * Create an instance of {@link GetEnseignantFromUid }
-     * 
-     */
-    public GetEnseignantFromUid createGetEnseignantFromUid() {
-        return new GetEnseignantFromUid();
-    }
-
-    /**
-     * Create an instance of {@link DeleteTicketStructure }
-     * 
-     */
-    public DeleteTicketStructure createDeleteTicketStructure() {
-        return new DeleteTicketStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureSizeResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndStructureSizeResponse createGetNumberOfConventionsByStepAndStructureSizeResponse() {
-        return new GetNumberOfConventionsByStepAndStructureSizeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEnseignantsResponse }
-     * 
-     */
-    public GetEnseignantsResponse createGetEnseignantsResponse() {
-        return new GetEnseignantsResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAccordResponse }
-     * 
-     */
-    public UpdateAccordResponse createUpdateAccordResponse() {
-        return new UpdateAccordResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureSize }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndStructureSize createGetNumberOfConventionsByStudyAndStructureSize() {
-        return new GetNumberOfConventionsByStudyAndStructureSize();
-    }
-
-    /**
-     * Create an instance of {@link GetServicesFromIdStructureResponse }
-     * 
-     */
-    public GetServicesFromIdStructureResponse createGetServicesFromIdStructureResponse() {
-        return new GetServicesFromIdStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCritereGestion }
-     * 
-     */
-    public GetCritereGestion createGetCritereGestion() {
-        return new GetCritereGestion();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStructureResponse }
-     * 
-     */
-    public UpdateStructureResponse createUpdateStructureResponse() {
-        return new UpdateStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrFromIdFromCodUniv }
-     * 
-     */
-    public GetUfrFromIdFromCodUniv createGetUfrFromIdFromCodUniv() {
-        return new GetUfrFromIdFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByTypeResponse }
-     * 
-     */
-    public GetNumberOfOffersByTypeResponse createGetNumberOfOffersByTypeResponse() {
-        return new GetNumberOfOffersByTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCivilitesResponse }
-     * 
-     */
-    public GetCivilitesResponse createGetCivilitesResponse() {
-        return new GetCivilitesResponse();
-    }
-
-    /**
-     * Create an instance of {@link ConventionDTO }
-     * 
-     */
-    public ConventionDTO createConventionDTO() {
-        return new ConventionDTO();
-    }
-
-    /**
-     * Create an instance of {@link DeleteOffreLogiqueResponse }
-     * 
-     */
-    public DeleteOffreLogiqueResponse createDeleteOffreLogiqueResponse() {
-        return new DeleteOffreLogiqueResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEnseignants }
-     * 
-     */
-    public GetEnseignants createGetEnseignants() {
-        return new GetEnseignants();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByStructureType }
-     * 
-     */
-    public GetNumberOfOffersByStructureType createGetNumberOfOffersByStructureType() {
-        return new GetNumberOfOffersByStructureType();
-    }
-
-    /**
-     * Create an instance of {@link ModeValidationStageDTO }
-     * 
-     */
-    public ModeValidationStageDTO createModeValidationStageDTO() {
-        return new ModeValidationStageDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrsFromIdsCentreGestionResponse }
-     * 
-     */
-    public GetUfrsFromIdsCentreGestionResponse createGetUfrsFromIdsCentreGestionResponse() {
-        return new GetUfrsFromIdsCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromAdresse }
-     * 
-     */
-    public GetStructuresFromAdresse createGetStructuresFromAdresse() {
-        return new GetStructuresFromAdresse();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsFromCriteresByEnseignantTuteurResponse }
-     * 
-     */
-    public GetConventionsFromCriteresByEnseignantTuteurResponse createGetConventionsFromCriteresByEnseignantTuteurResponse() {
-        return new GetConventionsFromCriteresByEnseignantTuteurResponse();
-    }
-
-    /**
-     * Create an instance of {@link CentreGestionSuperviseurDTO }
-     * 
-     */
-    public CentreGestionSuperviseurDTO createCentreGestionSuperviseurDTO() {
-        return new CentreGestionSuperviseurDTO();
-    }
-
-    /**
-     * Create an instance of {@link CountOffreADiffuserResponse }
-     * 
-     */
-    public CountOffreADiffuserResponse createCountOffreADiffuserResponse() {
-        return new CountOffreADiffuserResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersResponse }
-     * 
-     */
-    public GetNumberOfOffersResponse createGetNumberOfOffersResponse() {
-        return new GetNumberOfOffersResponse();
-    }
-
-    /**
-     * Create an instance of {@link AffectationAlreadyExistingForCodeException }
-     * 
-     */
-    public AffectationAlreadyExistingForCodeException createAffectationAlreadyExistingForCodeException() {
-        return new AffectationAlreadyExistingForCodeException();
-    }
-
-    /**
-     * Create an instance of {@link AddEtudiant }
-     * 
-     */
-    public AddEtudiant createAddEtudiant() {
-        return new AddEtudiant();
-    }
-
-    /**
-     * Create an instance of {@link UpdateValidationOffre }
-     * 
-     */
-    public UpdateValidationOffre createUpdateValidationOffre() {
-        return new UpdateValidationOffre();
+    public GetTotalConventionsParTpsDeTravailResponse createGetTotalConventionsParTpsDeTravailResponse() {
+        return new GetTotalConventionsParTpsDeTravailResponse();
     }
 
     /**
@@ -3879,251 +1736,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetAdminStructureFromLogin }
+     * Create an instance of {@link GetNumberOfOffersByPublication }
      * 
      */
-    public GetAdminStructureFromLogin createGetAdminStructureFromLogin() {
-        return new GetAdminStructureFromLogin();
-    }
-
-    /**
-     * Create an instance of {@link StructureDTO }
-     * 
-     */
-    public StructureDTO createStructureDTO() {
-        return new StructureDTO();
-    }
-
-    /**
-     * Create an instance of {@link CountOffreADiffuser }
-     * 
-     */
-    public CountOffreADiffuser createCountOffreADiffuser() {
-        return new CountOffreADiffuser();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCompteContactResponse }
-     * 
-     */
-    public UpdateCompteContactResponse createUpdateCompteContactResponse() {
-        return new UpdateCompteContactResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndIndemnityResponse }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndIndemnityResponse createGetNumberOfConventionsByDepartmentAndIndemnityResponse() {
-        return new GetNumberOfConventionsByDepartmentAndIndemnityResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndIndemnity }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndIndemnity createGetNumberOfConventionsByStudyAndIndemnity() {
-        return new GetNumberOfConventionsByStudyAndIndemnity();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartment }
-     * 
-     */
-    public GetNumberOfConventionsByDepartment createGetNumberOfConventionsByDepartment() {
-        return new GetNumberOfConventionsByDepartment();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndStructureResponse createGetNumberOfConventionsByStudyAndStructureResponse() {
-        return new GetNumberOfConventionsByStudyAndStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link FichierDTO }
-     * 
-     */
-    public FichierDTO createFichierDTO() {
-        return new FichierDTO();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStopDiffusionOffre }
-     * 
-     */
-    public UpdateStopDiffusionOffre createUpdateStopDiffusionOffre() {
-        return new UpdateStopDiffusionOffre();
-    }
-
-    /**
-     * Create an instance of {@link DeletePersonnelCentreGestionResponse }
-     * 
-     */
-    public DeletePersonnelCentreGestionResponse createDeletePersonnelCentreGestionResponse() {
-        return new DeletePersonnelCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionFromExport }
-     * 
-     */
-    public GetConventionFromExport createGetConventionFromExport() {
-        return new GetConventionFromExport();
-    }
-
-    /**
-     * Create an instance of {@link GetContactFromId }
-     * 
-     */
-    public GetContactFromId createGetContactFromId() {
-        return new GetContactFromId();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAdminStructureDerniereConnexion }
-     * 
-     */
-    public UpdateAdminStructureDerniereConnexion createUpdateAdminStructureDerniereConnexion() {
-        return new UpdateAdminStructureDerniereConnexion();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreOffreByCentreGestionResponse }
-     * 
-     */
-    public GetNombreOffreByCentreGestionResponse createGetNombreOffreByCentreGestionResponse() {
-        return new GetNombreOffreByCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetUniteGratifications }
-     * 
-     */
-    public GetUniteGratifications createGetUniteGratifications() {
-        return new GetUniteGratifications();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreGestionList }
-     * 
-     */
-    public GetCentreGestionList createGetCentreGestionList() {
-        return new GetCentreGestionList();
-    }
-
-    /**
-     * Create an instance of {@link GetDureeDiffusionResponse }
-     * 
-     */
-    public GetDureeDiffusionResponse createGetDureeDiffusionResponse() {
-        return new GetDureeDiffusionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetModesCandidature }
-     * 
-     */
-    public GetModesCandidature createGetModesCandidature() {
-        return new GetModesCandidature();
-    }
-
-    /**
-     * Create an instance of {@link CaisseRegimeDTO }
-     * 
-     */
-    public CaisseRegimeDTO createCaisseRegimeDTO() {
-        return new CaisseRegimeDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromTypeStructureNafN1EtDepartementResponse }
-     * 
-     */
-    public GetStructuresFromTypeStructureNafN1EtDepartementResponse createGetStructuresFromTypeStructureNafN1EtDepartementResponse() {
-        return new GetStructuresFromTypeStructureNafN1EtDepartementResponse();
-    }
-
-    /**
-     * Create an instance of {@link ModeCandidatureDTO }
-     * 
-     */
-    public ModeCandidatureDTO createModeCandidatureDTO() {
-        return new ModeCandidatureDTO();
-    }
-
-    /**
-     * Create an instance of {@link DeleteAdminStructureResponse }
-     * 
-     */
-    public DeleteAdminStructureResponse createDeleteAdminStructureResponse() {
-        return new DeleteAdminStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndTeacherGuideResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndTeacherGuideResponse createGetNumberOfConventionsByStudyAndTeacherGuideResponse() {
-        return new GetNumberOfConventionsByStudyAndTeacherGuideResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAnneesUnivOffres }
-     * 
-     */
-    public GetAnneesUnivOffres createGetAnneesUnivOffres() {
-        return new GetAnneesUnivOffres();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreAvenant }
-     * 
-     */
-    public GetNombreAvenant createGetNombreAvenant() {
-        return new GetNombreAvenant();
-    }
-
-    /**
-     * Create an instance of {@link GetFapN1 }
-     * 
-     */
-    public GetFapN1 createGetFapN1() {
-        return new GetFapN1();
-    }
-
-    /**
-     * Create an instance of {@link AddCentreGestion }
-     * 
-     */
-    public AddCentreGestion createAddCentreGestion() {
-        return new AddCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureTypeResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndStructureTypeResponse createGetNumberOfConventionsByStudyAndStructureTypeResponse() {
-        return new GetNumberOfConventionsByStudyAndStructureTypeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromRaisonSocialeEtPays }
-     * 
-     */
-    public GetStructuresFromRaisonSocialeEtPays createGetStructuresFromRaisonSocialeEtPays() {
-        return new GetStructuresFromRaisonSocialeEtPays();
-    }
-
-    /**
-     * Create an instance of {@link GetAdminsStructureResponse }
-     * 
-     */
-    public GetAdminsStructureResponse createGetAdminsStructureResponse() {
-        return new GetAdminsStructureResponse();
+    public GetNumberOfOffersByPublication createGetNumberOfOffersByPublication() {
+        return new GetNumberOfOffersByPublication();
     }
 
     /**
@@ -4135,523 +1752,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndServiceDep }
+     * Create an instance of {@link GetPersonnelCentreGestionFromNom }
      * 
      */
-    public GetNumberOfConventionsByStudyAndServiceDep createGetNumberOfConventionsByStudyAndServiceDep() {
-        return new GetNumberOfConventionsByStudyAndServiceDep();
+    public GetPersonnelCentreGestionFromNom createGetPersonnelCentreGestionFromNom() {
+        return new GetPersonnelCentreGestionFromNom();
     }
 
     /**
-     * Create an instance of {@link GetAccordFromIdContact }
+     * Create an instance of {@link GetDroitAdministration }
      * 
      */
-    public GetAccordFromIdContact createGetAccordFromIdContact() {
-        return new GetAccordFromIdContact();
-    }
-
-    /**
-     * Create an instance of {@link GetEtudiantFromIdResponse }
-     * 
-     */
-    public GetEtudiantFromIdResponse createGetEtudiantFromIdResponse() {
-        return new GetEtudiantFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAccordFromIdStructure }
-     * 
-     */
-    public GetAccordFromIdStructure createGetAccordFromIdStructure() {
-        return new GetAccordFromIdStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetThemes }
-     * 
-     */
-    public GetThemes createGetThemes() {
-        return new GetThemes();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStructureStopValidationResponse }
-     * 
-     */
-    public UpdateStructureStopValidationResponse createUpdateStructureStopValidationResponse() {
-        return new UpdateStructureStopValidationResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepResponse createGetNumberOfConventionsByStepResponse() {
-        return new GetNumberOfConventionsByStepResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateOffreResponse }
-     * 
-     */
-    public UpdateOffreResponse createUpdateOffreResponse() {
-        return new UpdateOffreResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateOffre }
-     * 
-     */
-    public UpdateOffre createUpdateOffre() {
-        return new UpdateOffre();
-    }
-
-    /**
-     * Create an instance of {@link GetAnneesConventionResponse }
-     * 
-     */
-    public GetAnneesConventionResponse createGetAnneesConventionResponse() {
-        return new GetAnneesConventionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetLangueConventions }
-     * 
-     */
-    public GetLangueConventions createGetLangueConventions() {
-        return new GetLangueConventions();
-    }
-
-    /**
-     * Create an instance of {@link AddContact }
-     * 
-     */
-    public AddContact createAddContact() {
-        return new AddContact();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreCritereGestionResponse }
-     * 
-     */
-    public GetNombreCritereGestionResponse createGetNombreCritereGestionResponse() {
-        return new GetNombreCritereGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetOffreDiffusionFromIdOffre }
-     * 
-     */
-    public GetOffreDiffusionFromIdOffre createGetOffreDiffusionFromIdOffre() {
-        return new GetOffreDiffusionFromIdOffre();
-    }
-
-    /**
-     * Create an instance of {@link GetAnneesConventionFromCodUniv }
-     * 
-     */
-    public GetAnneesConventionFromCodUniv createGetAnneesConventionFromCodUniv() {
-        return new GetAnneesConventionFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link UpdateOffrePourvue }
-     * 
-     */
-    public UpdateOffrePourvue createUpdateOffrePourvue() {
-        return new UpdateOffrePourvue();
-    }
-
-    /**
-     * Create an instance of {@link DeleteConventionResponse }
-     * 
-     */
-    public DeleteConventionResponse createDeleteConventionResponse() {
-        return new DeleteConventionResponse();
-    }
-
-    /**
-     * Create an instance of {@link CentreGestionDTO }
-     * 
-     */
-    public CentreGestionDTO createCentreGestionDTO() {
-        return new CentreGestionDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetNatureTravails }
-     * 
-     */
-    public GetNatureTravails createGetNatureTravails() {
-        return new GetNatureTravails();
-    }
-
-    /**
-     * Create an instance of {@link CentreEntrepriseDejaExistantException }
-     * 
-     */
-    public CentreEntrepriseDejaExistantException createCentreEntrepriseDejaExistantException() {
-        return new CentreEntrepriseDejaExistantException();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromNomServiceEtDepartement }
-     * 
-     */
-    public GetStructuresFromNomServiceEtDepartement createGetStructuresFromNomServiceEtDepartement() {
-        return new GetStructuresFromNomServiceEtDepartement();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestionResponse }
-     * 
-     */
-    public GetPersonnelCentreGestionResponse createGetPersonnelCentreGestionResponse() {
-        return new GetPersonnelCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdatePersonnelCentreGestionResponse }
-     * 
-     */
-    public UpdatePersonnelCentreGestionResponse createUpdatePersonnelCentreGestionResponse() {
-        return new UpdatePersonnelCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteOffreLogique }
-     * 
-     */
-    public DeleteOffreLogique createDeleteOffreLogique() {
-        return new DeleteOffreLogique();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreConventionByCentreGestionResponse }
-     * 
-     */
-    public GetNombreConventionByCentreGestionResponse createGetNombreConventionByCentreGestionResponse() {
-        return new GetNombreConventionByCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteOffreModeCandidatureFromId }
-     * 
-     */
-    public DeleteOffreModeCandidatureFromId createDeleteOffreModeCandidatureFromId() {
-        return new DeleteOffreModeCandidatureFromId();
-    }
-
-    /**
-     * Create an instance of {@link DeleteCentreGestion }
-     * 
-     */
-    public DeleteCentreGestion createDeleteCentreGestion() {
-        return new DeleteCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByLocalStudent }
-     * 
-     */
-    public GetNumberOfOffersByLocalStudent createGetNumberOfOffersByLocalStudent() {
-        return new GetNumberOfOffersByLocalStudent();
-    }
-
-    /**
-     * Create an instance of {@link DeleteService }
-     * 
-     */
-    public DeleteService createDeleteService() {
-        return new DeleteService();
-    }
-
-    /**
-     * Create an instance of {@link GetFichierFromIdFichier }
-     * 
-     */
-    public GetFichierFromIdFichier createGetFichierFromIdFichier() {
-        return new GetFichierFromIdFichier();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParThemeResponse }
-     * 
-     */
-    public GetTotalConventionsParThemeResponse createGetTotalConventionsParThemeResponse() {
-        return new GetTotalConventionsParThemeResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndWayToFindResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndWayToFindResponse createGetNumberOfConventionsByStudyAndWayToFindResponse() {
-        return new GetNumberOfConventionsByStudyAndWayToFindResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetUfrsFromIdsCentreGestionFromCodUnivResponse }
-     * 
-     */
-    public GetUfrsFromIdsCentreGestionFromCodUnivResponse createGetUfrsFromIdsCentreGestionFromCodUnivResponse() {
-        return new GetUfrsFromIdsCentreGestionFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndWorkDuration }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndWorkDuration createGetNumberOfConventionsByDepartmentAndWorkDuration() {
-        return new GetNumberOfConventionsByDepartmentAndWorkDuration();
-    }
-
-    /**
-     * Create an instance of {@link GetDroitAdministrationResponse }
-     * 
-     */
-    public GetDroitAdministrationResponse createGetDroitAdministrationResponse() {
-        return new GetDroitAdministrationResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructureAvecAccordFromIdResponse }
-     * 
-     */
-    public GetStructureAvecAccordFromIdResponse createGetStructureAvecAccordFromIdResponse() {
-        return new GetStructureAvecAccordFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEnseignantsFromCodUniv }
-     * 
-     */
-    public GetEnseignantsFromCodUniv createGetEnseignantsFromCodUniv() {
-        return new GetEnseignantsFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParIndemniteResponse }
-     * 
-     */
-    public GetTotalConventionsParIndemniteResponse createGetTotalConventionsParIndemniteResponse() {
-        return new GetTotalConventionsParIndemniteResponse();
-    }
-
-    /**
-     * Create an instance of {@link CritereGestionDTO }
-     * 
-     */
-    public CritereGestionDTO createCritereGestionDTO() {
-        return new CritereGestionDTO();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAccord }
-     * 
-     */
-    public UpdateAccord createUpdateAccord() {
-        return new UpdateAccord();
-    }
-
-    /**
-     * Create an instance of {@link GetNafN5FromCodeNafN5 }
-     * 
-     */
-    public GetNafN5FromCodeNafN5 createGetNafN5FromCodeNafN5() {
-        return new GetNafN5FromCodeNafN5();
-    }
-
-    /**
-     * Create an instance of {@link GetOffreFromIdResponse }
-     * 
-     */
-    public GetOffreFromIdResponse createGetOffreFromIdResponse() {
-        return new GetOffreFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link DataUpdateException }
-     * 
-     */
-    public DataUpdateException createDataUpdateException() {
-        return new DataUpdateException();
-    }
-
-    /**
-     * Create an instance of {@link GetAvenant }
-     * 
-     */
-    public GetAvenant createGetAvenant() {
-        return new GetAvenant();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreAvenantResponse }
-     * 
-     */
-    public GetNombreAvenantResponse createGetNombreAvenantResponse() {
-        return new GetNombreAvenantResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAdminStructure }
-     * 
-     */
-    public UpdateAdminStructure createUpdateAdminStructure() {
-        return new UpdateAdminStructure();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByFunctionResponse }
-     * 
-     */
-    public GetNumberOfOffersByFunctionResponse createGetNumberOfOffersByFunctionResponse() {
-        return new GetNumberOfOffersByFunctionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndServiceCountryResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndServiceCountryResponse createGetNumberOfConventionsByStepAndServiceCountryResponse() {
-        return new GetNumberOfConventionsByStepAndServiceCountryResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAffectationFromCodUniv }
-     * 
-     */
-    public GetAffectationFromCodUniv createGetAffectationFromCodUniv() {
-        return new GetAffectationFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link ContactDeleteException }
-     * 
-     */
-    public ContactDeleteException createContactDeleteException() {
-        return new ContactDeleteException();
-    }
-
-    /**
-     * Create an instance of {@link AddCritereResponse }
-     * 
-     */
-    public AddCritereResponse createAddCritereResponse() {
-        return new AddCritereResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCodeUFRFromCodeEtapeFromCodUnivResponse }
-     * 
-     */
-    public GetCodeUFRFromCodeEtapeFromCodUnivResponse createGetCodeUFRFromCodeEtapeFromCodUnivResponse() {
-        return new GetCodeUFRFromCodeEtapeFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestionFromUid }
-     * 
-     */
-    public GetPersonnelCentreGestionFromUid createGetPersonnelCentreGestionFromUid() {
-        return new GetPersonnelCentreGestionFromUid();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreEtablissementResponse }
-     * 
-     */
-    public GetCentreEtablissementResponse createGetCentreEtablissementResponse() {
-        return new GetCentreEtablissementResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAccordFromIdContactResponse }
-     * 
-     */
-    public GetAccordFromIdContactResponse createGetAccordFromIdContactResponse() {
-        return new GetAccordFromIdContactResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreConventionByEtape }
-     * 
-     */
-    public UpdateCentreConventionByEtape createUpdateCentreConventionByEtape() {
-        return new UpdateCentreConventionByEtape();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreGestionSuperviseur }
-     * 
-     */
-    public GetCentreGestionSuperviseur createGetCentreGestionSuperviseur() {
-        return new GetCentreGestionSuperviseur();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsEtudiantFromCodUnivResponse }
-     * 
-     */
-    public GetConventionsEtudiantFromCodUnivResponse createGetConventionsEtudiantFromCodUnivResponse() {
-        return new GetConventionsEtudiantFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresAvecAccordAValiderFromRaisonSociale }
-     * 
-     */
-    public GetStructuresAvecAccordAValiderFromRaisonSociale createGetStructuresAvecAccordAValiderFromRaisonSociale() {
-        return new GetStructuresAvecAccordAValiderFromRaisonSociale();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreConventionByCentreGestionFromCodUniv }
-     * 
-     */
-    public GetNombreConventionByCentreGestionFromCodUniv createGetNombreConventionByCentreGestionFromCodUniv() {
-        return new GetNombreConventionByCentreGestionFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetOrigineStagesResponse }
-     * 
-     */
-    public GetOrigineStagesResponse createGetOrigineStagesResponse() {
-        return new GetOrigineStagesResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateContactResponse }
-     * 
-     */
-    public UpdateContactResponse createUpdateContactResponse() {
-        return new UpdateContactResponse();
-    }
-
-    /**
-     * Create an instance of {@link TicketStructureDTO }
-     * 
-     */
-    public TicketStructureDTO createTicketStructureDTO() {
-        return new TicketStructureDTO();
-    }
-
-    /**
-     * Create an instance of {@link UpdateService }
-     * 
-     */
-    public UpdateService createUpdateService() {
-        return new UpdateService();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParTpsDeTravail }
-     * 
-     */
-    public GetTotalConventionsParTpsDeTravail createGetTotalConventionsParTpsDeTravail() {
-        return new GetTotalConventionsParTpsDeTravail();
+    public GetDroitAdministration createGetDroitAdministration() {
+        return new GetDroitAdministration();
     }
 
     /**
@@ -4663,507 +1776,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CleanFichiers }
+     * Create an instance of {@link GetOrigineStagesResponse }
      * 
      */
-    public CleanFichiers createCleanFichiers() {
-        return new CleanFichiers();
+    public GetOrigineStagesResponse createGetOrigineStagesResponse() {
+        return new GetOrigineStagesResponse();
     }
 
     /**
-     * Create an instance of {@link SetIdFichierNull }
+     * Create an instance of {@link DeleteFichier }
      * 
      */
-    public SetIdFichierNull createSetIdFichierNull() {
-        return new SetIdFichierNull();
+    public DeleteFichier createDeleteFichier() {
+        return new DeleteFichier();
     }
 
     /**
-     * Create an instance of {@link GetNombreConventionByEnseignantResponse }
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructureType }
      * 
      */
-    public GetNombreConventionByEnseignantResponse createGetNombreConventionByEnseignantResponse() {
-        return new GetNombreConventionByEnseignantResponse();
+    public GetNumberOfConventionsByDepartmentAndStructureType createGetNumberOfConventionsByDepartmentAndStructureType() {
+        return new GetNumberOfConventionsByDepartmentAndStructureType();
     }
 
     /**
-     * Create an instance of {@link GetCentreFromUidFromCodUnivResponse }
+     * Create an instance of {@link StatisticItemDTO }
      * 
      */
-    public GetCentreFromUidFromCodUnivResponse createGetCentreFromUidFromCodUnivResponse() {
-        return new GetCentreFromUidFromCodUnivResponse();
+    public StatisticItemDTO createStatisticItemDTO() {
+        return new StatisticItemDTO();
     }
 
     /**
-     * Create an instance of {@link GetOffreDiffusionFromIdOffreResponse }
+     * Create an instance of {@link GetFapN2Response }
      * 
      */
-    public GetOffreDiffusionFromIdOffreResponse createGetOffreDiffusionFromIdOffreResponse() {
-        return new GetOffreDiffusionFromIdOffreResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructureSize }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndStructureSize createGetNumberOfConventionsByDepartmentAndStructureSize() {
-        return new GetNumberOfConventionsByDepartmentAndStructureSize();
-    }
-
-    /**
-     * Create an instance of {@link GetDureeDiffusion }
-     * 
-     */
-    public GetDureeDiffusion createGetDureeDiffusion() {
-        return new GetDureeDiffusion();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreConventionByUfrCodUnivResponse }
-     * 
-     */
-    public UpdateCentreConventionByUfrCodUnivResponse createUpdateCentreConventionByUfrCodUnivResponse() {
-        return new UpdateCentreConventionByUfrCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStructureStopValidation }
-     * 
-     */
-    public UpdateStructureStopValidation createUpdateStructureStopValidation() {
-        return new UpdateStructureStopValidation();
-    }
-
-    /**
-     * Create an instance of {@link GetStructureFromIdServiceResponse }
-     * 
-     */
-    public GetStructureFromIdServiceResponse createGetStructureFromIdServiceResponse() {
-        return new GetStructureFromIdServiceResponse();
-    }
-
-    /**
-     * Create an instance of {@link DroitAdministrationDTO }
-     * 
-     */
-    public DroitAdministrationDTO createDroitAdministrationDTO() {
-        return new DroitAdministrationDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetUnitesDureesResponse }
-     * 
-     */
-    public GetUnitesDureesResponse createGetUnitesDureesResponse() {
-        return new GetUnitesDureesResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreEntrepriseResponse }
-     * 
-     */
-    public GetCentreEntrepriseResponse createGetCentreEntrepriseResponse() {
-        return new GetCentreEntrepriseResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTypesOffreResponse }
-     * 
-     */
-    public GetTypesOffreResponse createGetTypesOffreResponse() {
-        return new GetTypesOffreResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventions }
-     * 
-     */
-    public GetTotalConventions createGetTotalConventions() {
-        return new GetTotalConventions();
-    }
-
-    /**
-     * Create an instance of {@link GetStructureFromIdResponse }
-     * 
-     */
-    public GetStructureFromIdResponse createGetStructureFromIdResponse() {
-        return new GetStructureFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link DureeDiffusionDTO }
-     * 
-     */
-    public DureeDiffusionDTO createDureeDiffusionDTO() {
-        return new DureeDiffusionDTO();
-    }
-
-    /**
-     * Create an instance of {@link AddConvention }
-     * 
-     */
-    public AddConvention createAddConvention() {
-        return new AddConvention();
-    }
-
-    /**
-     * Create an instance of {@link GetAccordFromIdResponse }
-     * 
-     */
-    public GetAccordFromIdResponse createGetAccordFromIdResponse() {
-        return new GetAccordFromIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructureResponse }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndStructureResponse createGetNumberOfConventionsByDepartmentAndStructureResponse() {
-        return new GetNumberOfConventionsByDepartmentAndStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetOffresFromCriteresResponse }
-     * 
-     */
-    public GetOffresFromCriteresResponse createGetOffresFromCriteresResponse() {
-        return new GetOffresFromCriteresResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteOffreDiffusionFromId }
-     * 
-     */
-    public DeleteOffreDiffusionFromId createDeleteOffreDiffusionFromId() {
-        return new DeleteOffreDiffusionFromId();
-    }
-
-    /**
-     * Create an instance of {@link TempsTravailDTO }
-     * 
-     */
-    public TempsTravailDTO createTempsTravailDTO() {
-        return new TempsTravailDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetFapQualificationsSimplifieesResponse }
-     * 
-     */
-    public GetFapQualificationsSimplifieesResponse createGetFapQualificationsSimplifieesResponse() {
-        return new GetFapQualificationsSimplifieesResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddEnseignantResponse }
-     * 
-     */
-    public AddEnseignantResponse createAddEnseignantResponse() {
-        return new AddEnseignantResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresSansAccordFromRaisonSociale }
-     * 
-     */
-    public GetStructuresSansAccordFromRaisonSociale createGetStructuresSansAccordFromRaisonSociale() {
-        return new GetStructuresSansAccordFromRaisonSociale();
-    }
-
-    /**
-     * Create an instance of {@link AccordPartenariatDTO }
-     * 
-     */
-    public AccordPartenariatDTO createAccordPartenariatDTO() {
-        return new AccordPartenariatDTO();
-    }
-
-    /**
-     * Create an instance of {@link AccountAlreadyExistingForCoupleMailStructureException }
-     * 
-     */
-    public AccountAlreadyExistingForCoupleMailStructureException createAccountAlreadyExistingForCoupleMailStructureException() {
-        return new AccountAlreadyExistingForCoupleMailStructureException();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStopValidationOffreResponse }
-     * 
-     */
-    public UpdateStopValidationOffreResponse createUpdateStopValidationOffreResponse() {
-        return new UpdateStopValidationOffreResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndTheme }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndTheme createGetNumberOfConventionsByStudyAndTheme() {
-        return new GetNumberOfConventionsByStudyAndTheme();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndType }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndType createGetNumberOfConventionsByDepartmentAndType() {
-        return new GetNumberOfConventionsByDepartmentAndType();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParTailleStructureResponse }
-     * 
-     */
-    public GetTotalConventionsParTailleStructureResponse createGetTotalConventionsParTailleStructureResponse() {
-        return new GetTotalConventionsParTailleStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEnseignantFromUidResponse }
-     * 
-     */
-    public GetEnseignantFromUidResponse createGetEnseignantFromUidResponse() {
-        return new GetEnseignantFromUidResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromRaisonSocialeEtDepartementResponse }
-     * 
-     */
-    public GetStructuresFromRaisonSocialeEtDepartementResponse createGetStructuresFromRaisonSocialeEtDepartementResponse() {
-        return new GetStructuresFromRaisonSocialeEtDepartementResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateRejetOffreResponse }
-     * 
-     */
-    public UpdateRejetOffreResponse createUpdateRejetOffreResponse() {
-        return new UpdateRejetOffreResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEtudiants }
-     * 
-     */
-    public GetEtudiants createGetEtudiants() {
-        return new GetEtudiants();
-    }
-
-    /**
-     * Create an instance of {@link EtapeDTO }
-     * 
-     */
-    public EtapeDTO createEtapeDTO() {
-        return new EtapeDTO();
-    }
-
-    /**
-     * Create an instance of {@link UpdateEtudiantResponse }
-     * 
-     */
-    public UpdateEtudiantResponse createUpdateEtudiantResponse() {
-        return new UpdateEtudiantResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndIndemnityResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndIndemnityResponse createGetNumberOfConventionsByStepAndIndemnityResponse() {
-        return new GetNumberOfConventionsByStepAndIndemnityResponse();
-    }
-
-    /**
-     * Create an instance of {@link AccordAlreadyExistingForStructureException }
-     * 
-     */
-    public AccordAlreadyExistingForStructureException createAccordAlreadyExistingForStructureException() {
-        return new AccordAlreadyExistingForStructureException();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromTelephoneResponse }
-     * 
-     */
-    public GetStructuresFromTelephoneResponse createGetStructuresFromTelephoneResponse() {
-        return new GetStructuresFromTelephoneResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsResponse }
-     * 
-     */
-    public GetTotalConventionsResponse createGetTotalConventionsResponse() {
-        return new GetTotalConventionsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAnneesConventionFromCodUnivResponse }
-     * 
-     */
-    public GetAnneesConventionFromCodUnivResponse createGetAnneesConventionFromCodUnivResponse() {
-        return new GetAnneesConventionFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateEnseignant }
-     * 
-     */
-    public UpdateEnseignant createUpdateEnseignant() {
-        return new UpdateEnseignant();
-    }
-
-    /**
-     * Create an instance of {@link AssuranceDTO }
-     * 
-     */
-    public AssuranceDTO createAssuranceDTO() {
-        return new AssuranceDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromNomServiceEtDepartementResponse }
-     * 
-     */
-    public GetStructuresFromNomServiceEtDepartementResponse createGetStructuresFromNomServiceEtDepartementResponse() {
-        return new GetStructuresFromNomServiceEtDepartementResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAccordFromId }
-     * 
-     */
-    public GetAccordFromId createGetAccordFromId() {
-        return new GetAccordFromId();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndIndemnity }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndIndemnity createGetNumberOfConventionsByStepAndIndemnity() {
-        return new GetNumberOfConventionsByStepAndIndemnity();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStructureValidationResponse }
-     * 
-     */
-    public UpdateStructureValidationResponse createUpdateStructureValidationResponse() {
-        return new UpdateStructureValidationResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreConventionByUfr }
-     * 
-     */
-    public UpdateCentreConventionByUfr createUpdateCentreConventionByUfr() {
-        return new UpdateCentreConventionByUfr();
-    }
-
-    /**
-     * Create an instance of {@link UpdateIdFichier }
-     * 
-     */
-    public UpdateIdFichier createUpdateIdFichier() {
-        return new UpdateIdFichier();
-    }
-
-    /**
-     * Create an instance of {@link MailAlreadyUsedForStructureException }
-     * 
-     */
-    public MailAlreadyUsedForStructureException createMailAlreadyUsedForStructureException() {
-        return new MailAlreadyUsedForStructureException();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreConventionByUfrCodUniv }
-     * 
-     */
-    public UpdateCentreConventionByUfrCodUniv createUpdateCentreConventionByUfrCodUniv() {
-        return new UpdateCentreConventionByUfrCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetCritereGestionResponse }
-     * 
-     */
-    public GetCritereGestionResponse createGetCritereGestionResponse() {
-        return new GetCritereGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link EffectifDTO }
-     * 
-     */
-    public EffectifDTO createEffectifDTO() {
-        return new EffectifDTO();
-    }
-
-    /**
-     * Create an instance of {@link FapQualificationDTO }
-     * 
-     */
-    public FapQualificationDTO createFapQualificationDTO() {
-        return new FapQualificationDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetAccordsNonValidesResponse }
-     * 
-     */
-    public GetAccordsNonValidesResponse createGetAccordsNonValidesResponse() {
-        return new GetAccordsNonValidesResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteContact }
-     * 
-     */
-    public DeleteContact createDeleteContact() {
-        return new DeleteContact();
-    }
-
-    /**
-     * Create an instance of {@link GetNombreContactByCentreGestionResponse }
-     * 
-     */
-    public GetNombreContactByCentreGestionResponse createGetNombreContactByCentreGestionResponse() {
-        return new GetNombreContactByCentreGestionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudy }
-     * 
-     */
-    public GetNumberOfConventionsByStudy createGetNumberOfConventionsByStudy() {
-        return new GetNumberOfConventionsByStudy();
-    }
-
-    /**
-     * Create an instance of {@link FapQualificationSimplifieeDTO }
-     * 
-     */
-    public FapQualificationSimplifieeDTO createFapQualificationSimplifieeDTO() {
-        return new FapQualificationSimplifieeDTO();
-    }
-
-    /**
-     * Create an instance of {@link UpdateValidationOffreResponse }
-     * 
-     */
-    public UpdateValidationOffreResponse createUpdateValidationOffreResponse() {
-        return new UpdateValidationOffreResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddOffreDiffusion }
-     * 
-     */
-    public AddOffreDiffusion createAddOffreDiffusion() {
-        return new AddOffreDiffusion();
+    public GetFapN2Response createGetFapN2Response() {
+        return new GetFapN2Response();
     }
 
     /**
@@ -5175,243 +1824,155 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetTotalConventionsParOrigineStageResponse }
+     * Create an instance of {@link GetEtapesFromCodUniv }
      * 
      */
-    public GetTotalConventionsParOrigineStageResponse createGetTotalConventionsParOrigineStageResponse() {
-        return new GetTotalConventionsParOrigineStageResponse();
+    public GetEtapesFromCodUniv createGetEtapesFromCodUniv() {
+        return new GetEtapesFromCodUniv();
     }
 
     /**
-     * Create an instance of {@link GetFapN3Response }
+     * Create an instance of {@link GetNombreContactByCentreGestion }
      * 
      */
-    public GetFapN3Response createGetFapN3Response() {
-        return new GetFapN3Response();
+    public GetNombreContactByCentreGestion createGetNombreContactByCentreGestion() {
+        return new GetNombreContactByCentreGestion();
     }
 
     /**
-     * Create an instance of {@link TypeConventionDTO }
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndTeacherGuide }
      * 
      */
-    public TypeConventionDTO createTypeConventionDTO() {
-        return new TypeConventionDTO();
+    public GetNumberOfConventionsByStudyAndTeacherGuide createGetNumberOfConventionsByStudyAndTeacherGuide() {
+        return new GetNumberOfConventionsByStudyAndTeacherGuide();
     }
 
     /**
-     * Create an instance of {@link GetEtapeFromIdFromCodUniv }
+     * Create an instance of {@link GetConventionsEtudiantFromCodUnivResponse }
      * 
      */
-    public GetEtapeFromIdFromCodUniv createGetEtapeFromIdFromCodUniv() {
-        return new GetEtapeFromIdFromCodUniv();
+    public GetConventionsEtudiantFromCodUnivResponse createGetConventionsEtudiantFromCodUnivResponse() {
+        return new GetConventionsEtudiantFromCodUnivResponse();
     }
 
     /**
-     * Create an instance of {@link GetFapN2 }
+     * Create an instance of {@link CritereRechercheStructureAncienDTO }
      * 
      */
-    public GetFapN2 createGetFapN2() {
-        return new GetFapN2();
+    public CritereRechercheStructureAncienDTO createCritereRechercheStructureAncienDTO() {
+        return new CritereRechercheStructureAncienDTO();
     }
 
     /**
-     * Create an instance of {@link GetAdminStructureFromEppnResponse }
+     * Create an instance of {@link GetModeValidationStagesResponse }
      * 
      */
-    public GetAdminStructureFromEppnResponse createGetAdminStructureFromEppnResponse() {
-        return new GetAdminStructureFromEppnResponse();
+    public GetModeValidationStagesResponse createGetModeValidationStagesResponse() {
+        return new GetModeValidationStagesResponse();
     }
 
     /**
-     * Create an instance of {@link GetAffectationFromCodeAffectationCodUniv }
+     * Create an instance of {@link DeleteAdminStructure }
      * 
      */
-    public GetAffectationFromCodeAffectationCodUniv createGetAffectationFromCodeAffectationCodUniv() {
-        return new GetAffectationFromCodeAffectationCodUniv();
+    public DeleteAdminStructure createDeleteAdminStructure() {
+        return new DeleteAdminStructure();
     }
 
     /**
-     * Create an instance of {@link GetNafN5 }
+     * Create an instance of {@link DeleteFichierResponse }
      * 
      */
-    public GetNafN5 createGetNafN5() {
-        return new GetNafN5();
+    public DeleteFichierResponse createDeleteFichierResponse() {
+        return new DeleteFichierResponse();
     }
 
     /**
-     * Create an instance of {@link DeleteEnseignantResponse }
+     * Create an instance of {@link ThemeDTO }
      * 
      */
-    public DeleteEnseignantResponse createDeleteEnseignantResponse() {
-        return new DeleteEnseignantResponse();
+    public ThemeDTO createThemeDTO() {
+        return new ThemeDTO();
     }
 
     /**
-     * Create an instance of {@link GetAnneesConventions }
+     * Create an instance of {@link GetAffectationFromCodUnivResponse }
      * 
      */
-    public GetAnneesConventions createGetAnneesConventions() {
-        return new GetAnneesConventions();
+    public GetAffectationFromCodUnivResponse createGetAffectationFromCodUnivResponse() {
+        return new GetAffectationFromCodUnivResponse();
     }
 
     /**
-     * Create an instance of {@link UniteDureeDTO }
+     * Create an instance of {@link GetServiceFromIdContact }
      * 
      */
-    public UniteDureeDTO createUniteDureeDTO() {
-        return new UniteDureeDTO();
+    public GetServiceFromIdContact createGetServiceFromIdContact() {
+        return new GetServiceFromIdContact();
     }
 
     /**
-     * Create an instance of {@link DeleteEtudiant }
+     * Create an instance of {@link GetOffresFromCriteresResponse }
      * 
      */
-    public DeleteEtudiant createDeleteEtudiant() {
-        return new DeleteEtudiant();
+    public GetOffresFromCriteresResponse createGetOffresFromCriteresResponse() {
+        return new GetOffresFromCriteresResponse();
     }
 
     /**
-     * Create an instance of {@link GetStructuresFromTypeStructureNafN1EtDepartement }
+     * Create an instance of {@link GetUniteGratifications }
      * 
      */
-    public GetStructuresFromTypeStructureNafN1EtDepartement createGetStructuresFromTypeStructureNafN1EtDepartement() {
-        return new GetStructuresFromTypeStructureNafN1EtDepartement();
+    public GetUniteGratifications createGetUniteGratifications() {
+        return new GetUniteGratifications();
     }
 
     /**
-     * Create an instance of {@link FapN3DTO }
+     * Create an instance of {@link GetUfrFromIdResponse }
      * 
      */
-    public FapN3DTO createFapN3DTO() {
-        return new FapN3DTO();
+    public GetUfrFromIdResponse createGetUfrFromIdResponse() {
+        return new GetUfrFromIdResponse();
     }
 
     /**
-     * Create an instance of {@link GetStructureFromNumSiretResponse }
+     * Create an instance of {@link UpdateFichierResponse }
      * 
      */
-    public GetStructureFromNumSiretResponse createGetStructureFromNumSiretResponse() {
-        return new GetStructureFromNumSiretResponse();
+    public UpdateFichierResponse createUpdateFichierResponse() {
+        return new UpdateFichierResponse();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndType }
+     * Create an instance of {@link GetCaisseRegimesResponse }
      * 
      */
-    public GetNumberOfConventionsByStudyAndType createGetNumberOfConventionsByStudyAndType() {
-        return new GetNumberOfConventionsByStudyAndType();
+    public GetCaisseRegimesResponse createGetCaisseRegimesResponse() {
+        return new GetCaisseRegimesResponse();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfOffersByPublicationResponse }
+     * Create an instance of {@link GetServicesFromIdStructureResponse }
      * 
      */
-    public GetNumberOfOffersByPublicationResponse createGetNumberOfOffersByPublicationResponse() {
-        return new GetNumberOfOffersByPublicationResponse();
+    public GetServicesFromIdStructureResponse createGetServicesFromIdStructureResponse() {
+        return new GetServicesFromIdStructureResponse();
     }
 
     /**
-     * Create an instance of {@link GetEffectifs }
+     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureType }
      * 
      */
-    public GetEffectifs createGetEffectifs() {
-        return new GetEffectifs();
+    public GetNumberOfConventionsByStepAndStructureType createGetNumberOfConventionsByStepAndStructureType() {
+        return new GetNumberOfConventionsByStepAndStructureType();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndWayToFindResponse }
+     * Create an instance of {@link AddOffreDiffusion }
      * 
      */
-    public GetNumberOfConventionsByDepartmentAndWayToFindResponse createGetNumberOfConventionsByDepartmentAndWayToFindResponse() {
-        return new GetNumberOfConventionsByDepartmentAndWayToFindResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructureAvecAccordFromId }
-     * 
-     */
-    public GetStructureAvecAccordFromId createGetStructureAvecAccordFromId() {
-        return new GetStructureAvecAccordFromId();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndWayToFind }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndWayToFind createGetNumberOfConventionsByStudyAndWayToFind() {
-        return new GetNumberOfConventionsByStudyAndWayToFind();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndTeacherGuide }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndTeacherGuide createGetNumberOfConventionsByDepartmentAndTeacherGuide() {
-        return new GetNumberOfConventionsByDepartmentAndTeacherGuide();
-    }
-
-    /**
-     * Create an instance of {@link GetNiveauCentreResponse }
-     * 
-     */
-    public GetNiveauCentreResponse createGetNiveauCentreResponse() {
-        return new GetNiveauCentreResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresPaysEtrangerFromRaisonSocialeResponse }
-     * 
-     */
-    public GetStructuresPaysEtrangerFromRaisonSocialeResponse createGetStructuresPaysEtrangerFromRaisonSocialeResponse() {
-        return new GetStructuresPaysEtrangerFromRaisonSocialeResponse();
-    }
-
-    /**
-     * Create an instance of {@link CritereRechercheOffreDTO }
-     * 
-     */
-    public CritereRechercheOffreDTO createCritereRechercheOffreDTO() {
-        return new CritereRechercheOffreDTO();
-    }
-
-    /**
-     * Create an instance of {@link SetIdFichierNullResponse }
-     * 
-     */
-    public SetIdFichierNullResponse createSetIdFichierNullResponse() {
-        return new SetIdFichierNullResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParDepLieuStage }
-     * 
-     */
-    public GetTotalConventionsParDepLieuStage createGetTotalConventionsParDepLieuStage() {
-        return new GetTotalConventionsParDepLieuStage();
-    }
-
-    /**
-     * Create an instance of {@link UpdateEnseignantResponse }
-     * 
-     */
-    public UpdateEnseignantResponse createUpdateEnseignantResponse() {
-        return new UpdateEnseignantResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndTeacherGuideResponse }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndTeacherGuideResponse createGetNumberOfConventionsByDepartmentAndTeacherGuideResponse() {
-        return new GetNumberOfConventionsByDepartmentAndTeacherGuideResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetEtapeFromId }
-     * 
-     */
-    public GetEtapeFromId createGetEtapeFromId() {
-        return new GetEtapeFromId();
+    public AddOffreDiffusion createAddOffreDiffusion() {
+        return new AddOffreDiffusion();
     }
 
     /**
@@ -5431,435 +1992,51 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetNombrePersonnelCentreGestion }
+     * Create an instance of {@link AddOffre }
      * 
      */
-    public GetNombrePersonnelCentreGestion createGetNombrePersonnelCentreGestion() {
-        return new GetNombrePersonnelCentreGestion();
+    public AddOffre createAddOffre() {
+        return new AddOffre();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfOffersByStructureSize }
+     * Create an instance of {@link GetTotalConventionsParType }
      * 
      */
-    public GetNumberOfOffersByStructureSize createGetNumberOfOffersByStructureSize() {
-        return new GetNumberOfOffersByStructureSize();
+    public GetTotalConventionsParType createGetTotalConventionsParType() {
+        return new GetTotalConventionsParType();
     }
 
     /**
-     * Create an instance of {@link GetAnneesUnivOffresResponse }
+     * Create an instance of {@link GetCodeUFRFromCodeEtapeResponse }
      * 
      */
-    public GetAnneesUnivOffresResponse createGetAnneesUnivOffresResponse() {
-        return new GetAnneesUnivOffresResponse();
+    public GetCodeUFRFromCodeEtapeResponse createGetCodeUFRFromCodeEtapeResponse() {
+        return new GetCodeUFRFromCodeEtapeResponse();
     }
 
     /**
-     * Create an instance of {@link GetNombreOffreByCentreGestion }
+     * Create an instance of {@link GetNumberOfConventionsByStepAndActivityResponse }
      * 
      */
-    public GetNombreOffreByCentreGestion createGetNombreOffreByCentreGestion() {
-        return new GetNombreOffreByCentreGestion();
+    public GetNumberOfConventionsByStepAndActivityResponse createGetNumberOfConventionsByStepAndActivityResponse() {
+        return new GetNumberOfConventionsByStepAndActivityResponse();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndThemeResponse }
+     * Create an instance of {@link GetCentreGestionSuperviseur }
      * 
      */
-    public GetNumberOfConventionsByStudyAndThemeResponse createGetNumberOfConventionsByStudyAndThemeResponse() {
-        return new GetNumberOfConventionsByStudyAndThemeResponse();
+    public GetCentreGestionSuperviseur createGetCentreGestionSuperviseur() {
+        return new GetCentreGestionSuperviseur();
     }
 
     /**
-     * Create an instance of {@link GetEnseignantFromId }
+     * Create an instance of {@link SetIdFichierNullResponse }
      * 
      */
-    public GetEnseignantFromId createGetEnseignantFromId() {
-        return new GetEnseignantFromId();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreFromUidFromCodUniv }
-     * 
-     */
-    public GetCentreFromUidFromCodUniv createGetCentreFromUidFromCodUniv() {
-        return new GetCentreFromUidFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndWayToFind }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndWayToFind createGetNumberOfConventionsByDepartmentAndWayToFind() {
-        return new GetNumberOfConventionsByDepartmentAndWayToFind();
-    }
-
-    /**
-     * Create an instance of {@link GetNafN5Response }
-     * 
-     */
-    public GetNafN5Response createGetNafN5Response() {
-        return new GetNafN5Response();
-    }
-
-    /**
-     * Create an instance of {@link GetContactEntrepriseAvecCompteFromMailAndIdStructureResponse }
-     * 
-     */
-    public GetContactEntrepriseAvecCompteFromMailAndIdStructureResponse createGetContactEntrepriseAvecCompteFromMailAndIdStructureResponse() {
-        return new GetContactEntrepriseAvecCompteFromMailAndIdStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresAncienResponse }
-     * 
-     */
-    public GetStructuresAncienResponse createGetStructuresAncienResponse() {
-        return new GetStructuresAncienResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateContactDerniereConnexion }
-     * 
-     */
-    public UpdateContactDerniereConnexion createUpdateContactDerniereConnexion() {
-        return new UpdateContactDerniereConnexion();
-    }
-
-    /**
-     * Create an instance of {@link GetStatutsJuridiquesResponse }
-     * 
-     */
-    public GetStatutsJuridiquesResponse createGetStatutsJuridiquesResponse() {
-        return new GetStatutsJuridiquesResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetContactsFromIdService }
-     * 
-     */
-    public GetContactsFromIdService createGetContactsFromIdService() {
-        return new GetContactsFromIdService();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParIndemnite }
-     * 
-     */
-    public GetTotalConventionsParIndemnite createGetTotalConventionsParIndemnite() {
-        return new GetTotalConventionsParIndemnite();
-    }
-
-    /**
-     * Create an instance of {@link GetAvenantResponse }
-     * 
-     */
-    public GetAvenantResponse createGetAvenantResponse() {
-        return new GetAvenantResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddCentreGestionSuperviseurResponse }
-     * 
-     */
-    public AddCentreGestionSuperviseurResponse createAddCentreGestionSuperviseurResponse() {
-        return new AddCentreGestionSuperviseurResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndType }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndType createGetNumberOfConventionsByStepAndType() {
-        return new GetNumberOfConventionsByStepAndType();
-    }
-
-    /**
-     * Create an instance of {@link GetStructureFromNumSiret }
-     * 
-     */
-    public GetStructureFromNumSiret createGetStructureFromNumSiret() {
-        return new GetStructureFromNumSiret();
-    }
-
-    /**
-     * Create an instance of {@link GetTypeConventionsResponse }
-     * 
-     */
-    public GetTypeConventionsResponse createGetTypeConventionsResponse() {
-        return new GetTypeConventionsResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByLevelResponse }
-     * 
-     */
-    public GetNumberOfOffersByLevelResponse createGetNumberOfOffersByLevelResponse() {
-        return new GetNumberOfOffersByLevelResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByCandidateFoundResponse }
-     * 
-     */
-    public GetNumberOfOffersByCandidateFoundResponse createGetNumberOfOffersByCandidateFoundResponse() {
-        return new GetNumberOfOffersByCandidateFoundResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetOffreFromId }
-     * 
-     */
-    public GetOffreFromId createGetOffreFromId() {
-        return new GetOffreFromId();
-    }
-
-    /**
-     * Create an instance of {@link GetNafN1 }
-     * 
-     */
-    public GetNafN1 createGetNafN1() {
-        return new GetNafN1();
-    }
-
-    /**
-     * Create an instance of {@link AddOffreDiffusionResponse }
-     * 
-     */
-    public AddOffreDiffusionResponse createAddOffreDiffusionResponse() {
-        return new AddOffreDiffusionResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStudyAndServiceCountryResponse }
-     * 
-     */
-    public GetNumberOfConventionsByStudyAndServiceCountryResponse createGetNumberOfConventionsByStudyAndServiceCountryResponse() {
-        return new GetNumberOfConventionsByStudyAndServiceCountryResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStopValidationOffre }
-     * 
-     */
-    public UpdateStopValidationOffre createUpdateStopValidationOffre() {
-        return new UpdateStopValidationOffre();
-    }
-
-    /**
-     * Create an instance of {@link GetCriteresParCategorieEtParNiveau }
-     * 
-     */
-    public GetCriteresParCategorieEtParNiveau createGetCriteresParCategorieEtParNiveau() {
-        return new GetCriteresParCategorieEtParNiveau();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndNbDaysPerWeek }
-     * 
-     */
-    public GetNumberOfConventionsByStepAndNbDaysPerWeek createGetNumberOfConventionsByStepAndNbDaysPerWeek() {
-        return new GetNumberOfConventionsByStepAndNbDaysPerWeek();
-    }
-
-    /**
-     * Create an instance of {@link StructureNumSiretException }
-     * 
-     */
-    public StructureNumSiretException createStructureNumSiretException() {
-        return new StructureNumSiretException();
-    }
-
-    /**
-     * Create an instance of {@link UpdateStopDiffusionOffreResponse }
-     * 
-     */
-    public UpdateStopDiffusionOffreResponse createUpdateStopDiffusionOffreResponse() {
-        return new UpdateStopDiffusionOffreResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetCentreFromUid }
-     * 
-     */
-    public GetCentreFromUid createGetCentreFromUid() {
-        return new GetCentreFromUid();
-    }
-
-    /**
-     * Create an instance of {@link GetAnneesOffres }
-     * 
-     */
-    public GetAnneesOffres createGetAnneesOffres() {
-        return new GetAnneesOffres();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByStep }
-     * 
-     */
-    public GetNumberOfConventionsByStep createGetNumberOfConventionsByStep() {
-        return new GetNumberOfConventionsByStep();
-    }
-
-    /**
-     * Create an instance of {@link ConfidentialiteDTO }
-     * 
-     */
-    public ConfidentialiteDTO createConfidentialiteDTO() {
-        return new ConfidentialiteDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetFapQualificationsSimplifiees }
-     * 
-     */
-    public GetFapQualificationsSimplifiees createGetFapQualificationsSimplifiees() {
-        return new GetFapQualificationsSimplifiees();
-    }
-
-    /**
-     * Create an instance of {@link GetEtapesFromIdsCentreGestionFromCodUnivResponse }
-     * 
-     */
-    public GetEtapesFromIdsCentreGestionFromCodUnivResponse createGetEtapesFromIdsCentreGestionFromCodUnivResponse() {
-        return new GetEtapesFromIdsCentreGestionFromCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddFichierResponse }
-     * 
-     */
-    public AddFichierResponse createAddFichierResponse() {
-        return new AddFichierResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddFichier }
-     * 
-     */
-    public AddFichier createAddFichier() {
-        return new AddFichier();
-    }
-
-    /**
-     * Create an instance of {@link GetTempsTravailResponse }
-     * 
-     */
-    public GetTempsTravailResponse createGetTempsTravailResponse() {
-        return new GetTempsTravailResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetConventionsFromCodUniv }
-     * 
-     */
-    public GetConventionsFromCodUniv createGetConventionsFromCodUniv() {
-        return new GetConventionsFromCodUniv();
-    }
-
-    /**
-     * Create an instance of {@link NiveauFormationDTO }
-     * 
-     */
-    public NiveauFormationDTO createNiveauFormationDTO() {
-        return new NiveauFormationDTO();
-    }
-
-    /**
-     * Create an instance of {@link GetFichierFromIdFichierResponse }
-     * 
-     */
-    public GetFichierFromIdFichierResponse createGetFichierFromIdFichierResponse() {
-        return new GetFichierFromIdFichierResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetStructuresFromNumSirenResponse }
-     * 
-     */
-    public GetStructuresFromNumSirenResponse createGetStructuresFromNumSirenResponse() {
-        return new GetStructuresFromNumSirenResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetOffresFromIdStructureAndIdsCentreGestion }
-     * 
-     */
-    public GetOffresFromIdStructureAndIdsCentreGestion createGetOffresFromIdStructureAndIdsCentreGestion() {
-        return new GetOffresFromIdStructureAndIdsCentreGestion();
-    }
-
-    /**
-     * Create an instance of {@link UpdateCentreConventionByEtapeCodUnivResponse }
-     * 
-     */
-    public UpdateCentreConventionByEtapeCodUnivResponse createUpdateCentreConventionByEtapeCodUnivResponse() {
-        return new UpdateCentreConventionByEtapeCodUnivResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetNiveauCentre }
-     * 
-     */
-    public GetNiveauCentre createGetNiveauCentre() {
-        return new GetNiveauCentre();
-    }
-
-    /**
-     * Create an instance of {@link DeleteAccordResponse }
-     * 
-     */
-    public DeleteAccordResponse createDeleteAccordResponse() {
-        return new DeleteAccordResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddEtudiantResponse }
-     * 
-     */
-    public AddEtudiantResponse createAddEtudiantResponse() {
-        return new AddEtudiantResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteCritere }
-     * 
-     */
-    public DeleteCritere createDeleteCritere() {
-        return new DeleteCritere();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByStructureDep }
-     * 
-     */
-    public GetNumberOfOffersByStructureDep createGetNumberOfOffersByStructureDep() {
-        return new GetNumberOfOffersByStructureDep();
-    }
-
-    /**
-     * Create an instance of {@link UpdateEtudiant }
-     * 
-     */
-    public UpdateEtudiant createUpdateEtudiant() {
-        return new UpdateEtudiant();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfOffersByCandidateFound }
-     * 
-     */
-    public GetNumberOfOffersByCandidateFound createGetNumberOfOffersByCandidateFound() {
-        return new GetNumberOfOffersByCandidateFound();
-    }
-
-    /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndServiceDep }
-     * 
-     */
-    public GetNumberOfConventionsByDepartmentAndServiceDep createGetNumberOfConventionsByDepartmentAndServiceDep() {
-        return new GetNumberOfConventionsByDepartmentAndServiceDep();
+    public SetIdFichierNullResponse createSetIdFichierNullResponse() {
+        return new SetIdFichierNullResponse();
     }
 
     /**
@@ -5871,43 +2048,59 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AddCritere }
+     * Create an instance of {@link GetTypesStructureResponse }
      * 
      */
-    public AddCritere createAddCritere() {
-        return new AddCritere();
+    public GetTypesStructureResponse createGetTypesStructureResponse() {
+        return new GetTypesStructureResponse();
     }
 
     /**
-     * Create an instance of {@link GetCriteresParCategorieEtParNiveauResponse }
+     * Create an instance of {@link DeleteOffreDiffusionFromIdResponse }
      * 
      */
-    public GetCriteresParCategorieEtParNiveauResponse createGetCriteresParCategorieEtParNiveauResponse() {
-        return new GetCriteresParCategorieEtParNiveauResponse();
+    public DeleteOffreDiffusionFromIdResponse createDeleteOffreDiffusionFromIdResponse() {
+        return new DeleteOffreDiffusionFromIdResponse();
     }
 
     /**
-     * Create an instance of {@link GetStructuresFromNumSiren }
+     * Create an instance of {@link GetCentreDroitEcriture }
      * 
      */
-    public GetStructuresFromNumSiren createGetStructuresFromNumSiren() {
-        return new GetStructuresFromNumSiren();
+    public GetCentreDroitEcriture createGetCentreDroitEcriture() {
+        return new GetCentreDroitEcriture();
     }
 
     /**
-     * Create an instance of {@link GetIndemnisationsResponse }
+     * Create an instance of {@link ServiceDeleteException }
      * 
      */
-    public GetIndemnisationsResponse createGetIndemnisationsResponse() {
-        return new GetIndemnisationsResponse();
+    public ServiceDeleteException createServiceDeleteException() {
+        return new ServiceDeleteException();
     }
 
     /**
-     * Create an instance of {@link NomenclatureIdDTO }
+     * Create an instance of {@link GetStructuresAvecAccordAValiderFromRaisonSociale }
      * 
      */
-    public NomenclatureIdDTO createNomenclatureIdDTO() {
-        return new NomenclatureIdDTO();
+    public GetStructuresAvecAccordAValiderFromRaisonSociale createGetStructuresAvecAccordAValiderFromRaisonSociale() {
+        return new GetStructuresAvecAccordAValiderFromRaisonSociale();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreEntreprise }
+     * 
+     */
+    public GetCentreEntreprise createGetCentreEntreprise() {
+        return new GetCentreEntreprise();
+    }
+
+    /**
+     * Create an instance of {@link GetPersonnelCentreGestionList }
+     * 
+     */
+    public GetPersonnelCentreGestionList createGetPersonnelCentreGestionList() {
+        return new GetPersonnelCentreGestionList();
     }
 
     /**
@@ -5919,83 +2112,59 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ModeVersGratificationDTO }
+     * Create an instance of {@link GetOffreFromIdResponse }
      * 
      */
-    public ModeVersGratificationDTO createModeVersGratificationDTO() {
-        return new ModeVersGratificationDTO();
+    public GetOffreFromIdResponse createGetOffreFromIdResponse() {
+        return new GetOffreFromIdResponse();
     }
 
     /**
-     * Create an instance of {@link GetTicketStructureValideResponse }
+     * Create an instance of {@link UpdateEtudiantResponse }
      * 
      */
-    public GetTicketStructureValideResponse createGetTicketStructureValideResponse() {
-        return new GetTicketStructureValideResponse();
+    public UpdateEtudiantResponse createUpdateEtudiantResponse() {
+        return new UpdateEtudiantResponse();
     }
 
     /**
-     * Create an instance of {@link GetFapN1Response }
+     * Create an instance of {@link GetThemes }
      * 
      */
-    public GetFapN1Response createGetFapN1Response() {
-        return new GetFapN1Response();
+    public GetThemes createGetThemes() {
+        return new GetThemes();
     }
 
     /**
-     * Create an instance of {@link GetModesCandidatureResponse }
+     * Create an instance of {@link CentreGestionSuperviseurDTO }
      * 
      */
-    public GetModesCandidatureResponse createGetModesCandidatureResponse() {
-        return new GetModesCandidatureResponse();
+    public CentreGestionSuperviseurDTO createCentreGestionSuperviseurDTO() {
+        return new CentreGestionSuperviseurDTO();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByStepAndWayToFind }
+     * Create an instance of {@link AdminStructureAccountException }
      * 
      */
-    public GetNumberOfConventionsByStepAndWayToFind createGetNumberOfConventionsByStepAndWayToFind() {
-        return new GetNumberOfConventionsByStepAndWayToFind();
+    public AdminStructureAccountException createAdminStructureAccountException() {
+        return new AdminStructureAccountException();
     }
 
     /**
-     * Create an instance of {@link AddContactResponse }
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndServiceCountryResponse }
      * 
      */
-    public AddContactResponse createAddContactResponse() {
-        return new AddContactResponse();
+    public GetNumberOfConventionsByDepartmentAndServiceCountryResponse createGetNumberOfConventionsByDepartmentAndServiceCountryResponse() {
+        return new GetNumberOfConventionsByDepartmentAndServiceCountryResponse();
     }
 
     /**
-     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndNbDaysPerWeekResponse }
+     * Create an instance of {@link ModeValidationStageDTO }
      * 
      */
-    public GetNumberOfConventionsByDepartmentAndNbDaysPerWeekResponse createGetNumberOfConventionsByDepartmentAndNbDaysPerWeekResponse() {
-        return new GetNumberOfConventionsByDepartmentAndNbDaysPerWeekResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetPersonnelCentreGestionFromUidResponse }
-     * 
-     */
-    public GetPersonnelCentreGestionFromUidResponse createGetPersonnelCentreGestionFromUidResponse() {
-        return new GetPersonnelCentreGestionFromUidResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetTotalConventionsParStructureResponse }
-     * 
-     */
-    public GetTotalConventionsParStructureResponse createGetTotalConventionsParStructureResponse() {
-        return new GetTotalConventionsParStructureResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteAvenantResponse }
-     * 
-     */
-    public DeleteAvenantResponse createDeleteAvenantResponse() {
-        return new DeleteAvenantResponse();
+    public ModeValidationStageDTO createModeValidationStageDTO() {
+        return new ModeValidationStageDTO();
     }
 
     /**
@@ -6007,11 +2176,3851 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetUfrsFromCodUniv }
+     * 
+     */
+    public GetUfrsFromCodUniv createGetUfrsFromCodUniv() {
+        return new GetUfrsFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetEtudiantFromId }
+     * 
+     */
+    public GetEtudiantFromId createGetEtudiantFromId() {
+        return new GetEtudiantFromId();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndNbDaysPerWeekResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndNbDaysPerWeekResponse createGetNumberOfConventionsByStudyAndNbDaysPerWeekResponse() {
+        return new GetNumberOfConventionsByStudyAndNbDaysPerWeekResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreGestionSuperviseurResponse }
+     * 
+     */
+    public GetCentreGestionSuperviseurResponse createGetCentreGestionSuperviseurResponse() {
+        return new GetCentreGestionSuperviseurResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetServiceFromIdResponse }
+     * 
+     */
+    public GetServiceFromIdResponse createGetServiceFromIdResponse() {
+        return new GetServiceFromIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreConventionByCentreGestion }
+     * 
+     */
+    public GetNombreConventionByCentreGestion createGetNombreConventionByCentreGestion() {
+        return new GetNombreConventionByCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link AccordAlreadyExistingForContactException }
+     * 
+     */
+    public AccordAlreadyExistingForContactException createAccordAlreadyExistingForContactException() {
+        return new AccordAlreadyExistingForContactException();
+    }
+
+    /**
+     * Create an instance of {@link GetEnseignantsFromCodUniv }
+     * 
+     */
+    public GetEnseignantsFromCodUniv createGetEnseignantsFromCodUniv() {
+        return new GetEnseignantsFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsEtudiantFromCodUniv }
+     * 
+     */
+    public GetConventionsEtudiantFromCodUniv createGetConventionsEtudiantFromCodUniv() {
+        return new GetConventionsEtudiantFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParTypeResponse }
+     * 
+     */
+    public GetTotalConventionsParTypeResponse createGetTotalConventionsParTypeResponse() {
+        return new GetTotalConventionsParTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndWayToFind }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndWayToFind createGetNumberOfConventionsByStepAndWayToFind() {
+        return new GetNumberOfConventionsByStepAndWayToFind();
+    }
+
+    /**
+     * Create an instance of {@link GetStatutsJuridiques }
+     * 
+     */
+    public GetStatutsJuridiques createGetStatutsJuridiques() {
+        return new GetStatutsJuridiques();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromTypeStructureNafN1EtDepartementResponse }
+     * 
+     */
+    public GetStructuresFromTypeStructureNafN1EtDepartementResponse createGetStructuresFromTypeStructureNafN1EtDepartementResponse() {
+        return new GetStructuresFromTypeStructureNafN1EtDepartementResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateRejetOffre }
+     * 
+     */
+    public UpdateRejetOffre createUpdateRejetOffre() {
+        return new UpdateRejetOffre();
+    }
+
+    /**
+     * Create an instance of {@link GetUfrFromIdFromCodUniv }
+     * 
+     */
+    public GetUfrFromIdFromCodUniv createGetUfrFromIdFromCodUniv() {
+        return new GetUfrFromIdFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link UpdateContactInfosAJourResponse }
+     * 
+     */
+    public UpdateContactInfosAJourResponse createUpdateContactInfosAJourResponse() {
+        return new UpdateContactInfosAJourResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureTypeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndStructureTypeResponse createGetNumberOfConventionsByStudyAndStructureTypeResponse() {
+        return new GetNumberOfConventionsByStudyAndStructureTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddCentreGestionSuperviseurResponse }
+     * 
+     */
+    public AddCentreGestionSuperviseurResponse createAddCentreGestionSuperviseurResponse() {
+        return new AddCentreGestionSuperviseurResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreGestionList }
+     * 
+     */
+    public GetCentreGestionList createGetCentreGestionList() {
+        return new GetCentreGestionList();
+    }
+
+    /**
+     * Create an instance of {@link UpdateValidationOffre }
+     * 
+     */
+    public UpdateValidationOffre createUpdateValidationOffre() {
+        return new UpdateValidationOffre();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresSansAccordFromRaisonSociale }
+     * 
+     */
+    public GetStructuresSansAccordFromRaisonSociale createGetStructuresSansAccordFromRaisonSociale() {
+        return new GetStructuresSansAccordFromRaisonSociale();
+    }
+
+    /**
+     * Create an instance of {@link GetServicesFromIdStructure }
+     * 
+     */
+    public GetServicesFromIdStructure createGetServicesFromIdStructure() {
+        return new GetServicesFromIdStructure();
+    }
+
+    /**
+     * Create an instance of {@link CritereRechercheStructureAdresseDTO }
+     * 
+     */
+    public CritereRechercheStructureAdresseDTO createCritereRechercheStructureAdresseDTO() {
+        return new CritereRechercheStructureAdresseDTO();
+    }
+
+    /**
+     * Create an instance of {@link UpdateContactResponse }
+     * 
+     */
+    public UpdateContactResponse createUpdateContactResponse() {
+        return new UpdateContactResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetEnseignants }
+     * 
+     */
+    public GetEnseignants createGetEnseignants() {
+        return new GetEnseignants();
+    }
+
+    /**
+     * Create an instance of {@link SetIdFichierNull }
+     * 
+     */
+    public SetIdFichierNull createSetIdFichierNull() {
+        return new SetIdFichierNull();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParStructureActiviteResponse }
+     * 
+     */
+    public GetTotalConventionsParStructureActiviteResponse createGetTotalConventionsParStructureActiviteResponse() {
+        return new GetTotalConventionsParStructureActiviteResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndActivity }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndActivity createGetNumberOfConventionsByStudyAndActivity() {
+        return new GetNumberOfConventionsByStudyAndActivity();
+    }
+
+    /**
+     * Create an instance of {@link UpdateAccord }
+     * 
+     */
+    public UpdateAccord createUpdateAccord() {
+        return new UpdateAccord();
+    }
+
+    /**
+     * Create an instance of {@link AddOffreModeCandidature }
+     * 
+     */
+    public AddOffreModeCandidature createAddOffreModeCandidature() {
+        return new AddOffreModeCandidature();
+    }
+
+    /**
+     * Create an instance of {@link UpdateContactDerniereConnexion }
+     * 
+     */
+    public UpdateContactDerniereConnexion createUpdateContactDerniereConnexion() {
+        return new UpdateContactDerniereConnexion();
+    }
+
+    /**
+     * Create an instance of {@link AddStructure }
+     * 
+     */
+    public AddStructure createAddStructure() {
+        return new AddStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndServiceCountryResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndServiceCountryResponse createGetNumberOfConventionsByStepAndServiceCountryResponse() {
+        return new GetNumberOfConventionsByStepAndServiceCountryResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsResponse }
+     * 
+     */
+    public GetTotalConventionsResponse createGetTotalConventionsResponse() {
+        return new GetTotalConventionsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudy }
+     * 
+     */
+    public GetNumberOfConventionsByStudy createGetNumberOfConventionsByStudy() {
+        return new GetNumberOfConventionsByStudy();
+    }
+
+    /**
+     * Create an instance of {@link UpdatePersonnelCentreGestionResponse }
+     * 
+     */
+    public UpdatePersonnelCentreGestionResponse createUpdatePersonnelCentreGestionResponse() {
+        return new UpdatePersonnelCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCaisseRegimes }
+     * 
+     */
+    public GetCaisseRegimes createGetCaisseRegimes() {
+        return new GetCaisseRegimes();
+    }
+
+    /**
+     * Create an instance of {@link UpdateContact }
+     * 
+     */
+    public UpdateContact createUpdateContact() {
+        return new UpdateContact();
+    }
+
+    /**
+     * Create an instance of {@link DeleteCritereResponse }
+     * 
+     */
+    public DeleteCritereResponse createDeleteCritereResponse() {
+        return new DeleteCritereResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteConventionResponse }
+     * 
+     */
+    public DeleteConventionResponse createDeleteConventionResponse() {
+        return new DeleteConventionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreEntrepriseResponse }
+     * 
+     */
+    public GetCentreEntrepriseResponse createGetCentreEntrepriseResponse() {
+        return new GetCentreEntrepriseResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyResponse createGetNumberOfConventionsByStudyResponse() {
+        return new GetNumberOfConventionsByStudyResponse();
+    }
+
+    /**
+     * Create an instance of {@link ContactDTO }
+     * 
+     */
+    public ContactDTO createContactDTO() {
+        return new ContactDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetCritereGestionResponse }
+     * 
+     */
+    public GetCritereGestionResponse createGetCritereGestionResponse() {
+        return new GetCritereGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddAdminStructureResponse }
+     * 
+     */
+    public AddAdminStructureResponse createAddAdminStructureResponse() {
+        return new AddAdminStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndNbDaysPerWeekResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndNbDaysPerWeekResponse createGetNumberOfConventionsByDepartmentAndNbDaysPerWeekResponse() {
+        return new GetNumberOfConventionsByDepartmentAndNbDaysPerWeekResponse();
+    }
+
+    /**
+     * Create an instance of {@link CleanFichiersResponse }
+     * 
+     */
+    public CleanFichiersResponse createCleanFichiersResponse() {
+        return new CleanFichiersResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructureFromNumSiret }
+     * 
+     */
+    public GetStructureFromNumSiret createGetStructureFromNumSiret() {
+        return new GetStructureFromNumSiret();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByLocalStudent }
+     * 
+     */
+    public GetNumberOfOffersByLocalStudent createGetNumberOfOffersByLocalStudent() {
+        return new GetNumberOfOffersByLocalStudent();
+    }
+
+    /**
+     * Create an instance of {@link GetContactFromIdResponse }
+     * 
+     */
+    public GetContactFromIdResponse createGetContactFromIdResponse() {
+        return new GetContactFromIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteStructureResponse }
+     * 
+     */
+    public DeleteStructureResponse createDeleteStructureResponse() {
+        return new DeleteStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAccordsNonValides }
+     * 
+     */
+    public GetAccordsNonValides createGetAccordsNonValides() {
+        return new GetAccordsNonValides();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndStructureResponse createGetNumberOfConventionsByStepAndStructureResponse() {
+        return new GetNumberOfConventionsByStepAndStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link ModeCandidatureDTO }
+     * 
+     */
+    public ModeCandidatureDTO createModeCandidatureDTO() {
+        return new ModeCandidatureDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParStructureActivite }
+     * 
+     */
+    public GetTotalConventionsParStructureActivite createGetTotalConventionsParStructureActivite() {
+        return new GetTotalConventionsParStructureActivite();
+    }
+
+    /**
+     * Create an instance of {@link DeleteServiceResponse }
+     * 
+     */
+    public DeleteServiceResponse createDeleteServiceResponse() {
+        return new DeleteServiceResponse();
+    }
+
+    /**
+     * Create an instance of {@link MailAlreadyUsedForStructureException }
+     * 
+     */
+    public MailAlreadyUsedForStructureException createMailAlreadyUsedForStructureException() {
+        return new MailAlreadyUsedForStructureException();
+    }
+
+    /**
+     * Create an instance of {@link TypeStructureDTO }
+     * 
+     */
+    public TypeStructureDTO createTypeStructureDTO() {
+        return new TypeStructureDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParJourSemaineResponse }
+     * 
+     */
+    public GetTotalConventionsParJourSemaineResponse createGetTotalConventionsParJourSemaineResponse() {
+        return new GetTotalConventionsParJourSemaineResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreFromCritere }
+     * 
+     */
+    public GetCentreFromCritere createGetCentreFromCritere() {
+        return new GetCentreFromCritere();
+    }
+
+    /**
+     * Create an instance of {@link GetEnseignantFromUidResponse }
+     * 
+     */
+    public GetEnseignantFromUidResponse createGetEnseignantFromUidResponse() {
+        return new GetEnseignantFromUidResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetPersonnelCentreGestion }
+     * 
+     */
+    public GetPersonnelCentreGestion createGetPersonnelCentreGestion() {
+        return new GetPersonnelCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetOffresFromIdStructureAndIdsCentreGestionResponse }
+     * 
+     */
+    public GetOffresFromIdStructureAndIdsCentreGestionResponse createGetOffresFromIdStructureAndIdsCentreGestionResponse() {
+        return new GetOffresFromIdStructureAndIdsCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromAdresseResponse }
+     * 
+     */
+    public GetStructuresFromAdresseResponse createGetStructuresFromAdresseResponse() {
+        return new GetStructuresFromAdresseResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAvenantResponse }
+     * 
+     */
+    public GetAvenantResponse createGetAvenantResponse() {
+        return new GetAvenantResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUniteGratificationsResponse }
+     * 
+     */
+    public GetUniteGratificationsResponse createGetUniteGratificationsResponse() {
+        return new GetUniteGratificationsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByStructureDepResponse }
+     * 
+     */
+    public GetNumberOfOffersByStructureDepResponse createGetNumberOfOffersByStructureDepResponse() {
+        return new GetNumberOfOffersByStructureDepResponse();
+    }
+
+    /**
+     * Create an instance of {@link CentreReferenceException }
+     * 
+     */
+    public CentreReferenceException createCentreReferenceException() {
+        return new CentreReferenceException();
+    }
+
+    /**
+     * Create an instance of {@link UpdatePersonnelCentreGestion }
+     * 
+     */
+    public UpdatePersonnelCentreGestion createUpdatePersonnelCentreGestion() {
+        return new UpdatePersonnelCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCentreGestion }
+     * 
+     */
+    public UpdateCentreGestion createUpdateCentreGestion() {
+        return new UpdateCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresPaysEtrangerFromRaisonSocialeResponse }
+     * 
+     */
+    public GetStructuresPaysEtrangerFromRaisonSocialeResponse createGetStructuresPaysEtrangerFromRaisonSocialeResponse() {
+        return new GetStructuresPaysEtrangerFromRaisonSocialeResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddAdminStructure }
+     * 
+     */
+    public AddAdminStructure createAddAdminStructure() {
+        return new AddAdminStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetUfrsFromIdsCentreGestion }
+     * 
+     */
+    public GetUfrsFromIdsCentreGestion createGetUfrsFromIdsCentreGestion() {
+        return new GetUfrsFromIdsCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreFromUid }
+     * 
+     */
+    public GetCentreFromUid createGetCentreFromUid() {
+        return new GetCentreFromUid();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromNomServiceEtDepartement }
+     * 
+     */
+    public GetStructuresFromNomServiceEtDepartement createGetStructuresFromNomServiceEtDepartement() {
+        return new GetStructuresFromNomServiceEtDepartement();
+    }
+
+    /**
+     * Create an instance of {@link GetEnseignantFromIdResponse }
+     * 
+     */
+    public GetEnseignantFromIdResponse createGetEnseignantFromIdResponse() {
+        return new GetEnseignantFromIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddAvenantResponse }
+     * 
+     */
+    public AddAvenantResponse createAddAvenantResponse() {
+        return new AddAvenantResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddEtudiant }
+     * 
+     */
+    public AddEtudiant createAddEtudiant() {
+        return new AddEtudiant();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndNbDaysPerWeek }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndNbDaysPerWeek createGetNumberOfConventionsByStepAndNbDaysPerWeek() {
+        return new GetNumberOfConventionsByStepAndNbDaysPerWeek();
+    }
+
+    /**
+     * Create an instance of {@link AddFichier }
+     * 
+     */
+    public AddFichier createAddFichier() {
+        return new AddFichier();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStructureValidation }
+     * 
+     */
+    public UpdateStructureValidation createUpdateStructureValidation() {
+        return new UpdateStructureValidation();
+    }
+
+    /**
+     * Create an instance of {@link UpdateRejetOffreResponse }
+     * 
+     */
+    public UpdateRejetOffreResponse createUpdateRejetOffreResponse() {
+        return new UpdateRejetOffreResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetFapN2 }
+     * 
+     */
+    public GetFapN2 createGetFapN2() {
+        return new GetFapN2();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructure }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndStructure createGetNumberOfConventionsByDepartmentAndStructure() {
+        return new GetNumberOfConventionsByDepartmentAndStructure();
+    }
+
+    /**
+     * Create an instance of {@link AdminStructureDTO }
+     * 
+     */
+    public AdminStructureDTO createAdminStructureDTO() {
+        return new AdminStructureDTO();
+    }
+
+    /**
+     * Create an instance of {@link UpdateEnseignant }
+     * 
+     */
+    public UpdateEnseignant createUpdateEnseignant() {
+        return new UpdateEnseignant();
+    }
+
+    /**
+     * Create an instance of {@link GetModesCandidature }
+     * 
+     */
+    public GetModesCandidature createGetModesCandidature() {
+        return new GetModesCandidature();
+    }
+
+    /**
+     * Create an instance of {@link DataUpdateException }
+     * 
+     */
+    public DataUpdateException createDataUpdateException() {
+        return new DataUpdateException();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByStructureResponse }
+     * 
+     */
+    public GetNumberOfOffersByStructureResponse createGetNumberOfOffersByStructureResponse() {
+        return new GetNumberOfOffersByStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteOffreDiffusionFromId }
+     * 
+     */
+    public DeleteOffreDiffusionFromId createDeleteOffreDiffusionFromId() {
+        return new DeleteOffreDiffusionFromId();
+    }
+
+    /**
+     * Create an instance of {@link CritereDTO }
+     * 
+     */
+    public CritereDTO createCritereDTO() {
+        return new CritereDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetUnitesDureesResponse }
+     * 
+     */
+    public GetUnitesDureesResponse createGetUnitesDureesResponse() {
+        return new GetUnitesDureesResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTypeConventionsResponse }
+     * 
+     */
+    public GetTypeConventionsResponse createGetTypeConventionsResponse() {
+        return new GetTypeConventionsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromNumSirenResponse }
+     * 
+     */
+    public GetStructuresFromNumSirenResponse createGetStructuresFromNumSirenResponse() {
+        return new GetStructuresFromNumSirenResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreGestion }
+     * 
+     */
+    public GetCentreGestion createGetCentreGestion() {
+        return new GetCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndStructureResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndStructureResponse createGetNumberOfConventionsByDepartmentAndStructureResponse() {
+        return new GetNumberOfConventionsByDepartmentAndStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParPaysDuService }
+     * 
+     */
+    public GetTotalConventionsParPaysDuService createGetTotalConventionsParPaysDuService() {
+        return new GetTotalConventionsParPaysDuService();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromRaisonSocialeEtDepartementResponse }
+     * 
+     */
+    public GetStructuresFromRaisonSocialeEtDepartementResponse createGetStructuresFromRaisonSocialeEtDepartementResponse() {
+        return new GetStructuresFromRaisonSocialeEtDepartementResponse();
+    }
+
+    /**
+     * Create an instance of {@link CentreEntrepriseDejaExistantException }
+     * 
+     */
+    public CentreEntrepriseDejaExistantException createCentreEntrepriseDejaExistantException() {
+        return new CentreEntrepriseDejaExistantException();
+    }
+
+    /**
+     * Create an instance of {@link GetPersonnelCentreGestionFromNomResponse }
+     * 
+     */
+    public GetPersonnelCentreGestionFromNomResponse createGetPersonnelCentreGestionFromNomResponse() {
+        return new GetPersonnelCentreGestionFromNomResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAssurances }
+     * 
+     */
+    public GetAssurances createGetAssurances() {
+        return new GetAssurances();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureSize }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndStructureSize createGetNumberOfConventionsByStudyAndStructureSize() {
+        return new GetNumberOfConventionsByStudyAndStructureSize();
+    }
+
+    /**
+     * Create an instance of {@link UpdateIdFichier }
+     * 
+     */
+    public UpdateIdFichier createUpdateIdFichier() {
+        return new UpdateIdFichier();
+    }
+
+    /**
+     * Create an instance of {@link OrigineStageDTO }
+     * 
+     */
+    public OrigineStageDTO createOrigineStageDTO() {
+        return new OrigineStageDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetModesCandidatureResponse }
+     * 
+     */
+    public GetModesCandidatureResponse createGetModesCandidatureResponse() {
+        return new GetModesCandidatureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreConventionByEnseignantFromCodUniv }
+     * 
+     */
+    public GetNombreConventionByEnseignantFromCodUniv createGetNombreConventionByEnseignantFromCodUniv() {
+        return new GetNombreConventionByEnseignantFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndWorkDuration }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndWorkDuration createGetNumberOfConventionsByStudyAndWorkDuration() {
+        return new GetNumberOfConventionsByStudyAndWorkDuration();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParOrigineStage }
+     * 
+     */
+    public GetTotalConventionsParOrigineStage createGetTotalConventionsParOrigineStage() {
+        return new GetTotalConventionsParOrigineStage();
+    }
+
+    /**
+     * Create an instance of {@link GetNiveauxFormation }
+     * 
+     */
+    public GetNiveauxFormation createGetNiveauxFormation() {
+        return new GetNiveauxFormation();
+    }
+
+    /**
+     * Create an instance of {@link CentreEtablissementDejaExistantException }
+     * 
+     */
+    public CentreEtablissementDejaExistantException createCentreEtablissementDejaExistantException() {
+        return new CentreEtablissementDejaExistantException();
+    }
+
+    /**
+     * Create an instance of {@link GetAffectationFromCodUniv }
+     * 
+     */
+    public GetAffectationFromCodUniv createGetAffectationFromCodUniv() {
+        return new GetAffectationFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetEtapeFromIdFromCodUnivResponse }
+     * 
+     */
+    public GetEtapeFromIdFromCodUnivResponse createGetEtapeFromIdFromCodUnivResponse() {
+        return new GetEtapeFromIdFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndTheme }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndTheme createGetNumberOfConventionsByDepartmentAndTheme() {
+        return new GetNumberOfConventionsByDepartmentAndTheme();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesOffres }
+     * 
+     */
+    public GetAnneesOffres createGetAnneesOffres() {
+        return new GetAnneesOffres();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndTypeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndTypeResponse createGetNumberOfConventionsByStudyAndTypeResponse() {
+        return new GetNumberOfConventionsByStudyAndTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link CountAccordAValiderResponse }
+     * 
+     */
+    public CountAccordAValiderResponse createCountAccordAValiderResponse() {
+        return new CountAccordAValiderResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCivilitesResponse }
+     * 
+     */
+    public GetCivilitesResponse createGetCivilitesResponse() {
+        return new GetCivilitesResponse();
+    }
+
+    /**
+     * Create an instance of {@link NomenclatureCodeEnfantDTO }
+     * 
+     */
+    public NomenclatureCodeEnfantDTO createNomenclatureCodeEnfantDTO() {
+        return new NomenclatureCodeEnfantDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetInterlocuteur }
+     * 
+     */
+    public GetInterlocuteur createGetInterlocuteur() {
+        return new GetInterlocuteur();
+    }
+
+    /**
+     * Create an instance of {@link GetContactsFromIdServiceResponse }
+     * 
+     */
+    public GetContactsFromIdServiceResponse createGetContactsFromIdServiceResponse() {
+        return new GetContactsFromIdServiceResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAffectationFromCodeAffectationResponse }
+     * 
+     */
+    public GetAffectationFromCodeAffectationResponse createGetAffectationFromCodeAffectationResponse() {
+        return new GetAffectationFromCodeAffectationResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndType }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndType createGetNumberOfConventionsByDepartmentAndType() {
+        return new GetNumberOfConventionsByDepartmentAndType();
+    }
+
+    /**
+     * Create an instance of {@link GetAffectationFromCodeAffectation }
+     * 
+     */
+    public GetAffectationFromCodeAffectation createGetAffectationFromCodeAffectation() {
+        return new GetAffectationFromCodeAffectation();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndWayToFind }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndWayToFind createGetNumberOfConventionsByDepartmentAndWayToFind() {
+        return new GetNumberOfConventionsByDepartmentAndWayToFind();
+    }
+
+    /**
+     * Create an instance of {@link AdresseDTO }
+     * 
+     */
+    public AdresseDTO createAdresseDTO() {
+        return new AdresseDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreEtablissementResponse }
+     * 
+     */
+    public GetCentreEtablissementResponse createGetCentreEtablissementResponse() {
+        return new GetCentreEtablissementResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteService }
+     * 
+     */
+    public DeleteService createDeleteService() {
+        return new DeleteService();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromTypeStructureNafN1EtDepartement }
+     * 
+     */
+    public GetStructuresFromTypeStructureNafN1EtDepartement createGetStructuresFromTypeStructureNafN1EtDepartement() {
+        return new GetStructuresFromTypeStructureNafN1EtDepartement();
+    }
+
+    /**
+     * Create an instance of {@link ServiceDTO }
+     * 
+     */
+    public ServiceDTO createServiceDTO() {
+        return new ServiceDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesConventionFromCodUnivResponse }
+     * 
+     */
+    public GetAnneesConventionFromCodUnivResponse createGetAnneesConventionFromCodUnivResponse() {
+        return new GetAnneesConventionFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteAvenantResponse }
+     * 
+     */
+    public DeleteAvenantResponse createDeleteAvenantResponse() {
+        return new DeleteAvenantResponse();
+    }
+
+    /**
+     * Create an instance of {@link EffectifDTO }
+     * 
+     */
+    public EffectifDTO createEffectifDTO() {
+        return new EffectifDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetUfrsFromCodUnivResponse }
+     * 
+     */
+    public GetUfrsFromCodUnivResponse createGetUfrsFromCodUnivResponse() {
+        return new GetUfrsFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByValidation }
+     * 
+     */
+    public GetNumberOfOffersByValidation createGetNumberOfOffersByValidation() {
+        return new GetNumberOfOffersByValidation();
+    }
+
+    /**
+     * Create an instance of {@link GetNafN5FromCodeNafN5 }
+     * 
+     */
+    public GetNafN5FromCodeNafN5 createGetNafN5FromCodeNafN5() {
+        return new GetNafN5FromCodeNafN5();
+    }
+
+    /**
+     * Create an instance of {@link UpdateAccordResponse }
+     * 
+     */
+    public UpdateAccordResponse createUpdateAccordResponse() {
+        return new UpdateAccordResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParEnseignantTuteur }
+     * 
+     */
+    public GetTotalConventionsParEnseignantTuteur createGetTotalConventionsParEnseignantTuteur() {
+        return new GetTotalConventionsParEnseignantTuteur();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreGestionResponse }
+     * 
+     */
+    public GetCentreGestionResponse createGetCentreGestionResponse() {
+        return new GetCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddEnseignantResponse }
+     * 
+     */
+    public AddEnseignantResponse createAddEnseignantResponse() {
+        return new AddEnseignantResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateAdminStructure }
+     * 
+     */
+    public UpdateAdminStructure createUpdateAdminStructure() {
+        return new UpdateAdminStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreConventionByEnseignant }
+     * 
+     */
+    public GetNombreConventionByEnseignant createGetNombreConventionByEnseignant() {
+        return new GetNombreConventionByEnseignant();
+    }
+
+    /**
+     * Create an instance of {@link UpdateValidationOffreResponse }
+     * 
+     */
+    public UpdateValidationOffreResponse createUpdateValidationOffreResponse() {
+        return new UpdateValidationOffreResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateContactDerniereConnexionResponse }
+     * 
+     */
+    public UpdateContactDerniereConnexionResponse createUpdateContactDerniereConnexionResponse() {
+        return new UpdateContactDerniereConnexionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetPays }
+     * 
+     */
+    public GetPays createGetPays() {
+        return new GetPays();
+    }
+
+    /**
+     * Create an instance of {@link GetAdminStructureFromLogin }
+     * 
+     */
+    public GetAdminStructureFromLogin createGetAdminStructureFromLogin() {
+        return new GetAdminStructureFromLogin();
+    }
+
+    /**
+     * Create an instance of {@link GetDroitAdministrationResponse }
+     * 
+     */
+    public GetDroitAdministrationResponse createGetDroitAdministrationResponse() {
+        return new GetDroitAdministrationResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsResponse }
+     * 
+     */
+    public GetConventionsResponse createGetConventionsResponse() {
+        return new GetConventionsResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteOffreModeCandidatureFromId }
+     * 
+     */
+    public DeleteOffreModeCandidatureFromId createDeleteOffreModeCandidatureFromId() {
+        return new DeleteOffreModeCandidatureFromId();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByFormation }
+     * 
+     */
+    public GetNumberOfOffersByFormation createGetNumberOfOffersByFormation() {
+        return new GetNumberOfOffersByFormation();
+    }
+
+    /**
+     * Create an instance of {@link GetModeVersGratifications }
+     * 
+     */
+    public GetModeVersGratifications createGetModeVersGratifications() {
+        return new GetModeVersGratifications();
+    }
+
+    /**
+     * Create an instance of {@link GetModeVersGratificationsResponse }
+     * 
+     */
+    public GetModeVersGratificationsResponse createGetModeVersGratificationsResponse() {
+        return new GetModeVersGratificationsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByStructureSize }
+     * 
+     */
+    public GetNumberOfOffersByStructureSize createGetNumberOfOffersByStructureSize() {
+        return new GetNumberOfOffersByStructureSize();
+    }
+
+    /**
+     * Create an instance of {@link GetEtapeFromId }
+     * 
+     */
+    public GetEtapeFromId createGetEtapeFromId() {
+        return new GetEtapeFromId();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromFaxResponse }
+     * 
+     */
+    public GetStructuresFromFaxResponse createGetStructuresFromFaxResponse() {
+        return new GetStructuresFromFaxResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndServiceCountryResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndServiceCountryResponse createGetNumberOfConventionsByStudyAndServiceCountryResponse() {
+        return new GetNumberOfConventionsByStudyAndServiceCountryResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateAdminStructureDerniereConnexionResponse }
+     * 
+     */
+    public UpdateAdminStructureDerniereConnexionResponse createUpdateAdminStructureDerniereConnexionResponse() {
+        return new UpdateAdminStructureDerniereConnexionResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddTicketStructure }
+     * 
+     */
+    public AddTicketStructure createAddTicketStructure() {
+        return new AddTicketStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetContratsResponse }
+     * 
+     */
+    public GetContratsResponse createGetContratsResponse() {
+        return new GetContratsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCritereGestionFromIdCentre }
+     * 
+     */
+    public GetCritereGestionFromIdCentre createGetCritereGestionFromIdCentre() {
+        return new GetCritereGestionFromIdCentre();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureSize }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndStructureSize createGetNumberOfConventionsByStepAndStructureSize() {
+        return new GetNumberOfConventionsByStepAndStructureSize();
+    }
+
+    /**
+     * Create an instance of {@link GetContrats }
+     * 
+     */
+    public GetContrats createGetContrats() {
+        return new GetContrats();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromTelephone }
+     * 
+     */
+    public GetStructuresFromTelephone createGetStructuresFromTelephone() {
+        return new GetStructuresFromTelephone();
+    }
+
+    /**
+     * Create an instance of {@link GetAffectationFromCodeAffectationCodUniv }
+     * 
+     */
+    public GetAffectationFromCodeAffectationCodUniv createGetAffectationFromCodeAffectationCodUniv() {
+        return new GetAffectationFromCodeAffectationCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link PersonnelCentreGestionDTO }
+     * 
+     */
+    public PersonnelCentreGestionDTO createPersonnelCentreGestionDTO() {
+        return new PersonnelCentreGestionDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndTeacherGuide }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndTeacherGuide createGetNumberOfConventionsByStepAndTeacherGuide() {
+        return new GetNumberOfConventionsByStepAndTeacherGuide();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndIndemnityResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndIndemnityResponse createGetNumberOfConventionsByDepartmentAndIndemnityResponse() {
+        return new GetNumberOfConventionsByDepartmentAndIndemnityResponse();
+    }
+
+    /**
+     * Create an instance of {@link AdminStructureLoginEppnAlreadyUsedException }
+     * 
+     */
+    public AdminStructureLoginEppnAlreadyUsedException createAdminStructureLoginEppnAlreadyUsedException() {
+        return new AdminStructureLoginEppnAlreadyUsedException();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParThemeResponse }
+     * 
+     */
+    public GetTotalConventionsParThemeResponse createGetTotalConventionsParThemeResponse() {
+        return new GetTotalConventionsParThemeResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddEtapeResponse }
+     * 
+     */
+    public AddEtapeResponse createAddEtapeResponse() {
+        return new AddEtapeResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddUfrResponse }
+     * 
+     */
+    public AddUfrResponse createAddUfrResponse() {
+        return new AddUfrResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddAccord }
+     * 
+     */
+    public AddAccord createAddAccord() {
+        return new AddAccord();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndIndemnity }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndIndemnity createGetNumberOfConventionsByStepAndIndemnity() {
+        return new GetNumberOfConventionsByStepAndIndemnity();
+    }
+
+    /**
+     * Create an instance of {@link GetCodeUFRFromCodeEtape }
+     * 
+     */
+    public GetCodeUFRFromCodeEtape createGetCodeUFRFromCodeEtape() {
+        return new GetCodeUFRFromCodeEtape();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndServiceDep }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndServiceDep createGetNumberOfConventionsByDepartmentAndServiceDep() {
+        return new GetNumberOfConventionsByDepartmentAndServiceDep();
+    }
+
+    /**
+     * Create an instance of {@link GetFapN3Response }
+     * 
+     */
+    public GetFapN3Response createGetFapN3Response() {
+        return new GetFapN3Response();
+    }
+
+    /**
+     * Create an instance of {@link LangueConventionDTO }
+     * 
+     */
+    public LangueConventionDTO createLangueConventionDTO() {
+        return new LangueConventionDTO();
+    }
+
+    /**
+     * Create an instance of {@link UpdateConvention }
+     * 
+     */
+    public UpdateConvention createUpdateConvention() {
+        return new UpdateConvention();
+    }
+
+    /**
+     * Create an instance of {@link IndemnisationDTO }
+     * 
+     */
+    public IndemnisationDTO createIndemnisationDTO() {
+        return new IndemnisationDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByPublicationResponse }
+     * 
+     */
+    public GetNumberOfOffersByPublicationResponse createGetNumberOfOffersByPublicationResponse() {
+        return new GetNumberOfOffersByPublicationResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndIndemnityResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndIndemnityResponse createGetNumberOfConventionsByStudyAndIndemnityResponse() {
+        return new GetNumberOfConventionsByStudyAndIndemnityResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndWorkDuration }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndWorkDuration createGetNumberOfConventionsByStepAndWorkDuration() {
+        return new GetNumberOfConventionsByStepAndWorkDuration();
+    }
+
+    /**
+     * Create an instance of {@link AddPersonnelCentreGestionResponse }
+     * 
+     */
+    public AddPersonnelCentreGestionResponse createAddPersonnelCentreGestionResponse() {
+        return new AddPersonnelCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteCentreGestionResponse }
+     * 
+     */
+    public DeleteCentreGestionResponse createDeleteCentreGestionResponse() {
+        return new DeleteCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndType }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndType createGetNumberOfConventionsByStudyAndType() {
+        return new GetNumberOfConventionsByStudyAndType();
+    }
+
+    /**
+     * Create an instance of {@link TicketStructureDTO }
+     * 
+     */
+    public TicketStructureDTO createTicketStructureDTO() {
+        return new TicketStructureDTO();
+    }
+
+    /**
+     * Create an instance of {@link AccordPartenariatDTO }
+     * 
+     */
+    public AccordPartenariatDTO createAccordPartenariatDTO() {
+        return new AccordPartenariatDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParStructureResponse }
+     * 
+     */
+    public GetTotalConventionsParStructureResponse createGetTotalConventionsParStructureResponse() {
+        return new GetTotalConventionsParStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndActivity }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndActivity createGetNumberOfConventionsByStepAndActivity() {
+        return new GetNumberOfConventionsByStepAndActivity();
+    }
+
+    /**
+     * Create an instance of {@link DeletePersonnelCentreGestionResponse }
+     * 
+     */
+    public DeletePersonnelCentreGestionResponse createDeletePersonnelCentreGestionResponse() {
+        return new DeletePersonnelCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteAdminStructureResponse }
+     * 
+     */
+    public DeleteAdminStructureResponse createDeleteAdminStructureResponse() {
+        return new DeleteAdminStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetEtapesResponse }
+     * 
+     */
+    public GetEtapesResponse createGetEtapesResponse() {
+        return new GetEtapesResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructureFromIdResponse }
+     * 
+     */
+    public GetStructureFromIdResponse createGetStructureFromIdResponse() {
+        return new GetStructureFromIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddConventionResponse }
+     * 
+     */
+    public AddConventionResponse createAddConventionResponse() {
+        return new AddConventionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndTheme }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndTheme createGetNumberOfConventionsByStudyAndTheme() {
+        return new GetNumberOfConventionsByStudyAndTheme();
+    }
+
+    /**
+     * Create an instance of {@link UpdateEnseignantResponse }
+     * 
+     */
+    public UpdateEnseignantResponse createUpdateEnseignantResponse() {
+        return new UpdateEnseignantResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndServiceDep }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndServiceDep createGetNumberOfConventionsByStudyAndServiceDep() {
+        return new GetNumberOfConventionsByStudyAndServiceDep();
+    }
+
+    /**
+     * Create an instance of {@link DeleteAccord }
+     * 
+     */
+    public DeleteAccord createDeleteAccord() {
+        return new DeleteAccord();
+    }
+
+    /**
+     * Create an instance of {@link EnseignantDTO }
+     * 
+     */
+    public EnseignantDTO createEnseignantDTO() {
+        return new EnseignantDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParStructure }
+     * 
+     */
+    public GetTotalConventionsParStructure createGetTotalConventionsParStructure() {
+        return new GetTotalConventionsParStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetNiveauCentreResponse }
+     * 
+     */
+    public GetNiveauCentreResponse createGetNiveauCentreResponse() {
+        return new GetNiveauCentreResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateServiceResponse }
+     * 
+     */
+    public UpdateServiceResponse createUpdateServiceResponse() {
+        return new UpdateServiceResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByType }
+     * 
+     */
+    public GetNumberOfOffersByType createGetNumberOfOffersByType() {
+        return new GetNumberOfOffersByType();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventions }
+     * 
+     */
+    public GetTotalConventions createGetTotalConventions() {
+        return new GetTotalConventions();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreDroitEcritureFromCodUnivResponse }
+     * 
+     */
+    public GetCentreDroitEcritureFromCodUnivResponse createGetCentreDroitEcritureFromCodUnivResponse() {
+        return new GetCentreDroitEcritureFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreEtablissement }
+     * 
+     */
+    public GetCentreEtablissement createGetCentreEtablissement() {
+        return new GetCentreEtablissement();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsFromCriteresExportResponse }
+     * 
+     */
+    public GetConventionsFromCriteresExportResponse createGetConventionsFromCriteresExportResponse() {
+        return new GetConventionsFromCriteresExportResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructureAvecAccordFromId }
+     * 
+     */
+    public GetStructureAvecAccordFromId createGetStructureAvecAccordFromId() {
+        return new GetStructureAvecAccordFromId();
+    }
+
+    /**
+     * Create an instance of {@link GetStructureFromNumSiretResponse }
+     * 
+     */
+    public GetStructureFromNumSiretResponse createGetStructureFromNumSiretResponse() {
+        return new GetStructureFromNumSiretResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresPaysEtrangerFromRaisonSociale }
+     * 
+     */
+    public GetStructuresPaysEtrangerFromRaisonSociale createGetStructuresPaysEtrangerFromRaisonSociale() {
+        return new GetStructuresPaysEtrangerFromRaisonSociale();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndThemeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndThemeResponse createGetNumberOfConventionsByDepartmentAndThemeResponse() {
+        return new GetNumberOfConventionsByDepartmentAndThemeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConfidentialite }
+     * 
+     */
+    public GetConfidentialite createGetConfidentialite() {
+        return new GetConfidentialite();
+    }
+
+    /**
+     * Create an instance of {@link AddCritere }
+     * 
+     */
+    public AddCritere createAddCritere() {
+        return new AddCritere();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromNumSiren }
+     * 
+     */
+    public GetStructuresFromNumSiren createGetStructuresFromNumSiren() {
+        return new GetStructuresFromNumSiren();
+    }
+
+    /**
+     * Create an instance of {@link UpdateOffreResponse }
+     * 
+     */
+    public UpdateOffreResponse createUpdateOffreResponse() {
+        return new UpdateOffreResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAffectation }
+     * 
+     */
+    public GetAffectation createGetAffectation() {
+        return new GetAffectation();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByLocalStudentResponse }
+     * 
+     */
+    public GetNumberOfOffersByLocalStudentResponse createGetNumberOfOffersByLocalStudentResponse() {
+        return new GetNumberOfOffersByLocalStudentResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateEtudiant }
+     * 
+     */
+    public UpdateEtudiant createUpdateEtudiant() {
+        return new UpdateEtudiant();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesConventionFromCodUniv }
+     * 
+     */
+    public GetAnneesConventionFromCodUniv createGetAnneesConventionFromCodUniv() {
+        return new GetAnneesConventionFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndWorkDurationResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndWorkDurationResponse createGetNumberOfConventionsByDepartmentAndWorkDurationResponse() {
+        return new GetNumberOfConventionsByDepartmentAndWorkDurationResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByTypeResponse }
+     * 
+     */
+    public GetNumberOfOffersByTypeResponse createGetNumberOfOffersByTypeResponse() {
+        return new GetNumberOfOffersByTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetFichierFromIdFichier }
+     * 
+     */
+    public GetFichierFromIdFichier createGetFichierFromIdFichier() {
+        return new GetFichierFromIdFichier();
+    }
+
+    /**
+     * Create an instance of {@link AddOffreResponse }
+     * 
+     */
+    public AddOffreResponse createAddOffreResponse() {
+        return new AddOffreResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStopDiffusionOffre }
+     * 
+     */
+    public UpdateStopDiffusionOffre createUpdateStopDiffusionOffre() {
+        return new UpdateStopDiffusionOffre();
+    }
+
+    /**
+     * Create an instance of {@link GetStructureFromContactMailEntrepriseAvecCompte }
+     * 
+     */
+    public GetStructureFromContactMailEntrepriseAvecCompte createGetStructureFromContactMailEntrepriseAvecCompte() {
+        return new GetStructureFromContactMailEntrepriseAvecCompte();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStructureResponse }
+     * 
+     */
+    public UpdateStructureResponse createUpdateStructureResponse() {
+        return new UpdateStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteAvenant }
+     * 
+     */
+    public DeleteAvenant createDeleteAvenant() {
+        return new DeleteAvenant();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffers }
+     * 
+     */
+    public GetNumberOfOffers createGetNumberOfOffers() {
+        return new GetNumberOfOffers();
+    }
+
+    /**
+     * Create an instance of {@link UfrDTO }
+     * 
+     */
+    public UfrDTO createUfrDTO() {
+        return new UfrDTO();
+    }
+
+    /**
+     * Create an instance of {@link AvenantDTO }
+     * 
+     */
+    public AvenantDTO createAvenantDTO() {
+        return new AvenantDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreCritereGestion }
+     * 
+     */
+    public GetNombreCritereGestion createGetNombreCritereGestion() {
+        return new GetNombreCritereGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetDureeDiffusionResponse }
+     * 
+     */
+    public GetDureeDiffusionResponse createGetDureeDiffusionResponse() {
+        return new GetDureeDiffusionResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteTicketStructure }
+     * 
+     */
+    public DeleteTicketStructure createDeleteTicketStructure() {
+        return new DeleteTicketStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetOffreDiffusionFromIdOffre }
+     * 
+     */
+    public GetOffreDiffusionFromIdOffre createGetOffreDiffusionFromIdOffre() {
+        return new GetOffreDiffusionFromIdOffre();
+    }
+
+    /**
+     * Create an instance of {@link GetContactEntrepriseAvecCompteFromMailAndIdStructure }
+     * 
+     */
+    public GetContactEntrepriseAvecCompteFromMailAndIdStructure createGetContactEntrepriseAvecCompteFromMailAndIdStructure() {
+        return new GetContactEntrepriseAvecCompteFromMailAndIdStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndNbDaysPerWeek }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndNbDaysPerWeek createGetNumberOfConventionsByDepartmentAndNbDaysPerWeek() {
+        return new GetNumberOfConventionsByDepartmentAndNbDaysPerWeek();
+    }
+
+    /**
+     * Create an instance of {@link DeleteAccordResponse }
+     * 
+     */
+    public DeleteAccordResponse createDeleteAccordResponse() {
+        return new DeleteAccordResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetPersonnelCentreGestionFromIdAndCentreResponse }
+     * 
+     */
+    public GetPersonnelCentreGestionFromIdAndCentreResponse createGetPersonnelCentreGestionFromIdAndCentreResponse() {
+        return new GetPersonnelCentreGestionFromIdAndCentreResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureSizeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndStructureSizeResponse createGetNumberOfConventionsByStepAndStructureSizeResponse() {
+        return new GetNumberOfConventionsByStepAndStructureSizeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetPersonnelCentreGestionFromUid }
+     * 
+     */
+    public GetPersonnelCentreGestionFromUid createGetPersonnelCentreGestionFromUid() {
+        return new GetPersonnelCentreGestionFromUid();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsFromCriteresExport }
+     * 
+     */
+    public GetConventionsFromCriteresExport createGetConventionsFromCriteresExport() {
+        return new GetConventionsFromCriteresExport();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndWorkDurationResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndWorkDurationResponse createGetNumberOfConventionsByStudyAndWorkDurationResponse() {
+        return new GetNumberOfConventionsByStudyAndWorkDurationResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromTelephoneResponse }
+     * 
+     */
+    public GetStructuresFromTelephoneResponse createGetStructuresFromTelephoneResponse() {
+        return new GetStructuresFromTelephoneResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStructure }
+     * 
+     */
+    public UpdateStructure createUpdateStructure() {
+        return new UpdateStructure();
+    }
+
+    /**
+     * Create an instance of {@link ContactDeleteException }
+     * 
+     */
+    public ContactDeleteException createContactDeleteException() {
+        return new ContactDeleteException();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStructureStopValidation }
+     * 
+     */
+    public UpdateStructureStopValidation createUpdateStructureStopValidation() {
+        return new UpdateStructureStopValidation();
+    }
+
+    /**
+     * Create an instance of {@link GetStructureFromId }
+     * 
+     */
+    public GetStructureFromId createGetStructureFromId() {
+        return new GetStructureFromId();
+    }
+
+    /**
+     * Create an instance of {@link AddEtape }
+     * 
+     */
+    public AddEtape createAddEtape() {
+        return new AddEtape();
+    }
+
+    /**
+     * Create an instance of {@link GetOrigineStages }
+     * 
+     */
+    public GetOrigineStages createGetOrigineStages() {
+        return new GetOrigineStages();
+    }
+
+    /**
+     * Create an instance of {@link GetConfidentialiteResponse }
+     * 
+     */
+    public GetConfidentialiteResponse createGetConfidentialiteResponse() {
+        return new GetConfidentialiteResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddCentreGestionResponse }
+     * 
+     */
+    public AddCentreGestionResponse createAddCentreGestionResponse() {
+        return new AddCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreOffreByCentreGestion }
+     * 
+     */
+    public GetNombreOffreByCentreGestion createGetNombreOffreByCentreGestion() {
+        return new GetNombreOffreByCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStopValidationOffreResponse }
+     * 
+     */
+    public UpdateStopValidationOffreResponse createUpdateStopValidationOffreResponse() {
+        return new UpdateStopValidationOffreResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetOffreFromId }
+     * 
+     */
+    public GetOffreFromId createGetOffreFromId() {
+        return new GetOffreFromId();
+    }
+
+    /**
+     * Create an instance of {@link GetServiceFromId }
+     * 
+     */
+    public GetServiceFromId createGetServiceFromId() {
+        return new GetServiceFromId();
+    }
+
+    /**
+     * Create an instance of {@link DataAddException }
+     * 
+     */
+    public DataAddException createDataAddException() {
+        return new DataAddException();
+    }
+
+    /**
+     * Create an instance of {@link AddAccordResponse }
+     * 
+     */
+    public AddAccordResponse createAddAccordResponse() {
+        return new AddAccordResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsByEnseignantResponse }
+     * 
+     */
+    public GetConventionsByEnseignantResponse createGetConventionsByEnseignantResponse() {
+        return new GetConventionsByEnseignantResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreConventionByCentreGestionResponse }
+     * 
+     */
+    public GetNombreConventionByCentreGestionResponse createGetNombreConventionByCentreGestionResponse() {
+        return new GetNombreConventionByCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetEffectifs }
+     * 
+     */
+    public GetEffectifs createGetEffectifs() {
+        return new GetEffectifs();
+    }
+
+    /**
+     * Create an instance of {@link GetContactFromLogin }
+     * 
+     */
+    public GetContactFromLogin createGetContactFromLogin() {
+        return new GetContactFromLogin();
+    }
+
+    /**
+     * Create an instance of {@link UpdateOffrePourvue }
+     * 
+     */
+    public UpdateOffrePourvue createUpdateOffrePourvue() {
+        return new UpdateOffrePourvue();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndIndemnity }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndIndemnity createGetNumberOfConventionsByDepartmentAndIndemnity() {
+        return new GetNumberOfConventionsByDepartmentAndIndemnity();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreConventionByEnseignantFromCodUnivResponse }
+     * 
+     */
+    public GetNombreConventionByEnseignantFromCodUnivResponse createGetNombreConventionByEnseignantFromCodUnivResponse() {
+        return new GetNombreConventionByEnseignantFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCentreConventionByEtape }
+     * 
+     */
+    public UpdateCentreConventionByEtape createUpdateCentreConventionByEtape() {
+        return new UpdateCentreConventionByEtape();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStructureInfosAJourResponse }
+     * 
+     */
+    public UpdateStructureInfosAJourResponse createUpdateStructureInfosAJourResponse() {
+        return new UpdateStructureInfosAJourResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromNomServiceEtDepartementResponse }
+     * 
+     */
+    public GetStructuresFromNomServiceEtDepartementResponse createGetStructuresFromNomServiceEtDepartementResponse() {
+        return new GetStructuresFromNomServiceEtDepartementResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteCentreGestion }
+     * 
+     */
+    public DeleteCentreGestion createDeleteCentreGestion() {
+        return new DeleteCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetEtapes }
+     * 
+     */
+    public GetEtapes createGetEtapes() {
+        return new GetEtapes();
+    }
+
+    /**
+     * Create an instance of {@link FapN2DTO }
+     * 
+     */
+    public FapN2DTO createFapN2DTO() {
+        return new FapN2DTO();
+    }
+
+    /**
+     * Create an instance of {@link DeleteCritere }
+     * 
+     */
+    public DeleteCritere createDeleteCritere() {
+        return new DeleteCritere();
+    }
+
+    /**
+     * Create an instance of {@link StatutJuridiqueDTO }
+     * 
+     */
+    public StatutJuridiqueDTO createStatutJuridiqueDTO() {
+        return new StatutJuridiqueDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetEtapeFromIdFromCodUniv }
+     * 
+     */
+    public GetEtapeFromIdFromCodUniv createGetEtapeFromIdFromCodUniv() {
+        return new GetEtapeFromIdFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParTailleStructure }
+     * 
+     */
+    public GetTotalConventionsParTailleStructure createGetTotalConventionsParTailleStructure() {
+        return new GetTotalConventionsParTailleStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetEtapesFromIdsCentreGestionFromCodUniv }
+     * 
+     */
+    public GetEtapesFromIdsCentreGestionFromCodUniv createGetEtapesFromIdsCentreGestionFromCodUniv() {
+        return new GetEtapesFromIdsCentreGestionFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link NiveauFormationDTO }
+     * 
+     */
+    public NiveauFormationDTO createNiveauFormationDTO() {
+        return new NiveauFormationDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetStatutsJuridiquesResponse }
+     * 
+     */
+    public GetStatutsJuridiquesResponse createGetStatutsJuridiquesResponse() {
+        return new GetStatutsJuridiquesResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCentreConventionByEtapeCodUniv }
+     * 
+     */
+    public UpdateCentreConventionByEtapeCodUniv createUpdateCentreConventionByEtapeCodUniv() {
+        return new UpdateCentreConventionByEtapeCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreAffectationResponse }
+     * 
+     */
+    public GetNombreAffectationResponse createGetNombreAffectationResponse() {
+        return new GetNombreAffectationResponse();
+    }
+
+    /**
+     * Create an instance of {@link FapQualificationDTO }
+     * 
+     */
+    public FapQualificationDTO createFapQualificationDTO() {
+        return new FapQualificationDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndWayToFind }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndWayToFind createGetNumberOfConventionsByStudyAndWayToFind() {
+        return new GetNumberOfConventionsByStudyAndWayToFind();
+    }
+
+    /**
+     * Create an instance of {@link DeleteContactResponse }
+     * 
+     */
+    public DeleteContactResponse createDeleteContactResponse() {
+        return new DeleteContactResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetFapQualificationsSimplifieesResponse }
+     * 
+     */
+    public GetFapQualificationsSimplifieesResponse createGetFapQualificationsSimplifieesResponse() {
+        return new GetFapQualificationsSimplifieesResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNafN5FromCodeNafN1 }
+     * 
+     */
+    public GetNafN5FromCodeNafN1 createGetNafN5FromCodeNafN1() {
+        return new GetNafN5FromCodeNafN1();
+    }
+
+    /**
+     * Create an instance of {@link GetAvenant }
+     * 
+     */
+    public GetAvenant createGetAvenant() {
+        return new GetAvenant();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStopValidationOffre }
+     * 
+     */
+    public UpdateStopValidationOffre createUpdateStopValidationOffre() {
+        return new UpdateStopValidationOffre();
+    }
+
+    /**
+     * Create an instance of {@link GetNafN5Response }
+     * 
+     */
+    public GetNafN5Response createGetNafN5Response() {
+        return new GetNafN5Response();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndServiceCountry }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndServiceCountry createGetNumberOfConventionsByDepartmentAndServiceCountry() {
+        return new GetNumberOfConventionsByDepartmentAndServiceCountry();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndStructure }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndStructure createGetNumberOfConventionsByStepAndStructure() {
+        return new GetNumberOfConventionsByStepAndStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetAdminsStructureResponse }
+     * 
+     */
+    public GetAdminsStructureResponse createGetAdminsStructureResponse() {
+        return new GetAdminsStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link ModeVersGratificationDTO }
+     * 
+     */
+    public ModeVersGratificationDTO createModeVersGratificationDTO() {
+        return new ModeVersGratificationDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParIndemnite }
+     * 
+     */
+    public GetTotalConventionsParIndemnite createGetTotalConventionsParIndemnite() {
+        return new GetTotalConventionsParIndemnite();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreCritereGestionResponse }
+     * 
+     */
+    public GetNombreCritereGestionResponse createGetNombreCritereGestionResponse() {
+        return new GetNombreCritereGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link CritereRechercheConventionDTO }
+     * 
+     */
+    public CritereRechercheConventionDTO createCritereRechercheConventionDTO() {
+        return new CritereRechercheConventionDTO();
+    }
+
+    /**
+     * Create an instance of {@link DeleteStructure }
+     * 
+     */
+    public DeleteStructure createDeleteStructure() {
+        return new DeleteStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromRaisonSocialeEtDepartement }
+     * 
+     */
+    public GetStructuresFromRaisonSocialeEtDepartement createGetStructuresFromRaisonSocialeEtDepartement() {
+        return new GetStructuresFromRaisonSocialeEtDepartement();
+    }
+
+    /**
+     * Create an instance of {@link GetFapQualificationsResponse }
+     * 
+     */
+    public GetFapQualificationsResponse createGetFapQualificationsResponse() {
+        return new GetFapQualificationsResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateContactInfosAJour }
+     * 
+     */
+    public UpdateContactInfosAJour createUpdateContactInfosAJour() {
+        return new UpdateContactInfosAJour();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndTeacherGuideResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndTeacherGuideResponse createGetNumberOfConventionsByStudyAndTeacherGuideResponse() {
+        return new GetNumberOfConventionsByStudyAndTeacherGuideResponse();
+    }
+
+    /**
+     * Create an instance of {@link AffectationAlreadyExistingForCodeException }
+     * 
+     */
+    public AffectationAlreadyExistingForCodeException createAffectationAlreadyExistingForCodeException() {
+        return new AffectationAlreadyExistingForCodeException();
+    }
+
+    /**
+     * Create an instance of {@link GetLangueConventionsResponse }
+     * 
+     */
+    public GetLangueConventionsResponse createGetLangueConventionsResponse() {
+        return new GetLangueConventionsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetFapQualifications }
+     * 
+     */
+    public GetFapQualifications createGetFapQualifications() {
+        return new GetFapQualifications();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesUnivOffres }
+     * 
+     */
+    public GetAnneesUnivOffres createGetAnneesUnivOffres() {
+        return new GetAnneesUnivOffres();
+    }
+
+    /**
+     * Create an instance of {@link GetStructureFromIdServiceResponse }
+     * 
+     */
+    public GetStructureFromIdServiceResponse createGetStructureFromIdServiceResponse() {
+        return new GetStructureFromIdServiceResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsFromCriteresByEnseignantTuteur }
+     * 
+     */
+    public GetConventionsFromCriteresByEnseignantTuteur createGetConventionsFromCriteresByEnseignantTuteur() {
+        return new GetConventionsFromCriteresByEnseignantTuteur();
+    }
+
+    /**
+     * Create an instance of {@link ConventionDTO }
+     * 
+     */
+    public ConventionDTO createConventionDTO() {
+        return new ConventionDTO();
+    }
+
+    /**
+     * Create an instance of {@link NafN5DTO }
+     * 
+     */
+    public NafN5DTO createNafN5DTO() {
+        return new NafN5DTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureType }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndStructureType createGetNumberOfConventionsByStudyAndStructureType() {
+        return new GetNumberOfConventionsByStudyAndStructureType();
+    }
+
+    /**
+     * Create an instance of {@link GetNombrePersonnelCentreGestionResponse }
+     * 
+     */
+    public GetNombrePersonnelCentreGestionResponse createGetNombrePersonnelCentreGestionResponse() {
+        return new GetNombrePersonnelCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteOffreLogique }
+     * 
+     */
+    public DeleteOffreLogique createDeleteOffreLogique() {
+        return new DeleteOffreLogique();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureSizeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndStructureSizeResponse createGetNumberOfConventionsByStudyAndStructureSizeResponse() {
+        return new GetNumberOfConventionsByStudyAndStructureSizeResponse();
+    }
+
+    /**
+     * Create an instance of {@link CaisseRegimeDTO }
+     * 
+     */
+    public CaisseRegimeDTO createCaisseRegimeDTO() {
+        return new CaisseRegimeDTO();
+    }
+
+    /**
+     * Create an instance of {@link EtudiantDTO }
+     * 
+     */
+    public EtudiantDTO createEtudiantDTO() {
+        return new EtudiantDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParEnseignantTuteurResponse }
+     * 
+     */
+    public GetTotalConventionsParEnseignantTuteurResponse createGetTotalConventionsParEnseignantTuteurResponse() {
+        return new GetTotalConventionsParEnseignantTuteurResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddContactResponse }
+     * 
+     */
+    public AddContactResponse createAddContactResponse() {
+        return new AddContactResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesUnivOffresResponse }
+     * 
+     */
+    public GetAnneesUnivOffresResponse createGetAnneesUnivOffresResponse() {
+        return new GetAnneesUnivOffresResponse();
+    }
+
+    /**
+     * Create an instance of {@link CritereRechercheOffreDTO }
+     * 
+     */
+    public CritereRechercheOffreDTO createCritereRechercheOffreDTO() {
+        return new CritereRechercheOffreDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetTypesOffreResponse }
+     * 
+     */
+    public GetTypesOffreResponse createGetTypesOffreResponse() {
+        return new GetTypesOffreResponse();
+    }
+
+    /**
+     * Create an instance of {@link AccordAlreadyExistingForStructureException }
+     * 
+     */
+    public AccordAlreadyExistingForStructureException createAccordAlreadyExistingForStructureException() {
+        return new AccordAlreadyExistingForStructureException();
+    }
+
+    /**
+     * Create an instance of {@link RemoteException }
+     * 
+     */
+    public RemoteException createRemoteException() {
+        return new RemoteException();
+    }
+
+    /**
+     * Create an instance of {@link DeleteOffreModeCandidatureFromIdResponse }
+     * 
+     */
+    public DeleteOffreModeCandidatureFromIdResponse createDeleteOffreModeCandidatureFromIdResponse() {
+        return new DeleteOffreModeCandidatureFromIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTempsTravailResponse }
+     * 
+     */
+    public GetTempsTravailResponse createGetTempsTravailResponse() {
+        return new GetTempsTravailResponse();
+    }
+
+    /**
+     * Create an instance of {@link NiveauCentreDTO }
+     * 
+     */
+    public NiveauCentreDTO createNiveauCentreDTO() {
+        return new NiveauCentreDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetPersonnelCentreGestionFromUidResponse }
+     * 
+     */
+    public GetPersonnelCentreGestionFromUidResponse createGetPersonnelCentreGestionFromUidResponse() {
+        return new GetPersonnelCentreGestionFromUidResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCodeUFRFromCodeEtapeFromCodUniv }
+     * 
+     */
+    public GetCodeUFRFromCodeEtapeFromCodUniv createGetCodeUFRFromCodeEtapeFromCodUniv() {
+        return new GetCodeUFRFromCodeEtapeFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndStructureResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndStructureResponse createGetNumberOfConventionsByStudyAndStructureResponse() {
+        return new GetNumberOfConventionsByStudyAndStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteTicketStructureResponse }
+     * 
+     */
+    public DeleteTicketStructureResponse createDeleteTicketStructureResponse() {
+        return new DeleteTicketStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCompteContactResponse }
+     * 
+     */
+    public UpdateCompteContactResponse createUpdateCompteContactResponse() {
+        return new UpdateCompteContactResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAccordFromIdStructureResponse }
+     * 
+     */
+    public GetAccordFromIdStructureResponse createGetAccordFromIdStructureResponse() {
+        return new GetAccordFromIdStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesConventions }
+     * 
+     */
+    public GetAnneesConventions createGetAnneesConventions() {
+        return new GetAnneesConventions();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndStructureTypeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndStructureTypeResponse createGetNumberOfConventionsByStepAndStructureTypeResponse() {
+        return new GetNumberOfConventionsByStepAndStructureTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByStructureCountryResponse }
+     * 
+     */
+    public GetNumberOfOffersByStructureCountryResponse createGetNumberOfOffersByStructureCountryResponse() {
+        return new GetNumberOfOffersByStructureCountryResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTempsTravail }
+     * 
+     */
+    public GetTempsTravail createGetTempsTravail() {
+        return new GetTempsTravail();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesConventionsResponse }
+     * 
+     */
+    public GetAnneesConventionsResponse createGetAnneesConventionsResponse() {
+        return new GetAnneesConventionsResponse();
+    }
+
+    /**
+     * Create an instance of {@link AccountAlreadyExistingForCoupleMailStructureException }
+     * 
+     */
+    public AccountAlreadyExistingForCoupleMailStructureException createAccountAlreadyExistingForCoupleMailStructureException() {
+        return new AccountAlreadyExistingForCoupleMailStructureException();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromRaisonSocialeEtPays }
+     * 
+     */
+    public GetStructuresFromRaisonSocialeEtPays createGetStructuresFromRaisonSocialeEtPays() {
+        return new GetStructuresFromRaisonSocialeEtPays();
+    }
+
+    /**
+     * Create an instance of {@link AddAvenant }
+     * 
+     */
+    public AddAvenant createAddAvenant() {
+        return new AddAvenant();
+    }
+
+    /**
+     * Create an instance of {@link GetThemesResponse }
+     * 
+     */
+    public GetThemesResponse createGetThemesResponse() {
+        return new GetThemesResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUfrsFromIdsCentreGestionResponse }
+     * 
+     */
+    public GetUfrsFromIdsCentreGestionResponse createGetUfrsFromIdsCentreGestionResponse() {
+        return new GetUfrsFromIdsCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddServiceResponse }
+     * 
+     */
+    public AddServiceResponse createAddServiceResponse() {
+        return new AddServiceResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromRaisonSociale }
+     * 
+     */
+    public GetStructuresFromRaisonSociale createGetStructuresFromRaisonSociale() {
+        return new GetStructuresFromRaisonSociale();
+    }
+
+    /**
+     * Create an instance of {@link GetCritereGestion }
+     * 
+     */
+    public GetCritereGestion createGetCritereGestion() {
+        return new GetCritereGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndIndemnityResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndIndemnityResponse createGetNumberOfConventionsByStepAndIndemnityResponse() {
+        return new GetNumberOfConventionsByStepAndIndemnityResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetEtapesFromIdsCentreGestionResponse }
+     * 
+     */
+    public GetEtapesFromIdsCentreGestionResponse createGetEtapesFromIdsCentreGestionResponse() {
+        return new GetEtapesFromIdsCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByFunction }
+     * 
+     */
+    public GetNumberOfOffersByFunction createGetNumberOfOffersByFunction() {
+        return new GetNumberOfOffersByFunction();
+    }
+
+    /**
+     * Create an instance of {@link GetAnneesConventionResponse }
+     * 
+     */
+    public GetAnneesConventionResponse createGetAnneesConventionResponse() {
+        return new GetAnneesConventionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreOffreByCentreGestionResponse }
+     * 
+     */
+    public GetNombreOffreByCentreGestionResponse createGetNombreOffreByCentreGestionResponse() {
+        return new GetNombreOffreByCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreCentreGestion }
+     * 
+     */
+    public GetNombreCentreGestion createGetNombreCentreGestion() {
+        return new GetNombreCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetPersonnelCentreGestionFromIdAndCentre }
+     * 
+     */
+    public GetPersonnelCentreGestionFromIdAndCentre createGetPersonnelCentreGestionFromIdAndCentre() {
+        return new GetPersonnelCentreGestionFromIdAndCentre();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParDepLieuStage }
+     * 
+     */
+    public GetTotalConventionsParDepLieuStage createGetTotalConventionsParDepLieuStage() {
+        return new GetTotalConventionsParDepLieuStage();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreAffectation }
+     * 
+     */
+    public GetNombreAffectation createGetNombreAffectation() {
+        return new GetNombreAffectation();
+    }
+
+    /**
+     * Create an instance of {@link GetOffresFromCriteres }
+     * 
+     */
+    public GetOffresFromCriteres createGetOffresFromCriteres() {
+        return new GetOffresFromCriteres();
+    }
+
+    /**
+     * Create an instance of {@link AddAffectation }
+     * 
+     */
+    public AddAffectation createAddAffectation() {
+        return new AddAffectation();
+    }
+
+    /**
+     * Create an instance of {@link GetStructureAvecAccordFromIdResponse }
+     * 
+     */
+    public GetStructureAvecAccordFromIdResponse createGetStructureAvecAccordFromIdResponse() {
+        return new GetStructureAvecAccordFromIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeletePersonnelCentreGestion }
+     * 
+     */
+    public DeletePersonnelCentreGestion createDeletePersonnelCentreGestion() {
+        return new DeletePersonnelCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetCriteresParCategorieEtParNiveau }
+     * 
+     */
+    public GetCriteresParCategorieEtParNiveau createGetCriteresParCategorieEtParNiveau() {
+        return new GetCriteresParCategorieEtParNiveau();
+    }
+
+    /**
+     * Create an instance of {@link GetOffresFromIdStructureAndIdsCentreGestion }
+     * 
+     */
+    public GetOffresFromIdStructureAndIdsCentreGestion createGetOffresFromIdStructureAndIdsCentreGestion() {
+        return new GetOffresFromIdStructureAndIdsCentreGestion();
+    }
+
+    /**
+     * Create an instance of {@link GetPersonnelCentreGestionResponse }
+     * 
+     */
+    public GetPersonnelCentreGestionResponse createGetPersonnelCentreGestionResponse() {
+        return new GetPersonnelCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByActivityResponse }
+     * 
+     */
+    public GetNumberOfOffersByActivityResponse createGetNumberOfOffersByActivityResponse() {
+        return new GetNumberOfOffersByActivityResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionFromId }
+     * 
+     */
+    public GetConventionFromId createGetConventionFromId() {
+        return new GetConventionFromId();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionFromExportResponse }
+     * 
+     */
+    public GetConventionFromExportResponse createGetConventionFromExportResponse() {
+        return new GetConventionFromExportResponse();
+    }
+
+    /**
+     * Create an instance of {@link UniteDureeDTO }
+     * 
+     */
+    public UniteDureeDTO createUniteDureeDTO() {
+        return new UniteDureeDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetCritereGestionFromIdCentreResponse }
+     * 
+     */
+    public GetCritereGestionFromIdCentreResponse createGetCritereGestionFromIdCentreResponse() {
+        return new GetCritereGestionFromIdCentreResponse();
+    }
+
+    /**
+     * Create an instance of {@link TypeConventionDTO }
+     * 
+     */
+    public TypeConventionDTO createTypeConventionDTO() {
+        return new TypeConventionDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndTheme }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndTheme createGetNumberOfConventionsByStepAndTheme() {
+        return new GetNumberOfConventionsByStepAndTheme();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresAvecAccordAValiderFromRaisonSocialeResponse }
+     * 
+     */
+    public GetStructuresAvecAccordAValiderFromRaisonSocialeResponse createGetStructuresAvecAccordAValiderFromRaisonSocialeResponse() {
+        return new GetStructuresAvecAccordAValiderFromRaisonSocialeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreConventionByEnseignantResponse }
+     * 
+     */
+    public GetNombreConventionByEnseignantResponse createGetNombreConventionByEnseignantResponse() {
+        return new GetNombreConventionByEnseignantResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresSansAccordFromRaisonSocialeResponse }
+     * 
+     */
+    public GetStructuresSansAccordFromRaisonSocialeResponse createGetStructuresSansAccordFromRaisonSocialeResponse() {
+        return new GetStructuresSansAccordFromRaisonSocialeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNafN1Response }
+     * 
+     */
+    public GetNafN1Response createGetNafN1Response() {
+        return new GetNafN1Response();
+    }
+
+    /**
+     * Create an instance of {@link AddEnseignant }
+     * 
+     */
+    public AddEnseignant createAddEnseignant() {
+        return new AddEnseignant();
+    }
+
+    /**
+     * Create an instance of {@link UpdateAdminStructureDerniereConnexion }
+     * 
+     */
+    public UpdateAdminStructureDerniereConnexion createUpdateAdminStructureDerniereConnexion() {
+        return new UpdateAdminStructureDerniereConnexion();
+    }
+
+    /**
+     * Create an instance of {@link GetAdminsStructure }
+     * 
+     */
+    public GetAdminsStructure createGetAdminsStructure() {
+        return new GetAdminsStructure();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartment }
+     * 
+     */
+    public GetNumberOfConventionsByDepartment createGetNumberOfConventionsByDepartment() {
+        return new GetNumberOfConventionsByDepartment();
+    }
+
+    /**
+     * Create an instance of {@link OffreDTO }
+     * 
+     */
+    public OffreDTO createOffreDTO() {
+        return new OffreDTO();
+    }
+
+    /**
+     * Create an instance of {@link UpdateDiffusionOffreResponse }
+     * 
+     */
+    public UpdateDiffusionOffreResponse createUpdateDiffusionOffreResponse() {
+        return new UpdateDiffusionOffreResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndTeacherGuide }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndTeacherGuide createGetNumberOfConventionsByDepartmentAndTeacherGuide() {
+        return new GetNumberOfConventionsByDepartmentAndTeacherGuide();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParJourSemaine }
+     * 
+     */
+    public GetTotalConventionsParJourSemaine createGetTotalConventionsParJourSemaine() {
+        return new GetTotalConventionsParJourSemaine();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParTheme }
+     * 
+     */
+    public GetTotalConventionsParTheme createGetTotalConventionsParTheme() {
+        return new GetTotalConventionsParTheme();
+    }
+
+    /**
+     * Create an instance of {@link GetContactFromLoginResponse }
+     * 
+     */
+    public GetContactFromLoginResponse createGetContactFromLoginResponse() {
+        return new GetContactFromLoginResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAccordFromIdResponse }
+     * 
+     */
+    public GetAccordFromIdResponse createGetAccordFromIdResponse() {
+        return new GetAccordFromIdResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetEffectifsResponse }
+     * 
+     */
+    public GetEffectifsResponse createGetEffectifsResponse() {
+        return new GetEffectifsResponse();
+    }
+
+    /**
+     * Create an instance of {@link CritereGestionDTO }
+     * 
+     */
+    public CritereGestionDTO createCritereGestionDTO() {
+        return new CritereGestionDTO();
+    }
+
+    /**
      * Create an instance of {@link GetNumberOfConventionsByStudyAndNbDaysPerWeek }
      * 
      */
     public GetNumberOfConventionsByStudyAndNbDaysPerWeek createGetNumberOfConventionsByStudyAndNbDaysPerWeek() {
         return new GetNumberOfConventionsByStudyAndNbDaysPerWeek();
+    }
+
+    /**
+     * Create an instance of {@link AssuranceDTO }
+     * 
+     */
+    public AssuranceDTO createAssuranceDTO() {
+        return new AssuranceDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsFromCriteresResponse }
+     * 
+     */
+    public GetConventionsFromCriteresResponse createGetConventionsFromCriteresResponse() {
+        return new GetConventionsFromCriteresResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetEnseignantsResponse }
+     * 
+     */
+    public GetEnseignantsResponse createGetEnseignantsResponse() {
+        return new GetEnseignantsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAdminStructureFromEppnResponse }
+     * 
+     */
+    public GetAdminStructureFromEppnResponse createGetAdminStructureFromEppnResponse() {
+        return new GetAdminStructureFromEppnResponse();
+    }
+
+    /**
+     * Create an instance of {@link ObjetMetiersDTO }
+     * 
+     */
+    public ObjetMetiersDTO createObjetMetiersDTO() {
+        return new ObjetMetiersDTO();
+    }
+
+    /**
+     * Create an instance of {@link DeleteEtudiant }
+     * 
+     */
+    public DeleteEtudiant createDeleteEtudiant() {
+        return new DeleteEtudiant();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStopDiffusionOffreResponse }
+     * 
+     */
+    public UpdateStopDiffusionOffreResponse createUpdateStopDiffusionOffreResponse() {
+        return new UpdateStopDiffusionOffreResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNiveauCentre }
+     * 
+     */
+    public GetNiveauCentre createGetNiveauCentre() {
+        return new GetNiveauCentre();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreGestionFromNomCentre }
+     * 
+     */
+    public GetCentreGestionFromNomCentre createGetCentreGestionFromNomCentre() {
+        return new GetCentreGestionFromNomCentre();
+    }
+
+    /**
+     * Create an instance of {@link GetAffectationFromCodeAffectationCodUnivResponse }
+     * 
+     */
+    public GetAffectationFromCodeAffectationCodUnivResponse createGetAffectationFromCodeAffectationCodUnivResponse() {
+        return new GetAffectationFromCodeAffectationCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStructureStopValidationResponse }
+     * 
+     */
+    public UpdateStructureStopValidationResponse createUpdateStructureStopValidationResponse() {
+        return new UpdateStructureStopValidationResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndActivityResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndActivityResponse createGetNumberOfConventionsByStudyAndActivityResponse() {
+        return new GetNumberOfConventionsByStudyAndActivityResponse();
+    }
+
+    /**
+     * Create an instance of {@link DeleteEnseignantResponse }
+     * 
+     */
+    public DeleteEnseignantResponse createDeleteEnseignantResponse() {
+        return new DeleteEnseignantResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUfrsFromIdsCentreGestionFromCodUniv }
+     * 
+     */
+    public GetUfrsFromIdsCentreGestionFromCodUniv createGetUfrsFromIdsCentreGestionFromCodUniv() {
+        return new GetUfrsFromIdsCentreGestionFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link DeleteEnseignant }
+     * 
+     */
+    public DeleteEnseignant createDeleteEnseignant() {
+        return new DeleteEnseignant();
+    }
+
+    /**
+     * Create an instance of {@link CleanFichiers }
+     * 
+     */
+    public CleanFichiers createCleanFichiers() {
+        return new CleanFichiers();
+    }
+
+    /**
+     * Create an instance of {@link PersonneDTO }
+     * 
+     */
+    public PersonneDTO createPersonneDTO() {
+        return new PersonneDTO();
+    }
+
+    /**
+     * Create an instance of {@link UniteGratificationDTO }
+     * 
+     */
+    public UniteGratificationDTO createUniteGratificationDTO() {
+        return new UniteGratificationDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNafN1 }
+     * 
+     */
+    public GetNafN1 createGetNafN1() {
+        return new GetNafN1();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndThemeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndThemeResponse createGetNumberOfConventionsByStudyAndThemeResponse() {
+        return new GetNumberOfConventionsByStudyAndThemeResponse();
+    }
+
+    /**
+     * Create an instance of {@link StructureDTO }
+     * 
+     */
+    public StructureDTO createStructureDTO() {
+        return new StructureDTO();
+    }
+
+    /**
+     * Create an instance of {@link DeleteConvention }
+     * 
+     */
+    public DeleteConvention createDeleteConvention() {
+        return new DeleteConvention();
+    }
+
+    /**
+     * Create an instance of {@link WebServiceDataBaseException }
+     * 
+     */
+    public WebServiceDataBaseException createWebServiceDataBaseException() {
+        return new WebServiceDataBaseException();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndWayToFindResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndWayToFindResponse createGetNumberOfConventionsByStudyAndWayToFindResponse() {
+        return new GetNumberOfConventionsByStudyAndWayToFindResponse();
+    }
+
+    /**
+     * Create an instance of {@link FapN1DTO }
+     * 
+     */
+    public FapN1DTO createFapN1DTO() {
+        return new FapN1DTO();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParTailleStructureResponse }
+     * 
+     */
+    public GetTotalConventionsParTailleStructureResponse createGetTotalConventionsParTailleStructureResponse() {
+        return new GetTotalConventionsParTailleStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresAncienResponse }
+     * 
+     */
+    public GetStructuresAncienResponse createGetStructuresAncienResponse() {
+        return new GetStructuresAncienResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetEtudiants }
+     * 
+     */
+    public GetEtudiants createGetEtudiants() {
+        return new GetEtudiants();
+    }
+
+    /**
+     * Create an instance of {@link GetEnseignantFromUid }
+     * 
+     */
+    public GetEnseignantFromUid createGetEnseignantFromUid() {
+        return new GetEnseignantFromUid();
+    }
+
+    /**
+     * Create an instance of {@link AddCritereResponse }
+     * 
+     */
+    public AddCritereResponse createAddCritereResponse() {
+        return new AddCritereResponse();
+    }
+
+    /**
+     * Create an instance of {@link AddUfr }
+     * 
+     */
+    public AddUfr createAddUfr() {
+        return new AddUfr();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCentreConventionByUfr }
+     * 
+     */
+    public UpdateCentreConventionByUfr createUpdateCentreConventionByUfr() {
+        return new UpdateCentreConventionByUfr();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresAncien }
+     * 
+     */
+    public GetStructuresAncien createGetStructuresAncien() {
+        return new GetStructuresAncien();
+    }
+
+    /**
+     * Create an instance of {@link CountAccordAValider }
+     * 
+     */
+    public CountAccordAValider createCountAccordAValider() {
+        return new CountAccordAValider();
+    }
+
+    /**
+     * Create an instance of {@link GetFichierFromIdFichierResponse }
+     * 
+     */
+    public GetFichierFromIdFichierResponse createGetFichierFromIdFichierResponse() {
+        return new GetFichierFromIdFichierResponse();
+    }
+
+    /**
+     * Create an instance of {@link UfrAlreadyExistingForCodeException }
+     * 
+     */
+    public UfrAlreadyExistingForCodeException createUfrAlreadyExistingForCodeException() {
+        return new UfrAlreadyExistingForCodeException();
+    }
+
+    /**
+     * Create an instance of {@link ConfidentialiteDTO }
+     * 
+     */
+    public ConfidentialiteDTO createConfidentialiteDTO() {
+        return new ConfidentialiteDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNafN5 }
+     * 
+     */
+    public GetNafN5 createGetNafN5() {
+        return new GetNafN5();
+    }
+
+    /**
+     * Create an instance of {@link DeleteEtudiantResponse }
+     * 
+     */
+    public DeleteEtudiantResponse createDeleteEtudiantResponse() {
+        return new DeleteEtudiantResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateFichier }
+     * 
+     */
+    public UpdateFichier createUpdateFichier() {
+        return new UpdateFichier();
+    }
+
+    /**
+     * Create an instance of {@link DroitAdministrationDTO }
+     * 
+     */
+    public DroitAdministrationDTO createDroitAdministrationDTO() {
+        return new DroitAdministrationDTO();
+    }
+
+    /**
+     * Create an instance of {@link UpdateStructureInfosAJour }
+     * 
+     */
+    public UpdateStructureInfosAJour createUpdateStructureInfosAJour() {
+        return new UpdateStructureInfosAJour();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentResponse createGetNumberOfConventionsByDepartmentResponse() {
+        return new GetNumberOfConventionsByDepartmentResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreAvenant }
+     * 
+     */
+    public GetNombreAvenant createGetNombreAvenant() {
+        return new GetNombreAvenant();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreAvenantResponse }
+     * 
+     */
+    public GetNombreAvenantResponse createGetNombreAvenantResponse() {
+        return new GetNombreAvenantResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByStructureType }
+     * 
+     */
+    public GetNumberOfOffersByStructureType createGetNumberOfOffersByStructureType() {
+        return new GetNumberOfOffersByStructureType();
+    }
+
+    /**
+     * Create an instance of {@link GetUfrFromIdFromCodUnivResponse }
+     * 
+     */
+    public GetUfrFromIdFromCodUnivResponse createGetUfrFromIdFromCodUnivResponse() {
+        return new GetUfrFromIdFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetAccordFromIdContactResponse }
+     * 
+     */
+    public GetAccordFromIdContactResponse createGetAccordFromIdContactResponse() {
+        return new GetAccordFromIdContactResponse();
+    }
+
+    /**
+     * Create an instance of {@link TypeOffreDTO }
+     * 
+     */
+    public TypeOffreDTO createTypeOffreDTO() {
+        return new TypeOffreDTO();
+    }
+
+    /**
+     * Create an instance of {@link FapQualificationSimplifieeDTO }
+     * 
+     */
+    public FapQualificationSimplifieeDTO createFapQualificationSimplifieeDTO() {
+        return new FapQualificationSimplifieeDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStudyAndIndemnity }
+     * 
+     */
+    public GetNumberOfConventionsByStudyAndIndemnity createGetNumberOfConventionsByStudyAndIndemnity() {
+        return new GetNumberOfConventionsByStudyAndIndemnity();
+    }
+
+    /**
+     * Create an instance of {@link UpdateOffre }
+     * 
+     */
+    public UpdateOffre createUpdateOffre() {
+        return new UpdateOffre();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndServiceDepResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndServiceDepResponse createGetNumberOfConventionsByStepAndServiceDepResponse() {
+        return new GetNumberOfConventionsByStepAndServiceDepResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetContactsFromIdService }
+     * 
+     */
+    public GetContactsFromIdService createGetContactsFromIdService() {
+        return new GetContactsFromIdService();
+    }
+
+    /**
+     * Create an instance of {@link FichierDTO }
+     * 
+     */
+    public FichierDTO createFichierDTO() {
+        return new FichierDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsEtudiant }
+     * 
+     */
+    public GetConventionsEtudiant createGetConventionsEtudiant() {
+        return new GetConventionsEtudiant();
+    }
+
+    /**
+     * Create an instance of {@link AddTicketStructureResponse }
+     * 
+     */
+    public AddTicketStructureResponse createAddTicketStructureResponse() {
+        return new AddTicketStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndType }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndType createGetNumberOfConventionsByStepAndType() {
+        return new GetNumberOfConventionsByStepAndType();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndThemeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndThemeResponse createGetNumberOfConventionsByStepAndThemeResponse() {
+        return new GetNumberOfConventionsByStepAndThemeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByCandidateFoundResponse }
+     * 
+     */
+    public GetNumberOfOffersByCandidateFoundResponse createGetNumberOfOffersByCandidateFoundResponse() {
+        return new GetNumberOfOffersByCandidateFoundResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTotalConventionsParStructureType }
+     * 
+     */
+    public GetTotalConventionsParStructureType createGetTotalConventionsParStructureType() {
+        return new GetTotalConventionsParStructureType();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByStructureSizeResponse }
+     * 
+     */
+    public GetNumberOfOffersByStructureSizeResponse createGetNumberOfOffersByStructureSizeResponse() {
+        return new GetNumberOfOffersByStructureSizeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreContactByCentreGestionResponse }
+     * 
+     */
+    public GetNombreContactByCentreGestionResponse createGetNombreContactByCentreGestionResponse() {
+        return new GetNombreContactByCentreGestionResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersByActivity }
+     * 
+     */
+    public GetNumberOfOffersByActivity createGetNumberOfOffersByActivity() {
+        return new GetNumberOfOffersByActivity();
+    }
+
+    /**
+     * Create an instance of {@link NomenclatureIdDTO }
+     * 
+     */
+    public NomenclatureIdDTO createNomenclatureIdDTO() {
+        return new NomenclatureIdDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetEtapesFromIdsCentreGestionFromCodUnivResponse }
+     * 
+     */
+    public GetEtapesFromIdsCentreGestionFromCodUnivResponse createGetEtapesFromIdsCentreGestionFromCodUnivResponse() {
+        return new GetEtapesFromIdsCentreGestionFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetTicketStructureValide }
+     * 
+     */
+    public GetTicketStructureValide createGetTicketStructureValide() {
+        return new GetTicketStructureValide();
+    }
+
+    /**
+     * Create an instance of {@link UpdateCentreConventionByUfrCodUniv }
+     * 
+     */
+    public UpdateCentreConventionByUfrCodUniv createUpdateCentreConventionByUfrCodUniv() {
+        return new UpdateCentreConventionByUfrCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndTypeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndTypeResponse createGetNumberOfConventionsByDepartmentAndTypeResponse() {
+        return new GetNumberOfConventionsByDepartmentAndTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUfrFromId }
+     * 
+     */
+    public GetUfrFromId createGetUfrFromId() {
+        return new GetUfrFromId();
+    }
+
+    /**
+     * Create an instance of {@link GetModeValidationStages }
+     * 
+     */
+    public GetModeValidationStages createGetModeValidationStages() {
+        return new GetModeValidationStages();
+    }
+
+    /**
+     * Create an instance of {@link UpdateAvenantResponse }
+     * 
+     */
+    public UpdateAvenantResponse createUpdateAvenantResponse() {
+        return new UpdateAvenantResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsFromCriteresByEnseignantTuteurResponse }
+     * 
+     */
+    public GetConventionsFromCriteresByEnseignantTuteurResponse createGetConventionsFromCriteresByEnseignantTuteurResponse() {
+        return new GetConventionsFromCriteresByEnseignantTuteurResponse();
+    }
+
+    /**
+     * Create an instance of {@link NomenclatureIdEnfantDTO }
+     * 
+     */
+    public NomenclatureIdEnfantDTO createNomenclatureIdEnfantDTO() {
+        return new NomenclatureIdEnfantDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetEnseignantFromId }
+     * 
+     */
+    public GetEnseignantFromId createGetEnseignantFromId() {
+        return new GetEnseignantFromId();
+    }
+
+    /**
+     * Create an instance of {@link AddStructureResponse }
+     * 
+     */
+    public AddStructureResponse createAddStructureResponse() {
+        return new AddStructureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfOffersResponse }
+     * 
+     */
+    public GetNumberOfOffersResponse createGetNumberOfOffersResponse() {
+        return new GetNumberOfOffersResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetPersonnelCentreGestionListResponse }
+     * 
+     */
+    public GetPersonnelCentreGestionListResponse createGetPersonnelCentreGestionListResponse() {
+        return new GetPersonnelCentreGestionListResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreDroitEcritureResponse }
+     * 
+     */
+    public GetCentreDroitEcritureResponse createGetCentreDroitEcritureResponse() {
+        return new GetCentreDroitEcritureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreFromUidFromCodUniv }
+     * 
+     */
+    public GetCentreFromUidFromCodUniv createGetCentreFromUidFromCodUniv() {
+        return new GetCentreFromUidFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link NomenclatureCodeDTO }
+     * 
+     */
+    public NomenclatureCodeDTO createNomenclatureCodeDTO() {
+        return new NomenclatureCodeDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNombreConventionByCentreGestionFromCodUnivResponse }
+     * 
+     */
+    public GetNombreConventionByCentreGestionFromCodUnivResponse createGetNombreConventionByCentreGestionFromCodUnivResponse() {
+        return new GetNombreConventionByCentreGestionFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentresEtablissementFromCodUniv }
+     * 
+     */
+    public GetCentresEtablissementFromCodUniv createGetCentresEtablissementFromCodUniv() {
+        return new GetCentresEtablissementFromCodUniv();
+    }
+
+    /**
+     * Create an instance of {@link GetCentresEtablissement }
+     * 
+     */
+    public GetCentresEtablissement createGetCentresEtablissement() {
+        return new GetCentresEtablissement();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndTypeResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndTypeResponse createGetNumberOfConventionsByStepAndTypeResponse() {
+        return new GetNumberOfConventionsByStepAndTypeResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndActivity }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndActivity createGetNumberOfConventionsByDepartmentAndActivity() {
+        return new GetNumberOfConventionsByDepartmentAndActivity();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromRaisonSocialeEtPaysResponse }
+     * 
+     */
+    public GetStructuresFromRaisonSocialeEtPaysResponse createGetStructuresFromRaisonSocialeEtPaysResponse() {
+        return new GetStructuresFromRaisonSocialeEtPaysResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentreFromCritereResponse }
+     * 
+     */
+    public GetCentreFromCritereResponse createGetCentreFromCritereResponse() {
+        return new GetCentreFromCritereResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCentresEtablissementFromCodUnivResponse }
+     * 
+     */
+    public GetCentresEtablissementFromCodUnivResponse createGetCentresEtablissementFromCodUnivResponse() {
+        return new GetCentresEtablissementFromCodUnivResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByStepAndWayToFindResponse }
+     * 
+     */
+    public GetNumberOfConventionsByStepAndWayToFindResponse createGetNumberOfConventionsByStepAndWayToFindResponse() {
+        return new GetNumberOfConventionsByStepAndWayToFindResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetUnitesDurees }
+     * 
+     */
+    public GetUnitesDurees createGetUnitesDurees() {
+        return new GetUnitesDurees();
+    }
+
+    /**
+     * Create an instance of {@link GetPaysResponse }
+     * 
+     */
+    public GetPaysResponse createGetPaysResponse() {
+        return new GetPaysResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConventions }
+     * 
+     */
+    public GetConventions createGetConventions() {
+        return new GetConventions();
+    }
+
+    /**
+     * Create an instance of {@link GetStructuresFromFax }
+     * 
+     */
+    public GetStructuresFromFax createGetStructuresFromFax() {
+        return new GetStructuresFromFax();
+    }
+
+    /**
+     * Create an instance of {@link GetNumberOfConventionsByDepartmentAndTeacherGuideResponse }
+     * 
+     */
+    public GetNumberOfConventionsByDepartmentAndTeacherGuideResponse createGetNumberOfConventionsByDepartmentAndTeacherGuideResponse() {
+        return new GetNumberOfConventionsByDepartmentAndTeacherGuideResponse();
+    }
+
+    /**
+     * Create an instance of {@link UpdateDiffusionOffre }
+     * 
+     */
+    public UpdateDiffusionOffre createUpdateDiffusionOffre() {
+        return new UpdateDiffusionOffre();
+    }
+
+    /**
+     * Create an instance of {@link DureeDiffusionDTO }
+     * 
+     */
+    public DureeDiffusionDTO createDureeDiffusionDTO() {
+        return new DureeDiffusionDTO();
+    }
+
+    /**
+     * Create an instance of {@link GetNatureTravailsResponse }
+     * 
+     */
+    public GetNatureTravailsResponse createGetNatureTravailsResponse() {
+        return new GetNatureTravailsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetConventionsByEnseignant }
+     * 
+     */
+    public GetConventionsByEnseignant createGetConventionsByEnseignant() {
+        return new GetConventionsByEnseignant();
     }
 
     /**
@@ -11241,6 +11250,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://remote.pstagedata.esupportail.org/", name = "getTotalConventionsParDepLieuStage")
     public JAXBElement<GetTotalConventionsParDepLieuStage> createGetTotalConventionsParDepLieuStage(GetTotalConventionsParDepLieuStage value) {
         return new JAXBElement<GetTotalConventionsParDepLieuStage>(_GetTotalConventionsParDepLieuStage_QNAME, GetTotalConventionsParDepLieuStage.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ServiceDeleteException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://remote.pstagedata.esupportail.org/", name = "ServiceDeleteException")
+    public JAXBElement<ServiceDeleteException> createServiceDeleteException(ServiceDeleteException value) {
+        return new JAXBElement<ServiceDeleteException>(_ServiceDeleteException_QNAME, ServiceDeleteException.class, null, value);
     }
 
     /**

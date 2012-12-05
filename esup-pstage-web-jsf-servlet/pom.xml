@@ -6,7 +6,6 @@
         <groupId>org.esupportail</groupId>
         <version>2.5.0-SNAPSHOT</version>
     </parent>
-    <groupId>org.esupportail</groupId>
     <artifactId>esup-pstage-web-jsf-servlet</artifactId>
     <packaging>war</packaging>
     <description>couche d'acces aux donnees</description>

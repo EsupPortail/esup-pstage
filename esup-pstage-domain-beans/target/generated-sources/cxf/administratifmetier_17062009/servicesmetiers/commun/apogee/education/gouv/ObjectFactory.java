@@ -35,59 +35,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RecupererIAEtapesV2Response }
-     * 
-     */
-    public RecupererIAEtapesV2Response createRecupererIAEtapesV2Response() {
-        return new RecupererIAEtapesV2Response();
-    }
-
-    /**
-     * Create an instance of {@link RecupererIAAnnuelles }
-     * 
-     */
-    public RecupererIAAnnuelles createRecupererIAAnnuelles() {
-        return new RecupererIAAnnuelles();
-    }
-
-    /**
-     * Create an instance of {@link RecupererAnneesIaResponse }
-     * 
-     */
-    public RecupererAnneesIaResponse createRecupererAnneesIaResponse() {
-        return new RecupererAnneesIaResponse();
-    }
-
-    /**
-     * Create an instance of {@link RecupererIAAnnuellesV2Response }
-     * 
-     */
-    public RecupererIAAnnuellesV2Response createRecupererIAAnnuellesV2Response() {
-        return new RecupererIAAnnuellesV2Response();
-    }
-
-    /**
      * Create an instance of {@link RecupererIAAnnuellesResponse }
      * 
      */
     public RecupererIAAnnuellesResponse createRecupererIAAnnuellesResponse() {
         return new RecupererIAAnnuellesResponse();
-    }
-
-    /**
-     * Create an instance of {@link RecupererIAEtapes }
-     * 
-     */
-    public RecupererIAEtapes createRecupererIAEtapes() {
-        return new RecupererIAEtapes();
-    }
-
-    /**
-     * Create an instance of {@link RecupererIAEtapesResponse }
-     * 
-     */
-    public RecupererIAEtapesResponse createRecupererIAEtapesResponse() {
-        return new RecupererIAEtapesResponse();
     }
 
     /**
@@ -99,6 +51,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RecupererIAAnnuellesV2Response }
+     * 
+     */
+    public RecupererIAAnnuellesV2Response createRecupererIAAnnuellesV2Response() {
+        return new RecupererIAAnnuellesV2Response();
+    }
+
+    /**
+     * Create an instance of {@link RecupererAnneesIaResponse }
+     * 
+     */
+    public RecupererAnneesIaResponse createRecupererAnneesIaResponse() {
+        return new RecupererAnneesIaResponse();
+    }
+
+    /**
      * Create an instance of {@link RecupererIAAnnuellesV2 }
      * 
      */
@@ -107,11 +75,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RecupererAnneesIa }
+     * Create an instance of {@link RecupererIAEtapesResponse }
      * 
      */
-    public RecupererAnneesIa createRecupererAnneesIa() {
-        return new RecupererAnneesIa();
+    public RecupererIAEtapesResponse createRecupererIAEtapesResponse() {
+        return new RecupererIAEtapesResponse();
+    }
+
+    /**
+     * Create an instance of {@link RecupererIAEtapes }
+     * 
+     */
+    public RecupererIAEtapes createRecupererIAEtapes() {
+        return new RecupererIAEtapes();
+    }
+
+    /**
+     * Create an instance of {@link RecupererIAEtapesV2Response }
+     * 
+     */
+    public RecupererIAEtapesV2Response createRecupererIAEtapesV2Response() {
+        return new RecupererIAEtapesV2Response();
+    }
+
+    /**
+     * Create an instance of {@link RecupererIAEtapesV2 }
+     * 
+     */
+    public RecupererIAEtapesV2 createRecupererIAEtapesV2() {
+        return new RecupererIAEtapesV2();
     }
 
     /**
@@ -123,11 +115,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RecupererIAEtapesV2 }
+     * Create an instance of {@link RecupererIAAnnuelles }
      * 
      */
-    public RecupererIAEtapesV2 createRecupererIAEtapesV2() {
-        return new RecupererIAEtapesV2();
+    public RecupererIAAnnuelles createRecupererIAAnnuelles() {
+        return new RecupererIAAnnuelles();
+    }
+
+    /**
+     * Create an instance of {@link RecupererAnneesIa }
+     * 
+     */
+    public RecupererAnneesIa createRecupererAnneesIa() {
+        return new RecupererAnneesIa();
     }
 
     /**

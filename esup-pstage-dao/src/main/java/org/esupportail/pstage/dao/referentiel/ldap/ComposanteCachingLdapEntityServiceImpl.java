@@ -77,15 +77,12 @@ public class ComposanteCachingLdapEntityServiceImpl extends SimpleComposanteLdap
 	 */
 	private int badFilterErrors;
 	
-	
 	/**
 	 * Bean constructor.
 	 */
 	public  ComposanteCachingLdapEntityServiceImpl() {
-		// TODO Auto-generated constructor stub
 		super();
 	}
-	
 	
 	/**
 	 * set the default cacheName.
@@ -93,7 +90,6 @@ public class ComposanteCachingLdapEntityServiceImpl extends SimpleComposanteLdap
 	protected void setDefaultCacheName() {
 		this.cacheName = defaultCacheName;
 	}
-	
 	
 	/**
 	 * @see org.esupportail.commons.services.ldap.SimpleLdapEntityServiceImpl#afterPropertiesSet()
@@ -119,9 +115,6 @@ public class ComposanteCachingLdapEntityServiceImpl extends SimpleComposanteLdap
 			cache = cacheManager.getCache(cacheName);
 		}
 	}
-	
-	
-	
 
 	/**
 	 * Count a LdapException and re-throw it immediatly.
@@ -139,8 +132,6 @@ public class ComposanteCachingLdapEntityServiceImpl extends SimpleComposanteLdap
 		}
 		return e;
 	}
-
-	
 
 	/**
 	 * @see org.esupportail.commons.services.ldap.SimpleLdapEntityServiceImpl#getLdapEntitiesFromFilter(

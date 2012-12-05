@@ -10,12 +10,12 @@ import org.esupportail.commons.services.ldap.LdapException;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
 import org.esupportail.pstage.dao.referentiel.PersonalDataRepositoryDao;
-import org.esupportail.pstage.services.ldap.LdapAttributes;
+import org.esupportail.pstage.domain.beans.LdapAttributes;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.beans.Affectation;
-import org.esupportail.pstagedata.domain.beans.Enseignant;
-import org.esupportail.pstagedata.domain.beans.PersonnelCentreGestion;
+import org.esupportail.pstagedata.remote.AffectationDTO;
+import org.esupportail.pstagedata.remote.EnseignantDTO;
+import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.filter.Filter;
@@ -49,13 +49,13 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 	}
 
 	@Override
-	public Enseignant getEnseignantRef(String universityCode, String id) {
-		Enseignant enseignant = retrieveEnseignant(id,new  EqualsFilter(ldapAttributes.getLdapUid(), id) );
+	public EnseignantDTO getEnseignantRef(String universityCode, String id) {
+		EnseignantDTO enseignant = retrieveEnseignant(id,new  EqualsFilter(ldapAttributes.getLdapUid(), id) );
 		enseignant.setCodeUniversite(universityCode);	
 		return enseignant;
 	}
 
-	private Enseignant retrieveEnseignant(String id,Filter filtre) {
+	private EnseignantDTO retrieveEnseignant(String id,Filter filtre) {
 		AndFilter filter = new AndFilter();
 
 		filter.and(filtre);
@@ -71,7 +71,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		catch (LdapException ldae) {
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
-		Enseignant enseignant = new Enseignant();
+		EnseignantDTO enseignant = new EnseignantDTO();
 		if(!ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
 			if(logger.isInfoEnabled()){
@@ -93,7 +93,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 	 * @param etudiantRef
 	 * @param ldapUser
 	 */
-	private Enseignant enseignantFormate(Enseignant enseignant, LdapUser ldapUser) {
+	private EnseignantDTO enseignantFormate(EnseignantDTO enseignant, LdapUser ldapUser) {
 		enseignant.setUidEnseignant(ldapUser.getAttribute(ldapAttributes.getLdapUid()));
 		enseignant.setNom(ldapUser.getAttribute(ldapAttributes.getLdapName()));
 		enseignant.setPrenom(ldapUser.getAttribute(ldapAttributes.getLdapFirstName()));
@@ -106,7 +106,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		enseignant.setCampus(ldapUser.getAttribute(ldapAttributes.getLdapMemberCampus()));
 		
 		// Creation de l'objet affectation pour l'affichage dans le resultat de la recherche
-		Affectation a = new Affectation();
+		AffectationDTO a = new AffectationDTO();
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()) != null 
 			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
 			a.setLibelle(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()));
@@ -162,7 +162,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 	}
 	
 	@Override
-	public List<Enseignant> getEnseignantsByName(String universityCode, String name) {
+	public List<EnseignantDTO> getEnseignantsByName(String universityCode, String name) {
 		AndFilter filter = new AndFilter();
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(), name));
 		String affiliationFacultyValues=ldapAttributes.getLdapFacultytAffiliation();
@@ -220,7 +220,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 	}
 
 	@Override
-	public List<Enseignant> getEnseignantsByName(String universityCode, String name, String firstName, String codeAffectation) {	
+	public List<EnseignantDTO> getEnseignantsByName(String universityCode, String name, String firstName, String codeAffectation) {	
 		AndFilter filter = new AndFilter();		 
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(), name));
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapFirstName(), firstName));
@@ -282,17 +282,17 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 	 * @param enseignantsDansLdap
 	 * @return
 	 */
-	private List<Enseignant> ldapUsersToTeachers(String universityCode,
+	private List<EnseignantDTO> ldapUsersToTeachers(String universityCode,
 			List<LdapUser> enseignantsDansLdap) {
-		List<Enseignant> enseignants = null;
-		Enseignant enseignant =null;
+		List<EnseignantDTO> enseignants = null;
+		EnseignantDTO enseignant =null;
 		if(!enseignantsDansLdap.isEmpty()){
 
 
-			enseignants = new ArrayList<Enseignant>(enseignantsDansLdap.size());
+			enseignants = new ArrayList<EnseignantDTO>(enseignantsDansLdap.size());
 
 			for(LdapUser user : enseignantsDansLdap){	  
-				enseignant = new Enseignant();
+				enseignant = new EnseignantDTO();
 				enseignant.setCodeUniversite(universityCode);
 				enseignants.add(enseignantFormate(enseignant, user));
 			}
@@ -311,15 +311,15 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 	 */
 
 	@Override
-	public PersonnelCentreGestion getPersonnelCentreGestionRef(
+	public PersonnelCentreGestionDTO getPersonnelCentreGestionRef(
 			String universityCode, String id) {
 
-		PersonnelCentreGestion personnelCentreGestion = retrievePersonnelCentreGestion(id,new EqualsFilter(ldapAttributes.getLdapUid(), id) );
+		PersonnelCentreGestionDTO personnelCentreGestion = retrievePersonnelCentreGestion(id,new EqualsFilter(ldapAttributes.getLdapUid(), id) );
 		personnelCentreGestion.setCodeUniversite(universityCode);
 		return personnelCentreGestion;
 	}
 
-	private PersonnelCentreGestion retrievePersonnelCentreGestion(String id,
+	private PersonnelCentreGestionDTO retrievePersonnelCentreGestion(String id,
 			Filter filtre) {
 		AndFilter filter = new AndFilter();
 
@@ -337,7 +337,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		catch (LdapException ldae) {
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
-		PersonnelCentreGestion personnelCentreGestion = new PersonnelCentreGestion();
+		PersonnelCentreGestionDTO personnelCentreGestion = new PersonnelCentreGestionDTO();
 		if(!ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
 			if(logger.isInfoEnabled()){
@@ -356,7 +356,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 	 * @param personnelCentreGestion
 	 * @param ldapUser
 	 */
-	private PersonnelCentreGestion  personnelCGFormate( PersonnelCentreGestion personnelCentreGestion, LdapUser ldapUser) {
+	private PersonnelCentreGestionDTO  personnelCGFormate( PersonnelCentreGestionDTO personnelCentreGestion, LdapUser ldapUser) {
 		personnelCentreGestion.setUidPersonnel((ldapUser.getAttribute(ldapAttributes.getLdapUid())));
 		personnelCentreGestion.setNom(ldapUser.getAttribute(ldapAttributes.getLdapName()));
 		personnelCentreGestion.setPrenom(ldapUser.getAttribute(ldapAttributes.getLdapFirstName()));
@@ -369,7 +369,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		personnelCentreGestion.setCampus(ldapUser.getAttribute(ldapAttributes.getLdapMemberCampus()));
 		
 		// Creation de l'objet affectation pour l'affichage dans le resultat de la recherche
-		Affectation a = new Affectation();
+		AffectationDTO a = new AffectationDTO();
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()) != null 
 			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
 			a.setLibelle(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()));
@@ -409,7 +409,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 	}
 
 	@Override
-	public List<PersonnelCentreGestion> getPersonnelCentreGestionRefByName( String universityCode, String name, String firstName, String codeAffectation) {
+	public List<PersonnelCentreGestionDTO> getPersonnelCentreGestionRefByName( String universityCode, String name, String firstName, String codeAffectation) {
 		if(logger.isInfoEnabled()){
 			logger.info(" Appel de getPersonnelCentreGestionRefByName()");
 		}
@@ -477,14 +477,14 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 
 
 
-	private List<PersonnelCentreGestion> ldapUsersToPersonnelCDG(
+	private List<PersonnelCentreGestionDTO> ldapUsersToPersonnelCDG(
 			String universityCode, List<LdapUser> personnelsCdgLdap) {
-		List<PersonnelCentreGestion> personnelsCDG = null;
-		PersonnelCentreGestion personnelCDG =null;
+		List<PersonnelCentreGestionDTO> personnelsCDG = null;
+		PersonnelCentreGestionDTO personnelCDG =null;
 		if(!personnelsCdgLdap.isEmpty()){
-			personnelsCDG = new ArrayList<PersonnelCentreGestion>(personnelsCdgLdap.size());
+			personnelsCDG = new ArrayList<PersonnelCentreGestionDTO>(personnelsCdgLdap.size());
 			for(LdapUser user : personnelsCdgLdap){
-				personnelCDG = new PersonnelCentreGestion();
+				personnelCDG = new PersonnelCentreGestionDTO();
 				personnelCDG.setCodeUniversite(universityCode);
 				personnelsCDG.add(personnelCGFormate(personnelCDG, user));
 			}

@@ -3,13 +3,15 @@ package org.esupportail.pstage.domain.referentiel;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.esupportail.pstage.domain.beans.EtabRef;
+import org.esupportail.pstage.domain.beans.SignataireRef;
+
 
 /**
  * @author dhouillo
  *
  */
 public interface StudentComponentRepositoryDomain extends Serializable{
-
 
 	 /**
 	 * @param universityCode

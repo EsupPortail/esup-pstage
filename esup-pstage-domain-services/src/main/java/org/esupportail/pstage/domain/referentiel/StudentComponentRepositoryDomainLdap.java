@@ -2,6 +2,10 @@ package org.esupportail.pstage.domain.referentiel;
 
 import java.util.Map;
 
+import org.esupportail.pstage.dao.referentiel.StudentComponentRepositoryDao;
+import org.esupportail.pstage.domain.beans.EtabRef;
+import org.esupportail.pstage.domain.beans.SignataireRef;
+
 
 /**
  * 
@@ -16,6 +20,7 @@ public class StudentComponentRepositoryDomainLdap implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private StudentComponentRepositoryDao studentComponentRepositoryDao;
 	
 	/**
@@ -44,9 +49,4 @@ public class StudentComponentRepositoryDomainLdap implements
 			Map<String, String> lesComposantes) {
 		return studentComponentRepositoryDao.getComposantesPrincipalesRef(universityCode, lesComposantes);
 	}
-
-
-
-
-
 }

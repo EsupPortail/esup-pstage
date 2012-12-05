@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ContratPedagogiqueResultatVdiVetDTO }
-     * 
-     */
-    public ContratPedagogiqueResultatVdiVetDTO createContratPedagogiqueResultatVdiVetDTO() {
-        return new ContratPedagogiqueResultatVdiVetDTO();
-    }
-
-    /**
      * Create an instance of {@link TableauEtapeResVdiVetDto }
      * 
      */
@@ -51,6 +43,14 @@ public class ObjectFactory {
      */
     public TableauResultatVdiDto createTableauResultatVdiDto() {
         return new TableauResultatVdiDto();
+    }
+
+    /**
+     * Create an instance of {@link ContratPedagogiqueResultatVdiVetDTO }
+     * 
+     */
+    public ContratPedagogiqueResultatVdiVetDTO createContratPedagogiqueResultatVdiVetDTO() {
+        return new ContratPedagogiqueResultatVdiVetDTO();
     }
 
 }

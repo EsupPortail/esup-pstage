@@ -1,8 +1,11 @@
 package org.esupportail.pstage.domain.referentiel;
 
+import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.esupportail.pstage.dao.referentiel.GeographieRepositoryDao;
 import org.springframework.util.StringUtils;
 
 /**

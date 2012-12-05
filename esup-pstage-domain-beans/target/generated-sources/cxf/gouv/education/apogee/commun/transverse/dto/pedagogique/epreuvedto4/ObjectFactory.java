@@ -30,11 +30,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link EpreuveDTO4 }
+     * Create an instance of {@link TableauCaracTechDTO }
      * 
      */
-    public EpreuveDTO4 createEpreuveDTO4() {
-        return new EpreuveDTO4();
+    public TableauCaracTechDTO createTableauCaracTechDTO() {
+        return new TableauCaracTechDTO();
     }
 
     /**
@@ -46,11 +46,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TableauCaracTechDTO }
+     * Create an instance of {@link EpreuveDTO4 }
      * 
      */
-    public TableauCaracTechDTO createTableauCaracTechDTO() {
-        return new TableauCaracTechDTO();
+    public EpreuveDTO4 createEpreuveDTO4() {
+        return new EpreuveDTO4();
     }
 
 }

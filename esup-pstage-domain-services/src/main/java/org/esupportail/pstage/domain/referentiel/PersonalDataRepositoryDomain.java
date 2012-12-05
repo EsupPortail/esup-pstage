@@ -2,6 +2,9 @@ package org.esupportail.pstage.domain.referentiel;
 
 import java.io.Serializable;
 import java.util.List;
+
+import org.esupportail.pstagedata.remote.EnseignantDTO;
+import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
 /**
  * 
  *acces aux donnees du personnel
@@ -9,45 +12,45 @@ import java.util.List;
  */
 public interface PersonalDataRepositoryDomain extends Serializable{
 	/**
-		 * @param universityCode
-		 * @param id
-		 * @return PersonnelCentreGestion
-		 */
-		
-		public PersonnelCentreGestion getPersonnelCentreGestionRef(String universityCode, String id);
+	 * @param universityCode
+	 * @param id
+	 * @return PersonnelCentreGestion
+	 */
 
-		/**
-		 * @param universityCode
-		 * @param name
-		 * @param firstName
-		 * @param codeAffectation
-		 * @return List<PersonnelCentreGestion>
-		 */
-		public List<PersonnelCentreGestion> getPersonnelCentreGestionRefByName(String universityCode, String name, String firstName, String codeAffectation);
+	public PersonnelCentreGestionDTO getPersonnelCentreGestionRef(String universityCode, String id);
 
-		/**
-		 * @param universityCode
-		 * @param id
-		 * @return Enseignant
-		 */
-		public Enseignant getEnseignantRef(String universityCode, String id);
+	/**
+	 * @param universityCode
+	 * @param name
+	 * @param firstName
+	 * @param codeAffectation
+	 * @return List<PersonnelCentreGestion>
+	 */
+	public List<PersonnelCentreGestionDTO> getPersonnelCentreGestionRefByName(String universityCode, String name, String firstName, String codeAffectation);
 
-		/**
-		 * Retourne les enseignants suivant un nom
-		 * @param universityCode
-		 * @param name
-		 * @return a List of Teacher
-		 */
-		public List<Enseignant> getEnseignantsByName(String universityCode, String name);
+	/**
+	 * @param universityCode
+	 * @param id
+	 * @return Enseignant
+	 */
+	public EnseignantDTO getEnseignantRef(String universityCode, String id);
 
-		/**
-		 * @param universityCode
-		 * @param name
-		 * @param firstName
-		 * @param codeAffectation
-		 * @return List<Enseignant>
-		 */
-		public List<Enseignant> getEnseignantsByName(String universityCode, String name, String firstName, String codeAffectation);
+	/**
+	 * Retourne les enseignants suivant un nom
+	 * @param universityCode
+	 * @param name
+	 * @return a List of Teacher
+	 */
+	public List<EnseignantDTO> getEnseignantsByName(String universityCode, String name);
+
+	/**
+	 * @param universityCode
+	 * @param name
+	 * @param firstName
+	 * @param codeAffectation
+	 * @return List<Enseignant>
+	 */
+	public List<EnseignantDTO> getEnseignantsByName(String universityCode, String name, String firstName, String codeAffectation);
 
 
 

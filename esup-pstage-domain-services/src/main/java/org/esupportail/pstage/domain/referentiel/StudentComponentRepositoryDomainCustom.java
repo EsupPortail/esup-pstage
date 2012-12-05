@@ -2,6 +2,9 @@ package org.esupportail.pstage.domain.referentiel;
 
 import java.util.Map;
 
+import org.esupportail.pstage.domain.beans.EtabRef;
+import org.esupportail.pstage.domain.beans.SignataireRef;
+
 
 /**
  * 
@@ -11,6 +14,11 @@ import java.util.Map;
 
 public class StudentComponentRepositoryDomainCustom implements
 	StudentComponentRepositoryDomain {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7195879756216296735L;
 
 	@Override
 	public EtabRef getEtabRef(String universityCode) {
@@ -36,9 +44,5 @@ public class StudentComponentRepositoryDomainCustom implements
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-
 
 }

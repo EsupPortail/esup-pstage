@@ -3,6 +3,9 @@ package org.esupportail.pstage.domain.referentiel;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.esupportail.pstage.dao.referentiel.PersonalDataRepositoryDaoWS;
+import org.esupportail.pstagedata.remote.EnseignantDTO;
+import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
 
 
 /**
@@ -17,6 +20,11 @@ public class PersonalDataRepositoryDomainWS implements
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -3598515568295577686L;
+
+	/**
+	 * 
+	 */
 	final Logger logger = Logger.getLogger(PersonalDataRepositoryDomainWS.class);
 
 	/**
@@ -28,12 +36,12 @@ public class PersonalDataRepositoryDomainWS implements
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.PersonalDataRepositoryDomain#getEnseignantRef(java.lang.String, java.lang.String)
 	 */
-	public Enseignant getEnseignantRef(String universityCode, String id) {
+	public EnseignantDTO getEnseignantRef(String universityCode, String id) {
 		return personalDataRepositoryDaoWS.getEnseignantRef(universityCode, id);
 	}
 
 	@Override
-	public List<Enseignant> getEnseignantsByName(String universityCode,
+	public List<EnseignantDTO> getEnseignantsByName(String universityCode,
 			String name) {
 		// TODO Auto-generated method stub
 		return null;
@@ -43,14 +51,14 @@ public class PersonalDataRepositoryDomainWS implements
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.PersonalDataRepositoryDomain#getEnseignantsByName(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public List<Enseignant> getEnseignantsByName(String universityCode,
+	public List<EnseignantDTO> getEnseignantsByName(String universityCode,
 			String name, String firstName, String codeAffectation) {
 		if(logger.isInfoEnabled()){
 			logger.info(" Appel de PersonalDataRepositoryWS.getEnseignantsByName(universityCode, name,firstName,codeAffectation) : " + universityCode +  " name : " + name 
 					+ " firstName : " + firstName + "codeAffectation : " + codeAffectation);
 		}
 		
-		List<Enseignant>  lEnseignant = personalDataRepositoryDaoWS.getEnseignantsByName(universityCode, name, firstName, codeAffectation);
+		List<EnseignantDTO>  lEnseignant = personalDataRepositoryDaoWS.getEnseignantsByName(universityCode, name, firstName, codeAffectation);
 		if(logger.isDebugEnabled()){
 			
 			logger.debug(" PersonalDataRepositoryDomainWS lEnseignant  ==> " + lEnseignant.size());
@@ -62,9 +70,9 @@ public class PersonalDataRepositoryDomainWS implements
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.PersonalDataRepositoryDomain#getPersonnelCentreGestionRef(java.lang.String, java.lang.String)
 	 */
-	public PersonnelCentreGestion getPersonnelCentreGestionRef(
+	public PersonnelCentreGestionDTO getPersonnelCentreGestionRef(
 			String universityCode, String id) {
-		PersonnelCentreGestion personnelCentreGestion = personalDataRepositoryDaoWS.getPersonnelCentreGestionRef(universityCode, id);
+		PersonnelCentreGestionDTO personnelCentreGestion = personalDataRepositoryDaoWS.getPersonnelCentreGestionRef(universityCode, id);
 		return personnelCentreGestion;
 	}
 
@@ -72,10 +80,10 @@ public class PersonalDataRepositoryDomainWS implements
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.PersonalDataRepositoryDomain#getPersonnelCentreGestionRefByName(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public List<PersonnelCentreGestion> getPersonnelCentreGestionRefByName(
+	public List<PersonnelCentreGestionDTO> getPersonnelCentreGestionRefByName(
 			String universityCode, String name, String firstName,
 			String codeAffectation) {
-		List<PersonnelCentreGestion> lPersonnelCentreGestion = personalDataRepositoryDaoWS.getPersonnelCentreGestionRefByName(universityCode, name, firstName, codeAffectation);
+		List<PersonnelCentreGestionDTO> lPersonnelCentreGestion = personalDataRepositoryDaoWS.getPersonnelCentreGestionRefByName(universityCode, name, firstName, codeAffectation);
 
 		return lPersonnelCentreGestion;
 	}

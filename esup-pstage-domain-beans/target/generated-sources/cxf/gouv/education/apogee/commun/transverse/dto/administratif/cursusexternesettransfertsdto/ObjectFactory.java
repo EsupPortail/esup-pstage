@@ -38,19 +38,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TableauCursusExterneDto }
-     * 
-     */
-    public TableauCursusExterneDto createTableauCursusExterneDto() {
-        return new TableauCursusExterneDto();
-    }
-
-    /**
      * Create an instance of {@link TableauTransfertDto }
      * 
      */
     public TableauTransfertDto createTableauTransfertDto() {
         return new TableauTransfertDto();
+    }
+
+    /**
+     * Create an instance of {@link TableauCursusExterneDto }
+     * 
+     */
+    public TableauCursusExterneDto createTableauCursusExterneDto() {
+        return new TableauCursusExterneDto();
     }
 
 }

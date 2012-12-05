@@ -35,11 +35,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RecupererContratPedagogiqueResultatVdiVetResponse }
+     * Create an instance of {@link RecupererContratPedagogiqueResultatElpEprV5Response }
      * 
      */
-    public RecupererContratPedagogiqueResultatVdiVetResponse createRecupererContratPedagogiqueResultatVdiVetResponse() {
-        return new RecupererContratPedagogiqueResultatVdiVetResponse();
+    public RecupererContratPedagogiqueResultatElpEprV5Response createRecupererContratPedagogiqueResultatElpEprV5Response() {
+        return new RecupererContratPedagogiqueResultatElpEprV5Response();
+    }
+
+    /**
+     * Create an instance of {@link RecupererAnneesIPResultatResponse }
+     * 
+     */
+    public RecupererAnneesIPResultatResponse createRecupererAnneesIPResultatResponse() {
+        return new RecupererAnneesIPResultatResponse();
     }
 
     /**
@@ -59,27 +67,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RecupererContratPedagogiqueResultatVdiVetResponse }
+     * 
+     */
+    public RecupererContratPedagogiqueResultatVdiVetResponse createRecupererContratPedagogiqueResultatVdiVetResponse() {
+        return new RecupererContratPedagogiqueResultatVdiVetResponse();
+    }
+
+    /**
      * Create an instance of {@link RecupererContratPedagogiqueResultatElpEprV5 }
      * 
      */
     public RecupererContratPedagogiqueResultatElpEprV5 createRecupererContratPedagogiqueResultatElpEprV5() {
         return new RecupererContratPedagogiqueResultatElpEprV5();
-    }
-
-    /**
-     * Create an instance of {@link RecupererAnneesIPResultatResponse }
-     * 
-     */
-    public RecupererAnneesIPResultatResponse createRecupererAnneesIPResultatResponse() {
-        return new RecupererAnneesIPResultatResponse();
-    }
-
-    /**
-     * Create an instance of {@link RecupererContratPedagogiqueResultatElpEprV5Response }
-     * 
-     */
-    public RecupererContratPedagogiqueResultatElpEprV5Response createRecupererContratPedagogiqueResultatElpEprV5Response() {
-        return new RecupererContratPedagogiqueResultatElpEprV5Response();
     }
 
     /**
