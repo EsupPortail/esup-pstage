@@ -1,5 +1,7 @@
 package org.esupportail.pstage.web.controllers;
 
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,13 +11,17 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.beans.ConventionColonneEnum;
 import org.esupportail.pstage.web.beans.ConventionEntrepriseColonneEnum;
-import org.esupportail.pstagedata.domain.dto.ConventionDTO;
-import org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO;
-import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstage.web.servlet.ExportConventionsServlet;
+import org.esupportail.pstagedata.remote.ConventionDTO;
+import org.esupportail.pstagedata.remote.CritereRechercheConventionDTO;
+import org.esupportail.pstagedata.remote.EnseignantDTO;
 import org.springframework.util.StringUtils;
 
 /**
@@ -23,7 +29,7 @@ import org.springframework.util.StringUtils;
  *
  */
 public class ExportController extends AbstractContextAwareController {
-	
+
 	/**
 	 * 
 	 */
@@ -32,18 +38,18 @@ public class ExportController extends AbstractContextAwareController {
 	 * Logger.
 	 */
 	private final Logger logger = Logger.getLogger(this.getClass());
-	
+
 	/**
 	 * Resultats de la recherche convention.
 	 */
 	private List<ConventionDTO> resultatsRechercheConvention;
-	
+
 	//Recherche
 	/**
 	 * critereRechercheConvention.
 	 */
 	private CritereRechercheConventionDTO critereRechercheConvention = new CritereRechercheConventionDTO();
-	
+
 	/**
 	 * Liste des types structure et statuts pour la recherche.
 	 */
@@ -52,34 +58,34 @@ public class ExportController extends AbstractContextAwareController {
 	 * Type ou statut structure sélectionné pour la recherche.
 	 */
 	private String rechTypeOuStatut;
-	
+
 	/**
 	 * 1 = Oui.
 	 * 2 = Non
 	 * null = Les 2
 	 */
 	private String estValidee = null;
-	
+
 	/**
 	 * Liste des colonnes convention choisies.
 	 */
 	private List<String> conventionColonnesChoisies;
-	
+
 	/**
 	 * Liste des colonnes convention choisies.
 	 */
 	private List<SelectItem> conventionColonnesChoisiesItem;
-	
+
 	/**
 	 * Liste des colonnes convention/entreprise choisies.
 	 */
 	private List<String> conventionEntrepriseColonnesChoisies;
-	
+
 	/**
 	 * Liste des colonnes convention/entreprise choisies.
 	 */
 	private List<SelectItem> conventionEntrepriseColonnesChoisiesItem;
-	
+
 	/**
 	 * Bean constructor.
 	 */
@@ -110,7 +116,7 @@ public class ExportController extends AbstractContextAwareController {
 
 		enter();
 	}
-	
+
 	/**
 	 * @return true if the current user is allowed to view the page.
 	 */
@@ -128,7 +134,7 @@ public class ExportController extends AbstractContextAwareController {
 		}
 		return "navigationWelcome";
 	}
-	
+
 	/**
 	 * Recherche des Conventions.
 	 * @return String
@@ -147,9 +153,9 @@ public class ExportController extends AbstractContextAwareController {
 		}
 		//au moins le critère annee doit etre saisi
 		if (!StringUtils.hasText(this.critereRechercheConvention.getIdConvention()) 
-			&& !StringUtils.hasText(this.critereRechercheConvention.getNumeroEtudiant()) 
-			&& !StringUtils.hasText(this.critereRechercheConvention.getNomEtudiant())
-			&& !StringUtils.hasText(this.critereRechercheConvention.getPrenomEtudiant())) {
+				&& !StringUtils.hasText(this.critereRechercheConvention.getNumeroEtudiant()) 
+				&& !StringUtils.hasText(this.critereRechercheConvention.getNomEtudiant())
+				&& !StringUtils.hasText(this.critereRechercheConvention.getPrenomEtudiant())) {
 			if (!StringUtils.hasText(this.critereRechercheConvention.getAnneeUniversitaire())) {
 				addErrorMessage("formRechConvention", "RECHERCHECONVENTION.ANNEEU.OBLIGATOIRE");
 				return ret;
@@ -182,7 +188,7 @@ public class ExportController extends AbstractContextAwareController {
 		else if (this.estValidee.equals("1"))	this.critereRechercheConvention.setEstValidee(true);
 		else if (this.estValidee.equals("2"))	this.critereRechercheConvention.setEstValidee(false);
 		//this.critereRechercheConvention.setLimit(true);
-		
+
 		this.critereRechercheConvention.setNbExportMaxi(Integer.toString(DonneesStatic.NB_RESPONSE_EXPORT_MAXI));
 		if (logger.isInfoEnabled()) {
 			logger.info("ExportController:: Appel getConventionsFromCriteresExport debut ");
@@ -220,7 +226,7 @@ public class ExportController extends AbstractContextAwareController {
 		}else {
 			this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteresExport(this.critereRechercheConvention);
 		}
-		
+
 		if (logger.isInfoEnabled()) {
 			logger.info("ExportController:: Appel getConventionsFromCriteresExport fin ");
 		}
@@ -248,7 +254,7 @@ public class ExportController extends AbstractContextAwareController {
 				//exportConvention();
 				ret = "exportConvention";
 			}
-			
+
 			if (logger.isInfoEnabled()) {
 				logger.info("ExportController:: Appel getConventionFromExport fin ");
 			}
@@ -257,7 +263,7 @@ public class ExportController extends AbstractContextAwareController {
 		this.conventionEntrepriseColonnesChoisies = new ArrayList<String>();
 		return ret;
 	}
-	
+
 	/**
 	 * choix export des conventions tuteur
 	 * @return String
@@ -278,7 +284,7 @@ public class ExportController extends AbstractContextAwareController {
 		this.conventionEntrepriseColonnesChoisies = new ArrayList<String>();
 		return ret;
 	}
-	
+
 	/**
 	 * @return String
 	 */
@@ -289,219 +295,420 @@ public class ExportController extends AbstractContextAwareController {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void exportConvention() {
-
-		//to get xls 
-		String typeExport = "xls";
-		String fileName = "conventions" + "." + typeExport;
-		List<ConventionDTO> conventions = new ArrayList<ConventionDTO>();
-		List<String> colonnesChoisies = new ArrayList<String>();
-		conventions = this.resultatsRechercheConvention;
-		if (this.conventionColonnesChoisies != null && !this.conventionColonnesChoisies.isEmpty()) {
-			for (String c : this.conventionColonnesChoisies) {
-				colonnesChoisies.add(getString(c));
-			}
-		} 
-		if (this.conventionEntrepriseColonnesChoisies != null 
-				&& !this.conventionEntrepriseColonnesChoisies.isEmpty()) {
-			for (String c : this.conventionEntrepriseColonnesChoisies) {
-				colonnesChoisies.add(getString(c));
-			}
-		} 
 		
+		List<ConventionDTO> conventions = this.resultatsRechercheConvention;
 		
-		getFileGeneratorService().conventionFile(conventions, typeExport, fileName, colonnesChoisies);
-	}
-	
-	
+		if (conventions != null && !conventions.isEmpty()){
+			HSSFWorkbook classeur = new HSSFWorkbook();
+			HSSFSheet sheet = classeur.createSheet("exportConvention");
 
-	/**
-	 * @return List <SelectItem>
-	 */
-
-	public List<SelectItem> getConventionColonnes() {
-		List<SelectItem> ls = new ArrayList<SelectItem>();
-		
-		for (ConventionColonneEnum s : ConventionColonneEnum.values()) {
+			HSSFRow row = sheet.createRow(0);
 			
-			ls.add(new SelectItem(s.getKeyLabel(), getString(s.getKeyLabel())));
-		}
-
-		return ls;
-	}
-	
-	/**
-	 * @return List <SelectItem>
-	 */
-
-	public List<SelectItem> getConventionEntrepriseColonnes() {
-		List<SelectItem> ls = new ArrayList<SelectItem>();
-		
-		for (ConventionEntrepriseColonneEnum s : ConventionEntrepriseColonneEnum.values()) {
+			int cpt = 0;
+			for(String colonne : this.conventionColonnesChoisies){
+				row.createCell(cpt).setCellValue(getString(colonne));
+				cpt++;
+			}
+			for(String colonne : this.conventionEntrepriseColonnesChoisies){
+				row.createCell(cpt).setCellValue(getString(colonne));
+				cpt++;
+			}
 			
-			ls.add(new SelectItem(s.getKeyLabel(), getString(s.getKeyLabel())));
+			ConventionDTO conventionTmp;
+			for (int i=0;i<conventions.size();i++) {
+				conventionTmp = conventions.get(i);
+				row = sheet.createRow(i+1);
+				cpt=0;
+				for (String colonne : this.conventionColonnesChoisies){
+					row.createCell(cpt).setCellValue(this.recupValueStage(colonne, conventionTmp));
+					cpt++;
+				}
+				for (String colonne : this.conventionEntrepriseColonnesChoisies){
+					row.createCell(cpt).setCellValue(this.recupValueEntreprise(colonne, conventionTmp));
+					cpt++;
+				}
+			}
+			
+			try {
+				ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
+
+				classeur.write(baosXLS);
+
+				ExportConventionsServlet edit = new ExportConventionsServlet();
+				edit.doGet(baosXLS);
+			} catch (Exception e){
+				logger.error("exportConvention() - Exception lors de la tentative d'écriture du baosXLS : " + e.getMessage());
+			}
 		}
-		return ls;
-	}
-	
-	
-	/* ***************************************************************
-	 * Getters / Setters
-	 ****************************************************************/
-	/**
-	 * @return the resultatsRechercheConvention
-	 */
-	public List<ConventionDTO> getResultatsRechercheConvention() {
-		return resultatsRechercheConvention;
 	}
 
+/**
+ * @return Object
+ */
+private String recupValueStage(String nameProperty, ConventionDTO convention){
+	try {
+		if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NUMEROCONVENTION")){
+			return convention.getIdConvention().toString();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NUMEROETUDIANT")){
+			return convention.getEtudiant().getNumEtudiant();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NOMETUDIANT")){
+			return convention.getEtudiant().getNom();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.PRENOMETUDIANT")){
+			return convention.getEtudiant().getPrenom();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.TELPERSOETUDIANT")){
+			return convention.getTelEtudiant();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.TELPORTABLEETUDIANT")){
+			return convention.getTelPortableEtudiant();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.MAILPERSOETUDIANT")){
+			return convention.getCourrielPersoEtudiant();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CODEUFR")){
+			return convention.getUfr().getCode();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.LIBELLEUFR")){
+			return convention.getUfr().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CODEDEPT")){
+			return convention.getCodeDepartement();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CODEETAPE")){
+			return convention.getEtape().getCode();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.LIBELLEETAPE")){
+			return convention.getEtape().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB")){
+			return new SimpleDateFormat("dd/MM/yyyy").format(convention.getDateDebutStage());
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DATEFIN")){
+			return new SimpleDateFormat("dd/MM/yyyy").format(convention.getDateFinStage());
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.INTERRUPTION")){
+			if (convention.isInterruptionStage()){
+				return "Oui";
+			} else {
+				return "Non";
+			}
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB.INTERRUPT")){
+			return new SimpleDateFormat("dd/MM/yyyy").format(convention.getDateDebutInterruption());
 
-	/**
-	 * @param resultatsRechercheConvention the resultatsRechercheConvention to set
-	 */
-	public void setResultatsRechercheConvention(
-			final List<ConventionDTO> resultatsRechercheConvention) {
-		this.resultatsRechercheConvention = resultatsRechercheConvention;
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DATEFIN.INTERRUPT")){
+			return new SimpleDateFormat("dd/MM/yyyy").format(convention.getDateFinInterruption());
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.THEMATIQUE")){
+			return convention.getTheme().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SUJET")){
+			return convention.getSujetStage();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.FONCTION")){
+			return convention.getFonctionsEtTaches();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DETAIL")){
+			return convention.getDetails();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DUREE")){
+			return convention.getDureeStage().toString();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DUREEEXCEPTION")){
+			return convention.getDureeExceptionnelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.UNITEDUREEEXCEP")){
+			return convention.getUniteDuree().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NBJOURS")){
+			return convention.getNbJoursHebdo();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.GRATIFICATION")){
+			return convention.getMontantGratification();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.UNITEGRATIFICATION")){
+			return convention.getUniteGratification().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.VALIDEE")){
+			if (convention.isValidationConvention()){
+				return "Oui";
+			} else {
+				return "Non";
+			}
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CIVILITE.ENSEIGNANT")){
+			return convention.getEnseignant().getCivilite().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NOM.ENSEIGNANT")){
+			return convention.getEnseignant().getNom();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.PRENOM.ENSEIGNANT")){
+			return convention.getEnseignant().getPrenom();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.MAIL.ENSEIGNANT")){
+			return convention.getEnseignant().getMail();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CIVILITE.SIGNATAIRE")){
+			return convention.getSignataire().getCivilite().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NOM.SIGNATAIRE")){
+			return convention.getSignataire().getNom();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.PRENOM.SIGNATAIRE")){
+			return convention.getSignataire().getPrenom();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.MAIL.SIGNATAIRE")){
+			return convention.getSignataire().getMail();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.FONCTION.SIGNATAIRE")){
+			return convention.getSignataire().getFonction();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.ANNEEUNIV")){
+			return convention.getAnnee();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.TYPECONVENTION")){
+			return convention.getTypeConvention().getLibelle();
+		} else {
+			if (logger.isDebugEnabled())
+				logger.debug("methode recupValueStage(...) : NameProperty " + nameProperty +" inconnue.");
+			return "";
+		}
+	} catch (NullPointerException e){
+		if (logger.isDebugEnabled())
+			logger.debug("methode recupValueStage(...) : NullPointerException pour "+nameProperty+".");
+		return "";
+	}
+}
+
+/**
+ * @return Object
+ */
+private String recupValueEntreprise(String nameProperty, ConventionDTO convention){
+	try {
+		if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.RAISONSOC")){
+			return convention.getStructure().getRaisonSociale();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.SIRET")){
+			return convention.getStructure().getNumeroSiret();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.RESIDENCE")){
+			return convention.getStructure().getBatimentResidence();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.VOIE")){
+			return convention.getStructure().getVoie();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.LIBCEDEX")){
+			return convention.getStructure().getLibCedex();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.CODEPOSTAL")){
+			return convention.getStructure().getCodePostal();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.COMMUNE")){
+			return convention.getStructure().getCommune();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.PAYS")){
+			return convention.getStructure().getPays().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.STATUTJURIDIQUE")){
+			return convention.getStructure().getStatutJuridique().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.TYPESTRUCTURE")){
+			return convention.getStructure().getTypeStructure().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.EFFECTIF")){
+			return convention.getStructure().getEffectif().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.CODENAF")){
+			return convention.getStructure().getCodeNAFN5();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.TELEPHONE")){
+			return convention.getStructure().getTelephone();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.FAX")){
+			return convention.getStructure().getFax();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.MAIL")){
+			return convention.getStructure().getMail();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.STRUCTURE.SITEWEB")){
+			return convention.getStructure().getSiteWeb();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.NOM")){
+			return convention.getService().getNom();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.RESIDENCE")){
+			return convention.getService().getBatimentResidence();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.VOIE")){
+			return convention.getService().getVoie();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.LIBCEDEX")){
+			return convention.getService().getLibCedex();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.CODEPOSTAL")){
+			return convention.getService().getCodePostal();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.COMMUNE")){
+			return convention.getService().getCommune();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SERVICE.PAYS")){
+			return convention.getService().getPays().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CIVILITE.CONTACT")){
+			return convention.getContact().getCivilite().getLibelle();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NOM.CONTACT")){
+			return convention.getContact().getNom();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.PRENOM.CONTACT")){
+			return convention.getContact().getPrenom();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.MAIL.CONTACT")){
+			return convention.getContact().getMail();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.TEL.CONTACT")){
+			return convention.getContact().getTel();
+		} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.FONCTION.CONTACT")){
+			return convention.getContact().getFonction();
+		} else {
+			if (logger.isDebugEnabled())
+				logger.debug("methode recupValueEntreprise(...) : NameProperty " + nameProperty +" inconnue.");
+			return "";
+		}
+	} catch (NullPointerException e){
+		if (logger.isDebugEnabled())
+			logger.debug("methode recupValueEntreprise(...) : NullPointerException pour "+nameProperty+".");
+		return "";
+	}
+}
+
+/**
+ * @return List <SelectItem>
+ */
+
+public List<SelectItem> getConventionColonnes() {
+	List<SelectItem> ls = new ArrayList<SelectItem>();
+
+	for (ConventionColonneEnum s : ConventionColonneEnum.values()) {
+
+		ls.add(new SelectItem(s.getKeyLabel(), getString(s.getKeyLabel())));
 	}
 
+	return ls;
+}
 
-	/**
-	 * @return the critereRechercheConvention
-	 */
-	public CritereRechercheConventionDTO getCritereRechercheConvention() {
-		return critereRechercheConvention;
+/**
+ * @return List <SelectItem>
+ */
+
+public List<SelectItem> getConventionEntrepriseColonnes() {
+	List<SelectItem> ls = new ArrayList<SelectItem>();
+
+	for (ConventionEntrepriseColonneEnum s : ConventionEntrepriseColonneEnum.values()) {
+
+		ls.add(new SelectItem(s.getKeyLabel(), getString(s.getKeyLabel())));
 	}
+	return ls;
+}
 
 
-	/**
-	 * @param critereRechercheConvention the critereRechercheConvention to set
-	 */
-	public void setCritereRechercheConvention(
-			CritereRechercheConventionDTO critereRechercheConvention) {
-		this.critereRechercheConvention = critereRechercheConvention;
-	}
+/* ***************************************************************
+ * Getters / Setters
+ ****************************************************************/
+/**
+ * @return the resultatsRechercheConvention
+ */
+public List<ConventionDTO> getResultatsRechercheConvention() {
+	return resultatsRechercheConvention;
+}
 
 
-	/**
-	 * @return the rechTypesStatutsStructure
-	 */
-	public List<SelectItem> getRechTypesStatutsStructure() {
-		return rechTypesStatutsStructure;
-	}
+/**
+ * @param resultatsRechercheConvention the resultatsRechercheConvention to set
+ */
+public void setResultatsRechercheConvention(
+		final List<ConventionDTO> resultatsRechercheConvention) {
+	this.resultatsRechercheConvention = resultatsRechercheConvention;
+}
 
 
-	/**
-	 * @param rechTypesStatutsStructure the rechTypesStatutsStructure to set
-	 */
-	public void setRechTypesStatutsStructure(
-			List<SelectItem> rechTypesStatutsStructure) {
-		this.rechTypesStatutsStructure = rechTypesStatutsStructure;
-	}
+/**
+ * @return the critereRechercheConvention
+ */
+public CritereRechercheConventionDTO getCritereRechercheConvention() {
+	return critereRechercheConvention;
+}
 
 
-	/**
-	 * @return the rechTypeOuStatut
-	 */
-	public String getRechTypeOuStatut() {
-		return rechTypeOuStatut;
-	}
+/**
+ * @param critereRechercheConvention the critereRechercheConvention to set
+ */
+public void setCritereRechercheConvention(
+		CritereRechercheConventionDTO critereRechercheConvention) {
+	this.critereRechercheConvention = critereRechercheConvention;
+}
 
 
-	/**
-	 * @param rechTypeOuStatut the rechTypeOuStatut to set
-	 */
-	public void setRechTypeOuStatut(String rechTypeOuStatut) {
-		this.rechTypeOuStatut = rechTypeOuStatut;
-	}
+/**
+ * @return the rechTypesStatutsStructure
+ */
+public List<SelectItem> getRechTypesStatutsStructure() {
+	return rechTypesStatutsStructure;
+}
 
 
-	/**
-	 * @return the estValidee
-	 */
-	public String getEstValidee() {
-		return estValidee;
-	}
+/**
+ * @param rechTypesStatutsStructure the rechTypesStatutsStructure to set
+ */
+public void setRechTypesStatutsStructure(
+		List<SelectItem> rechTypesStatutsStructure) {
+	this.rechTypesStatutsStructure = rechTypesStatutsStructure;
+}
 
 
-	/**
-	 * @param estValidee the estValidee to set
-	 */
-	public void setEstValidee(String estValidee) {
-		this.estValidee = estValidee;
-	}
+/**
+ * @return the rechTypeOuStatut
+ */
+public String getRechTypeOuStatut() {
+	return rechTypeOuStatut;
+}
 
 
-	/**
-	 * @return the conventionColonnesChoisies
-	 */
-	public List<String> getConventionColonnesChoisies() {
-		return conventionColonnesChoisies;
-	}
+/**
+ * @param rechTypeOuStatut the rechTypeOuStatut to set
+ */
+public void setRechTypeOuStatut(String rechTypeOuStatut) {
+	this.rechTypeOuStatut = rechTypeOuStatut;
+}
 
 
-	/**
-	 * @param conventionColonnesChoisies the conventionColonnesChoisies to set
-	 */
-	public void setConventionColonnesChoisies(
-			List<String> conventionColonnesChoisies) {
-		this.conventionColonnesChoisies = conventionColonnesChoisies;
-	}
+/**
+ * @return the estValidee
+ */
+public String getEstValidee() {
+	return estValidee;
+}
 
 
-	/**
-	 * @return the conventionEntrepriseColonnesChoisies
-	 */
-	public List<String> getConventionEntrepriseColonnesChoisies() {
-		return conventionEntrepriseColonnesChoisies;
-	}
+/**
+ * @param estValidee the estValidee to set
+ */
+public void setEstValidee(String estValidee) {
+	this.estValidee = estValidee;
+}
 
 
-	/**
-	 * @param conventionEntrepriseColonnesChoisies the conventionEntrepriseColonnesChoisies to set
-	 */
-	public void setConventionEntrepriseColonnesChoisies(
-			List<String> conventionEntrepriseColonnesChoisies) {
-		this.conventionEntrepriseColonnesChoisies = conventionEntrepriseColonnesChoisies;
-	}
+/**
+ * @return the conventionColonnesChoisies
+ */
+public List<String> getConventionColonnesChoisies() {
+	return conventionColonnesChoisies;
+}
 
 
-	/**
-	 * @return the conventionColonnesChoisiesItem
-	 */
-	public List<SelectItem> getConventionColonnesChoisiesItem() {
-		return conventionColonnesChoisiesItem;
-	}
+/**
+ * @param conventionColonnesChoisies the conventionColonnesChoisies to set
+ */
+public void setConventionColonnesChoisies(
+		List<String> conventionColonnesChoisies) {
+	this.conventionColonnesChoisies = conventionColonnesChoisies;
+}
 
 
-	/**
-	 * @param conventionColonnesChoisiesItem the conventionColonnesChoisiesItem to set
-	 */
-	public void setConventionColonnesChoisiesItem(
-			List<SelectItem> conventionColonnesChoisiesItem) {
-		this.conventionColonnesChoisiesItem = conventionColonnesChoisiesItem;
-	}
+/**
+ * @return the conventionEntrepriseColonnesChoisies
+ */
+public List<String> getConventionEntrepriseColonnesChoisies() {
+	return conventionEntrepriseColonnesChoisies;
+}
 
 
-	/**
-	 * @return the conventionEntrepriseColonnesChoisiesItem
-	 */
-	public List<SelectItem> getConventionEntrepriseColonnesChoisiesItem() {
-		return conventionEntrepriseColonnesChoisiesItem;
-	}
+/**
+ * @param conventionEntrepriseColonnesChoisies the conventionEntrepriseColonnesChoisies to set
+ */
+public void setConventionEntrepriseColonnesChoisies(
+		List<String> conventionEntrepriseColonnesChoisies) {
+	this.conventionEntrepriseColonnesChoisies = conventionEntrepriseColonnesChoisies;
+}
 
 
-	/**
-	 * @param conventionEntrepriseColonnesChoisiesItem the conventionEntrepriseColonnesChoisiesItem to set
-	 */
-	public void setConventionEntrepriseColonnesChoisiesItem(
-			List<SelectItem> conventionEntrepriseColonnesChoisiesItem) {
-		this.conventionEntrepriseColonnesChoisiesItem = conventionEntrepriseColonnesChoisiesItem;
-	}
+/**
+ * @return the conventionColonnesChoisiesItem
+ */
+public List<SelectItem> getConventionColonnesChoisiesItem() {
+	return conventionColonnesChoisiesItem;
+}
 
 
-	
+/**
+ * @param conventionColonnesChoisiesItem the conventionColonnesChoisiesItem to set
+ */
+public void setConventionColonnesChoisiesItem(
+		List<SelectItem> conventionColonnesChoisiesItem) {
+	this.conventionColonnesChoisiesItem = conventionColonnesChoisiesItem;
+}
+
+
+/**
+ * @return the conventionEntrepriseColonnesChoisiesItem
+ */
+public List<SelectItem> getConventionEntrepriseColonnesChoisiesItem() {
+	return conventionEntrepriseColonnesChoisiesItem;
+}
+
+
+/**
+ * @param conventionEntrepriseColonnesChoisiesItem the conventionEntrepriseColonnesChoisiesItem to set
+ */
+public void setConventionEntrepriseColonnesChoisiesItem(
+		List<SelectItem> conventionEntrepriseColonnesChoisiesItem) {
+	this.conventionEntrepriseColonnesChoisiesItem = conventionEntrepriseColonnesChoisiesItem;
+}
+
+
+
 }

@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException;
 import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException_Exception;
 import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException;
@@ -163,12 +165,12 @@ public interface StructureDomainService extends Serializable {
 	
 	/**
 	 * @param idContact 
-	 * @param avantDerniereConnexion 
+	 * @param xmlGregorianCalendar 
 	 * @return boolean
 	 * @throws DataUpdateException_Exception 
 	 * @throws WebServiceDataBaseException_Exception 
 	 */
-	public boolean updateContactDerniereConnexion(int idContact, Date avantDerniereConnexion) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateContactDerniereConnexion(int idContact, XMLGregorianCalendar xmlGregorianCalendar) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
 	
 	/**
 	 * @param idContact 

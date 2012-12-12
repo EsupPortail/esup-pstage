@@ -26,7 +26,6 @@ import org.esupportail.pstage.domain.referentiel.PersonalDataRepositoryDomain;
 import org.esupportail.pstage.domain.referentiel.PersonalDataRepositoryDomainLdap;
 import org.esupportail.pstage.domain.referentiel.StudentComponentRepositoryDomain;
 import org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain;
-import org.esupportail.pstage.services.application.FileGeneratorService;
 import org.esupportail.pstage.utils.BlowfishUtils;
 
 /**
@@ -136,11 +135,6 @@ public abstract class AbstractContextAwareController extends AbstractDomainAware
 	 * Managed the road of user.
 	 */
 	private ManagedRoadMap managedRoadMap;
-	
-	/**
-	 * The fileGeneratorService.
-	 */
-	private FileGeneratorService fileGeneratorService;
 
 	
 	/**
@@ -188,8 +182,6 @@ public abstract class AbstractContextAwareController extends AbstractDomainAware
 		Assert.notNull(this.avenantDomainService, "property avenantDomainService of class "
 				+ this.getClass().getName() + " can not be null");
 		Assert.notNull(this.etudiantDomainService, "property enseignantDomainService of class "
-				+ this.getClass().getName() + " can not be null");
-		Assert.notNull(this.fileGeneratorService, "property fileGeneratorService of class " 
 				+ this.getClass().getName() + " can not be null");
 	}
 
@@ -540,20 +532,6 @@ public abstract class AbstractContextAwareController extends AbstractDomainAware
 	 */
 	public void setAvenantDomainService(AvenantDomainService avenantDomainService) {
 		this.avenantDomainService = avenantDomainService;
-	}
-
-	/**
-	 * @return the fileGeneratorService
-	 */
-	public FileGeneratorService getFileGeneratorService() {
-		return fileGeneratorService;
-	}
-
-	/**
-	 * @param fileGeneratorService the fileGeneratorService to set
-	 */
-	public void setFileGeneratorService(FileGeneratorService fileGeneratorService) {
-		this.fileGeneratorService = fileGeneratorService;
 	}
 
 	/**

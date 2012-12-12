@@ -3,8 +3,8 @@ package org.esupportail.pstage.web.paginators;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.esupportail.commons.web.beans.ListPaginator;
-import org.esupportail.pstagedata.domain.dto.OffreDTO;
+import org.esupportail.commons.services.paginator.ListPaginator;
+import org.esupportail.pstagedata.remote.OffreDTO;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr

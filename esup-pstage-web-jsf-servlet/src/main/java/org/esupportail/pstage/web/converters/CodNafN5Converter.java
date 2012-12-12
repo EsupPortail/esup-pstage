@@ -33,8 +33,8 @@ public class CodNafN5Converter implements Serializable, Converter {
 	 */
 	@Override
 	public String getAsString(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final Object value) {
 		return (String) value;
 	}
@@ -45,8 +45,8 @@ public class CodNafN5Converter implements Serializable, Converter {
 	 */
 	@Override
 	public Object getAsObject(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final String value) {
 		String v=value;
 		if(StringUtils.hasText(value) && !value.contains(".") && value.length()>2){

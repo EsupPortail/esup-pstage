@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
 import org.esupportail.pstage.domain.NomenclatureDomainService;
-import org.esupportail.pstagedata.domain.dto.FapN1DTO;
+import org.esupportail.pstagedata.remote.FapN1DTO;
 import org.springframework.util.StringUtils;
 
 /**
@@ -39,8 +39,8 @@ public class FapN1Converter implements Serializable, Converter {
 	 */
 	@Override
 	public String getAsString(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final Object value) {
 		if (value == null || !StringUtils.hasText(value.toString())) {
 			return "";
@@ -59,8 +59,8 @@ public class FapN1Converter implements Serializable, Converter {
 	 */
 	@Override
 	public Object getAsObject(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final String value) {
 		if (!StringUtils.hasText(value)) {
 			return null;

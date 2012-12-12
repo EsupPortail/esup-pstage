@@ -4,7 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,23 +33,27 @@ import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.comparator.ComparatorSelectItem;
 import org.esupportail.pstage.web.paginators.RechercheOffrePaginator;
 import org.esupportail.pstage.web.utils.PDFUtils;
-import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.ContratOffreDTO;
-import org.esupportail.pstagedata.domain.dto.CritereRechercheOffreDTO;
-import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
-import org.esupportail.pstagedata.domain.dto.DureeDiffusionDTO;
-import org.esupportail.pstagedata.domain.dto.FapN3DTO;
-import org.esupportail.pstagedata.domain.dto.FapQualificationSimplifieeDTO;
-import org.esupportail.pstagedata.domain.dto.FichierDTO;
-import org.esupportail.pstagedata.domain.dto.ModeCandidatureDTO;
-import org.esupportail.pstagedata.domain.dto.OffreDTO;
-import org.esupportail.pstagedata.domain.dto.OffreDiffusionDTO;
-import org.esupportail.pstagedata.domain.dto.PaysDTO;
-import org.esupportail.pstagedata.domain.dto.TypeOffreDTO;
-import org.esupportail.pstagedata.exceptions.DataAddException;
-import org.esupportail.pstagedata.exceptions.DataDeleteException;
-import org.esupportail.pstagedata.exceptions.DataUpdateException;
-import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.esupportail.pstagedata.remote.CentreGestionDTO;
+import org.esupportail.pstagedata.remote.ContratOffreDTO;
+import org.esupportail.pstagedata.remote.CritereRechercheOffreDTO;
+import org.esupportail.pstagedata.remote.DataAddException;
+import org.esupportail.pstagedata.remote.DataAddException_Exception;
+import org.esupportail.pstagedata.remote.DataDeleteException;
+import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
+import org.esupportail.pstagedata.remote.DataUpdateException;
+import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
+import org.esupportail.pstagedata.remote.DroitAdministrationDTO;
+import org.esupportail.pstagedata.remote.DureeDiffusionDTO;
+import org.esupportail.pstagedata.remote.FapN3DTO;
+import org.esupportail.pstagedata.remote.FapQualificationSimplifieeDTO;
+import org.esupportail.pstagedata.remote.FichierDTO;
+import org.esupportail.pstagedata.remote.ModeCandidatureDTO;
+import org.esupportail.pstagedata.remote.OffreDTO;
+import org.esupportail.pstagedata.remote.OffreDiffusionDTO;
+import org.esupportail.pstagedata.remote.PaysDTO;
+import org.esupportail.pstagedata.remote.TypeOffreDTO;
+import org.esupportail.pstagedata.remote.WebServiceDataBaseException;
+import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 import org.springframework.util.StringUtils;
 
 
@@ -466,9 +470,9 @@ public class OffreController extends AbstractContextAwareController {
 					o.setIdFichier(idFichier);
 					this.formOffre.setFichier(o);
 					getSessionController().getOffreFileUploadBean().setPrefix(idFichier);
-				} catch (DataAddException e) {
+				} catch (DataAddException_Exception e) {
 					logger.error(e.fillInStackTrace());
-				} catch (WebServiceDataBaseException e) {
+				} catch (WebServiceDataBaseException_Exception e) {
 					logger.error(e.fillInStackTrace());
 				}
 				break;
@@ -555,7 +559,7 @@ public class OffreController extends AbstractContextAwareController {
 		if(this.formOffre.getLieuPays()!=null)this.formOffre.setIdLieuPays(this.formOffre.getLieuPays().getId());
 		if(this.formOffre.getFapQualificationSimplifiee()!=null)this.formOffre.setIdQualificationSimplifiee(this.formOffre.getFapQualificationSimplifiee().getId());
 		//if(this.formOffre.getFapN3()!=null)this.formOffre.setCodeFAP_N3(this.formOffre.getFapN3().getCode());
-		if(this.formOffre.getFapN1()!=null)this.formOffre.setCodeFAP_N3(this.formOffre.getFapN1().getCode());
+		if(this.formOffre.getFapN1()!=null)this.formOffre.setCodeFAPN3(this.formOffre.getFapN1().getCode());
 		if(this.formOffre.getTypeOffre()!=null)this.formOffre.setIdTypeOffre(this.formOffre.getTypeOffre().getId());
 		else this.formOffre.setIdTypeOffre(0);
 		if(this.formOffre.getContratOffre()!=null)this.formOffre.setIdContratOffre(this.formOffre.getContratOffre().getId());
@@ -589,9 +593,9 @@ public class OffreController extends AbstractContextAwareController {
 						ret="_creationOffreEtape4Confirmation";
 						addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
 						mailAjout();
-					}catch (DataAddException e) {
+					}catch (DataAddException_Exception e) {
 						logger.error(e.fillInStackTrace());
-					}catch (WebServiceDataBaseException e) {
+					}catch (WebServiceDataBaseException_Exception e) {
 						logger.error(e.fillInStackTrace());
 					}
 				}else{
@@ -611,10 +615,10 @@ public class OffreController extends AbstractContextAwareController {
 					ret="_creationOffreEtape4Confirmation";
 					addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
 					mailAjout();
-				}catch (DataAddException e) {
+				}catch (DataAddException_Exception e) {
 					logger.error(e.fillInStackTrace());
 					addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
-				}catch (WebServiceDataBaseException e) {
+				}catch (WebServiceDataBaseException_Exception e) {
 					logger.error(e.fillInStackTrace());
 					addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
 				}
@@ -635,9 +639,9 @@ public class OffreController extends AbstractContextAwareController {
 								this.formOffre.getIdFichier(), this.formOffre.getFichier().getNomFichier());
 					}
 					getOffreDomainService().deleteFichier(this.formOffre.getIdFichier());
-				}catch (DataDeleteException e) {
+				}catch (DataDeleteException_Exception e) {
 					logger.error(e.fillInStackTrace());
-				}catch (WebServiceDataBaseException e) {
+				}catch (WebServiceDataBaseException_Exception e) {
 					logger.error(e.fillInStackTrace());
 				}
 			}
@@ -667,10 +671,10 @@ public class OffreController extends AbstractContextAwareController {
 					ret="_creationOffreEtape4Confirmation";
 					addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
 					mailAjout();
-				}catch (DataAddException e) {
+				}catch (DataAddException_Exception e) {
 					logger.error(e.fillInStackTrace());
 					addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
-				}catch (WebServiceDataBaseException e) {
+				}catch (WebServiceDataBaseException_Exception e) {
 					logger.error(e.fillInStackTrace());
 					addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
 				}
@@ -2245,9 +2249,9 @@ public class OffreController extends AbstractContextAwareController {
 			}
 			try {
 				getOffreDomainService().updateFichier(this.formOffre.getFichier());	
-			} catch (DataAddException e) {
+			} catch (DataUpdateException_Exception e) {
 				logger.error(e.fillInStackTrace());
-			} catch (WebServiceDataBaseException e) {
+			} catch (WebServiceDataBaseException_Exception e) {
 				logger.error(e.fillInStackTrace());
 			}
 			this.formOffre.setIdFichier(this.formOffre.getFichier().getIdFichier());
@@ -2258,19 +2262,11 @@ public class OffreController extends AbstractContextAwareController {
 	 * Suppression du fichier actuellement uploadé
 	 */
 	public void deleteUploadedFile(){
-		try{
-			//getSessionController().getOffreFileUploadBean().deleteFileFromDirectory(
-			//		this.formOffre.getFichier().getIdFichier(), this.formOffre.getFichier().getNomFichier());
-			this.formOffre.getFichier().setNomFichier(null);
-			this.formOffre.getFichier().setNomReel(null);
-			//getOffreDomainService().updateFichier(this.formOffre.getFichier());
-			this.formOffre.setIdFichier(0);		
-			getSessionController().getOffreFileUploadBean().setPrefix(this.formOffre.getFichier().getIdFichier());
-		}catch (DataDeleteException e) {
-			logger.warn(e.fillInStackTrace());
-		}catch (WebServiceDataBaseException e) {
-			logger.warn(e.fillInStackTrace());
-		}
+		this.formOffre.getFichier().setNomFichier(null);
+		this.formOffre.getFichier().setNomReel(null);
+		this.formOffre.setIdFichier(0);		
+		getSessionController().getOffreFileUploadBean().setPrefix(this.formOffre.getFichier().getIdFichier());
+
 	}
 
 	/**

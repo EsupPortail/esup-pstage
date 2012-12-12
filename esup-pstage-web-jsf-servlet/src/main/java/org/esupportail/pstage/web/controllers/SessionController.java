@@ -27,14 +27,14 @@ import org.esupportail.pstage.domain.beans.NousContacter;
 import org.esupportail.pstage.domain.beans.User;
 import org.esupportail.pstage.services.authentication.Authenticator;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
-import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.ContactDTO;
-import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
-import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
-import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
-import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.esupportail.pstagedata.remote.AdminStructureDTO;
+import org.esupportail.pstagedata.remote.CentreGestionDTO;
+import org.esupportail.pstagedata.remote.ContactDTO;
+import org.esupportail.pstagedata.remote.DroitAdministrationDTO;
+import org.esupportail.pstagedata.remote.EnseignantDTO;
+import org.esupportail.pstagedata.remote.EtudiantDTO;
+import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.remote.StructureDTO;
 /**
  * A bean to memorize the context of the application.
  */
@@ -996,7 +996,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public String getCurrentLogin() {
 		if(this.currentAuthAdminStructure!=null){
-			this.currentLogin=this.currentAuthAdminStructure.displayLogin();
+			this.currentLogin=this.currentAuthAdminStructure.getLogin();
 		}else if(this.currentAuthContact!=null){
 			this.currentLogin=this.currentAuthContact.getLogin();
 		}else if(this.currentAuthEnseignant!=null){

@@ -3,7 +3,7 @@
  */
 package org.esupportail.pstage.web.converters;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -45,8 +45,8 @@ public class CommuneConverter implements Serializable, Converter {
 	 */
 	@Override
 	public String getAsString(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final Object value) {
 		if (value == null || !StringUtils.hasText(value.toString())) {
 			return "";
@@ -66,8 +66,8 @@ public class CommuneConverter implements Serializable, Converter {
 	 */
 	@Override
 	public Object getAsObject(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final String value) {
 		if (!StringUtils.hasText(value)) {
 			return null;

@@ -165,7 +165,7 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 		List<String> listeStepsKey = new ArrayList<String>();
 		if(this.steps!=null && (!this.steps.isEmpty())){
 			String clef = null;
-			Iterator i = this.steps.keySet().iterator();
+			Iterator<String> i = this.steps.keySet().iterator();
 			while (i.hasNext())
 			{
 				clef = (String)i.next();
@@ -187,7 +187,7 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 		List<String> listeStudysKey = new ArrayList<String>();
 		if(this.studys!=null && (!this.studys.isEmpty())){
 			String clef = null;
-			Iterator i = this.studys.keySet().iterator();
+			Iterator<String> i = this.studys.keySet().iterator();
 			while (i.hasNext())
 			{
 				clef = (String)i.next();

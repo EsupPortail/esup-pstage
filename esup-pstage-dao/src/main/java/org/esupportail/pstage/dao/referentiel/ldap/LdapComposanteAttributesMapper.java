@@ -57,7 +57,7 @@ public class LdapComposanteAttributesMapper  implements AttributesMapper, Serial
 	}
 
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Object mapFromAttributes(final Attributes attrs) throws NamingException {
 
 		LdapGroupImpl ldapGroup = new LdapGroupImpl();

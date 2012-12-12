@@ -1,0 +1,2910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+                              "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+	<!--
+		/properties/jsf/navigation-rules.xml The configuration file of Java
+		Server Faces that gives the navigation rules between views. This file
+		is referenced by /webapp/WEB-INF/web.xml. It should not be modified
+		but by the developers.
+	-->
+
+<faces-config>
+
+	<!-- Règles de navigation spécifiques, ordre particulier -->
+	<!--
+		*********************************************************************
+		PARTIE ENTREPRISE
+		*************************************************************************
+	-->
+
+	<navigation-rule>
+		<display-name>welcome</display-name>
+		<from-view-id>/stylesheets/depot/welcome.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>accord</from-outcome>
+			<to-view-id>/stylesheets/depot/accord.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- Création d'un compte / Nouvel accord de partenariat -->
+
+	<navigation-rule>
+		<display-name>_accordEtape1PreAccord</display-name>
+		<from-view-id>/stylesheets/depot/_accordEtape1PreAccord.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_accordEtape2EtabTrouve</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape2EtabTrouve.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape3FormulaireAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape3FormulaireAccord.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape4DemandeCompte</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape4DemandeCompte.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_accordEtape2EtabTrouve</display-name>
+		<from-view-id>/stylesheets/depot/_accordEtape2EtabTrouve.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_accordEtape1PreAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape1PreAccord.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape3FormulaireAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape3FormulaireAccord.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape4DemandeCompte</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape4DemandeCompte.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_accordEtape3FormulaireAccord</display-name>
+		<from-view-id>/stylesheets/depot/_accordEtape3FormulaireAccord.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_accordEtape1PreAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape1PreAccord.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape2EtabTrouve</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape2EtabTrouve.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape3FormulaireAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape3FormulaireAccord.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape4DemandeCompte</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape4DemandeCompte.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape5Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape5Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_accordEtape4DemandeCompte</display-name>
+		<from-view-id>/stylesheets/depot/_accordEtape4DemandeCompte.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_accordEtape1PreAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape1PreAccord.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape2EtabTrouve</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape2EtabTrouve.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_accordEtape5Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_accordEtape5Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_accordEtape5Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_accordEtape5Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>accueilEntr</from-outcome>
+			<to-view-id>/stylesheets/depot/welcome.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<!--FIN Création d'un compte / Nouvel accord de partenariat -->
+
+	<!-- Nous Contacter -->
+
+	<navigation-rule>
+		<display-name>_nousContacterEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_nousContacterEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_nousContacterEtape2</from-outcome>
+			<to-view-id>/stylesheets/depot/_nousContacterEtape2.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_nousContacterEtape2</display-name>
+		<from-view-id>/stylesheets/depot/_nousContacterEtape2.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_nousContacterEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_nousContacterEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- FIN Nous Contacter -->
+
+	<!-- Mot de Passe Perdu -->
+
+	<navigation-rule>
+		<display-name>_motDePassePerduEtape1Mail</display-name>
+		<from-view-id>/stylesheets/depot/_motDePassePerduEtape1Mail.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_motDePassePerduEtape2SelectionEtab</from-outcome>
+			<to-view-id>/stylesheets/depot/_motDePassePerduEtape2SelectionEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_motDePassePerduEtape3Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_motDePassePerduEtape3Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_motDePassePerduEtape2SelectionEtab</display-name>
+		<from-view-id>/stylesheets/depot/_motDePassePerduEtape2SelectionEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_motDePassePerduEtape3Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_motDePassePerduEtape3Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_motDePassePerduEtape3Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_motDePassePerduEtape3Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>accueilEntr</from-outcome>
+			<to-view-id>/stylesheets/depot/welcome.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- FIN Mot de Passe Perdu -->
+
+	<!-- Administrateur -->
+	<navigation-rule>
+		<display-name>_ajoutAdministrateurEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_ajoutAdministrateurEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_ajoutAdministrateurEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_ajoutAdministrateurEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_ajoutAdministrateurEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_ajoutAdministrateurEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_ajoutAdministrateurEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_ajoutAdministrateurEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_modifAdministrateurEtape0</display-name>
+		<from-view-id>/stylesheets/depot/_modifAdministrateurEtape0.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifAdministrateurEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modifAdministrateurEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_modifAdministrateurEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifAdministrateurEtape0</from-outcome>
+			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape0.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modifAdministrateurEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modifAdministrateurEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_modifAdministrateurEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifAdministrateurEtape0</from-outcome>
+			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape0.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modifAdministrateurEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_modifAdministrateurEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_supprAdministrateurEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_supprAdministrateurEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprAdministrateurEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_supprAdministrateurEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_supprAdministrateurEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_supprAdministrateurEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprAdministrateurEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_supprAdministrateurEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Administrateur -->
+
+	<!-- Établissement -->
+	<navigation-rule>
+		<display-name>creationEtablissement</display-name>
+		<from-view-id>/stylesheets/depot/creationEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>affichageRechercheEtablissement</display-name>
+		<from-view-id>/stylesheets/depot/affichageRechercheEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>modificationEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>validationAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/validationAccord.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>affichageAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/affichageAccord.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>modificationEtablissement</display-name>
+		<from-view-id>/stylesheets/depot/modificationEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_supprStructureEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_supprStructureEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprStructureEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_supprStructureEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_supprStructureEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_supprStructureEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprStructureEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_supprStructureEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- FIN Établissement -->
+
+	<!-- Recherche -->
+	<navigation-rule>
+		<display-name>rechercheEtablissement</display-name>
+		<from-view-id>/stylesheets/depot/rechercheEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/creationEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>validationAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/validationAccord.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>affichageAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/affichageAccord.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>gererStructure</from-outcome>
+			<to-view-id>/stylesheets/depot/ficheSignaletique.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Recherche -->
+
+	<!-- Validation d'un accord -->
+	<navigation-rule>
+		<display-name>validationAccord</display-name>
+		<from-view-id>/stylesheets/depot/validationAccord.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>affichageAccord</display-name>
+		<from-view-id>/stylesheets/depot/affichageAccord.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>rechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_validationAccordEtape1FormulaireAccord</display-name>
+		<from-view-id>/stylesheets/depot/_validationAccordEtape1FormulaireAccord.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_validationAccordEtape2Confirm</from-outcome>
+			<to-view-id>/stylesheets/depot/_validationAccordEtape2Confirm.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheEtablissement.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_validationAccordEtape2Confirm</display-name>
+		<from-view-id>/stylesheets/depot/_validationAccordEtape2Confirm.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_validationAccordEtape1FormulaireAccord</from-outcome>
+			<to-view-id>/stylesheets/depot/_validationAccordEtape1FormulaireAccord.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_validationAccordEtape3Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_validationAccordEtape3Confirmation.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheEtablissement.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_validationAccordEtape3Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_validationAccordEtape3Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>rechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheEtablissement.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Validation d'un accord -->
+
+	<!-- Suppression d'un accord -->
+	<navigation-rule>
+		<display-name>_supprAccordEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_supprAccordEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprAccordEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_supprAccordEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_supprAccordEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_supprAccordEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprAccordEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_supprAccordEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Suppression d'un accord -->
+
+	<!-- Gestion des services -->
+	<navigation-rule>
+		<display-name>_ajoutServiceEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_ajoutServiceEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_ajoutServiceEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_ajoutServiceEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_ajoutServiceEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_ajoutServiceEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_ajoutServiceEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_ajoutServiceEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_modifServiceEtape0</display-name>
+		<from-view-id>/stylesheets/_commun/_modifServiceEtape0.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifServiceEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modifServiceEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modifServiceEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_modifServiceEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifServiceEtape0</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modifServiceEtape0.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modifServiceEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modifServiceEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modifServiceEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_modifServiceEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifServiceEtape0</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modifServiceEtape0.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_supprServiceEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_supprServiceEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprServiceEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_supprServiceEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_supprServiceEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_supprServiceEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprServiceEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_supprServiceEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Gestion des services -->
+
+	<!-- Gestion des contacts -->
+	<navigation-rule>
+		<display-name>_ajoutContactEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_ajoutContactEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_ajoutContactEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_ajoutContactEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_ajoutContactEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_ajoutContactEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_ajoutContactEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_ajoutContactEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_modifContactEtape0</display-name>
+		<from-view-id>/stylesheets/_commun/_modifContactEtape0.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifContactEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modifContactEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modifContactEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_modifContactEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifContactEtape0</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modifContactEtape0.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modifContactEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modifContactEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modifContactEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_modifContactEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifContactEtape0</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modifContactEtape0.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_supprContactEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_supprContactEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprContactEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_supprContactEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_supprContactEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_supprContactEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprContactEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_supprContactEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_creationCompteContactEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_creationCompteContactEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationCompteContactEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_creationCompteContactEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creationCompteContactEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_creationCompteContactEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationCompteContactEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_creationCompteContactEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_supprCompteContactEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_supprCompteContactEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprCompteContactEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_supprCompteContactEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_supprCompteContactEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_supprCompteContactEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprCompteContactEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_supprCompteContactEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>_resetMdpContactEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_resetMdpContactEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_resetMdpContactEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_resetMdpContactEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_resetMdpContactEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_resetMdpContactEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_resetMdpContactEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_resetMdpContactEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Modification de mot de passe -->
+	<navigation-rule>
+		<display-name>_changementMotDePasseEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_changementMotDePasseEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_changementMotDePasseEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/depot/_changementMotDePasseEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_changementMotDePasseEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/depot/_changementMotDePasseEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_changementMotDePasseEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_changementMotDePasseEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Gestion des contacts -->
+	
+	<!-- Fiche Signalétique -->
+	<navigation-rule>
+		<display-name>_modifFicheSignaletiqueEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_modifFicheSignaletiqueEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifFicheSignaletiqueEtape2</from-outcome>
+			<to-view-id>/stylesheets/depot/_modifFicheSignaletiqueEtape2.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modifFicheSignaletiqueEtape2</display-name>
+		<from-view-id>/stylesheets/depot/_modifFicheSignaletiqueEtape2.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifFicheSignaletiqueEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_modifFicheSignaletiqueEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Fiche Signalétique -->
+	
+	<!-- Gestion des offres -->
+	<!-- Gestion des offres : AJOUT -->
+	<navigation-rule>
+		<display-name>_creationOffreEtape01Centre</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape01Centre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape02Etab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creationOffreEtape02Etab</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape01Centre</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape01Centre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape03CreaEtab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape03CreaEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape04DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creationOffreEtape03CreaEtab</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape03CreaEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape04DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape02Etab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creationOffreEtape04DetailsEtab</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape02Etab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape05ModifEtab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape05ModifEtab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creationOffreEtape05ModifEtab</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape05ModifEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape04DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape04DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creationOffreEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape02Etab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape02Etab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape2</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape2.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creationOffreEtape2</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape2.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape3</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape3.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape3Contacts</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape3Contacts.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creationOffreEtape3</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape3.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape2</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape2.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape4Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape4Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creationOffreEtape3Contacts</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape3Contacts.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape2</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape2.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape4Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_creationOffreEtape4Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>recapitulatifOffreCentre</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape4Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>recapitulatifOffre</display-name>
+		<from-view-id>/stylesheets/_commun/_creationOffreEtape4Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtab</from-outcome>
+			<to-view-id>/stylesheets/depot/recapitulatifOffreEtab.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Gestion des offres : MODIF -->
+	<navigation-rule>
+		<display-name>_modificationOffreEtape01Centre</display-name>
+		<from-view-id>/stylesheets/_commun/_modificationOffreEtape01Centre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape04DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape04DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modificationOffreEtape04DetailsEtab</display-name>
+		<from-view-id>/stylesheets/_commun/_modificationOffreEtape04DetailsEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape01Centre</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape01Centre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape05ModifEtab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape05ModifEtab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modificationOffreEtape05ModifEtab</display-name>
+		<from-view-id>/stylesheets/_commun/_modificationOffreEtape05ModifEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape04DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape04DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modificationOffreEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_modificationOffreEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape04DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape04DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape2</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape2.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modificationOffreEtape2</display-name>
+		<from-view-id>/stylesheets/_commun/_modificationOffreEtape2.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape3</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape3.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape3Contacts</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape3Contacts.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modificationOffreEtape3</display-name>
+		<from-view-id>/stylesheets/_commun/_modificationOffreEtape3.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape2</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape2.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape4Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape4Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modificationOffreEtape3Contacts</display-name>
+		<from-view-id>/stylesheets/_commun/_modificationOffreEtape3Contacts.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape2</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape2.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_modificationOffreEtape4Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_modificationOffreEtape4Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>recapitulatifOffreCentre</display-name>
+		<from-view-id>/stylesheets/_commun/_modificationOffreEtape4Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>recapitulatifOffre</display-name>
+		<from-view-id>/stylesheets/_commun/_modificationOffreEtape4Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtab</from-outcome>
+			<to-view-id>/stylesheets/depot/recapitulatifOffreEtab.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Gestion des offres : Suppression -->
+	<navigation-rule>
+		<display-name>_supprOffreEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_supprOffreEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprOffreEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_supprOffreEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_supprOffreEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_supprOffreEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_supprOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_supprOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>gestionOffres</from-outcome>
+			<to-view-id>/stylesheets/depot/offres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>offresEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/offresEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/depot/welcome.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Gestion des offres : Diffusion -->
+	<navigation-rule>
+		<display-name>_diffusionOffreEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_diffusionOffreEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_diffusionOffreEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_diffusionOffreEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_diffusionOffreEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_diffusionOffreEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_diffusionOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_diffusionOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Gestion des offres : Stop Diffusion -->
+	<navigation-rule>
+		<display-name>_stopDiffusionOffreEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_stopDiffusionOffreEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_stopDiffusionOffreEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_stopDiffusionOffreEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_stopDiffusionOffreEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_stopDiffusionOffreEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_stopDiffusionOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_stopDiffusionOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Gestion des offres : Offre pourvue  -->
+	<navigation-rule>
+		<display-name>_offrePourvueEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_offrePourvueEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_offrePourvueEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_offrePourvueEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_offrePourvueEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_offrePourvueEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_offrePourvueEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_offrePourvueEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Gestion des offres : Transfert d'offre -->
+	<navigation-rule>
+		<display-name>_transfertOffreEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_transfertOffreEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_transfertOffreEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_transfertOffreEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_transfertOffreEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_transfertOffreEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_transfertOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_transfertOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Gestion des offres : Diffusion aux autres centres -->
+	<navigation-rule>
+		<display-name>_diffusionCentreOffreEtape1</display-name>
+		<from-view-id>/stylesheets/_commun/_diffusionCentreOffreEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_diffusionCentreOffreEtape2Confirmation</from-outcome>
+			<to-view-id>/stylesheets/_commun/_diffusionCentreOffreEtape2Confirmation.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_diffusionCentreOffreEtape2Confirmation</display-name>
+		<from-view-id>/stylesheets/_commun/_diffusionCentreOffreEtape2Confirmation.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_diffusionCentreOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/_commun/_diffusionCentreOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Gestion des offres : Liste des offres -->
+	<navigation-rule>
+		<display-name>gestionOffres</display-name>
+		<from-view-id>/stylesheets/depot/offres.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>modificationOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/recapitulatifOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>recapitulatifOffre</display-name>
+		<from-view-id>/stylesheets/depot/recapitulatifOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>modificationOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationOffre3</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationOffre3.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationOffre3C</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationOffre3C.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>gestionOffres</from-outcome>
+			<to-view-id>/stylesheets/depot/offres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>modificationOffre</display-name>
+		<from-view-id>/stylesheets/depot/modificationOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>gestionOffres</from-outcome>
+			<to-view-id>/stylesheets/depot/offres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/recapitulatifOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/depot/offres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>modificationOffre3</display-name>
+		<from-view-id>/stylesheets/depot/modificationOffre3.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>gestionOffres</from-outcome>
+			<to-view-id>/stylesheets/depot/offres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/recapitulatifOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/depot/offres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>modificationOffre3C</display-name>
+		<from-view-id>/stylesheets/depot/modificationOffre3C.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>gestionOffres</from-outcome>
+			<to-view-id>/stylesheets/depot/offres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/recapitulatifOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/depot/offres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Recherche des offres -->
+	<navigation-rule>
+		<display-name>rechercheOffre</display-name>
+		<from-view-id>/stylesheets/depot/rechercheOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>resultatsRechercheOffre</display-name>
+		<from-view-id>/stylesheets/depot/rechercheOffreResultats.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>modificationEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationEtabOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtab</from-outcome>
+			<to-view-id>/stylesheets/depot/recapitulatifOffreEtab.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>recapitulatifOffreEtab</display-name>
+		<from-view-id>/stylesheets/depot/recapitulatifOffreEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationEtabOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationOffre3</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationOffre3.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationOffre3C</from-outcome>
+			<to-view-id>/stylesheets/depot/modificationOffre3C.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>modificationEtabOffre</display-name>
+		<from-view-id>/stylesheets/depot/modificationEtabOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtab</from-outcome>
+			<to-view-id>/stylesheets/depot/recapitulatifOffreEtab.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<!-- Recherche des offres pour étudiants / moteur public (/recherche)-->
+	<navigation-rule>
+		<display-name>rechercheOffre</display-name>
+		<from-view-id>/stylesheets/recherche/rechercheOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/recherche/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>resultatsRechercheOffre</display-name>
+		<from-view-id>/stylesheets/recherche/rechercheOffreResultats.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtab</from-outcome>
+			<to-view-id>/stylesheets/recherche/detailOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>detailOffre</display-name>
+		<from-view-id>/stylesheets/recherche/detailOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/recherche/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Gestion des offres -->
+	
+	<!--
+		*********************************************************************
+		FIN PARTIE ENTREPRISE
+		*************************************************************************
+	-->
+	<!--
+		*********************************************************************
+		PARTIE PSTAGE
+		*************************************************************************
+	-->
+	<!-- navigation pour menuIE -->
+	<navigation-rule>
+		<display-name>menuIE</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>menuIE</from-outcome>
+			<to-view-id>/stylesheets/stage/menuIE.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<!-- navigation pour le fil d'ariane -->
+	<navigation-rule>
+		<display-name>creerConvention</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>creerConvention</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConvention.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionConsignes</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionConsignes.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape1Etudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape2DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape2DetailsEtab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape3Service</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape3Service.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape4Contact</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape4Contact.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape6DetailsEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape6DetailsEnseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape7Signataire</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape7Signataire.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape8Recap</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape8Recap.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape8DetailsRecap</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape8DetailsRecap.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape9Impression</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape9Impression.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- navigation pour SequenceEtapeEnumSel -->
+	<navigation-rule>
+		<display-name>convention</display-name>
+		<from-view-id>*</from-view-id>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape1Etudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape1Etudiant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape1ModifEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape1ModifEtudiant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape2Etab</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape2Etab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape2ModifEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape2ModifEtab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape2RechEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape2RechEtab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape2ModifEtabServiceContact</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape2ModifEtabServiceContact.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape2ModifEtabServiceSignataire</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape2ModifEtabServiceSignataire.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape2CreaEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape2CreaEtab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape3Service</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape3Service.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape3ModifServiceContact</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape3ModifServiceContact.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape3ModifServiceSignataire</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape3ModifServiceSignataire.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape4Contact</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape4Contact.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape5Stage.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape5ModifStage</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape5ModifStage.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape6Enseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape6Enseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape6ModifEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape6ModifEnseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape6ListeEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape6ListeEnseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape6ValidEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape6ValidEnseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape7Signataire</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape7Signataire.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape8Recap</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape8Recap.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape9Impression</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape9Impression.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape10Validation</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape10Validation.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape11ListeAvenant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape11ListeAvenant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape12Commentaire</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape12Commentaire.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape11CreaAvenantPage1</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape11CreaAvenantPage1.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape11CreaAvenantPage2</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape11CreaAvenantPage2.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape11ModifAvenantPage1</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape11ModifAvenantPage1.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape11ModifAvenantPage2</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape11ModifAvenantPage2.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape11DetailsAvenant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape11DetailsAvenant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>rechercheMasseConvention</from-outcome>
+			<to-view-id>/stylesheets/stage/validationEnMasse_recherche.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatMasseConvention</from-outcome>
+			<to-view-id>/stylesheets/stage/validationEnMasse_resultat.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- creation convention suivant consignes -->
+	<navigation-rule>
+		<display-name>creerConvention</display-name>
+		<from-view-id>/stylesheets/stage/creerConvention.jsp</from-view-id>
+		<navigation-case>
+			<!-- suivant -->
+			<from-outcome>creerConventionConsignes</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionConsignes.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- creation convention consignesEtudiant -->
+	<navigation-rule>
+		<display-name>creerConventionEtu</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>creerConventionEtu</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtu.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- creation convention consignes -->
+	<navigation-rule>
+		<display-name>creerConventionConsignes</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionConsignes.jsp</from-view-id>
+		<!-- suivant -->
+		<navigation-case>
+			<from-outcome>creerConventionRechercheEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.jsp</to-view-id>
+		</navigation-case>
+		<!--
+			<navigation-case>
+			<from-outcome>creerConventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.jsp</to-view-id>
+			</navigation-case>
+		-->
+	</navigation-rule>
+
+	<!-- creation convention recherche etudiant -->
+	<navigation-rule>
+		<display-name>creerConventionRechercheEtudiant</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.jsp</from-view-id>
+		<navigation-case>
+			<!-- precedent consignes-->
+			<from-outcome>creerConventionConsignes</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionConsignes.jsp</to-view-id>
+		</navigation-case>
+		<!--  suivant -->
+		<navigation-case>
+			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ListeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ListeEtudiant.jsp</to-view-id>
+		</navigation-case>
+		
+	</navigation-rule>
+	
+	<!-- etape 1 liste etudiant-->
+	<navigation-rule>
+		<display-name>_creerConventionEtape1ListeEtudiant</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape1ListeEtudiant.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionRechercheEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>creerConventionEtape1ListeEtudiant</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape1ListeEtudiant.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ListeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ListeEtudiant.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- creation etape 1 - choix etude etudiant -->
+	<navigation-rule>
+		<display-name>creerConventionChoixEtapeEtudiant</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.jsp</from-view-id>
+		<!-- recherche autre etudiant -->
+		<navigation-case>
+			<from-outcome>creerConventionRechercheEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.jsp</to-view-id>
+		</navigation-case>
+		<!-- liste Etudiant -->
+		<navigation-case>
+			<from-outcome>creerConventionEtape1ListeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape1ListeEtudiant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<!--  suivant -->
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.jsp</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>creerConventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape2Etab</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	</navigation-rule>
+	
+	<!-- creation etape 1 - Choix etape etudiant -->
+	<navigation-rule>
+		<display-name>creerConventionEtape1Etudiant</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape2Etab</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape1Offre</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	</navigation-rule>
+
+	<!-- creation etape 1 - confirmation des informations etudiant  -->
+	<navigation-rule>
+		<display-name>_creerConventionEtape1ConfirmInfosEtu</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.jsp</from-view-id>
+		<!-- annuler -->
+		<navigation-case>
+			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.jsp</to-view-id>
+		</navigation-case>
+		<!-- envoyer -->
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.jsp</to-view-id>
+		</navigation-case>
+		<!-- envoyer -->
+		<navigation-case>
+			<from-outcome>creerConventionEtape2Etab</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape1Offre</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	</navigation-rule>
+	<!-- creation etape 1 - DemandeLienOffre  -->
+	<navigation-rule>
+		<display-name>_creerConventionEtape1DemandeLienOffre</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.jsp</from-view-id>
+		<!-- annuler -->
+		<navigation-case>
+			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.jsp</to-view-id>
+		</navigation-case>
+		<!--  annuler -->
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.jsp</to-view-id>
+		</navigation-case>
+		<!-- envoyer -->
+		<navigation-case>
+			<from-outcome>creerConventionEtape2Etab</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape1Offre</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	</navigation-rule>
+	<!-- creation etape 1 - lien Offre  -->
+	<navigation-rule>
+		<display-name>creerConventionEtape1Offre</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape1Offre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1Offre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1Offre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.jsp</to-view-id>
+		</navigation-case>
+		<!-- envoyer -->
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape2DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape2DetailsEtab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+		<navigation-rule>
+		<display-name>_creerConventionEtape1Offre</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape1Offre.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape2DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape2DetailsEtab.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<!-- creation etape 2 - Recherche Etablissement  -->
+	<navigation-rule>
+		<display-name>creerConventionEtape2Etab</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape2Etab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2Etab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2Etab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/creationEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape2Etab</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape2Etab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2CreaEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2CreaEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/creationEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape2DetailsEtab</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creationOffreEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_creationOffreEtape1.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2Etab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2Etab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2ModifEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2ModifEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape3Service</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape3Service.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape1Offre</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape2CreaEtab</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape2CreaEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2Etab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2Etab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape2ModifEtab</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape2ModifEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>creerConventionEtape2DetailsEtab</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape2DetailsEtab.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape1Offre</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+
+	</navigation-rule>
+	
+	<!-- creation etape 3 - Service  -->
+	<navigation-rule>
+		<display-name>creerConventionEtape3Service</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape3Service.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape3Service</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape3Service.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape4Contact</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape4Contact.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape3Service</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape3Service.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape2DetailsEtab</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DetailsEtab.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape4Contact</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape4Contact.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<!-- creation etape 4 - Contact  -->
+	<navigation-rule>
+		<display-name>creerConventionEtape4Contact</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape4Contact.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape4Contact</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape4Contact.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape3Service</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape3Service.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape4Contact</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape4Contact.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape3Service</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape3Service.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<!-- creation etape 5 - informations du stage  -->
+	<navigation-rule>
+		<display-name>creerConventionEtape5Stage</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape5Stage.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape5Stage.jsp</to-view-id>
+		</navigation-case>
+		<!--  valider -->
+		<navigation-case>
+			<from-outcome>_creerConventionEtape5ConfirmInfosStage</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape5ConfirmInfosStage.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6RechEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>creerConventionEtape6ListeEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6ListeEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6ListeEnseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<!-- precedent -->
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape4Contact</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape4Contact.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+	
+
+	<navigation-rule>
+		<display-name>_creerConventionEtape5Stage</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape5Stage.jsp</from-view-id>
+		<!--  valider -->
+		<navigation-case>
+			<from-outcome>_creerConventionEtape5ConfirmInfosStage</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape5ConfirmInfosStage.jsp</to-view-id>
+		</navigation-case>
+		<!-- annuler -->
+		<navigation-case>
+			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape4Contact</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape4Contact.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape6ListeEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6RechEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+
+	<navigation-rule>
+		<display-name>_creerConventionEtape5ConfirmInfosStage</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape5ConfirmInfosStage.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape5Stage.jsp</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>creerConventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6RechEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.jsp</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+	
+	<!-- creation etape 6 - recherche enseignant du stage  -->
+	<navigation-rule>
+		<display-name>_creerConventionEtape6RechEnseignant</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6RechEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>creerConventionEtape6ListeEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6ListeEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6ListeEnseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>creerConventionEtape6DetailsEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape6DetailsEnseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape5Stage.jsp</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+	
+	<!-- creation etape 6 - detail enseignant du stage  -->
+	<navigation-rule>
+		<display-name>_creerConventionEtape6Enseignant</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6RechEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6ListeEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6ListeEnseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>creerConventionEtape6ListeEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>creerConventionEtape7Signataire</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape7Signataire.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>creerConventionEtape6DetailsEnseignant</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape6DetailsEnseignant.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- creation etape 6 - liste enseignant du stage  -->
+	<navigation-rule>
+		<display-name>creerConventionEtape6ListeEnseignant</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape6ListeEnseignant.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6ListeEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6ListeEnseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6RechEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.jsp</to-view-id>
+		</navigation-case>
+				
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape6ListeEnseignant</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape6ListeEnseignant.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6RechEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6RechEnseignant.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>creerConventionEtape5Stage</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- creation etape 7 - Signataire  -->
+	<navigation-rule>
+		<display-name>creerConventionEtape7Signataire</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape7Signataire.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape7Signataire</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape7Signataire.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape7Signataire</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape7Signataire.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape6Enseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape6Enseignant.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape8Recap</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape8Recap.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- creation etape 8 - Recapitulatif  -->
+	<navigation-rule>
+		<display-name>creerConventionEtape8Recap</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape8Recap.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape7Signataire</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape7Signataire.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape8Recap</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape8Recap.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape8Recap</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape8Recap.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape7Signataire</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape7Signataire.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConventionEtape8DetailsRecap</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape8DetailsRecap.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>creerConventionEtape8DetailsRecap</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape8DetailsRecap.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape8Recap</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape8Recap.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape8DetailsRecap</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape8DetailsRecap.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>creerConventionEtape8DetailsRecap</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape8DetailsRecap.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- etape 9 Impression -->
+	<navigation-rule>
+		<display-name>creerConventionEtape9Impression</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEEtape9Impression.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_creerConventionEtape9Impression</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape9Impression.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_creerConventionEtape9Impression</display-name>
+		<from-view-id>/stylesheets/stage/_creerConventionEtape9Impression.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>creerConventionEtape9Impression</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape9Impression.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Recherche entreprise -->
+	<navigation-rule>
+		<display-name>rechercheEtablissement</display-name>
+		<from-view-id>/stylesheets/stage/rechercheEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/creationEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>creationEtablissement</display-name>
+		<from-view-id>/stylesheets/stage/creationEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>affichageRechercheEtablissement</display-name>
+		<from-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>modificationEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>contactsEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/contactsEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>offresEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/offresEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>contactsEtablissement</display-name>
+		<from-view-id>/stylesheets/stage/contactsEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>offresEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/offresEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>offresEtablissement</display-name>
+		<from-view-id>/stylesheets/stage/offresEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>contactsEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/contactsEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationCentreEtabOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre04</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationEtabOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre1</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre3</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre3.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre3C</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre3C.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>recapitulatifOffreCentre</display-name>
+		<from-view-id>/stylesheets/stage/recapitulatifOffreCentre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>offresEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/offresEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationCentreEtabOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre04</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationEtabOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre1</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>modificationEtablissement</display-name>
+		<from-view-id>/stylesheets/stage/modificationEtablissement.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Recherche des offres -->
+	<navigation-rule>
+		<display-name>rechercheOffre</display-name>
+		<from-view-id>/stylesheets/stage/rechercheOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>resultatsRechercheOffre</display-name>
+		<from-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationCentreEtabOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>recapitulatifOffreEtabCentre</display-name>
+		<from-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationCentreEtabOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre04</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationEtabOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre1</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre3</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationOffre3.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationCentreEtabOffre3C</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationOffre3C.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>modificationCentreEtabOffre</display-name>
+		<from-view-id>/stylesheets/stage/modificationCentreEtabOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>offresEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/offresEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>modificationEtabOffre</display-name>
+		<from-view-id>/stylesheets/stage/modificationEtabOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>offresEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/offresEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>modificationOffre</display-name>
+		<from-view-id>/stylesheets/stage/modificationOffre.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>offresEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/offresEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>modificationOffre3</display-name>
+		<from-view-id>/stylesheets/stage/modificationOffre3.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>offresEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/offresEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>modificationOffre3C</display-name>
+		<from-view-id>/stylesheets/stage/modificationOffre3C.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtabCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreEtabCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/recapitulatifOffreCentre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>affichageRechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/affichageRechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>offresEtablissement</from-outcome>
+			<to-view-id>/stylesheets/stage/offresEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>defaut</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Recherche Offre-->
+	
+	<!-- Recherche des Conventions -->
+	<navigation-rule>
+		<display-name>rechercheConvention</display-name>
+		<from-view-id>/stylesheets/stage/rechercheConvention.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>resultatsRechercheConvention</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheConventionResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>exportConvention</from-outcome>
+			<to-view-id>/stylesheets/stage/exportConvention.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<display-name>resultatsRechercheConvention</display-name>
+		<from-view-id>/stylesheets/stage/rechercheConventionResultats.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>conventionEtape8Recap</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape8Recap.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>exportConvention</from-outcome>
+			<to-view-id>/stylesheets/stage/exportConvention.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>accueilStage</from-outcome>
+			<to-view-id>/stylesheets/stage/welcome.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		
+	</navigation-rule>
+	
+	<!--  etape 8 - Recapitulatif  -->
+	<navigation-rule>
+		<display-name>conventionEtape8Recap</display-name>
+		<from-view-id>/stylesheets/stage/conventionEtape8Recap.jsp</from-view-id>
+		
+		<navigation-case>
+			<from-outcome>_conventionEtape8Recap</from-outcome>
+			<to-view-id>/stylesheets/stage/_conventionEtape8Recap.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Recherche Conventions-->
+	<!--
+		*********************************************************************
+		FIN PARTIE PSTAGE
+		*************************************************************************
+	-->
+
+	<!--
+		*********************************************************************
+		PARTIE CENTRES DE GESTION
+		*************************************************************************
+	-->
+
+	<!-- Gestion du centre entreprise -->
+	<navigation-rule>
+		<display-name>_modifCentreEntrepriseEtape1</display-name>
+		<from-view-id>/stylesheets/depot/_modifCentreEntrepriseEtape1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifCentreEntrepriseEtape2</from-outcome>
+			<to-view-id>/stylesheets/depot/_modifCentreEntrepriseEtape2.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>_modifCentreEntrepriseEtape2</display-name>
+		<from-view-id>/stylesheets/depot/_modifCentreEntrepriseEtape2.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>_modifCentreEntrepriseEtape1</from-outcome>
+			<to-view-id>/stylesheets/depot/_modifCentreEntrepriseEtape1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- FIN Gestion du centre entreprise -->
+
+	<!--
+		*********************************************************************
+		FIN PARTIE CENTRES DE GESTION
+		*************************************************************************
+	-->
+
+	<!-- Règles de navigation générales -->
+	<navigation-rule>
+		<!--
+			*********************************************************************
+			PARTIE ENTREPRISE
+			*************************************************************************
+		-->
+		<navigation-case>
+			<from-outcome>accueilEntr</from-outcome>
+			<to-view-id>/stylesheets/depot/welcome.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>centreEntreprise</from-outcome>
+			<to-view-id>/stylesheets/depot/centreEntreprise.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>motDePassePerdu</from-outcome>
+			<to-view-id>/stylesheets/depot/motDePassePerdu.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>administrateurs</from-outcome>
+			<to-view-id>/stylesheets/depot/administrateurs.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rechercheEtablissement</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheEtablissement.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>accordsAValider</from-outcome>
+			<to-view-id>/stylesheets/depot/accordsAValider.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>accordsValides</from-outcome>
+			<to-view-id>/stylesheets/depot/accordsValides.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ficheSignaletique</from-outcome>
+			<to-view-id>/stylesheets/depot/ficheSignaletique.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>gestionContacts</from-outcome>
+			<to-view-id>/stylesheets/depot/contacts.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>gestionOffres</from-outcome>
+			<to-view-id>/stylesheets/depot/offres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationOffre</from-outcome>
+			<to-view-id>/stylesheets/depot/creationOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case><navigation-case>
+			<from-outcome>changerMotDePasse</from-outcome>
+			<to-view-id>/stylesheets/depot/changementMotDePasse.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<!--
+			*********************************************************************
+			FIN PARTIE ENTREPRISE
+			*************************************************************************
+		-->
+		<navigation-case>
+			<from-outcome>depotAnonyme</from-outcome>
+			<to-view-id>/stylesheets/depotAnonyme/</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<!--
+			*********************************************************************
+			PARTIE MOTEUR OFFRE PUBLIC
+			*************************************************************************
+		-->
+		<navigation-case>
+			<from-outcome>rechercheOffrePublic</from-outcome>
+			<to-view-id>/stylesheets/recherche/rechercheOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<!--
+			*********************************************************************
+			FIN PARTIE MOTEUR OFFRE PUBLIC
+			*************************************************************************
+		-->
+		<!--
+			*********************************************************************
+			PARTIE PSTAGE
+			*************************************************************************
+		-->
+		<!--
+			*********************************************************************
+			Menu
+			*************************************************************************
+		-->
+		<navigation-case>
+			<from-outcome>applicationRestarted</from-outcome>
+			<to-view-id>/stylesheets/welcome.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>navigationWelcome</from-outcome>
+			<to-view-id>/stylesheets/welcome.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>navigationPreferences</from-outcome>
+			<to-view-id>/stylesheets/preferences.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>navigationAbout</from-outcome>
+			<to-view-id>/stylesheets/about.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>casLogin</from-outcome>
+			<to-view-id>/stylesheets/cas.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>accueilStage</from-outcome>
+			<to-view-id>/stylesheets/stage/welcome.jsp</to-view-id>
+			<redirect/> 
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creerConvention</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConvention.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rechercheEtablissementStage</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheEtablissement.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>creationCentreEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/creationCentreEtabOffre.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rechercheOffreStage</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rechercheConvention</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheConvention.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>recapitulatifOffreEtab</from-outcome>
+			<to-view-id>/stylesheets/recherche/detailOffre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheConvention</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheConventionResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+
+		<!--
+			*********************************************************************
+			FIN PARTIE PSTAGE
+			*************************************************************************
+		-->
+		<!--
+			*********************************************************************
+			PARTIE CENTRES DE GESTION
+			*************************************************************************
+		-->
+		<navigation-case>
+			<from-outcome>listeCentres</from-outcome>
+			<to-view-id>/stylesheets/stage/liste_centres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ajoutCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/ajout_centre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>voirCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/voir_centre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modifCentre</from-outcome>
+			<to-view-id>/stylesheets/stage/modif_centre.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modifLogo</from-outcome>
+			<to-view-id>/stylesheets/stage/modif_logo.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>ajoutCritere</from-outcome>
+			<to-view-id>/stylesheets/stage/ajout_criteres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listeCriteres</from-outcome>
+			<to-view-id>/stylesheets/stage/liste_criteres.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rattachPersonnelRecherche</from-outcome>
+			<to-view-id>/stylesheets/stage/rattachementPersonnel_recherche.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rattachPersonnelResultat</from-outcome>
+			<to-view-id>/stylesheets/stage/rattachementPersonnel_resultat.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>rattachPersonnelAjout</from-outcome>
+			<to-view-id>/stylesheets/stage/rattachementPersonnel_ajout.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listePersonnels</from-outcome>
+			<to-view-id>/stylesheets/stage/liste_personnels.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>indicateurStat</from-outcome>
+			<to-view-id>/stylesheets/stage/stats/indicateurs_statistiques.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatStagesStats</from-outcome>
+			<to-view-id>/stylesheets/stage/stats/resultat_stagesStats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatOffresStats</from-outcome>
+			<to-view-id>/stylesheets/stage/stats/resultat_offresStats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>voirPersonnel</from-outcome>
+			<to-view-id>/stylesheets/stage/voir_personnel.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>modifPersonnel</from-outcome>
+			<to-view-id>/stylesheets/stage/modif_personnel.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<!--
+			*********************************************************************
+			FIN PARTIE CENTRES DE GESTION
+			*************************************************************************
+		-->
+
+		<!--
+			*********************************************************************
+			EXCEPTIONS
+			*************************************************************************
+		-->
+		<navigation-case>
+			<from-outcome>exception</from-outcome>
+			<to-view-id>/stylesheets/_exception/index.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+		<!--
+			*********************************************************************
+			FIN EXCEPTIONS
+			*************************************************************************
+		-->
+	</navigation-rule>
+
+</faces-config>

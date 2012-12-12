@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 import org.esupportail.pstage.utils.Utils;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -45,56 +45,50 @@ public class FileUploadBean {
 	 * file upload listener 
 	 * @param event the upload event
 	 */
-	public void fileUploadListener(UploadEvent event){
+	public void fileUploadListener(FileUploadEvent event){
 		if(event == null){
 			// logger.warn("Invalid upload event");
 		}else{
 			// on recupere l'item envoye
-			UploadItem uploadItem = event.getUploadItem();
-			if(uploadItem.getFile().isFile()) { // si c'est bien un fichier
-				String fileName = uploadItem.getFileName();
-				String extension="";
-				if(fileName.lastIndexOf(".")>0){
-					extension = fileName.substring(fileName.lastIndexOf("."));
-				}
-				this.realNameFile=fileName;
-				//encodage du nom en md5 pour s'affranchir des accents et caractï¿½res spï¿½ciaux
-				fileName = Utils.encodeMD5(this.prefix+"")+extension;
-				this.nameUploadedFile=fileName;
-				if(this.prefix>=0) fileName = this.prefix+"_"+fileName;
-				File fileToWrite = new File(this.directory + File.separator
-						+ fileName);
-				// on construit un Fichier avec le path/nomdufichierrecu
-				File uploadedFile = uploadItem.getFile();
-				FileChannel in = null; // on va utiliser deux files channel pour
-				// faire la recopie
-				FileChannel out = null;
-				try{
-					in = new FileInputStream(uploadedFile).getChannel();
-					out = new FileOutputStream(fileToWrite).getChannel();
-					in.transferTo(0, in.size(), out);
-				}catch(IOException e){
-					e.printStackTrace();
-					// recuperations des exceptions possibles
-					// logger.error("Error while copying the file.");
-				}catch(Exception e){
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally{ // fermeture des filechannel
-					if(in != null){
+			UploadedFile uploadItem = event.getUploadedFile();
+
+			String fileName = uploadItem.getName();
+			String extension="";
+			if(fileName.lastIndexOf(".")>0){
+				extension = fileName.substring(fileName.lastIndexOf("."));
+			}
+			this.realNameFile=fileName;
+			//encodage du nom en md5 pour s'affranchir des accents et caractï¿½res spï¿½ciaux
+			fileName = Utils.encodeMD5(this.prefix+"")+extension;
+			this.nameUploadedFile=fileName;
+			if(this.prefix>=0) fileName = this.prefix+"_"+fileName;
+			File fileToWrite = new File(this.directory + File.separator + fileName);
+			FileChannel in = null;
+			FileChannel out = null;
+			try{
+				in = new FileInputStream((File)uploadItem).getChannel();
+				out = new FileOutputStream(fileToWrite).getChannel();
+				in.transferTo(0, in.size(), out);
+			} catch(IOException e){
+				e.printStackTrace();
+				// recuperations des exceptions possibles
+				// logger.error("Error while copying the file.");
+			} catch(Exception e){
+				e.printStackTrace();
+			} finally{ // fermeture des filechannel
+				if(in != null){
+					try{
+						in.close();
+					}catch(IOException e){
+						e.printStackTrace();
+						//logger.error("Can't close input file channel");
+					}
+					if(out != null){
 						try{
-							in.close();
-						}catch(IOException e){
+							out.close();
+						}catch (IOException e){
 							e.printStackTrace();
-							//logger.error("Can't close input file channel");
-						}
-						if(out != null){
-							try{
-								out.close();
-							}catch (IOException e){
-								e.printStackTrace();
-								// logger.error("Can't close ouput file channel");
-							}
+							// logger.error("Can't close ouput file channel");
 						}
 					}
 				}

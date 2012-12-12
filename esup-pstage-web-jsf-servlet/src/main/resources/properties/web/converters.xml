@@ -3,8 +3,8 @@
 <beans 
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	>
 
 	<!-- 
 		/properties/web/converters.xml
@@ -22,4 +22,122 @@
     	</description>
 	</bean>
 
+	<bean id="lowerCaseConverter" class="org.esupportail.pstage.web.converters.LowerCaseConverter"/>
+	
+	<bean id="upperCaseConverter" class="org.esupportail.pstage.web.converters.UpperCaseConverter"/>
+	
+	<bean id="sansAccentConverter" class="org.esupportail.pstage.web.converters.SansAccentConverter"/>
+	
+	<bean id="sansAccentEnMAJConverter" class="org.esupportail.pstage.web.converters.SansAccentEnMAJConverter"/>
+	
+	<bean id="premiereLettreMAJConverter" class="org.esupportail.pstage.web.converters.PremiereLettreMAJConverter"/>
+	
+	<bean id="limitCharactersShownUpTo50Converter" class="org.esupportail.pstage.web.converters.LimitCharactersShownUpTo50Converter"/>
+	
+	<bean id="limitCharactersShownUpTo30Converter" class="org.esupportail.pstage.web.converters.LimitCharactersShownUpTo30Converter"/>
+		
+	<bean id="intConverter" class="org.esupportail.pstage.web.converters.IntConverter"/>
+	
+	<bean id="passwordConverter" class="org.esupportail.pstage.web.converters.PasswordConverter">		
+		<property name="blowfishUtils" ref="blowfishUtils"/>
+	</bean>
+	
+	<bean id="communeConverter" class="org.esupportail.pstage.web.converters.CommuneConverter"/>
+	
+	<bean id="paysConverter" class="org.esupportail.pstage.web.converters.PaysConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="effectifConverter" class="org.esupportail.pstage.web.converters.EffectifConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="statutJuridiqueConverter" class="org.esupportail.pstage.web.converters.StatutJuridiqueConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="typeStructureConverter" class="org.esupportail.pstage.web.converters.TypeStructureConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="civiliteConverter" class="org.esupportail.pstage.web.converters.CiviliteConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="codNafN5Converter" class="org.esupportail.pstage.web.converters.CodNafN5Converter"/>
+	<bean id="nafN1Converter" class="org.esupportail.pstage.web.converters.NafN1Converter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="niveauCentreConverter" class="org.esupportail.pstage.web.converters.NiveauCentreConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="confidentialiteConverter" class="org.esupportail.pstage.web.converters.ConfidentialiteConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="droitAdminConverter" class="org.esupportail.pstage.web.converters.DroitAdminConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="typeConventionConverter" class="org.esupportail.pstage.web.converters.TypeConventionConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="themeConverter" class="org.esupportail.pstage.web.converters.ThemeConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	<bean id="uniteDureeConverter" class="org.esupportail.pstage.web.converters.UniteDureeConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	<bean id="tempsTravailConverter" class="org.esupportail.pstage.web.converters.TempsTravailConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	<bean id="indemnisationConverter" class="org.esupportail.pstage.web.converters.IndemnisationConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	<bean id="uniteGratificationConverter" class="org.esupportail.pstage.web.converters.UniteGratificationConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	<bean id="modeVersGratificationConverter" class="org.esupportail.pstage.web.converters.ModeVersGratificationConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	<bean id="natureTravailConverter" class="org.esupportail.pstage.web.converters.NatureTravailConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	<bean id="modeValidationStageConverter" class="org.esupportail.pstage.web.converters.ModeValidationStageConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	<bean id="origineStageConverter" class="org.esupportail.pstage.web.converters.OrigineStageConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="typeOffreConverter" class="org.esupportail.pstage.web.converters.TypeOffreConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="contratOffreConverter" class="org.esupportail.pstage.web.converters.ContratOffreConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="fapQualificationSimplifieeConverter" class="org.esupportail.pstage.web.converters.FapQualificationSimplifieeConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="fapN1Converter" class="org.esupportail.pstage.web.converters.FapN1Converter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="fapN2Converter" class="org.esupportail.pstage.web.converters.FapN2Converter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="fapN3Converter" class="org.esupportail.pstage.web.converters.FapN3Converter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="modeCandidatureConverter" class="org.esupportail.pstage.web.converters.ModeCandidatureConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="niveauFormationConverter" class="org.esupportail.pstage.web.converters.NiveauFormationConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	
+	<bean id="langueConventionConverter" class="org.esupportail.pstage.web.converters.LangueConventionConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	<bean id="listeCodePostalConverter" class="org.esupportail.pstage.web.converters.ListeCodePostalConverter"/>
+	
+	<bean id="assuranceConverter" class="org.esupportail.pstage.web.converters.AssuranceConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	
+	<bean id="caisseRegimeConverter" class="org.esupportail.pstage.web.converters.CaisseRegimeConverter">		
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>	
+	
 </beans>

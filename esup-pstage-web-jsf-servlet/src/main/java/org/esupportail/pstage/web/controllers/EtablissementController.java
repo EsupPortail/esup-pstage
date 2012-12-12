@@ -4,7 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,26 +26,37 @@ import javax.mail.internet.InternetAddress;
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.utils.GenTicketStage;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.ContactDTO;
-import org.esupportail.pstagedata.domain.dto.NafN5DTO;
-import org.esupportail.pstagedata.domain.dto.PaysDTO;
-import org.esupportail.pstagedata.domain.dto.ServiceDTO;
-import org.esupportail.pstagedata.domain.dto.StatutJuridiqueDTO;
-import org.esupportail.pstagedata.domain.dto.StructureDTO;
-import org.esupportail.pstagedata.domain.dto.TicketStructureDTO;
-import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
-import org.esupportail.pstagedata.exceptions.AccountAlreadyExistingForCoupleMailStructureException;
-import org.esupportail.pstagedata.exceptions.ContactDeleteException;
-import org.esupportail.pstagedata.exceptions.DataAddException;
-import org.esupportail.pstagedata.exceptions.DataDeleteException;
-import org.esupportail.pstagedata.exceptions.DataUpdateException;
-import org.esupportail.pstagedata.exceptions.MailAlreadyUsedForStructureException;
-import org.esupportail.pstagedata.exceptions.ServiceDeleteException;
-import org.esupportail.pstagedata.exceptions.StructureDeleteException;
-import org.esupportail.pstagedata.exceptions.StructureNumSiretException;
-import org.esupportail.pstagedata.exceptions.UnvalidNumSiretException;
-import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException;
+import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException_Exception;
+import org.esupportail.pstagedata.remote.CentreGestionDTO;
+import org.esupportail.pstagedata.remote.ContactDTO;
+import org.esupportail.pstagedata.remote.ContactDeleteException;
+import org.esupportail.pstagedata.remote.ContactDeleteException_Exception;
+import org.esupportail.pstagedata.remote.DataAddException;
+import org.esupportail.pstagedata.remote.DataAddException_Exception;
+import org.esupportail.pstagedata.remote.DataDeleteException;
+import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
+import org.esupportail.pstagedata.remote.DataUpdateException;
+import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
+import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException;
+import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException_Exception;
+import org.esupportail.pstagedata.remote.NafN5DTO;
+import org.esupportail.pstagedata.remote.PaysDTO;
+import org.esupportail.pstagedata.remote.ServiceDTO;
+import org.esupportail.pstagedata.remote.ServiceDeleteException;
+import org.esupportail.pstagedata.remote.ServiceDeleteException_Exception;
+import org.esupportail.pstagedata.remote.StatutJuridiqueDTO;
+import org.esupportail.pstagedata.remote.StructureDTO;
+import org.esupportail.pstagedata.remote.StructureDeleteException;
+import org.esupportail.pstagedata.remote.StructureDeleteException_Exception;
+import org.esupportail.pstagedata.remote.StructureNumSiretException;
+import org.esupportail.pstagedata.remote.StructureNumSiretException_Exception;
+import org.esupportail.pstagedata.remote.TicketStructureDTO;
+import org.esupportail.pstagedata.remote.TypeStructureDTO;
+import org.esupportail.pstagedata.remote.UnvalidNumSiretException;
+import org.esupportail.pstagedata.remote.UnvalidNumSiretException_Exception;
+import org.esupportail.pstagedata.remote.WebServiceDataBaseException;
+import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 import org.springframework.util.StringUtils;
 
 
@@ -450,8 +461,8 @@ public class EtablissementController extends AbstractContextAwareController {
 			else structureTmp.setIdStatutJuridique(0);
 			structureTmp.setIdTypeStructure(this.formStructure.getTypeStructure().getId());
 			if(this.formStructure.getNafN5()!=null)
-				structureTmp.setCodeNAF_N5(this.formStructure.getNafN5().getCode());
-			else structureTmp.setCodeNAF_N5(null);
+				structureTmp.setCodeNAFN5(this.formStructure.getNafN5().getCode());
+			else structureTmp.setCodeNAFN5(null);
 			structureTmp.setLoginCreation(getSessionController().getCurrentLogin());
 			structureTmp.setLoginInfosAJour(getSessionController().getCurrentLogin());
 			try{
@@ -486,21 +497,21 @@ public class EtablissementController extends AbstractContextAwareController {
 							""
 					);
 				}
-			}catch (DataAddException ae) {
+			}catch (DataAddException_Exception ae) {
 				logger.error("DataAddException", ae.fillInStackTrace());
 				addErrorMessage("formAjoutEtab", "STRUCTURE.ERREURAJOUT");
 				retour=null;		
-			}catch (WebServiceDataBaseException we) {
+			}catch (WebServiceDataBaseException_Exception we) {
 				logger.error("WebServiceDataBaseException", we.fillInStackTrace());
 				addErrorMessage("formAjoutEtab", "STRUCTURE.ERREURAJOUT");
 				retour=null;
-			}catch (StructureNumSiretException se) {
+			}catch (StructureNumSiretException_Exception se) {
 				if(logger.isInfoEnabled()){
 					logger.info("Structure déjà existante pour ce numéro siret "+structureTmp);
 				}
 				addErrorMessage("formAjoutEtab", "STRUCTURE.DEJA_EXISTANTE");
 				retour=null;
-			}catch (UnvalidNumSiretException ue) {
+			}catch (UnvalidNumSiretException_Exception ue) {
 				//Impossible
 				if(logger.isInfoEnabled()){
 					logger.info("Numéro siret invalide pour "+structureTmp);
@@ -695,8 +706,8 @@ public class EtablissementController extends AbstractContextAwareController {
 			else structureTmp.setIdStatutJuridique(0);
 			structureTmp.setIdTypeStructure(this.formStructure.getTypeStructure().getId());
 			if(this.formStructure.getNafN5()!=null)
-				structureTmp.setCodeNAF_N5(this.formStructure.getNafN5().getCode());
-			else structureTmp.setCodeNAF_N5(null);
+				structureTmp.setCodeNAFN5(this.formStructure.getNafN5().getCode());
+			else structureTmp.setCodeNAFN5(null);
 			structureTmp.setDateModif(new Date());
 			structureTmp.setLoginModif(getSessionController().getCurrentLogin());
 			structureTmp.setLoginInfosAJour(getSessionController().getCurrentLogin());
@@ -747,21 +758,21 @@ public class EtablissementController extends AbstractContextAwareController {
 				}else{
 					addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				}
-			}catch (DataUpdateException ue) {
+			}catch (DataUpdateException_Exception ue) {
 				logger.error("DataUpdateException", ue.fillInStackTrace());
 				addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				retour=null;		
-			}catch (WebServiceDataBaseException we) {
+			}catch (WebServiceDataBaseException_Exception we) {
 				logger.error("WebServiceDataBaseException", we.fillInStackTrace());
 				addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				retour=null;
-			}catch (StructureNumSiretException se) {
+			}catch (StructureNumSiretException_Exception se) {
 				if(logger.isInfoEnabled()){
 					logger.info("Structure déjà existante pour ce numéro siret "+structureTmp);
 				}
 				addErrorMessage("formModifEtab", "STRUCTURE.DEJA_EXISTANTE");
 				retour=null;
-			}catch (UnvalidNumSiretException ue) {
+			}catch (UnvalidNumSiretException_Exception ue) {
 				//Impossible
 				if(logger.isInfoEnabled()){
 					logger.info("Numéro siret invalide pour "+structureTmp);
@@ -817,16 +828,16 @@ public class EtablissementController extends AbstractContextAwareController {
 							""
 					);
 				}
-			}catch (StructureDeleteException e) {
+			}catch (StructureDeleteException_Exception e) {
 				logger.error("DataDeleteException", e.fillInStackTrace());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",this.formStructure.getRaisonSociale());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREURAVANCEE",
 						e.getNbOffres(),e.getNbConventions(),
 						e.isAccordExistant()?getString("FORM.OUI"):getString("FORM.NON"),e.getNbComptesContact());
-			}catch (DataDeleteException e) {
+			}catch (DataDeleteException_Exception e) {
 				logger.error("DataDeleteException", e.fillInStackTrace());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",this.formStructure.getRaisonSociale());
-			}catch (WebServiceDataBaseException e) {
+			}catch (WebServiceDataBaseException_Exception e) {
 				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",this.formStructure.getRaisonSociale());
 			}
@@ -894,10 +905,10 @@ public class EtablissementController extends AbstractContextAwareController {
 			// redirection vers cvtheque
             externalContext.redirect(forwardUrl);
             facesContext.responseComplete();
-		}catch (DataAddException e) {
+		}catch (DataAddException_Exception e) {
 			logger.error("DataAddException", e.fillInStackTrace());
 			addErrorMessage("formMenu:cvtheque", "TICKETSTRUCTURE.AJOUT.ERREUR");
-		}catch (WebServiceDataBaseException e) {
+		}catch (WebServiceDataBaseException_Exception e) {
 			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 			addErrorMessage("formMenu:cvtheque", "TICKETSTRUCTURE.AJOUT.ERREUR");
         } catch (IOException e) {
@@ -970,10 +981,10 @@ public class EtablissementController extends AbstractContextAwareController {
 			}else{
 				addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
 			}
-		}catch (DataAddException e) {
+		}catch (DataAddException_Exception e) {
 			logger.error("DataAddException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
-		}catch (WebServiceDataBaseException e) {
+		}catch (WebServiceDataBaseException_Exception e) {
 			logger.error("DataUpdateException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
 		}
@@ -1057,10 +1068,10 @@ public class EtablissementController extends AbstractContextAwareController {
 			}else{
 				addErrorMessage(null, "SERVICE.MODIF.ERREUR");
 			}
-		}catch (DataUpdateException e) {
+		}catch (DataUpdateException_Exception e) {
 			logger.error("DataUpdateException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.MODIF.ERREUR");
-		}catch (WebServiceDataBaseException e) {
+		}catch (WebServiceDataBaseException_Exception e) {
 			logger.error("DataUpdateException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.MODIF.ERREUR");
 		}
@@ -1099,13 +1110,13 @@ public class EtablissementController extends AbstractContextAwareController {
 			}else{
 				addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 			}
-		}catch (DataDeleteException e) {
+		}catch (DataDeleteException_Exception e) {
 			logger.error("DataDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
-		}catch (WebServiceDataBaseException e) {
+		}catch (WebServiceDataBaseException_Exception e) {
 			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
-		}catch (ServiceDeleteException e) {
+		}catch (ServiceDeleteException_Exception e) {
 			logger.error("ServiceDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 		}
@@ -1227,13 +1238,13 @@ public class EtablissementController extends AbstractContextAwareController {
 					}else{
 						addErrorMessage(null, "CONTACT.GESTION.AJOUT.ERREUR");
 					}
-				}catch (DataAddException e) {
+				}catch (DataAddException_Exception e) {
 					logger.error("DataAddException", e.fillInStackTrace());
 					addErrorMessage(null, "CONTACT.GESTION.AJOUT.ERREUR");
-				}catch (WebServiceDataBaseException e) {
+				}catch (WebServiceDataBaseException_Exception e) {
 					logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 					addErrorMessage(null, "CONTACT.GESTION.AJOUT.ERREUR");
-				}catch (MailAlreadyUsedForStructureException e) {
+				}catch (MailAlreadyUsedForStructureException_Exception e) {
 					logger.info("MailAlreadyUsedForStructureException", e.fillInStackTrace());
 					addErrorMessage("formAjoutContact:include:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 					ret=null;
@@ -1325,13 +1336,13 @@ public class EtablissementController extends AbstractContextAwareController {
 						addErrorMessage(null, "CONTACT.GESTION.MODIF.ERREUR");
 					}
 					this.keysContacts = Collections.singleton(this.currentRowContact);				
-				}catch (DataUpdateException e) {
+				}catch (DataUpdateException_Exception e) {
 					logger.error("DataUpdateException", e.fillInStackTrace());
 					addErrorMessage(null, "CONTACT.GESTION.MODIF.ERREUR");
-				}catch (WebServiceDataBaseException e) {
+				}catch (WebServiceDataBaseException_Exception e) {
 					logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 					addErrorMessage(null, "CONTACT.GESTION.MODIF.ERREUR");
-				}catch (MailAlreadyUsedForStructureException e) {
+				}catch (MailAlreadyUsedForStructureException_Exception e) {
 					logger.info("MailAlreadyUsedForStructureException", e.fillInStackTrace());
 					addErrorMessage("formModifContact:include:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 					ret=null;
@@ -1368,13 +1379,13 @@ public class EtablissementController extends AbstractContextAwareController {
 			}else{
 				addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREUR");
 			}
-		}catch (DataDeleteException e) {
+		}catch (DataDeleteException_Exception e) {
 			logger.error("DataDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREUR");
-		}catch (WebServiceDataBaseException e) {
+		}catch (WebServiceDataBaseException_Exception e) {
 			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREUR");
-		}catch (ContactDeleteException e) {
+		}catch (ContactDeleteException_Exception e) {
 			logger.info("ContactDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREURREF");
 		}
@@ -1424,13 +1435,13 @@ public class EtablissementController extends AbstractContextAwareController {
 					e.printStackTrace();
 				}
 				addErrorMessage(null, "MAIL.VALIDATION");
-			}catch (DataUpdateException e) {
+			}catch (DataUpdateException_Exception e) {
 				logger.error("DataUpdateException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.CREATION.ERREUR");
-			}catch (WebServiceDataBaseException e) {
+			}catch (WebServiceDataBaseException_Exception e) {
 				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.CREATION.ERREUR");
-			}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
+			}catch (AccountAlreadyExistingForCoupleMailStructureException_Exception e) {
 				logger.info("AccountAlreadyExistingForCoupleMailStructureException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT"); 
 			}
@@ -1459,13 +1470,13 @@ public class EtablissementController extends AbstractContextAwareController {
 				}else{
 					addErrorMessage(null, "CONTACT.GESTION.COMPTE.SUPPRESSION.ERREUR");
 				}
-			}catch (DataUpdateException e) {
+			}catch (DataUpdateException_Exception e) {
 				logger.error("DataUpdateException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.SUPPRESSION.ERREUR");
-			}catch (WebServiceDataBaseException e) {
+			}catch (WebServiceDataBaseException_Exception e) {
 				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.SUPPRESSION.ERREUR");
-			}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
+			}catch (AccountAlreadyExistingForCoupleMailStructureException_Exception e) {
 				logger.info("AccountAlreadyExistingForCoupleMailStructureException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT"); 
 			}
@@ -1514,13 +1525,13 @@ public class EtablissementController extends AbstractContextAwareController {
 				}else{
 					addErrorMessage(null, "CONTACT.GESTION.COMPTE.RESETMDP.ERREUR");
 				}
-			}catch (DataUpdateException e) {
+			}catch (DataUpdateException_Exception e) {
 				logger.error("DataUpdateException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.RESETMDP.ERREUR");
-			}catch (WebServiceDataBaseException e) {
+			}catch (WebServiceDataBaseException_Exception e) {
 				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.RESETMDP.ERREUR");
-			}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
+			}catch (AccountAlreadyExistingForCoupleMailStructureException_Exception e) {
 				logger.info("AccountAlreadyExistingForCoupleMailStructureException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT");
 			}
@@ -1579,13 +1590,13 @@ public class EtablissementController extends AbstractContextAwareController {
 									addErrorMessage(null, "CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.ERREUR");
 								}
 							}
-						}catch (DataUpdateException e) {
+						}catch (DataUpdateException_Exception e) {
 							logger.error("DataUpdateException", e.fillInStackTrace());
 							addErrorMessage(null, "CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.ERREUR");
-						}catch (WebServiceDataBaseException e) {
+						}catch (WebServiceDataBaseException_Exception e) {
 							logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 							addErrorMessage(null, "CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.ERREUR");
-						}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
+						}catch (AccountAlreadyExistingForCoupleMailStructureException_Exception e) {
 							logger.info("AccountAlreadyExistingForCoupleMailStructureException", e.fillInStackTrace());
 							addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT");
 						}

@@ -4,7 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,24 +20,30 @@ import javax.mail.internet.InternetAddress;
 
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
-import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
-import org.esupportail.pstagedata.domain.dto.ContactDTO;
-import org.esupportail.pstagedata.domain.dto.StatutJuridiqueDTO;
-import org.esupportail.pstagedata.domain.dto.StructureDTO;
-import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
-import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForContactException;
-import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForStructureException;
-import org.esupportail.pstagedata.exceptions.AccountAlreadyExistingForCoupleMailStructureException;
-import org.esupportail.pstagedata.exceptions.AdminStructureAccountException;
-import org.esupportail.pstagedata.exceptions.AdminStructureLoginEppnAlreadyUsedException;
-import org.esupportail.pstagedata.exceptions.DataAddException;
-import org.esupportail.pstagedata.exceptions.DataDeleteException;
-import org.esupportail.pstagedata.exceptions.DataUpdateException;
-import org.esupportail.pstagedata.exceptions.MailAlreadyUsedForStructureException;
-import org.esupportail.pstagedata.exceptions.StructureNumSiretException;
-import org.esupportail.pstagedata.exceptions.UnvalidNumSiretException;
-import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException;
+import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException;
+import org.esupportail.pstagedata.remote.AccordPartenariatDTO;
+import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException;
+import org.esupportail.pstagedata.remote.AdminStructureAccountException;
+import org.esupportail.pstagedata.remote.AdminStructureAccountException_Exception;
+import org.esupportail.pstagedata.remote.AdminStructureDTO;
+import org.esupportail.pstagedata.remote.AdminStructureLoginEppnAlreadyUsedException;
+import org.esupportail.pstagedata.remote.AdminStructureLoginEppnAlreadyUsedException_Exception;
+import org.esupportail.pstagedata.remote.ContactDTO;
+import org.esupportail.pstagedata.remote.DataAddException;
+import org.esupportail.pstagedata.remote.DataAddException_Exception;
+import org.esupportail.pstagedata.remote.DataDeleteException;
+import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
+import org.esupportail.pstagedata.remote.DataUpdateException;
+import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
+import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException;
+import org.esupportail.pstagedata.remote.StatutJuridiqueDTO;
+import org.esupportail.pstagedata.remote.StructureDTO;
+import org.esupportail.pstagedata.remote.StructureNumSiretException;
+import org.esupportail.pstagedata.remote.TypeStructureDTO;
+import org.esupportail.pstagedata.remote.UnvalidNumSiretException;
+import org.esupportail.pstagedata.remote.WebServiceDataBaseException;
+import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 import org.springframework.util.StringUtils;
 
 
@@ -283,30 +289,29 @@ public class AdminController extends AbstractContextAwareController {
 					break;
 				}
 				addInfoMessage(null, "ADMINSTRUCTURE.CONFIRMATION");
-			}catch (DataAddException d) {
+			}catch (DataAddException_Exception d) {
 				if(logger.isInfoEnabled()){
 					logger.info("DataAddException ",d.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
 				ret="_ajoutAdministrateurEtape2Confirmation";
-			}catch (WebServiceDataBaseException w){
+			}catch (WebServiceDataBaseException_Exception w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
 				ret="_ajoutAdministrateurEtape2Confirmation";
-			}catch (AdminStructureAccountException aa) {
+			}catch (AdminStructureAccountException_Exception aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
 				ret="_ajoutAdministrateurEtape2Confirmation";
-			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
+			}catch (AdminStructureLoginEppnAlreadyUsedException_Exception al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");
 				}
-				if(al.isLogin()) addErrorMessage("formAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
-				if(al.isEppn()) addErrorMessage("formAdminStructure:include:eppnAdmin", "ADMINSTRUCTURE.ERREUREPPN");
+				addErrorMessage("formAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
 			}
 		}
 		if(ok){
@@ -414,30 +419,29 @@ public class AdminController extends AbstractContextAwareController {
 					break;
 				}
 				addInfoMessage(null, "ADMINSTRUCTURE.CONFIRMATION");
-			}catch (DataUpdateException d) {
+			}catch (DataUpdateException_Exception d) {
 				if(logger.isInfoEnabled()){
 					logger.info("DataUpdateException ",d.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
 				ret="_modifAdministrateurEtape2Confirmation";
-			}catch (WebServiceDataBaseException w){
+			}catch (WebServiceDataBaseException_Exception w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
 				ret="_modifAdministrateurEtape2Confirmation";
-			}catch (AdminStructureAccountException aa) {
+			}catch (AdminStructureAccountException_Exception aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
 				ret="_modifAdministrateurEtape2Confirmation";
-			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
+			}catch (AdminStructureLoginEppnAlreadyUsedException_Exception al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");
 				}
-				if(al.isLogin()) addErrorMessage("formModifAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
-				if(al.isEppn()) addErrorMessage("formModifAdminStructure:include:eppnAdmin", "ADMINSTRUCTURE.ERREUREPPN");
+				addErrorMessage("formModifAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
 			}
 		}	
 		if(ok){
@@ -460,12 +464,12 @@ public class AdminController extends AbstractContextAwareController {
 				}
 				getAdminDomainService().deleteAdminStructure(this.formAdminStructure.getId());
 				addInfoMessage(null, "ADMINSTRUCTURE.CONFIRMATION_SUPPRESSION");
-			}catch (DataDeleteException de) {
+			}catch (DataDeleteException_Exception de) {
 				if(logger.isInfoEnabled()){
 					logger.info("DataDeleteException ",de.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREURSUPPRESSION", de.getMessage());
-			}catch (WebServiceDataBaseException we) {
+			}catch (WebServiceDataBaseException_Exception we) {
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",we.fillInStackTrace());
 				}

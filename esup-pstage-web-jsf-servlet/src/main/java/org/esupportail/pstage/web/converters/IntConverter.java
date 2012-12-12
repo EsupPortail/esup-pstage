@@ -35,8 +35,8 @@ public class IntConverter implements Serializable, Converter {
 	 */
 	@Override
 	public String getAsString(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final Object value) {
 		if (value == null || !StringUtils.hasText(value.toString())) {
 			return "";
@@ -54,8 +54,8 @@ public class IntConverter implements Serializable, Converter {
 	 */
 	@Override
 	public Object getAsObject(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final String value) {
 		if (!StringUtils.hasText(value) 
 				|| !Utils.isNumber(value)) {

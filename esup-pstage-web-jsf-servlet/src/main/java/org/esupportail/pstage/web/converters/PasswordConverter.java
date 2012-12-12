@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
  *
  */
 public class PasswordConverter implements Converter{
-	
+
 	/**
 	 * BlowfishUtils
 	 */
@@ -37,14 +37,14 @@ public class PasswordConverter implements Converter{
 	/**
 	 * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
 	 */
-	public String getAsString(@SuppressWarnings("unused") FacesContext context,@SuppressWarnings("unused") UIComponent componentToConvert,@SuppressWarnings("unused") Object value){
+	public String getAsString(FacesContext context,UIComponent componentToConvert,Object value){
 		return "";
 	}
 
 	/**
 	 * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
 	 */
-	public Object getAsObject(@SuppressWarnings("unused") FacesContext context,@SuppressWarnings("unused") UIComponent componentToConvert,String value)
+	public Object getAsObject(FacesContext context,UIComponent componentToConvert,String value)
 			throws ConverterException {
 		if (!StringUtils.hasText(value)) {
 			return null;
@@ -52,6 +52,6 @@ public class PasswordConverter implements Converter{
 		return this.blowfishUtils.encode(value);
 	}
 
-	
-	
+
+
 }

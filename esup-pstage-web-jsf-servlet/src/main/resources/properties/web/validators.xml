@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	>
+
+	<!-- 
+		/properties/web/converters.xml
+		This file declares the converters used by the web interface.
+		It should not be modified but by the developers.
+		This file is referenced by /properties/applicationContext.xml.
+	-->
+
+	<bean id="numSiretValidator" class="org.esupportail.pstage.web.validators.NumSiretValidator"/>
+	
+	<bean id="numSirenValidator" class="org.esupportail.pstage.web.validators.NumSirenValidator"/>
+	
+	<bean id="mailValidator" class="org.esupportail.pstage.web.validators.MailValidator"/>
+	
+	<bean id="codePostalValidator" class="org.esupportail.pstage.web.validators.CodePostalValidator"/>
+	
+	<bean id="siteWebValidator" class="org.esupportail.pstage.web.validators.SiteWebValidator"/>
+	
+	<bean id="codeNAFValidator" class="org.esupportail.pstage.web.validators.CodeNAFValidator">
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
+	</bean>
+	
+	<bean id="inseeValidator" class="org.esupportail.pstage.web.validators.InseeValidator"/>
+	
+	<bean id="mtGratificationValidator" class="org.esupportail.pstage.web.validators.MtGratificationValidator"/>
+
+	<bean id="entierValidator" class="org.esupportail.pstage.web.validators.EntierValidator"/>
+
+	<bean id="pourcentageValidator" class="org.esupportail.pstage.web.validators.PourcentageValidator"/>
+</beans>

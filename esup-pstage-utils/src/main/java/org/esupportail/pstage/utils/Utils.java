@@ -3,7 +3,6 @@ package org.esupportail.pstage.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -12,7 +11,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 
-import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 
 /**

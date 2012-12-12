@@ -42,10 +42,10 @@ public abstract class AbstractStatsBuilder {
 	 * @return
 	 * @throws NoSuchMethodException
 	 */
-	private static Method trouverLaMethode( Class classe, 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private static Method trouverLaMethode(Class classe, 
 			String nomMethode, 
-			Class[] typesDesParamatres) throws NoSuchMethodException 
-			{
+			Class[] typesDesParamatres) throws NoSuchMethodException {
 		if (classe == null) {
 			throw new NoSuchMethodException(" Classe ou methode  inhexistante ");
 		}
@@ -58,8 +58,8 @@ public abstract class AbstractStatsBuilder {
 		}
 			}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private  List<StatisticItemDTO> trouverConventionsParCriteres(RemoteServices remoteServices, String nommeth, Integer idCentre, String annee, String etat ) throws ClassNotFoundException{
-
 
 		InvocationHandler mandataire = Proxy.getInvocationHandler(remoteServices);
 		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();

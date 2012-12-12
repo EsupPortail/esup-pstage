@@ -11,7 +11,7 @@ import javax.faces.convert.Converter;
 
 import org.esupportail.pstage.domain.NomenclatureDomainService;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.AssuranceDTO;
+import org.esupportail.pstagedata.remote.AssuranceDTO;
 import org.springframework.util.StringUtils;
 
 /**
@@ -41,8 +41,8 @@ public class AssuranceConverter implements Serializable, Converter {
 	 */
 	@Override
 	public String getAsString(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final Object value) {
 		if (value == null || !StringUtils.hasText(value.toString())) {
 			return "";
@@ -54,15 +54,15 @@ public class AssuranceConverter implements Serializable, Converter {
 		AssuranceDTO e = (AssuranceDTO) value;
 		return ""+e.getId();
 	}
-	
+
 	/**
 	 * @see javax.faces.convert.Converter#getAsObject(
 	 * javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
 	 */
 	@Override
 	public Object getAsObject(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final String value) {
 		if (!StringUtils.hasText(value) 
 				|| !Utils.isNumber(value)) {
@@ -83,5 +83,5 @@ public class AssuranceConverter implements Serializable, Converter {
 			NomenclatureDomainService nomenclatureDomainService) {
 		this.nomenclatureDomainService = nomenclatureDomainService;
 	}
-	
+
 }

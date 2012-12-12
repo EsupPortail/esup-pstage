@@ -237,16 +237,8 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#updateContactDerniereConnexion(int, java.util.Date)
 	 */
-	public boolean updateContactDerniereConnexion(int idContact, Date avantDerniereConnexion) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception{
-		GregorianCalendar gCalendar = new GregorianCalendar();
-		XMLGregorianCalendar tmp = null;
-		gCalendar.setTime(avantDerniereConnexion);
-		try {
-			tmp = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
-		} catch (DatatypeConfigurationException dce) {
-			throw new DataUpdateException_Exception(dce.getMessage(),dce.getCause());
-		}
-		return this.remoteServices.updateContactDerniereConnexion(idContact, tmp);
+	public boolean updateContactDerniereConnexion(int idContact, XMLGregorianCalendar avantDerniereConnexion) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception{
+		return this.remoteServices.updateContactDerniereConnexion(idContact, avantDerniereConnexion);
 	}
 	
 	/**

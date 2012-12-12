@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.domain.OffreDomainService;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.FichierDTO;
+import org.esupportail.pstagedata.remote.FichierDTO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -92,7 +92,8 @@ public class GetFileServlet extends HttpServlet{
 						res.setHeader("Content-type", "application/octet-stream");
 						OutputStream os = res.getOutputStream();
 						bis.read(bytes);
-						os.write(bytes);      
+						os.write(bytes);
+						bis.close();
 					}catch(IOException e){
 						System.out.println(e);
 					}

@@ -7,17 +7,17 @@ import java.util.List;
 import org.esupportail.pstage.domain.CentreGestionDomainService;
 import org.esupportail.pstage.domain.NomenclatureDomainService;
 import org.esupportail.pstage.utils.DonneesStatic;
-import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.ConfidentialiteDTO;
-import org.esupportail.pstagedata.domain.dto.ContratOffreDTO;
-import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
-import org.esupportail.pstagedata.domain.dto.ModeCandidatureDTO;
-import org.esupportail.pstagedata.domain.dto.NiveauCentreDTO;
-import org.esupportail.pstagedata.domain.dto.PaysDTO;
-import org.esupportail.pstagedata.domain.dto.ServiceDTO;
-import org.esupportail.pstagedata.domain.dto.StructureDTO;
-import org.esupportail.pstagedata.domain.dto.TempsTravailDTO;
-import org.esupportail.pstagedata.domain.dto.TypeOffreDTO;
+import org.esupportail.pstagedata.remote.CentreGestionDTO;
+import org.esupportail.pstagedata.remote.ConfidentialiteDTO;
+import org.esupportail.pstagedata.remote.ContratOffreDTO;
+import org.esupportail.pstagedata.remote.DroitAdministrationDTO;
+import org.esupportail.pstagedata.remote.ModeCandidatureDTO;
+import org.esupportail.pstagedata.remote.NiveauCentreDTO;
+import org.esupportail.pstagedata.remote.PaysDTO;
+import org.esupportail.pstagedata.remote.ServiceDTO;
+import org.esupportail.pstagedata.remote.StructureDTO;
+import org.esupportail.pstagedata.remote.TempsTravailDTO;
+import org.esupportail.pstagedata.remote.TypeOffreDTO;
 
 
 /**

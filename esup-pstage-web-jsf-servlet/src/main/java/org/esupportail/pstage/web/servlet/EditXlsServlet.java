@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.esupportail.pstage.web.servlet.EditStatisticsXls;
-import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
+import org.esupportail.pstagedata.remote.StatisticItemDTO;
 
 
 /** 
@@ -26,19 +25,14 @@ import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
 *  @author Sean C. Sullivan
 * 
 */
-public class EditXlsServlet extends HttpServlet
-{
+public class EditXlsServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	private EditStatisticsXls editStatisticsXls;
 	Logger log = Logger.getLogger(EditXlsServlet.class);
 	
-
-
-	
 	 
 	/** 
-	* 
 	* 
 	*/
 	public EditXlsServlet()

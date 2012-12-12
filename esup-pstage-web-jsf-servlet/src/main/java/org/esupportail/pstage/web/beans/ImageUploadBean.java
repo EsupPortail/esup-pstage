@@ -17,8 +17,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import org.esupportail.pstage.utils.Utils;
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -30,7 +30,7 @@ public class ImageUploadBean{
 	 * Rï¿½pertoire de rï¿½ception
 	 */
 	private String directory;
-	
+
 	/**
 	 * Nom du fichier uploadï¿½
 	 */
@@ -47,7 +47,7 @@ public class ImageUploadBean{
 	 * L'extension de l'image
 	 */
 	private String extension;
-	
+
 	/**
 	 * Constructeur
 	 * @param directory 
@@ -60,48 +60,44 @@ public class ImageUploadBean{
 	 * file upload listener.
 	 * @param event the upload event
 	 */
-	public void imageUploadListener(UploadEvent event) {
+	public void imageUploadListener(FileUploadEvent event) {
 		if (event == null) {
 			//			logger.warn("Invalid upload event");
 		} else {
 			// on recupere l'item envoye
-			UploadItem uploadItem = event.getUploadItem();
-			if (uploadItem.getFile().isFile()) { // si c'est bien un fichier
-				String imageName = uploadItem.getFileName();
-				
-				int i=imageName.lastIndexOf(".");
-				this.extension="";
-				if(i>0){
-					this.extension=imageName.substring(i+1);
-				}
-				this.realNameImage=imageName;
-				imageName=Utils.encodeMD5(imageName)+"."+this.extension;
-				this.nameUploadedImage=imageName;
-				if (this.prefix >=0)
-					imageName = this.prefix+"_"+imageName;
-				
-				//code ici on recupere le path vers le repertoire ou stocker le fichier
-				File fileToWrite = new File(this.directory + File.separator + imageName); 
-				// on construit un Fichier avec le path/nomdufichierrecu
-				File uploadedFile = uploadItem.getFile();
+			UploadedFile uploadItem = event.getUploadedFile();
+			String imageName = uploadItem.getName();
 
-				try {
-					ByteArrayInputStream is = (ByteArrayInputStream) scaleImage(new BufferedInputStream(new FileInputStream(uploadedFile)), 300, 300,this.extension);
-					FileOutputStream fos = new FileOutputStream(fileToWrite);
-					int data;
-					while((data=is.read())!=-1){
-						char ch = (char)data;
-						fos.write(ch);
-					}
-					fos.flush();
-					fos.close();
-				}catch (IOException ex1){ 
-					//
-				}catch (Exception e){
-					e.printStackTrace();
-				}finally{
-					//
+			int i=imageName.lastIndexOf(".");
+			this.extension="";
+			if(i>0){
+				this.extension=imageName.substring(i+1);
+			}
+			this.realNameImage=imageName;
+			imageName=Utils.encodeMD5(imageName)+"."+this.extension;
+			this.nameUploadedImage=imageName;
+			if (this.prefix >=0)
+				imageName = this.prefix+"_"+imageName;
+
+			//code ici on recupere le path vers le repertoire ou stocker le fichier
+			File fileToWrite = new File(this.directory + File.separator + imageName);
+
+			try {
+				ByteArrayInputStream is = (ByteArrayInputStream) scaleImage(new BufferedInputStream(new FileInputStream((File)uploadItem)), 300, 300,this.extension);
+				FileOutputStream fos = new FileOutputStream(fileToWrite);
+				int data;
+				while((data=is.read())!=-1){
+					char ch = (char)data;
+					fos.write(ch);
 				}
+				fos.flush();
+				fos.close();
+			}catch (IOException ex1){ 
+				//
+			}catch (Exception e){
+				e.printStackTrace();
+			}finally{
+				//
 			}
 		}
 	}
@@ -123,7 +119,7 @@ public class ImageUploadBean{
 		int imageHeight = image.getHeight(null);
 		int thumbWidth;
 		int thumbHeight;
-		
+
 		if (imageWidth > 300 || imageHeight > 300){
 			thumbWidth = p_width;
 			thumbHeight = p_height;        
@@ -133,14 +129,14 @@ public class ImageUploadBean{
 		}
 		// Make sure the aspect ratio is maintained, so the image is not skewed
 		double thumbRatio = (double)thumbWidth / (double)thumbHeight;
-		
+
 		double imageRatio = (double)imageWidth / (double)imageHeight;
 		if (thumbRatio < imageRatio) {
 			thumbHeight = (int)(thumbWidth / imageRatio);
 		} else {
 			thumbWidth = (int)(thumbHeight * imageRatio);
 		}
-		
+
 		BufferedImage thumbImage = null;
 		Graphics2D graphics2D = null;
 		thumbImage = new BufferedImage(thumbWidth, thumbHeight, BufferedImage.TYPE_INT_RGB);
@@ -155,7 +151,7 @@ public class ImageUploadBean{
 		// Write the scaled image to the outputstream
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		ImageIO.write(thumbImage, extension, out);
-		
+
 		// Read the outputstream into the inputstream for the return value
 		ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());        
 
@@ -175,7 +171,7 @@ public class ImageUploadBean{
 		File f = new File(this.directory + File.separator + imageName);
 		return f.delete();
 	}
-	
+
 	/**
 	 * @return String
 	 */
@@ -245,5 +241,5 @@ public class ImageUploadBean{
 	public int getPrefix() {
 		return prefix;
 	}
-	
+
 }

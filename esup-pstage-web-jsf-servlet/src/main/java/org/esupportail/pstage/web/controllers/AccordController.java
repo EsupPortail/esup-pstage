@@ -4,7 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,19 +16,26 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.domain.beans.NousContacter;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
-import org.esupportail.pstagedata.domain.dto.ContactDTO;
-import org.esupportail.pstagedata.domain.dto.ServiceDTO;
-import org.esupportail.pstagedata.domain.dto.StatutJuridiqueDTO;
-import org.esupportail.pstagedata.domain.dto.StructureDTO;
-import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
-import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForContactException;
-import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForStructureException;
-import org.esupportail.pstagedata.exceptions.DataAddException;
-import org.esupportail.pstagedata.exceptions.MailAlreadyUsedForStructureException;
-import org.esupportail.pstagedata.exceptions.StructureNumSiretException;
-import org.esupportail.pstagedata.exceptions.UnvalidNumSiretException;
-import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException;
+import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException_Exception;
+import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException;
+import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException_Exception;
+import org.esupportail.pstagedata.remote.AccordPartenariatDTO;
+import org.esupportail.pstagedata.remote.ContactDTO;
+import org.esupportail.pstagedata.remote.DataAddException;
+import org.esupportail.pstagedata.remote.DataAddException_Exception;
+import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException;
+import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException_Exception;
+import org.esupportail.pstagedata.remote.ServiceDTO;
+import org.esupportail.pstagedata.remote.StatutJuridiqueDTO;
+import org.esupportail.pstagedata.remote.StructureDTO;
+import org.esupportail.pstagedata.remote.StructureNumSiretException;
+import org.esupportail.pstagedata.remote.StructureNumSiretException_Exception;
+import org.esupportail.pstagedata.remote.TypeStructureDTO;
+import org.esupportail.pstagedata.remote.UnvalidNumSiretException;
+import org.esupportail.pstagedata.remote.UnvalidNumSiretException_Exception;
+import org.esupportail.pstagedata.remote.WebServiceDataBaseException;
+import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 import org.springframework.util.StringUtils;
 
 
@@ -381,8 +388,8 @@ public class AccordController extends AbstractContextAwareController {
 			else structureTmp.setIdStatutJuridique(0);
 			structureTmp.setIdTypeStructure(this.accord.getStructure().getTypeStructure().getId());
 			if(this.accord.getStructure().getNafN5()!=null)
-				structureTmp.setCodeNAF_N5(this.accord.getStructure().getNafN5().getCode());
-			else structureTmp.setCodeNAF_N5(null);
+				structureTmp.setCodeNAFN5(this.accord.getStructure().getNafN5().getCode());
+			else structureTmp.setCodeNAFN5(null);
 			if(getBeanUtils().isFrance(this.accord.getStructure().getPays()) && getSessionController().isRecupererCommunesDepuisApogee()){
 				//structureTmp.setCodePostal(structureTmp.getCodePostal());
 				if(StringUtils.hasText(this.accordStructureCommuneDTO.getCodeCommune())){
@@ -443,7 +450,7 @@ public class AccordController extends AbstractContextAwareController {
 					logger.info("Ajout accord : "+this.accord);
 				}
 				accordEnregistre=true;
-			}catch (DataAddException d) {
+			}catch (DataAddException_Exception d) {
 				logger.error("DataAddException", d.fillInStackTrace());
 				addErrorMessage(null, "ACCORD.ERREUR");
 				//Suppression des éléments ajoutés en base
@@ -465,7 +472,7 @@ public class AccordController extends AbstractContextAwareController {
 					}
 					this.getStructureDomainService().deleteStructure(structureTmp.getIdStructure());
 				}
-			}catch (WebServiceDataBaseException w){
+			}catch (WebServiceDataBaseException_Exception w){
 				try {
 					logger.error("WebServiceDataBaseException", w.fillInStackTrace());
 					addErrorMessage(null, "ACCORD.ERREUR");
@@ -488,31 +495,31 @@ public class AccordController extends AbstractContextAwareController {
 						}
 						this.getStructureDomainService().deleteStructure(structureTmp.getIdStructure());
 					}
-				} catch (WebServiceDataBaseException wb) {
+				} catch (WebServiceDataBaseException_Exception wb) {
 					addErrorMessage(null, "ACCORD.ERREUR");
 				}
-			}catch (StructureNumSiretException se){
+			}catch (StructureNumSiretException_Exception se){
 				if(logger.isInfoEnabled()){
 					logger.info("Structure déjà existante pour ce numéro siret "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
 				}
 				goToPreAccord();//Reset des objets Accord
 				retour="_accordEtape1FormulaireAccord";
-			}catch (UnvalidNumSiretException ue) {
+			}catch (UnvalidNumSiretException_Exception ue) {
 				if(logger.isInfoEnabled()){
 					logger.info("Numéro siret invalide pour "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
 				}
 				goToPreAccord();//Reset des objets Accord
 				retour="_accordEtape1FormulaireAccord";
-			}catch (AccordAlreadyExistingForStructureException as) {
+			}catch (AccordAlreadyExistingForStructureException_Exception as) {
 				if(logger.isInfoEnabled()){
 					logger.info("Accord déjà existant pour la structure "+structureTmp+", redirection vers _accordEtape4DemandeCompte");
 				}
 				this.accordDejaExistant=true;
 				this.contactDemandeCompte=this.accord.getContact();
 				retour="_accordEtape4DemandeCompte";
-			}catch (AccordAlreadyExistingForContactException ac) {
+			}catch (AccordAlreadyExistingForContactException_Exception ac) {
 				// Impossible ici
-			}catch (MailAlreadyUsedForStructureException e) {
+			}catch (MailAlreadyUsedForStructureException_Exception e) {
 				logger.info("MailAlreadyUsedForStructureException", e.fillInStackTrace());
 				addErrorMessage("formAccord:include:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 				retour=null;

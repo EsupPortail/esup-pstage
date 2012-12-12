@@ -22,19 +22,17 @@ import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.NousContacter;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.beans.Enseignant;
-import org.esupportail.pstagedata.domain.beans.PersonnelCentreGestion;
-import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
-import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
-import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.ContactDTO;
-import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
-import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
-import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
-import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
-import org.esupportail.pstagedata.domain.dto.StructureDTO;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContextHolder;
+import org.esupportail.pstagedata.remote.AccordPartenariatDTO;
+import org.esupportail.pstagedata.remote.AdminStructureDTO;
+import org.esupportail.pstagedata.remote.CentreGestionDTO;
+import org.esupportail.pstagedata.remote.ContactDTO;
+import org.esupportail.pstagedata.remote.DroitAdministrationDTO;
+import org.esupportail.pstagedata.remote.EnseignantDTO;
+import org.esupportail.pstagedata.remote.EtudiantDTO;
+import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.remote.StructureDTO;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 
 /**
@@ -313,18 +311,6 @@ public class WelcomeController extends AbstractContextAwareController {
 		return null;
 	}
 
-	//	public String retourLigneHTML(String s){
-	//		String r="";
-	//		StringTokenizer st = new StringTokenizer(s, "\n");
-	//		r=st.nextToken();
-	//		while(st.hasMoreTokens()){
-	//			r=r+"</br>"+st.nextToken();
-	//		}
-	//		return r;
-	//	}
-
-
-
 	/**
 	 * @return String
 	 */
@@ -463,7 +449,6 @@ public class WelcomeController extends AbstractContextAwareController {
 					if(logger.isInfoEnabled()){
 						logger.info("User not authorized via Shibb : "+auth.getName());
 					}
-					//addErrorMessage("connexion", "GENERAL.NOTAUTHORIZED");
 					getSessionController().setNotAdminEntrepriseViaCasShibb(true);
 				}
 			}
@@ -637,9 +622,8 @@ public class WelcomeController extends AbstractContextAwareController {
 
 					if(employee.contains(userAffiliation)){
 						//Si c'est un personnel
-						PersonnelCentreGestion tmpP = getPersonalDataRepositoryDomain().getPersonnelCentreGestionRef(getSessionController().getCodeUniversite(),
+						PersonnelCentreGestionDTO p = getPersonalDataRepositoryDomain().getPersonnelCentreGestionRef(getSessionController().getCodeUniversite(),
 								getSessionController().getCurrentStageCasUser().getId());
-						PersonnelCentreGestionDTO p = (tmpP == null ? null : new PersonnelCentreGestionDTO(tmpP));
 
 						if (p != null){
 							if(!(p.getUidPersonnel().isEmpty())){
@@ -658,9 +642,8 @@ public class WelcomeController extends AbstractContextAwareController {
 					if (faculty.contains(userAffiliation)){
 						// /!\ Si le personnel est également enseignant, on rempli également sessionController -> currentAuthEnseignant
 						//Si c'est un enseignant
-						Enseignant tmpEN = getPersonalDataRepositoryDomain().getEnseignantRef(getSessionController().getCodeUniversite(),
+						EnseignantDTO en = getPersonalDataRepositoryDomain().getEnseignantRef(getSessionController().getCodeUniversite(),
 								getSessionController().getCurrentStageCasUser().getId());
-						EnseignantDTO en = tmpEN==null?null:new EnseignantDTO(tmpEN);
 
 						if(en!=null){
 							if(!(en.getUidEnseignant().isEmpty())){
@@ -759,7 +742,7 @@ public class WelcomeController extends AbstractContextAwareController {
 						}
 					}
 
-					EtudiantDTO e = tmpE==null?null:new EtudiantDTO(tmpE,false);
+					EtudiantDTO e = tmpE==null?null:tmpE;
 
 					if (e != null) {
 						if(!(e.getIdentEtudiant().isEmpty())){

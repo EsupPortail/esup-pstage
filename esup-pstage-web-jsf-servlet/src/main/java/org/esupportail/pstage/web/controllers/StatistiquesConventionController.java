@@ -4,6 +4,7 @@ package org.esupportail.pstage.web.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,10 +14,9 @@ import javax.servlet.ServletException;
 
 import org.esupportail.pstage.domain.referentiel.StatistiquesDomainService;
 import org.esupportail.pstage.exceptions.StatistiquesException;
+import org.esupportail.pstage.web.beans.StatisticCriteria;
 import org.esupportail.pstage.web.servlet.EditXlsServlet;
-import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
-import org.esupportail.pstagedata.domain.beans.StatisticCriteria;
-import java.util.LinkedHashMap;
+import org.esupportail.pstagedata.remote.StatisticItemDTO;
 
 
 
@@ -29,9 +29,9 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 	LinkedHashMap<String,String> secondStatsCriteriumList;
 
 	//critere de niveau 1 pour les conventions 
-	private 	List<SelectItem> firstLevelStatCriteriaForConvention ;
+	private List<SelectItem> firstLevelStatCriteriaForConvention ;
 	//critere de niveau 2 pour les conventions 
-	private 	List<SelectItem> secondLevelStatCriteriaForConvention ; 
+	private List<SelectItem> secondLevelStatCriteriaForConvention ; 
 
 	private String critereUnLib;
 	private String 	critereDeuxLib;
@@ -84,7 +84,6 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		firstLevelStatCriteriaForConvention = new ArrayList<SelectItem>(firstStatsCriteriumList.size());		
 
 		for(Entry<String, String> entry : firstStatsCriteriumList.entrySet()) {
-			String cle = entry.getKey();
 			String valeur = entry.getValue();
 			firstLevelStatCriteriaForConvention.add(new SelectItem(valeur));
 		}
@@ -97,7 +96,6 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		secondLevelStatCriteriaForConvention = new ArrayList<SelectItem>(secondStatsCriteriumList.size());		
 
 		for(Entry<String, String> entry : secondStatsCriteriumList.entrySet()) {
-			String cle = entry.getKey();
 			String valeur = entry.getValue();
 			secondLevelStatCriteriaForConvention.add(new SelectItem(valeur));
 		}

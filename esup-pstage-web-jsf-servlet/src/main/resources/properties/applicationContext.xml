@@ -1,33 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-	<!--
-		/properties/applicationContext.xml The main Spring configuration file.
-		This file should not be modified but by the developers. This file is
-		referenced by /webapp/WEB-INF/web.xml.
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	xmlns:aop="http://www.springframework.org/schema/aop"	
+	>
+
+	<!-- 
+		/properties/applicationContext.xml
+		The main Spring configuration file.
+		This file should not be modified but by the developers.
+		This file is referenced by /webapp/WEB-INF/web.xml.
 	-->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:/properties/defaults.properties</value>
-				<value>classpath:/properties/config.properties</value>
-			</list>
-		</property>
+
+	<bean id="propertyConfigurer" 
+	    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	  <property name="locations" > 
+	      <list>
+	      	<value>classpath:/properties/defaults.properties</value>
+            <value>classpath:/properties/defaults-${deploy.type}.properties</value>
+	      	<value>classpath:/properties/config.properties</value>
+	      </list>
+	  </property>
 	</bean>
-	<bean id="app_context" class="org.esupportail.commons.context.ApplicationContextHolder"/>
 	
-	<import resource="classpath*:META-INF/esup-pstage-domain-services-auth.xml" />
-	<import resource="classpath*:META-INF/esup-pstage-domain-services-domain.xml" />
-	<import resource="classpath*:META-INF/esup-pstage-domain-services-abstractBeans.xml" />
-	<import resource="classpath*:META-INF/esup-pstage-domain-services-application.xml" />
-	<import resource="classpath*:META-INF/esup-pstage-domain-services-i18n.xml" />
+	<import resource="remoteServices/client.xml" />
+	<import resource="auth/shibboleth.xml" />
+
+	<import resource="auth/auth.xml" />
+	<import resource="cache/cache.xml" />
+	<import resource="dao/dao.xml" />
+ 	<import resource="domain/domain.xml" />
 	<import resource="exceptionHandling/exceptionHandling.xml" />
-	<import resource="cache/cache.xml"/>
+	<import resource="i18n/i18n.xml" />
+	<import resource="ldap/ldap.xml" />
+	<import resource="misc/abstractBeans.xml" />
+	<import resource="misc/application.xml" />
 	<import resource="smtp/smtp.xml" />
+	<import resource="init/init.xml" />
 	<import resource="tags/tags.xml" />
 	<import resource="web/controllers.xml" />
 	<import resource="web/converters.xml" />
+	<import resource="web/validators.xml" />
+	<import resource="web/paginators.xml" />
+	<import resource="export/castor.xml" />
+	
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<bean
+	    id="requestCacheBean"
+	    class="org.esupportail.commons.aop.cache.RequestCachingMethodInterceptor" />
+	<bean
+	    id="sessionCacheBean"
+    class="org.esupportail.commons.aop.cache.SessionCachingMethodInterceptor" />
+    <aop:config>
+	    <aop:pointcut
+	        id="monitorPointcut"
+	        expression="@within(org.esupportail.commons.aop.monitor.Monitor) || @annotation(org.esupportail.commons.aop.monitor.Monitor)" />
+	    <aop:aspect id="monitorAspect" ref="monitorBean">
+	        <aop:around method="aroundMonitor" pointcut-ref="monitorPointcut" />
+	    </aop:aspect>
+	</aop:config>
+	<bean
+	    id="monitorBean"
+	    class="org.esupportail.commons.aop.monitor.MonitoringMethodInterceptor" />
 </beans>

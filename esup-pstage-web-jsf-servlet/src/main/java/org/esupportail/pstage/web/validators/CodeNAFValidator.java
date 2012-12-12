@@ -13,12 +13,12 @@ import org.esupportail.pstage.utils.Utils;
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
  */
 public class CodeNAFValidator implements Validator {
-	
+
 	/**
 	 * NomenclatureDomainService
 	 */
 	private NomenclatureDomainService nomenclatureDomainService;
-	
+
 	/**
 	 * @return the nomenclatureDomainService
 	 */
@@ -38,8 +38,8 @@ public class CodeNAFValidator implements Validator {
 	/**
 	 * @see javax.faces.validator.Validator#validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
 	 */
-	public void validate(@SuppressWarnings("unused") FacesContext fc, @SuppressWarnings("unused") UIComponent uic, Object o)
-	throws ValidatorException {
+	public void validate(FacesContext fc, UIComponent uic, Object o)
+			throws ValidatorException {
 		String value = (String) o;
 		value=value.trim();
 		if(!value.matches(Utils.REGEX_CODE_NAF))

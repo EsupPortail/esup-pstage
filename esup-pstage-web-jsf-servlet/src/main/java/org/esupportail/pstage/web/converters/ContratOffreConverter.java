@@ -11,7 +11,7 @@ import javax.faces.convert.Converter;
 
 import org.esupportail.pstage.domain.NomenclatureDomainService;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.ContratOffreDTO;
+import org.esupportail.pstagedata.remote.ContratOffreDTO;
 import org.springframework.util.StringUtils;
 
 /**
@@ -40,8 +40,8 @@ public class ContratOffreConverter implements Serializable, Converter {
 	 */
 	@Override
 	public String getAsString(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final Object value) {
 		if (value == null || !StringUtils.hasText(value.toString())) {
 			return "";
@@ -60,8 +60,8 @@ public class ContratOffreConverter implements Serializable, Converter {
 	 */
 	@Override
 	public Object getAsObject(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final String value) {
 		if (!StringUtils.hasText(value) 
 				|| !Utils.isNumber(value)) {

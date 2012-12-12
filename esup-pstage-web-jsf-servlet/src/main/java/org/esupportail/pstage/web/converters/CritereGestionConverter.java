@@ -11,7 +11,7 @@ import javax.faces.convert.Converter;
 
 import org.esupportail.pstage.domain.NomenclatureDomainService;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.domain.dto.CritereGestionDTO;
+import org.esupportail.pstagedata.remote.CritereGestionDTO;
 import org.springframework.util.StringUtils;
 
 /**
@@ -40,8 +40,8 @@ public class CritereGestionConverter implements Serializable, Converter {
 	 */
 	@Override
 	public String getAsString(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final Object value) {
 		CritereGestionDTO c;
 		if (value == null || !StringUtils.hasText(value.toString())) {
@@ -68,8 +68,8 @@ public class CritereGestionConverter implements Serializable, Converter {
 	 */
 	@Override
 	public Object getAsObject(
-			@SuppressWarnings("unused") final FacesContext context, 
-			@SuppressWarnings("unused") final UIComponent component, 
+			final FacesContext context, 
+			final UIComponent component, 
 			final String value) {
 
 		if (!StringUtils.hasText(value)) {

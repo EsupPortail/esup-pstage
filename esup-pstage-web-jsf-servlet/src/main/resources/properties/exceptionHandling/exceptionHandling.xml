@@ -3,8 +3,8 @@
 <beans 
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	>
 
 	<!-- 
 		/properties/exceptionHandling/exceptionHandling.xml
@@ -17,17 +17,35 @@
 		class="org.esupportail.commons.services.exceptionHandling.CachingEmailExceptionServiceFactoryImpl"
 		parent="abstractApplicationAwareBean"
 		>
+		<property name="authenticationService" ref="${auth.bean}" />
 		<property name="smtpService" ref="smtpService" />
 		<property name="recipientEmail" value="${exceptionHandling.email}" />
 		<property name="exceptionViews" >
 			<map>
-				<entry key="java.lang.Exception" value="go_exception" />
+				<entry key="java.lang.OutOfMemoryError" value="/stylesheets/outOfMemoryException.jsp" />
+				<entry key="org.esupportail.commons.services.database.DatabaseException" value="/stylesheets/databaseException.jsp" />
+				<entry key="org.esupportail.commons.services.application.UninitializedDatabaseException" value="/stylesheets/uninitializedDatabaseException.jsp" />
+				<entry key="org.esupportail.commons.services.application.VersionException" value="/stylesheets/versionException.jsp" />
+				<entry key="org.esupportail.commons.exceptions.WebFlowException" value="/stylesheets/webFlowException.jsp" />
+				<entry key="org.esupportail.commons.exceptions.ConfigException" value="/stylesheets/configException.jsp" />
+				<entry key="org.esupportail.commons.services.ldap.LdapConnectionException" value="/stylesheets/ldapException.jsp" />
+				<entry key="com.mysql.jdbc.CommunicationsException" value="/stylesheets/databaseException.jsp" />
+				<entry key="com.mchange.v2.resourcepool.CannotAcquireResourceException" value="/stylesheets/databaseException.jsp" />
+				<entry key="java.lang.Exception" value="exception" />
+				<entry key="javax.faces.application.ViewExpiredException" value="exception" />
+				<entry key="org.esupportail.commons.exceptions.DownloadException" value="exception"  />
+				<entry key="javax.servlet.ServletException" value="exception"  />
 			</map>
 		</property>
-		<property name="logLevel" value="${exceptionHandling.logLevel}" />
+		<property name="noEmailExceptions" >
+			<list>
+				<value>org.esupportail.commons.services.ldap.LdapConnectionException</value>
+				<value>javax.faces.application.ViewExpiredException</value>
+			</list>
+		</property>
 		<property name="cacheManager" ref="cacheManager" />
 		<property name="cacheName" value="" />
+		<property name="logLevel" value="${exceptionHandling.logLevel}" />
 	</bean>
-	
 
 </beans>
