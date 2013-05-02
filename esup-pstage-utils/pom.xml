@@ -14,7 +14,7 @@
 		<dependency>
 			<groupId>org.esupportail</groupId>
 			<artifactId>esup-commons2-exceptionHandling</artifactId>
-			<version>0.3.1</version>
+			<version>${esupcommons.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.myfaces.core</groupId>
@@ -25,6 +25,11 @@
 			<groupId>fop</groupId>
 			<artifactId>fop</artifactId>
 			<version>0.20.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.castor</groupId>
+			<artifactId>spring-xml</artifactId>
+			<version>1.2.1</version>
 		</dependency>
 	</dependencies>
 </project>

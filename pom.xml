@@ -91,17 +91,12 @@
                 <version>6.1.26</version>
                 <configuration>
                     <contextPath>/</contextPath>
-                    <!-- <scanIntervalSeconds>3</scanIntervalSeconds> <scanTargetPatterns>
-                        <scanTargetPattern> <directory>src/main/webapp/WEB-INF</directory> <excludes>
-                        <exclude>**/*.jsp</exclude> <exclude>**/*.xhtml</exclude> </excludes> <includes>
-                        <include>**/*.properties</include> <include>**/*.xml</include> </includes>
-                        </scanTargetPattern> </scanTargetPatterns> -->
                 </configuration>
             </plugin>
         </plugins>
     </build>
     <properties>
-        <esupcommons.version>0.3.1</esupcommons.version>
+        <esupcommons.version>0.3.2</esupcommons.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
   <modules>

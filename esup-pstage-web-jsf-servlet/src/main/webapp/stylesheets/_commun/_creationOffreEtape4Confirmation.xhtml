@@ -1,0 +1,12 @@
+<%@include file="_confirmationMessages.jsp"%>
+
+<t:htmlTag value="center">
+	<h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
+		rendered="#{(welcomeController.personnel || welcomeController.admin) && !sessionController.pageAuthorized && !sessionController.adminPageAuthorized}"
+		action="recapitulatifOffreEtabCentre"
+		alt="#{msgs['OFFRE.RECAPITULATIF']}" title="#{msgs['OFFRE.RECAPITULATIF']}"/>
+	<h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
+		rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
+		action="recapitulatifOffreEtab"
+		alt="#{msgs['OFFRE.RECAPITULATIF']}" title="#{msgs['OFFRE.RECAPITULATIF']}"/>
+</t:htmlTag>

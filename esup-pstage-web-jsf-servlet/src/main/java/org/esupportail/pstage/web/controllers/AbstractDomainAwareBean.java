@@ -6,7 +6,7 @@ package org.esupportail.pstage.web.controllers;
 
 import java.util.Locale;
 
-import org.esupportail.commons.beans.AbstractApplicationAwareBean;
+import org.esupportail.commons.beans.AbstractJsfMessagesAwareBean;
 import org.esupportail.commons.services.logging.Logger;
 import org.esupportail.commons.services.logging.LoggerImpl;
 import org.esupportail.commons.utils.Assert;
@@ -20,7 +20,7 @@ import org.esupportail.pstage.domain.beans.User;
  * - the application service (applicationService).
  * - the i18n service (i18nService).
  */
-public abstract class AbstractDomainAwareBean extends AbstractApplicationAwareBean implements Resettable {
+public abstract class AbstractDomainAwareBean extends AbstractJsfMessagesAwareBean implements Resettable {
 
 	/**
 	 * 

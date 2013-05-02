@@ -1,0 +1,26 @@
+<%@include file="../_include.jsp"%>
+
+<rich:modalPanel id="suppressionPersonnel" autosized="true" width="400">
+	<f:facet name="header">
+		<e:text value="#{msgs['CENTRE.PERSONNEL.SUPPRESSION.HEAD']}" />
+	</f:facet>
+	<e:text
+		value="#{msgs['CENTRE.PERSONNEL.SUPPRESSION.RAPPEL']} 
+		#{centreController.personnel.prenom} #{centreController.personnel.nom} 
+		#{msgs['NAVIGATION.ACCESSKEY.ABOUT']}" />
+	<h:form id="formSupprPersonnel">
+		<rich:spacer height="20" />
+		<t:htmlTag value="center">
+			<a4j:commandButton value="#{msgs['FORM.OUI']}"
+				action="#{centreController.supprimerPersonnel}"
+				reRender="personnelDataTable" />
+			<rich:spacer width="30" />
+			<h:commandButton value="#{msgs['FORM.NON']}"
+				onclick="#{rich:component('suppressionPersonnel')}.hide();return false;" />
+			<e:text id="erreurSupprPersonnel" value="" />
+			<rich:message for="erreurSupprPersonnel">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</t:htmlTag>
+	</h:form>
+</rich:modalPanel>

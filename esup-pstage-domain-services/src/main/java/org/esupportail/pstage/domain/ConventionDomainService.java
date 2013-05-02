@@ -7,16 +7,16 @@ package org.esupportail.pstage.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.ConventionDTO;
-import org.esupportail.pstagedata.remote.CritereRechercheConventionDTO;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.EtapeAlreadyExistingForCodeException_Exception;
-import org.esupportail.pstagedata.remote.EtapeDTO;
-import org.esupportail.pstagedata.remote.UfrAlreadyExistingForCodeException_Exception;
-import org.esupportail.pstagedata.remote.UfrDTO;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.ConventionDTO;
+import org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO;
+import org.esupportail.pstagedata.domain.dto.EtapeDTO;
+import org.esupportail.pstagedata.domain.dto.UfrDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.EtapeAlreadyExistingForCodeException;
+import org.esupportail.pstagedata.exceptions.UfrAlreadyExistingForCodeException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 
 /**
  * @author Danielle Martineau : danielle.martineau@univ-rennes1.fr
@@ -66,10 +66,10 @@ public interface ConventionDomainService extends Serializable {
 	public List<ConventionDTO> getConventionsFromCriteresExport(CritereRechercheConventionDTO critereRechercheConvention);
 	
 	/**
-	 * @param id
-	 * @return ConventionDTO pour export
+	 * @param idsConventionsExport
+	 * @return List<ConventionDTO> pour export
 	 */
-	public ConventionDTO getConventionFromExport(int id);
+	public List<ConventionDTO> getConventionsFromExport(List<Integer> idsConventionsExport);
 
 
 	/**
@@ -95,45 +95,45 @@ public interface ConventionDomainService extends Serializable {
 	/**
 	 * @param convention
 	 * @return int
-	 * @throws DataAddException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataAddException
+	 * @throws WebServiceDataBaseException
 	 */
-	public int addConvention(ConventionDTO convention) throws DataAddException_Exception, WebServiceDataBaseException_Exception;
+	public int addConvention(ConventionDTO convention) throws DataAddException, WebServiceDataBaseException;
 
 	/**
 	 * @param convention
 	 * @return boolean
-	 * @throws DataUpdateException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataUpdateException
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean updateConvention(ConventionDTO convention) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateConvention(ConventionDTO convention) throws DataUpdateException, WebServiceDataBaseException;
 
 	/**
 	 * @param code 
 	 * @param idCentreGestion 
 	 * @param codeUniversite 
 	 * @return boolean
-	 * @throws DataUpdateException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataUpdateException
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean updateCentreConventionByUfr(String code, int idCentreGestion, String codeUniversite) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateCentreConventionByUfr(String code, int idCentreGestion, String codeUniversite) throws DataUpdateException, WebServiceDataBaseException;
 	/**
 	 * @param code 
 	 * @param idCentreGestion 
 	 * @param codeUniversite 
 	 * @return boolean
-	 * @throws DataUpdateException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataUpdateException
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean updateCentreConventionByEtape(String code, int idCentreGestion, String codeUniversite) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateCentreConventionByEtape(String code, int idCentreGestion, String codeUniversite) throws DataUpdateException, WebServiceDataBaseException;
 	
 	/**
 	 * @param idConvention
 	 * @return boolean
-	 * @throws DataDeleteException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataDeleteException
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean deleteConvention(int idConvention) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception;
+	public boolean deleteConvention(int idConvention) throws DataDeleteException, WebServiceDataBaseException;
 	
 	/**
 	 * @param idsCentreGestion
@@ -153,11 +153,11 @@ public interface ConventionDomainService extends Serializable {
 	/**
 	 * @param etape
 	 * @return int
-	 * @throws DataAddException_Exception
-	 * @throws WebServiceDataBaseException_Exception
-	 * @throws EtapeAlreadyExistingForCodeException_Exception 
+	 * @throws DataAddException
+	 * @throws WebServiceDataBaseException
+	 * @throws EtapeAlreadyExistingForCodeException 
 	 */
-	public int addEtape(EtapeDTO etape) throws DataAddException_Exception, WebServiceDataBaseException_Exception, EtapeAlreadyExistingForCodeException_Exception;
+	public int addEtape(EtapeDTO etape) throws DataAddException, WebServiceDataBaseException, EtapeAlreadyExistingForCodeException;
 	
 	/**
 	 * @param code
@@ -176,11 +176,11 @@ public interface ConventionDomainService extends Serializable {
 	/**
 	 * @param ufr
 	 * @return int
-	 * @throws DataAddException_Exception
-	 * @throws WebServiceDataBaseException_Exception
-	 * @throws UfrAlreadyExistingForCodeException_Exception 
+	 * @throws DataAddException
+	 * @throws WebServiceDataBaseException
+	 * @throws UfrAlreadyExistingForCodeException 
 	 */
-	public int addUfr(UfrDTO ufr) throws DataAddException_Exception, WebServiceDataBaseException_Exception, UfrAlreadyExistingForCodeException_Exception;
+	public int addUfr(UfrDTO ufr) throws DataAddException, WebServiceDataBaseException, UfrAlreadyExistingForCodeException;
 	
 	/**
 	 * @param codeEtape 

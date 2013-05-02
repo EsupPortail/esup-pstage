@@ -1,0 +1,14 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="3"
+	rendered="#{rechercheController.afficherBoutonAjoutEtab}">
+	<e:text value="#{msgs['STRUCTURE.AJOUT.CREER']}" escape="false" />
+	<h:commandLink id="ajoutEtab"
+		action="#{etablissementController.goToCreationEtablissement}">
+		<f:setPropertyActionListener value="#{true}"
+			target="#{etablissementController.memeAdresseStructure}" />
+		<h:graphicImage alt="#{msgs['FORM.CREER']}"
+			value="../../media/images/new.png" style="border:0" />
+	</h:commandLink>
+	<rich:toolTip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
+</e:panelGrid>

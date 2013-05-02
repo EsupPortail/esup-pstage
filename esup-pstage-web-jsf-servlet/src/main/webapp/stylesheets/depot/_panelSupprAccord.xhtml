@@ -1,0 +1,10 @@
+<%@include file="../_include.jsp"%>
+<rich:modalPanel id="supprimerAccordPanel" autosized="true" width="400"
+	styleClass="panel" domElementAttachment="parent">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['ACCORD.SUPPRESSION']}" />
+	</f:facet>
+	<h:form id="formSupprAccord">
+		<a4j:include id="include" viewId="/stylesheets/depot/_supprAccordEtape1.jsp"/>
+	</h:form>
+</rich:modalPanel>

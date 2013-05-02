@@ -1,0 +1,628 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<%@include file="../_commun/_champsObligatoires.jsp"%>
+	<e:panelGrid columns="3"
+		rendered="#{offreController.formOffre.idOffre>0}"
+		style="float:right;">
+		<e:bold value="#{msgs['OFFRE']} " />
+		<e:bold value=" #{msgs['OFFRE.ID']}" />
+		<e:text value="#{offreController.formOffre.idOffre}" />
+	</e:panelGrid>
+	<e:panelGrid columns="3">
+		<e:panelGrid columns="1">
+			<e:outputLabel value="#{msgs['OFFRE.INTITULE']} *" for="intitule" />
+			<h:inputText id="intitule" style="text-transform:uppercase;"
+				value="#{offreController.formOffre.intitule}" size="50"
+				maxlength="200" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:converter binding="#{sansAccentEnMAJConverter}" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="intitule">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:panelGrid columns="1"
+				rendered="#{!offreController.avecFichierOuLien}">
+				<e:outputLabel value="#{msgs['OFFRE.REFOFFRE']}" for="refOffre" />
+				<h:inputText id="refOffre"
+					value="#{offreController.formOffre.referenceOffreEtablissement}"
+					size="50" maxlength="100">
+					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				</h:inputText>
+				<rich:message for="refOffre">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+			<e:outputLabel value="#{msgs['OFFRE.TYPEOFFRE']} *" for="typeOffre" />
+			<h:selectOneMenu id="typeOffre"
+				value="#{offreController.formOffre.typeOffre}"
+				converter="#{typeOffreConverter}" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				disabled="true">
+				<f:selectItems value="#{nomenclatureController.typesOffre}" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:selectOneMenu>
+			<e:outputLabel value="#{msgs['OFFRE.CONTRATOFFRE']} *" for="contrat"
+				rendered="#{not empty offreController.contratsListening}" />
+			<h:selectOneMenu id="contrat"
+				value="#{offreController.formOffre.contratOffre}"
+				converter="#{contratOffreConverter}" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				rendered="#{not empty offreController.contratsListening}">
+				<f:selectItem itemValue="" />
+				<f:selectItems value="#{offreController.contratsListening}" />
+				<a4j:support event="onchange" ignoreDupResponses="true"
+					reRender="opDuree" ajaxSingle="true" />
+			</h:selectOneMenu>
+			<rich:message for="contrat">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</e:panelGrid>
+		<e:panelGrid columns="3"
+			rendered="#{!offreController.avecFichierOuLien}">
+			<rich:spacer width="25px" />
+			<rich:spacer width="2px"
+				style="background-color: #{a4jSkin.panelBorderColor};"
+				height="180px" />
+			<rich:spacer width="25px" />
+		</e:panelGrid>
+		<e:panelGrid columns="1"
+			rendered="#{!offreController.avecFichierOuLien}">
+			<a4j:outputPanel id="opDebutMission">
+				<e:panelGrid columns="1">
+					<e:text value="#{msgs['OFFRE.DEBUT']}" />
+					<e:panelGrid columns="5">
+						<e:outputLabel value="#{msgs['OFFRE.DEBUT.MOIS']} "
+							for="moisMission" />
+						<h:selectOneMenu id="moisMission"
+							value="#{offreController.formOffre.moisDebut}"
+							required="#{empty offreController.formOffre.precisionDebut}"
+							requiredMessage="#{requiredMessageController.champObligatoire}">
+							<f:selectItem itemValue="" />
+							<f:selectItems value="#{nomenclatureController.mois}" />
+							<a4j:support event="onchange" ignoreDupResponses="true"
+								reRender="precisionDebutMission" ajaxSingle="true"
+								process="anneeMission"/>
+						</h:selectOneMenu>
+						<rich:spacer width="20px" />
+						<e:outputLabel value="#{msgs['OFFRE.DEBUT.ANNEE']} "
+							for="anneeMission" />
+						<h:selectOneMenu id="anneeMission"
+							value="#{offreController.formOffre.anneeDebut}"
+							required="#{empty offreController.formOffre.precisionDebut}"
+							requiredMessage="#{requiredMessageController.champObligatoire}">
+							<f:selectItem itemValue="" />
+							<f:selectItems value="#{nomenclatureController.annees}" />
+							<a4j:support event="onchange" ignoreDupResponses="true"
+								reRender="precisionDebutMission" ajaxSingle="true" 
+								process="moisMission"/>
+						</h:selectOneMenu>
+						<t:panelGroup colspan="3">
+							<rich:message for="moisMission">
+								<%@include file="../_commun/_messageErrorMarker.jsp"%>
+							</rich:message>
+						</t:panelGroup>
+						<t:panelGroup colspan="2">
+							<rich:message for="anneeMission">
+								<%@include file="../_commun/_messageErrorMarker.jsp"%>
+							</rich:message>
+						</t:panelGroup>
+					</e:panelGrid>
+					<e:outputLabel value="#{msgs['OFFRE.DEBUT.PRECISION']} "
+						for="precisionDebutMission" />
+					<h:inputText id="precisionDebutMission"
+						value="#{offreController.formOffre.precisionDebut}" size="50"
+						maxlength="200"
+						required="#{empty offreController.formOffre.moisDebut and empty offreController.formOffre.anneeDebut}"
+						requiredMessage="#{requiredMessageController.champObligatoire}">
+						<a4j:support event="onchange" ignoreDupResponses="true"
+							reRender="moisMission, anneeMission" ajaxSingle="true" />
+					</h:inputText>
+					<rich:message for="precisionDebutMission">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+				</e:panelGrid>
+			</a4j:outputPanel>
+			<a4j:outputPanel id="opDuree">
+				<e:panelGrid columns="1"
+					rendered="#{offreController.formOffre.contratOffre==beanUtils.cdd ||
+				offreController.formOffre.typeOffre==beanUtils.stage ||
+				offreController.formOffre.typeOffre==beanUtils.alternance ||
+				offreController.formOffre.typeOffre==beanUtils.vieVia}">
+					<e:panelGrid columns="2">
+						<e:outputLabel value="#{msgs['OFFRE.DUREE']}" for="duree" />
+						<e:outputLabel value=" *" for="duree" />
+					</e:panelGrid>
+					<e:panelGrid columns="4">
+						<h:inputText id="duree" value="#{offreController.formOffre.duree}"
+							size="6" maxlength="6" required="true"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							validatorMessage="#{requiredMessageController.superieurA0}">
+							<f:validator binding="#{entierValidator}" />
+							<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+							<f:validateLongRange minimum="1" />
+						</h:inputText>
+						<rich:spacer width="20px" />
+						<h:selectOneMenu id="uniteDuree"
+							value="#{offreController.formOffre.uniteDuree}"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							required="true" converter="#{uniteDureeConverter}">
+							<f:selectItem itemValue="" />
+							<f:selectItems value="#{nomenclatureController.unitesDurees}" />
+							<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+						</h:selectOneMenu>
+						<rich:message for="uniteDuree">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+						<t:panelGroup colspan="4">
+							<rich:message for="duree">
+								<%@include file="../_commun/_messageErrorMarker.jsp"%>
+							</rich:message>
+						</t:panelGroup>
+					</e:panelGrid>
+				</e:panelGrid>
+			</a4j:outputPanel>
+		</e:panelGrid>
+	</e:panelGrid>
+	<%
+		/* 
+			 <a4j:region renderRegionOnly="true">
+			 <e:panelGrid columns="1">
+			 <e:outputLabel value="#{msgs['OFFRE.NIVEAUQUALIFICATION']} *"
+			 for="niveauQualification" />
+			 <h:selectOneMenu id="niveauQualification"
+			 value="#{offreController.formOffre.fapQualificationSimplifiee}"
+			 converter="#{fapQualificationSimplifieeConverter}" required="true"
+			 requiredMessage="#{requiredMessageController.champObligatoire}"
+			 valueChangeListener="#{offreController.valueFapQualificationSimplifieeChanged}">
+			 <f:selectItem itemValue="" />
+			 <f:selectItems
+			 value="#{nomenclatureController.fapQualificationsSimplifiees}" />
+			 <a4j:support event="onchange" ignoreDupResponses="true"
+			 reRender="opFapN3" ajaxSingle="true" />
+			 </h:selectOneMenu>
+			 <rich:message for="niveauQualification">*/
+	%>
+	<%
+		/*@include file="../_commun/_messageErrorMarker.jsp"*/
+	%>
+	<%
+		/*</rich:message>
+			 </e:panelGrid>
+			 <a4j:outputPanel id="opFapN3">
+			 <e:panelGrid columns="1">
+			 <e:outputLabel value="#{msgs['OFFRE.DOMAINE']} *" for="fapN3"
+			 rendered="#{not empty offreController.fapN3Listening}" />
+			 <h:selectOneMenu id="fapN3"
+			 value="#{offreController.formOffre.fapN3}"
+			 converter="#{fapN3Converter}" required="true"
+			 requiredMessage="#{requiredMessageController.champObligatoire}"
+			 rendered="#{not empty offreController.fapN3Listening}"
+			 style="width:300px;">
+			 <f:selectItem itemValue="" />
+			 <f:selectItems value="#{offreController.fapN3Listening}" />
+			 <rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			 </h:selectOneMenu>
+			 <rich:message for="fapN3">*/
+	%>
+	<%
+		/*@include file="../_commun/_messageErrorMarker.jsp"*/
+	%>
+	<%
+		/*	</rich:message>
+			 </e:panelGrid>
+			 </a4j:outputPanel>
+			 </a4j:region>
+			 */
+	%>
+	<e:panelGrid columns="1">
+		<e:outputLabel value="#{msgs['OFFRE.DOMAINE']} *" for="fapN3" />
+		<h:selectOneMenu id="fapN3" value="#{offreController.formOffre.fapN1}"
+			converter="#{fapN1Converter}" required="true"
+			requiredMessage="#{requiredMessageController.champObligatoire}"
+			style="width:300px;">
+			<f:selectItem itemValue="" />
+			<f:selectItems value="#{nomenclatureController.fapN1}" />
+			<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+		</h:selectOneMenu>
+		<rich:message for="fapN3">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+	</e:panelGrid>
+	<e:panelGrid columns="1"
+		rendered="#{offreController.avecFichierOuLien}">
+		<e:outputLabel value="#{msgs['OFFRE.NIVEAUFORMATION']} *"
+			for="niveauFormationF" />
+		<h:selectOneMenu id="niveauFormationF"
+			value="#{offreController.formOffre.niveauFormation}"
+			converter="#{niveauFormationConverter}" required="true"
+			requiredMessage="#{requiredMessageController.champObligatoire}">
+			<f:selectItem itemValue="" />
+			<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
+			<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+		</h:selectOneMenu>
+		<rich:message for="niveauFormationF">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+	</e:panelGrid>
+	<e:outputLabel value="#{msgs['OFFRE.DESCRIPTION']} *" for="description" />
+	<rich:editor id="description"
+		value="#{offreController.formOffre.description}" width="400"
+		height="200" required="true" 
+		requiredMessage="#{requiredMessageController.champObligatoire}">
+		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+	</rich:editor>
+	<rich:message for="description">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+	<e:panelGrid columns="3">
+		<e:panelGrid columns="1">
+			<e:text value="#{msgs['OFFRE.LIEU']}" escape="false" />
+			<a4j:region renderRegionOnly="true">
+				<a4j:outputPanel id="opCodePostal">
+					<e:panelGrid columns="1"
+						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+				(offreController.formOffre.lieuPays!=beanUtils.france && offreController.formOffre.lieuPays.cog!=beanUtils.cogFrance
+				&& sessionController.recupererCommunesDepuisApogee)}">
+						<e:panelGrid columns="2">
+							<e:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
+								for="codePostal" />
+							<e:outputLabel value=" *" for="codePostal"
+								rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+				(offreController.formOffre.lieuPays!=beanUtils.france && offreController.formOffre.lieuPays.cog!=beanUtils.cogFrance
+				&& sessionController.recupererCommunesDepuisApogee)}" />
+						</e:panelGrid>
+						<h:inputText id="codePostal"
+							value="#{offreController.formOffre.lieuCodePostal}" size="20"
+							maxlength="10"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							required="#{!sessionController.recupererCommunesDepuisApogee && 
+								(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)}">
+							<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+						</h:inputText>
+						<rich:message for="codePostal">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+					</e:panelGrid>
+					<e:panelGrid columns="1"
+						rendered="#{(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)
+				&& sessionController.recupererCommunesDepuisApogee}">
+						<a4j:region id="dynaR">
+							<e:panelGrid columns="1">
+								<e:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
+									for="dynaCodePostal" />
+								<h:inputText id="dynaCodePostal"
+									value="#{offreController.formOffre.lieuCodePostal}" size="5"
+									maxlength="5" required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}"
+									validatorMessage="#{requiredMessageController.codePostalNonValide}"
+									valueChangeListener="#{offreController.formOffreValueCodePostalChanged}">
+									<a4j:support event="onkeyup" reRender="opDynaCommune"
+										ignoreDupResponses="true" ajaxSingle="true"
+										requestDelay="1000" />
+								</h:inputText>
+							</e:panelGrid>
+						</a4j:region>
+						<rich:message for="dynaCodePostal">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+					</e:panelGrid>
+				</a4j:outputPanel>
+				<e:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
+				<a4j:outputPanel id="opCommune">
+					<e:panelGrid columns="1"
+						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+				(offreController.formOffre.lieuPays!=beanUtils.france && offreController.formOffre.lieuPays.cog!=beanUtils.cogFrance
+				&& sessionController.recupererCommunesDepuisApogee)}">
+						<h:inputText id="commune" style="text-transform:uppercase;"
+							value="#{offreController.formOffre.lieuCommune}" size="50"
+							maxlength="200" required="true"
+							requiredMessage="#{requiredMessageController.champObligatoire}">
+							<f:converter binding="#{sansAccentEnMAJConverter}" />
+							<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+						</h:inputText>
+						<rich:message for="commune">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+					</e:panelGrid>
+					<e:panelGrid columns="1"
+						rendered="#{(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)
+				&& sessionController.recupererCommunesDepuisApogee}">
+						<a4j:outputPanel id="opDynaCommune">
+							<h:selectOneMenu id="dynaCommune"
+								value="#{offreController.formOffre.codeCommune}" required="true"
+								requiredMessage="#{requiredMessageController.champObligatoire}">
+								<f:selectItem itemValue="" />
+								<f:selectItems
+									value="#{offreController.formOffreCommunesListening}" />
+								<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+								<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+								<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+							</h:selectOneMenu>
+							<rich:message for="dynaCommune">
+								<%@include file="../_commun/_messageErrorMarker.jsp"%>
+							</rich:message>
+						</a4j:outputPanel>
+						<a4j:status for="dynaR">
+							<f:facet name="start">
+								<h:graphicImage value="../../media/images/ajax_process.gif"
+									alt="#{msgs['GENERAL.LOADING']}" />
+							</f:facet>
+						</a4j:status>
+					</e:panelGrid>
+				</a4j:outputPanel>
+				<e:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
+				<e:panelGrid columns="2">
+					<a4j:outputPanel id="opFlag">
+						<rich:spacer width="16px"
+							rendered="#{empty offreController.formOffre.lieuPays}" />
+						<h:graphicImage id="flag"
+							rendered="#{not empty offreController.formOffre.lieuPays}"
+							value="../../media/images/flags/#{offreController.formOffre.lieuPays.iso2}.png"
+							alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+							title="#{offreController.formOffre.lieuPays.libelle}" />
+					</a4j:outputPanel>
+					<h:selectOneMenu id="pays"
+						value="#{offreController.formOffre.lieuPays}"
+						converter="#{paysConverter}" required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}"
+						styleClass="paysInput">
+						<f:selectItems value="#{nomenclatureController.pays}" />
+						<a4j:support event="onchange"
+							reRender="opFlag, opCommune, opCodePostal"
+							ignoreDupResponses="true" ajaxSingle="true" />
+					</h:selectOneMenu>
+				</e:panelGrid>
+				<rich:message for="pays">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</a4j:region>
+			<e:panelGrid columns="1"
+				rendered="#{!offreController.avecFichierOuLien}">
+				<rich:spacer height="20px" />
+				<e:outputLabel value="#{msgs['OFFRE.INDEMNITE']} *" for="indemnite" />
+				<h:selectOneRadio id="indemnite"
+					value="#{offreController.formOffre.remuneration}" required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					<a4j:support event="onchange" ignoreDupResponses="true"
+						ajaxSingle="true" reRender="opPrecisionsIndemnite" />
+				</h:selectOneRadio>
+				<rich:message for="indemnite">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+				<a4j:outputPanel id="opPrecisionsIndemnite">
+					<e:panelGrid columns="1">
+						<e:panelGrid columns="2">
+							<e:outputLabel value="#{msgs['OFFRE.INDEMNITE_PRECISIONS']}"
+								for="precisionsIndemnite" />
+							<e:outputLabel value=" *" for="precisionsIndemnite"
+								rendered="#{offreController.formOffre.remuneration}" />
+						</e:panelGrid>
+						<h:inputText id="precisionsIndemnite"
+							value="#{offreController.formOffre.precisionRemuneration}"
+							size="50" maxlength="200"
+							required="#{offreController.formOffre.remuneration}"
+							requiredMessage="#{requiredMessageController.champObligatoire}">
+							<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+						</h:inputText>
+						<rich:message for="precisionsIndemnite">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+					</e:panelGrid>
+				</a4j:outputPanel>
+				<e:outputLabel value="#{msgs['OFFRE.AVANTAGES']}" for="avantages" />
+				<h:inputText id="avantages"
+					value="#{offreController.formOffre.avantages}" size="50"
+					maxlength="200">
+				</h:inputText>
+				<rich:message for="avantages">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+				<rich:spacer height="50px" />
+				<e:outputLabel value="#{msgs['OFFRE.NIVEAUFORMATION']} *"
+					for="niveauFormation" />
+				<h:selectOneMenu id="niveauFormation"
+					value="#{offreController.formOffre.niveauFormation}"
+					converter="#{niveauFormationConverter}" required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<f:selectItem itemValue="" />
+					<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
+					<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+				</h:selectOneMenu>
+				<rich:message for="niveauFormation">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+				<e:outputLabel value="#{msgs['OFFRE.COMPSOUHAITEES']}"
+					for="compSouhaitees" />
+				<rich:editor id="compSouhaitees"
+					value="#{offreController.formOffre.competences}" width="300"
+					height="200" />
+				<rich:message for="compSouhaitees">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+		</e:panelGrid>
+		<e:panelGrid columns="3"
+			rendered="#{!offreController.avecFichierOuLien}">
+			<rich:spacer width="25px" />
+			<rich:spacer width="2px"
+				style="background-color: #{a4jSkin.panelBorderColor};"
+				height="750px" />
+			<rich:spacer width="25px" />
+		</e:panelGrid>
+		<e:panelGrid columns="1"
+			rendered="#{!offreController.avecFichierOuLien}">
+			<e:outputLabel value="#{msgs['OFFRE.DEPLACEMENT']} *"
+				for="deplacement" />
+			<h:selectOneRadio id="deplacement"
+				value="#{offreController.formOffre.deplacement}" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+				<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+				<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+			</h:selectOneRadio>
+			<rich:message for="deplacement">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel value="#{msgs['OFFRE.PERMIS']} *" for="permis" />
+			<h:selectOneRadio id="permis"
+				value="#{offreController.formOffre.permis}" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+				<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+				<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+			</h:selectOneRadio>
+			<rich:message for="permis">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<rich:spacer height="90px" />
+			<e:panelGrid columns="3">
+				<e:panelGrid columns="1">
+					<e:outputLabel value="#{msgs['OFFRE.TEMPSTRAVAIL']} *"
+						for="tempsTravail" />
+					<h:selectOneMenu id="tempsTravail"
+						value="#{offreController.formOffre.tempsTravail}"
+						converter="#{tempsTravailConverter}" required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}">
+						<f:selectItem itemValue="" />
+						<f:selectItems value="#{nomenclatureController.tempsTravail}" />
+						<a4j:support event="onchange" ignoreDupResponses="true"
+							reRender="opQuotiteTravail" ajaxSingle="true" />
+					</h:selectOneMenu>
+					<rich:message for="tempsTravail">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+				</e:panelGrid>
+				<rich:spacer width="20px" />
+				<a4j:outputPanel id="opQuotiteTravail">
+					<e:panelGrid columns="1"
+						rendered="#{offreController.formOffre.tempsTravail==beanUtils.tempsPartiel}">
+						<e:panelGrid columns="2">
+							<e:outputLabel value="#{msgs['OFFRE.QUOTITETRAVAIL']}"
+								for="quotiteTravail" />
+							<e:outputLabel value=" *" for="quotiteTravail" />
+						</e:panelGrid>
+						<e:panelGrid columns="2">
+							<h:inputText id="quotiteTravail"
+								value="#{offreController.formOffre.quotiteTravail}" size="3"
+								maxlength="3"
+								required="#{offreController.formOffre.tempsTravail==beanUtils.tempsPartiel}"
+								requiredMessage="#{requiredMessageController.champObligatoire}"
+								validatorMessage="#{requiredMessageController.pourcentage}">
+								<f:validator binding="#{pourcentageValidator}" />
+								<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+							</h:inputText>
+							<e:text value="%" />
+						</e:panelGrid>
+						<rich:message for="quotiteTravail">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+					</e:panelGrid>
+				</a4j:outputPanel>
+			</e:panelGrid>
+			<e:outputLabel value="#{msgs['OFFRE.COMTPSTRAVAIL']}"
+				for="comTpsTravail" />
+			<h:inputText id="comTpsTravail"
+				value="#{offreController.formOffre.commentaireTempsTravail}"
+				size="50" maxlength="200">
+			</h:inputText>
+			<rich:message for="comTpsTravail">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<rich:spacer height="40px" />
+			<e:outputLabel value="#{msgs['OFFRE.MODECANDIDATURE']} *"
+				for="modeCand" />
+			<h:selectManyListbox id="modeCand"
+				value="#{offreController.formOffre.modesCandidature}"
+				converter="#{modeCandidatureConverter}" style="width:200px;"
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				required="true">
+				<f:selectItems value="#{nomenclatureController.modesCandidature}" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:selectManyListbox>
+			<rich:message for="modeCand">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel value="#{msgs['OFFRE.COMOBS']}" for="comobs" />
+			<rich:editor id="comobs"
+				value="#{offreController.formOffre.observations}" width="300"
+				height="200" />
+			<rich:message for="comobs">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</e:panelGrid>
+	</e:panelGrid>
+	<rich:spacer height="10" />
+	<e:panelGrid columns="1" rendered="#{sessionController.moderationActive && sessionController.pageAuthorized}">
+		<e:panelGrid columns="2" rendered="#{!offreController.formOffre.estDiffusee}">
+			<h:graphicImage value="../../media/images/information.png" alt="#{msgs['GENERAL.OK']}" />
+			<e:outputLabel value="#{msgs['OFFRE.GESTION.DIFFUSION.MODERATION.MSG_NODIFF']}" />
+		</e:panelGrid>
+	</e:panelGrid>
+	<e:panelGrid columns="1" id="diffusionOffre" 
+		rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer
+		|| sessionController.adminPageAuthorized || sessionController.pageAuthorized) && !offreController.formOffre.estDiffusee
+		&& !(sessionController.pageAuthorized && sessionController.moderationActive)}">
+		<e:panelGrid columns="2">
+			<e:outputLabel value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION.FORM']}" /> 
+			<h:selectOneRadio value="#{offreController.diffusionDirecte}">
+				<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+				<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+				<a4j:support event="onclick" ignoreDupResponses="true"
+					ajaxSingle="true" reRender="diffusionOffre" />
+			</h:selectOneRadio>
+		</e:panelGrid>
+		<e:panelGrid columns="2" rendered="#{offreController.diffusionDirecte}">
+			<e:text value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION.DUREE']}" escape="false" />
+			<e:panelGrid columns="2">
+				<h:selectOneMenu id="dureeDiffusion"
+					value="#{offreController.dureeDiffusion}">
+					<f:selectItems value="#{offreController.dureesDiffusion}" />
+				</h:selectOneMenu>
+				<rich:message for="dureeDiffusion">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+		</e:panelGrid>
+	</e:panelGrid>
+	<rich:spacer height="20" />
+	<%
+		/* <e:panelGrid columns="1" width="500">
+				<e:text value="#{msgs['OFFRE.ACCESSHANDI']} *" escape="false" /> 
+				<h:selectOneRadio id="accessHandi"
+					value="#{offreController.formOffre.estAccessERQTH}" required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					<a4j:support event="onchange" ignoreDupResponses="true"
+						ajaxSingle="true" reRender="prioHandi" />
+				</h:selectOneRadio>
+				<rich:message for="accessHandi"> */
+	%>
+		<%
+			/* @include file="../_commun/_messageErrorMarker.jsp" */
+		%>
+	<%
+		/* </rich:message>
+				<e:text value="#{msgs['OFFRE.PRIOHANDI']} *" escape="false" />
+				<h:selectOneRadio id="prioHandi"
+					value="#{offreController.formOffre.estPrioERQTH}" required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					<a4j:support event="onchange" ignoreDupResponses="true"
+						reRender="accessHandi" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<rich:message for="prioHandi"> */
+	%>
+		<%
+			/* @include file="../_commun/_messageErrorMarker.jsp" */
+		%>
+	<%
+		/* 	</rich:message>
+			</e:panelGrid> */
+	%>
+</e:panelGrid>

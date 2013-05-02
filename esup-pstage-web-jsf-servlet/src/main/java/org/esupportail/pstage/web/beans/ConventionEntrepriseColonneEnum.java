@@ -124,34 +124,29 @@ public enum ConventionEntrepriseColonneEnum {
 	col23("EXPORTCONVENTION.SERVICE.PAYS", "service.pays.libelle"),
 
 	/**
-	 * col24 , Civilite tuteur professionnel.
+	 * col24 , Nom tuteur professionnel.
 	 */
-	col24("EXPORTCONVENTION.CIVILITE.CONTACT", "contact.civilite.libelle"),
+	col24("EXPORTCONVENTION.NOM.CONTACT", "contact.nom"),
 	
 	/**
-	 * col25 , Nom tuteur professionnel.
+	 * col25 , Prenom tuteur professionnel.
 	 */
-	col25("EXPORTCONVENTION.NOM.CONTACT", "contact.nom"),
+	col25("EXPORTCONVENTION.PRENOM.CONTACT", "contact.prenom"),
 	
 	/**
-	 * col26 , Prenom tuteur professionnel.
+	 * col26 , Mail tuteur professionnel.
 	 */
-	col26("EXPORTCONVENTION.PRENOM.CONTACT", "contact.prenom"),
+	col26("EXPORTCONVENTION.MAIL.CONTACT", "contact.mail"),
 	
 	/**
-	 * col27 , Mail tuteur professionnel.
+	 * col27 , tel tuteur professionnel.
 	 */
-	col27("EXPORTCONVENTION.MAIL.CONTACT", "contact.mail"),
+	col27("EXPORTCONVENTION.TEL.CONTACT", "contact.tel"),
 	
 	/**
-	 * col28 , tel tuteur professionnel.
+	 * col28 , fonction tuteur professionnel.
 	 */
-	col28("EXPORTCONVENTION.TEL.CONTACT", "contact.tel"),
-	
-	/**
-	 * col29 , fonction tuteur professionnel.
-	 */
-	col29("EXPORTCONVENTION.FONCTION.CONTACT", "contact.fonction");
+	col28("EXPORTCONVENTION.FONCTION.CONTACT", "contact.fonction");
 
 
 

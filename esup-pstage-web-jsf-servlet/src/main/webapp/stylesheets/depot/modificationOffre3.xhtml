@@ -1,0 +1,38 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<t:div>
+		<e:panelGrid style="float:left;">
+			<%@include file="./_menu.jsp"%>
+		</e:panelGrid>
+		<e:panelGrid columns="1"
+			styleClass="panelEntreprise"
+			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+			<rich:panel>
+				<f:facet name="header">
+					<e:text value="#{msgs['OFFRE.MODIFICATION']}" />
+				</f:facet>
+				<h:form id="formModificationOffre">
+					<a4j:include id="include"
+						viewId="/stylesheets/_commun/_modificationOffreEtape3.jsp" />
+					<h:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
+						action="#{offreController.getRetour}"
+						alt="#{msgs['FORM.ANNULERETRETOUR']}"
+						title="#{msgs['FORM.ANNULERETRETOUR']}" immediate="true"
+						style="float:right;">
+					</h:commandButton>
+				</h:form>
+				<rich:message for="formModificationOffre">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+				<%@include file="../_commun/_panelAjoutService.jsp"%>
+				<%@include file="../_commun/_panelModifService.jsp"%>
+				<%@include file="../_commun/_panelAjoutContact.jsp"%>
+				<%@include file="../_commun/_panelModifContact.jsp"%>
+			</rich:panel>
+			<%@include file="_panelNousContacter.jsp"%>
+		</e:panelGrid>
+		<rich:editor rendered="false"/>
+	</t:div>
+</e:page>

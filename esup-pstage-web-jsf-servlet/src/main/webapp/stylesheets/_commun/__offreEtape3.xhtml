@@ -1,0 +1,81 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<%@include file="../_commun/_champsObligatoires.jsp"%>
+	<e:panelGrid columns="3" rendered="#{offreController.formOffre.idOffre>0}"
+	style="float:right;">
+		<e:bold value="#{msgs['OFFRE']} " />
+		<e:bold value=" #{msgs['OFFRE.ID']}" />
+		<e:text value="#{offreController.formOffre.idOffre}" />
+	</e:panelGrid>
+	<e:panelGrid rendered="#{offreController.fichierOuLien==1}">
+		<a4j:outputPanel id="opUploadFile">
+			<e:panelGrid rendered="#{offreController.formOffre.idFichier<=0}">
+				<e:text value="#{msgs['OFFRE.SELECTIONFICHIER']}" />
+				<rich:fileUpload
+					fileUploadListener="#{sessionController.offreFileUploadBean.fileUploadListener}"
+					id="uploadFile" immediateUpload="true"
+					acceptedTypes="#{sessionController.uploadFilesOffresFileExtensions}" maxFilesQuantity="1"
+					listHeight="0" listWidth="250" autoclear="true"
+					addControlLabel="Sélectionner " cancelEntryControlLabel=""
+					required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<a4j:support event="onuploadcomplete" reRender="opUploadFile"
+						action="#{offreController.insertUploadedFile}" ajaxSingle="true" />
+				</rich:fileUpload>
+				<e:text value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
+					style="font-size:10px;">
+					<f:param value="#{sessionController.uploadFilesFileSizeLimit}" />
+				</e:text>
+				<e:text value="#{msgs['OFFRE.EXTENSIONFICHIER']}"
+					style="font-size:10px;">
+					<f:param value="#{sessionController.uploadFilesOffresFileExtensions}" />
+				</e:text>
+				<rich:message for="uploadFile">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+
+			<e:panelGrid rendered="#{offreController.formOffre.idFichier>0}">
+				<e:text value="#{msgs['OFFRE.FICHIERUPLOADE']}" />
+				<e:panelGrid columns="2">
+					<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
+						title="#{msgs['GENERAL.FILE']}"
+						value="../../media/images/docu.png" style="border:0" />
+					<e:text value="#{offreController.formOffre.fichier.nomReel}" rendered="#{not empty offreController.formOffre.fichier.nomReel}"/>
+					<e:text value="#{offreController.formOffre.fichier.nomFichier}" rendered="#{empty offreController.formOffre.fichier.nomReel}"/>
+				</e:panelGrid>
+				<a4j:commandLink action="#{offreController.deleteUploadedFile}"
+					reRender="opUploadFile">
+					<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
+						title="#{msgs['GENERAL.FILE']}"
+						value="../../media/images/cancel.png" style="border:0" />
+					<e:text value=" #{msgs['OFFRE.MODIFFICHIER']}" />
+				</a4j:commandLink>
+			</e:panelGrid>
+		</a4j:outputPanel>
+	</e:panelGrid>
+
+	<e:panelGrid rendered="#{offreController.fichierOuLien==2}">
+		<e:panelGrid columns="2">
+			<h:graphicImage
+				value="../../media/images/lien.png" style="border:0" />
+			<e:panelGrid columns="1">
+				<e:text value="#{msgs['OFFRE.SAISIELIEN']} *" />
+				<h:inputText id="lien"
+					value="#{offreController.formOffre.lienAttache}" required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}"
+					size="50"
+					validatorMessage="#{requiredMessageController.siteWebNonValide}"
+					maxlength="200">
+					<f:validator binding="#{siteWebValidator}" />
+					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				</h:inputText>
+				<rich:message for="lien">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+		</e:panelGrid>
+	</e:panelGrid>
+</e:panelGrid>

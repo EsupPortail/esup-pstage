@@ -1,0 +1,40 @@
+<%@include file="../_include.jsp"%>
+<e:panelGrid columns="1"
+	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+	<rich:panel>
+		<f:facet name="header">
+			<e:text value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE']}" />
+		</f:facet>
+		<rich:spacer height="20" />
+		<e:text value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.DEMANDE']}" />
+
+		<rich:spacer height="20" />
+		<%@include file="/stylesheets/stage/_conventionEtape5StageForm.jsp"%>
+
+		<e:panelGrid columns="3">
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionEtape4Contact}"
+				value="#{msgs['FORM.PREVIOUS']}" immediate="true">
+			</a4j:commandButton>
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionCtrlStage}"
+				value="#{msgs['FORM.VALIDER']}" reRender="opFCE">
+			</a4j:commandButton>
+			<a4j:outputPanel id="opFCE">
+				<e:panelGrid columns="3"
+					rendered="#{facesContext.maximumSeverity != null}">
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+					<e:text value="#{msgs['FORM.FORMERROR']}" />
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+				</e:panelGrid>
+			</a4j:outputPanel>
+		</e:panelGrid>
+
+
+	</rich:panel>
+</e:panelGrid>
+

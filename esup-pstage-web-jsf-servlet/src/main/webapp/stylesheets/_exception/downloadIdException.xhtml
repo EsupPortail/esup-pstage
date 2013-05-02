@@ -1,0 +1,31 @@
+<%@page import="javax.faces.application.FacesMessage"%>
+<%@page import="javax.faces.context.FacesContext"%>
+<%@include file="../_include.jsp"%>
+<%@page import="org.springframework.util.StringUtils"%>
+
+<e:page>	
+	<rich:panel styleClass="panelEntreprise">
+		<f:facet name="header">
+			<e:text value=" " />
+		</f:facet>
+		<rich:spacer></rich:spacer>
+										
+		<e:panelGrid columns="3" width="100%" alternateColors="true"
+			cellspacing="0" cellpadding="0">
+			<h:graphicImage value="../../media/images/stop.png" style="border:0" />
+			<e:outputLabel for="exceptionName"
+				value="#{msgs['EXCEPTION.EXCEPTION.NAME']}" />
+			<e:text id="exceptionName" escape="false"
+				value="#{msgs['EXCEPTION.DOWNLOADEXCEPTION']}" />
+		</e:panelGrid>
+		<rich:spacer></rich:spacer>	
+		<e:panelGrid columns="3" width="100%" alternateColors="true"
+			cellspacing="0" cellpadding="0">
+			<h:graphicImage value="../../media/images/exclamation.png" style="border:0" />
+			<e:outputLabel for="exceptionMessage"
+				value="#{msgs['EXCEPTION.EXCEPTION.MESSAGE']}" />
+			<e:text id="exceptionMessage" escape="false"
+				value="#{msgs['EXCEPTION.DOWNLOADEXCEPTION.MESSAGE']}" />
+		</e:panelGrid>	
+	</rich:panel>
+</e:page>

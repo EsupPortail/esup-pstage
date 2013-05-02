@@ -1,0 +1,9 @@
+<%@include file="../_include.jsp"%>
+
+<%@include file="./_formAdministrateur.jsp"%>
+<a4j:commandButton action="#{adminController.ajouterAdministrateur}"
+	value="#{msgs['FORM.VALIDER']}" ignoreDupResponses="true"
+	reRender="opAdminDataTable" />
+<rich:spacer width="150px" />
+<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+	onclick="#{rich:component('ajoutAdministrateur')}.hide();return false;" />

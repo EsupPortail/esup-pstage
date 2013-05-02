@@ -1,0 +1,340 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel>
+					<f:facet name="header">
+						<e:text value="#{msgs['RECHERCHECONVENTION.TITRE']}" />
+					</f:facet>
+					<h:form id="formRechConvention">
+						<a4j:region id="rTelechargement">
+						<e:panelGrid columns="1" style="width:auto;">
+							<e:outputLabel
+								value="#{msgs['RECHERCHECONVENTION.NUMCONVENTION']}"
+								for="numConvention" />
+							<h:inputText id="numConvention"
+								value="#{conventionController.critereRechercheConvention.idConvention}"
+								size="10" maxlength="10" />
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.SUJETSTAGE']}"
+								rendered="#{conventionController.rechercheAvancee}"
+								for="sujetStage" />
+							<h:inputText id="sujetStage"
+								rendered="#{conventionController.rechercheAvancee}"
+								value="#{conventionController.critereRechercheConvention.sujetStage}"
+								size="50" maxlength="200" />
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.TYPECONV']}"
+								rendered="#{conventionController.rechercheAvancee}"
+								for="typeConv" />
+							<h:selectOneMenu id="typeConv"
+								value="#{conventionController.critereRechercheConvention.typeConvention}"
+								converter="#{typeConventionConverter}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{nomenclatureController.typeConventions}" />
+							</h:selectOneMenu>
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.THEME']}"
+								rendered="#{conventionController.rechercheAvancee}" for="theme" />
+							<h:selectOneMenu id="theme"
+								value="#{conventionController.critereRechercheConvention.theme}"
+								converter="#{themeConverter}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{nomenclatureController.themes}" />
+							</h:selectOneMenu>
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.NBJH']}"
+								rendered="#{conventionController.rechercheAvancee}" for="nbJH" />
+							<h:selectOneMenu id="nbJH"
+								value="#{conventionController.critereRechercheConvention.nbJoursHebdo}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{conventionController.nbJoursHebdoItems}" />
+							</h:selectOneMenu>
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.GRAT']}"
+								rendered="#{conventionController.rechercheAvancee}" for="grat" />
+							<h:selectOneMenu id="grat"
+								value="#{conventionController.critereRechercheConvention.indemnisation}"
+								converter="#{indemnisationConverter}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{nomenclatureController.indemnisations}" />
+							</h:selectOneMenu>
+							<e:outputLabel
+								value="#{msgs['RECHERCHECONVENTION.TEMPSTRAVAIL']}"
+								rendered="#{conventionController.rechercheAvancee}" for="tpsT" />
+							<h:selectOneMenu id="tpsT"
+								value="#{conventionController.critereRechercheConvention.tempsTravail}"
+								converter="#{tempsTravailConverter}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{nomenclatureController.tempsTravail}" />
+							</h:selectOneMenu>
+							<e:outputLabel
+								value="#{msgs['RECHERCHECONVENTION.LANGUEIMPRESSION']}"
+								rendered="#{conventionController.rechercheAvancee}" for="langue" />
+							<h:selectOneMenu id="langue"
+								value="#{conventionController.critereRechercheConvention.langueConvention}"
+								converter="#{langueConventionConverter}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="" />
+								<f:selectItems
+									value="#{nomenclatureController.langueConventions}" />
+							</h:selectOneMenu>
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
+								rendered="#{conventionController.rechercheAvancee}"
+								for="validee" />
+							<h:selectOneRadio id="validee" style="font-size:12px;"
+								value="#{conventionController.estValidee}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="#{'1'}"
+									itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUI']}" />
+								<f:selectItem itemValue="#{'2'}"
+									itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.NON']}" />
+								<f:selectItem itemValue="#{null}"
+									itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUIETNON']}" />
+							</h:selectOneRadio>
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE']}"
+								rendered="#{conventionController.rechercheAvancee}"
+								for="dateStage" />
+							<h:selectOneMenu id="dateStage"
+								value="#{conventionController.critereRechercheConvention.dateStage}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{nomenclatureController.datesStage}" />
+							</h:selectOneMenu>
+							<e:outputLabel rendered="#{not empty nomenclatureController.anneesConvention}"
+								value="#{msgs['RECHERCHECONVENTION.ANNEEU']}" for="anU" />
+							<h:selectOneMenu id="anU" rendered="#{not empty nomenclatureController.anneesConvention}"
+								value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
+								<f:selectItem itemValue="" />
+								<f:selectItems
+									value="#{nomenclatureController.anneesConvention}" />
+							</h:selectOneMenu>
+							<rich:spacer height="5px"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<rich:separator height="4" lineType="beveled"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<rich:spacer height="5px"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.NUMETUDIANT']}"
+								for="numEtudiant" />
+							<h:inputText id="numEtudiant"
+								value="#{conventionController.critereRechercheConvention.numeroEtudiant}"
+								size="10" maxlength="16" />
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.NOMETUDIANT']}"
+								for="nomEtudiant" />
+							<h:inputText id="nomEtudiant"
+								value="#{conventionController.critereRechercheConvention.nomEtudiant}"
+								size="50" maxlength="50" />
+							<e:outputLabel
+								value="#{msgs['RECHERCHECONVENTION.PRENOMETUDIANT']}"
+								for="prenomEtudiant" />
+							<h:inputText id="prenomEtudiant"
+								value="#{conventionController.critereRechercheConvention.prenomEtudiant}"
+								size="50" maxlength="50" />
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.UFRS']}"
+								rendered="#{conventionController.rechercheAvancee and
+								not empty conventionController.rechUfrs}"
+								for="ufrs" />
+							<h:selectManyMenu id="ufrs"
+								value="#{conventionController.critereRechercheConvention.idsUfrs}"
+								rendered="#{conventionController.rechercheAvancee and
+								not empty conventionController.rechUfrs}"
+								style="height:100px;">
+								<f:selectItems value="#{conventionController.rechUfrs}" />
+							</h:selectManyMenu>
+							<e:panelGrid columns="2" style="font-size:11px;"
+								rendered="#{conventionController.rechercheAvancee and
+								not empty conventionController.rechUfrs}">
+								<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.UFRS']}"
+									title="#{msgs['RECHERCHECONVENTION.UFRS']}"
+									value="../../media/images/information.png" style="border:0" />
+								<e:text value="#{msgs['RECHERCHECONVENTION.UFRS.AIDE']}" />
+							</e:panelGrid>
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.ETAPES']}"
+								rendered="#{conventionController.rechercheAvancee
+								and not empty conventionController.rechEtapes}"
+								for="etapes" />
+							<h:selectManyMenu id="etapes"
+								value="#{conventionController.critereRechercheConvention.idsEtapes}"
+								rendered="#{conventionController.rechercheAvancee
+								and not empty conventionController.rechEtapes}"
+								style="height:100px;">
+								<f:selectItems value="#{conventionController.rechEtapes}" />
+							</h:selectManyMenu>
+							<e:panelGrid columns="2" style="font-size:11px;"
+								rendered="#{conventionController.rechercheAvancee
+								and not empty conventionController.rechEtapes}">
+								<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"
+									title="#{msgs['RECHERCHECONVENTION.ETAPES']}"
+									value="../../media/images/information.png" style="border:0" />
+								<e:text value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
+							</e:panelGrid>
+							<rich:spacer height="5px"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<rich:separator height="4" lineType="beveled"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<rich:spacer height="5px"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<e:outputLabel
+								value="#{msgs['RECHERCHECONVENTION.NOMENSEIGNANT']}"
+								for="nomEnseignant"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<h:inputText id="nomEnseignant"
+								value="#{conventionController.critereRechercheConvention.nomEnseignant}"
+								size="50" maxlength="50"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<e:outputLabel
+								value="#{msgs['RECHERCHECONVENTION.PRENOMENSEIGNANT']}"
+								for="prenomEnseignant"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<h:inputText id="prenomEnseignant"
+								value="#{conventionController.critereRechercheConvention.prenomEnseignant}"
+								size="50" maxlength="50"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<rich:spacer height="5px"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<rich:separator height="4" lineType="beveled"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<rich:spacer height="5px"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<e:outputLabel
+								value="#{msgs['RECHERCHECONVENTION.RAISONSOCIALE']}"
+								for="raisonSociale"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<h:inputText id="raisonSociale"
+								value="#{conventionController.critereRechercheConvention.raisonSociale}"
+								size="50" maxlength="200"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.NUMEROSIRET']}"
+								for="numSiret"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<h:inputText id="numSiret"
+								value="#{conventionController.critereRechercheConvention.numeroSiret}"
+								size="20" maxlength="14"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.COMMUNE']}"
+								for="commune"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<h:inputText id="commune"
+								value="#{conventionController.critereRechercheConvention.commune}"
+								size="50" maxlength="200"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.CODEPOSTAL']}"
+								for="codePostal"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<h:inputText id="codePostal"
+								value="#{conventionController.critereRechercheConvention.codePostal}"
+								size="10" maxlength="10"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']}"
+								for="pays" rendered="#{conventionController.rechercheAvancee}" />
+							<h:selectOneMenu id="pays"
+								value="#{conventionController.critereRechercheConvention.pays}"
+								converter="#{paysConverter}"
+								rendered="#{conventionController.rechercheAvancee}"
+								styleClass="paysInput">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{nomenclatureController.pays}" />
+							</h:selectOneMenu>
+							<e:outputLabel
+								value="#{msgs['RECHERCHECONVENTION.TYPESTATUTSTRUCTURE']}"
+								for="typeStatut"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<h:selectOneMenu id="typeStatut"
+								value="#{conventionController.rechTypeOuStatut}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="" />
+								<f:selectItems
+									value="#{conventionController.rechTypesStatutsStructure}" />
+							</h:selectOneMenu>
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.EFFECTIF']}"
+								for="effectif"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<h:selectOneMenu id="effectif"
+								value="#{conventionController.critereRechercheConvention.effectif}"
+								converter="#{effectifConverter}"
+								rendered="#{conventionController.rechercheAvancee}">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{nomenclatureController.effectifs}" />
+							</h:selectOneMenu>
+							<e:outputLabel value="#{msgs['RECHERCHECONVENTION.NAFN1']}"
+								for="nafN1" rendered="#{conventionController.rechercheAvancee}" />
+							<h:selectOneMenu id="nafN1"
+								value="#{conventionController.critereRechercheConvention.nafN1}"
+								converter="#{nafN1Converter}"
+								rendered="#{conventionController.rechercheAvancee}"
+								style="width:300px;">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{nomenclatureController.nafN1}" />
+							</h:selectOneMenu>
+						</e:panelGrid>
+						<rich:spacer height="20px" />
+						<e:panelGrid columns="8">
+							<h:commandButton
+								value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
+								action="#{conventionController.rechercherConvention}">
+								<f:setPropertyActionListener value="resultatsRechercheConvention"
+									target="#{conventionController.retourAction}"/>
+							</h:commandButton>
+							<rich:spacer width="100px" />
+							<h:commandButton
+								value="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}"
+								action="#{conventionController.rechercheSimpleAvancee}"
+								rendered="#{conventionController.rechercheAvancee}" />
+							<h:commandButton
+								value="#{msgs['RECHERCHECONVENTION.RECHERCHEAVANCEE']}"
+								action="#{conventionController.rechercheSimpleAvancee}"
+								rendered="#{!conventionController.rechercheAvancee}" />
+							<rich:spacer width="20px" />
+							<h:commandButton value="#{msgs['RECHERCHECONVENTION.REINIT']}"
+								action="#{conventionController.resetRechercheConvention}" />
+							<rich:spacer width="20px" />
+							
+							
+								<a4j:commandButton 	value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
+									action="#{exportController.rechercherConvention}" >
+									<f:setPropertyActionListener value="#{conventionController.critereRechercheConvention}"
+									target="#{exportController.critereRechercheConvention}"/>
+									<f:setPropertyActionListener value="#{conventionController.estValidee}"
+									target="#{exportController.estValidee}"/>
+								</a4j:commandButton>
+							
+							<a4j:status for="rTelechargement">
+								<f:facet name="start">
+									<%@include file="../_commun/_veuillezPatienter.jsp"%>
+								</f:facet>
+							</a4j:status>
+						</e:panelGrid>
+						</a4j:region>
+					</h:form>
+					<rich:message for="formRechConvention" style="color:red;font-weight:bold;">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+				</rich:panel>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<h:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+	hideButton("welcomeManagerForm:localeChangeButton");
+</script>
+	</t:div>
+</e:page>
+
+

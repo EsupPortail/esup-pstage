@@ -1,0 +1,492 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<%@include file="../_commun/_champsObligatoires.jsp"%>
+	<e:panelGrid columns="3"
+		rendered="#{offreController.formOffre.idOffre>0}"
+		style="float:right;">
+		<e:bold value="#{msgs['OFFRE']} " />
+		<e:bold value=" #{msgs['OFFRE.ID']}" />
+		<e:text value="#{offreController.formOffre.idOffre}" />
+	</e:panelGrid>
+	<e:ul>
+		<e:li>
+			<e:text value="#{msgs['OFFRE.CACHERETAB']}" escape="false" />
+			<e:panelGrid columns="2">
+				<h:selectOneRadio id="cacherEtab"
+					value="#{offreController.formOffre.cacherEtablissement}"
+					required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.OUI']}" />
+					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.NON']}" />
+					<a4j:support event="onchange" ignoreDupResponses="true"
+						reRender="warningModeCourrier" ajaxSingle="true" />
+				</h:selectOneRadio>
+				<rich:message for="cacherEtab">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+			<a4j:outputPanel id="warningModeCourrier">
+				<e:panelGrid columns="2"
+					rendered="#{offreController.formOffreContainModeCourrier and offreController.formOffre.cacherEtablissement}">
+					<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+						title="#{msgs['GENERAL.WARNING']}"
+						value="../../media/images/warning_20px.png" style="border:0" />
+					<e:text value="#{msgs['OFFRE.ERREUR.MODECOURRIER']}" escape="false"
+						style="color:red;font-size:12px;
+					word-wrap:break-word;" />
+				</e:panelGrid>
+			</a4j:outputPanel>
+		</e:li>
+		<e:li>
+			<e:panelGrid>
+				<e:text id="contactCand"
+					value="#{msgs['OFFRE.SELECTIONCONTACTCAND']}" escape="false" />
+				<rich:message for="contactCand">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+				<a4j:commandButton ajaxSingle="true"
+					oncomplete="#{rich:component('selectContactCand')}.show()"
+					value="#{msgs['OFFRE.SELECTIONNERCONTACT']}">
+					<f:setPropertyActionListener value="#{0}"
+						target="#{etablissementController.idContactSel}" />
+					<f:setPropertyActionListener value="#{null}"
+						target="#{etablissementController.contactSel}" />
+					<f:setPropertyActionListener
+						value="#{!etablissementController.currentCentresGestionContainsCentreEntr}"
+						target="#{etablissementController.afficherSelectionCentreContact}" />
+				</a4j:commandButton>
+				<rich:modalPanel id="selectContactCand" autosized="true" width="400"
+					styleClass="panel" domElementAttachment="parent">
+					<%@include file="../_commun/_subPanelSelectContact.jsp"%>
+					<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+						oncomplete="#{rich:component('selectContactCand')}.hide();"
+						ignoreDupResponses="true" reRender="opContact">
+						<f:setPropertyActionListener
+							value="#{etablissementController.contactSel}"
+							target="#{offreController.formOffre.contactCand}" />
+					</a4j:commandButton>
+					<rich:spacer width="150px" />
+					<a4j:commandButton value="#{msgs['FORM.CANCEL']}" ajaxSingle="true"
+						onclick="#{rich:component('selectContactCand')}.hide();return false;" />
+				</rich:modalPanel>
+
+				<a4j:outputPanel id="opContact">
+					<rich:spacer height="2px"
+						style="background-color: #{a4jSkin.panelBorderColor};"
+						width="600px"
+						rendered="#{not empty offreController.formOffre.contactCand}" />
+					<e:panelGrid columns="1"
+						rendered="#{not empty offreController.formOffre.contactCand}">
+						<e:panelGrid columns="3">
+							<e:panelGrid columns="2">
+								<h:graphicImage alt="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+									title="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+									value="../../media/images/user_gray.png" style="border:0" />
+								<e:text value=" #{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+									escape="false" />
+							</e:panelGrid>
+							<rich:spacer width="50px" />
+							<e:text value="#{msgs['OFFRE.CACHERAUXETU']}" escape="false" />
+							<e:panelGrid columns="3">
+								<e:text id="civC"
+									value="#{offreController.formOffre.contactCand.civilite.libelle} " />
+								<e:text id="nomC"
+									value="#{offreController.formOffre.contactCand.nom} " />
+								<e:text id="prenomC"
+									value="#{offreController.formOffre.contactCand.prenom}" />
+							</e:panelGrid>
+							<rich:spacer width="50px" />
+							<e:panelGrid columns="1">
+								<h:selectOneRadio id="cnomC"
+									value="#{offreController.formOffre.cacherNomContactCand}"
+									required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:selectItem itemValue="#{true}"
+										itemLabel="#{msgs['FORM.OUI']}" />
+									<f:selectItem itemValue="#{false}"
+										itemLabel="#{msgs['FORM.NON']}" />
+									<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+								</h:selectOneRadio>
+								<rich:message for="cnomC">
+									<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								</rich:message>
+							</e:panelGrid>
+							<t:panelGroup colspan="3">
+								<e:text id="fonctionC"
+									value="#{offreController.formOffre.contactCand.fonction}" />
+							</t:panelGroup>
+							<e:panelGrid columns="2">
+								<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+									title="#{msgs['CONTACT.TELEPHONE']}"
+									value="../../media/images/phone.png" style="border:0" />
+								<e:text id="telC"
+									value=" #{offreController.formOffre.contactCand.tel}" />
+							</e:panelGrid>
+							<rich:spacer width="50px" />
+							<e:panelGrid columns="1">
+								<h:selectOneRadio id="ctelC"
+									value="#{offreController.formOffre.cacherTelContactCand}"
+									required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:selectItem itemValue="#{true}"
+										itemLabel="#{msgs['FORM.OUI']}" />
+									<f:selectItem itemValue="#{false}"
+										itemLabel="#{msgs['FORM.NON']}" />
+									<a4j:support event="onchange" ignoreDupResponses="true"
+										reRender="warningModeTelephone" ajaxSingle="true" />
+								</h:selectOneRadio>
+								<rich:message for="ctelC">
+									<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								</rich:message>
+							</e:panelGrid>
+							<t:panelGroup colspan="3">
+								<a4j:outputPanel id="warningModeTelephone">
+									<e:panelGrid columns="2"
+										rendered="#{offreController.formOffreContainModeTelephone
+										and offreController.formOffre.cacherTelContactCand}">
+										<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+											title="#{msgs['GENERAL.WARNING']}"
+											value="../../media/images/warning_20px.png" style="border:0" />
+										<e:text value="#{msgs['OFFRE.ERREUR.MODETELEPHONE']}"
+											escape="false"
+											style="color:red;font-size:12px;
+										word-wrap:break-word;" />
+									</e:panelGrid>
+								</a4j:outputPanel>
+							</t:panelGroup>
+							<a4j:outputPanel ajaxRendered="true">
+								<e:panelGrid columns="2"
+									rendered="#{not empty offreController.formOffre.contactCand.fax}">
+									<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+										title="#{msgs['CONTACT.FAX']}"
+										value="../../media/images/printer.png" style="border:0" />
+									<e:text id="faxC"
+										value=" #{offreController.formOffre.contactCand.fax}" />
+								</e:panelGrid>
+							</a4j:outputPanel>
+							<a4j:outputPanel ajaxRendered="true">
+								<rich:spacer width="50px"
+									rendered="#{not empty offreController.formOffre.contactCand.fax}" />
+							</a4j:outputPanel>
+							<a4j:outputPanel ajaxRendered="true">
+								<e:panelGrid columns="1"
+									rendered="#{not empty offreController.formOffre.contactCand.fax}">
+									<h:selectOneRadio id="cfaxC" required="true"
+										requiredMessage="#{requiredMessageController.champObligatoire}"
+										value="#{offreController.formOffre.cacherFaxContactCand}">
+										<f:selectItem itemValue="#{true}"
+											itemLabel="#{msgs['FORM.OUI']}" />
+										<f:selectItem itemValue="#{false}"
+											itemLabel="#{msgs['FORM.NON']}" />
+										<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+									</h:selectOneRadio>
+									<rich:message for="cfaxC">
+										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+									</rich:message>
+								</e:panelGrid>
+							</a4j:outputPanel>
+							<e:panelGrid columns="2">
+								<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+									title="#{msgs['CONTACT.MAIL']}"
+									value="../../media/images/email.png" style="border:0" />
+								<e:text id="mailC"
+									value=" #{offreController.formOffre.contactCand.mail}" />
+							</e:panelGrid>
+							<rich:spacer width="50px" />
+							<e:panelGrid columns="1">
+								<h:selectOneRadio id="cmailC"
+									value="#{offreController.formOffre.cacherMailContactCand}"
+									required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:selectItem itemValue="#{true}"
+										itemLabel="#{msgs['FORM.OUI']}" />
+									<f:selectItem itemValue="#{false}"
+										itemLabel="#{msgs['FORM.NON']}" />
+									<a4j:support event="onchange" ignoreDupResponses="true"
+										reRender="warningModeMail" ajaxSingle="true" />
+								</h:selectOneRadio>
+								<rich:message for="cmailC">
+									<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								</rich:message>
+							</e:panelGrid>
+							<t:panelGroup colspan="3">
+								<a4j:outputPanel id="warningModeMail">
+									<e:panelGrid columns="2"
+										rendered="#{offreController.formOffreContainModeMail
+										and offreController.formOffre.cacherMailContactCand}">
+										<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+											title="#{msgs['GENERAL.WARNING']}"
+											value="../../media/images/warning_20px.png" style="border:0" />
+										<e:text value="#{msgs['OFFRE.ERREUR.MODEMAIL']}"
+											escape="false"
+											style="color:red;font-size:12px;
+										word-wrap:break-word;" />
+									</e:panelGrid>
+								</a4j:outputPanel>
+							</t:panelGroup>
+						</e:panelGrid>
+						<a4j:commandLink ajaxSingle="true" id="modifC"
+							oncomplete="#{rich:component('modifContact')}.show()"
+							reRender="modifContact"
+							rendered="#{empty offreController.centreGestionDepotAnonyme}"
+							disabled="#{!(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactCand.id))}">
+							<f:setPropertyActionListener
+								value="#{offreController.formOffre.contactCand}"
+								target="#{etablissementController.formContact}" />
+							<f:setPropertyActionListener
+								value="#{etablissementController.currentCentresGestionContainsCentreContact}"
+								target="#{etablissementController.afficherSelectionCentreContact}" />
+							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+								title="#{msgs['FORM.MODIFIER']}"
+								value="../../media/images/edit.png" style="border:0"
+								rendered="#{sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactCand.id)}" />
+							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+								title="#{msgs['FORM.MODIFIER']}"
+								value="../../media/images/edit_block.png" style="border:0"
+								rendered="#{!(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactCand.id))}" />
+							<e:text value=" #{msgs['OFFRE.SELECTIONCONTACT.MODIFIER']}" />
+						</a4j:commandLink>
+						<rich:toolTip for="modifC" value="#{msgs['FORM.MODIFIER']}"
+							rendered="#{sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactCand.id)}" />
+						<rich:toolTip for="modifC"
+							value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
+							rendered="#{!(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactCand.id))}" />
+					</e:panelGrid>
+				</a4j:outputPanel>
+			</e:panelGrid>
+		</e:li>
+		<e:li>
+			<e:panelGrid>
+				<e:text value="#{msgs['OFFRE.SELECTIONCONTACTINFO']}" escape="false" />
+				<e:panelGrid columns="3">
+					<a4j:commandButton ajaxSingle="true"
+						oncomplete="#{rich:component('selectContactInfo')}.show()"
+						value="#{msgs['OFFRE.SELECTIONNERCONTACT']}">
+						<f:setPropertyActionListener value="#{0}"
+							target="#{etablissementController.idContactSel}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.contactSel}" />
+					</a4j:commandButton>
+					<t:panelGroup colspan="2">
+						<rich:spacer width="50" />
+						<a4j:outputPanel id="opDelContactInfo">
+							<a4j:commandLink reRender="opContactINFO, opDelContactInfo"
+								rendered="#{not empty offreController.formOffre.contactInfo}"
+								ajaxSingle="true">
+								<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+									title="#{msgs['FORM.SUPPRIMER']}"
+									value="../../media/images/cancel.png" style="border:0" />
+								<e:text
+									value=" #{msgs['OFFRE.SELECTIONCONTACTINFO.SUPPRESSION']}" />
+								<f:setPropertyActionListener value="#{null}"
+									target="#{offreController.formOffre.contactInfo}" />
+								<f:setPropertyActionListener
+									value="#{!etablissementController.currentCentresGestionContainsCentreEntr}"
+									target="#{etablissementController.afficherSelectionCentreContact}" />
+							</a4j:commandLink>
+						</a4j:outputPanel>
+					</t:panelGroup>
+				</e:panelGrid>
+				<rich:modalPanel id="selectContactInfo" autosized="true" width="400"
+					styleClass="panel" domElementAttachment="parent">
+					<%@include file="../_commun/_subPanelSelectContact2.jsp"%>
+					<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+						oncomplete="#{rich:component('selectContactInfo')}.hide();"
+						ignoreDupResponses="true"
+						reRender="opContactINFO, opDelContactInfo">
+						<f:setPropertyActionListener
+							value="#{etablissementController.contactSel}"
+							target="#{offreController.formOffre.contactInfo}" />
+					</a4j:commandButton>
+					<rich:spacer width="150px" />
+					<a4j:commandButton value="#{msgs['FORM.CANCEL']}" ajaxSingle="true"
+						onclick="#{rich:component('selectContactInfo')}.hide();return false;" />
+				</rich:modalPanel>
+
+				<a4j:outputPanel id="opContactINFO" ajaxRendered="true">
+					<rich:spacer height="2px"
+						style="background-color: #{a4jSkin.panelBorderColor};"
+						width="600px"
+						rendered="#{not empty offreController.formOffre.contactInfo}" />
+					<e:panelGrid columns="1"
+						rendered="#{not empty offreController.formOffre.contactInfo}">
+						<e:panelGrid columns="3">
+							<e:panelGrid columns="2">
+								<h:graphicImage alt="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+									title="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+									value="../../media/images/user_gray.png" style="border:0" />
+								<e:text value=" #{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+									escape="false" />
+							</e:panelGrid>
+							<rich:spacer width="50px" />
+							<e:text value="#{msgs['OFFRE.CACHERAUXETU']}" escape="false" />
+							<e:panelGrid columns="3">
+								<e:text id="civCINFO"
+									value="#{offreController.formOffre.contactInfo.civilite.libelle} " />
+								<e:text id="nomCINFO"
+									value="#{offreController.formOffre.contactInfo.nom} " />
+								<e:text id="prenomCINFO"
+									value="#{offreController.formOffre.contactInfo.prenom}" />
+							</e:panelGrid>
+							<rich:spacer width="50px" />
+							<e:panelGrid columns="1">
+								<h:selectOneRadio id="cnomCINFO"
+									value="#{offreController.formOffre.cacherNomContactInfo}"
+									required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:selectItem itemValue="#{true}"
+										itemLabel="#{msgs['FORM.OUI']}" />
+									<f:selectItem itemValue="#{false}"
+										itemLabel="#{msgs['FORM.NON']}" />
+									<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+								</h:selectOneRadio>
+								<rich:message for="cnomCINFO">
+									<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								</rich:message>
+							</e:panelGrid>
+							<rich:spacer width="50px" />
+							<t:panelGroup colspan="3">
+								<e:text id="fonctionCINFO"
+									value="#{offreController.formOffre.contactInfo.fonction}" />
+							</t:panelGroup>
+							<e:panelGrid columns="2">
+								<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+									title="#{msgs['CONTACT.TELEPHONE']}"
+									value="../../media/images/phone.png" style="border:0" />
+								<e:text id="telCINFO"
+									value=" #{offreController.formOffre.contactInfo.tel}" />
+							</e:panelGrid>
+							<rich:spacer width="50px" />
+							<e:panelGrid columns="1">
+								<h:selectOneRadio id="ctelCINFO"
+									value="#{offreController.formOffre.cacherTelContactInfo}"
+									required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:selectItem itemValue="#{true}"
+										itemLabel="#{msgs['FORM.OUI']}" />
+									<f:selectItem itemValue="#{false}"
+										itemLabel="#{msgs['FORM.NON']}" />
+									<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+								</h:selectOneRadio>
+								<rich:message for="ctelCINFO">
+									<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								</rich:message>
+							</e:panelGrid>
+							<a4j:outputPanel ajaxRendered="true">
+								<e:panelGrid columns="2"
+									rendered="#{not empty offreController.formOffre.contactInfo.fax}">
+									<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+										title="#{msgs['CONTACT.FAX']}"
+										value="../../media/images/printer.png" style="border:0" />
+									<e:text id="faxCINFO"
+										value=" #{offreController.formOffre.contactInfo.fax}" />
+								</e:panelGrid>
+							</a4j:outputPanel>
+							<a4j:outputPanel ajaxRendered="true">
+								<rich:spacer width="50px"
+									rendered="#{not empty offreController.formOffre.contactInfo.fax}" />
+							</a4j:outputPanel>
+							<a4j:outputPanel ajaxRendered="true">
+								<e:panelGrid columns="1"
+									rendered="#{not empty offreController.formOffre.contactInfo.fax}">
+									<h:selectOneRadio id="cfaxCINFO" required="true"
+										requiredMessage="#{requiredMessageController.champObligatoire}"
+										value="#{offreController.formOffre.cacherFaxContactInfo}">
+										<f:selectItem itemValue="#{true}"
+											itemLabel="#{msgs['FORM.OUI']}" />
+										<f:selectItem itemValue="#{false}"
+											itemLabel="#{msgs['FORM.NON']}" />
+										<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+									</h:selectOneRadio>
+									<rich:message for="cfaxCINFO">
+										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+									</rich:message>
+								</e:panelGrid>
+							</a4j:outputPanel>
+							<e:panelGrid columns="2">
+								<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+									title="#{msgs['CONTACT.MAIL']}"
+									value="../../media/images/email.png" style="border:0" />
+								<e:text id="mailCINFO"
+									value=" #{offreController.formOffre.contactInfo.mail}" />
+							</e:panelGrid>
+							<rich:spacer width="50px" />
+							<e:panelGrid columns="1">
+								<h:selectOneRadio id="cmailCINFO"
+									value="#{offreController.formOffre.cacherMailContactInfo}"
+									required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:selectItem itemValue="#{true}"
+										itemLabel="#{msgs['FORM.OUI']}" />
+									<f:selectItem itemValue="#{false}"
+										itemLabel="#{msgs['FORM.NON']}" />
+									<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+								</h:selectOneRadio>
+								<rich:message for="cmailCINFO">
+									<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								</rich:message>
+							</e:panelGrid>
+						</e:panelGrid>
+						<a4j:commandLink ajaxSingle="true" id="modifCI"
+							oncomplete="#{rich:component('modifContact')}.show()"
+							reRender="modifContact"
+							rendered="#{empty offreController.centreGestionDepotAnonyme}"
+							disabled="#{!(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactInfo.id))}">
+							<f:setPropertyActionListener
+								value="#{offreController.formOffre.contactInfo}"
+								target="#{etablissementController.formContact}" />
+							<f:setPropertyActionListener
+								value="#{etablissementController.currentCentresGestionContainsCentreContact}"
+								target="#{etablissementController.afficherSelectionCentreContact}" />
+							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+								title="#{msgs['FORM.MODIFIER']}"
+								value="../../media/images/edit.png" style="border:0"
+								rendered="#{sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactInfo.id)}" />
+							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+								title="#{msgs['FORM.MODIFIER']}"
+								value="../../media/images/edit_block.png" style="border:0"
+								rendered="#{!(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactInfo.id))}" />
+							<e:text value=" #{msgs['OFFRE.SELECTIONCONTACT.MODIFIER']}" />
+						</a4j:commandLink>
+						<rich:toolTip for="modifCI" value="#{msgs['FORM.MODIFIER']}"
+							rendered="#{sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactInfo.id)}" />
+						<rich:toolTip for="modifCI"
+							value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
+							rendered="#{!(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactInfo.id))}" />
+					</e:panelGrid>
+				</a4j:outputPanel>
+			</e:panelGrid>
+		</e:li>
+	</e:ul>
+</e:panelGrid>

@@ -1,0 +1,94 @@
+<%@include file="../_include.jsp"%>
+<e:panelGrid columns="1"
+	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+	<rich:panel>
+		<f:facet name="header">
+			<e:text value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT']}" />
+		</f:facet>
+		<rich:spacer height="20" />
+		<e:text
+			value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT.DEMANDE']}" />
+
+		<e:panelGrid columns="1">
+			<rich:spacer height="20" />
+			<e:panelGrid columns="4">
+				<e:outputLabel value="#{msgs['CONVENTION.NUMETUDIANT']}"
+					for="identEtudiant" />
+				<h:inputText id="identEtudiant" size="50" maxlength="30"
+					value="#{conventionController.rechIdentEtudiant}">
+					<a4j:support ajaxSingle="true" event="onchange"/>
+				</h:inputText>
+				<rich:spacer width="10px" />
+				<rich:message for="identEtudiant">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+
+
+				<rich:spacer width="20px" />
+				<t:panelGroup colspan="2" id="oblig">
+					<h:graphicImage
+						value="../../media/images/arrow_turn_up_and_down.png"
+						alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
+						title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
+					<rich:spacer width="5px" />
+					<e:text value="#{msgs['RECHERCHEETU.OBLIGATOIRE']}" />
+				</t:panelGroup>				
+				<rich:message for="oblig">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+
+
+				<e:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
+
+				<h:inputText id="nom" size="50" maxlength="30"
+					style="text-transform:uppercase;"
+					value="#{conventionController.rechNomEtudiant}">
+					<f:converter binding="#{sansAccentEnMAJConverter}" />
+					<a4j:support ajaxSingle="true" event="onchange"/>
+				</h:inputText>
+				<rich:spacer width="10px" />
+				<rich:message for="nom">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+
+				<e:outputLabel value="#{msgs['CONVENTION.PRENOM']}" for="prenom" />
+
+				<h:inputText id="prenom" size="50" maxlength="30"
+					style="text-transform:uppercase;"
+					value="#{conventionController.rechPrenomEtudiant}">
+					<f:converter binding="#{sansAccentEnMAJConverter}" />
+					<a4j:support ajaxSingle="true" event="onchange"/>
+				</h:inputText>
+				<rich:spacer width="10px" />
+				<rich:message for="prenom">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+		</e:panelGrid>
+		<e:panelGrid columns="4">
+			<rich:spacer height="40px"/>
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionConsignes}"
+				value="#{msgs['FORM.PREVIOUS']}" immediate="true">
+			</a4j:commandButton>
+			<a4j:region id="rRechercher">
+				<a4j:commandButton
+					action="#{conventionController.rechercheEtudiant}"
+					value="#{msgs['FORM.RECHERCHER']}">
+				</a4j:commandButton>
+			</a4j:region>
+			<a4j:status for="rRechercher">
+				<f:facet name="start">
+					<%@include file="../_commun/_veuillezPatienter.jsp"%>
+				</f:facet>
+			</a4j:status>
+		</e:panelGrid>
+	</rich:panel>
+</e:panelGrid>
+
+
+
+
+
+
+

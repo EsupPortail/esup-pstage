@@ -1,0 +1,127 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="2" alternateColors="true" cellspacing="2px"
+	cellpadding="2px" style="font-size:12px;">
+	<e:bold value="#{msgs['OFFRE.ID']}" />
+	<e:text value="#{offreController.currentOffre.idOffre}" />
+	<e:bold value="#{msgs['OFFRE.INTITULE']}" />
+	<e:text value="#{offreController.currentOffre.intitule}" />
+	<e:bold value="#{msgs['OFFRE.TYPEOFFRE']}" />
+	<e:text value="#{offreController.currentOffre.typeOffre.libelle}" />
+	<e:bold value="#{msgs['OFFRE.CONTRATOFFRE']}" />
+	<e:text value="#{offreController.currentOffre.contratOffre.libelle}" />
+</e:panelGrid>
+<e:panelGrid columns="2" alternateColors="true" cellspacing="2px"
+	cellpadding="2px" style="font-size:12px;"
+	rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
+	<e:bold value="#{msgs['OFFRE.DEBUT']}" />
+	<e:panelGrid columns="2" style="font-size:12px;">
+		<e:text value="#{offreController.currentOffre.moisDebut}" />
+		<e:text value="#{offreController.currentOffre.anneeDebut}" />
+	</e:panelGrid>
+	<e:bold value="#{msgs['OFFRE.DEBUT.PRECISION']}" />
+	<e:text value="#{offreController.currentOffre.precisionDebut}" />
+	<e:bold value="#{msgs['OFFRE.DUREE']}"
+		rendered="#{offreController.currentOffre.contratOffre==beanUtils.cdd ||
+								offreController.currentOffre.typeOffre==beanUtils.stage ||
+								offreController.currentOffre.typeOffre==beanUtils.alternance ||
+								offreController.currentOffre.typeOffre==beanUtils.vieVia}" />
+	<e:panelGrid columns="2" style="font-size:12px;"
+		rendered="#{offreController.currentOffre.contratOffre==beanUtils.cdd ||
+								offreController.currentOffre.typeOffre==beanUtils.stage ||
+								offreController.currentOffre.typeOffre==beanUtils.alternance ||
+								offreController.currentOffre.typeOffre==beanUtils.vieVia}">
+		<e:text value="#{offreController.currentOffre.duree}" />
+		<e:text value="#{offreController.currentOffre.uniteDuree.libelle}" />
+	</e:panelGrid>
+</e:panelGrid>
+<e:panelGrid columns="2" alternateColors="true" cellspacing="2px"
+	cellpadding="2px" style="font-size:12px;">
+	<%/*<e:bold value="#{msgs['OFFRE.NIVEAUQUALIFICATION']}" />
+	<e:text
+		value="#{offreController.currentOffre.fapQualificationSimplifiee.libelle}" />*/%>
+	<e:bold value="#{msgs['OFFRE.DOMAINE']}" />
+	<e:text value="#{offreController.currentOffre.fapN1.libelle}" />
+	<e:bold value="#{msgs['OFFRE.DESCRIPTION']}" />
+	<e:text value="#{offreController.currentOffre.description}"
+		escape="false" />
+	<t:panelGroup colspan="2">
+		<e:text value="#{msgs['OFFRE.LIEU']}" escape="false" />
+	</t:panelGroup>
+	<e:bold value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+	<e:text value="#{offreController.currentOffre.lieuCodePostal}" />
+	<e:bold value="#{msgs['STRUCTURE.COMMUNE']}" />
+	<e:text value="#{offreController.currentOffre.lieuCommune}" />
+	<e:bold value="#{msgs['STRUCTURE.PAYS']}" />
+	<e:text value="#{offreController.currentOffre.lieuPays.libelle}" />
+</e:panelGrid>
+<e:panelGrid columns="2" alternateColors="true" cellspacing="2px"
+	cellpadding="2px" style="font-size:12px;"
+	rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
+	<e:bold value="#{msgs['OFFRE.DEPLACEMENT']}" />
+	<e:text value="#{msgs['FORM.OUI']}"
+		rendered="#{offreController.currentOffre.deplacement}" />
+	<e:text value="#{msgs['FORM.NON']}"
+		rendered="#{!offreController.currentOffre.deplacement}" />
+	<e:bold value="#{msgs['OFFRE.PERMIS']}" />
+	<e:text value="#{msgs['FORM.OUI']}"
+		rendered="#{offreController.currentOffre.permis}" />
+	<e:text value="#{msgs['FORM.NON']}"
+		rendered="#{!offreController.currentOffre.permis}" />
+	<e:bold value="#{msgs['OFFRE.INDEMNITE']}" />
+	<e:text value="#{msgs['FORM.OUI']}"
+		rendered="#{offreController.currentOffre.remuneration}" />
+	<e:text value="#{msgs['FORM.NON']}"
+		rendered="#{!offreController.currentOffre.remuneration}" />
+	<e:bold value="#{msgs['OFFRE.INDEMNITE_PRECISIONS']}"
+		rendered="#{offreController.currentOffre.remuneration}" />
+	<e:text value="#{offreController.currentOffre.precisionRemuneration}"
+		rendered="#{offreController.currentOffre.remuneration}" />
+	<e:bold value="#{msgs['OFFRE.AVANTAGES']}" />
+	<e:text value="#{offreController.currentOffre.avantages}" />
+	<e:bold value="#{msgs['OFFRE.TEMPSTRAVAIL']}" />
+	<e:text value="#{offreController.currentOffre.tempsTravail.libelle}" />
+	<e:bold value="#{msgs['OFFRE.QUOTITETRAVAIL']}"
+		rendered="#{offreController.currentOffre.tempsTravail==beanUtils.tempsPartiel}" />
+	<e:text value="#{offreController.currentOffre.quotiteTravail}"
+		rendered="#{offreController.currentOffre.tempsTravail==beanUtils.tempsPartiel}" />
+	<e:bold value="#{msgs['OFFRE.COMTPSTRAVAIL']}" />
+	<e:text value="#{offreController.currentOffre.commentaireTempsTravail}" />
+	<e:bold value="#{msgs['OFFRE.NIVEAUFORMATION']}" />
+	<e:text value="#{offreController.currentOffre.niveauFormation.libelle}" />
+	<e:bold value="#{msgs['OFFRE.COMPSOUHAITEES']}" />
+	<e:text value="#{offreController.currentOffre.competences}"
+		escape="false" />
+	<e:bold value="#{msgs['OFFRE.REFOFFRE']}" />
+	<e:text
+		value="#{offreController.currentOffre.referenceOffreEtablissement}" />
+	<e:bold value="#{msgs['OFFRE.MODECANDIDATURE']}" />
+	<rich:dataList var="mode"
+		value="#{offreController.currentOffre.modesCandidature}" rows="10">
+		<e:text value="#{mode.libelle}" />
+	</rich:dataList>
+	<e:bold value="#{msgs['OFFRE.COMOBS']}" />
+	<e:text value="#{offreController.currentOffre.observations}"
+		escape="false" />
+	<e:bold value="#{msgs['OFFRE.ANNEEU']}" />
+	<e:text
+		value="#{offreController.currentOffre.anneeUniversitaire}" />
+</e:panelGrid>
+<%/*
+<e:panelGrid columns="2" alternateColors="true" cellspacing="2px"
+	cellpadding="2px" style="font-size:12px;">
+	<t:panelGroup colspan="2">
+		<rich:spacer height="10px" />
+	</t:panelGroup>
+	<e:bold value="#{msgs['OFFRE.ACCESSHANDI']}" escape="false" />
+	<e:text value="#{msgs['FORM.OUI']}"
+		rendered="#{offreController.currentOffre.estAccessERQTH}" />
+	<e:text value="#{msgs['FORM.NON']}"
+		rendered="#{!offreController.currentOffre.estAccessERQTH}" />
+	<e:bold value="#{msgs['OFFRE.PRIOHANDI']}" escape="false" />
+	<e:text value="#{msgs['FORM.OUI']}"
+		rendered="#{offreController.currentOffre.estPrioERQTH}" />
+	<e:text value="#{msgs['FORM.NON']}"
+		rendered="#{!offreController.currentOffre.estPrioERQTH}" />
+</e:panelGrid> 
+*/%>

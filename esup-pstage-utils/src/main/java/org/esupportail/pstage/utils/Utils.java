@@ -624,10 +624,10 @@ public class Utils {
 	public static int CalculDureeSemaine(Date dateDebStage, Date dateFinStage, Date dateDebInterr, Date dateFinInterr) {
 
 		// Convertir les dates en miliseconde
-		long dateDebStageLong = (dateDebStage != null) ? dateDebStage.getTime() : 0;
-		long dateFinStageLong = (dateFinStage != null) ? dateFinStage.getTime() : 0;
-		long dateDebInterrLong = (dateDebInterr != null) ? dateDebInterr.getTime() : 0;
-		long dateFinInterrLong = (dateFinInterr != null) ? dateFinInterr.getTime() : 0;
+		long dateDebStageLong = (dateDebStage != null) ? dateDebStage.getTime()/(1000*60*60*24*7) : 0;
+		long dateFinStageLong = (dateFinStage != null) ? dateFinStage.getTime()/(1000*60*60*24*7) : 0;
+		long dateDebInterrLong = (dateDebInterr != null) ? dateDebInterr.getTime()/(1000*60*60*24*7) : 0;
+		long dateFinInterrLong = (dateFinInterr != null) ? dateFinInterr.getTime()/(1000*60*60*24*7) : 0;
 
 		int dureeEnSemaine = 0;
 		
@@ -635,7 +635,7 @@ public class Utils {
 		if (dateFinStageLong >= dateDebStageLong) {
 			long dureeLong = dateFinStageLong - dateDebStageLong;
 			long dureeInterrLong = 0;
-			
+
 			// On enlève les dates d'interruption si ces dates sont dans l'intervalle de date début et date de fin
 			if (dateFinInterrLong > dateDebInterrLong 
 			&& dateDebInterrLong >= dateDebStageLong 
@@ -643,7 +643,7 @@ public class Utils {
 				dureeInterrLong = dateFinInterrLong - dateDebInterrLong;
 			}
 
-			dureeEnSemaine = Math.round((float)(dureeLong - dureeInterrLong)/(1000*60*60*24*7));
+			dureeEnSemaine = Math.round((float)(dureeLong - dureeInterrLong));
 
 			if(dureeEnSemaine==0)dureeEnSemaine++;
 		}
@@ -663,7 +663,9 @@ public class Utils {
 	public static String replaceHTML(String chaineAchanger){
 		String chaineRemplacer = "";
 		if (StringUtils.hasText(chaineAchanger)) {
-			chaineRemplacer = chaineAchanger.replaceAll("<[^>]*>", "");
+			chaineRemplacer = chaineAchanger.replaceAll("<style(?s)(.*)style>", "");
+			chaineRemplacer = chaineRemplacer.replaceAll("<!--(?s)(.*)-->", "");
+			chaineRemplacer = chaineRemplacer.replaceAll("<[^>]*>", "");
 			chaineRemplacer = chaineRemplacer.replaceAll("&iexcl;", "¡");
 			chaineRemplacer = chaineRemplacer.replaceAll("&cent;", "¢");
 			chaineRemplacer = chaineRemplacer.replaceAll("&pound;", "£");
@@ -785,34 +787,34 @@ public class Utils {
 			chaineRemplacer = chaineRemplacer.replaceAll("&infin;", "8");
 			chaineRemplacer = chaineRemplacer.replaceAll("&cap;", "n");
 			chaineRemplacer = chaineRemplacer.replaceAll("&sim;", "~");
-			chaineRemplacer = chaineRemplacer.replaceAll("&asymp;", "");
+			chaineRemplacer = chaineRemplacer.replaceAll("&asymp;", "˜");
 			chaineRemplacer = chaineRemplacer.replaceAll("&equiv;", "=");
 			chaineRemplacer = chaineRemplacer.replaceAll("&le;", "=");
 			chaineRemplacer = chaineRemplacer.replaceAll("&ge;", "=");
 			chaineRemplacer = chaineRemplacer.replaceAll("&sdot;", "·");
-			chaineRemplacer = chaineRemplacer.replaceAll("&bull;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&hellip;", "");
+			chaineRemplacer = chaineRemplacer.replaceAll("&bull;", "•");
+			chaineRemplacer = chaineRemplacer.replaceAll("&hellip;", "…");
 			chaineRemplacer = chaineRemplacer.replaceAll("&prime;", "'");
 			chaineRemplacer = chaineRemplacer.replaceAll("&oline;", "?");
 			chaineRemplacer = chaineRemplacer.replaceAll("&frasl;", "/");
 			chaineRemplacer = chaineRemplacer.replaceAll("&weierp;", "P");
 			chaineRemplacer = chaineRemplacer.replaceAll("&image;", "I");
 			chaineRemplacer = chaineRemplacer.replaceAll("&real;", "R");
-			chaineRemplacer = chaineRemplacer.replaceAll("&trade;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&euro;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&mdash;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&ndash;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&lsquo;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&rsquo;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&sbquo;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&ldquo;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&rdquo;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&bdquo;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&dagger;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&Dagger;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&permil;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&lsaquo;", "");
-			chaineRemplacer = chaineRemplacer.replaceAll("&rsaquo;", "");
+			chaineRemplacer = chaineRemplacer.replaceAll("&trade;", "™");
+			chaineRemplacer = chaineRemplacer.replaceAll("&euro;", "€");
+			chaineRemplacer = chaineRemplacer.replaceAll("&mdash;", "—");
+			chaineRemplacer = chaineRemplacer.replaceAll("&ndash;", "–");
+			chaineRemplacer = chaineRemplacer.replaceAll("&lsquo;", "‘");
+			chaineRemplacer = chaineRemplacer.replaceAll("&rsquo;", "’");
+			chaineRemplacer = chaineRemplacer.replaceAll("&sbquo;", "‚");
+			chaineRemplacer = chaineRemplacer.replaceAll("&ldquo;", "“");
+			chaineRemplacer = chaineRemplacer.replaceAll("&rdquo;", "”");
+			chaineRemplacer = chaineRemplacer.replaceAll("&bdquo;", "„");
+			chaineRemplacer = chaineRemplacer.replaceAll("&dagger;", "†");
+			chaineRemplacer = chaineRemplacer.replaceAll("&Dagger;", "‡");
+			chaineRemplacer = chaineRemplacer.replaceAll("&permil;", "‰");
+			chaineRemplacer = chaineRemplacer.replaceAll("&lsaquo;", "‹");
+			chaineRemplacer = chaineRemplacer.replaceAll("&rsaquo;", "›");
 			chaineRemplacer = chaineRemplacer.replaceAll("&nbsp;", " ");
 		}
 		return chaineRemplacer;

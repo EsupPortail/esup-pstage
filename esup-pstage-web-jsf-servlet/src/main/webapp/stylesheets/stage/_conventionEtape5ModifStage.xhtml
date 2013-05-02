@@ -1,0 +1,35 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<e:text value=" " id="formModifStage" />
+	<rich:message for="formModifStage">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+
+
+	<t:div rendered="#{not empty conventionController.convention}">
+
+		<%@include file="/stylesheets/stage/_conventionEtape5StageForm.jsp"%>
+
+		<e:panelGrid columns="3">
+			<a4j:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
+				action="#{conventionController.modifierStageDetail}"
+				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+				rendered="#{not empty conventionController.convention}"
+				reRender="opFCE">
+			</a4j:commandButton>
+			<a4j:outputPanel id="opFCE">
+				<e:panelGrid columns="3"
+					rendered="#{facesContext.maximumSeverity != null}">
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+					<e:text value="#{msgs['FORM.FORMERROR']}" />
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+				</e:panelGrid>
+			</a4j:outputPanel>
+		</e:panelGrid>
+	</t:div>
+</e:panelGrid>

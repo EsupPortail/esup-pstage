@@ -11,7 +11,7 @@ import javax.faces.convert.Converter;
 
 import org.esupportail.pstage.domain.NomenclatureDomainService;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.remote.TempsTravailDTO;
+import org.esupportail.pstagedata.domain.dto.TempsTravailDTO;
 import org.springframework.util.StringUtils;
 
 /**

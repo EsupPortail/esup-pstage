@@ -3,14 +3,10 @@ package org.esupportail.pstage.dao.referentiel.ldap;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapException;
@@ -36,9 +32,9 @@ import org.springframework.util.StringUtils;
 public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static Logger logger = Logger.getLogger(StudentDataRepositoryDaoLdap.class);
-	
+
 	private LdapUserService ldapUserService;
 	private LdapAttributes ldapAttributes;
 	private LdapGroupService ldapGroupService;
@@ -50,7 +46,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(this.ldapUserService, "La propriété ldapUserService de la classe " +this.getClass().getSimpleName()+ " ne doit pas être null.");
 	}
-	
+
 	/**
 	 * Etudiant par son identifiant ldap
 	 */
@@ -113,13 +109,9 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		}
 		if (ldapUser.getAttribute("dateNaissance")!=null){
 			try {
-				GregorianCalendar gCalendar = new GregorianCalendar();
-				gCalendar.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(ldapUser.getAttribute("dateNaissance")));
-				etudiantRef.setDateNais(DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar));
-			} catch (ParseException pe) {
-				pe.printStackTrace();
-			} catch (DatatypeConfigurationException dce) {
-				dce.printStackTrace();
+				etudiantRef.setDateNais(new SimpleDateFormat("dd/MM/yyyy").parse(ldapUser.getAttribute("dateNaissance")));
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -192,7 +184,6 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	@Override
 	public List<EtudiantRef> getEtudiantsRefByName(String universityCode,
 			String name, String firstName) {
-
 		AndFilter filter = new AndFilter();
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(), name));
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapFirstName(), firstName));
@@ -220,7 +211,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			}
 
 		}
-		
+
 		return etudiants;
 	}
 
@@ -242,12 +233,12 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		catch (LdapException ldae) {
 			logger.error("Probleme lors de l'appel de getLdapGroupsFromFilter dans "+this.getClass().getSimpleName()+" : ",ldae.getCause());
 		}
-		
+
 		if(!ldapGroups.isEmpty()){
 			String etapeCode=null;
 			String etapeLibelle =null;
 			etapes = new LinkedHashMap<String, String>(ldapGroups.size());
-			
+
 			//on formate pour la map
 			for(LdapGroup group : ldapGroups){
 				etapeCode = group.getAttribute(ldapGroupeAttributs.getLdapComposanteCode());

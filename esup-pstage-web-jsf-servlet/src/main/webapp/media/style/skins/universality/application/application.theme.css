@@ -1,0 +1,773 @@
+/**
+ * Licensed to Jasig under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work
+ * for additional information regarding copyright ownership.
+ * Jasig licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a
+ * copy of the License at:
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/* Applicztion CSS
+ * These declarations are scoped for the applications designed by university of Rennes 1.
+ * For portlet-specifc CSS, see "portlet.css" in the same directory.
+ * CSS specified at the portal scope will naturally cascade into portlets.
+ * This CSS begins with the Fluid Skinning System (FSS) specification and is followed by application-specfic extensions and overrides.
+ * This CSS assumes the use of a CSS reset (by default the FSS "fss-reset.css") for browser normalization.
+ */
+ 
+/* uPORTAL DEVELOPMENT STANDARDS AND GUIDELINES
+ * For the standards and guidelines that govern the user interface of uPortal portlets including HTML, CSS, JavaScript, accessibilty, naming conventions, 3rd Party libraries (like jQuery and the Fluid Skinning System) and more, refer to:
+ * http://www.ja-sig.org/wiki/x/cQ
+ */
+ 
+/* ICONS
+ * This CSS uses the Silk icon set 1.3 by Mark James:
+ * http://www.famfamfam.com/lab/icons/silk/
+ * which is licensed under a Creative Commons Attribution 2.5 License:
+ * http://creativecommons.org/licenses/by/2.5/
+ * This icon set is free for use under the CCA 2.5 license, so long as there 
+ * is a link back to the author's site.  This reference is present in the 
+ * portal footer markup of the universality theme.
+ */
+
+/* 
+------------------------------------
+  Fluid Skinning System theme.
+------------------------------------
+ * The Fluid Skinning System is a group of CSS files with a specially designed modular structure and class-specific format.
+ * It is meant to work well as both a standalone CSS foundation for your site and Fluid Infusion components.
+ * In FSS, "themes" refer to the color schemes and "window dressings" for basic markup and FSS Helpers, such as Tabs, Widgets, Menus, etc.
+ * For more information on FSS themes, refer to:
+ * http://wiki.fluidproject.org/x/egNS
+ * The FSS theme created for applications is "fl-theme-app", and is a class of the <body> tag, used for namespacing.
+ */
+
+.fl-theme-app :focus, 
+.fl-theme-app .selectable {  }
+.fl-theme-app { color:#344461; font-size:90%; font-family: Verdana, Arial, Helvetica, sans-serif;}
+.fl-theme-app a { color:#2758b3; text-decoration:none; }
+.fl-theme-app a:hover { color:#39f; text-decoration:underline; }
+.fl-theme-app h1,
+.fl-theme-app h2,
+.fl-theme-app h3,
+.fl-theme-app h4 { font-family: Verdana, Arial, Helvetica, sans-serif; }
+.fl-theme-app h3 { font-style:italic; }
+.fl-theme-app th {  }
+.fl-theme-app td {  }
+.fl-theme-app .fl-textfield, 
+.fl-theme-app .fl-textarea { border:1px solid #5a95cf; border-bottom-color:#5a95cf; border-right-color:#5a95cf; background-color:#dfefff; }
+.fl-theme-app .fl-icon { background-color:#5a95cf }
+.fl-theme-app .fl-inlineEdit-edit { background-color:#dfefff; border:0.1em solid #5a95cf; margin:-0.1em; }
+/* Helper: Buttons */
+.fl-theme-app .fl-button-left { background-image:url(../images/themes/mist/buttons-med-cap.png); }
+.fl-theme-app .fl-button-right { background-image:url(../images/themes/mist/buttons-med-cap.png); }
+.fl-theme-app .fl-button-inner { background-image:url(../images/themes/mist/buttons-med-bg.png); }
+/* Helper: Tabs */
+.fl-theme-app .fl-tabs { border-bottom-color:#000000; }
+.fl-theme-app .fl-tabs li, 
+.fl-theme-app .fl-tabs li a { font-weight:bold; color:#293b5a; border-color:#000000; border-bottom-color:#000000; text-decoration:none; background-color:#dfefff; }
+.fl-theme-app .fl-tabs li a:hover { background-color:#5a95cf; color:#fff; }
+.fl-theme-app .fl-tabs li.fl-activeTab, /* Deprecated syntax */
+.fl-theme-app .fl-tabs li.fl-activeTab:hover, 
+.fl-theme-app .fl-tabs li.fl-activeTab a, 
+.fl-theme-app .fl-tabs li.fl-activeTab a:hover, /* New syntax */
+.fl-theme-app .fl-tabs li.fl-tabs-active, 
+.fl-theme-app .fl-tabs li.fl-tabs-active a, 
+.fl-theme-app .fl-tabs li.fl-tabs-active a:hover { background-color: #f4f4f4; border-bottom-color:#f4f4f4; color:#000; }
+.fl-theme-app .fl-tabs-content { background-color:#f4f4f4; color:#000; border:1px solid #61c5ff; border-top:none; margin-top:-4px; }
+/* Helper: Menu */
+.fl-theme-app .fl-listmenu { border:1px solid #000000; border-bottom-width:2px; background-color:#fff; }
+.fl-theme-app .fl-listmenu li, 
+.fl-theme-app .fl-listmenu li a { font-weight:bold; color:#000000; background-color:#dfefff; border-color:#000000; text-decoration:none; }
+.fl-theme-app .fl-listmenu li a:hover { background-color:#5a95cf; color:#fff; }
+.fl-theme-app .fl-listmenu .fl-activemenu, 
+.fl-theme-app .fl-listmenu .fl-activemenu:hover { background-color: #fff; border-bottom-color:#fff; color:#508cc9; }
+/* Helper: Thumbnail Grid */
+.fl-theme-app .fl-grid { border:2px solid #000000; background-color:#fff; }
+.fl-theme-app .fl-grid li { background-color:#dfefff; border:1px solid #000000 }
+.fl-theme-app .fl-grid .caption { background-color:#dfefff; color:#5a95cf; }
+/* Helper: Widgets */
+/* Widget core */
+.fl-theme-app .fl-widget { background:#efefef url(../images/themes/mist/widget-bg.png) repeat-x top left; border:1px solid #CCCCCC; }
+.fl-theme-app .fl-widget ul { }
+.fl-theme-app .fl-widget h2 { color:#000; }
+.fl-theme-app .fl-widget .fl-icon-more { background-image:url('../images/themes/mist/icon-widget-More.png'); margin-left:0px; }
+.fl-theme-app .fl-widget .fl-icon-close { background-image:url('../images/themes/mist/icon-widget-Close.png'); margin-right:0px; }
+/* Widget titlebar */
+.fl-theme-app .fl-grabbable .fl-widget-titlebar { background-image:url('../images/themes/mist/icon-widget-gripper.png'); }
+.fl-theme-app .fl-widget-titlebar .icon { background-position:center center; }
+.fl-theme-app .fl-widget-titlebar .fl-button-right, 
+.fl-theme-app .fl-widget-titlebar .fl-button-left { color:#000000; background-image:url(../images/themes/mist/buttons-titlebar-cap.png); text-decoration:none; }
+.fl-theme-app .fl-widget-titlebar .fl-button-inner { background-image:url(../images/themes/mist/buttons-titlebar-bg.png); }
+/* Widget options */
+.fl-theme-app .fl-widget-options { }
+.fl-theme-app .fl-widget-options ul { }
+.fl-theme-app .fl-widget-options li { border-left:1px solid #ccc; }
+.fl-theme-app .fl-widget-options a { }
+.fl-theme-app .fl-widget-options a.icon:hover { background-color:#5a95cf; border-color:#000; }
+/* Widget content */
+.fl-theme-app .fl-widget-content { background-color:#fff; }
+/* Component: Progressor */
+.fl-theme-app .fl-progress-bounds { border-color:#999999; background-color:#fff; }
+.fl-theme-app .fl-progress-fill { color:#000000; background-color:#000; }
+/* States */
+.fl-theme-app .fl-reorderer-dropMarker { background-color:#f00; }
+/* Regular Background */
+.fl-theme-app .fl-tabs-enhanced { background:url(../images/themes/mist/tabs-med-container-bg.png) repeat-x left bottom; border-bottom:none; margin:10px 1px 0; padding:5px 0 6px;  *padding:2px 0; }
+.fl-theme-app .fl-tabs-enhanced li { background: transparent url(../images/themes/mist/tabs-med-cap.png) no-repeat left top; padding:4px 0 6px 16px;  *padding-top:0; }
+.fl-theme-app .fl-tabs-enhanced li a { background: transparent url(../images/themes/mist/tabs-med-bg.png) no-repeat right top; border:none; margin:0; padding:4px 16px 6px 0; color:#666666;  *padding-bottom:4px; }
+.fl-theme-app .fl-tabs-enhanced li.fl-tabs-active { background:transparent url(../images/themes/mist/tabs-med-active-cap.png) no-repeat scroll left top; }
+.fl-theme-app .fl-tabs-enhanced li.fl-tabs-active a { background:transparent url(../images/themes/mist/tabs-med-active-bg.png) no-repeat scroll right top; color:#000000; }
+/* Widget Content Background */
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced { background:url(../images/themes/mist/tabs-light-container-bg.png) repeat-x left bottom; border-bottom:none; margin:10px 1px 0; padding:5px 0 6px;  *padding:2px 0; }
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced li { background: transparent url(../images/themes/mist/tabs-light-cap.png) no-repeat left top; padding:4px 0 6px 16px;  *padding-top:0; }
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced li a { background: transparent url(../images/themes/mist/tabs-light-bg.png) no-repeat right top; border:none; margin:0; padding:4px 16px 6px 0; color:#666666;  *padding-bottom:4px; }
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced li.fl-tabs-active { background:transparent url(../images/themes/mist/tabs-light-active-cap.png) no-repeat scroll left top; }
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced li.fl-tabs-active a { background:transparent url(../images/themes/mist/tabs-light-active-bg.png) no-repeat scroll right top; color:#000000; }
+
+
+/* 
+------------------------------------
+  Application specific CSS.
+------------------------------------ 
+ * uPortal is namespaced with "up", a class of the <body> tag.
+ */
+
+/* Page */
+html { background-color:white; }
+
+/* Portal Page Bar */
+.fl-theme-app .app-pagebar { background: url("images/fond-menu.gif"); }
+.fl-theme-app .app-pagebar h2 { }
+.fl-theme-app .app-pagebar-links a { }
+
+.fl-theme-app .app-pagebar-links a:hover { }
+
+.fl-theme-app ul.app-pagebar li.app-pagebar-item input {
+	color: #303030;
+	background: transparent;
+	font-size: 0.85em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-style: none;
+	cursor: pointer;
+}
+
+.fl-theme-app ul.app-pagebar li.app-pagebar-item-selected input {
+	background: transparent;
+	font-size: 0.85em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #a71817;
+	border-style: none;
+	cursor: pointer;
+}
+
+.fl-theme-app ul.app-pagebar li.hover {
+	background-color: transparent;
+}
+
+.fl-theme-app ul.app-pagebar li.hover input {
+	font-size: 0.85em;
+	background: transparent;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #a71817;
+	text-decoration: underline;
+	border-style: none;
+	cursor: pointer;
+	background-color: transparent;
+}
+
+/* Header */
+.fl-theme-app .app-header { background-image: url("images/background_body.jpg"); background-repeat: repeat; padding-left: 3px; height: 80px; }
+.fl-theme-app .app-header div.logo { background-repeat: no-repeat; background-image: url("images/logo-header.png"); top: 23px; height: 56px; width: 150px; }
+.fl-theme-app .app-header div.header_suite { background-image: url("images/background_logo.jpg"); background-position: right; background-repeat: no-repeat; left: 15%; width: 85%; height: 80px; }
+.fl-theme-app .app-header div.header_suite .span_titre { color: #f28d00; }
+.fl-theme-app .app-header div.header_suite div.titreAppli { width: 85%; padding-top: 20px; }
+.fl-theme-app .app-header div.header_suite div.titreAppli .span_bigTitre { color: black; font-size: 1.65em; font-weight: bold; }
+.fl-theme-app .app-header div.header_suite div.titreAppli .span_titre { color: #f28d00; font-size: 1.3em; }
+.fl-theme-app .app-header div.header_suite .span_currentUser { color: #f28d00; font-size: 1.3em; font-weight: bold; }
+.fl-theme-app .app-header div.header_suite .span_version { color: #f28d00; font-size: 1em; width: 49%; left: 50%; top: 65%; }
+
+
+.fl-theme-app .app-pagebar img { margin:15px 15px 0px 35px; }
+
+.fl-theme-app .app-logo { }
+
+/* Welcome
+ Keep the top value relative to the text size so that the top position remains good when the browser text size is increased. 
+ Set the left width to the width of your logo (plus logo margins).
+ This margin prevents it from colliding with the logo if the browser window is shrunk down. 
+*/
+.fl-theme-app .app-welcome { top:3.5em; left:220px; }
+.fl-theme-app .app-welcome { color:#ddd; }
+.fl-theme-app .app-welcome a { color:#9999FF; }
+.fl-theme-app .app-welcome a:hover { color:#ff6600; }
+.fl-theme-app .app-welcome h1 { color:#fff; }
+
+
+
+/* Navigation */
+.fl-theme-app .app-navigation { }
+.fl-theme-app .app-navigation .fl-tabs,
+.fl-theme-app .app-navigation .fl-tabs li,
+.fl-theme-app .app-navigation .fl-tabs li a {display:inline-block; z-index: 0; padding:0; margin:0; border:none; background:transparent;}
+.fl-theme-app .app-navigation .fl-tabs {margin-left:220px; text-align:left; border:none;}
+
+.fl-theme-app .app-navigation .fl-tabs li a {display:inline-block; z-index: 0; padding:0; margin:0; text-decoration:none; border:1px solid #000; border-bottom:1px solid #000099;}
+.fl-theme-app .app-navigation .fl-tabs li a:hover { background:#9999cc url(images/tab_hover.gif) 0 0 repeat-x; color:#000; }
+.fl-theme-app .app-navigation .fl-tabs li.fl-tabs-active a.portal-navigation-link,
+.fl-theme-app .app-navigation .fl-tabs li.fl-tabs-active a.portal-navigation-link:hover {background:#E6EEFB url(images/tab_selected.gif) top left repeat-x; border-bottom-color:#E6EEFB;}
+
+.fl-theme-app div.app-body div.app-navigation ul li {
+	border-bottom: 1px solid #a4a0a0;
+	border-right: 1px solid #a4a0a0;
+	background: url("images/fond-menu-dyn.png");
+	padding-top: 10px;
+}
+
+.fl-theme-app div.app-body div.app-navigation ul li ul {
+	border: 1px solid #a4a0a0;
+}
+
+.fl-theme-app div.app-body div.app-navigation ul li a {
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
+	color: #303030;
+	background: transparent;
+	cursor: pointer;
+	border: none;
+}
+
+.fl-theme-app div.app-body div.app-navigation ul li:hover,
+.fl-theme-app div.app-body div.app-navigation ul li.hover {
+	/*background: #bfb8b8;*/
+	background: url("images/bg_navigation_hover.png");
+}
+
+.fl-theme-app div.app-body div.app-navigation ul li a:hover {
+	color: #a71817;
+}
+
+.fl-theme-app div.app-body div.app-navigation ul li:hover ul,
+.fl-theme-app div.app-body div.app-navigation ul li.hover ul {
+	background: transparent;
+}
+
+.fl-theme-app div.app-body div.app-navigation ul li ul li {
+	background: url("images/bg_navigation.png");
+}
+
+.fl-theme-app div.app-body div.app-navigation ul li ul li a {
+	text-align: left;
+	padding: 2px;
+	padding-left: 3px;
+	margin: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.85em;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+/* Body */
+.fl-theme-app div.app-body {
+	background-color: white;
+	border: 1px solid #CCCCCC;
+}
+
+.fl-theme-app h1.app-body-title { padding:0.2em 0 0.2em 0.5em; font-size:250%; color:#344461; font-family:Georgia,"Times New Roman",Times,serif; font-weight:normal; border:none; }
+
+/* Content */
+.fl-theme-app .app-content {
+}
+
+.fl-theme-app div.sections {
+	margin: 0 0 12px 15px;
+	padding: 4px 5px 4px 5px;
+	border: 1px solid #a71817;
+}
+
+.fl-theme-app div.sub_sections {
+	border: 1px solid #a71817;
+	padding: 4px 4px 4px 4px;
+	margin: 4px 4px 4px 6px;
+}
+
+.fl-theme-app .section-smallTitle {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.85em;
+	color: #a71817;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.fl-theme-app div.width_max_textRight {
+	width: 100%;
+	text-align: right;
+}
+
+.fl-theme-app .app-content h1 {
+	font-size: 1.2em;
+	text-align: left;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	color: #a71817;
+}
+
+.fl-theme-app .app-content h2 {
+	padding-left: 0.5em;
+}
+
+/* infos */
+.fl-theme-app .app-infos {
+	margin: 0 0 0.5em; 
+	padding: 0em;
+	border: 1px solid #1374B1;
+}
+
+/* form */
+.fl-theme-app .app-form {
+	/*margin: 0 0 0.5em; 
+	padding: 0em;
+	border: 1px solid #1374B1;*/
+}
+
+.fl-theme-app .form-input-field {
+	color: Black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.85em;
+	border: 1px solid #dedede;
+}
+
+/* msg */
+.fl-theme-app .app-msg-infos {
+	/*margin: 0 0 0.5em; 
+	padding: 0em;
+	border: 1px solid #0B610B;
+	background-color: #A9F5A9;*/
+}
+
+.fl-theme-app .app-msg-infos h2 {
+	color: #0B610B;
+}
+
+/* msg */
+.fl-theme-app .app-msg-errors {
+	margin: 0 0 0.5em; 
+	padding: 0em;
+	border: 1px solid #B40404;
+	background-color: #F5A9A9;
+}
+
+.fl-theme-app .app-msg-errors h2 {
+	color: #B40404;
+}
+
+
+.fl-theme-app .app-txt-label {
+	color: #333;
+	font-weight:bold;
+}
+
+
+/* Footer */
+
+/* infos */
+.fl-theme-app .app-footer {
+	color: black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	text-align: center;
+	padding-top: 2px;
+	margin: 0;
+}
+
+/*
+.fl-theme-app .app-footer { text-align:center; color:#3366CC; font-size:80%; }
+.fl-theme-app .app-footer a { color:#3366CC; }
+
+/* Fluid Layout Customizer (drag and drop) */
+.fl-theme-app .fl-reorderer-movable-hover { cursor:move; }
+.fl-theme-app .fl-reorderer-movable-dragging-mouse { display:none; }
+.fl-theme-app .fl-reorderer-movable-dragging { filter:alpha(opacity=50); opacity:.5 }
+.fl-theme-app .fl-reorderer-avatar { width:auto; filter:alpha(opacity=50); opacity:.5; }
+.fl-theme-app .fl-reorderer-dropMarker { height:200px !important; background-color:#99FF99; border:1px dashed #00CC00; margin:1em 0em; }
+.fl-theme-app .drop-warning { position:absolute; top:50px; left:10px; border:2px solid red; background-color:#ffd7d7; display:none; padding:10px; margin:5px; z-index:65535; }
+
+/* Fluid Pager */
+.fl-theme-app .pager-top .disabled, 
+.fl-theme-app .pager-bottom .disabled { color: #777777; border: 0; text-decoration: none; cursor: default; }
+.fl-theme-app .pager-top .current-page a, 
+.fl-theme-app .pager-bottom .current-page a { color: #000000; border: 0; text-decoration: none; cursor: default; }
+.fl-theme-app ul.pager-top, 
+.fl-theme-app ul.pager-bottom { text-align:right }
+.fl-theme-app ul.pager-top li, 
+.fl-theme-app ul.pager-bottom li { list-style-type:none; display:inline; padding:5px }
+
+/* Focus */
+:focus { outline-width:0px; }
+.fl-theme-app .fl-reorderer-movable-selected:focus, 
+.fl-theme-app .fl-reorderer-movable-dragging:focus { outline:2px solid #39f; }
+
+
+/* 
+------------------------------------
+  Overrides to jQuery UI css.
+------------------------------------ 
+*/
+
+.ui-widget,
+.ui-widget input, 
+.ui-widget select, 
+.ui-widget textarea, 
+.ui-widget button { font-size:1em; }
+.ui-tabs .ui-tabs-nav li { list-style-image:none; list-style-position:outside;list-style-type:none; }
+
+/* jQuery tooltip */
+#tooltip { background-color:#fffbbf; color:#344461; border:thin solid #b1c6f2; }
+
+/*## For use e:dataTable ##*/
+.fl-theme-app table.paginatorData th.paginatorData-header {
+	color: #a71817;
+	background-color: #e6e6e6;
+	text-align: center;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.85em;
+	padding-bottom: 3px;
+}
+
+.fl-theme-app table.paginatorData tr.paginatorData-text td {
+	background-color: #f9f9f9;
+	text-align: center;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+
+.fl-theme-app table.paginatorData tr.paginatorData-alternate td {
+	background-color: #e6e6e6;
+	text-align: center;
+	font-weight: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+
+.fl-theme-app .portlet-table-selected {
+	background-color: #fff6eb;
+	color: Black;
+	text-align: center;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+
+/*## For use panelGrid column ##*/
+.fl-theme-app .col2rigthItaVAm {
+	font-style: italic;
+	font-size: 0.8em;
+}
+
+/*########  PAGINATOR ##########*/
+.fl-theme-app div.paginator input {
+	text-decoration: underline;
+	text-align: center;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	padding: 0px;
+	margin: 0px;
+	background-color: transparent;
+	border: none;
+}
+
+/*li.hover use for IE*/
+.fl-theme-app div.paginator li:hover,
+.fl-theme-app div.paginator li.hover {
+	background-color: #fff6eb;
+}
+
+.fl-theme-app div.paginator li.currentpage {
+	border: 1px solid #a71817;
+	background-color: #a71817;
+}
+
+.fl-theme-app div.paginator li.currentpage input {
+	font-weight: bold;
+	text-decoration: none;
+	color: white;
+}
+
+.fl-theme-app div.app-body li.paginatorDataList {
+	background-color: #white;
+	width: auto;
+	padding: 0px 10px 0px 10px;
+	border: 1px solid #a71817;
+	border-radius: 10px 10px;
+	-moz-border-radius: 10px;
+}
+
+.fl-theme-app div.app-body .col6 {
+	font-size: 1.1em;
+	font: bold;
+	margin-top: 16px;
+	color: #a71817;
+}
+
+.fl-theme-app div.app-body .col5 {
+	border-top: none;
+	border-right: none;
+	border-bottom: none;
+	border-left: 1px;
+	border-left-style: solid;
+	border-color: #a71817;
+}
+
+.fl-theme-app div.app-body .diplomesDataList {
+	background-color: white;
+	color: black;
+	list-style: square;
+}
+
+
+.fl-theme-app div.app-body hr.hrInvisible {
+	color: white;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.fl-theme-app div.app-body div.datesDAcces {
+	text-align: right;
+	vertical-align: bottom;
+	font-size: 0.8em;
+}
+
+
+.fl-theme-app .li-emploi-title {
+	text-align: left;
+	color: #a71817;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.15em;
+	margin-bottom: 10px;
+	font-weight: bold;
+	height: 20px;
+}
+
+.fl-theme-app .listePosi {
+	border-bottom: 1px;
+	border-bottom-style: solid;
+	border-right: 1px;
+	border-right-style: solid;
+	border-top-style: none;
+	border-left-style: none;
+	border-bottom-color: #f28d00;
+	border-right-color: #f28d00;
+}
+
+.fl-theme-app .li-position-title {
+	text-align: left;
+	color: #f28d00;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.1em;
+	font-weight: bold;
+	vertical-align: text-top;
+}
+
+/*-----------------------------------
+ *
+ * Style popup aide
+ */
+.fl-theme-app .containerPopup {
+	color: black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	border: 1px solid #f28d00;
+	background: #fff6eb;
+}
+
+.fl-theme-app div.popupMask {
+	color: black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	border: 1px solid #f28d00;
+	background: #fff6eb;
+}
+
+.fl-theme-app .titrePopupAide {
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.05em;
+	color: #f28d00;
+}
+
+.fl-theme-app .libellesAide {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+}
+
+.fl-theme-app .sousTitrePopupAide {
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.95em;
+	color: #4848B7;
+}
+
+/*####   Section for E:MESSAGES ########*/
+.fl-theme-app div.messageForUser .msg-error {
+	padding: 2px;
+	font-weight: bold;
+	border: 1px solid #a71817;
+	border-bottom: 0.5px solid #a71817;
+	border-top: 0.5px solid #a71817;
+	color: #a71817;
+	text-align: center;
+}
+
+.fl-theme-app div.messageForUser .msg-header-error {
+	padding: 2px;
+	width: 100px;
+	background-color: #a71817;
+	border: none;
+	color: white;
+}
+
+.fl-theme-app div.messageForUser .msg-info {
+	padding: 2px;
+	border: 1px solid green;
+	color: green;
+	font-weight: bold;
+	text-align: center;
+}
+
+/*####   Section for SPAN ########*/
+.fl-theme-app .span-text-small {
+	color: Black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+}
+
+.fl-theme-app .span-text-big {
+	color: Black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.1em;
+}
+
+.fl-theme-app .span-text-small-italic {
+	color: Black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	font-style: italic;
+}
+
+/*### BUTTON ###*/
+.fl-theme-app input.input_button,.fl-theme-app a.input_button {
+	margin: 1px 3px 1px 3px;
+	background-color: #f5f5f5;
+	border: 1px solid #dedede;
+	border-top: 1px solid #eee;
+	border-left: 1px solid #eee;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	line-height: 130%;
+	text-decoration: none;
+	font-weight: bold;
+	color: #565656;
+	cursor: pointer;
+	padding: 2px 6px 3px 6px; /* Links */
+}
+
+.fl-theme-app input.input_button:hover {
+	background-color: #DDDDDD;
+	border: 1px solid #CCCCCC;
+}
+
+.fl-theme-app input.input_button:active {
+	background-color: #DDDDDD;
+	border: 1px solid #FFFFFF;
+}
+
+/*use by js method highlightInputAndSelect*/
+.fl-theme-app .form-input-field-focus {
+	color: Black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	border: 1px solid #dedede;
+	background-color: #fff6eb;
+}
+
+.fl-theme-app .form-field-label {
+	width: 10em;
+	text-align: right;
+	color: Black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+.fl-theme-app .etoileForChpObli {
+	color: #a71817;
+	font-size: 1em;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.fl-theme-app .select_focus {
+	color: Black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	border: 1px solid #dedede;
+	background-color: #fff6eb;
+}
+
+/*-----------------------------------
+ *
+ * Style popup aide
+ */
+.fl-theme-app .containerPopup {
+	color: black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.95em;
+	border: 1px solid #f28d00;
+	background: #fff6eb;
+}
+
+.fl-theme-app .sousTitrePopupAide {
+	text-decoration: none;
+	font-weight: bold;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.95em;
+	color: #4848B7;
+}
+
+/*##  Section BLOCK (DIV) ##*/ /*##  Section Sections ##*/
+.fl-theme-app .section-header {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	color: #f28d00;
+	font-weight: bold;
+}
+
+/* link */
+.fl-theme-app .link {
+	cursor: pointer;
+	font-size: 0.8em;
+	color: black;
+	text-decoration: underline;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.fl-theme-app .link:hover {
+	cursor: pointer;
+	font-size: 0.8em;
+	color: #a71817;
+	text-decoration: underline;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}

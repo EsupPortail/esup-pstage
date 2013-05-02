@@ -1,0 +1,11 @@
+<%@include file="../_include.jsp"%>
+
+<%@include file="./_formService.jsp"%>
+<a4j:commandButton action="#{etablissementController.modifierService}"
+	value="#{msgs['FORM.MODIFIER']}" ignoreDupResponses="true" 
+	reRender="opService, opActionsService, opContactsDataTable"/>
+<rich:spacer width="150px" />
+<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+	onclick="#{rich:component('modifService')}.hide();" 
+	action="_modifServiceEtape0"
+	immediate="true"/>

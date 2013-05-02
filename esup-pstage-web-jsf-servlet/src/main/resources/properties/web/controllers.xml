@@ -212,7 +212,6 @@
 		<property name="personalDataRepositoryDomain" ref="${donnees.personnel.referentiel}"/>
 		<property name="personalComponentRepositoryDomain" ref="${composantes.personnel.referentiel}"/>
 		<property name="managedRoadMap" ref="managedRoadMap" />
-		<property name="fileGeneratorService" ref="fileGeneratorService"/>
 	</bean>
 
 	<bean id="administratorsController"

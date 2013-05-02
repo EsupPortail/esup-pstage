@@ -1,0 +1,26 @@
+<%@include file="../_include.jsp"%>
+<%
+	/* A inclure dans une balise t:aliasBean ayant pour valeur "objet" */
+%>
+<e:panelGrid columns="4" style="font-size:11px;" rendered="#{not empty objet}">
+	<e:text value="#{msgs['GENERAL.UPDATEINFOS.CREELE']}"
+		rendered="#{not empty objet.dateCreation}" />
+	<e:text value="#{objet.dateCreation}"
+		rendered="#{not empty objet.dateCreation}">
+		<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+	</e:text>
+	<e:text value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
+		rendered="#{not empty objet.dateCreation and not empty objet.loginCreation}" />
+	<e:text value="#{objet.loginCreation}"
+		rendered="#{not empty objet.dateCreation and not empty objet.loginCreation}" />
+	<e:text value="#{msgs['GENERAL.UPDATEINFOS.MODIFIELE']}"
+		rendered="#{not empty objet.dateModif}" />
+	<e:text value="#{objet.dateModif}"
+		rendered="#{not empty objet.dateModif}">
+		<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+	</e:text>
+	<e:text value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
+		rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
+	<e:text value="#{objet.loginModif}"
+		rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
+</e:panelGrid>

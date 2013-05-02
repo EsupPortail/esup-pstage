@@ -8,9 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.esupportail.pstagedata.remote.AssuranceDTO;
-import org.esupportail.pstagedata.remote.CaisseRegimeDTO;
-import org.esupportail.pstagedata.remote.EtudiantDTO;
+import org.esupportail.pstagedata.domain.dto.AssuranceDTO;
+import org.esupportail.pstagedata.domain.dto.CaisseRegimeDTO;
+import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 
 
 

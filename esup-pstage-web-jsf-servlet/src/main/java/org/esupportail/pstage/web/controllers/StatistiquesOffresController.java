@@ -11,11 +11,11 @@ import java.util.Map.Entry;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletException;
 
-import org.esupportail.pstage.domain.referentiel.StatistiquesDomainService;
+import org.esupportail.pstage.domain.StatistiquesDomainService;
 import org.esupportail.pstage.exceptions.StatistiquesException;
 import org.esupportail.pstage.web.beans.StatisticCriteria;
 import org.esupportail.pstage.web.servlet.EditXlsServlet;
-import org.esupportail.pstagedata.remote.StatisticItemDTO;
+import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
 
 
 

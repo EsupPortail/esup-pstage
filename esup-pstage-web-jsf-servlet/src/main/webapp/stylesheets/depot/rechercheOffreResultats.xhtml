@@ -1,0 +1,93 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<e:panelGrid style="float:left;">
+		<%@include file="./_menu.jsp"%>
+	</e:panelGrid>
+	<e:panelGrid columns="1"
+		styleClass="panelEntreprise">
+		<rich:panel>
+			<f:facet name="header">
+				<e:text value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+			</f:facet>
+			<h:form id="formRechOffre">
+				<t:div
+					rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
+					<%@include file="../_commun/_rechercheOffreNbResultats.jsp"%>
+					<rich:dataTable value="#{offreController.rechercheOffrePaginator.visibleItems}"
+						var="offre" columnClasses="center"
+						rowKeyVar="rowOffre"
+						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						<f:facet name="footer">
+							<e:paginator id="rechercheOffrePaginator"
+								paginator="#{offreController.rechercheOffrePaginator}"
+								itemsName=" "
+								onchange="javascript:{simulateLinkClick('rechercheOffreDataTable:submitPageSize');}"
+								visibleBlocks="itemsNumbers,navigation" />
+						</f:facet>
+						<%@include file="../_commun/_rechercheOffreResultatsColumns.jsp"%>
+						<rich:column>
+							<h:commandLink id="recap"
+								action="#{offreController.goToRecapitulatifOffreFromOffreLight}">
+								<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
+									value="../../media/images/document.png" style="border:0" />
+								<f:setPropertyActionListener value="#{offre}"
+									target="#{offreController.currentOffre}" />
+							</h:commandLink>
+							<rich:toolTip for="recap"
+								value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+							<h:commandLink id="modif"
+								action="#{offreController.goToModificationOffreEtab}">
+								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+									value="../../media/images/edit.png" style="border:0" />
+								<f:setPropertyActionListener
+									value="resultatsRechercheOffre"
+									target="#{offreController.retour}" />
+								<f:setPropertyActionListener value="#{offre}"
+									target="#{offreController.currentOffre}" />
+								<f:setPropertyActionListener value="#{2}"
+									target="#{offreController.typeAjoutModifOffre}" />
+								<f:setPropertyActionListener value="#{false}"
+									target="#{etablissementController.afficherSelectionCentreContact}" />
+							</h:commandLink>
+							<rich:toolTip for="modif">
+								<e:panelGrid columns="1">
+									<e:bold value="#{msgs['FORM.MODIFIER']}" />
+									<t:div rendered="#{sessionController.adminPageAuthorized}">
+										<t:htmlTag value="br" />
+										<t:aliasBean alias="#{objet}"
+											value="#{offre}">
+											<%@include file="../_commun/_updateInfos.jsp"%>
+										</t:aliasBean>
+									</t:div>
+								</e:panelGrid>
+							</rich:toolTip>
+							<a4j:commandLink ajaxSingle="true" id="suppr"
+								reRender="supprOffre"
+								oncomplete="#{rich:component('supprOffre')}.show()">
+								<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+									value="../../media/images/delete.png" style="border:0" />
+								<f:setPropertyActionListener
+									value="resultatsRechercheOffre"
+									target="#{offreController.retour}" />
+								<f:setPropertyActionListener value="#{offre}"
+									target="#{offreController.currentOffre}" />
+							</a4j:commandLink>
+							<rich:toolTip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+						</rich:column>
+					</rich:dataTable>
+				</t:div>
+				<e:panelGrid columns="1">
+					<rich:spacer height="20px" />
+					<h:commandButton
+						value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
+						action="#{offreController.goToRechercheOffre}" />
+				</e:panelGrid>
+			</h:form>
+			<%@include file="../_commun/_panelSupprOffre.jsp"%>
+		</rich:panel>
+		<%@include file="_panelNousContacter.jsp"%>
+	</e:panelGrid>
+</e:page>

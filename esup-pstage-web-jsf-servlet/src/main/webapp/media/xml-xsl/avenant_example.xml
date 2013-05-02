@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<avenant-dTO validation-avenant="false" rupture="false"
+    modification-montant-gratification="true"
+    modification-periode="true" modification-sujet="true"
+    interruption-stage="true" modification-lieu="true"
+    modification-salarie="true" modification-enseignant="true">
+    <sujet-stage>nouveau sujet</sujet-stage>
+    <motif-avenant>test nouvel avenant</motif-avenant>
+    <id-unite-gratification>1</id-unite-gratification>
+    <convention conversion-en-contrat="false"
+        convention-structure="false" prise-en-charge-frais-mission="false">
+        <caisse-regime>
+            <info-caisse>Pour les étudiants, les travailleurs salariés, etc</info-caisse>
+            <libelle>Caisse Primaire d Assurance Maladie</libelle>
+            <code>CPAM</code>
+            <tem-en-serv>O</tem-en-serv>
+        </caisse-regime>
+        <id-structure>15</id-structure>
+        <id-mode-validation-stage>1</id-mode-validation-stage>
+        <centre-gestion presence-tuteur-ens="false"
+            id-centre-gestion-super-viseur="1" id-centre-gestion="3"
+            choix-annee-apres-debut-annee="false"
+            autoriser-impression-convention="true"
+            choix-annee-avant-debut-annee="true"
+            saisie-tuteur-pro-par-etudiant="true" depot-anonyme="false"
+            id-fichier="0" presence-tuteur-pro="false"
+            id-niveau-centre="2" id-pays="0" code-commune="0">
+            <url-page-instruction>http://siteinstruction.fr</url-page-instruction>
+            <prenom-viseur>T</prenom-viseur>
+            <mail></mail>
+            <nom-centre>ETABLISSEMENT DANIELLE</nom-centre>
+            <code-confidentialite>1</code-confidentialite>
+            <nom-viseur>T</nom-viseur>
+            <code-universite>UR1</code-universite>
+            <confidentialite>
+                <libelle>Confidentialité totale</libelle>
+                <code>1</code>
+                <tem-en-serv>O</tem-en-serv>
+            </confidentialite>
+            <telephone>0223232323</telephone>
+            <niveau-centre id="2">
+                <libelle>ETABLISSEMENT</libelle>
+                <tem-en-serv>O</tem-en-serv>
+            </niveau-centre>
+            <fax></fax>
+            <site-web></site-web>
+            <voie>34</voie>
+            <commune>rennes</commune>
+            <code-postal>35000</code-postal>
+            <batiment-residence>rue du general de gaulle</batiment-residence>
+            <date-modif>2010-11-16T14:13:14.000+01:00</date-modif>
+            <date-creation>2010-10-19T16:51:46.000+02:00</date-creation>
+            <login-modif>dhouillo</login-modif>
+            <login-creation>dhouillo</login-creation>
+        </centre-gestion>
+        <nom-signataire-composante>Jacques MIRIEL</nom-signataire-composante>
+        <type-convention id="1">
+            <libelle>obligatoire</libelle>
+            <code-ctrl>OBLIG</code-ctrl>
+            <tem-en-serv>O</tem-en-serv>
+        </type-convention>
+        <etudiant id="23" id-civilite="0">
+            <ident-etudiant>11002426</ident-etudiant>
+            <date-nais>1988-07-08T00:00:00.000+02:00</date-nais>
+            <num-etudiant>11002426</num-etudiant>
+            <code-sexe>M</code-sexe>
+            <num-sS>188074419003876</num-sS>
+            <mail>salim.amiour@etudiant.univ-rennes1.fr</mail>
+            <code-universite>UR1</code-universite>
+            <nom>AMIOUR</nom>
+            <prenom>SALIM</prenom>
+            <date-creation>2011-01-11T16:51:48.000+01:00</date-creation>
+            <login-creation>dhouillo</login-creation>
+        </etudiant>
+        <libelle-cPAM>CPAM d'Ille et Vilaine</libelle-cPAM>
+        <pays-etudiant>SAINT-NAZAIRE</pays-etudiant>
+        <montant-gratification></montant-gratification>
+        <date-fin-stage>2011-01-28T00:00:00.000+01:00</date-fin-stage>
+        <id-unite-duree-exceptionnelle>0</id-unite-duree-exceptionnelle>
+        <code-caisse>CPAM</code-caisse>
+        <ville-etudiant>FRANCE</ville-etudiant>
+        <code-elp>R5C500AU</code-elp>
+        <indemnisation id="2">
+            <libelle>non</libelle>
+            <tem-en-serv>O</tem-en-serv>
+        </indemnisation>
+        <ufr>
+            <libelle>IUT de Rennes  </libelle>
+            <code>922</code>
+        </ufr>
+        <details>details</details>
+        <travail-nuit-ferie></travail-nuit-ferie>
+        <annee>2010/2011</annee>
+        <contact id-centre-gestion="3" id-service="23"
+            id-accord-partenariat="0" id="44" id-civilite="2">
+            <fonction>rh tiers</fonction>
+            <infos-aJour>2011-01-14T00:00:00.000+01:00</infos-aJour>
+            <login-infos-aJour>dhouillo</login-infos-aJour>
+            <service id-structure="0" id-service="0" id-pays="0" code-commune="0"/>
+            <fax></fax>
+            <civilite id="2">
+                <libelle>Mme</libelle>
+            </civilite>
+            <tel>0223232323</tel>
+            <mail>danielle.martineau@univ-rennes1.fr</mail>
+            <nom>MARTINEAU TIERS</nom>
+            <prenom>Danielle</prenom>
+            <date-creation>2011-01-14T15:55:46.000+01:00</date-creation>
+            <login-creation>dhouillo</login-creation>
+        </contact>
+        <tel-portable-etudiant>0674479409</tel-portable-etudiant>
+        <id-assurance>1</id-assurance>
+        <etape>
+            <libelle>Licence professionnelle chargé d'affaire en génie climatique</libelle>
+            <code>T20341</code>
+        </etape>
+        <credit-eCTS>10.00</credit-eCTS>
+        <sujet-stage>sujet</sujet-stage>
+        <id-type-convention>1</id-type-convention>
+        <libelle-finalite></libelle-finalite>
+        <avantages-nature></avantages-nature>
+        <interruption-stage>false</interruption-stage>
+        <qualite-signataire>Le Directeur de l'IUT</qualite-signataire>
+        <id-theme>1</id-theme>
+        <code-etape>T20341</code-etape>
+        <temps-travail id="1">
+            <libelle>Temps Complet</libelle>
+            <code-ctrl>TCOMP</code-ctrl>
+            <tem-en-serv>O</tem-en-serv>
+        </temps-travail>
+        <code-departement>922</code-departement>
+        <duree-exceptionnelle></duree-exceptionnelle>
+        <date-debut-stage>2011-01-03T00:00:00.000+01:00</date-debut-stage>
+        <commentaire-duree-travail></commentaire-duree-travail>
+        <id-offre>0</id-offre>
+        <courriel-perso-etudiant>michelle.montoir@laposte.net</courriel-perso-etudiant>
+        <theme id="1">
+            <libelle>Administration publique</libelle>
+            <tem-en-serv>O</tem-en-serv>
+        </theme>
+        <mode-validation-stage id="1">
+            <libelle>Appréciation de l'enseignant tuteur</libelle>
+            <tem-en-serv>O</tem-en-serv>
+        </mode-validation-stage>
+        <nb-jours-hebdo>5</nb-jours-hebdo>
+        <id-temps-travail>1</id-temps-travail>
+        <id-convention>52</id-convention>
+        <langue-convention>
+            <libelle>Français </libelle>
+            <code>fr</code>
+            <tem-en-serv>O</tem-en-serv>
+        </langue-convention>
+        <code-version-etape>281</code-version-etape>
+        <id-service>23</id-service>
+        <insee>188074419003876</insee>
+        <structure id-type-structure="3" id-accord-partenariat="0"
+            est-validee="false" id-effectif="2" id-structure="15"
+            id-statut-juridique="2" id-pays="81" code-commune="0">
+            <login-infos-aJour>dhouillo</login-infos-aJour>
+            <activite-principale>&lt;p&gt;informatique&lt;/p&gt;</activite-principale>
+            <infos-aJour>2011-01-14T00:00:00.000+01:00</infos-aJour>
+            <raison-sociale>DANIELLE TIERS</raison-sociale>
+            <mail></mail>
+            <numero-siret></numero-siret>
+            <effectif id="2">
+                <libelle>10 à 49</libelle>
+                <tem-en-serv>O</tem-en-serv>
+            </effectif>
+            <type-structure id="3">
+                <libelle>Entreprise privée</libelle>
+                <tem-en-serv>O</tem-en-serv>
+            </type-structure>
+            <telephone>0223232323</telephone>
+            <fax></fax>
+            <statut-juridique id-parent="3" id="2">
+                <libelle>SARL</libelle>
+                <tem-en-serv>O</tem-en-serv>
+            </statut-juridique>
+            <site-web></site-web>
+            <voie>Rue des vignes</voie>
+            <commune>XXXX</commune>
+            <code-postal>563333</code-postal>
+            <pays siret-obligatoire="false" crpay="0" cog="99105"
+                actual="1" id="81">
+                <iso2>FI</iso2>
+                <libelle>FINLANDE</libelle>
+            </pays>
+            <date-creation>2011-01-14T15:45:12.000+01:00</date-creation>
+            <login-creation>dhouillo</login-creation>
+        </structure>
+        <id-unite-gratification>0</id-unite-gratification>
+        <id-etudiant>23</id-etudiant>
+        <id-signataire>45</id-signataire>
+        <nom-etab-ref>UNIVERSITE DE RENNES 1</nom-etab-ref>
+        <id-enseignant>16</id-enseignant>
+        <id-nature-travail>1</id-nature-travail>
+        <validation-convention>true</validation-convention>
+        <code-langue-convention>fr</code-langue-convention>
+        <quotite-travail>100</quotite-travail>
+        <id-centre-gestion>3</id-centre-gestion>
+        <id-mode-vers-gratification>1</id-mode-vers-gratification>
+        <id-fiche-evaluation>0</id-fiche-evaluation>
+        <duree-stage>4</duree-stage>
+        <code-cursus-lMD>L</code-cursus-lMD>
+        <code-finalite></code-finalite>
+        <id-origine-stage>0</id-origine-stage>
+        <mode-vers-gratification id="1">
+            <libelle></libelle>
+            <tem-en-serv>O</tem-en-serv>
+        </mode-vers-gratification>
+        <adresse-etab-ref>2 RUE DU THABOR CS 46510 35065 Rennes</adresse-etab-ref>
+        <id-indemnisation>2</id-indemnisation>
+        <nature-travail id="1">
+            <libelle>Aide et assistance des avocats dans leur fonction</libelle>
+            <tem-en-serv>O</tem-en-serv>
+        </nature-travail>
+        <tem-conf-sujet-teme>N</tem-conf-sujet-teme>
+        <code-postal-etudiant>44600</code-postal-etudiant>
+        <id-contact>44</id-contact>
+        <adresse-etudiant>30 rue claude bernard </adresse-etudiant>
+        <assurance id="1">
+            <libelle>en qualité d'ayant droit d'assuré social</libelle>
+            <tem-en-serv>O</tem-en-serv>
+        </assurance>
+        <fonctions-et-taches>taches</fonctions-et-taches>
+        <mode-encadre-suivi></mode-encadre-suivi>
+        <nb-heures-hebdo>35.00</nb-heures-hebdo>
+        <signataire id-centre-gestion="3" id-service="24"
+            id-accord-partenariat="0" id="45" id-civilite="2">
+            <fonction></fonction>
+            <infos-aJour>2011-01-14T00:00:00.000+01:00</infos-aJour>
+            <login-infos-aJour>dhouillo</login-infos-aJour>
+            <service id-structure="0" id-service="0" id-pays="0" code-commune="0"/>
+            <fax></fax>
+            <civilite id="2">
+                <libelle>Mme</libelle>
+            </civilite>
+            <tel>0223232323</tel>
+            <mail>danielle.martineau@univ-rennes1.fr</mail>
+            <nom>MARTIN QUATRE</nom>
+            <prenom>Dan</prenom>
+            <date-creation>2011-01-14T16:06:48.000+01:00</date-creation>
+            <login-creation>dhouillo</login-creation>
+        </signataire>
+        <tel-etudiant>0240706665</tel-etudiant>
+        <code-uFR>922</code-uFR>
+        <enseignant id="16" id-civilite="0">
+            <bureau>204</bureau>
+            <uid-enseignant>morin</uid-enseignant>
+            <affectation>
+                <libelle>IFSIC</libelle>
+                <code>913</code>
+            </affectation>
+            <code-affectation>913</code-affectation>
+            <tel>+33 2 99 84 72 90</tel>
+            <mail>Christine.Morin@univ-rennes1.fr</mail>
+            <code-universite>UR1</code-universite>
+            <nom>Morin</nom>
+            <prenom>Christine</prenom>
+            <date-creation>2010-11-22T16:23:33.000+01:00</date-creation>
+            <login-creation>dhouillo</login-creation>
+        </enseignant>
+        <service id-structure="15" id-service="23" id-pays="81" code-commune="0">
+            <nom>SERVICE TIERS</nom>
+            <infos-aJour>2011-01-14T00:00:00.000+01:00</infos-aJour>
+            <login-infos-aJour>dhouillo</login-infos-aJour>
+            <voie>Rue des vignes</voie>
+            <commune>XXXX</commune>
+            <code-postal>563333</code-postal>
+            <pays siret-obligatoire="false" crpay="0" cog="99105"
+                actual="1" id="81">
+                <iso2>FI</iso2>
+                <libelle>FINLANDE</libelle>
+            </pays>
+            <date-creation>2011-01-14T15:47:39.000+01:00</date-creation>
+            <login-creation>dhouillo</login-creation>
+        </service>
+        <date-creation>2011-01-14T16:07:06.000+01:00</date-creation>
+        <login-modif>dhouillo</login-modif>
+        <login-creation>dhouillo</login-creation>
+    </convention>
+    <id-enseignant>29</id-enseignant>
+    <id-contact>46</id-contact>
+    <unite-gratification id="1">
+        <libelle>net</libelle>
+        <tem-en-serv>O</tem-en-serv>
+    </unite-gratification>
+    <date-debut-stage>2011-01-04T00:00:00.000+01:00</date-debut-stage>
+    <id-avenant>4</id-avenant>
+    <enseignant id="29" id-civilite="0">
+        <bureau>034</bureau>
+        <uid-enseignant>jmartin</uid-enseignant>
+        <code-affectation></code-affectation>
+        <tel>+33 2 23 23 78 41</tel>
+        <mail>joelle.martin@univ-rennes1.fr</mail>
+        <code-universite>UR1</code-universite>
+        <nom>Martin</nom>
+        <prenom>Joelle</prenom>
+        <date-creation>2011-01-18T09:57:38.000+01:00</date-creation>
+        <login-creation>dhouillo</login-creation>
+    </enseignant>
+    <date-fin-stage>2011-02-25T00:00:00.000+01:00</date-fin-stage>
+    <contact id-centre-gestion="4" id-service="24"
+        id-accord-partenariat="0" id="46" id-civilite="2">
+        <fonction>rh 5</fonction>
+        <infos-aJour>2011-01-18T00:00:00.000+01:00</infos-aJour>
+        <login-infos-aJour>dhouillo</login-infos-aJour>
+        <service id-structure="0" id-service="0" id-pays="0" code-commune="0"/>
+        <fax></fax>
+        <civilite id="2">
+            <libelle>Mme</libelle>
+        </civilite>
+        <tel>0223232323</tel>
+        <mail>danielle.martineau@univ-rennes1.fr</mail>
+        <nom>MARTIN</nom>
+        <prenom>Cinq</prenom>
+        <date-creation>2011-01-18T09:56:47.000+01:00</date-creation>
+        <login-creation>dhouillo</login-creation>
+    </contact>
+    <date-fin-interruption>2011-01-14T00:00:00.000+01:00</date-fin-interruption>
+    <montant-gratification>350.00</montant-gratification>
+    <id-convention>52</id-convention>
+    <date-debut-interruption>2011-01-10T00:00:00.000+01:00</date-debut-interruption>
+    <id-service>24</id-service>
+    <service id-structure="15" id-service="24" id-pays="81" code-commune="0">
+        <nom>RH QUATRES</nom>
+        <infos-aJour>2011-01-14T00:00:00.000+01:00</infos-aJour>
+        <login-infos-aJour>dhouillo</login-infos-aJour>
+        <voie>Rue des vignes</voie>
+        <commune>XXXX</commune>
+        <code-postal>563333</code-postal>
+        <pays siret-obligatoire="false" crpay="0" cog="99105" actual="1" id="81">
+            <iso2>FI</iso2>
+            <libelle>FINLANDE</libelle>
+        </pays>
+        <date-creation>2011-01-14T16:05:28.000+01:00</date-creation>
+        <login-creation>dhouillo</login-creation>
+    </service>
+</avenant-dTO>

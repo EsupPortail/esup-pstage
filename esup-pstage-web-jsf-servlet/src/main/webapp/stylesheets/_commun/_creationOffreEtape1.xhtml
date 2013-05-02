@@ -1,0 +1,17 @@
+<%@include file="__offreEtape1.jsp"%>
+<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+	action="_creationOffreEtape02Etab" alt="#{msgs['FORM.PREVIOUS']}"
+	title="#{msgs['FORM.PREVIOUS']}" immediate="true"
+	rendered="#{offreController.typeAjoutModifOffre>1
+	and not empty offreController.formOffre.structure}">
+	<f:setPropertyActionListener value="#{null}"
+		target="#{rechercheController.resultatRechercheStructure}" />
+</h:commandButton>
+<rich:spacer width="20px"
+	rendered="#{offreController.typeAjoutModifOffre>1}" />
+<h:commandButton value="#{msgs['FORM.NEXT']}"
+	action="#{offreController.goToCreationOffreEtape2}"
+	alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"
+	rendered="#{not empty offreController.formOffre.structure}">
+	<a4j:support event="onclick" eventsQueue="creationOffreEtape2"/>
+</h:commandButton>

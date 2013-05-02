@@ -7,14 +7,14 @@ package org.esupportail.pstage.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.AdminStructureAccountException_Exception;
-import org.esupportail.pstagedata.remote.AdminStructureDTO;
-import org.esupportail.pstagedata.remote.AdminStructureLoginEppnAlreadyUsedException_Exception;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
+import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
+import org.esupportail.pstagedata.exceptions.AdminStructureAccountException;
+import org.esupportail.pstagedata.exceptions.AdminStructureLoginEppnAlreadyUsedException;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 
 /**
  * The AdminDomainService service impl.
@@ -71,28 +71,28 @@ public class AdminDomainServiceImpl implements Serializable, AdminDomainService{
 	/**
 	 * @see org.esupportail.pstage.domain.AdminDomainService#addAdminStructure(org.esupportail.pstagedata.domain.dto.AdminStructureDTO)
 	 */
-	public int addAdminStructure(AdminStructureDTO admin) throws DataAddException_Exception, WebServiceDataBaseException_Exception, AdminStructureLoginEppnAlreadyUsedException_Exception, AdminStructureAccountException_Exception{
+	public int addAdminStructure(AdminStructureDTO admin) throws DataAddException, WebServiceDataBaseException, AdminStructureLoginEppnAlreadyUsedException, AdminStructureAccountException{
 		return this.remoteServices.addAdminStructure(admin);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.AdminDomainService#updateAdminStructure(org.esupportail.pstagedata.domain.dto.AdminStructureDTO)
 	 */
-	public boolean updateAdminStructure(AdminStructureDTO admin) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception, AdminStructureLoginEppnAlreadyUsedException_Exception, AdminStructureAccountException_Exception{
+	public boolean updateAdminStructure(AdminStructureDTO admin) throws DataUpdateException, WebServiceDataBaseException, AdminStructureLoginEppnAlreadyUsedException, AdminStructureAccountException{
 		return this.remoteServices.updateAdminStructure(admin);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.AdminDomainService#updateAdminStructureDerniereConnexion(org.esupportail.pstagedata.domain.dto.AdminStructureDTO)
 	 */
-	public boolean updateAdminStructureDerniereConnexion(AdminStructureDTO admin) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
+	public boolean updateAdminStructureDerniereConnexion(AdminStructureDTO admin) throws DataUpdateException, WebServiceDataBaseException{
 		return this.remoteServices.updateAdminStructureDerniereConnexion(admin);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.AdminDomainService#deleteAdminStructure(int)
 	 */
-	public boolean deleteAdminStructure(int idAdminStructure) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception{
+	public boolean deleteAdminStructure(int idAdminStructure) throws DataDeleteException, WebServiceDataBaseException{
 		return this.remoteServices.deleteAdminStructure(idAdminStructure);	
 	}
 }

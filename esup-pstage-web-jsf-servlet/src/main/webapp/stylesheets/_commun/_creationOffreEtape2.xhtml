@@ -1,0 +1,27 @@
+<%@include file="__offreEtape2.jsp"%>
+
+<e:panelGrid columns="5">
+	<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+		action="_creationOffreEtape1" alt="#{msgs['FORM.PREVIOUS']}"
+		title="#{msgs['FORM.PREVIOUS']}" immediate="true"/>
+	<rich:spacer width="20px" />
+	<h:commandButton value="#{msgs['FORM.NEXT']}"
+		action="#{offreController.goToCreationOffreEtape3}"
+		alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}">
+		<a4j:support ajaxSingle="true" event="onclick" ignoreDupResponses="true"
+			eventsQueue="creationOffreEtape2" reRender="opFCE" />
+	</h:commandButton>
+	<rich:spacer width="20px" />
+	<a4j:outputPanel id="opFCE">
+		<e:panelGrid columns="3"
+			rendered="#{facesContext.maximumSeverity != null}">
+			<h:graphicImage value="../../media/images/arrow_up.png"
+				alt="#{msgs['GENERAL.ARROW_UP']}"
+				title="#{msgs['GENERAL.ARROW_UP']}" />
+			<e:text value="#{msgs['FORM.FORMERROR']}" />
+			<h:graphicImage value="../../media/images/arrow_up.png"
+				alt="#{msgs['GENERAL.ARROW_UP']}"
+				title="#{msgs['GENERAL.ARROW_UP']}" />
+		</e:panelGrid>
+	</a4j:outputPanel>
+</e:panelGrid>

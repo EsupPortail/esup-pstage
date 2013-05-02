@@ -22,15 +22,15 @@ import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.NousContacter;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.remote.AccordPartenariatDTO;
-import org.esupportail.pstagedata.remote.AdminStructureDTO;
-import org.esupportail.pstagedata.remote.CentreGestionDTO;
-import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.DroitAdministrationDTO;
-import org.esupportail.pstagedata.remote.EnseignantDTO;
-import org.esupportail.pstagedata.remote.EtudiantDTO;
-import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
-import org.esupportail.pstagedata.remote.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
+import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
+import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.ContactDTO;
+import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
+import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
+import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.StructureDTO;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -42,7 +42,7 @@ import org.springframework.util.StringUtils;
 public class WelcomeController extends AbstractContextAwareController {
 
 	/* ***************************************************************
-	 * Propriétés
+	 * Propri�t�s
 	 ****************************************************************/
 	/**
 	 * Logger
@@ -61,16 +61,16 @@ public class WelcomeController extends AbstractContextAwareController {
 	 */
 	private String mdp;
 	/**
-	 * Mail utilisé pour la récupération de mot de passe perdu
+	 * Mail utilis� pour la r�cup�ration de mot de passe perdu
 	 */
 	private String mailMotDePassePerdu;
 	/**
-	 * Liste des structures pour sélection (étape 2 de récupération de mot de passe)
-	 * dans le cas où le contact posséde un compte dans 2 établissements différents.
+	 * Liste des structures pour s�lection (�tape 2 de r�cup�ration de mot de passe)
+	 * dans le cas o� le contact poss�de un compte dans 2 �tablissements diff�rents.
 	 */
 	private List<StructureDTO> listeStructuresTrouveeMotDePassePerdu;
 	/**
-	 * Établissement sélectionné pour la récupération de mot de passe
+	 * �tablissement s�lectionn� pour la r�cup�ration de mot de passe
 	 */
 	private StructureDTO structureSelectionneeMotDePassePerdu;
 	/**
@@ -87,7 +87,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	 */
 	private LdapUserService ldapUserService;
 	/**
-	 * Nom de l'attribut spécifiant l'affiliation d'une personne dans ldap
+	 * Nom de l'attribut sp�cifiant l'affiliation d'une personne dans ldap
 	 */
 	private String affiliation;
 	/**
@@ -103,7 +103,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	 */
 	private String faculty;
 	/**
-	 * Création d'une convention autorisée
+	 * Cr�ation d'une convention autoris�e
 	 */
 	private boolean creationConventionAutorisee=true;
 
@@ -159,7 +159,7 @@ public class WelcomeController extends AbstractContextAwareController {
 
 
 	/**
-	 * Envoi vers la 1ère étape de récupération d'un mot de passe
+	 * Envoi vers la 1�re �tape de r�cup�ration d'un mot de passe
 	 * @return A String
 	 */
 	public String goToMotDePassePerdu(){
@@ -169,7 +169,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Envoi vers la 2ème ou 3ème étape de récupération d'un mot de passe
+	 * Envoi vers la 2�me ou 3�me �tape de r�cup�ration d'un mot de passe
 	 * @return String
 	 */
 	public String goToMotDePassePerduEtabTrouve(){
@@ -219,7 +219,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Envoi vers l'étape 3 de récupération de mot de passe depuis l'étape 2
+	 * Envoi vers l'�tape 3 de r�cup�ration de mot de passe depuis l'�tape 2
 	 * @return String
 	 */
 	public String goToRecuperationMotDePasse(){
@@ -311,6 +311,18 @@ public class WelcomeController extends AbstractContextAwareController {
 		return null;
 	}
 
+	//	public String retourLigneHTML(String s){
+	//		String r="";
+	//		StringTokenizer st = new StringTokenizer(s, "\n");
+	//		r=st.nextToken();
+	//		while(st.hasMoreTokens()){
+	//			r=r+"</br>"+st.nextToken();
+	//		}
+	//		return r;
+	//	}
+
+
+
 	/**
 	 * @return String
 	 */
@@ -328,7 +340,7 @@ public class WelcomeController extends AbstractContextAwareController {
 			this.etablissementController.loadContactsServices();
 			this.offreController.loadOffres();
 			if(logger.isInfoEnabled()){
-				logger.info(getSessionController().getCurrentLogin()+" gère : "+getSessionController().getCurrentManageStructure());
+				logger.info(getSessionController().getCurrentLogin()+" g�re : "+getSessionController().getCurrentManageStructure());
 			}
 		}else{
 			addErrorMessage(null, "STRUCTURE.GESTION.ERREUR");
@@ -449,6 +461,7 @@ public class WelcomeController extends AbstractContextAwareController {
 					if(logger.isInfoEnabled()){
 						logger.info("User not authorized via Shibb : "+auth.getName());
 					}
+					//addErrorMessage("connexion", "GENERAL.NOTAUTHORIZED");
 					getSessionController().setNotAdminEntrepriseViaCasShibb(true);
 				}
 			}
@@ -538,7 +551,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Méthode de connexion via CAS pour les utilisateurs 
+	 * M�thode de connexion via CAS pour les utilisateurs 
 	 */
 	public void connectStage(){
 		if(!getSessionController().isAdminPageAuthorized()){
@@ -546,8 +559,8 @@ public class WelcomeController extends AbstractContextAwareController {
 				//
 			}else{
 				if(getSessionController().getCurrentStageCasUser()==null){
-					// Mise en session du currentUser pour indiquer qu'une personne est connectée et
-					// qu'il n'est pas nécessaire par la suite de recharger le personnel connecté ainsi que ses droits
+					// Mise en session du currentUser pour indiquer qu'une personne est connect�e et
+					// qu'il n'est pas n�cessaire par la suite de recharger le personnel connect� ainsi que ses droits
 					getSessionController().setCurrentStageCasUser(getCurrentUser());
 					//Connexion
 					connectingStage();
@@ -560,7 +573,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Méthode permettant d'identifier la personne connectée : étudiant, enseignant, personnel
+	 * M�thode permettant d'identifier la personne connect�e : �tudiant, enseignant, personnel
 	 * ainsi que les droits de chacun
 	 */
 	public void connectingStage(){
@@ -582,12 +595,12 @@ public class WelcomeController extends AbstractContextAwareController {
 				ldapUser = ldapUserService.getLdapUser(getSessionController().getCurrentStageCasUser().getId());
 				userAffiliation = ldapUser.getAttribute(this.affiliation);
 				if(StringUtils.hasText(userAffiliation) && (employee.contains(userAffiliation) || faculty.contains(userAffiliation))){
-					// Gestion de ses droits pour chaque centre de l'université de l'individu connecté
+					// Gestion de ses droits pour chaque centre de l'universit� de l'individu connect�
 					List<PersonnelCentreGestionDTO> liste = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionFromUid(getSessionController().getCurrentStageCasUser().getId(),getSessionController().getCodeUniversite());
 					if(logger.isDebugEnabled()){
 						logger.info("ldapUser : " + ldapUser);
 						logger.info("Employee : " + employee);
-						logger.debug("Recherche des droits du personnel pour chaque centre de son université ==> " + liste);
+						logger.debug("Recherche des droits du personnel pour chaque centre de son universit� ==> " + liste);
 					}
 
 					if (liste != null && !liste.isEmpty()){
@@ -609,10 +622,13 @@ public class WelcomeController extends AbstractContextAwareController {
 					getSessionController().setCurrentCentresGestion(getCentreGestionDomainService().getCentreFromUid(getSessionController().getCurrentStageCasUser().getId(),getSessionController().getCodeUniversite()));
 
 					if(getSessionController().getCurrentCentresGestion()!=null && !getSessionController().getCurrentCentresGestion().isEmpty()){
+						// Ajout des droits pour le centre entreprise (artois) si la personne est superadmin ou adminStructure
+						if ((getSessionController().isSuperAdminPageAuthorized() 
+						|| getAdminDomainService().getAdminStructureFromLogin(getSessionController().getCurrentLogin()) != null)
+						&& getCentreGestionDomainService().getCentreEntreprise() != null){
+							getSessionController().getCurrentCentresGestion().add(getCentreGestionDomainService().getCentreEntreprise());
+						}
 						Collections.sort(getSessionController().getCurrentCentresGestion(), new Comparator<CentreGestionDTO>(){
-							/**
-							 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-							 */
 							@Override
 							public int compare(CentreGestionDTO c1, CentreGestionDTO c2) {
 								return c1.getNomCentre().compareTo(c2.getNomCentre());
@@ -630,7 +646,7 @@ public class WelcomeController extends AbstractContextAwareController {
 								getSessionController().setCurrentAuthPersonnel(p);
 
 							}else{
-								//Si aucun personnel trouvé, création de l'objet PersonnelDTO manuellement à partir des infos de getSessionController().getCurrentStageCasUser()
+								//Si aucun personnel trouv�, cr�ation de l'objet PersonnelDTO manuellement � partir des infos de getSessionController().getCurrentStageCasUser()
 								p = new PersonnelCentreGestionDTO();
 								p.setUidPersonnel(getSessionController().getCurrentStageCasUser().getId());
 
@@ -640,7 +656,7 @@ public class WelcomeController extends AbstractContextAwareController {
 					}
 
 					if (faculty.contains(userAffiliation)){
-						// /!\ Si le personnel est également enseignant, on rempli également sessionController -> currentAuthEnseignant
+						// /!\ Si le personnel est �galement enseignant, on rempli �galement sessionController -> currentAuthEnseignant
 						//Si c'est un enseignant
 						EnseignantDTO en = getPersonalDataRepositoryDomain().getEnseignantRef(getSessionController().getCodeUniversite(),
 								getSessionController().getCurrentStageCasUser().getId());
@@ -650,7 +666,7 @@ public class WelcomeController extends AbstractContextAwareController {
 								getSessionController().setCurrentAuthEnseignant(en);
 
 							}else{
-								//Si aucun enseignant trouvé, création de l'objet EnseignantDTO manuellement à partir des infos de getSessionController().getCurrentStageCasUser()
+								//Si aucun enseignant trouv�, cr�ation de l'objet EnseignantDTO manuellement � partir des infos de getSessionController().getCurrentStageCasUser()
 								en = new EnseignantDTO();
 								en.setUidEnseignant(getSessionController().getCurrentStageCasUser().getId());
 
@@ -659,18 +675,18 @@ public class WelcomeController extends AbstractContextAwareController {
 						}
 					} 
 				} else if (StringUtils.hasText(userAffiliation) && student.contains(userAffiliation)){
-					//Sinon, si c'est un étudiant
-					EtudiantRef tmpE = getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(),
+					//Sinon, si c'est un �tudiant
+					EtudiantRef e = getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(),
 							getSessionController().getCurrentStageCasUser().getId());
 					CentreGestionDTO tmp = new CentreGestionDTO();
 					CentreGestionDTO cgEtab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
-					if (tmpE != null){
+					if (e != null){
 						if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
-							// On recupere la liste des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
-							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
-							if(tmpE.getStudysKey() != null) {
-								if (!tmpE.getStudysKey().isEmpty()) {
-									for(String code : tmpE.getStudysKey()){
+							// On recupere la liste des ufr de l'etudiant et on v�rifie si elles sont gerees par un centre
+							// Si c'est le cas et que ce centre n'est pas d�j� dans la liste CurrentCentresGestion, on l'y ajoute
+							if(e.getStudysKey() != null) {
+								if (!e.getStudysKey().isEmpty()) {
+									for(String code : e.getStudysKey()){
 										tmp = recupCentre(code);
 										if (tmp != null
 												&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
@@ -683,11 +699,11 @@ public class WelcomeController extends AbstractContextAwareController {
 								}
 							}
 						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
-							// On recupere la liste des etapes de l'etudiant et on vérifie si elles sont gerees par un centre
-							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
-							if(tmpE.getStepsKey() != null){
-								if (!tmpE.getStepsKey().isEmpty()) {
-									for(String code : tmpE.getStepsKey()){
+							// On recupere la liste des etapes de l'etudiant et on v�rifie si elles sont gerees par un centre
+							// Si c'est le cas et que ce centre n'est pas d�j� dans la liste CurrentCentresGestion, on l'y ajoute
+							if(e.getStepsKey() != null){
+								if (!e.getStepsKey().isEmpty()) {
+									for(String code : e.getStepsKey()){
 										tmp = recupCentre(code);
 										if (tmp != null
 												&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
@@ -701,10 +717,10 @@ public class WelcomeController extends AbstractContextAwareController {
 							}
 							
 						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
-							// On recupere les listes des etapes et des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
-							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
-							if(tmpE.getStepsKey() != null){
-								for(String code : tmpE.getStepsKey()){
+							// On recupere les listes des etapes et des ufr de l'etudiant et on v�rifie si elles sont gerees par un centre
+							// Si c'est le cas et que ce centre n'est pas d�j� dans la liste CurrentCentresGestion, on l'y ajoute
+							if(e.getStepsKey() != null){
+								for(String code : e.getStepsKey()){
 									tmp = recupCentre(code);
 									if (tmp != null
 											&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
@@ -712,8 +728,8 @@ public class WelcomeController extends AbstractContextAwareController {
 									}
 								}
 							}
-							if(tmpE.getStudysKey() != null) {
-								for(String code : tmpE.getStudysKey()){
+							if(e.getStudysKey() != null) {
+								for(String code : e.getStudysKey()){
 									tmp = recupCentre(code);
 									if (tmp != null
 											&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
@@ -721,7 +737,7 @@ public class WelcomeController extends AbstractContextAwareController {
 									}
 								}
 							}
-							if (tmpE.getStudysKey().isEmpty() && tmpE.getStepsKey().isEmpty()) {
+							if (e.getStudysKey().isEmpty() && e.getStepsKey().isEmpty()) {
 								// par default, on met le centre etablissement
 								getSessionController().getCurrentCentresGestion().add(cgEtab);
 							}
@@ -742,23 +758,21 @@ public class WelcomeController extends AbstractContextAwareController {
 						}
 					}
 
-					EtudiantDTO e = tmpE==null?null:tmpE;
-
 					if (e != null) {
 						if(!(e.getIdentEtudiant().isEmpty())){
 							getSessionController().setCurrentAuthEtudiant(e);
 						}else{
-							//Si aucun étudiant trouvé, création de l'objet EtudiantDTO manuellement à partir des infos de getSessionController().getCurrentStageCasUser()
-							e = new EtudiantDTO();
-							e.setIdentEtudiant(getSessionController().getCurrentStageCasUser().getId());
+							//Si aucun �tudiant trouv�, cr�ation de l'objet EtudiantDTO manuellement � partir des infos de getSessionController().getCurrentStageCasUser()
+							EtudiantDTO tmpE = new EtudiantDTO();
+							tmpE.setIdentEtudiant(getSessionController().getCurrentStageCasUser().getId());
 
-							getSessionController().setCurrentAuthEtudiant(e);
+							getSessionController().setCurrentAuthEtudiant(tmpE);
 						}
 					}
 				}
 			}
 		}
-		if(logger.isDebugEnabled()){
+		if (logger.isDebugEnabled())
 			logger.debug("Resume des informations recuperees a la connexion : " + 
 					"\nCurrentAuthAdminStructure : " + getSessionController().getCurrentAuthAdminStructure() +
 					"\nCurrentAuthContact : " + getSessionController().getCurrentAuthContact() +
@@ -769,7 +783,7 @@ public class WelcomeController extends AbstractContextAwareController {
 					"\nCurrentCentresGestions : " + getSessionController().getCurrentCentresGestion() +
 					"\nDroitsAccesMap : " + getSessionController().getDroitsAccesMap() +
 					"\nCentreGestionRattachement : " + getSessionController().getCentreGestionRattachement());
-		}
+		
 	}
 
 	/**
@@ -922,7 +936,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Méthode de déconnexion depuis l'Espace Entreprise
+	 * M�thode de d�connexion depuis l'Espace Entreprise
 	 * @return String
 	 */
 	public String disconnectEntreprise(){
@@ -932,7 +946,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Méthode de déconnexion depuis Stage
+	 * M�thode de d�connexion depuis Stage
 	 * @return String
 	 */
 	public String disconnectStage(){
@@ -950,7 +964,7 @@ public class WelcomeController extends AbstractContextAwareController {
 		getSessionController().setCurrentCentresGestion(null);
 	}
 	/**
-	 * Déconnexion
+	 * D�connexion
 	 */
 	public void disconnecting(){
 		if(getSessionController().getCurrentAuthAdminStructure()!=null && logger.isInfoEnabled()){

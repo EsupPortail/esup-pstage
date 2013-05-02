@@ -16,6 +16,6 @@ public interface PersonalComponentRepositoryDao extends Serializable, Initializi
 	 * @param universityCode
 	 * @return a Map<String,String>, codes et libelles des composantes
 	 */
-	public Map<String, String> getComposantesRef(String universityCode); 
+	public Map<String, String> getComposantesRef(String universityCode);
 
 }

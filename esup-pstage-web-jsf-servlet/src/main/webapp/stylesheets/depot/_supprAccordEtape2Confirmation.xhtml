@@ -1,0 +1,13 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="2" align="center">
+	<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+		title="#{msgs['GENERAL.OK']}"
+		value="../../media/images/valid.png" style="border:0" />
+	<rich:messages>
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:messages>
+</e:panelGrid>
+<a4j:commandButton ajaxSingle="true"
+value="#{msgs['GENERAL.CLOSE']}" action="_supprAccordEtape1"
+	onclick="#{rich:component('supprimerAccordPanel')}.hide();" />

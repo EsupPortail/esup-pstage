@@ -1,0 +1,33 @@
+<%@include file="../_include.jsp"%>
+<%
+	/*
+	 Nombre de résultats pour la recherche établissement
+
+	 A inclure avant la dataTable des résultats
+	 */
+%>
+<e:panelGrid columns="2">
+	<h:graphicImage value="../../media/images/building.png"
+		alt="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}" style="border:0"
+		rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount > 1
+						and rechercheController.rechercheStructurePaginator.totalItemsCount < 200}" />
+	<e:text value="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}"
+		rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount > 1
+						and rechercheController.rechercheStructurePaginator.totalItemsCount < 200}"
+		escape="false">
+		<f:param
+			value="#{rechercheController.rechercheStructurePaginator.totalItemsCount}" />
+	</e:text>
+	<h:graphicImage value="../../media/images/building.png"
+		alt="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}"
+		style="border:0"
+		rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount >= 200}" />
+	<e:text value="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}"
+		rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount >= 200}"
+		escape="false">
+		<f:param
+			value="#{rechercheController.rechercheStructurePaginator.totalItemsCount}" />
+	</e:text>
+</e:panelGrid>
+<t:htmlTag value="br" />
+<rich:spacer height="20px" />

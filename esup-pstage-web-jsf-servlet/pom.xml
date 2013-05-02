@@ -9,15 +9,10 @@
 	</parent>
 	<artifactId>esup-pstage-web-jsf-servlet</artifactId>
 	<packaging>war</packaging>
-	<description>couche d'acces aux donnees</description>
-	<repositories>
-		<repository>
-			<id>prime-repo</id>
-			<name>Prime Technology Maven Repository</name>
-			<url>http://repository.primefaces.org</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
+	<description>couche vue-controller</description>
+	<properties>
+		<org.richfaces.bom.version>4.3.1.Final</org.richfaces.bom.version>
+	</properties>
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<resources>
@@ -36,6 +31,17 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.richfaces</groupId>
+				<artifactId>richfaces-bom</artifactId>
+				<version>${org.richfaces.bom.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.esupportail</groupId>
@@ -43,9 +49,12 @@
 			<version>2.5.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>org.richfaces.ui</groupId>
+			<artifactId>richfaces-components-ui</artifactId>
+		</dependency>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+		<dependency>
 			<groupId>org.richfaces.core</groupId>
-			<artifactId>richfaces-core-api</artifactId>
-			<version>4.0.0.Final</version>
+			<artifactId>richfaces-core-impl</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -57,16 +66,10 @@
 			<artifactId>spring-security-core</artifactId>
 			<version>3.1.2.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.esupportail</groupId>
+			<artifactId>esup-commons2-jsf2-exception</artifactId>
+			<version>${esupcommons.version}</version>
+		</dependency>
 	</dependencies>
-	<properties>
-		<javax.servlet.version>2.5</javax.servlet.version>
-		<cas.url>https://sso-cas.univ-rennes1.fr</cas.url>
-		<tomcat.host>localhost</tomcat.host>
-		<tomcat.port.string>:8080</tomcat.port.string>
-		<log.level>INFO</log.level>
-		<log.output>stdout</log.output>
-		<log.file>/tmp/${project.parent.artifactId}.log</log.file>
-		<cache.path>/tmp/${project.parent.artifactId}/cache</cache.path>
-	</properties>
-
 </project>

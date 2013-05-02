@@ -1,0 +1,37 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<e:panelGrid style="float:left;">
+		<%@include file="./_menu.jsp"%>
+	</e:panelGrid>
+	<e:panelGrid columns="1"
+		styleClass="panelEntreprise">
+		<rich:panel>
+			<f:facet name="header">
+				<e:text value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+			</f:facet>
+			<h:form id="formRechOffre">
+				<%@include file="../_commun/_rechercheOffre.jsp"%>
+				<e:panelGrid columns="5">
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
+						action="#{offreController.rechercherOffre}" />
+					<rich:spacer width="100px" />
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
+						action="#{offreController.rechercheSimpleAvancee}"
+						rendered="#{offreController.rechercheAvancee}" />
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
+						action="#{offreController.rechercheSimpleAvancee}"
+						rendered="#{!offreController.rechercheAvancee}" />
+					<rich:spacer width="20px" />
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
+						action="#{offreController.resetRechercheOffre}" />
+				</e:panelGrid>
+			</h:form>
+			<rich:message for="formRechOffre" style="color:red;font-weight:bold;">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</rich:panel>
+		<%@include file="_panelNousContacter.jsp"%>
+	</e:panelGrid>
+</e:page>

@@ -2,7 +2,7 @@ package org.esupportail.pstage.domain;
 
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.StatisticItemDTO;
+import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
 
 public interface StatisticItemDomainService {
 	public List<StatisticItemDTO> getNumberOfConventionsByActivity(String idCenter, String year) ;

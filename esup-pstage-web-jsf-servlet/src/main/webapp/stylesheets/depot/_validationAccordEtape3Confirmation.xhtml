@@ -1,0 +1,10 @@
+<%@include file="../_commun/_confirmationMessages.jsp"%>
+
+<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+	action="#{rechercheController.goToRechercheEtablissement}"
+	alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+	title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+	immediate="true">
+	<f:setPropertyActionListener value="#{null}"
+		target="#{rechercheController.resultatRechercheStructure}" />
+</h:commandButton>

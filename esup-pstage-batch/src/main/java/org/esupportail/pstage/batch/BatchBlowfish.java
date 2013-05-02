@@ -54,7 +54,7 @@ public class BatchBlowfish {
 			break;
 		case 1:
 			if("-g".equals(args[0])){
-				//Génération de la clé
+				//G�n�ration de la cl�
 				byte[] secretKey = BlowfishUtils.getSecretKeyInBytes(BlowfishUtils.generateKey());
 				LOG.info("Your secret key : "+new BigInteger(secretKey));
 			}else{
@@ -65,7 +65,7 @@ public class BatchBlowfish {
 			if("-e".equals(args[0])){
 				String key = args[1];
 				String plaintext = args[2];
-				//Cryptage de la chaine de caractére
+				//Cryptage de la chaine de caract�re
 				BigInteger bi = new BigInteger(key);
 				LOG.info("Encrypting ...");
 				byte[] ciphertext = BlowfishUtils.crypt(BlowfishUtils.getSecretKeyFromBytes(bi.toByteArray()), plaintext);   

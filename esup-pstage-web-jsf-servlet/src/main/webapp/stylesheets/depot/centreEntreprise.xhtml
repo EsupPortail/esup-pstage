@@ -1,0 +1,24 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<t:div>
+		<e:panelGrid style="float:left;">
+			<%@include file="./_menu.jsp"%>
+		</e:panelGrid>
+		<e:panelGrid columns="1"
+			styleClass="panelEntreprise"
+			rendered="#{sessionController.superAdminPageAuthorized}">
+			<rich:panel>
+				<f:facet name="header">
+					<e:text value="#{msgs['MENU.CENTREENTREPRISE']}" />
+				</f:facet>
+				<h:form id="formCentreEntreprise">
+					<a4j:include id="include"
+						viewId="/stylesheets/depot/_modifCentreEntrepriseEtape1.jsp" />
+				</h:form>
+			</rich:panel>
+			<%@include file="_panelNousContacter.jsp"%>
+		</e:panelGrid>
+	</t:div>
+</e:page>

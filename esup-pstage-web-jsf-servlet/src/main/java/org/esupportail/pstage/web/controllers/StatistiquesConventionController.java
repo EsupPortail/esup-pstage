@@ -12,11 +12,11 @@ import java.util.Map.Entry;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletException;
 
-import org.esupportail.pstage.domain.referentiel.StatistiquesDomainService;
+import org.esupportail.pstage.domain.StatistiquesDomainService;
 import org.esupportail.pstage.exceptions.StatistiquesException;
-import org.esupportail.pstage.web.beans.StatisticCriteria;
 import org.esupportail.pstage.web.servlet.EditXlsServlet;
-import org.esupportail.pstagedata.remote.StatisticItemDTO;
+import org.esupportail.pstagedata.domain.beans.StatisticCriteria;
+import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
 
 
 
@@ -29,9 +29,9 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 	LinkedHashMap<String,String> secondStatsCriteriumList;
 
 	//critere de niveau 1 pour les conventions 
-	private List<SelectItem> firstLevelStatCriteriaForConvention ;
+	private 	List<SelectItem> firstLevelStatCriteriaForConvention ;
 	//critere de niveau 2 pour les conventions 
-	private List<SelectItem> secondLevelStatCriteriaForConvention ; 
+	private 	List<SelectItem> secondLevelStatCriteriaForConvention ; 
 
 	private String critereUnLib;
 	private String 	critereDeuxLib;
@@ -212,7 +212,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		return critere;
 	}
 
-	//arrondir le double x à n décimales : pour que le pourcentage n'est que 2 décimales
+	//arrondir le double x � n d�cimales : pour que le pourcentage n'est que 2 d�cimales
 	/*private static double arrondiNDecimales(double x, int n)
 	{
 		double pow = Math.pow(10, n);
@@ -226,9 +226,9 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		map= new LinkedHashMap<String,List<StatisticItemDTO>>();
 		//		idCentreGestion = new Integer(1);
 		String etab = "CDG";
-		//		System.out.println("idCentreGestion="+idCentreGestion);
+//				System.out.println("idCentreGestion="+idCentreGestion);
 
-		// récupère les différentes années, soit 2007 à 2012
+		// r�cup�re les diff�rentes ann�es, soit 2007 � 2012
 		years = statistiquesDomainService.getAnneesConventions(idCentreGestion, etab);
 
 		//		System.out.println("Critere 1 Lib = "+critereUnLib);
@@ -243,7 +243,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		/*Statistiques pour tout le centre de gestion*/
 
 		if(years != null){
-			//boucle sur les differentes années universitaires depuis 2007
+			//boucle sur les differentes ann�es universitaires depuis 2007
 			for (String uneAnnee:years){
 
 				//Critere 1 = vide
@@ -309,6 +309,10 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 						statsItemList = statistiquesDomainService.getNumberOfConventionsByTheme(idCentreGestion, uneAnnee, etab);
 						message = getString("CONVENTION.STATS.THEME");
 					}
+					else if (critereDeuxCle.equals("DUREE")){
+						statsItemList = statistiquesDomainService.getNumberOfConventionsByNbWeeks(idCentreGestion, uneAnnee, etab);
+						message = getString("CONVENTION.STATS.DUREE");
+					}
 
 				}//fin Critere 1 = vide 
 
@@ -373,6 +377,10 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 						statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndTheme(idCentreGestion, uneAnnee, etab);
 						message = getString("CONVENTION.STATS.UFR.THEME");
 					}
+					else if (critereDeuxCle.equals("DUREE")){
+						statsItemList = statistiquesDomainService.getNumberOfConventionsByStudyAndNbWeeks(idCentreGestion, uneAnnee, etab);
+						message = getString("CONVENTION.STATS.UFR.DUREE");
+					}
 
 				}//fin Critere 1 = UFR
 
@@ -435,6 +443,10 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 					else if (critereDeuxCle.equals("THEME")){
 						statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndTheme(idCentreGestion, uneAnnee, etab);
 						message = getString("CONVENTION.STATS.DEP.THEME");
+					}
+					else if (critereDeuxCle.equals("DUREE")){
+						statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartmentAndNbWeeks(idCentreGestion, uneAnnee, etab);
+						message = getString("CONVENTION.STATS.DEP.DUREE");
 					}
 
 				}//fin Critere 1 = ETAPE
@@ -499,19 +511,23 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 						statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndTheme(idCentreGestion, uneAnnee, etab);
 						message = getString("CONVENTION.STATS.ETAPE.THEME");
 					}
+					else if (critereDeuxCle.equals("DUREE")){
+						statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndNbWeeks(idCentreGestion, uneAnnee, etab);
+						message = getString("CONVENTION.STATS.ETAPE.DUREE");
+					}
 
 				}//fin Critere 1 = ETAPE
 
 
-				//Calcul du résultat
+				//Calcul du r�sultat
 				if (statsItemList!=null && !statsItemList.isEmpty()){
 					total = 0;
-					//connaitre le nombre de conventions ramenés
+					//connaitre le nombre de conventions ramen�s
 					for (StatisticItemDTO unItem : statsItemList){
 						libelle = unItem.getLib();
 						total = total + unItem.getNumber();
 					}
-					//connaitre le pourcentage de conventions ramenés
+					//connaitre le pourcentage de conventions ramen�s
 					pourcentage=0;
 					for (StatisticItemDTO unItem : statsItemList){
 						pourcentage = (unItem.getNumber()*100)/total;
@@ -523,18 +539,6 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 				}
 			}//fin boucle sur les annees
 
-			//resultat dans map
-			/*for(Entry<String, List<StatisticItemDTO>> entry : map.entrySet()) {
-				String cle = entry.getKey();
-				System.out.print("cle="+cle);
-				//boucle sur la liste
-				List<StatisticItemDTO> liste = entry.getValue();
-				for(int i=0; i<liste.size(); i++) {
-					System.out.print("  Libelle="+liste.get(i).getLib());
-					System.out.print("  Nombre="+liste.get(i).getNumber());
-					System.out.println("  Pourcentage="+liste.get(i).getPercentage());
-				}
-			}*/
 		}//fin years != null
 		return "resultatStagesStats";
 	}

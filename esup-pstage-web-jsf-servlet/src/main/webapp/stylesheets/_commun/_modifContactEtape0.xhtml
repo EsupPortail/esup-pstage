@@ -1,0 +1,15 @@
+<%@include file="../_include.jsp"%>
+
+<e:text value="#{msgs['CONTACT.GESTION.MODIF.QUESTION']}" escape="false" />
+<rich:spacer height="20px" />
+<rich:dataTable value="#{etablissementController.formContact}">
+	<%@include file="../_commun/_contactColumns.jsp"%>
+</rich:dataTable>
+<t:htmlTag value="br" />
+<rich:spacer height="20px" />
+<t:htmlTag value="br" />
+<a4j:commandButton action="_modifContactEtape1"
+	value="#{msgs['FORM.OUI']}" ignoreDupResponses="true" ajaxSingle="true" />
+<rich:spacer width="150px" />
+<a4j:commandButton value="#{msgs['FORM.NON']}"
+	onclick="#{rich:component('modifContact')}.hide();" />

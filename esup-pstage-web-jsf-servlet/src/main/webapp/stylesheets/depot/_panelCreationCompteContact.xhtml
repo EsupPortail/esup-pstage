@@ -1,0 +1,11 @@
+<%@include file="../_include.jsp"%>
+<rich:modalPanel id="creationCompteContact" autosized="true" width="400"
+	styleClass="panel" domElementAttachment="parent">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}" />
+	</f:facet>
+	<h:form id="formCreationCompteContact">
+		<a4j:include id="include"
+			viewId="/stylesheets/depot/_creationCompteContactEtape1.jsp" />
+	</h:form>
+</rich:modalPanel>

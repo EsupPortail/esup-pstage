@@ -1,0 +1,63 @@
+<%@include file="../_include.jsp"%>
+
+<f:facet name="header">
+	<rich:columnGroup>
+		<rich:column>
+			<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
+				title="#{msgs['CONTACT.CIVILITE']}"
+				value="../../media/images/user_gray.png" style="border:0" />
+		</rich:column>
+		<rich:column>
+			<h:outputText styleClass="headerText" value="#{msgs['CONTACT.NOM']}" />
+		</rich:column>
+		<rich:column>
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONTACT.PRENOM']}" />
+		</rich:column>
+		<rich:column>
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONTACT.FONCTION']}" />
+		</rich:column>
+		<rich:column>
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONTACT.TELFAXMAIL']}" />
+		</rich:column>
+	</rich:columnGroup>
+</f:facet>
+<rich:column>
+	<e:text id="civC"
+		value="#{etablissementController.formContact.civilite.libelle}" />
+</rich:column>
+<rich:column>
+	<e:text id="nomC" value="#{etablissementController.formContact.nom}" />
+</rich:column>
+<rich:column>
+	<e:text id="prenomC"
+		value="#{etablissementController.formContact.prenom}" />
+</rich:column>
+<rich:column>
+	<e:text id="fonctionC"
+		value="#{etablissementController.formContact.fonction}" />
+</rich:column>
+<rich:column>
+	<e:panelGrid columns="1">
+		<e:panelGrid columns="2">
+			<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+				title="#{msgs['CONTACT.TELEPHONE']}"
+				value="../../media/images/phone.png" style="border:0" />
+			<e:text id="telC" value="#{etablissementController.formContact.tel}" />
+		</e:panelGrid>
+		<e:panelGrid columns="2">
+			<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+				title="#{msgs['CONTACT.FAX']}"
+				value="../../media/images/printer.png" style="border:0" />
+			<e:text id="faxC" value="#{etablissementController.formContact.fax}" />
+		</e:panelGrid>
+		<e:panelGrid columns="2">
+			<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+				title="#{msgs['CONTACT.MAIL']}" value="../../media/images/email.png"
+				style="border:0" />
+			<e:text id="mailC" value="#{etablissementController.formContact.mail}" />
+		</e:panelGrid>
+	</e:panelGrid>
+</rich:column>

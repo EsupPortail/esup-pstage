@@ -1,0 +1,11 @@
+<%@include file="../_include.jsp"%>
+
+<%@include file="./_formContact.jsp"%>
+<a4j:commandButton action="#{etablissementController.ajouterContact}"
+	value="#{msgs['FORM.CREER']}" ignoreDupResponses="true" 
+	reRender="opContactsDataTable"/>
+<rich:spacer width="150px" />
+<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+	onclick="#{rich:component('ajoutContact')}.hide();" 
+	action="_ajoutContactEtape1"
+	immediate="true"/>

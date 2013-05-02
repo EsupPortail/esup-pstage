@@ -1,0 +1,48 @@
+<%@include file="../_include.jsp"%>
+<e:panelGrid columns="1"
+	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+	<rich:panel>
+		<f:facet name="header">
+			<e:text value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
+		</f:facet>
+		<%@include
+			file="/stylesheets/stage/_conventionEtape6RechEnseignantForm.jsp"%>
+
+		<rich:spacer height="20" />
+		<e:panelGrid columns="2">
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionEtape5StageR}"
+				value="#{msgs['FORM.PREVIOUS']}">
+			</a4j:commandButton>
+			<a4j:commandButton
+				action="#{conventionController.rechercheEnseignantCrea}"
+				value="#{msgs['FORM.RECHERCHER']}">
+			</a4j:commandButton>
+		</e:panelGrid>
+		<rich:spacer height="20" />
+
+		<e:panelGrid
+			rendered="#{conventionController.convention.centreGestion.presenceTuteurEns == false}">
+			<e:text value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE']}"
+				escape="false" />
+			<a4j:commandLink ajaxSingle="true" id="passeretape"
+				action="#{conventionController.goToCreerConventionEtape7Signataire}">
+				<f:setPropertyActionListener value="#{null}"
+								target="#{conventionController.convention.enseignant}" />
+				<e:text value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}"
+					escape="false" />
+			</a4j:commandLink>
+			<rich:toolTip for="passeretape"
+				value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}" />
+		</e:panelGrid>
+	</rich:panel>
+
+
+</e:panelGrid>
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1" id="formAjoutEtab">
+	<rich:message for="formAjoutEtab">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+	<%@include file="../_commun/_etablissementForm.jsp"%>
+	<e:panelGrid columns="3">
+		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			action="_creationOffreEtape02Etab" alt="#{msgs['FORM.PREVIOUS']}"
+			title="#{msgs['FORM.PREVIOUS']}" immediate="true"
+			rendered="#{offreController.typeAjoutModifOffre>1}"/>
+		<rich:spacer width="20px" />
+		<h:commandButton value="#{msgs['FORM.CREER']}"
+			action="#{offreController.ajouterEtablissement}" />
+	</e:panelGrid>
+</e:panelGrid>

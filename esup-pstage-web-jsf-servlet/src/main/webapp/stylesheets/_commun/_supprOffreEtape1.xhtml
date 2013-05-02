@@ -1,0 +1,70 @@
+<%@include file="../_include.jsp"%>
+
+<h:column>
+	<e:panelGrid columns="1">
+		<e:text value="#{msgs['OFFRE.SUPPR.QUESTION']}" escape="false" />
+		<e:text value="#{msgs['OFFRE.SUPPR.QUESTION.SIADMIN']}" escape="false"/>
+		<rich:dataTable value="#{offreController.currentOffre}">
+			<rich:column
+				rendered="#{sessionController.adminPageAuthorized}">
+				<f:facet name="header">
+					<h:outputText value="#{msgs['OFFRE.ID']}" />
+				</f:facet>
+				<e:text value="#{offreController.currentOffre.idOffre}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
+				</f:facet>
+				<e:text value="#{offreController.currentOffre.intitule}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
+				</f:facet>
+				<e:text value="#{offreController.currentOffre.typeOffre.libelle}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
+				</f:facet>
+				<e:text value="#{offreController.currentOffre.dateCreation}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
+				</f:facet>
+				<e:text value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
+					rendered="#{offreController.currentOffre.estDiffusee}" style="color:green;" />
+				<e:text value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
+					rendered="#{!offreController.currentOffre.estDiffusee}" style="color:orange;" />
+				<t:htmlTag value="br" />
+				<e:text value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
+					rendered="#{offreController.currentOffre.estDiffusee}" style="color:green;" />
+				<e:text value="#{offreController.currentOffre.dateFinDiffusion}"
+					rendered="#{offreController.currentOffre.estDiffusee}" style="color:green;">
+					<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+				</e:text>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
+				</f:facet>
+				<e:text value="#{msgs['FORM.OUI']}"
+					rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}" />
+				<e:text value="#{msgs['FORM.NON']}"
+					rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}" />
+			</rich:column>
+		</rich:dataTable>
+	</e:panelGrid>
+	<e:panelGrid columns="3">
+		<a4j:commandButton
+			action="#{offreController.supprimerOffre}"
+			value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
+			reRender="opOffresDataTable" />
+		<rich:spacer width="150px" />
+		<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+			onclick="#{rich:component('supprOffre')}.hide();"
+			action="_supprOffreEtape1" immediate="true" />
+	</e:panelGrid>
+</h:column>

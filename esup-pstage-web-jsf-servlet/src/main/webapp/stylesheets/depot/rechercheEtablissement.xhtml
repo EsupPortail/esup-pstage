@@ -1,0 +1,201 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<e:panelGrid style="float:left;">
+		<%@include file="./_menu.jsp"%>
+	</e:panelGrid>
+	<t:div
+		rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
+		<e:panelGrid columns="1" styleClass="panelEntreprise">
+			<rich:panel>
+				<f:facet name="header">
+					<e:text value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
+				</f:facet>
+				<h:form>
+					<%@include
+						file="../_commun/_rechercheEtablissementLiensOnglets.jsp"%>
+					<h:commandButton action="#{rechercheController.goToOngletAccord}"
+						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6']}" immediate="true" />
+				</h:form>
+				<%@include file="../_commun/_rechercheEtablissementOnglets.jsp"%>
+				<t:div
+					rendered="#{not empty rechercheController.ongletCourant 
+					and rechercheController.ongletCourant==6}">
+					<e:panelGrid columns="1">
+						<h:form id="formRechEtab6">
+							<e:panelGrid columns="2">
+								<e:outputLabel for="rechRaisonSocialeAccord"
+									value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
+								<h:inputText id="rechRaisonSocialeAccord" size="50"
+									maxlength="100"
+									value="#{rechercheController.rechRaisonSociale}"
+									style="text-transform:uppercase;">
+									<f:converter binding="#{sansAccentEnMAJConverter}" />
+								</h:inputText>
+								<e:outputLabel for="rechTypeAccord"
+									value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.ACCORD']}" />
+								<h:selectOneRadio id="rechTypeAccord"
+									value="#{rechercheController.rechTypeAccord}"
+									converter="#{intConverter}">
+									<f:selectItems value="#{rechercheController.listTypeAccord}" />
+								</h:selectOneRadio>
+								<t:panelGroup colspan="2">
+									<e:panelGrid columns="2" style="font-size:11px;">
+										<h:graphicImage
+											alt="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}"
+											title="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}"
+											value="../../media/images/information.png" style="border:0" />
+										<e:text
+											value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}" />
+									</e:panelGrid>
+								</t:panelGroup>
+								<t:panelGroup colspan="2">
+									<e:panelGrid columns="4">
+										<e:outputLabel for="rechDateDebut"
+											value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEDEBUT']}" />
+										<rich:calendar id="rechDateDebut"
+											value="#{rechercheController.dateDebut}"
+											locale="#{sessionController.locale}" popup="true"
+											datePattern="#{rechercheController.datePattern}"
+											showApplyButton="false" cellWidth="24px" cellHeight="22px"
+											style="width:200px" />
+										<e:outputLabel for="rechDateFin"
+											value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEFIN']}" />
+										<rich:calendar id="rechDateFin"
+											value="#{rechercheController.dateFin}"
+											locale="#{sessionController.locale}" popup="true"
+											datePattern="#{rechercheController.datePattern}"
+											showApplyButton="false" cellWidth="24px" cellHeight="22px"
+											style="width:200px" />
+									</e:panelGrid>
+									<rich:message for="rechDateDebut">
+										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+									</rich:message>
+								</t:panelGroup>
+							</e:panelGrid>
+							<h:commandButton action="#{rechercheController.rechercheAccord}"
+								value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+						</h:form>
+					</e:panelGrid>
+				</t:div>
+				<h:form id="formResultatsRechEtab">
+					<e:panelGrid columns="1">
+						<rich:message for="formResultatsRechEtab">
+							<rich:spacer height="20px" />
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+						<rich:spacer height="10px" />
+						<t:div
+							rendered="#{not empty rechercheController.ongletCourant 
+						and rechercheController.ongletCourant!=6}">
+							<%@include file="../_commun/_buttonCreationEtablissement.jsp"%>
+						</t:div>
+						<rich:spacer height="10px" />
+					</e:panelGrid>
+					<a4j:outputPanel id="opRechercheStructureDataTable">
+						<%
+							/*<t:div
+							 style="width:500px;position:relative;margin-left:auto;margin-right:auto;"
+							 rendered="#{not empty rechercheController.resultatRechercheStructure and
+							 empty rechercheController.listeResultatsRechercheStructure}">
+							 <%@include file="_affichageRechercheEtablissement.jsp" 
+							 </t:div>*/
+						%>
+						<t:div
+							rendered="#{not empty rechercheController.listeResultatsRechercheStructure
+					and not empty rechercheController.rechercheStructurePaginator}">
+							<%@include
+								file="../_commun/_rechercheEtablissementNbResultats.jsp"%>
+							<rich:dataTable id="rechercheStructureDataTable"
+								var="varRechercheStructure"
+								rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
+								value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
+								border="0" cellspacing="2" cellpadding="2" width="600"
+								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<%@include
+											file="../_commun/_rechercheEtablissementResultatsHeaders.jsp"%>
+									</rich:columnGroup>
+								</f:facet>
+								<f:facet name="footer">
+									<h:panelGroup>
+										<%@include
+											file="../_commun/_rechercheEtablissementResultatsPaginator.jsp"%>
+									</h:panelGroup>
+								</f:facet>
+								<%@include
+									file="../_commun/_rechercheEtablissementResultatsColumns.jsp"%>
+								<%@include
+									file="../_commun/_rechercheEtablissementResultatsColumnsButtons.jsp"%>
+								<rich:column
+									rendered="#{sessionController.adminPageAuthorized and 
+								not empty rechercheController.ongletCourant}">
+									<h:commandButton id="gererEtablissement"
+										value="#{msgs['STRUCTURE.GERER']}"
+										action="#{welcomeController.goToGererStructure}"
+										image="../../media/images/door_open.png"
+										alt="#{msgs['STRUCTURE.GERER']}"
+										title="#{msgs['STRUCTURE.GERER']}">
+										<f:setPropertyActionListener value="#{true}"
+											target="#{sessionController.menuGestionEtab}" />
+										<f:setPropertyActionListener value="#{varRechercheStructure}"
+											target="#{sessionController.currentManageStructure}" />
+									</h:commandButton>
+									<rich:toolTip for="gererEtablissement"
+										value="#{msgs['STRUCTURE.GERER']}" />
+								</rich:column>
+								<rich:column
+									rendered="#{sessionController.adminPageAuthorized and 
+								not empty rechercheController.ongletCourant 
+								and rechercheController.ongletCourant==6
+								and not empty varRechercheStructure.accordPartenariat}">
+									<h:commandButton id="validerAccord"
+										value="#{msgs['FORM.VALIDER']}"
+										action="#{adminController.goToValidationAccord}"
+										image="../../media/images/tick.png"
+										alt="#{msgs['FORM.VALIDER']}" title="#{msgs['FORM.VALIDER']}"
+										rendered="#{not varRechercheStructure.accordPartenariat.estValide}">
+										<f:setPropertyActionListener value="#{varRechercheStructure}"
+											target="#{adminController.structureAccordAValider}" />
+									</h:commandButton>
+									<rich:toolTip for="consulterAccord"
+										value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+										rendered="#{varRechercheStructure.accordPartenariat.estValide}" />
+									<h:commandButton id="consulterAccord"
+										value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+										action="#{adminController.goToConsulterAccord}"
+										image="../../media/images/see.png"
+										alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+										title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+										rendered="#{varRechercheStructure.accordPartenariat.estValide}">
+										<f:setPropertyActionListener value="#{varRechercheStructure}"
+											target="#{adminController.structureAccord}" />
+									</h:commandButton>
+									<rich:toolTip for="validerAccord"
+										value="#{msgs['FORM.VALIDER']}" />
+									<a4j:commandLink ajaxSingle="true" id="supprimerAccord"
+										oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
+										reRender="supprimerAccordPanel">
+										<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+											title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+											value="../../media/images/see_block.png" style="border:0" />
+										<f:setPropertyActionListener value="#{varRechercheStructure}"
+											target="#{adminController.accordASupprimer}" />
+									</a4j:commandLink>
+									<rich:toolTip for="supprimerAccord"
+										value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
+								</rich:column>
+							</rich:dataTable>
+						</t:div>
+					</a4j:outputPanel>
+				</h:form>
+			</rich:panel>
+			<%@include file="_panelSupprAccord.jsp"%>
+			<%@include file="../_commun/_panelSupprStructure.jsp"%>
+			<%@include file="_panelNousContacter.jsp"%>
+		</e:panelGrid>
+	</t:div>
+</e:page>

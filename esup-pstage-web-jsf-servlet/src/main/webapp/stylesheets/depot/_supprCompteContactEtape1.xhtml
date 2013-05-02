@@ -1,0 +1,21 @@
+<%@include file="../_include.jsp"%>
+
+<h:column>
+	<e:panelGrid columns="1">
+		<e:text value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION.QUESTION']}"
+			escape="false" />
+		<rich:dataTable value="#{etablissementController.formContact}">
+			<%@include file="../_commun/_contactColumns.jsp"%>
+		</rich:dataTable>
+	</e:panelGrid>
+	<e:panelGrid columns="3">
+		<a4j:commandButton
+			action="#{etablissementController.supprimerCompte}"
+			value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
+			reRender="opContactsDataTable" />
+		<rich:spacer width="150px" />
+		<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+			onclick="#{rich:component('supprCompteContact')}.hide();"
+			action="_supprCompteContactEtape1" immediate="true" />
+	</e:panelGrid>
+</h:column>

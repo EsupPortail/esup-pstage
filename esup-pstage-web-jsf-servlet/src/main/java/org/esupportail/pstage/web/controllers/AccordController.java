@@ -15,27 +15,19 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.domain.beans.NousContacter;
-import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException_Exception;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException_Exception;
-import org.esupportail.pstagedata.remote.AccordPartenariatDTO;
-import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.DataAddException;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException;
-import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException_Exception;
-import org.esupportail.pstagedata.remote.ServiceDTO;
-import org.esupportail.pstagedata.remote.StatutJuridiqueDTO;
-import org.esupportail.pstagedata.remote.StructureDTO;
-import org.esupportail.pstagedata.remote.StructureNumSiretException;
-import org.esupportail.pstagedata.remote.StructureNumSiretException_Exception;
-import org.esupportail.pstagedata.remote.TypeStructureDTO;
-import org.esupportail.pstagedata.remote.UnvalidNumSiretException;
-import org.esupportail.pstagedata.remote.UnvalidNumSiretException_Exception;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
+import org.esupportail.pstagedata.domain.dto.ContactDTO;
+import org.esupportail.pstagedata.domain.dto.ServiceDTO;
+import org.esupportail.pstagedata.domain.dto.StatutJuridiqueDTO;
+import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
+import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForContactException;
+import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForStructureException;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.MailAlreadyUsedForStructureException;
+import org.esupportail.pstagedata.exceptions.StructureNumSiretException;
+import org.esupportail.pstagedata.exceptions.UnvalidNumSiretException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.springframework.util.StringUtils;
 
 
@@ -49,7 +41,7 @@ import org.springframework.util.StringUtils;
 public class AccordController extends AbstractContextAwareController {
 
 	/* ***************************************************************
-	 * Propriétés
+	 * Propri�t�s
 	 ****************************************************************/
 
 	/**
@@ -70,11 +62,11 @@ public class AccordController extends AbstractContextAwareController {
 	 */
 	private AccordPartenariatDTO accord;
 	/**
-	 * preAccord : structure trouvée
+	 * preAccord : structure trouv�e
 	 */
 	private StructureDTO structureExistante;
 	/**
-	 * preAccord : liste de structure correspondant à la raison sociale saisie
+	 * preAccord : liste de structure correspondant � la raison sociale saisie
 	 */
 	private List<StructureDTO> listeStructureExistante;
 	/**
@@ -82,23 +74,23 @@ public class AccordController extends AbstractContextAwareController {
 	 */
 	private String contactMailConfirmation;
 	/**
-	 * Vrai si structure déjà existante
+	 * Vrai si structure d�j� existante
 	 */
 	private boolean structureDejaExistante=false;
 	/**
-	 * Vrai si accord déjà existant
+	 * Vrai si accord d�j� existant
 	 */
 	private boolean accordDejaExistant=false;
 	/**
-	 * Contact utilisé pour la demande de comtpe
+	 * Contact utilis� pour la demande de comtpe
 	 */
 	private ContactDTO contactDemandeCompte;
 	/**
-	 * Etape précédente lorsqu'on se trouve sur l'etape 3 ou l'etape 4
+	 * Etape pr�c�dente lorsqu'on se trouve sur l'etape 3 ou l'etape 4
 	 */
 	private String etapePrecedente="_accordEtape1FormulaireAccord";
 	/**
-	 * Liste dynamique mise à jour en fonction du type de structure
+	 * Liste dynamique mise � jour en fonction du type de structure
 	 */
 	private List<SelectItem> statutsJuridiquesListening=null;
 	/**
@@ -106,7 +98,7 @@ public class AccordController extends AbstractContextAwareController {
 	 */
 	private CommuneDTO accordStructureCommuneDTO;
 	/**
-	 * Liste dynamique mise à jour en fonction du département saisi
+	 * Liste dynamique mise � jour en fonction du d�partement saisi
 	 */
 	private List<SelectItem> communesListening=new ArrayList<SelectItem>();
 
@@ -146,9 +138,9 @@ public class AccordController extends AbstractContextAwareController {
 
 	/**
 	 * SuggestionBox
-	 * Liste des structures retourné pour l'autocomplétion
+	 * Liste des structures retourn� pour l'autocompl�tion
 	 * @param begin
-	 * @return la liste des structures commençant et/ou contenant begin
+	 * @return la liste des structures commen�ant et/ou contenant begin
 	 */
 	public List<StructureDTO> suggest(Object begin){
 		if(logger.isDebugEnabled()){
@@ -303,14 +295,14 @@ public class AccordController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Liste dynamique mise à jour en fonction du type de structure
+	 * Liste dynamique mise � jour en fonction du type de structure
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getStatutsJuridiquesListening(){
 		return this.statutsJuridiquesListening;
 	}
 	/**
-	 * Mise à jour de la liste Statut juridique en fonction de la liste Type de Structure
+	 * Mise � jour de la liste Statut juridique en fonction de la liste Type de Structure
 	 * @param event
 	 */
 	public void valueTypeStructureChanged(ValueChangeEvent event){
@@ -371,7 +363,7 @@ public class AccordController extends AbstractContextAwareController {
 		}
 		if(mailConfirmationOK && nafActiviteOK){
 			retour="_accordEtape5Confirmation";
-			//Récupération des ID
+			//R�cup�ration des ID
 			ContactDTO contactTmp = this.accord.getContact();
 			contactTmp.setIdCivilite(this.accord.getContact().getCivilite().getId());
 			String loginCreation = "auto:NouvelAccord";
@@ -388,15 +380,13 @@ public class AccordController extends AbstractContextAwareController {
 			else structureTmp.setIdStatutJuridique(0);
 			structureTmp.setIdTypeStructure(this.accord.getStructure().getTypeStructure().getId());
 			if(this.accord.getStructure().getNafN5()!=null)
-				structureTmp.setCodeNAFN5(this.accord.getStructure().getNafN5().getCode());
-			else structureTmp.setCodeNAFN5(null);
+				structureTmp.setCodeNAF_N5(this.accord.getStructure().getNafN5().getCode());
+			else structureTmp.setCodeNAF_N5(null);
 			if(getBeanUtils().isFrance(this.accord.getStructure().getPays()) && getSessionController().isRecupererCommunesDepuisApogee()){
 				//structureTmp.setCodePostal(structureTmp.getCodePostal());
 				if(StringUtils.hasText(this.accordStructureCommuneDTO.getCodeCommune())){
-					if(Utils.isNumber(this.accordStructureCommuneDTO.getCodeCommune())){
-						structureTmp.setCodeCommune(Integer.parseInt(this.accordStructureCommuneDTO.getCodeCommune()));
-					}
-					//Récupération de la commune pour en avoir le libellé
+					structureTmp.setCodeCommune(this.accordStructureCommuneDTO.getCodeCommune());
+					//R�cup�ration de la commune pour en avoir le libell�
 					this.accordStructureCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(structureTmp.getCodePostal(), ""+this.accordStructureCommuneDTO.getCodeCommune());
 					if(this.accordStructureCommuneDTO!=null){
 						structureTmp.setCommune(this.accordStructureCommuneDTO.getLibCommune());					
@@ -450,10 +440,10 @@ public class AccordController extends AbstractContextAwareController {
 					logger.info("Ajout accord : "+this.accord);
 				}
 				accordEnregistre=true;
-			}catch (DataAddException_Exception d) {
+			}catch (DataAddException d) {
 				logger.error("DataAddException", d.fillInStackTrace());
 				addErrorMessage(null, "ACCORD.ERREUR");
-				//Suppression des éléments ajoutés en base
+				//Suppression des �l�ments ajout�s en base
 				if(contactTmp.getId()>0){
 					if(logger.isInfoEnabled()){
 						logger.info("Suppression Contact : " +contactTmp);
@@ -472,11 +462,11 @@ public class AccordController extends AbstractContextAwareController {
 					}
 					this.getStructureDomainService().deleteStructure(structureTmp.getIdStructure());
 				}
-			}catch (WebServiceDataBaseException_Exception w){
+			}catch (WebServiceDataBaseException w){
 				try {
 					logger.error("WebServiceDataBaseException", w.fillInStackTrace());
 					addErrorMessage(null, "ACCORD.ERREUR");
-					//Suppression des éléments ajoutés en base
+					//Suppression des �l�ments ajout�s en base
 					if(contactTmp.getId()>0){
 						if(logger.isInfoEnabled()){
 							logger.info("Suppression Contact : " +contactTmp);
@@ -495,31 +485,31 @@ public class AccordController extends AbstractContextAwareController {
 						}
 						this.getStructureDomainService().deleteStructure(structureTmp.getIdStructure());
 					}
-				} catch (WebServiceDataBaseException_Exception wb) {
+				} catch (WebServiceDataBaseException wb) {
 					addErrorMessage(null, "ACCORD.ERREUR");
 				}
-			}catch (StructureNumSiretException_Exception se){
+			}catch (StructureNumSiretException se){
 				if(logger.isInfoEnabled()){
-					logger.info("Structure déjà existante pour ce numéro siret "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
+					logger.info("Structure d�j� existante pour ce num�ro siret "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
 				}
 				goToPreAccord();//Reset des objets Accord
 				retour="_accordEtape1FormulaireAccord";
-			}catch (UnvalidNumSiretException_Exception ue) {
+			}catch (UnvalidNumSiretException ue) {
 				if(logger.isInfoEnabled()){
-					logger.info("Numéro siret invalide pour "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
+					logger.info("Num�ro siret invalide pour "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
 				}
 				goToPreAccord();//Reset des objets Accord
 				retour="_accordEtape1FormulaireAccord";
-			}catch (AccordAlreadyExistingForStructureException_Exception as) {
+			}catch (AccordAlreadyExistingForStructureException as) {
 				if(logger.isInfoEnabled()){
-					logger.info("Accord déjà existant pour la structure "+structureTmp+", redirection vers _accordEtape4DemandeCompte");
+					logger.info("Accord d�j� existant pour la structure "+structureTmp+", redirection vers _accordEtape4DemandeCompte");
 				}
 				this.accordDejaExistant=true;
 				this.contactDemandeCompte=this.accord.getContact();
 				retour="_accordEtape4DemandeCompte";
-			}catch (AccordAlreadyExistingForContactException_Exception ac) {
+			}catch (AccordAlreadyExistingForContactException ac) {
 				// Impossible ici
-			}catch (MailAlreadyUsedForStructureException_Exception e) {
+			}catch (MailAlreadyUsedForStructureException e) {
 				logger.info("MailAlreadyUsedForStructureException", e.fillInStackTrace());
 				addErrorMessage("formAccord:include:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 				retour=null;
@@ -542,7 +532,7 @@ public class AccordController extends AbstractContextAwareController {
 			//Mail != Confirmation
 			if(!mailConfirmationOK)
 				addErrorMessage("formAccord:include:mailConfirmation", "CONTACT.MAIL_CONFIRMATION.VALIDATION");
-			//CodeNAF et Activité Principale vide
+			//CodeNAF et Activit� Principale vide
 			if(!nafActiviteOK && !this.structureDejaExistante)
 				addErrorMessage("formAccord:include:ape", "FORM.CHAMP_OBLIGATOIRE");
 

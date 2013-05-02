@@ -1,0 +1,201 @@
+<%@include file="../_include.jsp"%>
+<e:panelGrid columns="1"
+	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+	<rich:panel>
+		<f:facet name="header">
+			<e:text value="#{msgs['CONVENTION.ETAPE4.CONTACT']}" />
+		</f:facet>
+		<e:panelGrid columns="1">
+			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				action="_creerConventionEtape3Service"
+				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+				immediate="true">
+			</a4j:commandButton>
+			<rich:spacer height="20" />
+			<e:text value="#{msgs['CONVENTION.ETAPE4.CHOIXCONTACT.DEMANDE']}" rendered="#{conventionController.saisieTuteurProParEtudiant}" />
+
+			<rich:spacer height="20" />
+
+			<a4j:outputPanel id="opContactsDataTable" rendered="#{conventionController.saisieTuteurProParEtudiant}">
+				<e:text value="#{msgs['CONTACT.GESTION.AUCUN']}"
+					rendered="#{empty etablissementController.listeContacts}"
+					escape="false" />
+				<e:panelGrid columns="2">
+					<e:text value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
+						escape="false"
+						rendered="#{not empty etablissementController.serviceSel
+									and not empty etablissementController.listeServices}" />
+					<a4j:commandLink ajaxSingle="true" id="ajoutC"
+						rendered="#{not empty etablissementController.serviceSel
+									and not empty etablissementController.listeServices}"
+						oncomplete="#{rich:component('ajoutContact')}.show()"
+						action="#{etablissementController.ajoutContact}"
+						reRender="ajoutContact">
+						<f:setPropertyActionListener value="#{false}"
+							target="#{etablissementController.afficherSelectionCentreContact}" />
+						<h:graphicImage alt="#{msgs['FORM.CREER']}"
+							value="../../media/images/new.png" style="border:0" />
+					</a4j:commandLink>
+					<rich:toolTip for="ajoutC" value="#{msgs['FORM.CREER']}" />
+				</e:panelGrid>
+				<rich:dataTable align="center" width="600" id="contactsDataTable"
+					rows="10" columnClasses="col" var="contact" rowKeyVar="rowContact"
+					value="#{etablissementController.listeContacts}"
+					onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					rendered="#{not empty etablissementController.listeContacts}"
+					ajaxKeys="#{etablissement.keysContacts}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
+									title="#{msgs['CONTACT.CIVILITE']}"
+									value="../../media/images/user_gray.png" style="border:0" />
+							</rich:column>
+							<rich:column>
+								<h:outputText styleClass="headerText"
+									value="#{msgs['CONTACT.NOM']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText styleClass="headerText"
+									value="#{msgs['CONTACT.PRENOM']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText styleClass="headerText"
+									value="#{msgs['CONTACT.FONCTION']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText styleClass="headerText"
+									value="#{msgs['CONTACT.TELFAXMAIL']}" />
+							</rich:column>
+							<rich:column colspan="3">
+								<h:outputText styleClass="headerText"
+									value="#{msgs['GENERAL.ACTIONS']}" />
+							</rich:column>
+
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<e:text id="civC" value="#{contact.civilite.libelle}" />
+					</rich:column>
+					<rich:column>
+						<e:text id="nomC" value="#{contact.nom}" />
+					</rich:column>
+					<rich:column>
+						<e:text id="prenomC" value="#{contact.prenom}" />
+					</rich:column>
+					<rich:column>
+						<e:text id="fonctionC" value="#{contact.fonction}" />
+					</rich:column>
+					<rich:column>
+						<e:panelGrid columns="1">
+							<e:text id="telC" value="#{contact.tel}" />
+							<e:text id="faxC" value="#{contact.fax}" />
+							<e:text id="mailC" value="#{contact.mail}" />
+						</e:panelGrid>
+					</rich:column>
+
+					<rich:column
+						rendered="#{(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
+								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id))
+								&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+								|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise 
+								&& ((empty contact.loginModif &&
+								contact.loginCreation==sessionController.currentLogin)
+								|| (contact.loginModif==sessionController.currentLogin)))))))}">
+						<a4j:commandLink ajaxSingle="true" id="modifC"
+							rendered="#{not empty etablissementController.listeContacts}"
+							oncomplete="#{rich:component('modifContact')}.show()"
+							reRender="modifContact">
+							<f:setPropertyActionListener value="#{rowContact}"
+								target="#{etablissementController.currentRowContact}" />
+							<f:setPropertyActionListener value="#{contact}"
+								target="#{etablissementController.formContact}" />
+							<f:setPropertyActionListener value="#{false}"
+								target="#{etablissementController.afficherSelectionCentreContact}" />
+							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+								value="../../media/images/edit.png" style="border:0" />
+						</a4j:commandLink>
+						<rich:toolTip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
+						<a4j:commandLink ajaxSingle="true" id="supprC"
+							rendered="#{not empty etablissementController.listeContacts}"
+							oncomplete="#{rich:component('supprContact')}.show()"
+							reRender="supprContact">
+							<f:setPropertyActionListener value="#{contact}"
+								target="#{etablissementController.formContact}" />
+							<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
+								value="../../media/images/delete.png" style="border:0" />
+						</a4j:commandLink>
+						<rich:toolTip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
+					</rich:column>
+					<rich:column
+						rendered="#{!(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
+								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id))
+								&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+								|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise 
+								&& ((empty contact.loginModif &&
+								contact.loginCreation==sessionController.currentLogin)
+								|| (contact.loginModif==sessionController.currentLogin)))))))}">
+						<a4j:commandLink ajaxSingle="true" id="modifBlock" disabled="true">
+							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+								value="../../media/images/edit_block.png" style="border:0" />
+						</a4j:commandLink>
+						<rich:toolTip for="modifBlock"
+							value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
+					</rich:column>
+					<rich:column>
+						<a4j:commandLink ajaxSingle="true" id="selC"
+							rendered="#{not empty etablissementController.listeContacts}"
+							action="#{conventionController.goToCreerConventionEtape5Stage}">
+
+							<f:setPropertyActionListener value="#{contact}"
+								target="#{conventionController.convention.contact}" />
+							<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
+								value="../../media/images/back.png" style="border:0" />
+						</a4j:commandLink>
+						<rich:toolTip for="selC"
+							value="#{msgs['CONVENTION.SELECCONTACT']}" />
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:datascroller id="ds" renderIfSinglePage="false"></rich:datascroller>
+					</f:facet>
+				</rich:dataTable>
+			</a4j:outputPanel>
+			<rich:spacer height="20px" />
+
+			<e:panelGrid rendered="#{conventionController.convention.centreGestion.presenceTuteurPro == false && conventionController.saisieTuteurProParEtudiant}"	>
+				<e:text value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE']}" escape="false" />
+				<a4j:commandLink ajaxSingle="true" id="passeretape"
+					action="#{conventionController.goToCreerConventionEtape5Stage}">
+					<f:setPropertyActionListener value="#{null}"
+								target="#{conventionController.convention.contact}" />
+					<e:text value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" escape="false"/>
+				</a4j:commandLink>
+				<rich:toolTip for="passeretape"
+					value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
+			</e:panelGrid>
+			
+			<e:panelGrid rendered="#{!conventionController.saisieTuteurProParEtudiant}" >
+				<e:text value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SAISIETUTEURPRONON']}" escape="false" />
+				<a4j:commandLink ajaxSingle="true" id="passeretape2"
+					action="#{conventionController.goToCreerConventionEtape5Stage}">
+					<f:setPropertyActionListener value="#{null}"
+								target="#{conventionController.convention.contact}" />
+					<e:text value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" escape="false"/>
+				</a4j:commandLink>
+				<rich:toolTip for="passeretape2"
+					value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
+			</e:panelGrid>
+
+		</e:panelGrid>
+	</rich:panel>
+</e:panelGrid>

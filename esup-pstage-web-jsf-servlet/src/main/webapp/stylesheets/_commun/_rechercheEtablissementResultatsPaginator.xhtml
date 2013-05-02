@@ -1,0 +1,18 @@
+<%@include file="../_include.jsp"%>
+<%
+	/*
+	 Paginator commun pour chaque moteur de recherche établissement
+
+	 /!\ La dataTable doit avoir ces paramètres :
+	 id="rechercheStructureDataTable" 
+	 rowIndexVar="rowRechercheStructureDataTable"
+	 var="varRechercheStructure"
+	 */
+%>
+<e:paginator id="rechercheStructurePaginator"
+	paginator="#{rechercheController.rechercheStructurePaginator}"
+	itemsName=" "
+	onchange="javascript:{simulateLinkClick('rechercheStructureDataTable:submitPageSize');}" 
+	visibleBlocks="itemsNumbers,navigation"/>
+<%/*<h:commandButton id="submitPageSize"
+	action="#{rechercheController.rechercheStructurePaginator.forceReload}" />*/%>

@@ -1,0 +1,95 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<t:div
+					rendered="#{(welcomeController.superAdmin 
+								|| welcomeController.admin)
+								&& centreController.centre != null}">
+					<!-- contenu de la page -->
+						<rich:panel>
+							<f:facet name="header">
+								<e:text
+									value="#{msgs['CENTRE.LOGO.HEAD']} #{centreController.centre.nomCentre}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<%@include file="./_menu_centre.jsp"%>
+								<e:panelGrid columns="1">
+									<e:text value="#{msgs['CENTRE.LOGO.AVERTISSEMENT_1']}" />
+									<e:text
+										value="#{msgs['CENTRE.LOGO.AVERTISSEMENT_2']} #{centreController.centre.niveauCentre.libelle}" />
+									<e:text
+										rendered="#{centreController.centre.idNiveauCentre == 3 || centreController.centre.idNiveauCentre == 4}"
+										value="#{msgs['CENTRE.LOGO.AVERTISSEMENT_3']}" />
+								</e:panelGrid>
+								<rich:spacer height="20" />
+								<a4j:outputPanel id="opUploadImage">
+									<h:form>
+										<e:panelGrid rendered="#{centreController.centre.idFichier<=0}">
+											<a4j:commandButton id="add"
+												action="#{centreController.avantAjoutLogo}"
+												oncomplete="#{rich:component('addLogo')}.show()"
+												value="#{msgs['CENTRE.LOGO.ADD']}" />
+										</e:panelGrid>
+	
+										<e:panelGrid rendered="#{centreController.centre.idFichier>0}">
+											<e:text value="#{msgs['CENTRE.LOGO.IMAGEUPLOADE']}" />
+											<rich:spacer height="15" />
+											<t:htmlTag value="center">
+												<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
+													title="#{msgs['GENERAL.FILE']}"
+													value="get.image?imageId=#{centreController.centre.idFichier}"
+													style="border:0" />
+											</t:htmlTag>
+											<rich:spacer height="30" />
+											<t:htmlTag value="center">
+												<a4j:commandLink id="delete"
+													onclick="#{rich:component('suppressionLogo')}.show()">
+													<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
+														title="#{msgs['GENERAL.FILE']}"
+														value="../../media/images/cancel.png" style="border:0" />
+													<e:text value=" #{msgs['CENTRE.LOGO.MODIF']}" />
+												</a4j:commandLink>
+											</t:htmlTag>
+										</e:panelGrid>
+									</h:form>
+								</a4j:outputPanel>
+							</t:htmlTag>
+						</rich:panel>
+					<%@include file="./_panel_logo.jsp"%>
+					<%@include file="./_panel_suppressionLogo.jsp"%>
+				</t:div>
+				<t:div
+					rendered="#{!welcomeController.superAdmin 
+		&& sessionController.droitsAccesMap[centreController.centre.idCentreGestion] != beanUtils.droitAdmin}">
+					<%@include file="./_redirection_droitsInsuffisants.jsp"%>
+				</t:div>
+				<t:div
+					rendered="#{(welcomeController.superAdmin || sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin)
+		&& centreController.centre == null}">
+					<%@include file="./_redirection_accesDirectImpossible.jsp"%>
+				</t:div>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<e:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</e:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+			hideButton("welcomeManagerForm:localeChangeButton");
+		</script>
+	</t:div>
+</e:page>

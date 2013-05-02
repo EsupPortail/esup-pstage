@@ -1,0 +1,42 @@
+<%@include file="../_include.jsp"%>
+
+<e:text value="#{msgs['ADMINSTRUCTURE.MODIF.QUESTION']}" escape="false" />
+<a4j:outputPanel ajaxRendered="true">
+	<e:panelGrid columns="2" alternateColors="true">
+		<rich:column style="font-size:12px;">
+			<e:text id="nomAd" value="#{adminController.formAdminStructure.nom}" />
+		</rich:column>
+		<rich:column style="font-size:12px;">
+			<e:text id="prenomAd"
+				value="#{adminController.formAdminStructure.prenom}" />
+		</rich:column>
+		<rich:column style="font-size:12px;">
+			<e:text id="mailAd"
+				value="#{adminController.formAdminStructure.mail}" />
+		</rich:column>
+		<rich:column>
+			<e:panelGrid id="loginAd" style="font-size:12px;">
+				<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
+					rendered="#{not empty adminController.formAdminStructure.login and not empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
+				<e:text
+					value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{adminController.formAdminStructure.login}"
+					rendered="#{not empty adminController.formAdminStructure.login and not empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
+				<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
+					rendered="#{not empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
+				<e:text
+					value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{adminController.formAdminStructure.login}"
+					rendered="#{not empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
+				<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
+					rendered="#{empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and not empty adminController.formAdminStructure.eppn}" />
+				<e:text
+					value="#{msgs['ADMINSTRUCTURE.EPPN']} : #{adminController.formAdminStructure.eppn}"
+					rendered="#{empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and not empty adminController.formAdminStructure.eppn}" />
+			</e:panelGrid>
+		</rich:column>
+	</e:panelGrid>
+</a4j:outputPanel>
+<a4j:commandButton action="_modifAdministrateurEtape1"
+	value="#{msgs['FORM.OUI']}" ignoreDupResponses="true" ajaxSingle="true" />
+<rich:spacer width="150px" />
+<a4j:commandButton value="#{msgs['FORM.NON']}"
+	onclick="#{rich:component('modifAdministrateur')}.hide();return false;" />

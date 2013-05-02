@@ -1,0 +1,149 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel
+					rendered="#{welcomeController.superAdmin
+								|| welcomeController.admin
+								|| welcomeController.writer}">
+					<f:facet name="header">
+						<e:text value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.HEADER']}" />
+					</f:facet>
+					<h:form id="formRechConvention">
+						<a4j:region id="rech">
+							<e:panelGrid columns="1" width="50%">
+								<rich:spacer height="10" />
+								<e:outputLabel
+									value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE']}" />
+								<e:panelGrid columns="5" align="center">
+									<a4j:commandButton value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_TUTEUR']}"
+										disabled="#{conventionController.ongletCourant == 1}"
+										reRender="formRechConvention"
+										action="#{conventionController.ongletTuteur}" />
+									<rich:spacer width="10" />
+									<a4j:commandButton value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_UFR']}"
+										disabled="#{conventionController.ongletCourant == 2}"
+										reRender="formRechConvention"
+										action="#{conventionController.ongletUfr}" />
+									<rich:spacer width="10" />
+									<a4j:commandButton value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_ETAPE']}"
+										disabled="#{conventionController.ongletCourant == 3}"
+										reRender="formRechConvention"
+										action="#{conventionController.ongletEtape}" />
+								</e:panelGrid>
+								<rich:spacer height="10" />
+								<e:text escape="false"  
+									value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO']}">
+									<h:graphicImage alt="avertissement"
+										value="../../media/images/information.png" style="border:0" />
+								</e:text>
+								<rich:spacer height="10" />
+							</e:panelGrid>
+							<rich:separator height="4" width="50%" lineType="beveled" />
+							<rich:spacer height="20" />
+							<e:panelGrid columns="1" width="50%">
+								<t:div id="panelTuteur"
+									rendered="#{conventionController.ongletCourant == 1}">
+									<e:outputLabel
+										value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_TUTEUR']}" />
+									<e:panelGrid columns="2" align="center" style="padding-top:15;">
+										<e:outputLabel value="#{msgs['CONVENTION.NOM']}"
+											for="nomEnseignant" />
+										<h:inputText id="nomEnseignant" size="50" maxlength="30"
+											style="text-transform:uppercase;"
+											value="#{conventionController.critereRechercheConvention.nomEnseignant}">
+											<f:converter binding="#{sansAccentEnMAJConverter}" />
+										</h:inputText>
+
+										<rich:spacer height="5" />
+										<rich:spacer height="5" />
+
+										<e:outputLabel value="#{msgs['CONVENTION.PRENOM']}"
+											for="prenomEnseignant" />
+										<h:inputText id="prenomEnseignant" size="50" maxlength="30"
+											style="text-transform:uppercase;"
+											value="#{conventionController.critereRechercheConvention.prenomEnseignant}">
+											<f:converter binding="#{sansAccentEnMAJConverter}" />
+										</h:inputText>
+									</e:panelGrid>
+								</t:div>
+
+								<t:div id="panelUfr"
+									rendered="#{conventionController.ongletCourant == 2}">
+									<e:outputLabel value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_UFR']}" />
+									<t:htmlTag value="center">
+										<rich:spacer height="20" />
+										<h:selectManyMenu
+											value="#{conventionController.critereRechercheConvention.idsUfrs}"
+											rendered="#{not empty conventionController.rechUfrs}"
+											style="height:100px;">
+											<f:selectItems value="#{conventionController.rechUfrs}" />
+										</h:selectManyMenu>
+										<e:text rendered="#{empty conventionController.rechUfrs}"
+											value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.UFR_VIDE']}" />
+									</t:htmlTag>
+								</t:div>
+
+								<t:div id="panelEtape"
+									rendered="#{conventionController.ongletCourant == 3}">
+									<e:outputLabel value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_ETAPE']}" />
+									<t:htmlTag value="center">
+										<rich:spacer height="20" />
+										<h:selectManyMenu
+											value="#{conventionController.critereRechercheConvention.idsEtapes}"
+											rendered="#{not empty conventionController.rechEtapes}"
+											style="height:100px;">
+											<f:selectItems value="#{conventionController.rechEtapes}" />
+										</h:selectManyMenu>
+										<e:text rendered="#{empty conventionController.rechEtapes}"
+											value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.ETAPE_VIDE']}" />
+									</t:htmlTag>
+								</t:div>
+								<t:htmlTag value="center">
+									<a4j:commandButton id="recherche"
+										action="#{conventionController.rechercherMasseConvention}"
+										value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}" />
+									<a4j:status for="rech">
+										<f:facet name="start">
+											<%@include file="../_commun/_veuillezPatienter.jsp"%>
+										</f:facet>
+									</a4j:status>
+								</t:htmlTag>
+							</e:panelGrid>
+						</a4j:region>
+					</h:form>
+					<rich:message for="formRechConvention" style="color:red;font-weight:bold;">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+				</rich:panel>
+				<t:div
+					rendered="#{!(welcomeController.superAdmin	
+								|| welcomeController.admin
+								|| welcomeController.writer)}">
+					<%@include file="./_redirection_droitsInsuffisants.jsp"%>
+				</t:div>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<e:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</e:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+	hideButton("welcomeManagerForm:localeChangeButton");
+</script>
+	</t:div>
+</e:page>

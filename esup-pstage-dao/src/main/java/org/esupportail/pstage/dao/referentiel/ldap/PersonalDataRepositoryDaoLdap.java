@@ -13,9 +13,9 @@ import org.esupportail.pstage.dao.referentiel.PersonalDataRepositoryDao;
 import org.esupportail.pstage.domain.beans.LdapAttributes;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.remote.AffectationDTO;
-import org.esupportail.pstagedata.remote.EnseignantDTO;
-import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.AffectationDTO;
+import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.filter.Filter;
@@ -28,7 +28,7 @@ import org.springframework.util.StringUtils;
 @SuppressWarnings("serial")
 public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao{
 	private static Logger logger = Logger.getLogger(PersonalDataRepositoryDaoLdap.class);
-	
+
 	private LdapUserService ldapUserService;
 
 	private  LdapAttributes ldapAttributes;
@@ -104,20 +104,20 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		enseignant.setBatiment(ldapUser.getAttribute(ldapAttributes.getLdapMemberBuilding()));
 		enseignant.setBureau(ldapUser.getAttribute(ldapAttributes.getLdapMemberRoom()));
 		enseignant.setCampus(ldapUser.getAttribute(ldapAttributes.getLdapMemberCampus()));
-		
+
 		// Creation de l'objet affectation pour l'affichage dans le resultat de la recherche
 		AffectationDTO a = new AffectationDTO();
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()) != null 
-			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
+				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
 			a.setLibelle(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()));
 		}
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()) != null
-			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
+				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
 			a.setCode(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()));
 			enseignant.setCodeAffectation(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()));
 		}
 		enseignant.setAffectation(a);
-		
+
 		String civilite = ldapUser.getAttribute(ldapAttributes.getLdapMemberCivility());
 		if (civilite != null){
 			if (civilite.equalsIgnoreCase(DonneesStatic.CIVILITE_MR_LDAP)){
@@ -132,7 +132,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		} else {
 			enseignant.setIdCivilite(DonneesStatic.ID_CIVILITE_VIDE);
 		}
-		
+
 		String tel = ldapUser.getAttribute(ldapAttributes.getLdapMemberPhone());
 		if(StringUtils.hasText(tel)){
 			enseignant.setTel(tel);
@@ -160,7 +160,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 			logger.debug(builder.toString(), ldae);
 		};
 	}
-	
+
 	@Override
 	public List<EnseignantDTO> getEnseignantsByName(String universityCode, String name) {
 		AndFilter filter = new AndFilter();
@@ -367,20 +367,20 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		personnelCentreGestion.setBatiment(ldapUser.getAttribute(ldapAttributes.getLdapMemberBuilding()));
 		personnelCentreGestion.setBureau(ldapUser.getAttribute(ldapAttributes.getLdapMemberRoom()));
 		personnelCentreGestion.setCampus(ldapUser.getAttribute(ldapAttributes.getLdapMemberCampus()));
-		
+
 		// Creation de l'objet affectation pour l'affichage dans le resultat de la recherche
 		AffectationDTO a = new AffectationDTO();
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()) != null 
-			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
+				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
 			a.setLibelle(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()));
 		}
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()) != null
-			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
+				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
 			a.setCode(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()));
 			personnelCentreGestion.setCodeAffectation(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()));
 		}
 		personnelCentreGestion.setAffectation(a);
-		
+
 		String civilite = ldapUser.getAttribute(ldapAttributes.getLdapMemberCivility());
 		if (civilite != null){
 			if (civilite.equalsIgnoreCase(DonneesStatic.CIVILITE_MR_LDAP)){
@@ -395,12 +395,12 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 		} else {
 			personnelCentreGestion.setIdCivilite(DonneesStatic.ID_CIVILITE_VIDE);
 		}
-		
+
 		String tel = ldapUser.getAttribute(ldapAttributes.getLdapMemberPhone());
 		if(StringUtils.hasText(tel)){
 			personnelCentreGestion.setTel(tel);
 		}
-		
+
 		String type = ldapUser.getAttribute(ldapAttributes.getLdapMemberType());
 		personnelCentreGestion.setTypePersonne(type);
 
@@ -417,7 +417,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 
 		//FIXME pour le moment pas de prise en compte de universityCode
 		AndFilter filter = new AndFilter();
-		
+
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(), name));
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapFirstName(), firstName));
 		if(codeAffectation != null && !codeAffectation.equals("")){

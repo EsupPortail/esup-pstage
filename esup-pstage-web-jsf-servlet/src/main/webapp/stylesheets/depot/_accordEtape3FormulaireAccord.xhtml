@@ -1,0 +1,545 @@
+<%@include file="../_include.jsp"%>
+
+<a4j:commandButton action="#{accordController.goToEtapePrecedente}"
+	ignoreDupResponses="true" value="#{msgs['FORM.PREVIOUS']}"
+	immediate="true">
+	<f:setPropertyActionListener
+		value="#{accordController.preAccord.structure}"
+		target="#{accordController.accord.structure}" />
+</a4j:commandButton>
+<%@include file="_accordArticles.jsp"%>
+<e:panelGrid columns="1">
+	<%@include file="../_commun/_champsObligatoires.jsp"%>
+	<e:panelGrid columns="3">
+		<e:panelGrid columns="1">
+			<e:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
+				for="raisonSociale" />
+			<h:inputText id="raisonSociale" style="text-transform:uppercase;"
+				value="#{accordController.accord.structure.raisonSociale}" size="50"
+				maxlength="100" disabled="true" required="true">
+				<f:converter binding="#{sansAccentEnMAJConverter}" />
+			</h:inputText>
+			<rich:message for="raisonSociale">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" />
+			<h:inputText id="groupe" style="text-transform:uppercase;"
+				value="#{accordController.accord.structure.groupe}" size="50"
+				maxlength="50" disabled="#{accordController.structureDejaExistante}">
+				<f:converter binding="#{sansAccentEnMAJConverter}" />
+			</h:inputText>
+			<rich:message for="groupe">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *" for="effectif" />
+			<h:selectOneMenu id="effectif"
+				value="#{accordController.accord.structure.effectif}"
+				converter="#{effectifConverter}" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				disabled="#{accordController.structureDejaExistante}">
+				<f:selectItem itemValue="" />
+				<f:selectItems value="#{nomenclatureController.effectifs}" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:selectOneMenu>
+			<rich:message for="effectif">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</e:panelGrid>
+		<e:panelGrid columns="3">
+			<rich:spacer width="25px" />
+			<rich:spacer width="2px"
+				style="background-color: #{a4jSkin.panelBorderColor};"
+				height="125px" />
+			<rich:spacer width="25px" />
+		</e:panelGrid>
+		<e:panelGrid columns="1">
+			<e:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']} " for="siret" />
+			<e:panelGrid columns="1">
+				<h:inputText id="siret"
+					value="#{accordController.accord.structure.numeroSiret}" size="20"
+					maxlength="14" disabled="true" />
+				<rich:message for="siret">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+			<a4j:region renderRegionOnly="true">
+				<e:panelGrid columns="1">
+					<e:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
+						for="typeStructure" />
+					<h:selectOneMenu id="typeStructure"
+						value="#{accordController.accord.structure.typeStructure}"
+						converter="#{typeStructureConverter}" required="true"
+						valueChangeListener="#{accordController.valueTypeStructureChanged}"
+						requiredMessage="#{requiredMessageController.champObligatoire}"
+						disabled="true">
+						<f:selectItem itemValue="" />
+						<f:selectItems value="#{nomenclatureController.typesStructure}" />
+						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+						<a4j:support event="onchange" reRender="opStatutJuridique"
+							ignoreDupResponses="true" ajaxSingle="true" />
+						<a4j:support event="onkeyup" reRender="opStatutJuridique"
+							ignoreDupResponses="true" ajaxSingle="true" />
+					</h:selectOneMenu>
+					<rich:message for="typeStructure">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+					<a4j:outputPanel id="opStatutJuridique">
+						<e:panelGrid columns="1"
+							rendered="#{!empty accordController.statutsJuridiquesListening
+							and !empty accordController.accord.structure.typeStructure}">
+							<e:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']} *"
+								for="statutJuridique" />
+							<h:selectOneMenu id="statutJuridique"
+								value="#{accordController.accord.structure.statutJuridique}"
+								converter="#{statutJuridiqueConverter}" required="true"
+								requiredMessage="#{requiredMessageController.champObligatoire}"
+								disabled="#{accordController.structureDejaExistante}">
+								<f:selectItem itemValue="" />
+								<f:selectItems
+									value="#{accordController.statutsJuridiquesListening}" />
+								<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+							</h:selectOneMenu>
+							<rich:message for="statutJuridique">
+								<%@include file="../_commun/_messageErrorMarker.jsp"%>
+							</rich:message>
+						</e:panelGrid>
+					</a4j:outputPanel>
+				</e:panelGrid>
+			</a4j:region>
+		</e:panelGrid>
+	</e:panelGrid>
+	<e:panelGrid columns="2">
+		<e:outputLabel value="#{msgs['STRUCTURE.CODE_NAF']} *" for="ape" />
+		<e:text value="#{msgs['STRUCTURE.CODE_NAF.AIDE']}" escape="false" />
+	</e:panelGrid>
+	<e:panelGrid columns="1">
+		<e:panelGrid columns="3">
+			<h:inputText id="ape" style="text-transform:uppercase;"
+				value="#{accordController.accord.structure.codeNAF_N5}"
+				validatorMessage="#{requiredMessageController.codeNafNonValide}"
+				valueChangeListener="#{accordController.valueCodeNafChanged}"
+				size="20" maxlength="6"
+				disabled="#{accordController.structureDejaExistante}">
+				<f:validator binding="#{codeNAFValidator}" />
+				<f:converter binding="#{codNafN5Converter}"/>
+				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				<a4j:support event="onkeyup" reRender="opLibelleAPE"
+					ignoreDupResponses="true" ajaxSingle="true" />
+				<a4j:support event="onblur" reRender="opLibelleAPE"
+					ignoreDupResponses="true" ajaxSingle="true" />
+			</h:inputText>
+			<rich:spacer width="20px" />
+			<a4j:outputPanel id="opLibelleAPE">
+				<h:graphicImage
+					rendered="#{!empty accordController.accord.structure.nafN5}"
+					value="../../media/images/tick.png" alt="Validé" title="Validé" />
+				<rich:spacer width="10px" />
+				<e:text rendered="#{!empty accordController.accord.structure.nafN5}"
+					value="#{accordController.accord.structure.nafN5.libelle}" />
+			</a4j:outputPanel>
+		</e:panelGrid>
+		<rich:message for="ape">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+	</e:panelGrid>
+	<e:panelGrid columns="4" rendered="#{!etablissementController.codeNafObligatoire ||
+		(accordController.accord.structure.pays!=beanUtils.france && accordController.accord.structure.pays.cog!=beanUtils.cogFrance)}">
+		<rich:spacer width="20px" />
+		<h:graphicImage value="../../media/images/arrow_turn_up_and_down.png"
+			alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
+			title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
+		<rich:spacer width="5px" />
+		<e:text value="#{msgs['STRUCTURE.CODE_NAF.OBLIGATOIRE']}" />
+	</e:panelGrid>
+	<e:panelGrid columns="2">
+		<e:outputLabel value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}" for="actprinc" />
+		<e:outputLabel value=" *" rendered="#{!etablissementController.codeNafObligatoire ||
+		(accordController.accord.structure.pays!=beanUtils.france && accordController.accord.structure.pays.cog!=beanUtils.cogFrance)}" for="actprinc" />
+	</e:panelGrid>
+	<e:panelGrid columns="1">
+		<rich:editor id="actprinc"
+			value="#{accordController.accord.structure.activitePrincipale}"
+			width="400" height="200"
+			readonly="#{accordController.structureDejaExistante}" />
+		<rich:message for="actprinc">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+	</e:panelGrid>
+	<e:text value="#{msgs['STRUCTURE.ADRESSE']}" />
+	<e:panelGrid columns="3">
+		<e:panelGrid columns="1">
+			<e:outputLabel value="#{msgs['STRUCTURE.VOIE']} *" for="voie" />
+			<e:panelGrid columns="1">
+				<h:inputText id="voie"
+					value="#{accordController.accord.structure.voie}" size="50"
+					maxlength="200" required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}"
+					disabled="#{accordController.structureDejaExistante}">
+					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				</h:inputText>
+				<rich:message for="voie">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+			<e:outputLabel value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']} "
+				for="batimentResidence" />
+			<e:panelGrid columns="1">
+				<h:inputText id="batimentResidence"
+					value="#{accordController.accord.structure.batimentResidence}"
+					size="50" maxlength="200"
+					disabled="#{accordController.structureDejaExistante}">
+				</h:inputText>
+				<rich:message for="batimentResidence">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+			<e:outputLabel value="#{msgs['STRUCTURE.CEDEX']} " for="cedex" />
+			<e:panelGrid columns="1">
+				<h:inputText id="cedex"
+					value="#{accordController.accord.structure.libCedex}" size="30"
+					maxlength="28"
+					requiredMessage="#{requiredMessageController.champObligatoire}"
+					disabled="#{accordController.structureDejaExistante}" />
+				<rich:message for="cedex">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+		</e:panelGrid>
+		<e:panelGrid columns="3">
+			<rich:spacer width="25px" />
+			<rich:spacer width="2px"
+				style="background-color: #{a4jSkin.panelBorderColor};"
+				height="125px" />
+			<rich:spacer width="25px" />
+		</e:panelGrid>
+		<e:panelGrid columns="1">
+			<a4j:region renderRegionOnly="true">
+				<a4j:outputPanel id="opCodePostal">
+					<e:panelGrid columns="1"
+						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+				(accordController.accord.structure.pays!=beanUtils.france && accordController.accord.structure.pays.cog!=beanUtils.cogFrance
+				&& sessionController.recupererCommunesDepuisApogee)}">
+						<e:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
+							for="codePostal" />
+						<h:inputText id="codePostal"
+							value="#{accordController.accord.structure.codePostal}" size="20"
+							maxlength="10"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							disabled="#{accordController.structureDejaExistante}">
+							<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+						</h:inputText>
+						<rich:message for="codePostal">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+					</e:panelGrid>
+				</a4j:outputPanel>
+			</a4j:region>
+			<e:panelGrid columns="1"
+				rendered="#{(accordController.accord.structure.pays==beanUtils.france || accordController.accord.structure.pays.cog==beanUtils.cogFrance)
+				&& sessionController.recupererCommunesDepuisApogee}">
+				<a4j:region id="dynaR">
+					<e:panelGrid columns="1">
+						<e:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
+							for="dynaCodePostal" />
+						<h:inputText id="dynaCodePostal"
+							value="#{accordController.accord.structure.codePostal}" size="5"
+							maxlength="5" required="true"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							validatorMessage="#{requiredMessageController.codePostalNonValide}"
+							valueChangeListener="#{accordController.valueCodePostalChanged}"
+							disabled="#{accordController.structureDejaExistante}">
+							<f:validator binding="#{codePostalValidator}" />
+							<a4j:support event="onkeyup" reRender="opDynaCommune"
+								ignoreDupResponses="true" ajaxSingle="true" requestDelay="1000" />
+						</h:inputText>
+						<rich:message for="dynaCodePostal">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+					</e:panelGrid>
+				</a4j:region>
+			</e:panelGrid>
+			<e:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
+			<a4j:outputPanel id="opCommune">
+				<e:panelGrid columns="1"
+					rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+				(accordController.accord.structure.pays!=beanUtils.france && accordController.accord.structure.pays.cog!=beanUtils.cogFrance
+				&& sessionController.recupererCommunesDepuisApogee)}">
+					<h:inputText id="commune" style="text-transform:uppercase;"
+						value="#{accordController.accord.structure.commune}" size="50"
+						maxlength="200" required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}"
+						disabled="#{accordController.structureDejaExistante}">
+						<f:converter binding="#{sansAccentEnMAJConverter}" />
+						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+					</h:inputText>
+					<rich:message for="commune">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+				</e:panelGrid>
+				<e:panelGrid columns="1"
+					rendered="#{(accordController.accord.structure.pays==beanUtils.france || accordController.accord.structure.pays.cog==beanUtils.cogFrance)
+				&& sessionController.recupererCommunesDepuisApogee}">
+					<a4j:outputPanel id="opDynaCommune">
+						<h:selectOneMenu id="dynaCommune"
+							value="#{accordController.accordStructureCommuneDTO.codeCommune}"
+							required="true"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							disabled="#{accordController.structureDejaExistante}">
+							<f:selectItem itemValue="" />
+							<f:selectItems
+								value="#{accordController.communesListening}" />
+							<rich:ajaxValidator event="onchange" ignoreDupResponses="true" />
+							<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+							<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+						</h:selectOneMenu>
+						<rich:message for="dynaCommune">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+					</a4j:outputPanel>
+					<a4j:status for="dynaR">
+						<f:facet name="start">
+							<h:graphicImage value="../../media/images/ajax_process.gif" />
+						</f:facet>
+					</a4j:status>
+				</e:panelGrid>
+			</a4j:outputPanel>
+			<e:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
+			<e:panelGrid columns="1">
+				<e:panelGrid columns="3">
+					<rich:spacer width="16px"
+						rendered="#{empty accordController.accord.structure.pays}" />
+					<h:graphicImage id="flag"
+						rendered="#{not empty accordController.accord.structure.pays}"
+						value="../../media/images/flags/#{accordController.accord.structure.pays.iso2}.png"
+						alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+						title="#{accordController.accord.structure.pays.libelle}" />
+					<h:selectOneMenu id="pays"
+						value="#{accordController.accord.structure.pays}"
+						converter="#{paysConverter}" disabled="true" required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}"
+						styleClass="paysInput">
+						<f:selectItems value="#{nomenclatureController.pays}" />
+					</h:selectOneMenu>
+				</e:panelGrid>
+				<rich:message for="pays">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+		</e:panelGrid>
+	</e:panelGrid>
+
+	<e:panelGrid columns="3">
+		<e:panelGrid columns="1">
+			<e:panelGrid columns="2">
+				<e:outputLabel value="#{msgs['STRUCTURE.MAIL']} " for="mail" />
+				<e:text value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
+			</e:panelGrid>
+			<e:panelGrid columns="1">
+				<h:inputText id="mail"
+					value="#{accordController.accord.structure.mail}" size="50"
+					validatorMessage="#{requiredMessageController.adresseMailNonValide}"
+					maxlength="50"
+					disabled="#{accordController.structureDejaExistante}">
+					<f:validator binding="#{mailValidator}" />
+					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				</h:inputText>
+				<rich:message for="mail">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+			<e:panelGrid columns="2">
+				<e:outputLabel value="#{msgs['STRUCTURE.SITEWEB']} " for="siteWeb" />
+				<e:text value="#{msgs['STRUCTURE.SITEWEB.AIDE']}" escape="false" />
+			</e:panelGrid>
+			<e:panelGrid columns="1">
+				<h:inputText id="siteWeb"
+					value="#{accordController.accord.structure.siteWeb}" size="50"
+					validatorMessage="#{requiredMessageController.siteWebNonValide}"
+					maxlength="200"
+					disabled="#{accordController.structureDejaExistante}">
+					<f:validator binding="#{siteWebValidator}" />
+					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				</h:inputText>
+				<rich:message for="siteWeb">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+		</e:panelGrid>
+		<e:panelGrid columns="3">
+			<rich:spacer width="25px" />
+			<rich:spacer width="2px"
+				style="background-color: #{a4jSkin.panelBorderColor};"
+				height="125px" />
+			<rich:spacer width="25px" />
+		</e:panelGrid>
+		<e:panelGrid columns="1">
+			<e:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']} *"
+				for="telephone" />
+			<e:panelGrid columns="1">
+				<h:inputText id="telephone"
+					value="#{accordController.accord.structure.telephone}" size="20"
+					maxlength="20"
+					disabled="#{accordController.structureDejaExistante}"
+					required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				</h:inputText>
+				<rich:message for="telephone">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+			<e:outputLabel value="#{msgs['STRUCTURE.FAX']} " for="fax" />
+			<e:panelGrid columns="1">
+				<h:inputText id="fax"
+					value="#{accordController.accord.structure.fax}" size="20"
+					maxlength="20"
+					disabled="#{accordController.structureDejaExistante}" />
+				<rich:message for="fax">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+		</e:panelGrid>
+	</e:panelGrid>
+	<e:text value="#{msgs['ACCORD.MODIFICATION']}" escape="false"
+		rendered="#{accordController.structureDejaExistante}" />
+</e:panelGrid>
+<e:panelGrid columns="1">
+	<rich:spacer height="20" />
+	<e:text value="#{msgs['ACCORD.CONTACT']}" escape="false" />
+	<rich:spacer height="20" />
+</e:panelGrid>
+<e:panelGrid columns="1">
+	<%@include file="../_commun/_champsObligatoires.jsp"%>
+	<e:panelGrid columns="3">
+		<e:panelGrid columns="1">
+			<e:panelGrid columns="2" style="margin-left:auto;margin-right:auto;">
+				<e:outputLabel value="#{msgs['CONTACT.CIVILITE']} *" for="civilite" />
+				<h:selectOneMenu id="civilite"
+					value="#{accordController.accord.contact.civilite}"
+					converter="#{civiliteConverter}" required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<f:selectItem itemValue="" />
+					<f:selectItems value="#{nomenclatureController.civilites}" />
+					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				</h:selectOneMenu>
+				<t:panelGroup colspan="2">
+					<rich:message for="civilite">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+				</t:panelGroup>
+			</e:panelGrid>
+			<e:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
+			<h:inputText id="nom" style="text-transform:uppercase;"
+				value="#{accordController.accord.contact.nom}" size="50"
+				maxlength="50" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:converter binding="#{upperCaseConverter}" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="nom">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
+			<h:inputText id="prenom" style="text-transform:capitalize;"
+				value="#{accordController.accord.contact.prenom}" size="50"
+				maxlength="50" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:converter binding="#{premiereLettreMAJConverter}" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="prenom">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
+			<h:inputText id="fonction" size="50" maxlength="100"
+				value="#{accordController.accord.contact.fonction}" />
+			<rich:message for="fonction">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="nomService" value="#{msgs['SERVICE.NOM']} *" />
+			<h:inputText id="nomService" style="text-transform:uppercase;"
+				value="#{accordController.accord.contact.service.nom}" size="50"
+				maxlength="50" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:converter binding="#{upperCaseConverter}" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="nomService">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</e:panelGrid>
+		<e:panelGrid columns="3">
+			<rich:spacer width="25px" />
+			<rich:spacer width="2px"
+				style="background-color: #{a4jSkin.panelBorderColor};"
+				height="225px" />
+			<rich:spacer width="25px" />
+		</e:panelGrid>
+		<e:panelGrid columns="1">
+			<rich:spacer height="25px" />
+			<e:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} *" />
+			<h:inputText id="telC" size="20" maxlength="20"
+				value="#{accordController.accord.contact.tel}" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="telC">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
+			<h:inputText id="faxC" size="20" maxlength="20"
+				value="#{accordController.accord.contact.fax}" />
+			<rich:message for="faxC">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
+			<h:inputText id="mailC"
+				value="#{accordController.accord.contact.mail}" size="50"
+				maxlength="50" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
+				<f:validator binding="#{mailValidator}" />
+				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="mailC">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="mailConfirmation"
+				value="#{msgs['CONTACT.MAIL_CONFIRMATION']} *" />
+			<h:inputText id="mailConfirmation"
+				value="#{accordController.contactMailConfirmation}" size="50"
+				maxlength="50" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
+				<f:validator binding="#{mailValidator}" />
+				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="mailConfirmation">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</e:panelGrid>
+	</e:panelGrid>
+</e:panelGrid>
+<e:panelGrid columns="3">
+	<a4j:commandButton action="#{accordController.validerAccord}"
+		ignoreDupResponses="true" value="#{msgs['FORM.ENVOYER']}"
+		reRender="opFCE" />
+	<rich:spacer width="20px" />
+	<a4j:outputPanel id="opFCE">
+		<e:panelGrid columns="3"
+			rendered="#{facesContext.maximumSeverity != null}">
+			<h:graphicImage value="../../media/images/arrow_up.png"
+				alt="#{msgs['GENERAL.ARROW_UP']}"
+				title="#{msgs['GENERAL.ARROW_UP']}" />
+			<e:text value="#{msgs['FORM.FORMERROR']}" />
+			<h:graphicImage value="../../media/images/arrow_up.png"
+				alt="#{msgs['GENERAL.ARROW_UP']}"
+				title="#{msgs['GENERAL.ARROW_UP']}" />
+		</e:panelGrid>
+	</a4j:outputPanel>
+</e:panelGrid>

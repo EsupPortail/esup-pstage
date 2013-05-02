@@ -89,9 +89,9 @@ public class SimpleComposanteLdapEntityServiceImpl  implements LdapEntityService
 	 * The exception thrown when the statistics methods are called.
 	 */
 	private final UnsupportedOperationException unsupportedExcepion = 
-		new UnsupportedOperationException("class " + getClass() + " does not support statistics.");
+			new UnsupportedOperationException("class " + getClass() + " does not support statistics.");
 
-	
+
 	/**
 	 * Bean constructor.
 	 */
@@ -118,14 +118,14 @@ public class SimpleComposanteLdapEntityServiceImpl  implements LdapEntityService
 		if (testFilter == null) {
 			logger.info(getClass() + ": property testFilter is not set, target ldap-test will not work.");
 		}
-	//	Assert.notNull(attributesMapper, "should not be null");
+		//	Assert.notNull(attributesMapper, "should not be null");
 		/*if (!attributes.contains(idAttribute)) {
 			attributes.add(idAttribute);
 		}
-		*/
-		
+		 */
+
 		attributesMapper = new LdapComposanteAttributesMapper(attributes);
-		
+
 	}
 
 	/**
@@ -134,12 +134,12 @@ public class SimpleComposanteLdapEntityServiceImpl  implements LdapEntityService
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + "#" + hashCode() + "["
-		+ "objectClass=[" + objectClass + "], "
-		+ "idAttribute=[" + idAttribute + "], "
-		+ "dnSubPath=[" + dnSubPath + "], "
-		+ "attributes=[" + attributes + "], "
-		+ "testFilter=[" + testFilter + "]"
-		+ "]";
+				+ "objectClass=[" + objectClass + "], "
+				+ "idAttribute=[" + idAttribute + "], "
+				+ "dnSubPath=[" + dnSubPath + "], "
+				+ "attributes=[" + attributes + "], "
+				+ "testFilter=[" + testFilter + "]"
+				+ "]";
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class SimpleComposanteLdapEntityServiceImpl  implements LdapEntityService
 			if (e.getCause() instanceof InvalidSearchFilterException) {
 				return new LdapBadFilterException(
 						message + ": bad filter [" + filterExpr + "]: "
-						+ e.getCause().getMessage(), (Exception) e.getCause());
+								+ e.getCause().getMessage(), (Exception) e.getCause());
 			}
 		}
 		if (e instanceof InvalidSearchFilterException) {
@@ -191,12 +191,12 @@ public class SimpleComposanteLdapEntityServiceImpl  implements LdapEntityService
 		//theFilter.and(new EqualsFilter(OBJECT_CLASS_ATTRIBUTE, objectClass));
 		theFilter.and(filter);
 		try {
-		    List<String> attrsList = attributesMapper.getAttributes();
+			List<String> attrsList = attributesMapper.getAttributes();
 			String[] attrs = attrsList.toArray(new String[attrsList.size()]);
-			
-			 List<LdapEntity> searchListe = (List<LdapEntity>)ldapTemplate.search(dn, theFilter.encode(), SearchControls.SUBTREE_SCOPE, attrs, attributesMapper);
+
+			List<LdapEntity> searchListe = (List<LdapEntity>)ldapTemplate.search(dn, theFilter.encode(), SearchControls.SUBTREE_SCOPE, attrs, attributesMapper);
 			return searchListe;
-			
+
 		} catch (UncategorizedLdapException e) {
 			if (e.getCause() != null && e.getCause() instanceof ServiceUnavailableException && retry) {
 				ExceptionUtils.catchException(wrapException(
@@ -211,7 +211,7 @@ public class SimpleComposanteLdapEntityServiceImpl  implements LdapEntityService
 		throw wrapException("could not retrieve entities from the LDAP directory", filter.encode(), ex);
 	}
 
-	
+
 	/**
 	 * @param filter
 	 * @return the LDAP entities that correspond to a filter.
@@ -390,8 +390,8 @@ public class SimpleComposanteLdapEntityServiceImpl  implements LdapEntityService
 		setAttributes(list);
 	}
 
-	
-	
+
+
 	@Override
 	public List<String> getStatistics(Locale locale) {
 		throw unsupportedExcepion;
@@ -407,7 +407,7 @@ public class SimpleComposanteLdapEntityServiceImpl  implements LdapEntityService
 		throw unsupportedExcepion;
 	}
 
-	
-	
-	
+
+
+
 }

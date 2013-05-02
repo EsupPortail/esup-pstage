@@ -1,0 +1,23 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<e:panelGrid style="float:left;">
+		<%@include file="./_menu.jsp"%>
+	</e:panelGrid>
+	<t:div rendered="#{sessionController.adminPageAuthorized}">
+		<e:panelGrid columns="1"
+			styleClass="panelEntreprise">
+			<rich:panel>
+				<f:facet name="header">
+					<e:text value="#{msgs['ACCORD.CONSULTATION']}" />
+				</f:facet>
+				<h:form id="formConsultationAccord">
+					<%@include file="_affichageAccord.jsp"%>
+				</h:form>
+			</rich:panel>
+			<%@include file="_panelNousContacter.jsp"%>
+		</e:panelGrid>
+	</t:div>
+</e:page>
+

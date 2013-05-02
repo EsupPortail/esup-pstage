@@ -34,8 +34,8 @@ import referentielmetier_18062010_impl.servicesmetiers.commun.apogee.education.g
 
 @SuppressWarnings("serial")
 public class StudentComponentRepositoryDaoWS implements
-	StudentComponentRepositoryDao {
-	
+StudentComponentRepositoryDao {
+
 	/**
 	 * 
 	 */
@@ -46,7 +46,7 @@ public class StudentComponentRepositoryDaoWS implements
 	 * Can read the education Apogee.
 	 */
 	private ReadEnseignement remoteCriApogeeEns;
-	
+
 	/**
 	 * startYearDay.
 	 */
@@ -60,7 +60,7 @@ public class StudentComponentRepositoryDaoWS implements
 	 * mapComp.
 	 */
 	LinkedHashMap<String,String> mapComp = new LinkedHashMap<String,String>();
-	
+
 	private ReferentielMetierServiceInterface referentielMetierService;
 
 	/**
@@ -127,7 +127,7 @@ public class StudentComponentRepositoryDaoWS implements
 		} catch (WebBaseException e) {
 			logger.error("WebBaseException getEtabRef = " + e );
 			throw new CommunicationApogeeException(e);
-		
+
 		} catch (Exception e) {
 			throw new CommunicationApogeeException(e);
 		}
@@ -142,7 +142,7 @@ public class StudentComponentRepositoryDaoWS implements
 			logger.debug("StudentComponentRepositoryDaoWS:: getEtapesRef . universityCode  = "+universityCode);
 		}
 		LinkedHashMap<String,String> lSI = new LinkedHashMap<String, String>();
-		
+
 		try {
 			String t = null;
 			List<VersionEtapeDTO> letape = remoteCriApogeeEns.getVersionEtapes1(t, null, null, getYear());
@@ -165,7 +165,7 @@ public class StudentComponentRepositoryDaoWS implements
 			logger.error("StudentComponentRepositoryDaoWS:: getEtapesRef . universityCode  Exception= "+e.getMessage());
 			throw new CommunicationApogeeException(e);
 		}
-	
+
 		return lSI;
 	}
 
@@ -175,7 +175,7 @@ public class StudentComponentRepositoryDaoWS implements
 	 */
 	public SignataireRef getSigCompoRef(String universityCode, String composante) {
 		SignataireRef sigRef = new SignataireRef();
-		
+
 		try {
 			// recuperer le code signataire de la composante
 			List<ComposanteDTO3> lcomposante = referentielMetierService.recupererComposanteV2(composante, null);
@@ -185,7 +185,7 @@ public class StudentComponentRepositoryDaoWS implements
 						// recherche du signataire de la composante
 						if (lcomposante.get(i).getCodSig() != null) {
 							List<SignataireWSSignataireDTO> signataire = 
-							referentielMetierService.recupererSignataire(lcomposante.get(i).getCodSig(), DonneesStatic.TEM_EN_SVE_O);
+									referentielMetierService.recupererSignataire(lcomposante.get(i).getCodSig(), DonneesStatic.TEM_EN_SVE_O);
 							if (signataire != null) {
 								for (int j = 0; j < signataire.size(); j++) {
 									sigRef.setNomSignataireComposante(signataire.get(j).getNomSig());
@@ -200,7 +200,7 @@ public class StudentComponentRepositoryDaoWS implements
 		} catch (WebBaseException e) {
 			logger.error("WebBaseException getSigCompoRef = " + e );
 			throw new CommunicationApogeeException(e);
-		
+
 		} catch (Exception e) {
 			throw new CommunicationApogeeException(e);
 		}
@@ -212,29 +212,29 @@ public class StudentComponentRepositoryDaoWS implements
 	 * @see org.esupportail.pstage.dao.referentiel.StudentComponentRepositoryDao#getComposantesPrincipalesRef(java.lang.String, java.util.Map)
 	 */
 	public Map<String, String> getComposantesPrincipalesRef(String universityCode,
-		Map<String, String> lesComposantes) {
+			Map<String, String> lesComposantes) {
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("StudentComponentRepositoryDaoWS:: getComposantesPrincipalesRef . universityCode  = "+universityCode);
 		}
 		mapComp = new LinkedHashMap<String,String>();
-		
+
 		try {
 			// recuperer la liste des composantes
 			List<ComposanteDTO3> composante = referentielMetierService.recupererComposanteV2(null, null);
-			
+
 			if (composante != null) {
-				
+
 				if (logger.isDebugEnabled()) {
 					logger.debug("StudentComponentRepositoryDaoWS:: getComposantesPrincipalesRef. composante  = " + composante.size());
 				}
-				
+
 				recupComposantes(composante);
-				
+
 			}
-			
+
 			return mapComp;
-			
+
 		} catch (WebBaseException e) {
 			logger.error("WebBaseException getComposantesRef = " + e );
 			throw new CommunicationApogeeException(e);
@@ -260,7 +260,7 @@ public class StudentComponentRepositoryDaoWS implements
 		}
 	}
 
-	
+
 	/**
 	 * @return String Year
 	 */
@@ -333,7 +333,7 @@ public class StudentComponentRepositoryDaoWS implements
 	public void setStartYearMonth(final String startYearMonth) {
 		this.startYearMonth = startYearMonth;
 	}
-	
+
 
 	public void setReferentielMetierService(
 			ReferentielMetierServiceInterface referentielMetierService) {
@@ -344,6 +344,6 @@ public class StudentComponentRepositoryDaoWS implements
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(referentielMetierService,"La propriété referentielMetierService ne doit pas etre null.");
 	}
-	
-	
+
+
 }

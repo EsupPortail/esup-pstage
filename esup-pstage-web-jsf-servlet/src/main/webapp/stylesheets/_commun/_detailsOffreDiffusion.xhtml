@@ -1,0 +1,183 @@
+<%@include file="../_include.jsp"%>
+
+<a4j:outputPanel id="opDiffusion" ajaxRendered="true">
+	<e:panelGrid columns="1" style="font-size:12px;"
+		rendered="#{!offreController.currentOffre.estDiffusee}">
+		<e:panelGrid columns="5" style="font-size:12px;">
+			<e:text value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
+				rendered="#{!offreController.currentOffre.estDiffusee}"
+				style="color:orange;" />
+			<rich:spacer width="10px" />
+			<e:text value="--" />
+			<rich:spacer width="10px" />
+			<a4j:commandLink ajaxSingle="true" id="diffusion"
+				reRender="diffusionOffre"
+				oncomplete="#{rich:component('diffusionOffre')}.show()"
+				rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+				disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
+					|| (sessionController.moderationActive && sessionController.pageAuthorized)}">
+				<h:graphicImage alt="#{msgs['FORM.DIFFUSER']}"
+					value="../../media/images/flag_green.png" style="border:0"
+					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
+					&& !(sessionController.moderationActive && sessionController.pageAuthorized)}" />
+				<h:graphicImage alt="#{msgs['FORM.DIFFUSER']}"
+					value="../../media/images/flag_block.png" style="border:0"
+					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
+					|| (sessionController.moderationActive && sessionController.pageAuthorized)}" />
+				<e:text value=" #{msgs['FORM.DIFFUSER']}" />
+			</a4j:commandLink>
+			<rich:toolTip for="diffusion" value="#{msgs['FORM.DIFFUSER']}"
+				rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
+					&& !(sessionController.moderationActive && sessionController.pageAuthorized)}" />
+			<rich:toolTip for="diffusion" value="#{msgs['OFFRE.ERREUR.NODIFF2']}"
+				rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
+					&& sessionController.moderationActive && sessionController.pageAuthorized}" />
+			<rich:toolTip for="diffusion" value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+				rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+		</e:panelGrid>
+	</e:panelGrid>
+	<e:panelGrid columns="1" style="font-size:12px;">
+		<e:panelGrid columns="8" style="font-size:12px;"
+			rendered="#{offreController.currentOffre.estDiffusee}">
+			<e:text value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
+				rendered="#{offreController.currentOffre.estDiffusee}"
+				style="color:green;" />
+			<e:text value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
+				rendered="#{offreController.currentOffre.estDiffusee}"
+				style="color:green;" />
+			<e:text value="#{offreController.currentOffre.dateFinDiffusion}"
+				rendered="#{offreController.currentOffre.estDiffusee}"
+				style="color:green;">
+				<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+			</e:text>
+			<e:text
+				value="#{msgs['GENERAL.UPDATEINFOS.PAR']} #{offreController.currentOffre.loginDiffusion}"
+				rendered="#{not empty offreController.currentOffre.loginDiffusion and (sessionController.adminPageAuthorized || welcomeController.superAdmin 
+				|| welcomeController.admin || welcomeController.writer)}" />
+			<e:text value=" "
+				rendered="#{!(not empty offreController.currentOffre.loginDiffusion and (sessionController.adminPageAuthorized || welcomeController.superAdmin 
+				|| welcomeController.admin || welcomeController.writer))}" />
+			<rich:spacer width="10px" />
+			<e:text value="--" />
+			<rich:spacer width="10px" />
+			<a4j:commandLink ajaxSingle="true" id="stopDiffusion"
+				reRender="stopDiffusionOffre"
+				oncomplete="#{rich:component('stopDiffusionOffre')}.show()"
+				rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+				disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+				<h:graphicImage alt="#{msgs['FORM.STOPDIFFUSER']}"
+					value="../../media/images/flag_orange.png" style="border:0"
+					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+				<h:graphicImage alt="#{msgs['FORM.STOPDIFFUSER']}"
+					value="../../media/images/flag_block.png" style="border:0"
+					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+				<e:text value=" #{msgs['FORM.STOPDIFFUSER']}" />
+			</a4j:commandLink>
+			<rich:toolTip for="stopDiffusion"
+				value="#{msgs['FORM.STOPDIFFUSER']}"
+				rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+			<rich:toolTip for="stopDiffusion"
+				value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+				rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+		</e:panelGrid>
+		<t:div
+			rendered="#{sessionController.adminPageAuthorized || (sessionController.pageAuthorized && sessionController.autoriserEntrepriseAReserverOffre) ||
+				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+			<a4j:commandLink ajaxSingle="true" id="diffusionCentre"
+				reRender="diffusionCentreOffre"
+				oncomplete="#{rich:component('diffusionCentreOffre')}.show()"
+				rendered="#{(sessionController.adminPageAuthorized || (sessionController.pageAuthorized && sessionController.autoriserEntrepriseAReserverOffre) ||
+				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) && !offreController.ciblageInterdit}"
+				disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"
+				action="#{offreController.majListesCentresDiffusion}">
+				<h:graphicImage alt="_" value="../../media/images/target.png"
+					style="border:0"
+					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+				<h:graphicImage alt="_" value="../../media/images/target_block.png"
+					style="border:0"
+					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+				<e:text value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR']}"
+					rendered="#{sessionController.adminPageAuthorized}" />
+				<e:text value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE']}"
+					rendered="#{sessionController.pageAuthorized && !sessionController.adminPageAuthorized}" />
+				<e:text value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE']}"
+					rendered="#{!sessionController.adminPageAuthorized && (welcomeController.admin || welcomeController.writer)}" />
+			</a4j:commandLink>
+			<rich:toolTip for="diffusionCentre"
+				value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+				rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+			<a4j:outputPanel id="opOffreDiffusion">
+				<e:panelGrid columns="1" style="font-size:12px;">
+					<e:text
+						value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEA']}"
+						rendered="#{not empty offreController.currentOffre.offresDiffusion
+			and (!sessionController.pageAuthorized && (welcomeController.admin || welcomeController.writer))			
+			&& (offreController.currentOffre.centreGestion.idCentreGestion != centreController.centreEntreprise.idCentreGestion)}" />
+					<e:text
+						value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEPARENTR']}"
+						rendered="#{not empty offreController.currentOffre.offresDiffusion
+			and (!sessionController.pageAuthorized && (welcomeController.admin || welcomeController.writer))			
+			&& (offreController.currentOffre.centreGestion.idCentreGestion == centreController.centreEntreprise.idCentreGestion)}" />
+					<e:text
+						value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEA']}"
+						rendered="#{not empty offreController.currentOffre.offresDiffusion
+			and (sessionController.pageAuthorized || sessionController.pageAuthorized)}" />
+					<rich:dataList var="odiff"
+						rendered="#{not empty offreController.currentOffre.offresDiffusion}"
+						value="#{offreController.currentOffre.offresDiffusion}">
+						<e:text value="#{odiff.nomCentre}" />
+					</rich:dataList>
+					<%/*<e:text
+						rendered="#{not empty offreController.currentOffre.offresDiffusion && offreController.currentOffreSizeOffresDiffusion>5}"
+						value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.DETAILSCENTRES']}" />*/%>
+					<e:text
+						value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEATLM']}"
+						rendered="#{offreController.currentOffre.estDiffusee && (empty offreController.currentOffre.offresDiffusion and
+				(sessionController.pageAuthorized || sessionController.adminPageAuthorized))}" />
+					<e:text
+						value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNEDIFFUSION']}"
+						rendered="#{offreController.currentOffre.estDiffusee && (empty offreController.currentOffre.offresDiffusion and
+				(!sessionController.adminPageAuthorized && (welcomeController.admin || welcomeController.writer)))}" />
+				</e:panelGrid>
+			</a4j:outputPanel>
+		</t:div>
+	</e:panelGrid>
+	<e:panelGrid columns="5" style="font-size:12px;"
+		rendered="#{(sessionController.adminPageAuthorized || sessionController.pageAuthorized || welcomeController.superAdmin 
+				|| welcomeController.admin || welcomeController.writer)}">
+		<e:text value="#{msgs['OFFRE.GESTION.POURVOIROFFRE.POURVUE']}"
+			rendered="#{offreController.currentOffre.estPourvue}"
+			style="color:green;" />
+		<e:text value="#{msgs['OFFRE.GESTION.POURVOIROFFRE.NONPOURVUE']}"
+			rendered="#{!offreController.currentOffre.estPourvue}"
+			style="color:orange;" />
+		<rich:spacer width="10px" />
+		<e:text value="--" />
+		<rich:spacer width="10px" />
+		<a4j:commandLink ajaxSingle="true" id="offrePourvue"
+			reRender="panelOffrePourvue"
+			oncomplete="#{rich:component('panelOffrePourvue')}.show()"
+			rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+			disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+			<h:graphicImage alt="_" value="../../media/images/lock.png"
+				style="border:0"
+				rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and !offreController.currentOffre.estPourvue}" />
+			<h:graphicImage alt="_" value="../../media/images/lock_block.png"
+				style="border:0"
+				rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and !offreController.currentOffre.estPourvue}" />
+			<h:graphicImage alt="_" value="../../media/images/lock_open.png"
+				style="border:0"
+				rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and offreController.currentOffre.estPourvue}" />
+			<h:graphicImage alt="_"
+				value="../../media/images/lock_open_block.png" style="border:0"
+				rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and offreController.currentOffre.estPourvue}" />
+			<e:text value=" #{msgs['OFFRE.GESTION.POURVOIROFFRE.POUVOIR']}"
+				rendered="#{!offreController.currentOffre.estPourvue}" />
+			<e:text value=" #{msgs['OFFRE.GESTION.POURVOIROFFRE.STOPPOURVUE']}"
+				rendered="#{offreController.currentOffre.estPourvue}" />
+		</a4j:commandLink>
+	</e:panelGrid>
+</a4j:outputPanel>

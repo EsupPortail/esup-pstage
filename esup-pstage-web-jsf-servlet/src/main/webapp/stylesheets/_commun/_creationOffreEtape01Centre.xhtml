@@ -1,0 +1,33 @@
+<%@include file="../_include.jsp"%>
+<e:panelGrid columns="2"
+	rendered="#{empty offreController.listeItemsCurrentCentresGestion}">
+	<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+		value="../../media/images/warning_50px.png" />
+	<e:text value="#{msgs['OFFRE.TEXT.ETAPE01.AUCUNCENTRE']}"
+		style="color:red;" escape="false" />
+</e:panelGrid>
+<e:panelGrid columns="1"
+	rendered="#{not empty offreController.listeItemsCurrentCentresGestion}">
+	<e:text value="#{msgs['OFFRE.TEXT.ETAPE01']}" />
+	<e:panelGrid columns="2">
+		<h:selectOneMenu id="centreGestion"
+			value="#{offreController.formOffre.idCentreGestion}" required="true"
+			requiredMessage="#{requiredMessageController.champObligatoire}"
+			style="width:300px;">
+			<f:selectItems
+				value="#{offreController.listeItemsCurrentCentresGestion}" />
+			<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+		</h:selectOneMenu>
+		<rich:message for="centreGestion">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+		<h:commandButton id="button"
+			value="#{msgs['OFFRE.SELECTIONCENTRE']}"
+			action="#{offreController.goToCreationOffreRechEtab}"
+			alt="#{msgs['OFFRE.SELECTIONCENTRE']}"
+			title="#{msgs['OFFRE.SELECTIONCENTRE']}">
+			<f:setPropertyActionListener value="#{2}"
+				target="#{rechercheController.ongletCourant}" />
+		</h:commandButton>
+	</e:panelGrid>
+</e:panelGrid>

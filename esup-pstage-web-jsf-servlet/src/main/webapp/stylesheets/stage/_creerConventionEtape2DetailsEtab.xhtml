@@ -1,0 +1,65 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1" align="center">
+	<e:text value=" " id="formAffEtab" />
+	<e:panelGrid columns="2" align="center">
+		<h:column>
+			<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+				title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
+				style="border:0"
+				rendered="#{(facesContext.maximumSeverity == 'Info')
+				&& !(facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn')}" />
+			<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+				title="#{msgs['GENERAL.WARNING']}"
+				value="../../media/images/warning_50px.png" style="border:0"
+				rendered="#{facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn'}" />
+		</h:column>
+		<h:column>
+			<rich:message for="formAffEtab">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</h:column>
+	</e:panelGrid>
+	<t:aliasBean alias="#{structure}"
+		value="#{rechercheController.resultatRechercheStructure}">
+		<%@include file="../_commun/_rechercheEtablissementAffichage.jsp"%>
+	</t:aliasBean>
+	<h:commandButton id="modifEtab"
+		value="#{msgs['FORM.MODIFIER']}"
+		action="#{conventionController.goToCreerConventionModifEtab}"
+		alt="#{msgs['FORM.MODIFIER']}"
+		title="#{msgs['FORM.MODIFIER']}"
+		rendered="#{not empty rechercheController.resultatRechercheStructure
+		&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+			welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+			|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+		(!sessionController.autoriserEtudiantAModifierEntreprise 
+			&& ((empty rechercheController.resultatRechercheStructure.loginModif &&
+			rechercheController.resultatRechercheStructure.loginCreation==sessionController.currentLogin)
+			|| (rechercheController.resultatRechercheStructure.loginModif==sessionController.currentLogin)))))))}">
+		<f:setPropertyActionListener
+			value="#{rechercheController.resultatRechercheStructure}"
+			target="#{etablissementController.formStructure}" />
+	</h:commandButton>
+	<e:panelGrid columns="3">
+		<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			action="#{conventionController.goToCreerConventionEtape2EtabR}"
+			alt="#{msgs['FORM.PREVIOUS']}"
+			title="#{msgs['FORM.PREVIOUS']}" immediate="true">
+		
+			<f:setPropertyActionListener value="#{null}"
+				target="#{rechercheController.resultatRechercheStructure}" />
+		</a4j:commandButton>
+		<rich:spacer width="20px" />
+		<a4j:commandButton id="selectionEtab"
+			value="#{msgs['OFFRE.SELECTIONETAB']}"
+			action="#{conventionController.goToCreerConventionEtape3Service}"
+			alt="#{msgs['OFFRE.SELECTIONETAB']}"
+			title="#{msgs['OFFRE.SELECTIONETAB']}"
+			rendered="#{not empty rechercheController.resultatRechercheStructure}">
+			<f:setPropertyActionListener
+				value="#{rechercheController.resultatRechercheStructure}"
+				target="#{conventionController.convention.structure}" />
+		</a4j:commandButton>
+	</e:panelGrid>
+</e:panelGrid>

@@ -8,35 +8,25 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException_Exception;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException_Exception;
-import org.esupportail.pstagedata.remote.AccordPartenariatDTO;
-import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException;
-import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException_Exception;
-import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.ContactDeleteException;
-import org.esupportail.pstagedata.remote.ContactDeleteException_Exception;
-import org.esupportail.pstagedata.remote.CritereRechercheStructureAdresseDTO;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException;
-import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException_Exception;
-import org.esupportail.pstagedata.remote.ServiceDTO;
-import org.esupportail.pstagedata.remote.ServiceDeleteException_Exception;
-import org.esupportail.pstagedata.remote.StructureDTO;
-import org.esupportail.pstagedata.remote.StructureDeleteException;
-import org.esupportail.pstagedata.remote.StructureDeleteException_Exception;
-import org.esupportail.pstagedata.remote.StructureNumSiretException;
-import org.esupportail.pstagedata.remote.StructureNumSiretException_Exception;
-import org.esupportail.pstagedata.remote.TicketStructureDTO;
-import org.esupportail.pstagedata.remote.UnvalidNumSiretException;
-import org.esupportail.pstagedata.remote.UnvalidNumSiretException_Exception;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
+import org.esupportail.pstagedata.domain.dto.ContactDTO;
+import org.esupportail.pstagedata.domain.dto.CritereRechercheStructureAdresseDTO;
+import org.esupportail.pstagedata.domain.dto.ServiceDTO;
+import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.TicketStructureDTO;
+import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForContactException;
+import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForStructureException;
+import org.esupportail.pstagedata.exceptions.AccountAlreadyExistingForCoupleMailStructureException;
+import org.esupportail.pstagedata.exceptions.ContactDeleteException;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.MailAlreadyUsedForStructureException;
+import org.esupportail.pstagedata.exceptions.ServiceDeleteException;
+import org.esupportail.pstagedata.exceptions.StructureDeleteException;
+import org.esupportail.pstagedata.exceptions.StructureNumSiretException;
+import org.esupportail.pstagedata.exceptions.UnvalidNumSiretException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 
 /**
  * The StructureDaoService service interface.
@@ -71,28 +61,28 @@ public interface StructureDomainService extends Serializable {
 	/**
 	 * @param accord
 	 * @return int
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
 	 * @throws AccordAlreadyExistingForContactException 
 	 * @throws AccordAlreadyExistingForStructureException 
 	 */
-	public int addAccord(AccordPartenariatDTO accord) throws DataAddException_Exception, WebServiceDataBaseException_Exception, AccordAlreadyExistingForContactException_Exception, AccordAlreadyExistingForStructureException_Exception;
+	public int addAccord(AccordPartenariatDTO accord) throws DataAddException, WebServiceDataBaseException, AccordAlreadyExistingForContactException, AccordAlreadyExistingForStructureException;
 	/**
 	 * @param accord
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 * @throws AccordAlreadyExistingForContactException 
 	 * @throws AccordAlreadyExistingForStructureException 
 	 */
-	public boolean updateAccord(AccordPartenariatDTO accord) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception, AccordAlreadyExistingForContactException_Exception, AccordAlreadyExistingForStructureException_Exception;
+	public boolean updateAccord(AccordPartenariatDTO accord) throws DataUpdateException, WebServiceDataBaseException, AccordAlreadyExistingForContactException, AccordAlreadyExistingForStructureException;
 	/**
 	 * @param idAccord
 	 * @return boolean
-	 * @throws DataDeleteException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean deleteAccord(int idAccord) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception;
+	public boolean deleteAccord(int idAccord) throws DataDeleteException, WebServiceDataBaseException;
 	/* ****************************************************************************
 	 * CONTACT
 	 *****************************************************************************/
@@ -132,54 +122,54 @@ public interface StructureDomainService extends Serializable {
 	/**
 	 * @param c
 	 * @return int
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
 	 * @throws MailAlreadyUsedForStructureException 
 	 */
-	public int addContact(ContactDTO c) throws DataAddException_Exception, WebServiceDataBaseException_Exception, MailAlreadyUsedForStructureException_Exception;
+	public int addContact(ContactDTO c) throws DataAddException, WebServiceDataBaseException, MailAlreadyUsedForStructureException;
 	
 	/**
 	 * @param c
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 * @throws MailAlreadyUsedForStructureException 
 	 */
-	public boolean updateContact(ContactDTO c) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception, MailAlreadyUsedForStructureException_Exception;
+	public boolean updateContact(ContactDTO c) throws DataUpdateException, WebServiceDataBaseException, MailAlreadyUsedForStructureException;
 	/**
 	 * @param c
 	 * @return boolean
-	 * @throws DataUpdateException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataUpdateException
+	 * @throws WebServiceDataBaseException
 	 * @throws AccountAlreadyExistingForCoupleMailStructureException 
 	 */
-	public boolean updateCompteContact(ContactDTO c) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception, AccountAlreadyExistingForCoupleMailStructureException_Exception;
+	public boolean updateCompteContact(ContactDTO c) throws DataUpdateException, WebServiceDataBaseException, AccountAlreadyExistingForCoupleMailStructureException;
 	/**
 	 * @param idContact 
 	 * @param loginInfosAJour 
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean updateContactInfosAJour(int idContact, String loginInfosAJour) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateContactInfosAJour(int idContact, String loginInfosAJour) throws DataUpdateException, WebServiceDataBaseException;
 	
 	/**
 	 * @param idContact 
-	 * @param xmlGregorianCalendar 
+	 * @param Date
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean updateContactDerniereConnexion(int idContact, XMLGregorianCalendar xmlGregorianCalendar) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateContactDerniereConnexion(int idContact, Date avantDerniereConnexion) throws DataUpdateException, WebServiceDataBaseException;
 	
 	/**
 	 * @param idContact 
 	 * @return boolean
-	 * @throws DataDeleteException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException 
 	 * @throws ContactDeleteException 
 	 */
-	public boolean deleteContact(int idContact) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception, ContactDeleteException_Exception;
+	public boolean deleteContact(int idContact) throws DataDeleteException, WebServiceDataBaseException, ContactDeleteException;
 	/* ****************************************************************************
 	 * SERVICE
 	 *****************************************************************************/
@@ -201,33 +191,33 @@ public interface StructureDomainService extends Serializable {
 	/**
 	 * @param s
 	 * @return int
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public int addService(ServiceDTO s) throws DataAddException_Exception, WebServiceDataBaseException_Exception;
+	public int addService(ServiceDTO s) throws DataAddException, WebServiceDataBaseException;
 	/**
 	 * @param s
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean updateService(ServiceDTO s) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateService(ServiceDTO s) throws DataUpdateException, WebServiceDataBaseException;
 	/**
 	 * @param idService
 	 * @param loginInfosAJour
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean updateServiceInfosAJour(int idService, String loginInfosAJour) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateServiceInfosAJour(int idService, String loginInfosAJour) throws DataUpdateException, WebServiceDataBaseException;
 	/**
 	 * @param idService
 	 * @return boolean
-	 * @throws DataDeleteException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException 
 	 * @throws ServiceDeleteException 
 	 */
-	public boolean deleteService(int idService) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception, ServiceDeleteException_Exception;
+	public boolean deleteService(int idService) throws DataDeleteException, WebServiceDataBaseException, ServiceDeleteException;
 	/* ****************************************************************************
 	 * STRUCTURE
 	 *****************************************************************************/
@@ -335,53 +325,53 @@ public interface StructureDomainService extends Serializable {
 	/**
 	 * @param s
 	 * @return int
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
 	 * @throws UnvalidNumSiretException 
 	 * @throws StructureNumSiretException 
 	 */
-	public int addStructure(StructureDTO s) throws DataAddException_Exception, WebServiceDataBaseException_Exception, UnvalidNumSiretException_Exception, StructureNumSiretException_Exception;
+	public int addStructure(StructureDTO s) throws DataAddException, WebServiceDataBaseException, UnvalidNumSiretException, StructureNumSiretException;
 	/**
 	 * @param s
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 * @throws UnvalidNumSiretException 
 	 * @throws StructureNumSiretException 
 	 */
-	public boolean updateStructure(StructureDTO s) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception, UnvalidNumSiretException_Exception, StructureNumSiretException_Exception;
+	public boolean updateStructure(StructureDTO s) throws DataUpdateException, WebServiceDataBaseException, UnvalidNumSiretException, StructureNumSiretException;
 	/**
 	 * @param idStructure
 	 * @param loginInfosAJour
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean updateStructureInfosAJour(int idStructure, String loginInfosAJour) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateStructureInfosAJour(int idStructure, String loginInfosAJour) throws DataUpdateException, WebServiceDataBaseException;
 	/**
 	 * @param idStructure 
 	 * @param loginValidation
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean updateStructureValidation(int idStructure, String loginValidation) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateStructureValidation(int idStructure, String loginValidation) throws DataUpdateException, WebServiceDataBaseException;
 	/**
 	 * @param idStructure 
 	 * @param loginStopValidation
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean updateStructureStopValidation(int idStructure, String loginStopValidation) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateStructureStopValidation(int idStructure, String loginStopValidation) throws DataUpdateException, WebServiceDataBaseException;
 	/**
 	 * @param idStructure
 	 * @return boolean
-	 * @throws DataDeleteException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException 
 	 * @throws StructureDeleteException 
 	 */
-	public boolean deleteStructure(int idStructure) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception, StructureDeleteException_Exception;
+	public boolean deleteStructure(int idStructure) throws DataDeleteException, WebServiceDataBaseException, StructureDeleteException;
 	
 	/* ****************************************************************************
 	 * TICKET STRUCTURE
@@ -396,16 +386,16 @@ public interface StructureDomainService extends Serializable {
 	/**
 	 * @param ticketStructure
 	 * @return int
-	 * @throws DataAddException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataAddException
+	 * @throws WebServiceDataBaseException
 	 */
-	public int addTicketStructure(TicketStructureDTO ticketStructure) throws DataAddException_Exception, WebServiceDataBaseException_Exception;
+	public int addTicketStructure(TicketStructureDTO ticketStructure) throws DataAddException, WebServiceDataBaseException;
 	
 	/**
 	 * @param ticket
 	 * @return boolean
-	 * @throws DataDeleteException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataDeleteException
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean deleteTicketStructure(String ticket) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception;
+	public boolean deleteTicketStructure(String ticket) throws DataDeleteException, WebServiceDataBaseException;
 }

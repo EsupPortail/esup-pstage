@@ -1,0 +1,202 @@
+<%@include file="../_include.jsp"%>
+
+<h:form id="menuDynamiqueStage" styleClass="app-form">
+
+
+	<t:htmlTag value="ul">
+		<t:htmlTag value="li"
+			rendered="#{welcomeController.personnel || welcomeController.superAdmin}">
+			<h:commandLink action="menuIE">
+				<h:outputText value="#{msgs['MENUSTAGE.GESTIONCENTRE']}"
+					styleClass="menuTitre" />
+			</h:commandLink>
+			<t:htmlTag value="ul">
+				<t:htmlTag value="li">
+					<h:commandLink action="#{centreController.goToListeCentre}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.LISTECENTRE']}"
+							title="#{msgs['MENUSTAGE.LISTECENTRE']}"
+							value="/media/images/list.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.LISTECENTRE']}" />
+					</h:commandLink>
+				</t:htmlTag>
+			</t:htmlTag>
+		</t:htmlTag>
+		<t:htmlTag value="li"
+			rendered="#{welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant}">
+			<h:commandLink action="menuIE">
+				<h:outputText value="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
+					styleClass="menuTitre" />
+			</h:commandLink>
+			<t:htmlTag value="ul">
+				<t:htmlTag value="li">
+					<h:commandLink
+						action="#{conventionController.goToRechercheConvention}"
+						rendered="#{welcomeController.personnel || welcomeController.superAdmin }">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION']}"
+							title="#{msgs['MENUSTAGE.RECHCONVENTION']}"
+							value="/media/images/zoom.png" style="border:0" />
+						<e:text value=" #{msgs['MENUSTAGE.RECHCONVENTION']}" />
+					</h:commandLink>
+				</t:htmlTag>
+
+				<t:htmlTag value="li">
+					<h:commandLink action="#{conventionController.goToCreerConvention}"
+						rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+							title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+							value="/media/images/new.png" style="border:0" />
+						<e:text value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
+					</h:commandLink>
+				</t:htmlTag>
+				<t:htmlTag value="li">
+					<h:commandLink action="#{conventionController.goToValiderEnMasse}"
+						rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
+							title="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
+							value="/media/images/tick.png" style="border:0" />
+						<e:text value=" #{msgs['MENUSTAGE.VALIDERENMASSE']}" />
+					</h:commandLink>
+				</t:htmlTag>
+				<t:htmlTag value="li"
+					rendered="#{welcomeController.enseignantTuteur}">
+					<h:commandLink
+						action="#{conventionController.goToRechercheConventionEnseignantTuteur}">
+						<h:graphicImage
+							alt="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
+							title="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
+							value="/media/images/list.png" style="border:0" />
+						<e:text
+							value=" #{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}" />
+					</h:commandLink>
+				</t:htmlTag>
+			</t:htmlTag>
+		</t:htmlTag>
+		<t:htmlTag value="li" rendered="#{welcomeController.etudiant}">
+			<h:commandLink action="menuIE">
+				<h:outputText value="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
+					styleClass="menuTitre" />
+			</h:commandLink>
+			<t:htmlTag value="ul">
+				<t:htmlTag value="li">
+					<h:commandLink
+						action="#{conventionController.goToRechercheConventionEtu}"
+						rendered="#{welcomeController.etudiant}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
+							title="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
+							value="/media/images/list.png" style="border:0" />
+						<e:text value=" #{msgs['MENUSTAGE.RECHCONVENTION.ETU']}" />
+					</h:commandLink>
+				</t:htmlTag>
+
+				<t:htmlTag value="li">
+					<h:commandLink action="#{conventionController.goToCreerConvention}"
+						rendered="#{welcomeController.creationConventionAutorisee}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+							title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+							value="/media/images/new.png" style="border:0" />
+						<e:text value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
+					</h:commandLink>
+				</t:htmlTag>
+			</t:htmlTag>
+		</t:htmlTag>
+		<t:htmlTag value="li">
+			<h:commandLink action="menuIE">
+				<h:outputText value="#{msgs['MENUSTAGE.GESTIONETAB']}"
+					styleClass="menuTitre" />
+			</h:commandLink>
+			<t:htmlTag value="ul">
+				<t:htmlTag value="li">
+					<h:commandLink
+						action="#{rechercheController.goToRechercheEtablissementStage}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHETAB']}"
+							title="#{msgs['MENUSTAGE.RECHETAB']}"
+							value="/media/images/zoom.png" style="border:0" />
+						<e:text value=" #{msgs['MENUSTAGE.RECHETAB']}" />
+						<f:setPropertyActionListener value="#{2}"
+							target="#{rechercheController.ongletCourant}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{sessionController.currentManageStructure}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeServices}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeContacts}" />
+					</h:commandLink>
+				</t:htmlTag>
+			</t:htmlTag>
+		</t:htmlTag>
+		<t:htmlTag value="li"
+			rendered="#{welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant}">
+			<h:commandLink action="menuIE">
+				<h:outputText value="#{msgs['MENUSTAGE.GESTIONOFFRE']}"
+					styleClass="menuTitre" />
+			</h:commandLink>
+			<t:htmlTag value="ul">
+				<t:htmlTag value="li">
+					<h:commandLink action="#{offreController.goToRechercheOffreStage}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
+							title="#{msgs['MENUSTAGE.RECHOFFRE']}"
+							value="/media/images/zoom.png" style="border:0" />
+						<e:text value=" #{msgs['MENUSTAGE.RECHOFFRE']}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{sessionController.currentManageStructure}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeServices}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeContacts}" />
+					</h:commandLink>
+				</t:htmlTag>
+				<t:htmlTag value="li" rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
+					<h:commandLink
+						action="#{offreController.goToCreationOffreSelectionCentre}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
+							title="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
+							value="/media/images/new.png" style="border:0" />
+						<e:text value=" #{msgs['MENUSTAGE.AJOUTOFFRE']}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{sessionController.currentManageStructure}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeServices}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeContacts}" />
+						<f:setPropertyActionListener value="#{3}"
+							target="#{offreController.typeAjoutModifOffre}" />
+						<f:setPropertyActionListener value="#{2}"
+							target="#{rechercheController.ongletCourant}" />
+					</h:commandLink>
+				</t:htmlTag>
+				<t:htmlTag value="li" rendered="#{sessionController.moderationActive && (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+					<h:commandLink action="#{offreController.goToOffreADiffuser}">
+						<h:graphicImage alt="#{msgs['MENU.OFFRESADIFFUSER']})"
+							title="#{msgs['MENU.OFFRESADIFFUSER']})"
+							value="/media/images/tick.png" style="border:0" />
+						<e:text
+							value=" #{msgs['MENU.OFFRESADIFFUSER']} (#{offreController.offreADiffuser})" />
+					</h:commandLink>
+				</t:htmlTag>
+			</t:htmlTag>
+		</t:htmlTag>
+		<t:htmlTag value="li" rendered="#{welcomeController.etudiant}">
+			<h:commandLink action="menuIE">
+				<h:outputText value="#{msgs['MENUSTAGE.GESTIONOFFRE']}"
+					styleClass="menuTitre" />
+			</h:commandLink>
+			<t:htmlTag value="ul">
+				<t:htmlTag value="li">
+					<h:commandLink action="#{offreController.goToRechercheOffreStage}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
+							title="#{msgs['MENUSTAGE.RECHOFFRE']}"
+							value="/media/images/zoom.png" style="border:0" />
+						<e:text value=" #{msgs['MENUSTAGE.RECHOFFRE']}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{sessionController.currentManageStructure}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeServices}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeContacts}" />
+					</h:commandLink>
+				</t:htmlTag>
+			</t:htmlTag>
+		</t:htmlTag>
+	</t:htmlTag>
+
+</h:form>

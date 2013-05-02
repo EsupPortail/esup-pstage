@@ -1,0 +1,56 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<t:div>
+		<e:panelGrid columns="1"
+			styleClass="panelRecherche">
+			<rich:panel id="panelOffre">
+				<f:facet name="header">
+					<e:text value="#{msgs['RECHERCHEOFFRE.DETAILS']}" />
+				</f:facet>
+				<t:div rendered="#{empty offreController.currentOffre}">
+					<e:text value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
+				</t:div>
+				<h:form>
+					<e:panelGrid>
+						<a4j:commandLink ajaxSingle="true" id="editoffre"
+							action="#{offreController.editPdfOffre}">
+							<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+								value="../../media/images/printer.png" style="border:0" />
+							<e:text value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
+								escape="false" />
+						</a4j:commandLink>
+					</e:panelGrid>
+					<rich:spacer height="5px" />
+					<t:div rendered="#{not empty offreController.currentOffre}" style="width:auto;">
+						<e:panelGrid align="center">
+							<e:text value="#{offreController.currentOffre.intitule}"
+								style="font-weight:bold;text-transform:uppercase;font-size:24px;" />
+						</e:panelGrid>
+						<e:panelGrid columns="1" style="font-size:12px;width:800px;">
+							<t:div rendered="#{!offreController.currentOffre.cacherEtablissement}">
+								<e:text value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.ETAB']} "
+									styleClass="titreOffre" />
+								<%@include file="../_commun/_detailsOffreEtab.jsp"%>
+								<rich:spacer height="10px" />
+							</t:div>
+							<%@include file="../_commun/_detailsOffreEtudiant.jsp"%>
+						</e:panelGrid>
+					</t:div>
+					<rich:spacer height="20px" />
+					<e:panelGrid columns="3">
+						<h:commandButton
+							value="#{msgs['RECHERCHEOFFRE.RETOURAUXRESULTATS']}"
+							action="resultatsRechercheOffre" />
+						<rich:spacer width="100px" />
+						<h:commandButton
+							value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
+							action="#{offreController.goToRechercheOffrePublic}" />
+					</e:panelGrid>
+				</h:form>
+			</rich:panel>
+		</e:panelGrid>
+		<rich:editor rendered="false" />
+	</t:div>
+</e:page>

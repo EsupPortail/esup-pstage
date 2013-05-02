@@ -1,0 +1,73 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel>
+					<f:facet name="header">
+						<e:text value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']}" />
+					</f:facet>
+					<%@include file="_menuGestionEtab.jsp"%>
+					<h:form id="formAffEtab">
+						<e:panelGrid columns="2" align="center">
+							<h:column>
+								<%@include file="../_commun/_confirmationImagesPermanentes.jsp"%>
+							</h:column>
+							<h:column>
+								<rich:message for="formAffEtab">
+									<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								</rich:message>
+							</h:column>
+						</e:panelGrid>
+						<a4j:outputPanel id="opAffEtab">
+							<t:div
+								rendered="#{empty rechercheController.resultatRechercheStructure}">
+								<e:text value="#{msgs['STRUCTURE.AUCUN']}" />
+							</t:div>
+							<t:div
+								rendered="#{not empty rechercheController.resultatRechercheStructure}"
+								style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
+								<%@include file="_affichageRechercheEtablissement.jsp"%>
+							</t:div>
+							<e:panelGrid columns="1" style="float:right;"
+								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+								<t:aliasBean alias="#{objet}"
+									value="#{rechercheController.resultatRechercheStructure}">
+									<%@include file="../_commun/_updateInfos.jsp"%>
+								</t:aliasBean>
+							</e:panelGrid>
+						</a4j:outputPanel>
+						<t:htmlTag value="br" />
+						<rich:spacer height="20px" />
+						<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+							action="#{rechercheController.goToRechercheEtablissementStage}"
+							alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+							title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}">
+						</h:commandButton>
+					</h:form>
+				</rich:panel>
+				<%@include file="../_commun/_panelSupprStructure.jsp"%>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<h:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+	hideButton("welcomeManagerForm:localeChangeButton");
+</script>
+	</t:div>
+</e:page>

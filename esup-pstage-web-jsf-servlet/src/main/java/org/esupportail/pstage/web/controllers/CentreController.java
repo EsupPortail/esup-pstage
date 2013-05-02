@@ -17,13 +17,12 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
-import org.esupportail.pstage.domain.beans.ImageUploadBean;
 import org.esupportail.pstage.exceptions.CommunicationApogeeException;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
+import org.esupportail.pstage.web.beans.ImageUploadBean;
 import org.esupportail.pstage.web.comparator.ComparatorSelectItem;
 import org.esupportail.pstagedata.domain.beans.CritereGestion;
-import org.esupportail.pstagedata.domain.beans.PersonnelCentreGestion;
 import org.esupportail.pstagedata.domain.dto.AffectationDTO;
 import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.CentreGestionSuperviseurDTO;
@@ -57,7 +56,7 @@ import org.springframework.util.StringUtils;
 public class CentreController extends AbstractContextAwareController {
 
 	/* ****************************************************************
-	 * Propriétés
+	 * Propri�t�s
 	 ****************************************************************/
 
 	/**
@@ -74,27 +73,27 @@ public class CentreController extends AbstractContextAwareController {
 	 * Centre de Gestion
 	 ****************************************************************/
 	/**
-	 * Le nombre de criteres rattachés au centre
+	 * Le nombre de criteres rattach�s au centre
 	 */
 	private int nbCriteres;
 
 	/**
-	 * Le nombre de personnels rattachés au centre
+	 * Le nombre de personnels rattach�s au centre
 	 */
 	private int nbPersonnels;
 
 	/**
-	 * Le nombre de contacts rattachés au centre
+	 * Le nombre de contacts rattach�s au centre
 	 */
 	private int nbContacts;
 
 	/**
-	 * Le nombre de conventions rattachées au centre
+	 * Le nombre de conventions rattach�es au centre
 	 */
 	private int nbConventions;
 
 	/**
-	 * Le nombre d'offres rattachées au centre
+	 * Le nombre d'offres rattach�es au centre
 	 */
 	private int nbOffres;
 
@@ -110,7 +109,7 @@ public class CentreController extends AbstractContextAwareController {
 	private List<CentreGestionDTO> centresGestion;
 
 	/**
-	 * Nomenclature des confidentialités
+	 * Nomenclature des confidentialit�s
 	 */
 	@SuppressWarnings("unused")
 	private List<SelectItem> confidentialites;
@@ -121,18 +120,18 @@ public class CentreController extends AbstractContextAwareController {
 	private boolean confidentialiteAffichable;
 
 	/**
-	 * Confidentialité du centre Etablissement
+	 * Confidentialit� du centre Etablissement
 	 */
 	private ConfidentialiteDTO confidentialiteEtablissement;
 
 	/**
-	 * Nomenclature des niveaux de centre (critères de gestion)
+	 * Nomenclature des niveaux de centre (crit�res de gestion)
 	 */
 	@SuppressWarnings("unused")
 	private List<SelectItem> niveauxCentre;
 
 	/**
-	 * True si aucun centre n'a été ajouté
+	 * True si aucun centre n'a �t� ajout�
 	 */
 	private boolean listeCentreVide;
 
@@ -165,23 +164,23 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	private List<CritereGestionDTO> listeCriteresRattaches;
 	/**
-	 * True si aucun critere n'a été ajouté
+	 * True si aucun critere n'a �t� ajout�
 	 */
 	private boolean listeCritereVide;
 	/**
-	 * Liste des criteres rattachés (en selectItem)
+	 * Liste des criteres rattach�s (en selectItem)
 	 */
 	private List<SelectItem> criteresRattachesItem;
 	/* ***************************************************************
 	 * Logo
 	 ****************************************************************/
 	/**
-	 * Fichier contenant le logo uploadé
+	 * Fichier contenant le logo upload�
 	 */
 	private UploadedFile uploadedLogo;
 
 	/**
-	 * Fichier contenant le dossier où seront stockés les logos
+	 * Fichier contenant le dossier o� seront stock�s les logos
 	 */
 	private String logosDir;
 
@@ -194,11 +193,11 @@ public class CentreController extends AbstractContextAwareController {
 	 * Personnel
 	 ****************************************************************/
 	/**
-	 * Personnel à ajouter (rempli dans l'ajout)
+	 * Personnel � ajouter (rempli dans l'ajout)
 	 */
 	private PersonnelCentreGestionDTO personnel;
 	/**
-	 * Liste des personnels rattachés
+	 * Liste des personnels rattach�s
 	 */
 	private List<PersonnelCentreGestionDTO> personnels;
 	/**
@@ -207,12 +206,12 @@ public class CentreController extends AbstractContextAwareController {
 	private Object codeAffectationPersonnel;
 
 	/**
-	 * Liste des personnels trouvés lors d'une recherche
+	 * Liste des personnels trouv�s lors d'une recherche
 	 */
 	private List<PersonnelCentreGestionDTO> recherchePersonnels;
 
 	/**
-	 * True si aucun personnel n'est rattaché au centre
+	 * True si aucun personnel n'est rattach� au centre
 	 */
 	private boolean listePersonnelVide;
 	/**
@@ -225,11 +224,11 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	private CentreGestionDTO centreEntreprise;
 	/**
-	 * Centre utilisé pour le formulaire d'ajout/modification du centre entreprise
+	 * Centre utilis� pour le formulaire d'ajout/modification du centre entreprise
 	 */
 	private CentreGestionDTO formCentreEntreprise;
 	/**
-	 * ID du centre de gestion encodé md5 pour le dépot anonyme
+	 * ID du centre de gestion encod� md5 pour le d�pot anonyme
 	 */
 	private String depotEncode;
 
@@ -343,12 +342,12 @@ public class CentreController extends AbstractContextAwareController {
 	public boolean isAjoutPossible() {
 		ajoutPossible = true;
 
-		// Si le centre Etablissement a été créé ET que le critere de gestion est vide (un seul centre pour gérer l'etablissement)
-		// On ne peut acceder à l'ajout étant donné qu'aucun centre supplémentaire ne peut être ajouté.
+		// Si le centre Etablissement a �t� cr�� ET que le critere de gestion est vide (un seul centre pour g�rer l'etablissement)
+		// On ne peut acceder � l'ajout �tant donn� qu'aucun centre suppl�mentaire ne peut �tre ajout�.
 		if (getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())!=null
 				&& (getSessionController().getCritereGestion()).isEmpty()){
 			if (logger.isInfoEnabled()){
-				logger.info("Aucun centre supplémentaire ne peut être ajouté. Le critère de gestion est de type " + getSessionController().getCritereGestion());
+				logger.info("Aucun centre suppl�mentaire ne peut �tre ajout�. Le crit�re de gestion est de type " + getSessionController().getCritereGestion());
 			}
 			ajoutPossible = false;
 		}
@@ -366,7 +365,7 @@ public class CentreController extends AbstractContextAwareController {
 		// On ajoute au centre le codeUniversite precedemment recupere depuis le fichier de config
 		centre.setCodeUniversite(getSessionController().getCodeUniversite());
 
-		// On défini le codeConfidentialite à partir de l'objet Confidentialite attaché au centre
+		// On d�fini le codeConfidentialite � partir de l'objet Confidentialite attach� au centre
 		// ou a partir du centre Etablissement si c'est lui qui la gere
 		String codeConf = centre.getConfidentialite().getCode();
 		if (codeConf != null && !(codeConf.isEmpty())){
@@ -375,7 +374,7 @@ public class CentreController extends AbstractContextAwareController {
 			centre.setCodeConfidentialite((getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())).getCodeConfidentialite());
 		}
 
-		// On défini le niveauCentre à partir de l'objet NiveauCentre attaché au centre
+		// On d�fini le niveauCentre � partir de l'objet NiveauCentre attach� au centre
 		centre.setIdNiveauCentre(centre.getNiveauCentre().getId());
 
 		// Ajout temporaire du premier centre superviseur
@@ -387,20 +386,20 @@ public class CentreController extends AbstractContextAwareController {
 			getCentreGestionDomainService().addCentreGestionSuperviseur(tmp);
 		}
 
-		// On recupère l'id du centre superviseur ajouté 
+		// On recup�re l'id du centre superviseur ajout� 
 		centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
 
 		if(logger.isDebugEnabled()){
 			logger.debug("public String ajouterCentre()");
-			logger.debug("Propriétés du centre ajouté : "+ centre);
+			logger.debug("Propri�t�s du centre ajout� : "+ centre);
 		}
-		
+
 		// On met le viseur a null s'il est vide
 		if (centre.getNomViseur() == "" && centre.getPrenomViseur() == ""){
 			centre.setNomViseur(null);
 			centre.setPrenomViseur(null);
 		}
-		
+
 		try{
 			// Ajout Centre
 			int idCentreGestion = getCentreGestionDomainService().addCentreGestion(centre);
@@ -466,7 +465,7 @@ public class CentreController extends AbstractContextAwareController {
 		// On ajoute au centre le codeUniversite precedemment recupere depuis le fichier de config
 		centre.setCodeUniversite(getSessionController().getCodeUniversite());
 
-		// On défini le codeConfidentialite à partir de l'objet Confidentialite attaché au centre
+		// On d�fini le codeConfidentialite � partir de l'objet Confidentialite attach� au centre
 		// ou a partir du centre Etablissement si c'est lui qui la gere
 		String codeConf = centre.getConfidentialite().getCode();
 		if (codeConf != null && !(codeConf.isEmpty())){
@@ -476,7 +475,7 @@ public class CentreController extends AbstractContextAwareController {
 		}
 
 
-		// On défini le niveauCentre à partir de l'objet NiveauCentre attaché au centre
+		// On d�fini le niveauCentre � partir de l'objet NiveauCentre attach� au centre
 		centre.setIdNiveauCentre(centre.getNiveauCentre().getId());
 
 		// On met le viseur a null s'il est vide
@@ -486,7 +485,7 @@ public class CentreController extends AbstractContextAwareController {
 		}
 
 		try {
-			// On recupère l'id du centre superviseur ajouté (temporaire)
+			// On recup�re l'id du centre superviseur ajout� (temporaire)
 			centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
 		} catch (NullPointerException e ){
 			addErrorMessage("formModifCentre:erreurModifCentre","CENTRE.AJOUT_CENTRE.ERREUR_SUPERVISEUR");
@@ -495,7 +494,7 @@ public class CentreController extends AbstractContextAwareController {
 
 		if(logger.isDebugEnabled()){
 			logger.debug("public String modifierCentre()");
-			logger.debug("Propriétés du centre modifié : "+ centre);
+			logger.debug("Propri�t�s du centre modifi� : "+ centre);
 		}
 		try{
 			// Modification du Centre
@@ -535,7 +534,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Action de création du centre entreprise si non existant
+	 * Action de cr�ation du centre entreprise si non existant
 	 * @return String
 	 */
 	public String ajouterCentreEntreprise(){
@@ -608,7 +607,7 @@ public class CentreController extends AbstractContextAwareController {
 	 * SUPPRESSION D'UN CENTRE
 	 *****************************************************************************/
 	/**
-	 * Calcul du nombre de conventions, de contacts, de criteres et de personnels rattachés au centre pour le résumé avant suppression
+	 * Calcul du nombre de conventions, de contacts, de criteres et de personnels rattach�s au centre pour le r�sum� avant suppression
 	 * @return String
 	 */
 	public void avantSupprimer(){
@@ -667,7 +666,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/* ****************************************************************************
-	 * Liste des critères rattachés
+	 * Liste des crit�res rattach�s
 	 *****************************************************************************/
 	/**
 	 * @return a String
@@ -731,7 +730,7 @@ public class CentreController extends AbstractContextAwareController {
 			this.toutLesCriteres = new HashMap<String,String>();
 			LinkedHashMap <String,String> criteresDisponibles = new LinkedHashMap<String,String>();
 			List<String> codesSaisis = new ArrayList<String>();
-			
+
 			try{
 				// Liste des codes deja rattaches
 				List<CritereGestionDTO> criteresSaisis = getCritereGestionDomainService().getCritereGestion();
@@ -741,9 +740,9 @@ public class CentreController extends AbstractContextAwareController {
 			} catch (NullPointerException e){
 				logger.info("Liste de codes saisis pour l'universite vide.");
 			}
-	
+
 			if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_UFR)){
-	
+
 				try{
 					// codes et libelles de toutes les UFR
 					this.toutLesCriteres = getPersonalComponentRepositoryDomain().getComposantesRef(codeUniversite);
@@ -756,19 +755,19 @@ public class CentreController extends AbstractContextAwareController {
 					addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR");
 					return null;
 				}
-	
+
 				if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
 					return null;
 				}
-				
+
 				// Liste des codes ufr uniquement
 				List<String> codesUfr = new ArrayList<String>();
 				for(Iterator<String> iter = this.toutLesCriteres.keySet().iterator(); iter.hasNext(); ){
 					codesUfr.add(iter.next().toString());
 				}
-	
+
 				Collections.sort(codesUfr);
-	
+
 				//Creation d'une liste des codes disponibles (non rattaches)
 				if (!codesSaisis.isEmpty()){
 					for(String code : codesUfr){
@@ -781,9 +780,9 @@ public class CentreController extends AbstractContextAwareController {
 						criteresDisponibles.put(code,this.toutLesCriteres.get(code));
 					}
 				}
-	
+
 			} else if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_ETAPE)){
-				
+
 				try{
 					// codes et libelles de toutes les ETAPES
 					this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
@@ -796,28 +795,26 @@ public class CentreController extends AbstractContextAwareController {
 					addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR");
 					return null;
 				}
-				
+
 				if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
 					return null;
 				}
 				// liste des codes ETAPES uniquement
 				List<String> codesEtape = new ArrayList<String>();
-	
+
 				for(Iterator<String> iter = this.toutLesCriteres.keySet().iterator();iter.hasNext(); ) {
 					codesEtape.add(iter.next().toString());
 				}
 				Collections.sort(codesEtape);
-	
-	
+
+
 				//Creation d'une liste des codes disponibles (non rattaches)
 				if (!codesSaisis.isEmpty()){
-	
 					for(String code : codesEtape){
 						if(!codesSaisis.contains(code)){
 							criteresDisponibles.put(code,this.toutLesCriteres.get(code));
 						}
 					}
-	
 				} else {
 					for (String code : codesEtape){
 						criteresDisponibles.put(code,this.toutLesCriteres.get(code));
@@ -835,10 +832,10 @@ public class CentreController extends AbstractContextAwareController {
 			}
 			Collections.sort(this.listeCriteres, new ComparatorSelectItem());
 		}
-		
+
 		return this.listeCriteres;
 	}
-	
+
 	/**
 	 * @return a String
 	 */
@@ -857,7 +854,7 @@ public class CentreController extends AbstractContextAwareController {
 			addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_CHOIX");
 			return null;
 		}
-		
+
 		for(int i=0;i < this.listeCriteresChoisis.size();i++){
 
 			code = (String)listeCriteresChoisis.get(i);
@@ -899,6 +896,48 @@ public class CentreController extends AbstractContextAwareController {
 	/* ***************************************************************
 	 * Suppression d'un critere
 	 ****************************************************************/
+
+	/**
+	 * @return boolean
+	 */
+	public boolean isCritereNotFound(){
+		if (this.critere!=null){
+			String codeUniversite = getSessionController().getCodeUniversite();
+			this.toutLesCriteres = new HashMap<String,String>();
+	
+			if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_UFR)){
+				try{
+					// codes et libelles de toutes les UFR
+					this.toutLesCriteres = getPersonalComponentRepositoryDomain().getComposantesRef(codeUniversite);
+				} catch (CommunicationApogeeException cae){
+					logger.error(cae.fillInStackTrace());
+					return false;
+				} catch (Exception e){
+					logger.error(e.fillInStackTrace());
+					return false;
+				}
+			} else if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_ETAPE)){
+				try{
+					// codes et libelles de toutes les ETAPES
+					this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
+				} catch (CommunicationApogeeException cae){
+					logger.error(cae.fillInStackTrace());
+					return false;
+				}catch (Exception e){
+					logger.error(e.fillInStackTrace());
+					return false;
+				}
+			}
+			if (this.toutLesCriteres != null 
+			&& !this.toutLesCriteres.isEmpty()
+			&& !this.toutLesCriteres.containsKey(this.critere.getCode())){
+				return true;
+			}
+		}
+
+		return false;
+	}		
+
 	/**
 	 * @return a String
 	 */
@@ -919,19 +958,19 @@ public class CentreController extends AbstractContextAwareController {
 		try {
 			if (this.centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_UFR)){
 				// Si le centre est une UFR
-				// Partout ou le code critere est trouvé dans les conventions, on remet l'id du centre Etablissement
+				// Partout ou le code critere est trouv� dans les conventions, on remet l'id du centre Etablissement
 				getConventionDomainService().updateCentreConventionByUfr(this.critere.getCode(), getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
 			} else {
 				// Sinon, le centre est une Etape
-				// Si le critere de gestion du fichier de config est MIXTE, alors on vérifie d'abord qu'il n'y a pas d'UFR pouvant recuperer la convention avant l'etablissement
+				// Si le critere de gestion du fichier de config est MIXTE, alors on v�rifie d'abord qu'il n'y a pas d'UFR pouvant recuperer la convention avant l'etablissement
 				if (getSessionController().getCritereGestion().equalsIgnoreCase(DonneesStatic.CG_MIXTE)){
-					// On recupere la liste des criteres actuellement rattachés
+					// On recupere la liste des criteres actuellement rattach�s
 					List<CritereGestionDTO> list = getCritereGestionDomainService().getCritereGestion();
 					// On recupere le code UFR correspondant au codeEtape du critere en cours de suppression
 					String codeUfr = getConventionDomainService().getCodeUFRFromCodeEtape(this.critere.getCode(), getSessionController().getCodeUniversite());
 					if(StringUtils.hasText(codeUfr)){
 						for (CritereGestionDTO crit : list){
-							// Si l'on trouve le code UFR dans la liste des criteres deja rattachés, alors on assigne le centre auquel est rattaché ce code a tout les centres touchés par la suppression
+							// Si l'on trouve le code UFR dans la liste des criteres deja rattach�s, alors on assigne le centre auquel est rattach� ce code a tout les centres touch�s par la suppression
 							if (crit.getCode().equalsIgnoreCase(codeUfr)){
 								getConventionDomainService().updateCentreConventionByEtape(this.critere.getCode(),crit.getIdCentreGestion(),getSessionController().getCodeUniversite());
 								break;
@@ -939,7 +978,7 @@ public class CentreController extends AbstractContextAwareController {
 						}
 					}
 				} else {
-					// Sinon, de meme que pour les ufr, on remplace l'idCentreGestion du centre auquel était rattaché le critere par celui de l'Etablissement
+					// Sinon, de meme que pour les ufr, on remplace l'idCentreGestion du centre auquel �tait rattach� le critere par celui de l'Etablissement
 					getConventionDomainService().updateCentreConventionByEtape(this.critere.getCode(), getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
 				}
 			}
@@ -970,7 +1009,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Methode appelée avant l'affichage du panel_logo
+	 * Methode appel�e avant l'affichage du panel_logo
 	 */
 	public void avantAjoutLogo(){
 		if(logger.isDebugEnabled()){
@@ -995,7 +1034,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Action appellée après l'upload d'un fichier
+	 * Action appell�e apr�s l'upload d'un fichier
 	 */
 	public void insertLogo() {
 		String nomFichier = getSessionController().getImageUploadBean().getNameUploadedImage();
@@ -1054,7 +1093,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/* ****************************************************************************
-	 * Liste des personnels rattachés
+	 * Liste des personnels rattach�s
 	 *****************************************************************************/
 	/**
 	 * @return a String
@@ -1107,7 +1146,7 @@ public class CentreController extends AbstractContextAwareController {
 			logger.debug("public String goToRattachPersonnelRecherche() ");
 		}
 
-		// On initialise tout les objets en rapport avec le personnel récupéré depuis le LDAP
+		// On initialise tout les objets en rapport avec le personnel r�cup�r� depuis le LDAP
 		this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
 		this.personnel = new PersonnelCentreGestionDTO();
 		AffectationDTO a = new AffectationDTO();
@@ -1132,12 +1171,11 @@ public class CentreController extends AbstractContextAwareController {
 			this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
 
 			if (this.codeAffectationPersonnel == null 
-			&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
-			&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
+					&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
+					&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
 				addErrorMessage("formRechercheViseur:erreurRecherche","CENTRE.PERSONNEL.ERREUR_CHAMPS");
 				return null;
 			}
-			// Déclaration des codes nécessaires à chaque recuperation dans le ldap
 			String codeUniversite = getSessionController().getCodeUniversite();
 			String codeAffectation = "";
 			if (this.codeAffectationPersonnel != null) {
@@ -1148,13 +1186,12 @@ public class CentreController extends AbstractContextAwareController {
 
 				AffectationDTO a;
 				String libelleAffectation = null;
-				List<PersonnelCentreGestion> lp = getPersonalDataRepositoryDomain().getPersonnelCentreGestionRefByName(codeUniversite,this.personnel.getNom(),this.personnel.getPrenom(),codeAffectation);
+				List<PersonnelCentreGestionDTO> lp = getPersonalDataRepositoryDomain().getPersonnelCentreGestionRefByName(codeUniversite,this.personnel.getNom(),this.personnel.getPrenom(),codeAffectation);
 
-				for(PersonnelCentreGestion pers : lp){
-					PersonnelCentreGestionDTO tmp = new PersonnelCentreGestionDTO(pers);
+				for(PersonnelCentreGestionDTO tmp : lp){
 					a = new AffectationDTO();
 					a.setCodeUniversite(getSessionController().getCodeUniversite());
-					
+
 					if (tmp.getAffectation().getCode() == null && tmp.getAffectation().getLibelle() == null){
 						// Le code et le libelle sont vides
 						a.setLibelle(" ");
@@ -1222,7 +1259,7 @@ public class CentreController extends AbstractContextAwareController {
 		this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
 		this.personnel = new PersonnelCentreGestionDTO();
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -1233,13 +1270,13 @@ public class CentreController extends AbstractContextAwareController {
 		this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
 
 		if (this.codeAffectationPersonnel == null 
-		&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
-		&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
+				&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
+				&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
 			addErrorMessage("formRechercheViseur:erreurRecherche","CENTRE.PERSONNEL.ERREUR_CHAMPS");
 			return null;
 		}
-		
-		// Déclaration des codes nécessaires à chaque recuperation dans le ldap
+
+		// D�claration des codes n�cessaires � chaque recuperation dans le ldap
 		String codeUniversite = getSessionController().getCodeUniversite();
 
 		String codeAffectation = "";
@@ -1253,10 +1290,9 @@ public class CentreController extends AbstractContextAwareController {
 
 			AffectationDTO a;
 			String libelleAffectation = null;
-			List<PersonnelCentreGestion> lp = getPersonalDataRepositoryDomain().getPersonnelCentreGestionRefByName(codeUniversite,this.personnel.getNom(),this.personnel.getPrenom(),codeAffectation);
+			List<PersonnelCentreGestionDTO> lp = getPersonalDataRepositoryDomain().getPersonnelCentreGestionRefByName(codeUniversite,this.personnel.getNom(),this.personnel.getPrenom(),codeAffectation);
 
-			for(PersonnelCentreGestion pers : lp){
-				PersonnelCentreGestionDTO tmp = new PersonnelCentreGestionDTO(pers);
+			for(PersonnelCentreGestionDTO tmp : lp){
 				a = new AffectationDTO();
 				a.setCodeUniversite(getSessionController().getCodeUniversite());
 
@@ -1294,7 +1330,7 @@ public class CentreController extends AbstractContextAwareController {
 					tmp.setAffectation(a);
 					tmp.setCodeAffectation(a.getCode());
 				}
-				
+
 				this.recherchePersonnels.add(tmp);
 
 			}
@@ -1307,7 +1343,7 @@ public class CentreController extends AbstractContextAwareController {
 			addErrorMessage("formRechercheViseur:erreurRecherche", "CENTRE.PERSONNEL.RECHERCHE.VIDE");
 			return null;
 		}
-		
+
 		return null;
 	}
 
@@ -1350,12 +1386,12 @@ public class CentreController extends AbstractContextAwareController {
 
 		this.personnel.setIdCentreGestion(this.centre.getIdCentreGestion());
 
-		// On défini l'idDroitAdministration à partir de l'objet DroitAdministration attaché au personnel
+		// On d�fini l'idDroitAdministration � partir de l'objet DroitAdministration attach� au personnel
 		this.personnel.setIdDroitAdmin(this.personnel.getDroitAdmin().getId());
 		try{
-			
+
 			if((this.personnel.getAffectation().getCode() == "" || this.personnel.getAffectation().getCode() == null)
-			&& (this.personnel.getAffectation().getLibelle() != "" || this.personnel.getAffectation().getLibelle() != null)){
+					&& (this.personnel.getAffectation().getLibelle() != "" || this.personnel.getAffectation().getLibelle() != null)){
 				// Si l'affectation dispose d'un libelle mais pas d'un code, on n'ajoute rien
 				// Ainsi, on ajoute que lorsqu'il ya le code ou le code ET le libelle, ou bien aucun des deux.
 			} else {
@@ -1391,8 +1427,8 @@ public class CentreController extends AbstractContextAwareController {
 				this.personnels = new ArrayList<PersonnelCentreGestionDTO>();
 			}
 			this.personnels.add(this.personnel);
-			
-			//Màj liste des centres pour la personne connectée
+
+			//M�j liste des centres pour la personne connect�e
 			if(this.personnel.getUidPersonnel().equals(getSessionController().getCurrentLogin())){
 				if(getSessionController().getCurrentCentresGestion()==null){
 					getSessionController().setCurrentCentresGestion(new ArrayList<CentreGestionDTO>());
@@ -1449,7 +1485,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/* ****************************************************************************
-	 * Consulter un personnel rattaché
+	 * Consulter un personnel rattach�
 	 *****************************************************************************/
 	/**
 	 * @return a String
@@ -1462,7 +1498,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/* ****************************************************************************
-	 * Modifier un personnel rattaché
+	 * Modifier un personnel rattach�
 	 *****************************************************************************/
 	/**
 	 * @return a String
@@ -1484,7 +1520,7 @@ public class CentreController extends AbstractContextAwareController {
 
 		personnel.setLoginModif(getSessionController().getCurrentLogin());
 
-		// On défini l'idDroitAdministration à partir de l'objet DroitAdministration attaché au personnel
+		// On d�fini l'idDroitAdministration � partir de l'objet DroitAdministration attach� au personnel
 		personnel.setIdDroitAdmin(personnel.getDroitAdmin().getId());
 
 		try{
@@ -1494,8 +1530,8 @@ public class CentreController extends AbstractContextAwareController {
 			//Maj droit
 			Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
 			if (droitsAccesMap!=null 
-			&& !droitsAccesMap.isEmpty() 
-			&& droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
+					&& !droitsAccesMap.isEmpty() 
+					&& droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
 				droitsAccesMap.remove(this.personnel.getIdCentreGestion());
 				droitsAccesMap.put(this.personnel.getIdCentreGestion(), this.personnel.getDroitAdmin());
 				getSessionController().setDroitsAccesMap(droitsAccesMap);
@@ -1516,7 +1552,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/* ****************************************************************************
-	 * Supprimer un personnel rattaché
+	 * Supprimer un personnel rattach�
 	 *****************************************************************************/
 	/**
 	 * @return a String
@@ -1534,7 +1570,7 @@ public class CentreController extends AbstractContextAwareController {
 				getPersonnelCentreGestionDomainService().deletePersonnelCentreGestion(this.personnel.getIdCentreGestion(), this.personnel.getId());
 				// Suppression du personnel dans la liste du controleur
 				this.personnels.remove(this.personnel);
-				//Màj liste des centres pour la personne connectée
+				//M�j liste des centres pour la personne connect�e
 				if(this.personnel.getUidPersonnel().equals(getSessionController().getCurrentLogin())){
 					if(!getSessionController().getCurrentCentresGestion().contains(this.centre.getIdCentreGestion()) && getSessionController().getCurrentAuthPersonnel()!=null){
 						getSessionController().getCurrentCentresGestion().remove(getCentreGestionDomainService().getCentreGestion(this.centre.getIdCentreGestion()));
@@ -1587,22 +1623,22 @@ public class CentreController extends AbstractContextAwareController {
 			// Si l'etablissement a deja ete cree
 
 			if(this.centre.getIdCentreGestion() == etab.getIdCentreGestion()){
-				// Si le centre actuellement stocké dans le centreController est l'etablissement,
-				// on peut afficher le menu déroulant des confidentialités
+				// Si le centre actuellement stock� dans le centreController est l'etablissement,
+				// on peut afficher le menu d�roulant des confidentialit�s
 				return true;
 			}
 
-			// On récupère son code de confidentialite
-			String codeConfEtablissement = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getCodeConfidentialite();
+			// On r�cup�re son code de confidentialite
+			String codeConfEtablissement = etab.getCodeConfidentialite();
 
 			if (codeConfEtablissement.equals(DonneesStatic.CODE_CONFIDENTIALITE_LIBRE)){
-				// Si le code de l'etablissement est à Libre, 
-				// on peut afficher le menu déroulant des confidentialités
+				// Si le code de l'etablissement est � Libre, 
+				// on peut afficher le menu d�roulant des confidentialit�s
 				return true;
 			}
 		} else {
-			// Sinon, le centre etablissement n'a pas encore été créé
-			// c'est donc forcément lui qui est en cours d'ajout et le menu déroulant est donc affiché
+			// Sinon, le centre etablissement n'a pas encore �t� cr��
+			// c'est donc forc�ment lui qui est en cours d'ajout et le menu d�roulant est donc affich�
 			return true;
 		}
 
@@ -1615,7 +1651,7 @@ public class CentreController extends AbstractContextAwareController {
 	public List<SelectItem> getConfidentialites(){
 		List<SelectItem> ls = new ArrayList<SelectItem>();
 
-		// On crée les selectItem pour chaque critere et on les ajoute à la liste
+		// On cr�e les selectItem pour chaque critere et on les ajoute � la liste
 		SelectItem itmConfNulle = new SelectItem(getBeanUtils().getConfidentialiteNulle(),(getBeanUtils().getConfidentialiteNulle().getLibelle()));
 		ls.add(itmConfNulle);
 		SelectItem itmConfTotale = new SelectItem(getBeanUtils().getConfidentialiteTotale(),(getBeanUtils().getConfidentialiteTotale().getLibelle()));
@@ -1627,17 +1663,17 @@ public class CentreController extends AbstractContextAwareController {
 		etab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
 
 		if (this.centre.getIdCentreGestion() != 0){
-			// Si un centre est stocké dans la variable centre du CentreController(donc en cours de modification)
+			// Si un centre est stock� dans la variable centre du CentreController(donc en cours de modification)
 			if (etab != null 
 					&& this.centre.getIdCentreGestion() != etab.getIdCentreGestion()){
-				// Si l'Etablissement existe déjà et que ce n'est pas le centre actuellement modifié
+				// Si l'Etablissement existe d�j� et que ce n'est pas le centre actuellement modifi�
 				// On retire la confidentialite libre (qui n'est dispo que pour l'etablissement)
 				ls.remove(itmConfLibre);
 			}
 		} else {
-			// Sinon, aucun centre n'est stocké dans la variable centre du CentreController (donc en cours d'ajout)
+			// Sinon, aucun centre n'est stock� dans la variable centre du CentreController (donc en cours d'ajout)
 			if (etab != null){
-				// Si l'Etablissement existe déjà
+				// Si l'Etablissement existe d�j�
 				// On retire la confidentialite libre (qui n'est dispo que pour l'etablissement)
 				ls.remove(itmConfLibre);
 			}
@@ -1671,7 +1707,7 @@ public class CentreController extends AbstractContextAwareController {
 	public List<SelectItem> getNiveauxCentre(){
 		List<SelectItem> ls = new ArrayList<SelectItem>();
 
-		// On crée les selectItem pour chaque critere et on les ajoute à la liste
+		// On cr�e les selectItem pour chaque critere et on les ajoute � la liste
 		SelectItem itmEtablissement = new SelectItem(getBeanUtils().getEtablissement(),(getBeanUtils().getEtablissement()).getLibelle());
 		ls.add(itmEtablissement);
 		SelectItem itmEtape = new SelectItem(getBeanUtils().getEtape(),(getBeanUtils().getEtape()).getLibelle());
@@ -1680,7 +1716,7 @@ public class CentreController extends AbstractContextAwareController {
 		ls.add(itmUfr);
 
 		if (this.centre.getIdCentreGestion() != 0){
-			// Si un centre est stocké dans la variable centre du centreController (donc en cours de modification)
+			// Si un centre est stock� dans la variable centre du centreController (donc en cours de modification)
 			if ((this.centre.getIdCentreGestion() != (getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())).getIdCentreGestion())
 					&& getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())!=null){
 				// Si l'Etablissement existe et que ce n'est pas l'etablissement en cours de modification, on le retire de la liste
@@ -1702,13 +1738,13 @@ public class CentreController extends AbstractContextAwareController {
 					ls.remove(itmUfr);
 				}
 			} else {
-				// Si le centre etablissement n'existe pas encore ou qu'il est en cours de modification, on retire les possibilité 'ETAPE' et 'UFR'
+				// Si le centre etablissement n'existe pas encore ou qu'il est en cours de modification, on retire les possibilit� 'ETAPE' et 'UFR'
 				ls.remove(itmEtape);
 				ls.remove(itmUfr);
 			}
 		} else {
 
-			// Sinon, aucun centre n'est stocké dans la variable centre du CentreController (donc en cours d'ajout)
+			// Sinon, aucun centre n'est stock� dans la variable centre du CentreController (donc en cours d'ajout)
 			if (getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())!=null){
 				// Si l'Etablissement existe, on le retire de la liste
 				ls.remove(itmEtablissement);
@@ -1729,7 +1765,7 @@ public class CentreController extends AbstractContextAwareController {
 					ls.remove(itmUfr);
 				}
 			} else {
-				// Si le centre etablissement n'existe pas encore ou qu'il est en cours de modification, on retire les possibilité 'ETAPE' et 'UFR'
+				// Si le centre etablissement n'existe pas encore ou qu'il est en cours de modification, on retire les possibilit� 'ETAPE' et 'UFR'
 				ls.remove(itmEtape);
 				ls.remove(itmUfr);
 			}

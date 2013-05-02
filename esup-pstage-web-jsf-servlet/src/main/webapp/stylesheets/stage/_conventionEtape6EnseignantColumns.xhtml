@@ -1,0 +1,52 @@
+<%@include file="../_include.jsp"%>
+
+
+<f:facet name="header">
+	<rich:columnGroup>
+		<rich:column>
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.CIVILITE']}" />
+		</rich:column>
+		<rich:column>
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.NOM']}" />
+		</rich:column>
+		<rich:column>
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.PRENOM']}" />
+		</rich:column>
+		<rich:column>
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.MAIL']}" />
+		</rich:column>
+		<rich:column>
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.DEPARTEMENT']}" />
+		</rich:column>
+		<rich:column>
+			<h:outputText styleClass="headerText" value="#{msgs['FORM.VOIR']}" />
+		</rich:column>
+	</rich:columnGroup>
+</f:facet>
+
+<rich:column>
+	<e:text value="#{enseignant.civilite.libelle}" />
+	<rich:spacer height="5" />
+</rich:column>
+<rich:column>
+	<e:text value="#{enseignant.nom}" />
+	<rich:spacer height="5" />
+</rich:column>
+<rich:column>
+	<e:text value="#{enseignant.prenom}" />
+	<rich:spacer height="5" />
+</rich:column>
+<rich:column>
+	<e:text value="#{enseignant.mail}" />
+	<rich:spacer height="5" />
+</rich:column>
+<rich:column>
+	<e:text
+		value="#{enseignant.codeAffectation} - #{enseignant.affectation.libelle}" />
+</rich:column>
+

@@ -1,0 +1,56 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="2"
+	rendered="#{not empty centreController.centreEntreprise}">
+	<e:bold value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} : " />
+	<e:text value="#{centreController.formCentreEntreprise.nomCentre}" />
+	<e:bold value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} : " />
+	<e:text
+		value="#{centreController.formCentreEntreprise.confidentialite.libelle}" />
+	<e:bold value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']} : " />
+	<e:text value="#{centreController.formCentreEntreprise.telephone}"
+		rendered="#{not empty centreController.formCentreEntreprise.telephone}" />
+	<e:text value="#{centreController.formCentreEntreprise.telephone}"
+		rendered="#{empty centreController.formCentreEntreprise.telephone}" />
+	<e:bold value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']} : " />
+	<e:text value="#{centreController.formCentreEntreprise.fax}"
+		rendered="#{not empty centreController.formCentreEntreprise.fax}" />
+	<e:text value="#{centreController.formCentreEntreprise.fax}"
+		rendered="#{empty centreController.formCentreEntreprise.fax}" />
+</e:panelGrid>
+<e:panelGrid columns="1" style="float:right;"
+	rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}">
+	<t:aliasBean alias="#{objet}" value="#{centreController.centreEntreprise}">
+		<%@include file="../_commun/_updateInfos.jsp"%>
+	</t:aliasBean>
+</e:panelGrid>
+<e:panelGrid rendered="#{empty centreController.centreEntreprise}">
+	<e:text value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NONEXISTANT']}" />
+</e:panelGrid>
+<t:htmlTag value="br" />
+<rich:spacer height="10px" />
+<a4j:commandLink
+	rendered="#{empty centreController.centreEntreprise and sessionController.adminPageAuthorized}"
+	action="_modifCentreEntrepriseEtape2">
+	<h:graphicImage alt="#{msgs['FORM.CREER']}"
+		title="#{msgs['FORM.CREER']}" value="../../media/images/new.png"
+		style="border:0" />
+	<e:text value=" #{msgs['FORM.CREER']}" />
+</a4j:commandLink>
+<a4j:commandLink action="_modifCentreEntrepriseEtape2">
+	<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+		title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
+		style="border:0" />
+	<e:text value=" #{msgs['FORM.MODIFIER']}" />
+</a4j:commandLink>
+
+<e:panelGrid columns="2" align="center">
+	<h:column>
+		<%@include file="../_commun/_confirmationImagesPermanentes.jsp"%>
+	</h:column>
+	<h:column>
+		<rich:message for="formCentreEntreprise">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+	</h:column>
+</e:panelGrid>

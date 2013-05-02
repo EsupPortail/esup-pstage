@@ -1,0 +1,13 @@
+/*
+ * Imports the Fluid Skinning System (FSS) CSS. 
+ * For more information on FSS, refer to:
+ * http://wiki.fluidproject.org/x/96M7
+ */
+
+@import url("../common/css/fluid/fluid.fss.css");
+
+@import url("../common/css/application.layout.css");
+
+@import url("application.reset.css");
+@import url("application.theme.css");
+@import url("application.layout.css");

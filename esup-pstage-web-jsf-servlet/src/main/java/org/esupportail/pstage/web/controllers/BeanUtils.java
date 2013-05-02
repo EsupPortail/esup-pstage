@@ -7,17 +7,17 @@ import java.util.List;
 import org.esupportail.pstage.domain.CentreGestionDomainService;
 import org.esupportail.pstage.domain.NomenclatureDomainService;
 import org.esupportail.pstage.utils.DonneesStatic;
-import org.esupportail.pstagedata.remote.CentreGestionDTO;
-import org.esupportail.pstagedata.remote.ConfidentialiteDTO;
-import org.esupportail.pstagedata.remote.ContratOffreDTO;
-import org.esupportail.pstagedata.remote.DroitAdministrationDTO;
-import org.esupportail.pstagedata.remote.ModeCandidatureDTO;
-import org.esupportail.pstagedata.remote.NiveauCentreDTO;
-import org.esupportail.pstagedata.remote.PaysDTO;
-import org.esupportail.pstagedata.remote.ServiceDTO;
-import org.esupportail.pstagedata.remote.StructureDTO;
-import org.esupportail.pstagedata.remote.TempsTravailDTO;
-import org.esupportail.pstagedata.remote.TypeOffreDTO;
+import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.ConfidentialiteDTO;
+import org.esupportail.pstagedata.domain.dto.ContratOffreDTO;
+import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
+import org.esupportail.pstagedata.domain.dto.ModeCandidatureDTO;
+import org.esupportail.pstagedata.domain.dto.NiveauCentreDTO;
+import org.esupportail.pstagedata.domain.dto.PaysDTO;
+import org.esupportail.pstagedata.domain.dto.ServiceDTO;
+import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.TempsTravailDTO;
+import org.esupportail.pstagedata.domain.dto.TypeOffreDTO;
 
 
 /**
@@ -79,21 +79,23 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	 ****************************************************************/
 	
 	/**
-	 * Déclaration du pays France pour accès dans les JSPs
+	 * Déclaration du pays France pour accés dans les JSPs
 	 */
 	private PaysDTO france;
 	/**
-	 * Retourne l'objet correpondant à la France (defaut id=82)
+	 * Retourne l'objet correpondant é la France (defaut id=82)
 	 * @return PaysDTO
 	 */
 	public PaysDTO getFrance(){
 		france = null;
 		List<PaysDTO> l = getNomenclatureDomainService().getPays();
-		for(PaysDTO p : l){
-			if(p.getIso2()!= null){
-				if (p.getIso2().equalsIgnoreCase(DonneesStatic.FRANCE_ISO2)){
-					france=p;
-					break;
+		if (l != null){
+			for(PaysDTO p : l){
+				if(p.getIso2()!= null){
+					if (p.getIso2().equalsIgnoreCase(DonneesStatic.FRANCE_ISO2)){
+						france=p;
+						break;
+					}
 				}
 			}
 		}
@@ -101,7 +103,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 	
 	/**
-	 * Retourne vrai si le pays en paramètre correspond à la France ou un de ses territoires
+	 * Retourne vrai si le pays en paramétre correspond à la France ou un de ses territoires
 	 * @param p 
 	 * @return boolean
 	 */
@@ -112,7 +114,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 	
 	/**
-	 * Retourne vrai si le pays en paramètre correspond à la France 
+	 * Retourne vrai si le pays en paramétre correspond à la France 
 	 * @param p 
 	 * @return boolean
 	 */
@@ -167,7 +169,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 	
 	/**
-	 * Retourne vrai si le type d'offre en paramètre correspond à un stage
+	 * Retourne vrai si le type d'offre en paramétre correspond à un stage
 	 * @param t
 	 * @return boolean
 	 */
@@ -197,7 +199,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 	
 	/**
-	 * Retourne vrai si le type d'offre en paramètre correspond à un stage
+	 * Retourne vrai si le type d'offre en paramètre correspond é un stage
 	 * @param t
 	 * @return boolean
 	 */
@@ -227,7 +229,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 	
 	/**
-	 * Retourne vrai si le type d'offre en paramètre correspond à l'alternance
+	 * Retourne vrai si le type d'offre en paramétre correspond é l'alternance
 	 * @param t
 	 * @return boolean
 	 */
@@ -257,7 +259,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 	
 	/**
-	 * Retourne vrai si le type d'offre en paramètre correspond au vie/via
+	 * Retourne vrai si le type d'offre en paramétre correspond au vie/via
 	 * @param t
 	 * @return boolean
 	 */
@@ -291,7 +293,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 	
 	/**
-	 * Retourne vrai si le type d'offre en paramètre correspond à un stage
+	 * Retourne vrai si le type d'offre en paramétre correspond é un stage
 	 * @param c
 	 * @return boolean
 	 */
@@ -321,7 +323,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 	
 	/**
-	 * Retourne vrai si le type de contrat en paramètre correspond à un cdi
+	 * Retourne vrai si le type de contrat en paramétre correspond é un cdi
 	 * @param c
 	 * @return boolean
 	 */
@@ -351,7 +353,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 	
 	/**
-	 * Retourne vrai si le type de contrat en paramètre correspond à un interim
+	 * Retourne vrai si le type de contrat en paramétre correspond é un interim
 	 * @param c
 	 * @return boolean
 	 */
@@ -506,7 +508,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	}
 
 	/**
-	 * Retourne vrai si le centre en paramètre correspond au centre etablissement
+	 * Retourne vrai si le centre en paramétre correspond au centre etablissement
 	 * @param cg
 	 * @return boolean
 	 */
@@ -666,7 +668,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 
 	
 	/* ***************************************************************
-	 * Même Adresse
+	 * Méme Adresse
 	 ****************************************************************/ 
 	
 	/**
@@ -713,7 +715,7 @@ public class BeanUtils extends AbstractDomainAwareBean {
 	 ****************************************************************/ 
 	
 	/**
-	 * Calcul la date universitaire courante de la date en paramètre 
+	 * Calcul la date universitaire courante de la date en paramétre 
 	 * par rapport à la configuration
 	 * @param date
 	 * @return String xxxx/xxxx

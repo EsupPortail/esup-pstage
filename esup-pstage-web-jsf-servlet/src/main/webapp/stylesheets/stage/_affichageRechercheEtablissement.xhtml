@@ -1,0 +1,14 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1" rendered="false">
+	<e:text value="#{msgs['RECHERCHEETABLISSEMENT.UNRESULTAT']}" />
+	<rich:spacer height="20px" />
+</e:panelGrid>
+<t:aliasBean alias="#{structure}"
+	value="#{rechercheController.resultatRechercheStructure}">
+	<%@include file="../_commun/_rechercheEtablissementAffichage.jsp"%>
+</t:aliasBean>
+<rich:toolBar height="26" itemSeparator="none">
+	<%@include
+		file="../_commun/_rechercheEtablissementResultatUniqueToolBar.jsp"%>
+</rich:toolBar>

@@ -1,0 +1,9 @@
+<%@include file="../../stylesheets/_include.jsp"%>
+<%@page import="org.springframework.util.StringUtils"%>
+<%
+String newLocation = "auth.faces";
+if (StringUtils.hasText(request.getQueryString())) {
+	newLocation = newLocation + "?" + request.getQueryString();
+}
+response.sendRedirect(newLocation);
+%>

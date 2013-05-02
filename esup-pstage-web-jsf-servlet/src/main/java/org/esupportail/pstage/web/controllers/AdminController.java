@@ -20,30 +20,24 @@ import javax.mail.internet.InternetAddress;
 
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForContactException;
-import org.esupportail.pstagedata.remote.AccordAlreadyExistingForStructureException;
-import org.esupportail.pstagedata.remote.AccordPartenariatDTO;
-import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException;
-import org.esupportail.pstagedata.remote.AdminStructureAccountException;
-import org.esupportail.pstagedata.remote.AdminStructureAccountException_Exception;
-import org.esupportail.pstagedata.remote.AdminStructureDTO;
-import org.esupportail.pstagedata.remote.AdminStructureLoginEppnAlreadyUsedException;
-import org.esupportail.pstagedata.remote.AdminStructureLoginEppnAlreadyUsedException_Exception;
-import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.DataAddException;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException;
-import org.esupportail.pstagedata.remote.StatutJuridiqueDTO;
-import org.esupportail.pstagedata.remote.StructureDTO;
-import org.esupportail.pstagedata.remote.StructureNumSiretException;
-import org.esupportail.pstagedata.remote.TypeStructureDTO;
-import org.esupportail.pstagedata.remote.UnvalidNumSiretException;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
+import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
+import org.esupportail.pstagedata.domain.dto.ContactDTO;
+import org.esupportail.pstagedata.domain.dto.StatutJuridiqueDTO;
+import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
+import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForContactException;
+import org.esupportail.pstagedata.exceptions.AccordAlreadyExistingForStructureException;
+import org.esupportail.pstagedata.exceptions.AccountAlreadyExistingForCoupleMailStructureException;
+import org.esupportail.pstagedata.exceptions.AdminStructureAccountException;
+import org.esupportail.pstagedata.exceptions.AdminStructureLoginEppnAlreadyUsedException;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.MailAlreadyUsedForStructureException;
+import org.esupportail.pstagedata.exceptions.StructureNumSiretException;
+import org.esupportail.pstagedata.exceptions.UnvalidNumSiretException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.springframework.util.StringUtils;
 
 
@@ -53,7 +47,7 @@ import org.springframework.util.StringUtils;
 public class AdminController extends AbstractContextAwareController {
 
 	/* ***************************************************************
-	 * Propriétés
+	 * Propri�t�s
 	 ****************************************************************/
 
 	/**
@@ -65,7 +59,7 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	private final Logger logger = Logger.getLogger(this.getClass());
 	/**
-	 * Objet Administrateur utilisé pour l'ajout et la modification
+	 * Objet Administrateur utilis� pour l'ajout et la modification
 	 * d'administrateurs de l'espace Entreprise
 	 */
 	private AdminStructureDTO formAdminStructure;
@@ -105,11 +99,11 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	private AccordPartenariatDTO accordPartenariatAValider;
 	/**
-	 * Structure de l'accord à valider
+	 * Structure de l'accord � valider
 	 */
 	private StructureDTO structureAccordAValider;
 	/**
-	 * Contact de l'accord à valider
+	 * Contact de l'accord � valider
 	 */
 	private ContactDTO contactAccordAValider;
 	/**
@@ -117,11 +111,11 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	private StructureDTO structureAccord;
 	/**
-	 * Accord à supprimer
+	 * Accord � supprimer
 	 */
 	private StructureDTO accordASupprimer;
 	/**
-	 * Liste dynamique mise à jour en fonction du type de structure
+	 * Liste dynamique mise � jour en fonction du type de structure
 	 */
 	private List<SelectItem> statutsJuridiquesListening=null;
 	/**
@@ -129,7 +123,7 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	private CommuneDTO accordAValiderStructureCommuneDTO;
 	/**
-	 * Liste dynamique mise à jour en fonction du département saisi
+	 * Liste dynamique mise � jour en fonction du d�partement saisi
 	 */
 	private List<SelectItem> communesListening=new ArrayList<SelectItem>();
 
@@ -289,29 +283,30 @@ public class AdminController extends AbstractContextAwareController {
 					break;
 				}
 				addInfoMessage(null, "ADMINSTRUCTURE.CONFIRMATION");
-			}catch (DataAddException_Exception d) {
+			}catch (DataAddException d) {
 				if(logger.isInfoEnabled()){
 					logger.info("DataAddException ",d.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
 				ret="_ajoutAdministrateurEtape2Confirmation";
-			}catch (WebServiceDataBaseException_Exception w){
+			}catch (WebServiceDataBaseException w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
 				ret="_ajoutAdministrateurEtape2Confirmation";
-			}catch (AdminStructureAccountException_Exception aa) {
+			}catch (AdminStructureAccountException aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
 				ret="_ajoutAdministrateurEtape2Confirmation";
-			}catch (AdminStructureLoginEppnAlreadyUsedException_Exception al) {
+			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");
 				}
-				addErrorMessage("formAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
+				if(al.isLogin()) addErrorMessage("formAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
+				if(al.isEppn()) addErrorMessage("formAdminStructure:include:eppnAdmin", "ADMINSTRUCTURE.ERREUREPPN");
 			}
 		}
 		if(ok){
@@ -419,29 +414,30 @@ public class AdminController extends AbstractContextAwareController {
 					break;
 				}
 				addInfoMessage(null, "ADMINSTRUCTURE.CONFIRMATION");
-			}catch (DataUpdateException_Exception d) {
+			}catch (DataUpdateException d) {
 				if(logger.isInfoEnabled()){
 					logger.info("DataUpdateException ",d.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
 				ret="_modifAdministrateurEtape2Confirmation";
-			}catch (WebServiceDataBaseException_Exception w){
+			}catch (WebServiceDataBaseException w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
 				ret="_modifAdministrateurEtape2Confirmation";
-			}catch (AdminStructureAccountException_Exception aa) {
+			}catch (AdminStructureAccountException aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
 				ret="_modifAdministrateurEtape2Confirmation";
-			}catch (AdminStructureLoginEppnAlreadyUsedException_Exception al) {
+			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");
 				}
-				addErrorMessage("formModifAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
+				if(al.isLogin()) addErrorMessage("formModifAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
+				if(al.isEppn()) addErrorMessage("formModifAdminStructure:include:eppnAdmin", "ADMINSTRUCTURE.ERREUREPPN");
 			}
 		}	
 		if(ok){
@@ -464,12 +460,12 @@ public class AdminController extends AbstractContextAwareController {
 				}
 				getAdminDomainService().deleteAdminStructure(this.formAdminStructure.getId());
 				addInfoMessage(null, "ADMINSTRUCTURE.CONFIRMATION_SUPPRESSION");
-			}catch (DataDeleteException_Exception de) {
+			}catch (DataDeleteException de) {
 				if(logger.isInfoEnabled()){
 					logger.info("DataDeleteException ",de.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREURSUPPRESSION", de.getMessage());
-			}catch (WebServiceDataBaseException_Exception we) {
+			}catch (WebServiceDataBaseException we) {
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",we.fillInStackTrace());
 				}
@@ -489,7 +485,7 @@ public class AdminController extends AbstractContextAwareController {
 		String ret=null;
 		if(this.structureAccordAValider!=null && this.structureAccordAValider.getAccordPartenariat()!=null){
 			ret="validationAccord";
-			//Màj de liste des statuts juridiques
+			//M�j de liste des statuts juridiques
 			if(this.structureAccordAValider!=null){
 				if(this.structureAccordAValider.getTypeStructure()!=null){
 					this.statutsJuridiquesListening=getStatutsJuridiquesFromIdTypeStructure(
@@ -506,9 +502,7 @@ public class AdminController extends AbstractContextAwareController {
 				this.accordAValiderStructureCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.structureAccordAValider.getCodePostal(), ""+this.structureAccordAValider.getCodeCommune());
 				if(this.accordAValiderStructureCommuneDTO!=null){
 					this.structureAccordAValider.setCommune(this.accordAValiderStructureCommuneDTO.getLibCommune());
-					if(Utils.isNumber(this.accordAValiderStructureCommuneDTO.getCodeCommune())){
-						this.structureAccordAValider.setCodeCommune(Integer.parseInt(this.accordAValiderStructureCommuneDTO.getCodeCommune()));
-					}
+					this.structureAccordAValider.setCodeCommune(this.accordAValiderStructureCommuneDTO.getCodeCommune());
 				}else{
 					this.accordAValiderStructureCommuneDTO=new CommuneDTO();
 				}
@@ -533,11 +527,8 @@ public class AdminController extends AbstractContextAwareController {
 				try{
 					String login = getSessionController().getCurrentAuthAdminStructure().displayLogin();
 					if(getBeanUtils().isFrance(this.structureAccordAValider.getPays()) && getSessionController().isRecupererCommunesDepuisApogee()){
-						//structureTmp.setCodePostal(structureTmp.getCodePostal());
-						if(Utils.isNumber(this.accordAValiderStructureCommuneDTO.getCodeCommune())){
-							this.structureAccordAValider.setCodeCommune(Integer.parseInt(this.accordAValiderStructureCommuneDTO.getCodeCommune()));
-						}
-						//Récupération de la commune pour en avoir le libellé
+						this.structureAccordAValider.setCodeCommune(this.accordAValiderStructureCommuneDTO.getCodeCommune());
+						//R�cup�ration de la commune pour en avoir le libell�
 						this.accordAValiderStructureCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.structureAccordAValider.getCodePostal(), ""+this.accordAValiderStructureCommuneDTO.getCodeCommune());
 						if(this.accordAValiderStructureCommuneDTO!=null){
 							this.structureAccordAValider.setCommune(this.accordAValiderStructureCommuneDTO.getLibCommune());					
@@ -552,12 +543,12 @@ public class AdminController extends AbstractContextAwareController {
 					if(this.structureAccordAValider.getNafN5()!=null)
 						structureAccordAValider.setCodeNAF_N5(this.structureAccordAValider.getNafN5().getCode());
 					else structureAccordAValider.setCodeNAF_N5(null);
-					//Màj structure
+					//M�j structure
 					this.structureAccordAValider.setLoginModif(login);
 					if(!getStructureDomainService().updateStructure(this.structureAccordAValider)){
 						addErrorMessage(null, "ACCORD.ERREUR_VALIDATION", "updateStructure");
 					}
-					//Màj contact
+					//M�j contact
 					this.contactAccordAValider.setLoginModif(login);
 					if(this.contactAccordAValider.getCivilite()!=null){
 						this.contactAccordAValider.setIdCivilite(this.contactAccordAValider.getCivilite().getId());
@@ -621,7 +612,7 @@ public class AdminController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Mise à jour de la liste Statut juridique en fonction de la liste Type de Structure
+	 * Mise � jour de la liste Statut juridique en fonction de la liste Type de Structure
 	 * @param event
 	 */
 	public void valueTypeStructureChanged(ValueChangeEvent event){
@@ -700,22 +691,19 @@ public class AdminController extends AbstractContextAwareController {
 				try{
 					String login = getSessionController().getCurrentAuthAdminStructure().displayLogin();
 					if(getBeanUtils().isFrance(this.structureAccordAValider.getPays()) && getSessionController().isRecupererCommunesDepuisApogee()){
-						//structureTmp.setCodePostal(structureTmp.getCodePostal());
-						if(Utils.isNumber(this.accordAValiderStructureCommuneDTO.getCodeCommune())){
-							this.structureAccordAValider.setCodeCommune(Integer.parseInt(this.accordAValiderStructureCommuneDTO.getCodeCommune()));
-						}
-						//Récupération de la commune pour en avoir le libellé
+						this.structureAccordAValider.setCodeCommune(this.accordAValiderStructureCommuneDTO.getCodeCommune());
+						//R�cup�ration de la commune pour en avoir le libell�
 						this.accordAValiderStructureCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.structureAccordAValider.getCodePostal(), ""+this.accordAValiderStructureCommuneDTO.getCodeCommune());
 						if(this.accordAValiderStructureCommuneDTO!=null){
 							this.structureAccordAValider.setCommune(this.accordAValiderStructureCommuneDTO.getLibCommune());					
 						}
 					}
-					//Màj structure
+					//M�j structure
 					/*this.structureAccordAValider.setLoginModif(login);
 					if(!getStructureDomainService().updateStructure(this.structureAccordAValider)){
 						addErrorMessage(null, "ACCORD.ERREUR_VALIDATION", "updateStructure");
 					}*/
-					//Màj contact + génération login/mdp
+					//M�j contact + g�n�ration login/mdp
 					this.contactAccordAValider.setLoginModif(login);
 					this.contactAccordAValider.setLogin(Utils.loginGeneration(this.structureAccordAValider.getRaisonSociale(),
 							""+this.contactAccordAValider.getId()));
@@ -730,7 +718,7 @@ public class AdminController extends AbstractContextAwareController {
 					if(!getStructureDomainService().updateCompteContact(this.contactAccordAValider)){
 						addErrorMessage(null, "ACCORD.ERREUR_VALIDATION", "updateCompteContact");
 					}
-					//Màj accord
+					//M�j accord
 					this.accordPartenariatAValider.setEstValide(true);
 					this.accordPartenariatAValider.setLoginValidation(login);
 					if(!getStructureDomainService().updateAccord(this.accordPartenariatAValider)){

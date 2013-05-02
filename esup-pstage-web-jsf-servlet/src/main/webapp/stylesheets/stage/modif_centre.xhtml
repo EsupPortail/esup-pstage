@@ -1,0 +1,362 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel
+					rendered="#{(welcomeController.superAdmin || welcomeController.admin)
+						&& centreController.centre != null}">
+					<f:facet name="header">
+						<e:text
+							value="#{msgs['CENTRE.MODIF_CENTRE.HEAD']} #{centreController.centre.nomCentre}" />
+					</f:facet>
+					<%@include file="./_menu_centre.jsp"%>
+					<h:form id="formModifCentre">
+						<e:panelGrid columns="1" align="center">
+							<e:text value="#{msgs['CENTRE.AJOUT_CENTRE.ACCUEIL']}" />
+							<rich:spacer height="15" />
+							<e:outputLabel value="#{msgs['CENTRE.NOM']} *" for="nomCentre" />
+							<e:panelGrid columns="2">
+								<h:inputText id="nomCentre" style="text-transform:uppercase;"
+									value="#{centreController.centre.nomCentre}" size="50"
+									maxlength="100" required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:converter binding="#{sansAccentEnMAJConverter}" />
+									<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+								</h:inputText>
+								<rich:message for="nomCentre">
+									<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								</rich:message>
+							</e:panelGrid>
+							<rich:spacer height="10" />
+
+							<e:panelGrid columns="3">
+								<e:panelGrid columns="1">
+									<e:outputLabel value="#{msgs['CENTRE.VOIE']} *" for="voie" />
+									<h:inputText id="voie" value="#{centreController.centre.voie}"
+										size="50" maxlength="200" required="true"
+										requiredMessage="#{requiredMessageController.champObligatoire}">
+										<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+									</h:inputText>
+									<rich:message for="voie">
+										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+									</rich:message>
+								
+									<e:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']}"
+										for="batimentResidence" />
+									<h:inputText id="batimentResidence"
+										value="#{centreController.centre.batimentResidence}" size="50"
+										maxlength="200" />
+								</e:panelGrid>
+
+								<e:panelGrid columns="3">
+									<rich:spacer width="25px" />
+									<rich:spacer width="2px"
+										style="background-color: #{a4jSkin.panelBorderColor};"
+										height="110px" />
+									<rich:spacer width="25px" />
+								</e:panelGrid>
+
+								<e:panelGrid columns="1">
+									<e:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} *"
+										for="codePostal" />
+									<e:panelGrid columns="2">
+										<h:inputText id="codePostal"
+											value="#{centreController.centre.codePostal}" size="20"
+											maxlength="10" required="true"
+											requiredMessage="#{requiredMessageController.champObligatoire}">
+											<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+										</h:inputText>
+										<rich:message for="codePostal">
+											<%@include file="../_commun/_messageErrorMarker.jsp"%>
+										</rich:message>
+									</e:panelGrid>
+
+									<e:outputLabel value="#{msgs['CENTRE.COMMUNE']} *"
+										for="commune" />
+									<h:inputText id="commune" style="text-transform:uppercase;"
+										value="#{centreController.centre.commune}" size="50"
+										maxlength="200" required="true"
+										requiredMessage="#{requiredMessageController.champObligatoire}">
+										<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+									</h:inputText>
+									<rich:message for="commune">
+										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+									</rich:message>
+								</e:panelGrid>
+							</e:panelGrid>
+
+							<e:panelGrid columns="3">
+								<e:panelGrid columns="1">
+									<e:panelGrid columns="2">
+										<e:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail" />
+										<e:text value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
+									</e:panelGrid>
+									<h:inputText id="mail" value="#{centreController.centre.mail}"
+										size="50"
+										validatorMessage="#{requiredMessageController.adresseMailNonValide}"
+										maxlength="50">
+										<f:validator binding="#{mailValidator}" />
+										<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+										<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+									</h:inputText>
+									<rich:message for="mail">
+										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+									</rich:message>
+									<e:panelGrid columns="2">
+										<e:outputLabel value="#{msgs['CENTRE.SITEWEB']} "
+											for="siteWeb" />
+										<e:text value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
+											escape="false" />
+									</e:panelGrid>
+									<h:inputText id="siteWeb"
+										value="#{centreController.centre.siteWeb}" size="50"
+										validatorMessage="#{requiredMessageController.siteWebNonValide}"
+										maxlength="200">
+										<f:validator binding="#{siteWebValidator}" />
+										<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+										<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+									</h:inputText>
+									<rich:message for="siteWeb">
+										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+									</rich:message>
+								</e:panelGrid>
+
+								<e:panelGrid columns="3">
+									<rich:spacer width="25px" />
+									<rich:spacer width="2px"
+										style="background-color: #{a4jSkin.panelBorderColor};"
+										height="110px" />
+									<rich:spacer width="25px" />
+								</e:panelGrid>
+
+								<e:panelGrid columns="1">
+									<e:outputLabel value="#{msgs['CENTRE.TEL']} *" for="telephone" />
+									<e:panelGrid columns="2">
+										<h:inputText id="telephone"
+											value="#{centreController.centre.telephone}" size="20"
+											maxlength="20" required="true"
+											requiredMessage="#{requiredMessageController.champObligatoire}">
+											<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+										</h:inputText>
+										<rich:message for="telephone">
+											<%@include file="../_commun/_messageErrorMarker.jsp"%>
+										</rich:message>
+									</e:panelGrid>
+									<e:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax" />
+									<e:panelGrid columns="2">
+										<h:inputText id="fax" value="#{centreController.centre.fax}"
+											size="20" maxlength="20" />
+										<rich:message for="fax">
+											<%@include file="../_commun/_messageErrorMarker.jsp"%>
+										</rich:message>
+									</e:panelGrid>
+								</e:panelGrid>
+							</e:panelGrid>
+							<rich:spacer height="10" />
+							<e:panelGrid columns="1">
+								<e:panelGrid columns="2">
+									<e:outputLabel value="#{msgs['CENTRE.URL_PAGE_INSTRUCTION']} "
+										for="pageInstruction" />
+									<e:text value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
+										escape="false" />
+								</e:panelGrid>
+								<e:panelGrid columns="2">
+									<h:inputText id="pageInstruction"
+										value="#{centreController.centre.urlPageInstruction}"
+										size="50"
+										validatorMessage="#{requiredMessageController.siteWebNonValide}"
+										maxlength="200">
+										<f:validator binding="#{siteWebValidator}" />
+										<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+									</h:inputText>
+									<rich:message for="pageInstruction">
+										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+									</rich:message>
+								</e:panelGrid>
+
+								<rich:spacer height="5" />
+
+								<t:div id="panelViseur">
+									<e:panelGrid columns="1">
+										<e:outputLabel for="searchViseur"
+											value="#{msgs['CENTRE.VISEUR.CHOISIR']}" />
+										<e:panelGrid columns="2">
+											<a4j:commandButton rendered="#{empty centreController.centre.nomViseur}"
+												id="searchViseur" ajaxSingle="true"
+												value="#{msgs['CENTRE.VISEUR.RECHERCHE']}"
+												oncomplete="#{rich:component('rechercheViseur')}.show()"
+												action="#{centreController.avantRechercheViseur}"
+												reRender="rechercheViseur"/>
+												
+											<e:text rendered="#{not empty centreController.centre.nomViseur}" style="color:green; border:1px solid;"
+												value="#{centreController.centre.nomViseur} #{centreController.centre.prenomViseur}" />
+											<a4j:commandLink ajaxSingle="true"
+												rendered="#{not empty centreController.centre.nomViseur}"
+												id="removeViseur" reRender="panelViseur">
+												<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+													title="#{msgs['GENERAL.FILE']}"
+													value="../../media/images/cancel.png" style="border:0" />
+												<e:text value="#{msgs['CENTRE.VISEUR.RETIRER']}" />
+												<f:setPropertyActionListener value="" target="#{centreController.centre.nomViseur}"/>
+												<f:setPropertyActionListener value="" target="#{centreController.centre.prenomViseur}"/>
+											</a4j:commandLink>
+										</e:panelGrid>
+									</e:panelGrid>
+								</t:div>
+
+								<rich:spacer height="5" />
+
+								<e:outputLabel value="#{msgs['CENTRE.CRITERE.CRITERES']} *"
+									for="critereGestion" />
+								<e:panelGrid columns="2">
+									<h:selectOneMenu id="critereGestion"
+										value="#{centreController.centre.niveauCentre}"
+										required="true" converter="#{niveauCentreConverter}"
+										requiredMessage="#{requiredMessageController.champObligatoire}">
+										<f:selectItems value="#{centreController.niveauxCentre}" />
+										<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+									</h:selectOneMenu>
+									<rich:message for="critereGestion">
+										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+									</rich:message>
+								</e:panelGrid>
+
+								<rich:spacer height="5" />
+
+								<e:panelGrid columns="1"
+									rendered="#{centreController.confidentialiteAffichable}">
+									<e:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']} *"
+										for="confidentialite" />
+									<e:panelGrid columns="2">
+										<h:selectOneMenu id="confidentialite"
+											value="#{centreController.centre.confidentialite}"
+											required="true" converter="#{confidentialiteConverter}"
+											requiredMessage="#{requiredMessageController.champObligatoire}">
+											<f:selectItems value="#{centreController.confidentialites}" />
+											<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+										</h:selectOneMenu>
+										<rich:message for="confidentialite">
+											<%@include file="../_commun/_messageErrorMarker.jsp"%>
+										</rich:message>
+									</e:panelGrid>
+								</e:panelGrid>
+
+								<rich:spacer height="5" />
+
+								<e:outputLabel
+									value="#{msgs['CENTRE.TUTEUR_ENS_OBLIGATOIRE']} *"
+									for="tuteurEnsObligatoire" />
+								<h:selectOneRadio id="tuteurEnsObligatoire"
+									value="#{centreController.centre.presenceTuteurEns}">
+									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+								</h:selectOneRadio>
+								<rich:spacer height="5" />
+								<e:outputLabel
+									value="#{msgs['CENTRE.TUTEUR_PRO_OBLIGATOIRE']} *"
+									for="tuteurProObligatoire" />
+								<h:selectOneRadio id="tuteurProObligatoire"
+									value="#{centreController.centre.presenceTuteurPro}">
+									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+								</h:selectOneRadio>
+								<rich:spacer height="5" />
+								<e:outputLabel value="#{msgs['CENTRE.SAISIE_EN_LIGNE']} *"
+									for="saisieEnLigne" />
+								<h:selectOneRadio id="saisieEnLigne"
+									value="#{centreController.centre.saisieTuteurProParEtudiant}">
+									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+								</h:selectOneRadio>
+								<rich:spacer height="5" />
+								<e:outputLabel value="#{msgs['CENTRE.MOIS_PRECEDENT']} *"
+									for="moisPrecedent" />
+								<h:selectOneRadio id="moisPrecedent"
+									value="#{centreController.centre.choixAnneeAvantDebutAnnee}">
+									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+								</h:selectOneRadio>
+								<rich:spacer height="5" />
+								<e:outputLabel value="#{msgs['CENTRE.MOIS_SUIVANT']} *"
+									for="moisSuivant" />
+								<h:selectOneRadio id="moisSuivant"
+									value="#{centreController.centre.choixAnneeApresDebutAnnee}">
+									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+								</h:selectOneRadio>
+								<%/*
+								<e:panelGrid columns="1"
+									rendered="#{welcomeController.superAdmin || welcomeController.adminEtablissement}">
+									<e:outputLabel value="#{msgs['CENTRE.DEPOT_ANONYME']} *"
+										for="depotAnonyme" />
+									<h:selectOneRadio id="depotAnonyme"
+										value="#{centreController.centre.depotAnonyme}">
+										<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+										<f:selectItem itemLabel="#{msgs['FORM.NON']}"
+											itemValue="false" />
+									</h:selectOneRadio>
+								</e:panelGrid>
+								*/%>
+								<e:outputLabel value="#{msgs['CENTRE.IMPRESSIONCONVENTION']} *"
+									for="impressionConvention"
+									rendered="#{sessionController.autoriserCentresBloquerImpressionConvention}" />
+								<h:selectOneRadio id="impressionConvention"
+									rendered="#{sessionController.autoriserCentresBloquerImpressionConvention}"
+									value="#{centreController.centre.autoriserImpressionConvention}">
+									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+								</h:selectOneRadio>
+							</e:panelGrid>
+
+							<rich:spacer height="20" />
+							<t:htmlTag value="center">
+								<h:commandButton action="#{centreController.modifierCentre}"
+									value="#{msgs['FORM.MODIFIER']}" />
+							</t:htmlTag>
+
+							<t:htmlTag value="center">
+								<e:text id="erreurModifCentre" value="" />
+								<rich:message for="erreurModifCentre">
+									<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								</rich:message>
+							</t:htmlTag>
+						</e:panelGrid>
+					</h:form>
+					<%@include file="./_panel_rechercheViseur.jsp"%>
+				</rich:panel>
+				<t:div
+					rendered="#{!(welcomeController.superAdmin	
+		|| welcomeController.admin)}">
+					<%@include file="./_redirection_droitsInsuffisants.jsp"%>
+				</t:div>
+				<t:div
+					rendered="#{(welcomeController.superAdmin	
+		|| welcomeController.admin)
+		&& centreController.centre == null}">
+					<%@include file="./_redirection_accesDirectImpossible.jsp"%>
+				</t:div>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<e:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</e:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+	hideButton("welcomeManagerForm:localeChangeButton");
+</script>
+	</t:div>
+</e:page>

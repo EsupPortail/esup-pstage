@@ -40,6 +40,11 @@ public class DonneesStatic {
 	public static final String CODE_CONFIDENTIALITE_LIBRE = "2";
 
 	/**
+	 * valeur pour les droits Admin
+	 */
+	public static final String LIBELLE_DROIT_ADMIN = "ADMIN";
+	
+	/**
 	 * valeur pour les droits en écriture
 	 */
 	public static final String LIBELLE_DROIT_ECRITURE = "ECRITURE";

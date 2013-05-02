@@ -1,0 +1,5 @@
+<%@include file="_confirmationMessages.jsp"%>
+
+<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
+	action="_ajoutServiceEtape1"
+	onclick="#{rich:component('ajoutService')}.hide();" />

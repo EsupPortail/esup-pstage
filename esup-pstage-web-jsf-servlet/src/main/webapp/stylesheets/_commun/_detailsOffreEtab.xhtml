@@ -1,0 +1,51 @@
+<%@include file="../_include.jsp"%>
+<e:panelGrid columns="2" cellpadding="2" cellspacing="2" align="center"
+	style="font-size:14px;">
+	<e:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+	<e:text value="#{offreController.currentOffre.structure.raisonSociale}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']}" />
+	<e:text
+		value="#{offreController.currentOffre.structure.typeStructure.libelle}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']}"
+		rendered="#{not empty offreController.currentOffre.structure.statutJuridique}" />
+	<e:text
+		value="#{offreController.currentOffre.structure.statutJuridique.libelle}"
+		rendered="#{not empty offreController.currentOffre.structure.statutJuridique}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']}"
+		rendered="#{not empty offreController.currentOffre.structure.effectif}" />
+	<e:text
+		value="#{offreController.currentOffre.structure.effectif.libelle}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']}"
+		rendered="#{not empty offreController.currentOffre.structure.numeroSiret}" />
+	<e:text
+		rendered="#{not empty offreController.currentOffre.structure.numeroSiret}"
+		value="#{offreController.currentOffre.structure.numeroSiret}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.GROUPE']}"
+		rendered="#{not empty offreController.currentOffre.structure.groupe}" />
+	<e:text
+		rendered="#{not empty offreController.currentOffre.structure.groupe}"
+		value="#{offreController.currentOffre.structure.groupe}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+	<e:text
+		value="#{offreController.currentOffre.structure.batimentResidence}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.VOIE']}" />
+	<e:text value="#{offreController.currentOffre.structure.voie}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+	<e:text value="#{offreController.currentOffre.structure.codePostal}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.COMMUNE']}" />
+	<e:text value="#{offreController.currentOffre.structure.commune}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.CEDEX']}"
+		rendered="#{not empty offreController.currentOffre.structure.libCedex}" />
+	<e:text
+		rendered="#{not empty offreController.currentOffre.structure.libCedex}"
+		value="#{offreController.currentOffre.structure.libCedex}" />
+	<e:outputLabel value="#{msgs['STRUCTURE.PAYS']}" />
+	<e:panelGrid columns="2" style="font-size:12px;">
+		<h:graphicImage
+			rendered="#{not empty offreController.currentOffre.structure.pays}"
+			value="../../media/images/flags/#{offreController.currentOffre.structure.pays.iso2}.png"
+			alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+			title="#{offreController.currentOffre.structure.pays.libelle}" />
+		<e:text value="#{offreController.currentOffre.structure.pays.libelle}" />
+	</e:panelGrid>
+</e:panelGrid>

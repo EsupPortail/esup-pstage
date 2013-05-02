@@ -73,7 +73,6 @@ public class PreferencesController extends AbstractContextAwareController {
 	/**
 	 * @return the localeItems
 	 */
-	@SuppressWarnings("unchecked")
 	public List<SelectItem> getLocaleItems() {
 		if (localeItems == null) {
 			localeItems = new ArrayList<SelectItem>();

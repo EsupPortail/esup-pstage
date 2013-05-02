@@ -1,0 +1,7 @@
+<%@include file="../_include.jsp"%>
+<e:menuItem id="welcome" value="Accueil"
+	action="#{welcomeController.enter}" />
+<e:menuItem id="about" value="A propos"
+	action="#{aboutController.enter}" />
+<e:menuItem id="logout" action="#{sessionController.disconnect}"
+	value="Se déconnecter" />

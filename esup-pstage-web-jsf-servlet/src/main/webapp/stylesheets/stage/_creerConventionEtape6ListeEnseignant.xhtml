@@ -1,0 +1,49 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1"
+	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+	<rich:panel>
+		<f:facet name="header">
+			<e:text value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
+		</f:facet>
+		<rich:spacer height="20" />
+		<e:text value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}" />
+
+		<t:htmlTag value="br" />
+
+		<rich:dataTable align="center" width="483" id="choixEtape" rows="10"
+			columnClasses="col" value="#{conventionController.listeEnseignant}"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			var="enseignant">
+			<%@include file="/stylesheets/stage/_conventionEtape6EnseignantColumns.jsp"%>
+			<rich:column>
+				<a4j:commandLink id="add"
+					action="#{conventionController.goToCreerConventionEtape6Enseignant}">
+					<f:setPropertyActionListener value="#{enseignant}"
+						target="#{conventionController.resultatEnseignant}" />
+					<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
+						value="../../media/images/zoom.png" style="border:0" />
+				</a4j:commandLink>
+			</rich:column>
+
+			<f:facet name="footer">
+				<rich:datascroller align="center" for="choixEtape" maxPages="20"
+					page="1" id="listeEnseignantScroller" renderIfSinglePage="false" />
+			</f:facet>
+
+		</rich:dataTable>
+
+		<e:panelGrid columns="1">
+
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionEtape6RespPedago}"
+				value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}" immediate="true">
+			</a4j:commandButton>
+
+		</e:panelGrid>
+
+	</rich:panel>
+</e:panelGrid>
+
+

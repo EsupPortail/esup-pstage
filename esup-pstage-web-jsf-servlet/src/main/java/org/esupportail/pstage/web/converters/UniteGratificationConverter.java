@@ -11,7 +11,7 @@ import javax.faces.convert.Converter;
 
 import org.esupportail.pstage.domain.NomenclatureDomainService;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.remote.UniteGratificationDTO;
+import org.esupportail.pstagedata.domain.dto.UniteGratificationDTO;
 import org.springframework.util.StringUtils;
 
 /**

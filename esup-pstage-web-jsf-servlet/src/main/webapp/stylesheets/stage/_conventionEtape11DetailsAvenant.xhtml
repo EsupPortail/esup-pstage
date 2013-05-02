@@ -1,0 +1,329 @@
+<%@include file="../_include.jsp"%>
+<%@include file="./_panel_validAvenant.jsp"%>
+<%@include file="./_panel_devalidAvenant.jsp"%>
+<e:panelGrid columns="1"
+	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+	<e:panelGrid columns="3">
+		<e:panelGrid columns="1">
+			<e:outputLabel for="motif"
+				value="#{msgs['CONVENTION.ETAPE11.MOTIF']} :" />
+			<e:text id="motif" value="#{avenantController.avenant.motifAvenant}" />
+		</e:panelGrid>
+
+		<e:panelGrid columns="3">
+			<rich:spacer width="50px" />
+			<rich:spacer width="2px"
+				style="background-color: #{a4jSkin.panelBorderColor};" height="90px" />
+			<rich:spacer width="50px" />
+		</e:panelGrid>
+
+		<e:panelGrid columns="1"
+			rendered="#{avenantController.avenant.rupture}">
+			<e:outputLabel for="type1" value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
+			<e:text id="type1" value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}" />
+		</e:panelGrid>
+		<e:panelGrid columns="1"
+			rendered="#{!avenantController.avenant.rupture}">
+			<e:outputLabel for="type2"
+				value="#{msgs['CONVENTION.ETAPE11.TYPE']} :" />
+			<e:panelGrid id="type2" columns="2">
+				<rich:spacer width="10" />
+				<e:panelGrid columns="1">
+					<e:text rendered="#{avenantController.avenant.modificationSujet}"
+						value="#{msgs['CONVENTION.ETAPE11.SUJET']}" />
+					<e:text rendered="#{avenantController.avenant.modificationPeriode}"
+						value="#{msgs['CONVENTION.ETAPE11.PERIODE']}" />
+					<e:text rendered="#{avenantController.avenant.modificationLieu}"
+						value="#{msgs['CONVENTION.ETAPE11.LIEU']}" />
+					<e:text
+						rendered="#{avenantController.avenant.modificationSalarie}"
+						value="#{msgs['CONVENTION.ETAPE11.SALARIE']}" />
+					<e:text
+						rendered="#{avenantController.avenant.modificationEnseignant}"
+						value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT']}" />
+					<e:text
+						rendered="#{avenantController.avenant.modificationMontantGratification}"
+						value="#{msgs['CONVENTION.ETAPE11.MONTANT_GRATIFICATION']}" />
+				</e:panelGrid>
+			</e:panelGrid>
+		</e:panelGrid>
+
+	</e:panelGrid>
+
+	<t:div rendered="#{!avenantController.avenant.rupture}">
+
+		<t:div rendered="#{avenantController.avenant.modificationSujet}">
+			<rich:spacer height="10" />
+			<e:outputLabel for="sujet"
+				value="#{msgs['CONVENTION.ETAPE11.NEW_SUJET']}" />
+			<e:panelGrid id="sujet" columns="2">
+				<rich:spacer width="10" />
+				<e:panelGrid columns="2">
+					<e:text style="color:red;"
+						value="#{msgs['CONVENTION.ETAPE11.INIT_SUJET']}" />
+					<e:text style="color:red;"
+						value="#{conventionController.convention.sujetStage}" />
+
+					<e:text style="color:green;"
+						value="#{msgs['CONVENTION.ETAPE11.NEW_SUJET']}" />
+					<e:text style="color:green;"
+						value="#{avenantController.avenant.sujetStage}" />
+				</e:panelGrid>
+			</e:panelGrid>
+		</t:div>
+
+		<t:div rendered="#{avenantController.avenant.modificationPeriode}">
+			<rich:spacer height="10" />
+			<e:outputLabel for="periode"
+				value="#{msgs['CONVENTION.ETAPE11.NEW_PERIODE']}" />
+			<e:panelGrid id="periode" columns="2">
+				<rich:spacer width="10" />
+				<e:panelGrid columns="2">
+					<e:text style="color:red;"
+						value="#{msgs['CONVENTION.ETAPE11.INIT_PERIODE']}" />
+					<e:panelGrid columns="4">
+						<e:text style="color:red;"
+							value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
+						<e:text style="color:red;"
+							value="#{conventionController.convention.dateDebutStage}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</e:text>
+						<e:text style="color:red;"
+							value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
+						<e:text style="color:red;"
+							value="#{conventionController.convention.dateFinStage}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</e:text>
+					</e:panelGrid>
+					<e:text style="color:green;"
+						value="#{msgs['CONVENTION.ETAPE11.NEW_PERIODE']}" />
+					<e:panelGrid columns="4">
+						<e:text style="color:green;"
+							value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
+						<e:text style="color:green;"
+							value="#{avenantController.avenant.dateDebutStage}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</e:text>
+						<e:text style="color:green;"
+							value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
+						<e:text style="color:green;"
+							value="#{avenantController.avenant.dateFinStage}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</e:text>
+					</e:panelGrid>
+				</e:panelGrid>
+			</e:panelGrid>
+
+			<rich:spacer height="5" />
+
+			<e:outputLabel for="interruption"
+				rendered="#{avenantController.avenant.interruptionStage}"
+				value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION']}" />
+			<e:panelGrid id="interruption" columns="2"
+				rendered="#{avenantController.avenant.interruptionStage}">
+				<rich:spacer width="10" />
+				<e:panelGrid columns="2">
+					<e:text style="color:red;"
+						value="#{msgs['CONVENTION.ETAPE11.INIT_INTERRUPTION']}" />
+					<e:panelGrid columns="4"
+						rendered="#{conventionController.convention.interruptionStage}">
+						<e:text style="color:red;"
+							value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
+						<e:text style="color:red;"
+							value="#{conventionController.convention.dateDebutInterruption}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</e:text>
+						<e:text style="color:red;"
+							value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
+						<e:text style="color:red;"
+							value="#{conventionController.convention.dateFinInterruption}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</e:text>
+					</e:panelGrid>
+					<e:text style="color:red;"
+						rendered="#{!conventionController.convention.interruptionStage}"
+						value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION_NULLE']}" />
+					<e:text style="color:green;"
+						value="#{msgs['CONVENTION.ETAPE11.NEW_INTERRUPTION']}" />
+					<e:panelGrid columns="4"
+						rendered="#{avenantController.avenant.interruptionStage}">
+						<e:text style="color:green;"
+							value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
+						<e:text style="color:green;"
+							value="#{avenantController.avenant.dateDebutInterruption}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</e:text>
+						<e:text style="color:green;"
+							value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
+						<e:text style="color:green;"
+							value="#{avenantController.avenant.dateFinInterruption}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</e:text>
+					</e:panelGrid>
+				</e:panelGrid>
+			</e:panelGrid>
+		</t:div>
+
+		<t:div
+			rendered="#{avenantController.avenant.modificationMontantGratification}">
+			<rich:spacer height="10" />
+			<e:outputLabel for="gratification"
+				value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
+			<e:panelGrid id="gratification" columns="2">
+				<rich:spacer width="10" />
+				<e:panelGrid columns="2">
+					<e:text style="color:red;"
+						value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
+					<e:text style="color:red;"
+						value="#{conventionController.convention.montantGratification} #{conventionController.convention.uniteGratification.libelle}" />
+
+					<e:text style="color:green;"
+						value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
+					<e:text style="color:green;"
+						value="#{avenantController.avenant.montantGratification} #{avenantController.avenant.uniteGratification.libelle}" />
+				</e:panelGrid>
+			</e:panelGrid>
+		</t:div>
+
+		<t:div rendered="#{avenantController.avenant.modificationLieu}">
+			<rich:spacer height="10" />
+			<e:outputLabel for="lieu"
+				value="#{msgs['CONVENTION.ETAPE11.NEW_LIEU']}" />
+			<e:panelGrid id="lieu" columns="2">
+				<rich:spacer width="10" />
+				<e:panelGrid columns="2">
+
+					<e:text style="color:red;"
+						value="#{msgs['CONVENTION.ETAPE11.INIT_LIEU']}" />
+					<e:text style="color:red;"
+						value="#{conventionController.convention.service.nom} - #{conventionController.convention.service.commune} - #{conventionController.convention.service.pays.libelle }" />
+
+					<e:text style="color:green;"
+						value="#{msgs['CONVENTION.ETAPE11.NEW_LIEU']}" />
+					<e:text style="color:green;"
+						value="#{avenantController.avenant.service.nom} - #{avenantController.avenant.service.commune} - #{avenantController.avenant.service.pays.libelle }" />
+				</e:panelGrid>
+			</e:panelGrid>
+		</t:div>
+
+		<t:div
+			rendered="#{avenantController.avenant.modificationSalarie}">
+			<rich:spacer height="10" />
+			<e:outputLabel for="salarie"
+				value="#{msgs['CONVENTION.ETAPE11.NEW_SALARIE']}" />
+			<e:panelGrid id="salarie" columns="2">
+				<rich:spacer width="10" />
+				<e:panelGrid columns="2">
+					<e:text style="color:red;"
+						value="#{msgs['CONVENTION.ETAPE11.INIT_SALARIE']}" />
+					<e:text style="color:red;"
+						value="#{conventionController.convention.contact.civilite.libelle} #{conventionController.convention.contact.prenom} 
+							#{conventionController.convention.contact.nom} - #{conventionController.convention.contact.fonction}" />
+
+					<e:text style="color:green;"
+						value="#{msgs['CONVENTION.ETAPE11.NEW_SALARIE']}" />
+					<e:text style="color:green;"
+						value="#{avenantController.avenant.contact.civilite.libelle} #{avenantController.avenant.contact.prenom} 
+							#{avenantController.avenant.contact.nom} - #{avenantController.avenant.contact.fonction}" />
+				</e:panelGrid>
+			</e:panelGrid>
+		</t:div>
+
+		<t:div rendered="#{avenantController.avenant.modificationEnseignant}">
+			<rich:spacer height="10" />
+			<e:outputLabel for="enseignant"
+				value="#{msgs['CONVENTION.ETAPE11.NEW_ENSEIGNANT']}" />
+			<e:panelGrid id="enseignant" columns="2">
+				<rich:spacer width="10" />
+				<e:panelGrid columns="2">
+					<e:text style="color:red;"
+						value="#{msgs['CONVENTION.ETAPE11.INIT_ENSEIGNANT']}" />
+					<e:text style="color:red;"
+						value="#{conventionController.convention.enseignant.prenom} #{conventionController.convention.enseignant.nom}" />
+
+					<e:text style="color:green;"
+						value="#{msgs['CONVENTION.ETAPE11.NEW_ENSEIGNANT']}" />
+					<e:text style="color:green;"
+						value="#{avenantController.avenant.enseignant.prenom} #{avenantController.avenant.enseignant.nom}" />
+				</e:panelGrid>
+			</e:panelGrid>
+		</t:div>
+
+	</t:div>
+
+	<rich:spacer height="20" />
+
+	<t:div>
+		<e:outputLabel value="#{msgs['CONVENTION.ETAPE11.IMPRESSION']}"
+			rendered="#{!conventionController.cgUrlInstruction}" />
+
+		<e:outputLabel value="#{msgs['CONVENTION.IMPRESSION.URL']}"
+			rendered="#{conventionController.cgUrlInstruction}">
+			<h:outputLink
+				value="#{conventionController.convention.centreGestion.urlPageInstruction}">
+				<h:outputText
+					value="#{conventionController.convention.centreGestion.urlPageInstruction}" />
+			</h:outputLink>
+		</e:outputLabel>
+
+		<rich:spacer height="20" />
+	</t:div>
+
+	<rich:spacer height="20" />
+
+	<e:panelGrid columns="3" align="center">
+
+		<e:panelGrid columns="3"
+			rendered="#{!avenantController.avenant.validationAvenant}">
+			<a4j:commandButton id="modif" ajaxSingle="true"
+				action="#{avenantController.goToModifAvenantPage1}"
+				value="#{msgs['FORM.MODIFIER']}" />
+			<rich:spacer width="20" />
+			<a4j:commandButton id="valid" ajaxSingle="true"
+				rendered="#{welcomeController.superAdmin
+					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}"
+				oncomplete="#{rich:component('validAvenant')}.show()"
+				value="#{msgs['FORM.VALIDER']}" />
+		</e:panelGrid>
+
+		<a4j:commandButton id="devalid" ajaxSingle="true"
+			rendered="#{avenantController.avenant.validationAvenant && (welcomeController.superAdmin
+				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
+			oncomplete="#{rich:component('devalidAvenant')}.show()"
+			value="#{msgs['FORM.DEVALIDER']}" />
+
+		<rich:spacer width="20" />
+
+		<a4j:commandButton id="print" ajaxSingle="true"
+			rendered="#{conventionController.convention.codeLangueConvention == 'fr'}"
+			action="#{avenantController.editPdfAvenant}"
+			value="#{msgs['CONVENTION.ETAPE11.IMPRIMER']}" />
+
+		<e:panelGrid columns="3"
+			rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
+			<a4j:commandButton id="printFr" ajaxSingle="true"
+				action="#{avenantController.editPdfAvenantFr}"
+				value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_FR']}" />
+			<rich:spacer width="20" />
+			<a4j:commandButton id="printAutre" ajaxSingle="true"
+				action="#{avenantController.editPdfAvenant}"
+				value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_AUTRE']} #{conventionController.convention.langueConvention.libelle}" />
+		</e:panelGrid>
+	</e:panelGrid>
+
+	<rich:spacer height="10" />
+
+	<h:commandButton id="retour" style="float:left;"
+		value="#{msgs['GENERAL.RETOUR']}"
+		action="#{avenantController.goToListeAvenant}" />
+	<rich:toolTip for="retour" value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+	<rich:spacer height="20" />
+	<e:panelGrid columns="1" style="float:right;"
+		rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+		<t:aliasBean alias="#{objet}" value="#{avenantController.avenant}">
+			<%@include file="../_commun/_updateInfos.jsp"%>
+		</t:aliasBean>
+	</e:panelGrid>
+</e:panelGrid>

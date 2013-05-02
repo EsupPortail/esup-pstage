@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.esupportail.commons.services.paginator.ListPaginator;
-import org.esupportail.pstagedata.remote.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.StructureDTO;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr

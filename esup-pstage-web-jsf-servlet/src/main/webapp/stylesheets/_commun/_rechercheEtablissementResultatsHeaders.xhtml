@@ -1,0 +1,41 @@
+<%@include file="../_include.jsp"%>
+<%
+	/*
+	 Headers communs pour chaque moteur de recherche établissement
+
+	 A inclure dans la zone header de la dataTable 
+
+	 /!\ La dataTable doit avoir ces paramètres :
+	 id="rechercheStructureDataTable" 
+	 rowIndexVar="rowRechercheStructureDataTable"
+	 var="varRechercheStructure"
+	 */
+%>
+<rich:column>
+	<h:outputText styleClass="headerText"
+		value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+</rich:column>
+<rich:column>
+	<h:outputText styleClass="headerText"
+		value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+</rich:column>
+<rich:column>
+	<h:outputText styleClass="headerText"
+		value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+</rich:column>
+<rich:column>
+	<h:outputText styleClass="headerText" value="#{msgs['STRUCTURE.VOIE']}" />
+</rich:column>
+<rich:column>
+	<h:outputText styleClass="headerText"
+		value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+</rich:column>
+<rich:column>
+	<h:outputText styleClass="headerText"
+		value="#{msgs['STRUCTURE.COMMUNE']}" />
+</rich:column>
+<rich:column>
+	<h:outputText styleClass="headerText" value="#{msgs['STRUCTURE.PAYS']}" />
+</rich:column>
+<rich:column colspan="4">
+</rich:column>

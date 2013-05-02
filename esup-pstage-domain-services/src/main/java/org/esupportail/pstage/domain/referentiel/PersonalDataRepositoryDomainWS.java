@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.dao.referentiel.PersonalDataRepositoryDaoWS;
-import org.esupportail.pstagedata.remote.EnseignantDTO;
-import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 
 
 /**
@@ -58,7 +58,7 @@ public class PersonalDataRepositoryDomainWS implements
 					+ " firstName : " + firstName + "codeAffectation : " + codeAffectation);
 		}
 		
-		List<EnseignantDTO>  lEnseignant = personalDataRepositoryDaoWS.getEnseignantsByName(universityCode, name, firstName, codeAffectation);
+		List<EnseignantDTO> lEnseignant = personalDataRepositoryDaoWS.getEnseignantsByName(universityCode, name, firstName, codeAffectation);
 		if(logger.isDebugEnabled()){
 			
 			logger.debug(" PersonalDataRepositoryDomainWS lEnseignant  ==> " + lEnseignant.size());

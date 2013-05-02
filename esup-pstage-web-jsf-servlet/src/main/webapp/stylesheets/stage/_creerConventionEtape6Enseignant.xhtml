@@ -1,0 +1,42 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1"
+	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+	<rich:panel>
+		<f:facet name="header">
+			<e:text value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
+		</f:facet>
+		<rich:spacer height="20" />
+		<e:text value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}" />
+
+		<t:htmlTag value="br" />
+		<%@include
+			file="/stylesheets/stage/_conventionEtape6DetailsEnseignant.jsp"%>
+		<e:panelGrid columns="3">
+
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionEtape6RespPedago}"
+				value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
+				immediate="true">
+			</a4j:commandButton>
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionEtape6listeEnseignant}"
+				value="#{msgs['CONVENTION.REVENIR.LISTE.ENSEIGNANT']}"
+				rendered="#{conventionController.enseignantTrouves}">
+			</a4j:commandButton>
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionEtape7Signataire}"
+				value="#{msgs['FORM.VALIDER']}">
+			</a4j:commandButton>
+
+
+		</e:panelGrid>
+	</rich:panel>
+</e:panelGrid>
+
+
+
+
+
+
+

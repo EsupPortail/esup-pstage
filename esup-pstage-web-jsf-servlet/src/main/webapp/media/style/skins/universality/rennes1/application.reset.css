@@ -1,0 +1,37 @@
+.fl-theme-app input,
+.fl-theme-app input.input_button,
+.fl-theme-app a.input_button,
+.fl-theme-app input[type="button"],
+.fl-theme-app input[type="submit"] {
+	background-image: none;
+}
+
+.fl-theme-app th,
+.fl-theme-app td {
+	border: none;
+}
+
+.fl-theme-app .paginator input,
+.fl-theme-app .paginator input.input_button,
+.fl-theme-app .paginator a.input_button,
+.fl-theme-app .paginator input[type="button"],
+.fl-theme-app .paginator input[type="submit"] {
+	margin: 0px;
+	padding: 0px;
+	background-color: transparent;
+	border: none;
+	text-align: center;
+}
+
+
+.fl-theme-app .app-pagebar input,
+.fl-theme-app .app-pagebar input.input_button,
+.fl-theme-app .app-pagebar a.input_button,
+.fl-theme-app .app-pagebar input[type="button"],
+.fl-theme-app .app-pagebar input[type="submit"] {
+	margin: 0px;
+	padding: 0px;
+	background-color: transparent;
+	border: none;
+	font-weight: normal;
+}

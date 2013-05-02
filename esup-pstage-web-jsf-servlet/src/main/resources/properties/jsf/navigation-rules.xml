@@ -2530,6 +2530,15 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>offresADiffuser</display-name>
+		<from-view-id>/stylesheets/stage/*</from-view-id>
+		<navigation-case>
+			<from-outcome>resultatsRechercheOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheOffreResultats.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
 	<!-- FIN Recherche Offre-->
 	
 	<!-- Recherche des Conventions -->

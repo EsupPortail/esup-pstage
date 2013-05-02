@@ -1,0 +1,196 @@
+<%@include file="../_include.jsp"%>
+<e:panelGrid columns="1" style="float:right;">
+	<e:text value="#{msgs['FORM.VOTRESAISIE']}" escape="false" />
+	<e:text value="#{accordController.preAccord.structure.raisonSociale}" />
+	<e:text value="#{accordController.preAccord.structure.numeroSiret}"
+		rendered="#{not empty accordController.preAccord.structure.numeroSiret}" />
+	<e:panelGrid columns="2"
+		rendered="#{not empty accordController.preAccord.structure.pays}">
+		<h:graphicImage
+			value="../../media/images/flags/#{accordController.preAccord.structure.pays.iso2}.png"
+			alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+			title="#{accordController.preAccord.structure.pays.libelle}" />
+		<e:text value="#{accordController.preAccord.structure.pays.libelle}" />
+	</e:panelGrid>
+</e:panelGrid>
+<rich:spacer height="30px" />
+<t:htmlTag value="br" />
+<e:text value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCE']}"
+	escape="false"
+	rendered="#{empty accordController.listeStructureExistante}" />
+<e:text value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCES']}"
+	escape="false"
+	rendered="#{not empty accordController.listeStructureExistante}" />
+<t:htmlTag value="br" />
+<rich:spacer height="30px" />
+<rich:dataTable align="center" width="700px" id="strucureExistanteListe"
+	rows="5"
+	rendered="#{not empty accordController.listeStructureExistante}"
+	columnClasses="col" value="#{accordController.listeStructureExistante}"
+	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+	onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+	var="structureExistante">
+	<f:facet name="header">
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['STRUCTURE.VOIE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['STRUCTURE.COMMUNE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['STRUCTURE.PAYS']}" />
+			</rich:column>
+			<rich:column>
+			</rich:column>
+		</rich:columnGroup>
+	</f:facet>
+	<rich:column>
+		<e:text value="#{structureExistante.raisonSociale}" />
+	</rich:column>
+	<rich:column>
+		<e:text value="#{structureExistante.numeroSiret}" />
+	</rich:column>
+	<rich:column>
+		<e:text value="#{structureExistante.batimentResidence}" />
+	</rich:column>
+	<rich:column>
+		<e:text value="#{structureExistante.voie}" />
+	</rich:column>
+	<rich:column>
+		<e:text value="#{structureExistante.codePostal}" />
+	</rich:column>
+	<rich:column>
+		<e:text value="#{structureExistante.commune}" />
+	</rich:column>
+	<rich:column>
+		<e:panelGrid columns="2">
+			<h:graphicImage id="flag"
+				rendered="#{not empty structureExistante.pays}"
+				value="../../media/images/flags/#{structureExistante.pays.iso2}.png"
+				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+				title="#{structureExistante.pays.libelle}" />
+			<e:text value="#{structureExistante.pays.libelle}" />
+		</e:panelGrid>
+	</rich:column>
+	<rich:column>
+		<a4j:commandLink id="selectionStructure"
+			reRender="structureSelected, structureNonPresente">
+			<f:setPropertyActionListener value="#{structureExistante}"
+				target="#{accordController.structureExistante}" />
+			<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
+				value="../../media/images/zoom.png" style="border:0" />
+		</a4j:commandLink>
+		<rich:toolTip for="selectionStructure" followMouse="true"
+			direction="top-right" styleClass="tooltip"
+			value="#{msgs['FORM.SELECTIONNER']}" />
+	</rich:column>
+	<f:facet name="footer">
+		<rich:datascroller align="center" for="strucureExistanteListe"
+			maxPages="20" page="1" renderIfSinglePage="false" />
+	</f:facet>
+</rich:dataTable>
+<rich:spacer height="20px" />
+<a4j:outputPanel id="structureSelected">
+	<t:div rendered="#{not empty accordController.structureExistante}">
+		<t:div
+			style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
+			<t:aliasBean alias="#{structure}"
+				value="#{accordController.structureExistante}">
+				<%@include file="../_commun/_rechercheEtablissementAffichage.jsp"%>
+			</t:aliasBean>
+		</t:div>
+		<t:panelGroup colspan="2"
+			style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
+			<e:text value="#{msgs['ACCORD.MODIFICATION']}" escape="false" />
+		</t:panelGroup>
+		<t:panelGroup colspan="2"
+			rendered="#{not empty accordController.listeStructureExistante}">
+			<a4j:commandLink reRender="structureSelected, structureNonPresente"
+				action="#{accordController.deSelectionner}">
+				<f:setPropertyActionListener value="#{null}"
+					target="#{accordController.structureExistante}" />
+				<h:graphicImage alt="#{msgs['FORM.DESELECTIONNER']}"
+					value="../../media/images/cancel.png" style="border:0" />
+				<e:text value="#{msgs['FORM.DESELECTIONNER']}" />
+			</a4j:commandLink>
+		</t:panelGroup>
+		<rich:spacer height="20px" />
+		<e:panelGrid columns="1" align="center">
+			<e:text value="#{msgs['ACCORD.ETABTROUVE_QUESTION']}" />
+			<e:panelGrid columns="2">
+				<a4j:commandButton action="#{accordController.goToFormulaireAccord}"
+					value="#{msgs['FORM.OUI']}">
+					<f:setPropertyActionListener
+						value="#{accordController.structureExistante}"
+						target="#{accordController.accord.structure}" />
+					<f:setPropertyActionListener value="#{true}"
+						target="#{accordController.structureDejaExistante}" />
+				</a4j:commandButton>
+				<a4j:commandButton action="#{accordController.goToFormulaireAccord}"
+					rendered="#{accordController.accord.structure.pays!=beanUtils.france && accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
+					value="#{msgs['FORM.NON']}">
+					<f:setPropertyActionListener value="#{null}"
+						target="#{accordController.structureExistante}" />
+					<f:setPropertyActionListener value="#{false}"
+						target="#{accordController.structureDejaExistante}" />
+					<f:setPropertyActionListener
+						value="#{accordController.preAccord.structure}"
+						target="#{accordController.accord.structure}" />
+				</a4j:commandButton>
+				<a4j:commandButton
+					action="#{accordController.nousContacterErreurEtablissement}"
+					rendered="#{accordController.accord.structure.pays==beanUtils.france || accordController.accord.structure.pays.cog==beanUtils.cogFrance}"
+					value="#{msgs['ACCORD.ERREUR_ETAB']}"
+					onclick="#{rich:component('nousContacter')}.show()"
+					reRender="sujetNC">
+				</a4j:commandButton>
+			</e:panelGrid>
+		</e:panelGrid>
+	</t:div>
+</a4j:outputPanel>
+<a4j:outputPanel id="structureNonPresente">
+	<t:div
+		rendered="#{not empty accordController.listeStructureExistante and empty accordController.structureExistante}">
+		<e:panelGrid align="center" columns="1">
+			<e:text value="#{msgs['ACCORD.ETABTROUVE_NONCORRESPONDANT']}" />
+			<a4j:commandButton action="#{accordController.goToFormulaireAccord}"
+				ignoreDupResponses="true"
+				rendered="#{accordController.accord.structure.pays!=beanUtils.france && accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
+				value="#{msgs['FORM.NEXT']}">
+				<f:setPropertyActionListener value="#{false}"
+					target="#{accordController.structureDejaExistante}" />
+			</a4j:commandButton>
+		</e:panelGrid>
+	</t:div>
+</a4j:outputPanel>
+<a4j:commandButton action="_accordEtape1PreAccord"
+	ignoreDupResponses="true" value="#{msgs['FORM.PREVIOUS']}"
+	immediate="true">
+	<f:setPropertyActionListener value="#{null}"
+		target="#{accordController.structureExistante}" />
+	<f:setPropertyActionListener value="#{null}"
+		target="#{accordController.listeStructureExistante}" />
+	<f:setPropertyActionListener value="#{false}"
+		target="#{accordController.structureDejaExistante}" />
+</a4j:commandButton>
+

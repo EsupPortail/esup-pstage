@@ -1,0 +1,30 @@
+<%@include file="../_include.jsp"%>
+
+<rich:modalPanel id="devalidAvenant" autosized="true" width="400">
+	<f:facet name="header">
+		<e:text value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.HEAD']}">
+			<f:param value="#{avenantController.avenant.idAvenant}" />
+		</e:text>
+	</f:facet>
+	<e:panelGrid columns="1" align="center">
+		<rich:spacer height="10"/>
+		<e:outputLabel for="devalidPanel"
+			value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.QUESTION']}" />
+		<rich:spacer height="10"/>
+	</e:panelGrid>
+	
+	<rich:spacer height="10" />
+	<e:panelGrid align="center" id="devalidPanel" columns="3">
+		<a4j:commandButton action="#{avenantController.devaliderAvenant}"
+			value="#{msgs['FORM.OUI']}" reRender="formDetailsAvenant" />
+		<rich:spacer width="30" />
+		<h:commandButton value="#{msgs['FORM.NON']}"
+			onclick="#{rich:component('devalidAvenant')}.hide();return false;" />
+	</e:panelGrid>
+	<t:htmlTag value="center">
+		<e:text id="erreurDevalidAvenant" value="" />
+		<rich:message for="erreurDevalidAvenant">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+	</t:htmlTag>
+</rich:modalPanel>

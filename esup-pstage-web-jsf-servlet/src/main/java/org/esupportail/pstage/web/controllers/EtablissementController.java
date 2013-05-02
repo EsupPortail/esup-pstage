@@ -26,37 +26,26 @@ import javax.mail.internet.InternetAddress;
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.utils.GenTicketStage;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException;
-import org.esupportail.pstagedata.remote.AccountAlreadyExistingForCoupleMailStructureException_Exception;
-import org.esupportail.pstagedata.remote.CentreGestionDTO;
-import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.ContactDeleteException;
-import org.esupportail.pstagedata.remote.ContactDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataAddException;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException;
-import org.esupportail.pstagedata.remote.MailAlreadyUsedForStructureException_Exception;
-import org.esupportail.pstagedata.remote.NafN5DTO;
-import org.esupportail.pstagedata.remote.PaysDTO;
-import org.esupportail.pstagedata.remote.ServiceDTO;
-import org.esupportail.pstagedata.remote.ServiceDeleteException;
-import org.esupportail.pstagedata.remote.ServiceDeleteException_Exception;
-import org.esupportail.pstagedata.remote.StatutJuridiqueDTO;
-import org.esupportail.pstagedata.remote.StructureDTO;
-import org.esupportail.pstagedata.remote.StructureDeleteException;
-import org.esupportail.pstagedata.remote.StructureDeleteException_Exception;
-import org.esupportail.pstagedata.remote.StructureNumSiretException;
-import org.esupportail.pstagedata.remote.StructureNumSiretException_Exception;
-import org.esupportail.pstagedata.remote.TicketStructureDTO;
-import org.esupportail.pstagedata.remote.TypeStructureDTO;
-import org.esupportail.pstagedata.remote.UnvalidNumSiretException;
-import org.esupportail.pstagedata.remote.UnvalidNumSiretException_Exception;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.ContactDTO;
+import org.esupportail.pstagedata.domain.dto.NafN5DTO;
+import org.esupportail.pstagedata.domain.dto.PaysDTO;
+import org.esupportail.pstagedata.domain.dto.ServiceDTO;
+import org.esupportail.pstagedata.domain.dto.StatutJuridiqueDTO;
+import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.TicketStructureDTO;
+import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
+import org.esupportail.pstagedata.exceptions.AccountAlreadyExistingForCoupleMailStructureException;
+import org.esupportail.pstagedata.exceptions.ContactDeleteException;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.MailAlreadyUsedForStructureException;
+import org.esupportail.pstagedata.exceptions.ServiceDeleteException;
+import org.esupportail.pstagedata.exceptions.StructureDeleteException;
+import org.esupportail.pstagedata.exceptions.StructureNumSiretException;
+import org.esupportail.pstagedata.exceptions.UnvalidNumSiretException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.springframework.util.StringUtils;
 
 
@@ -66,7 +55,7 @@ import org.springframework.util.StringUtils;
 public class EtablissementController extends AbstractContextAwareController {
 
 	/* ***************************************************************
-	 * Propriétés
+	 * Propri�t�s
 	 ****************************************************************/
 
 	/**
@@ -83,39 +72,39 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private RechercheController rechercheController;
 	/* *******************************************************************
-	 * Variables pour le formulaire d'établissement ajout/modif
+	 * Variables pour le formulaire d'�tablissement ajout/modif
 	 */
 	/**
-	 * Objet Structure uniquement utilisé pour l'ajout/modification
+	 * Objet Structure uniquement utilis� pour l'ajout/modification
 	 */
 	private StructureDTO formStructure=null;
 	/**
-	 * Liste dynamique mise à jour en fonction du type de structure
+	 * Liste dynamique mise � jour en fonction du type de structure
 	 */
 	private List<SelectItem> statutsJuridiquesListening=null;	
 	/**
-	 * Objet TypeStructure temporaire utilisé pour le choix dynamique du Statut juridique
-	 * à cause de a4j:support
+	 * Objet TypeStructure temporaire utilis� pour le choix dynamique du Statut juridique
+	 * � cause de a4j:support
 	 */
 	private TypeStructureDTO formStructureTmpTypeStructure;
 	/**
-	 * Objet StatutJuridiqueDTO temporaire utilisé pour l'affichage dynamique du Statut juridique
-	 * à cause de a4j:support
+	 * Objet StatutJuridiqueDTO temporaire utilis� pour l'affichage dynamique du Statut juridique
+	 * � cause de a4j:support
 	 */
 	private StatutJuridiqueDTO formStructureTmpStatutJuridique;
 	/**
-	 * Objet PaysDTO temporaire utilisé pour l'affichage dynamique du drapeau
-	 * à cause de a4j:support
+	 * Objet PaysDTO temporaire utilis� pour l'affichage dynamique du drapeau
+	 * � cause de a4j:support
 	 */
 	private PaysDTO formStructureTmpPays;
 	/**
-	 * Objet NafN5DTO temporaire utilisé pour l'affichage dynamique du libellé
-	 * à cause de a4j:support
+	 * Objet NafN5DTO temporaire utilis� pour l'affichage dynamique du libell�
+	 * � cause de a4j:support
 	 */
 	private NafN5DTO formStructureTmpNafN5;
 	/**
-	 * Code postal temporaire utilisé pour la saisie de la commune
-	 * à cause de a4j:support
+	 * Code postal temporaire utilis� pour la saisie de la commune
+	 * � cause de a4j:support
 	 */
 	private String formStructureTmpCodePostal;
 	/**
@@ -123,11 +112,11 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private CommuneDTO formStructureTmpCommuneDTO;
 	/**
-	 * Liste dynamique mise à jour en fonction du département saisi
+	 * Liste dynamique mise � jour en fonction du d�partement saisi
 	 */
 	private List<SelectItem> communesListening=new ArrayList<SelectItem>();
 	/**
-	 * Affichage ou non du bouton annuler sur la page de modification d'un établissement
+	 * Affichage ou non du bouton annuler sur la page de modification d'un �tablissement
 	 */
 	private boolean modificationEtabBoutonAnnuler=false;
 	/**
@@ -135,13 +124,13 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private boolean codeNafObligatoire;
 	/* **
-	 * FIN Variables pour le formulaire d'établissement ajout/modif
+	 * FIN Variables pour le formulaire d'�tablissement ajout/modif
 	 **********************************************************************/
 	/* *******************************************************************
 	 * Variables pour la gestion des contacts et services
 	 */
 	/**
-	 * Liste des services de la structure actuellement gérée
+	 * Liste des services de la structure actuellement g�r�e
 	 */
 	private List<ServiceDTO> listeServices;
 	/**
@@ -149,15 +138,15 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private List<SelectItem> servicesItems;
 	/**
-	 * Service actuellement géré
+	 * Service actuellement g�r�
 	 */
 	private ServiceDTO formService;
 	/**
-	 * Objet PaysDTO temporaire utilisé pour l'affichage dynamique du drapeau
+	 * Objet PaysDTO temporaire utilis� pour l'affichage dynamique du drapeau
 	 */
 	private PaysDTO formServiceTmpPays;
 	/**
-	 * Code postal temporaire utilisé pour la saisie de la commune
+	 * Code postal temporaire utilis� pour la saisie de la commune
 	 */
 	private String formServiceTmpCodePostal;
 	/**
@@ -165,32 +154,32 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private CommuneDTO formServiceTmpCommuneDTO= new CommuneDTO();
 	/**
-	 * Liste dynamique mise à jour en fonction du département saisi
+	 * Liste dynamique mise � jour en fonction du d�partement saisi
 	 */
 	private List<SelectItem> formServiceCommunesListening=new ArrayList<SelectItem>();
 	/**
-	 * Vrai l'adresse du service à ajouter/en cours de modification est
-	 * la même que l'adresse de la structure
+	 * Vrai l'adresse du service � ajouter/en cours de modification est
+	 * la m�me que l'adresse de la structure
 	 */
 	private boolean memeAdresseStructure;
 	/**
-	 * Id du service sélectionné
+	 * Id du service s�lectionn�
 	 */
 	private int idServiceSel;
 	/**
-	 * Service sélectionné
+	 * Service s�lectionn�
 	 */
 	private ServiceDTO serviceSel;
 	/**
-	 * Liste des contacts pour le service actuellement géré
+	 * Liste des contacts pour le service actuellement g�r�
 	 */
 	private List<ContactDTO> listeContacts;
 	/**
-	 * Id du contact sélectionné (formulaire d'offre et convention)
+	 * Id du contact s�lectionn� (formulaire d'offre et convention)
 	 */
 	private int idContactSel;
 	/**
-	 * Contact sélectionné (form offre/convention)
+	 * Contact s�lectionn� (form offre/convention)
 	 */
 	private ContactDTO contactSel;
 	/**
@@ -198,7 +187,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private List<SelectItem> contactsItems;
 	/**
-	 * Contact actuellement géré
+	 * Contact actuellement g�r�
 	 */
 	private ContactDTO formContact;
 	/**
@@ -206,7 +195,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private Set<Integer> keysContacts=new HashSet<Integer>();
 	/**
-	 * afficherSelectionCentre à la modification d'un contact
+	 * afficherSelectionCentre � la modification d'un contact
 	 */
 	private boolean afficherSelectionCentreContact=false;
 	/**
@@ -218,7 +207,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private boolean currentCentresGestionContainsCentreEntr=true;
 	/**
-	 * Numéro de la ligne contact sélectionnée 
+	 * Num�ro de la ligne contact s�lectionn�e 
 	 */
 	private int currentRowContact;
 	/* **
@@ -332,7 +321,7 @@ public class EtablissementController extends AbstractContextAwareController {
 		if(getSessionController().getCurrentManageStructure()!=null){
 			reloadServices();
 			if(this.listeServices!=null && !this.listeServices.isEmpty()){
-				//sélection du 1er service par défaut
+				//s�lection du 1er service par d�faut
 				this.serviceSel=this.listeServices.get(0);
 				this.idServiceSel=this.serviceSel.getIdService();
 				reloadContacts();
@@ -371,7 +360,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Modification de la fiche signalétique
+	 * Modification de la fiche signal�tique
 	 * @return String
 	 */
 	public String modifierFicheSignaletique(){
@@ -387,7 +376,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Bouton annuler de la fiche signalétique
+	 * Bouton annuler de la fiche signal�tique
 	 * @return String
 	 */
 	public String annulerModifierFicheSignaletique(){
@@ -397,7 +386,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/* *********************************************
-	 * Ajout d'un établissement
+	 * Ajout d'un �tablissement
 	 **********************************************/
 
 	/**
@@ -416,7 +405,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Ajout d'un établissement
+	 * Ajout d'un �tablissement
 	 * @return a String
 	 */
 	public String ajouterEtablissement(){
@@ -443,10 +432,8 @@ public class EtablissementController extends AbstractContextAwareController {
 			this.formStructure.setStatutJuridique(this.formStructureTmpStatutJuridique);
 			this.formStructure.setCodePostal(this.formStructureTmpCodePostal);
 			if(getBeanUtils().isFrance(this.formStructureTmpPays) && getSessionController().isRecupererCommunesDepuisApogee()){
-				if(Utils.isNumber(this.formStructureTmpCommuneDTO.getCodeCommune())){
-					this.formStructure.setCodeCommune(Integer.parseInt(this.formStructureTmpCommuneDTO.getCodeCommune()));
-				}
-				//Récupération de la commune pour en avoir le libellé
+				this.formStructure.setCodeCommune(this.formStructureTmpCommuneDTO.getCodeCommune());
+				//R�cup�ration de la commune pour en avoir le libell�
 				this.formStructureTmpCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.formStructureTmpCodePostal, ""+this.formStructure.getCodeCommune());
 				if(this.formStructureTmpCommuneDTO!=null){
 					this.formStructure.setCommune(this.formStructureTmpCommuneDTO.getLibCommune());					
@@ -461,8 +448,8 @@ public class EtablissementController extends AbstractContextAwareController {
 			else structureTmp.setIdStatutJuridique(0);
 			structureTmp.setIdTypeStructure(this.formStructure.getTypeStructure().getId());
 			if(this.formStructure.getNafN5()!=null)
-				structureTmp.setCodeNAFN5(this.formStructure.getNafN5().getCode());
-			else structureTmp.setCodeNAFN5(null);
+				structureTmp.setCodeNAF_N5(this.formStructure.getNafN5().getCode());
+			else structureTmp.setCodeNAF_N5(null);
 			structureTmp.setLoginCreation(getSessionController().getCurrentLogin());
 			structureTmp.setLoginInfosAJour(getSessionController().getCurrentLogin());
 			try{
@@ -497,24 +484,24 @@ public class EtablissementController extends AbstractContextAwareController {
 							""
 					);
 				}
-			}catch (DataAddException_Exception ae) {
+			}catch (DataAddException ae) {
 				logger.error("DataAddException", ae.fillInStackTrace());
 				addErrorMessage("formAjoutEtab", "STRUCTURE.ERREURAJOUT");
 				retour=null;		
-			}catch (WebServiceDataBaseException_Exception we) {
+			}catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException", we.fillInStackTrace());
 				addErrorMessage("formAjoutEtab", "STRUCTURE.ERREURAJOUT");
 				retour=null;
-			}catch (StructureNumSiretException_Exception se) {
+			}catch (StructureNumSiretException se) {
 				if(logger.isInfoEnabled()){
-					logger.info("Structure déjà existante pour ce numéro siret "+structureTmp);
+					logger.info("Structure d�j� existante pour ce num�ro siret "+structureTmp);
 				}
 				addErrorMessage("formAjoutEtab", "STRUCTURE.DEJA_EXISTANTE");
 				retour=null;
-			}catch (UnvalidNumSiretException_Exception ue) {
+			}catch (UnvalidNumSiretException ue) {
 				//Impossible
 				if(logger.isInfoEnabled()){
-					logger.info("Numéro siret invalide pour "+structureTmp);
+					logger.info("Num�ro siret invalide pour "+structureTmp);
 				}
 				addErrorMessage("formAjoutEtab", "STRUCTURE.NUM_SIRET.VALIDATION");
 				retour=null;
@@ -533,14 +520,14 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Liste dynamique mise à jour en fonction du type de structure
+	 * Liste dynamique mise � jour en fonction du type de structure
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getStatutsJuridiquesListening(){
 		return this.statutsJuridiquesListening;
 	}
 	/**
-	 * Mise à jour de la liste Statut juridique en fonction de la liste Type de Structure
+	 * Mise � jour de la liste Statut juridique en fonction de la liste Type de Structure
 	 * @param event
 	 */
 	public void valueTypeStructureChanged(ValueChangeEvent event){
@@ -568,7 +555,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Formulaire établissement
+	 * Formulaire �tablissement
 	 * @param event
 	 */
 	public void valueCodePostalChanged(ValueChangeEvent event){
@@ -618,7 +605,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/* *********************************************
-	 * Modification d'un établissement
+	 * Modification d'un �tablissement
 	 **********************************************/
 
 	/**
@@ -642,16 +629,14 @@ public class EtablissementController extends AbstractContextAwareController {
 				this.formStructureTmpCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.formStructureTmpCodePostal, ""+this.formStructure.getCodeCommune());
 				if(this.formStructureTmpCommuneDTO!=null){
 					this.formStructure.setCommune(this.formStructureTmpCommuneDTO.getLibCommune());
-					if(Utils.isNumber(this.formStructureTmpCommuneDTO.getCodeCommune())){
-						this.formStructure.setCodeCommune(Integer.parseInt(this.formStructureTmpCommuneDTO.getCodeCommune()));
-					}
+					this.formStructure.setCodeCommune(this.formStructureTmpCommuneDTO.getCodeCommune());
 				}else{
 					this.formStructureTmpCommuneDTO=new CommuneDTO();
 				}
 			}else{
 				this.formStructureTmpCommuneDTO=new CommuneDTO();
 			}
-			//Màj de liste des statuts juridiques
+			//M�j de liste des statuts juridiques
 			if(this.formStructure.getTypeStructure()!=null){
 				this.statutsJuridiquesListening=getStatutsJuridiquesFromIdTypeStructure(
 						this.formStructure.getTypeStructure().getId());
@@ -661,7 +646,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Modification d'un établissement
+	 * Modification d'un �tablissement
 	 * @return a String
 	 */
 	public String modifierEtablissement(){
@@ -688,10 +673,8 @@ public class EtablissementController extends AbstractContextAwareController {
 			this.formStructure.setStatutJuridique(this.formStructureTmpStatutJuridique);
 			this.formStructure.setCodePostal(this.formStructureTmpCodePostal);
 			if(getBeanUtils().isFrance(this.formStructureTmpPays) && getSessionController().isRecupererCommunesDepuisApogee()){
-				if(Utils.isNumber(this.formStructureTmpCommuneDTO.getCodeCommune())){
-					this.formStructure.setCodeCommune(Integer.parseInt(this.formStructureTmpCommuneDTO.getCodeCommune()));
-				}
-				//Récupération de la commune pour en avoir le libellé
+				this.formStructure.setCodeCommune(this.formStructureTmpCommuneDTO.getCodeCommune());
+				//R�cup�ration de la commune pour en avoir le libell�
 				this.formStructureTmpCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.formStructureTmpCodePostal, ""+this.formStructure.getCodeCommune());
 				if(this.formStructureTmpCommuneDTO!=null){
 					this.formStructure.setCommune(this.formStructureTmpCommuneDTO.getLibCommune());					
@@ -706,8 +689,8 @@ public class EtablissementController extends AbstractContextAwareController {
 			else structureTmp.setIdStatutJuridique(0);
 			structureTmp.setIdTypeStructure(this.formStructure.getTypeStructure().getId());
 			if(this.formStructure.getNafN5()!=null)
-				structureTmp.setCodeNAFN5(this.formStructure.getNafN5().getCode());
-			else structureTmp.setCodeNAFN5(null);
+				structureTmp.setCodeNAF_N5(this.formStructure.getNafN5().getCode());
+			else structureTmp.setCodeNAF_N5(null);
 			structureTmp.setDateModif(new Date());
 			structureTmp.setLoginModif(getSessionController().getCurrentLogin());
 			structureTmp.setLoginInfosAJour(getSessionController().getCurrentLogin());
@@ -758,24 +741,24 @@ public class EtablissementController extends AbstractContextAwareController {
 				}else{
 					addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				}
-			}catch (DataUpdateException_Exception ue) {
+			}catch (DataUpdateException ue) {
 				logger.error("DataUpdateException", ue.fillInStackTrace());
 				addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				retour=null;		
-			}catch (WebServiceDataBaseException_Exception we) {
+			}catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException", we.fillInStackTrace());
 				addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				retour=null;
-			}catch (StructureNumSiretException_Exception se) {
+			}catch (StructureNumSiretException se) {
 				if(logger.isInfoEnabled()){
-					logger.info("Structure déjà existante pour ce numéro siret "+structureTmp);
+					logger.info("Structure d�j� existante pour ce num�ro siret "+structureTmp);
 				}
 				addErrorMessage("formModifEtab", "STRUCTURE.DEJA_EXISTANTE");
 				retour=null;
-			}catch (UnvalidNumSiretException_Exception ue) {
+			}catch (UnvalidNumSiretException ue) {
 				//Impossible
 				if(logger.isInfoEnabled()){
-					logger.info("Numéro siret invalide pour "+structureTmp);
+					logger.info("Num�ro siret invalide pour "+structureTmp);
 				}
 				addErrorMessage("formModifEtab", "STRUCTURE.NUM_SIRET.VALIDATION");
 				retour=null;
@@ -785,7 +768,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Suppression d'un établissement
+	 * Suppression d'un �tablissement
 	 * @return a String
 	 */
 	public String supprimerEtablissement(){
@@ -828,16 +811,16 @@ public class EtablissementController extends AbstractContextAwareController {
 							""
 					);
 				}
-			}catch (StructureDeleteException_Exception e) {
+			}catch (StructureDeleteException e) {
 				logger.error("DataDeleteException", e.fillInStackTrace());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",this.formStructure.getRaisonSociale());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREURAVANCEE",
 						e.getNbOffres(),e.getNbConventions(),
 						e.isAccordExistant()?getString("FORM.OUI"):getString("FORM.NON"),e.getNbComptesContact());
-			}catch (DataDeleteException_Exception e) {
+			}catch (DataDeleteException e) {
 				logger.error("DataDeleteException", e.fillInStackTrace());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",this.formStructure.getRaisonSociale());
-			}catch (WebServiceDataBaseException_Exception e) {
+			}catch (WebServiceDataBaseException e) {
 				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",this.formStructure.getRaisonSociale());
 			}
@@ -870,51 +853,51 @@ public class EtablissementController extends AbstractContextAwareController {
 	public String goToGestionCvtheque(){
 		TicketStructureDTO ticketStructure = new TicketStructureDTO();
 		try {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            ExternalContext externalContext = facesContext.getExternalContext();
-    		String forwardUrl;
-    		String ticketStage = null;
-    		int idStructure = getSessionController().getCurrentManageStructure().getIdStructure();
-    		// generation du ticket aleatoire longueur nbre aleatoire1 + nombre aleatoire1 + idstructure + longueur nbre aleatoire2 + nombre aleatoire2
-    		// generation longueur aleatoire1
-    		GenTicketStage genTicketStage1 = new GenTicketStage(1);
-    		String longueurAleatoire1 = genTicketStage1.generate();
-    		// generation nombre aleatoire à partir de la longueur aleatoire
-    		GenTicketStage genTicketStage2 = new GenTicketStage(Integer.parseInt(longueurAleatoire1));
-    		String nombreAleatoire1 = genTicketStage2.generate();
-    		// generation longueur aleatoire2
-    		GenTicketStage genTicketStage3 = new GenTicketStage(1);
-    		String longueurAleatoire2 = genTicketStage3.generate();
-    		// generation nombre aleatoire à partir de la longueur aleatoire
-    		GenTicketStage genTicketStage4 = new GenTicketStage(Integer.parseInt(longueurAleatoire2));
-    		String nombreAleatoire2 = genTicketStage4.generate();
-     		ticketStage = longueurAleatoire1 + nombreAleatoire1 + Integer.toString(idStructure) +
-     						nombreAleatoire2 + longueurAleatoire2;
-    		forwardUrl = getSessionController().getCvthequeUrl() +
-    					"?args=ticket%3d" + ticketStage;
-    		
-    		// creation du ticketStructure dans la table TicketStructure
- 
-    		ticketStructure.setTicket(ticketStage);
-    		ticketStructure.setIdStructure(idStructure);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			String forwardUrl;
+			String ticketStage = null;
+			int idStructure = getSessionController().getCurrentManageStructure().getIdStructure();
+			// generation du ticket aleatoire longueur nbre aleatoire1 + nombre aleatoire1 + idstructure + longueur nbre aleatoire2 + nombre aleatoire2
+			// generation longueur aleatoire1
+			GenTicketStage genTicketStage1 = new GenTicketStage(1);
+			String longueurAleatoire1 = genTicketStage1.generate();
+			// generation nombre aleatoire � partir de la longueur aleatoire
+			GenTicketStage genTicketStage2 = new GenTicketStage(Integer.parseInt(longueurAleatoire1));
+			String nombreAleatoire1 = genTicketStage2.generate();
+			// generation longueur aleatoire2
+			GenTicketStage genTicketStage3 = new GenTicketStage(1);
+			String longueurAleatoire2 = genTicketStage3.generate();
+			// generation nombre aleatoire � partir de la longueur aleatoire
+			GenTicketStage genTicketStage4 = new GenTicketStage(Integer.parseInt(longueurAleatoire2));
+			String nombreAleatoire2 = genTicketStage4.generate();
+			ticketStage = longueurAleatoire1 + nombreAleatoire1 + Integer.toString(idStructure) +
+			nombreAleatoire2 + longueurAleatoire2;
+			forwardUrl = getSessionController().getCvthequeUrl() +
+			"?args=ticket%3d" + ticketStage;
+
+			// creation du ticketStructure dans la table TicketStructure
+
+			ticketStructure.setTicket(ticketStage);
+			ticketStructure.setIdStructure(idStructure);
 			getStructureDomainService().addTicketStructure(ticketStructure);
 			if(logger.isInfoEnabled()){
 				logger.info(" ticketStruture creation : "+ ticketStructure.getTicket() + " pour id Structure : " + ticketStructure.getIdStructure());
 			}
 
 			// redirection vers cvtheque
-            externalContext.redirect(forwardUrl);
-            facesContext.responseComplete();
-		}catch (DataAddException_Exception e) {
+			externalContext.redirect(forwardUrl);
+			facesContext.responseComplete();
+		}catch (DataAddException e) {
 			logger.error("DataAddException", e.fillInStackTrace());
 			addErrorMessage("formMenu:cvtheque", "TICKETSTRUCTURE.AJOUT.ERREUR");
-		}catch (WebServiceDataBaseException_Exception e) {
+		}catch (WebServiceDataBaseException e) {
 			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 			addErrorMessage("formMenu:cvtheque", "TICKETSTRUCTURE.AJOUT.ERREUR");
-        } catch (IOException e) {
-            logger.error("probleme lors de la redirection Cvtheque, exception : " + e);
-            addErrorMessage("formMenu:cvtheque", "TICKETSTRUCTURE.REDIRECT.ERREUR");
-        } 
+		} catch (IOException e) {
+			logger.error("probleme lors de la redirection Cvtheque, exception : " + e);
+			addErrorMessage("formMenu:cvtheque", "TICKETSTRUCTURE.REDIRECT.ERREUR");
+		} 
 		return null;
 	}
 
@@ -946,10 +929,8 @@ public class EtablissementController extends AbstractContextAwareController {
 				this.formService.setPays(this.formServiceTmpPays);
 				if(getBeanUtils().isFrance(this.formServiceTmpPays) && getSessionController().isRecupererCommunesDepuisApogee()){
 					this.formService.setCodePostal(this.formServiceTmpCodePostal);
-					if(Utils.isNumber(this.formServiceTmpCommuneDTO.getCodeCommune())){
-						this.formService.setCodeCommune(Integer.parseInt(this.formServiceTmpCommuneDTO.getCodeCommune()));
-					}
-					//Récupération de la commune pour en avoir le libellé
+					this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
+					//R�cup�ration de la commune pour en avoir le libell�
 					this.formServiceTmpCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.formServiceTmpCodePostal, ""+this.formService.getCodeCommune());
 					if(this.formServiceTmpCommuneDTO!=null){
 						this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());					
@@ -972,7 +953,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				reloadContacts();
 				if(logger.isInfoEnabled()){
 					logger.info(getSessionController().getCurrentLogin()+" ajoute le service : "+this.serviceSel
-							+" à l'établissement : "+getSessionController().getCurrentManageStructure());
+							+" � l'�tablissement : "+getSessionController().getCurrentManageStructure());
 				}
 				this.formService=null;
 				this.formServiceTmpCodePostal=null;
@@ -981,10 +962,10 @@ public class EtablissementController extends AbstractContextAwareController {
 			}else{
 				addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
 			}
-		}catch (DataAddException_Exception e) {
+		}catch (DataAddException e) {
 			logger.error("DataAddException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
-		}catch (WebServiceDataBaseException_Exception e) {
+		}catch (WebServiceDataBaseException e) {
 			logger.error("DataUpdateException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
 		}
@@ -1008,9 +989,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				this.formServiceTmpCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.formServiceTmpCodePostal, ""+this.formService.getCodeCommune());
 				if(this.formServiceTmpCommuneDTO!=null){
 					this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());
-					if(Utils.isNumber(this.formServiceTmpCommuneDTO.getCodeCommune())){
-						this.formService.setCodeCommune(Integer.parseInt(this.formServiceTmpCommuneDTO.getCodeCommune()));
-					}
+					this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
 				}else{
 					this.formServiceTmpCommuneDTO=new CommuneDTO();
 				}
@@ -1033,10 +1012,8 @@ public class EtablissementController extends AbstractContextAwareController {
 				this.formService.setPays(this.formServiceTmpPays);
 				if(getBeanUtils().isFrance(this.formServiceTmpPays) && getSessionController().isRecupererCommunesDepuisApogee()){
 					this.formService.setCodePostal(this.formServiceTmpCodePostal);
-					if(Utils.isNumber(this.formServiceTmpCommuneDTO.getCodeCommune())){
-						this.formService.setCodeCommune(Integer.parseInt(this.formServiceTmpCommuneDTO.getCodeCommune()));
-					}
-					//Récupération de la commune pour en avoir le libellé
+					this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
+					//R�cup�ration de la commune pour en avoir le libell�
 					this.formServiceTmpCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.formServiceTmpCodePostal, ""+this.formService.getCodeCommune());
 					if(this.formServiceTmpCommuneDTO!=null){
 						this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());					
@@ -1059,7 +1036,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				}*/
 				if(logger.isInfoEnabled()){
 					logger.info(getSessionController().getCurrentLogin()+" modifie le service : "+this.serviceSel
-							+" de l'établissement : "+getSessionController().getCurrentManageStructure());
+							+" de l'�tablissement : "+getSessionController().getCurrentManageStructure());
 				}
 				this.formService=null;
 				this.formServiceTmpCodePostal=null;
@@ -1068,10 +1045,10 @@ public class EtablissementController extends AbstractContextAwareController {
 			}else{
 				addErrorMessage(null, "SERVICE.MODIF.ERREUR");
 			}
-		}catch (DataUpdateException_Exception e) {
+		}catch (DataUpdateException e) {
 			logger.error("DataUpdateException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.MODIF.ERREUR");
-		}catch (WebServiceDataBaseException_Exception e) {
+		}catch (WebServiceDataBaseException e) {
 			logger.error("DataUpdateException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.MODIF.ERREUR");
 		}
@@ -1102,7 +1079,7 @@ public class EtablissementController extends AbstractContextAwareController {
 					reloadContacts();
 					if(logger.isInfoEnabled()){
 						logger.info(getSessionController().getCurrentLogin()+" supprime le service : "+this.serviceSel
-								+" de l'établissement : "+getSessionController().getCurrentManageStructure());
+								+" de l'�tablissement : "+getSessionController().getCurrentManageStructure());
 					}
 					this.formContact=null;
 					this.formService=null;
@@ -1110,13 +1087,13 @@ public class EtablissementController extends AbstractContextAwareController {
 			}else{
 				addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 			}
-		}catch (DataDeleteException_Exception e) {
+		}catch (DataDeleteException e) {
 			logger.error("DataDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
-		}catch (WebServiceDataBaseException_Exception e) {
+		}catch (WebServiceDataBaseException e) {
 			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
-		}catch (ServiceDeleteException_Exception e) {
+		}catch (ServiceDeleteException e) {
 			logger.error("ServiceDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 		}
@@ -1124,7 +1101,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Mise à jour de la liste des contacts en fonction du service sélectionné
+	 * Mise � jour de la liste des contacts en fonction du service s�lectionn�
 	 * @param event
 	 */
 	public void valueIdServiceChanged(ValueChangeEvent event){
@@ -1138,7 +1115,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Mise à jour de la liste des contacts en fonction du service sélectionné
+	 * Mise � jour de la liste des contacts en fonction du service s�lectionn�
 	 * @param event
 	 */
 	public void valueIdContactChanged(ValueChangeEvent event){
@@ -1188,7 +1165,7 @@ public class EtablissementController extends AbstractContextAwareController {
 						this.formContact.setId(i);
 						addInfoMessage(null, "CONTACT.GESTION.AJOUT.CONFIRMATION");					
 						reloadContacts();
-						//Dernier contact ajouté toujours visible
+						//Dernier contact ajout� toujours visible
 						if(this.listeContacts!=null && !this.listeContacts.isEmpty()){
 							if(this.listeContacts.contains(this.formContact)){
 								Iterator<ContactDTO> ilc = this.listeContacts.iterator();
@@ -1232,19 +1209,19 @@ public class EtablissementController extends AbstractContextAwareController {
 						this.contactSel=this.formContact;
 						if(logger.isInfoEnabled()){
 							logger.info(getSessionController().getCurrentLogin()+" ajoute le contact : "+this.formContact
-									+" à l'établissement : "+getSessionController().getCurrentManageStructure());
+									+" � l'�tablissement : "+getSessionController().getCurrentManageStructure());
 						}
 						this.formContact=null;
 					}else{
 						addErrorMessage(null, "CONTACT.GESTION.AJOUT.ERREUR");
 					}
-				}catch (DataAddException_Exception e) {
+				}catch (DataAddException e) {
 					logger.error("DataAddException", e.fillInStackTrace());
 					addErrorMessage(null, "CONTACT.GESTION.AJOUT.ERREUR");
-				}catch (WebServiceDataBaseException_Exception e) {
+				}catch (WebServiceDataBaseException e) {
 					logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 					addErrorMessage(null, "CONTACT.GESTION.AJOUT.ERREUR");
-				}catch (MailAlreadyUsedForStructureException_Exception e) {
+				}catch (MailAlreadyUsedForStructureException e) {
 					logger.info("MailAlreadyUsedForStructureException", e.fillInStackTrace());
 					addErrorMessage("formAjoutContact:include:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 					ret=null;
@@ -1329,20 +1306,20 @@ public class EtablissementController extends AbstractContextAwareController {
 						addInfoMessage(null, "CONTACT.GESTION.MODIF.CONFIRMATION");
 						if(logger.isInfoEnabled()){
 							logger.info(getSessionController().getCurrentLogin()+" modifie le contact : "+this.formContact
-									+" de l'établissement : "+getSessionController().getCurrentManageStructure());
+									+" de l'�tablissement : "+getSessionController().getCurrentManageStructure());
 						}
 						this.formContact=null;
 					}else{
 						addErrorMessage(null, "CONTACT.GESTION.MODIF.ERREUR");
 					}
 					this.keysContacts = Collections.singleton(this.currentRowContact);				
-				}catch (DataUpdateException_Exception e) {
+				}catch (DataUpdateException e) {
 					logger.error("DataUpdateException", e.fillInStackTrace());
 					addErrorMessage(null, "CONTACT.GESTION.MODIF.ERREUR");
-				}catch (WebServiceDataBaseException_Exception e) {
+				}catch (WebServiceDataBaseException e) {
 					logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 					addErrorMessage(null, "CONTACT.GESTION.MODIF.ERREUR");
-				}catch (MailAlreadyUsedForStructureException_Exception e) {
+				}catch (MailAlreadyUsedForStructureException e) {
 					logger.info("MailAlreadyUsedForStructureException", e.fillInStackTrace());
 					addErrorMessage("formModifContact:include:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 					ret=null;
@@ -1373,19 +1350,19 @@ public class EtablissementController extends AbstractContextAwareController {
 				}
 				if(logger.isInfoEnabled()){
 					logger.info(getSessionController().getCurrentLogin()+" supprime le contact : "+this.formContact
-							+" de l'établissement : "+getSessionController().getCurrentManageStructure());
+							+" de l'�tablissement : "+getSessionController().getCurrentManageStructure());
 				}
 				this.formContact=null;
 			}else{
 				addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREUR");
 			}
-		}catch (DataDeleteException_Exception e) {
+		}catch (DataDeleteException e) {
 			logger.error("DataDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREUR");
-		}catch (WebServiceDataBaseException_Exception e) {
+		}catch (WebServiceDataBaseException e) {
 			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREUR");
-		}catch (ContactDeleteException_Exception e) {
+		}catch (ContactDeleteException e) {
 			logger.info("ContactDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREURREF");
 		}
@@ -1393,7 +1370,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Création d'un compte pour un contact sélectionné
+	 * Cr�ation d'un compte pour un contact s�lectionn�
 	 * @return String
 	 */
 	public String creerCompte(){
@@ -1415,8 +1392,8 @@ public class EtablissementController extends AbstractContextAwareController {
 				if(getStructureDomainService().updateCompteContact(this.formContact)){
 					addInfoMessage(null, "CONTACT.GESTION.COMPTE.CREATION.CONFIRMATION", this.formContact.getNom()+" "+this.formContact.getPrenom(), this.formContact.getMail());
 					if(logger.isInfoEnabled()){
-						logger.info(getSessionController().getCurrentLogin()+" créé un compte pour le contact : "+this.formContact
-								+" de l'établissement : "+getSessionController().getCurrentManageStructure());
+						logger.info(getSessionController().getCurrentLogin()+" cr�� un compte pour le contact : "+this.formContact
+								+" de l'�tablissement : "+getSessionController().getCurrentManageStructure());
 					}
 					if(logger.isInfoEnabled()){
 						logger.info("Creation de compte - Envoi du mail au contact");
@@ -1435,13 +1412,13 @@ public class EtablissementController extends AbstractContextAwareController {
 					e.printStackTrace();
 				}
 				addErrorMessage(null, "MAIL.VALIDATION");
-			}catch (DataUpdateException_Exception e) {
+			}catch (DataUpdateException e) {
 				logger.error("DataUpdateException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.CREATION.ERREUR");
-			}catch (WebServiceDataBaseException_Exception e) {
+			}catch (WebServiceDataBaseException e) {
 				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.CREATION.ERREUR");
-			}catch (AccountAlreadyExistingForCoupleMailStructureException_Exception e) {
+			}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
 				logger.info("AccountAlreadyExistingForCoupleMailStructureException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT"); 
 			}
@@ -1450,7 +1427,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Suppression du compte pour le contact sélectionnné
+	 * Suppression du compte pour le contact s�lectionnn�
 	 * @return String
 	 */
 	public String supprimerCompte(){
@@ -1464,19 +1441,19 @@ public class EtablissementController extends AbstractContextAwareController {
 					reloadContacts();
 					if(logger.isInfoEnabled()){
 						logger.info(getSessionController().getCurrentLogin()+" supprime le compte du contact : "+this.formContact
-								+" de l'établissement : "+getSessionController().getCurrentManageStructure());
+								+" de l'�tablissement : "+getSessionController().getCurrentManageStructure());
 					}
 					this.formContact=null;
 				}else{
 					addErrorMessage(null, "CONTACT.GESTION.COMPTE.SUPPRESSION.ERREUR");
 				}
-			}catch (DataUpdateException_Exception e) {
+			}catch (DataUpdateException e) {
 				logger.error("DataUpdateException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.SUPPRESSION.ERREUR");
-			}catch (WebServiceDataBaseException_Exception e) {
+			}catch (WebServiceDataBaseException e) {
 				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.SUPPRESSION.ERREUR");
-			}catch (AccountAlreadyExistingForCoupleMailStructureException_Exception e) {
+			}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
 				logger.info("AccountAlreadyExistingForCoupleMailStructureException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT"); 
 			}
@@ -1485,7 +1462,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Ré-initialisation du mot de passe du contact sélectionné
+	 * R�-initialisation du mot de passe du contact s�lectionn�
 	 * @return String
 	 */
 	public String resetMdp(){
@@ -1502,7 +1479,7 @@ public class EtablissementController extends AbstractContextAwareController {
 					reloadContacts();
 					if(logger.isInfoEnabled()){
 						logger.info(getSessionController().getCurrentLogin()+" reset le mot de passe du contact : "+this.formContact
-								+" de l'établissement : "+getSessionController().getCurrentManageStructure());
+								+" de l'�tablissement : "+getSessionController().getCurrentManageStructure());
 					}
 					try {
 						if(logger.isInfoEnabled()){
@@ -1525,13 +1502,13 @@ public class EtablissementController extends AbstractContextAwareController {
 				}else{
 					addErrorMessage(null, "CONTACT.GESTION.COMPTE.RESETMDP.ERREUR");
 				}
-			}catch (DataUpdateException_Exception e) {
+			}catch (DataUpdateException e) {
 				logger.error("DataUpdateException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.RESETMDP.ERREUR");
-			}catch (WebServiceDataBaseException_Exception e) {
+			}catch (WebServiceDataBaseException e) {
 				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.RESETMDP.ERREUR");
-			}catch (AccountAlreadyExistingForCoupleMailStructureException_Exception e) {
+			}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
 				logger.info("AccountAlreadyExistingForCoupleMailStructureException", e.fillInStackTrace());
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT");
 			}
@@ -1590,13 +1567,13 @@ public class EtablissementController extends AbstractContextAwareController {
 									addErrorMessage(null, "CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.ERREUR");
 								}
 							}
-						}catch (DataUpdateException_Exception e) {
+						}catch (DataUpdateException e) {
 							logger.error("DataUpdateException", e.fillInStackTrace());
 							addErrorMessage(null, "CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.ERREUR");
-						}catch (WebServiceDataBaseException_Exception e) {
+						}catch (WebServiceDataBaseException e) {
 							logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 							addErrorMessage(null, "CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.ERREUR");
-						}catch (AccountAlreadyExistingForCoupleMailStructureException_Exception e) {
+						}catch (AccountAlreadyExistingForCoupleMailStructureException e) {
 							logger.info("AccountAlreadyExistingForCoupleMailStructureException", e.fillInStackTrace());
 							addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT");
 						}
@@ -1953,7 +1930,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				((ArrayList<Integer>)getSessionController().getCurrentIdsCentresGestion()).
 				contains(this.formContact.getIdCentreGestion())){
 			CentreGestionDTO cgEntr = getCentreGestionDomainService().getCentreEntreprise();
-			if(cgEntr.getIdCentreGestion()!=this.formContact.getIdCentreGestion())
+			if(cgEntr != null && cgEntr.getIdCentreGestion()!=this.formContact.getIdCentreGestion())
 				currentCentresGestionContainsCentreContact=true;
 		}
 		return currentCentresGestionContainsCentreContact;

@@ -2,8 +2,8 @@ package org.esupportail.pstage.domain.beans;
 
 import java.io.Serializable;
 
-import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.PaysDTO;
+import org.esupportail.pstagedata.domain.dto.ContactDTO;
+import org.esupportail.pstagedata.domain.dto.PaysDTO;
 
 
 /**

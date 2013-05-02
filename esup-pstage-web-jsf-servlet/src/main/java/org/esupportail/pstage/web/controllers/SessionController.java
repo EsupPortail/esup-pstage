@@ -21,20 +21,20 @@ import org.esupportail.commons.utils.Assert;
 import org.esupportail.commons.utils.ContextUtils;
 import org.esupportail.commons.utils.strings.StringUtils;
 import org.esupportail.commons.web.controllers.ExceptionController;
-import org.esupportail.pstage.domain.beans.FileUploadBean;
-import org.esupportail.pstage.domain.beans.ImageUploadBean;
 import org.esupportail.pstage.domain.beans.NousContacter;
 import org.esupportail.pstage.domain.beans.User;
 import org.esupportail.pstage.services.authentication.Authenticator;
 import org.esupportail.pstage.utils.Utils;
-import org.esupportail.pstagedata.remote.AdminStructureDTO;
-import org.esupportail.pstagedata.remote.CentreGestionDTO;
-import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.DroitAdministrationDTO;
-import org.esupportail.pstagedata.remote.EnseignantDTO;
-import org.esupportail.pstagedata.remote.EtudiantDTO;
-import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
-import org.esupportail.pstagedata.remote.StructureDTO;
+import org.esupportail.pstage.web.beans.FileUploadBean;
+import org.esupportail.pstage.web.beans.ImageUploadBean;
+import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
+import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.ContactDTO;
+import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
+import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
+import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.StructureDTO;
 /**
  * A bean to memorize the context of the application.
  */

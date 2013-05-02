@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	xmlns:aop="http://www.springframework.org/schema/aop">
+
+	<!-- 
+		/properties/cache/cache.xml
+		The configuration file for caching features.
+		This file should not be modified but by the developers.
+		This file is referenced by /properties/applicationContext.xml.
+	-->
+
+	<bean 
+		id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		>
+		<description>
+			This bean is used to configure EhCache.
+		</description>
+		<property name="configLocation" value="classpath:/META-INF/cache/ehcache.xml"/>
+	</bean>
+	
+	<bean
+	    id="requestCacheBean"
+	    class="org.esupportail.commons.annotations.cache.RequestCachingMethodInterceptor" />
+	<bean
+	    id="sessionCacheBean"
+    	class="org.esupportail.commons.annotations.cache.SessionCachingMethodInterceptor" />
+	
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
+    <aop:config>
+	    <aop:pointcut
+	        id="monitorPointcut"
+	        expression="@within(org.esupportail.commons.annotations.monitor.Monitor) || @annotation(org.esupportail.commons.annotations.monitor.Monitor)" />
+	    <aop:aspect id="monitorAspect" ref="monitorBean">
+	        <aop:around method="aroundMonitor" pointcut-ref="monitorPointcut" />
+	    </aop:aspect>
+	</aop:config>
+	<bean
+	    id="monitorBean"
+	    class="org.esupportail.commons.annotations.monitor.MonitoringMethodInterceptor" />
+</beans>

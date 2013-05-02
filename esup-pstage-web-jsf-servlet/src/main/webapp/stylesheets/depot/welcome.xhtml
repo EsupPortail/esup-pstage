@@ -1,0 +1,147 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<t:div
+		rendered="#{not sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
+		<e:panelGrid columns="1"
+			styleClass="panelEntreprise">
+			<e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.BIENVENUE']}" escape="false">
+				<f:param value="#{sessionController.applicationNameEntreprise}" />
+			</e:text>
+			<rich:spacer height="20px" />
+			<e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ACCUEIL']}" escape="false"/>
+			<rich:spacer height="20px" />
+			<rich:panel rendered="#{not empty centreController.centreEntreprise}">
+				<f:facet name="header">
+					<e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.AVECCOMPTE']}" />
+				</f:facet>
+				<e:panelGrid columns="1" align="center">
+					<e:panelGrid columns="1" align="center">
+						<%@include file="./_formLogin.jsp"%>
+						<h:form>
+							<h:commandLink value="#{msgs['MOTDEPASSEPERDU.TITRE']}"
+								action="#{welcomeController.goToMotDePassePerdu}" />
+						</h:form>
+					</e:panelGrid>
+					<e:panelGrid columns="3" align="center">
+						<rich:spacer height="30px" />
+						<rich:spacer width="400px"
+							style="background-color: #{a4jSkin.panelBorderColor};"
+							height="2px" />
+						<rich:spacer height="30px" />
+					</e:panelGrid>
+					<e:panelGrid columns="1" align="center">
+						<h:form>
+							<e:panelGrid columns="1" align="center">
+								<t:div
+									rendered="#{sessionController.adminAuthentication == 'cas'}">
+									<h:outputLink value="#{sessionController.baseUrl}auth/cas/auth.faces">
+										<%
+											/*<h:graphicImage value="../../media/images/cas-login.png"
+											 style="border:none;padding-right:2px;" />*/
+										%>
+										<e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ADMIN']}" />
+									</h:outputLink>
+								</t:div>
+								<t:div
+									rendered="#{sessionController.adminAuthentication == 'shibb'}">
+									<h:outputLink value="#{sessionController.baseUrl}auth/shibb/auth.faces">
+										<%
+											/*<h:graphicImage
+											 value="../../media/images/shibboleth-login.png"
+											 style="border:none;padding-right:2px;" />*/
+										%>
+										<e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ADMIN']}" />
+									</h:outputLink>
+								</t:div>
+								<e:text value="#{msgs['GENERAL.NOTAUTHORIZED']}"
+									rendered="#{sessionController.notAdminEntrepriseViaCasShibb}" />
+								<h:commandLink
+									action="#{welcomeController.disconnectEntreprise}"
+									value="#{msgs['GENERAL.DECONNEXION']}" immediate="true"
+									rendered="#{sessionController.notAdminEntrepriseViaCasShibb}">
+								</h:commandLink>
+							</e:panelGrid>
+						</h:form>
+					</e:panelGrid>
+				</e:panelGrid>
+			</rich:panel>
+			<rich:spacer height="20" />
+			<rich:panel rendered="#{not empty centreController.centreEntreprise}">
+				<f:facet name="header">
+					<e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.SANSCOMPTE']}" />
+				</f:facet>
+				<h:form>
+					<h:commandButton action="#{accordController.goToPreAccord}"
+						value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CREERCOMPTE']}" title="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CREERCOMPTE']}" />
+				</h:form>
+			</rich:panel>
+			<rich:panel rendered="#{empty centreController.centreEntreprise}">
+				<f:facet name="header">
+					<e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CENTRE']}" />
+				</f:facet>
+				<e:panelGrid columns="4">
+					<e:panelGrid>
+						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+							value="../../media/images/help32.png" />
+					</e:panelGrid>
+					<e:panelGrid>
+						<h:form>
+							<e:panelGrid columns="1" style="color:red;">
+								<e:text
+									value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CENTREACREER']}" />
+							</e:panelGrid>
+						</h:form>
+					</e:panelGrid>
+					<e:panelGrid columns="3" style="text-align:center;">
+						<rich:spacer width="25px" />
+						<rich:spacer width="2px"
+							style="background-color: #{a4jSkin.panelBorderColor};"
+							height="125px" />
+						<rich:spacer width="25px" />
+					</e:panelGrid>
+					<e:panelGrid columns="1" style="text-align:center;">
+						<e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ADMIN']}" />
+						<h:form>
+							<t:div
+								rendered="#{sessionController.adminAuthentication == 'cas'}">
+								<h:outputLink value="../../auth/cas/auth.faces">
+									<h:graphicImage value="../../media/images/cas-login.png"
+										style="border:none;padding-right:2px;" />
+								</h:outputLink>
+							</t:div>
+							<t:div
+								rendered="#{sessionController.adminAuthentication == 'shibb'}">
+								<h:outputLink value="../../auth/shibb/auth.faces">
+									<h:graphicImage value="../../media/images/shibboleth-login.png"
+										style="border:none;padding-right:2px;" />
+								</h:outputLink>
+							</t:div>
+						</h:form>
+					</e:panelGrid>
+				</e:panelGrid>
+			</rich:panel>
+			<rich:spacer height="15px"/>
+			<e:text value="#{msgs['MESSAGE_CNIL_ENTREPRISE']}" escape="false"
+					rendered="#{not empty msgs['MESSAGE_CNIL_ENTREPRISE']}"/>
+		</e:panelGrid>
+	</t:div>
+	<t:div
+		rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+		<e:panelGrid style="float:left;">
+			<%@include file="./_menu.jsp"%>
+		</e:panelGrid>
+		<e:panelGrid columns="1"
+			styleClass="panelEntreprise">
+			<rich:panel>
+				<f:facet name="header">
+					<e:text value="#{msgs['MENU.ACCUEIL']}" />
+				</f:facet>
+				<%@include file="_aide.jsp"%>
+			</rich:panel>
+			<%@include file="_panelNousContacter.jsp"%>
+		</e:panelGrid>
+	</t:div>
+</e:page>
+

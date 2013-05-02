@@ -1,0 +1,418 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+	cellpadding="2px">
+	<t:div>
+		<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+			cellpadding="2px">
+			<e:text value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.POSTE']} "
+				styleClass="titreOffre" />
+			<e:bold value="#{msgs['OFFRE.DESCRIPTION']} : " />
+			<e:text value="#{offreController.currentOffre.description}"
+				escape="false" />
+			<%/*<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.fapQualificationSimplifiee}">
+				<e:bold value="#{msgs['OFFRE.NIVEAUQUALIFICATION']} : " />
+				<e:text
+					value="#{offreController.currentOffre.fapQualificationSimplifiee.libelle}" />
+			</e:panelGrid>*/%>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.fapN1}">
+				<e:bold value="#{msgs['OFFRE.DOMAINE']} : " />
+				<e:text value="#{offreController.currentOffre.fapN1.libelle}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px">
+				<e:bold value="#{msgs['OFFRE.TYPEOFFRE']} : " />
+				<e:text value="#{offreController.currentOffre.typeOffre.libelle}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.contratOffre}">
+				<e:bold value="#{msgs['OFFRE.CONTRATOFFRE']} : " />
+				<e:text value="#{offreController.currentOffre.contratOffre.libelle}" />
+			</e:panelGrid>
+		</e:panelGrid>
+	</t:div>
+	<t:div
+		rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
+		<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+			cellpadding="2px">
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px">
+				<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+				cellpadding="2px">
+					<e:bold value="#{msgs['OFFRE.DEBUT']} : " />
+				</e:panelGrid>
+				<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+					cellpadding="2px">
+					<e:text value="#{offreController.currentOffre.moisDebut}"
+						rendered="#{not empty offreController.currentOffre.moisDebut}" />
+					<e:text value="#{offreController.currentOffre.anneeDebut}"
+						rendered="#{not empty offreController.currentOffre.anneeDebut}" />
+					<t:panelGroup colspan="2"
+						rendered="#{not empty offreController.currentOffre.precisionDebut}">
+						<e:text value="#{offreController.currentOffre.precisionDebut}" />
+					</t:panelGroup>
+				</e:panelGrid>
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px">
+				<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+					cellpadding="2px">
+					<e:bold value="#{msgs['OFFRE.DUREE']} : "
+						rendered="#{(offreController.currentOffre.contratOffre==beanUtils.cdd ||
+								offreController.currentOffre.typeOffre==beanUtils.stage ||
+								offreController.currentOffre.typeOffre==beanUtils.alternance ||
+								offreController.currentOffre.typeOffre==beanUtils.vieVia)
+								&& offreController.currentOffre.duree>0}" />
+				</e:panelGrid>
+				<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+					cellpadding="2px"
+					rendered="#{(offreController.currentOffre.contratOffre==beanUtils.cdd ||
+								offreController.currentOffre.typeOffre==beanUtils.stage ||
+								offreController.currentOffre.typeOffre==beanUtils.alternance ||
+								offreController.currentOffre.typeOffre==beanUtils.vieVia)
+								&& offreController.currentOffre.duree>0}">
+					<e:text value="#{offreController.currentOffre.duree}" />
+					<e:text value="#{offreController.currentOffre.uniteDuree.libelle}" />
+				</e:panelGrid>
+			</e:panelGrid>
+		</e:panelGrid>
+	</t:div>
+	<t:div>
+		<e:panelGrid style="font-size:12px;" columns="4" cellspacing="2px"
+			cellpadding="2px">
+			<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+				cellpadding="2px">
+				<e:text value="#{msgs['OFFRE.LIEU']} : " escape="false" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.lieuCodePostal}">
+				<e:bold value="#{msgs['STRUCTURE.CODE_POSTAL']} : " />
+				<e:text value="#{offreController.currentOffre.lieuCodePostal}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.lieuCommune}">
+				<e:bold value="#{msgs['STRUCTURE.COMMUNE']} : " />
+				<e:text value="#{offreController.currentOffre.lieuCommune}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="3" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.lieuPays}">
+				<e:bold value="#{msgs['STRUCTURE.PAYS']} : " />
+				<h:graphicImage id="flagO"
+					value="../../media/images/flags/#{offreController.currentOffre.lieuPays.iso2}.png"
+					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+					title="#{offreController.currentOffre.lieuPays.libelle}" />
+				<e:text value="#{offreController.currentOffre.lieuPays.libelle}" />
+			</e:panelGrid>
+		</e:panelGrid>
+	</t:div>
+	<t:div
+		rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
+		<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+			cellpadding="2px">
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px">
+				<e:bold value="#{msgs['OFFRE.DEPLACEMENT']} " />
+				<e:text value="#{msgs['FORM.OUI']}"
+					rendered="#{offreController.currentOffre.deplacement}" />
+				<e:text value="#{msgs['FORM.NON']}"
+					rendered="#{!offreController.currentOffre.deplacement}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px">
+				<e:bold value="#{msgs['OFFRE.PERMIS']} " />
+				<e:text value="#{msgs['FORM.OUI']}"
+					rendered="#{offreController.currentOffre.permis}" />
+				<e:text value="#{msgs['FORM.NON']}"
+					rendered="#{!offreController.currentOffre.permis}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px">
+				<e:bold value="#{msgs['OFFRE.INDEMNITE']} " />
+				<e:text value="#{msgs['FORM.OUI']}"
+					rendered="#{offreController.currentOffre.remuneration}" />
+				<e:text value="#{msgs['FORM.NON']}"
+					rendered="#{!offreController.currentOffre.remuneration}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px">
+				<e:bold value="#{msgs['OFFRE.INDEMNITE_PRECISIONS']} : "
+					rendered="#{offreController.currentOffre.remuneration}" />
+				<e:text
+					value="#{offreController.currentOffre.precisionRemuneration}"
+					rendered="#{offreController.currentOffre.remuneration}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.avantages}">
+				<e:bold value="#{msgs['OFFRE.AVANTAGES']} : " />
+				<e:text value="#{offreController.currentOffre.avantages}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.tempsTravail}">
+				<e:bold value="#{msgs['OFFRE.TEMPSTRAVAIL']} : " />
+				<e:text value="#{offreController.currentOffre.tempsTravail.libelle}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.quotiteTravail}">
+				<e:bold value="#{msgs['OFFRE.QUOTITETRAVAIL']} : "
+					rendered="#{offreController.currentOffre.tempsTravail==beanUtils.tempsPartiel}" />
+				<e:text value="#{offreController.currentOffre.quotiteTravail} %"
+					rendered="#{offreController.currentOffre.tempsTravail==beanUtils.tempsPartiel}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.commentaireTempsTravail}">
+				<e:bold value="#{msgs['OFFRE.COMTPSTRAVAIL']} : " />
+				<e:text
+					value="#{offreController.currentOffre.commentaireTempsTravail}" />
+			</e:panelGrid>
+			<rich:spacer height="20px" />
+			<e:text value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CANDIDAT']} "
+				styleClass="titreOffre" />
+			<%/*
+			<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+				cellpadding="2px">
+				<e:text value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.ACCESSERQTH']}"
+					escape="false"
+					rendered="#{offreController.currentOffre.estAccessERQTH && !offreController.currentOffre.estPrioERQTH}"
+					style="font-weight:bold;color:green;" />
+				<e:text value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.PRIOERQTH']}"
+					escape="false"
+					rendered="#{offreController.currentOffre.estPrioERQTH}"
+					style="font-weight:bold;color:green;" />
+			</e:panelGrid> 
+			*/%>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.niveauFormation}">
+				<e:bold value="#{msgs['OFFRE.NIVEAUFORMATION']} : " />
+				<e:text
+					value="#{offreController.currentOffre.niveauFormation.libelle}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.competences}">
+				<e:bold value="#{msgs['OFFRE.COMPSOUHAITEES']} : " />
+				<e:text value="#{offreController.currentOffre.competences}"
+					escape="false" />
+			</e:panelGrid>
+			<rich:spacer height="20px" />
+			<e:text value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.POSTULER']} "
+				styleClass="titreOffre" />
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.referenceOffreEtablissement}">
+				<e:bold value="#{msgs['OFFRE.REFOFFRE']}" />
+				<e:text
+					value="#{offreController.currentOffre.referenceOffreEtablissement}" />
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.modesCandidature}">
+				<e:bold
+					value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.MODALITESREP']} " />
+				<rich:dataList var="mode"
+					value="#{offreController.currentOffre.modesCandidature}" rows="10">
+					<e:text value="#{mode.libelle}" />
+				</rich:dataList>
+			</e:panelGrid>
+			<e:panelGrid style="font-size:12px;" columns="2" cellspacing="2px"
+				cellpadding="2px">
+				<e:bold value="#{msgs['OFFRE.ANNEEU']}" />
+				<e:text	value="#{offreController.currentOffre.anneeUniversitaire}" />
+			</e:panelGrid>
+			<e:panelGrid columns="3" style="font-size:12px;" align="center">
+				<e:panelGrid columns="1" style="font-size:12px;"
+					rendered="#{offreController.currentOffre.idContactCand>0 && not empty offreController.currentOffre.contactCand}">
+					<e:bold value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CONTACTCAND']}" />
+					<e:panelGrid columns="3" style="font-size:12px;"
+						rendered="#{!offreController.currentOffre.cacherNomContactCand}">
+						<e:text
+							value="#{offreController.currentOffre.contactCand.civilite.libelle} "
+							rendered="#{not empty offreController.currentOffre.contactCand.civilite}" />
+						<e:text value="#{offreController.currentOffre.contactCand.nom} " />
+						<e:text value="#{offreController.currentOffre.contactCand.prenom}" />
+					</e:panelGrid>
+					<t:panelGroup colspan="3" style="font-size:12px;">
+						<e:panelGrid columns="2" style="font-size:12px;"
+							rendered="#{not empty offreController.currentOffre.contactCand.fonction}">
+							<e:text value="#{msgs['CONTACT.FONCTION']} : " />
+							<e:text
+								value="#{offreController.currentOffre.contactCand.fonction}" />
+						</e:panelGrid>
+					</t:panelGroup>
+					<e:panelGrid columns="2" style="font-size:12px;"
+						rendered="#{not empty offreController.currentOffre.contactCand.tel
+			and!offreController.currentOffre.cacherTelContactCand}">
+						<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+							title="#{msgs['CONTACT.TELEPHONE']}"
+							value="../../media/images/phone.png" style="border:0" />
+						<e:text value=" #{offreController.currentOffre.contactCand.tel}" />
+					</e:panelGrid>
+					<e:panelGrid columns="2" style="font-size:12px;"
+						rendered="#{not empty offreController.currentOffre.contactCand.fax
+			and !offreController.currentOffre.cacherFaxContactCand}">
+						<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+							title="#{msgs['CONTACT.FAX']}"
+							value="../../media/images/printer.png" style="border:0" />
+						<e:text value=" #{offreController.currentOffre.contactCand.fax}" />
+					</e:panelGrid>
+					<e:panelGrid columns="2" style="font-size:12px;"
+						rendered="#{not empty offreController.currentOffre.contactCand.mail
+			and !offreController.currentOffre.cacherMailContactCand}">
+						<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+							title="#{msgs['CONTACT.MAIL']}"
+							value="../../media/images/email.png" style="border:0" />
+						<e:text value=" #{offreController.currentOffre.contactCand.mail}" />
+					</e:panelGrid>
+				</e:panelGrid>
+				<e:panelGrid columns="3"
+					rendered="#{offreController.currentOffre.idContactCand>0 && not empty offreController.currentOffre.contactCand
+					and offreController.currentOffre.idContactInfo>0 && not empty offreController.currentOffre.contactInfo}">
+					<rich:spacer width="25px" />
+					<rich:spacer width="2px"
+						style="background-color: #{a4jSkin.panelBorderColor};"
+						height="180px" />
+					<rich:spacer width="25px" />
+				</e:panelGrid>
+				<e:panelGrid columns="1" style="font-size:12px;"
+					rendered="#{offreController.currentOffre.idContactInfo>0 && not empty offreController.currentOffre.contactInfo}">
+					<e:bold value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CONTACTINFO']}" />
+					<e:panelGrid columns="3" style="font-size:12px;"
+						rendered="#{!offreController.currentOffre.cacherNomContactInfo}">
+						<e:text
+							value="#{offreController.currentOffre.contactInfo.civilite.libelle} "
+							rendered="#{not empty offreController.currentOffre.contactInfo.civilite}" />
+						<e:text value="#{offreController.currentOffre.contactInfo.nom} " />
+						<e:text value="#{offreController.currentOffre.contactInfo.prenom}" />
+					</e:panelGrid>
+					<t:panelGroup colspan="3" style="font-size:12px;">
+						<e:panelGrid columns="2" style="font-size:12px;"
+							rendered="#{not empty offreController.currentOffre.contactInfo.fonction}">
+							<e:text value="#{msgs['CONTACT.FONCTION']} : " />
+							<e:text
+								value="#{offreController.currentOffre.contactInfo.fonction}" />
+						</e:panelGrid>
+					</t:panelGroup>
+					<e:panelGrid columns="2" style="font-size:12px;"
+						rendered="#{not empty offreController.currentOffre.contactInfo.tel
+			and!offreController.currentOffre.cacherTelContactInfo}">
+						<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+							title="#{msgs['CONTACT.TELEPHONE']}"
+							value="../../media/images/phone.png" style="border:0" />
+						<e:text value=" #{offreController.currentOffre.contactInfo.tel}" />
+					</e:panelGrid>
+					<e:panelGrid columns="2" style="font-size:12px;"
+						rendered="#{not empty offreController.currentOffre.contactInfo.fax
+			and !offreController.currentOffre.cacherFaxContactInfo}">
+						<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+							title="#{msgs['CONTACT.FAX']}"
+							value="../../media/images/printer.png" style="border:0" />
+						<e:text value=" #{offreController.currentOffre.contactInfo.fax}" />
+					</e:panelGrid>
+					<e:panelGrid columns="2" style="font-size:12px;"
+						rendered="#{not empty offreController.currentOffre.contactInfo.mail
+			and !offreController.currentOffre.cacherMailContactInfo}">
+						<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+							title="#{msgs['CONTACT.MAIL']}"
+							value="../../media/images/email.png" style="border:0" />
+						<e:text value=" #{offreController.currentOffre.contactInfo.mail}" />
+					</e:panelGrid>
+				</e:panelGrid>
+			</e:panelGrid>
+			<rich:spacer height="10px" />
+			<e:text value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.COM']} "
+				styleClass="titreOffre"
+				rendered="#{not empty offreController.currentOffre.observations}" />
+			<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+				cellpadding="2px"
+				rendered="#{not empty offreController.currentOffre.observations}">
+				<e:bold value="#{msgs['OFFRE.COMOBS']} : " />
+				<e:text value="#{offreController.currentOffre.observations}"
+					escape="false" />
+			</e:panelGrid>
+		</e:panelGrid>
+	</t:div>
+	<rich:spacer height="10px" />
+	<t:div
+		rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
+		<e:panelGrid style="font-size:12px;" columns="1" cellspacing="2px"
+			cellpadding="2px">
+			<e:text value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.DOCS']} "
+				styleClass="titreOffre" />
+			<e:panelGrid
+				rendered="#{offreController.currentOffre.avecFichier 
+							&& offreController.currentOffre.idFichier>0
+							&& not empty offreController.currentOffre.fichier}">
+
+				<e:panelGrid columns="2">
+					<h:outputLink
+						value="get.file?fileId=#{offreController.currentOffre.idFichier}"
+						target="_blank">
+						<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
+							title="#{msgs['GENERAL.FILE']}"
+							value="../../media/images/docu.png" style="border:0" />
+					</h:outputLink>
+					<h:outputLink
+						value="get.file?fileId=#{offreController.currentOffre.idFichier}"
+						target="_blank">
+						<e:text value="#{offreController.currentOffre.fichier.nomFichier}"
+							rendered="#{empty offreController.currentOffre.fichier.nomReel}" />
+						<e:text value="#{offreController.currentOffre.fichier.nomReel}"
+							rendered="#{not empty offreController.currentOffre.fichier.nomReel}" />
+					</h:outputLink>
+				</e:panelGrid>
+
+			</e:panelGrid>
+			<e:panelGrid rendered="#{offreController.currentOffre.avecLien}">
+
+				<e:panelGrid columns="2">
+					<h:outputLink value="#{offreController.currentOffre.lienAttache}"
+						target="_blank">
+						<h:graphicImage alt="#{msgs['GENERAL.CLIQUEZICI']}"
+							title="#{msgs['GENERAL.CLIQUEZICI']}"
+							value="../../media/images/lien.png" style="border:0" />
+					</h:outputLink>
+					<h:outputLink value="#{offreController.currentOffre.lienAttache}"
+						target="_blank">
+						<e:text value="#{offreController.currentOffre.lienAttache}"
+							title="#{offreController.currentOffre.lienAttache}">
+							<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+						</e:text>
+					</h:outputLink>
+				</e:panelGrid>
+
+			</e:panelGrid>
+		</e:panelGrid>
+	</t:div>
+</e:panelGrid>
+
+<e:panelGrid columns="5" style="font-size:11px;float:right;">
+	<e:text
+		value="#{msgs['OFFRE.ID']} #{offreController.currentOffre.idOffre}, 
+		#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.DERNIEREMODIF']}" />
+	<e:text value="#{offreController.currentOffre.dateModif}"
+		rendered="#{not empty offreController.currentOffre.dateModif}">
+		<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET"/>
+	</e:text>
+	<e:text value="#{offreController.currentOffre.dateCreation}"
+		rendered="#{not empty offreController.currentOffre.dateCreation 
+		and empty offreController.currentOffre.dateModif}">
+		<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET"/>
+	</e:text>
+	<e:text
+		value=", #{msgs['RECHERCHEOFFRE.RECAPETUDIANT.LIMITEDIFFUSION']}"
+		rendered="#{not empty offreController.currentOffre.dateFinDiffusion}" />
+	<e:text value="#{offreController.currentOffre.dateFinDiffusion}"
+		rendered="#{not empty offreController.currentOffre.dateFinDiffusion}" />
+</e:panelGrid>

@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>esup-pstage</artifactId>
-        <groupId>org.esupportail</groupId>
-        <version>2.5.0-SNAPSHOT</version>
-    </parent>
-    <groupId>org.esupportail</groupId>
-    <artifactId>esup-pstage-dao</artifactId>
-    <description>couche d'accÃ¨s aux donnÃ©es</description>
-    <dependencies>
-        <dependency>
-            <groupId>org.esupportail</groupId>
-            <artifactId>esup-commons2-jpa</artifactId>
-            <version>${esupcommons.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.esupportail</groupId>
-            <artifactId>esup-pstage-domain-beans</artifactId>
-            <version>2.5.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.esupportail</groupId>
-            <artifactId>esup-commons2-ldap</artifactId>
-            <version>${esupcommons.version}</version>
-            <exclusions>
-            	<exclusion>
-            		<artifactId>spring-tx</artifactId>
-            		<groupId>org.springframework</groupId>
-            	</exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>esup-pstage</artifactId>
+		<groupId>org.esupportail</groupId>
+		<version>2.5.0-SNAPSHOT</version>
+	</parent>
+	<groupId>org.esupportail</groupId>
+	<artifactId>esup-pstage-dao</artifactId>
+	<description>couche d'acces aux donnees</description>
+	<dependencies>
+		<dependency>
+			<groupId>org.esupportail</groupId>
+			<artifactId>esup-commons2-jpa</artifactId>
+			<version>${esupcommons.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.esupportail</groupId>
+			<artifactId>esup-pstage-domain-beans</artifactId>
+			<version>2.5.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.esupportail</groupId>
+			<artifactId>esup-pstage-utils</artifactId>
+			<version>2.5.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.esupportail</groupId>
+			<artifactId>esup-commons2-ldap</artifactId>
+			<version>${esupcommons.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-tx</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.esupportail</groupId>
+			<artifactId>esup-commons</artifactId>
+			<version>1.3.17</version>
+		</dependency>
+	</dependencies>
 </project>

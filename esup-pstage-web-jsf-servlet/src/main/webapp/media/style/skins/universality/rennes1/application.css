@@ -1,0 +1,301 @@
+/**
+ * Licensed to Jasig under one or more contributor license
+ * agreements. See the NOTICE file distributed with this work
+ * for additional information regarding copyright ownership.
+ * Jasig licenses this file to you under the Apache License,
+ * Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a
+ * copy of the License at:
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/* Applicztion CSS
+ * These declarations are scoped for the applications designed by university of Rennes 1.
+ * For portlet-specifc CSS, see "portlet.css" in the same directory.
+ * CSS specified at the portal scope will naturally cascade into portlets.
+ * This CSS begins with the Fluid Skinning System (FSS) specification and is followed by application-specfic extensions and overrides.
+ * This CSS assumes the use of a CSS reset (by default the FSS "fss-reset.css") for browser normalization.
+ */
+ 
+/* uPORTAL DEVELOPMENT STANDARDS AND GUIDELINES
+ * For the standards and guidelines that govern the user interface of uPortal portlets including HTML, CSS, JavaScript, accessibilty, naming conventions, 3rd Party libraries (like jQuery and the Fluid Skinning System) and more, refer to:
+ * http://www.ja-sig.org/wiki/x/cQ
+ */
+ 
+/* ICONS
+ * This CSS uses the Silk icon set 1.3 by Mark James:
+ * http://www.famfamfam.com/lab/icons/silk/
+ * which is licensed under a Creative Commons Attribution 2.5 License:
+ * http://creativecommons.org/licenses/by/2.5/
+ * This icon set is free for use under the CCA 2.5 license, so long as there 
+ * is a link back to the author's site.  This reference is present in the 
+ * portal footer markup of the universality theme.
+ */
+
+/* 
+------------------------------------
+  Fluid Skinning System theme.
+------------------------------------
+ * The Fluid Skinning System is a group of CSS files with a specially designed modular structure and class-specific format.
+ * It is meant to work well as both a standalone CSS foundation for your site and Fluid Infusion components.
+ * In FSS, "themes" refer to the color schemes and "window dressings" for basic markup and FSS Helpers, such as Tabs, Widgets, Menus, etc.
+ * For more information on FSS themes, refer to:
+ * http://wiki.fluidproject.org/x/egNS
+ * The FSS theme created for applications is "fl-theme-app", and is a class of the <body> tag, used for namespacing.
+ */
+
+.fl-theme-app :focus, 
+.fl-theme-app .selectable {  }
+.fl-theme-app { color:#344461; font-size:90%; border-color:#000; }
+.fl-theme-app a { color:#2758b3; text-decoration:none; }
+.fl-theme-app a:hover { color:#39f; text-decoration:underline; }
+.fl-theme-app h1,
+.fl-theme-app h2,
+.fl-theme-app h3,
+.fl-theme-app h4 { font-family: Georgia, "Times New Roman", Times, serif; }
+.fl-theme-app h3 { font-style:italic; }
+.fl-theme-app th {  }
+.fl-theme-app td {  }
+.fl-theme-app .fl-textfield, 
+.fl-theme-app .fl-textarea { border:1px solid #5a95cf; border-bottom-color:#5a95cf; border-right-color:#5a95cf; background-color:#dfefff; }
+.fl-theme-app .fl-icon { background-color:#5a95cf }
+.fl-theme-app .fl-inlineEdit-edit { background-color:#dfefff; border:0.1em solid #5a95cf; margin:-0.1em; }
+/* Helper: Buttons */
+.fl-theme-app .fl-button-left { background-image:url(../images/themes/mist/buttons-med-cap.png); }
+.fl-theme-app .fl-button-right { background-image:url(../images/themes/mist/buttons-med-cap.png); }
+.fl-theme-app .fl-button-inner { background-image:url(../images/themes/mist/buttons-med-bg.png); }
+/* Helper: Tabs */
+.fl-theme-app .fl-tabs { border-bottom-color:#000000; }
+.fl-theme-app .fl-tabs li, 
+.fl-theme-app .fl-tabs li a { font-weight:bold; color:#293b5a; border-color:#000000; border-bottom-color:#000000; text-decoration:none; background-color:#dfefff; }
+.fl-theme-app .fl-tabs li a:hover { background-color:#5a95cf; color:#fff; }
+.fl-theme-app .fl-tabs li.fl-activeTab, /* Deprecated syntax */
+.fl-theme-app .fl-tabs li.fl-activeTab:hover, 
+.fl-theme-app .fl-tabs li.fl-activeTab a, 
+.fl-theme-app .fl-tabs li.fl-activeTab a:hover, /* New syntax */
+.fl-theme-app .fl-tabs li.fl-tabs-active, 
+.fl-theme-app .fl-tabs li.fl-tabs-active a, 
+.fl-theme-app .fl-tabs li.fl-tabs-active a:hover { background-color: #f4f4f4; border-bottom-color:#f4f4f4; color:#000; }
+.fl-theme-app .fl-tabs-content { background-color:#f4f4f4; color:#000; border:1px solid #61c5ff; border-top:none; margin-top:-4px; }
+/* Helper: Menu */
+.fl-theme-app .fl-listmenu { border:1px solid #000000; border-bottom-width:2px; background-color:#fff; }
+.fl-theme-app .fl-listmenu li, 
+.fl-theme-app .fl-listmenu li a { font-weight:bold; color:#000000; background-color:#dfefff; border-color:#000000; text-decoration:none; }
+.fl-theme-app .fl-listmenu li a:hover { background-color:#5a95cf; color:#fff; }
+.fl-theme-app .fl-listmenu .fl-activemenu, 
+.fl-theme-app .fl-listmenu .fl-activemenu:hover { background-color: #fff; border-bottom-color:#fff; color:#508cc9; }
+/* Helper: Thumbnail Grid */
+.fl-theme-app .fl-grid { border:2px solid #000000; background-color:#fff; }
+.fl-theme-app .fl-grid li { background-color:#dfefff; border:1px solid #000000 }
+.fl-theme-app .fl-grid .caption { background-color:#dfefff; color:#5a95cf; }
+/* Helper: Widgets */
+/* Widget core */
+.fl-theme-app .fl-widget { background:#efefef url(../images/themes/mist/widget-bg.png) repeat-x top left; border:1px solid #CCCCCC; }
+.fl-theme-app .fl-widget ul { }
+.fl-theme-app .fl-widget h2 { color:#000; }
+.fl-theme-app .fl-widget .fl-icon-more { background-image:url('../images/themes/mist/icon-widget-More.png'); margin-left:0px; }
+.fl-theme-app .fl-widget .fl-icon-close { background-image:url('../images/themes/mist/icon-widget-Close.png'); margin-right:0px; }
+/* Widget titlebar */
+.fl-theme-app .fl-grabbable .fl-widget-titlebar { background-image:url('../images/themes/mist/icon-widget-gripper.png'); }
+.fl-theme-app .fl-widget-titlebar .icon { background-position:center center; }
+.fl-theme-app .fl-widget-titlebar .fl-button-right, 
+.fl-theme-app .fl-widget-titlebar .fl-button-left { color:#000000; background-image:url(../images/themes/mist/buttons-titlebar-cap.png); text-decoration:none; }
+.fl-theme-app .fl-widget-titlebar .fl-button-inner { background-image:url(../images/themes/mist/buttons-titlebar-bg.png); }
+/* Widget options */
+.fl-theme-app .fl-widget-options { }
+.fl-theme-app .fl-widget-options ul { }
+.fl-theme-app .fl-widget-options li { border-left:1px solid #ccc; }
+.fl-theme-app .fl-widget-options a { }
+.fl-theme-app .fl-widget-options a.icon:hover { background-color:#5a95cf; border-color:#000; }
+/* Widget content */
+.fl-theme-app .fl-widget-content { background-color:#fff; }
+/* Component: Progressor */
+.fl-theme-app .fl-progress-bounds { border-color:#999999; background-color:#fff; }
+.fl-theme-app .fl-progress-fill { color:#000000; background-color:#000; }
+/* States */
+.fl-theme-app .fl-reorderer-dropMarker { background-color:#f00; }
+/* Regular Background */
+.fl-theme-app .fl-tabs-enhanced { background:url(../images/themes/mist/tabs-med-container-bg.png) repeat-x left bottom; border-bottom:none; margin:10px 1px 0; padding:5px 0 6px;  *padding:2px 0; }
+.fl-theme-app .fl-tabs-enhanced li { background: transparent url(../images/themes/mist/tabs-med-cap.png) no-repeat left top; padding:4px 0 6px 16px;  *padding-top:0; }
+.fl-theme-app .fl-tabs-enhanced li a { background: transparent url(../images/themes/mist/tabs-med-bg.png) no-repeat right top; border:none; margin:0; padding:4px 16px 6px 0; color:#666666;  *padding-bottom:4px; }
+.fl-theme-app .fl-tabs-enhanced li.fl-tabs-active { background:transparent url(../images/themes/mist/tabs-med-active-cap.png) no-repeat scroll left top; }
+.fl-theme-app .fl-tabs-enhanced li.fl-tabs-active a { background:transparent url(../images/themes/mist/tabs-med-active-bg.png) no-repeat scroll right top; color:#000000; }
+/* Widget Content Background */
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced { background:url(../images/themes/mist/tabs-light-container-bg.png) repeat-x left bottom; border-bottom:none; margin:10px 1px 0; padding:5px 0 6px;  *padding:2px 0; }
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced li { background: transparent url(../images/themes/mist/tabs-light-cap.png) no-repeat left top; padding:4px 0 6px 16px;  *padding-top:0; }
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced li a { background: transparent url(../images/themes/mist/tabs-light-bg.png) no-repeat right top; border:none; margin:0; padding:4px 16px 6px 0; color:#666666;  *padding-bottom:4px; }
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced li.fl-tabs-active { background:transparent url(../images/themes/mist/tabs-light-active-cap.png) no-repeat scroll left top; }
+.fl-theme-app .fl-widget-content .fl-tabs-enhanced li.fl-tabs-active a { background:transparent url(../images/themes/mist/tabs-light-active-bg.png) no-repeat scroll right top; color:#000000; }
+
+
+/* 
+------------------------------------
+  Application specific CSS.
+------------------------------------ 
+ * uPortal is namespaced with "up", a class of the <body> tag.
+ */
+
+/* Page */
+html { background-color:#E6EEFB; }
+
+/* Portal Page Bar */
+.fl-theme-app .app-pagebar { background:#180884 url("images/headerbar.jpg") 0 0 repeat-x; color:#9999cc; text-align:right; }
+.fl-theme-app .app-pagebar h2 { font-size:90%; }
+.fl-theme-app .app-pagebar-links a { color:#fff; padding-left: 20px; }
+
+.up #portalPageBarHome { background:transparent url("/ResourceServingWebapp/rs/famfamfam/silk/1.3/house.png") 0 0 no-repeat; }
+.up #portalPageBarAdmin { background:transparent url("/ResourceServingWebapp/rs/famfamfam/silk/1.3/application_cascade.png") 0 0 no-repeat; }
+.up #portalPageBarCustom { background:transparent url("/ResourceServingWebapp/rs/famfamfam/silk/1.3/user.png") 0 0 no-repeat; }
+.up #portalPageBarSitemap { background:transparent url("/ResourceServingWebapp/rs/famfamfam/silk/1.3/map.png") 0 0 no-repeat; }
+.up #portalPageBarHelp { background:transparent url("/ResourceServingWebapp/rs/famfamfam/silk/1.3/help.png") 0 0 no-repeat; }
+
+.fl-theme-app .app-pagebar-links a:hover {  }
+
+/* Header */
+.fl-theme-app .app-header { background:#4c5d82 url("images/tabsheader_bg.gif") 0 0 repeat-x; }
+.fl-theme-app .app-pagebar img { margin:15px 15px 0px 35px; }
+
+.fl-theme-app .app-logo { }
+
+/* Welcome
+ Keep the top value relative to the text size so that the top position remains good when the browser text size is increased. 
+ Set the left width to the width of your logo (plus logo margins).
+ This margin prevents it from colliding with the logo if the browser window is shrunk down. 
+*/
+.fl-theme-app .app-welcome { top:3.5em; left:220px; }
+.fl-theme-app .app-welcome { color:#ddd; }
+.fl-theme-app .app-welcome a { color:#9999FF; }
+.fl-theme-app .app-welcome a:hover { color:#ff6600; }
+.fl-theme-app .app-welcome h1 { color:#fff; }
+
+
+
+/* Navigation */
+.fl-theme-app .app-navigation {background-color:#4c5d82;}
+.fl-theme-app .app-navigation .fl-tabs,
+.fl-theme-app .app-navigation .fl-tabs li,
+.fl-theme-app .app-navigation .fl-tabs li a {padding:0; margin:0; border:none; background:transparent;}
+.fl-theme-app .app-navigation .fl-tabs {margin-left:220px; text-align:left; border:none;}
+
+.fl-theme-app .app-navigation .fl-tabs li a {display:inline-block; padding:0.4em 2em; margin-right:3px; font-weight:bold; text-decoration:none; border:1px solid #000; border-bottom:1px solid #000099; background:#9999cc url(images/tab.gif) 0 0 repeat-x;}
+.fl-theme-app .app-navigation .fl-tabs li a:hover { background:#9999cc url(images/tab_hover.gif) 0 0 repeat-x; color:#000; }
+.fl-theme-app .app-navigation .fl-tabs li.fl-tabs-active a.portal-navigation-link,
+.fl-theme-app .app-navigation .fl-tabs li.fl-tabs-active a.portal-navigation-link:hover {background:#E6EEFB url(images/tab_selected.gif) top left repeat-x; border-bottom-color:#E6EEFB;}
+
+
+/* Body */
+.fl-theme-app h1.app-body-title { padding:0.2em 0 0.2em 0.5em; font-size:250%; color:#344461; font-family:Georgia,"Times New Roman",Times,serif; font-weight:normal; border:none; }
+
+/* Content */
+
+.fl-theme-app .app-content {
+}
+
+.fl-theme-app .app-content h2 {
+	padding-left: 0.5em;
+}
+
+/* infos */
+.fl-theme-app .app-infos {
+	margin: 0 0 0.5em; 
+	padding: 0em;
+	border: 1px solid #1374B1;
+}
+
+/* form */
+.fl-theme-app .app-form {
+	margin: 0 0 0.5em; 
+	padding: 0em;
+	border: 1px solid #1374B1;
+}
+
+/* msg */
+.fl-theme-app .app-msg-infos {
+	margin: 0 0 0.5em; 
+	padding: 0em;
+	border: 1px solid #0B610B;
+	background-color: #A9F5A9;
+}
+
+.fl-theme-app .app-msg-infos h2 {
+	color: #0B610B;
+}
+
+/* msg */
+.fl-theme-app .app-msg-errors {
+	margin: 0 0 0.5em; 
+	padding: 0em;
+	border: 1px solid #B40404;
+	background-color: #F5A9A9;
+}
+
+.fl-theme-app .app-msg-errors h2 {
+	color: #B40404;
+}
+
+
+.fl-theme-app .app-txt-label {
+	color: #333;
+	font-weight:bold;
+}
+
+
+/* Footer */
+
+/* infos */
+.fl-theme-app .app-footer {
+	margin: 0 0 1em; 
+	padding: 0em;
+}
+
+/*
+.fl-theme-app .app-footer { text-align:center; color:#3366CC; font-size:80%; }
+.fl-theme-app .app-footer a { color:#3366CC; }
+
+/* Fluid Layout Customizer (drag and drop) */
+.fl-theme-app .fl-reorderer-movable-hover { cursor:move; }
+.fl-theme-app .fl-reorderer-movable-dragging-mouse { display:none; }
+.fl-theme-app .fl-reorderer-movable-dragging { filter:alpha(opacity=50); opacity:.5 }
+.fl-theme-app .fl-reorderer-avatar { width:auto; filter:alpha(opacity=50); opacity:.5; }
+.fl-theme-app .fl-reorderer-dropMarker { height:200px !important; background-color:#99FF99; border:1px dashed #00CC00; margin:1em 0em; }
+.fl-theme-app .drop-warning { position:absolute; top:50px; left:10px; border:2px solid red; background-color:#ffd7d7; display:none; padding:10px; margin:5px; z-index:65535; }
+
+/* Fluid Pager */
+.fl-theme-app .pager-top .disabled, 
+.fl-theme-app .pager-bottom .disabled { color: #777777; border: 0; text-decoration: none; cursor: default; }
+.fl-theme-app .pager-top .current-page a, 
+.fl-theme-app .pager-bottom .current-page a { color: #000000; border: 0; text-decoration: none; cursor: default; }
+.fl-theme-app ul.pager-top, 
+.fl-theme-app ul.pager-bottom { text-align:right }
+.fl-theme-app ul.pager-top li, 
+.fl-theme-app ul.pager-bottom li { list-style-type:none; display:inline; padding:5px }
+
+/* Focus */
+:focus { outline-width:0px; }
+.fl-theme-app .fl-reorderer-movable-selected:focus, 
+.fl-theme-app .fl-reorderer-movable-dragging:focus { outline:2px solid #39f; }
+
+
+/* 
+------------------------------------
+  Overrides to jQuery UI css.
+------------------------------------ 
+*/
+
+.ui-widget,
+.ui-widget input, 
+.ui-widget select, 
+.ui-widget textarea, 
+.ui-widget button { font-size:1em; }
+.ui-tabs .ui-tabs-nav li { list-style-image:none; list-style-position:outside;list-style-type:none; }
+
+/* jQuery tooltip */
+#tooltip { background-color:#fffbbf; color:#344461; border:thin solid #b1c6f2; }

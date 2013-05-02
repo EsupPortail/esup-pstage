@@ -5,25 +5,22 @@
 package org.esupportail.pstage.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.CritereRechercheOffreDTO;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.DureeDiffusionDTO;
-import org.esupportail.pstagedata.remote.FichierDTO;
-import org.esupportail.pstagedata.remote.OffreDTO;
-import org.esupportail.pstagedata.remote.OffreDiffusionDTO;
+import org.esupportail.pstagedata.domain.dto.ContactDTO;
+import org.esupportail.pstagedata.domain.dto.CritereRechercheOffreDTO;
+import org.esupportail.pstagedata.domain.dto.DureeDiffusionDTO;
+import org.esupportail.pstagedata.domain.dto.FichierDTO;
+import org.esupportail.pstagedata.domain.dto.ModeCandidatureDTO;
+import org.esupportail.pstagedata.domain.dto.OffreDTO;
+import org.esupportail.pstagedata.domain.dto.OffreDiffusionDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 import org.springframework.util.StringUtils;
 
 /**
@@ -127,71 +124,63 @@ public class OffreDomainServiceImpl implements Serializable, OffreDomainService{
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#addOffre(org.esupportail.pstagedata.domain.dto.OffreDTO)
 	 */
-	public int addOffre(OffreDTO o) throws DataAddException_Exception, WebServiceDataBaseException_Exception{
+	public int addOffre(OffreDTO o) throws DataAddException, WebServiceDataBaseException{
 		return this.remoteServices.addOffre(o);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#updateOffre(org.esupportail.pstagedata.domain.dto.OffreDTO)
 	 */
-	public boolean updateOffre(OffreDTO o) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
+	public boolean updateOffre(OffreDTO o) throws DataUpdateException, WebServiceDataBaseException{
 		return this.remoteServices.updateOffre(o);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#deleteOffreLogique(int)
 	 */
-	public boolean deleteOffreLogique(int idOffre) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
+	public boolean deleteOffreLogique(int idOffre) throws DataUpdateException, WebServiceDataBaseException{
 		return this.remoteServices.deleteOffreLogique(idOffre);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#updateValidationOffre(int, java.lang.String)
 	 */
-	public boolean updateValidationOffre(int idOffre, String loginValidation) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
+	public boolean updateValidationOffre(int idOffre, String loginValidation) throws DataUpdateException, WebServiceDataBaseException{
 		return this.remoteServices.updateValidationOffre(idOffre, loginValidation);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#updateStopValidationOffre(int, java.lang.String)
 	 */
-	public boolean updateStopValidationOffre(int idOffre, String loginStopValidation) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
+	public boolean updateStopValidationOffre(int idOffre, String loginStopValidation) throws DataUpdateException, WebServiceDataBaseException{
 		return this.remoteServices.updateStopValidationOffre(idOffre, loginStopValidation);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#updateDiffusionOffre(int, java.lang.String, java.util.Date)
 	 */
-	public boolean updateDiffusionOffre(int idOffre, String loginDffusion, Date dateFinDiffusion) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
-		GregorianCalendar gCalendar = new GregorianCalendar();
-		XMLGregorianCalendar tmp = null;
-		gCalendar.setTime(dateFinDiffusion);
-		try {
-			tmp = DatatypeFactory.newInstance().newXMLGregorianCalendar(gCalendar);
-		} catch (DatatypeConfigurationException dce) {
-			throw new DataUpdateException_Exception(dce.getMessage(),dce.getCause());
-		}
-		return this.remoteServices.updateDiffusionOffre(idOffre, loginDffusion, tmp);
+	public boolean updateDiffusionOffre(int idOffre, String loginDffusion, Date dateFinDiffusion) throws DataUpdateException, WebServiceDataBaseException{
+		return this.remoteServices.updateDiffusionOffre(idOffre, loginDffusion, dateFinDiffusion);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#updateStopDiffusionOffre(int, java.lang.String)
 	 */
-	public boolean updateStopDiffusionOffre(int idOffre, String loginStopDiffusion) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
+	public boolean updateStopDiffusionOffre(int idOffre, String loginStopDiffusion) throws DataUpdateException, WebServiceDataBaseException{
 		return this.remoteServices.updateStopDiffusionOffre(idOffre, loginStopDiffusion);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#updateRejetOffre(int, java.lang.String)
 	 */
-	public boolean updateRejetOffre(int idOffre, String loginRejetValidation) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception{
+	public boolean updateRejetOffre(int idOffre, String loginRejetValidation) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateRejetOffre(idOffre, loginRejetValidation);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#updateOffrePourvue(int, boolean)
 	 */
-	public boolean updateOffrePourvue(int idOffre, boolean estPourvue) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
+	public boolean updateOffrePourvue(int idOffre, boolean estPourvue) throws DataUpdateException, WebServiceDataBaseException{
 		return this.remoteServices.updateOffrePourvue(idOffre, estPourvue);
 	}
 	
@@ -209,28 +198,28 @@ public class OffreDomainServiceImpl implements Serializable, OffreDomainService{
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#addFichier(org.esupportail.pstagedata.domain.dto.FichierDTO)
 	 */
-	public int addFichier(FichierDTO o) throws DataAddException_Exception, WebServiceDataBaseException_Exception{
+	public int addFichier(FichierDTO o) throws DataAddException, WebServiceDataBaseException{
 		return this.remoteServices.addFichier(o);
 	}
 
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#updateFichier(org.esupportail.pstagedata.domain.dto.FichierDTO)
 	 */
-	public boolean updateFichier(FichierDTO o) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception{
+	public boolean updateFichier(FichierDTO o) throws DataUpdateException, WebServiceDataBaseException{
 		return this.remoteServices.updateFichier(o);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#deleteFichier(int)
 	 */
-	public boolean deleteFichier(int idFichier) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception{
+	public boolean deleteFichier(int idFichier) throws DataDeleteException, WebServiceDataBaseException{
 		return this.remoteServices.deleteFichier(idFichier);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#cleanFichiers()
 	 */
-	public boolean cleanFichiers() throws DataDeleteException_Exception, WebServiceDataBaseException_Exception{
+	public boolean cleanFichiers() throws DataDeleteException, WebServiceDataBaseException{
 		return this.remoteServices.cleanFichiers();
 	}
 	/* ****************************************************************************
@@ -240,14 +229,14 @@ public class OffreDomainServiceImpl implements Serializable, OffreDomainService{
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#addOffreModeCandidature(int, java.util.List)
 	 */
-	public int addOffreModeCandidature(int idOffre, List<Integer> idsModeCandidature) throws DataAddException_Exception, DataDeleteException_Exception, WebServiceDataBaseException_Exception{
+	public int addOffreModeCandidature(int idOffre, List<Integer> idsModeCandidature) throws DataAddException, DataDeleteException, WebServiceDataBaseException{
 		return this.remoteServices.addOffreModeCandidature(idOffre, idsModeCandidature);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#deleteOffreModeCandidatureFromId(int)
 	 */
-	public boolean deleteOffreModeCandidatureFromId(int idOffre) throws DataAddException_Exception, WebServiceDataBaseException_Exception{
+	public boolean deleteOffreModeCandidatureFromId(int idOffre) throws DataAddException, WebServiceDataBaseException{
 		return this.remoteServices.deleteOffreModeCandidatureFromId(idOffre);
 	}
 
@@ -268,7 +257,7 @@ public class OffreDomainServiceImpl implements Serializable, OffreDomainService{
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#addOffreDiffusion(java.util.List)
 	 */
-	public int addOffreDiffusion(List<OffreDiffusionDTO> lod) throws DataAddException_Exception, DataDeleteException_Exception, WebServiceDataBaseException_Exception{
+	public int addOffreDiffusion(List<OffreDiffusionDTO> lod) throws DataAddException, DataDeleteException, WebServiceDataBaseException{
 		int b=0;
 		if(lod!=null && !lod.isEmpty()){
 			b = this.remoteServices.addOffreDiffusion(lod);
@@ -279,7 +268,7 @@ public class OffreDomainServiceImpl implements Serializable, OffreDomainService{
 	/**
 	 * @see org.esupportail.pstage.domain.OffreDomainService#deleteOffreDiffusionFromId(int)
 	 */
-	public boolean deleteOffreDiffusionFromId(int idOffre) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception{
+	public boolean deleteOffreDiffusionFromId(int idOffre) throws DataDeleteException, WebServiceDataBaseException{
 		boolean b = false;
 		if(idOffre>0){
 			b = this.remoteServices.deleteOffreDiffusionFromId(idOffre);
@@ -295,10 +284,10 @@ public class OffreDomainServiceImpl implements Serializable, OffreDomainService{
 	}
 
 	/**
-	 * @see org.esupportail.pstage.domain.OffreDomainService#countOffreADiffuser()
+	 * @see org.esupportail.pstage.domain.OffreDomainService#countOffreADiffuser(java.util.List)
 	 */
-	public int countOffreADiffuser(){
-		return this.remoteServices.countOffreADiffuser();
+	public int countOffreADiffuser(List<Integer> idsCentreGestion){
+		return this.remoteServices.countOffreADiffuser(idsCentreGestion);
 	}
 	
 	/**
@@ -337,17 +326,22 @@ public class OffreDomainServiceImpl implements Serializable, OffreDomainService{
 				if (o.getIdQualificationSimplifiee() > 0){
 					o.setFapQualificationSimplifiee(this.nomenclatureDomainService.getFapQualificationSimplifieeFromId(o.getIdQualificationSimplifiee()));
 				}
-				if (StringUtils.hasText(o.getCodeFAPN3())){
-					o.setFapN1(this.nomenclatureDomainService.getFapN1FromCode(o.getCodeFAPN3()));
+				if (StringUtils.hasText(o.getCodeFAP_N3())){
+					//o.setFapN3(this.nomenclatureDomainService.getFapN3FromCode(o.getCodeFAP_N3()));
+					o.setFapN1(this.nomenclatureDomainService.getFapN1FromCode(o.getCodeFAP_N3()));
 				}
 				if (o.getIdTempsTravail() > 0){
 					o.setTempsTravail(this.nomenclatureDomainService.getTempsTravailFromId(o.getIdTempsTravail()));
 				}
+				
+				List<ModeCandidatureDTO> lm = new ArrayList<ModeCandidatureDTO>();
+				
 				if(o.getIdsModeCandidature()!=null && !o.getIdsModeCandidature().isEmpty()){
 					for(int i : o.getIdsModeCandidature()){
-						o.getModesCandidature().add(this.nomenclatureDomainService.getModeCandidatureFromId(i));
+						lm.add(this.nomenclatureDomainService.getModeCandidatureFromId(i));
 					}
 				}
+				o.setModesCandidature(lm);
 				if (o.getIdNiveauFormation() > 0){
 					o.setNiveauFormation(this.nomenclatureDomainService.getNiveauFormationFromId(o.getIdNiveauFormation()));
 				}

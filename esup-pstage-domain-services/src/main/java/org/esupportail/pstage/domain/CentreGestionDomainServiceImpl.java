@@ -6,16 +6,16 @@ package org.esupportail.pstage.domain;
 
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.CentreEntrepriseDejaExistantException_Exception;
-import org.esupportail.pstagedata.remote.CentreEtablissementDejaExistantException_Exception;
-import org.esupportail.pstagedata.remote.CentreGestionDTO;
-import org.esupportail.pstagedata.remote.CentreGestionSuperviseurDTO;
-import org.esupportail.pstagedata.remote.CentreReferenceException_Exception;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
+import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.CentreGestionSuperviseurDTO;
+import org.esupportail.pstagedata.exceptions.CentreEntrepriseDejaExistantException;
+import org.esupportail.pstagedata.exceptions.CentreEtablissementDejaExistantException;
+import org.esupportail.pstagedata.exceptions.CentreReferenceException;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -154,21 +154,21 @@ public class CentreGestionDomainServiceImpl implements CentreGestionDomainServic
 	/**
 	 * @see org.esupportail.pstage.domain.CentreGestionDomainService#addCentreGestion(org.esupportail.pstagedata.domain.dto.CentreGestionDTO)
 	 */
-	public int addCentreGestion(CentreGestionDTO cg) throws DataAddException_Exception,WebServiceDataBaseException_Exception,CentreEtablissementDejaExistantException_Exception,CentreEntrepriseDejaExistantException_Exception{
+	public int addCentreGestion(CentreGestionDTO cg) throws DataAddException,WebServiceDataBaseException,CentreEtablissementDejaExistantException,CentreEntrepriseDejaExistantException{
 		return this.remoteServices.addCentreGestion(cg);
 	}
 
 	/**
 	 * @see org.esupportail.pstage.domain.CentreGestionDomainService#updateCentreGestion(org.esupportail.pstagedata.domain.dto.CentreGestionDTO)
 	 */
-	public boolean updateCentreGestion(CentreGestionDTO cg) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception,CentreEtablissementDejaExistantException_Exception,CentreEntrepriseDejaExistantException_Exception{
+	public boolean updateCentreGestion(CentreGestionDTO cg) throws DataUpdateException,WebServiceDataBaseException,CentreEtablissementDejaExistantException,CentreEntrepriseDejaExistantException{
 		return this.remoteServices.updateCentreGestion(cg);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.CentreGestionDomainService#deleteCentreGestion(int)
 	 */
-	public boolean deleteCentreGestion(int idCentreGestion) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception,CentreReferenceException_Exception{
+	public boolean deleteCentreGestion(int idCentreGestion) throws DataDeleteException,WebServiceDataBaseException,CentreReferenceException{
 		return this.remoteServices.deleteCentreGestion(idCentreGestion);
 	}
 	
@@ -181,21 +181,21 @@ public class CentreGestionDomainServiceImpl implements CentreGestionDomainServic
 	/**
 	 * @see org.esupportail.pstage.domain.CentreGestionDomainService#addCentreGestionSuperviseur(org.esupportail.pstagedata.domain.dto.CentreGestionSuperviseurDTO)
 	 */
-	public int addCentreGestionSuperviseur(CentreGestionSuperviseurDTO cg) throws DataAddException_Exception,WebServiceDataBaseException_Exception{
+	public int addCentreGestionSuperviseur(CentreGestionSuperviseurDTO cg) throws DataAddException,WebServiceDataBaseException{
 		return this.remoteServices.addCentreGestionSuperviseur(cg);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.CentreGestionDomainService#updateIdFichier(int, int)
 	 */
-	public boolean updateIdFichier(int idCentreGestion, int idFichier) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception{
+	public boolean updateIdFichier(int idCentreGestion, int idFichier) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateIdFichier(idCentreGestion, idFichier);
 	}
 	
 	/**
 	 * @see org.esupportail.pstage.domain.CentreGestionDomainService#setIdFichierNull(int)
 	 */
-	public boolean setIdFichierNull(int idCentreGestion) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception{
+	public boolean setIdFichierNull(int idCentreGestion) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.setIdFichierNull(idCentreGestion);
 	}
 	

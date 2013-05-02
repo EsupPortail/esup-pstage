@@ -1,0 +1,136 @@
+<%@include file="../_include.jsp"%>
+
+<h:column>
+	<a4j:status for="rDiffusionCentreOffre"
+		onstart="#{rich:component('pDiffusionCentreOffre')}.show()"
+		onstop="#{rich:component('pDiffusionCentreOffre')}.hide()" />
+	<rich:modalPanel id="pDiffusionCentreOffre" autosized="true" width="15"
+		height="40" moveable="false" resizeable="false"
+		style="position:absolute;margin-left:auto;margin-right:auto;">
+		<f:facet name="header">
+			<e:text value="#{msgs['GENERAL.LOADING']}" />
+		</f:facet>
+		<h:graphicImage value="../../media/images/loadingCircle.gif"
+			style="margin-left:25px;" alt="#{msgs['GENERAL.LOADING']}"
+			title="#{msgs['GENERAL.LOADING']}" styleClass="hidelink" />
+	</rich:modalPanel>
+	<a4j:region id="rDiffusionCentreOffre">
+		<e:panelGrid columns="1" style="font-size:12px;">
+			<e:panelGrid columns="1"
+				rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
+				style="font-size:12px;">
+				<e:text
+					value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONETAB']}"
+					rendered="#{sessionController.adminPageAuthorized}" />
+				<e:text
+					value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.SELECTIONETAB']}"
+					rendered="#{sessionController.pageAuthorized && !sessionController.adminPageAuthorized}" />
+				<e:text
+					value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNCENTREETAB']}"
+					rendered="#{empty offreController.listesCentresGestionEtablissement}" />
+				<h:selectOneMenu id="lCgEtab"
+					rendered="#{not empty offreController.listesCentresGestionEtablissement}"
+					value="#{offreController.idCentreEtablissementSelect}"
+					valueChangeListener="#{offreController.valueCentreEtablissementChanged}"
+					converter="#{intConverter}">
+					<f:selectItems
+						value="#{offreController.listesCentresGestionEtablissement}" />
+					<a4j:support reRender="opLCgUniv" ajaxSingle="true"
+						ignoreDupResponses="true" event="onchange" />
+				</h:selectOneMenu>
+			</e:panelGrid>
+			<a4j:outputPanel id="opLCgUniv">
+				<e:text value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNCENTRE']}"
+					rendered="#{empty offreController.listesCentresGestionUniversite
+					and offreController.idCentreEtablissementSelect>0}" />
+				<e:panelGrid columns="1" style="font-size:12px;"
+					rendered="#{not empty offreController.listesCentresGestionUniversite
+				and offreController.idCentreEtablissementSelect>0}">
+					<e:panelGrid columns="1" style="font-size:12px;">
+						<e:text
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONCENTRE']}"
+							rendered="#{sessionController.adminPageAuthorized}" />
+						<e:text
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.SELECTIONCENTRE']}"
+							rendered="#{sessionController.pageAuthorized && !sessionController.adminPageAuthorized}" />
+						<e:text
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE.SELECTIONCENTRE']}"
+							rendered="#{(welcomeController.superAdmin && !sessionController.adminPageAuthorized) || welcomeController.admin || welcomeController.writer}" />
+						<h:selectManyListbox id="lCgUniv"
+							value="#{offreController.idsCentreGestionUniversiteSelect}"
+							converter="#{intConverter}" style="width:500px;height:75px;">
+							<f:selectItems
+								value="#{offreController.listesCentresGestionUniversite}" />
+						</h:selectManyListbox>
+					</e:panelGrid>
+					<e:panelGrid columns="8" style="font-size:12px;">
+						<a4j:commandLink id="addAll"
+							action="#{offreController.addAllCentresGestionToListeADiffuser}"
+							reRender="lCgUnivSelect">
+							<h:graphicImage
+								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
+								value="../../media/images/addAll.png" style="border:0" />
+						</a4j:commandLink>
+						<rich:toolTip for="addAll"
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}" />
+						<a4j:commandLink id="add"
+							action="#{offreController.addCentresGestionToListeADiffuser}"
+							reRender="lCgUnivSelect">
+							<h:graphicImage
+								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
+								value="../../media/images/new.png" style="border:0" />
+						</a4j:commandLink>
+						<rich:toolTip for="add"
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTER']}" />
+						<a4j:commandLink id="remove"
+							action="#{offreController.deleteCentresGestionFromListeADiffuser}" 
+							reRender="lCgUnivSelect">
+							<h:graphicImage
+								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}"
+								value="../../media/images/del.png" style="border:0" />
+						</a4j:commandLink>
+						<rich:toolTip for="remove"
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}" />
+						<a4j:commandLink id="removeAll"
+							action="#{offreController.deleteAllCentresGestionFromListeADiffuser}"
+							reRender="lCgUnivSelect">
+							<h:graphicImage
+								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}"
+								value="../../media/images/forbidden.png" style="border:0" />
+						</a4j:commandLink>
+						<rich:toolTip for="removeAll"
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}" />
+					</e:panelGrid>
+					<e:panelGrid columns="1" style="font-size:12px;">
+						<e:text
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.CENTRESELECT']}"
+							rendered="#{sessionController.adminPageAuthorized}" />
+						<e:text
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.CENTRESELECT']}"
+							rendered="#{sessionController.pageAuthorized && !sessionController.adminPageAuthorized}" />
+						<e:text
+							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE.CENTRESELECT']}"
+							rendered="#{(welcomeController.superAdmin && !sessionController.adminPageAuthorized) || welcomeController.admin || welcomeController.writer}" />
+						<h:selectManyListbox id="lCgUnivSelect"
+							value="#{offreController.idsCentreGestionUniversiteADiffuser}"
+							converter="#{intConverter}" style="width:500px;height:75px;">
+							<f:selectItems
+								value="#{offreController.listesCentreGestionUniversiteADiffuser}" />
+						</h:selectManyListbox>
+					</e:panelGrid>
+				</e:panelGrid>
+			</a4j:outputPanel>
+		</e:panelGrid>
+		<e:panelGrid columns="3">
+			<t:div>
+				<a4j:commandButton action="#{offreController.diffusionCentreOffre}"
+					value="#{msgs['FORM.ENREGISTRER']}" ignoreDupResponses="true" 
+					rendered="#{not empty offreController.listesCentresGestionUniversite}"/>
+			</t:div>
+			<rich:spacer width="150px" />
+			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+				onclick="#{rich:component('diffusionCentreOffre')}.hide();"
+				action="_diffusionCentreOffreEtape1" immediate="true" />
+		</e:panelGrid>
+	</a4j:region>
+</h:column>

@@ -1,0 +1,131 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel
+					rendered="#{(welcomeController.superAdmin	
+							|| welcomeController.admin)
+							&& centreController.centre != null}">
+					<f:facet name="header">
+						<e:text value="#{msgs['CENTRE.PERSONNEL.RESULTAT.HEAD']}" />
+					</f:facet>
+					<%@include file="./_menu_centre.jsp"%>
+					<h:form>
+						<e:panelGrid columns="1" align="center">
+							<a4j:outputPanel id="rattachResultDataTable">
+								<rich:spacer height="15" />
+								<rich:dataTable align="center" width="483" id="listePersonnels"
+									rows="10" columnClasses="col"
+									value="#{centreController.recherchePersonnels}" var="personnel"
+									onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+									<rich:column sortBy="#{personnel.civilite.libelle}">
+										<f:facet name="header">
+											<h:outputText style="width:50px; display:block;"
+												value="#{msgs['CENTRE.PERSONNEL.CIVILITE']}" />
+										</f:facet>
+										<t:htmlTag value="center">
+											<e:text value="#{personnel.civilite.libelle}" />
+										</t:htmlTag>
+									</rich:column>
+									<rich:column sortBy="#{personnel.nom}">
+										<f:facet name="header">
+											<h:outputText style="width:100px; display:block;"
+												value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
+										</f:facet>
+										<t:htmlTag value="center">
+											<e:text value="#{personnel.nom}" />
+										</t:htmlTag>
+									</rich:column>
+									<rich:column sortBy="#{personnel.prenom}">
+										<f:facet name="header">
+											<h:outputText style="width:100px; display:block;"
+												value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
+										</f:facet>
+										<t:htmlTag value="center">
+											<e:text value="#{personnel.prenom}" />
+										</t:htmlTag>
+									</rich:column>
+									<rich:column sortBy="#{personnel.affectation.libelle}">
+										<f:facet name="header">
+											<h:outputText style="width:150px; display:block;"
+												value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
+										</f:facet>
+										<t:htmlTag value="center">
+											<e:text value="#{personnel.affectation.libelle}" />
+										</t:htmlTag>
+									</rich:column>
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText style="width:50px; display:block;"
+												value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
+										</f:facet>
+										<t:htmlTag value="center">
+											<h:commandLink id="add"
+												action="#{centreController.goToRattachPersonnelAjout}">
+												<f:setPropertyActionListener value="#{personnel}"
+													target="#{centreController.personnel}" />
+												<h:graphicImage alt="#{msgs['FORM.AJOUTER']}"
+													value="../../media/images/new.png" style="border:0" />
+											</h:commandLink>
+											<rich:toolTip for="add"
+												value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
+										</t:htmlTag>
+									</rich:column>
+
+									<f:facet name="footer">
+										<rich:datascroller align="center" for="listePersonnels"
+											maxPages="20" page="1" id="listeScroller"
+											renderIfSinglePage="false" />
+									</f:facet>
+								</rich:dataTable>
+								<rich:spacer height="10" />
+								<e:panelGrid columns="2" align="center">
+									<h:commandButton id="back" value="#{msgs['GENERAL.RETOUR']}"
+										action="#{centreController.goToRattachPersonnelRecherche}"
+										immediate="true" />
+									<rich:toolTip for="back"
+										value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.RETOUR']}" />
+								</e:panelGrid>
+							</a4j:outputPanel>
+							<rich:spacer height="20" />
+						</e:panelGrid>
+					</h:form>
+				</rich:panel>
+				<t:div
+					rendered="#{!(welcomeController.superAdmin	
+		|| welcomeController.admin)}">
+					<%@include file="./_redirection_droitsInsuffisants.jsp"%>
+				</t:div>
+				<t:div
+					rendered="#{(welcomeController.superAdmin	
+		|| welcomeController.admin)
+		&& centreController.centre == null}">
+					<%@include file="./_redirection_accesDirectImpossible.jsp"%>
+				</t:div>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<e:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</e:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+			hideButton("welcomeManagerForm:localeChangeButton");
+		</script>
+	</t:div>
+</e:page>

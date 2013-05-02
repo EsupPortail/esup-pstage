@@ -1,0 +1,321 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel>
+					<f:facet name="header">
+						<e:text value="#{msgs['CONTACT.GESTION']}" />
+					</f:facet>
+					<%@include file="_menuGestionEtab.jsp"%>
+					<h:form>
+						<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+							rendered="#{empty sessionController.currentManageStructure}" />
+						<e:panelGrid align="center"
+							rendered="#{not empty sessionController.currentManageStructure}">
+							<e:text value="#{msgs['SERVICE.AUCUNSERVICE']}"
+								rendered="#{empty etablissementController.listeServices}"
+								escape="false" />
+							<a4j:outputPanel id="opService">
+								<e:panelGrid columns="2">
+									<e:text value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
+										escape="false"
+										rendered="#{not empty etablissementController.listeServices}" />
+									<h:selectOneMenu id="sOMService"
+										value="#{etablissementController.idServiceSel}"
+										converter="#{intConverter}"
+										valueChangeListener="#{etablissementController.valueIdServiceChanged}"
+										rendered="#{not empty etablissementController.listeServices}">
+										<f:selectItems
+											value="#{etablissementController.servicesItems}" />
+										<a4j:support event="onblur" ignoreDupResponses="true"
+											reRender="opContactsDataTable, opActionsService"
+											ajaxSingle="true" />
+										<a4j:support event="onchange"
+											reRender="opContactsDataTable, opActionsService"
+											ignoreDupResponses="true" ajaxSingle="true" />
+									</h:selectOneMenu>
+								</e:panelGrid>
+								<e:panelGrid columns="3"
+									rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+									<e:text value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
+									<a4j:commandLink ajaxSingle="true" id="ajout"
+										oncomplete="#{rich:component('ajoutService')}.show()"
+										action="#{etablissementController.ajoutService}"
+										reRender="ajoutService">
+										<f:setPropertyActionListener value="#{true}"
+											target="#{etablissementController.memeAdresseStructure}" />
+										<h:graphicImage alt="#{msgs['FORM.CREER']}"
+											value="../../media/images/new.png" style="border:0" />
+									</a4j:commandLink>
+									<rich:toolTip for="ajout" value="#{msgs['FORM.CREER']}" />
+								</e:panelGrid>
+							</a4j:outputPanel>
+							<rich:spacer height="20px" />
+							<a4j:outputPanel id="opActionsService">
+								<e:text value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
+									escape="false"
+									rendered="#{not empty etablissementController.serviceSel}" />
+								<rich:dataTable value="#{etablissementController.serviceSel}"
+									rendered="#{not empty etablissementController.serviceSel}"
+									onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+									<%@include file="../_commun/_serviceColumns.jsp"%>
+									<rich:column
+										rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+										<a4j:commandLink ajaxSingle="true" id="modif"
+											rendered="#{not empty etablissementController.idServiceSel}"
+											oncomplete="#{rich:component('modifService')}.show()"
+											reRender="modifService">
+											<f:setPropertyActionListener value="#{false}"
+												target="#{etablissementController.memeAdresseStructure}" />
+											<f:setPropertyActionListener
+												value="#{etablissementController.serviceSel}"
+												target="#{etablissementController.formService}" />
+											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+												value="../../media/images/edit.png" style="border:0" />
+										</a4j:commandLink>
+										<rich:toolTip for="modif">
+											<e:panelGrid columns="1">
+												<e:bold value="#{msgs['FORM.MODIFIER']}" />
+												<t:div
+													rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+													<t:htmlTag value="br" />
+													<t:aliasBean alias="#{objet}"
+														value="#{etablissementController.serviceSel}">
+														<%@include file="../_commun/_updateInfos.jsp"%>
+													</t:aliasBean>
+												</t:div>
+											</e:panelGrid>
+										</rich:toolTip>
+										<a4j:commandLink ajaxSingle="true" id="suppr"
+											rendered="#{not empty etablissementController.idServiceSel}"
+											oncomplete="#{rich:component('supprService')}.show()"
+											reRender="supprService">
+											<f:setPropertyActionListener value="#{false}"
+												target="#{etablissementController.memeAdresseStructure}" />
+											<f:setPropertyActionListener
+												value="#{etablissementController.serviceSel}"
+												target="#{etablissementController.formService}" />
+											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+												value="../../media/images/delete.png" style="border:0" />
+										</a4j:commandLink>
+										<rich:toolTip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+									</rich:column>
+								</rich:dataTable>
+							</a4j:outputPanel>
+							<rich:spacer height="20px" />
+							<a4j:outputPanel id="opContactsDataTable">
+								<e:text value="#{msgs['CONTACT.GESTION.AUCUN']}"
+									rendered="#{not empty etablissementController.serviceSel
+								and not empty etablissementController.listeServices
+								and empty etablissementController.listeContacts
+								and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
+									escape="false" />
+								<e:bold value="#{msgs['CONTACT.GESTION.CONTACTS']}"
+									rendered="#{not empty etablissementController.serviceSel
+								and not empty etablissementController.listeServices
+								and not empty etablissementController.listeContacts
+								and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}" />
+								<e:panelGrid columns="2"
+									rendered="#{not empty etablissementController.serviceSel
+									and not empty etablissementController.listeServices
+									and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+									<e:text value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
+										escape="false" />
+									<a4j:commandLink ajaxSingle="true" id="ajoutC"
+										rendered="#{not empty etablissementController.serviceSel
+									and not empty etablissementController.listeServices}"
+										oncomplete="#{rich:component('ajoutContact')}.show()"
+										action="#{etablissementController.ajoutContact}"
+										reRender="ajoutContact">
+										<h:graphicImage alt="#{msgs['FORM.CREER']}"
+											value="../../media/images/new.png" style="border:0" />
+										<f:setPropertyActionListener value="#{true}"
+											target="#{etablissementController.afficherSelectionCentreContact}" />
+									</a4j:commandLink>
+									<rich:toolTip for="ajoutC" value="#{msgs['FORM.CREER']}" />
+								</e:panelGrid>
+								<rich:dataTable width="600" id="contactsDataTable" rows="10"
+									columnClasses="col" var="contact" rowKeyVar="rowContact"
+									value="#{etablissementController.listeContacts}"
+									rendered="#{not empty etablissementController.serviceSel
+								and not empty etablissementController.listeServices
+								and not empty etablissementController.listeContacts}"
+									ajaxKeys="#{etablissement.keysContacts}"
+									onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+									<f:facet name="header">
+										<rich:columnGroup>
+											<rich:column>
+												<h:outputText styleClass="headerText"
+													value="#{msgs['CONTACT.CG']}" />
+											</rich:column>
+											<rich:column>
+												<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
+													title="#{msgs['CONTACT.CIVILITE']}"
+													value="../../media/images/user_gray.png" style="border:0" />
+											</rich:column>
+											<rich:column>
+												<h:outputText styleClass="headerText"
+													value="#{msgs['CONTACT.NOM']}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText styleClass="headerText"
+													value="#{msgs['CONTACT.PRENOM']}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText styleClass="headerText"
+													value="#{msgs['CONTACT.FONCTION']}" />
+											</rich:column>
+											<rich:column>
+												<h:outputText styleClass="headerText"
+													value="#{msgs['CONTACT.TELFAXMAIL']}" />
+											</rich:column>
+											<rich:column colspan="2"
+												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+												<h:outputText styleClass="headerText"
+													value="#{msgs['GENERAL.ACTIONS']}" />
+											</rich:column>
+										</rich:columnGroup>
+									</f:facet>
+									<rich:column>
+										<e:text id="cgC" value="#{contact.centreGestion.nomCentre}"
+											rendered="#{not empty contact.centreGestion}" />
+									</rich:column>
+									<rich:column>
+										<e:text id="civC" value="#{contact.civilite.libelle}" />
+									</rich:column>
+									<rich:column>
+										<e:text id="nomC" value="#{contact.nom}" />
+									</rich:column>
+									<rich:column>
+										<e:text id="prenomC" value="#{contact.prenom}" />
+									</rich:column>
+									<rich:column>
+										<e:text id="fonctionC" value="#{contact.fonction}" />
+									</rich:column>
+									<rich:column>
+										<e:panelGrid columns="1">
+											<e:panelGrid columns="2" style="font-size:12px;">
+												<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+													title="#{msgs['CONTACT.TELEPHONE']}"
+													value="../../media/images/phone.png" style="border:0" />
+												<e:text id="telC" value="#{contact.tel}" />
+											</e:panelGrid>
+											<e:panelGrid columns="2" style="font-size:12px;">
+												<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+													title="#{msgs['CONTACT.FAX']}"
+													value="../../media/images/printer.png" style="border:0" />
+												<e:text id="faxC" value="#{contact.fax}" />
+											</e:panelGrid>
+											<e:panelGrid columns="2" style="font-size:12px;">
+												<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+													title="#{msgs['CONTACT.MAIL']}"
+													value="../../media/images/email.png" style="border:0" />
+												<e:text id="mailC" value="#{contact.mail}" />
+											</e:panelGrid>
+										</e:panelGrid>
+									</rich:column>
+									<rich:column
+										rendered="#{sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty contact.login and empty contact.mdp)
+								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id)}">
+										<a4j:commandLink ajaxSingle="true" id="modifC"
+											rendered="#{not empty etablissementController.serviceSel
+									and not empty etablissementController.listeServices}"
+											oncomplete="#{rich:component('modifContact')}.show()"
+											reRender="modifContact">
+											<f:setPropertyActionListener value="#{rowContact}"
+												target="#{etablissementController.currentRowContact}" />
+											<f:setPropertyActionListener value="#{contact}"
+												target="#{etablissementController.formContact}" />
+											<f:setPropertyActionListener
+												value="#{etablissementController.currentCentresGestionContainsCentreContact}"
+												target="#{etablissementController.afficherSelectionCentreContact}" />
+											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+												value="../../media/images/edit.png" style="border:0" />
+										</a4j:commandLink>
+										<rich:toolTip for="modifC">
+											<e:panelGrid columns="1">
+												<e:bold value="#{msgs['FORM.MODIFIER']}" />
+												<t:div
+													rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+													<t:htmlTag value="br" />
+													<t:aliasBean alias="#{objet}" value="#{contact}">
+														<%@include file="../_commun/_updateInfos.jsp"%>
+													</t:aliasBean>
+												</t:div>
+											</e:panelGrid>
+										</rich:toolTip>
+										<a4j:commandLink ajaxSingle="true" id="supprC"
+											rendered="#{not empty etablissementController.serviceSel
+									and not empty etablissementController.listeServices}"
+											oncomplete="#{rich:component('supprContact')}.show()"
+											reRender="supprContact">
+											<f:setPropertyActionListener value="#{contact}"
+												target="#{etablissementController.formContact}" />
+											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+												value="../../media/images/delete.png" style="border:0" />
+										</a4j:commandLink>
+										<rich:toolTip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
+									</rich:column>
+									<rich:column
+										rendered="#{(not empty contact.login and not empty contact.mdp)
+										and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+										<a4j:commandLink ajaxSingle="true" id="modifBlock"
+											disabled="true">
+											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+												value="../../media/images/edit_block.png" style="border:0" />
+										</a4j:commandLink>
+										<rich:toolTip for="modifBlock"
+											value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
+									</rich:column>
+									<f:facet name="footer">
+										<rich:datascroller id="ds" renderIfSinglePage="false"></rich:datascroller>
+									</f:facet>
+								</rich:dataTable>
+							</a4j:outputPanel>
+						</e:panelGrid>
+						<t:htmlTag value="br" />
+						<rich:spacer height="20px" />
+						<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+							action="#{rechercheController.goToRechercheEtablissementStage}"
+							alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+							title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}">
+						</h:commandButton>
+					</h:form>
+					<%@include file="../_commun/_panelAjoutService.jsp"%>
+					<%@include file="../_commun/_panelModifService.jsp"%>
+					<%@include file="../_commun/_panelSupprService.jsp"%>
+					<%@include file="../_commun/_panelAjoutContact.jsp"%>
+					<%@include file="../_commun/_panelModifContact.jsp"%>
+					<%@include file="../_commun/_panelSupprContact.jsp"%>
+				</rich:panel>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<h:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+	hideButton("welcomeManagerForm:localeChangeButton");
+</script>
+	</t:div>
+</e:page>
+
+

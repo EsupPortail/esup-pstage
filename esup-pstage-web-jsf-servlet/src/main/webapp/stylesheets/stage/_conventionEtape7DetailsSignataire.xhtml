@@ -1,0 +1,20 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1"
+	rendered="#{not empty conventionController.convention.signataire && conventionController.convention.signataire.id > 0}">
+
+	<e:text value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}" escape="false" />
+	<rich:spacer width="50px" />
+
+	<%@include	file="/stylesheets/stage/_conventionEtape7SignataireColumns.jsp"%>
+
+</e:panelGrid>
+
+<e:panelGrid columns="1"
+	rendered="#{empty conventionController.convention.signataire || conventionController.convention.signataire.id == 0}">
+
+	<e:text value="#{msgs['CONTACT.AUCUNSIGNATAIRE']}" escape="false" />
+	<rich:spacer width="50px" />
+	
+	
+</e:panelGrid>

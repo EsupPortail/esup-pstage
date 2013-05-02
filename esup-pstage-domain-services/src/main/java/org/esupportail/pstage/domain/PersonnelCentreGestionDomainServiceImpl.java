@@ -6,15 +6,15 @@ package org.esupportail.pstage.domain;
 
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.AffectationAlreadyExistingForCodeException_Exception;
-import org.esupportail.pstagedata.remote.AffectationDTO;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.PersonalAlreadyExistingForCentreException_Exception;
-import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.AffectationDTO;
+import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.exceptions.AffectationAlreadyExistingForCodeException;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.PersonalAlreadyExistingForCentreException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 import org.springframework.dao.DataAccessException;
 
 
@@ -152,30 +152,30 @@ public class PersonnelCentreGestionDomainServiceImpl implements PersonnelCentreG
 	}
 	  
 	/**
-	 * @throws PersonalAlreadyExistingForCentreException_Exception 
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws PersonalAlreadyExistingForCentreException 
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
 	 * @see org.esupportail.pstage.domain.PersonnelCentreGestionDomainService#addPersonnelCentreGestion(org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO)
 	 */
-	public int addPersonnelCentreGestion(PersonnelCentreGestionDTO pg) throws DataAccessException, WebServiceDataBaseException_Exception, DataAddException_Exception, PersonalAlreadyExistingForCentreException_Exception{
+	public int addPersonnelCentreGestion(PersonnelCentreGestionDTO pg) throws DataAccessException, WebServiceDataBaseException, DataAddException, PersonalAlreadyExistingForCentreException{
 		return this.remoteServices.addPersonnelCentreGestion(pg);
 	}
 
 	/**
-	 * @throws WebServiceDataBaseException_Exception 
-	 * @throws DataUpdateException_Exception 
+	 * @throws WebServiceDataBaseException 
+	 * @throws DataUpdateException 
 	 * @see org.esupportail.pstage.domain.PersonnelCentreGestionDomainService#updatePersonnelCentreGestion(org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO)
 	 */
-	public boolean updatePersonnelCentreGestion(PersonnelCentreGestionDTO pg) throws DataAccessException, DataUpdateException_Exception, WebServiceDataBaseException_Exception{
+	public boolean updatePersonnelCentreGestion(PersonnelCentreGestionDTO pg) throws DataAccessException, DataUpdateException, WebServiceDataBaseException{
 		return this.remoteServices.updatePersonnelCentreGestion(pg);
 	}
 
 	/**
-	 * @throws DataDeleteException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException 
 	 * @see org.esupportail.pstage.domain.PersonnelCentreGestionDomainService#deletePersonnelCentreGestion(int)
 	 */
-	public boolean deletePersonnelCentreGestion(int idCentreGestion, int idPersonnelCentreGestion) throws DataAccessException, WebServiceDataBaseException_Exception, DataDeleteException_Exception{
+	public boolean deletePersonnelCentreGestion(int idCentreGestion, int idPersonnelCentreGestion) throws DataAccessException, WebServiceDataBaseException, DataDeleteException{
 		return this.remoteServices.deletePersonnelCentreGestion(idCentreGestion, idPersonnelCentreGestion);
 	}
 	
@@ -187,10 +187,10 @@ public class PersonnelCentreGestionDomainServiceImpl implements PersonnelCentreG
 	}
 	
 	/**
-	 * @throws AffectationAlreadyExistingForCodeException_Exception 
+	 * @throws AffectationAlreadyExistingForCodeException 
 	 * @see org.esupportail.pstage.domain.PersonnelCentreGestionDomainService#addAffectation(org.esupportail.pstagedata.domain.dto.AffectationDTO)
 	 */ 
-	public int addAffectation(AffectationDTO a) throws DataAddException_Exception,WebServiceDataBaseException_Exception, AffectationAlreadyExistingForCodeException_Exception{
+	public int addAffectation(AffectationDTO a) throws DataAddException,WebServiceDataBaseException, AffectationAlreadyExistingForCodeException{
 		return this.remoteServices.addAffectation(a);
 	}
 	

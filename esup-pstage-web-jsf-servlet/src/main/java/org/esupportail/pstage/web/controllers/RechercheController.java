@@ -12,10 +12,10 @@ import javax.faces.model.SelectItem;
 
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.paginators.RechercheStructurePaginator;
-import org.esupportail.pstagedata.remote.CritereRechercheStructureAdresseDTO;
-import org.esupportail.pstagedata.remote.NafN1DTO;
-import org.esupportail.pstagedata.remote.StructureDTO;
-import org.esupportail.pstagedata.remote.TypeStructureDTO;
+import org.esupportail.pstagedata.domain.dto.CritereRechercheStructureAdresseDTO;
+import org.esupportail.pstagedata.domain.dto.NafN1DTO;
+import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
 import org.springframework.util.StringUtils;
 
 

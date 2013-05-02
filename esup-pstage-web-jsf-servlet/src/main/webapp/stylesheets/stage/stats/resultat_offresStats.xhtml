@@ -1,0 +1,271 @@
+<%@include file="../../_include.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+
+	<jsp:include page="/stylesheets/_header.jsp" />
+	
+	<c:set var="styD" value="${beanUtils.startYearDay}"/>
+	<c:set var="styM" value="${beanUtils.startYearMonth}"/>
+	<%
+		//Récupère l'année scolaire sélectionnée
+		String annee_scolaire = request.getParameter("annee_scolaire");
+		int startDay = Integer.parseInt((String)pageContext.findAttribute("styD"));
+		int startMonth = Integer.parseInt((String)pageContext.findAttribute("styM"));
+		
+		if (annee_scolaire == null) {
+			java.util.Date date = new java.util.Date();
+			java.util.Calendar calendar = new java.util.GregorianCalendar();
+			calendar.setTime(date);
+			int month = calendar.get(java.util.Calendar.MONTH);
+			int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+			if(month < startMonth){
+				annee_scolaire = String.valueOf(calendar.get(java.util.Calendar.YEAR)-1)+"/"+String.valueOf(calendar.get(java.util.Calendar.YEAR));
+			} else if(month == startMonth){
+				if(day < startDay){
+					annee_scolaire = String.valueOf(calendar.get(java.util.Calendar.YEAR)-1)+"/"+String.valueOf(calendar.get(java.util.Calendar.YEAR));
+				} else {
+					annee_scolaire = String.valueOf(calendar.get(java.util.Calendar.YEAR))+"/"+String.valueOf(calendar.get(java.util.Calendar.YEAR)+1);
+				}
+			} else {
+				annee_scolaire = String.valueOf(calendar.get(java.util.Calendar.YEAR))+"/"+String.valueOf(calendar.get(java.util.Calendar.YEAR)+1);
+			}
+		}
+	%>
+	<c:set var="annee_scolaire" value="<%= annee_scolaire %>" />
+
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="../_menuDynamiqueStage.jsp"%>
+			</t:div>
+
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+
+				<!-- contenu de la page -->
+
+				<rich:panel id="idPanelResultatsStatsOffres"
+					rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
+					|| welcomeController.personnel) && centreController.centre != null}">
+					<f:facet name="header">
+						<e:text value="#{msgs['OFFRES.STATS.INDICATION']}" />
+					</f:facet>
+
+					<%@include file="../_menu_centre.jsp"%>
+
+					<e:panelGrid align="center"
+						rendered="#{empty statistiquesOffresController.years}">
+						<b><c:out
+							value="Aucune offre n'est actuellement référencée pour ce centre." /></b>
+					</e:panelGrid>
+					<t:htmlTag value="div"
+						rendered="#{not empty statistiquesOffresController.years}">
+						<center>
+							<t:htmlTag value="div"
+								rendered="#{(not empty statistiquesOffresController.critereUnLib 
+								|| not empty statistiquesOffresController.critereDeuxLib)
+								&& not empty statistiquesOffresController.years}">
+								<h:panelGrid columns="2">
+									<h:graphicImage alt="info"
+										value="../../../media/images/information.png" style="border:0" />
+									<h:outputText value="Changer d'année : " />
+								</h:panelGrid>
+								<tr style="color: green;">
+									<c:forEach var="annee"
+										items="${statistiquesOffresController.years}">
+										<td>
+											<a href="${sessionController.baseUrl}stylesheets/stage/stats/resultat_offresStats.faces?annee_scolaire=${annee}">
+												${annee}
+											</a>
+										</td>
+									</c:forEach>
+								</tr>
+							</t:htmlTag>
+						</center>
+						<br />
+
+						<div align="center">
+							<b>
+								<h:outputText value="#{statistiquesOffresController.message}" />
+							</b>
+							<h:panelGrid rendered="#{not empty statistiquesOffresController.critereUnLib 
+								|| not empty statistiquesOffresController.critereDeuxLib}">
+								<b><c:out value=" pour l'année universitaire " /></b>
+								<b><c:out value="${annee_scolaire}" /></b>
+							</h:panelGrid>
+						</div>
+						<br />
+
+						<c:set var="map" value="${statistiquesOffresController.map}" />
+						<c:choose>
+							<c:when test="${empty statistiquesOffresController.critereUnLib 
+								and empty statistiquesOffresController.critereDeuxLib}">
+								<c:set var="liste" value="${map['all']}"/>
+							</c:when>
+							<c:otherwise>
+								<c:set var="liste" value="${map[annee_scolaire]}" />
+							</c:otherwise>
+						</c:choose>
+						<c:set var="total" value="0" />
+						<c:set var="libPrec" value="" />
+						<c:set var="sousTotal" value="0" />
+						<c:set var="pourcent" value="0" />
+
+						<c:forEach var="statsItem" items="${liste}">
+							<c:set var="total" value="${total+statsItem.number}" />
+						</c:forEach>
+
+						<h:form id="formResultatsStatsStages">
+							<rich:dataTable value="" var="list" id="idOffresStatsResultats"
+								rows="4" width="60%" align="center" style="text-align: center;">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText
+												value="#{statistiquesOffresController.critereUnLib}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText
+												value="#{statistiquesOffresController.critereDeuxLib}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msgs['OFFRES.NBRE.OFFRES.LIB']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="#{msgs['OFFRES.POURCENT.TOTAL.LIB']}" />
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+
+								<c:forEach var="list" items="${liste}">
+
+									<c:if
+										test="${list.libPriorCriteria ne libPrec and (!empty libPrec)}">
+										<rich:columnGroup>
+											<rich:column>
+												<b><c:out value="${libPrec}" /></b>
+											</rich:column>
+											<rich:column>
+												<b><c:out value="sous-total" /></b>
+											</rich:column>
+											<rich:column>
+												<b><c:out value="${sousTotal}" /></b>
+											</rich:column>
+											<rich:column>
+												<b><c:out value="${pourcent} %" /></b>
+											</rich:column>
+
+										</rich:columnGroup>
+										<c:set var="sousTotal" value="0" />
+										<c:set var="pourcent" value="0" />
+									</c:if>
+
+									<rich:columnGroup>
+										<rich:column>
+											<c:out value="${list.libPriorCriteria}" />
+										</rich:column>
+										<rich:column>
+											<c:out value="${list.lib}" />
+										</rich:column>
+										<rich:column>
+											<c:out value="${list.number}" />
+										</rich:column>
+										<rich:column>
+											<c:out value="${list.percentage} %" />
+										</rich:column>
+									</rich:columnGroup>
+
+									<c:set var="libPrec" value="${list.libPriorCriteria}" />
+									<c:set var="sousTotal" value="${sousTotal+list.number}" />
+									<c:set var="pourcent" value="${pourcent+list.percentage}" />
+
+								</c:forEach>
+
+								<rich:columnGroup>
+									<rich:column>
+										<b><c:out value="${libPrec}" /></b>
+									</rich:column>
+									<rich:column>
+										<b><c:out value="sous-total" /></b>
+									</rich:column>
+									<rich:column>
+										<b><c:out value="${sousTotal}" /></b>
+									</rich:column>
+									<rich:column>
+										<b><c:out value="${pourcent} %" /></b>
+									</rich:column>
+								</rich:columnGroup>
+
+								<rich:columnGroup>
+									<rich:column>
+										<b><h:outputText 
+											value="#{statistiquesOffresController.critereUnLib}" /></b>
+									</rich:column>
+									<rich:column>
+										<b><h:outputText value="Total" /></b>
+									</rich:column>
+									<rich:column>
+										<b><c:out value="${total}" /></b>
+									</rich:column>
+									<rich:column>
+										<b><h:outputText value="100 %" /></b>
+									</rich:column>
+								</rich:columnGroup>
+							</rich:dataTable>
+
+							<br />
+
+
+
+							<t:htmlTag value="center">
+								<h:commandLink id="idLienRetourAuxStats"
+									action="#{centreController.goToIndicateurStat}">
+									<h:graphicImage alt="Retour"
+										value="../../../media/images/arrow_undo.png" style="border:0" />
+								</h:commandLink>
+								<rich:toolTip for="idLienRetourAuxStats"
+									value="#{msgs['CONVENTION.STATS.INFO.NOUVEAU']}" />
+
+								<rich:spacer width="30" />
+
+								<h:commandLink id="idLienEnregisterFormatExcel"
+									action="#{statistiquesOffresController.edition}">
+									<h:graphicImage alt="Excel"
+										value="../../../media/images/excelSmall.png" style="border:0" />
+								</h:commandLink>
+								<rich:toolTip for="idLienEnregisterFormatExcel"
+									value="#{msgs['CONVENTION.STATS.INFO.ENREGISTRER']}" />
+							</t:htmlTag>
+						</h:form>
+					</t:htmlTag>
+					<rich:spacer height="30"/>
+				</rich:panel>
+
+				<t:div
+					rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel)}">
+					<%@include file="../_redirection_droitsInsuffisants.jsp"%>
+				</t:div>
+				<t:div
+					rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) && centreController.centre == null}">
+					<%@include file="../_redirection_accesDirectImpossible.jsp"%>
+				</t:div>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<e:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</e:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+			hideButton("welcomeManagerForm:localeChangeButton");
+		</script>
+
+	</t:div>
+</e:page>

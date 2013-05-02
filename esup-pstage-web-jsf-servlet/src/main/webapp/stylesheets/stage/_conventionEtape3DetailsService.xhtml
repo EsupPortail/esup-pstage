@@ -1,0 +1,124 @@
+<%@include file="../_include.jsp"%>
+<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+			rendered="#{empty sessionController.currentManageStructure}" />
+		<e:text value="#{msgs['SERVICE.AUCUNSERVICE']}"
+			rendered="#{empty etablissementController.listeServices}"
+			escape="false" />
+
+		<a4j:outputPanel id="opService">
+			<e:panelGrid columns="2">
+				<e:text value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
+					escape="false"
+					rendered="#{not empty etablissementController.listeServices}" />
+				<h:selectOneMenu id="sOMService"
+					value="#{etablissementController.idServiceSel}"
+					converter="#{intConverter}"
+					valueChangeListener="#{etablissementController.valueIdServiceChanged}"
+					rendered="#{not empty etablissementController.listeServices}">
+					<f:selectItems value="#{etablissementController.servicesItems}" />
+					<a4j:support event="onblur" ignoreDupResponses="true"
+						reRender="opActionsService" ajaxSingle="true" />
+					<a4j:support event="onchange" reRender="opActionsService"
+						ignoreDupResponses="true" ajaxSingle="true" />
+				</h:selectOneMenu>
+			</e:panelGrid>
+			<e:panelGrid columns="3">
+				<e:text value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
+				<a4j:commandLink ajaxSingle="true" id="ajout"
+					rendered="#{not empty etablissementController.idServiceSel && !conventionController.conventionValide}"
+					oncomplete="#{rich:component('ajoutService')}.show()"
+					action="#{etablissementController.ajoutService}"
+					reRender="ajoutService">
+					<f:setPropertyActionListener value="#{true}"
+						target="#{etablissementController.memeAdresseStructure}" />
+					<h:graphicImage alt="#{msgs['FORM.CREER']}"
+						value="../../media/images/new.png" style="border:0" />
+				</a4j:commandLink>
+				<rich:toolTip for="ajout" value="#{msgs['FORM.CREER']}" />
+			</e:panelGrid>
+		</a4j:outputPanel>
+		<rich:spacer height="20px" />
+		<a4j:outputPanel id="opActionsService">
+			<e:text value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
+				escape="false"
+				rendered="#{not empty etablissementController.serviceSel}" />
+			<rich:dataTable 
+				value="#{etablissementController.serviceSel}"
+				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				rendered="#{not empty etablissementController.serviceSel}">
+				<%@include file="../_commun/_serviceColumns.jsp"%>
+				<rich:column>
+					<a4j:commandLink ajaxSingle="true" id="modif"
+						rendered="#{not empty etablissementController.idServiceSel && !conventionController.conventionValide
+						&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+						|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+						(!sessionController.autoriserEtudiantAModifierEntreprise 
+						&& ((empty etablissementController.serviceSel.loginModif &&
+						etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
+						|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
+						oncomplete="#{rich:component('modifService')}.show()"
+						reRender="modifService">
+						<f:setPropertyActionListener value="#{false}"
+							target="#{etablissementController.memeAdresseStructure}" />
+						<f:setPropertyActionListener
+							value="#{etablissementController.serviceSel}"
+							target="#{etablissementController.formService}" />
+						<f:setPropertyActionListener
+							value="#{etablissementController.serviceSel}"
+							target="#{conventionController.convention.service}" />
+						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+							value="../../media/images/edit.png" style="border:0" />
+					</a4j:commandLink>
+					<rich:toolTip for="modif" value="#{msgs['FORM.MODIFIER']}" />
+		
+				</rich:column>
+				<rich:column>
+					
+					<a4j:commandLink ajaxSingle="true" id="selectionService"
+						rendered="#{not empty etablissementController.idServiceSel && !conventionController.conventionValide}"
+						
+						oncomplete="#{rich:component('demandeConfirmModifService')}.show()"
+						reRender="opActionsService">
+						<f:setPropertyActionListener
+							value="#{etablissementController.serviceSel}"
+							target="#{etablissementController.formService}" />
+						<f:setPropertyActionListener
+							value="#{etablissementController.serviceSel}"
+							target="#{conventionController.convention.service}" />
+						<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
+							value="../../media/images/back.png" style="border:0" />
+					</a4j:commandLink>
+					<rich:toolTip for="selectionService" value="#{msgs['FORM.SELECTIONNER']}" />
+				</rich:column>
+	</rich:dataTable>
+	
+	<rich:modalPanel id="demandeConfirmModifService" autosized="true"
+			width="400" styleClass="panel" domElementAttachment="parent">
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.MODIF.SERVICE.DEMANDE']}" />
+			</f:facet>
+			<e:panelGrid columns="2" align="center">
+				<h:column>
+
+					<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+						title="#{msgs['GENERAL.WARNING']}"
+						value="../../media/images/warning_50px.png" style="border:0" />
+					<e:text value="#{msgs['CONVENTION.MODIF.SERVICE.QUESTION']}"
+						escape="false" />
+				</h:column>
+
+			</e:panelGrid>
+			<a4j:commandButton value="#{msgs['FORM.OUI']}"
+				oncomplete="#{rich:component('demandeConfirmModifService')}.hide();"
+				ignoreDupResponses="true"
+				action="#{conventionController.goToConventionEtape3ServiceModif}">
+
+			</a4j:commandButton>
+			<rich:spacer width="150px" />
+			<a4j:commandButton value="#{msgs['FORM.NON']}" ajaxSingle="true"
+				onclick="#{rich:component('demandeConfirmModifService')}.hide();return false;" />
+		</rich:modalPanel>
+</a4j:outputPanel>

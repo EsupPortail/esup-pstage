@@ -1,0 +1,53 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel>
+					<f:facet name="header">
+						<e:text value="#{msgs['OFFRE.CREATION']}" />
+					</f:facet>
+					<h:form id="formCreationOffre">
+						<rich:message for="formCreationOffre">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+						<a4j:include id="include"
+							viewId="/stylesheets/_commun/_creationOffreEtape01Centre.jsp" />
+					</h:form>
+					<rich:message for="formCreationOffre">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+					<%@include file="../_commun/_panelAjoutService.jsp"%>
+					<%@include file="../_commun/_panelModifService.jsp"%>
+					<%@include file="../_commun/_panelAjoutContact.jsp"%>
+					<%@include file="../_commun/_panelModifContact.jsp"%>
+				</rich:panel>
+				<rich:editor rendered="false"/>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<h:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+	hideButton("welcomeManagerForm:localeChangeButton");
+</script>
+	</t:div>
+</e:page>
+
+
+
+

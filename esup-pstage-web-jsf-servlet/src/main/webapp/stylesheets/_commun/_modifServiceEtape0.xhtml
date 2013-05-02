@@ -1,0 +1,15 @@
+<%@include file="../_include.jsp"%>
+
+<e:text value="#{msgs['SERVICE.MODIF.QUESTION']}" escape="false" />
+<rich:spacer height="20px" />
+<rich:dataTable value="#{etablissementController.serviceSel}">
+	<%@include file="../_commun/_serviceColumns.jsp"%>
+</rich:dataTable>
+<t:htmlTag value="br" />
+<rich:spacer height="20px" />
+<t:htmlTag value="br" />
+<a4j:commandButton action="#{etablissementController.goToModifService}"
+	value="#{msgs['FORM.OUI']}" ignoreDupResponses="true" ajaxSingle="true" />
+<rich:spacer width="150px" />
+<a4j:commandButton value="#{msgs['FORM.NON']}"
+	onclick="#{rich:component('modifService')}.hide();" />

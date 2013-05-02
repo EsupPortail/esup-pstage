@@ -1,0 +1,57 @@
+<%@include file="../_include.jsp"%>
+<%/*
+Onglets communs pour chaque moteur de recherche établissement
+
+A inclure dans un formulaire
+*/%>
+<e:text value="#{msgs['RECHERCHEETABLISSEMENT.CHOIX']}"/>
+<t:htmlTag value="br"/>
+<h:commandButton action="#{rechercheController.goToOngletSiret}"
+	value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1']}"
+	immediate="true">
+</h:commandButton>
+<rich:spacer width="20px"/>
+<h:commandButton action="#{rechercheController.goToOngletRaisonSociale}"
+	value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2']}"
+	immediate="true">
+</h:commandButton>
+<rich:spacer width="20px"/>
+<h:commandButton action="#{rechercheController.goToOngletActivite}"
+	value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3']}"
+	immediate="true">
+</h:commandButton>
+<rich:spacer width="20px"/>
+<h:commandButton action="#{rechercheController.goToOngletTelFax}"
+	value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4']}"
+	immediate="true">
+</h:commandButton>
+<rich:spacer width="20px"/>
+<h:commandButton action="#{rechercheController.goToOngletAdresse}"
+	value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7']}"
+	immediate="true">
+</h:commandButton>
+<rich:spacer width="20px"/>
+<h:commandButton action="#{rechercheController.goToOngletService}"
+	rendered="#{not welcomeController.etudiant}"
+	value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5']}"
+	immediate="true">
+</h:commandButton>
+<rich:spacer width="20px"/>
+<%/*
+<h:outputLink value="?args=ongletRecherche=1">
+<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1']}"/>
+</h:outputLink>
+<rich:spacer width="20px"/>
+<h:outputLink value="?args=ongletRecherche=2">
+<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2']}"/>
+</h:outputLink>
+<rich:spacer width="20px"/>
+<h:outputLink value="?args=ongletRecherche=3">
+<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3']}"/>
+</h:outputLink>
+<rich:spacer width="20px"/>
+<h:outputLink value="?args=ongletRecherche=4">
+<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4']}"/>
+</h:outputLink>
+*/%>
+

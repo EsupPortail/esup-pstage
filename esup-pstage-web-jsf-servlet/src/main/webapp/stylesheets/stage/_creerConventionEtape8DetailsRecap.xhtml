@@ -1,0 +1,25 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="2" align="center" rendered="#{conventionController.conventionCree}">
+	<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+		title="#{msgs['GENERAL.OK']}"
+		value="../../media/images/valid.png" style="border:0" />
+	<e:text id="confirmCreationConvention" value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}"/>
+</e:panelGrid>
+
+<e:panelGrid columns="1" >
+	<f:facet name="header">
+		<h:outputText value="#{msgs['CONVENTION.ETAPE8.RECAP']}" />
+	</f:facet>
+		<rich:spacer height="20" />
+		<e:text value="" />
+		<rich:message>
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+		<e:panelGrid columns="1">
+			<e:text value="#{msgs['CONVENTION.ETAPE8.RECAP.INFO']}" />
+			<rich:spacer height="20" />
+			<%@include	file="/stylesheets/stage/_conventionEtape8DetailsRecap.jsp"%>
+		</e:panelGrid>
+	
+</e:panelGrid >

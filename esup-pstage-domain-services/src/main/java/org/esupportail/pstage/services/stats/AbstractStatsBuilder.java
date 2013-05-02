@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.StatisticItemDTO;
 
 public abstract class AbstractStatsBuilder {
 	/**

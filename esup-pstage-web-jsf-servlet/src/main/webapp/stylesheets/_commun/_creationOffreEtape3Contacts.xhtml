@@ -1,0 +1,14 @@
+<%@include file="__offreEtape3Contacts.jsp"%>
+<%@include file="../_include.jsp" %>
+<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+	action="_creationOffreEtape2" alt="#{msgs['FORM.PREVIOUS']}"
+	title="#{msgs['FORM.PREVIOUS']}" immediate="true">
+	<f:setPropertyActionListener value="#{null}" target="#{offreController.formOffre.contactCand}"/>
+	<f:setPropertyActionListener value="#{null}" target="#{offreController.formOffre.contactInfo}"/>
+</h:commandButton>
+<rich:spacer width="20px" />
+<h:commandButton value="#{msgs['FORM.ENREGISTRER']}"
+	action="#{offreController.ajoutOffre}"
+	alt="#{msgs['FORM.ENREGISTRER']}" title="#{msgs['FORM.ENREGISTRER']}">
+	<a4j:support event="onclick" eventsQueue="creationOffreEtape3"/>
+</h:commandButton>

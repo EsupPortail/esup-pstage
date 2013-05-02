@@ -1,0 +1,60 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel>
+					<f:facet name="header">
+						<e:text value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+					</f:facet>
+					<h:form id="formRechOffre">
+						<%@include file="../_commun/_rechercheOffre.jsp"%>
+						<e:panelGrid columns="5">
+							<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
+								action="#{offreController.rechercherOffre}" />
+							<rich:spacer width="100px" />
+							<h:commandButton
+								value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
+								action="#{offreController.rechercheSimpleAvancee}"
+								rendered="#{offreController.rechercheAvancee}" />
+							<h:commandButton
+								value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
+								action="#{offreController.rechercheSimpleAvancee}"
+								rendered="#{!offreController.rechercheAvancee}" />
+							<rich:spacer width="20px" />
+							<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
+								action="#{offreController.resetRechercheOffre}" />
+						</e:panelGrid>
+					</h:form>
+					<rich:message for="formRechOffre" style="color:red;font-weight:bold;">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+				</rich:panel>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<h:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+	hideButton("welcomeManagerForm:localeChangeButton");
+</script>
+	</t:div>
+</e:page>
+
+
+
+

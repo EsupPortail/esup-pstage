@@ -1,0 +1,31 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="2">
+	<h:column>
+		<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
+			value="../../media/images/help32.png" />
+	</h:column>
+	<h:column>
+		<e:text value="#{msgs['STRUCTURE.SUPPRESSION.AIDE']}" escape="false"/>
+	</h:column>
+	<h:column>
+		<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+			value="../../media/images/warning_50px.png" />
+	</h:column>
+	<h:column>
+		<e:panelGrid columns="1">
+			<e:text value="#{msgs['STRUCTURE.SUPPRESSION.QUESTION']}" escape="false">
+				<f:param value="#{etablissementController.formStructure.raisonSociale}"/>
+			</e:text>
+		</e:panelGrid>
+		<e:panelGrid columns="3">
+			<a4j:commandButton ajaxSingle="true"
+				action="#{etablissementController.supprimerEtablissement}"
+				value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
+				reRender="opRechercheStructureDataTable, opAffEtab" />
+			<rich:spacer width="150px" />
+			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+				onclick="#{rich:component('supprimerStructurePanel')}.hide();return false;" />
+		</e:panelGrid>
+	</h:column>
+</e:panelGrid>

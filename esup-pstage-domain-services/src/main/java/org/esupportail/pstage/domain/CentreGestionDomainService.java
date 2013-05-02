@@ -7,15 +7,15 @@ package org.esupportail.pstage.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.CentreEntrepriseDejaExistantException_Exception;
-import org.esupportail.pstagedata.remote.CentreEtablissementDejaExistantException_Exception;
-import org.esupportail.pstagedata.remote.CentreGestionDTO;
-import org.esupportail.pstagedata.remote.CentreGestionSuperviseurDTO;
-import org.esupportail.pstagedata.remote.CentreReferenceException_Exception;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.CentreGestionSuperviseurDTO;
+import org.esupportail.pstagedata.exceptions.CentreEntrepriseDejaExistantException;
+import org.esupportail.pstagedata.exceptions.CentreEtablissementDejaExistantException;
+import org.esupportail.pstagedata.exceptions.CentreReferenceException;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -94,29 +94,29 @@ public interface CentreGestionDomainService extends Serializable {
 	/**
 	 * @param cg
 	 * @return int : l'id du centre ajoutï¿½
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
-	 * @throws CentreEtablissementDejaExistantException_Exception 
-	 * @throws CentreEntrepriseDejaExistantException_Exception 
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
+	 * @throws CentreEtablissementDejaExistantException 
+	 * @throws CentreEntrepriseDejaExistantException 
 	 */
-	public int addCentreGestion(CentreGestionDTO cg) throws DataAddException_Exception, WebServiceDataBaseException_Exception,CentreEtablissementDejaExistantException_Exception,CentreEntrepriseDejaExistantException_Exception;
+	public int addCentreGestion(CentreGestionDTO cg) throws DataAddException, WebServiceDataBaseException,CentreEtablissementDejaExistantException,CentreEntrepriseDejaExistantException;
 	/**
 	 * @param cg
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
-	 * @throws CentreEtablissementDejaExistantException_Exception 
-	 * @throws CentreEntrepriseDejaExistantException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
+	 * @throws CentreEtablissementDejaExistantException 
+	 * @throws CentreEntrepriseDejaExistantException 
 	 */
-	public boolean updateCentreGestion(CentreGestionDTO cg) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception,CentreEtablissementDejaExistantException_Exception,CentreEntrepriseDejaExistantException_Exception;
+	public boolean updateCentreGestion(CentreGestionDTO cg) throws DataUpdateException,WebServiceDataBaseException,CentreEtablissementDejaExistantException,CentreEntrepriseDejaExistantException;
 	/**
 	 * @param idCentreGestion
 	 * @return boolean
-	 * @throws DataDeleteException_Exception 
-	 * @throws WebServiceDataBaseException_Exception
-	 * @throws CentreReferenceException_Exception
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException
+	 * @throws CentreReferenceException
 	 */
-	public boolean deleteCentreGestion(int idCentreGestion) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception,CentreReferenceException_Exception;
+	public boolean deleteCentreGestion(int idCentreGestion) throws DataDeleteException,WebServiceDataBaseException,CentreReferenceException;
 	
 	/**
 	 * @return List<CentreGestionSuperviseurDTO>
@@ -126,25 +126,25 @@ public interface CentreGestionDomainService extends Serializable {
 	/**
 	 * @param cg
 	 * @return int
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public int addCentreGestionSuperviseur(CentreGestionSuperviseurDTO cg) throws DataAddException_Exception,WebServiceDataBaseException_Exception;
+	public int addCentreGestionSuperviseur(CentreGestionSuperviseurDTO cg) throws DataAddException,WebServiceDataBaseException;
 	
 	/**
 	 * @param idCentreGestion 
 	 * @param idFichier 
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean updateIdFichier(int idCentreGestion, int idFichier) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception;
+	public boolean updateIdFichier(int idCentreGestion, int idFichier) throws DataUpdateException,WebServiceDataBaseException;
 	/**
 	 * @param idCentreGestion
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean setIdFichierNull(int idCentreGestion) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception;
+	public boolean setIdFichierNull(int idCentreGestion) throws DataUpdateException,WebServiceDataBaseException;
 
 }

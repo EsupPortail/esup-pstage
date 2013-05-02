@@ -1,0 +1,27 @@
+<%@include file="../../stylesheets/_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}" authorized="true">
+	<h:form id="casForm">
+		<h:commandButton id="submitCAS" action="#{welcomeController.connectCas}" value="Continuer"/>
+		<h:inputText id="idLienDirect" value="#{welcomeController.idLienDirect}" />
+	</h:form>
+	<script type="text/javascript" language="JavaScript">
+		hideButton('casForm:submitCAS');
+		hideButton('casForm:idLienDirect');
+		
+		var t = location.search.substring(1).split('&');
+		
+		if (t != null){
+			var x = t[0].split('=');
+			
+			if (x[0] == "id"){
+				var idLienDirect = document.getElementById('casForm:idLienDirect');
+				idLienDirect.value = x[1];
+			}
+		}
+		
+		window.onload = function() {
+			simulateLinkClick('casForm:submitCAS');
+		}
+	</script>
+</e:page>

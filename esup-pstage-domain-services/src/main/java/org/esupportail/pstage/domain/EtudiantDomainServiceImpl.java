@@ -6,12 +6,12 @@ package org.esupportail.pstage.domain;
 
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.EtudiantDTO;
+import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 
 /**
  * Convention Domain service interface.
@@ -50,15 +50,15 @@ public class EtudiantDomainServiceImpl implements EtudiantDomainService {
 	/**
 	 * @see org.esupportail.pstagedata.domain.EtudiantDomainService#addEtudiant(org.esupportail.pstagedata.domain.dto.EtudiantDTO)
 	 */
-	public int addEtudiant(EtudiantDTO etudiant) throws DataAddException_Exception,
-		WebServiceDataBaseException_Exception {
+	public int addEtudiant(EtudiantDTO etudiant) throws DataAddException,
+		WebServiceDataBaseException {
 		return this.remoteServices.addEtudiant(etudiant);
 	}
 
 	/**
 	 * @see org.esupportail.pstagedata.domain.EtudiantDomainService#deleteEtudiant(int)
 	 */
-	public boolean deleteEtudiant(int idEtudiant) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception {
+	public boolean deleteEtudiant(int idEtudiant) throws DataDeleteException,WebServiceDataBaseException {
 		return this.remoteServices.deleteEtudiant(idEtudiant);
 	}
 
@@ -80,7 +80,7 @@ public class EtudiantDomainServiceImpl implements EtudiantDomainService {
 	 * @see org.esupportail.pstagedata.domain.EtudiantDomainService#updateEtudiant(org.esupportail.pstagedata.domain.dto.EtudiantDTO)
 	 */
 	public boolean updateEtudiant(EtudiantDTO etudiant)
-	throws DataUpdateException_Exception, WebServiceDataBaseException_Exception {
+	throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateEtudiant(etudiant);
 	}
 

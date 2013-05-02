@@ -1,0 +1,11 @@
+<%@include file="../_include.jsp"%>
+
+<%@include file="./_formAdministrateur.jsp"%>
+<a4j:commandButton action="#{adminController.modifierAdministrateur}"
+	value="#{msgs['FORM.MODIFIER']}" ignoreDupResponses="true"
+	reRender="nomAd, prenomAd, mailAd, loginAd" />
+<rich:spacer width="150px" />
+<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+	onclick="#{rich:component('modifAdministrateur')}.hide();" 
+	action="_modifAdministrateurEtape0"
+	immediate="true"/>

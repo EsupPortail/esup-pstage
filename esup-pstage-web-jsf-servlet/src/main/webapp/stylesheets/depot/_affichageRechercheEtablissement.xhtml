@@ -1,0 +1,81 @@
+<%@include file="../_include.jsp"%>
+
+<%
+	/*<e:panelGrid columns="1">
+	 <e:text value="#{msgs['RECHERCHEETABLISSEMENT.UNRESULTAT']}" />
+	 <rich:spacer height="20px" />
+	 </e:panelGrid>*/
+%>
+<t:aliasBean alias="#{structure}"
+	value="#{rechercheController.resultatRechercheStructure}">
+	<%@include file="../_commun/_rechercheEtablissementAffichage.jsp"%>
+</t:aliasBean>
+<a4j:outputPanel id="opAffAccord" ajaxRendered="true"> 
+	<rich:toolBar height="26" itemSeparator="none">
+		<%@include
+			file="../_commun/_rechercheEtablissementResultatUniqueToolBar.jsp"%>
+	</rich:toolBar>
+	<e:panelGrid columns="5"
+		rendered="#{sessionController.adminPageAuthorized and 
+				not empty rechercheController.ongletCourant 
+				and rechercheController.ongletCourant==6
+				and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">
+		<e:text value="#{msgs['ACCORD.DATECREATION']}" escape="false" />
+		<e:text
+			value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateCreation}">
+			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+		</e:text>
+		<e:text value="#{msgs['ACCORD.DATEVALIDATION']}" escape="false"
+			rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
+		<e:text
+			value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateValidation}"
+			rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+		</e:text>
+		<e:text value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
+			rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
+		<e:text
+			value="#{rechercheController.resultatRechercheStructure.accordPartenariat.loginValidation}"
+			rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
+	</e:panelGrid>
+	<rich:toolBar height="26" itemSeparator="none"
+		rendered="#{sessionController.adminPageAuthorized
+			and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">
+		<rich:toolBarGroup>
+			<h:commandLink id="validerAccord"
+				action="#{adminController.goToValidationAccord}"
+				rendered="#{not rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+				<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+					alt="#{msgs['FORM.VALIDER']}" title="#{msgs['FORM.VALIDER']}"
+					value="../../media/images/tick.png" style="border:0" />
+				<f:setPropertyActionListener
+					value="#{rechercheController.resultatRechercheStructure}"
+					target="#{adminController.structureAccordAValider}" />
+				<e:text value="#{msgs['FORM.VALIDER']}" />
+			</h:commandLink>
+			<h:commandLink id="consulterAccord"
+				action="#{adminController.goToConsulterAccord}"
+				rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+				<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+					alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+					title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+					value="../../media/images/see.png" style="border:0" />
+				<f:setPropertyActionListener
+					value="#{rechercheController.resultatRechercheStructure}"
+					target="#{adminController.structureAccord}" />
+				<e:text value="#{msgs['ACCORD.CONSULTATION.BUTTON']}" />
+			</h:commandLink>
+			<a4j:commandLink ajaxSingle="true" id="supprimerAccord"
+				oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
+				reRender="supprimerAccordPanel">
+				<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+					title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+					value="../../media/images/see_block.png" style="border:0" />
+				<e:text value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
+				<f:setPropertyActionListener
+					value="#{rechercheController.resultatRechercheStructure}"
+					target="#{adminController.accordASupprimer}" />
+			</a4j:commandLink>
+		</rich:toolBarGroup>
+	</rich:toolBar>
+</a4j:outputPanel>

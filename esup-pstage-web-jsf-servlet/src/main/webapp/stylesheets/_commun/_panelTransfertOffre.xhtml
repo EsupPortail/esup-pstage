@@ -1,0 +1,11 @@
+<%@include file="../_include.jsp"%>
+<rich:modalPanel id="panelTransfertOffre" autosized="true" width="400"
+	styleClass="panel" domElementAttachment="parent">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['OFFRE.GESTION.TRANSFERT']}" />
+	</f:facet>
+	<h:form id="formTransfertOffre">
+		<a4j:include id="include"
+			viewId="/stylesheets/_commun/_transfertOffreEtape1.jsp" />
+	</h:form>
+</rich:modalPanel>

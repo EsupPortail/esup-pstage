@@ -1,0 +1,67 @@
+<%@include file="../_include.jsp"%>
+<%
+	/*
+	 Headers communs pour chaque moteur de recherche établissement
+
+	 A inclure dans la zone header de la dataTable 
+
+	 /!\ La dataTable doit avoir ces paramètres :
+	 id="rechercheStructureDataTable" 
+	 rowIndexVar="rowRechercheStructureDataTable"
+	 var="varRechercheStructure"
+	 */
+%>
+<rich:column>
+	<h:commandButton id="detailStructure"
+		value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+		action="#{rechercheController.goToAffichageRechercheEtablissement}"
+		image="../../media/images/document.png"
+		alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
+		<f:setPropertyActionListener value="#{varRechercheStructure}"
+			target="#{rechercheController.resultatRechercheStructure}" />
+	</h:commandButton>
+	<rich:toolTip for="detailStructure"
+		value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+</rich:column>
+<rich:column
+	rendered="#{(sessionController.adminPageAuthorized || welcomeController.superAdmin 
+	|| welcomeController.admin || welcomeController.writer)}">
+	<h:commandButton id="modifierStructure"
+		value="#{msgs['FORM.MODIFIER']}"
+		action="#{etablissementController.goToModificationEtablissement}"
+		image="../../media/images/edit.png" alt="#{msgs['FORM.MODIFIER']}"
+		rendered="#{not empty rechercheController.ongletCourant
+				and rechercheController.ongletCourant!=6
+				or (rechercheController.ongletCourant==6 and
+				(empty varRechercheStructure.accordPartenariat
+				or (not empty varRechercheStructure.accordPartenariat
+				and varRechercheStructure.accordPartenariat.estValide)))}">
+		<f:setPropertyActionListener value="#{varRechercheStructure}"
+			target="#{etablissementController.formStructure}" />
+		<f:setPropertyActionListener value="#{false}"
+			target="#{etablissementController.modificationEtabBoutonAnnuler}" />
+	</h:commandButton>
+	<rich:toolTip for="modifierStructure">
+		<e:panelGrid columns="1">
+			<e:bold value="#{msgs['FORM.MODIFIER']}" />
+			<t:htmlTag value="br" />
+			<t:aliasBean alias="#{objet}" value="#{varRechercheStructure}">
+				<%@include file="../_commun/_updateInfos.jsp"%>
+			</t:aliasBean>
+		</e:panelGrid>
+	</rich:toolTip>
+	<a4j:commandLink ajaxSingle="true" id="supprimerStructure"
+		oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
+		reRender="supprimerStructurePanel"
+		rendered="#{not empty rechercheController.ongletCourant 		
+				and rechercheController.ongletCourant!=6
+				or (rechercheController.ongletCourant==6 and
+				(empty varRechercheStructure.accordPartenariat))}">
+		<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+			value="../../media/images/delete.png" style="border:0" />
+		<f:setPropertyActionListener value="#{varRechercheStructure}"
+			target="#{etablissementController.formStructure}" />
+	</a4j:commandLink>
+	<rich:toolTip for="supprimerStructure"
+		value="#{msgs['FORM.SUPPRIMER']}" />
+</rich:column>

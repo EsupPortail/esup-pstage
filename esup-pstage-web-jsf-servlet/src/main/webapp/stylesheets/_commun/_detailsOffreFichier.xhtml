@@ -1,0 +1,42 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid
+	rendered="#{offreController.currentOffre.avecFichier 
+							&& offreController.currentOffre.idFichier>0
+							&& not empty offreController.currentOffre.fichier}">
+	<e:panelGrid columns="2">
+		<h:outputLink
+			value="get.file?fileId=#{offreController.currentOffre.idFichier}"
+			target="_blank">
+			<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
+				title="#{msgs['GENERAL.FILE']}" value="../../media/images/docu.png"
+				style="border:0" />
+		</h:outputLink>
+		<h:outputLink
+			value="get.file?fileId=#{offreController.currentOffre.idFichier}"
+			target="_blank">
+			<e:text value="#{offreController.currentOffre.fichier.nomFichier}"
+				rendered="#{empty offreController.currentOffre.fichier.nomReel}" />
+			<e:text value="#{offreController.currentOffre.fichier.nomReel}"
+				rendered="#{not empty offreController.currentOffre.fichier.nomReel}" />
+		</h:outputLink>
+	</e:panelGrid>
+</e:panelGrid>
+
+<e:panelGrid rendered="#{offreController.currentOffre.avecLien}">
+	<e:panelGrid columns="2">
+		<h:outputLink value="#{offreController.currentOffre.lienAttache}"
+			target="_blank">
+			<h:graphicImage alt="#{msgs['GENERAL.CLIQUEZICI']}"
+				title="#{msgs['GENERAL.CLIQUEZICI']}"
+				value="../../media/images/lien.png" style="border:0" />
+		</h:outputLink>
+		<h:outputLink value="#{offreController.currentOffre.lienAttache}"
+			target="_blank">
+			<e:text value="#{offreController.currentOffre.lienAttache}"
+				title="#{offreController.currentOffre.lienAttache}">
+				<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+			</e:text>
+		</h:outputLink>
+	</e:panelGrid>
+</e:panelGrid>

@@ -1,0 +1,17 @@
+<%@include file="_include.jsp"%>
+	<h:form id="menuDynamique" styleClass="app-form">
+		<t:htmlTag value="ul">
+			<t:htmlTag value="li">
+				<h:commandLink action="#{welcomeController.goToAccueilEntr}"><e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.GESTION']}"/>
+				</h:commandLink>
+				
+			</t:htmlTag>
+			<t:htmlTag value="li">
+				<h:commandLink action="#{welcomeController.goToAccueilStage}"><e:text value="#{msgs['GENERAL.ACCUEIL.STAGE.GESTION']}"/>
+				</h:commandLink>
+				
+			</t:htmlTag>
+			
+		</t:htmlTag>
+		<e:messages showDetail="true"></e:messages>
+	</h:form>

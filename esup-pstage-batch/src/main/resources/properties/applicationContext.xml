@@ -26,8 +26,4 @@
 	<import resource="classpath*:META-INF/esup-pstage-domain-services-abstractBeans.xml" />
 	<import resource="classpath*:META-INF/esup-pstage-domain-services-application.xml" />
 	<import resource="classpath*:META-INF/esup-pstage-domain-services-i18n.xml" />
-	<!-- 
-	<import resource="classpath*:META-INF/esup-pstage-domain-services-init.xml" />	
-	<import resource="classpath*:META-INF/esup-pstage-dao-dao.xml" />
-	 -->
 </beans>

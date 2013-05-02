@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Paramètrage de l'impression des conventions et des offres -->
+<config>
+	<!-- Paramètrage pour la convention -->
+	<!-- Adresse de l'université -->
+	<adresseUniversite>Adresse de l'université</adresseUniversite>
+	<!-- Nom de l'université -->
+	<nomUniversite>Nom de l'université</nomUniversite>
+	<!-- Logo de l'université : /!\ Doit se situer dans le sous-dossier images /!\ -->
+	<logoUniversite>square.jpg</logoUniversite>
+	<!-- Répertoire de stockage des logos des centres de gestion avec / , renseigne au moment du deploy-->
+	<uploadFiles.logosCentre.path>${uploadFiles.logosCentre.path}/</uploadFiles.logosCentre.path>
+	
+	<!-- Paramètrage pour l'offre -->
+	<!-- Logo de l'université : /!\ Doit se situer dans le sous-dossier images /!\ -->
+	<logoUniversiteOffre>square2.jpg</logoUniversiteOffre>
+		<!-- Paramètrage pour triptik page 6 convention francaise -->
+		<!-- si parametre présent edition triptik.xsl  -->
+	<!--   <triptik></triptik> -->
+</config>

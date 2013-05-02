@@ -1,0 +1,34 @@
+<%@include file="../_include.jsp"%>
+<%
+	/*
+	 Nombre de résultats pour la recherche offre
+
+	 A inclure avant la dataTable des résultats
+	 */
+%>
+<t:htmlTag value="br" />
+<rich:spacer height="5px" />
+<e:panelGrid columns="2">
+	<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
+		value="../../media/images/script.png" style="border:0"
+		rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 1
+						and offreController.rechercheOffrePaginator.totalItemsCount < 200}" />
+	<e:text value="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
+		rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 1
+						and offreController.rechercheOffrePaginator.totalItemsCount < 200}"
+		escape="false">
+		<f:param
+			value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
+	</e:text>
+	<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
+		value="../../media/images/script.png" style="border:0"
+		rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 200}" />
+	<e:text value="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
+		rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 200}"
+		escape="false">
+		<f:param
+			value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
+	</e:text>
+</e:panelGrid>
+<t:htmlTag value="br" />
+<rich:spacer height="5px" />

@@ -6,12 +6,12 @@ package org.esupportail.pstage.domain;
 
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.AvenantDTO;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
+import org.esupportail.pstagedata.domain.dto.AvenantDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -102,20 +102,20 @@ public class AvenantDomainServiceImpl implements AvenantDomainService{
 	/**
 	 * @see org.esupportail.pstagedata.domain.AvenantDomainService#addAvenant(org.esupportail.pstagedata.domain.dto.AvenantDTO)
 	 */
-	public int addAvenant(AvenantDTO a) throws DataAddException_Exception,WebServiceDataBaseException_Exception {
+	public int addAvenant(AvenantDTO a) throws DataAddException,WebServiceDataBaseException {
 		return this.remoteServices.addAvenant(a);
 	}
 	/**
 	 * @see org.esupportail.pstagedata.domain.AvenantDomainService#updateAvenant(org.esupportail.pstagedata.domain.dto.AvenantDTO)
 	 */
-	public boolean updateAvenant(AvenantDTO a) throws DataUpdateException_Exception,WebServiceDataBaseException_Exception{
+	public boolean updateAvenant(AvenantDTO a) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateAvenant(a);
 	}
 	
 	/**
 	 * @see org.esupportail.pstagedata.domain.AvenantDomainService#deleteAvenant(int)
 	 */
-	public boolean deleteAvenant(int idAvenant) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception{
+	public boolean deleteAvenant(int idAvenant) throws DataDeleteException,WebServiceDataBaseException{
 		return this.remoteServices.deleteAvenant(idAvenant);
 	}
 	

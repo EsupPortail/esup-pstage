@@ -1,0 +1,516 @@
+/* ### RESET ### */
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td {
+	margin: 0;
+	padding: 0;
+}
+
+ul li {
+	list-style: none;
+}
+
+input[type=text],input[type=password],textarea {
+	width: auto;
+}
+
+table {
+	border-collapse: separate;
+}
+
+/* ### END RESET ### */
+
+.fl-theme-app {
+	min-width: 800px;
+}
+
+/* Header */
+.fl-theme-app .app-header {
+	position: relative;
+}
+
+.fl-theme-app .app-header .logo {
+	position: absolute;
+}
+
+.fl-theme-app .app-header .header_suite {
+	position: relative;
+}
+
+.fl-theme-app .app-header .header_suite .titreAppli {
+	text-align: center;
+}
+
+.fl-theme-app .app-header .header_suite .user_displayName {
+	width: 49%;
+	left: 50%;
+	top: 40%;
+	text-align: right;
+	position: absolute;
+}
+
+.fl-theme-app .app-header .header_suite .version {
+	width: 49%;
+	left: 50%;
+	top: 65%;
+	text-align: right;
+	position: absolute;
+}
+
+/* Portal Page Bar */
+.fl-theme-app ul.app-pagebar {
+	text-align: center;
+	vertical-align: bottom;
+}
+
+.fl-theme-app ul.app-pagebar li.app-pagebar-item {
+	display: inline;
+	border-spacing: 0;
+}
+
+.fl-theme-app ul.app-pagebar li.app-pagebar-item input {
+	width: 24%;
+}
+
+.fl-theme-app ul.app-pagebar li.app-pagebar-item-selected {
+	display: inline;
+	border-spacing: 0;
+}
+
+.fl-theme-app ul.app-pagebar li.app-pagebar-item-selected input {
+	width: 24%;
+}
+
+.fl-theme-app ul.app-pagebar li.hover {
+	display: inline;
+}
+
+.fl-theme-app ul.app-pagebar li.hover input {
+	width: 24%;
+}
+
+/* Body */
+.fl-theme-app .app-body {
+	min-height: 400px;
+	margin: 0;
+	padding: 0;
+}
+
+/* Navigation */
+.fl-theme-app .app-body .app-navigation {
+	position: relative;
+	float: left;
+	z-index: 100;
+	/* VR 05-10-2010 : Suppression du width :
+	Il faut utiliser les styles fluid de colonage fl-col-xxx */
+	/*width: 13%;*/
+}
+
+.fl-theme-app .app-body .app-navigation ul {
+	
+}
+
+.fl-theme-app .app-body .app-navigation li {
+	position: relative;
+	display: block;
+	height: 29.25px;
+	text-align: center;
+}
+
+.fl-theme-app .app-body .app-navigation ul li ul {
+	position: absolute;
+	width: 250px;
+	left: 100%;
+	top: -1px;
+	height: auto;
+	display: none;
+}
+
+.fl-theme-app .app-body .app-navigation ul li a {
+	display: block;
+}
+
+.fl-theme-app .app-body .app-navigation ul li:hover ul,.fl-theme-app .app-body .app-navigation ul li.hover ul
+	{
+	display: block;
+}
+
+.fl-theme-app .app-body .app-navigation ul li ul li {
+	position: relative;
+	display: block;
+	border: 0;
+	height: 20px;
+	width: 100%;
+	text-align: left;
+	padding: 0;
+}
+
+/* Content */
+.fl-theme-app .app-body .app-content {
+	position: relative;
+	/* VR 05-10-2010 : Suppression des float, width, margin et padding forcés :
+	Il faut utiliser les styles fluid de colonage fl-col-xxx */
+	/*	float: right; */
+	/* width: 86%; */
+	/*margin: 0; */
+	/*padding: 0; */
+	z-index: 0;
+	min-height: 400px;
+	padding-right: 1%;
+}
+
+/*## For use e:dataTable ##*/
+.fl-theme-app table.paginatorData {
+	width: 100%;
+	border: none;
+	padding: 0 0 2px 0;
+	text-align: center;
+	border-spacing: 2px;
+}
+
+/*## For use panelGrid column ##*/
+.fl-theme-app .col1UnDemi {
+	width: 50%;
+	text-align: left;
+}
+
+.fl-theme-app .col2UnDemi {
+	width: 50%;
+	text-align: right;
+}
+
+.fl-theme-app .col2rigthItaVAm {
+	width: 100%;
+	text-align: right;
+	align: right;
+	vertical-align: top;
+}
+
+/*########  PAGINATOR ##########*/
+.fl-theme-app .paginator {
+	clear: both;
+}
+
+.fl-theme-app .paginator .itemsNumbers {
+	float: left;
+	padding: 5px;
+	width: 22%;
+}
+
+.fl-theme-app .paginator .navigation {
+	float: left;
+	text-align: center;
+	width: 55%;
+	/*utilise dans le cas ou ce div serait vide : permet de conserver sa taille*/
+	border: 1px solid transparent;
+}
+
+.fl-theme-app .paginator ul {
+	padding: 2px;
+}
+
+.fl-theme-app .paginator li {
+	display: inline;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding: 1px;
+	border: 1px solid #a71817;
+	z-index: 10;
+}
+
+/*li.hover use for IE*/
+.fl-theme-app .app-body .col1 {
+	width: 5%;
+}
+
+.fl-theme-app .app-body .col2 {
+	width: 25%;
+}
+
+.fl-theme-app .app-body .col3 {
+	width: 70%;
+}
+
+.fl-theme-app .app-body .MinWid200Vatop {
+	align: center;
+	vertical-align: top;
+	padding: 8px;
+	min-width: 200px;
+	width: 15%;
+}
+
+.fl-theme-app .app-body .VAtop {
+	align: left;
+	height: 100%;
+	vertical-align: top;
+}
+
+.fl-theme-app .app-body .w25pc {
+	width: 25%;
+}
+
+.fl-theme-app .app-body .col6 {
+	width: 200px;
+}
+
+.fl-theme-app .app-body .col5 {
+	align: center;
+	vertical-align: top;
+	padding: 8px;
+}
+
+.fl-theme-app .app-body .col7 {
+	width: 500px;
+}
+
+.fl-theme-app .app-body .MinWid100Vatop {
+	align: center;
+	vertical-align: top;
+	padding: 8px;
+	min-width: 100px;
+	max-width: 40%;
+}
+
+.fl-theme-app .w400Ml12px {
+	width: 400px;
+	margin-left: 12px;
+}
+
+.fl-theme-app .app-body .paginatorDataList img {
+	/*height: 100px;
+	border-width: 2px;
+	border-color: #C0C0C0;
+	border-style: solid;
+	margin: 4px;
+	margin-bottom: 0;*/
+}
+
+.fl-theme-app .app-body .detailedDataList {
+	border: none;
+	vertical-align: top;
+	margin-left: 5px;
+	text-align: left;
+	border: none;
+}
+
+.fl-theme-app .positionmargin {
+	margin-left: 30px;
+}
+
+.fl-theme-app .deleteEmploiButton {
+	text-align: right;
+	margin-right: 50px;
+	float: right;
+	vertical-align: middle;
+	border-style: none;
+	padding: 1px;
+}
+
+.fl-theme-app .TArightFloatright {
+	text-align: right;
+	float: right;
+}
+
+.fl-theme-app .manylistboxheight {
+	height: 100px;
+	vertical-align: top;
+}
+
+.fl-theme-app .maxSelectW {
+	width: 400px;
+}
+
+.fl-theme-app .chosen {
+	margin: 10px;
+}
+
+.fl-theme-app .hiddenCol {
+	visibility: hidden;
+}
+
+/*-----------------------------------
+ *
+ * Style popup aide
+ */
+.fl-theme-app .containerPopup {
+	margin-bottom: 1px;
+	margin: 10px;
+	vertical-align: middle;
+	padding: 8px;
+	width: 500px;
+	z-index: 9000;
+}
+
+.fl-theme-app .popupMask {
+	opacity: 1;
+	filter: alpha(opacity = 100);
+	height: 100px;
+	left: 45%;
+	top: 40%;
+	position: absolute;
+	width: 200px;
+	text-align: center;
+	margin-bottom: 1px;
+	margin: 10px;
+	vertical-align: middle;
+	padding: 8px;
+	z-index: 9000;
+}
+
+.fl-theme-app .titrePopupAide,.fl-theme-app .libellesAide,.fl-theme-app .sousTitrePopupAide
+	{
+	text-align: left;
+	display: table-cell;
+	display: inline-block;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+/*####   Section for E:MESSAGES ########*/
+.fl-theme-app .messageForUser {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.fl-theme-app .messageForUser .msg-error,.fl-theme-app .messageForUser .msg-header-error,.fl-theme-app .messageForUser .msg-info
+	{
+	display: block;
+}
+
+/*####   Section FORM ########*/
+	/*use by js method highlightInputAndSelect*/
+.fl-theme-app .form-input-field-focus,.fl-theme-app .select_focus {
+	width: auto;
+}
+
+/*-----------------------------------
+ *
+ * Style popup aide
+ */
+.fl-theme-app .containerPopup {
+	margin-bottom: 1px;
+	margin: 10px;
+	vertical-align: middle;
+	padding: 8px;
+	width: 500px;
+	z-index: 9000;
+}
+
+.fl-theme-app .titrePopupAide {
+	text-align: left;
+	text-decoration: none;
+	font-weight: bold;
+	display: table-cell;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: left;
+	color: #f28d00;
+}
+
+.fl-theme-app .libellesAide {
+	text-align: left;
+	text-decoration: none;
+	display: table-cell;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: left;
+}
+
+.fl-theme-app .sousTitrePopupAide {
+	display: table-cell;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: left;
+}
+
+/*##  Section BLOCK (DIV) ##*/ /*##  Section Sections ##*/
+.fl-theme-app .section-header {
+	margin-left: 30px;
+}
+
+.fl-theme-app .width_max_textRight {
+	text-align: right;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* ################ ROAD_MAP ################## */
+.fl-theme-app .div_roadMap form {
+	padding: 0px;
+	margin: 0px;
+}
+
+.fl-theme-app .div_roadMap ul.roadMap {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+	display: inline;
+}
+
+.fl-theme-app .div_roadMap ul.roadMap li {
+	display: inline;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding: 1px;
+	border: 1px solid #a71817;
+	z-index: 10;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+.fl-theme-app .div_roadMap ul .roadMapSeparator {
+	font-size: 9px;
+	color: black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+.fl-theme-app .div_roadMap ul.roadMap li input {
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+	text-decoration: underline;
+	font-size: 9px;
+	padding: 0px;
+	margin: 0px;
+	color: black;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.fl-theme-app .div_roadMap ul.roadMap li input:hover {
+	border: none;
+	padding: 0px;
+	margin: 0px;
+	cursor: pointer;
+	background-color: transparent;
+	font-size: 9px;
+	color: #a71817;
+	text-decoration: underline;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.fl-theme-app .small {
+	font-size: 0.8em;
+}
+
+.fl-theme-app .app-content .app-tabs {
+    margin: auto;
+    padding: auto;
+}
+
+.fl-theme-app .app-content .app-tab-active,
+.fl-theme-app .app-content .app-tab-inactive  {
+    margin: 0;
+    margin-right: 2px;
+    padding: 3px 10px 4px;
+    /*top: -0.18em;*/
+}
+
+.fl-theme-app .app-content .app-tab-inactive {
+    /*top: -0.26em;*/
+}
+
+.fl-theme-app .app-content .app-tab-content {
+    margin: 0;
+    padding: 5px;
+}

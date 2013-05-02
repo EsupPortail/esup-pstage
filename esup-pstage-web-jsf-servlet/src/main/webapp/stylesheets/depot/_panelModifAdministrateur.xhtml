@@ -1,0 +1,10 @@
+<%@include file="../_include.jsp"%>
+<rich:modalPanel id="modifAdministrateur" autosized="true" width="400"
+	styleClass="panel" domElementAttachment="parent">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['ADMINSTRUCTURE.MODIF']}" />
+	</f:facet>
+	<h:form id="formModifAdminStructure">
+		<a4j:include id="include" viewId="/stylesheets/depot/_modifAdministrateurEtape0.jsp"/>
+	</h:form>
+</rich:modalPanel>

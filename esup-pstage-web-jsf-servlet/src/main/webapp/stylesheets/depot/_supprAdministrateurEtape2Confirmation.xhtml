@@ -1,0 +1,12 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="2" align="center">
+	<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+		title="#{msgs['GENERAL.OK']}"
+		value="../../media/images/valid.png" style="border:0" />
+	<rich:messages>
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:messages>
+</e:panelGrid>
+<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}" action="_supprAdministrateurEtape1"
+	onclick="#{rich:component('supprAdministrateur')}.hide();" />

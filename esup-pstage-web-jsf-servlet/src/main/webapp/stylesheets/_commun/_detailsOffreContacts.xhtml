@@ -1,0 +1,173 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1" style="font-size:14px;">
+	<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.ETABNONCACHE']}"
+		escape="false" style="color:green;"
+		rendered="#{!offreController.currentOffre.cacherEtablissement}" />
+	<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.ETABCACHE']}"
+		escape="false" style="color:orange;"
+		rendered="#{offreController.currentOffre.cacherEtablissement}" />
+	<e:panelGrid columns="2"
+		rendered="#{offreController.currentOffreContainModeCourrier and offreController.currentOffre.cacherEtablissement}">
+		<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+			title="#{msgs['GENERAL.WARNING']}"
+			value="../../media/images/warning_20px.png" style="border:0" />
+		<e:text value="#{msgs['OFFRE.ERREUR.MODECOURRIER']}" escape="false"
+			style="color:red;font-size:12px;
+					word-wrap:break-word;" />
+	</e:panelGrid>
+	<rich:spacer height="20px" />
+	<e:bold value="#{msgs['OFFRE.GESTION.CONTACTS.CANDIDATURE']}"
+		rendered="#{offreController.currentOffre.idContactCand>0 && not empty offreController.currentOffre.contactCand}" />
+	<e:panelGrid columns="3" style="font-size:12px;"
+		rendered="#{offreController.currentOffre.idContactCand>0 && not empty offreController.currentOffre.contactCand}">
+		<e:panelGrid columns="3" style="font-size:12px;">
+			<e:text
+				value="#{offreController.currentOffre.contactCand.civilite.libelle} "
+				rendered="#{not empty offreController.currentOffre.contactCand.civilite}"/>
+			<e:text value="#{offreController.currentOffre.contactCand.nom} " />
+			<e:text value="#{offreController.currentOffre.contactCand.prenom}" />
+		</e:panelGrid>
+		<rich:spacer width="50px" />
+		<e:panelGrid columns="1" style="font-size:12px;">
+			<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+				escape="false"
+				rendered="#{offreController.currentOffre.cacherNomContactCand}" />
+		</e:panelGrid>
+		<t:panelGroup colspan="3" style="font-size:12px;">
+			<e:panelGrid columns="2" style="font-size:12px;"
+				rendered="#{not empty offreController.currentOffre.contactCand.fonction}">
+				<e:text value="#{msgs['CONTACT.FONCTION']} : " />
+				<e:text value="#{offreController.currentOffre.contactCand.fonction}" />
+			</e:panelGrid>
+		</t:panelGroup>
+		<e:panelGrid columns="2" style="font-size:12px;">
+			<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+				title="#{msgs['CONTACT.TELEPHONE']}"
+				value="../../media/images/phone.png" style="border:0" />
+			<e:text value=" #{offreController.currentOffre.contactCand.tel}" />
+		</e:panelGrid>
+		<rich:spacer width="50px" />
+		<e:panelGrid columns="1" style="font-size:12px;">
+			<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+				escape="false"
+				rendered="#{offreController.currentOffre.cacherTelContactCand}" />
+		</e:panelGrid>
+		<t:panelGroup colspan="3">
+			<e:panelGrid columns="2"
+				rendered="#{offreController.currentOffreContainModeTelephone
+										and offreController.currentOffre.cacherTelContactCand}">
+				<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+					title="#{msgs['GENERAL.WARNING']}"
+					value="../../media/images/warning_20px.png" style="border:0" />
+				<e:text value="#{msgs['OFFRE.ERREUR.MODETELEPHONE']}" escape="false"
+					style="color:red;font-size:12px;
+										word-wrap:break-word;" />
+			</e:panelGrid>
+		</t:panelGroup>
+		<e:panelGrid columns="2" style="font-size:12px;"
+			rendered="#{not empty offreController.currentOffre.contactCand.fax}">
+			<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+				title="#{msgs['CONTACT.FAX']}"
+				value="../../media/images/printer.png" style="border:0" />
+			<e:text value=" #{offreController.currentOffre.contactCand.fax}" />
+		</e:panelGrid>
+		<rich:spacer width="50px"
+			rendered="#{not empty offreController.currentOffre.contactCand.fax}" />
+		<e:panelGrid columns="1" style="font-size:12px;"
+			rendered="#{not empty offreController.currentOffre.contactCand.fax}">
+			<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+				escape="false"
+				rendered="#{offreController.currentOffre.cacherFaxContactCand}" />
+		</e:panelGrid>
+		<e:panelGrid columns="2" style="font-size:12px;">
+			<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+				title="#{msgs['CONTACT.MAIL']}" value="../../media/images/email.png"
+				style="border:0" />
+			<e:text value=" #{offreController.currentOffre.contactCand.mail}" />
+		</e:panelGrid>
+		<rich:spacer width="50px" />
+		<e:panelGrid columns="1" style="font-size:12px;">
+			<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+				escape="false"
+				rendered="#{offreController.currentOffre.cacherMailContactCand}" />
+		</e:panelGrid>
+		<t:panelGroup colspan="3">
+			<e:panelGrid columns="2"
+				rendered="#{offreController.currentOffreContainModeMail
+										and offreController.currentOffre.cacherMailContactCand}">
+				<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+					title="#{msgs['GENERAL.WARNING']}"
+					value="../../media/images/warning_20px.png" style="border:0" />
+				<e:text value="#{msgs['OFFRE.ERREUR.MODEMAIL']}" escape="false"
+					style="color:red;font-size:12px;
+										word-wrap:break-word;" />
+			</e:panelGrid>
+		</t:panelGroup>
+	</e:panelGrid>
+	<rich:spacer height="20px" />
+	<e:bold value="#{msgs['OFFRE.GESTION.CONTACTS.INFORMATION']}"
+		rendered="#{offreController.currentOffre.idContactInfo>0 && not empty offreController.currentOffre.contactInfo}" />
+	<e:panelGrid columns="3" style="font-size:12px;"
+		rendered="#{offreController.currentOffre.idContactInfo>0 && not empty offreController.currentOffre.contactInfo}">
+		<e:panelGrid columns="3" style="font-size:12px;">
+			<e:text
+				value="#{offreController.currentOffre.contactInfo.civilite.libelle} "
+				rendered="#{not empty offreController.currentOffre.contactInfo.civilite}" />
+			<e:text value="#{offreController.currentOffre.contactInfo.nom} " />
+			<e:text value="#{offreController.currentOffre.contactInfo.prenom}" />
+		</e:panelGrid>
+		<rich:spacer width="50px" />
+		<e:panelGrid columns="1" style="font-size:12px;">
+			<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+				escape="false"
+				rendered="#{offreController.currentOffre.cacherNomContactInfo}" />
+		</e:panelGrid>
+		<t:panelGroup colspan="3">
+			<e:panelGrid columns="2" style="font-size:12px;"
+				rendered="#{not empty offreController.currentOffre.contactInfo.fonction}">
+				<e:text value="#{msgs['CONTACT.FONCTION']} : " />
+				<e:text value="#{offreController.currentOffre.contactInfo.fonction}" />
+			</e:panelGrid>
+		</t:panelGroup>
+		<e:panelGrid columns="2" style="font-size:12px;">
+			<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+				title="#{msgs['CONTACT.TELEPHONE']}"
+				value="../../media/images/phone.png" style="border:0" />
+			<e:text value=" #{offreController.currentOffre.contactInfo.tel}" />
+		</e:panelGrid>
+		<rich:spacer width="50px" />
+		<e:panelGrid columns="1" style="font-size:12px;">
+			<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+				escape="false"
+				rendered="#{offreController.currentOffre.cacherTelContactInfo}" />
+		</e:panelGrid>
+		<e:panelGrid columns="2" style="font-size:12px;"
+			rendered="#{not empty offreController.currentOffre.contactInfo.fax}">
+			<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+				title="#{msgs['CONTACT.FAX']}"
+				value="../../media/images/printer.png" style="border:0" />
+			<e:text value=" #{offreController.currentOffre.contactInfo.fax}" />
+		</e:panelGrid>
+		<rich:spacer width="50px"
+			rendered="#{not empty offreController.currentOffre.contactInfo.fax}" />
+		<e:panelGrid columns="1" style="font-size:12px;"
+			rendered="#{not empty offreController.currentOffre.contactInfo.fax}">
+			<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+				escape="false"
+				rendered="#{offreController.currentOffre.cacherFaxContactInfo}" />
+		</e:panelGrid>
+		<e:panelGrid columns="2" style="font-size:12px;">
+			<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+				title="#{msgs['CONTACT.MAIL']}" value="../../media/images/email.png"
+				style="border:0" />
+			<e:text value=" #{offreController.currentOffre.contactInfo.mail}" />
+		</e:panelGrid>
+		<rich:spacer width="50px" />
+		<e:panelGrid columns="1" style="font-size:12px;">
+			<e:text value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+				escape="false"
+				rendered="#{offreController.currentOffre.cacherMailContactInfo}" />
+		</e:panelGrid>
+	</e:panelGrid>
+</e:panelGrid>

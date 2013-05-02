@@ -1,0 +1,32 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<e:panelGrid columns="1"
+		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+		<e:panelGrid columns="2"
+			rendered="#{not empty offreController.centreGestionDepotAnonyme}">
+			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
+				title="#{msgs['GENERAL.HELP']}"
+				value="../../media/images/help32.png" style="border:0" />
+			<e:text value="#{msgs['DEPOTANONYME.AIDE']}" escape="false" />
+		</e:panelGrid>
+		<rich:panel
+			rendered="#{not empty offreController.centreGestionDepotAnonyme}">
+			<f:facet name="header">
+				<e:text value="#{msgs['DEPOTANONYME.CREATION']} " />
+			</f:facet>
+			<h:form id="formCreationOffre">
+				<rich:message for="formCreationOffre">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+				<a4j:include id="include"
+					viewId="/stylesheets/_commun/_creationOffreEtape02Etab.jsp" />
+			</h:form>
+			<rich:message for="formCreationOffre">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</rich:panel>
+		<rich:editor rendered="false" />
+	</e:panelGrid>
+</e:page>

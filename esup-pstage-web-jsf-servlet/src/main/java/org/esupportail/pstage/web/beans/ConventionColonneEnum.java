@@ -64,12 +64,12 @@ public enum ConventionColonneEnum {
 	col11("EXPORTCONVENTION.CODEETAPE", "etape.code"),
 	
 	/**
-	 * col12 , Libellé Etape.
+	 * col12 , Libell� Etape.
 	 */
 	col12("EXPORTCONVENTION.LIBELLEETAPE", "etape.libelle"),
 	
 	/**
-	 * col13 , Date Début Stage.
+	 * col13 , Date D�but Stage.
 	 */
 	col13("EXPORTCONVENTION.DATEDEB", "dateDebutStage"),
 	
@@ -109,7 +109,7 @@ public enum ConventionColonneEnum {
 	col20("EXPORTCONVENTION.FONCTION", "fonctionsEtTaches"),
 	
 	/**
-	 * col21 , Détails.
+	 * col21 , D�tails.
 	 */
 	col21("EXPORTCONVENTION.DETAIL", "details"),
 	
@@ -147,60 +147,71 @@ public enum ConventionColonneEnum {
 	 * col28 , Convention Validee.
 	 */
 	col28("EXPORTCONVENTION.VALIDEE", "validationConventionExport"),
-	/**
-	 * col29 , Civilite enseignant.
-	 */
-	col29("EXPORTCONVENTION.CIVILITE.ENSEIGNANT", "enseignant.civilite.libelle"),
 	
 	/**
-	 * col30 , Nom enseignant.
+	 * col29 , Nom enseignant.
 	 */
-	col30("EXPORTCONVENTION.NOM.ENSEIGNANT", "enseignant.nom"),
+	col29("EXPORTCONVENTION.NOM.ENSEIGNANT", "enseignant.nom"),
 	
 	/**
-	 * col31 , Prenom enseignant.
+	 * col30 , Prenom enseignant.
 	 */
-	col31("EXPORTCONVENTION.PRENOM.ENSEIGNANT", "enseignant.prenom"),
+	col30("EXPORTCONVENTION.PRENOM.ENSEIGNANT", "enseignant.prenom"),
 	
 	/**
-	 * col32 , Mail enseignant.
+	 * col31 , Mail enseignant.
 	 */
-	col32("EXPORTCONVENTION.MAIL.ENSEIGNANT", "enseignant.mail"),
+	col31("EXPORTCONVENTION.MAIL.ENSEIGNANT", "enseignant.mail"),
 	
 	/**
-	 * col33 , Civilite signataire.
+	 * col32 , Nom signataire.
 	 */
-	col33("EXPORTCONVENTION.CIVILITE.SIGNATAIRE", "signataire.civilite.libelle"),
+	col32("EXPORTCONVENTION.NOM.SIGNATAIRE", "signataire.nom"),
 	
 	/**
-	 * col34 , Nom signataire.
+	 * col33 , Prenom signataire.
 	 */
-	col34("EXPORTCONVENTION.NOM.SIGNATAIRE", "signataire.nom"),
+	col33("EXPORTCONVENTION.PRENOM.SIGNATAIRE", "signataire.prenom"),
 	
 	/**
-	 * col35 , Prenom signataire.
+	 * col34 , Mail signataire.
 	 */
-	col35("EXPORTCONVENTION.PRENOM.SIGNATAIRE", "signataire.prenom"),
+	col34("EXPORTCONVENTION.MAIL.SIGNATAIRE", "signataire.mail"),
 	
 	/**
-	 * col36 , Mail signataire.
+	 * col35 , Fonction signataire.
 	 */
-	col36("EXPORTCONVENTION.MAIL.SIGNATAIRE", "signataire.mail"),
+	col35("EXPORTCONVENTION.FONCTION.SIGNATAIRE", "signataire.fonction"),
 	
 	/**
-	 * col37 , Fonction signataire.
+	 * col36 , Annee Universitaire.
 	 */
-	col37("EXPORTCONVENTION.FONCTION.SIGNATAIRE", "signataire.fonction"),
+	col36("EXPORTCONVENTION.ANNEEUNIV", "annee"),
 	
 	/**
-	 * col38 , Annee Universitaire.
+	 * col37 , type de convention.
 	 */
-	col38("EXPORTCONVENTION.ANNEEUNIV", "annee"),
+	col37("EXPORTCONVENTION.TYPECONVENTION", "typeConvention.libelle"),
 	
 	/**
-	 * col39 , type de convention.
+	 * col38 , commentaire stage.
 	 */
-	col39("EXPORTCONVENTION.TYPECONVENTION", "typeConvention.libelle");
+	col38("EXPORTCONVENTION.COMMENTAIRESTAGE", "commentaireStage"),
+	
+	/**
+	 * col39 , commentaire stage.
+	 */
+	col39("EXPORTCONVENTION.COMMENTAIREDUREETRAVAIL", "commentaireDureeTravail"),
+	
+    /**
+     * col40 , Element pédagogique - CODE
+     */
+    col40("EXPORTCONVENTION.CODEELP", "codeElp"),
+    
+    /**
+     * col41 , Element pédagogique - LIBELLE
+     */
+    col41("EXPORTCONVENTION.LIBELLEELP", "libelleElp");
 	
 	/*
 	 ******************* PROPERTIES ******************* */

@@ -1,0 +1,65 @@
+<%@include file="../../_include.jsp"%>
+
+<e:panelGrid columns="1">
+
+	<rich:simpleTogglePanel width="500px" switchType="ajax"
+		label="#{msgs['OFFRES.STATS.INDICATION']}">
+		<e:text value="#{msgs['OFFRES.STATS.INFOS']}" />
+	</rich:simpleTogglePanel>
+
+	<rich:panel style="width:500px" header="">
+
+		<h:form id="idFormOffreStats"
+			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) && centreController.centre != null}">
+
+			<h:panelGrid columns="2">
+				<h:panelGroup>
+					<h:outputText value="#{msgs['OFFRES.STATS.CRITERE.UN']}" />
+					<rich:spacer width="20px" />
+					<h:selectOneMenu
+						value="#{statistiquesOffresController.critereUnLib}"
+						id="idListeStatsOffresCriteres1">
+						<f:selectItems
+							value="#{statistiquesOffresController.firstLevelStatCriteriaForOffer}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+			</h:panelGrid>
+
+			<rich:spacer height="20px"></rich:spacer>
+
+			<e:panelGrid columns="2">
+				<h:panelGroup>
+					<h:outputText value="#{msgs['OFFRES.STATS.CRITERE.DEUX']}" />
+					<rich:spacer width="20px" />
+					<h:selectOneMenu
+						value="#{statistiquesOffresController.critereDeuxLib}"
+						id="idListeStatsOffresCriteres2">
+						<f:selectItems
+							value="#{statistiquesOffresController.secondLevelStatCriteriaForOffer}" />
+					</h:selectOneMenu>
+
+
+				</h:panelGroup>
+			</e:panelGrid>
+			<rich:spacer height="20" />
+
+			<t:htmlTag value="center">
+
+				<h:commandButton id="idCmdBtnCalculerOffresStats"
+					action="#{statistiquesOffresController.gotoResultatOffresStats}"
+					value="#{msgs['OFFRES.STATS.CALCULER']}">
+					<f:setPropertyActionListener value="#{centreController.centre.idCentreGestion}" target="#{statistiquesOffresController.idCentreGestion}"/>
+				</h:commandButton>
+
+			</t:htmlTag>
+
+		</h:form>
+	</rich:panel>
+
+</e:panelGrid>
+
+
+
+
+
+

@@ -6,12 +6,12 @@ package org.esupportail.pstage.domain;
 
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.EnseignantDTO;
+import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 
 
 /**
@@ -87,8 +87,8 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 	/**
 	 * @see org.esupportail.pstage.domain.EnseignantDomainService#addEnseignant(org.esupportail.pstagedata.domain.dto.EnseignantDTO)
 	 */
-	public int addEnseignant(EnseignantDTO enseignant) throws DataAddException_Exception,
-			WebServiceDataBaseException_Exception {
+	public int addEnseignant(EnseignantDTO enseignant) throws DataAddException,
+			WebServiceDataBaseException {
 		return this.remoteServices.addEnseignant(enseignant);
 	}
 
@@ -97,7 +97,7 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 	 * @see org.esupportail.pstage.domain.EnseignantDomainService#deleteEnseignant(int)
 	 */
 	public boolean deleteEnseignant(int idEnseignant)
-			throws DataDeleteException_Exception, WebServiceDataBaseException_Exception {
+			throws DataDeleteException, WebServiceDataBaseException {
 
 		return this.remoteServices.deleteEnseignant(idEnseignant);
 	}
@@ -126,7 +126,7 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 	 * @see org.esupportail.pstage.domain.EnseignantDomainService#updateEnseignant(org.esupportail.pstagedata.domain.dto.EnseignantDTO)
 	 */
 	public boolean updateEnseignant(EnseignantDTO enseignant)
-			throws DataUpdateException_Exception, WebServiceDataBaseException_Exception {
+			throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateEnseignant(enseignant);
 	}
 

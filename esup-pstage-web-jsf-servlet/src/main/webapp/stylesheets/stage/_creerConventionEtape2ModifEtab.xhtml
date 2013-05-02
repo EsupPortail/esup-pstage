@@ -1,0 +1,32 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<e:text value=" " id="formModifEtab" />
+	<rich:message for="formModifEtab">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+
+	<e:text value="#{msgs['STRUCTURE.AUCUN']}"
+		rendered="#{empty etablissementController.formStructure}" />
+	<t:div rendered="#{not empty etablissementController.formStructure}">
+
+		<%@include file="../_commun/_etablissementForm.jsp"%>
+	</t:div>
+
+	<e:panelGrid columns="3">
+		<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			action="_creerConventionEtape2DetailsEtab"
+			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}" immediate="true" >
+			
+		</a4j:commandButton>
+		<rich:spacer width="20px" />
+		<a4j:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
+			action="#{conventionController.modifierEtablissement}"
+			alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+			rendered="#{not empty etablissementController.formStructure}">
+			<f:setPropertyActionListener
+				value="#{etablissementController.formStructure}"
+				target="#{rechercheController.resultatRechercheStructure}" />
+		</a4j:commandButton>
+	</e:panelGrid>
+</e:panelGrid>

@@ -1,0 +1,49 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<%@include file="../_commun/_champsObligatoires.jsp"%>
+	<e:outputLabel for="mdp" value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPACTUEL']} *" />
+	<h:inputSecret id="mdp" size="12" maxlength="12"
+		value="#{etablissementController.mdpActuel}" required="true"
+		maxlength="12" size="12"
+		requiredMessage="#{requiredMessageController.champObligatoire}">
+		<f:converter binding="#{passwordConverter}" />
+		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+	</h:inputSecret>
+	<rich:message for="mdp">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+	<e:panelGrid columns="2" style="font-size:11px;">
+		<h:graphicImage alt="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']}"
+			title="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']}"
+			value="../../media/images/information.png" style="border:0" />
+		<e:text value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP.AIDE']}" />
+	</e:panelGrid>
+	<e:outputLabel for="mdpNew" value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']} *" />
+	<h:inputSecret id="mdpNew" size="12" maxlength="12"
+		value="#{etablissementController.mdpNouveau}" required="true"
+		maxlength="12" size="12"
+		requiredMessage="#{requiredMessageController.champObligatoire}"
+		validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
+		<f:validateLength minimum="6" maximum="12"/>
+		<rich:ajaxValidator event="onblur" />
+	</h:inputSecret>
+	<rich:message for="mdpNew">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+	<e:outputLabel for="mdpConfirm" value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDPCONFIRM']} *" />
+	<h:inputSecret id="mdpConfirm" size="12" maxlength="12"
+		value="#{etablissementController.mdpNouveauConfirmation}" required="true"
+		maxlength="12" size="12"
+		requiredMessage="#{requiredMessageController.champObligatoire}"
+		validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
+		<f:validateLength minimum="6" maximum="12"/>
+		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+	</h:inputSecret>
+	<rich:message for="mdpConfirm">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+</e:panelGrid>
+<a4j:commandButton
+	action="#{etablissementController.changerMotDePasse}"
+	value="#{msgs['FORM.NEXT']}" />

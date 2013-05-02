@@ -1,0 +1,120 @@
+<%@include file="../_include.jsp"%>
+<e:panelGrid columns="1" rendered="#{not empty etablissementController.formContact}">
+	<%@include file="../_commun/_champsObligatoires.jsp"%>
+	<e:panelGrid columns="3">
+		<t:panelGroup colspan="3">
+			<e:panelGrid align="center">
+				<e:outputLabel value="#{msgs['CONTACT.GESTION.CENTREGESTION']} *"
+					for="centreGestion"
+					rendered="#{etablissementController.afficherSelectionCentreContact}" />
+				<h:selectOneMenu id="centreGestion"
+					value="#{etablissementController.formContact.idCentreGestion}"
+					required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}"
+					rendered="#{etablissementController.afficherSelectionCentreContact}"
+					style="width:300px;">
+					<f:selectItem itemValue="" />
+					<f:selectItems
+						value="#{offreController.listeItemsCurrentCentresGestion}" />
+					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				</h:selectOneMenu>
+				<rich:message for="centreGestion">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				</rich:message>
+			</e:panelGrid>
+		</t:panelGroup>
+		<e:panelGrid columns="1">
+			<e:panelGrid columns="2" style="margin-left:auto;margin-right:auto;">
+				<e:outputLabel value="#{msgs['CONTACT.CIVILITE']} *" for="civilite" />
+				<h:selectOneMenu id="civilite"
+					value="#{etablissementController.formContact.civilite}"
+					converter="#{civiliteConverter}" required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<f:selectItem itemValue="" />
+					<f:selectItems value="#{nomenclatureController.civilites}" />
+					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				</h:selectOneMenu>
+				<t:panelGroup colspan="2">
+					<rich:message for="civilite">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+				</t:panelGroup>
+			</e:panelGrid>
+			<e:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
+			<h:inputText id="nom" style="text-transform:uppercase;"
+				value="#{etablissementController.formContact.nom}" size="50"
+				maxlength="50" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:converter binding="#{upperCaseConverter}" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="nom">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
+			<h:inputText id="prenom" style="text-transform:capitalize;"
+				value="#{etablissementController.formContact.prenom}" size="50"
+				maxlength="50" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:converter binding="#{premiereLettreMAJConverter}" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="prenom">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
+			<h:inputText id="fonction" size="50" maxlength="100"
+				value="#{etablissementController.formContact.fonction}" />
+			<rich:message for="fonction">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</e:panelGrid>
+		<e:panelGrid columns="3">
+			<rich:spacer width="25px" />
+			<rich:spacer width="2px"
+				style="background-color: #{a4jSkin.panelBorderColor};"
+				height="200px" />
+			<rich:spacer width="25px" />
+		</e:panelGrid>
+		<e:panelGrid columns="1">
+			<e:panelGrid columns="2">
+				<h:graphicImage	value="../../media/images/arrow_turn_down.png" style="border:0" />
+				<e:text id="msg1o3" value="#{msgs['CONTACT.GESTION.UNDESTROIS']} " />
+			</e:panelGrid>
+			<rich:spacer height="5px" />
+			<e:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} " />
+			<h:inputText id="telC" size="20" maxlength="20"
+				value="#{etablissementController.formContact.tel}">
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="telC">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
+			<h:inputText id="faxC" size="20" maxlength="20"
+				value="#{etablissementController.formContact.fax}" />
+			<rich:message for="faxC">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+			<e:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} " />
+			<h:inputText id="mailC"
+				value="#{etablissementController.formContact.mail}" size="50"
+				maxlength="50"
+				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
+				<f:validator binding="#{mailValidator}" />
+				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
+				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+			</h:inputText>
+			<rich:message for="mailC">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>			
+			<e:text style="color:orange;"
+			value="#{msgs['CONTACT.GESTION.SANSMAILIMPOSSIBLE']}"
+			rendered="#{not empty etablissementController.formContact.login
+				and not empty etablissementController.formContact.mdp}"/>
+			<rich:message for="msg1o3">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</e:panelGrid>
+	</e:panelGrid>
+</e:panelGrid>

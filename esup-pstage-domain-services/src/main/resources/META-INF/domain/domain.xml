@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="avenantDomainService" class="org.esupportail.pstage.domain.AvenantDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService" />
+		<property name="structureDomainService" ref="structureDomainService" />
+	</bean>
+
+	<bean id="adminDomainService" class="org.esupportail.pstage.domain.AdminDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+	</bean>
+
+	<bean id="centreGestionDomainService"
+		class="org.esupportail.pstage.domain.CentreGestionDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService" />
+	</bean>
+
+	<bean id="nomenclatureDomainService"
+		class="org.esupportail.pstage.domain.NomenclatureDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+	</bean>
+
+	<bean id="personnelCentreGestionDomainService"
+		class="org.esupportail.pstage.domain.PersonnelCentreGestionDomainServiceImpl"
+		scope="session">
+		<property name="remoteServices" ref="remoteServices" />
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService" />
+		<property name="centreGestionDomainService" ref="centreGestionDomainService" />
+	</bean>
+
+	<bean id="enseignantDomainService"
+		class="org.esupportail.pstage.domain.EnseignantDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService" />
+	</bean>
+
+	<bean id="structureDomainService"
+		class="org.esupportail.pstage.domain.StructureDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService" />
+	</bean>
+
+	<bean id="offreDomainService" class="org.esupportail.pstage.domain.OffreDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService" />
+	</bean>
+
+	<bean id="critereGestionDomainService"
+		class="org.esupportail.pstage.domain.CritereGestionDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+	</bean>
+
+
+	<bean id="conventionDomainService"
+		class="org.esupportail.pstage.domain.ConventionDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+		<property name="nomenclatureDomainService" ref="nomenclatureDomainService" />
+		<property name="structureDomainService" ref="structureDomainService" />
+	</bean>
+
+	<bean id="etudiantDomainService" class="org.esupportail.pstage.domain.EtudiantDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+	</bean>
+
+	<bean id="domainService" class="org.esupportail.pstage.domain.DomainServiceImpl">
+		<property name="daoService" ref="daoService" />
+		<property name="ldapUserService" ref="ldapUserService" />
+		<property name="displayNameLdapAttribute" value="displayName" />
+	</bean>
+
+	<bean id="geographieRepositoryDomain"
+		class="org.esupportail.pstage.domain.referentiel.GeographieRepositoryDomainWS">
+		<property name="geographieRepositoryDao" ref="geographieRepositoryDao" />
+	</bean>
+
+	<!-- Acces au référentiel de données du personnel -->
+	<bean id="personalDataRepositoryLdap"
+		class="org.esupportail.pstage.domain.referentiel.PersonalDataRepositoryDomainLdap"
+		lazy-init="true">
+		<property name="personalDataRepositoryDao" ref="personalDataRepositoryDaoLdap" />
+	</bean>
+
+	<bean id="personalDataRepositoryWS"
+		class="org.esupportail.pstage.domain.referentiel.PersonalDataRepositoryDomainWS"
+		lazy-init="true">
+		<property name="personalDataRepositoryDaoWS" ref="personalDataRepositoryDaoWS" />
+	</bean>
+
+	<bean id="personalDataRepositoryCustom"
+		class="org.esupportail.pstage.domain.referentiel.PersonalDataRepositoryDomainCustom"
+		lazy-init="true">
+	</bean>
+
+	<!-- acces au referentiel de données des étudiants -->
+
+	<bean id="studentDataRepositoryLdap"
+		class="org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomainLdap"
+		lazy-init="true">
+		<property name="studentDataRepositoryDao" ref="studentDataRepositoryDaoLdap"></property>
+
+	</bean>
+
+	<bean id="studentDataRepositoryWS"
+		class="org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomainWS"
+		lazy-init="true">
+		<property name="studentDataRepositoryDaoWS" ref="studentDataRepositoryDaoWS" />
+	</bean>
+
+	<bean id="studentDataRepositoryCustom"
+		class="org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomainCustom"
+		lazy-init="true">
+	</bean>
+
+	<!-- acces aux composantes du personnel -->
+	<bean id="personalComponentRepositoryLdap"
+		class="org.esupportail.pstage.domain.referentiel.PersonalComponentRepositoryDomainLdap"
+		lazy-init="true">
+		<property name="personalComponentRepositoryDao" ref="personalComponentRepositoryDaoLdap" />
+	</bean>
+
+	<bean id="personalComponentRepositoryWS"
+		class="org.esupportail.pstage.domain.referentiel.PersonalComponentRepositoryDomainWS"
+		lazy-init="true">
+		<property name="personalComponentRepositoryDaoWS" ref="personalComponentRepositoryDaoWS" />
+	</bean>
+
+	<bean id="personalComponentRepositoryCustom"
+		class="org.esupportail.pstage.domain.referentiel.PersonalComponentRepositoryDomainCustom"
+		lazy-init="true">
+	</bean>
+
+	<!-- acces aux composantes des etudiants -->
+
+	<bean id="studentComponentRepositoryLdap"
+		class="org.esupportail.pstage.domain.referentiel.StudentComponentRepositoryDomainLdap"
+		lazy-init="true">
+		<property name="studentComponentRepositoryDao" ref="studentComponentRepositoryDaoLdap" />
+	</bean>
+
+	<bean id="studentComponentRepositoryWS"
+		class="org.esupportail.pstage.domain.referentiel.StudentComponentRepositoryDomainWS"
+		lazy-init="true">
+		<property name="studentComponentRepositoryDaoWS" ref="studentComponentRepositoryDaoWS" />
+	</bean>
+
+	<bean id="studentComponentRepositoryCustom"
+		class="org.esupportail.pstage.domain.referentiel.StudentComponentRepositoryDomainCustom"
+		lazy-init="true">
+	</bean>
+
+	<!-- acces aux composansts sur les statistiques -->
+
+	<bean id="statistiquesDomainService"
+		class="org.esupportail.pstage.domain.statistiques.StatistiquesDomainServiceImpl"
+		lazy-init="true">
+		<property name="remoteServices" ref="remoteServices"></property>
+	</bean>
+
+</beans>

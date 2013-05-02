@@ -1,0 +1,268 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel 
+						rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
+						|| welcomeController.personnel) && centreController.centre != null}">
+					<f:facet name="header">
+						<e:text
+							value="#{msgs['CENTRE.MENU.DETAIL']} #{centreController.centre.nomCentre}" />
+					</f:facet>
+					<%@include file="_menu_centre.jsp"%>
+					<h:form id="formVoirCentre">
+						<e:panelGrid columns="1" align="center">
+							<e:outputLabel value="#{msgs['CENTRE.NOM']} " for="nomCentre" />
+							<e:text id="nomCentre"
+								value="#{centreController.centre.nomCentre}" />
+
+							<rich:spacer height="10" />
+
+							<e:panelGrid columns="3">
+								<e:panelGrid columns="1" >
+									<e:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']} "
+										for="batimentResidence" />
+									<e:text id="batimentResidence"
+										value="#{centreController.centre.batimentResidence}" />
+
+									<e:outputLabel value="#{msgs['CENTRE.VOIE']} " for="voie" 
+										rendered="#{not empty centreController.centre.voie}"/>
+									<e:text id="voie" value="#{centreController.centre.voie}" 
+										rendered="#{not empty centreController.centre.voie}"/>
+								</e:panelGrid>
+
+								<e:panelGrid columns="3">
+									<rich:spacer width="50px" />
+									<rich:spacer width="2px"
+										style="background-color: #{a4jSkin.panelBorderColor};"
+										height="90px" />
+									<rich:spacer width="50px" />
+								</e:panelGrid>
+
+								<e:panelGrid columns="1">
+									<e:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} "
+										for="codePostal" />
+									<e:text id="codePostal"
+										value="#{centreController.centre.codePostal}" />
+
+									<e:outputLabel value="#{msgs['CENTRE.COMMUNE']} " for="commune" />
+									<e:text id="commune" value="#{centreController.centre.commune}" />
+								</e:panelGrid>
+							</e:panelGrid>
+							
+							<rich:spacer height="5" />
+							
+							<e:panelGrid columns="3">
+								<e:panelGrid columns="1"
+									rendered="#{not empty centreController.centre.mail 
+											|| not empty centreController.centre.siteWeb}">
+									<e:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail" 
+										rendered="#{not empty centreController.centre.mail}"/>
+									<e:text id="mail" value="#{centreController.centre.mail}" 
+										rendered="#{not empty centreController.centre.mail}"/>
+
+									<e:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb" 
+										rendered="#{not empty centreController.centre.siteWeb}"/>
+									<e:text id="siteWeb" value="#{centreController.centre.siteWeb}" 
+										rendered="#{not empty centreController.centre.siteWeb}"/>
+								</e:panelGrid>
+
+								<e:panelGrid columns="3"
+									rendered="#{(not empty centreController.centre.mail 
+											|| not empty centreController.centre.siteWeb)
+											&& (not empty centreController.centre.fax 
+											|| not empty centreController.centre.telephone)}">
+									<rich:spacer width="50px" />
+									<rich:spacer width="2px"
+										style="background-color: #{a4jSkin.panelBorderColor};"
+										height="90px" />
+									<rich:spacer width="50px" />
+								</e:panelGrid>
+
+								<e:panelGrid columns="1"
+									rendered="#{not empty centreController.centre.telephone
+											|| not empty centreController.centre.fax}">
+									<e:outputLabel value="#{msgs['CENTRE.TEL']} " for="telephone" 
+										rendered="#{not empty centreController.centre.telephone}"/>
+									<e:text id="telephone"
+										value="#{centreController.centre.telephone}"  
+										rendered="#{not empty centreController.centre.telephone}"/>
+
+									<e:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax"
+										rendered="#{not empty centreController.centre.fax}"/>
+									<e:text id="fax" value="#{centreController.centre.fax}" 
+										rendered="#{not empty centreController.centre.fax}"/>
+								</e:panelGrid>
+							</e:panelGrid>
+
+							<rich:spacer height="10" />
+
+							<e:panelGrid columns="1">
+								<e:outputLabel value="#{msgs['CENTRE.URL_PAGE_INSTRUCTION']} "
+									for="pageInstruction"
+									rendered="#{not empty centreController.centre.urlPageInstruction}"/>
+								<e:text id="pageInstruction"
+									value="#{centreController.centre.urlPageInstruction}"
+									rendered="#{not empty centreController.centre.urlPageInstruction}" />
+
+								<rich:spacer height="5" />
+
+								<e:outputLabel for="nomViseur"
+									value="#{msgs['CENTRE.NOM_VISEUR']} "
+									rendered="#{not empty centreController.centre.nomViseur}" />
+								<e:text id="nomViseur"
+									value="#{centreController.centre.nomViseur}" 
+									rendered="#{not empty centreController.centre.nomViseur}"/>
+
+								<e:outputLabel for="prenomViseur"
+									value="#{msgs['CENTRE.PRENOM_VISEUR']} "
+									rendered="#{not empty centreController.centre.prenomViseur}" />
+								<e:text id="prenomViseur"
+									value="#{centreController.centre.prenomViseur}"
+									rendered="#{not empty centreController.centre.prenomViseur}" />
+
+								<rich:spacer height="5" />
+
+								<e:outputLabel value="#{msgs['CENTRE.CRITERE.CRITERES']}"
+									for="critereGestion" />
+								<e:panelGrid columns="1" id="critereGestion">
+									<e:text value="#{centreController.centre.niveauCentre.libelle}" />
+								</e:panelGrid>
+
+								<rich:spacer height="5" />
+
+								<e:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']}"
+									for="confidentialite" />
+								<e:panelGrid columns="1" id="confidentialite">
+									<e:text
+										value="#{centreController.centre.confidentialite.libelle}" />
+								</e:panelGrid>
+
+								<rich:spacer height="5" />
+
+								<e:outputLabel value="#{msgs['CENTRE.TUTEUR_ENS_OBLIGATOIRE']} "
+									for="tuteurEnsObligatoire" />
+								<e:panelGrid columns="1" id="tuteurEnsObligatoire">
+									<e:text rendered="#{centreController.centre.presenceTuteurEns}"
+										value="#{msgs['FORM.OUI']}" />
+									<e:text
+										rendered="#{!centreController.centre.presenceTuteurEns}"
+										value="#{msgs['FORM.NON']}" />
+								</e:panelGrid>
+								<rich:spacer height="5" />
+
+								<e:outputLabel value="#{msgs['CENTRE.TUTEUR_PRO_OBLIGATOIRE']} "
+									for="tuteurProObligatoire" />
+								<e:panelGrid columns="1" id="tuteurProObligatoire">
+									<e:text rendered="#{centreController.centre.presenceTuteurPro}"
+										value="#{msgs['FORM.OUI']}" />
+									<e:text
+										rendered="#{!centreController.centre.presenceTuteurPro}"
+										value="#{msgs['FORM.NON']}" />
+								</e:panelGrid>
+								<rich:spacer height="5" />
+
+								<e:outputLabel value="#{msgs['CENTRE.SAISIE_EN_LIGNE']} "
+									for="saisieEnLigne" />
+								<e:panelGrid columns="1" id="saisieEnLigne">
+									<e:text
+										rendered="#{centreController.centre.saisieTuteurProParEtudiant}"
+										value="#{msgs['FORM.OUI']}" />
+									<e:text
+										rendered="#{!centreController.centre.saisieTuteurProParEtudiant}"
+										value="#{msgs['FORM.NON']}" />
+								</e:panelGrid>
+
+								<rich:spacer height="5" />
+
+								<e:outputLabel
+									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']} "
+									for="choixAnnee" />
+								<e:panelGrid columns="1" id="choixAnnee">
+									<e:text
+										rendered="#{centreController.centre.choixAnneeAvantDebutAnnee && !centreController.centre.choixAnneeApresDebutAnnee}"
+										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" />
+									<e:text
+										rendered="#{centreController.centre.choixAnneeApresDebutAnnee && !centreController.centre.choixAnneeAvantDebutAnnee}"
+										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" />
+									<e:text
+										rendered="#{centreController.centre.choixAnneeApresDebutAnnee && centreController.centre.choixAnneeAvantDebutAnnee}"
+										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT&APRES']}" />
+									<e:text
+										rendered="#{!centreController.centre.choixAnneeAvantDebutAnnee && !centreController.centre.choixAnneeApresDebutAnnee}"
+										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" />
+								</e:panelGrid>
+								<%/*
+								<e:outputLabel value="#{msgs['CENTRE.DEPOT_ANONYME']}"
+									for="depotAnonyme" />
+								<e:panelGrid columns="1" id="depotAnonyme">
+									<e:text rendered="#{centreController.centre.depotAnonyme}"
+										value="#{msgs['FORM.OUI']}" />
+									<e:text
+										value="#{sessionController.baseUrl}?args=depot=#{centreController.depotEncode}%26id=#{centreController.centre.idCentreGestion}"
+										rendered="#{centreController.centre.depotAnonyme}" />
+									<e:text rendered="#{!centreController.centre.depotAnonyme}"
+										value="#{msgs['FORM.NON']}" />
+								</e:panelGrid>
+								*/%>
+								<e:outputLabel value="#{msgs['CENTRE.IMPRESSIONCONVENTION']}"
+									for="impressionConvention"
+									rendered="#{sessionController.autoriserCentresBloquerImpressionConvention}" />
+								<e:panelGrid columns="1" id="impressionConvention"
+									rendered="#{sessionController.autoriserCentresBloquerImpressionConvention}">
+									<e:text
+										rendered="#{centreController.centre.autoriserImpressionConvention}"
+										value="#{msgs['FORM.OUI']}" />
+									<e:text
+										rendered="#{!centreController.centre.autoriserImpressionConvention}"
+										value="#{msgs['FORM.NON']}" />
+								</e:panelGrid>
+							</e:panelGrid>
+						</e:panelGrid>
+
+						<rich:spacer height="10" />
+
+						<t:htmlTag value="center">
+							<a4j:commandButton ajaxSingle="true"
+								rendered="#{welcomeController.superAdmin
+							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
+								action="#{centreController.goToModifCentre}"
+								value="#{msgs['FORM.MODIFIER']}" />
+						</t:htmlTag>
+					</h:form>
+				</rich:panel>
+				<t:div
+					rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
+		|| welcomeController.personnel)}">
+					<%@include file="./_redirection_droitsInsuffisants.jsp"%>
+				</t:div>
+				<t:div
+					rendered="#{(welcomeController.superAdmin || welcomeController.enseignant || welcomeController.personnel)
+		&& centreController.centre == null}">
+					<%@include file="./_redirection_accesDirectImpossible.jsp"%>
+				</t:div>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<e:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</e:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+	hideButton("welcomeManagerForm:localeChangeButton");
+</script>
+	</t:div>
+</e:page>

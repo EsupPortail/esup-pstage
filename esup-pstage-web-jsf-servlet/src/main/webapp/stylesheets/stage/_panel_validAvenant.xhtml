@@ -1,0 +1,33 @@
+<%@include file="../_include.jsp"%>
+
+<rich:modalPanel id="validAvenant" autosized="true" width="600">
+	<f:facet name="header">
+		<e:text
+			value="#{msgs['CONVENTION.ETAPE11.VALIDATION.HEAD']}#{avenantController.avenant.idAvenant}" />
+	</f:facet>
+	<rich:panel style="border:none">
+		<e:panelGrid columns="1" align="center">
+			<e:text value="#{msgs['CONVENTION.ETAPE11.VALIDATION.INFO']}" />
+			<e:text
+				value="#{msgs['CONVENTION.ETAPE11.VALIDATION.AVERTISSEMENT']}" />
+		</e:panelGrid>
+	</rich:panel>
+	<t:htmlTag value="center">
+		<e:outputLabel for="validPanel"
+			value="#{msgs['CONVENTION.ETAPE11.VALIDATION.QUESTION']}" />
+	</t:htmlTag>
+	<rich:spacer height="10" />
+	<e:panelGrid align="center" id="validPanel" columns="3">
+		<a4j:commandButton action="#{avenantController.validerAvenant}"
+			value="#{msgs['FORM.OUI']}" reRender="formDetailsAvenant" />
+		<rich:spacer width="30" />
+		<h:commandButton value="#{msgs['FORM.NON']}"
+			onclick="#{rich:component('validAvenant')}.hide();return false;" />
+	</e:panelGrid>
+	<t:htmlTag value="center">
+		<e:text id="erreurValidAvenant" value="" />
+		<rich:message for="erreurValidAvenant">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+	</t:htmlTag>
+</rich:modalPanel>

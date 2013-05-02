@@ -1,0 +1,27 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<e:panelGrid style="float:left;">
+		<%@include file="./_menu.jsp"%>
+	</e:panelGrid>
+	<e:panelGrid columns="1"
+		styleClass="panelEntreprise"
+		rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+		<rich:panel>
+			<f:facet name="header">
+				<e:text value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.TITRE']}" />
+			</f:facet>
+			<h:form id="changementMotDePasse"
+				rendered="#{not empty sessionController.currentAuthContact 
+			and not sessionController.adminPageAuthorized}">
+				<a4j:include id="include"
+					viewId="/stylesheets/depot/_changementMotDePasseEtape1.jsp" />
+			</h:form>
+			<e:text value="#{msgs['MENU.MODIFMDP.BLOCK']}"
+				style="font-weight:bold;color:red;"
+				rendered="#{sessionController.adminPageAuthorized}" />
+		</rich:panel>
+		<%@include file="_panelNousContacter.jsp"%>
+	</e:panelGrid>
+</e:page>

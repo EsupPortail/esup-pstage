@@ -20,21 +20,21 @@
 		<property name="authenticationService" ref="${auth.bean}" />
 		<property name="smtpService" ref="smtpService" />
 		<property name="recipientEmail" value="${exceptionHandling.email}" />
-		<property name="exceptionViews" >
+		<property name="exceptionViews">
 			<map>
-				<entry key="java.lang.OutOfMemoryError" value="/stylesheets/outOfMemoryException.jsp" />
-				<entry key="org.esupportail.commons.services.database.DatabaseException" value="/stylesheets/databaseException.jsp" />
-				<entry key="org.esupportail.commons.services.application.UninitializedDatabaseException" value="/stylesheets/uninitializedDatabaseException.jsp" />
-				<entry key="org.esupportail.commons.services.application.VersionException" value="/stylesheets/versionException.jsp" />
-				<entry key="org.esupportail.commons.exceptions.WebFlowException" value="/stylesheets/webFlowException.jsp" />
-				<entry key="org.esupportail.commons.exceptions.ConfigException" value="/stylesheets/configException.jsp" />
-				<entry key="org.esupportail.commons.services.ldap.LdapConnectionException" value="/stylesheets/ldapException.jsp" />
-				<entry key="com.mysql.jdbc.CommunicationsException" value="/stylesheets/databaseException.jsp" />
-				<entry key="com.mchange.v2.resourcepool.CannotAcquireResourceException" value="/stylesheets/databaseException.jsp" />
-				<entry key="java.lang.Exception" value="exception" />
-				<entry key="javax.faces.application.ViewExpiredException" value="exception" />
-				<entry key="org.esupportail.commons.exceptions.DownloadException" value="exception"  />
-				<entry key="javax.servlet.ServletException" value="exception"  />
+				<entry key="java.lang.OutOfMemoryError" value="/stylesheets/_exception/outOfMemoryException.jsp" />
+				<entry key="javax.faces.application.ViewExpiredException" value="/stylesheets/welcome.xhtml" />
+<!-- 				<entry key="org.esupportail.commons.services.database.DatabaseException" value="/stylesheets/databaseException.jsp" /> -->
+<!-- 				<entry key="org.esupportail.commons.services.application.UninitializedDatabaseException" value="/stylesheets/uninitializedDatabaseException.jsp" /> -->
+<!-- 				<entry key="org.esupportail.commons.services.application.VersionException" value="/stylesheets/versionException.jsp" /> -->
+<!-- 				<entry key="org.esupportail.commons.exceptions.WebFlowException" value="/stylesheets/webFlowException.jsp" /> -->
+<!-- 				<entry key="org.esupportail.commons.exceptions.ConfigException" value="/stylesheets/configException.jsp" /> -->
+<!-- 				<entry key="org.esupportail.commons.services.ldap.LdapConnectionException" value="/stylesheets/ldapException.jsp" /> -->
+<!-- 				<entry key="com.mysql.jdbc.CommunicationsException" value="/stylesheets/databaseException.jsp" /> -->
+<!-- 				<entry key="com.mchange.v2.resourcepool.CannotAcquireResourceException" value="/stylesheets/databaseException.jsp" /> -->
+<!-- 				<entry key="java.lang.Exception" value="exception" /> -->
+<!-- 				<entry key="org.esupportail.commons.exceptions.DownloadException" value="exception"  /> -->
+<!-- 				<entry key="javax.servlet.ServletException" value="exception"  /> -->
 			</map>
 		</property>
 		<property name="noEmailExceptions" >

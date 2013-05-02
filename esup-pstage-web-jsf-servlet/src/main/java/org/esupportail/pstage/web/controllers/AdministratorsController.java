@@ -9,15 +9,14 @@ import java.util.List;
 
 import org.esupportail.commons.exceptions.UserNotFoundException;
 import org.esupportail.commons.services.ldap.LdapUserService;
+import org.esupportail.commons.services.paginator.Paginator;
 import org.esupportail.commons.utils.Assert;
-import org.esupportail.commons.web.beans.Paginator;
-import org.esupportail.commons.web.controllers.LdapSearchCaller;
 import org.esupportail.pstage.domain.beans.User;
 
 /**
  * Bean to present and manage administrators.
  */
-public class AdministratorsController extends AbstractContextAwareController implements LdapSearchCaller {
+public class AdministratorsController extends AbstractContextAwareController {
 
 	/**
 	 * The serialization id.

@@ -1,0 +1,60 @@
+<%@include file="../_include.jsp"%>
+
+<!-- contenu de la page -->
+
+<e:panelGrid columns="1"
+	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+
+	<rich:panel>
+		<f:facet name="header">
+			<e:text value="#{msgs['CONVENTION.TITRE']}" />
+		</f:facet>
+
+		<e:text value="#{msgs['CONVENTION.CONSIGNESETU']}" escape="false" />
+		<rich:spacer height="20" />
+
+		<e:text value="#{msgs['CONVENTION.CONSIGNESETU1']}" escape="false" />
+		<rich:spacer height="20" />
+
+		<e:text value="#{msgs['CONVENTION.CONSIGNESETU2']}" escape="false" />
+		<rich:spacer height="20" />
+
+		<e:text value="#{msgs['CONVENTION.CONSIGNESETU3']}" escape="false" />
+		<rich:spacer height="20" />
+
+		<e:text value="#{msgs['CONVENTION.CONSIGNESETU4']}" escape="false" />
+		<rich:spacer height="20" />
+
+		<e:text value="#{msgs['CONVENTION.CONSIGNESETU5']}" escape="false" />
+		<rich:spacer height="20" />
+
+		<e:text value="#{msgs['CONVENTION.CONSIGNESETU6']}" escape="false" />
+		<rich:spacer height="20" />
+
+		<rich:spacer width="10px" id="identEtudiant" />
+		<rich:message for="identEtudiant">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+		<rich:spacer height="10" />
+		<e:panelGrid columns="2">
+			<a4j:region id="create">
+				<a4j:commandButton
+					action="#{conventionController.goToCreerConventionEtu}"
+					value="#{msgs['MENUSTAGE.CREERCONVENTION']}">
+				</a4j:commandButton>
+			</a4j:region>
+			<t:htmlTag value="center">
+				<a4j:status for="create">
+					<f:facet name="start">
+						<%@include file="../_commun/_veuillezPatienter.jsp"%>
+					</f:facet>
+				</a4j:status>
+			</t:htmlTag>
+		</e:panelGrid>
+	</rich:panel>
+</e:panelGrid>
+
+
+
+
+

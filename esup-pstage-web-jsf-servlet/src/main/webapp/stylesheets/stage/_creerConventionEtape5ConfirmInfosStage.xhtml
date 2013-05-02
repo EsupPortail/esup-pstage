@@ -1,0 +1,20 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<f:facet name="header">
+		<h:outputText
+			value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE']}" />
+	</f:facet>
+
+	<e:panelGrid columns="1">
+		<e:text
+			value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']}" />
+		<%@include file="/stylesheets/stage/_conventionEtape5DetailsStage.jsp"%>
+	</e:panelGrid>
+	<e:panelGrid columns="2">
+		<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
+			action="#{conventionController.goToCreerConventionEtape5StageR}" />
+		<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
+			action="#{conventionController.goToCreerConventionEtape6RespPedago}" />
+	</e:panelGrid>
+</e:panelGrid>

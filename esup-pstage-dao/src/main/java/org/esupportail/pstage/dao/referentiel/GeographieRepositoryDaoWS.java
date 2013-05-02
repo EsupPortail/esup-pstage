@@ -18,23 +18,23 @@ import org.springframework.util.Assert;
 public class GeographieRepositoryDaoWS implements GeographieRepositoryDao {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 2551254377936997954L;
 	/**
-	 * 
+	 *
 	 */
 	final Logger logger = Logger.getLogger(GeographieRepositoryDaoWS.class);
 
-	private GeographieMetierServiceInterface geographieMetierServiceInterface;
-	
+	private GeographieMetierServiceInterface geographieMetierService;
+
 	/**
 	 * @see org.esupportail.pstage.dao.referentiel.GeographieRepositoryDao#getCommuneFromDepartement(java.lang.String)
 	 */
 	public List<CommuneDTO> getCommuneFromDepartement(String departement){
 		List<CommuneDTO> l = null;
 		try{
-			l = this.geographieMetierServiceInterface.recupererCommune(departement, "O", "T");
+			l = this.geographieMetierService.recupererCommune(departement, "O", "T");
 			Collections.sort(l, new Comparator<CommuneDTO>(){
 				/**
 				 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
@@ -55,14 +55,14 @@ public class GeographieRepositoryDaoWS implements GeographieRepositoryDao {
 		return l;
 	}
 
-	public void setGeographieMetierServiceInterface(
-			GeographieMetierServiceInterface geographieMetierServiceInterface) {
-		this.geographieMetierServiceInterface = geographieMetierServiceInterface;
+	public void setGeographieMetierService(
+			GeographieMetierServiceInterface geographieMetierService) {
+		this.geographieMetierService = geographieMetierService;
 	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(this.geographieMetierServiceInterface, "La propriété geographieMetierServiceInterface ne peut etre null.");
+		Assert.notNull(this.geographieMetierService, "La propriété geographieMetierService ne peut etre null.");
 	}
 
 }

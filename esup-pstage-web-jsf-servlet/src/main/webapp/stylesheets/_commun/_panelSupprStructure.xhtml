@@ -1,0 +1,10 @@
+<%@include file="../_include.jsp"%>
+<rich:modalPanel id="supprimerStructurePanel" autosized="true" width="500"
+	styleClass="panel" domElementAttachment="parent">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['STRUCTURE.SUPPRESSION']}" />
+	</f:facet>
+	<h:form id="formSupprStructure">
+		<a4j:include id="include" viewId="/stylesheets/_commun/_supprStructureEtape1.jsp"/>
+	</h:form>
+</rich:modalPanel>

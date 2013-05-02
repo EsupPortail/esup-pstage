@@ -1,0 +1,61 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel>
+					<f:facet name="header">
+						<e:text value="#{msgs['OFFRE.MODIFICATION']}" />
+					</f:facet>
+					<h:form id="formModificationOffre">
+						<rich:message for="formModificationOffre">
+							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						</rich:message>
+						<a4j:include id="include"
+							viewId="/stylesheets/_commun/_modificationOffreEtape1.jsp" />
+						<h:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
+							action="#{offreController.retourTo}"
+							alt="#{msgs['FORM.ANNULERETRETOUR']}"
+							title="#{msgs['FORM.ANNULERETRETOUR']}" immediate="true"
+							style="float:right;">
+						</h:commandButton>
+					</h:form>
+					<rich:message for="formCreationOffre">
+						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					</rich:message>
+					<rich:editor rendered="false"/>
+					<%@include file="../_commun/_panelAjoutService.jsp"%>
+					<%@include file="../_commun/_panelModifService.jsp"%>
+					<%@include file="../_commun/_panelSupprService.jsp"%>
+					<%@include file="../_commun/_panelAjoutContact.jsp"%>
+					<%@include file="../_commun/_panelModifContact.jsp"%>
+					<%@include file="../_commun/_panelSupprContact.jsp"%>
+				</rich:panel>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<e:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</e:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+	hideButton("welcomeManagerForm:localeChangeButton");
+</script>
+	</t:div>
+</e:page>
+
+
+
+

@@ -1,0 +1,41 @@
+<%@include file="../_include.jsp"%>
+<e:panelGrid columns="1">
+	<e:text value="#{msgs['OFFRE.ERREUR.AUCUNETABSELECT']}"
+		rendered="#{empty offreController.formOffre.structure}" />
+	<e:panelGrid columns="2"
+		rendered="#{not empty offreController.formOffre.structure and !offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+		<t:panelGroup colspan="2">
+			<e:text value="#{msgs['OFFRE.TEXT.ETAPE01NOMODIF']}" />
+		</t:panelGroup>
+		<e:panelGrid columns="1"
+			rendered="#{not empty offreController.formOffre.centreGestion}">
+			<e:text
+				value="(#{offreController.formOffre.centreGestion.idCentreGestion}) #{offreController.formOffre.centreGestion.nomCentre}" />
+		</e:panelGrid>
+	</e:panelGrid>
+	<e:panelGrid columns="2"
+		rendered="#{not empty offreController.formOffre.structure and offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+		<t:panelGroup colspan="2">
+			<e:text value="#{msgs['OFFRE.TEXT.ETAPE01MODIF']}" />
+		</t:panelGroup>
+		<h:selectOneMenu id="centreGestion"
+			value="#{offreController.formOffre.idCentreGestion}" required="true"
+			requiredMessage="#{requiredMessageController.champObligatoire}"
+			style="width:300px;">
+			<f:selectItems
+				value="#{offreController.listeItemsCurrentCentresGestion}" />
+			<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+		</h:selectOneMenu>
+		<rich:message for="centreGestion">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+		<t:panelGroup colspan="2">
+			<e:panelGrid columns="2">
+				<h:commandButton value="#{msgs['FORM.NEXT']}"
+					action="#{offreController.goToModificationOffreDetailsEtab}"
+					alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"
+					rendered="#{not empty offreController.listeItemsCurrentCentresGestion}"/>
+			</e:panelGrid>
+		</t:panelGroup>
+	</e:panelGrid>
+</e:panelGrid>

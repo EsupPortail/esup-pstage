@@ -1,0 +1,34 @@
+<%@include file="../_include.jsp"%>
+
+<!-- contenu de la page -->
+
+<e:panelGrid columns="1"
+	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+
+	
+	<rich:panel>
+		<f:facet name="header">
+			<e:text value="#{msgs['CONVENTION.TITRE']}" />
+		</f:facet>
+
+		<rich:spacer height="20" />
+		<e:text value="#{msgs['CONVENTION.CONSIGNES']}" escape="false" />
+		<rich:spacer height="20" />
+		<e:text value="#{msgs['CONVENTION.CONSIGNES1']}" escape="false" />
+		<rich:spacer height="20" />
+		<e:text value="#{msgs['CONVENTION.CONSIGNES2']}" escape="false" />
+		<rich:spacer height="20" />
+		<e:panelGrid columns="1">
+			<rich:spacer height="20" />
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionRechEtu}"
+				value="#{msgs['FORM.NEXT']}">
+			</a4j:commandButton>
+		</e:panelGrid>
+	</rich:panel>
+	
+
+</e:panelGrid>
+
+
+

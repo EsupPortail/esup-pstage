@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
 import org.esupportail.pstage.domain.NomenclatureDomainService;
-import org.esupportail.pstagedata.remote.NafN1DTO;
+import org.esupportail.pstagedata.domain.dto.NafN1DTO;
 import org.springframework.util.StringUtils;
 
 /**

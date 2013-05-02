@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.esupportail.pstagedata.remote.StatisticItemDTO;
+import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
 
 
 /** 

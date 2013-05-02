@@ -1,0 +1,11 @@
+<%@include file="../_include.jsp"%>
+<rich:modalPanel id="ajoutService" autosized="true" width="400"
+	styleClass="panel" domElementAttachment="parent">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['SERVICE.AJOUT']}" />
+	</f:facet>
+	<h:form id="formAjoutService">
+		<a4j:include id="include"
+			viewId="/stylesheets/_commun/_ajoutServiceEtape1.jsp" />
+	</h:form>
+</rich:modalPanel>

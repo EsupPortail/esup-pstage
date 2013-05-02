@@ -1,126 +1,274 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- /webapp/WEB-INF/web.xml The main configuration file of the application 
+<?xml version="1.0"?>
+<!--/webapp/WEB-INF/web.xml The main configuration file of the application 
 	for servlet installations. -->
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:javaee="http://java.sun.com/xml/ns/javaee"
-	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"
-	version="2.5">
-	<javaee:display-name>esup-pstage-test</javaee:display-name>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/j2ee"
+	metadata-complete="true">
+	<display-name>esup-pstage</display-name>
+
 	<context-param>
-		<javaee:param-name>log4jConfigLocation</javaee:param-name>
-		<javaee:param-value>classpath:/log4j.properties
-		</javaee:param-value>
+		<param-name>webAppRootKey</param-name>
+		<param-value>/esup-pstage</param-value>
 	</context-param>
+
 	<context-param>
-		<javaee:description> The location of the main configuration file of
-			the Spring framework.
-		</javaee:description>
-		<javaee:param-name>contextConfigLocation</javaee:param-name>
-		<javaee:param-value>classpath:/properties/applicationContext.xml
-		</javaee:param-value>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j.properties
+		</param-value>
 	</context-param>
+
 	<context-param>
-		<javaee:param-name>javax.faces.CONFIG_FILES</javaee:param-name>
-		<javaee:param-value>
-			/WEB-INF/navigation-rules.xml
-		</javaee:param-value>
+		<description>
+			The location of the main configuration file of the Spring
+			framework.
+		</description>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:/properties/applicationContext.xml
+		</param-value>
 	</context-param>
+
 	<context-param>
-		<javaee:param-name>javax.faces.PROJECT_STAGE</javaee:param-name>
-		<javaee:param-value>Development</javaee:param-value>
+		<description>
+			The location of the main configuration file of the JSF
+			framework.
+		</description>
+		<param-name>javax.faces.CONFIG_FILES
+		</param-name>
+		<param-value>
+			/WEB-INF/classes/properties/jsf/navigation-rules.xml
+		</param-value>
 	</context-param>
+
 	<context-param>
-		<javaee:param-name>com.sun.faces.allowTextChildren</javaee:param-name>
-		<javaee:param-value>true</javaee:param-value>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
 	</context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
 	<context-param>
-		<javaee:param-name>javax.faces.DEFAULT_SUFFIX</javaee:param-name>
-		<javaee:param-value>.xhtml</javaee:param-value>
+		<param-name>org.apache.myfaces.PRETTY_HTML
+		</param-name>
+		<param-value>true</param-value>
 	</context-param>
+
 	<context-param>
-		<javaee:param-name>javax.faces.FACELETS_SKIP_COMMENTS
-		</javaee:param-name>
-		<javaee:param-value>true</javaee:param-value>
+		<param-name>org.apache.myfaces.ALLOW_JAVASCRIPT
+		</param-name>
+		<param-value>true</param-value>
 	</context-param>
+
 	<context-param>
-		<javaee:param-name>javax.faces.FACELETS_LIBRARIES</javaee:param-name>
-		<javaee:param-value>/WEB-INF/esup-commons.taglib.xml
-		</javaee:param-value>
+		<param-name>org.apache.myfaces.DETECT_JAVASCRIPT
+		</param-name>
+		<param-value>false</param-value>
 	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.AUTO_SCROLL
+		</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.ADD_RESOURCE_CLASS
+		</param-name>
+		<param-value>
+			org.apache.myfaces.renderkit.html.util.DefaultAddResource
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.CHECK_EXTENSIONS_FILTER
+		</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>org.apache.myfaces.ERROR_HANDLER
+		</param-name>
+		<param-value>
+			org.esupportail.commons.services.exceptionHandling.ExceptionHandler
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.fckfaces.CUSTOM_CONFIGURATIONS_PATH
+		</param-name>
+		<param-value>/media/FCKeditor/custom-fckconfig.js
+		</param-value>
+	</context-param>
+
+	<!--BEGIN-RICHFACES -->
+	<!-- Plugging the skin into the project -->
+	<context-param>
+		<param-name>org.richfaces.SKIN</param-name>
+		<param-value>classic</param-value>
+	</context-param>
+
+	<!-- Making the RichFaces skin spread to standard HTML controls -->
+	<context-param>
+		<param-name>org.richfaces.CONTROL_SKINNING
+		</param-name>
+		<param-value>enable</param-value>
+	</context-param>
+
+	<!-- Encryption put to false -->
+	<context-param>
+		<param-name>org.apache.myfaces.USE_ENCRYPTION
+		</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<!-- Handling ViewExpiredException -->
+	<context-param>
+		<param-name>org.ajax4jsf.handleViewExpiredOnClient
+		</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<!--END-RICHFACES -->
+
+
+	<!-- CAS -->
+	<filter>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>authenticationFilter</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<url-pattern>/stylesheets/cas/auth.xhtml</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<url-pattern>/stylesheets/stage/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<url-pattern>/stylesheets/centre/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>CAS Validation Filter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>ticketValidationFilter</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Validation Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- END CAS -->
+
 	<servlet>
-		<servlet-name>Resource Servlet</servlet-name>
-		<servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Resource Servlet</servlet-name>
-		<url-pattern>/primefaces_resource/*</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<javaee:description> The main servlet of the application. This class
-			inherits
-			from the MyFaces implementation and handles exceptions thrown
-			for
+		<description>
+			The main servlet of the application. This class inherits
+			from the MyFaces implementation and handles exceptions thrown for
 			specific exception handling.
-		</javaee:description>
-		<javaee:display-name>Faces Servlet</javaee:display-name>
+		</description>
+		<display-name>Faces Servlet</display-name>
 		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<servlet-class>
+			javax.faces.webapp.FacesServlet
+		</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.faces</url-pattern>
-		<url-pattern>/faces/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-	<listener>
-		<javaee:listener-class>org.springframework.web.util.Log4jConfigListener
-		</javaee:listener-class>
-	</listener>
-	<listener>
-		<javaee:listener-class>org.springframework.web.context.ContextLoaderListener
-		</javaee:listener-class>
-	</listener>
-	<listener>
-		<javaee:listener-class>org.springframework.web.context.request.RequestContextListener
-		</javaee:listener-class>
-	</listener>
-	<filter>
-		<filter-name>CAS Authentication Filter</filter-name>
-		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+
+	<servlet>
+		<servlet-name>Download Servlet</servlet-name>
+		<servlet-class>
+			org.esupportail.commons.web.servlet.DownloadServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Download Servlet</servlet-name>
+		<url-pattern>/download</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>getImageServlet</servlet-name>
+		<servlet-class>org.esupportail.pstage.web.servlet.GetImageServlet
+		</servlet-class>
 		<init-param>
-			<javaee:param-name>casServerLoginUrl</javaee:param-name>
-			<javaee:param-value>${cas.url}/login</javaee:param-value>
+			<param-name>uploadLogoEntreprisePath</param-name>
+			<param-value>${uploadFiles.logosEntreprise.path}</param-value>
 		</init-param>
 		<init-param>
-			<javaee:param-name>serverName</javaee:param-name>
-			<javaee:param-value>http://localhost:8080</javaee:param-value>
+			<param-name>uploadLogoCentrePath</param-name>
+			<param-value>${uploadFiles.logosCentre.path}</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getImageServlet</servlet-name>
+		<url-pattern>*.image</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>getFileServlet</servlet-name>
+		<servlet-class>org.esupportail.pstage.web.servlet.GetFileServlet
+		</servlet-class>
+		<init-param>
+			<param-name>uploadFilesPath</param-name>
+			<param-value>${uploadFiles.offres.path}</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getFileServlet</servlet-name>
+		<url-pattern>*.file</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<description>
+			This filter is needed to use some Tomahawk extentions.
+		</description>
+		<display-name>MyFacesExtensionsFilter</display-name>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<filter-class>
+			org.apache.myfaces.webapp.filter.ExtensionsFilter
+		</filter-class>
+		<init-param>
+			<description>
+				The maximum size of uploaded files.
+			</description>
+			<param-name>maxFileSize</param-name>
+			<param-value>20m</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>CAS Authentication Filter</filter-name>
-		<url-pattern>/stylesheets/cas.xhtml</url-pattern>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
 	</filter-mapping>
-	<filter>
-		<filter-name>CAS Validation Filter</filter-name>
-		<filter-class>org.jasig.cas.client.validation.Cas10TicketValidationFilter</filter-class>
-		<init-param>
-			<javaee:param-name>casServerUrlPrefix</javaee:param-name>
-			<javaee:param-value>${cas.url}</javaee:param-value>
-		</init-param>
-		<init-param>
-			<javaee:param-name>serverName</javaee:param-name>
-			<javaee:param-value>http://localhost:8080</javaee:param-value>
-		</init-param>
-	</filter>
 	<filter-mapping>
-		<filter-name>CAS Validation Filter</filter-name>
-		<url-pattern>/stylesheets/cas.xhtml</url-pattern>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
 	</filter-mapping>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.util.Log4jConfigListener
+		</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
 	<welcome-file-list>
 		<welcome-file>stylesheets/welcome.xhtml</welcome-file>
 	</welcome-file-list>

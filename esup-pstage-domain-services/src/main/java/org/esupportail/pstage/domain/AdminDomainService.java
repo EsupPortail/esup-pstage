@@ -7,13 +7,13 @@ package org.esupportail.pstage.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.AdminStructureAccountException_Exception;
-import org.esupportail.pstagedata.remote.AdminStructureDTO;
-import org.esupportail.pstagedata.remote.AdminStructureLoginEppnAlreadyUsedException_Exception;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
+import org.esupportail.pstagedata.exceptions.AdminStructureAccountException;
+import org.esupportail.pstagedata.exceptions.AdminStructureLoginEppnAlreadyUsedException;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 
 /**
  * The AdminDaoService service interface.
@@ -39,33 +39,33 @@ public interface AdminDomainService extends Serializable {
 	/**
 	 * @param admin 
 	 * @return int
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
-	 * @throws AdminStructureLoginEppnAlreadyUsedException_Exception 
-	 * @throws AdminStructureAccountException_Exception 
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
+	 * @throws AdminStructureLoginEppnAlreadyUsedException 
+	 * @throws AdminStructureAccountException 
 	 */
-	public int addAdminStructure(AdminStructureDTO admin) throws DataAddException_Exception, WebServiceDataBaseException_Exception, AdminStructureLoginEppnAlreadyUsedException_Exception, AdminStructureAccountException_Exception;
+	public int addAdminStructure(AdminStructureDTO admin) throws DataAddException, WebServiceDataBaseException, AdminStructureLoginEppnAlreadyUsedException, AdminStructureAccountException;
 	/**
 	 * @param admin 
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
-	 * @throws AdminStructureLoginEppnAlreadyUsedException_Exception 
-	 * @throws AdminStructureAccountException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
+	 * @throws AdminStructureLoginEppnAlreadyUsedException 
+	 * @throws AdminStructureAccountException 
 	 */
-	public boolean updateAdminStructure(AdminStructureDTO admin) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception, AdminStructureLoginEppnAlreadyUsedException_Exception, AdminStructureAccountException_Exception;
+	public boolean updateAdminStructure(AdminStructureDTO admin) throws DataUpdateException, WebServiceDataBaseException, AdminStructureLoginEppnAlreadyUsedException, AdminStructureAccountException;
 	/**
 	 * @param admin 
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean updateAdminStructureDerniereConnexion(AdminStructureDTO admin) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateAdminStructureDerniereConnexion(AdminStructureDTO admin) throws DataUpdateException, WebServiceDataBaseException;
 	/**
 	 * @param idAdminStructure 
 	 * @return boolean
-	 * @throws DataDeleteException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean deleteAdminStructure(int idAdminStructure) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception;
+	public boolean deleteAdminStructure(int idAdminStructure) throws DataDeleteException, WebServiceDataBaseException;
 }

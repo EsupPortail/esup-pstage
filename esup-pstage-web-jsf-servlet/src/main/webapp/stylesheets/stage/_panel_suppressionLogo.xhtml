@@ -1,0 +1,19 @@
+<%@include file="../_include.jsp"%>
+
+<rich:modalPanel id="suppressionLogo" autosized="true" width="400">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['CENTRE.LOGO.SUPPR_HEAD']}" />
+	</f:facet>
+	<e:text value="#{msgs['CENTRE.LOGO.CONFIRM_SUPPRESSION']}" />
+	<a4j:form>
+		<rich:spacer height="20"/>
+		<t:htmlTag value="center">
+			<a4j:commandButton value="#{msgs['FORM.OUI']}"
+				action="#{centreController.deleteLogo}"
+				reRender="opUploadImage" />
+			<rich:spacer width="30" />
+			<h:commandButton value="#{msgs['FORM.NON']}"
+				onclick="#{rich:component('suppressionLogo')}.hide();return false;" />
+		</t:htmlTag>
+	</a4j:form>
+</rich:modalPanel>

@@ -1,0 +1,79 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<e:text value=" " id="formAffEtab" />
+	<e:panelGrid columns="2" align="center">
+		<h:column>
+			<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+				title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
+				style="border:0"
+				rendered="#{(facesContext.maximumSeverity == 'Info')
+				&& !(facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn')}" />
+			<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+				title="#{msgs['GENERAL.WARNING']}"
+				value="../../media/images/warning_50px.png" style="border:0"
+				rendered="#{facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn'}" />
+		</h:column>
+		<h:column>
+			<rich:message for="formAffEtab">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</h:column>
+	</e:panelGrid>
+	<t:aliasBean alias="#{structure}"
+		value="#{conventionController.convention.structure}">
+		<%@include file="../_commun/_rechercheEtablissementAffichage.jsp"%>
+	</t:aliasBean>
+	<e:panelGrid columns="2">
+		<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
+			action="#{conventionController.goToConventionModifEtab}"
+			alt="#{msgs['FORM.MODIFIER.ETAB']}" title="#{msgs['FORM.MODIFIER.ETAB']}"
+			rendered="#{not empty conventionController.convention.structure && !conventionController.conventionValide
+			&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+			|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+			(!sessionController.autoriserEtudiantAModifierEntreprise 
+			&& ((empty conventionController.convention.structure.loginModif &&
+			conventionController.convention.structure.loginCreation==sessionController.currentLogin)
+			|| (conventionController.convention.structure.loginModif==sessionController.currentLogin)))))))}">
+			<f:setPropertyActionListener
+				value="#{conventionController.convention.structure}"
+				target="#{etablissementController.formStructure}" />
+		</h:commandButton>
+
+
+		<a4j:commandButton ajaxSingle="true"
+			oncomplete="#{rich:component('demandeConfirmModifEtab')}.show()"
+			value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
+			alt="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
+			rendered="#{not empty conventionController.convention.structure && !conventionController.conventionValide}">
+		</a4j:commandButton>
+		<rich:modalPanel id="demandeConfirmModifEtab" autosized="true"
+			width="400" styleClass="panel" domElementAttachment="parent">
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.DEMANDE']}" />
+			</f:facet>
+			<e:panelGrid columns="2" align="center">
+				<h:column>
+					<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+						title="#{msgs['GENERAL.WARNING']}"
+						value="../../media/images/warning_50px.png" style="border:0" />
+					<e:text value="#{msgs['CONVENTION.MODIF.ETAB.QUESTION']}"
+						escape="false" />
+				</h:column>
+
+			</e:panelGrid>
+			<a4j:commandButton value="#{msgs['FORM.OUI']}"
+				oncomplete="#{rich:component('demandeConfirmModifEtab')}.hide();"
+				ignoreDupResponses="true"
+				action="#{conventionController.goToConventionRechEtab}">
+
+			</a4j:commandButton>
+			<rich:spacer width="150px" />
+			<a4j:commandButton value="#{msgs['FORM.NON']}" ajaxSingle="true"
+				onclick="#{rich:component('demandeConfirmModifEtab')}.hide();return false;" />
+		</rich:modalPanel>
+	</e:panelGrid>
+
+</e:panelGrid>

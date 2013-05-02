@@ -1,0 +1,212 @@
+<%@include file="../_include.jsp"%>
+<h:form id="formMenu">
+	<e:panelGrid columns="1" style="width:180px;font-size:12px;">
+		<e:panelGrid columns="2">
+			<e:text
+				value="#{sessionController.currentAuthAdminStructure.prenom} #{sessionController.currentAuthAdminStructure.nom}"
+				rendered="#{sessionController.adminPageAuthorized and not empty sessionController.currentAuthAdminStructure}" />
+			<e:text
+				value="#{sessionController.currentAuthContact.prenom} #{sessionController.currentAuthContact.nom}"
+				rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized and not empty sessionController.currentAuthContact}" />
+		</e:panelGrid>
+		<%
+			/*<e:text value="#{msgs['STRUCTURE.GESTION']}"
+			 rendered="#{sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure
+			 and sessionController.menuGestionEtab}">
+			 <f:param
+			 value="#{sessionController.currentManageStructure.raisonSociale}" />
+			 </e:text>*/
+		%>
+		<e:bold
+			value="#{sessionController.currentManageStructure.raisonSociale}"
+			rendered="#{sessionController.pageAuthorized}" />
+		<e:panelGrid columns="2"
+			rendered="#{(sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure
+			and sessionController.menuGestionEtab)}">
+			<e:bold
+				value="#{sessionController.currentManageStructure.raisonSociale}" />
+			<h:graphicImage id="avecAc" alt="°"
+				value="../../media/images/bullet_green.png" style="border:0"
+				rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0}" />
+		</e:panelGrid>
+		<e:panelGrid columns="2">
+			<h:graphicImage alt="V" value="../../media/images/tick.png"
+				style="border:0"
+				rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
+				&& sessionController.currentManageStructure.accordPartenariat!=null
+				&& sessionController.currentManageStructure.accordPartenariat.estValide}" />
+			<h:graphicImage alt="X" value="../../media/images/cross.png"
+				style="border:0"
+				rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
+				&& sessionController.currentManageStructure.accordPartenariat!=null
+				&& !sessionController.currentManageStructure.accordPartenariat.estValide}" />
+			<e:text value="#{msgs['STRUCTURE.ACCORDVALIDE']}"
+				rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
+				&& sessionController.currentManageStructure.accordPartenariat!=null
+				&& sessionController.currentManageStructure.accordPartenariat.estValide}" />
+			<e:text value="#{msgs['STRUCTURE.ACCORDNONVALIDE']}"
+				rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
+				&& sessionController.currentManageStructure.accordPartenariat!=null
+				&& !sessionController.currentManageStructure.accordPartenariat.estValide}" />
+		</e:panelGrid>
+		<%
+			/*<h:commandLink action="#{welcomeController.goToAccueilEntr}">
+			 <h:graphicImage alt="#{msgs['MENU.ACCUEIL']}"
+			 title="#{msgs['MENU.ACCUEIL']}" value="../../media/images/house.png"
+			 style="border:0" />
+			 <e:text value=" #{msgs['MENU.ACCUEIL']}" />
+			 </h:commandLink>*/
+		%>
+		<rich:separator height="3" lineType="dashed"
+			rendered="#{sessionController.pageAuthorized 
+		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+		and sessionController.menuGestionEtab}" />
+		<h:commandLink
+			action="#{etablissementController.goToFicheSignaletique}"
+			rendered="#{sessionController.pageAuthorized 
+		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+		and sessionController.menuGestionEtab}">
+			<h:graphicImage alt="#{msgs['MENU.FICHESIGNALETIQUE']}"
+				title="#{msgs['MENU.FICHESIGNALETIQUE']}"
+				value="../../media/images/card.png" style="border:0" />
+			<e:text value=" #{msgs['MENU.FICHESIGNALETIQUE']}" />
+		</h:commandLink>
+		<h:commandLink action="#{etablissementController.goToGestionContacts}"
+			rendered="#{sessionController.pageAuthorized 
+		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+		and sessionController.menuGestionEtab}">
+			<h:graphicImage alt="#{msgs['MENU.GESTIONCONTACTS']}"
+				title="#{msgs['MENU.GESTIONCONTACTS']}"
+				value="../../media/images/book_open.png" style="border:0" />
+			<e:text value=" #{msgs['MENU.GESTIONCONTACTS']}" />
+		</h:commandLink>
+		<rich:spacer height="10px" />
+		
+		<h:commandLink action="#{offreController.goToEntrepriseCreationOffre}"
+			rendered="#{sessionController.pageAuthorized 
+		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+		and sessionController.menuGestionEtab}">
+			<h:graphicImage alt="#{msgs['MENU.AJOUTEROFFRE']}"
+				title="#{msgs['MENU.AJOUTEROFFRE']}"
+				value="../../media/images/new.png" style="border:0" />
+			<e:text value=" #{msgs['MENU.AJOUTEROFFRE']}" />
+			<f:setPropertyActionListener value="#{1}"
+				target="#{offreController.typeAjoutModifOffre}" />
+		</h:commandLink>
+		<h:commandLink action="#{offreController.goToGestionOffres}"
+			rendered="#{sessionController.pageAuthorized 
+		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+		and sessionController.menuGestionEtab}">
+			<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
+				title="#{msgs['MENU.GESTIONOFFRES']}"
+				value="../../media/images/list.png" style="border:0" />
+			<e:text value=" #{msgs['MENU.GESTIONOFFRES']}" />
+		</h:commandLink>
+		<rich:spacer height="10px" />
+		<h:commandLink id="lmodifMdp"
+			action="#{etablissementController.goToChangerMotDePasse}"
+			rendered="#{sessionController.pageAuthorized and not empty sessionController.currentAuthContact 
+					and not empty sessionController.currentManageStructure
+					and sessionController.menuGestionEtab}">
+			<h:graphicImage alt="#{msgs['MENU.MODIFMDP']}"
+				title="#{msgs['MENU.MODIFMDP']}" value="../../media/images/edit.png"
+				style="border:0"
+				rendered="#{sessionController.pageAuthorized and not empty sessionController.currentAuthContact}" />
+			<h:graphicImage alt="#{msgs['MENU.MODIFMDP']}"
+				title="#{msgs['MENU.MODIFMDP']}"
+				value="../../media/images/edit_block.png" style="border:0"
+				rendered="#{sessionController.adminPageAuthorized}" />
+			<e:text value=" #{msgs['MENU.MODIFMDP']}" />
+		</h:commandLink>
+		<rich:toolTip for="lmodifMdp" value="#{msgs['MENU.MODIFMDP.BLOCK']}"
+			rendered="#{sessionController.adminPageAuthorized}" />
+		<rich:spacer height="10px" rendered="#{sessionController.pageAuthorized and sessionController.cvtheque
+		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure and sessionController.cvtheque)}"/>	
+		<h:commandLink action="#{etablissementController.goToGestionCvtheque}"
+			rendered="#{sessionController.pageAuthorized and sessionController.cvtheque
+		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure and sessionController.cvtheque)}" target="_blank">
+			<h:graphicImage alt="#{msgs['MENU.GESTIONCVTHEQUE']}"
+				title="#{msgs['MENU.GESTIONCVTHEQUE']}"
+				value="../../media/images/group.png" style="border:0" />
+			<e:text id="cvtheque" value=" #{msgs['MENU.GESTIONCVTHEQUE']}" />
+			<rich:message for="cvtheque">
+					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</h:commandLink>
+		<rich:spacer height="10px" rendered="#{sessionController.pageAuthorized and sessionController.cvtheque
+		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure and sessionController.cvtheque)}"/>
+	</e:panelGrid>
+	<e:panelGrid columns="1" style="width:200px">
+		<rich:separator height="3" lineType="dashed"
+			rendered="#{sessionController.adminPageAuthorized}" />
+		<e:text value="#{msgs['MENU.ADMINISTRATION']}"
+			rendered="#{sessionController.adminPageAuthorized}" />
+		<h:commandLink action="#{centreController.goToCentreEntreprise}"
+			rendered="#{sessionController.superAdminPageAuthorized}">
+			<h:graphicImage alt="#{msgs['MENU.CENTREENTREPRISE']}"
+				title="#{msgs['MENU.CENTREENTREPRISE']}"
+				value="../../media/images/building.png" style="border:0" />
+			<e:text value=" #{msgs['MENU.CENTREENTREPRISE']}" />
+		</h:commandLink>
+		<e:panelGrid columns="1"
+			rendered="#{not empty centreController.centreEntreprise}">
+			<h:commandLink action="#{adminController.goToAdministrateurs}"
+				rendered="#{sessionController.superAdminPageAuthorized}">
+				<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}"
+					title="#{msgs['MENU.ADMINISTRATEURS']}"
+					value="../../media/images/user.png" style="border:0" />
+				<e:text value=" #{msgs['MENU.ADMINISTRATEURS']}" />
+			</h:commandLink>
+			<h:commandLink
+				action="#{rechercheController.goToRechercheEtablissement}"
+				rendered="#{sessionController.adminPageAuthorized}">
+				<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
+					title="#{msgs['MENU.RECHERCHEETAB']}"
+					value="../../media/images/zoom.png" style="border:0" />
+				<e:text value=" #{msgs['MENU.RECHERCHEETAB']}" />
+				<f:setPropertyActionListener value="#{2}"
+					target="#{rechercheController.ongletCourant}" />
+			</h:commandLink>
+			<h:commandLink action="#{rechercheController.goToAccordAValider}"
+				rendered="#{sessionController.adminPageAuthorized}">
+				<h:graphicImage
+					alt="#{msgs['MENU.ACCORDSAVALIDER']} (#{rechercheController.accordAValider})"
+					title="#{msgs['MENU.ACCORDSAVALIDER']} (#{rechercheController.accordAValider})"
+					value="../../media/images/tick.png" style="border:0" />
+				<e:text
+					value=" #{msgs['MENU.ACCORDSAVALIDER']} (#{rechercheController.accordAValider})" />
+			</h:commandLink>
+			<h:commandLink action="#{offreController.goToRechercheOffre}"
+				rendered="#{sessionController.adminPageAuthorized}">
+				<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
+					title="#{msgs['MENU.RECHERCHEOFFRE']}"
+					value="../../media/images/zoom.png" style="border:0" />
+				<e:text value=" #{msgs['MENU.RECHERCHEOFFRE']}" />
+			</h:commandLink>
+			<h:commandLink action="#{offreController.goToOffreADiffuser}"
+				rendered="#{sessionController.moderationActive && sessionController.adminPageAuthorized}">
+				<h:graphicImage
+					alt="#{msgs['MENU.OFFRESADIFFUSER']})"
+					title="#{msgs['MENU.OFFRESADIFFUSER']})"
+					value="../../media/images/tick.png" style="border:0" />
+				<e:text
+					value=" #{msgs['MENU.OFFRESADIFFUSER']} (#{offreController.offreADiffuser})" />
+			</h:commandLink>
+		</e:panelGrid>
+		<rich:separator height="3" lineType="dashed" />
+		<h:commandLink action="#{welcomeController.goToAccueilEntr}">
+			<h:graphicImage alt="#{msgs['MENU.AIDE']}"
+				title="#{msgs['MENU.AIDE']}"
+				value="../../media/images/information.png" style="border:0" />
+			<e:text value=" #{msgs['MENU.AIDE']}" />
+		</h:commandLink>
+		<rich:separator height="3" lineType="dashed" />
+		<h:commandLink action="#{welcomeController.disconnectEntreprise}"
+			rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}">
+			<h:graphicImage alt="#{msgs['GENERAL.DECONNEXION']}"
+				title="#{msgs['GENERAL.DECONNEXION']}"
+				value="../../media/images/cancel.png" style="border:0" />
+			<e:text value=" #{msgs['GENERAL.DECONNEXION']}" />
+		</h:commandLink>
+	</e:panelGrid>
+</h:form>

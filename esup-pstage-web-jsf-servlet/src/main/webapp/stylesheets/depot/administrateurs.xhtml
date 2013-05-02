@@ -1,0 +1,137 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<e:panelGrid style="float:left;">
+		<%@include file="./_menu.jsp"%>
+	</e:panelGrid>
+	<t:div rendered="#{sessionController.adminPageAuthorized}">
+		<e:panelGrid columns="1"
+			styleClass="panelEntreprise">
+			<rich:panel>
+				<f:facet name="header">
+					<e:text value="Administrateurs" />
+				</f:facet>
+				<h:form>
+					<e:panelGrid columns="1">
+						<a4j:outputPanel id="opAdminDataTable">
+							<e:text value="#{msgs['ADMINSTRUCTURE.VIDE']}"
+								rendered="#{empty adminController.listeAdminStructure}" />
+							<e:panelGrid columns="3">
+								<e:text value="#{msgs['ADMINSTRUCTURE.CREER']}" escape="false" />
+								<a4j:commandLink ajaxSingle="true" id="ajAdmin"
+									action="#{adminController.beforeAjouterAdministrateur}"
+									oncomplete="#{rich:component('ajoutAdministrateur')}.show()">
+									<f:setPropertyActionListener value="#{true}"
+										target="#{etablissementController.memeAdresseStructure}" />
+									<h:graphicImage alt="#{msgs['FORM.CREER']}"
+										title="#{msgs['FORM.CREER']}"
+										value="../../media/images/new.png" style="border:0" />
+								</a4j:commandLink>
+								<rich:toolTip for="ajAdmin" value="#{msgs['FORM.CREER']}" />
+							</e:panelGrid>
+							<rich:dataTable align="center" width="600" id="adminDataTable"
+								rows="10" columnClasses="col" var="admin" rowKeyVar="rowAdmin"
+								value="#{adminController.listeAdminStructure}"
+								rendered="#{not empty adminController.listeAdminStructure}"
+								ajaxKeys="#{adminController.keysAdminStructure}"
+								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+								rowClasses="rowAdmin">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText styleClass="headerText"
+												value="#{msgs['ADMINSTRUCTURE.NOM']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText styleClass="headerText"
+												value="#{msgs['ADMINSTRUCTURE.PRENOM']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText styleClass="headerText"
+												value="#{msgs['ADMINSTRUCTURE.MAIL']}" />
+										</rich:column>
+										<rich:column>
+											<h:outputText styleClass="headerText"
+												value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE']}" />
+										</rich:column>
+										<rich:column>
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								<rich:column>
+									<e:text id="nomAd" value="#{admin.nom}" />
+								</rich:column>
+								<rich:column>
+									<e:text id="prenomAd" value="#{admin.prenom}" />
+								</rich:column>
+								<rich:column>
+									<e:text id="mailAd" value="#{admin.mail}" />
+								</rich:column>
+								<rich:column>
+									<e:panelGrid id="loginAd" style="font-size:12px;">
+										<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
+											rendered="#{not empty admin.login and not empty admin.mdp and empty admin.eppn}" />
+										<e:text
+											value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{admin.login}"
+											rendered="#{not empty admin.login and not empty admin.mdp and empty admin.eppn}" />
+										<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
+											rendered="#{not empty admin.login and empty admin.mdp and empty admin.eppn}" />
+										<e:text
+											value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{admin.login}"
+											rendered="#{not empty admin.login and empty admin.mdp and empty admin.eppn}" />
+										<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
+											rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
+										<e:text value="#{msgs['ADMINSTRUCTURE.EPPN']} : #{admin.eppn}"
+											rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
+									</e:panelGrid>
+								</rich:column>
+								<rich:column>
+									<a4j:commandLink ajaxSingle="true" id="modif"
+										action="#{adminController.beforeModifAdministrateur}"
+										oncomplete="#{rich:component('modifAdministrateur')}.show()">
+										<f:setPropertyActionListener value="#{admin}"
+											target="#{adminController.formAdminStructure}" />
+										<f:setPropertyActionListener value="#{rowAdmin}"
+											target="#{adminController.currentRowAdminStructure}" />
+										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+											value="../../media/images/edit.png" style="border:0" />
+									</a4j:commandLink>
+									<rich:toolTip for="modif">
+										<e:panelGrid columns="1">
+											<e:bold value="#{msgs['FORM.MODIFIER']}"/>
+											<t:htmlTag value="br"/>
+											<t:aliasBean alias="#{objet}"
+												value="#{admin}">
+												<%@include file="../_commun/_updateInfos.jsp"%>
+											</t:aliasBean>
+										</e:panelGrid>
+									</rich:toolTip>
+									<a4j:commandLink ajaxSingle="true" id="suppr"
+										oncomplete="#{rich:component('supprAdministrateur')}.show()">
+										<f:setPropertyActionListener value="#{admin}"
+											target="#{adminController.formAdminStructure}" />
+										<f:setPropertyActionListener value="#{rowAdmin}"
+											target="#{adminController.currentRowAdminStructure}" />
+										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+											value="../../media/images/delete.png" style="border:0" />
+									</a4j:commandLink>
+									<rich:toolTip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+								</rich:column>
+								<f:facet name="footer">
+									<rich:datascroller align="center" for="adminDataTable"
+										maxPages="20" page="1" id="sc2" renderIfSinglePage="false" />
+								</f:facet>
+							</rich:dataTable>
+						</a4j:outputPanel>
+					</e:panelGrid>
+				</h:form>
+			</rich:panel>
+			<%@include file="_panelNousContacter.jsp"%>
+		</e:panelGrid>
+		<%@include file="_panelAjoutAdministrateur.jsp"%>
+		<%@include file="_panelModifAdministrateur.jsp"%>
+		<%@include file="_panelSupprAdministrateur.jsp"%>
+	</t:div>
+</e:page>

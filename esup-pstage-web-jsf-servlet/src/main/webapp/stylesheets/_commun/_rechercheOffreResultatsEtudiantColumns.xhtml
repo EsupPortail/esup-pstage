@@ -1,0 +1,76 @@
+<%@include file="../_include.jsp"%>
+
+<rich:column sortBy="#{offre.idOffre}">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['OFFRE.ID']}" />
+	</f:facet>
+	<e:text value="#{offre.idOffre}" />
+</rich:column>
+<rich:column sortBy="#{offre.intitule}">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
+	</f:facet>
+	<e:text value="#{offre.intitule}" title="#{offre.intitule}">
+		<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+	</e:text>
+</rich:column>
+<rich:column sortBy="#{offre.typeOffre.libelle}">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
+	</f:facet>
+	<e:panelGrid style="font-size:12px;" columns="1">
+		<e:text value="#{offre.typeOffre.libelle}" />
+		<e:bold value="#{offre.contratOffre.libelle}"
+			rendered="#{not empty offre.contratOffre}" />
+	</e:panelGrid>
+</rich:column>
+<rich:column sortBy="#{offre.structure.raisonSociale}">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
+	</f:facet>
+	<e:text value="#{offre.structure.raisonSociale}"
+		title="#{offre.structure.raisonSociale}">
+		<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+	</e:text>
+</rich:column>
+<rich:column sortBy="#{offre.lieuCodePostal}">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+	</f:facet>
+	<e:text value="#{offre.lieuCodePostal}" />
+</rich:column>
+<rich:column sortBy="#{offre.lieuCommune}">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
+	</f:facet>
+<e:text value="#{offre.lieuCommune}" />
+</rich:column>
+<rich:column sortBy="#{offre.lieuPays.libelle}" sortable="#{not empty offre.lieuPays}">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
+	</f:facet>
+	<e:panelGrid columns="2" style="font-size:12px;">
+		<h:graphicImage id="flag" rendered="#{not empty offre.lieuPays}"
+			value="../../media/images/flags/#{offre.lieuPays.iso2}.png"
+			alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+			title="#{offre.lieuPays.libelle}" />
+		<e:text value="#{offre.lieuPays.libelle}"
+			rendered="#{not empty offre.lieuPays}" />
+	</e:panelGrid>
+</rich:column>
+<%/*
+<rich:column sortBy="#{offre.estAccessERQTH || offre.estPrioERQTH}">
+	<f:facet name="header">
+		<h:graphicImage alt="#{msgs['OFFRE.HANDICAP']}"
+			value="../../media/images/wheelchair.png" style="border:0" />
+	</f:facet>
+	<h:graphicImage alt="#{msgs['OFFRE.HANDICAP.PRIORITAIRE']}"
+		title="#{msgs['OFFRE.HANDICAP.PRIORITAIRE']}"
+		value="../../media/images/wheelchairP.png" style="border:0"
+		rendered="#{offre.estPrioERQTH}" />
+	<h:graphicImage alt="#{msgs['OFFRE.HANDICAP.ACCESSIBLE']}"
+		title="#{msgs['OFFRE.HANDICAP.ACCESSIBLE']}"
+		value="../../media/images/wheelchair.png" style="border:0"
+		rendered="#{offre.estAccessERQTH && !offre.estPrioERQTH}" />
+</rich:column>
+*/%>

@@ -1,0 +1,11 @@
+<%@include file="../_include.jsp"%>
+
+<a4j:status onstart="#{rich:component('wait')}.show()"
+	onstop="#{rich:component('wait')}.hide()" />
+<rich:modalPanel id="wait" autosized="true" width="200" height="120"
+	moveable="false" resizeable="false">
+	<f:facet name="header">
+		<h:outputText value="Action en cours" />
+	</f:facet>
+	<h:outputText value="Merci de patienter ..." />
+</rich:modalPanel>

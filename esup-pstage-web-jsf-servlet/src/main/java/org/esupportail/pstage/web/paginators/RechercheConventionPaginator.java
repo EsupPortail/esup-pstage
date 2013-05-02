@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.esupportail.commons.services.paginator.ListPaginator;
-import org.esupportail.pstagedata.remote.ConventionDTO;
+import org.esupportail.pstagedata.domain.dto.ConventionDTO;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr

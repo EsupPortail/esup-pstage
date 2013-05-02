@@ -1,0 +1,44 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<e:text value=" " id="formModifEtab" />
+	<rich:message for="formModifEtab">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+
+	<e:text value="#{msgs['STRUCTURE.AUCUN']}"
+		rendered="#{empty etablissementController.formStructure}" />
+	<t:div rendered="#{not empty etablissementController.formStructure}">
+		<%@include file="../_commun/_etablissementForm.jsp"%>
+	</t:div>
+
+	<e:panelGrid columns="5">
+		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			action="_creationOffreEtape04DetailsEtab"
+			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+			immediate="true" rendered="#{offreController.typeAjoutModifOffre>1}" />
+		<rich:spacer width="20px" />
+		<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
+			action="#{offreController.modifierEtablissement}"
+			alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+			rendered="#{not empty etablissementController.formStructure}">
+			<f:setPropertyActionListener
+				value="#{etablissementController.formStructure}"
+				target="#{rechercheController.resultatRechercheStructure}" />
+			<a4j:support event="onclick" reRender="opFCE" />
+		</h:commandButton>
+		<rich:spacer width="20px" />
+		<a4j:outputPanel id="opFCE">
+			<e:panelGrid columns="3"
+				rendered="#{facesContext.maximumSeverity != null}">
+				<h:graphicImage value="../../media/images/arrow_up.png"
+					alt="#{msgs['GENERAL.ARROW_UP']}"
+					title="#{msgs['GENERAL.ARROW_UP']}" />
+				<e:text value="#{msgs['FORM.FORMERROR']}" />
+				<h:graphicImage value="../../media/images/arrow_up.png"
+					alt="#{msgs['GENERAL.ARROW_UP']}"
+					title="#{msgs['GENERAL.ARROW_UP']}" />
+			</e:panelGrid>
+		</a4j:outputPanel>
+	</e:panelGrid>
+</e:panelGrid>

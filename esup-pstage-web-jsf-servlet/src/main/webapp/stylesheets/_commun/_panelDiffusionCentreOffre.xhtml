@@ -1,0 +1,11 @@
+<%@include file="../_include.jsp"%>
+<rich:modalPanel id="diffusionCentreOffre" autosized="true" width="600"
+	styleClass="panel" domElementAttachment="parent">
+	<f:facet name="header">
+		<h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSION']}" />
+	</f:facet>
+	<h:form id="formDiffusionCentreOffre">
+		<a4j:include id="include"
+			viewId="/stylesheets/_commun/_diffusionCentreOffreEtape1.jsp" />
+	</h:form>
+</rich:modalPanel>

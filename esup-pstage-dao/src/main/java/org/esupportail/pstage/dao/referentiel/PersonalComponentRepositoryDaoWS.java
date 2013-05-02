@@ -21,49 +21,49 @@ import referentielmetier_18062010_impl.servicesmetiers.commun.apogee.education.g
 
 @SuppressWarnings("serial")
 public class PersonalComponentRepositoryDaoWS implements
-		PersonalComponentRepositoryDao {
-	
+PersonalComponentRepositoryDao {
+
 	/**
 	 * 
 	 */
 	final Logger logger = Logger.getLogger(PersonalComponentRepositoryDaoWS.class);
 
 	LinkedHashMap<String,String> mapComp = new LinkedHashMap<String,String>();
-	
+
 	private ReferentielMetierServiceInterface referentielMetierService;
-	
+
 	/**
 	 * @see org.esupportail.pstage.dao.referentiel.PersonalComponentRepositoryDao#getComposantesRef(java.lang.String)
 	 */
 	public Map<String, String> getComposantesRef(String universityCode) {
-		
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("PersonalComponentRepositoryDaoWS:: getComposantesRef. universityCode  = "+universityCode);
 		}
-		
+
 		mapComp = new LinkedHashMap<String,String>();
 
 		try {
-			
+
 			// recuperer la liste des composantes
 			List<ComposanteDTO3>composante = referentielMetierService.recupererComposanteV2(null, null);
-			
+
 			if (composante != null) {
 
 				if (logger.isDebugEnabled()) {
 					logger.debug("PersonalComponentRepositoryDaoWS:: getComposantesRef. composante  = " + mapComp.size());
 				}
-				
+
 				recupComposantes(composante);
 
 			}
-			
+
 			return mapComp;
-			
+
 		} catch (WebBaseException e) {
 			logger.error("WebBaseException getComposantesRef = " + e );
 			throw new CommunicationApogeeException(e);
-		
+
 		} catch (Exception e) {
 			throw new CommunicationApogeeException(e);
 		}
@@ -88,4 +88,20 @@ public class PersonalComponentRepositoryDaoWS implements
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(referentielMetierService,"La propriété referentielMetierService ne peut etre null.");
 	}
+
+	/**
+	 * @return the referentielMetierService
+	 */
+	public ReferentielMetierServiceInterface getReferentielMetierService() {
+		return referentielMetierService;
+	}
+
+	/**
+	 * @param referentielMetierService the referentielMetierService to set
+	 */
+	public void setReferentielMetierService(
+			ReferentielMetierServiceInterface referentielMetierService) {
+		this.referentielMetierService = referentielMetierService;
+	}
+
 }

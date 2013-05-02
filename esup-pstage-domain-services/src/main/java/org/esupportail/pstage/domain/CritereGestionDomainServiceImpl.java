@@ -6,11 +6,11 @@ package org.esupportail.pstage.domain;
 
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.CritereGestionDTO;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
+import org.esupportail.pstagedata.domain.dto.CritereGestionDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -52,13 +52,13 @@ public class CritereGestionDomainServiceImpl implements CritereGestionDomainServ
 	/**
 	 * @see org.esupportail.pstage.domain.CritereGestionDomainService#addCritere(org.esupportail.pstagedata.domain.dto.CritereGestionDTO)
 	 */
-	public int addCritere(CritereGestionDTO critere) throws DataAddException_Exception,WebServiceDataBaseException_Exception{
+	public int addCritere(CritereGestionDTO critere) throws DataAddException,WebServiceDataBaseException{
 		return this.remoteServices.addCritere(critere);
 	}
 	/**
 	 * @see org.esupportail.pstage.domain.CritereGestionDomainService#deleteCritere(String)
 	 */
-	public boolean deleteCritere(String codeCritere) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception{
+	public boolean deleteCritere(String codeCritere) throws DataDeleteException,WebServiceDataBaseException{
 		return this.remoteServices.deleteCritere(codeCritere);
 	}
 }

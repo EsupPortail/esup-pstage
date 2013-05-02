@@ -2,8 +2,8 @@ package org.esupportail.pstage.domain.referentiel;
 
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.EnseignantDTO;
-import org.esupportail.pstagedata.remote.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 
 
 /**

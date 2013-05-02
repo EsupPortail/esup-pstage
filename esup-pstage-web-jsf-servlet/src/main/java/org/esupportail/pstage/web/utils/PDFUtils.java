@@ -153,7 +153,7 @@ public final class PDFUtils {
 			externalContext.redirect(url);
 			facesContext.responseComplete();
 		} catch (IOException e) {
-			LOGGER.error("probleme lors de l envoie d un ficher = " + fileName + "exception : " + e);
+			LOGGER.error("Probleme lors de l'envoi du fichier " + fileName + " : " + e);
 		}
 	}
  

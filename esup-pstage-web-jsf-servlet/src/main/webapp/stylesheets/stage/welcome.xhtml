@@ -1,0 +1,58 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	menuItem="welcome">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="/stylesheets/stage/_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<e:panelGrid columns="1">
+					<t:div styleClass="sections">
+						<t:htmlTag value="br" />
+						<e:paragraph escape="false"
+							value="#{msgs['GENERAL.ACCUEIL.STAGE.WELCOME']}" />
+						<t:htmlTag value="br" />
+					</t:div>
+					<h:form id="disconnectEntr"
+						rendered="#{sessionController.adminPageAuthorized}">
+						<h:commandButton id="disco"
+							action="#{welcomeController.disconnectLight}"
+							value="#{msgs['GENERAL.ACCUEIL.STAGE.DECOENTR']}"
+							disabled="#{!sessionController.adminPageAuthorized}" />
+					</h:form>
+					<script type="text/javascript" language="JavaScript">
+						hideButton('disconnectEntr:disco');
+						window.onload = function() {
+							simulateLinkClick('disconnectEntr:disco');
+						}
+					</script>
+					<rich:spacer height="15px" />
+					<e:text value="#{msgs['MESSAGE_CNIL_STAGE']}" escape="false"
+					rendered="#{not empty msgs['MESSAGE_CNIL_STAGE']}"/>
+				</e:panelGrid>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<h:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+			hideButton("welcomeManagerForm:localeChangeButton");
+		</script>
+	</t:div>
+</e:page>
+
+
+
+

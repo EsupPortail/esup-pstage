@@ -10,8 +10,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
@@ -99,12 +97,12 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 	/**
 	 * 
 	 */
-	private AdministratifMetierServiceInterface serviceAdministratif;
+	private AdministratifMetierServiceInterface administratifMetierService;
 
 	/**
 	 * 
 	 */
-	private PedagogiqueMetierServiceInterface servicePedagogique;
+	private PedagogiqueMetierServiceInterface pedagogiqueMetierService;
 
 	/**
 	 * 
@@ -128,7 +126,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 
 		List<LdapUser> listeLdapUser = ldapUserService.getLdapUsersFromFilter(filter);
 
-		if (listeLdapUser.isEmpty()) {
+		if (listeLdapUser==null || listeLdapUser.isEmpty()) {
 			return null;
 		}
 		logger.debug("## taille de la liste : " + listeLdapUser.size());
@@ -428,7 +426,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		// code sexe etudiant
 		String codeSexe = "";
 		// date Naissance etudiant
-		XMLGregorianCalendar dateNais =null;
+		Date dateNais = new Date();
 		// libelle CPAM etudiant
 		String libelleCPAM = "";
 		EtudiantRef studentApogee = new EtudiantRef();
@@ -471,7 +469,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			}
 
 			if (infosAdmEtu.getDateNaissance() != null) {
-				dateNais = infosAdmEtu.getDateNaissance();
+				dateNais = infosAdmEtu.getDateNaissance().toGregorianCalendar().getTime();
 			}
 
 			// recherche des informations etudiant dans APOGEE
@@ -577,9 +575,9 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			try {
 				// recuperer les donnees CPAM
 				if (logger.isDebugEnabled()) {
-					logger.debug("StudentDataRepositoryDaoWS:: getStudentByNum.  serviceAdministratif.recupererIAAnnuelles_v2 = ");
+					logger.debug("StudentDataRepositoryDaoWS:: getStudentByNum.  administratifMetierService.recupererIAAnnuelles_v2 = ");
 				}
-				List<InsAdmAnuDTO2> tabinsAdmAnu = serviceAdministratif.recupererIAAnnuellesV2(etudiant.getCodEtu().toString(), getYear(), "E");
+				List<InsAdmAnuDTO2> tabinsAdmAnu = administratifMetierService.recupererIAAnnuellesV2(etudiant.getCodEtu().toString(), getYear(), "E");
 				for (InsAdmAnuDTO2 insAdmAnu : tabinsAdmAnu) {
 					if (logger.isDebugEnabled()) {
 						logger.debug("StudentDataRepositoryDaoWS:: getStudentByNum.  insAdmAnu.getTemoinAffiliationSS()= "+insAdmAnu.getTemoinAffiliationSS());
@@ -693,7 +691,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		// code sexe etudiant
 		String codeSexe = "";
 		// date Naissance etudiant
-		XMLGregorianCalendar dateNais = null;
+		Date dateNais = new Date();
 		// libelle CPAM etudiant
 		String libelleCPAM = "";
 		//
@@ -811,7 +809,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 
 			// recuperer les Inscriptions Administratives de l'etudiant
 			// dont inscription admin annuelle est en cours (E), inscription admin  etape est en cours (E), pour annee
-			List<InsAdmEtpDTO2> tabInsAdmEtp = serviceAdministratif.recupererIAEtapesV2(cod, getYear(),"E", "E");
+			List<InsAdmEtpDTO2> tabInsAdmEtp = administratifMetierService.recupererIAEtapesV2(cod, getYear(),"E", "E");
 			LinkedHashMap<String,String> lEtape = new LinkedHashMap<String, String>();
 			LinkedHashMap<String,String> lEtapeVet = new LinkedHashMap<String, String>();
 			LinkedHashMap<String,String> lEtapeVetPedago = new LinkedHashMap<String, String>();
@@ -905,11 +903,11 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			}
 			// recherche les Inscriptions pedagogiques 
 			if (logger.isDebugEnabled()){
-				logger.debug("servicePedagogique.recupererContratPedagogiqueResultatVdiVet");
+				logger.debug("pedagogiqueMetierService.recupererContratPedagogiqueResultatVdiVet");
 
 			}
 			List<ContratPedagogiqueResultatVdiVetDTO>  tabcontratPedagoResultatVdiVet = 
-					servicePedagogique.recupererContratPedagogiqueResultatVdiVet(cod, getYear(), DonneesStatic.ws_sourceRes_Apogee, "", "", "");
+					pedagogiqueMetierService.recupererContratPedagogiqueResultatVdiVet(cod, getYear(), DonneesStatic.ws_sourceRes_Apogee, "", "", "");
 			if(tabcontratPedagoResultatVdiVet!=null){
 				for (ContratPedagogiqueResultatVdiVetDTO contratPedagoResVdiVet : tabcontratPedagoResultatVdiVet) {
 
@@ -964,7 +962,6 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
 				logger.error(e + " : " + cod );
 				logger.error(e.getMessage() + " : " + cod );
-				// TODO
 				throw new AdministrationApogeeException(e.getMessage(),e);
 			}
 			return apogeeMap;
@@ -1063,7 +1060,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 							}
 						}
 					} catch (Exception e) {
-						logger.error("Exception getStudentELPV2 = " + e );
+						logger.error("Exception getStudentELPV2 recupererSE_v2 = " + e );
 						if (e.toString().equals("technical.data.nullretrieve.recupererse")) {
 							logger.error("aucune donnee en sortie = " + cod + "etape/vet = " + etape + vetEtape);
 							continue;
@@ -1154,7 +1151,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			parameterMap.put("val", Arrays.asList(cod,getYear()));
 			// recuperer les Inscriptions Administratives de l'etudiant
 			// dont inscription admin annuelle est en cours (E), inscription admin a etape est en cours (E), pour annee
-			List<InsAdmEtpDTO2> tabInsAdmEtp = serviceAdministratif.recupererIAEtapesV2(cod, getYear(),"E", "E");
+			List<InsAdmEtpDTO2> tabInsAdmEtp = administratifMetierService.recupererIAEtapesV2(cod, getYear(),"E", "E");
 
 			LinkedHashMap<String,String> l = new LinkedHashMap<String, String>();
 
@@ -1330,18 +1327,53 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		this.ldapAttributes = ldapAttributes;
 	}
 
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		Assert.notNull(etudiantMetierService,"La propriété etudiantMetierService ne doit pas être null.");
+		Assert.notNull(administratifMetierService,"La propriété administratifMetierService ne doit pas être null.");
+		Assert.notNull(pedagogiqueMetierService,"La propriété pedagogiqueMetierService ne doit pas être null.");
+		Assert.notNull(offreFormationMetierService,"La propriété offreFormationMetierService ne doit pas être null.");
+		Assert.notNull(referentielMetierService,"La propriété referentielMetierService ne doit pas être null.");
+	}
+	
+	/**
+	 * @param etudiantMetierService the etudiantMetierService to set
+	 */
 	public void setEtudiantMetierService(
 			EtudiantMetierServiceInterface etudiantMetierService) {
 		this.etudiantMetierService = etudiantMetierService;
 	}
+	
+	/**
+	 * @param administratifMetierService the administratifMetierService to set
+	 */
+	public void setAdministratifMetierService(
+			AdministratifMetierServiceInterface administratifMetierService) {
+		this.administratifMetierService = administratifMetierService;
+	}
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(etudiantMetierService,"La propriété etudiantMetierService ne doit pas être null.");
-		Assert.notNull(serviceAdministratif,"La propriété serviceAdministratif ne doit pas être null.");
-		Assert.notNull(servicePedagogique,"La propriété servicePedagogique ne doit pas être null.");
-		Assert.notNull(offreFormationMetierService,"La propriété offreFormationMetierService ne doit pas être null.");
-		Assert.notNull(referentielMetierService,"La propriété referentielMetierService ne doit pas être null.");
+	/**
+	 * @param pedagogiqueMetierService the pedagogiqueMetierService to set
+	 */
+	public void setPedagogiqueMetierService(
+			PedagogiqueMetierServiceInterface pedagogiqueMetierService) {
+		this.pedagogiqueMetierService = pedagogiqueMetierService;
+	}
+
+	/**
+	 * @param offreFormationMetierService the offreFormationMetierService to set
+	 */
+	public void setOffreFormationMetierService(
+			OffreFormationMetierServiceInterface offreFormationMetierService) {
+		this.offreFormationMetierService = offreFormationMetierService;
+	}
+
+	/**
+	 * @param referentielMetierService the referentielMetierService to set
+	 */
+	public void setReferentielMetierService(
+			ReferentielMetierServiceInterface referentielMetierService) {
+		this.referentielMetierService = referentielMetierService;
 	}
 
 }

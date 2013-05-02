@@ -7,11 +7,11 @@ package org.esupportail.pstage.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.EnseignantDTO;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 
 /**
  * Enseignant Domain service interface.
@@ -51,27 +51,27 @@ public interface EnseignantDomainService extends Serializable {
 	/**
 	 * @param enseignant
 	 * @return int
-	 * @throws DataAddException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataAddException
+	 * @throws WebServiceDataBaseException
 	 */
-	public int addEnseignant(EnseignantDTO enseignant) throws DataAddException_Exception, WebServiceDataBaseException_Exception;
+	public int addEnseignant(EnseignantDTO enseignant) throws DataAddException, WebServiceDataBaseException;
 	
 	
 	/**
 	 * @param enseignant
 	 * @return boolean
-	 * @throws DataUpdateException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataUpdateException
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean updateEnseignant(EnseignantDTO enseignant) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateEnseignant(EnseignantDTO enseignant) throws DataUpdateException, WebServiceDataBaseException;
 	
 	
 	/**
 	 * @param idEnseignant
 	 * @return boolean
-	 * @throws DataDeleteException_Exception
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataDeleteException
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean deleteEnseignant(int idEnseignant) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception;
+	public boolean deleteEnseignant(int idEnseignant) throws DataDeleteException, WebServiceDataBaseException;
 
 }

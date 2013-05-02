@@ -1,0 +1,133 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<t:div>
+		<e:panelGrid style="float:left;">
+			<%@include file="./_menu.jsp"%>
+		</e:panelGrid>
+		<e:panelGrid columns="1"
+			styleClass="panelEntreprise"
+			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+			<rich:panel>
+				<f:facet name="header">
+					<e:text value="#{msgs['OFFRE.RECAPITULATIF']}" />
+				</f:facet>
+				<t:div rendered="#{empty offreController.currentOffre}">
+					<e:text value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
+				</t:div>
+				<h:form>
+					<e:panelGrid>
+						<a4j:commandLink ajaxSingle="true" id="editoffre"
+							action="#{offreController.editPdfOffre}">
+							<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+								value="../../media/images/printer.png" style="border:0" />
+							<e:text value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
+								escape="false" />
+						</a4j:commandLink>
+					</e:panelGrid>
+					<rich:spacer height="5px" />
+					<t:div rendered="#{not empty offreController.currentOffre}">
+						<t:htmlTag value="div" rendered="#{sessionController.moderationActive && sessionController.pageAuthorized && offreController.currentOffre.estDiffusee}">
+							<t:htmlTag value="br" />
+							<rich:spacer height="10px" />
+							<e:panelGrid columns="2">
+								<h:graphicImage value="../../media/images/information.png" alt="#{msgs['GENERAL.OK']}" />
+								<e:outputLabel value="#{msgs['OFFRE.GESTION.DIFFUSION.MODERATION.MSG_DIFF']}" />
+							</e:panelGrid>
+							<t:htmlTag value="br" />
+							<rich:spacer height="10px" />
+						</t:htmlTag>
+						<fieldset><legend><e:text
+							value="#{msgs['OFFRE.GESTION.DETAILS']} " /> <h:commandLink
+							id="modif"
+							action="#{offreController.goToEntrepriseModificationOffre}">
+							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+								value="../../media/images/edit.png" style="border:0" />
+							<f:setPropertyActionListener value="recapitulatifOffre"
+								target="#{offreController.retour}" />
+							<f:setPropertyActionListener value="#{1}"
+								target="#{offreController.typeAjoutModifOffre}" />
+						</h:commandLink> <rich:toolTip for="modif" value="#{msgs['FORM.MODIFIER']}" /> </legend> <%@include
+							file="../_commun/_detailsOffre.jsp"%></fieldset>
+						<t:htmlTag value="br" />
+						<rich:spacer height="10px" />
+						<t:div
+							rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
+							<fieldset><legend><e:text
+								value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " /> <h:commandLink
+								id="modifF"
+								action="#{offreController.goToEntrepriseModificationOffre3}">
+								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+									value="../../media/images/edit.png" style="border:0" />
+								<f:setPropertyActionListener value="recapitulatifOffre"
+									target="#{offreController.retour}" />
+								<f:setPropertyActionListener value="#{1}"
+									target="#{offreController.typeAjoutModifOffre}" />
+							</h:commandLink> <rich:toolTip for="modifF" value="#{msgs['FORM.MODIFIER']}" /></legend>
+							<%@include file="../_commun/_detailsOffreFichier.jsp"%>
+							</fieldset>
+						</t:div>
+						<t:div
+							rendered="#{!offreController.currentOffre.avecFichier && !offreController.currentOffre.avecLien}">
+							<fieldset><legend> <e:text
+								value="#{msgs['OFFRE.GESTION.CONTACTS']} " /> <h:commandLink
+								id="modifC"
+								action="#{offreController.goToEntrepriseModificationOffre3C}">
+								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+									value="../../media/images/edit.png" style="border:0" />
+								<f:setPropertyActionListener value="recapitulatifOffre"
+									target="#{offreController.retour}" />
+								<f:setPropertyActionListener value="#{1}"
+									target="#{offreController.typeAjoutModifOffre}" />
+							</h:commandLink> <rich:toolTip for="modifC" value="#{msgs['FORM.MODIFIER']}" /></legend>
+							<%@include file="../_commun/_detailsOffreContacts.jsp"%>
+							</fieldset>
+						</t:div>
+						<t:div>
+							<fieldset><legend><e:text
+								value="#{msgs['OFFRE.DIFFUSION']}" /></legend> <%@include
+								file="../_commun/_detailsOffreDiffusion.jsp"%>
+							</fieldset>
+						</t:div>
+						<t:htmlTag value="br" />
+						<rich:spacer height="10px" />
+						<e:panelGrid columns="1" style="float:right;" rendered="#{!offreController.currentOffre.estSupprimee}">
+							<a4j:commandLink ajaxSingle="true" id="suppr"
+								reRender="supprOffre"
+								oncomplete="#{rich:component('supprOffre')}.show()">
+								<f:setPropertyActionListener value="recapitulatifOffre"
+									target="#{offreController.retour}" />
+								<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
+									value="../../media/images/delete.png" style="border:0" />
+								<e:text value=" #{msgs['OFFRE.SUPPRIMER']}" />
+							</a4j:commandLink>
+							<rich:toolTip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+						</e:panelGrid>
+						<e:panelGrid columns="1" style="float:right;">
+							<t:aliasBean alias="#{objet}"
+								value="#{offreController.currentOffre}">
+								<%@include file="../_commun/_updateInfos.jsp"%>
+							</t:aliasBean>
+						</e:panelGrid>
+					</t:div>
+					<e:panelGrid columns="1">
+						<rich:spacer height="20px" />
+						<h:commandButton action="#{offreController.goToGestionOffres}"
+							rendered="#{sessionController.pageAuthorized 
+		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)}"
+							value=" #{msgs['OFFRE.RETOURLISTES']}">
+						</h:commandButton>
+					</e:panelGrid>
+				</h:form>
+				<%@include file="../_commun/_panelDiffusionOffre.jsp"%>
+				<%@include file="../_commun/_panelStopDiffusionOffre.jsp"%>
+				<%@include file="../_commun/_panelOffrePourvue.jsp"%>
+				<%@include file="../_commun/_panelDiffusionCentreOffre.jsp"%>
+				<%@include file="../_commun/_panelSupprOffre.jsp"%>
+			</rich:panel>
+			<%@include file="_panelNousContacter.jsp"%>
+		</e:panelGrid>
+		<rich:editor rendered="false" />
+	</t:div>
+</e:page>

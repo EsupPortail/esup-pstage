@@ -1,0 +1,63 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1">
+	<%@include file="../_commun/_champsObligatoires.jsp"%>
+	<h:outputLabel for="nomCentre" value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} *" />
+	<h:inputText id="nomCentre"
+		value="#{centreController.formCentreEntreprise.nomCentre}"
+		required="true" maxlength="100" size="50"
+		requiredMessage="#{requiredMessageController.champObligatoire}">
+		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+	</h:inputText>
+	<rich:message for="nomCentre">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+	<h:outputLabel for="confidentialite"
+		value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} *" />
+	<h:selectOneMenu id="confidentialite"
+		value="#{centreController.formCentreEntreprise.confidentialite}"
+		required="true"
+		requiredMessage="#{requiredMessageController.champObligatoire}">
+		<f:converter binding="#{confidentialiteConverter}" />
+		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+		<f:selectItems
+			value="#{nomenclatureController.confidentialitesSansConfEtab}" />
+	</h:selectOneMenu>
+	<rich:message for="confidentialite">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+	<h:outputLabel for="telCentre" value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']}" />
+	<h:inputText id="telCentre"
+		value="#{centreController.formCentreEntreprise.telephone}"
+		size="20" maxlength="20"
+		requiredMessage="#{requiredMessageController.champObligatoire}">
+		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+	</h:inputText>
+	<rich:message for="telCentre">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+	<h:outputLabel for="faxCentre" value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']}" />
+	<h:inputText id="faxCentre"
+		value="#{centreController.formCentreEntreprise.fax}"
+		size="20" maxlength="20"
+		requiredMessage="#{requiredMessageController.champObligatoire}">
+		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+	</h:inputText>
+	<rich:message for="faxCentre">
+		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	</rich:message>
+</e:panelGrid>
+<a4j:commandButton rendered="#{empty centreController.centreEntreprise}"
+	value="#{msgs['FORM.CREER']}"
+	action="#{centreController.ajouterCentreEntreprise}"
+	reRender="formMenu" />
+<a4j:commandButton
+	rendered="#{not empty centreController.centreEntreprise}"
+	value="#{msgs['FORM.MODIFIER']}"
+	action="#{centreController.modifierCentreEntreprise}"
+	reRender="formMenu" />
+<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+	action="_modifCentreEntrepriseEtape1"
+	alt="#{msgs['FORM.ANNULER']}" title="#{msgs['FORM.ANNULER']}"
+	immediate="true">
+</a4j:commandButton>

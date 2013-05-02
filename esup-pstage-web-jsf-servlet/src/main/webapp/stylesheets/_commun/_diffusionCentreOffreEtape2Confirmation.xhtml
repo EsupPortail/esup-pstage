@@ -1,0 +1,6 @@
+<%@include file="_confirmationMessages.jsp"%>
+
+<a4j:commandButton ajaxSingle="true" value="#{msgs['GENERAL.CLOSE']}"
+	action="_diffusionCentreOffreEtape1"
+	onclick="#{rich:component('diffusionCentreOffre')}.hide();" 
+	reRender="opOffreDiffusion"/>

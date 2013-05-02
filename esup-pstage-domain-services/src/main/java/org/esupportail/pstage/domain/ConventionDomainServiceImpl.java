@@ -7,17 +7,17 @@ package org.esupportail.pstage.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.ConventionDTO;
-import org.esupportail.pstagedata.remote.CritereRechercheConventionDTO;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.EtapeAlreadyExistingForCodeException_Exception;
-import org.esupportail.pstagedata.remote.EtapeDTO;
+import org.esupportail.pstagedata.domain.dto.ConventionDTO;
+import org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO;
+import org.esupportail.pstagedata.domain.dto.EtapeDTO;
+import org.esupportail.pstagedata.domain.dto.UfrDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.EtapeAlreadyExistingForCodeException;
+import org.esupportail.pstagedata.exceptions.UfrAlreadyExistingForCodeException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
-import org.esupportail.pstagedata.remote.UfrAlreadyExistingForCodeException_Exception;
-import org.esupportail.pstagedata.remote.UfrDTO;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
 
 
 /**
@@ -97,8 +97,8 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#addConvention(org.esupportail.pstagedata.domain.dto.ConventionDTO)
 	 */
-	public int addConvention(ConventionDTO convention) throws DataAddException_Exception,
-	WebServiceDataBaseException_Exception {
+	public int addConvention(ConventionDTO convention) throws DataAddException,
+	WebServiceDataBaseException {
 
 		return this.remoteServices.addConvention(convention);
 	}
@@ -108,7 +108,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#deleteConvention(int)
 	 */
 	public boolean deleteConvention(int idConvention)
-	throws DataDeleteException_Exception, WebServiceDataBaseException_Exception {
+	throws DataDeleteException, WebServiceDataBaseException {
 
 		return this.remoteServices.deleteConvention(idConvention);
 	}
@@ -139,7 +139,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#updateConvention(org.esupportail.pstagedata.domain.dto.ConventionDTO)
 	 */
 	public boolean updateConvention(ConventionDTO convention)
-	throws DataUpdateException_Exception, WebServiceDataBaseException_Exception {
+	throws DataUpdateException, WebServiceDataBaseException {
 
 		return this.remoteServices.updateConvention(convention);
 	}
@@ -147,14 +147,14 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#updateCentreConventionByUfr(java.lang.String, int, java.lang.String)
 	 */
 	public boolean updateCentreConventionByUfr(String code, int idCentreGestion, String codeUniversite)
-	throws DataUpdateException_Exception, WebServiceDataBaseException_Exception {
+	throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateCentreConventionByUfrCodUniv(code, idCentreGestion, codeUniversite);
 	}
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#updateCentreConventionByEtape(java.lang.String, int, java.lang.String)
 	 */
 	public boolean updateCentreConventionByEtape(String code, int idCentreGestion, String codeUniversite)
-	throws DataUpdateException_Exception, WebServiceDataBaseException_Exception {
+	throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateCentreConventionByEtapeCodUniv(code, idCentreGestion, codeUniversite);
 	}
 	/**
@@ -193,12 +193,21 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 
 
 	/**
-	 * @see org.esupportail.pstage.domain.ConventionDomainService#getConventionFromExport(int)
+	 * @see org.esupportail.pstage.domain.ConventionDomainService#getConventionFromExport(java.util.List)
 	 */
-	public ConventionDTO getConventionFromExport(int id) {
-		ConventionDTO c = this.remoteServices.getConventionFromExport(id);
-		setObjectsExport(c);
-		return c;
+//	public ConventionDTO getConventionFromExport(int id) {
+//		ConventionDTO c = this.remoteServices.getConventionFromExport(id);
+//		setObjectsExport(c);
+//		return c;
+//	}
+	public List<ConventionDTO> getConventionsFromExport(List<Integer> idsConventionsExport) {
+		List<ConventionDTO> lc = this.remoteServices.getConventionsFromExport(idsConventionsExport);
+		if(lc!=null){
+			for(ConventionDTO c : lc){
+				setObjectsExport(c);
+			}
+		}
+		return lc;
 	}
 
 
@@ -319,7 +328,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 			}
 		}
 	}
-
+	
 	/**
 	 * Rempli les divers objets (TypeConvention, ...) depuis les listes en caches
 	 * @param c
@@ -328,9 +337,6 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 		if (c != null) {
 			if (c.getIdTheme() != null) {
 				c.setTheme(this.nomenclatureDomainService.getThemeDTOFromId(c.getIdTheme()));
-			}
-			if (c.getIdIndemnisation() != null) {
-				c.setIndemnisation(this.nomenclatureDomainService.getIndemnisationDTOFromId(c.getIdIndemnisation()));
 			}
 			if (c.getIdUniteGratification() != null) {
 				c.setUniteGratification(this.nomenclatureDomainService.getUniteGratificationDTOFromId(c.getIdUniteGratification()));
@@ -349,43 +355,14 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 					c.getStructure().setPays(this.nomenclatureDomainService.getPaysFromId(c.getStructure().getIdPays()));
 				}
 			}
-			if (c.getService() != null) {
-				if (c.getService().getIdPays() > 0) {
-					c.getService().setPays(this.nomenclatureDomainService.getPaysFromId(c.getService().getIdPays()));
-				}
-
+			if (c.getService() != null && c.getService().getIdPays() > 0) {
+				c.getService().setPays(this.nomenclatureDomainService.getPaysFromId(c.getService().getIdPays()));
 			}
-			if (c.getContact() != null) {
-				if (c.getContact().getIdCivilite() > 0) {
-					c.getContact().setCivilite(nomenclatureDomainService.getCiviliteFromId(c.getContact().getIdCivilite()));
-				}
-			}
-			
-			if (c.getSignataire() != null) {
-				if (c.getSignataire().getIdCivilite() > 0) {
-					c.getSignataire().setCivilite(nomenclatureDomainService.getCiviliteFromId(c.getSignataire().getIdCivilite()));
-				}
-			}
-			
-			if (c.getEnseignant() != null) {
-				if (c.getEnseignant().getIdCivilite() > 0) {
-					c.getEnseignant().setCivilite(nomenclatureDomainService.getCiviliteFromId(c.getEnseignant().getIdCivilite()));
-				}
-			}
-			if (c.getIdUniteDureeExceptionnelle() != null) {
-				if (c.getIdUniteDureeExceptionnelle() > 0) {
-					c.setUniteDuree(this.nomenclatureDomainService.getUniteDureeFromId(c.getIdUniteDureeExceptionnelle()));
-				}
-
+			if (c.getIdUniteDureeExceptionnelle() != null && c.getIdUniteDureeExceptionnelle() > 0) {
+				c.setUniteDuree(this.nomenclatureDomainService.getUniteDureeFromId(c.getIdUniteDureeExceptionnelle()));
 			}
 			if (c.getIdTypeConvention() != null) {
 				c.setTypeConvention(this.nomenclatureDomainService.getTypeConventionDTOFromId(c.getIdTypeConvention()));
-			}
-			if(c.getCodeUFR()!=null){
-				c.setUfr(getUfrFromId(c.getCodeUFR(), c.getCodeUniversiteUFR()));
-			}
-			if(c.getCodeEtape()!=null){
-				c.setEtape(getEtapeFromId(c.getCodeEtape(), c.getCodeUniversiteEtape()));
 			}
 		}
 	}
@@ -393,8 +370,8 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#addEtape(org.esupportail.pstagedata.domain.dto.EtapeDTO)
 	 */
-	public int addEtape(EtapeDTO etape) throws DataAddException_Exception,
-	WebServiceDataBaseException_Exception, EtapeAlreadyExistingForCodeException_Exception {
+	public int addEtape(EtapeDTO etape) throws DataAddException,
+	WebServiceDataBaseException, EtapeAlreadyExistingForCodeException {
 		return this.remoteServices.addEtape(etape);
 	}
 
@@ -402,8 +379,8 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#addUfr(org.esupportail.pstagedata.domain.dto.UfrDTO)
 	 */
-	public int addUfr(UfrDTO ufr) throws DataAddException_Exception,
-	WebServiceDataBaseException_Exception, UfrAlreadyExistingForCodeException_Exception {
+	public int addUfr(UfrDTO ufr) throws DataAddException,
+	WebServiceDataBaseException, UfrAlreadyExistingForCodeException {
 		return this.remoteServices.addUfr(ufr);
 	}
 

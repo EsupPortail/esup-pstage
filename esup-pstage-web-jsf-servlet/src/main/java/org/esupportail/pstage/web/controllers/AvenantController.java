@@ -5,7 +5,6 @@
 package org.esupportail.pstage.web.controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -14,24 +13,22 @@ import org.apache.log4j.Logger;
 import org.esupportail.pstage.exceptions.ExportException;
 import org.esupportail.pstage.services.export.CastorService;
 import org.esupportail.pstage.web.utils.PDFUtils;
-import org.esupportail.pstagedata.remote.AvenantDTO;
-import org.esupportail.pstagedata.remote.ContactDTO;
-import org.esupportail.pstagedata.remote.DataAddException;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.EnseignantDTO;
-import org.esupportail.pstagedata.remote.EtudiantDTO;
-import org.esupportail.pstagedata.remote.ServiceDTO;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception_Exception;
+import org.esupportail.pstagedata.domain.dto.AvenantDTO;
+import org.esupportail.pstagedata.domain.dto.ContactDTO;
+import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
+import org.esupportail.pstagedata.domain.dto.ServiceDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.springframework.util.StringUtils;
 
 
 public class AvenantController extends AbstractContextAwareController {
 
 	/* ***************************************************************
-	 * Propriétés
+	 * Propri�t�s
 	 ****************************************************************/
 	/**
 	 * The serialization id.
@@ -43,7 +40,7 @@ public class AvenantController extends AbstractContextAwareController {
 	private final Logger logger = Logger.getLogger(this.getClass());
 
 	/**
-	 * True si aucun avenant n'a été ajouté
+	 * True si aucun avenant n'a �t� ajout�
 	 */
 	private boolean listeAvenantVide;
 	/**
@@ -164,10 +161,10 @@ public class AvenantController extends AbstractContextAwareController {
 		}
 		if(!this.avenant.isRupture()){
 			if (this.avenant.isModificationPeriode()){
-				Date dateDebutStage = this.avenant.getDateDebutStage().toGregorianCalendar().getTime();
-				Date dateFinStage = this.avenant.getDateFinStage().toGregorianCalendar().getTime();
-				Date dateDebutInterruption = this.avenant.getDateDebutInterruption().toGregorianCalendar().getTime();
-				Date dateFinInterruption = this.avenant.getDateFinInterruption().toGregorianCalendar().getTime();
+				java.util.Date dateDebutStage = this.avenant.getDateDebutStage();
+				java.util.Date dateFinStage = this.avenant.getDateFinStage();
+				java.util.Date dateDebutInterruption = this.avenant.getDateDebutInterruption();
+				java.util.Date dateFinInterruption = this.avenant.getDateFinInterruption();
 				if (dateFinStage != null && dateDebutStage != null){
 					if (dateFinStage.before(dateDebutStage)){
 						// Si la date de fin du stage est inferieure la date de debut
@@ -194,12 +191,12 @@ public class AvenantController extends AbstractContextAwareController {
 			}
 			if(this.avenant.isModificationLieu()){
 				if (etablissementController.getServiceSel().getIdService() == conventionController.getConvention().getIdService()){
-					// Si l'idService n'a pas été changé, on envoie l'erreur correspondante
+					// Si l'idService n'a pas �t� chang�, on envoie l'erreur correspondante
 					addErrorMessage("formCreaAvenantPage1:erreurService","CONVENTION.ETAPE11.ERREUR_SERVICE");
 					return null;
 				}
 				if (etablissementController.getContactSel().getId() == conventionController.getConvention().getIdContact()){
-					// Si l'idContact n'a pas été changé, on envoie l'erreur correspondante
+					// Si l'idContact n'a pas �t� chang�, on envoie l'erreur correspondante
 					addErrorMessage("formCreaAvenantPage1:erreurSalarie","CONVENTION.ETAPE11.ERREUR_SALARIE");
 					return null;
 				}
@@ -209,7 +206,7 @@ public class AvenantController extends AbstractContextAwareController {
 			}
 			if(this.avenant.isModificationSalarie()){
 				if (etablissementController.getContactSel().getId() == conventionController.getConvention().getIdContact()){
-					// Si l'idContact n'a pas été changé, on envoie l'erreur correspondante
+					// Si l'idContact n'a pas �t� chang�, on envoie l'erreur correspondante
 					addErrorMessage("formCreaAvenantPage1:erreurSalarie","CONVENTION.ETAPE11.ERREUR_SALARIE");
 					return null;
 				}
@@ -283,10 +280,10 @@ public class AvenantController extends AbstractContextAwareController {
 		}
 		if(!this.avenant.isRupture()){
 			if (this.avenant.isModificationPeriode()){
-				Date dateDebutStage = this.avenant.getDateDebutStage().toGregorianCalendar().getTime();
-				Date dateFinStage = this.avenant.getDateFinStage().toGregorianCalendar().getTime();
-				Date dateDebutInterruption = this.avenant.getDateDebutInterruption().toGregorianCalendar().getTime();
-				Date dateFinInterruption = this.avenant.getDateFinInterruption().toGregorianCalendar().getTime();
+				java.util.Date dateDebutStage = this.avenant.getDateDebutStage();
+				java.util.Date dateFinStage = this.avenant.getDateFinStage();
+				java.util.Date dateDebutInterruption = this.avenant.getDateDebutInterruption();
+				java.util.Date dateFinInterruption = this.avenant.getDateFinInterruption();
 				
 				if (dateFinStage != null && dateDebutStage != null){
 					if (dateFinStage.before(dateDebutStage)){
@@ -314,12 +311,12 @@ public class AvenantController extends AbstractContextAwareController {
 			}
 			if(this.avenant.isModificationLieu()){
 				if (etablissementController.getServiceSel().getIdService() == conventionController.getConvention().getIdService()){
-					// Si l'idService n'a pas été changé, on envoie l'erreur correspondante
+					// Si l'idService n'a pas �t� chang�, on envoie l'erreur correspondante
 					addErrorMessage("formModifAvenantPage1:erreurService","CONVENTION.ETAPE11.ERREUR_SERVICE");
 					return null;
 				}
 				if (etablissementController.getContactSel().getId() == conventionController.getConvention().getIdContact()){
-					// Si l'idContact n'a pas été changé, on envoie l'erreur correspondante
+					// Si l'idContact n'a pas �t� chang�, on envoie l'erreur correspondante
 					addErrorMessage("formModifAvenantPage1:erreurSalarie","CONVENTION.ETAPE11.ERREUR_SALARIE");
 					return null;
 				}
@@ -329,7 +326,7 @@ public class AvenantController extends AbstractContextAwareController {
 			}
 			if(this.avenant.isModificationSalarie()){
 				if (etablissementController.getContactSel().getId() == conventionController.getConvention().getIdContact()){
-					// Si l'idContact n'a pas été changé, on envoie l'erreur correspondante
+					// Si l'idContact n'a pas �t� chang�, on envoie l'erreur correspondante
 					addErrorMessage("formModifAvenantPage1:erreurSalarie","CONVENTION.ETAPE11.ERREUR_SALARIE");
 					return null;
 				}
@@ -347,11 +344,11 @@ public class AvenantController extends AbstractContextAwareController {
 
 		if(logger.isDebugEnabled()){
 			logger.debug("public String creerAvenant()");
-			logger.debug("Propriétés de l'avenant ajouté : "+ this.avenant);
+			logger.debug("Propri�t�s de l'avenant ajout� : "+ this.avenant);
 		}
 		
 		if (this.avenant.isModificationEnseignant()){
-			// S'il ya modification de l'enseignant, on crée le nouveau s'il n'existe pas deja
+			// S'il ya modification de l'enseignant, on cr�e le nouveau s'il n'existe pas deja
 			EnseignantDTO enseignantTmp = this.avenant.getEnseignant();
 			enseignantTmp.setLoginCreation(getSessionController().getCurrentLogin());
 			enseignantTmp.setCodeAffectation("");
@@ -373,12 +370,12 @@ public class AvenantController extends AbstractContextAwareController {
 					this.avenant.setIdEnseignant(idEnseignant);
 				}
 
-			} catch (DataAddException_Exception ae) {
+			} catch (DataAddException ae) {
 				logger.error("DataAddException", ae.fillInStackTrace());
 				addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant", "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 				return null;
-			} catch (WebServiceDataBaseException_Exception we) {
-				logger.error("WebServiceDataBaseException_Exception ", we.fillInStackTrace());
+			} catch (WebServiceDataBaseException we) {
+				logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
 				addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we.getMessage());
 				return null;
 			}
@@ -398,12 +395,12 @@ public class AvenantController extends AbstractContextAwareController {
 			if(logger.isDebugEnabled()){
 				logger.debug("idAvenant : " + idAvenant);
 			}
-		} catch (DataAddException_Exception d){
+		} catch (DataAddException d){
 			logger.error("DataAddException",d.fillInStackTrace());
 			addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant","CONVENTION.ETAPE11.ERREUR_AJOUT");
 			return null;
-		} catch (WebServiceDataBaseException_Exception w){
-			logger.error("WebServiceDataBaseException_Exception", w.fillInStackTrace());
+		} catch (WebServiceDataBaseException w){
+			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
 			addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant", "CONVENTION.ETAPE11.ERREUR_WS");
 			return null;
 		}
@@ -422,7 +419,7 @@ public class AvenantController extends AbstractContextAwareController {
 		}
 
 		if (this.avenant.isModificationEnseignant()){
-			// S'il ya modification de l'enseignant, on crée le nouveau s'il n'existe pas deja
+			// S'il ya modification de l'enseignant, on cr�e le nouveau s'il n'existe pas deja
 			EnseignantDTO enseignantTmp = this.avenant.getEnseignant();
 			enseignantTmp.setLoginCreation(getSessionController().getCurrentLogin());
 			enseignantTmp.setCodeUniversiteAffectation(getSessionController().getCodeUniversite());
@@ -433,6 +430,9 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 			}
 			try {
+				if(!StringUtils.hasText(enseignantTmp.getCodeAffectation())){
+					enseignantTmp.setCodeAffectation("");
+				}
 				int idEnseignant = this.getEnseignantDomainService().addEnseignant(enseignantTmp);
 				if (logger.isInfoEnabled()) {
 					logger.info("Ajout enseignant : " + enseignantTmp.getUidEnseignant());
@@ -441,12 +441,12 @@ public class AvenantController extends AbstractContextAwareController {
 					this.avenant.setIdEnseignant(idEnseignant);
 				}
 
-			} catch (DataAddException_Exception ae) {
+			} catch (DataAddException ae) {
 				logger.error("DataAddException", ae.fillInStackTrace());
 				addErrorMessage("formModifAvenantPage1:erreurModifAvenant", "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 				return null;
-			} catch (WebServiceDataBaseException_Exception we) {
-				logger.error("WebServiceDataBaseException_Exception ", we.fillInStackTrace());
+			} catch (WebServiceDataBaseException we) {
+				logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
 				addErrorMessage("formModifAvenantPage1:erreurModifAvenant", "CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR", we.getMessage());
 				return null;
 			}
@@ -462,12 +462,12 @@ public class AvenantController extends AbstractContextAwareController {
 			// Modification de l'avenant
 			getAvenantDomainService().updateAvenant(this.avenant);
 
-		} catch (DataUpdateException_Exception d){
+		} catch (DataUpdateException d){
 			logger.error("DataUpdateException",d.fillInStackTrace());
 			addErrorMessage("formModifAvenantPage1:erreurModifAvenant","CONVENTION.ETAPE11.ERREUR_MODIF");
 			return null;
-		} catch (WebServiceDataBaseException_Exception w){
-			logger.error("WebServiceDataBaseException_Exception", w.fillInStackTrace());
+		} catch (WebServiceDataBaseException w){
+			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
 			addErrorMessage("formModifAvenantPage1:erreurModifAvenant", "CONVENTION.ETAPE11.ERREUR_WS");
 			return null;
 		}
@@ -485,12 +485,12 @@ public class AvenantController extends AbstractContextAwareController {
 					logger.debug("Suppression Avenant : "+this.avenant);
 				}
 				getAvenantDomainService().deleteAvenant(this.avenant.getIdAvenant());
-			}catch (DataDeleteException_Exception de) {
-				logger.error("DataDeleteException_Exception ",de.fillInStackTrace());
+			}catch (DataDeleteException de) {
+				logger.error("DataDeleteException ",de.fillInStackTrace());
 				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_SUPPRESSION", de.getMessage());
 				return null;
-			}catch (WebServiceDataBaseException_Exception we) {
-				logger.error("WebServiceDataBaseException_Exception ",we.fillInStackTrace());
+			}catch (WebServiceDataBaseException we) {
+				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
 				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
 				return null;
 			}
@@ -513,12 +513,12 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 				this.avenant.setValidationAvenant(true);
 				getAvenantDomainService().updateAvenant(this.avenant);
-			}catch (DataDeleteException_Exception d) {
+			}catch (DataDeleteException d) {
 				logger.error("DataUpdateException ",d.fillInStackTrace());
 				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d.getMessage());
 				return null;
-			}catch (WebServiceDataBaseException_Exception we) {
-				logger.error("WebServiceDataBaseException_Exception ",we.fillInStackTrace());
+			}catch (WebServiceDataBaseException we) {
+				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
 				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
 				return null;
 			}
@@ -540,12 +540,12 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 				this.avenant.setValidationAvenant(false);
 				getAvenantDomainService().updateAvenant(this.avenant);
-			}catch (DataDeleteException_Exception d) {
+			}catch (DataDeleteException d) {
 				logger.error("DataUpdateException ",d.fillInStackTrace());
 				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d.getMessage());
 				return null;
-			}catch (WebServiceDataBaseException_Exception we) {
-				logger.error("WebServiceDataBaseException_Exception ",we.fillInStackTrace());
+			}catch (WebServiceDataBaseException we) {
+				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
 				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
 				return null;
 			}

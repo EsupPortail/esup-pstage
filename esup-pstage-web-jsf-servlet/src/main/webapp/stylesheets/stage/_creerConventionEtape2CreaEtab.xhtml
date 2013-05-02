@@ -1,0 +1,36 @@
+<%@include file="../_include.jsp"%>
+
+<e:panelGrid columns="1" id="formAjoutEtab">
+	<rich:panel>
+		<f:facet name="header">
+			<e:text value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
+		</f:facet>
+		<rich:spacer height="20" />
+		<e:text value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
+
+		<rich:spacer height="20" />
+		<rich:message for="formAjoutEtab">
+			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		</rich:message>
+
+		<%@include file="../_commun/_etablissementForm.jsp"%>
+		
+		<rich:messages showDetail="true">
+		</rich:messages>
+
+		<e:panelGrid columns="3">
+			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				action="_creerConventionEtape2Etab" alt="#{msgs['FORM.PREVIOUS']}"
+				title="#{msgs['FORM.PREVIOUS']}" immediate="true">
+			</a4j:commandButton>
+			<rich:spacer width="20px" />
+			<a4j:commandButton value="#{msgs['FORM.CREER']}"
+				action="#{conventionController.ajouterEtablissement}">
+			</a4j:commandButton>
+		</e:panelGrid>
+	</rich:panel>
+</e:panelGrid>
+
+
+
+

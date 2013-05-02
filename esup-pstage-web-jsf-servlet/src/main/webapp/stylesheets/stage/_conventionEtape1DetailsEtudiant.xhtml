@@ -1,0 +1,55 @@
+<%@include file="../_include.jsp"%>
+
+
+<e:panelGrid columns="2" cellpadding="2" cellspacing="2"
+	alternateColors="true">
+	<e:outputLabel for="numeroetudiant1"
+		value="#{msgs['CONVENTION.NUMETUDIANT']}" />
+	<e:text id="numeroetudiant1"
+		value="#{conventionController.convention.etudiant.numEtudiant}" />
+	<e:outputLabel for="nom1" value="#{msgs['CONVENTION.NOM']}" />
+	<e:text id="nom1"
+		value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}" />
+	<e:outputLabel for="prenom1" value="#{msgs['CONVENTION.PRENOM']}" />
+	<e:text id="prenom1"
+		value="#{conventionController.convention.etudiant.prenom}" />
+	<e:outputLabel for="etape1" value="#{msgs['CONVENTION.VOTREETAPE']}" />
+	<e:text id="etape1"
+		value="#{conventionController.convention.etape.code} - #{conventionController.convention.etape.libelle}" />
+	<e:outputLabel for="ufr1" value="#{msgs['CONVENTION.VOTREUFR']}" />
+	<e:text id="ufr1"
+		value="#{conventionController.convention.ufr.code} - #{conventionController.convention.ufr.libelle}" />
+	<e:outputLabel for="elp" value="#{msgs['CONVENTION.ELP']}" />
+	<e:text
+		value="#{conventionController.convention.codeElp} - #{conventionController.convention.creditECTS} crédit(s)" />
+	<e:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']}"
+		for="mainAddress1" />
+	<e:text id="mainAddress1"
+		value="#{conventionController.convention.adresseEtudiant}" />
+	<e:outputLabel value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}"
+		for="codePostal1" />
+	<e:text id="codePostal1"
+		value="#{conventionController.convention.codePostalEtudiant} - #{conventionController.convention.villeEtudiant} - #{conventionController.convention.paysEtudiant}" />
+	<e:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE']}"
+		for="telephone1" />
+	<e:text id="telephone1"
+		value="#{conventionController.convention.telEtudiant}" />
+	<e:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}"
+		for="telephoneportable1" />
+	<e:text id="telephoneportable1"
+		value="#{conventionController.convention.telPortableEtudiant}" />
+	<e:outputLabel value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"
+		for="mailinstitu1" />
+	<e:text id="mailinstitu1"
+		value="#{conventionController.convention.etudiant.mail}" />
+	<e:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']}"
+		for="mailperso1" />
+	<e:text id="mailperso1"
+		value="#{conventionController.convention.courrielPersoEtudiant}" />
+	<e:outputLabel value="#{msgs['CONVENTION.ETU.AFFILSS']}" for="affilss1" />
+	<e:text id="affilss1"
+		value="#{conventionController.convention.assurance.libelle}" />
+	<e:outputLabel value="#{msgs['CONVENTION.ETU.CPAM']}" for="caisses1" />
+	<e:text id="caisses1"
+		value="#{conventionController.convention.caisseRegime.libelle}" />
+</e:panelGrid>

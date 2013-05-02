@@ -3,7 +3,7 @@ package org.esupportail.pstage.services.stats;
 import java.util.List;
 import java.util.Map;
 
-import org.esupportail.pstagedata.remote.StatisticItemDTO;
+import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
 
 public class StatsToXls {
 

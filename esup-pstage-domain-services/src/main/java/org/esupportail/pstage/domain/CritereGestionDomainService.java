@@ -7,10 +7,10 @@ package org.esupportail.pstage.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.CritereGestionDTO;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.CritereGestionDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 
 /**
  * @author Florian Garot : florian.garot@univ-artois.fr
@@ -36,16 +36,16 @@ public interface CritereGestionDomainService extends Serializable {
 	/**
 	 * @param critere
 	 * @return int
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException
 	 */
-	public int addCritere(CritereGestionDTO critere) throws DataAddException_Exception,WebServiceDataBaseException_Exception;
+	public int addCritere(CritereGestionDTO critere) throws DataAddException,WebServiceDataBaseException;
 	/**
 	 * @param codeCritere
 	 * @return boolean
-	 * @throws DataDeleteException_Exception 
-	 * @throws WebServiceDataBaseException_Exception
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException
 	 */
-	public boolean deleteCritere(String codeCritere) throws DataDeleteException_Exception,WebServiceDataBaseException_Exception;
+	public boolean deleteCritere(String codeCritere) throws DataDeleteException,WebServiceDataBaseException;
 	
 }

@@ -1,0 +1,315 @@
+<%@include file="../_include.jsp"%>
+<%
+	/*<e:panelGrid columns="2">
+	 <h:graphicImage alt="#{msgs['MENU.ACCUEIL']}"
+	 title="#{msgs['MENU.ACCUEIL']}" value="../../media/images/house.png"
+	 style="border:0" />
+	 <e:bold value=": #{msgs['AIDEGENERAL.ENTREPRISE.ACCUEIL']}"
+	 escape="false" />
+	 </e:panelGrid>*/
+%>
+<e:bold value="#{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION']}"
+	rendered="#{sessionController.adminPageAuthorized}" escape="false" />
+<e:panelGrid columns="2"
+	rendered="#{sessionController.adminPageAuthorized}">
+	<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}"
+		title="#{msgs['MENU.ADMINISTRATEURS']}"
+		value="../../media/images/user.png" style="border:0" />
+	<e:bold
+		value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.ADMINS']}"
+		escape="false" />
+	<t:panelGroup colspan="2">
+		<e:ul>
+			<e:li>
+				<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}"
+					title="#{msgs['MENU.ADMINISTRATEURS']}"
+					value="../../media/images/new.png" style="border:0" />
+				<rich:spacer width="5px" />
+				<e:text
+					value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.ADMINS.CREATION']}"
+					escape="false" />
+			</e:li>
+			<e:li>
+				<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}"
+					title="#{msgs['MENU.ADMINISTRATEURS']}"
+					value="../../media/images/edit.png" style="border:0" />
+				<rich:spacer width="5px" />
+				<e:text value=": #{msgs['AIDEGENERAL.MODIFICATION']}" escape="false" />
+				<rich:spacer width="10px" />
+				<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}"
+					title="#{msgs['MENU.ADMINISTRATEURS']}"
+					value="../../media/images/delete.png" style="border:0" />
+				<rich:spacer width="5px" />
+				<e:text value=": #{msgs['AIDEGENERAL.SUPPRESSION']}" escape="false" />
+			</e:li>
+		</e:ul>
+	</t:panelGroup>
+	<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
+		title="#{msgs['MENU.RECHERCHEETAB']}"
+		value="../../media/images/zoom.png" style="border:0" />
+	<e:bold
+		value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHETAB']}"
+		escape="false" />
+	<t:panelGroup colspan="2">
+		<e:ul>
+			<e:li>
+				<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
+					title="#{msgs['MENU.RECHERCHEETAB']}"
+					value="../../media/images/zoom.png" style="border:0" />
+				<rich:spacer width="5px" />
+				<e:text
+					value="#{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHETAB.MODES']}"
+					escape="false" />
+			</e:li>
+			<e:li>
+				<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
+					title="#{msgs['MENU.RECHERCHEETAB']}"
+					value="../../media/images/new.png" style="border:0" />
+				<rich:spacer width="5px" />
+				<e:text
+					value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHETAB.CREATION']}"
+					escape="false" />
+			</e:li>
+			<e:li>
+				<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
+					title="#{msgs['MENU.RECHERCHEETAB']}"
+					value="../../media/images/edit.png" style="border:0" />
+				<rich:spacer width="5px" />
+				<e:text value=": #{msgs['AIDEGENERAL.MODIFICATION']}" escape="false" />
+				<rich:spacer width="10px" />
+				<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
+					title="#{msgs['MENU.RECHERCHEETAB']}"
+					value="../../media/images/delete.png" style="border:0" />
+				<rich:spacer width="5px" />
+				<e:text value=": #{msgs['AIDEGENERAL.SUPPRESSION']}" escape="false" />
+			</e:li>
+		</e:ul>
+	</t:panelGroup>
+	<h:graphicImage alt="#{msgs['MENU.ACCORDSAVALIDER']}"
+		title="#{msgs['MENU.ACCORDSAVALIDER']}"
+		value="../../media/images/tick.png" style="border:0" />
+	<e:bold
+		value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.ACCORDAVALIDER']}"
+		escape="false" />
+	<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
+		title="#{msgs['MENU.RECHERCHEOFFRE']}"
+		value="../../media/images/zoom.png" style="border:0" />
+	<e:bold
+		value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE']}"
+		escape="false" />
+	<t:panelGroup colspan="2">
+		<e:ul>
+			<e:li>
+				<e:text
+					value="#{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.PLUS']}"
+					escape="false" />
+			</e:li>
+			<e:li>
+				<e:text
+					value="#{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.DETAILOFFRE']}"
+					escape="false" />
+				<e:ul>
+					<e:li>
+						<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
+							title="#{msgs['MENU.RECHERCHEOFFRE']}"
+							value="../../media/images/new.png" style="border:0" />
+						<rich:spacer width="5px" />
+						<e:text
+							value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.CREATION']}"
+							escape="false" />
+					</e:li>
+					<e:li>
+						<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
+							title="#{msgs['MENU.RECHERCHEOFFRE']}"
+							value="../../media/images/edit.png" style="border:0" />
+						<rich:spacer width="5px" />
+						<e:text value=": #{msgs['AIDEGENERAL.MODIFICATION']}"
+							escape="false" />
+						<rich:spacer width="10px" />
+						<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
+							title="#{msgs['MENU.RECHERCHEOFFRE']}"
+							value="../../media/images/delete.png" style="border:0" />
+						<rich:spacer width="5px" />
+						<e:text value=": #{msgs['AIDEGENERAL.SUPPRESSION']}"
+							escape="false" />
+					</e:li>
+					<e:li>
+						<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
+							title="#{msgs['MENU.RECHERCHEOFFRE']}"
+							value="../../media/images/flag_green.png" style="border:0" />
+						<rich:spacer width="5px" />
+						<e:text
+							value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.DIFFUSION']}"
+							escape="false" />
+					</e:li>
+					<e:li
+						rendered="#{sessionController.adminPageAuthorized || (sessionController.pageAuthorized && sessionController.autoriserEntrepriseAReserverOffre) ||
+				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+						<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
+							title="#{msgs['MENU.RECHERCHEOFFRE']}"
+							value="../../media/images/target.png" style="border:0" />
+						<rich:spacer width="5px" />
+						<e:text
+							value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.CIBLAGE']}"
+							escape="false" />
+					</e:li>
+					<e:li>
+						<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
+							title="#{msgs['MENU.RECHERCHEOFFRE']}"
+							value="../../media/images/lock.png" style="border:0" />
+						<rich:spacer width="5px" />
+						<e:text
+							value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.POURVUE']}"
+							escape="false" />
+					</e:li>
+				</e:ul>
+			</e:li>
+		</e:ul>
+	</t:panelGroup>
+</e:panelGrid>
+<e:bold value="#{msgs['AIDEGENERAL.ENTREPRISE.FONCTION']}"
+	rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}"
+	escape="false" />
+<e:panelGrid columns="2"
+	rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
+	<e:ul>
+		<e:li>
+			<h:graphicImage alt="#{msgs['MENU.FICHESIGNALETIQUE']}"
+				title="#{msgs['MENU.FICHESIGNALETIQUE']}"
+				value="../../media/images/card.png" style="border:0" />
+			<rich:spacer width="5px" />
+			<e:text
+				value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.FICHESIGNALETIQUE']}"
+				escape="false" />
+		</e:li>
+		<e:li>
+			<h:graphicImage alt="#{msgs['MENU.GESTIONCONTACTS']}"
+				title="#{msgs['MENU.GESTIONCONTACTS']}"
+				value="../../media/images/book_open.png" style="border:0" />
+			<rich:spacer width="5px" />
+			<e:text value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CONTACTS']}"
+				escape="false" />
+			<e:ul>
+				<e:li>
+					<h:graphicImage alt="#{msgs['MENU.GESTIONCONTACTS']}"
+						title="#{msgs['MENU.GESTIONCONTACTS']}"
+						value="../../media/images/new.png" style="border:0" />
+					<rich:spacer width="5px" />
+					<e:text
+						value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CONTACTS.CREATION']}"
+						escape="false" />
+					<rich:spacer width="10px" />
+					<h:graphicImage alt="#{msgs['MENU.GESTIONCONTACTS']}"
+						title="#{msgs['MENU.GESTIONCONTACTS']}"
+						value="../../media/images/edit.png" style="border:0" />
+					<rich:spacer width="5px" />
+					<e:text
+						value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CONTACTS.MODIF']}"
+						escape="false" />
+					<rich:spacer width="10px" />
+					<h:graphicImage alt="#{msgs['MENU.GESTIONCONTACTS']}"
+						title="#{msgs['MENU.GESTIONCONTACTS']}"
+						value="../../media/images/delete.png" style="border:0" />
+					<rich:spacer width="5px" />
+					<e:text
+						value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CONTACTS.SUPPRIMER']}"
+						escape="false" />
+				</e:li>
+			</e:ul>
+		</e:li>
+		<e:li>
+			<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
+				title="#{msgs['MENU.GESTIONOFFRES']}"
+				value="../../media/images/list.png" style="border:0" />
+			<rich:spacer width="5px" />
+			<e:text value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES']}"
+				escape="false" />
+			<e:ul>
+				<e:li>
+					<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
+						title="#{msgs['MENU.GESTIONOFFRES']}"
+						value="../../media/images/new.png" style="border:0" />
+					<rich:spacer width="5px" />
+					<e:text
+						value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.CREATION']}"
+						escape="false" />
+					<rich:spacer width="10px" />
+					<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
+						title="#{msgs['MENU.GESTIONOFFRES']}"
+						value="../../media/images/edit.png" style="border:0" />
+					<rich:spacer width="5px" />
+					<e:text
+						value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.MODIF']}"
+						escape="false" />
+					<rich:spacer width="10px" />
+					<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
+						title="#{msgs['MENU.GESTIONOFFRES']}"
+						value="../../media/images/delete.png" style="border:0" />
+					<rich:spacer width="5px" />
+					<e:text
+						value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.SUPPRIMER']}"
+						escape="false" />
+				</e:li>
+				<e:li>
+					<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
+						title="#{msgs['MENU.GESTIONOFFRES']}"
+						value="../../media/images/flag_green.png" style="border:0" />
+					<rich:spacer width="5px" />
+					<e:text
+						value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.DIFFUSION']}"
+						escape="false" />
+				</e:li>
+				<e:li
+					rendered="#{sessionController.autoriserEntrepriseAReserverOffre}">
+					<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
+						title="#{msgs['MENU.GESTIONOFFRES']}"
+						value="../../media/images/target.png" style="border:0" />
+					<rich:spacer width="5px" />
+					<e:text
+						value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.CIBLAGE']}"
+						escape="false" />
+				</e:li>
+				<e:li>
+					<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
+						title="#{msgs['MENU.GESTIONOFFRES']}"
+						value="../../media/images/lock.png" style="border:0" />
+					<rich:spacer width="5px" />
+					<e:text
+						value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.POURVUE']}"
+						escape="false" />
+				</e:li>
+			</e:ul>
+		</e:li>
+		<e:li>
+			<h:graphicImage alt="#{msgs['MENU.MODIFMDP']}"
+				title="#{msgs['MENU.MODIFMDP']}" value="../../media/images/edit.png"
+				style="border:0" />
+			<rich:spacer width="5px" />
+			<e:text value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.MDP']}"
+				escape="false" />
+		</e:li>
+		<e:li rendered="#{sessionController.cvtheque}" >
+			<h:graphicImage alt="#{msgs['MENU.GESTIONCVTHEQUE']}"
+				title="#{msgs['MENU.GESTIONCVTHEQUE']}" value="../../media/images/group.png"
+				style="border:0" />
+			<rich:spacer width="5px" />
+			<e:text value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CVTHEQUE']}"
+				escape="false" />
+		</e:li>
+		<e:li >
+			<h:graphicImage alt="#{msgs['MENU.AIDE']}"
+				title="#{msgs['MENU.AIDE']}" value="../../media/images/information.png"
+				style="border:0" />
+			<rich:spacer width="5px" />
+			<e:text value=": #{msgs['MENU.AIDEENTREPRISE']}"
+				escape="false" />
+		</e:li>
+	</e:ul>
+</e:panelGrid>
+<e:panelGrid columns="2">
+	<h:graphicImage alt="#{msgs['GENERAL.DECONNEXION']}"
+		title="#{msgs['GENERAL.DECONNEXION']}"
+		value="../../media/images/cancel.png" style="border:0" />
+	<e:bold value=": #{msgs['AIDEGENERAL.ENTREPRISE.DECONNEXION']}"
+		escape="false" />
+</e:panelGrid>

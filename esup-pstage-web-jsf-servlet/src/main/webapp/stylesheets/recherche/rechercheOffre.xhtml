@@ -1,0 +1,44 @@
+<%@include file="../_include.jsp"%>
+
+<e:page stringsVar="msgs" locale="#{sessionController.locale}"
+	authorized="true">
+	<e:panelGrid columns="1"
+		styleClass="panelRecherche">
+		<rich:panel>
+			<f:facet name="header">
+				<e:text value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+			</f:facet>
+			<h:form id="formRechOffre">
+				<%@include file="../_commun/_rechercheOffre.jsp"%>
+				<e:panelGrid columns="5">
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
+						action="#{offreController.rechercherOffrePublic}">
+						<f:setPropertyActionListener value="#{null}"
+							target="#{offreController.critereRechercheOffre.typeStructure}" />
+						<f:setPropertyActionListener value="#{true}"
+							target="#{offreController.critereRechercheOffre.inclureOffresEntreprise}" />
+						<f:setPropertyActionListener value="#{true}"
+							target="#{offreController.critereRechercheOffre.estDiffusee}" />
+						<f:setPropertyActionListener value="#{false}"
+							target="#{offreController.critereRechercheOffre.diffusionTerminee}" />
+						<f:setPropertyActionListener value="#{false}"
+							target="#{offreController.critereRechercheOffre.estSupprimee}" />
+					</h:commandButton>
+					<rich:spacer width="100px" />
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
+						action="#{offreController.rechercheSimpleAvancee}"
+						rendered="#{offreController.rechercheAvancee}" />
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
+						action="#{offreController.rechercheSimpleAvancee}"
+						rendered="#{!offreController.rechercheAvancee}" />
+					<rich:spacer width="20px" />
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
+						action="#{offreController.resetRechercheOffre}" />
+				</e:panelGrid>
+			</h:form>
+			<rich:message for="formRechOffre" style="color:red;font-weight:bold;">
+				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			</rich:message>
+		</rich:panel>
+	</e:panelGrid>
+</e:page>

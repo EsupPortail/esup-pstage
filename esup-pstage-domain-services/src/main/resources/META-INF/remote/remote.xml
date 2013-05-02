@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- esup-pstagedata -->
+	<bean id="remoteServices"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${pstagedata.serviceUrl}" />
+		<property name="serviceInterface"
+			value="org.esupportail.pstagedata.remote.RemoteServices" />
+	</bean>
+	
+	<!-- ws si -->
+	<bean id="remoteCriApogeeEns"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${readEnseignement.urlService}" />
+		<property name="serviceInterface"
+			value="org.esupportail.wssi.services.remote.ReadEnseignement" />
+	</bean>
+	
+	<!-- ws apogee -->
+	<bean id="administratifMetierService"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${administratifMetier.urlService}" />
+		<property name="serviceInterface"
+			value="administratifmetier_17062009_impl.servicesmetiers.commun.apogee.education.gouv.AdministratifMetierServiceInterface" />
+	</bean>
+	<bean id="etudiantMetierService"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${etudiantMetier.urlService}" />
+		<property name="serviceInterface"
+			value="etudiantwebserviceimpl.impl.webservices.commun.apogee.education.gouv.EtudiantMetierServiceInterface" />
+	</bean>
+	<bean id="geographieMetierService"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${geographieMetier.urlService}" />
+		<property name="serviceInterface"
+			value="geographiemetier_06062007_impl.servicesmetiers.commun.apogee.education.gouv.GeographieMetierServiceInterface" />
+	</bean>
+	<bean id="offreFormationMetierService"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${offreFormationMetier.urlService}" />
+		<property name="serviceInterface"
+			value="offreformationmetier_19072010_impl.servicesmetiers.commun.apogee.education.gouv.OffreFormationMetierServiceInterface" />
+	</bean>
+	<bean id="pedagogiqueMetierService"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${pedagogiqueMetier.urlService}" />
+		<property name="serviceInterface"
+			value="pedagogiquemetier_28022011_impl.servicesmetiers.commun.apogee.education.gouv.PedagogiqueMetierServiceInterface" />
+	</bean>
+	<bean id="referentielMetierService"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl" value="${referentielMetier.urlService}" />
+		<property name="serviceInterface"
+			value="referentielmetier_18062010_impl.servicesmetiers.commun.apogee.education.gouv.ReferentielMetierServiceInterface" />
+	</bean>
+
+</beans>

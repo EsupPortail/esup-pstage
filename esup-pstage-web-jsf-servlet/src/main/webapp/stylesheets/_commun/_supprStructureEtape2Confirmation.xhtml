@@ -1,0 +1,5 @@
+<%@include file="_confirmationMessages.jsp"%>
+
+<a4j:commandButton ajaxSingle="true"
+value="#{msgs['GENERAL.CLOSE']}" action="_supprStructureEtape1"
+	onclick="#{rich:component('supprimerStructurePanel')}.hide();" />

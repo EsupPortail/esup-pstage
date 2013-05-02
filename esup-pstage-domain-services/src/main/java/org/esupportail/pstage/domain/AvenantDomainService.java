@@ -7,11 +7,11 @@ package org.esupportail.pstage.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.esupportail.pstagedata.remote.AvenantDTO;
-import org.esupportail.pstagedata.remote.DataAddException_Exception;
-import org.esupportail.pstagedata.remote.DataDeleteException_Exception;
-import org.esupportail.pstagedata.remote.DataUpdateException_Exception;
-import org.esupportail.pstagedata.remote.WebServiceDataBaseException_Exception;
+import org.esupportail.pstagedata.domain.dto.AvenantDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 
 
 /**
@@ -36,23 +36,23 @@ public interface AvenantDomainService extends Serializable {
 	/**
 	 * @param a
 	 * @return int
-	 * @throws DataAddException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public int addAvenant(AvenantDTO a) throws DataAddException_Exception, WebServiceDataBaseException_Exception;
+	public int addAvenant(AvenantDTO a) throws DataAddException, WebServiceDataBaseException;
 	/**
 	 * @param a
 	 * @return boolean
-	 * @throws DataUpdateException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean updateAvenant(AvenantDTO a) throws DataUpdateException_Exception, WebServiceDataBaseException_Exception;
+	public boolean updateAvenant(AvenantDTO a) throws DataUpdateException, WebServiceDataBaseException;
 	/**
 	 * @param idAvenant
 	 * @return boolean
-	 * @throws DataDeleteException_Exception 
-	 * @throws WebServiceDataBaseException_Exception 
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean deleteAvenant(int idAvenant) throws DataDeleteException_Exception, WebServiceDataBaseException_Exception;
+	public boolean deleteAvenant(int idAvenant) throws DataDeleteException, WebServiceDataBaseException;
 
 }

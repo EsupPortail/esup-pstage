@@ -1,0 +1,53 @@
+<%@include file="../_include.jsp"%>
+<%
+	/*
+	 Headers communs pour chaque moteur de recherche établissement
+
+	 A inclure dans la zone header de la dataTable 
+
+	 /!\ La dataTable doit avoir ces paramètres :
+	 id="rechercheStructureDataTable" 
+	 rowIndexVar="rowRechercheStructureDataTable"
+	 var="varRechercheStructure"
+	 */
+%>
+<rich:column>
+	<e:text value="#{varRechercheStructure.raisonSociale}" title="#{varRechercheStructure.raisonSociale}">
+		<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+	</e:text>
+	<h:graphicImage id="avecAc" alt="°"
+		value="../../media/images/bullet_green.png" style="border:0" 
+		rendered="#{varRechercheStructure.idAccordPartenariat>0 && !welcomeController.etudiant}"/>
+	<rich:toolTip value="#{msgs['STRUCTURE.AVECACCORD']}" for="avecAc"/>
+</rich:column>
+<rich:column>
+	<e:text value="#{varRechercheStructure.numeroSiret}" />
+</rich:column>
+<rich:column>
+	<e:text value="#{varRechercheStructure.batimentResidence}" title="#{varRechercheStructure.batimentResidence}">
+		<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+	</e:text>
+</rich:column>
+<rich:column>
+	<e:text value="#{varRechercheStructure.voie}" title="#{varRechercheStructure.voie}">
+		<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+	</e:text>
+</rich:column>
+<rich:column>
+	<e:text value="#{varRechercheStructure.codePostal}" />
+</rich:column>
+<rich:column>
+	<e:text value="#{varRechercheStructure.commune}" title="#{varRechercheStructure.commune}">
+		<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+	</e:text>
+</rich:column>
+<rich:column>
+	<e:panelGrid columns="2" style="font-size:12px;">
+		<h:graphicImage id="flag"
+			rendered="#{not empty varRechercheStructure.pays}"
+			value="../../media/images/flags/#{varRechercheStructure.pays.iso2}.png"
+			alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+			title="#{varRechercheStructure.pays.libelle}" />
+		<e:text value="#{varRechercheStructure.pays.libelle}" />
+	</e:panelGrid>
+</rich:column>

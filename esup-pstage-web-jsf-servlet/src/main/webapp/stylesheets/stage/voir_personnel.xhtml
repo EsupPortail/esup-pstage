@@ -1,0 +1,131 @@
+<%@include file="../_include.jsp"%>
+<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+	<jsp:include page="/stylesheets/_header.jsp" />
+	<t:div>
+		<t:div styleClass="app-pagebar">
+			<h:form id="navigationHeader" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</h:form>
+		</t:div>
+		<t:div id="body" styleClass="app-body fl-col-flex2">
+			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+				<!--  la navigation -->
+				<%@include file="_menuDynamiqueStage.jsp"%>
+			</t:div>
+			<t:div id="content" styleClass="app-content fl-col-flex85">
+				<!-- contenu de la page -->
+				<rich:panel
+					rendered="#{(welcomeController.superAdmin || welcomeController.enseignant
+		|| welcomeController.personnel) && centreController.centre != null && centreController.personnel != null}">
+					<f:facet name="header">
+						<e:text
+							value="#{msgs['CENTRE.PERSONNEL.VOIR.HEAD']} #{centreController.personnel.nom} #{centreController.personnel.prenom}" />
+					</f:facet>
+					<%@include file="./_menu_centre.jsp"%>
+					<h:form>
+						<e:panelGrid columns="1" align="center">
+							<e:panelGrid columns="3">
+								<e:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}" 
+									for="nom" />
+								<rich:spacer width="20" />
+								<e:text id="nom" value="#{centreController.personnel.nom}" />
+
+								<e:outputLabel value="#{msgs['CENTRE.PERSONNEL.PRENOM']}"
+									for="prenom" />
+								<rich:spacer width="20" />
+								<e:text id="prenom" value="#{centreController.personnel.prenom}" />
+
+								<e:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.MAIL']}"
+									for="mail" />
+								<rich:spacer width="20" />
+								<e:text id="mail" value="#{centreController.personnel.mail}" />
+
+								<e:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.TEL']}"
+									for="tel" />
+								<rich:spacer width="20" />
+								<e:text id="tel" value="#{centreController.personnel.tel}" />
+
+								<e:outputLabel value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}"
+									for="compo" />
+								<rich:spacer width="20" />
+								<e:text id="compo"
+									value="#{centreController.personnel.affectation.libelle}" />
+
+								<e:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.CAMPUS']}"
+									for="campus" />
+								<rich:spacer width="20" />
+								<e:text id="campus" value="#{centreController.personnel.campus}" />
+
+								<e:outputLabel
+									value="#{msgs['CENTRE.PERSONNEL.AJOUT.BATIMENT']}"
+									for="batiment" />
+								<rich:spacer width="20" />
+								<e:text id="batiment"
+									value="#{centreController.personnel.batiment}" />
+
+								<e:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.BUREAU']}"
+									for="bureau" />
+								<rich:spacer width="20" />
+								<e:text id="bureau" value="#{centreController.personnel.bureau}" />
+
+								<e:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT']}"
+									for="droit" />
+								<rich:spacer width="20" />
+								<e:text id="droit"
+									value="#{centreController.personnel.droitAdmin.libelle}" />
+							</e:panelGrid>
+
+							<e:panelGrid columns="1">
+								<e:outputLabel for=""
+									value="#{msgs['CENTRE.PERSONNEL.AJOUT.CONVENTION']}" />
+								<e:panelGrid align="center" columns="1">
+									<e:text
+										rendered="#{centreController.personnel.impressionConvention}"
+										value="#{msgs['FORM.OUI']}" />
+									<e:text
+										rendered="#{!centreController.personnel.impressionConvention}"
+										value="#{msgs['FORM.NON']}" />
+								</e:panelGrid>
+							</e:panelGrid>
+
+							<rich:spacer height="20" />
+
+							<t:htmlTag value="center">
+								<a4j:commandButton ajaxSingle="true" id="modify"
+									rendered="#{welcomeController.superAdmin
+							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
+									value="#{msgs['FORM.MODIFIER']}"
+									action="#{centreController.goToModifPersonnel}" />
+							</t:htmlTag>
+
+							<h:commandButton id="retour" value="#{msgs['GENERAL.RETOUR']}"
+								action="#{centreController.goToListePersonnel}" />
+							<rich:toolTip for="retour"
+								value="#{msgs['CENTRE.PERSONNEL.RETOUR']}" />
+						</e:panelGrid>
+						<rich:spacer height="15" />
+					</h:form>
+				</rich:panel>
+				<t:div
+					rendered="#{!welcomeController.superAdmin && !welcomeController.enseignant 
+		&& !welcomeController.personnel}">
+					<%@include file="./_redirection_droitsInsuffisants.jsp"%>
+				</t:div>
+				<t:div
+					rendered="#{(welcomeController.superAdmin || welcomeController.enseignant || welcomeController.personnel)
+		&& (centreController.centre == null || centreController.personnel == null)}">
+					<%@include file="./_redirection_accesDirectImpossible.jsp"%>
+				</t:div>
+			</t:div>
+		</t:div>
+		<t:div styleClass="fl-container-flex">
+			<e:form id="navigationFooter" styleClass="app-form">
+				<%@include file="/stylesheets/_navigation.jsp"%>
+			</e:form>
+		</t:div>
+		<%@include file="/stylesheets/_script_navigations.jsp"%>
+		<script type="text/javascript">
+			hideButton("welcomeManagerForm:localeChangeButton");
+		</script>
+	</t:div>
+</e:page>
