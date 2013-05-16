@@ -1,41 +1,48 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1">
-	<e:text value=" " id="formModifEtab" />
-	<rich:message for="formModifEtab">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
-	</rich:message>
+	<h:panelGrid columns="1">
+		<h:outputText value=" " id="formModifEtab" />
+		<rich:message for="formModifEtab">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
 
-	<e:text value="#{msgs['STRUCTURE.AUCUN']}"
-		rendered="#{empty etablissementController.formStructure}" />
-	<t:div rendered="#{not empty etablissementController.formStructure}">
-		<%@include file="../_commun/_etablissementForm.jsp"%>
-	</t:div>
+		<h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
+			rendered="#{empty etablissementController.formStructure}" />
+		<t:div rendered="#{not empty etablissementController.formStructure}">
+			<ui:include src="../_commun/_etablissementForm.xhtml" />
+		</t:div>
 
-	<e:panelGrid columns="5">
-		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-			action="_modificationOffreEtape04DetailsEtab"
-			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-			immediate="true" rendered="#{offreController.typeAjoutModifOffre>1}"/>
-		<rich:spacer width="20px" />
-		<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
-			action="#{offreController.modifierOffreModifierEtablissement}"
-			alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-			rendered="#{not empty etablissementController.formStructure}">
-			<a4j:support event="onclick" reRender="opFCE" />
-		</h:commandButton>
-		<rich:spacer width="20px" />
-		<a4j:outputPanel id="opFCE">
-			<e:panelGrid columns="3"
-				rendered="#{facesContext.maximumSeverity != null}">
-				<h:graphicImage value="../../media/images/arrow_up.png"
-					alt="#{msgs['GENERAL.ARROW_UP']}"
-					title="#{msgs['GENERAL.ARROW_UP']}" />
-				<e:text value="#{msgs['FORM.FORMERROR']}" />
-				<h:graphicImage value="../../media/images/arrow_up.png"
-					alt="#{msgs['GENERAL.ARROW_UP']}"
-					title="#{msgs['GENERAL.ARROW_UP']}" />
-			</e:panelGrid>
-		</a4j:outputPanel>
-	</e:panelGrid>
-</e:panelGrid>
+		<h:panelGrid columns="5">
+			<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				action="_modificationOffreEtape04DetailsEtab"
+				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+				immediate="true" rendered="#{offreController.typeAjoutModifOffre>1}" />
+			<t:htmlTag value="div" style="width: 20px;" />
+			<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
+				action="#{offreController.modifierOffreModifierEtablissement}"
+				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+				rendered="#{not empty etablissementController.formStructure}">
+				<a4j:ajax event="click" reRender="opFCE" />
+			</h:commandButton>
+			<t:htmlTag value="div" style="width: 20px;" />
+			<a4j:outputPanel id="opFCE">
+				<h:panelGrid columns="3"
+					rendered="#{facesContext.maximumSeverity != null}">
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+					<h:outputText value="#{msgs['FORM.FORMERROR']}" />
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+				</h:panelGrid>
+			</a4j:outputPanel>
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:fragment>
