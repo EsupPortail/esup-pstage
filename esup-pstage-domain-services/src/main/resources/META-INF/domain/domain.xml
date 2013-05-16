@@ -156,9 +156,9 @@
 	<!-- acces aux composansts sur les statistiques -->
 
 	<bean id="statistiquesDomainService"
-		class="org.esupportail.pstage.domain.statistiques.StatistiquesDomainServiceImpl"
+		class="org.esupportail.pstage.domain.StatistiquesDomainServiceImpl"
 		lazy-init="true">
-		<property name="remoteServices" ref="remoteServices"></property>
+		<property name="remoteServices" ref="remoteServices"/>
 	</bean>
 
 </beans>

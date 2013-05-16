@@ -9,8 +9,8 @@
 	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
-	<bean id="databaseManagerStore"
-		class="org.esupportail.commons.services.database.EmptyDatabaseManagerStoreImpl" />
+<!-- 	<bean id="databaseManagerStore class="org.esupportail.commons.services.database.EmptyDatabaseManagerStoreImpl" /> -->
+
 	<bean id="daoService" class="org.esupportail.pstage.dao.EmptyDaoService" />
 
 	<bean id="geographieRepositoryDao"

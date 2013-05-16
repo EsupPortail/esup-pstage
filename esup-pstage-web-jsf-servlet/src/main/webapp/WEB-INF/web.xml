@@ -35,19 +35,24 @@
 		<param-name>javax.faces.CONFIG_FILES
 		</param-name>
 		<param-value>
-			/WEB-INF/classes/properties/jsf/navigation-rules.xml
+			/WEB-INF/navigation-rules.xml
 		</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
+		<param-value>false</param-value>
 	</context-param>
 
 	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
-    <context-param>
-        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    
+	<context-param>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
 	<context-param>
 		<param-name>org.apache.myfaces.PRETTY_HTML
 		</param-name>
@@ -85,7 +90,7 @@
 		</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<param-name>org.apache.myfaces.ERROR_HANDLER
 		</param-name>
@@ -104,23 +109,23 @@
 	<!--BEGIN-RICHFACES -->
 	<!-- Plugging the skin into the project -->
 	<context-param>
-		<param-name>org.richfaces.SKIN</param-name>
+		<param-name>org.richfaces.skin</param-name>
 		<param-value>classic</param-value>
 	</context-param>
 
 	<!-- Making the RichFaces skin spread to standard HTML controls -->
 	<context-param>
-		<param-name>org.richfaces.CONTROL_SKINNING
+		<param-name>org.richfaces.enableControlSkinning
 		</param-name>
-		<param-value>enable</param-value>
+		<param-value>true</param-value>
 	</context-param>
 
 	<!-- Encryption put to false -->
-	<context-param>
-		<param-name>org.apache.myfaces.USE_ENCRYPTION
-		</param-name>
-		<param-value>false</param-value>
-	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>org.apache.myfaces.USE_ENCRYPTION -->
+<!-- 		</param-name> -->
+<!-- 		<param-value>false</param-value> -->
+<!-- 	</context-param> -->
 
 	<!-- Handling ViewExpiredException -->
 	<context-param>
@@ -131,15 +136,17 @@
 
 	<!--END-RICHFACES -->
 
-
-	<!-- CAS -->
 	<filter>
 		<filter-name>CAS Authentication Filter</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
+		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter
 		</filter-class>
 		<init-param>
-			<param-name>targetBeanName</param-name>
-			<param-value>authenticationFilter</param-value>
+			<param-name>casServerLoginUrl</param-name>
+			<param-value>https://auth.univ-artois.fr/cas/login</param-value>
+		</init-param>
+		<init-param>
+			<param-name>serverName</param-name>
+			<param-value>http://localhost:8080</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
@@ -150,25 +157,36 @@
 		<filter-name>CAS Authentication Filter</filter-name>
 		<url-pattern>/stylesheets/stage/*</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CAS Authentication Filter</filter-name>
-		<url-pattern>/stylesheets/centre/*</url-pattern>
-	</filter-mapping>
 
 	<filter>
 		<filter-name>CAS Validation Filter</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
+		<filter-class>org.jasig.cas.client.validation.Cas10TicketValidationFilter
 		</filter-class>
 		<init-param>
-			<param-name>targetBeanName</param-name>
-			<param-value>ticketValidationFilter</param-value>
+			<param-name>casServerUrlPrefix</param-name>
+			<param-value>https://auth.univ-artois.fr/cas</param-value>
+		</init-param>
+		<init-param>
+			<param-name>serverName</param-name>
+			<param-value>http://localhost:8080</param-value>
 		</init-param>
 	</filter>
+
 	<filter-mapping>
 		<filter-name>CAS Validation Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- END CAS -->
+
+	<filter>
+		<filter-name>CASLogout</filter-name>
+		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter
+		</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CASLogout</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<servlet>
 		<description>
@@ -266,6 +284,12 @@
 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
 		</listener-class>
 	</listener>
 

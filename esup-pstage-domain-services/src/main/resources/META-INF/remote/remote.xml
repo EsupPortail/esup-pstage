@@ -8,12 +8,15 @@
 	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
 	<!-- esup-pstagedata -->
-	<bean id="remoteServices"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="${pstagedata.serviceUrl}" />
-		<property name="serviceInterface"
-			value="org.esupportail.pstagedata.remote.RemoteServices" />
-	</bean>
+<!-- 	<bean id="remoteServices" -->
+<!-- 		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean"> -->
+<!-- 		<property name="serviceUrl" value="${pstagedata.serviceUrl}" /> -->
+<!-- 		<property name="serviceInterface" -->
+<!-- 			value="org.esupportail.pstagedata.remote.RemoteServices" /> -->
+<!-- 	</bean> -->
+	<jaxws:client id="remoteServices"
+		serviceClass="org.esupportail.pstagedata.remote.RemoteServices"
+		address="${pstagedata.serviceUrl}" />
 	
 	<!-- ws si -->
 	<bean id="remoteCriApogeeEns"
