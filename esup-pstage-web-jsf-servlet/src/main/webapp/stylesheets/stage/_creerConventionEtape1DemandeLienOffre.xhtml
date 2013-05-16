@@ -1,33 +1,40 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE']}" />
-	</f:facet>
-	<rich:spacer height="20px" />
-	<e:text value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.DEMANDE']}"
-		escape="false" />
-	<rich:spacer height="20px" />
-	<e:panelGrid columns="2" style="font-size:11px;">
-		<h:graphicImage alt="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
-			title="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
-			value="../../media/images/information.png" style="border:0" />
-		<e:text value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}" />
-	</e:panelGrid>
-	<rich:spacer height="10px" />
-	<e:panelGrid columns="3">
-		<a4j:commandButton value="#{msgs['FORM.OUI']}"
-			action="#{conventionController.goToCreerConventionEtape1Offre}">
-		</a4j:commandButton>
-		<rich:spacer width="100px" />
-		<a4j:commandButton value="#{msgs['FORM.NON']}"
-			action="#{conventionController.goToCreerConventionEtape2Etab}" />
-	</e:panelGrid>
-	<rich:spacer height="10px" />
-	<e:panelGrid columns="1">
-		<a4j:commandButton
-			action="#{conventionController.goToCreerConventionEtape1ConfirmInfosEtu}"
-			value="#{msgs['FORM.PREVIOUS']}" immediate="true">
-		</a4j:commandButton>
-	</e:panelGrid>
-</e:panelGrid>
+	<h:panelGrid columns="1">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE']}" />
+		</f:facet>
+		<t:htmlTag value="div" style="height: 20px;" />
+		<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.DEMANDE']}"
+			escape="false" />
+		<t:htmlTag value="div" style="height: 20px;" />
+		<h:panelGrid columns="2" style="font-sizh:11px;">
+			<h:graphicImage alt="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
+				title="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
+				value="../../media/images/information.png" style="border:0" />
+			<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}" />
+		</h:panelGrid>
+		<t:htmlTag value="div" style="height: 10px;" />
+		<h:panelGrid columns="3">
+			<a4j:commandButton value="#{msgs['FORM.OUI']}"
+				action="#{conventionController.goToCreerConventionEtape1Offre}">
+			</a4j:commandButton>
+			<t:htmlTag value="div" style="width: 100px;" />
+			<a4j:commandButton value="#{msgs['FORM.NON']}"
+				action="#{conventionController.goToCreerConventionEtape2Etab}" />
+		</h:panelGrid>
+		<t:htmlTag value="div" style="height: 10px;" />
+		<h:panelGrid columns="1">
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionEtape1ConfirmInfosEtu}"
+				value="#{msgs['FORM.PREVIOUS']}" immediate="true">
+			</a4j:commandButton>
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:fragment>

@@ -1,61 +1,41 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}" authorized="true">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div >
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="/stylesheets/stage/_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<%@include file="_roadmapSel.jsp"%>
-				<rich:panel>
+<<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<ui:include src="_roadmapSel.xhtml" />
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText
+					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+			</f:facet>
+			<h:form id="formSelConvention">
+				<h:panelGrid columns="1">
 					<f:facet name="header">
-						<e:text value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+						<h:outputText value="#{msgs['CONVENTION.ETAPE5.STAGE']}" />
 					</f:facet>
-					<h:form id="formSelConvention">
-						<e:panelGrid columns="1">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['CONVENTION.ETAPE5.STAGE']}" />
-							</f:facet>
-							<rich:spacer height="20" />
-							<e:text value="" />
-							<e:panelGrid columns="1">
-								<%@include
-									file="/stylesheets/stage/_conventionEtape5DetailsStage.jsp"%>
-							</e:panelGrid>
-							<e:panelGrid columns="1">
-								<h:commandButton id="modifStage"
-									value="#{msgs['FORM.MODIFIER']}"
-									action="#{conventionController.goToConventionModifStage}"
-									alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-									rendered="#{(not empty conventionController.convention && !conventionController.conventionValide)&& (welcomeController.superAdmin 
+					<t:htmlTag value="div" style="height: 20px;" />
+					<h:outputText value="" />
+					<h:panelGrid columns="1">
+						<ui:include
+							src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
+					</h:panelGrid>
+					<h:panelGrid columns="1">
+						<h:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
+							action="#{conventionController.goToConventionModifStage}"
+							alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+							rendered="#{(not empty conventionController.convention && !conventionController.conventionValide)&& (welcomeController.superAdmin 
 									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture || welcomeController.etudiant)}">
-
-								</h:commandButton>
-							</e:panelGrid>
-
-						</e:panelGrid>
-					</h:form>
-				</rich:panel>
-			</t:div>	
-		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<h:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
 			</h:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-		hideButton("welcomeManagerForm:localeChangeButton");
-	</script>
-	</t:div>
-
-</e:page>
+		</rich:panel>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,42 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+	
+
+	<t:htmlTag value="ul" styleClass="app-pagebar">
+		<t:htmlTag value="li" styleClass="app-pagebar-item">
+			<h:commandButton id="welcome"
+				value="#{msgs['NAVIGATION.TEXT.WELCOME']}"
+				action="#{welcomeController.goToAccueilStage}"
+				accesskey="#{msgs['NAVIGATION.ACCESSKEY.WELCOME']}" />
+		</t:htmlTag>
+		<t:htmlTag value="li" styleClass="app-pagebar-item">
+			<h:commandButton id="faq" value="#{msgs['NAVIGATION.TEXT.HELP']}"
+				onclick="openPage('#{sessionController.baseUrl }stylesheets/stage/help/faq.html','#{msgs['APPLICATION.BIG_TITLE']}','')" />
+		</t:htmlTag>
+		<t:htmlTag value="li" styleClass="app-pagebar-item">
+			<h:commandButton id="sigPB"
+				value="#{msgs['NAVIGATION.TEXT.ASSISTANCE']}"
+				rendered="#{sessionController.assistance}"
+				onclick="openPage('#{sessionController.urlAssistance }','#{msgs['APPLICATION.BIG_TITLE']}','')" />
+		</t:htmlTag>
+		<t:htmlTag value="li" styleClass="app-pagebar-item">
+			<h:commandButton id="login" action="casLogin"
+				value="#{msgs['NAVIGATION.TEXT.LOGIN']}"
+				accesskey="#{msgs['NAVIGATION.ACCESSKEY.LOGIN']}"
+				rendered="#{sessionController.printLogin}" />
+		</t:htmlTag>
+		<t:htmlTag value="li" styleClass="app-pagebar-item">
+			<h:commandButton id="logout" value="#{msgs['NAVIGATION.TEXT.LOGOUT']}"
+				action="#{sessionController.logout}"
+				accesskey="#{msgs['NAVIGATION.ACCESSKEY.LOGOUT']}"
+				rendered="#{sessionController.printLogout}" />
+		</t:htmlTag>
+	</t:htmlTag>
+
+</ui:fragment>

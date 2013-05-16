@@ -1,19 +1,22 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1"
-	rendered="#{not empty conventionController.convention.contact && conventionController.convention.contact.id > 0}">
-
-	<e:text value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}" escape="false" />
-	<rich:spacer width="50px" />
-	<%@include	file="/stylesheets/stage/_conventionEtape4ContactColumns.jsp"%>
-	
-</e:panelGrid>
-
-<e:panelGrid columns="1"
-	rendered="#{empty conventionController.convention.contact || conventionController.convention.contact.id == 0}">
-
-	<e:text value="#{msgs['CONTACT.AUCUNCONTACT']}" escape="false" />
-	<rich:spacer width="50px" />
-	
-	
-</e:panelGrid>
+	<h:panelGrid columns="1"
+		rendered="#{not empty conventionController.convention.contact && conventionController.convention.contact.id > 0}">
+		<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+			escape="false" />
+		<rich:spacer width="50px" />
+		<ui:include
+			src="/stylesheets/stage/_conventionEtape4ContactColumns.xhtml" />
+	</h:panelGrid>
+	<h:panelGrid columns="1"
+		rendered="#{empty conventionController.convention.contact || conventionController.convention.contact.id == 0}">
+		<h:outputText value="#{msgs['CONTACT.AUCUNCONTACT']}" escape="false" />
+		<rich:spacer width="50px" />
+	</h:panelGrid>
+</ui:fragment>

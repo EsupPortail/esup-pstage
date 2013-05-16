@@ -1,8 +1,15 @@
-<%@include file="_include.jsp"%>
-
-<e:page stringsVar="msgs" locale="#{sessionController.locale}" authorized="true">
-	<h:outputLink value="./depot/">Vers depot d'offres</h:outputLink>
-	<t:htmlTag value="br"/>
-	<h:outputLink value="./stage/">Vers stage</h:outputLink>
-</e:page>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<!-- 	<f:view locale="#{sessionController.locale}"> -->
+		<h:outputLink value="/stylesheets/depot/welcome.xhtml">Vers depot d'offres</h:outputLink>
+		<t:htmlTag value="br" />
+		<h:outputLink value="/stylesheets/stage/welcome.xhtml">Vers stage</h:outputLink>
+		<h:panelGroup layout="block" styleClass="app-footer">
+			<h:outputText value="#{msgs['COPYRIGHT']}" />
+		</h:panelGroup>
+<!-- 	</f:view> -->
+</html>

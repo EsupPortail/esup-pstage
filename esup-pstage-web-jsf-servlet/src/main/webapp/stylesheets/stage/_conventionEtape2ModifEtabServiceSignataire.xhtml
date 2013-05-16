@@ -1,49 +1,58 @@
-<%@include file="../_include.jsp"%>
-<e:panelGrid columns="1"
-	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-	<rich:panel>
-		<f:facet name="header">
-			<e:text value="#{msgs['CONVENTION.ETAPE2.MODIFSERVICESIGNATIRE']}" />
-		</f:facet>
-		<e:panelGrid columns="1">
-			
-			<t:div id="information">
-				<rich:message for="information">
-					<%@include file="../_commun/_messageInfoMarker.jsp"%>
-				</rich:message>
-			</t:div>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-			<a4j:commandButton ajaxSingle="true"
-				oncomplete="#{rich:component('selectServiceSignataire')}.show()"
-				value="#{msgs['CONVENTION.ETAPE2.MODIF.SERVICESIGNATAIRE.SELEC']}">
-				<f:setPropertyActionListener value="#{0}"
-					target="#{etablissementController.idContactSel}" />
-				<f:setPropertyActionListener value="#{null}"
-					target="#{etablissementController.contactSel}" />
-				<f:setPropertyActionListener value="#{0}"
-					target="#{etablissementController.idServiceSel}" />
-				<f:setPropertyActionListener value="#{null}"
-					target="#{etablissementController.serviceSel}" />
-				<f:setPropertyActionListener value="#{false}"
-					target="#{etablissementController.afficherSelectionCentreContact}" />
-			</a4j:commandButton>
-			<rich:modalPanel id="selectServiceSignataire" autosized="true" width="400"
-				styleClass="panel" domElementAttachment="parent">
-				<%@include file="../_commun/_subPanelSelectContact.jsp"%>
-				<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-					oncomplete="#{rich:component('selectServiceSignataire')}.hide();"
-					ignoreDupResponses="true" 
-					action="#{conventionController.goToConventionModifEtabServiceSignataire}">
-					
-					<f:setPropertyActionListener
-						value="#{etablissementController.contactSel}"
-						target="#{conventionController.convention.signataire}" />
+	<h:panelGrid columns="1"
+		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText
+					value="#{msgs['CONVENTION.ETAPE2.MODIFSERVICESIGNATIRE']}" />
+			</f:facet>
+			<h:panelGrid columns="1">
+
+				<t:div id="information">
+					<rich:message for="information">
+						<ui:include src="../_commun/_messageInfoMarker.xhtml" />
+					</rich:message>
+				</t:div>
+
+				<a4j:commandButton ajaxSingle="true"
+					oncomplete="#{rich:component('selectServiceSignataire')}.show()"
+					value="#{msgs['CONVENTION.ETAPE2.MODIF.SERVICESIGNATAIRE.SELEC']}">
+					<f:setPropertyActionListener value="#{0}"
+						target="#{etablissementController.idContactSel}" />
+					<f:setPropertyActionListener value="#{null}"
+						target="#{etablissementController.contactSel}" />
+					<f:setPropertyActionListener value="#{0}"
+						target="#{etablissementController.idServiceSel}" />
+					<f:setPropertyActionListener value="#{null}"
+						target="#{etablissementController.serviceSel}" />
+					<f:setPropertyActionListener value="#{false}"
+						target="#{etablissementController.afficherSelectionCentreContact}" />
 				</a4j:commandButton>
-				<rich:spacer width="150px" />
-				<a4j:commandButton value="#{msgs['FORM.CANCEL']}" ajaxSingle="true"
-					onclick="#{rich:component('selectServiceSignataire')}.hide();return false;" />
-			</rich:modalPanel>
+				<rich:modalPanel id="selectServiceSignataire" autosized="true"
+					width="400" styleClass="panel" domElementAttachment="parent">
+					<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
+					<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+						oncomplete="#{rich:component('selectServiceSignataire')}.hide();"
+						ignoreDupResponses="true"
+						action="#{conventionController.goToConventionModifEtabServiceSignataire}">
 
-		</e:panelGrid>
-	</rich:panel>
-</e:panelGrid>
+						<f:setPropertyActionListener
+							value="#{etablissementController.contactSel}"
+							target="#{conventionController.convention.signataire}" />
+					</a4j:commandButton>
+					<rich:spacer width="150px" />
+					<a4j:commandButton value="#{msgs['FORM.CANCEL']}" ajaxSingle="true"
+						onclick="#{rich:component('selectServiceSignataire')}.hide();return false;" />
+				</rich:modalPanel>
+
+			</h:panelGrid>
+		</rich:panel>
+	</h:panelGrid>
+</ui:fragment>

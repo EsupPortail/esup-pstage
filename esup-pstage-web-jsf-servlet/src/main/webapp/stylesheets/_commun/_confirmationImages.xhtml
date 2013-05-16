@@ -1,12 +1,18 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<% /* Image valid affichée par défaut ou si uniquement messages info sinon warning */ %>
-<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-	title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
-	style="border:0"
-	rendered="#{(facesContext.maximumSeverity == null || facesContext.maximumSeverity == 'Info')
-	&& !(facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn')}" />
-<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-	title="#{msgs['GENERAL.WARNING']}"
-	value="../../media/images/warning_50px.png" style="border:0"
-	rendered="#{facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn'}" />
+	<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+		title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
+		style="border:0"
+		rendered="#{(facesContext.maximumSeverity == null || facesContext.maximumSeverity == 'Info')
+	and !(facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn')}" />
+	<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+		title="#{msgs['GENERAL.WARNING']}"
+		value="../../media/images/warning_50px.png" style="border:0"
+		rendered="#{facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn'}" />
+</ui:fragment>

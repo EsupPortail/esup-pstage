@@ -1,27 +1,34 @@
-<%@include file="__offreEtape2.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="5">
-	<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-		action="_modificationOffreEtape1" alt="#{msgs['FORM.PREVIOUS']}"
-		title="#{msgs['FORM.PREVIOUS']}" immediate="true"/>
-	<rich:spacer width="20px" />
-	<h:commandButton value="#{msgs['FORM.NEXT']}"
-		action="#{offreController.goToModificationOffreEtape3}"
-		alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}">
-		<a4j:support event="onclick" ignoreDupResponses="true"
-		ajaxSingle="true" reRender="opFCE"/>
-	</h:commandButton>
-	<rich:spacer width="20px" />
-	<a4j:outputPanel id="opFCE">
-		<e:panelGrid columns="3"
-			rendered="#{facesContext.maximumSeverity != null}">
-			<h:graphicImage value="../../media/images/arrow_up.png"
-				alt="#{msgs['GENERAL.ARROW_UP']}"
-				title="#{msgs['GENERAL.ARROW_UP']}" />
-			<e:text value="#{msgs['FORM.FORMERROR']}" />
-			<h:graphicImage value="../../media/images/arrow_up.png"
-				alt="#{msgs['GENERAL.ARROW_UP']}"
-				title="#{msgs['GENERAL.ARROW_UP']}" />
-		</e:panelGrid>
-	</a4j:outputPanel>
-</e:panelGrid>
+	<h:panelGrid columns="5">
+		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			action="_modificationOffreEtape1" alt="#{msgs['FORM.PREVIOUS']}"
+			title="#{msgs['FORM.PREVIOUS']}" immediate="true" />
+		<t:htmlTag value="div" style="width: 20px;" />
+		<h:commandButton value="#{msgs['FORM.NEXT']}"
+			action="#{offreController.goToModificationOffreEtape3}"
+			alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}">
+			<a4j:ajax event="click" ignoreDupResponses="true" ajaxSingle="true"
+				reRender="opFCE" />
+		</h:commandButton>
+		<t:htmlTag value="div" style="width: 20px;" />
+		<a4j:outputPanel id="opFCE">
+			<h:panelGrid columns="3"
+				rendered="#{facesContext.maximumSeverity != null}">
+				<h:graphicImage value="../../media/images/arrow_up.png"
+					alt="#{msgs['GENERAL.ARROW_UP']}"
+					title="#{msgs['GENERAL.ARROW_UP']}" />
+				<h:outputText value="#{msgs['FORM.FORMERROR']}" />
+				<h:graphicImage value="../../media/images/arrow_up.png"
+					alt="#{msgs['GENERAL.ARROW_UP']}"
+					title="#{msgs['GENERAL.ARROW_UP']}" />
+			</h:panelGrid>
+		</a4j:outputPanel>
+	</h:panelGrid>
+</ui:fragment>

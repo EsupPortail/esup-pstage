@@ -1,36 +1,45 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<rich:modalPanel id="suppressionCritere" autosized="true" width="500">
-	<f:facet name="header">
-		<e:text value="#{msgs['CENTRE.CRITERE.SUPPRESSION.HEAD']} #{centreController.critere.code} - #{centreController.critere.libelle}" />
-	</f:facet>
-	<e:panelGrid columns="1" rendered="#{centreController.critereNotFound}">
-		<h:column>
-			<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-				title="#{msgs['GENERAL.WARNING']}"
-				value="../../media/images/warning_20px.png" style="border:0" />
-			<e:text value="#{msgs['CENTRE.CRITERE.SUPPRESSION.WARNING1']}"
+	<rich:popupPanel id="suppressionCritere" autosized="true" width="500">
+		<f:facet name="header">
+			<h:outputText
+				value="#{msgs['CENTRE.CRITERE.SUPPRESSION.HEAD']} #{centreController.critere.code} - #{centreController.critere.libelle}" />
+		</f:facet>
+		<h:panelGrid columns="1"
+			rendered="#{centreController.critereNotFound}">
+			<h:column>
+				<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+					title="#{msgs['GENERAL.WARNING']}"
+					value="../../media/images/warning_20px.png" style="border:0" />
+				<h:outputText value="#{msgs['CENTRE.CRITERE.SUPPRESSION.WARNING1']}"
+					escape="false" />
+			</h:column>
+			<h:outputText value="#{msgs['CENTRE.CRITERE.SUPPRESSION.WARNING2']}"
 				escape="false" />
-		</h:column>
-		<e:text value="#{msgs['CENTRE.CRITERE.SUPPRESSION.WARNING2']}"
-			escape="false" />
-	</e:panelGrid>
-	<rich:spacer height="10" />
-	<e:text
-		value="#{msgs['CENTRE.CRITERE.SUPPRESSION.RAPPEL']} #{msgs['NAVIGATION.ACCESSKEY.ABOUT']}" />
-	<h:form id="formSupprCritere">
-		<rich:spacer height="10" />
-		<t:htmlTag value="center">
-			<a4j:commandButton value="#{msgs['FORM.OUI']}"
-				action="#{centreController.supprimerCritere}"
-				reRender="critereDataTable" />
-			<rich:spacer width="30" />
-			<h:commandButton value="#{msgs['FORM.NON']}"
-				onclick="#{rich:component('suppressionCritere')}.hide();return false;" />
-			<e:text id="erreurCritere" value="" />
-			<rich:message for="erreurCritere">
-				<%@include file="../_commun/_messageErrorMarker.jsp"%>
-			</rich:message>
-		</t:htmlTag>
-	</h:form>
-</rich:modalPanel>
+		</h:panelGrid>
+		<t:htmlTag value="div" style="height: 10px;" />
+		<h:outputText
+			value="#{msgs['CENTRE.CRITERE.SUPPRESSION.RAPPEL']} #{msgs['NAVIGATION.ACCESSKEY.ABOUT']}" />
+		<h:form id="formSupprCritere">
+			<t:htmlTag value="div" style="height: 10px;" />
+			<t:htmlTag value="center">
+				<a4j:commandButton value="#{msgs['FORM.OUI']}"
+					action="#{centreController.supprimerCritere}"
+					reRender="critereDataTable" />
+				<t:htmlTag value="div" style="width: 30px;" />
+				<h:commandButton value="#{msgs['FORM.NON']}"
+					onclick="#{rich:component('suppressionCritere')}.hide();return false;" />
+				<h:outputText id="erreurCritere" value="" />
+				<rich:message for="erreurCritere">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+			</t:htmlTag>
+		</h:form>
+	</rich:popupPanel>
+</ui:fragment>

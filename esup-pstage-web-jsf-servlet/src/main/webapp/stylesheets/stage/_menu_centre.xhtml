@@ -1,38 +1,46 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid align="center" columns="1">
-	<h:form id="formMenuCentre">
-		<rich:toolBar height="34" itemSeparator="line">
-			<rich:toolBarGroup>
-				<h:commandLink action="#{centreController.goToVoirCentre}">
-					<e:text value="#{msgs['CENTRE.MENU.DETAIL']}" />
-				</h:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup>
-				<h:commandLink action="#{centreController.goToModifLogo}">
-					<e:text value="#{msgs['CENTRE.MENU.LOGO']}" />
-				</h:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup
-				rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEtablissement
-										&& centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
-				<h:commandLink action="#{centreController.goToListeCritere}">
-					<e:text value="#{msgs['CENTRE.MENU.LISTE_CRITERE']}" />
-				</h:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup
-				rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
-				<h:commandLink action="#{centreController.goToListePersonnel}">
-					<e:text value="#{msgs['CENTRE.MENU.LISTE_PERSONNEL']}" />
-				</h:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup
-				rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
-				<h:commandLink action="#{centreController.goToIndicateurStat}">
-					<e:text value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']}" />
-				</h:commandLink>
-			</rich:toolBarGroup>
-		</rich:toolBar>
-	</h:form>
-	<rich:spacer height="20px" />
-</e:panelGrid>
+	<h:panelGrid align="center" columns="1"
+		columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+		<h:form id="formMenuCentre">
+			<rich:toolbar height="34" itemSeparator="line">
+				<rich:toolbarGroup>
+					<h:commandLink action="#{centreController.goToVoirCentre}">
+						<h:outputText value="#{msgs['CENTRE.MENU.DETAIL']}" />
+					</h:commandLink>
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:commandLink action="#{centreController.goToModifLogo}">
+						<h:outputText value="#{msgs['CENTRE.MENU.LOGO']}" />
+					</h:commandLink>
+				</rich:toolbarGroup>
+				<rich:toolbarGroup
+					rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEtablissement
+										and centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
+					<h:commandLink action="#{centreController.goToListeCritere}">
+						<h:outputText value="#{msgs['CENTRE.MENU.LISTE_CRITERE']}" />
+					</h:commandLink>
+				</rich:toolbarGroup>
+				<rich:toolbarGroup
+					rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
+					<h:commandLink action="#{centreController.goToListePersonnel}">
+						<h:outputText value="#{msgs['CENTRE.MENU.LISTE_PERSONNEL']}" />
+					</h:commandLink>
+				</rich:toolbarGroup>
+				<rich:toolbarGroup
+					rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
+					<h:commandLink action="#{centreController.goToIndicateurStat}">
+						<h:outputText value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']}" />
+					</h:commandLink>
+				</rich:toolbarGroup>
+			</rich:toolbar>
+		</h:form>
+		<t:htmlTag value="div" style="height: 20px;" />
+	</h:panelGrid>
+</ui:fragment>

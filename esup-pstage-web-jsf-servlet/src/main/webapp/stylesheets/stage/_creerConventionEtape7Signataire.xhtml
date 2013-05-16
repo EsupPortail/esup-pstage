@@ -1,211 +1,207 @@
-<%@include file="../_include.jsp"%>
-<e:panelGrid columns="1"
-	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-	<rich:panel>
-		<f:facet name="header">
-			<e:text value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE']}" />
-		</f:facet>
-		<e:panelGrid columns="1">
-			<a4j:commandButton
-				action="#{conventionController.goToCreerConventionEtape6Enseignant}"
-				value="#{msgs['FORM.PREVIOUS']}">
-			</a4j:commandButton>
-			<rich:spacer height="20" />
-			<e:text value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.DEMANDE']}"
-				rendered="#{conventionController.saisieTuteurProParEtudiant}" />
-			<t:div id="information">
-				<rich:message for="information">
-					<%@include file="../_commun/_messageInfoMarker.jsp"%>
-				</rich:message>
-			</t:div>
+<
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-			<a4j:commandButton ajaxSingle="true"
-				rendered="#{conventionController.saisieTuteurProParEtudiant}"
-				oncomplete="#{rich:component('selectSignataire')}.show()"
-				value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.SELECTION']}">
-				<f:setPropertyActionListener value="#{0}"
-					target="#{etablissementController.idContactSel}" />
-				<f:setPropertyActionListener value="#{null}"
-					target="#{etablissementController.contactSel}" />
-				<f:setPropertyActionListener value="#{false}"
-					target="#{etablissementController.afficherSelectionCentreContact}" />
-			</a4j:commandButton>
-			<rich:spacer height="20px" />
-			<e:panelGrid
-				rendered="#{conventionController.convention.centreGestion.presenceTuteurPro == false && conventionController.saisieTuteurProParEtudiant}">
-				<e:text value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE']}"
-					escape="false" />
-				<a4j:commandLink ajaxSingle="true" id="passeretape"
-					action="#{conventionController.goToCreerConventionEtape8Recap}">
-					<f:setPropertyActionListener value="#{null}"
-						target="#{conventionController.signataireSel}" />
-					<f:setPropertyActionListener value="#{null}"
-						target="#{conventionController.convention.signataire}" />
-					<e:text value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}"
-						escape="false" />
-				</a4j:commandLink>
-				<rich:toolTip for="passeretape"
-					value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}" />
-			</e:panelGrid>
-			<e:panelGrid
-				rendered="#{!conventionController.saisieTuteurProParEtudiant}">
-				<e:text
-					value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SAISIETUTEURPRONON']}"
-					escape="false" />
-				<a4j:commandLink ajaxSingle="true" id="passeretape2"
-					action="#{conventionController.goToCreerConventionEtape8Recap}">
-					<f:setPropertyActionListener value="#{null}"
-						target="#{conventionController.signataireSel}" />
-					<f:setPropertyActionListener value="#{null}"
-						target="#{conventionController.convention.signataire}" />
-					<e:text value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}"
-						escape="false" />
-				</a4j:commandLink>
-				<rich:toolTip for="passeretape2"
-					value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
-			</e:panelGrid>
-			<rich:spacer height="20px" />
-			<rich:modalPanel id="selectSignataire" autosized="true" width="400"
-				styleClass="panel" domElementAttachment="parent">
-				<%@include file="../_commun/_subPanelSelectContact.jsp"%>
-				<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-					oncomplete="#{rich:component('selectSignataire')}.hide();"
-					ignoreDupResponses="true" reRender="opSignataire">
-					<f:setPropertyActionListener
-						value="#{etablissementController.contactSel}"
-						target="#{conventionController.signataireSel}" />
+	<h:panelGrid columns="1"
+		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE']}" />
+			</f:facet>
+			<h:panelGrid columns="1">
+				<a4j:commandButton
+					action="#{conventionController.goToCreerConventionEtape6Enseignant}"
+					value="#{msgs['FORM.PREVIOUS']}">
 				</a4j:commandButton>
-				<rich:spacer width="150px" />
-				<a4j:commandButton value="#{msgs['FORM.CANCEL']}" ajaxSingle="true"
-					onclick="#{rich:component('selectSignataire')}.hide();return false;" />
-			</rich:modalPanel>
-
-			<a4j:outputPanel id="opSignataire"
-				rendered="#{conventionController.saisieTuteurProParEtudiant}">
-				<rich:spacer height="2px"
-					style="background-color: #{a4jSkin.panelBorderColor};"
-					width="600px"
-					rendered="#{not empty conventionController.signataireSel}" />
-				<e:panelGrid columns="1"
-					rendered="#{not empty conventionController.signataireSel}">
-
-					<e:text value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+				<t:htmlTag value="div" style="height: 20px;" />
+				<h:outputText
+					value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.DEMANDE']}"
+					rendered="#{conventionController.saisieTuteurProParEtudiant}" />
+				<t:div id="information">
+					<rich:message for="information">
+						<ui:include src="../_commun/_messageInfoMarker.xhtml" />
+					</rich:message>
+				</t:div>
+				<a4j:commandButton ajaxSingle="true"
+					rendered="#{conventionController.saisieTuteurProParEtudiant}"
+					oncomplete="#{rich:component('selectSignataire')}.show()"
+					value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.SELECTION']}">
+					<f:setPropertyActionListener value="#{0}"
+						target="#{etablissementController.idContactSel}" />
+					<f:setPropertyActionListener value="#{null}"
+						target="#{etablissementController.contactSel}" />
+					<f:setPropertyActionListener value="#{false}"
+						target="#{etablissementController.afficherSelectionCentreContact}" />
+				</a4j:commandButton>
+				<t:htmlTag value="div" style="height: 20px;" />
+				<h:panelGrid
+					rendered="#{conventionController.convention.centreGestion.presenceTuteurPro == false and conventionController.saisieTuteurProParEtudiant}">
+					<h:outputText value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE']}"
 						escape="false" />
-					<rich:spacer width="50px" />
-
-					<e:panelGrid columns="3">
-						<e:text id="civC"
-							value="#{conventionController.signataireSel.civilite.libelle} " />
-						<e:text id="nomC"
-							value="#{conventionController.signataireSel.nom} " />
-						<e:text id="prenomC"
-							value="#{conventionController.signataireSel.prenom}" />
-					</e:panelGrid>
-					<rich:spacer width="50px" />
-					<e:text id="fonctionC"
-						value="#{conventionController.signataireSel.fonction}" />
-					<rich:spacer width="50px" />
-					<e:text id="telC" value="#{conventionController.signataireSel.tel}" />
-					<rich:spacer width="50px" />
-					<e:text id="faxC" value="#{conventionController.signataireSel.fax}" />
-					<e:text id="mailC"
-						value="#{conventionController.signataireSel.mail}" />
-					<rich:spacer width="50px" />
-
-					<a4j:commandLink ajaxSingle="true" id="modifC"
-						oncomplete="#{rich:component('modifContact')}.show()"
-						reRender="modifContact"
-						disabled="#{!(sessionController.adminPageAuthorized 
+					<a4j:commandLink ajaxSingle="true" id="passeretape"
+						action="#{conventionController.goToCreerConventionEtape8Recap}">
+						<f:setPropertyActionListener value="#{null}"
+							target="#{conventionController.signataireSel}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{conventionController.convention.signataire}" />
+						<h:outputText
+							value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}"
+							escape="false" />
+					</a4j:commandLink>
+					<rich:tooltip for="passeretape"
+						value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}" />
+				</h:panelGrid>
+				<h:panelGrid
+					rendered="#{!conventionController.saisieTuteurProParEtudiant}">
+					<h:outputText
+						value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SAISIETUTEURPRONON']}"
+						escape="false" />
+					<a4j:commandLink ajaxSingle="true" id="passeretape2"
+						action="#{conventionController.goToCreerConventionEtape8Recap}">
+						<f:setPropertyActionListener value="#{null}"
+							target="#{conventionController.signataireSel}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{conventionController.convention.signataire}" />
+						<h:outputText
+							value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}"
+							escape="false" />
+					</a4j:commandLink>
+					<rich:tooltip for="passeretape2"
+						value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
+				</h:panelGrid>
+				<t:htmlTag value="div" style="height: 20px;" />
+				<rich:popupPanel id="selectSignataire" autosized="true" width="400"
+					styleClass="panel" domElementAttachment="parent">
+					<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
+					<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+						oncomplete="#{rich:component('selectSignataire')}.hide();"
+						ignoreDupResponses="true" reRender="opSignataire">
+						<f:setPropertyActionListener
+							value="#{etablissementController.contactSel}"
+							target="#{conventionController.signataireSel}" />
+					</a4j:commandButton>
+					<t:htmlTag value="div" style="width: 150px;" />
+					<a4j:commandButton value="#{msgs['FORM.CANCEL']}" ajaxSingle="true"
+						onclick="#{rich:component('selectSignataire')}.hide();return false;" />
+				</rich:popupPanel>
+				<a4j:outputPanel id="opSignataire"
+					rendered="#{conventionController.saisieTuteurProParEtudiant}">
+					<t:htmlTag value="div"
+						style="height: 2px; width: 600px; background-color: #{a4jSkin.panelBorderColor};"
+						rendered="#{not empty conventionController.signataireSel}" />
+					<h:panelGrid columns="1"
+						rendered="#{not empty conventionController.signataireSel}">
+						<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+							escape="false" />
+						<t:htmlTag value="div" style="width: 50px;" />
+						<h:panelGrid columns="3">
+							<h:outputText id="civC"
+								value="#{conventionController.signataireSel.civilite.libelle} " />
+							<h:outputText id="nomC"
+								value="#{conventionController.signataireSel.nom} " />
+							<h:outputText id="prenomC"
+								value="#{conventionController.signataireSel.prenom}" />
+						</h:panelGrid>
+						<t:htmlTag value="div" style="width: 50px;" />
+						<h:outputText id="fonctionC"
+							value="#{conventionController.signataireSel.fonction}" />
+						<t:htmlTag value="div" style="width: 50px;" />
+						<h:outputText id="telC"
+							value="#{conventionController.signataireSel.tel}" />
+						<t:htmlTag value="div" style="width: 50px;" />
+						<h:outputText id="faxC"
+							value="#{conventionController.signataireSel.fax}" />
+						<h:outputText id="mailC"
+							value="#{conventionController.signataireSel.mail}" />
+						<t:htmlTag value="div" style="width: 50px;" />
+						<a4j:commandLink ajaxSingle="true" id="modifC"
+							oncomplete="#{rich:component('modifContact')}.show()"
+							reRender="modifContact"
+							disabled="#{!(sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
 								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))}"
-						rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+							rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-								|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
 								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								&& ((empty conventionController.signataireSel.loginModif &&
+								and ((empty conventionController.signataireSel.loginModif and
 								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
 								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}">
-						<f:setPropertyActionListener
-							value="#{conventionController.signataireSel}"
-							target="#{etablissementController.formContact}" />
-						<f:setPropertyActionListener value="#{false}"
-							target="#{etablissementController.afficherSelectionCentreContact}" />
-						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-							title="#{msgs['FORM.MODIFIER']}"
-							value="../../media/images/edit.png" style="border:0"
+							<f:setPropertyActionListener
+								value="#{conventionController.signataireSel}"
+								target="#{etablissementController.formContact}" />
+							<f:setPropertyActionListener value="#{false}"
+								target="#{etablissementController.afficherSelectionCentreContact}" />
+							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+								title="#{msgs['FORM.MODIFIER']}"
+								value="../../media/images/edit.png" style="border:0"
+								rendered="#{(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
+								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise 
+								and ((empty conventionController.signataireSel.loginModif and
+								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
+								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
+							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+								title="#{msgs['FORM.MODIFIER']}"
+								value="../../media/images/edit_block.png" style="border:0"
+								rendered="#{!(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
+								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise 
+								and ((empty conventionController.signataireSel.loginModif and
+								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
+								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
+							<h:outputText value=" #{msgs['OFFRE.SELECTIONCONTACT.MODIFIER']}" />
+						</a4j:commandLink>
+						<rich:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}"
 							rendered="#{(sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
 								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
-								&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-								|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
 								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								&& ((empty conventionController.signataireSel.loginModif &&
+								and ((empty conventionController.signataireSel.loginModif and
 								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
 								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
-						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-							title="#{msgs['FORM.MODIFIER']}"
-							value="../../media/images/edit_block.png" style="border:0"
+						<rich:tooltip for="modifC"
+							value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
 							rendered="#{!(sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
 								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
-								&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-								|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
 								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								&& ((empty conventionController.signataireSel.loginModif &&
+								and ((empty conventionController.signataireSel.loginModif and
 								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
 								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
-						<e:text value=" #{msgs['OFFRE.SELECTIONCONTACT.MODIFIER']}" />
-					</a4j:commandLink>
-					<rich:toolTip for="modifC" value="#{msgs['FORM.MODIFIER']}"
-						rendered="#{(sessionController.adminPageAuthorized 
-								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
-								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
-								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
-								&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-								|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
-								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								&& ((empty conventionController.signataireSel.loginModif &&
-								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
-								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
-					<rich:toolTip for="modifC"
-						value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
-						rendered="#{!(sessionController.adminPageAuthorized 
-								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
-								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
-								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
-								&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-								|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
-								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								&& ((empty conventionController.signataireSel.loginModif &&
-								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
-								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
-
-					<e:panelGrid columns="2">
-
-						<a4j:commandButton
-							action="#{conventionController.goToCreerConventionEtape8Recap}"
-							value="#{msgs['FORM.VALIDER']}">
-						</a4j:commandButton>
-
-						<%
-							/*<a4j:commandButton
-							 action="#{conventionController.goToCreerConventionEtape6Enseignant}"
-							 value="#{msgs['FORM.PREVIOUS']}" immediate="true">
-							 </a4j:commandButton>*/
-						%>
-
-					</e:panelGrid>
-				</e:panelGrid>
-			</a4j:outputPanel>
-		</e:panelGrid>
-
-
-	</rich:panel>
-</e:panelGrid>
+						<h:panelGrid columns="2">
+							<a4j:commandButton
+								action="#{conventionController.goToCreerConventionEtape8Recap}"
+								value="#{msgs['FORM.VALIDER']}">
+							</a4j:commandButton>
+						</h:panelGrid>
+					</h:panelGrid>
+				</a4j:outputPanel>
+			</h:panelGrid>
+		</rich:panel>
+	</h:panelGrid>
+</ui:fragment>

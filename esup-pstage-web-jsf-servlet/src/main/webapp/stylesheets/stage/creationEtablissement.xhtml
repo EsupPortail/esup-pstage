@@ -1,56 +1,35 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div>
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['STRUCTURE.AJOUT']}" />
+			</f:facet>
+			<h:form id="formAjoutEtab"
+				rendered="#{not empty etablissementController.formStructure}">
+				<rich:message for="formAjoutEtab">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+				<ui:include src="../_commun/_etablissementForm.xhtml" />
+				<h:panelGrid columns="3">
+					<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+						action="#{rechercheController.goToRechercheEtablissementStage}"
+						alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+						title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" immediate="true">
+					</h:commandButton>
+					<t:htmlTag value="div" style="height: 20px;" />
+					<h:commandButton value="#{msgs['FORM.CREER']}"
+						action="#{etablissementController.ajouterEtablissement}">
+					</h:commandButton>
+				</h:panelGrid>
 			</h:form>
-		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<rich:panel>
-					<f:facet name="header">
-						<e:text value="#{msgs['STRUCTURE.AJOUT']}" />
-					</f:facet>
-					<h:form id="formAjoutEtab" rendered="#{not empty etablissementController.formStructure}">
-						<rich:message for="formAjoutEtab">
-							<%@include file="../_commun/_messageErrorMarker.jsp"%>
-						</rich:message>
-						<%@include file="../_commun/_etablissementForm.jsp"%>
-						<e:panelGrid columns="3">
-							<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-								action="#{rechercheController.goToRechercheEtablissementStage}"
-								alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-								title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-								immediate="true">
-							</h:commandButton>
-							<rich:spacer width="20px" />
-							<h:commandButton value="#{msgs['FORM.CREER']}"
-								action="#{etablissementController.ajouterEtablissement}">
-							</h:commandButton>
-						</e:panelGrid>
-					</h:form>
-				</rich:panel>
-			</t:div>
-		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<e:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</e:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-	hideButton("welcomeManagerForm:localeChangeButton");
-</script>
-	</t:div>
-</e:page>
-
-
-
-
+		</rich:panel>
+	</ui:define>
+</ui:composition>

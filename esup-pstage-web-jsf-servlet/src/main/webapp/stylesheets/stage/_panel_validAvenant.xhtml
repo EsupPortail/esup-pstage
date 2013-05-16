@@ -1,33 +1,40 @@
-<%@include file="../_include.jsp"%>
-
-<rich:modalPanel id="validAvenant" autosized="true" width="600">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+<rich:popupPanel id="validAvenant" autosized="true" width="600">
 	<f:facet name="header">
-		<e:text
+		<h:outputText
 			value="#{msgs['CONVENTION.ETAPE11.VALIDATION.HEAD']}#{avenantController.avenant.idAvenant}" />
 	</f:facet>
 	<rich:panel style="border:none">
-		<e:panelGrid columns="1" align="center">
-			<e:text value="#{msgs['CONVENTION.ETAPE11.VALIDATION.INFO']}" />
-			<e:text
+		<h:panelGrid columns="1" align="center">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE11.VALIDATION.INFO']}" />
+			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE11.VALIDATION.AVERTISSEMENT']}" />
-		</e:panelGrid>
+		</h:panelGrid>
 	</rich:panel>
 	<t:htmlTag value="center">
-		<e:outputLabel for="validPanel"
+		<h:outputLabel for="validPanel"
 			value="#{msgs['CONVENTION.ETAPE11.VALIDATION.QUESTION']}" />
 	</t:htmlTag>
-	<rich:spacer height="10" />
-	<e:panelGrid align="center" id="validPanel" columns="3">
+	<t:htmlTag value="div" style="height: 10px;" />
+	<h:panelGrid align="center" id="validPanel" columns="3">
 		<a4j:commandButton action="#{avenantController.validerAvenant}"
 			value="#{msgs['FORM.OUI']}" reRender="formDetailsAvenant" />
-		<rich:spacer width="30" />
+		<t:htmlTag value="div" style="width: 30px;" />
 		<h:commandButton value="#{msgs['FORM.NON']}"
 			onclick="#{rich:component('validAvenant')}.hide();return false;" />
-	</e:panelGrid>
+	</h:panelGrid>
 	<t:htmlTag value="center">
-		<e:text id="erreurValidAvenant" value="" />
+		<h:outputText id="erreurValidAvenant" value="" />
 		<rich:message for="erreurValidAvenant">
-			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
 	</t:htmlTag>
-</rich:modalPanel>
+</rich:popupPanel>
+</ui:fragment>

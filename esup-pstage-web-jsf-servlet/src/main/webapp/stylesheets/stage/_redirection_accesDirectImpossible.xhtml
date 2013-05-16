@@ -1,25 +1,35 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1" style="width:800px;">
-	<rich:panel>
-		<f:facet name="header">
-			<e:text value="#{msgs['GENERAL.REDIRECTION']}" />
-		</f:facet>
-		<t:htmlTag value="center">
-			<h:form>
-				<e:panelGrid columns="1">
-					<e:text value="#{msgs['CENTRE.REDIRECTION_2']}"/>
-					<e:text value="#{msgs['CENTRE.REDIRECTION_2exemple']}"/>
-				</e:panelGrid>
-				
-				<rich:spacer height="20" />
 
-				<t:htmlTag value="center">
-					<a4j:commandButton id="home" value="#{msgs['CENTRE.RETOUR_ACCUEIL']}"
-						action="#{centreController.goToAccueil}" ignoreDupResponses="true"
-						immediate="true" />
-				</t:htmlTag>
-			</h:form>
-		</t:htmlTag>
-	</rich:panel>
-</e:panelGrid>
+	<h:panelGrid columns="1" style="width:800px;">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['GENERAL.REDIRECTION']}" />
+			</f:facet>
+			<t:htmlTag value="center">
+				<h:form>
+					<h:panelGrid columns="1">
+						<h:outputText value="#{msgs['CENTRE.REDIRECTION_2']}" />
+						<h:outputText value="#{msgs['CENTRE.REDIRECTION_2exemple']}" />
+					</h:panelGrid>
+
+<!-- 					<rich:spacer height="20" /> -->
+
+					<t:htmlTag value="center">
+						<a4j:commandButton id="home"
+							value="#{msgs['CENTRE.RETOUR_ACCUEIL']}"
+							action="#{centreController.goToAccueil}"
+							ignoreDupResponses="true" immediate="true" />
+					</t:htmlTag>
+				</h:form>
+			</t:htmlTag>
+		</rich:panel>
+	</h:panelGrid>
+
+</ui:fragment>

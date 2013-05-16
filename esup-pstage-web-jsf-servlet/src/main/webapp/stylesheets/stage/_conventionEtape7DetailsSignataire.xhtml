@@ -1,20 +1,23 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1"
-	rendered="#{not empty conventionController.convention.signataire && conventionController.convention.signataire.id > 0}">
-
-	<e:text value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}" escape="false" />
-	<rich:spacer width="50px" />
-
-	<%@include	file="/stylesheets/stage/_conventionEtape7SignataireColumns.jsp"%>
-
-</e:panelGrid>
-
-<e:panelGrid columns="1"
-	rendered="#{empty conventionController.convention.signataire || conventionController.convention.signataire.id == 0}">
-
-	<e:text value="#{msgs['CONTACT.AUCUNSIGNATAIRE']}" escape="false" />
-	<rich:spacer width="50px" />
-	
-	
-</e:panelGrid>
+	<h:panelGrid columns="1"
+		rendered="#{not empty conventionController.convention.signataire and conventionController.convention.signataire.id > 0}">
+		<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+			escape="false" />
+		<t:htmlTag value="div" style="width: 50px;" />
+		<ui:include
+			src="/stylesheets/stage/_conventionEtape7SignataireColumns.xhtml" />
+	</h:panelGrid>
+	<h:panelGrid columns="1"
+		rendered="#{empty conventionController.convention.signataire || conventionController.convention.signataire.id == 0}">
+		<h:outputText value="#{msgs['CONTACT.AUCUNSIGNATAIRE']}"
+			escape="false" />
+		<t:htmlTag value="div" style="width: 50px;" />
+	</h:panelGrid>
+</ui:fragment>

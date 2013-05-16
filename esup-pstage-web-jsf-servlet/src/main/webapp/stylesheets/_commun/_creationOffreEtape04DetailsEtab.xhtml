@@ -1,50 +1,57 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<t:div
-	rendered="#{not empty rechercheController.resultatRechercheStructure}"
-	style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-	<t:aliasBean alias="#{structure}"
-		value="#{rechercheController.resultatRechercheStructure}">
-		<%@include file="../_commun/_rechercheEtablissementAffichage.jsp"%>
-	</t:aliasBean>
-	<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
-		action="#{offreController.goToCreationOffreModifEtab}"
-		alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-		rendered="#{not empty rechercheController.resultatRechercheStructure
+	<t:div
+		rendered="#{not empty rechercheController.resultatRechercheStructure}"
+		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
+		<t:aliasBean alias="#{structure}"
+			value="#{rechercheController.resultatRechercheStructure}">
+			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+		</t:aliasBean>
+		<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
+			action="#{offreController.goToCreationOffreModifEtab}"
+			alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+			rendered="#{not empty rechercheController.resultatRechercheStructure
 		and empty offreController.centreGestionDepotAnonyme}">
-		<f:setPropertyActionListener
-			value="#{rechercheController.resultatRechercheStructure}"
-			target="#{etablissementController.formStructure}" />
-	</h:commandButton>
-	<e:text value=" " id="formAffEtab" />
-	<e:panelGrid columns="2" align="center">
-		<h:column>
-			<%@include file="../_commun/_confirmationImagesPermanentes.jsp"%>
-		</h:column>
-		<h:column>
-			<rich:message for="formAffEtab">
-				<%@include file="../_commun/_messageErrorMarker.jsp"%>
-			</rich:message>
-		</h:column>
-	</e:panelGrid>
-	<e:panelGrid columns="3">
-		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-			action="_creationOffreEtape02Etab" alt="#{msgs['FORM.PREVIOUS']}"
-			title="#{msgs['FORM.PREVIOUS']}" immediate="true"
-			rendered="#{offreController.typeAjoutModifOffre>1}">
-			<f:setPropertyActionListener value="#{null}"
-				target="#{rechercheController.resultatRechercheStructure}" />
-		</h:commandButton>
-		<rich:spacer width="20px" />
-		<h:commandButton id="selectionEtab"
-			value="#{msgs['OFFRE.SELECTIONETAB']}"
-			action="#{offreController.goToCreationOffreEtape1}"
-			alt="#{msgs['OFFRE.SELECTIONETAB']}"
-			title="#{msgs['OFFRE.SELECTIONETAB']}"
-			rendered="#{not empty rechercheController.resultatRechercheStructure}">
 			<f:setPropertyActionListener
 				value="#{rechercheController.resultatRechercheStructure}"
-				target="#{offreController.formOffre.structure}" />
+				target="#{etablissementController.formStructure}" />
 		</h:commandButton>
-	</e:panelGrid>
-</t:div>
+		<h:outputText value=" " id="formAffEtab" />
+		<h:panelGrid columns="2" align="center">
+			<h:column>
+				<ui:include src="../_commun/_confirmationImagesPermanentes.xhtml" />
+			</h:column>
+			<h:column>
+				<rich:message for="formAffEtab">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+			</h:column>
+		</h:panelGrid>
+		<h:panelGrid columns="3">
+			<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				action="_creationOffreEtape02Etab" alt="#{msgs['FORM.PREVIOUS']}"
+				title="#{msgs['FORM.PREVIOUS']}" immediate="true"
+				rendered="#{offreController.typeAjoutModifOffre>1}">
+				<f:setPropertyActionListener value="#{null}"
+					target="#{rechercheController.resultatRechercheStructure}" />
+			</h:commandButton>
+			<t:htmlTag value="div" style="width: 20px;" />
+			<h:commandButton id="selectionEtab"
+				value="#{msgs['OFFRE.SELECTIONETAB']}"
+				action="#{offreController.goToCreationOffreEtape1}"
+				alt="#{msgs['OFFRE.SELECTIONETAB']}"
+				title="#{msgs['OFFRE.SELECTIONETAB']}"
+				rendered="#{not empty rechercheController.resultatRechercheStructure}">
+				<f:setPropertyActionListener
+					value="#{rechercheController.resultatRechercheStructure}"
+					target="#{offreController.formOffre.structure}" />
+			</h:commandButton>
+		</h:panelGrid>
+	</t:div>
+</ui:fragment>

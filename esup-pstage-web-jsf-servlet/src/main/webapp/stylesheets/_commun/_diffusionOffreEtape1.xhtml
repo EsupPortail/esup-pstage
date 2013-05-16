@@ -1,105 +1,118 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<h:column>
-	<e:panelGrid columns="1">
-		<e:text value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION']}"
-			escape="false" />
-		<rich:dataTable value="#{offreController.currentOffre}">
-			<rich:column rendered="#{sessionController.adminPageAuthorized}">
-				<f:facet name="header">
-					<h:outputText value="#{msgs['OFFRE.ID']}" />
-				</f:facet>
-				<e:text value="#{offreController.currentOffre.idOffre}" />
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
-				</f:facet>
-				<e:text value="#{offreController.currentOffre.intitule}" />
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
-				</f:facet>
-				<e:text value="#{offreController.currentOffre.typeOffre.libelle}" />
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
-				</f:facet>
-				<e:text value="#{offreController.currentOffre.dateCreation}" />
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
-				</f:facet>
-				<e:text value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
-					rendered="#{offreController.currentOffre.estDiffusee}"
-					style="color:green;" />
-				<e:text value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
-					rendered="#{!offreController.currentOffre.estDiffusee}"
-					style="color:orange;" />
-				<t:htmlTag value="br" />
-				<e:text value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
-					rendered="#{offreController.currentOffre.estDiffusee}"
-					style="color:green;" />
-				<e:text value="#{offreController.currentOffre.dateFinDiffusion}"
-					rendered="#{offreController.currentOffre.estDiffusee}"
-					style="color:green;">
-					<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-				</e:text>
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
-				</f:facet>
-				<e:text value="#{msgs['FORM.OUI']}"
-					rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}" />
-				<e:text value="#{msgs['FORM.NON']}"
-					rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}" />
-			</rich:column>
-		</rich:dataTable>
-	</e:panelGrid>
-	<e:panelGrid columns="1">
-		<rich:spacer height="10px" />
-		<e:text value="#{msgs['OFFRE.GESTION.DIFFUSION.INFO']}" />
-		<rich:spacer height="10px" />
-	</e:panelGrid>
-	
-	<e:panelGrid columns="3">
-		<e:panelGrid columns="2">
-			<e:text value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION.DUREE']}" escape="false" />
-			<e:panelGrid columns="2">
-				<h:selectOneMenu id="dureeDiffusion"
-					value="#{offreController.dureeDiffusion}">
-					<f:selectItems value="#{offreController.dureesDiffusion}"/>
-				</h:selectOneMenu>
-				<rich:message for="dureeDiffusion">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
-			</e:panelGrid>
-		</e:panelGrid>
-		<a4j:commandButton action="#{offreController.diffuserOffre}"
-			value="#{msgs['FORM.DIFFUSER']}" ignoreDupResponses="true" />
-		<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-			onclick="#{rich:component('diffusionOffre')}.hide();"
-			action="_diffusionOffreEtape1" immediate="true" />
-	</e:panelGrid>
-	
-	<%/*<e:panelGrid columns="4">
-		<h:commandButton action="#{offreController.diffuserOffre}"
-			value="#{msgs['FORM.DIFFUSER']}" ignoreDupResponses="true" />
-		<e:panelGrid columns="2"
-			rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-			<rich:spacer width="50px" />
-			<h:commandButton action="#{offreController.diffuserOffre1An}"
-				value="#{msgs['FORM.DIFFUSER1AN']}" ignoreDupResponses="true" />
-		</e:panelGrid>
-		<e:panelGrid rendered="#{!sessionController.adminPageAuthorized && !welcomeController.superAdmin && !welcomeController.admin && !welcomeController.writer}">
-		</e:panelGrid>
-		<rich:spacer width="150px" />
-		<h:commandButton value="#{msgs['FORM.ANNULER']}"
-			onclick="#{rich:component('diffusionOffre')}.hide();"
-			action="_diffusionOffreEtape1" immediate="true" />
-	</e:panelGrid> */%>
-</h:column>
+	<h:column>
+		<h:panelGrid columns="1">
+			<h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION']}"
+				escape="false" />
+			<rich:dataTable value="#{offreController.currentOffre}">
+				<rich:column rendered="#{sessionController.adminPageAuthorized}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['OFFRE.ID']}" />
+					</f:facet>
+					<h:outputText value="#{offreController.currentOffre.idOffre}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
+					</f:facet>
+					<h:outputText value="#{offreController.currentOffre.intitule}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
+					</f:facet>
+					<h:outputText
+						value="#{offreController.currentOffre.typeOffre.libelle}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
+					</f:facet>
+					<h:outputText value="#{offreController.currentOffre.dateCreation}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
+					</f:facet>
+					<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
+						rendered="#{offreController.currentOffre.estDiffusee}"
+						style="color:green;" />
+					<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
+						rendered="#{!offreController.currentOffre.estDiffusee}"
+						style="color:orange;" />
+					<t:htmlTag value="br" />
+					<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
+						rendered="#{offreController.currentOffre.estDiffusee}"
+						style="color:green;" />
+					<h:outputText
+						value="#{offreController.currentOffre.dateFinDiffusion}"
+						rendered="#{offreController.currentOffre.estDiffusee}"
+						style="color:green;">
+						<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+					</h:outputText>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
+					</f:facet>
+					<h:outputText value="#{msgs['FORM.OUI']}"
+						rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}" />
+					<h:outputText value="#{msgs['FORM.NON']}"
+						rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}" />
+				</rich:column>
+			</rich:dataTable>
+		</h:panelGrid>
+		<h:panelGrid columns="1">
+			<t:htmlTag value="div" style="height: 10px;" />
+			<h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSION.INFO']}" />
+			<t:htmlTag value="div" style="height: 10px;" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="3">
+			<h:panelGrid columns="2">
+				<h:outputText
+					value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION.DUREE']}"
+					escape="false" />
+				<h:panelGrid columns="2">
+					<h:selectOneMenu id="dureeDiffusion"
+						value="#{offreController.dureeDiffusion}">
+						<f:selectItems value="#{offreController.dureesDiffusion}" />
+					</h:selectOneMenu>
+					<rich:message for="dureeDiffusion">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+				</h:panelGrid>
+			</h:panelGrid>
+			<a4j:commandButton action="#{offreController.diffuserOffre}"
+				value="#{msgs['FORM.DIFFUSER']}" ignoreDupResponses="true" />
+			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+				onclick="#{rich:component('diffusionOffre')}.hide();"
+				action="_diffusionOffreEtape1" immediate="true" />
+		</h:panelGrid>
+
+		<%
+			/*<h:panelGrid columns="4">
+							 <h:commandButton action="#{offreController.diffuserOffre}"
+							 value="#{msgs['FORM.DIFFUSER']}" ignoreDupResponses="true" />
+							 <h:panelGrid columns="2"
+							 rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+							 <rich:spacer width="50px" />
+							 <h:commandButton action="#{offreController.diffuserOffre1An}"
+							 value="#{msgs['FORM.DIFFUSER1AN']}" ignoreDupResponses="true" />
+							 </h:panelGrid>
+							 <h:panelGrid rendered="#{!sessionController.adminPageAuthorized && !welcomeController.superAdmin && !welcomeController.admin && !welcomeController.writer}">
+							 </h:panelGrid>
+							 <rich:spacer width="150px" />
+							 <h:commandButton value="#{msgs['FORM.ANNULER']}"
+							 onclick="#{rich:component('diffusionOffre')}.hide();"
+							 action="_diffusionOffreEtape1" immediate="true" />
+							 </h:panelGrid> */
+		%>
+	</h:column>
+</ui:fragment>

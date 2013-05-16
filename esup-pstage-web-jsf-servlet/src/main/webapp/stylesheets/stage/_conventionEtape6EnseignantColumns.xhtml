@@ -1,52 +1,56 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-
-<f:facet name="header">
-	<rich:columnGroup>
-		<rich:column>
-			<h:outputText styleClass="headerText"
-				value="#{msgs['CONVENTION.CIVILITE']}" />
-		</rich:column>
-		<rich:column>
-			<h:outputText styleClass="headerText"
-				value="#{msgs['CONVENTION.NOM']}" />
-		</rich:column>
-		<rich:column>
-			<h:outputText styleClass="headerText"
-				value="#{msgs['CONVENTION.PRENOM']}" />
-		</rich:column>
-		<rich:column>
-			<h:outputText styleClass="headerText"
-				value="#{msgs['CONVENTION.MAIL']}" />
-		</rich:column>
-		<rich:column>
-			<h:outputText styleClass="headerText"
-				value="#{msgs['CONVENTION.DEPARTEMENT']}" />
-		</rich:column>
-		<rich:column>
-			<h:outputText styleClass="headerText" value="#{msgs['FORM.VOIR']}" />
-		</rich:column>
-	</rich:columnGroup>
-</f:facet>
-
-<rich:column>
-	<e:text value="#{enseignant.civilite.libelle}" />
-	<rich:spacer height="5" />
-</rich:column>
-<rich:column>
-	<e:text value="#{enseignant.nom}" />
-	<rich:spacer height="5" />
-</rich:column>
-<rich:column>
-	<e:text value="#{enseignant.prenom}" />
-	<rich:spacer height="5" />
-</rich:column>
-<rich:column>
-	<e:text value="#{enseignant.mail}" />
-	<rich:spacer height="5" />
-</rich:column>
-<rich:column>
-	<e:text
-		value="#{enseignant.codeAffectation} - #{enseignant.affectation.libelle}" />
-</rich:column>
-
+	<f:facet name="header">
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.CIVILITE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.NOM']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.PRENOM']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.MAIL']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.DEPARTEMENT']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText styleClass="headerText" value="#{msgs['FORM.VOIR']}" />
+			</rich:column>
+		</rich:columnGroup>
+	</f:facet>
+	<rich:column>
+		<h:outputText value="#{enseignant.civilite.libelle}" />
+		<rich:spacer height="5" />
+	</rich:column>
+	<rich:column>
+		<h:outputText value="#{enseignant.nom}" />
+		<rich:spacer height="5" />
+	</rich:column>
+	<rich:column>
+		<h:outputText value="#{enseignant.prenom}" />
+		<rich:spacer height="5" />
+	</rich:column>
+	<rich:column>
+		<h:outputText value="#{enseignant.mail}" />
+		<rich:spacer height="5" />
+	</rich:column>
+	<rich:column>
+		<h:outputText
+			value="#{enseignant.codeAffectation} - #{enseignant.affectation.libelle}" />
+	</rich:column>
+</ui:fragment>

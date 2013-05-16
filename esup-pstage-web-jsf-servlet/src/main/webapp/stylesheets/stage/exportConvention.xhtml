@@ -1,85 +1,66 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div>
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['EXPORTCONVENTION.TITRE']}" />
+			</f:facet>
+			<h:form id="formRechConvention">
+				<a4j:region id="rExport">
+					<h:panelGrid columns="1" style="width:auto;">
+						<h:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES']}"
+							for="numConvention" />
+						<t:htmlTag value="div" style="height: 5px;" />>
+								<h:outputLabel
+							value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
+						<rich:pickList listsHeight="250" sourceListWidth="250"
+							targetListWidth="250"
+							copyAllControlLabel="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
+							copyControlLabel="#{msgs['EXPORTCONVENTION.AJOUTER']}"
+							removeControlLabel="#{msgs['EXPORTCONVENTION.RETIRER']}"
+							removeAllControlLabel="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
+							value="#{exportController.conventionColonnesChoisies}">
+							<f:selectItems value="#{exportController.conventionColonnes}" />
+						</rich:pickList>
+
+						<t:htmlTag value="div" style="height: 5px;" />
+						<h:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
+						<rich:pickList listsHeight="250" sourceListWidth="250"
+							targetListWidth="250"
+							copyAllControlLabel="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
+							copyControlLabel="#{msgs['EXPORTCONVENTION.AJOUTER']}"
+							removeControlLabel="#{msgs['EXPORTCONVENTION.RETIRER']}"
+							removeAllControlLabel="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
+							value="#{exportController.conventionEntrepriseColonnesChoisies}">
+							<f:selectItems
+								value="#{exportController.conventionEntrepriseColonnes}" />
+						</rich:pickList>
+
+						<t:htmlTag value="div" style="height: 20px;" />
+						<h:panelGrid columns="3">
+							<h:commandButton
+								value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
+								action="#{exportController.goToExportConvention}" />
+							<a4j:status for="rExport">
+								<f:facet name="start">
+									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+								</f:facet>
+							</a4j:status>
+							<t:htmlTag value="div" style="width: 100px;" />
+						</h:panelGrid>
+					</h:panelGrid>
+				</a4j:region>
 			</h:form>
-		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<rich:panel>
-					<f:facet name="header">
-						<e:text value="#{msgs['EXPORTCONVENTION.TITRE']}" />
-					</f:facet>
-					<h:form id="formRechConvention">
-						<a4j:region id="rExport">
-							<e:panelGrid columns="1" style="width:auto;">
-								<e:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES']}"
-									for="numConvention" />
-								<rich:spacer height="5px" />
-								<e:outputLabel
-									value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
-								<rich:pickList listsHeight="250" sourceListWidth="250"
-									targetListWidth="250"
-									copyAllControlLabel="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-									copyControlLabel="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-									removeControlLabel="#{msgs['EXPORTCONVENTION.RETIRER']}"
-									removeAllControlLabel="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
-									value="#{exportController.conventionColonnesChoisies}">
-									<f:selectItems value="#{exportController.conventionColonnes}" />
-								</rich:pickList>
-
-								<rich:spacer height="5px" />
-								<e:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
-								<rich:pickList listsHeight="250" sourceListWidth="250"
-									targetListWidth="250"
-									copyAllControlLabel="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-									copyControlLabel="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-									removeControlLabel="#{msgs['EXPORTCONVENTION.RETIRER']}"
-									removeAllControlLabel="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
-									value="#{exportController.conventionEntrepriseColonnesChoisies}">
-									<f:selectItems
-										value="#{exportController.conventionEntrepriseColonnes}" />
-								</rich:pickList>
-
-								<rich:spacer height="20px" />
-								<e:panelGrid columns="3">
-									<h:commandButton
-										value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
-										action="#{exportController.goToExportConvention}" />
-									<a4j:status for="rExport">
-										<f:facet name="start">
-											<%@include file="../_commun/_veuillezPatienter.jsp"%>
-										</f:facet>
-									</a4j:status>
-									<rich:spacer width="100px" />
-								</e:panelGrid>
-							</e:panelGrid>
-						</a4j:region>
-					</h:form>
-					<rich:message for="formRechConvention" showDetail="true">
-						<%@include file="../_commun/_messageErrorMarker.jsp"%>
-					</rich:message>
-				</rich:panel>
-			</t:div>
-		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<h:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-			hideButton("welcomeManagerForm:localeChangeButton");
-		</script>
-	</t:div>
-</e:page>
-
-
+			<rich:message for="formRechConvention" showDetail="true">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</rich:panel>
+	</ui:define>
+</ui:composition>

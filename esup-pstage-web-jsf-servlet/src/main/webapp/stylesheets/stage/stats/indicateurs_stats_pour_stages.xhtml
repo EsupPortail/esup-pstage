@@ -1,65 +1,63 @@
-<%@include file="../../_include.jsp"%>
-
-<e:panelGrid columns="1">
-
-	<rich:simpleTogglePanel width="500px" switchType="ajax"
-		label="#{msgs['CONVENTION.STATS.INDICATION']}">
-		<e:text value="#{msgs['CONVENTION.STATS.INFOS']}" />
-	</rich:simpleTogglePanel>
-
-
-	<rich:panel style="width:500px" header="">
-
-		<h:form id="formStagesStats"
-			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) && centreController.centre != null}">
-
-			<h:panelGrid columns="2">
-				<h:panelGroup>
-					<h:outputText value="#{msgs['CONVENTION.STATS.CRITERE.UN']}" />
-					<rich:spacer width="20px" />
-					<h:selectOneMenu
-						value="#{statistiquesConventionController.critereUnLib}"
-						id="idListeStatsCvtCriteres1">
-						<f:selectItems
-							value="#{statistiquesConventionController.firstLevelStatCriteriaForConvention}" />
-					</h:selectOneMenu>
-				</h:panelGroup>
-			</h:panelGrid>
-
-			<rich:spacer height="20px"></rich:spacer>
-
-			<e:panelGrid columns="2">
-				<h:panelGroup>
-					<h:outputText value="#{msgs['CONVENTION.STATS.CRITERE.DEUX']}" />
-					<rich:spacer width="20px" />
-					<h:selectOneMenu
-						value="#{statistiquesConventionController.critereDeuxLib}"
-						id="idListeStatsCvtCriteres2">
-						<f:selectItems
-							value="#{statistiquesConventionController.secondLevelStatCriteriaForConvention}" />
-					</h:selectOneMenu>
-
-
-				</h:panelGroup>
-			</e:panelGrid>
-			<rich:spacer height="20" />
-			<t:htmlTag value="center">
-
-				<h:commandButton id="idCmdBtnCalculerCvtStats"
-					action="#{statistiquesConventionController.gotoResultatStagesStats}"
-					value="#{msgs['CONVENTION.STATS.CALCULER']}">
-					<f:setPropertyActionListener value="#{centreController.centre.idCentreGestion}" target="#{statistiquesConventionController.idCentreGestion}"/>
-				</h:commandButton>
-
-			</t:htmlTag>
-
-		</h:form>
-	</rich:panel>
-
-</e:panelGrid>
-
-
-
-
-
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="../_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="1">
+			<h:form>
+			<rich:togglePanel width="500px" switchType="ajax"
+				label="#{msgs['CONVENTION.STATS.INDICATION']}">
+				<h:outputText value="#{msgs['CONVENTION.STATS.INFOS']}" />
+			</rich:togglePanel>
+			</h:form>
+			<rich:panel style="width:500px" header="">
+				<h:form id="formStagesStats"
+					rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) and centreController.centre != null}">
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="2">
+						<h:panelGroup>
+							<h:outputText value="#{msgs['CONVENTION.STATS.CRITERE.UN']}" />
+							<t:htmlTag value="div" style="height: 20px;" />
+							<h:selectOneMenu
+								value="#{statistiquesConventionController.critereUnLib}"
+								id="idListeStatsCvtCriteres1">
+								<f:selectItems
+									value="#{statistiquesConventionController.firstLevelStatCriteriaForConvention}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+					</h:panelGrid>
+					<t:htmlTag value="div" style="height: 20px;" />
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="2">
+						<h:panelGroup>
+							<h:outputText value="#{msgs['CONVENTION.STATS.CRITERE.DEUX']}" />
+							<t:htmlTag value="div" style="height: 20px;" />
+							<h:selectOneMenu
+								value="#{statistiquesConventionController.critereDeuxLib}"
+								id="idListeStatsCvtCriteres2">
+								<f:selectItems
+									value="#{statistiquesConventionController.secondLevelStatCriteriaForConvention}" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+					</h:panelGrid>
+					<t:htmlTag value="div" style="height: 20px;" />
+					<t:htmlTag value="center">
+						<h:commandButton id="idCmdBtnCalculerCvtStats"
+							action="#{statistiquesConventionController.gotoResultatStagesStats}"
+							value="#{msgs['CONVENTION.STATS.CALCULER']}">
+							<f:setPropertyActionListener
+								value="#{centreController.centre.idCentreGestion}"
+								target="#{statistiquesConventionController.idCentreGestion}" />
+						</h:commandButton>
+					</t:htmlTag>
+				</h:form>
+			</rich:panel>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>

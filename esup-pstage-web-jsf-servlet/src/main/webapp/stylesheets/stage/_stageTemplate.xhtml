@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<!-- <f:view locale="#{sessionController.currentUserLocale}"> -->
+<!-- <h:head> -->
+<!-- 	<h:outputStylesheet library="css" name="etab.css" /> -->
+<!-- </h:head> -->
+
+<f:view locale="fr">
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title><h:outputText value="#{applicationService.name}" /></title>
+		</f:facet>
+		<!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
+<!-- 		<script type="text/javascript" src="fonction.js"></script> -->
+		<link rel="stylesheet" type="text/css"	href="../../media/style/skins/universality/etab/etab.css" />
+		<link rel="stylesheet" type="text/css"	href="../../media/style/spacer.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="../../media/style/stage.css" /> -->
+		<!-- <link rel="stylesheet" type="text/css" href="../../media/styles.css" /> -->
+		<script type="text/javascript" language="Javascript" src="../../media/js/functions.js"></script>
+	</h:head>
+	<h:body styleClass="fl-theme-app">
+		<ui:insert name="header" />
+		<t:div>
+			<ui:insert name="navigationHeader" />
+			<t:div id="body" styleClass="app-body fl-col-flex2">
+				<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+					<ui:insert name="menuDynamique" />
+				</t:div>
+				<t:div id="content" styleClass="app-content fl-col-flex85">
+					<ui:insert name="content" />
+				</t:div>
+			</t:div>
+			<ui:insert name="navigationFooter" />
+			<script type="text/javascript">
+				hideButton("welcomeManagerForm:localeChangeButton");
+			</script>
+		</t:div>
+	</h:body>
+</f:view>
+<!-- </f:view> -->
+</html>

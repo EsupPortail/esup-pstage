@@ -1,119 +1,97 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div>
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="/stylesheets/stage/_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<%@include file="_roadmapSel.jsp"%>
-				<rich:panel>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<ui:include src="_roadmapSel.xhtml" />
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText
+					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+			</f:facet>
+			<h:form id="formSelConvention">
+				<h:panelGrid columns="1">
 					<f:facet name="header">
-						<e:text
-							value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+						<h:outputText value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.INFO']}" />
 					</f:facet>
-					<h:form id="formSelConvention">
-						<e:panelGrid columns="1">
-							<f:facet name="header">
-								<h:outputText
-									value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.INFO']}" />
-							</f:facet>
-							<rich:spacer height="20" />
-							<e:text value="" />
-							<e:panelGrid columns="1">
-
-								<rich:messages showDetail="true">
-								</rich:messages>
-								<%@include
-									file="/stylesheets/stage/_conventionEtape7DetailsSignataire.jsp"%>
-							</e:panelGrid>
-							<e:panelGrid columns="2">
-								<a4j:commandButton ajaxSingle="true"
-									oncomplete="#{rich:component('modifContact')}.show()"
-									reRender="modifContact" value="#{msgs['FORM.MODIFIER']}"
-									rendered="#{(not empty conventionController.convention.signataire && !conventionController.conventionValide)
-									&& (sessionController.adminPageAuthorized 
+					<t:htmlTag value="div" style="height: 20px;" />
+					<h:outputText value="" />
+					<h:panelGrid columns="1">
+						<rich:messages showDetail="true">
+						</rich:messages>
+						<ui:include
+							src="/stylesheets/stage/_conventionEtape7DetailsSignataire.xhtml" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<a4j:commandButton ajaxSingle="true"
+							oncomplete="#{rich:component('modifContact')}.show()"
+							reRender="modifContact" value="#{msgs['FORM.MODIFIER']}"
+							rendered="#{(not empty conventionController.convention.signataire and !conventionController.conventionValide)
+									and (sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
 								and empty conventionController.convention.signataire.login and empty conventionController.convention.signataire.mdp)
 								or (sessionController.pageAuthorized and empty conventionController.convention.signataire.login and empty conventionController.convention.signataire.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.convention.signataire.id))
-								&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized 
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized 
 								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-								|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
 								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								&& ((empty conventionController.convention.signataire.loginModif &&
+								and ((empty conventionController.convention.signataire.loginModif and
 								conventionController.convention.signataire.loginCreation==sessionController.currentLogin)
 								|| (conventionController.convention.signataire.loginModif==sessionController.currentLogin)))))))}">
-									<f:setPropertyActionListener
-										value="#{conventionController.convention.signataire}"
-										target="#{etablissementController.formContact}" />
-									<f:setPropertyActionListener value="#{false}"
-										target="#{etablissementController.afficherSelectionCentreContact}" />
-								</a4j:commandButton>
-								<a4j:commandButton ajaxSingle="true"
-									oncomplete="#{rich:component('selectServiceSignataire')}.show()"
-									rendered="#{!conventionController.conventionValide}"
-									value="#{msgs['CONVENTION.ETAPE7.MODIF.SIGNATAIRE']}">
-									<f:setPropertyActionListener value="#{0}"
-										target="#{etablissementController.idContactSel}" />
-									<f:setPropertyActionListener value="#{null}"
-										target="#{etablissementController.contactSel}" />
-									<f:setPropertyActionListener
-										value="#{conventionController.convention.service.idService}"
-										target="#{etablissementController.idServiceSel}" />
-									<f:setPropertyActionListener
-										value="#{conventionController.convention.service}"
-										target="#{etablissementController.serviceSel}" />
-									<f:setPropertyActionListener value="#{false}"
-										target="#{etablissementController.afficherSelectionCentreContact}" />
-								</a4j:commandButton>
-								<rich:modalPanel id="selectServiceSignataire" autosized="true"
-									width="400" styleClass="panel" domElementAttachment="parent">
-									<%@include file="../_commun/_subPanelSelectContact.jsp"%>
-									<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-										oncomplete="#{rich:component('selectServiceSignataire')}.hide();"
-										ignoreDupResponses="true"
-										action="#{conventionController.goToConventionModifSignataire}">
-
-										<f:setPropertyActionListener
-											value="#{etablissementController.contactSel}"
-											target="#{conventionController.convention.signataire}" />
-									</a4j:commandButton>
-									<rich:spacer width="150px" />
-									<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
-										ajaxSingle="true"
-										onclick="#{rich:component('selectServiceSignataire')}.hide();return false;" />
-								</rich:modalPanel>
-							</e:panelGrid>
-						</e:panelGrid>
-					</h:form>
-					<%@include file="../_commun/_panelAjoutContact.jsp"%>
-					<%@include file="../_commun/_panelModifContact.jsp"%>
-					<%@include file="../_commun/_panelAjoutService.jsp"%>
-					<%@include file="../_commun/_panelModifService.jsp"%>
-				</rich:panel>
-			</t:div>
-		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<h:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
+							<f:setPropertyActionListener
+								value="#{conventionController.convention.signataire}"
+								target="#{etablissementController.formContact}" />
+							<f:setPropertyActionListener value="#{false}"
+								target="#{etablissementController.afficherSelectionCentreContact}" />
+						</a4j:commandButton>
+						<a4j:commandButton ajaxSingle="true"
+							oncomplete="#{rich:component('selectServiceSignataire')}.show()"
+							rendered="#{!conventionController.conventionValide}"
+							value="#{msgs['CONVENTION.ETAPE7.MODIF.SIGNATAIRE']}">
+							<f:setPropertyActionListener value="#{0}"
+								target="#{etablissementController.idContactSel}" />
+							<f:setPropertyActionListener value="#{null}"
+								target="#{etablissementController.contactSel}" />
+							<f:setPropertyActionListener
+								value="#{conventionController.convention.service.idService}"
+								target="#{etablissementController.idServiceSel}" />
+							<f:setPropertyActionListener
+								value="#{conventionController.convention.service}"
+								target="#{etablissementController.serviceSel}" />
+							<f:setPropertyActionListener value="#{false}"
+								target="#{etablissementController.afficherSelectionCentreContact}" />
+						</a4j:commandButton>
+						<rich:popupPanel id="selectServiceSignataire" autosized="true"
+							width="400" styleClass="panel" domElementAttachment="parent">
+							<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
+							<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+								oncomplete="#{rich:component('selectServiceSignataire')}.hide();"
+								ignoreDupResponses="true"
+								action="#{conventionController.goToConventionModifSignataire}">
+								<f:setPropertyActionListener
+									value="#{etablissementController.contactSel}"
+									target="#{conventionController.convention.signataire}" />
+							</a4j:commandButton>
+							<t:htmlTag value="div" style="width: 150px;" />
+							<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
+								ajaxSingle="true"
+								onclick="#{rich:component('selectServiceSignataire')}.hide();return false;" />
+						</rich:popupPanel>
+					</h:panelGrid>
+				</h:panelGrid>
 			</h:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-		hideButton("welcomeManagerForm:localeChangeButton");
-	</script>
-	</t:div>
-
-</e:page>
+			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
+			<ui:include src="../_commun/_panelModifContact.xhtml" />
+			<ui:include src="../_commun/_panelAjoutService.xhtml" />
+			<ui:include src="../_commun/_panelModifService.xhtml" />
+		</rich:panel>
+	</ui:define>
+</ui:composition>

@@ -1,51 +1,66 @@
-<%@include file="../_include.jsp"%>
-<rich:spacer height="20" />
-<e:outputLabel value="Commentaire sur le stage : " />
-<t:div rendered="#{welcomeController.etudiant || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitLecture}">
-	<e:text rendered="#{empty conventionController.convention.commentaireStage}" 
-		value="Aucun commentaire enregistré." />
-	<h:outputText escape="false" rendered="#{not empty conventionController.convention.commentaireStage}" 
-		value="#{conventionController.convention.commentaireStage}" />
-</t:div>
-<t:div rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-	<e:panelGrid columns="1" style="margin-left:30;" rendered="#{conventionController.convention.validationConvention}">
-		<h:outputText escape="false" rendered="#{not empty conventionController.convention.commentaireStage}" 
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<rich:spacer height="20" />
+	<h:outputLabel value="Commentaire sur le stage : " />
+	<t:div
+		rendered="#{welcomeController.etudiant || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitLecture}">
+		<h:outputText
+			rendered="#{empty conventionController.convention.commentaireStage}"
+			value="Aucun commentaire enregistrÃ©." />
+		<h:outputText escape="false"
+			rendered="#{not empty conventionController.convention.commentaireStage}"
 			value="#{conventionController.convention.commentaireStage}" />
-		<h:outputText rendered="#{empty conventionController.convention.commentaireStage}" 
-			value="Aucun commentaire enregistré." />
-	</e:panelGrid>
-	<e:panelGrid columns="1" style="margin-left:30;" rendered="#{!conventionController.convention.validationConvention}">
-		<rich:spacer height="10" />
-		<rich:editor id="commentaireStage"
-			value="#{conventionController.convention.commentaireStage}"
-			width="400" height="200" />
-		<rich:spacer height="10" />
-		<e:panelGrid columns="1" align="center">
-			<a4j:commandButton
-				action="#{conventionController.ajouterCommentaireStage}"
-				oncomplete="#{rich:component('popup')}.show()"
-				reRender="formCommentaire" value="Enregistrer" alt="Enregistrer" />
-		</e:panelGrid>
-	</e:panelGrid>
-	<rich:modalPanel id="popup" autosized="true" width="400">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
-		</f:facet>
-		<center>
-			<rich:message style="font-weight:bold;"
-				for="formCommentaire">
-				<f:facet name="infoMarker">
-					<h:graphicImage value="../../media/images/tick.png"
-						title="#{msgs['FORM.CONFIRMATION']}" />
-				</f:facet>
-			</rich:message>
-		</center>
-		<e:panelGrid columns="1" align="center">
+	</t:div>
+	<t:div
+		rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
+		<h:panelGrid columns="1" style="margin-left:30;"
+			rendered="#{conventionController.convention.validationConvention}">
+			<h:outputText escape="false"
+				rendered="#{not empty conventionController.convention.commentaireStage}"
+				value="#{conventionController.convention.commentaireStage}" />
+			<h:outputText
+				rendered="#{empty conventionController.convention.commentaireStage}"
+				value="Aucun commentaire enregistrÃ©." />
+		</h:panelGrid>
+		<h:panelGrid columns="1" style="margin-left:30;"
+			rendered="#{!conventionController.convention.validationConvention}">
 			<rich:spacer height="10" />
-			<a4j:commandButton value="#{msgs['GENERAL.OK']}" ajaxSingle="true"
-				immediate="true"
-				onclick="#{rich:component('popup')}.hide();return false;" />
-		</e:panelGrid>
-	</rich:modalPanel>
-</t:div>
+			<rich:editor id="commentaireStage"
+				value="#{conventionController.convention.commentaireStage}"
+				width="400" height="200" />
+			<rich:spacer height="10" />
+			<h:panelGrid columns="1" align="center">
+				<a4j:commandButton
+					action="#{conventionController.ajouterCommentaireStage}"
+					oncomplete="#{rich:component('popup')}.show()"
+					reRender="formCommentaire" value="Enregistrer" alt="Enregistrer" />
+			</h:panelGrid>
+		</h:panelGrid>
+		<rich:modalPanel id="popup" autosized="true" width="400">
+			<f:facet name="header">
+				<h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
+			</f:facet>
+			<center>
+				<rich:message style="font-weight:bold;" for="formCommentaire">
+					<f:facet name="infoMarker">
+						<h:graphicImage value="../../media/images/tick.png"
+							title="#{msgs['FORM.CONFIRMATION']}" />
+					</f:facet>
+				</rich:message>
+			</center>
+			<h:panelGrid columns="1" align="center">
+				<rich:spacer height="10" />
+				<a4j:commandButton value="#{msgs['GENERAL.OK']}" ajaxSingle="true"
+					immediate="true"
+					onclick="#{rich:component('popup')}.hide();return false;" />
+			</h:panelGrid>
+		</rich:modalPanel>
+	</t:div>
+
+</ui:fragment>

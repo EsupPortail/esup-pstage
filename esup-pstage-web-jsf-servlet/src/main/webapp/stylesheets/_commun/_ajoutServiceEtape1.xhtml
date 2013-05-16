@@ -1,13 +1,20 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<%@include file="./_formService.jsp"%>
-<a4j:commandButton action="#{etablissementController.ajouterService}"
-	value="#{msgs['FORM.CREER']}" ignoreDupResponses="true" 
-	reRender="opService, opActionsService, opContactsDataTable"/>
-<rich:spacer width="150px" />
-<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-	onclick="#{rich:component('ajoutService')}.hide();"
-	action="_ajoutServiceEtape1" immediate="true">
-	<f:setPropertyActionListener value="#{true}"
-		target="#{etablissementController.memeAdresseStructure}" />
-</a4j:commandButton>
+	<ui:include src="./_formService.xhtml" />
+	<a4j:commandButton action="#{etablissementController.ajouterService}"
+		value="#{msgs['FORM.CREER']}" ignoreDupResponses="true"
+		reRender="opService, opActionsService, opContactsDataTable" />
+	<t:htmlTag value="div" style="spacer: 150px;" />
+	<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+		onclick="#{rich:component('ajoutService')}.hide();"
+		action="_ajoutServiceEtape1" immediate="true">
+		<f:setPropertyActionListener value="#{true}"
+			target="#{etablissementController.memeAdresseStructure}" />
+	</a4j:commandButton>
+</ui:fragment>

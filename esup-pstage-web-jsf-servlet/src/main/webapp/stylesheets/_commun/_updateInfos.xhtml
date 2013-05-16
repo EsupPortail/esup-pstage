@@ -1,26 +1,32 @@
-<%@include file="../_include.jsp"%>
-<%
-	/* A inclure dans une balise t:aliasBean ayant pour valeur "objet" */
-%>
-<e:panelGrid columns="4" style="font-size:11px;" rendered="#{not empty objet}">
-	<e:text value="#{msgs['GENERAL.UPDATEINFOS.CREELE']}"
-		rendered="#{not empty objet.dateCreation}" />
-	<e:text value="#{objet.dateCreation}"
-		rendered="#{not empty objet.dateCreation}">
-		<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-	</e:text>
-	<e:text value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
-		rendered="#{not empty objet.dateCreation and not empty objet.loginCreation}" />
-	<e:text value="#{objet.loginCreation}"
-		rendered="#{not empty objet.dateCreation and not empty objet.loginCreation}" />
-	<e:text value="#{msgs['GENERAL.UPDATEINFOS.MODIFIELE']}"
-		rendered="#{not empty objet.dateModif}" />
-	<e:text value="#{objet.dateModif}"
-		rendered="#{not empty objet.dateModif}">
-		<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-	</e:text>
-	<e:text value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
-		rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
-	<e:text value="#{objet.loginModif}"
-		rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
-</e:panelGrid>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<h:panelGrid columns="4" style="font-sizh:11px;"
+		rendered="#{not empty objet}">
+		<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.CREELE']}"
+			rendered="#{not empty objet.dateCreation}" />
+		<h:outputText value="#{objet.dateCreation}"
+			rendered="#{not empty objet.dateCreation}">
+			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+		</h:outputText>
+		<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
+			rendered="#{not empty objet.dateCreation and not empty objet.loginCreation}" />
+		<h:outputText value="#{objet.loginCreation}"
+			rendered="#{not empty objet.dateCreation and not empty objet.loginCreation}" />
+		<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.MODIFIELE']}"
+			rendered="#{not empty objet.dateModif}" />
+		<h:outputText value="#{objet.dateModif}"
+			rendered="#{not empty objet.dateModif}">
+			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+		</h:outputText>
+		<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
+			rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
+		<h:outputText value="#{objet.loginModif}"
+			rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
+	</h:panelGrid>
+</ui:fragment>

@@ -1,129 +1,118 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div>
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<rich:panel
-					rendered="#{(welcomeController.superAdmin	
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+
+		<rich:panel
+			rendered="#{(welcomeController.superAdmin	
 								|| welcomeController.admin)
-								&& centreController.centre != null}">
-					<f:facet name="header">
-						<e:text value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.HEAD']}" />
-					</f:facet>
-					<%@include file="./_menu_centre.jsp"%>
-					<h:form id="formRecherchePersonnel">
-						<a4j:region id="rech">
-							<e:panelGrid columns="1" align="center">
-								<e:text value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.ACCUEIL']}" />
-								<e:panelGrid columns="3">
-									<e:panelGrid columns="1">
-										<e:outputLabel for="nomPersonnel"
-											value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
-										<h:inputText id="nomPersonnel"
-											value="#{centreController.personnel.nom}" size="30"
-											maxlength="30" style="text-transform:uppercase;">
-											<f:converter binding="#{sansAccentEnMAJConverter}" />
-											<a4j:support ajaxSingle="true" event="onchange"
-												reRender="erreurRecherche" />
-										</h:inputText>
-									</e:panelGrid>
+								and centreController.centre != null}">
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.HEAD']}" />
+			</f:facet>
+			<ui:include src="./_menu_centre.xhtml" />
+			<h:form id="formRecherchePersonnel">
+				<a4j:region id="rech">
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="1" align="center">
+						<h:outputText
+							value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.ACCUEIL']}" />
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="3">
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="1">
+								<h:outputLabel for="nomPersonnel"
+									value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
+								<h:inputText id="nomPersonnel"
+									value="#{centreController.personnel.nom}" size="30"
+									maxlength="30" style="text-transform:uppercase;">
+									<f:converter binding="#{sansAccentEnMAJConverter}" />
+									<a4j:ajax ajaxSingle="true" event="change"
+										reRender="erreurRecherche" />
+								</h:inputText>
+							</h:panelGrid>
 
-									<e:panelGrid columns="3">
-										<rich:spacer width="15px" />
-										<rich:spacer width="2px"
-											style="background-color: #{a4jSkin.panelBorderColor};"
-											height="60px" />
-										<rich:spacer width="15px" />
-									</e:panelGrid>
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="3">
+								<t:htmlTag value="div" style="width: 15px;" />
+								<t:htmlTag value="div"
+									style="width: 2px; height: 60px; background-color: #{a4jSkin.panelBorderColor};" />
+								<t:htmlTag value="div" style="width: 15px;" />
+							</h:panelGrid>
 
-									<e:panelGrid columns="1">
-										<e:outputLabel for="prenomPersonnel"
-											value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
-										<h:inputText id="prenomPersonnel"
-											style="text-transform:capitalize;"
-											value="#{centreController.personnel.prenom}" size="30"
-											maxlength="50" style="text-transform:capitalize;">
-											<f:converter binding="#{premiereLettreMAJConverter}" />
-											<a4j:support ajaxSingle="true" event="onchange"
-												reRender="erreurRecherche" />
-										</h:inputText>
-									</e:panelGrid>
-								</e:panelGrid>
-								<e:panelGrid columns="1" align="center"
-									rendered="#{!centreController.listeAffectationVide}">
-									<rich:spacer height="10" />
-									<t:htmlTag value="center">
-										<e:outputLabel for="affectation"
-											value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
-									</t:htmlTag>
-									<h:selectOneMenu id="affectation"
-										value="#{centreController.codeAffectationPersonnel}">
-										<f:selectItem itemValue="" />
-										<f:selectItems
-											value="#{conventionController.listeAffectation}" />
-										<a4j:support ajaxSingle="true" event="onchange"
-											reRender="erreurRecherche" />
-									</h:selectOneMenu>
-								</e:panelGrid>
-								<e:panelGrid columns="1" align="center"
-									rendered="#{centreController.listeAffectationVide}">
-									<rich:spacer height="5" />
-									<e:text value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE_VIDE']}" />
-								</e:panelGrid>
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="1">
+								<h:outputLabel for="prenomPersonnel"
+									value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
+								<h:inputText id="prenomPersonnel"
+									value="#{centreController.personnel.prenom}" size="30"
+									maxlength="50" style="text-transform:capitalize;">
+									<f:converter binding="#{premiereLettreMAJConverter}" />
+									<a4j:ajax ajaxSingle="true" event="change"
+										reRender="erreurRecherche" />
+								</h:inputText>
+							</h:panelGrid>
+						</h:panelGrid>
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="1" align="center"
+							rendered="#{!centreController.listeAffectationVide}">
+							<t:htmlTag value="div" style="height: 10px;" />
+							<t:htmlTag value="center">
+								<h:outputLabel for="affectation"
+									value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
+							</t:htmlTag>
+							<h:selectOneMenu id="affectation"
+								value="#{centreController.codeAffectationPersonnel}">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{conventionController.listeAffectation}" />
+								<a4j:ajax ajaxSingle="true" event="change"
+									reRender="erreurRecherche" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="1" align="center"
+							rendered="#{centreController.listeAffectationVide}">
+							<t:htmlTag value="div" style="height: 5px;" />
+							<h:outputText value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE_VIDE']}" />
+						</h:panelGrid>
 
-								<rich:spacer height="20" />
+						<t:htmlTag value="div" style="height: 20px;" />
 
-								<t:htmlTag value="center">
-									<a4j:commandButton id="recherche"
-										action="#{centreController.rechercherPersonnel}"
-										value="#{msgs['CENTRE.PERSONNEL.RECHERCHER']}" />
-								</t:htmlTag>
-							</e:panelGrid>
-						</a4j:region>
 						<t:htmlTag value="center">
-							<a4j:status for="rech">
-								<f:facet name="start">
-									<%@include file="../_commun/_veuillezPatienter.jsp"%>
-								</f:facet>
-							</a4j:status>
-							<e:text id="erreurRecherche" value="" />
-							<rich:message for="erreurRecherche">
-								<%@include file="../_commun/_messageErrorMarker.jsp"%>
-							</rich:message>
+							<a4j:commandButton id="recherche"
+								action="#{centreController.rechercherPersonnel}"
+								value="#{msgs['CENTRE.PERSONNEL.RECHERCHER']}" />
 						</t:htmlTag>
-					</h:form>
-				</rich:panel>
-				<t:div
-					rendered="#{!(welcomeController.superAdmin	
+					</h:panelGrid>
+				</a4j:region>
+				<t:htmlTag value="center">
+					<a4j:status for="rech">
+						<f:facet name="start">
+							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+						</f:facet>
+					</a4j:status>
+					<h:outputText id="erreurRecherche" value="" />
+					<rich:message for="erreurRecherche">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+				</t:htmlTag>
+			</h:form>
+		</rich:panel>
+		<t:div
+			rendered="#{!(welcomeController.superAdmin	
 		|| welcomeController.admin)}">
-					<%@include file="./_redirection_droitsInsuffisants.jsp"%>
-				</t:div>
-				<t:div
-					rendered="#{(welcomeController.superAdmin	
-		|| welcomeController.admin) && centreController.centre == null}">
-					<%@include file="./_redirection_accesDirectImpossible.jsp"%>
-				</t:div>
-			</t:div>
+			<ui:include src="./_redirection_droitsInsuffisants.xhtml" />
 		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<e:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</e:form>
+		<t:div
+			rendered="#{(welcomeController.superAdmin	
+		|| welcomeController.admin) and centreController.centre == null}">
+			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
 		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-	hideButton("welcomeManagerForm:localeChangeButton");
-</script>
-	</t:div>
-</e:page>
+	</ui:define>
+</ui:composition>

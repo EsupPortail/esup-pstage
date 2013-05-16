@@ -1,13 +1,22 @@
-<%@include file="__offreEtape1.jsp"%>
-<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-	action="_modificationOffreEtape04DetailsEtab" alt="#{msgs['FORM.PREVIOUS']}"
-	title="#{msgs['FORM.PREVIOUS']}" immediate="true"
-	rendered="#{offreController.typeAjoutModifOffre>1
-	and not empty offreController.formOffre.structure}"/>
-<rich:spacer width="20px" />
-<h:commandButton value="#{msgs['FORM.NEXT']}"
-	action="#{offreController.goToModificationOffreEtape2}"
-	alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"
-	rendered="#{not empty offreController.formOffre.structure}">
-	<a4j:support event="onclick" eventsQueue="modificationOffreEtape1"/>
-</h:commandButton>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+		action="_modificationOffreEtape04DetailsEtab"
+		alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+		immediate="true"
+		rendered="#{offreController.typeAjoutModifOffre>1
+	and not empty offreController.formOffre.structure}" />
+	<t:htmlTag value="div" style="width: 20px;" />
+	<h:commandButton value="#{msgs['FORM.NEXT']}"
+		action="#{offreController.goToModificationOffreEtape2}"
+		alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"
+		rendered="#{not empty offreController.formOffre.structure}">
+		<a4j:ajax event="click" eventsQueue="modificationOffreEtape1" />
+	</h:commandButton>
+</ui:fragment>

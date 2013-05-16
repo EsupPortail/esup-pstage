@@ -1,5 +1,12 @@
-<%@include file="../_include.jsp"%>
-<rich:dataTable value="#{conventionController.convention.contact}">
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<rich:dataTable value="#{conventionController.convention.contact}">
 		<f:facet name="header">
 			<rich:columnGroup>
 				<rich:column>
@@ -26,43 +33,45 @@
 			</rich:columnGroup>
 		</f:facet>
 		<rich:column>
-			<e:text id="civC"
+			<h:outputText id="civC"
 				value="#{conventionController.convention.contact.civilite.libelle}" />
 		</rich:column>
 		<rich:column>
-			<e:text id="nomC" value="#{conventionController.convention.contact.nom}" />
+			<h:outputText id="nomC"
+				value="#{conventionController.convention.contact.nom}" />
 		</rich:column>
 		<rich:column>
-			<e:text id="prenomC"
+			<h:outputText id="prenomC"
 				value="#{conventionController.convention.contact.prenom}" />
 		</rich:column>
 		<rich:column>
-			<e:text id="fonctionC"
+			<h:outputText id="fonctionC"
 				value="#{conventionController.convention.contact.fonction}" />
 		</rich:column>
 		<rich:column>
-			<e:panelGrid columns="1">
-				<e:panelGrid columns="2">
+			<h:panelGrid columns="1">
+				<h:panelGrid columns="2">
 					<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
 						title="#{msgs['CONTACT.TELEPHONE']}"
 						value="../../media/images/phone.png" style="border:0" />
-					<e:text id="telC"
+					<h:outputText id="telC"
 						value="#{conventionController.convention.contact.tel}" />
-				</e:panelGrid>
-				<e:panelGrid columns="2">
+				</h:panelGrid>
+				<h:panelGrid columns="2">
 					<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
 						title="#{msgs['CONTACT.FAX']}"
 						value="../../media/images/printer.png" style="border:0" />
-					<e:text id="faxC"
+					<h:outputText id="faxC"
 						value="#{conventionController.convention.contact.fax}" />
-				</e:panelGrid>
-				<e:panelGrid columns="2">
+				</h:panelGrid>
+				<h:panelGrid columns="2">
 					<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
 						title="#{msgs['CONTACT.MAIL']}"
 						value="../../media/images/email.png" style="border:0" />
-					<e:text id="mailC"
+					<h:outputText id="mailC"
 						value="#{conventionController.convention.contact.mail}" />
-				</e:panelGrid>
-			</e:panelGrid>
+				</h:panelGrid>
+			</h:panelGrid>
 		</rich:column>
 	</rich:dataTable>
+</ui:fragment>
