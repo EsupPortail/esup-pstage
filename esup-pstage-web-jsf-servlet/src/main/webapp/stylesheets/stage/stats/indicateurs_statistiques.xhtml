@@ -1,42 +1,27 @@
-<%@include file="../../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div>
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="/stylesheets/stage/_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<rich:panel id="indicateursStats">
-					<f:facet name="header">
-						<e:text value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']} pour le centre #{centreController.centre.nomCentre}" />
-					</f:facet>
-					<%@include file="../_menu_centre.jsp"%>
-					<t:htmlTag value="center">
-							<%@include
-								file="/stylesheets/stage/stats/indicateurs_stats_pour_stages.jsp"%>
-							<rich:spacer height="30" />
-							<%@include
-								file="/stylesheets/stage/stats/indicateurs_stats_pour_offres.jsp"%>
-					</t:htmlTag>
-				</rich:panel>
-			</t:div>
-		</t:div>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="../_definedStageTemplate.xhtml">
+	<ui:define name="content">
 
-		<t:div styleClass="fl-container-flex">
-			<e:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</e:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript"> hideButton("welcomeManagerForm:localeChangeButton"); </script>
-
-	</t:div>
-</e:page>
+		<rich:panel id="indicateursStats">
+			<f:facet name="header">
+				<h:outputText
+					value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']} pour le centre #{centreController.centre.nomCentre}" />
+			</f:facet>
+			<ui:include src="../_menu_centre.xhtml" />
+			<t:htmlTag value="center">
+				<ui:include
+					src="/stylesheets/stage/stats/indicateurs_stats_pour_stages.xhtml" />
+				<t:htmlTag value="div" style="height: 30px;" />
+				<ui:include
+					src="/stylesheets/stage/stats/indicateurs_stats_pour_offres.xhtml" />
+			</t:htmlTag>
+		</rich:panel>
+	</ui:define>
+</ui:composition>

@@ -91,6 +91,7 @@
     		</description>
     		<list>
     		<value>style/skins/universality/etab/etab.css</value>
+<!-- 				<value>../../../webapp/media/style/skins/universality/etab/etab.css</value> -->
     		</list>
     	</property>
     	<property name="documentBodyStyleClass" value="fl-theme-app" >

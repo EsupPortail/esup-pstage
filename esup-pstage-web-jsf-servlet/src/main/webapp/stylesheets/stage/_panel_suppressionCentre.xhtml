@@ -1,86 +1,101 @@
-<%@include file="../_include.jsp"%>
-
-<rich:modalPanel id="suppressionCentre" autosized="true" width="500">
-	<f:facet name="header">
-		<e:text value="#{msgs['CENTRE.SUPPRESSION.HEAD']}" />
-	</f:facet>
-	<rich:panel style="border:none">
-		<e:panelGrid columns="1" align="center">
-			<e:outputLabel value="#{centreController.centre.nomCentre}" />
-			<e:panelGrid columns="2">
-				<e:text value="#{centreController.centre.voie}" />
-				<e:text value="#{centreController.centre.batimentResidence}" />
-			</e:panelGrid>
-			<e:panelGrid columns="2">
-				<e:text value="#{centreController.centre.codePostal}" />
-				<e:text value="#{centreController.centre.commune}" />
-			</e:panelGrid>
-			<rich:spacer height="5" />
-			<t:div rendered="#{centreController.nbCriteres != 0 || centreController.nbPersonnels != 0 || centreController.nbContacts != 0
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<rich:popupPanel modal="true" id="suppressionCentre" autosized="true" width="500">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CENTRE.SUPPRESSION.HEAD']}" />
+		</f:facet>
+		<rich:panel style="border:none">
+			<h:panelGrid columns="1" align="center">
+				<h:outputLabel value="#{centreController.centre.nomCentre}" />
+				<h:panelGrid columns="2">
+					<h:outputText value="#{centreController.centre.voie}" />
+					<h:outputText value="#{centreController.centre.batimentResidence}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:outputText value="#{centreController.centre.codePostal}" />
+					<h:outputText value="#{centreController.centre.commune}" />
+				</h:panelGrid>
+				<p:spacer height="5" />
+				<t:div
+					rendered="#{centreController.nbCriteres != 0 || centreController.nbPersonnels != 0 || centreController.nbContacts != 0
 				|| centreController.nbConventions != 0 || centreController.nbOffres != 0}">
-				<e:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}" />
-				<e:panelGrid columns="2" rendered="#{centreController.nbCriteres != 0}">
-					<e:text value="#{centreController.nbCriteres}" />
-					<e:text value="#{msgs['CENTRE.SUPPRESSION.NB_CRITERES']}" />
-					<rich:spacer height="3" />
-				</e:panelGrid>
-				<e:panelGrid columns="2" rendered="#{centreController.nbPersonnels != 0}">
-					<e:text value="#{centreController.nbPersonnels}" />
-					<e:text value="#{msgs['CENTRE.SUPPRESSION.NB_PERSONNES']}" />
-					<rich:spacer height="3" />
-				</e:panelGrid>
-				<e:panelGrid columns="2" rendered="#{centreController.nbConventions != 0}">
-					<e:text value="#{centreController.nbConventions}" />
-					<e:text value="#{msgs['CENTRE.SUPPRESSION.NB_CONVENTIONS']}" />
-					<rich:spacer height="3" />
-				</e:panelGrid>
-				<e:panelGrid columns="2" rendered="#{centreController.nbOffres != 0}">
-					<e:text value="#{centreController.nbOffres}" />
-					<e:text value="#{msgs['CENTRE.SUPPRESSION.NB_OFFRES']}" />
-					<rich:spacer height="3" />
-				</e:panelGrid>
-				<e:panelGrid columns="2" rendered="#{centreController.nbContacts != 0}">
-					<e:text value="#{centreController.nbContacts}" />
-					<e:text value="#{msgs['CENTRE.SUPPRESSION.NB_CONTACTS']}" />
-					<rich:spacer height="3" />
-				</e:panelGrid>
-			</t:div>
-			<t:div rendered="#{centreController.nbCriteres == 0 && centreController.nbPersonnels == 0 && centreController.nbContacts == 0
-				&& centreController.nbConventions == 0 && centreController.nbOffres == 0}">
-				<e:text value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS.VIDES']}" />
-			</t:div>
-			<t:div>
-				<fieldset>
-					<legend>
-						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-							value="../../media/images/warning_30px.png" />
-					</legend>
-					<e:panelGrid columns="1">
-						<t:htmlTag value="center">
-							<e:text value="#{msgs['CENTRE.SUPPRESSION.RAPPEL']}" />
-						</t:htmlTag>
-						<rich:spacer height="2" />
-						<e:text value="#{msgs['CENTRE.SUPPRESSION.RAPPEL_BIS']}" />
-					</e:panelGrid>
-				</fieldset>
-			</t:div>
-			<rich:spacer height="15" />
-			<e:outputLabel value="#{msgs['CENTRE.SUPPRESSION.AVERTISSEMENT']}" />
-		</e:panelGrid>
-	</rich:panel>
-	<h:form id="formSupprCentre">
-		<e:panelGrid columns="3" align="center">
-			<a4j:commandButton action="#{centreController.supprimerCentre}"
-				value="#{msgs['FORM.OUI']}" reRender="centreDataTable" />
-			<rich:spacer width="30" />
-			<h:commandButton value="#{msgs['FORM.NON']}"
-				onclick="#{rich:component('suppressionCentre')}.hide();return false;" />
-		</e:panelGrid>
-		<t:htmlTag value="center">
-			<e:text id="erreurListeCentre" value="" />
-			<rich:message for="erreurListeCentre">
-				<%@include file="../_commun/_messageErrorMarker.jsp"%>
-			</rich:message>
-		</t:htmlTag>
-	</h:form>
-</rich:modalPanel>
+					<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}" />
+					<h:panelGrid columns="2"
+						rendered="#{centreController.nbCriteres != 0}">
+						<h:outputText value="#{centreController.nbCriteres}" />
+						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CRITERES']}" />
+						<p:spacer height="3" />
+					</h:panelGrid>
+					<h:panelGrid columns="2"
+						rendered="#{centreController.nbPersonnels != 0}">
+						<h:outputText value="#{centreController.nbPersonnels}" />
+						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_PERSONNES']}" />
+						<p:spacer height="3" />
+					</h:panelGrid>
+					<h:panelGrid columns="2"
+						rendered="#{centreController.nbConventions != 0}">
+						<h:outputText value="#{centreController.nbConventions}" />
+						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONVENTIONS']}" />
+						<p:spacer height="3" />
+					</h:panelGrid>
+					<h:panelGrid columns="2"
+						rendered="#{centreController.nbOffres != 0}">
+						<h:outputText value="#{centreController.nbOffres}" />
+						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_OFFRES']}" />
+						<p:spacer height="3" />
+					</h:panelGrid>
+					<h:panelGrid columns="2"
+						rendered="#{centreController.nbContacts != 0}">
+						<h:outputText value="#{centreController.nbContacts}" />
+						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONTACTS']}" />
+						<p:spacer height="3" />
+					</h:panelGrid>
+				</t:div>
+				<t:div
+					rendered="#{centreController.nbCriteres == 0 and centreController.nbPersonnels == 0 and centreController.nbContacts == 0
+				and centreController.nbConventions == 0 and centreController.nbOffres == 0}">
+					<h:outputText value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS.VIDES']}" />
+				</t:div>
+				<t:div>
+					<fieldset>
+						<legend>
+							<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+								value="../../media/images/warning_30px.png" />
+						</legend>
+						<h:panelGrid columns="1">
+							<t:htmlTag value="center">
+								<h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL']}" />
+							</t:htmlTag>
+							<p:spacer height="2" />
+							<h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL_BIS']}" />
+						</h:panelGrid>
+					</fieldset>
+				</t:div>
+				<p:spacer height="15" />
+				<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.AVERTISSEMENT']}" />
+			</h:panelGrid>
+		</rich:panel>
+		<h:form id="formSupprCentre">
+			<h:panelGrid columns="3" align="center">
+				<a4j:commandButton action="#{centreController.supprimerCentre}"
+					value="#{msgs['FORM.OUI']}" reRender="centreDataTable" />
+				<p:spacer width="30" />
+				<h:commandButton value="#{msgs['FORM.NON']}"
+					onclick="#{rich:component('suppressionCentre')}.hide();return false;" />
+			</h:panelGrid>
+			<t:htmlTag value="center">
+				<h:outputText id="erreurListeCentre" value="" />
+				<rich:message for="erreurListeCentre">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+			</t:htmlTag>
+		</h:form>
+	</rich:popupPanel>
+</ui:fragment>
+

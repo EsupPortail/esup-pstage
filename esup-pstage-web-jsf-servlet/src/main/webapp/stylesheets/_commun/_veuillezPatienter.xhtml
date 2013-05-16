@@ -1,8 +1,13 @@
-<%@include file="../_include.jsp"%>
-
-<e:panelGrid columns="2">
-	<h:graphicImage alt="#{msgs['FORM.VEUILLEZPATIENTER']}"
-		title="#{msgs['FORM.VEUILLEZPATIENTER']}"
-		value="../../media/images/loadingCircle.gif" style="border:0" />
-	<e:text value=" #{msgs['FORM.VEUILLEZPATIENTER']}" />
-</e:panelGrid>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<h:panelGrid columns="2">
+		<h:graphicImage alt="#{msgs['FORM.VEUILLEZPATIENTER']}"
+			title="#{msgs['FORM.VEUILLEZPATIENTER']}"
+			value="../../media/images/loadingCircle.gif" style="border:0" />
+		<h:outputText value=" #{msgs['FORM.VEUILLEZPATIENTER']}" />
+	</h:panelGrid>
+</ui:fragment>

@@ -1,163 +1,175 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1">
-	<e:text value=" " id="formModifEtudiant" />
-	<rich:message for="formModifEtudiant">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
-	</rich:message>
+	<h:panelGrid columns="1">
+		<h:outputText value=" " id="formModifEtudiant" />
+		<rich:message for="formModifEtudiant">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
+		<t:div
+			rendered="#{not empty conventionController.convention.etudiant}">
+			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+				alternateColors="true">
+				<h:outputLabel for="numeroetudiant1"
+					value="#{msgs['CONVENTION.NUMETUDIANT']}" />
+				<h:outputText id="numeroetudiant1"
+					value="#{conventionController.convention.etudiant.numEtudiant}" />
+				<h:outputLabel for="nom1" value="#{msgs['CONVENTION.NOM']}" />
+				<h:outputText id="nom1"
+					value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}" />
+				<h:outputLabel for="prenom1" value="#{msgs['CONVENTION.PRENOM']}" />
+				<h:outputText id="prenom1"
+					value="#{conventionController.convention.etudiant.prenom}" />
+				<h:outputLabel for="etape1" value="#{msgs['CONVENTION.VOTREETAPE']}" />
+				<h:outputText id="etape1"
+					value="#{conventionController.convention.etape.code} - #{conventionController.convention.etape.libelle}" />
+				<h:outputLabel for="ufr1" value="#{msgs['CONVENTION.VOTREUFR']}" />
+				<h:outputText id="ufr1"
+					value="#{conventionController.convention.ufr.code} - #{conventionController.convention.ufr.libelle}" />
+				<h:outputLabel for="elp" value="#{msgs['CONVENTION.ELP']}" />
+				<h:outputText
+					value="#{conventionController.convention.codeElp} - #{conventionController.convention.creditECTS} crÃ©dit(s)" />
+			</h:panelGrid>
+			<h:panelGrid columns="1">
+				<rich:spacer height="20" />
+				<h:panelGrid columns="3">
+					<h:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']} *"
+						for="mainAddress" />
+					<h:inputText id="mainAddress"
+						value="#{conventionController.convention.adresseEtudiant}"
+						size="50" required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}">
+						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+					</h:inputText>
+					<rich:message for="mainAddress">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
 
-	
-	<t:div rendered="#{not empty conventionController.convention.etudiant}">
+					<h:outputLabel value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}"
+						for="codePostal" />
+					<h:inputText id="codePostal"
+						value="#{conventionController.convention.codePostalEtudiant}" />
+					<rich:message for="codePostal">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
 
-		<e:panelGrid columns="2" cellpadding="2" cellspacing="2"
-			alternateColors="true">
-			<e:outputLabel for="numeroetudiant1"
-				value="#{msgs['CONVENTION.NUMETUDIANT']}" />
-			<e:text id="numeroetudiant1"
-				value="#{conventionController.convention.etudiant.numEtudiant}" />
-			<e:outputLabel for="nom1" value="#{msgs['CONVENTION.NOM']}" />
-			<e:text id="nom1"
-				value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}" />
-			<e:outputLabel for="prenom1" value="#{msgs['CONVENTION.PRENOM']}" />
-			<e:text id="prenom1"
-				value="#{conventionController.convention.etudiant.prenom}" />
-			<e:outputLabel for="etape1" value="#{msgs['CONVENTION.VOTREETAPE']}" />
-			<e:text id="etape1"
-				value="#{conventionController.convention.etape.code} - #{conventionController.convention.etape.libelle}" />
-			<e:outputLabel for="ufr1" value="#{msgs['CONVENTION.VOTREUFR']}" />
-			<e:text id="ufr1"
-				value="#{conventionController.convention.ufr.code} - #{conventionController.convention.ufr.libelle}" />
-			<e:outputLabel for="elp" value="#{msgs['CONVENTION.ELP']}" />
-			<e:text
-				value="#{conventionController.convention.codeElp} - #{conventionController.convention.creditECTS} crédit(s)" />
-		</e:panelGrid>
-		<e:panelGrid columns="1">
-			<rich:spacer height="20" />
-			<e:panelGrid columns="3">
-				<e:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']} *"
-					for="mainAddress" />
-				<h:inputText id="mainAddress"
-					value="#{conventionController.convention.adresseEtudiant}" size="50"
-					required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
-				</h:inputText>
-				<rich:message for="mainAddress">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
+					<h:outputLabel value="#{msgs['CONVENTION.ETU.COMMUNE']}"
+						for="commune" />
+					<h:inputText id="commune"
+						value="#{conventionController.convention.villeEtudiant}" />
+					<rich:message for="commune">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
 
-				<e:outputLabel value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}"
-					for="codePostal" />
-				<e:inputText id="codePostal"
-					value="#{conventionController.convention.codePostalEtudiant}" />
-				<rich:message for="codePostal">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
-
-				<e:outputLabel value="#{msgs['CONVENTION.ETU.COMMUNE']}"
-					for="commune" />
-				<e:inputText id="commune"
-					value="#{conventionController.convention.villeEtudiant}" />
-				<rich:message for="commune">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
-
-				<e:outputLabel value="#{msgs['CONVENTION.ETU.PAYS']} *" for="pays" />
-				<h:inputText id="pays"
-					value="#{conventionController.convention.paysEtudiant}" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
-				</h:inputText>
-				<rich:message for="pays">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
+					<h:outputLabel value="#{msgs['CONVENTION.ETU.PAYS']} *" for="pays" />
+					<h:inputText id="pays"
+						value="#{conventionController.convention.paysEtudiant}"
+						required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}">
+						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+					</h:inputText>
+					<rich:message for="pays">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
 
 
-				<e:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE']}"
-					for="telephone" />
-				<e:inputText id="telephone"
-					value="#{conventionController.convention.telEtudiant}" />
-				<rich:message for="telephone">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
+					<h:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE']}"
+						for="telephone" />
+					<h:inputText id="telephone"
+						value="#{conventionController.convention.telEtudiant}" />
+					<rich:message for="telephone">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
 
-				<e:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}"
-					for="telephoneportable" />
-				<e:inputText id="telephoneportable"
-					value="#{conventionController.convention.telPortableEtudiant}" />
-				<rich:message for="telephoneportable">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
+					<h:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}"
+						for="telephoneportable" />
+					<h:inputText id="telephoneportable"
+						value="#{conventionController.convention.telPortableEtudiant}" />
+					<rich:message for="telephoneportable">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
 
-				<e:outputLabel value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"
-					for="mailinstitu" />
-				<e:text value="#{conventionController.convention.etudiant.mail}" />
-				<rich:message for="mailinstitu">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
+					<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"
+						for="mailinstitu" />
+					<h:outputText
+						value="#{conventionController.convention.etudiant.mail}" />
+					<rich:message for="mailinstitu">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
 
-				<e:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']}"
-					for="mailperso" />
-				<e:inputText id="mailperso"
-					value="#{conventionController.convention.courrielPersoEtudiant}" size="50" />
-				<rich:message for="mailperso">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
-			</e:panelGrid>
-			<rich:spacer height="20" />
-			<rich:panel rendered="#{not empty conventionController.convention.etudiant}">
-				<f:facet name="header">
-					<e:text value="#{msgs['CONVENTION.CHOIX.AFFILSS']} *" />
-				</f:facet>
-				<h:selectOneRadio id="affilss" layout="pageDirection"
-					required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}"
-					value="#{conventionController.selAssurance}"
-					converter="#{assuranceConverter}">
-					<f:selectItems value="#{nomenclatureController.assurances}" />
-				</h:selectOneRadio>
-				<rich:message for="affilss">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
-			</rich:panel>
-			<rich:spacer height="20" />
-			<rich:panel rendered="#{not empty conventionController.convention.etudiant}">
-				<f:facet name="header">
-					<e:text value="#{msgs['CONVENTION.CHOIX.CPAM']}"  />
-				</f:facet>
-				<h:selectOneRadio id="caisses" layout="pageDirection"
-					value="#{conventionController.selCaisseRegime}"
-					converter="#{caisseRegimeConverter}">
-					<f:selectItems value="#{nomenclatureController.caisseRegimes}" />
-				</h:selectOneRadio>
-				<rich:message for="caisses">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
-			</rich:panel>
-		</e:panelGrid>
+					<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']}"
+						for="mailperso" />
+					<h:inputText id="mailperso"
+						value="#{conventionController.convention.courrielPersoEtudiant}"
+						size="50" />
+					<rich:message for="mailperso">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+				</h:panelGrid>
+				<rich:spacer height="20" />
+				<rich:panel
+					rendered="#{not empty conventionController.convention.etudiant}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['CONVENTION.CHOIX.AFFILSS']} *" />
+					</f:facet>
+					<h:selectOneRadio id="affilss" layout="pageDirection"
+						required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}"
+						value="#{conventionController.selAssurance}"
+						converter="#{assuranceConverter}">
+						<f:selectItems value="#{nomenclatureController.assurances}" />
+					</h:selectOneRadio>
+					<rich:message for="affilss">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+				</rich:panel>
+				<rich:spacer height="20" />
+				<rich:panel
+					rendered="#{not empty conventionController.convention.etudiant}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['CONVENTION.CHOIX.CPAM']}" />
+					</f:facet>
+					<h:selectOneRadio id="caisses" layout="pageDirection"
+						value="#{conventionController.selCaisseRegime}"
+						converter="#{caisseRegimeConverter}">
+						<f:selectItems value="#{nomenclatureController.caisseRegimes}" />
+					</h:selectOneRadio>
+					<rich:message for="caisses">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+				</rich:panel>
+			</h:panelGrid>
 
-		<a4j:outputPanel id="opFCE">
-        <e:panelGrid columns="3"
-            rendered="#{facesContext.maximumSeverity != null}">
-            <h:graphicImage value="../../media/images/arrow_up.png"
-                alt="#{msgs['GENERAL.ARROW_UP']}"
-                title="#{msgs['GENERAL.ARROW_UP']}" />
-            <e:text value="#{msgs['FORM.FORMERROR']}" />
-            <h:graphicImage value="../../media/images/arrow_up.png"
-                alt="#{msgs['GENERAL.ARROW_UP']}"
-                title="#{msgs['GENERAL.ARROW_UP']}" />
-        </e:panelGrid>
-   		 </a4j:outputPanel>
-	</t:div>
+			<a4j:outputPanel id="opFCE">
+				<h:panelGrid columns="3"
+					rendered="#{facesContext.maximumSeverity != null}">
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+					<h:outputText value="#{msgs['FORM.FORMERROR']}" />
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+				</h:panelGrid>
+			</a4j:outputPanel>
+		</t:div>
 
-	<e:panelGrid columns="1">
-		
-		<rich:spacer width="20px" />
-		<a4j:commandButton id="modifEtudiant" value="#{msgs['FORM.MODIFIER']}"
-			action="#{conventionController.modifierEtudiantDetail}"
-			alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-			rendered="#{not empty conventionController.convention.etudiant}" reRender="opFCE">
-			
-		</a4j:commandButton>
-	</e:panelGrid>
-</e:panelGrid>
+		<h:panelGrid columns="1">
+
+			<rich:spacer width="20px" />
+			<a4j:commandButton id="modifEtudiant"
+				value="#{msgs['FORM.MODIFIER']}"
+				action="#{conventionController.modifierEtudiantDetail}"
+				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+				rendered="#{not empty conventionController.convention.etudiant}"
+				reRender="opFCE">
+
+			</a4j:commandButton>
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:fragment>

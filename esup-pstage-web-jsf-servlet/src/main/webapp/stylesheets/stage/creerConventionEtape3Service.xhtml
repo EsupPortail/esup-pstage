@@ -1,43 +1,25 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}" authorized="true">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div >
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<ui:include src="_roadmap.xhtml" />
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+			</f:facet>
+			<h:form id="formConvention">
+				<ui:include id="include"
+					src="/stylesheets/stage/_creerConventionEtape3Service.xhtml" />
 			</h:form>
-		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="/stylesheets/stage/_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<%@include file="_roadmap.jsp"%>
-				<rich:panel>
-					<f:facet name="header">
-						<e:text value="#{msgs['CONVENTION.TITRE']}" />
-					</f:facet>
-					<h:form id="formConvention">
-		                <a4j:include id="include" viewId="/stylesheets/stage/_creerConventionEtape3Service.jsp" />
-		                	
-		            </h:form>
-		            <%@include file="../_commun/_panelAjoutService.jsp"%>
-					<%@include file="../_commun/_panelModifService.jsp"%>
-					<%@include file="../_commun/_panelSupprService.jsp"%>
-				</rich:panel>
-			</t:div>	
-		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<h:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-		hideButton("welcomeManagerForm:localeChangeButton");
-	</script>
-	</t:div>
-
-</e:page>
+			<ui:include src="../_commun/_panelAjoutService.xhtml" />
+			<ui:include src="../_commun/_panelModifService.xhtml" />
+			<ui:include src="../_commun/_panelSupprService.xhtml" />
+		</rich:panel>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,25 @@
+<ui:fragment xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<t:div styleClass="logo" />
+	<t:div styleClass="header_suite">
+		<t:div id="titreAppli" styleClass="titreAppli">
+			<t:outputText value="#{msgs['APPLICATION.BIG_TITLE']}"
+				styleClass="span_bigTitre" />
+			<t:htmlTag value="br" />
+			<t:outputText value="#{msgs['APPLICATION.TITLE']}"
+				styleClass="span_titre" />
+		</t:div>
+
+		<t:div styleClass="user_displayName">
+			<t:outputText value="#{sessionController.currentUser.displayName}"
+				styleClass="span_currentUser" />
+		</t:div>
+		<t:div styleClass="version">
+			<t:outputText
+				value="#{msgs['EXCEPTION.INFORMATION.VERSION']} #{applicationService.version}"
+				styleClass="span_version" />
+		</t:div>
+	</t:div>
+
+</ui:fragment>

@@ -1,21 +1,32 @@
-<%@include file="../_include.jsp"%>
-	
-<rich:modalPanel id="confirmInfosStage" autosized="true" width="500" styleClass="panel" 
-	showWhenRendered="#{conventionController.ctrlInfosStageOK}" >
-	<f:facet name="header">
-		<h:outputText value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE']}" />
-	</f:facet>
-		
-		<e:panelGrid columns="1">
-			<e:text value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']}" />
-			<%@include	file="/stylesheets/stage/_conventionEtape5DetailsStage.jsp"%>
-		</e:panelGrid>
-		
-			<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
-				action="#{conventionController.goToCreerConventionEtape5StageR}" 
-				oncomplete="#{rich:component('formConvention:include:confirmInfosStage')}.hide();" />
-			<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
-				action="#{conventionController.goToCreerConventionEtape6RespPedago}" 
-				oncomplete="#{rich:component('formConvention:include:confirmInfosStage')}.hide();" />
-	
-</rich:modalPanel>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<rich:popupPanel id="confirmInfosStage" autosized="true" width="500"
+		styleClass="panel"
+		showWhenRendered="#{conventionController.ctrlInfosStageOK}">
+		<f:facet name="header">
+			<h:outputText
+				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE']}" />
+		</f:facet>
+
+		<h:panelGrid columns="1">
+			<h:outputText
+				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']}" />
+			<ui:include
+				src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
+		</h:panelGrid>
+
+		<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
+			action="#{conventionController.goToCreerConventionEtape5StageR}"
+			oncomplete="#{rich:component('formConvention:include:confirmInfosStage')}.hide();" />
+		<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
+			action="#{conventionController.goToCreerConventionEtape6RespPedago}"
+			oncomplete="#{rich:component('formConvention:include:confirmInfosStage')}.hide();" />
+
+	</rich:popupPanel>
+</ui:fragment>

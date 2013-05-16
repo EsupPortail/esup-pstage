@@ -1,100 +1,100 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div>
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="/stylesheets/stage/_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<rich:panel>
-					<f:facet name="header">
-						<e:text value="#{msgs['MENUIE.TITRE']}" />
-					</f:facet>
-					<h:form id="formMenuIE">
-						<e:panelGrid columns="1" style="width:auto;">
-							
-							<rich:spacer height="5px" />
-							<h:commandLink action="#{centreController.goToListeCentre}"
-								rendered="#{welcomeController.personnel || welcomeController.superAdmin}">
-								<h:graphicImage alt="#{msgs['MENUSTAGE.LISTECENTRE']}"
-									title="#{msgs['MENUSTAGE.LISTECENTRE']}"
-									value="../../media/images/list.png" style="border:0" />
-								<h:outputText value=" #{msgs['MENUSTAGE.LISTECENTRE']}" />
-							</h:commandLink>
-							<rich:spacer height="5px" />
-							<h:commandLink
-								action="#{conventionController.goToRechercheConvention}"
-								rendered="#{welcomeController.personnel || welcomeController.superAdmin }">
-								<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION']}"
-									title="#{msgs['MENUSTAGE.RECHCONVENTION']}"
-									value="../../media/images/zoom.png" style="border:0" />
-								<e:text value=" #{msgs['MENUSTAGE.RECHCONVENTION']}" />
-							</h:commandLink>
-							<rich:spacer height="5px" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['MENUIE.TITRE']}" />
+			</f:facet>
+			<h:form id="formMenuIE">
+				<h:panelGrid columns="1" style="width:auto;"
+					columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+					
+					<t:htmlTag value="div" style="height: 5px;" />
 
-							<h:commandLink
-								action="#{conventionController.goToCreerConvention}"
-								rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
-								<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
-									title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
-									value="../../media/images/new.png" style="border:0" />
-								<e:text value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
-							</h:commandLink>
-							<rich:spacer height="5px" />
-							
-							<h:commandLink
-								action="#{conventionController.goToValiderEnMasse}"
-								rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
-								<h:graphicImage alt="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
-									title="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
-									value="../../media/images/tick.png" style="border:0" />
-								<e:text value=" #{msgs['MENUSTAGE.VALIDERENMASSE']}" />
-							</h:commandLink>
-							<rich:spacer height="5px" />
-							
-							<h:commandLink
-								action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
-								rendered="#{welcomeController.enseignantTuteur}">
-								<h:graphicImage
-									alt="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
-									title="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
-									value="../../media/images/list.png" style="border:0" />
-								<e:text
-									value=" #{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}" />
-							</h:commandLink>
-							<rich:spacer height="5px" />
-							<h:commandLink
-								action="#{conventionController.goToRechercheConventionEtu}"
-								rendered="#{welcomeController.etudiant}">
-								<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
-									title="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
-									value="../../media/images/list.png" style="border:0" />
-								<e:text value=" #{msgs['MENUSTAGE.RECHCONVENTION.ETU']}" />
-							</h:commandLink>
-							<rich:spacer height="5px" />
-							<h:commandLink
-								action="#{conventionController.goToCreerConvention}"
-								rendered="#{welcomeController.etudiant && welcomeController.creationConventionAutorisee}">
-								<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
-									title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
-									value="../../media/images/new.png" style="border:0" />
-								<e:text value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
-							</h:commandLink>
-							<rich:spacer height="5px" />
-							<h:commandLink 
+					<h:commandLink action="#{centreController.goToListeCentre}"
+						rendered="#{welcomeController.personnel || welcomeController.superAdmin}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.LISTECENTRE']}"
+							title="#{msgs['MENUSTAGE.LISTECENTRE']}"
+							value="../../media/images/list.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.LISTECENTRE']}" />
+						<t:htmlTag value="div" style="height: 5px;" />
+					</h:commandLink>
+
+					<h:commandLink
+						action="#{conventionController.goToRechercheConvention}"
+						rendered="#{welcomeController.personnel || welcomeController.superAdmin }">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION']}"
+							title="#{msgs['MENUSTAGE.RECHCONVENTION']}"
+							value="../../media/images/zoom.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.RECHCONVENTION']}" />
+						<t:htmlTag value="div" style="height: 5px;" />
+					</h:commandLink>
+
+
+					<h:commandLink action="#{conventionController.goToCreerConvention}"
+						rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+							title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+							value="../../media/images/new.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
+						<t:htmlTag value="div" style="height: 5px;" />
+					</h:commandLink>
+
+
+					<h:commandLink action="#{conventionController.goToValiderEnMasse}"
+						rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
+							title="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
+							value="../../media/images/tick.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.VALIDERENMASSE']}" />
+						<t:htmlTag value="div" style="height: 5px;" />
+					</h:commandLink>
+
+
+					<h:commandLink
+						action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
+						rendered="#{welcomeController.enseignantTuteur}">
+						<h:graphicImage
+							alt="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
+							title="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
+							value="../../media/images/list.png" style="border:0" />
+						<h:outputText
+							value=" #{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}" />
+						<t:htmlTag value="div" style="height: 5px;" />
+					</h:commandLink>
+
+					<h:commandLink
+						action="#{conventionController.goToRechercheConventionEtu}"
+						rendered="#{welcomeController.etudiant}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
+							title="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
+							value="../../media/images/list.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.RECHCONVENTION.ETU']}" />
+						<t:htmlTag value="div" style="height: 5px;" />
+					</h:commandLink>
+					
+
+					<h:commandLink action="#{conventionController.goToCreerConvention}"
+						rendered="#{welcomeController.etudiant and welcomeController.creationConventionAutorisee}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+							title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+							value="../../media/images/new.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
+						<t:htmlTag value="div" style="height: 5px;" />
+					</h:commandLink>
+					
+					<h:commandLink
 						action="#{rechercheController.goToRechercheEtablissementStage}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHETAB']}"
 							title="#{msgs['MENUSTAGE.RECHETAB']}"
 							value="../../media/images/zoom.png" style="border:0" />
-						<e:text value=" #{msgs['MENUSTAGE.RECHETAB']}" />
+						<h:outputText value=" #{msgs['MENUSTAGE.RECHETAB']}" />
 						<f:setPropertyActionListener value="#{2}"
 							target="#{rechercheController.ongletCourant}" />
 						<f:setPropertyActionListener value="#{null}"
@@ -103,29 +103,31 @@
 							target="#{etablissementController.listeServices}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{etablissementController.listeContacts}" />
+							<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					<rich:spacer height="5px" />
+					
 					<h:commandLink action="#{offreController.goToRechercheOffreStage}"
 						rendered="#{welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
 							title="#{msgs['MENUSTAGE.RECHOFFRE']}"
 							value="../../media/images/zoom.png" style="border:0" />
-						<e:text value=" #{msgs['MENUSTAGE.RECHOFFRE']}" />
+						<h:outputText value=" #{msgs['MENUSTAGE.RECHOFFRE']}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{sessionController.currentManageStructure}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{etablissementController.listeServices}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{etablissementController.listeContacts}" />
+							<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					<rich:spacer height="5px" />
+					
 					<h:commandLink
 						action="#{offreController.goToCreationOffreSelectionCentre}"
 						rendered="#{welcomeController.superAdmin || welcomeController.writer}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
 							title="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
 							value="../../media/images/new.png" style="border:0" />
-						<e:text value=" #{msgs['MENUSTAGE.AJOUTOFFRE']}" />
+						<h:outputText value=" #{msgs['MENUSTAGE.AJOUTOFFRE']}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{sessionController.currentManageStructure}" />
 						<f:setPropertyActionListener value="#{null}"
@@ -136,54 +138,38 @@
 							target="#{offreController.typeAjoutModifOffre}" />
 						<f:setPropertyActionListener value="#{2}"
 							target="#{rechercheController.ongletCourant}" />
+							<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					<rich:spacer height="5px" />
+					
 					<h:commandLink action="#{offreController.goToRechercheOffreStage}"
 						rendered="#{welcomeController.etudiant}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
 							title="#{msgs['MENUSTAGE.RECHOFFRE']}"
 							value="../../media/images/zoom.png" style="border:0" />
-						<e:text value=" #{msgs['MENUSTAGE.RECHOFFRE']}" />
+						<h:outputText value=" #{msgs['MENUSTAGE.RECHOFFRE']}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{sessionController.currentManageStructure}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{etablissementController.listeServices}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{etablissementController.listeContacts}" />
+							<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					<rich:spacer height="5px" />
+					
 					<h:commandLink action="#{offreController.goToOffreADiffuser}"
-						rendered="#{sessionController.moderationActive && (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
-						<h:graphicImage
-							alt="#{msgs['MENU.OFFRESADIFFUSER']})"
+						rendered="#{sessionController.moderationActive and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+						<h:graphicImage alt="#{msgs['MENU.OFFRESADIFFUSER']})"
 							title="#{msgs['MENU.OFFRESADIFFUSER']})"
 							value="../../media/images/tick.png" style="border:0" />
-						<e:text
+						<h:outputText
 							value=" #{msgs['MENU.OFFRESADIFFUSER']} (#{offreController.offreADiffuser})" />
+					<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					<rich:spacer height="20px" />
-					<h:commandButton id="back" value="#{msgs['GENERAL.ACCUEIL.STAGE.GESTION']}"
-								action="#{welcomeController.goToAccueilStage}" immediate="true" />
-							<rich:toolTip for="back"
-								value="#{msgs['GENERAL.ACCUEIL.STAGE.GESTION']}" />
-						</e:panelGrid>
-					</h:form>
-					<rich:message for="formRechConvention" showDetail="true">
-						<%@include file="../_commun/_messageErrorMarker.jsp"%>
-					</rich:message>
-				</rich:panel>
-			</t:div>
-		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<h:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
+				</h:panelGrid>
 			</h:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-	hideButton("welcomeManagerForm:localeChangeButton");
-</script>
-	</t:div>
-</e:page>
+		</rich:panel>
+	</ui:define>
+</ui:composition>
+
 
 

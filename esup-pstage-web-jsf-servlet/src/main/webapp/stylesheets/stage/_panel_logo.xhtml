@@ -1,55 +1,69 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<rich:modalPanel id="addLogo" autosized="true" width="400">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['CENTRE.LOGO.SELECTION']}" />
-	</f:facet>
-	<t:htmlTag value="center">
-		<h:form id="panelUpload">
-			<e:panelGrid columns="1" rendered="#{centreController.centre.idFichier<=0}">
-				<rich:fileUpload
-					fileUploadListener="#{sessionController.imageUploadBean.imageUploadListener}"
-					id="uploadImage" immediateUpload="true"
-					acceptedTypes="#{sessionController.uploadImagesFileExtensions}"
-					maxFilesQuantity="1" listHeight="0" listWidth="250" autoclear="true"
-					addControlLabel="Sélectionner " cancelEntryControlLabel=""
-					required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<a4j:support event="onuploadcomplete" reRender="opUploadImage,panelUpload"
-						action="#{centreController.insertLogo}" ajaxSingle="true" />
-				</rich:fileUpload>
-				<e:text value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
-					style="font-size:10px;">
-					<f:param value="#{sessionController.uploadImagesFileSizeLimit}" />
-				</e:text>
-				<e:text value="#{msgs['OFFRE.EXTENSIONFICHIER']}"
-					style="font-size:10px;">
-					<f:param value="#{sessionController.uploadImagesFileExtensions}" />
-				</e:text>
-				<rich:message for="uploadImage">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
-			</e:panelGrid>
-			<e:panelGrid columns="2" rendered="#{centreController.centre.idFichier>0}">
-				<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-					title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
-					style="border:0"/>
-				<e:text value="#{msgs['CENTRE.LOGO.CONFIRM']}" />
-			</e:panelGrid>
-			<rich:spacer height="10" />
-			<e:panelGrid columns="1" align="center">
-				<a4j:commandButton id="cancel" ajaxSingle="true"
-					reRender="opUploadImage"
-					action="#{centreController.cleanFichiers}"
-					value=" #{msgs['GENERAL.RETOUR']}" />
-					
-				<rich:spacer height="5"/>
-				
-				<e:text id="erreurLogo" value="" />
-				<rich:message for="erreurLogo">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
-				</rich:message>
-			</e:panelGrid>
-		</h:form>
-	</t:htmlTag>
-</rich:modalPanel>
+
+	<rich:popupPanel id="addLogo" autosized="true" width="400">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CENTRE.LOGO.SELECTION']}" />
+		</f:facet>
+		<t:htmlTag value="center">
+			<h:form id="panelUpload">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="1"
+					rendered="#{centreController.centre.idFichier le 0}">
+					<rich:fileUpload
+						fileUploadListener="#{sessionController.imageUploadBean.imageUploadListener}"
+						id="uploadImage" immediateUpload="true"
+						acceptedTypes="#{sessionController.uploadImagesFileExtensions}"
+						maxFilesQuantity="1" listHeight="0" listWidth="250"
+						autoclear="true" addControlLabel="SÃ©lectionner "
+						cancelEntryControlLabel="" required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}">
+						<a4j:ajax event="uploadcomplete"
+							reRender="opUploadImage,panelUpload"
+							action="#{centreController.insertLogo}" ajaxSingle="true" />
+					</rich:fileUpload>
+					<h:outputText value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
+						style="font-sizh:10px;">
+						<f:param value="#{sessionController.uploadImagesFileSizeLimit}" />
+					</h:outputText>
+					<h:outputText value="#{msgs['OFFRE.EXTENSIONFICHIER']}"
+						style="font-sizh:10px;">
+						<f:param value="#{sessionController.uploadImagesFileExtensions}" />
+					</h:outputText>
+					<rich:message for="uploadImage">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+				</h:panelGrid>
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="2"
+					rendered="#{centreController.centre.idFichier>0}">
+					<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+						title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
+						style="border:0" />
+					<h:outputText value="#{msgs['CENTRE.LOGO.CONFIRM']}" />
+				</h:panelGrid>
+				<t:htmlTag value="div" style="height: 10px;" />
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="1" align="center">
+					<a4j:commandButton id="cancel" ajaxSingle="true"
+						reRender="opUploadImage"
+						action="#{centreController.cleanFichiers}"
+						value=" #{msgs['GENERAL.RETOUR']}" />
+
+					<t:htmlTag value="div" style="height: 5px;" />
+
+					<h:outputText id="erreurLogo" value="" />
+					<rich:message for="erreurLogo">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+				</h:panelGrid>
+			</h:form>
+		</t:htmlTag>
+	</rich:popupPanel>
+</ui:fragment>

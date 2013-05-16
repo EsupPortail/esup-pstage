@@ -1,46 +1,28 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div>
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<ui:include src="_roadmapSel.xhtml" />
+		<rich:panel
+			rendered="#{conventionController.convention != null && avenantController.avenant != null}">
+			<f:facet name="header">
+				<h:outputText
+					value="#{msgs['CONVENTION.ETAPE11.DETAIL']} #{avenantController.avenant.idAvenant}" />
+			</f:facet>
+			<h:form id="formDetailsAvenant">
+				<ui:include
+					src="/stylesheets/stage/_conventionEtape11DetailsAvenant.xhtml" />
 			</h:form>
+		</rich:panel>
+		<t:div
+			rendered="#{conventionController.convention == null || avenantController.avenant == null}">
+			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
 		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="/stylesheets/stage/_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<%@include file="_roadmapSel.jsp"%>
-				<rich:panel
-					rendered="#{conventionController.convention != null && avenantController.avenant != null}">
-					<f:facet name="header">
-						<e:text value="#{msgs['CONVENTION.ETAPE11.DETAIL']} #{avenantController.avenant.idAvenant}"/>
-					</f:facet>
-					<h:form id="formDetailsAvenant">
-						<%@include
-							file="/stylesheets/stage/_conventionEtape11DetailsAvenant.jsp"%>
-					</h:form>
-				</rich:panel>
-				<t:div
-					rendered="#{conventionController.convention == null || avenantController.avenant == null}">
-					<%@include file="./_redirection_accesDirectImpossible.jsp"%>
-				</t:div>
-			</t:div>
-		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<h:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-		hideButton("welcomeManagerForm:localeChangeButton");
-		</script>
-	</t:div>
-
-</e:page>
+	</ui:define>
+</ui:composition>

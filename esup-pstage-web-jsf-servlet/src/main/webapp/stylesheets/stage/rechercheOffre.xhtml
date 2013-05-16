@@ -1,60 +1,37 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}">
-	<jsp:include page="/stylesheets/_header.jsp" />
-	<t:div>
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+			</f:facet>
+			<h:form id="formRechOffre">
+				<ui:include src="../_commun/_rechercheOffre.xhtml" />
+				<h:panelGrid columns="5">
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
+						action="#{offreController.rechercherOffre}" />
+					<t:htmlTag value="div" style="width: 100px;" />
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
+						action="#{offreController.rechercheSimpleAvancee}"
+						rendered="#{offreController.rechercheAvancee}" />
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
+						action="#{offreController.rechercheSimpleAvancee}"
+						rendered="#{!offreController.rechercheAvancee}" />
+					<t:htmlTag value="div" style="width: 20px;" />
+					<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
+						action="#{offreController.resetRechercheOffre}" />
+				</h:panelGrid>
 			</h:form>
-		</t:div>
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="_menuDynamiqueStage.jsp"%>
-			</t:div>
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<!-- contenu de la page -->
-				<rich:panel>
-					<f:facet name="header">
-						<e:text value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
-					</f:facet>
-					<h:form id="formRechOffre">
-						<%@include file="../_commun/_rechercheOffre.jsp"%>
-						<e:panelGrid columns="5">
-							<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
-								action="#{offreController.rechercherOffre}" />
-							<rich:spacer width="100px" />
-							<h:commandButton
-								value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
-								action="#{offreController.rechercheSimpleAvancee}"
-								rendered="#{offreController.rechercheAvancee}" />
-							<h:commandButton
-								value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
-								action="#{offreController.rechercheSimpleAvancee}"
-								rendered="#{!offreController.rechercheAvancee}" />
-							<rich:spacer width="20px" />
-							<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
-								action="#{offreController.resetRechercheOffre}" />
-						</e:panelGrid>
-					</h:form>
-					<rich:message for="formRechOffre" style="color:red;font-weight:bold;">
-						<%@include file="../_commun/_messageErrorMarker.jsp"%>
-					</rich:message>
-				</rich:panel>
-			</t:div>
-		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<h:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-	hideButton("welcomeManagerForm:localeChangeButton");
-</script>
-	</t:div>
-</e:page>
-
-
-
-
+			<rich:message for="formRechOffre" style="color:red;font-weight:bold;">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</rich:panel>
+	</ui:define>
+</ui:composition>

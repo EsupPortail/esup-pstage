@@ -1,133 +1,137 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 
-<e:panelGrid columns="2" cellpadding="2" cellspacing="2"
-	alternateColors="true">
-	<e:outputLabel for="typeConvention1"
-		value="#{msgs['CONVENTION.TYPECONVENTION']}" />
-	<e:text id="typeConvention1"
-		value="#{conventionController.convention.typeConvention.libelle}" />
-	<e:outputLabel for="theme1" value="#{msgs['CONVENTION.THEME']}" />
-	<e:text id="theme1"
-		value="#{conventionController.convention.theme.libelle}" />
-	<e:outputLabel for="sujetStage1" value="#{msgs['CONVENTION.SUJET']}" />
-	<e:text id="sujetStage1"
-		value="#{conventionController.convention.sujetStage}" escape="false" />
-	<e:outputLabel for="fonctionsEtTaches1"
-		value="#{msgs['CONVENTION.FONCTION']}" />
-	<e:text id="fonctionsEtTaches1"
-		value="#{conventionController.convention.fonctionsEtTaches}"
-		escape="false" />
-	<e:outputLabel for="details1" value="#{msgs['CONVENTION.DETAILS']}" />
-	<e:text id="details1"
-		value="#{conventionController.convention.details}" escape="false" />
-	<e:outputLabel for="dateDebutStage1"
-		value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
-	<e:text id="dateDebutStage1"
-		value="#{conventionController.convention.dateDebutStage}">
-		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-	</e:text>
-	<e:outputLabel for="dateFinStage1"
-		value="#{msgs['CONVENTION.FINSTAGE']}" />
-	<e:text id="dateFinStage1"
-		value="#{conventionController.convention.dateFinStage}">
-		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-	</e:text>
-	
-	<e:outputLabel for="interruptionStage1"
-		value="#{msgs['CONVENTION.INTERRUPTION']}" 
-		rendered="#{conventionController.convention.interruptionStage == false}"/>
-	<e:text value="#{msgs['FORM.NON']}"
-		rendered="#{conventionController.convention.interruptionStage == false}" />
-	<e:outputLabel for="interruptionStage2"
-		value="#{msgs['CONVENTION.INTERRUPTION']}" 
-		rendered="#{conventionController.convention.interruptionStage == true}"/>
-	<e:text value="#{msgs['FORM.OUI']}"
-		rendered="#{conventionController.convention.interruptionStage == true}" />
-	<e:outputLabel for="dateDebutInterruption1"
-		value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}"
-		rendered="#{conventionController.convention.interruptionStage }" />
-	<e:text id="dateDebutInterruption1"
-		value="#{conventionController.convention.dateDebutInterruption}"
-		rendered="#{conventionController.convention.interruptionStage }">
-		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-	</e:text>
-	<e:outputLabel for="dateFinInterruption1"
-		value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}"
-		rendered="#{conventionController.convention.interruptionStage }" />
-	<e:text id="dateFinInterruption1"
-		value="#{conventionController.convention.dateFinInterruption}"
-		rendered="#{conventionController.convention.interruptionStage }">
-		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-	</e:text>
-	<e:outputLabel for="dureeExceptionnelle1"
-		value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
-	<e:text id="dureeExceptionnelle1"
-		value="#{conventionController.convention.dureeExceptionnelle}" />
-	<e:outputLabel for="nbJoursHebdo1"
-		value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
-	<e:text id="nbJoursHebdo1"
-		value="#{conventionController.convention.nbJoursHebdo}" />
-	<e:outputLabel for="tempsTravail1"
-		value="#{msgs['CONVENTION.TEMPSTRAVAIL']}" />
-	<e:text id="tempsTravail1"
-		value="#{conventionController.convention.tempsTravail.libelle}" />
-	<e:outputLabel for="commentaireDureeTravail1"
-		value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.INFO']}" />
-	<e:text id="commentaireDureeTravail1"
-		value="#{conventionController.convention.commentaireDureeTravail}"
-		escape="false" />
-	<e:outputLabel for="nbHeuresHebdo1"
-		value="#{msgs['CONVENTION.NBHEURESHEBDO.INFO']}" />
-	<e:text id="nbHeuresHebdo1"
-		value="#{conventionController.convention.nbHeuresHebdo}" />
-	<e:outputLabel for="quotiteTravail1"
-		value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" />
-	<e:text id="quotiteTravail1"
-		value="#{conventionController.convention.quotiteTravail}" />
-	<e:outputLabel for="indemnisation1"
-		value="#{msgs['CONVENTION.INDEMNISATION']}" />
-	<e:text id="indemnisation1"
-		value="#{conventionController.convention.indemnisation.libelle}" />
-	<e:outputLabel for="montantGratification1"
-		value="#{msgs['CONVENTION.MTGRATIFICATION']}" />
-	<e:text id="montantGratification1"
-		value="#{conventionController.convention.montantGratification} - #{conventionController.convention.uniteGratification.libelle}" />
-	<e:outputLabel for="modeVersGratification1"
-		value="#{msgs['CONVENTION.MODEVERSGRAT']}" />
-	<e:text id="modeVersGratification1"
-		value="#{conventionController.convention.modeVersGratification.libelle}" />
-	<e:outputLabel for="origineStage1"
-		value="#{msgs['CONVENTION.ORIGINESTAGE']}" />
-	<e:text id="origineStage1"
-		value="#{conventionController.convention.origineStage.libelle}" />
-	<e:outputLabel for="temConfSujetTeme1"
-		value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
-	<e:text id="temConfSujetTeme1"
-		value="#{conventionController.convention.temConfSujetTeme}" />
-	<e:outputLabel for="modeEncadreSuivi1"
-		value="#{msgs['CONVENTION.MODESUIVI.INFO']}" />
-	<e:text id="modeEncadreSuivi1"
-		value="#{conventionController.convention.modeEncadreSuivi}"
-		escape="false" />
-	<e:outputLabel for="avantagesNature1"
-		value="#{msgs['CONVENTION.AVANTAGESNATURE.INFO']}" />
-	<e:text id="avantagesNature1"
-		value="#{conventionController.convention.avantagesNature}"
-		escape="false" />
-	<e:outputLabel for="natureTravail1"
-		value="#{msgs['CONVENTION.NATURETRAVAIL']}" />
-	<e:text id="natureTravail1"
-		value="#{conventionController.convention.natureTravail.libelle}" />
-	<e:outputLabel for="modeValidationStage1"
-		value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
-	<e:text id="modeValidationStage1"
-		value="#{conventionController.convention.modeValidationStage.libelle}" />
-	<e:outputLabel for="travailNuitFerie1"
-		value="#{msgs['CONVENTION.TRAVAILNUITFERIE.INFO']}" />
-	<e:text id="travailNuitFerie1"
-		value="#{conventionController.convention.travailNuitFerie}"
-		escape="false" />
-
-</e:panelGrid>
-
+	<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+		alternateColors="true">
+		<h:outputLabel for="typeConvention1"
+			value="#{msgs['CONVENTION.TYPECONVENTION']}" />
+		<h:outputText id="typeConvention1"
+			value="#{conventionController.convention.typeConvention.libelle}" />
+		<h:outputLabel for="theme1" value="#{msgs['CONVENTION.THEME']}" />
+		<h:outputText id="theme1"
+			value="#{conventionController.convention.theme.libelle}" />
+		<h:outputLabel for="sujetStage1" value="#{msgs['CONVENTION.SUJET']}" />
+		<h:outputText id="sujetStage1"
+			value="#{conventionController.convention.sujetStage}" escape="false" />
+		<h:outputLabel for="fonctionsEtTaches1"
+			value="#{msgs['CONVENTION.FONCTION']}" />
+		<h:outputText id="fonctionsEtTaches1"
+			value="#{conventionController.convention.fonctionsEtTaches}"
+			escape="false" />
+		<h:outputLabel for="details1" value="#{msgs['CONVENTION.DETAILS']}" />
+		<h:outputText id="details1"
+			value="#{conventionController.convention.details}" escape="false" />
+		<h:outputLabel for="dateDebutStage1"
+			value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
+		<h:outputText id="dateDebutStage1"
+			value="#{conventionController.convention.dateDebutStage}">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+		</h:outputText>
+		<h:outputLabel for="dateFinStage1"
+			value="#{msgs['CONVENTION.FINSTAGE']}" />
+		<h:outputText id="dateFinStage1"
+			value="#{conventionController.convention.dateFinStage}">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+		</h:outputText>
+		<h:outputLabel for="interruptionStage1"
+			value="#{msgs['CONVENTION.INTERRUPTION']}"
+			rendered="#{conventionController.convention.interruptionStage == false}" />
+		<h:outputText value="#{msgs['FORM.NON']}"
+			rendered="#{conventionController.convention.interruptionStage == false}" />
+		<h:outputLabel for="interruptionStage2"
+			value="#{msgs['CONVENTION.INTERRUPTION']}"
+			rendered="#{conventionController.convention.interruptionStage == true}" />
+		<h:outputText value="#{msgs['FORM.OUI']}"
+			rendered="#{conventionController.convention.interruptionStage == true}" />
+		<h:outputLabel for="dateDebutInterruption1"
+			value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}"
+			rendered="#{conventionController.convention.interruptionStage }" />
+		<h:outputText id="dateDebutInterruption1"
+			value="#{conventionController.convention.dateDebutInterruption}"
+			rendered="#{conventionController.convention.interruptionStage }">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+		</h:outputText>
+		<h:outputLabel for="dateFinInterruption1"
+			value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}"
+			rendered="#{conventionController.convention.interruptionStage }" />
+		<h:outputText id="dateFinInterruption1"
+			value="#{conventionController.convention.dateFinInterruption}"
+			rendered="#{conventionController.convention.interruptionStage }">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+		</h:outputText>
+		<h:outputLabel for="dureeExceptionnelle1"
+			value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
+		<h:outputText id="dureeExceptionnelle1"
+			value="#{conventionController.convention.dureeExceptionnelle}" />
+		<h:outputLabel for="nbJoursHebdo1"
+			value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
+		<h:outputText id="nbJoursHebdo1"
+			value="#{conventionController.convention.nbJoursHebdo}" />
+		<h:outputLabel for="tempsTravail1"
+			value="#{msgs['CONVENTION.TEMPSTRAVAIL']}" />
+		<h:outputText id="tempsTravail1"
+			value="#{conventionController.convention.tempsTravail.libelle}" />
+		<h:outputLabel for="commentaireDureeTravail1"
+			value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.INFO']}" />
+		<h:outputText id="commentaireDureeTravail1"
+			value="#{conventionController.convention.commentaireDureeTravail}"
+			escape="false" />
+		<h:outputLabel for="nbHeuresHebdo1"
+			value="#{msgs['CONVENTION.NBHEURESHEBDO.INFO']}" />
+		<h:outputText id="nbHeuresHebdo1"
+			value="#{conventionController.convention.nbHeuresHebdo}" />
+		<h:outputLabel for="quotiteTravail1"
+			value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" />
+		<h:outputText id="quotiteTravail1"
+			value="#{conventionController.convention.quotiteTravail}" />
+		<h:outputLabel for="indemnisation1"
+			value="#{msgs['CONVENTION.INDEMNISATION']}" />
+		<h:outputText id="indemnisation1"
+			value="#{conventionController.convention.indemnisation.libelle}" />
+		<h:outputLabel for="montantGratification1"
+			value="#{msgs['CONVENTION.MTGRATIFICATION']}" />
+		<h:outputText id="montantGratification1"
+			value="#{conventionController.convention.montantGratification} - #{conventionController.convention.uniteGratification.libelle}" />
+		<h:outputLabel for="modeVersGratification1"
+			value="#{msgs['CONVENTION.MODEVERSGRAT']}" />
+		<h:outputText id="modeVersGratification1"
+			value="#{conventionController.convention.modeVersGratification.libelle}" />
+		<h:outputLabel for="origineStage1"
+			value="#{msgs['CONVENTION.ORIGINESTAGE']}" />
+		<h:outputText id="origineStage1"
+			value="#{conventionController.convention.origineStage.libelle}" />
+		<h:outputLabel for="temConfSujetTeme1"
+			value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
+		<h:outputText id="temConfSujetTeme1"
+			value="#{conventionController.convention.temConfSujetTeme}" />
+		<h:outputLabel for="modeEncadreSuivi1"
+			value="#{msgs['CONVENTION.MODESUIVI.INFO']}" />
+		<h:outputText id="modeEncadreSuivi1"
+			value="#{conventionController.convention.modeEncadreSuivi}"
+			escape="false" />
+		<h:outputLabel for="avantagesNature1"
+			value="#{msgs['CONVENTION.AVANTAGESNATURE.INFO']}" />
+		<h:outputText id="avantagesNature1"
+			value="#{conventionController.convention.avantagesNature}"
+			escape="false" />
+		<h:outputLabel for="natureTravail1"
+			value="#{msgs['CONVENTION.NATURETRAVAIL']}" />
+		<h:outputText id="natureTravail1"
+			value="#{conventionController.convention.natureTravail.libelle}" />
+		<h:outputLabel for="modeValidationStage1"
+			value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
+		<h:outputText id="modeValidationStage1"
+			value="#{conventionController.convention.modeValidationStage.libelle}" />
+		<h:outputLabel for="travailNuitFerie1"
+			value="#{msgs['CONVENTION.TRAVAILNUITFERIE.INFO']}" />
+		<h:outputText id="travailNuitFerie1"
+			value="#{conventionController.convention.travailNuitFerie}"
+			escape="false" />
+	</h:panelGrid>
+</ui:fragment>

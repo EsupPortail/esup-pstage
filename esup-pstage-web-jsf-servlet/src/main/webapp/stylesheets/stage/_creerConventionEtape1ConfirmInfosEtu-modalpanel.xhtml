@@ -1,60 +1,95 @@
-<%@include file="../_include.jsp"%>
-	
-<rich:modalPanel id="confirmInfosEtu" autosized="true" width="500" styleClass="panel" 
-	showWhenRendered="#{conventionController.ctrlInfosEtuOK}">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU']}" />
-	</f:facet>
-		
-		<e:panelGrid columns="1">
-			<e:text value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU.DEMANDE']}" />
-			<e:panelGrid columns="2" cellpadding="2" cellspacing="2"
-							alternateColors="true">
-							<e:outputLabel for="numeroetudiant1" value="#{msgs['CONVENTION.NUMETUDIANT']}" />
-							<e:text id="numeroetudiant1" value="#{conventionController.etudiantRef.numEtudiant}" />
-							<e:outputLabel for="nom1" value="#{msgs['CONVENTION.NOM']}" />
-							<e:text id="nom1" value="#{conventionController.etudiantRef.nom}   #{conventionController.etudiantRef.nomMarital}"/>
-							<e:outputLabel for="prenom1" value="#{msgs['CONVENTION.PRENOM']}" />
-							<e:text id="prenom1" value="#{conventionController.etudiantRef.prenom}" />
-							<e:outputLabel for="etape1" value="#{msgs['CONVENTION.VOTREETAPE']}"/>
-							<e:text id="etape1" value="#{conventionController.etudiantRef.theCodeEtape} - #{conventionController.etudiantRef.theEtape}" />
-							<e:outputLabel for="ufr1" value="#{msgs['CONVENTION.VOTREUFR']}"/>
-							<e:text id="ufr1" value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
-							<e:outputLabel for="elp" value="#{msgs['CONVENTION.ELP']}" />
-							<e:text  value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']}"  for="mainAddress1" />
-							<e:text id="mainAddress1" value="#{conventionController.etudiantRef.mainAddress}" />
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}" for="codePostal1" />
-							<e:text id="codePostal1" value="#{conventionController.etudiantRef.postalCode}" />
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.COMMUNE']}" for="commune1" />
-							<e:text id="commune1" value="#{conventionController.etudiantRef.town}" />
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.PAYS']}" for="pays1" />
-							<e:text id="pays1" value="#{conventionController.etudiantRef.country}" />
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE']}" for="telephone1" />
-							<e:text id="telephone1" value="#{conventionController.etudiantRef.tel}" />
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}" for="telephoneportable1" />
-							<e:text id="telephoneportable1" value="#{conventionController.etudiantRef.portablePhone}" />
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.MAILINSTITU']}" for="mailinstitu1"  />
-							<e:text id="mailinstitu1" value="#{conventionController.etudiantRef.mail}" />
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']}" for="mailperso1" />
-							<e:text id="mailperso1" value="#{conventionController.etudiantRef.mailPerso}"/>
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.AFFILSS']}" for="affilss1" />
-							<e:text id="affilss1" value="#{conventionController.etudiantRef.theAssurance.libelle}" />
-							<e:outputLabel value="#{msgs['CONVENTION.ETU.CPAM']}" for="caisses1" />
-							<e:text id="caisses1" value="#{conventionController.etudiantRef.theCaisseRegime.libelle}" />
-			</e:panelGrid>
-	</e:panelGrid>
-			<a4j:commandButton value="Etape5"
-				action="#{conventionController.goToCreerConventionEtape5Stage}" 
-				oncomplete="#{rich:component('formConvention:include:confirmInfosEtu')}.hide();" />
-				
-			<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
-				action="#{conventionController.goToCreerConventionEtape2Etab}" 
-				oncomplete="#{rich:component('formConvention:include:confirmInfosEtu')}.hide();" />
-			
-			<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
-				action="#{conventionController.goToChoixEtapeEtudiant}" 
-				oncomplete="#{rich:component('formConvention:include:confirmInfosEtu')}.hide();" 
-				reRender=":affilss:colaffilss:selaffilss"/>
-	
-</rich:modalPanel>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<rich:popupPanel id="confirmInfosEtu" autosized="true" width="500"
+		styleClass="panel"
+		showWhenRendered="#{conventionController.ctrlInfosEtuOK}">
+		<f:facet name="header">
+			<h:outputText
+				value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU']}" />
+		</f:facet>
+
+		<h:panelGrid columns="1">
+			<h:outputText
+				value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU.DEMANDE']}" />
+			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+				alternateColors="true">
+				<h:outputLabel for="numeroetudiant1"
+					value="#{msgs['CONVENTION.NUMETUDIANT']}" />
+				<h:outputText id="numeroetudiant1"
+					value="#{conventionController.etudiantRef.numEtudiant}" />
+				<h:outputLabel for="nom1" value="#{msgs['CONVENTION.NOM']}" />
+				<h:outputText id="nom1"
+					value="#{conventionController.etudiantRef.nom}   #{conventionController.etudiantRef.nomMarital}" />
+				<h:outputLabel for="prenom1" value="#{msgs['CONVENTION.PRENOM']}" />
+				<h:outputText id="prenom1"
+					value="#{conventionController.etudiantRef.prenom}" />
+				<h:outputLabel for="etape1" value="#{msgs['CONVENTION.VOTREETAPE']}" />
+				<h:outputText id="etape1"
+					value="#{conventionController.etudiantRef.theCodeEtape} - #{conventionController.etudiantRef.theEtape}" />
+				<h:outputLabel for="ufr1" value="#{msgs['CONVENTION.VOTREUFR']}" />
+				<h:outputText id="ufr1"
+					value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
+				<h:outputLabel for="elp" value="#{msgs['CONVENTION.ELP']}" />
+				<h:outputText
+					value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crÃ©dit(s)" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']}"
+					for="mainAddress1" />
+				<h:outputText id="mainAddress1"
+					value="#{conventionController.etudiantRef.mainAddress}" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}"
+					for="codePostal1" />
+				<h:outputText id="codePostal1"
+					value="#{conventionController.etudiantRef.postalCode}" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.COMMUNE']}"
+					for="commune1" />
+				<h:outputText id="commune1"
+					value="#{conventionController.etudiantRef.town}" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.PAYS']}" for="pays1" />
+				<h:outputText id="pays1"
+					value="#{conventionController.etudiantRef.country}" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE']}"
+					for="telephone1" />
+				<h:outputText id="telephone1"
+					value="#{conventionController.etudiantRef.tel}" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}"
+					for="telephoneportable1" />
+				<h:outputText id="telephoneportable1"
+					value="#{conventionController.etudiantRef.portablePhone}" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"
+					for="mailinstitu1" />
+				<h:outputText id="mailinstitu1"
+					value="#{conventionController.etudiantRef.mail}" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']}"
+					for="mailperso1" />
+				<h:outputText id="mailperso1"
+					value="#{conventionController.etudiantRef.mailPerso}" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.AFFILSS']}"
+					for="affilss1" />
+				<h:outputText id="affilss1"
+					value="#{conventionController.etudiantRef.theAssurance.libelle}" />
+				<h:outputLabel value="#{msgs['CONVENTION.ETU.CPAM']}" for="caisses1" />
+				<h:outputText id="caisses1"
+					value="#{conventionController.etudiantRef.theCaisseRegime.libelle}" />
+			</h:panelGrid>
+		</h:panelGrid>
+		<a4j:commandButton value="Etape5"
+			action="#{conventionController.goToCreerConventionEtape5Stage}"
+			oncomplete="#{rich:component('formConvention:includh:confirmInfosEtu')}.hide();" />
+
+		<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
+			action="#{conventionController.goToCreerConventionEtape2Etab}"
+			oncomplete="#{rich:component('formConvention:includh:confirmInfosEtu')}.hide();" />
+
+		<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
+			action="#{conventionController.goToChoixEtapeEtudiant}"
+			oncomplete="#{rich:component('formConvention:includh:confirmInfosEtu')}.hide();"
+			reRender=":affilss:colaffilss:selaffilss" />
+
+	</rich:popupPanel>
+</ui:fragment>

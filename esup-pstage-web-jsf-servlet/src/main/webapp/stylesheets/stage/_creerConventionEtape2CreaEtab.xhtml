@@ -1,35 +1,41 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1" id="formAjoutEtab">
-	<rich:panel>
-		<f:facet name="header">
-			<e:text value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
-		</f:facet>
-		<rich:spacer height="20" />
-		<e:text value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
+	<h:panelGrid columns="1" id="formAjoutEtab">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
+			</f:facet>
+			<t:htmlTag value="div" style="height: 20px;" />
+			<h:outputText value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
 
-		<rich:spacer height="20" />
-		<rich:message for="formAjoutEtab">
-			<%@include file="../_commun/_messageErrorMarker.jsp"%>
-		</rich:message>
+			<t:htmlTag value="div" style="height: 20px;" />
+			<rich:message for="formAjoutEtab">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
 
-		<%@include file="../_commun/_etablissementForm.jsp"%>
-		
-		<rich:messages showDetail="true">
-		</rich:messages>
+			<ui:include src="../_commun/_etablissementForm.xhtml" />
 
-		<e:panelGrid columns="3">
-			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-				action="_creerConventionEtape2Etab" alt="#{msgs['FORM.PREVIOUS']}"
-				title="#{msgs['FORM.PREVIOUS']}" immediate="true">
-			</a4j:commandButton>
-			<rich:spacer width="20px" />
-			<a4j:commandButton value="#{msgs['FORM.CREER']}"
-				action="#{conventionController.ajouterEtablissement}">
-			</a4j:commandButton>
-		</e:panelGrid>
-	</rich:panel>
-</e:panelGrid>
+			<rich:messages showDetail="true" />
+
+			<h:panelGrid columns="3">
+				<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+					action="_creerConventionEtape2Etab" alt="#{msgs['FORM.PREVIOUS']}"
+					title="#{msgs['FORM.PREVIOUS']}" immediate="true">
+				</a4j:commandButton>
+				<t:htmlTag value="div" style="width: 20px;" />
+				<a4j:commandButton value="#{msgs['FORM.CREER']}"
+					action="#{conventionController.ajouterEtablissement}">
+				</a4j:commandButton>
+			</h:panelGrid>
+		</rich:panel>
+	</h:panelGrid>
+</ui:fragment>
 
 
 

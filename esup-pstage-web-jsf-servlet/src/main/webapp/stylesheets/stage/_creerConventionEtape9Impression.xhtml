@@ -1,78 +1,83 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['CONVENTION.ETAPE9.IMPRESSION']}" />
-	</f:facet>
-	<rich:spacer height="20" />
-	<e:text value="" />
-	<rich:message>
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
-	</rich:message>
-	<e:outputLabel value="#{msgs['CONVENTION.IMPRESSION.INFO']}" />
+	<h:panelGrid columns="1">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE9.IMPRESSION']}" />
+		</f:facet>
+		<t:htmlTag value="div" style="height: 20px;" />
+		<h:outputText value="" />
+		<rich:message>
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
+		<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.INFO']}" />
 
-	<e:panelGrid columns="2" cellpadding="2" cellspacing="2"
-		alternateColors="true">
-		<rich:spacer height="20" />
-		<rich:messages showDetail="true">
-		</rich:messages>
-		<e:outputLabel for="numeroconvention"
-			value="#{msgs['CONVENTION.NUMEROCONVENTION']}" />
-		<e:text id="numeroconvention"
-			value="#{conventionController.convention.idConvention}" />
+		<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+			alternateColors="true">
+			<t:htmlTag value="div" style="height: 20px;" />
+			<rich:messages showDetail="true">
+			</rich:messages>
+			<h:outputLabel for="numeroconvention"
+				value="#{msgs['CONVENTION.NUMEROCONVENTION']}" />
+			<h:outputText id="numeroconvention"
+				value="#{conventionController.convention.idConvention}" />
 
-		<rich:spacer height="5" />
-		<rich:spacer height="5" />
-		<e:outputLabel for="nom" value="#{msgs['CONVENTION.NOM']}" />
-		<e:text id="nom"
-			value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}   #{conventionController.convention.etudiant.prenom}" />
+			<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
+			<h:outputLabel for="nom" value="#{msgs['CONVENTION.NOM']}" />
+			<h:outputText id="nom"
+				value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}   #{conventionController.convention.etudiant.prenom}" />
 
-		<rich:spacer height="5" />
-		<rich:spacer height="5" />
-		<e:outputLabel for="langue" value="#{msgs['CONVENTION.LANGUE']}" />
-		<e:text
-			value="#{conventionController.convention.langueConvention.libelle}" />
-
-		<rich:spacer height="5" />
-		<rich:spacer height="5" />
-
-	</e:panelGrid>
-
-	<e:outputLabel value="#{msgs['CONVENTION.IMPRESSION.INSTRUCTION']}"
-		rendered="#{!conventionController.cgUrlInstruction}" />
-
-	<e:outputLabel
-		value="#{msgs['CONVENTION.IMPRESSION.URL']}"
-		rendered="#{conventionController.cgUrlInstruction}" >
-		<h:outputLink
-			value="#{conventionController.convention.centreGestion.urlPageInstruction}">
+			<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
+			<h:outputLabel for="langue" value="#{msgs['CONVENTION.LANGUE']}" />
 			<h:outputText
-				value="#{conventionController.convention.centreGestion.urlPageInstruction}" />
-		</h:outputLink>
-	</e:outputLabel>
-	<rich:spacer height="20" />
-</e:panelGrid>
-<e:panelGrid columns="1"
-	rendered="#{!(welcomeController.etudiant && !conventionController.conventionValide) && conventionController.convention.codeLangueConvention == 'fr'}">
-	<a4j:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
-		action="#{conventionController.editPdfConvention}"
-		rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant)}" />
-	<e:bold value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}"
-		rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant}" />
-</e:panelGrid>
+				value="#{conventionController.convention.langueConvention.libelle}" />
 
-<e:panelGrid columns="4"
-	rendered="#{!(welcomeController.etudiant && !conventionController.conventionValide) && conventionController.convention.codeLangueConvention != 'fr'}">
-	<a4j:commandButton id="printFr" ajaxSingle="true"
-		action="#{conventionController.editPdfConventionFr}"
-		value="#{msgs['CONVENTION.IMPRESSION_FR']}"
-		rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant)}" />
-	<rich:spacer width="20" />
-	<a4j:commandButton id="printAutre" ajaxSingle="true"
-		action="#{conventionController.editPdfConvention}"
-		value="#{msgs['CONVENTION.IMPRESSION_AUTRE']} #{conventionController.convention.langueConvention.libelle}" 
-		rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant)}" />
-	<e:bold value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}"
-		rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant}" />
-</e:panelGrid>
+			<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
 
+		</h:panelGrid>
+
+		<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.INSTRUCTION']}"
+			rendered="#{!conventionController.cgUrlInstruction}" />
+
+		<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.URL']}"
+			rendered="#{conventionController.cgUrlInstruction}">
+			<h:outputLink
+				value="#{conventionController.convention.centreGestion.urlPageInstruction}">
+				<h:outputText
+					value="#{conventionController.convention.centreGestion.urlPageInstruction}" />
+			</h:outputLink>
+		</h:outputLabel>
+		<t:htmlTag value="div" style="height: 20px;" />
+	</h:panelGrid>
+	<h:panelGrid columns="1"
+		rendered="#{!(welcomeController.etudiant && !conventionController.conventionValide) && conventionController.convention.codeLangueConvention == 'fr'}">
+		<a4j:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
+			action="#{conventionController.editPdfConvention}"
+			rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant)}" />
+		<h:bold value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}"
+			rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant}" />
+	</h:panelGrid>
+
+	<h:panelGrid columns="4"
+		rendered="#{!(welcomeController.etudiant && !conventionController.conventionValide) && conventionController.convention.codeLangueConvention != 'fr'}">
+		<a4j:commandButton id="printFr" ajaxSingle="true"
+			action="#{conventionController.editPdfConventionFr}"
+			value="#{msgs['CONVENTION.IMPRESSION_FR']}"
+			rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant)}" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<a4j:commandButton id="printAutre" ajaxSingle="true"
+			action="#{conventionController.editPdfConvention}"
+			value="#{msgs['CONVENTION.IMPRESSION_AUTRE']} #{conventionController.convention.langueConvention.libelle}"
+			rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant)}" />
+		<h:bold value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}"
+			rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention && welcomeController.etudiant}" />
+	</h:panelGrid>
+</ui:fragment>

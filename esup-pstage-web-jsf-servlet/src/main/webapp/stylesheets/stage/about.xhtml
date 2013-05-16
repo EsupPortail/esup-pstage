@@ -1,44 +1,52 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs" menuItem="about" locale="#{sessionController.locale}" authorized="#{aboutController.pageAuthorized}">
-	<%@include file="../_navigation.jsp"%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedStageTemplate.xhtml">
+	<ui:define name="content">
+			<h:section value="#{msgs['ABOUT.TITLE']}">
+				<f:param value="#{applicationService.name}" />
+				<f:param value="#{applicationService.version}" />
+			</h:section>
 
-	<e:section value="#{msgs['ABOUT.TITLE']}">
-		<f:param value="#{applicationService.name}" />
-		<f:param value="#{applicationService.version}" />
-	</e:section>
+			<h:paragraph value="#{msgs['ABOUT.TEXT.SUMMARY']}">
+				<f:param value="#{applicationService.name}" />
+			</h:paragraph>
 
-	<e:paragraph value="#{msgs['ABOUT.TEXT.SUMMARY']}">
-		<f:param value="#{applicationService.name}" />
-	</e:paragraph>
+			<h:paragraph value="#{msgs['ABOUT.TEXT.AUTHORS']}">
+				<f:param value="#{applicationService.name}" />
+			</h:paragraph>
+			<ul>
+				<li value="#{msgs['ABOUT.TEXT.AUTHORS.PA']}" />
+			</ul>
 
-	<e:paragraph value="#{msgs['ABOUT.TEXT.AUTHORS']}">
-		<f:param value="#{applicationService.name}" />
-	</e:paragraph>
-	<e:ul>
-		<e:li value="#{msgs['ABOUT.TEXT.AUTHORS.PA']}" />
-	</e:ul>
+			<h:subSection value="#{msgs['ABOUT.SUBTITLE.COPYRIGHT']}" />
+			<h:paragraph value="#{msgs['ABOUT.TEXT.COPYRIGHT']}">
+				<f:param value="#{applicationService.name}" />
+				<f:param value="#{applicationService.version}" />
+				<f:param value="#{applicationService.copyright}" />
+			</h:paragraph>
 
-	<e:subSection value="#{msgs['ABOUT.SUBTITLE.COPYRIGHT']}" />
-	<e:paragraph value="#{msgs['ABOUT.TEXT.COPYRIGHT']}">
-		<f:param value="#{applicationService.name}" />
-		<f:param value="#{applicationService.version}" />
-		<f:param value="#{applicationService.copyright}" />
-	</e:paragraph>
+			<h:subSection value="#{msgs['ABOUT.SUBTITLE.LICENCE']}" />
+			<h:paragraph escape="false" value="#{msgs['ABOUT.TEXT.LICENCE']}" />
 
-	<e:subSection value="#{msgs['ABOUT.SUBTITLE.LICENCE']}" />
-	<e:paragraph escape="false" value="#{msgs['ABOUT.TEXT.LICENCE']}" />
-
-	<e:subSection value="#{msgs['ABOUT.SUBTITLE.MORE_INFORMATION']}">
-		<f:param value="#{applicationService.name}" />
-	</e:subSection>
-	<e:ul>
-		<e:li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_BLANK']}" />
-		<e:li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_COMMONS']}" />
-		<e:li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_PORTAIL']}" />
-	</e:ul>
-	<e:subSection value="#{msgs['ABOUT.SUBTITLE.EXCEPTION']}" />
-	<e:form>
-		<e:commandButton immediate="true" action="#{aboutController.throwException}" value="#{msgs['ABOUT.BUTTON.EXCEPTION']}" />
-	</e:form>
-<% /* @include file="_debug.jsp" */ %>
-</e:page>
+			<h:subSection value="#{msgs['ABOUT.SUBTITLE.MORE_INFORMATION']}">
+				<f:param value="#{applicationService.name}" />
+			</h:subSection>
+			<ul>
+				<li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_BLANK']}" />
+				<li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_COMMONS']}" />
+				<li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_PORTAIL']}" />
+			</ul>
+			<h:subSection value="#{msgs['ABOUT.SUBTITLE.EXCEPTION']}" />
+			<h:form>
+				<h:commandButton immediate="true"
+					action="#{aboutController.throwException}"
+					value="#{msgs['ABOUT.BUTTON.EXCEPTION']}" />
+			</h:form>
+	</ui:define>
+</ui:composition>

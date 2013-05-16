@@ -1,13 +1,19 @@
-<%@include file="../_include.jsp"%>
-
-<e:panelGrid columns="1"
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+<h:panelGrid columns="1"
 	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 	<rich:panel>
 		<f:facet name="header">
-			<e:text value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
+			<h:outputText value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
 		</f:facet>
-		<rich:spacer height="20" />
-		<e:text value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}" />
+		<t:htmlTag value="div" style="height: 20px;" />
+		<h:outputText value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}" />
 
 		<t:htmlTag value="br" />
 
@@ -16,7 +22,7 @@
 			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 			var="enseignant">
-			<%@include file="/stylesheets/stage/_conventionEtape6EnseignantColumns.jsp"%>
+			<ui:include src="/stylesheets/stage/_conventionEtape6EnseignantColumns.xhtml" />
 			<rich:column>
 				<a4j:commandLink id="add"
 					action="#{conventionController.goToCreerConventionEtape6Enseignant}">
@@ -28,22 +34,21 @@
 			</rich:column>
 
 			<f:facet name="footer">
-				<rich:datascroller align="center" for="choixEtape" maxPages="20"
+				<rich:dataScroller align="center" for="choixEtape" maxPages="20"
 					page="1" id="listeEnseignantScroller" renderIfSinglePage="false" />
 			</f:facet>
 
 		</rich:dataTable>
 
-		<e:panelGrid columns="1">
+		<h:panelGrid columns="1">
 
 			<a4j:commandButton
 				action="#{conventionController.goToCreerConventionEtape6RespPedago}"
 				value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}" immediate="true">
 			</a4j:commandButton>
 
-		</e:panelGrid>
+		</h:panelGrid>
 
 	</rich:panel>
-</e:panelGrid>
-
-
+</h:panelGrid>
+</ui:fragment>

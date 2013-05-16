@@ -1,125 +1,120 @@
-<%@include file="../_include.jsp"%>
-<rich:dataTable value="#{conventionController.convention.enseignant}"
-	rendered="#{not empty conventionController.convention.enseignant}">
-	<f:facet name="header">
-		<rich:columnGroup>
-			<rich:column>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<rich:dataTable value="#{conventionController.convention.enseignant}"
+		rendered="#{not empty conventionController.convention.enseignant}">
+		<f:facet name="header">
+			<rich:columnGroup>
+				<rich:column>
 					<h:graphicImage alt="#{msgs['CONVENTION.CIVILITE']}"
 						title="#{msgs['CONVENTION.CIVILITE']}"
 						value="../../media/images/user_gray.png" style="border:0" />
 				</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.NOM']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.PRENOM']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.TYPE']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.DEPARTEMENT']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONTACT.TELFAXMAIL']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.CAMPUS']}" />
-			</rich:column>
-		</rich:columnGroup>
-	</f:facet>
+				<rich:column>
+					<h:outputText styleClass="headerText"
+						value="#{msgs['CONVENTION.NOM']}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText styleClass="headerText"
+						value="#{msgs['CONVENTION.PRENOM']}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText styleClass="headerText"
+						value="#{msgs['CONVENTION.TYPE']}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText styleClass="headerText"
+						value="#{msgs['CONVENTION.DEPARTEMENT']}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText styleClass="headerText"
+						value="#{msgs['CONTACT.TELFAXMAIL']}" />
+				</rich:column>
+				<rich:column>
+					<h:outputText styleClass="headerText"
+						value="#{msgs['CONVENTION.CAMPUS']}" />
+				</rich:column>
+			</rich:columnGroup>
+		</f:facet>
+		<rich:column>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.civilite.libelle}" />
+			<rich:spacer height="5" />
+		</rich:column>
+		<rich:column>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.nom}" />
+			<rich:spacer height="5" />
+		</rich:column>
+		<rich:column>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.prenom}" />
+			<rich:spacer height="5" />
+		</rich:column>
+		<rich:column>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.typePersonne}" />
+			<rich:spacer height="5" />
+		</rich:column>
+		<rich:column>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.codeAffectation} - #{conventionController.convention.enseignant.affectation.libelle}" />
+		</rich:column>
+		<rich:column>
+			<h:panelGrid columns="1">
+				<h:panelGrid columns="2">
+					<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+						title="#{msgs['CONTACT.TELEPHONE']}"
+						value="../../media/images/phone.png" style="border:0" />
+					<h:outputText id="telC"
+						value="#{conventionController.convention.enseignant.tel}" />
+				</h:panelGrid>
 
-	<rich:column>
-		<e:text
-			value="#{conventionController.convention.enseignant.civilite.libelle}" />
-		<rich:spacer height="5" />
-	</rich:column>
-	<rich:column>
-		<e:text value="#{conventionController.convention.enseignant.nom}" />
-		<rich:spacer height="5" />
-	</rich:column>
-	<rich:column>
-		<e:text value="#{conventionController.convention.enseignant.prenom}" />
-		<rich:spacer height="5" />
-	</rich:column>
-	<rich:column>
-		<e:text
-			value="#{conventionController.convention.enseignant.typePersonne}" />
-		<rich:spacer height="5" />
-	</rich:column>
-	<rich:column>
-		<e:text
-			value="#{conventionController.convention.enseignant.codeAffectation} - #{conventionController.convention.enseignant.affectation.libelle}" />
-	</rich:column>
-	<rich:column>
-		<e:panelGrid columns="1">
-			<e:panelGrid columns="2">
-				<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-					title="#{msgs['CONTACT.TELEPHONE']}"
-					value="../../media/images/phone.png" style="border:0" />
-				<e:text id="telC"
-					value="#{conventionController.convention.enseignant.tel}" />
-			</e:panelGrid>
+				<h:panelGrid columns="2">
+					<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+						title="#{msgs['CONTACT.MAIL']}"
+						value="../../media/images/email.png" style="border:0" />
+					<h:outputText id="mailC"
+						value="#{conventionController.convention.enseignant.mail}" />
+				</h:panelGrid>
+			</h:panelGrid>
+		</rich:column>
+		<rich:column>
+			<h:panelGrid columns="1">
+				<h:panelGrid columns="2">
+					<h:graphicImage alt="#{msgs['CONVENTION.CAMPUS']}"
+						title="#{msgs['CONVENTION.CAMPUS']}"
+						value="../../media/images/house.png" style="border:0" />
+					<h:outputText id="campusC"
+						value="#{conventionController.convention.enseignant.campus}" />
+				</h:panelGrid>
 
-			<e:panelGrid columns="2">
-				<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-					title="#{msgs['CONTACT.MAIL']}"
-					value="../../media/images/email.png" style="border:0" />
-				<e:text id="mailC"
-					value="#{conventionController.convention.enseignant.mail}" />
-			</e:panelGrid>
-		</e:panelGrid>
-	</rich:column>
-	<rich:column>
-		<e:panelGrid columns="1">
-			<e:panelGrid columns="2">
-				<h:graphicImage alt="#{msgs['CONVENTION.CAMPUS']}"
-					title="#{msgs['CONVENTION.CAMPUS']}"
-					value="../../media/images/house.png" style="border:0" />
-				<e:text id="campusC"
-					value="#{conventionController.convention.enseignant.campus}" />
-			</e:panelGrid>
-
-			<e:panelGrid columns="2">
-				<h:graphicImage alt="#{msgs['CONVENTION.BATIMENT']}"
-					title="#{msgs['CONVENTION.BATIMENT']}"
-					value="../../media/images/building.png" style="border:0" />
-				<e:text id="batimentC"
-					value="#{conventionController.convention.enseignant.batiment}" />
-			</e:panelGrid>
-
-			<e:panelGrid columns="2">
-				<h:graphicImage alt="#{msgs['CONVENTION.BUREAU']}"
-					title="#{msgs['CONVENTION.BUREAU']}"
-					value="../../media/images/computer.png" style="border:0" />
-				<e:text id="bureauC"
-					value="#{conventionController.convention.enseignant.bureau}" />
-			</e:panelGrid>
-		</e:panelGrid>
-	</rich:column>
-</rich:dataTable>
-
-
-<e:panelGrid columns="1"
-	rendered="#{empty conventionController.convention.enseignant}">
-
-	<e:text value="#{msgs['CONVENTION.AUCUNENSEIGNANT']}" escape="false" />
-	<rich:spacer width="50px" />
-
-
-</e:panelGrid>
-
-
-
-
-
-
-
-
-
+				<h:panelGrid columns="2">
+					<h:graphicImage alt="#{msgs['CONVENTION.BATIMENT']}"
+						title="#{msgs['CONVENTION.BATIMENT']}"
+						value="../../media/images/building.png" style="border:0" />
+					<h:outputText id="batimentC"
+						value="#{conventionController.convention.enseignant.batiment}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:graphicImage alt="#{msgs['CONVENTION.BUREAU']}"
+						title="#{msgs['CONVENTION.BUREAU']}"
+						value="../../media/images/computer.png" style="border:0" />
+					<h:outputText id="bureauC"
+						value="#{conventionController.convention.enseignant.bureau}" />
+				</h:panelGrid>
+			</h:panelGrid>
+		</rich:column>
+	</rich:dataTable>
+	<h:panelGrid columns="1"
+		rendered="#{empty conventionController.convention.enseignant}">
+		<h:outputText value="#{msgs['CONVENTION.AUCUNENSEIGNANT']}"
+			escape="false" />
+		<rich:spacer width="50px" />
+	</h:panelGrid>
+</ui:fragment>

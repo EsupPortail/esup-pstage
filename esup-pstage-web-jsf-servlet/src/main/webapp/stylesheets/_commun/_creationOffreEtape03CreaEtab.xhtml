@@ -1,17 +1,24 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1" id="formAjoutEtab">
+<h:panelGrid columns="1" id="formAjoutEtab">
 	<rich:message for="formAjoutEtab">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 	</rich:message>
-	<%@include file="../_commun/_etablissementForm.jsp"%>
-	<e:panelGrid columns="3">
+	<ui:include src="../_commun/_etablissementForm.xhtml" />
+	<h:panelGrid columns="3">
 		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
 			action="_creationOffreEtape02Etab" alt="#{msgs['FORM.PREVIOUS']}"
 			title="#{msgs['FORM.PREVIOUS']}" immediate="true"
 			rendered="#{offreController.typeAjoutModifOffre>1}"/>
-		<rich:spacer width="20px" />
+		<t:htmlTag value="div" style="width: 20px;" />
 		<h:commandButton value="#{msgs['FORM.CREER']}"
 			action="#{offreController.ajouterEtablissement}" />
-	</e:panelGrid>
-</e:panelGrid>
+	</h:panelGrid>
+</h:panelGrid>
+</ui:fragment>

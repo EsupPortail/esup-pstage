@@ -1,85 +1,89 @@
-<%@include file="../_include.jsp"%>
-<e:panelGrid columns="1">
-	<e:text value="#{msgs['OFFRE.TEXT.ETAPE02']}" />
-	<rich:spacer height="10px" />
-</e:panelGrid>
-<t:div>
-	<%@include file="../_commun/_rechercheEtablissementOngletsSansForm.jsp"%>
-	<%@include file="../_commun/_rechercheEtablissementLiensOnglets.jsp"%>
-</t:div>
-<e:panelGrid columns="1" id="formResultatsRechEtab">
-	<t:div rendered="#{empty offreController.centreGestionDepotAnonyme}">
-		<e:panelGrid columns="3"
-			rendered="#{rechercheController.afficherBoutonAjoutEtab}">
-			<e:text value="#{msgs['STRUCTURE.AJOUT.CREER']}" escape="false" />
-			<h:commandLink id="ajoutEtab"
-				action="#{offreController.goToCreationOffreCreaEtab}">
-				<f:setPropertyActionListener value="#{true}"
-					target="#{etablissementController.memeAdresseStructure}" />
-				<h:graphicImage alt="#{msgs['FORM.CREER']}"
-					value="../../media/images/new.png" style="border:0" />
-			</h:commandLink>
-			<rich:toolTip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
-		</e:panelGrid>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<h:panelGrid columns="1">
+		<h:outputText value="#{msgs['OFFRE.TEXT.ETAPE02']}" />
+		<t:htmlTag value="div" style="height: 10px;" />
+	</h:panelGrid>
+	<t:div>
+		<ui:include
+			src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
+		<ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 	</t:div>
-	<rich:spacer height="20px" />
-	<rich:message for="formResultatsRechEtab">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
-	</rich:message>
-	<a4j:outputPanel id="opRechercheStructureDataTable">
-		<%
-				/*<t:div
-				 style="width:500px;position:relative;margin-left:auto;margin-right:auto;"
-				 rendered="#{not empty rechercheController.resultatRechercheStructure and
-				 empty rechercheController.listeResultatsRechercheStructure}">
-				 <%@include file="_affichageRechercheEtablissement.jsp"
-				 </t:div>*/
-			%>
-		<t:div
-			rendered="#{not empty rechercheController.listeResultatsRechercheStructure
-					and not empty rechercheController.rechercheStructurePaginator}">
-			<%@include file="../_commun/_rechercheEtablissementNbResultats.jsp"%>
-			<rich:dataTable id="rechercheStructureDataTable"
-				var="varRechercheStructure"
-				rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
-				value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
-				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-				border="0" cellspacing="2" cellpadding="2" width="600">
-				<f:facet name="header">
-					<rich:columnGroup>
-						<%@include
-							file="../_commun/_rechercheEtablissementResultatsHeaders.jsp"%>
-					</rich:columnGroup>
-				</f:facet>
-				<f:facet name="footer">
-					<h:panelGroup>
-						<%@include
-							file="../_commun/_rechercheEtablissementResultatsPaginator.jsp"%>
-					</h:panelGroup>
-				</f:facet>
-				<%@include
-					file="../_commun/_rechercheEtablissementResultatsColumns.jsp"%>
-				<rich:column>
-					<h:commandButton id="selectionEtab"
-						value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-						action="#{offreController.goToCreationOffreDetailsEtab}"
-						image="../../media/images/back.png"
-						alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-						title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
-						<f:setPropertyActionListener value="#{varRechercheStructure}"
-							target="#{rechercheController.resultatRechercheStructure}" />
-					</h:commandButton>
-					<rich:toolTip for="selectionEtab"
-						value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
-				</rich:column>
-			</rich:dataTable>
+	<h:panelGrid columns="1" id="formResultatsRechEtab">
+		<t:div rendered="#{empty offreController.centreGestionDepotAnonyme}">
+			<h:panelGrid columns="3"
+				rendered="#{rechercheController.afficherBoutonAjoutEtab}">
+				<h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}"
+					escape="false" />
+				<h:commandLink id="ajoutEtab"
+					action="#{offreController.goToCreationOffreCreaEtab}">
+					<f:setPropertyActionListener value="#{true}"
+						target="#{etablissementController.memeAdresseStructure}" />
+					<h:graphicImage alt="#{msgs['FORM.CREER']}"
+						value="../../media/images/new.png" style="border:0" />
+				</h:commandLink>
+				<rich:tooltip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
+			</h:panelGrid>
 		</t:div>
-	</a4j:outputPanel>
-	<e:panelGrid>
-		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-			action="_creationOffreEtape01Centre" alt="#{msgs['FORM.PREVIOUS']}"
-			title="#{msgs['FORM.PREVIOUS']}" immediate="true"
-			rendered="#{offreController.typeAjoutModifOffre>2}" />
-	</e:panelGrid>
-</e:panelGrid>
+		<t:htmlTag value="div" style="height: 20px;" />
+		<rich:message for="formResultatsRechEtab">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
+		<a4j:outputPanel id="opRechercheStructureDataTable">
+
+			<t:div
+				rendered="#{not empty rechercheController.listeResultatsRechercheStructure
+					and not empty rechercheController.rechercheStructurePaginator}">
+				<ui:include
+					src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
+				<rich:dataTable id="rechercheStructureDataTable"
+					var="varRechercheStructure"
+					rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
+					value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
+					onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					border="0" cellspacing="2" cellpadding="2" width="600">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<ui:include
+								src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
+						</rich:columnGroup>
+					</f:facet>
+					<f:facet name="footer">
+						<h:panelGroup>
+							<ui:include
+								src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" />
+						</h:panelGroup>
+					</f:facet>
+					<ui:include
+						src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+					<rich:column>
+						<h:commandButton id="selectionEtab"
+							value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+							action="#{offreController.goToCreationOffreDetailsEtab}"
+							image="../../media/images/back.png"
+							alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+							title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
+							<f:setPropertyActionListener value="#{varRechercheStructure}"
+								target="#{rechercheController.resultatRechercheStructure}" />
+						</h:commandButton>
+						<rich:tooltip for="selectionEtab"
+							value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+					</rich:column>
+				</rich:dataTable>
+			</t:div>
+		</a4j:outputPanel>
+		<h:panelGrid>
+			<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				action="_creationOffreEtape01Centre" alt="#{msgs['FORM.PREVIOUS']}"
+				title="#{msgs['FORM.PREVIOUS']}" immediate="true"
+				rendered="#{offreController.typeAjoutModifOffre>2}" />
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:fragment>

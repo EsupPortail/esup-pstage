@@ -1,20 +1,27 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1">
+<h:panelGrid columns="1">
 	<f:facet name="header">
 		<h:outputText
 			value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE']}" />
 	</f:facet>
 
-	<e:panelGrid columns="1">
-		<e:text
+	<h:panelGrid columns="1">
+		<h:outputText
 			value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']}" />
-		<%@include file="/stylesheets/stage/_conventionEtape5DetailsStage.jsp"%>
-	</e:panelGrid>
-	<e:panelGrid columns="2">
+		<ui:include src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
+	</h:panelGrid>
+	<h:panelGrid columns="2">
 		<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
 			action="#{conventionController.goToCreerConventionEtape5StageR}" />
 		<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
 			action="#{conventionController.goToCreerConventionEtape6RespPedago}" />
-	</e:panelGrid>
-</e:panelGrid>
+	</h:panelGrid>
+</h:panelGrid>	
+</ui:fragment>

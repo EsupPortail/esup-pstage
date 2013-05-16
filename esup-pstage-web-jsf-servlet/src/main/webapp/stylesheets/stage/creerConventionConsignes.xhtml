@@ -1,34 +1,31 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<!-- contenu de la page -->
-
-<e:panelGrid columns="1"
-	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-
-	
-	<rich:panel>
-		<f:facet name="header">
-			<e:text value="#{msgs['CONVENTION.TITRE']}" />
-		</f:facet>
-
-		<rich:spacer height="20" />
-		<e:text value="#{msgs['CONVENTION.CONSIGNES']}" escape="false" />
-		<rich:spacer height="20" />
-		<e:text value="#{msgs['CONVENTION.CONSIGNES1']}" escape="false" />
-		<rich:spacer height="20" />
-		<e:text value="#{msgs['CONVENTION.CONSIGNES2']}" escape="false" />
-		<rich:spacer height="20" />
-		<e:panelGrid columns="1">
-			<rich:spacer height="20" />
-			<a4j:commandButton
-				action="#{conventionController.goToCreerConventionRechEtu}"
-				value="#{msgs['FORM.NEXT']}">
-			</a4j:commandButton>
-		</e:panelGrid>
-	</rich:panel>
-	
-
-</e:panelGrid>
-
-
-
+	<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+			</f:facet>
+			<t:htmlTag value="div" style="height: 20px;" />
+			<h:outputText value="#{msgs['CONVENTION.CONSIGNES']}" escape="false" />
+			<t:htmlTag value="div" style="height: 20px;" />
+			<h:outputText value="#{msgs['CONVENTION.CONSIGNES1']}" escape="false" />
+			<t:htmlTag value="div" style="height: 20px;" />
+			<h:outputText value="#{msgs['CONVENTION.CONSIGNES2']}" escape="false" />
+			<t:htmlTag value="div" style="height: 20px;" />
+			<h:panelGrid columns="1">
+				<t:htmlTag value="div" style="height: 20px;" />
+				<a4j:commandButton
+					action="#{conventionController.goToCreerConventionRechEtu}"
+					value="#{msgs['FORM.NEXT']}">
+				</a4j:commandButton>
+			</h:panelGrid>
+		</rich:panel>
+	</h:panelGrid>
+</ui:fragment>

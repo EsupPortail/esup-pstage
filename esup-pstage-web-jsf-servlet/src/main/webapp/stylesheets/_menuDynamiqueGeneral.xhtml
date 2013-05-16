@@ -1,17 +1,24 @@
-<%@include file="_include.jsp"%>
-	<h:form id="menuDynamique" styleClass="app-form">
-		<t:htmlTag value="ul">
-			<t:htmlTag value="li">
-				<h:commandLink action="#{welcomeController.goToAccueilEntr}"><e:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.GESTION']}"/>
-				</h:commandLink>
-				
-			</t:htmlTag>
-			<t:htmlTag value="li">
-				<h:commandLink action="#{welcomeController.goToAccueilStage}"><e:text value="#{msgs['GENERAL.ACCUEIL.STAGE.GESTION']}"/>
-				</h:commandLink>
-				
-			</t:htmlTag>
-			
-		</t:htmlTag>
-		<e:messages showDetail="true"></e:messages>
-	</h:form>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk" template="">
+	<ui:define name="_menuDynamiqueGeneral">
+		<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
+			<h:form id="menuDynamique" styleClass="app-form">
+				<t:htmlTag value="ul">
+					<t:htmlTag value="li">
+						<h:commandLink action="#{welcomeController.goToAccueilEntr}">
+							<h:text value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.GESTION']}" />
+						</h:commandLink>
+					</t:htmlTag>
+					<t:htmlTag value="li">
+						<h:commandLink action="#{welcomeController.goToAccueilStage}">
+							<h:text value="#{msgs['GENERAL.ACCUEIL.STAGE.GESTION']}" />
+						</h:commandLink>
+					</t:htmlTag>
+				</t:htmlTag>
+				<h:messages showDetail="true" />
+			</h:form>
+		</t:div>
+	</ui:define>
+</ui:composition>

@@ -1,14 +1,21 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="3"
-	rendered="#{rechercheController.afficherBoutonAjoutEtab}">
-	<e:text value="#{msgs['STRUCTURE.AJOUT.CREER']}" escape="false" />
-	<h:commandLink id="ajoutEtab"
-		action="#{etablissementController.goToCreationEtablissement}">
-		<f:setPropertyActionListener value="#{true}"
-			target="#{etablissementController.memeAdresseStructure}" />
-		<h:graphicImage alt="#{msgs['FORM.CREER']}"
-			value="../../media/images/new.png" style="border:0" />
-	</h:commandLink>
-	<rich:toolTip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
-</e:panelGrid>
+	<h:panelGrid columns="3"
+		rendered="#{rechercheController.afficherBoutonAjoutEtab}">
+		<h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}" escape="false" />
+		<h:commandLink id="ajoutEtab"
+			action="#{etablissementController.goToCreationEtablissement}">
+			<f:setPropertyActionListener value="#{true}"
+				target="#{etablissementController.memeAdresseStructure}" />
+			<h:graphicImage alt="#{msgs['FORM.CREER']}"
+				value="../../media/images/new.png" style="border:0" />
+		</h:commandLink>
+		<rich:tooltip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
+		</h:panelGrid>
+</ui:fragment>

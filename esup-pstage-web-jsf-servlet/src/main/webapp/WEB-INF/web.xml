@@ -35,7 +35,7 @@
 		<param-name>javax.faces.CONFIG_FILES
 		</param-name>
 		<param-value>
-			/WEB-INF/classes/properties/jsf/navigation-rules.xml
+			/WEB-INF/navigation-rules.xml
 		</param-value>
 	</context-param>
 
@@ -43,11 +43,11 @@
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
-    <context-param>
-        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    
+	<context-param>
+		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
 	<context-param>
 		<param-name>org.apache.myfaces.PRETTY_HTML
 		</param-name>
@@ -85,7 +85,7 @@
 		</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<param-name>org.apache.myfaces.ERROR_HANDLER
 		</param-name>
@@ -104,30 +104,33 @@
 	<!--BEGIN-RICHFACES -->
 	<!-- Plugging the skin into the project -->
 	<context-param>
-		<param-name>org.richfaces.SKIN</param-name>
+		<param-name>org.richfaces.skin</param-name>
 		<param-value>classic</param-value>
 	</context-param>
 
 	<!-- Making the RichFaces skin spread to standard HTML controls -->
-	<context-param>
-		<param-name>org.richfaces.CONTROL_SKINNING
-		</param-name>
-		<param-value>enable</param-value>
-	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>org.richfaces.enableControlSkinning</param-name> -->
+<!-- 		<param-value>false</param-value> -->
+<!-- 	</context-param> -->
+<!-- 	<context-param> -->
+<!-- 		<param-name>org.richfaces.enableControlSkinningClasses</param-name> -->
+<!-- 		<param-value>true</param-value>	 -->
+<!-- 	</context-param> -->
 
 	<!-- Encryption put to false -->
-	<context-param>
-		<param-name>org.apache.myfaces.USE_ENCRYPTION
-		</param-name>
-		<param-value>false</param-value>
-	</context-param>
+	<!-- <context-param> -->
+	<!-- <param-name>org.apache.myfaces.USE_ENCRYPTION -->
+	<!-- </param-name> -->
+	<!-- <param-value>false</param-value> -->
+	<!-- </context-param> -->
 
 	<!-- Handling ViewExpiredException -->
-	<context-param>
-		<param-name>org.ajax4jsf.handleViewExpiredOnClient
-		</param-name>
-		<param-value>true</param-value>
-	</context-param>
+	<!-- <context-param> -->
+	<!-- <param-name>org.ajax4jsf.handleViewExpiredOnClient -->
+	<!-- </param-name> -->
+	<!-- <param-value>true</param-value> -->
+	<!-- </context-param> -->
 
 	<!--END-RICHFACES -->
 
@@ -169,6 +172,16 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- END CAS -->
+
+	<servlet>
+		<servlet-name>Resource Servlet</servlet-name>
+		<servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Resource Servlet</servlet-name>
+		<url-pattern>/org.richfaces.resources/*</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<description>
@@ -266,6 +279,12 @@
 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
 		</listener-class>
 	</listener>
 

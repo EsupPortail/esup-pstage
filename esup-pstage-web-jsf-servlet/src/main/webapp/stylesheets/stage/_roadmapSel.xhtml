@@ -1,4 +1,11 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
 <h:form id="roadMapForm">
 	<a4j:repeat value="#{conventionController.sequencesSel}" var="sequence">
 		<a4j:commandButton value="#{sequence.title}"
@@ -9,3 +16,4 @@
 			styleClass="app-tab-active" action="#{sequence.actionEtape}" />
 	</a4j:repeat>
 </h:form>
+</ui:fragment>

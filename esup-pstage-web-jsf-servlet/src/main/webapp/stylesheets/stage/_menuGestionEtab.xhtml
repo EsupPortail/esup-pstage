@@ -1,42 +1,49 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid align="center" columns="1">
-	<h:form>
-		<rich:toolBar height="34" itemSeparator="line"
-			rendered="#{not empty rechercheController.resultatRechercheStructure}">
-			<rich:toolBarGroup>
-				<h:commandLink
-					action="#{rechercheController.goToAffichageRechercheEtablissement}">
-					<h:graphicImage alt="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}"
-						title="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}"
-						value="../../media/images/card.png" style="border:0" />
-					<e:text value=" #{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}" />
-				</h:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup>
-				<h:commandLink
-					action="#{etablissementController.goToContactsEtablissement}">
-					<h:graphicImage alt="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}"
-						title="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}"
-						value="../../media/images/book_open.png" style="border:0" />
-					<e:text value=" #{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}" />
-					<f:setPropertyActionListener
-						value="#{rechercheController.resultatRechercheStructure}"
-						target="#{sessionController.currentManageStructure}" />
-				</h:commandLink>
-			</rich:toolBarGroup>
-			<rich:toolBarGroup>
-				<h:commandLink action="#{offreController.goToOffresEtablissement}">
-					<h:graphicImage alt="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}"
-						title="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}"
-						value="../../media/images/list.png" style="border:0" />
-					<e:text value=" #{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}" />
-					<f:setPropertyActionListener
-						value="#{rechercheController.resultatRechercheStructure}"
-						target="#{sessionController.currentManageStructure}" />
-				</h:commandLink>
-			</rich:toolBarGroup>
-		</rich:toolBar>
-	</h:form>
-	<rich:spacer height="20px" />
-</e:panelGrid>
+	<h:panelGrid align="center" columns="1">
+		<h:form>
+			<rich:toolbar height="34" itemSeparator="line"
+				rendered="#{not empty rechercheController.resultatRechercheStructure}">
+				<rich:toolbarGroup>
+					<h:commandLink
+						action="#{rechercheController.goToAffichageRechercheEtablissement}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}"
+							title="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}"
+							value="../../media/images/card.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}" />
+					</h:commandLink>
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:commandLink
+						action="#{etablissementController.goToContactsEtablissement}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}"
+							title="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}"
+							value="../../media/images/book_open.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}" />
+						<f:setPropertyActionListener
+							value="#{rechercheController.resultatRechercheStructure}"
+							target="#{sessionController.currentManageStructure}" />
+					</h:commandLink>
+				</rich:toolbarGroup>
+				<rich:toolbarGroup>
+					<h:commandLink action="#{offreController.goToOffresEtablissement}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}"
+							title="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}"
+							value="../../media/images/list.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}" />
+						<f:setPropertyActionListener
+							value="#{rechercheController.resultatRechercheStructure}"
+							target="#{sessionController.currentManageStructure}" />
+					</h:commandLink>
+				</rich:toolbarGroup>
+			</rich:toolbar>
+		</h:form>
+		<t:htmlTag value="div" style="height: 20px;" />
+	</h:panelGrid>
+</ui:fragment>
