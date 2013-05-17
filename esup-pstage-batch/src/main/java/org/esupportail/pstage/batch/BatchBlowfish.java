@@ -54,7 +54,7 @@ public class BatchBlowfish {
 			break;
 		case 1:
 			if("-g".equals(args[0])){
-				//G�n�ration de la cl�
+				//Génération de la clé
 				byte[] secretKey = BlowfishUtils.getSecretKeyInBytes(BlowfishUtils.generateKey());
 				LOG.info("Your secret key : "+new BigInteger(secretKey));
 			}else{

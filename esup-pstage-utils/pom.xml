@@ -10,6 +10,13 @@
 	<groupId>org.esupportail</groupId>
 	<artifactId>esup-pstage-utils</artifactId>
 	<description>couche utilitaire</description>
+	<repositories>
+		<repository>
+			<id>codehaus</id>
+			<name>castor-xml</name>
+			<url>http://repository.codehaus.org/</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.esupportail</groupId>

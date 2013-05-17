@@ -14,29 +14,4 @@
 		class="org.esupportail.commons.services.authentication.CasFilterAuthenticationService">
 	</bean>
 
-	<bean id="servletCasService"
-		class="org.esupportail.commons.services.cas.ServletCasServiceImpl"
-		scope="session" lazy-init="true" />
-
-	<bean id="authenticationFilter"
-		class="org.jasig.cas.client.authentication.AuthenticationFilter"
-		p:casServerLoginUrl="${cas.url}/login" p:service="${serviceName}" />
-
-	<!-- Ticket validation filter -->
-	<bean id="ticketValidationFilter"
-		class="org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter"
-		p:serverName="${tomcat.host}${tomcat.port}" p:redirectAfterValidation="true"
-		p:ticketValidator-ref="ticketValidator"
-		p:proxyGrantingTicketStorage-ref="proxyGrantingTicketStorage" />
-
-	<!-- CAS proxy ticket validator -->
-	<bean id="ticketValidator"
-		class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator"
-		p:proxyGrantingTicketStorage-ref="proxyGrantingTicketStorage"
-		p:acceptAnyProxy="true">
-		<constructor-arg index="0" value="${cas.url}" />
-	</bean>
-
-	<bean id="proxyGrantingTicketStorage"
-		class="org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl" />
 </beans>
