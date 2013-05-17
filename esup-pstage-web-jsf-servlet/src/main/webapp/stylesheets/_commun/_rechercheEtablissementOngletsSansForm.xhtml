@@ -1,199 +1,199 @@
-<%@include file="../_include.jsp"%>
-<%
-	/*
-	 Recherches communes pour les établissements
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	 A inclure après les onglets 
-	 */
-%>
-<t:div
-	rendered="#{not empty rechercheController.ongletCourant 
+	<t:div
+		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant<=1}">
-	<e:panelGrid columns="1">
-		<e:text escape="false"
-			value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIRET']}" />
+		<h:panelGrid columns="1">
+			<h:outputText escape="false"
+				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIRET']}" />
 
-		<e:panelGrid columns="2">
-			<h:inputText id="rechNumeroSiret" size="20" maxlength="14"
-				value="#{rechercheController.rechNumeroSiret}">
-			</h:inputText>
-			<h:commandButton action="#{rechercheController.rechercheEtabSiret}"
-				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
-		</e:panelGrid>
+			<h:panelGrid columns="2">
+				<h:inputText id="rechNumeroSiret" size="20" maxlength="14"
+					value="#{rechercheController.rechNumeroSiret}">
+				</h:inputText>
+				<h:commandButton action="#{rechercheController.rechercheEtabSiret}"
+					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+			</h:panelGrid>
 
-		<e:text escape="false"
-			value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIREN']}" />
+			<h:outputText escape="false"
+				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIREN']}" />
 
-		<e:panelGrid columns="2">
-			<h:inputText id="rechNumeroSiren" size="20" maxlength="9"
-				value="#{rechercheController.rechNumeroSiren}">
-			</h:inputText>
-			<h:commandButton action="#{rechercheController.rechercheEtabSiren}"
-				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
-		</e:panelGrid>
+			<h:panelGrid columns="2">
+				<h:inputText id="rechNumeroSiren" size="20" maxlength="9"
+					value="#{rechercheController.rechNumeroSiren}">
+				</h:inputText>
+				<h:commandButton action="#{rechercheController.rechercheEtabSiren}"
+					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+			</h:panelGrid>
 
-	</e:panelGrid>
-</t:div>
-<t:div
-	rendered="#{empty rechercheController.ongletCourant 
+		</h:panelGrid>
+	</t:div>
+	<t:div
+		rendered="#{empty rechercheController.ongletCourant 
 	or rechercheController.ongletCourant==2}">
-	<e:panelGrid columns="1">
-		<e:text
-			value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE']}"
-			escape="false" />
+		<h:panelGrid columns="1">
+			<h:outputText
+				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE']}"
+				escape="false" />
 
-		<e:panelGrid columns="1">
-			<h:inputText id="rechRaisonSociale" size="50" maxlength="100"
-				value="#{rechercheController.rechRaisonSociale}"
-				style="text-transform:uppercase;">
-				<f:converter binding="#{sansAccentEnMAJConverter}" />
-			</h:inputText>
-			<e:panelGrid columns="2">
-				<e:outputLabel for="rechDepartement2"
-					value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
-				<h:inputText id="rechDepartement2" size="2" maxlength="2"
-					value="#{rechercheController.rechDepartement}">
+			<h:panelGrid columns="1">
+				<h:inputText id="rechRaisonSociale" size="50" maxlength="100"
+					value="#{rechercheController.rechRaisonSociale}"
+					style="text-transform:uppercase;">
 					<f:converter binding="#{sansAccentEnMAJConverter}" />
 				</h:inputText>
-			</e:panelGrid>
-			<h:commandButton
-				action="#{rechercheController.rechercheRaisonSociale}"
-				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
-		</e:panelGrid>
+				<h:panelGrid columns="2">
+					<h:outputLabel for="rechDepartement2"
+						value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
+					<h:inputText id="rechDepartement2" size="2" maxlength="2"
+						value="#{rechercheController.rechDepartement}">
+						<f:converter binding="#{sansAccentEnMAJConverter}" />
+					</h:inputText>
+				</h:panelGrid>
+				<h:commandButton
+					action="#{rechercheController.rechercheRaisonSociale}"
+					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+			</h:panelGrid>
 
-	</e:panelGrid>
-</t:div>
-<t:div
-	rendered="#{not empty rechercheController.ongletCourant 
+		</h:panelGrid>
+	</t:div>
+	<t:div
+		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant==3}">
 
-	<e:panelGrid columns="2">
-		<t:panelGroup colspan="2">
-			<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.ACTIVITE']}"
-				escape="false" />
-		</t:panelGroup>
-		<e:outputLabel for="rechTypeStructure"
-			value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.TYPESTRUCTURE']}" />
-		<h:selectOneMenu id="rechTypeStructure"
-			value="#{rechercheController.rechTypeEtablissement}"
-			converter="#{typeStructureConverter}">
-			<f:selectItems value="#{nomenclatureController.typesStructure}" />
-		</h:selectOneMenu>
-		<e:outputLabel for="rechNafN1"
-			value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.SECTEURACTIVITE']}" />
-		<h:selectOneMenu id="rechNafN1"
-			value="#{rechercheController.rechNafN1}"
-			converter="#{nafN1Converter}" style="width:200px">
-			<f:selectItems value="#{nomenclatureController.nafN1}" />
-		</h:selectOneMenu>
-		<e:outputLabel for="rechDepartement3"
-			value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
-		<h:inputText id="rechDepartement3" size="2" maxlength="2"
-			value="#{rechercheController.rechDepartement}">
-			<f:converter binding="#{sansAccentEnMAJConverter}" />
-		</h:inputText>
-	</e:panelGrid>
-	<h:commandButton action="#{rechercheController.rechercheActivite}"
-		value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
-
-</t:div>
-<t:div
-	rendered="#{not empty rechercheController.ongletCourant 
-	and rechercheController.ongletCourant==4}">
-	<e:panelGrid columns="1">
-		<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TELFAX']}"
-			escape="false" />
-
-		<e:panelGrid columns="3">
-			<e:outputLabel for="rechTelephone"
-				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TEL']}" />
-			<h:inputText id="rechTelephone" size="20" maxlength="20"
-				value="#{rechercheController.rechTelephone}">
-			</h:inputText>
-			<h:commandButton action="#{rechercheController.rechercheTel}"
-				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
-		</e:panelGrid>
-
-
-		<e:panelGrid columns="3">
-			<e:outputLabel for="rechFax"
-				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}" />
-			<h:inputText id="rechFax" size="20" maxlength="20"
-				value="#{rechercheController.rechFax}">
-			</h:inputText>
-			<h:commandButton action="#{rechercheController.rechercheFax}"
-				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
-		</e:panelGrid>
-
-	</e:panelGrid>
-</t:div>
-<t:div
-	rendered="#{not empty rechercheController.ongletCourant 
-	and rechercheController.ongletCourant==7}">
-	<e:panelGrid columns="1">
-		<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.ADRESSE']}"
-			escape="false" />
-		<e:panelGrid columns="2">
-			<e:panelGrid columns="2">
-				<e:outputLabel for="rechVoie"
-					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VOIE']}" />
-				<h:inputText id="rechVoie" size="30" maxlength="200"
-					value="#{rechercheController.critereRechercheStructureAdresse.rechVoie}">
-				</h:inputText>
-				<e:outputLabel for="rechBatRes"
-					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.BATRES']}" />
-				<h:inputText id="rechBatRes" size="30" maxlength="200"
-					value="#{rechercheController.critereRechercheStructureAdresse.rechBatimentResidence}">
-				</h:inputText>
-				<e:outputLabel for="rechVille"
-					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VILLE']}" />
-				<h:inputText id="rechVille" size="20" maxlength="20"
-					value="#{rechercheController.critereRechercheStructureAdresse.rechVille}">
-				</h:inputText>
-			</e:panelGrid>
-			<e:panelGrid columns="2">
-				<e:outputLabel for="rechDeps"
-					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.DEP']}" />
-				<h:inputText id="rechDeps" size="20" maxlength="20"
-					value="#{rechercheController.critereRechercheStructureAdresse.codePostal}">
-				</h:inputText>
-				<e:outputLabel for="rechPays"
-					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']}" />
-				<h:selectOneMenu id="rechPays"
-					value="#{rechercheController.critereRechercheStructureAdresse.rechPays}"
-					converter="#{paysConverter}" styleClass="paysInput">
-					<f:selectItem itemValue="" />
-					<f:selectItems value="#{nomenclatureController.pays}" />
-				</h:selectOneMenu>
-			</e:panelGrid>
-		</e:panelGrid>
-		<h:commandButton action="#{rechercheController.rechercheAdresse}"
-			value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
-	</e:panelGrid>
-</t:div>
-<t:div
-	rendered="#{not empty rechercheController.ongletCourant 
-	and rechercheController.ongletCourant==5}">
-	<e:panelGrid columns="1">
-		<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.SERVICE']}"
-			escape="false" />
-		<e:panelGrid columns="2">
-			<e:outputLabel for="rechNomService"
-				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.NOMSERVICE']}" />
-			<h:inputText id="rechNomService" size="30" maxlength="200"
-				value="#{rechercheController.rechNomService}"
-				style="text-transform:uppercase;">
-				<f:converter binding="#{sansAccentEnMAJConverter}" />
-			</h:inputText>
-			<e:outputLabel for="rechDepartement"
+		<h:panelGrid columns="2">
+			<t:panelGroup colspan="2">
+				<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.ACTIVITE']}"
+					escape="false" />
+			</t:panelGroup>
+			<h:outputLabel for="rechTypeStructure"
+				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.TYPESTRUCTURE']}" />
+			<h:selectOneMenu id="rechTypeStructure"
+				value="#{rechercheController.rechTypeEtablissement}"
+				converter="#{typeStructureConverter}">
+				<f:selectItems value="#{nomenclatureController.typesStructure}" />
+			</h:selectOneMenu>
+			<h:outputLabel for="rechNafN1"
+				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.SECTEURACTIVITE']}" />
+			<h:selectOneMenu id="rechNafN1"
+				value="#{rechercheController.rechNafN1}"
+				converter="#{nafN1Converter}" style="width:200px">
+				<f:selectItems value="#{nomenclatureController.nafN1}" />
+			</h:selectOneMenu>
+			<h:outputLabel for="rechDepartement3"
 				value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
-			<h:inputText id="rechDepartement" size="2" maxlength="2"
+			<h:inputText id="rechDepartement3" size="2" maxlength="2"
 				value="#{rechercheController.rechDepartement}">
 				<f:converter binding="#{sansAccentEnMAJConverter}" />
 			</h:inputText>
-		</e:panelGrid>
-		<h:commandButton action="#{rechercheController.rechercheService}"
+		</h:panelGrid>
+		<h:commandButton action="#{rechercheController.rechercheActivite}"
 			value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
-	</e:panelGrid>
-</t:div>
 
+	</t:div>
+	<t:div
+		rendered="#{not empty rechercheController.ongletCourant 
+	and rechercheController.ongletCourant==4}">
+		<h:panelGrid columns="1">
+			<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TELFAX']}"
+				escape="false" />
+
+			<h:panelGrid columns="3">
+				<h:outputLabel for="rechTelephone"
+					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TEL']}" />
+				<h:inputText id="rechTelephone" size="20" maxlength="20"
+					value="#{rechercheController.rechTelephone}">
+				</h:inputText>
+				<h:commandButton action="#{rechercheController.rechercheTel}"
+					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+			</h:panelGrid>
+
+
+			<h:panelGrid columns="3">
+				<h:outputLabel for="rechFax"
+					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}" />
+				<h:inputText id="rechFax" size="20" maxlength="20"
+					value="#{rechercheController.rechFax}">
+				</h:inputText>
+				<h:commandButton action="#{rechercheController.rechercheFax}"
+					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+			</h:panelGrid>
+
+		</h:panelGrid>
+	</t:div>
+	<t:div
+		rendered="#{not empty rechercheController.ongletCourant 
+	and rechercheController.ongletCourant==7}">
+		<h:panelGrid columns="1">
+			<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.ADRESSE']}"
+				escape="false" />
+			<h:panelGrid columns="2">
+				<h:panelGrid columns="2">
+					<h:outputLabel for="rechVoie"
+						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VOIE']}" />
+					<h:inputText id="rechVoie" size="30" maxlength="200"
+						value="#{rechercheController.critereRechercheStructureAdresse.rechVoie}">
+					</h:inputText>
+					<h:outputLabel for="rechBatRes"
+						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.BATRES']}" />
+					<h:inputText id="rechBatRes" size="30" maxlength="200"
+						value="#{rechercheController.critereRechercheStructureAdresse.rechBatimentResidence}">
+					</h:inputText>
+					<h:outputLabel for="rechVille"
+						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VILLE']}" />
+					<h:inputText id="rechVille" size="20" maxlength="20"
+						value="#{rechercheController.critereRechercheStructureAdresse.rechVille}">
+					</h:inputText>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:outputLabel for="rechDeps"
+						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.DEP']}" />
+					<h:inputText id="rechDeps" size="20" maxlength="20"
+						value="#{rechercheController.critereRechercheStructureAdresse.codePostal}">
+					</h:inputText>
+					<h:outputLabel for="rechPays"
+						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']}" />
+					<h:selectOneMenu id="rechPays"
+						value="#{rechercheController.critereRechercheStructureAdresse.rechPays}"
+						converter="#{paysConverter}" styleClass="paysInput">
+						<f:selectItem itemValue="" />
+						<f:selectItems value="#{nomenclatureController.pays}" />
+					</h:selectOneMenu>
+				</h:panelGrid>
+			</h:panelGrid>
+			<h:commandButton action="#{rechercheController.rechercheAdresse}"
+				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+		</h:panelGrid>
+	</t:div>
+	<t:div
+		rendered="#{not empty rechercheController.ongletCourant 
+	and rechercheController.ongletCourant==5}">
+		<h:panelGrid columns="1">
+			<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.SERVICE']}"
+				escape="false" />
+			<h:panelGrid columns="2">
+				<h:outputLabel for="rechNomService"
+					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.NOMSERVICE']}" />
+				<h:inputText id="rechNomService" size="30" maxlength="200"
+					value="#{rechercheController.rechNomService}"
+					style="text-transform:uppercase;">
+					<f:converter binding="#{sansAccentEnMAJConverter}" />
+				</h:inputText>
+				<h:outputLabel for="rechDepartement"
+					value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
+				<h:inputText id="rechDepartement" size="2" maxlength="2"
+					value="#{rechercheController.rechDepartement}">
+					<f:converter binding="#{sansAccentEnMAJConverter}" />
+				</h:inputText>
+			</h:panelGrid>
+			<h:commandButton action="#{rechercheController.rechercheService}"
+				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+		</h:panelGrid>
+	</t:div>
+</ui:fragment>

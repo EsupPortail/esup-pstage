@@ -1,34 +1,35 @@
-<%@include file="../_include.jsp"%>
-<%
-	/*
-	 Nombre de résultats pour la recherche offre
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	 A inclure avant la dataTable des résultats
-	 */
-%>
-<t:htmlTag value="br" />
-<rich:spacer height="5px" />
-<e:panelGrid columns="2">
-	<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
-		value="../../media/images/script.png" style="border:0"
-		rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 1
+	<t:htmlTag value="br" />
+	<t:htmlTag value="div" style="height: 5px;" />
+	<h:panelGrid columns="2">
+		<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
+			value="../../media/images/script.png" style="border:0"
+			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 1
 						and offreController.rechercheOffrePaginator.totalItemsCount < 200}" />
-	<e:text value="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
-		rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 1
+		<h:outputText value="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
+			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 1
 						and offreController.rechercheOffrePaginator.totalItemsCount < 200}"
-		escape="false">
-		<f:param
-			value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
-	</e:text>
-	<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
-		value="../../media/images/script.png" style="border:0"
-		rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 200}" />
-	<e:text value="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
-		rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 200}"
-		escape="false">
-		<f:param
-			value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
-	</e:text>
-</e:panelGrid>
-<t:htmlTag value="br" />
-<rich:spacer height="5px" />
+			escape="false">
+			<f:param
+				value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
+		</h:outputText>
+		<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
+			value="../../media/images/script.png" style="border:0"
+			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 200}" />
+		<h:outputText value="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
+			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount >= 200}"
+			escape="false">
+			<f:param
+				value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
+		</h:outputText>
+	</h:panelGrid>
+	<t:htmlTag value="br" />
+	<t:htmlTag value="div" style="height: 5px;" />
+</ui:fragment>

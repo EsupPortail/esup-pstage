@@ -1,211 +1,203 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<e:panelGrid columns="1">
-	<e:outputLabel value="#{msgs['RECHERCHEOFFRE.NUMOFFRE']}"
-		for="numOffre" />
-	<h:inputText id="numOffre"
-		value="#{offreController.critereRechercheOffre.idOffre}" size="10"
-		maxlength="10" />
-	<e:outputLabel value="#{msgs['RECHERCHEOFFRE.INTITULE']}"
-		for="intitule" />
-	<h:inputText id="intitule" style="text-transform:uppercase;"
-		value="#{offreController.critereRechercheOffre.intitule}" size="50"
-		maxlength="200">
-		<f:converter binding="#{sansAccentEnMAJConverter}" />
-	</h:inputText>
-	<e:outputLabel
-		rendered="#{not empty nomenclatureController.anneesUnivOffres}"
-		value="#{msgs['RECHERCHEOFFRE.ANNEEU']}" for="anU" />
-	<h:selectOneMenu id="anU"
-		rendered="#{not empty nomenclatureController.anneesUnivOffres}"
-		value="#{offreController.critereRechercheOffre.anneeUniversitaire}">
-		<f:selectItem itemValue="" />
-		<f:selectItems value="#{nomenclatureController.anneesUnivOffres}" />
-	</h:selectOneMenu>
-	<e:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPEOFFRE']}"
-		for="typeContratOffre" />
-	<h:selectOneMenu id="typeContratOffre"
-		value="#{offreController.rechTypeOuContrat}">
-		<f:selectItem itemValue="" />
-		<f:selectItems value="#{offreController.rechTypesContratsOffre}" />
-	</h:selectOneMenu>
-	<e:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCOMMUNE']}"
-		for="lieuCommune" />
-	<h:inputText id="lieuCommune"
-		value="#{offreController.critereRechercheOffre.lieuCommune}" size="50"
-		maxlength="200">
-		<f:converter binding="#{sansAccentEnMAJConverter}" />
-	</h:inputText>
-	<e:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
-		for="lieuCodePostal" />
-	<e:panelGrid columns="2" style="font-size:11px;">
-		<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
-			title="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
-			value="../../media/images/information.png" style="border:0" />
-		<e:text value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL.AIDE']}" />
-	</e:panelGrid>
-	<h:inputText id="lieuCodePostal"
-		value="#{offreController.critereRechercheOffre.lieuCodesPostal}"
-		size="50" maxlength="200" converter="#{listeCodePostalConverter}">
-	</h:inputText>
-	<e:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUPAYS']}"
-		for="lieuPays" />
-	<h:selectOneMenu id="lieuPays"
-		value="#{offreController.critereRechercheOffre.lieuPays}"
-		converter="#{paysConverter}" styleClass="paysInput">
-		<f:selectItem itemValue="" />
-		<f:selectItems value="#{nomenclatureController.pays}" />
-	</h:selectOneMenu>
-	<e:outputLabel value="#{msgs['RECHERCHEOFFRE.DOMAINEOFFRE']}"
-		for="fapN1" />
-	<h:selectOneMenu id="fapN1"
-		value="#{offreController.critereRechercheOffre.fapN1}"
-		converter="#{fapN1Converter}">
-		<f:selectItem itemValue="" />
-		<f:selectItems value="#{nomenclatureController.fapN1}" />
-	</h:selectOneMenu>
-	<e:panelGrid columns="1" rendered="#{offreController.rechercheAvancee}">
-		<e:outputLabel value="#{msgs['RECHERCHEOFFRE.SECTEURACTIVITE']}"
-			for="nafN1" />
-		<h:selectOneMenu id="nafN1" style="width:300px;"
-			value="#{offreController.critereRechercheOffre.nafN1}"
-			converter="#{nafN1Converter}">
+	<h:panelGrid columns="1">
+		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.NUMOFFRE']}"
+			for="numOffre" />
+		<h:inputText id="numOffre"
+			value="#{offreController.critereRechercheOffre.idOffre}" size="10"
+			maxlength="10" />
+		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.INTITULE']}"
+			for="intitule" />
+		<h:inputText id="intitule" style="text-transform:uppercase;"
+			value="#{offreController.critereRechercheOffre.intitule}" size="50"
+			maxlength="200">
+			<f:converter binding="#{sansAccentEnMAJConverter}" />
+		</h:inputText>
+		<h:outputLabel
+			rendered="#{not empty nomenclatureController.anneesUnivOffres}"
+			value="#{msgs['RECHERCHEOFFRE.ANNEEU']}" for="anU" />
+		<h:selectOneMenu id="anU"
+			rendered="#{not empty nomenclatureController.anneesUnivOffres}"
+			value="#{offreController.critereRechercheOffre.anneeUniversitaire}">
 			<f:selectItem itemValue="" />
-			<f:selectItems value="#{nomenclatureController.nafN1}" />
+			<f:selectItems value="#{nomenclatureController.anneesUnivOffres}" />
 		</h:selectOneMenu>
-		<e:outputLabel value="#{msgs['RECHERCHEOFFRE.NIVEAUFORMATION']}"
-			for="niveauForm" />
-		<h:selectOneMenu id="niveauForm"
-			value="#{offreController.critereRechercheOffre.niveauFormation}"
-			converter="#{niveauFormationConverter}">
+		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPEOFFRE']}"
+			for="typeContratOffre" />
+		<h:selectOneMenu id="typeContratOffre"
+			value="#{offreController.rechTypeOuContrat}">
 			<f:selectItem itemValue="" />
-			<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
+			<f:selectItems value="#{offreController.rechTypesContratsOffre}" />
 		</h:selectOneMenu>
-		<%
-			/*
-						<e:text value="#{msgs['RECHERCHEOFFRE.ESTACCESSERQTH']}"
-							escape="false" />
-						<h:selectOneRadio id="estAccess"
-							value="#{offreController.critereRechercheOffre.estAccessERQTH}">
-							<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
-							<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-						</h:selectOneRadio>
-						<e:text value="#{msgs['RECHERCHEOFFRE.ESTPRIOERQTH']}" escape="false" />
-						<h:selectOneRadio id="estPrio"
-							value="#{offreController.critereRechercheOffre.estPrioERQTH}">
-							<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
-							<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-						</h:selectOneRadio>
-					 */
-		%>
-	</e:panelGrid>
-	<e:panelGrid columns="2" style="font-size:11px;">
-		<e:outputLabel value="#{msgs['RECHERCHEOFFRE.MOTSCLES']}"
-			for="motsCles" />
-		<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"
-			title="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"
-			value="../../media/images/information.png" style="border:0" />
-	</e:panelGrid>
-	<h:inputText id="motsCles"
-		value="#{offreController.critereRechercheOffre.motsCles}" size="50"
-		maxlength="200" />
-	<rich:spacer height="20px" />
-	<e:panelGrid columns="1"
-		rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin
+		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCOMMUNE']}"
+			for="lieuCommune" />
+		<h:inputText id="lieuCommune"
+			value="#{offreController.critereRechercheOffre.lieuCommune}"
+			size="50" maxlength="200">
+			<f:converter binding="#{sansAccentEnMAJConverter}" />
+		</h:inputText>
+		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
+			for="lieuCodePostal" />
+		<h:panelGrid columns="2" style="font-sizh:11px;">
+			<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
+				title="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
+				value="../../media/images/information.png" style="border:0" />
+			<h:outputText value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL.AIDE']}" />
+		</h:panelGrid>
+		<h:inputText id="lieuCodePostal"
+			value="#{offreController.critereRechercheOffre.lieuCodesPostal}"
+			size="50" maxlength="200" converter="#{listeCodePostalConverter}">
+		</h:inputText>
+		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUPAYS']}"
+			for="lieuPays" />
+		<h:selectOneMenu id="lieuPays"
+			value="#{offreController.critereRechercheOffre.lieuPays}"
+			converter="#{paysConverter}" styleClass="paysInput">
+			<f:selectItem itemValue="" />
+			<f:selectItems value="#{nomenclatureController.pays}" />
+		</h:selectOneMenu>
+		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.DOMAINEOFFRE']}"
+			for="fapN1" />
+		<h:selectOneMenu id="fapN1"
+			value="#{offreController.critereRechercheOffre.fapN1}"
+			converter="#{fapN1Converter}">
+			<f:selectItem itemValue="" />
+			<f:selectItems value="#{nomenclatureController.fapN1}" />
+		</h:selectOneMenu>
+		<h:panelGrid columns="1"
+			rendered="#{offreController.rechercheAvancee}">
+			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.SECTEURACTIVITE']}"
+				for="nafN1" />
+			<h:selectOneMenu id="nafN1" style="width:300px;"
+				value="#{offreController.critereRechercheOffre.nafN1}"
+				converter="#{nafN1Converter}">
+				<f:selectItem itemValue="" />
+				<f:selectItems value="#{nomenclatureController.nafN1}" />
+			</h:selectOneMenu>
+			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.NIVEAUFORMATION']}"
+				for="niveauForm" />
+			<h:selectOneMenu id="niveauForm"
+				value="#{offreController.critereRechercheOffre.niveauFormation}"
+				converter="#{niveauFormationConverter}">
+				<f:selectItem itemValue="" />
+				<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="2" style="font-sizh:11px;">
+			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.MOTSCLES']}"
+				for="motsCles" />
+			<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"
+				title="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"
+				value="../../media/images/information.png" style="border:0" />
+		</h:panelGrid>
+		<h:inputText id="motsCles"
+			value="#{offreController.critereRechercheOffre.motsCles}" size="50"
+			maxlength="200" />
+		<t:htmlTag value="div" style="height: 20px;" />
+		<h:panelGrid columns="1"
+			rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin
 			|| welcomeController.admin}">
-		<rich:separator width="600px" />
-		<rich:spacer height="20px" />
-		<e:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPESTRUCTURE']}"
-			for="typeStructure" />
-		<h:selectOneMenu id="typeStructure"
-			value="#{offreController.critereRechercheOffre.typeStructure}"
-			converter="#{typeStructureConverter}">
-			<f:selectItem itemValue="" />
-			<f:selectItems value="#{nomenclatureController.typesStructure}" />
-		</h:selectOneMenu>
-		<e:outputLabel value="#{msgs['RECHERCHEOFFRE.INCLUREOFFREENTR']}"
-			for="incOffreEntr"
-			rendered="#{!sessionController.pageAuthorized && !sessionController.adminPageAuthorized}" />
-		<h:selectOneRadio id="incOffreEntr"
-			value="#{offreController.critereRechercheOffre.inclureOffresEntreprise}"
-			rendered="#{!sessionController.pageAuthorized && !sessionController.adminPageAuthorized}">
-			<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
-			<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-		</h:selectOneRadio>
-		<a4j:outputPanel id="diffOP">
-			<e:panelGrid columns="7">
-				<e:text value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION']}"
-					escape="false" style="font-weight:bold;" />
-				<e:text
-					value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.DIFFUSEES']}"
-					escape="false" />
-				<h:selectBooleanCheckbox
-					value="#{offreController.critereRechercheOffre.estDiffusee}">
-					<a4j:support event="onclick" reRender="critDiffOP, diffOP"
-						ajaxSingle="true" />
-				</h:selectBooleanCheckbox>
-				<e:text
-					value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.TERMINEES']}"
-					escape="false" />
-				<h:selectBooleanCheckbox
-					value="#{offreController.critereRechercheOffre.diffusionTerminee}">
-					<a4j:support event="onclick" reRender="critDiffOP, diffOP"
-						ajaxSingle="true" />
-				</h:selectBooleanCheckbox>
-				<e:text
-					value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.HISTORISEES']}"
-					escape="false" />
-				<h:selectBooleanCheckbox
-					value="#{offreController.critereRechercheOffre.estSupprimee}">
-					<a4j:support event="onclick" reRender="critDiffOP, diffOP"
-						ajaxSingle="true" />
-				</h:selectBooleanCheckbox>
-			</e:panelGrid>
-		</a4j:outputPanel>
-		<a4j:outputPanel id="critDiffOP">
-			<t:panelGrid columns="8" cellpadding="0" cellspacing="0">
-				<t:column style="padding:0px;">
-					<h:graphicImage value="../../media/images/arrow_right.png"
-						style="border:0" />
-				</t:column>
-				<t:column style="padding:0px;">
-					<e:text value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE']}"
-						style="font-size:10px;" />
+			<rich:separator width="600px" />
+			<t:htmlTag value="div" style="height: 20px;" />
+			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPESTRUCTURE']}"
+				for="typeStructure" />
+			<h:selectOneMenu id="typeStructure"
+				value="#{offreController.critereRechercheOffre.typeStructure}"
+				converter="#{typeStructureConverter}">
+				<f:selectItem itemValue="" />
+				<f:selectItems value="#{nomenclatureController.typesStructure}" />
+			</h:selectOneMenu>
+			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.INCLUREOFFREENTR']}"
+				for="incOffreEntr"
+				rendered="#{!sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
+			<h:selectOneRadio id="incOffreEntr"
+				value="#{offreController.critereRechercheOffre.inclureOffresEntreprise}"
+				rendered="#{!sessionController.pageAuthorized and !sessionController.adminPageAuthorized}">
+				<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+				<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+			</h:selectOneRadio>
+			<a4j:outputPanel id="diffOP">
+				<h:panelGrid columns="7">
+					<h:outputText value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION']}"
+						escape="false" style="font-weight:bold;" />
+					<h:outputText
+						value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.DIFFUSEES']}"
+						escape="false" />
+					<h:selectBooleanCheckbox
+						value="#{offreController.critereRechercheOffre.estDiffusee}">
+						<a4j:ajax event="click" reRender="critDiffOP, diffOP"
+							ajaxSingle="true" />
+					</h:selectBooleanCheckbox>
+					<h:outputText
+						value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.TERMINEES']}"
+						escape="false" />
+					<h:selectBooleanCheckbox
+						value="#{offreController.critereRechercheOffre.diffusionTerminee}">
+						<a4j:ajax event="click" reRender="critDiffOP, diffOP"
+							ajaxSingle="true" />
+					</h:selectBooleanCheckbox>
+					<h:outputText
+						value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.HISTORISEES']}"
+						escape="false" />
+					<h:selectBooleanCheckbox
+						value="#{offreController.critereRechercheOffre.estSupprimee}">
+						<a4j:ajax event="click" reRender="critDiffOP, diffOP"
+							ajaxSingle="true" />
+					</h:selectBooleanCheckbox>
+				</h:panelGrid>
+			</a4j:outputPanel>
+			<a4j:outputPanel id="critDiffOP">
+				<t:panelGrid columns="8" cellpadding="0" cellspacing="0">
 					<t:column style="padding:0px;">
+						<h:graphicImage value="../../media/images/arrow_right.png"
+							style="border:0" />
 					</t:column>
-					<e:text
-						value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESDIFFUSEES']}"
-						style="color:green;font-weight:bold;font-size:10px;"
-						rendered="#{offreController.critereRechercheOffre.estDiffusee}" />
 					<t:column style="padding:0px;">
-					</t:column>
-					<e:text
-						value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESNONDIFFUSEES']}"
-						style="color:green;font-weight:bold;font-size:10px;"
-						rendered="#{!offreController.critereRechercheOffre.estDiffusee &&
+						<h:outputText
+							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE']}"
+							style="font-sizh:10px;" />
+						<t:column style="padding:0px;">
+						</t:column>
+						<h:outputText
+							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESDIFFUSEES']}"
+							style="color:green;font-weight:bold;font-sizh:10px;"
+							rendered="#{offreController.critereRechercheOffre.estDiffusee}" />
+						<t:column style="padding:0px;">
+						</t:column>
+						<h:outputText
+							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESNONDIFFUSEES']}"
+							style="color:green;font-weight:bold;font-sizh:10px;"
+							rendered="#{!offreController.critereRechercheOffre.estDiffusee and
 						!offreController.critereRechercheOffre.estSupprimee}" />
-					<t:column style="padding:0px;">
+						<t:column style="padding:0px;">
+						</t:column>
+						<h:outputText value=", " style="font-sizh:10px;"
+							rendered="#{offreController.critereRechercheOffre.diffusionTerminee}" />
+						<t:column style="padding:0px;">
+						</t:column>
+						<h:outputText
+							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESTERMINEES']}"
+							style="color:green;font-weight:bold;font-sizh:10px;"
+							rendered="#{offreController.critereRechercheOffre.diffusionTerminee}" />
+						<t:column style="padding:0px;">
+						</t:column>
+						<h:outputText value=", " style="font-sizh:10px;"
+							rendered="#{offreController.critereRechercheOffre.estSupprimee}" />
+						<t:column style="padding:0px;">
+						</t:column>
+						<h:outputText
+							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESHISTORISEES']}"
+							style="color:green;font-weight:bold;font-sizh:10px;"
+							rendered="#{offreController.critereRechercheOffre.estSupprimee}" />
 					</t:column>
-					<e:text value=", " style="font-size:10px;"
-						rendered="#{offreController.critereRechercheOffre.diffusionTerminee}" />
-					<t:column style="padding:0px;">
-					</t:column>
-					<e:text
-						value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESTERMINEES']}"
-						style="color:green;font-weight:bold;font-size:10px;"
-						rendered="#{offreController.critereRechercheOffre.diffusionTerminee}" />
-					<t:column style="padding:0px;">
-					</t:column>
-					<e:text value=", " style="font-size:10px;"
-						rendered="#{offreController.critereRechercheOffre.estSupprimee}" />
-					<t:column style="padding:0px;">
-					</t:column>
-					<e:text
-						value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESHISTORISEES']}"
-						style="color:green;font-weight:bold;font-size:10px;"
-						rendered="#{offreController.critereRechercheOffre.estSupprimee}" />
-				</t:column>
-			</t:panelGrid>
-		</a4j:outputPanel>
-	</e:panelGrid>
-</e:panelGrid>
+				</t:panelGrid>
+			</a4j:outputPanel>
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:fragment>

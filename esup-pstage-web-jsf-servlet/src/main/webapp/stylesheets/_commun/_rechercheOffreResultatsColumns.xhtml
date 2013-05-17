@@ -1,114 +1,108 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<rich:column sortBy="#{offre.idOffre}">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.ID']}" />
-	</f:facet>
-	<e:text value="#{offre.idOffre}" />
-</rich:column>
-<rich:column sortBy="#{offre.intitule}">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
-	</f:facet>
-	<e:text value="#{offre.intitule}" title="#{offre.intitule}">
-		<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
-	</e:text>
-</rich:column>
-<rich:column sortBy="#{offre.typeOffre.libelle}">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
-	</f:facet>
-	<e:panelGrid style="font-size:12px;">
-		<e:text value="#{offre.typeOffre.libelle}" />
-		<e:text value="#{offre.contratOffre.libelle}"
-			rendered="#{not empty offre.contratOffre}" />
-	</e:panelGrid>
-</rich:column>
-<rich:column sortBy="#{offre.structure.raisonSociale}" rendered="#{not sessionController.pageAuthorized}">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
-	</f:facet>
-	<t:div>
-		<e:text value="#{offre.structure.raisonSociale}"
-			title="#{offre.structure.raisonSociale}">
-			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
-		</e:text>
-	</t:div>
-</rich:column>
-<rich:column sortBy="#{offre.centreGestion.nomCentre}" 
+	<rich:column sortBy="#{offre.idOffre}">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['OFFRE.ID']}" />
+		</f:facet>
+		<h:outputText value="#{offre.idOffre}" />
+	</rich:column>
+	<rich:column sortBy="#{offre.intitule}">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
+		</f:facet>
+		<h:outputText value="#{offre.intitule}" title="#{offre.intitule}">
+			<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+		</h:outputText>
+	</rich:column>
+	<rich:column sortBy="#{offre.typeOffre.libelle}">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
+		</f:facet>
+		<h:panelGrid style="font-sizh:12px;">
+			<h:outputText value="#{offre.typeOffre.libelle}" />
+			<h:outputText value="#{offre.contratOffre.libelle}"
+				rendered="#{not empty offre.contratOffre}" />
+		</h:panelGrid>
+	</rich:column>
+	<rich:column sortBy="#{offre.structure.raisonSociale}"
+		rendered="#{not sessionController.pageAuthorized}">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
+		</f:facet>
+		<t:div>
+			<h:outputText value="#{offre.structure.raisonSociale}"
+				title="#{offre.structure.raisonSociale}">
+				<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+			</h:outputText>
+		</t:div>
+	</rich:column>
+	<rich:column sortBy="#{offre.centreGestion.nomCentre}"
 		rendered="#{welcomeController.personnel || welcomeController.etudiant || welcomeController.enseignant}">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']}" />
-	</f:facet>
-	<t:div>
-		<e:text value="#{offre.centreGestion.nomCentre}"
-			title="#{offre.centreGestion.nomCentre}">
-		</e:text>
-	</t:div>
-</rich:column>
-<rich:column sortBy="#{offre.dateCreation}">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
-	</f:facet>
-	<e:text value="#{offre.dateCreation}" />
-</rich:column>
-<rich:column sortBy="#{offre.estDiffusee}">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
-	</f:facet>
-	<e:text value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
-		rendered="#{offre.estDiffusee && !offre.estSupprimee}"
-		style="color:green;" />
-	<e:text value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
-		rendered="#{!offre.estDiffusee && !offre.estSupprimee}"
-		style="color:orange;" />
-	<e:text value="#{msgs['OFFRE.DIFFUSION.ESTSUPPRIMEE']}"
-		rendered="#{(offre.estDiffusee && offre.estSupprimee)||(!offre.estDiffusee && offre.estSupprimee)}"
-		style="color:purple;font-weight:bold;" />
-	<t:htmlTag value="br" />
-	<e:text value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
-		rendered="#{offre.estDiffusee && !offre.estSupprimee}" style="color:green;">
-		<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-	</e:text>
-	<e:text value="#{offre.dateFinDiffusion}"
-		rendered="#{offre.estDiffusee && !offre.estSupprimee}" style="color:green;font-weight:bold;">
-		<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-	</e:text>
-</rich:column>
-<rich:column sortBy="#{offre.avecFichier || offre.avecLien}">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
-	</f:facet>
-	<e:panelGrid columns="2" style="font-size:12px;">
-		<e:text value="#{msgs['FORM.OUI']}"
-			rendered="#{offre.avecFichier || offre.avecLien}" />
-		<h:graphicImage id="imageLien" alt="#{msgs['FORM.OUI']}"
-			title="#{msgs['OFFRE.LIEN']}"
-			value="../../media/images/world_link.png" style="border:0"
-			rendered="#{offre.avecLien}" />
-		<h:graphicImage id="imageFichier" alt="#{msgs['FORM.OUI']}"
-			title="#{msgs['OFFRE.FICHIER']}"
-			value="../../media/images/page_link.png" style="border:0"
-			rendered="#{offre.avecFichier}" />
-	</e:panelGrid>
-	<rich:toolTip for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
-	<rich:toolTip for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
-	<e:text value="#{msgs['FORM.NON']}"
-		rendered="#{!(offre.avecFichier || offre.avecLien)}" />
-</rich:column>
-<%/*
-<rich:column sortBy="#{offre.estAccessERQTH || offre.estPrioERQTH}">
-	<f:facet name="header">
-		<h:graphicImage alt="#{msgs['OFFRE.HANDICAP']}"
-			value="../../media/images/wheelchair.png" style="border:0" />
-	</f:facet>
-	<h:graphicImage alt="#{msgs['OFFRE.HANDICAP.PRIORITAIRE']}"
-		title="#{msgs['OFFRE.HANDICAP.PRIORITAIRE']}"
-		value="../../media/images/wheelchairP.png" style="border:0"
-		rendered="#{offre.estPrioERQTH}" />
-	<h:graphicImage alt="#{msgs['OFFRE.HANDICAP.ACCESSIBLE']}"
-		title="#{msgs['OFFRE.HANDICAP.ACCESSIBLE']}"
-		value="../../media/images/wheelchair.png" style="border:0"
-		rendered="#{offre.estAccessERQTH && !offre.estPrioERQTH}" />
-</rich:column>
-*/%>
+		<f:facet name="header">
+			<h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']}" />
+		</f:facet>
+		<t:div>
+			<h:outputText value="#{offre.centreGestion.nomCentre}"
+				title="#{offre.centreGestion.nomCentre}">
+			</h:outputText>
+		</t:div>
+	</rich:column>
+	<rich:column sortBy="#{offre.dateCreation}">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
+		</f:facet>
+		<h:outputText value="#{offre.dateCreation}" />
+	</rich:column>
+	<rich:column sortBy="#{offre.estDiffusee}">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
+		</f:facet>
+		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
+			rendered="#{offre.estDiffusee && !offre.estSupprimee}"
+			style="color:green;" />
+		<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
+			rendered="#{!offre.estDiffusee && !offre.estSupprimee}"
+			style="color:orange;" />
+		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTSUPPRIMEE']}"
+			rendered="#{(offre.estDiffusee && offre.estSupprimee)||(!offre.estDiffusee && offre.estSupprimee)}"
+			style="color:purple;font-weight:bold;" />
+		<t:htmlTag value="br" />
+		<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
+			rendered="#{offre.estDiffusee && !offre.estSupprimee}"
+			style="color:green;">
+			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+		</h:outputText>
+		<h:outputText value="#{offre.dateFinDiffusion}"
+			rendered="#{offre.estDiffusee && !offre.estSupprimee}"
+			style="color:green;font-weight:bold;">
+			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+		</h:outputText>
+	</rich:column>
+	<rich:column sortBy="#{offre.avecFichier || offre.avecLien}">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
+		</f:facet>
+		<h:panelGrid columns="2" style="font-sizh:12px;">
+			<h:outputText value="#{msgs['FORM.OUI']}"
+				rendered="#{offre.avecFichier || offre.avecLien}" />
+			<h:graphicImage id="imageLien" alt="#{msgs['FORM.OUI']}"
+				title="#{msgs['OFFRE.LIEN']}"
+				value="../../media/images/world_link.png" style="border:0"
+				rendered="#{offre.avecLien}" />
+			<h:graphicImage id="imageFichier" alt="#{msgs['FORM.OUI']}"
+				title="#{msgs['OFFRE.FICHIER']}"
+				value="../../media/images/page_link.png" style="border:0"
+				rendered="#{offre.avecFichier}" />
+		</h:panelGrid>
+		<rich:tooltip for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
+		<rich:tooltip for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
+		<h:outputText value="#{msgs['FORM.NON']}"
+			rendered="#{!(offre.avecFichier || offre.avecLien)}" />
+	</rich:column>
+</ui:fragment>

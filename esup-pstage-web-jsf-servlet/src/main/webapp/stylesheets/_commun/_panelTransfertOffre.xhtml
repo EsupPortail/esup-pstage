@@ -1,11 +1,19 @@
-<%@include file="../_include.jsp"%>
-<rich:modalPanel id="panelTransfertOffre" autosized="true" width="400"
-	styleClass="panel" domElementAttachment="parent">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['OFFRE.GESTION.TRANSFERT']}" />
-	</f:facet>
-	<h:form id="formTransfertOffre">
-		<a4j:include id="include"
-			viewId="/stylesheets/_commun/_transfertOffreEtape1.jsp" />
-	</h:form>
-</rich:modalPanel>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<rich:popupPanel id="panelTransfertOffre" autosized="true" width="400"
+		styleClass="panel" domElementAttachment="parent">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['OFFRE.GESTION.TRANSFERT']}" />
+		</f:facet>
+		<h:form id="formTransfertOffre">
+			<ui:include id="include"
+				src="/stylesheets/_commun/_transfertOffreEtape1.jsp" />
+		</h:form>
+	</rich:popupPanel>
+</ui:fragment>

@@ -1,109 +1,117 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<f:facet name="header">
-	<h:outputText value="#{msgs['OFFRE.SELECTIONCONTACT']}" />
-</f:facet>
-<a4j:outputPanel id="opService2" ajaxRendered="true">
-	<e:panelGrid columns="2">
-		<t:panelGroup colspan="2">
-			<e:text value="#{msgs['SERVICE.AUCUNSERVICE']}"
-				rendered="#{empty etablissementController.listeServices}"
-				escape="false" />
-		</t:panelGroup>
-		<e:panelGrid columns="2">
-			<e:text value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
-				escape="false"
-				rendered="#{not empty etablissementController.listeServices}" />
-			<h:selectOneMenu id="sOMService2"
-				value="#{etablissementController.idServiceSel}"
-				converter="#{intConverter}"
-				valueChangeListener="#{etablissementController.valueIdServiceChanged}"
-				rendered="#{not empty etablissementController.listeServices}">
-				<f:selectItems value="#{etablissementController.servicesItems}" />
-				<a4j:support event="onchange"
-					reRender="opContactsDataTable2, opActionsService2"
-					ignoreDupResponses="true" ajaxSingle="true" />
-			</h:selectOneMenu>
-		</e:panelGrid>
-		<e:panelGrid
-			rendered="#{empty offreController.centreGestionDepotAnonyme}">
-			<a4j:outputPanel id="opActionsService2" ajaxRendered="true">
-				<a4j:commandLink ajaxSingle="true" id="modif2"
-					rendered="#{not empty etablissementController.listeServices && 
+	<f:facet name="header">
+		<h:outputText value="#{msgs['OFFRE.SELECTIONCONTACT']}" />
+	</f:facet>
+	<a4j:outputPanel id="opService2" ajaxRendered="true">
+		<h:panelGrid columns="2">
+			<t:panelGroup colspan="2">
+				<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
+					rendered="#{empty etablissementController.listeServices}"
+					escape="false" />
+			</t:panelGroup>
+			<h:panelGrid columns="2">
+				<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
+					escape="false"
+					rendered="#{not empty etablissementController.listeServices}" />
+				<h:selectOneMenu id="sOMService2"
+					value="#{etablissementController.idServiceSel}"
+					converter="#{intConverter}"
+					valueChangeListener="#{etablissementController.valueIdServiceChanged}"
+					rendered="#{not empty etablissementController.listeServices}">
+					<f:selectItems value="#{etablissementController.servicesItems}" />
+					<a4j:ajax event="change"
+						reRender="opContactsDataTable2, opActionsService2"
+						ignoreDupResponses="true" ajaxSingle="true" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+			<h:panelGrid
+				rendered="#{empty offreController.centreGestionDepotAnonyme}">
+				<a4j:outputPanel id="opActionsService2" ajaxRendered="true">
+					<a4j:commandLink ajaxSingle="true" id="modif2"
+						rendered="#{not empty etablissementController.listeServices && 
 					not empty etablissementController.idServiceSel}"
-					oncomplete="#{rich:component('modifService')}.show()"
-					reRender="modifService">
-					<f:setPropertyActionListener value="#{false}"
-						target="#{etablissementController.memeAdresseStructure}" />
-					<f:setPropertyActionListener
-						value="#{etablissementController.serviceSel}"
-						target="#{etablissementController.formService}" />
-					<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-						value="../../media/images/edit.png" style="border:0" />
-				</a4j:commandLink>
-				<rich:toolTip for="modif2" value="#{msgs['FORM.MODIFIER']}" />
-			</a4j:outputPanel>
-		</e:panelGrid>
-	</e:panelGrid>
-	<e:panelGrid columns="3"
-		rendered="#{empty offreController.centreGestionDepotAnonyme}">
-		<e:text value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-		<a4j:commandLink ajaxSingle="true" id="ajout2"
-			oncomplete="#{rich:component('ajoutService')}.show()"
-			action="#{etablissementController.ajoutService}"
-			reRender="ajoutService">
-			<f:setPropertyActionListener value="#{true}"
-				target="#{etablissementController.memeAdresseStructure}" />
-			<h:graphicImage alt="#{msgs['FORM.CREER']}"
-				value="../../media/images/new.png" style="border:0" />
-		</a4j:commandLink>
-		<rich:toolTip for="ajout2" value="#{msgs['FORM.CREER']}" />
-	</e:panelGrid>
-</a4j:outputPanel>
-
-<rich:spacer height="2px"
-	style="background-color: #{a4jSkin.panelBorderColor};" width="600px" />
-
-<a4j:outputPanel id="opContactsDataTable2" ajaxRendered="true">
-	<e:panelGrid>
-		<e:text value="#{msgs['CONTACT.GESTION.AUCUN']}"
-			rendered="#{not empty etablissementController.serviceSel
-								and not empty etablissementController.listeServices
-								and empty etablissementController.listeContacts}"
-			escape="false" />
-		<e:panelGrid columns="2"
+						oncomplete="#{rich:component('modifService')}.show()"
+						reRender="modifService">
+						<f:setPropertyActionListener value="#{false}"
+							target="#{etablissementController.memeAdresseStructure}" />
+						<f:setPropertyActionListener
+							value="#{etablissementController.serviceSel}"
+							target="#{etablissementController.formService}" />
+						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+							value="../../media/images/edit.png" style="border:0" />
+					</a4j:commandLink>
+					<rich:tooltip for="modif2" value="#{msgs['FORM.MODIFIER']}" />
+				</a4j:outputPanel>
+			</h:panelGrid>
+		</h:panelGrid>
+		<h:panelGrid columns="3"
 			rendered="#{empty offreController.centreGestionDepotAnonyme}">
-			<e:text value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}" escape="false" 
-			rendered="#{not empty etablissementController.serviceSel
-								and not empty etablissementController.listeServices}"/>
-			<a4j:commandLink ajaxSingle="true" id="ajoutC2"
-				rendered="#{not empty etablissementController.serviceSel
-								and not empty etablissementController.listeServices}"
-				oncomplete="#{rich:component('ajoutContact')}.show()"
-				action="#{etablissementController.ajoutContact}"
-				reRender="ajoutContact">
+			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
+			<a4j:commandLink ajaxSingle="true" id="ajout2"
+				oncomplete="#{rich:component('ajoutService')}.show()"
+				action="#{etablissementController.ajoutService}"
+				reRender="ajoutService">
+				<f:setPropertyActionListener value="#{true}"
+					target="#{etablissementController.memeAdresseStructure}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
 					value="../../media/images/new.png" style="border:0" />
 			</a4j:commandLink>
-			<rich:toolTip for="ajoutC2" value="#{msgs['FORM.CREER']}" />
-		</e:panelGrid>
-	</e:panelGrid>
-	<e:panelGrid columns="3"
-		rendered="#{not empty etablissementController.listeContacts}">
-		<e:text value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
-			escape="false" />
-		<h:selectOneMenu id="sOMContact2"
-			value="#{etablissementController.idContactSel}"
-			converter="#{intConverter}"
-			valueChangeListener="#{etablissementController.valueIdContactChanged}"
-			required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}">
-			<f:selectItems value="#{etablissementController.contactsItems}" />
-			<a4j:support event="onchange" reRender="opContactINFO"
-				ignoreDupResponses="true" ajaxSingle="true" />
-		</h:selectOneMenu>
-		<rich:message for="sOMContact2">
-			<%@include file="../_commun/_messageErrorMarker.jsp"%>
-		</rich:message>
-	</e:panelGrid>
-</a4j:outputPanel>
+			<rich:tooltip for="ajout2" value="#{msgs['FORM.CREER']}" />
+		</h:panelGrid>
+	</a4j:outputPanel>
+
+	<t:htmlTag value="div"
+		style="height: 2px; background-color: #{a4jSkin.panelBorderColor}; width: 600px;" />
+
+	<a4j:outputPanel id="opContactsDataTable2" ajaxRendered="true">
+		<h:panelGrid>
+			<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
+				rendered="#{not empty etablissementController.serviceSel
+								and not empty etablissementController.listeServices
+								and empty etablissementController.listeContacts}"
+				escape="false" />
+			<h:panelGrid columns="2"
+				rendered="#{empty offreController.centreGestionDepotAnonyme}">
+				<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
+					escape="false"
+					rendered="#{not empty etablissementController.serviceSel
+								and not empty etablissementController.listeServices}" />
+				<a4j:commandLink ajaxSingle="true" id="ajoutC2"
+					rendered="#{not empty etablissementController.serviceSel
+								and not empty etablissementController.listeServices}"
+					oncomplete="#{rich:component('ajoutContact')}.show()"
+					action="#{etablissementController.ajoutContact}"
+					reRender="ajoutContact">
+					<h:graphicImage alt="#{msgs['FORM.CREER']}"
+						value="../../media/images/new.png" style="border:0" />
+				</a4j:commandLink>
+				<rich:tooltip for="ajoutC2" value="#{msgs['FORM.CREER']}" />
+			</h:panelGrid>
+		</h:panelGrid>
+		<h:panelGrid columns="3"
+			rendered="#{not empty etablissementController.listeContacts}">
+			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
+				escape="false" />
+			<h:selectOneMenu id="sOMContact2"
+				value="#{etablissementController.idContactSel}"
+				converter="#{intConverter}"
+				valueChangeListener="#{etablissementController.valueIdContactChanged}"
+				required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:selectItems value="#{etablissementController.contactsItems}" />
+				<a4j:ajax event="change" reRender="opContactINFO"
+					ignoreDupResponses="true" ajaxSingle="true" />
+			</h:selectOneMenu>
+			<rich:message for="sOMContact2">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</h:panelGrid>
+	</a4j:outputPanel>
+</ui:fragment>

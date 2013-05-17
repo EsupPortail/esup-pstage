@@ -1,124 +1,114 @@
-<%@include file="../_include.jsp"%>
-<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
-	rendered="#{empty structure}" />
-<rich:panel
-	rendered="#{not empty structure}">
-	<f:facet name="header">
-		<e:text value="#{msgs['STRUCTURE.INFOS']}" />
-	</f:facet>
-	<e:panelGrid columns="2" cellpadding="2" cellspacing="2" align="center" style="font-size:12px;">
-		<e:outputLabel for="raisonSociale"
-			value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
-		<e:text id="raisonSociale"
-			value="#{structure.raisonSociale}" />
-		<e:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']}"
-			for="typeStructure" />
-		<e:text id="typeStructure"
-			value="#{structure.typeStructure.libelle}" />
-		<e:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']}"
-			for="statutJuridique"
-			rendered="#{not empty structure.statutJuridique}" />
-		<e:text id="statutJuridique"
-			value="#{structure.statutJuridique.libelle}"
-			rendered="#{not empty structure.statutJuridique}" />
-		<e:outputLabel for="effectif" value="#{msgs['STRUCTURE.EFFECTIF']}"
-			rendered="#{not empty structure.effectif}" />
-		<e:text id="effectif"
-			value="#{structure.effectif.libelle}" />
-		<e:outputLabel for="nsiret" value="#{msgs['STRUCTURE.NUM_SIRET']}"
-			rendered="#{not empty structure.numeroSiret}" />
-		<e:text id="nsiret" rendered="#{not empty structure.numeroSiret}"
-			value="#{structure.numeroSiret}" />
-		<e:outputLabel for="groupe" value="#{msgs['STRUCTURE.GROUPE']}"
-			rendered="#{not empty structure.groupe}" />
-		<e:text id="groupe"
-			rendered="#{not empty structure.groupe}"
-			value="#{structure.groupe}" />
-		<e:outputLabel for="batimentResidence"
-			value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-		<e:text id="batimentResidence"
-			value="#{structure.batimentResidence}" />
-		<e:outputLabel for="voie" value="#{msgs['STRUCTURE.VOIE']}" />
-		<e:text id="voie"
-			value="#{structure.voie}" />
-		<e:outputLabel for="codepostal"
-			value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-		<e:text id="codepostal"
-			value="#{structure.codePostal}" />
-		<e:outputLabel for="commune" value="#{msgs['STRUCTURE.COMMUNE']}" />
-		<e:text id="commune"
-			value="#{structure.commune}" />
-		<e:outputLabel for="cedex" value="#{msgs['STRUCTURE.CEDEX']}"
-			rendered="#{not empty structure.libCedex}" />
-		<e:text id="cedex"
-			rendered="#{not empty structure.libCedex}"
-			value="#{structure.libCedex}" />
-		<e:outputLabel for="pays" value="#{msgs['STRUCTURE.PAYS']}" />
-		<e:panelGrid columns="2" style="font-size:12px;">
-			<h:graphicImage id="flag"
-				rendered="#{not empty structure.pays}"
-				value="../../media/images/flags/#{structure.pays.iso2}.png"
-				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-				title="#{structure.pays.libelle}" />
-			<e:text id="pays"
-				value="#{structure.pays.libelle}" />
-		</e:panelGrid>
-		<t:panelGroup colspan="2">
-			<rich:separator />
-		</t:panelGroup>
-		<e:outputLabel for="tel" value="#{msgs['STRUCTURE.TELEPHONE']}" />
-		<e:text id="tel"
-			value="#{structure.telephone}" />
-		<e:outputLabel for="fax"
-			rendered="#{not empty structure.fax}"
-			value="#{msgs['STRUCTURE.FAX']}" />
-		<e:text id="fax"
-			rendered="#{not empty structure.fax}"
-			value="#{structure.fax}" />
-		<e:outputLabel for="mail"
-			rendered="#{not empty structure.mail}"
-			value="#{msgs['STRUCTURE.MAIL']}" />
-		<h:outputLink id="mail"
-			rendered="#{not empty structure.mail}"
-			value="mailto:#{structure.mail}" target="_blank">			
-			<e:text value="#{structure.mail}"/>
-		</h:outputLink>
-		<e:outputLabel for="siteWeb"
-			rendered="#{not empty structure.siteWeb}"
-			value="#{msgs['STRUCTURE.SITEWEB']}" />
-		<h:outputLink id="siteWeb"
-			rendered="#{not empty structure.siteWeb}"
-			value="#{structure.siteWeb}" target="_blank">
-			<e:text value="#{structure.siteWeb}"/>
-		</h:outputLink>
-	</e:panelGrid>
-</rich:panel>
-<rich:panel
-	rendered="#{not empty structure.nafN5 
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+		rendered="#{empty structure}" />
+	<rich:panel rendered="#{not empty structure}">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['STRUCTURE.INFOS']}" />
+		</f:facet>
+		<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+			align="center" style="font-sizh:12px;">
+			<h:outputLabel for="raisonSociale"
+				value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+			<h:outputText id="raisonSociale" value="#{structure.raisonSociale}" />
+			<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']}"
+				for="typeStructure" />
+			<h:outputText id="typeStructure" value="#{structure.typeStructure.libelle}" />
+			<h:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']}"
+				for="statutJuridique"
+				rendered="#{not empty structure.statutJuridique}" />
+			<h:outputText id="statutJuridique"
+				value="#{structure.statutJuridique.libelle}"
+				rendered="#{not empty structure.statutJuridique}" />
+			<h:outputLabel for="effectif" value="#{msgs['STRUCTURE.EFFECTIF']}"
+				rendered="#{not empty structure.effectif}" />
+			<h:outputText id="effectif" value="#{structure.effectif.libelle}" />
+			<h:outputLabel for="nsiret" value="#{msgs['STRUCTURE.NUM_SIRET']}"
+				rendered="#{not empty structure.numeroSiret}" />
+			<h:outputText id="nsiret" rendered="#{not empty structure.numeroSiret}"
+				value="#{structure.numeroSiret}" />
+			<h:outputLabel for="groupe" value="#{msgs['STRUCTURE.GROUPE']}"
+				rendered="#{not empty structure.groupe}" />
+			<h:outputText id="groupe" rendered="#{not empty structure.groupe}"
+				value="#{structure.groupe}" />
+			<h:outputLabel for="batimentResidence"
+				value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+			<h:outputText id="batimentResidence" value="#{structure.batimentResidence}" />
+			<h:outputLabel for="voie" value="#{msgs['STRUCTURE.VOIE']}" />
+			<h:outputText id="voie" value="#{structure.voie}" />
+			<h:outputLabel for="codepostal"
+				value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+			<h:outputText id="codepostal" value="#{structure.codePostal}" />
+			<h:outputLabel for="commune" value="#{msgs['STRUCTURE.COMMUNE']}" />
+			<h:outputText id="commune" value="#{structure.commune}" />
+			<h:outputLabel for="cedex" value="#{msgs['STRUCTURE.CEDEX']}"
+				rendered="#{not empty structure.libCedex}" />
+			<h:outputText id="cedex" rendered="#{not empty structure.libCedex}"
+				value="#{structure.libCedex}" />
+			<h:outputLabel for="pays" value="#{msgs['STRUCTURE.PAYS']}" />
+			<h:panelGrid columns="2" style="font-sizh:12px;">
+				<h:graphicImage id="flag" rendered="#{not empty structure.pays}"
+					value="../../media/images/flags/#{structure.pays.iso2}.png"
+					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+					title="#{structure.pays.libelle}" />
+				<h:outputText id="pays" value="#{structure.pays.libelle}" />
+			</h:panelGrid>
+			<t:panelGroup colspan="2">
+				<rich:separator />
+			</t:panelGroup>
+			<h:outputLabel for="tel" value="#{msgs['STRUCTURE.TELEPHONE']}" />
+			<h:outputText id="tel" value="#{structure.telephone}" />
+			<h:outputLabel for="fax" rendered="#{not empty structure.fax}"
+				value="#{msgs['STRUCTURE.FAX']}" />
+			<h:outputText id="fax" rendered="#{not empty structure.fax}"
+				value="#{structure.fax}" />
+			<h:outputLabel for="mail" rendered="#{not empty structure.mail}"
+				value="#{msgs['STRUCTURE.MAIL']}" />
+			<h:outputLink id="mail" rendered="#{not empty structure.mail}"
+				value="mailto:#{structure.mail}" target="_blank">
+				<h:outputText value="#{structure.mail}" />
+			</h:outputLink>
+			<h:outputLabel for="siteWeb"
+				rendered="#{not empty structure.siteWeb}"
+				value="#{msgs['STRUCTURE.SITEWEB']}" />
+			<h:outputLink id="siteWeb" rendered="#{not empty structure.siteWeb}"
+				value="#{structure.siteWeb}" target="_blank">
+				<h:outputText value="#{structure.siteWeb}" />
+			</h:outputLink>
+		</h:panelGrid>
+	</rich:panel>
+	<rich:panel
+		rendered="#{not empty structure.nafN5 
 	or not empty structure.activitePrincipale}">
-	<f:facet name="header">
-		<e:text value="#{msgs['STRUCTURE.ACTIVITE']}" />
-	</f:facet>
-	<e:panelGrid columns="2" cellpadding="2" cellspacing="2"
-		alternateColors="true" align="center" style="font-size:12px;">
-		<e:outputLabel for="nafN5" value="#{msgs['STRUCTURE.CODE_NAF']}"
-			rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}" />
-		<e:text id="nafN5"
-			rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}"
-			value="#{structure.nafN5.code}" />
-		<e:outputLabel for="nafN5Lib" value="#{msgs['GENERAL.LIBELLE']}"
-			rendered="#{not empty structure.nafN5 and not empty structure.nafN5.libelle}" />
-		<e:text id="nafN5Lib"
-			rendered="#{not empty structure.nafN5 and not empty structure.nafN5.libelle}"
-			value="#{structure.nafN5.libelle}" />
-		<t:panelGroup colspan="2" style="font-size:12px;">
-			<e:outputLabel for="activite"
-				value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"
-				rendered="#{not empty structure.activitePrincipale}" />
-			<e:text id="activite"
-				rendered="#{not empty structure.activitePrincipale}"
-				value="#{structure.activitePrincipale}"
-				escape="false" />
-		</t:panelGroup>
-	</e:panelGrid>
-</rich:panel>
+		<f:facet name="header">
+			<h:outputText value="#{msgs['STRUCTURE.ACTIVITE']}" />
+		</f:facet>
+		<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+			alternateColors="true" align="center" style="font-sizh:12px;">
+			<h:outputLabel for="nafN5" value="#{msgs['STRUCTURE.CODE_NAF']}"
+				rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}" />
+			<h:outputText id="nafN5"
+				rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}"
+				value="#{structure.nafN5.code}" />
+			<h:outputLabel for="nafN5Lib" value="#{msgs['GENERAL.LIBELLE']}"
+				rendered="#{not empty structure.nafN5 and not empty structure.nafN5.libelle}" />
+			<h:outputText id="nafN5Lib"
+				rendered="#{not empty structure.nafN5 and not empty structure.nafN5.libelle}"
+				value="#{structure.nafN5.libelle}" />
+			<t:panelGroup colspan="2" style="font-sizh:12px;">
+				<h:outputLabel for="activite"
+					value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"
+					rendered="#{not empty structure.activitePrincipale}" />
+				<h:outputText id="activite"
+					rendered="#{not empty structure.activitePrincipale}"
+					value="#{structure.activitePrincipale}" escape="false" />
+			</t:panelGroup>
+		</h:panelGrid>
+	</rich:panel>
+</ui:fragment>

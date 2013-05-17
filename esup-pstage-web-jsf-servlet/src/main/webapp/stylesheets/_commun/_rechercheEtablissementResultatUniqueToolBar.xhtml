@@ -1,34 +1,42 @@
-<%@include file="../_include.jsp"%>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-<rich:toolBarGroup rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin}">
-	<h:commandLink id="modifierStructure"
-		action="#{etablissementController.goToModificationEtablissement}"
-		rendered="#{not empty rechercheController.ongletCourant
+	<rich:toolbarGroup
+		rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin}">
+		<h:commandLink id="modifierStructure"
+			action="#{etablissementController.goToModificationEtablissement}"
+			rendered="#{not empty rechercheController.ongletCourant
 				and ((empty rechercheController.resultatRechercheStructure.accordPartenariat)
 				or (rechercheController.ongletCourant==6 and 
 				not empty rechercheController.resultatRechercheStructure.accordPartenariat
 				and rechercheController.resultatRechercheStructure.accordPartenariat.estValide))}">
-		<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-			title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
-			style="border:0" />
-		<e:text value="#{msgs['FORM.MODIFIER']}" />
-		<f:setPropertyActionListener
-			value="#{rechercheController.resultatRechercheStructure}"
-			target="#{etablissementController.formStructure}" />
-		<f:setPropertyActionListener value="#{true}"
-			target="#{etablissementController.modificationEtabBoutonAnnuler}" />
-	</h:commandLink>
-	<a4j:commandLink ajaxSingle="true" id="supprimerStructure"
-		oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
-		reRender="supprimerStructurePanel"
-		rendered="#{not empty rechercheController.ongletCourant 
+			<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+				title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
+				style="border:0" />
+			<h:outputText value="#{msgs['FORM.MODIFIER']}" />
+			<f:setPropertyActionListener
+				value="#{rechercheController.resultatRechercheStructure}"
+				target="#{etablissementController.formStructure}" />
+			<f:setPropertyActionListener value="#{true}"
+				target="#{etablissementController.modificationEtabBoutonAnnuler}" />
+		</h:commandLink>
+		<a4j:commandLink ajaxSingle="true" id="supprimerStructure"
+			oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
+			reRender="supprimerStructurePanel"
+			rendered="#{not empty rechercheController.ongletCourant 
 				and empty rechercheController.resultatRechercheStructure.accordPartenariat}">
-		<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-			title="#{msgs['FORM.SUPPRIMER']}"
-			value="../../media/images/delete.png" style="border:0" />
-		<e:text value="#{msgs['FORM.SUPPRIMER']}" />
-		<f:setPropertyActionListener
-			value="#{rechercheController.resultatRechercheStructure}"
-			target="#{etablissementController.formStructure}" />
-	</a4j:commandLink>
-</rich:toolBarGroup>
+			<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+				title="#{msgs['FORM.SUPPRIMER']}"
+				value="../../media/images/delete.png" style="border:0" />
+			<h:outputText value="#{msgs['FORM.SUPPRIMER']}" />
+			<f:setPropertyActionListener
+				value="#{rechercheController.resultatRechercheStructure}"
+				target="#{etablissementController.formStructure}" />
+		</a4j:commandLink>
+	</rich:toolbarGroup>
+</ui:fragment>
