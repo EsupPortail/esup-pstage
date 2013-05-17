@@ -120,20 +120,6 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- Encryption put to false -->
-<!-- 	<context-param> -->
-<!-- 		<param-name>org.apache.myfaces.USE_ENCRYPTION -->
-<!-- 		</param-name> -->
-<!-- 		<param-value>false</param-value> -->
-<!-- 	</context-param> -->
-
-	<!-- Handling ViewExpiredException -->
-	<context-param>
-		<param-name>org.ajax4jsf.handleViewExpiredOnClient
-		</param-name>
-		<param-value>true</param-value>
-	</context-param>
-
 	<!--END-RICHFACES -->
 
 	<filter>
@@ -187,6 +173,18 @@
 		<filter-name>CASLogout</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- END CAS -->
+
+	<servlet>
+		<servlet-name>Resource Servlet</servlet-name>
+		<servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Resource Servlet</servlet-name>
+		<url-pattern>/org.richfaces.resources/*</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<description>

@@ -1,0 +1,12 @@
+/* 
+	Style for spacer and separator "like"
+*/
+
+.spacer {
+	background-image: url("../images/blueRadiantSpacer.gif");
+	background-repeat: repeat-x;
+}
+
+.separator {
+	
+}
