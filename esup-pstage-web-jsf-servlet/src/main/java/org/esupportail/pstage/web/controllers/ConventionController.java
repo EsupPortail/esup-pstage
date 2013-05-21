@@ -463,7 +463,9 @@ public class ConventionController extends AbstractContextAwareController {
 		this.convention.setSignataire(new ContactDTO());
 		this.convention.setEnseignant(new EnseignantDTO());
 		sequenceEtapeEnum = null;
+		System.out.println("creerConventionConsignes");
 		return "creerConventionConsignes";
+		
 	}
 
 	/**
@@ -486,11 +488,13 @@ public class ConventionController extends AbstractContextAwareController {
 				logger.debug("ConventionController:: goToCreerConvention : user connecte : " 
 						+ getSessionController().getCurrentStageCasUser().getId());
 			}
+			System.out.println("CurrentStageCasUser() != null");
 		}
 		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
+			System.out.println("CurrentAuthEtudiant() != null");
 			retour = "creerConventionEtu";
 		}
-
+		System.out.println("goToCreerConvention => "+retour);
 		return retour;
 	}
 
@@ -502,7 +506,7 @@ public class ConventionController extends AbstractContextAwareController {
 		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
 			retour = rechercheInfosEtudiant(this.getSessionController().getCurrentAuthEtudiant().getIdentEtudiant());
 		}
-
+		System.out.println("goToCreerConventionEtu => "+retour);
 		return retour;
 	}
 	/**
@@ -512,6 +516,7 @@ public class ConventionController extends AbstractContextAwareController {
 		this.rechIdentEtudiant = "";
 		this.rechNomEtudiant = "";
 		this.rechPrenomEtudiant = "";
+		System.out.println(" goToCreerConventionRechEtu()");
 		return "creerConventionRechercheEtudiant";
 	}
 
@@ -526,6 +531,7 @@ public class ConventionController extends AbstractContextAwareController {
 			logger.debug("ConventionController:: goToChoixEtapeEtudiant ");
 		}
 		sequenceEtapeEnum = SequenceEtapeEnum.etape1;
+		System.out.println("goToChoixEtapeEtudiant() / "+sequenceEtapeEnum);
 		return "creerConventionChoixEtapeEtudiant";
 	}
 	/**

@@ -15,7 +15,7 @@
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columns="3" align="center"
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="3" align="center"
 					rendered="#{conventionController.conventionCree}">
 					<h:graphicImage alt="#{msgs['GENERAL.OK']}"
 						title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
@@ -27,13 +27,13 @@
 						rendered="#{welcomeController.etudiant}"
 						value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION.ETUDIANT']}" />
 				</h:panelGrid>
-				<h:panelGrid columns="1">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1">
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE8.RECAP']} " />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="" />
-					<h:panelGrid columns="1">
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1">
 						<rich:messages showDetail="true">
 						</rich:messages>
 						<ui:include
