@@ -1488,8 +1488,8 @@
 	<!-- creation convention consignes -->
 	<navigation-rule>
 		<display-name>creerConventionConsignes</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionConsignes.xhtml</from-view-id>
-		<!-- suivant -->
+		<from-view-id>/stylesheets/stage/creerConventionConsignes.xhtml</from-view-id> 
+		<!-- suivant-->
 		<navigation-case>
 			<from-outcome>creerConventionRechercheEtudiant</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.xhtml</to-view-id>

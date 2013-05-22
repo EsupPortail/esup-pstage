@@ -1,21 +1,14 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
-<%
-	/*<e:panelGrid columns="1">
-	 <e:text value="#{msgs['RECHERCHEETABLISSEMENT.UNRESULTAT']}" />
-	 <rich:spacer height="20px" />
-	 </e:panelGrid>*/
-%>
 <t:aliasBean alias="#{structure}"
 	value="#{rechercheController.resultatRechercheStructure}">
-	<%@include file="../_commun/_rechercheEtablissementAffichage.jsp"%>
+	<ui:include src="../_commun/_rechercheEtablissementAffichage.jsp"/>
 </t:aliasBean>
 <a4j:outputPanel id="opAffAccord" ajaxRendered="true"> 
 	<rich:toolBar height="26" itemSeparator="none">
-		<%@include
-			file="../_commun/_rechercheEtablissementResultatUniqueToolBar.jsp"%>
+		<ui:include src="../_commun/_rechercheEtablissementResultatUniqueToolBar.jsp"/>
 	</rich:toolBar>
-	<e:panelGrid columns="5"
+	<h:panelGrid columns="5"
 		rendered="#{sessionController.adminPageAuthorized and 
 				not empty rechercheController.ongletCourant 
 				and rechercheController.ongletCourant==6
@@ -37,7 +30,7 @@
 		<e:text
 			value="#{rechercheController.resultatRechercheStructure.accordPartenariat.loginValidation}"
 			rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
-	</e:panelGrid>
+	</h:panelGrid>
 	<rich:toolBar height="26" itemSeparator="none"
 		rendered="#{sessionController.adminPageAuthorized
 			and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">

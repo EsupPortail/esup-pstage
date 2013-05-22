@@ -1,18 +1,18 @@
-<%@include file="../_include.jsp"%>
-<e:panelGrid columns="1" style="float:right;">
+<ui:include src="../_include.jsp"/>
+<h:panelGrid columns="1" style="float:right;">
 	<e:text value="#{msgs['FORM.VOTRESAISIE']}" escape="false" />
 	<e:text value="#{accordController.preAccord.structure.raisonSociale}" />
 	<e:text value="#{accordController.preAccord.structure.numeroSiret}"
 		rendered="#{not empty accordController.preAccord.structure.numeroSiret}" />
-	<e:panelGrid columns="2"
+	<h:panelGrid columns="2"
 		rendered="#{not empty accordController.preAccord.structure.pays}">
 		<h:graphicImage
 			value="../../media/images/flags/#{accordController.preAccord.structure.pays.iso2}.png"
 			alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 			title="#{accordController.preAccord.structure.pays.libelle}" />
 		<e:text value="#{accordController.preAccord.structure.pays.libelle}" />
-	</e:panelGrid>
-</e:panelGrid>
+	</h:panelGrid>
+</h:panelGrid>
 <rich:spacer height="30px" />
 <t:htmlTag value="br" />
 <e:text value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCE']}"
@@ -83,14 +83,14 @@
 		<e:text value="#{structureExistante.commune}" />
 	</rich:column>
 	<rich:column>
-		<e:panelGrid columns="2">
+		<h:panelGrid columns="2">
 			<h:graphicImage id="flag"
 				rendered="#{not empty structureExistante.pays}"
 				value="../../media/images/flags/#{structureExistante.pays.iso2}.png"
 				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 				title="#{structureExistante.pays.libelle}" />
 			<e:text value="#{structureExistante.pays.libelle}" />
-		</e:panelGrid>
+		</h:panelGrid>
 	</rich:column>
 	<rich:column>
 		<a4j:commandLink id="selectionStructure"
@@ -116,7 +116,7 @@
 			style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 			<t:aliasBean alias="#{structure}"
 				value="#{accordController.structureExistante}">
-				<%@include file="../_commun/_rechercheEtablissementAffichage.jsp"%>
+				<ui:include src="../_commun/_rechercheEtablissementAffichage.jsp"/>
 			</t:aliasBean>
 		</t:div>
 		<t:panelGroup colspan="2"
@@ -135,9 +135,9 @@
 			</a4j:commandLink>
 		</t:panelGroup>
 		<rich:spacer height="20px" />
-		<e:panelGrid columns="1" align="center">
+		<h:panelGrid columns="1" align="center">
 			<e:text value="#{msgs['ACCORD.ETABTROUVE_QUESTION']}" />
-			<e:panelGrid columns="2">
+			<h:panelGrid columns="2">
 				<a4j:commandButton action="#{accordController.goToFormulaireAccord}"
 					value="#{msgs['FORM.OUI']}">
 					<f:setPropertyActionListener
@@ -164,14 +164,14 @@
 					onclick="#{rich:component('nousContacter')}.show()"
 					reRender="sujetNC">
 				</a4j:commandButton>
-			</e:panelGrid>
-		</e:panelGrid>
+			</h:panelGrid>
+		</h:panelGrid>
 	</t:div>
 </a4j:outputPanel>
 <a4j:outputPanel id="structureNonPresente">
 	<t:div
 		rendered="#{not empty accordController.listeStructureExistante and empty accordController.structureExistante}">
-		<e:panelGrid align="center" columns="1">
+		<h:panelGrid align="center" columns="1">
 			<e:text value="#{msgs['ACCORD.ETABTROUVE_NONCORRESPONDANT']}" />
 			<a4j:commandButton action="#{accordController.goToFormulaireAccord}"
 				ignoreDupResponses="true"
@@ -180,7 +180,7 @@
 				<f:setPropertyActionListener value="#{false}"
 					target="#{accordController.structureDejaExistante}" />
 			</a4j:commandButton>
-		</e:panelGrid>
+		</h:panelGrid>
 	</t:div>
 </a4j:outputPanel>
 <a4j:commandButton action="_accordEtape1PreAccord"

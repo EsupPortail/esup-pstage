@@ -1,12 +1,12 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<t:div>
-		<e:panelGrid style="float:left;">
-			<%@include file="./_menu.jsp"%>
-		</e:panelGrid>
-		<e:panelGrid columns="1"
+		<h:panelGrid style="float:left;">
+			<ui:include src="./_menu.jsp"/>
+		</h:panelGrid>
+		<h:panelGrid columns="1"
 			styleClass="panelEntreprise"
 			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
 			<rich:panel>
@@ -15,7 +15,7 @@
 				</f:facet>
 				<h:form id="formModificationOffre">
 					<rich:message for="formModificationOffre">
-						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 					</rich:message>
 					<a4j:include id="include"
 						viewId="/stylesheets/_commun/_modificationOffreEtape04DetailsEtab.jsp" />
@@ -27,17 +27,17 @@
 					</h:commandButton>
 				</h:form>
 				<rich:message for="formCreationOffre">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 				</rich:message>
-				<%@include file="../_commun/_panelAjoutService.jsp"%>
-				<%@include file="../_commun/_panelModifService.jsp"%>
-				<%@include file="../_commun/_panelSupprService.jsp"%>
-				<%@include file="../_commun/_panelAjoutContact.jsp"%>
-				<%@include file="../_commun/_panelModifContact.jsp"%>
-				<%@include file="../_commun/_panelSupprContact.jsp"%>
+				<ui:include src="../_commun/_panelAjoutService.jsp"/>
+				<ui:include src="../_commun/_panelModifService.jsp"/>
+				<ui:include src="../_commun/_panelSupprService.jsp"/>
+				<ui:include src="../_commun/_panelAjoutContact.jsp"/>
+				<ui:include src="../_commun/_panelModifContact.jsp"/>
+				<ui:include src="../_commun/_panelSupprContact.jsp"/>
 			</rich:panel>
-			<%@include file="_panelNousContacter.jsp"%>
-		</e:panelGrid>
+			<ui:include src="_panelNousContacter.jsp"/>
+		</h:panelGrid>
 		<rich:editor rendered="false" />
 	</t:div>
 </e:page>

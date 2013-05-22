@@ -1,23 +1,23 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 <a4j:commandButton action="_validationAccordEtape1FormulaireAccord"
 	ignoreDupResponses="true" value="#{msgs['FORM.PREVIOUS']}"
 	immediate="true">
 </a4j:commandButton>
 <t:div
 	style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-	<e:panelGrid>
+	<h:panelGrid>
 		<rich:spacer height="20px"/>
-	</e:panelGrid>
-	<e:panelGrid columns="2" style="font-size:12px;">
+	</h:panelGrid>
+	<h:panelGrid columns="2" style="font-size:12px;">
 		<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
 			value="../../media/images/help32.png" />
 		<e:text value="#{msgs['ACCORD.VALIDATION.AIDE']}" escape="false" />
-	</e:panelGrid>
-	<e:panelGrid columns="3">
+	</h:panelGrid>
+	<h:panelGrid columns="3">
 		<a4j:commandButton action="#{adminController.validationAccord}"
 			value="#{msgs['FORM.OUI']}" />
 		<rich:spacer width="150px" />
 		<a4j:commandButton action="rechercheEtablissement"
 			value="#{msgs['FORM.NON']}" />
-	</e:panelGrid>
+	</h:panelGrid>
 </t:div>

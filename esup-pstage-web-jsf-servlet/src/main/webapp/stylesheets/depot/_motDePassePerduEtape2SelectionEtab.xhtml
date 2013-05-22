@@ -1,6 +1,6 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
-<e:panelGrid columns="1" style="font-size:12px;">
+<h:panelGrid columns="1" style="font-size:12px;">
 	<e:text value="#{msgs['MOTDEPASSEPERDU.CHOIXETAB']}"
 		rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"/>
 	<rich:dataTable align="center" width="700px"
@@ -64,13 +64,13 @@
 			<e:text value="#{structure.commune}" />
 		</rich:column>
 		<rich:column>
-			<e:panelGrid columns="2" style="font-size:12px;">
+			<h:panelGrid columns="2" style="font-size:12px;">
 				<h:graphicImage id="flag" rendered="#{not empty structure.pays}"
 					value="../../media/images/flags/#{structure.pays.iso2}.png"
 					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 					title="#{structure.pays.libelle}" />
 				<e:text value="#{structure.pays.libelle}" />
-			</e:panelGrid>
+			</h:panelGrid>
 		</rich:column>
 		<rich:column>
 			<a4j:commandLink id="selectionStructure" reRender="structureSelected">
@@ -89,12 +89,12 @@
 				renderIfSinglePage="false" />
 		</f:facet>
 	</rich:dataTable>
-</e:panelGrid>
+</h:panelGrid>
 <rich:spacer height="20px" />
 <a4j:outputPanel id="structureSelected">
 	<t:div
 		rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu}">
-		<e:panelGrid columns="2" cellpadding="2" cellspacing="2"
+		<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
 			alternateColors="true" align="center">
 			<e:outputLabel for="raisonSociale"
 				value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
@@ -118,7 +118,7 @@
 			<e:text id="commune"
 				value="#{welcomeController.structureSelectionneeMotDePassePerdu.commune}" />
 			<e:outputLabel for="pays" value="#{msgs['STRUCTURE.PAYS']}" />
-			<e:panelGrid columns="2">
+			<h:panelGrid columns="2">
 				<h:graphicImage id="flag"
 					rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu.pays}"
 					value="../../media/images/flags/#{welcomeController.structureSelectionneeMotDePassePerdu.pays.iso2}.png"
@@ -126,21 +126,11 @@
 					title="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
 				<e:text id="pays"
 					value="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
-			</e:panelGrid>
-			<%/*<t:panelGroup colspan="2"
-				rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}">
-				<a4j:commandLink reRender="structureSelected">
-					<f:setPropertyActionListener value="#{null}"
-						target="#{welcomeController.structureSelectionneeMotDePassePerdu}" />
-					<h:graphicImage alt="#{msgs['FORM.DESELECTIONNER']}"
-						value="../../media/images/cancel.png" style="border:0" />
-					<e:text value="#{msgs['FORM.DESELECTIONNER']}" />
-				</a4j:commandLink>
-			</t:panelGroup>*/%>
+			</h:panelGrid>
 			<rich:spacer height="40px"/>
 			<a4j:commandButton
 				action="#{welcomeController.goToRecuperationMotDePasse}"
 				value="#{msgs['FORM.NEXT']}" />
-		</e:panelGrid>
+		</h:panelGrid>
 	</t:div>
 </a4j:outputPanel>

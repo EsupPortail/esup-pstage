@@ -1,11 +1,11 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
-	<e:panelGrid style="float:left;">
-		<%@include file="./_menu.jsp"%>
-	</e:panelGrid>
-	<e:panelGrid columns="1"
+	<h:panelGrid style="float:left;">
+		<ui:include src="./_menu.jsp"/>
+	</h:panelGrid>
+	<h:panelGrid columns="1"
 		styleClass="panelEntreprise"
 		rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
 		<rich:panel>
@@ -22,6 +22,6 @@
 				style="font-weight:bold;color:red;"
 				rendered="#{sessionController.adminPageAuthorized}" />
 		</rich:panel>
-		<%@include file="_panelNousContacter.jsp"%>
-	</e:panelGrid>
+		<ui:include src="_panelNousContacter.jsp"/>
+	</h:panelGrid>
 </e:page>

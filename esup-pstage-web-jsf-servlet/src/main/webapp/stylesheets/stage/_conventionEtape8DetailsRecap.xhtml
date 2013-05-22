@@ -5,23 +5,41 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-
-	<h:panelGrid columns="2">
-		<h:panelGrid>
+	<h:outputStylesheet>
+        .even-row {
+        background-color: #FCFFFE;
+        }
+ 
+        .odd-row {
+        background-color: #ECF3FE;
+        }
+ 
+        .active-row {
+        background-color: #FFEBDA !important;
+        cursor: pointer;
+        }
+    </h:outputStylesheet>
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="2">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
 			<a4j:commandLink ajaxSingle="true" id="editrecap"
 				action="#{conventionController.editPdfRecap}">
 				<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 					value="../../media/images/printer.png" style="border:0" />
+				<t:htmlTag value="div" style="display: inline; margin: 4px;" />
 				<h:outputText value="#{msgs['CONVENTION.IMPRESSION.RECAP.DEMANDE']}"
 					escape="false" />
 			</a4j:commandLink>
 		</h:panelGrid>
-		<h:panelGrid
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text"
 			rendered="#{!(welcomeController.etudiant and !conventionController.conventionValide)}">
 			<a4j:commandLink ajaxSingle="true" id="impression"
 				action="conventionEtape9Impression">
 				<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 					value="../../media/images/printer.png" style="border:0" />
+					<t:htmlTag value="div" style="display: inline; margin: 4px;" />
 				<h:outputText
 					value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.DEMANDE']}"
 					escape="false" />
@@ -30,10 +48,7 @@
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height: 10px;" />
 
-	<rich:dataTable onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-		cellpadding="0" cellspacing="0" border="0" var="convention"
-		value="#{conventionController.convention}">
+	<rich:dataTable cellpadding="0" cellspacing="0" id="table" border="0" var="convention"	value="#{conventionController.convention}" rowClasses="odd-row, even-row"  styleClass="stable">
 		<rich:columnGroup>
 			<rich:column>
 				<h:outputLabel for="numeroconvention"
@@ -640,16 +655,22 @@
 			</rich:column>
 		</rich:columnGroup>
 	</rich:dataTable>
+	<rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
+    <rich:jQuery selector=".stable tr:even" query="addClass('even-row')" />
+    <rich:jQuery selector=".stable tr" event="mouseover" query="jQuery(this).addClass('active-row')" />
+    <rich:jQuery selector=".stable tr" event="mouseout" query="jQuery(this).removeClass('active-row')" />
 	<t:htmlTag value="div" style="height: 20px;" />
 
-	<h:panelGrid columns="1">
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="1">
 		<t:htmlTag value="div" style="height: 20px;" />
 		<h:commandButton value="#{msgs['RECHERCHECONVENTION.RETOURLISTE']}"
 			action="#{conventionController.goToRetourAction}"
 			rendered="#{conventionController.retourListe}" />
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height: 20px;" />
-	<h:panelGrid align="right">
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" align="right">
 		<a4j:commandLink ajaxSingle="true" id="suppr"
 			oncomplete="#{rich:component('supprConvention')}.show()"
 			disabled="#{conventionController.conventionValide}">
@@ -663,18 +684,15 @@
 				rendered="#{conventionController.conventionValide}" />
 			<h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
 				escape="false" rendered="#{conventionController.conventionValide}" />
+			<rich:tooltip rendered="#{conventionController.conventionValide
+				|| conventionController.nbAvenant> 0}" 	value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}" />
 		</a4j:commandLink>
-		<rich:tooltip for="suppr"
-			rendered="#{conventionController.conventionValide || conventionController.nbAvenant > 0}"
-			value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}" />
-	</h:panelGrid>
-	<h:panelGrid columns="1" style="float:right;"
-		rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 		<t:aliasBean alias="#{objet}"
 			value="#{conventionController.convention}">
 			<ui:include src="../_commun/_updateInfos.xhtml" />
 		</t:aliasBean>
 	</h:panelGrid>
+	
 	<rich:popupPanel id="supprConvention" autosized="true" width="400"
 		styleClass="panel" domElementAttachment="parent">
 		<f:facet name="header">
@@ -684,7 +702,8 @@
 			escape="false" />
 
 		<t:htmlTag value="div" style="height: 20px;" />
-		<h:panelGrid columns="3">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="3">
 			<a4j:commandButton value="#{msgs['FORM.OUI']}"
 				oncomplete="#{rich:component('supprConvention')}.hide();"
 				ignoreDupResponses="true"

@@ -15,7 +15,7 @@
 		<param-value>classpath:log4j.properties
 		</param-value>
 	</context-param>
-
+	
 	<context-param>
 		<description>
 			The location of the main configuration file of the Spring

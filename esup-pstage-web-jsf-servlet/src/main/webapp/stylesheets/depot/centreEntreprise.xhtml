@@ -1,12 +1,12 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<t:div>
-		<e:panelGrid style="float:left;">
-			<%@include file="./_menu.jsp"%>
-		</e:panelGrid>
-		<e:panelGrid columns="1"
+		<h:panelGrid style="float:left;">
+			<ui:include src="./_menu.jsp"/>
+		</h:panelGrid>
+		<h:panelGrid columns="1"
 			styleClass="panelEntreprise"
 			rendered="#{sessionController.superAdminPageAuthorized}">
 			<rich:panel>
@@ -18,7 +18,7 @@
 						viewId="/stylesheets/depot/_modifCentreEntrepriseEtape1.jsp" />
 				</h:form>
 			</rich:panel>
-			<%@include file="_panelNousContacter.jsp"%>
-		</e:panelGrid>
+			<ui:include src="_panelNousContacter.jsp"/>
+		</h:panelGrid>
 	</t:div>
 </e:page>

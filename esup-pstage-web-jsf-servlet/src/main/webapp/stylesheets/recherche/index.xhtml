@@ -1,9 +1,0 @@
-<%@include file="../_include.jsp"%>
-<%@page import="org.springframework.util.StringUtils"%>
-<%
-String newLocation = "rechercheOffre.faces";
-if (StringUtils.hasText(request.getQueryString())) {
-	newLocation = newLocation + "?" + request.getQueryString();
-}
-response.sendRedirect(newLocation);
-%>

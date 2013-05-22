@@ -1,10 +1,10 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
-<e:panelGrid columns="1">
+<h:panelGrid columns="1">
 	<e:text value="#{msgs['GENERAL.NOUS_CONTACTER.INFO']}" />
-	<%@include file="../_commun/_champsObligatoires.jsp"%>
-	<e:panelGrid columns="3">
-		<e:panelGrid columns="1">
+	<ui:include src="../_commun/_champsObligatoires.jsp"/>
+	<h:panelGrid columns="3">
+		<h:panelGrid columns="1">
 			<e:outputLabel for="nomNC" value="#{msgs['CONTACT.NOM']} *" />
 			<h:inputText id="nomNC" style="text-transform:uppercase;"
 				value="#{sessionController.nousContacter.contact.nom}" size="30"
@@ -15,16 +15,16 @@
 				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 			</h:inputText>
 			<rich:message for="nomNC">
-				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 			</rich:message>
-		</e:panelGrid>
-		<e:panelGrid columns="3">
+		</h:panelGrid>
+		<h:panelGrid columns="3">
 			<rich:spacer width="25px" />
 			<rich:spacer width="2px"
 				style="background-color: #{a4jSkin.panelBorderColor};" height="40px" />
 			<rich:spacer width="25px" />
-		</e:panelGrid>
-		<e:panelGrid columns="1">
+		</h:panelGrid>
+		<h:panelGrid columns="1">
 			<e:outputLabel for="prenomNC" value="#{msgs['CONTACT.PRENOM']} *" />
 			<h:inputText id="prenomNC" style="text-transform:capitalize;"
 				value="#{sessionController.nousContacter.contact.prenom}" size="30"
@@ -35,15 +35,15 @@
 				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 			</h:inputText>
 			<rich:message for="prenomNC">
-				<%@include file="../_commun/_messageErrorMarker.jsp"%>
+				<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 			</rich:message>
-		</e:panelGrid>
-	</e:panelGrid>
-	<e:panelGrid columns="2">
+		</h:panelGrid>
+	</h:panelGrid>
+	<h:panelGrid columns="2">
 		<e:outputLabel for="mailNC" value="#{msgs['CONTACT.MAIL']} *" />
 		<e:text value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
-	</e:panelGrid>
-	<e:panelGrid columns="2">
+	</h:panelGrid>
+	<h:panelGrid columns="2">
 		<h:inputText id="mailNC"
 			value="#{sessionController.nousContacter.contact.mail}" size="50"
 			maxlength="50" required="true"
@@ -54,12 +54,12 @@
 			<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 		</h:inputText>
 		<rich:message for="mailNC">
-			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 		</rich:message>
-	</e:panelGrid>
+	</h:panelGrid>
 	<e:outputLabel for="sujetNC"
 		value="#{msgs['GENERAL.NOUS_CONTACTER.SUJET']} *" />
-	<e:panelGrid columns="2">
+	<h:panelGrid columns="2">
 		<h:inputText id="sujetNC"
 			value="#{sessionController.nousContacter.sujet}" size="50"
 			maxlength="50" required="true"
@@ -68,9 +68,9 @@
 			<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 		</h:inputText>
 		<rich:message for="sujetNC">
-			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 		</rich:message>
-	</e:panelGrid>
+	</h:panelGrid>
 	<e:outputLabel for="messageNC"
 		value="#{msgs['GENERAL.NOUS_CONTACTER.MESSAGE']} *" />
 	<rich:editor id="messageNC"
@@ -81,18 +81,18 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</rich:editor>
 	<rich:message for="messageNC">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 	</rich:message>
 	<a4j:region renderRegionOnly="true">
 		<a4j:outputPanel id="opCodePostalNC">
-			<e:panelGrid columns="2">			
+			<h:panelGrid columns="2">			
 				<e:outputLabel for="codePostalNC"
 					value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
 				<e:outputLabel for="codePostalNC"
 				value=" *"
 				rendered="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}"/>
-			</e:panelGrid>
-			<e:panelGrid columns="2">
+			</h:panelGrid>
+			<h:panelGrid columns="2">
 				<h:inputText id="codePostalNC" style="text-transform:capitalize;"
 					value="#{sessionController.nousContacter.codePostal}" size="10"
 					maxlength="10"
@@ -102,11 +102,11 @@
 					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 				</h:inputText>
 				<rich:message for="codePostalNC">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 				</rich:message>
-			</e:panelGrid>
+			</h:panelGrid>
 		</a4j:outputPanel>
-		<e:panelGrid columns="1">
+		<h:panelGrid columns="1">
 			<e:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="paysNC" />
 			<t:panelGroup colspan="5">
 				<a4j:outputPanel id="opFlagNC">
@@ -130,12 +130,12 @@
 				</h:selectOneMenu>
 				<rich:spacer width="10px" />
 				<rich:message for="paysNC">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 				</rich:message>
 			</t:panelGroup>
-		</e:panelGrid>
+		</h:panelGrid>
 	</a4j:region>
-</e:panelGrid>
+</h:panelGrid>
 <a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
 	action="#{welcomeController.nousContacter}" ignoreDupResponses="true" />
 <a4j:commandButton value="#{msgs['FORM.CANCEL']}"

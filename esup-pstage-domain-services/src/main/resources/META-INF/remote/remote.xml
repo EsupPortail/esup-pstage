@@ -8,60 +8,33 @@
 	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
 	<!-- esup-pstagedata -->
-<!-- 	<bean id="remoteServices" -->
-<!-- 		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean"> -->
-<!-- 		<property name="serviceUrl" value="${pstagedata.serviceUrl}" /> -->
-<!-- 		<property name="serviceInterface" -->
-<!-- 			value="org.esupportail.pstagedata.remote.RemoteServices" /> -->
-<!-- 	</bean> -->
 	<jaxws:client id="remoteServices"
 		serviceClass="org.esupportail.pstagedata.remote.RemoteServices"
 		address="${pstagedata.serviceUrl}" />
 	
 	<!-- ws si -->
-	<bean id="remoteCriApogeeEns"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="${readEnseignement.urlService}" />
-		<property name="serviceInterface"
-			value="org.esupportail.wssi.services.remote.ReadEnseignement" />
-	</bean>
+	<jaxws:client id="remoteCriApogeeEns"
+		serviceClass="org.esupportail.wssi.services.remote.ReadEnseignement"
+		address="${readEnseignement.urlService}" />
 	
 	<!-- ws apogee -->
-	<bean id="administratifMetierService"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="${administratifMetier.urlService}" />
-		<property name="serviceInterface"
-			value="administratifmetier_17062009_impl.servicesmetiers.commun.apogee.education.gouv.AdministratifMetierServiceInterface" />
-	</bean>
-	<bean id="etudiantMetierService"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="${etudiantMetier.urlService}" />
-		<property name="serviceInterface"
-			value="etudiantwebserviceimpl.impl.webservices.commun.apogee.education.gouv.EtudiantMetierServiceInterface" />
-	</bean>
-	<bean id="geographieMetierService"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="${geographieMetier.urlService}" />
-		<property name="serviceInterface"
-			value="geographiemetier_06062007_impl.servicesmetiers.commun.apogee.education.gouv.GeographieMetierServiceInterface" />
-	</bean>
-	<bean id="offreFormationMetierService"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="${offreFormationMetier.urlService}" />
-		<property name="serviceInterface"
-			value="offreformationmetier_19072010_impl.servicesmetiers.commun.apogee.education.gouv.OffreFormationMetierServiceInterface" />
-	</bean>
-	<bean id="pedagogiqueMetierService"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="${pedagogiqueMetier.urlService}" />
-		<property name="serviceInterface"
-			value="pedagogiquemetier_28022011_impl.servicesmetiers.commun.apogee.education.gouv.PedagogiqueMetierServiceInterface" />
-	</bean>
-	<bean id="referentielMetierService"
-		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
-		<property name="serviceUrl" value="${referentielMetier.urlService}" />
-		<property name="serviceInterface"
-			value="referentielmetier_18062010_impl.servicesmetiers.commun.apogee.education.gouv.ReferentielMetierServiceInterface" />
-	</bean>
+	<jaxws:client id="administratifMetierService"
+		serviceClass="administratifmetier_17062009_impl.servicesmetiers.commun.apogee.education.gouv.AdministratifMetierServiceInterface"
+		address="${administratifMetier.urlService}" />
+	<jaxws:client id="etudiantMetierService"
+		serviceClass="etudiantwebserviceimpl.impl.webservices.commun.apogee.education.gouv.EtudiantMetierServiceInterface"
+		address="${etudiantMetier.urlService}" />
+	<jaxws:client id="geographieMetierService"
+		serviceClass="geographiemetier_06062007_impl.servicesmetiers.commun.apogee.education.gouv.GeographieMetierServiceInterface"
+		address="${geographieMetier.urlService}" />
+	<jaxws:client id="offreFormationMetierService"
+		serviceClass="offreformationmetier_19072010_impl.servicesmetiers.commun.apogee.education.gouv.OffreFormationMetierServiceInterface"
+		address="${offreFormationMetier.urlService}" />
+	<jaxws:client id="pedagogiqueMetierService"
+		serviceClass="pedagogiquemetier_28022011_impl.servicesmetiers.commun.apogee.education.gouv.PedagogiqueMetierServiceInterface"
+		address="${pedagogiqueMetier.urlService}" />
+	<jaxws:client id="referentielMetierService"
+		serviceClass="referentielmetier_18062010_impl.servicesmetiers.commun.apogee.education.gouv.ReferentielMetierServiceInterface"
+		address="${referentielMetier.urlService}" />
 
 </beans>

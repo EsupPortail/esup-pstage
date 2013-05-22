@@ -1,12 +1,12 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 <rich:message for="connexion">
-	<%@include file="../_commun/_messageErrorMarker.jsp"%>
+	<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 </rich:message>
 <h:form id="connexion">
-	<e:panelGrid columns="2" align="center"
+	<h:panelGrid columns="2" align="center"
 		rendered="#{not sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
-		<e:panelGrid columns="1" align="center">
-			<e:panelGrid columns="2">
+		<h:panelGrid columns="1" align="center">
+			<h:panelGrid columns="2">
 				<h:outputLabel for="login" value="#{msgs['CONTACT.LOGIN']}" />
 				<h:inputText id="login" value="#{welcomeController.login}"
 					required="true" maxlength="50" size="12"
@@ -15,7 +15,7 @@
 				</h:inputText>
 				<t:panelGroup colspan="2">
 					<rich:message for="login">
-						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 					</rich:message>
 				</t:panelGroup>
 				<h:outputLabel for="pswd" value="#{msgs['CONTACT.MDP']}" />
@@ -27,12 +27,12 @@
 				</h:inputSecret>
 				<t:panelGroup colspan="2">
 					<rich:message for="pswd">
-						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 					</rich:message>
 				</t:panelGroup>
-			</e:panelGrid>
+			</h:panelGrid>
 			<h:commandButton action="#{welcomeController.connect}"
 				value="#{msgs['GENERAL.CONNEXION']}" />
-		</e:panelGrid>
-	</e:panelGrid>
+		</h:panelGrid>
+	</h:panelGrid>
 </h:form>

@@ -12,7 +12,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT']}" />
 		</f:facet>
-		<rich:spacer height="20" />
+		<t:htmlTag value="div" style="height: 20px;" />
 		<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
 
 		<t:htmlTag value="br" />
@@ -61,7 +61,7 @@
 		<h:panelGrid columns="1"
 			rendered="#{conventionController.etudiantSupUneEtape}">
 
-			<rich:spacer height="30" />
+			<t:htmlTag value="div" style="height: 30px;" />
 			<rich:dataTable align="center" width="483" id="choixEtape" rows="10"
 				columnClasses="col"
 				value="#{conventionController.listeEtapesEtudiant}" var="item">
@@ -90,7 +90,7 @@
 			<rich:message for="choixEtape">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height: 20px;" />
 
 		</h:panelGrid>
 
@@ -98,7 +98,7 @@
 			<h:panelGrid columns="1"
 				rendered="#{conventionController.etudiantSupUnElp}">
 
-				<rich:spacer height="30" />
+				<t:htmlTag value="div" style="height:30px;" />
 				<rich:dataTable align="center" width="483" id="choixElp" rows="10"
 					columnClasses="col" value="#{conventionController.listeELPEtapes}"
 					var="item">
@@ -131,7 +131,7 @@
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
 
-				<rich:spacer height="10" />
+				<t:htmlTag value="div" style="height:10px;" />
 
 			</h:panelGrid>
 		</a4j:outputPanel>

@@ -1,26 +1,18 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 <h:form id="formMenu">
-	<e:panelGrid columns="1" style="width:180px;font-size:12px;">
-		<e:panelGrid columns="2">
+	<h:panelGrid columns="1" style="width:180px;font-size:12px;">
+		<h:panelGrid columns="2">
 			<e:text
 				value="#{sessionController.currentAuthAdminStructure.prenom} #{sessionController.currentAuthAdminStructure.nom}"
 				rendered="#{sessionController.adminPageAuthorized and not empty sessionController.currentAuthAdminStructure}" />
 			<e:text
 				value="#{sessionController.currentAuthContact.prenom} #{sessionController.currentAuthContact.nom}"
 				rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized and not empty sessionController.currentAuthContact}" />
-		</e:panelGrid>
-		<%
-			/*<e:text value="#{msgs['STRUCTURE.GESTION']}"
-			 rendered="#{sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure
-			 and sessionController.menuGestionEtab}">
-			 <f:param
-			 value="#{sessionController.currentManageStructure.raisonSociale}" />
-			 </e:text>*/
-		%>
+		</h:panelGrid>
 		<e:bold
 			value="#{sessionController.currentManageStructure.raisonSociale}"
 			rendered="#{sessionController.pageAuthorized}" />
-		<e:panelGrid columns="2"
+		<h:panelGrid columns="2"
 			rendered="#{(sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure
 			and sessionController.menuGestionEtab)}">
 			<e:bold
@@ -28,8 +20,8 @@
 			<h:graphicImage id="avecAc" alt="°"
 				value="../../media/images/bullet_green.png" style="border:0"
 				rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0}" />
-		</e:panelGrid>
-		<e:panelGrid columns="2">
+		</h:panelGrid>
+		<h:panelGrid columns="2">
 			<h:graphicImage alt="V" value="../../media/images/tick.png"
 				style="border:0"
 				rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
@@ -48,15 +40,7 @@
 				rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
 				&& sessionController.currentManageStructure.accordPartenariat!=null
 				&& !sessionController.currentManageStructure.accordPartenariat.estValide}" />
-		</e:panelGrid>
-		<%
-			/*<h:commandLink action="#{welcomeController.goToAccueilEntr}">
-			 <h:graphicImage alt="#{msgs['MENU.ACCUEIL']}"
-			 title="#{msgs['MENU.ACCUEIL']}" value="../../media/images/house.png"
-			 style="border:0" />
-			 <e:text value=" #{msgs['MENU.ACCUEIL']}" />
-			 </h:commandLink>*/
-		%>
+		</h:panelGrid>
 		<rich:separator height="3" lineType="dashed"
 			rendered="#{sessionController.pageAuthorized 
 		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
@@ -130,13 +114,13 @@
 				value="../../media/images/group.png" style="border:0" />
 			<e:text id="cvtheque" value=" #{msgs['MENU.GESTIONCVTHEQUE']}" />
 			<rich:message for="cvtheque">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 			</rich:message>
 		</h:commandLink>
 		<rich:spacer height="10px" rendered="#{sessionController.pageAuthorized and sessionController.cvtheque
 		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure and sessionController.cvtheque)}"/>
-	</e:panelGrid>
-	<e:panelGrid columns="1" style="width:200px">
+	</h:panelGrid>
+	<h:panelGrid columns="1" style="width:200px">
 		<rich:separator height="3" lineType="dashed"
 			rendered="#{sessionController.adminPageAuthorized}" />
 		<e:text value="#{msgs['MENU.ADMINISTRATION']}"
@@ -148,7 +132,7 @@
 				value="../../media/images/building.png" style="border:0" />
 			<e:text value=" #{msgs['MENU.CENTREENTREPRISE']}" />
 		</h:commandLink>
-		<e:panelGrid columns="1"
+		<h:panelGrid columns="1"
 			rendered="#{not empty centreController.centreEntreprise}">
 			<h:commandLink action="#{adminController.goToAdministrateurs}"
 				rendered="#{sessionController.superAdminPageAuthorized}">
@@ -192,7 +176,7 @@
 				<e:text
 					value=" #{msgs['MENU.OFFRESADIFFUSER']} (#{offreController.offreADiffuser})" />
 			</h:commandLink>
-		</e:panelGrid>
+		</h:panelGrid>
 		<rich:separator height="3" lineType="dashed" />
 		<h:commandLink action="#{welcomeController.goToAccueilEntr}">
 			<h:graphicImage alt="#{msgs['MENU.AIDE']}"
@@ -208,5 +192,5 @@
 				value="../../media/images/cancel.png" style="border:0" />
 			<e:text value=" #{msgs['GENERAL.DECONNEXION']}" />
 		</h:commandLink>
-	</e:panelGrid>
+	</h:panelGrid>
 </h:form>

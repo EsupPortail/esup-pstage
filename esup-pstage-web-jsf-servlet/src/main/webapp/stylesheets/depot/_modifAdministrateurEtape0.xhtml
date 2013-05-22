@@ -1,8 +1,8 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:text value="#{msgs['ADMINSTRUCTURE.MODIF.QUESTION']}" escape="false" />
 <a4j:outputPanel ajaxRendered="true">
-	<e:panelGrid columns="2" alternateColors="true">
+	<h:panelGrid columns="2" alternateColors="true">
 		<rich:column style="font-size:12px;">
 			<e:text id="nomAd" value="#{adminController.formAdminStructure.nom}" />
 		</rich:column>
@@ -15,7 +15,7 @@
 				value="#{adminController.formAdminStructure.mail}" />
 		</rich:column>
 		<rich:column>
-			<e:panelGrid id="loginAd" style="font-size:12px;">
+			<h:panelGrid id="loginAd" style="font-size:12px;">
 				<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
 					rendered="#{not empty adminController.formAdminStructure.login and not empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
 				<e:text
@@ -31,9 +31,9 @@
 				<e:text
 					value="#{msgs['ADMINSTRUCTURE.EPPN']} : #{adminController.formAdminStructure.eppn}"
 					rendered="#{empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and not empty adminController.formAdminStructure.eppn}" />
-			</e:panelGrid>
+			</h:panelGrid>
 		</rich:column>
-	</e:panelGrid>
+	</h:panelGrid>
 </a4j:outputPanel>
 <a4j:commandButton action="_modifAdministrateurEtape1"
 	value="#{msgs['FORM.OUI']}" ignoreDupResponses="true" ajaxSingle="true" />
