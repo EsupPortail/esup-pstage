@@ -1,11 +1,11 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
-	<e:panelGrid style="float:left;">
-		<%@include file="./_menu.jsp"%>
-	</e:panelGrid>
-	<e:panelGrid columns="1"
+	<h:panelGrid style="float:left;">
+		<ui:include src="./_menu.jsp"/>
+	</h:panelGrid>
+	<h:panelGrid columns="1"
 		styleClass="panelEntreprise">
 		<rich:panel>
 			<f:facet name="header">
@@ -14,7 +14,7 @@
 			<h:form id="formRechOffre">
 				<t:div
 					rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
-					<%@include file="../_commun/_rechercheOffreNbResultats.jsp"%>
+					<ui:include src="../_commun/_rechercheOffreNbResultats.jsp"/>
 					<rich:dataTable value="#{offreController.rechercheOffrePaginator.visibleItems}"
 						var="offre" columnClasses="center"
 						rowKeyVar="rowOffre"
@@ -27,7 +27,7 @@
 								onchange="javascript:{simulateLinkClick('rechercheOffreDataTable:submitPageSize');}"
 								visibleBlocks="itemsNumbers,navigation" />
 						</f:facet>
-						<%@include file="../_commun/_rechercheOffreResultatsColumns.jsp"%>
+						<ui:include src="../_commun/_rechercheOffreResultatsColumns.jsp"/>
 						<rich:column>
 							<h:commandLink id="recap"
 								action="#{offreController.goToRecapitulatifOffreFromOffreLight}">
@@ -53,16 +53,16 @@
 									target="#{etablissementController.afficherSelectionCentreContact}" />
 							</h:commandLink>
 							<rich:toolTip for="modif">
-								<e:panelGrid columns="1">
+								<h:panelGrid columns="1">
 									<e:bold value="#{msgs['FORM.MODIFIER']}" />
 									<t:div rendered="#{sessionController.adminPageAuthorized}">
 										<t:htmlTag value="br" />
 										<t:aliasBean alias="#{objet}"
 											value="#{offre}">
-											<%@include file="../_commun/_updateInfos.jsp"%>
+											<ui:include src="../_commun/_updateInfos.jsp"/>
 										</t:aliasBean>
 									</t:div>
-								</e:panelGrid>
+								</h:panelGrid>
 							</rich:toolTip>
 							<a4j:commandLink ajaxSingle="true" id="suppr"
 								reRender="supprOffre"
@@ -79,15 +79,15 @@
 						</rich:column>
 					</rich:dataTable>
 				</t:div>
-				<e:panelGrid columns="1">
+				<h:panelGrid columns="1">
 					<rich:spacer height="20px" />
 					<h:commandButton
 						value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
 						action="#{offreController.goToRechercheOffre}" />
-				</e:panelGrid>
+				</h:panelGrid>
 			</h:form>
-			<%@include file="../_commun/_panelSupprOffre.jsp"%>
+			<ui:include src="../_commun/_panelSupprOffre.jsp"/>
 		</rich:panel>
-		<%@include file="_panelNousContacter.jsp"%>
-	</e:panelGrid>
+		<ui:include src="_panelNousContacter.jsp"/>
+	</h:panelGrid>
 </e:page>

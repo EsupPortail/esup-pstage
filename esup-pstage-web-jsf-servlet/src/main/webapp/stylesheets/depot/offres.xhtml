@@ -1,13 +1,13 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
-	<e:panelGrid style="float:left;">
-		<%@include file="./_menu.jsp"%>
-	</e:panelGrid>
+	<h:panelGrid style="float:left;">
+		<ui:include src="./_menu.jsp"/>
+	</h:panelGrid>
 	<t:div
 		rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
-		<e:panelGrid columns="1"
+		<h:panelGrid columns="1"
 			styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
@@ -18,7 +18,7 @@
 				<h:form rendered="#{not empty sessionController.currentManageStructure}">
 					<e:text value="#{msgs['OFFRE.GESTION.AUCUNE']}"
 						rendered="#{empty offreController.listeOffres}" escape="false" />
-					<e:panelGrid columns="2"
+					<h:panelGrid columns="2"
 						rendered="#{(sessionController.pageAuthorized 
 					|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)) 
 					&& empty offreController.listeOffres}">
@@ -33,7 +33,7 @@
 								target="#{offreController.typeAjoutModifOffre}" />
 						</h:commandLink>
 						<rich:toolTip for="ajoutO" value="#{msgs['FORM.CREER']}" />
-					</e:panelGrid>
+					</h:panelGrid>
 					<a4j:outputPanel id="opOffresDataTable">
 						<t:div rendered="#{not empty offreController.listeOffres}">
 							<e:text value="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']}"
@@ -43,7 +43,7 @@
 								rowKeyVar="rowOffre"
 								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-								<%@include file="../_commun/_rechercheOffreResultatsColumns.jsp"%>
+								<ui:include src="../_commun/_rechercheOffreResultatsColumns.jsp"/>
 								<rich:column>
 									<h:commandLink id="recap"
 										action="#{offreController.goToRecapitulatifOffre}">
@@ -72,15 +72,15 @@
 											target="#{etablissementController.afficherSelectionCentreContact}" />
 									</h:commandLink>
 									<rich:toolTip for="modif">
-										<e:panelGrid columns="1">
+										<h:panelGrid columns="1">
 											<e:bold value="#{msgs['FORM.MODIFIER']}" />
 											<t:div rendered="#{sessionController.adminPageAuthorized}">
 												<t:htmlTag value="br" />
 												<t:aliasBean alias="#{objet}" value="#{offre}">
-													<%@include file="../_commun/_updateInfos.jsp"%>
+													<ui:include src="../_commun/_updateInfos.jsp"/>
 												</t:aliasBean>
 											</t:div>
-										</e:panelGrid>
+										</h:panelGrid>
 									</rich:toolTip>
 									<a4j:commandLink ajaxSingle="true" id="suppr"
 										reRender="supprOffre"
@@ -102,10 +102,10 @@
 						</t:div>
 					</a4j:outputPanel>
 				</h:form>
-				<%@include file="../_commun/_panelSupprOffre.jsp"%>
+				<ui:include src="../_commun/_panelSupprOffre.jsp"/>
 			</rich:panel>
-			<%@include file="_panelNousContacter.jsp"%>
-		</e:panelGrid>
+			<ui:include src="_panelNousContacter.jsp"/>
+		</h:panelGrid>
 	</t:div>
 </e:page>
 

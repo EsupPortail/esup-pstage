@@ -1,16 +1,8 @@
-<%@include file="../_include.jsp"%>
-<%
-	/*<e:panelGrid columns="2">
-	 <h:graphicImage alt="#{msgs['MENU.ACCUEIL']}"
-	 title="#{msgs['MENU.ACCUEIL']}" value="../../media/images/house.png"
-	 style="border:0" />
-	 <e:bold value=": #{msgs['AIDEGENERAL.ENTREPRISE.ACCUEIL']}"
-	 escape="false" />
-	 </e:panelGrid>*/
-%>
+<ui:include src="../_include.jsp"/>
+
 <e:bold value="#{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION']}"
 	rendered="#{sessionController.adminPageAuthorized}" escape="false" />
-<e:panelGrid columns="2"
+<h:panelGrid columns="2"
 	rendered="#{sessionController.adminPageAuthorized}">
 	<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}"
 		title="#{msgs['MENU.ADMINISTRATEURS']}"
@@ -166,11 +158,11 @@
 			</e:li>
 		</e:ul>
 	</t:panelGroup>
-</e:panelGrid>
+</h:panelGrid>
 <e:bold value="#{msgs['AIDEGENERAL.ENTREPRISE.FONCTION']}"
 	rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}"
 	escape="false" />
-<e:panelGrid columns="2"
+<h:panelGrid columns="2"
 	rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
 	<e:ul>
 		<e:li>
@@ -305,11 +297,11 @@
 				escape="false" />
 		</e:li>
 	</e:ul>
-</e:panelGrid>
-<e:panelGrid columns="2">
+</h:panelGrid>
+<h:panelGrid columns="2">
 	<h:graphicImage alt="#{msgs['GENERAL.DECONNEXION']}"
 		title="#{msgs['GENERAL.DECONNEXION']}"
 		value="../../media/images/cancel.png" style="border:0" />
 	<e:bold value=": #{msgs['AIDEGENERAL.ENTREPRISE.DECONNEXION']}"
 		escape="false" />
-</e:panelGrid>
+</h:panelGrid>

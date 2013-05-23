@@ -1,6 +1,6 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
-<%@include file="./_formAdministrateur.jsp"%>
+<ui:include src="./_formAdministrateur.jsp"/>
 <a4j:commandButton action="#{adminController.modifierAdministrateur}"
 	value="#{msgs['FORM.MODIFIER']}" ignoreDupResponses="true"
 	reRender="nomAd, prenomAd, mailAd, loginAd" />

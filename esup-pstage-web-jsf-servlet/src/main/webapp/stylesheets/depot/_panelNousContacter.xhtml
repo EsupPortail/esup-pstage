@@ -1,4 +1,4 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 <a4j:form>
 	<a4j:region id="rNC">
 		<a4j:commandLink ajaxSingle="true"
@@ -37,5 +37,5 @@
 	<f:facet name="header">
 		<e:text value="#{msgs['GENERAL.LOADING']}" />
 	</f:facet>
-	<%@include file="../_commun/_veuillezPatienter.jsp"%>
+	<ui:include src="../_commun/_veuillezPatienter.jsp"/>
 </rich:modalPanel>

@@ -1,23 +1,23 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
-	<e:panelGrid style="float:left;">
-		<%@include file="./_menu.jsp"%>
-	</e:panelGrid>
+	<h:panelGrid style="float:left;">
+		<ui:include src="./_menu.jsp"/>
+	</h:panelGrid>
 	<t:div rendered="#{sessionController.adminPageAuthorized}">
-		<e:panelGrid columns="1"
+		<h:panelGrid columns="1"
 			styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
 					<e:text value="Administrateurs" />
 				</f:facet>
 				<h:form>
-					<e:panelGrid columns="1">
+					<h:panelGrid columns="1">
 						<a4j:outputPanel id="opAdminDataTable">
 							<e:text value="#{msgs['ADMINSTRUCTURE.VIDE']}"
 								rendered="#{empty adminController.listeAdminStructure}" />
-							<e:panelGrid columns="3">
+							<h:panelGrid columns="3">
 								<e:text value="#{msgs['ADMINSTRUCTURE.CREER']}" escape="false" />
 								<a4j:commandLink ajaxSingle="true" id="ajAdmin"
 									action="#{adminController.beforeAjouterAdministrateur}"
@@ -29,7 +29,7 @@
 										value="../../media/images/new.png" style="border:0" />
 								</a4j:commandLink>
 								<rich:toolTip for="ajAdmin" value="#{msgs['FORM.CREER']}" />
-							</e:panelGrid>
+							</h:panelGrid>
 							<rich:dataTable align="center" width="600" id="adminDataTable"
 								rows="10" columnClasses="col" var="admin" rowKeyVar="rowAdmin"
 								value="#{adminController.listeAdminStructure}"
@@ -70,7 +70,7 @@
 									<e:text id="mailAd" value="#{admin.mail}" />
 								</rich:column>
 								<rich:column>
-									<e:panelGrid id="loginAd" style="font-size:12px;">
+									<h:panelGrid id="loginAd" style="font-size:12px;">
 										<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
 											rendered="#{not empty admin.login and not empty admin.mdp and empty admin.eppn}" />
 										<e:text
@@ -85,7 +85,7 @@
 											rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
 										<e:text value="#{msgs['ADMINSTRUCTURE.EPPN']} : #{admin.eppn}"
 											rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
-									</e:panelGrid>
+									</h:panelGrid>
 								</rich:column>
 								<rich:column>
 									<a4j:commandLink ajaxSingle="true" id="modif"
@@ -99,14 +99,14 @@
 											value="../../media/images/edit.png" style="border:0" />
 									</a4j:commandLink>
 									<rich:toolTip for="modif">
-										<e:panelGrid columns="1">
+										<h:panelGrid columns="1">
 											<e:bold value="#{msgs['FORM.MODIFIER']}"/>
 											<t:htmlTag value="br"/>
 											<t:aliasBean alias="#{objet}"
 												value="#{admin}">
-												<%@include file="../_commun/_updateInfos.jsp"%>
+												<ui:include src="../_commun/_updateInfos.jsp"/>
 											</t:aliasBean>
-										</e:panelGrid>
+										</h:panelGrid>
 									</rich:toolTip>
 									<a4j:commandLink ajaxSingle="true" id="suppr"
 										oncomplete="#{rich:component('supprAdministrateur')}.show()">
@@ -125,13 +125,13 @@
 								</f:facet>
 							</rich:dataTable>
 						</a4j:outputPanel>
-					</e:panelGrid>
+					</h:panelGrid>
 				</h:form>
 			</rich:panel>
-			<%@include file="_panelNousContacter.jsp"%>
-		</e:panelGrid>
-		<%@include file="_panelAjoutAdministrateur.jsp"%>
-		<%@include file="_panelModifAdministrateur.jsp"%>
-		<%@include file="_panelSupprAdministrateur.jsp"%>
+			<ui:include src="_panelNousContacter.jsp"/>
+		</h:panelGrid>
+		<ui:include src="_panelAjoutAdministrateur.jsp"/>
+		<ui:include src="_panelModifAdministrateur.jsp"/>
+		<ui:include src="_panelSupprAdministrateur.jsp"/>
 	</t:div>
 </e:page>

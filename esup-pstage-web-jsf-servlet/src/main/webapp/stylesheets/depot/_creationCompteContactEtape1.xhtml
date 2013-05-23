@@ -1,14 +1,14 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <h:column>
-	<e:panelGrid columns="1">
+	<h:panelGrid columns="1">
 		<e:text value="#{msgs['CONTACT.GESTION.COMPTE.CREATION.QUESTION']}"
 			escape="false" />
 		<rich:dataTable value="#{etablissementController.formContact}">
-			<%@include file="../_commun/_contactColumns.jsp"%>
+			<ui:include src="../_commun/_contactColumns.jsp"/>
 		</rich:dataTable>
-	</e:panelGrid>
-	<e:panelGrid columns="3">
+	</h:panelGrid>
+	<h:panelGrid columns="3">
 		<a4j:commandButton
 			action="#{etablissementController.creerCompte}"
 			value="#{msgs['FORM.CREER']}" ignoreDupResponses="true"
@@ -17,5 +17,5 @@
 		<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 			onclick="#{rich:component('creationCompteContact')}.hide();"
 			action="_creationCompteContactEtape1" immediate="true" />
-	</e:panelGrid>
+	</h:panelGrid>
 </h:column>

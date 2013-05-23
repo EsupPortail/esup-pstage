@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:fragment id="blabla" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -16,14 +16,14 @@
 			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT.DEMANDE']}" />
 
-			<h:panelGrid columns="1">
+			<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 				<t:htmlTag value="div" style="height: 20px;" />
-				<h:panelGrid columns="4">
+				<h:panelGrid columns="4" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 					<h:outputLabel value="#{msgs['CONVENTION.NUMETUDIANT']}"
 						for="identEtudiant" />
 					<h:inputText id="identEtudiant" size="50" maxlength="30"
 						value="#{conventionController.rechIdentEtudiant}">
-						<a4j:ajax ajaxSingle="true" event="change" />
+						<a4j:ajax event="change" />
 					</h:inputText>
 					<t:htmlTag value="div" style="width: 10px;" />
 					<rich:message for="identEtudiant">
@@ -32,14 +32,16 @@
 
 
 					<t:htmlTag value="div" style="width: 20px;" />
-					<t:panelGroup colspan="2" id="oblig">
-						<h:graphicImage
-							value="../../media/images/arrow_turn_up_and_down.png"
-							alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
-							title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
-						<t:htmlTag value="div" style="width: 5px;" />
-						<h:outputText value="#{msgs['RECHERCHEETU.OBLIGATOIRE']}" />
-					</t:panelGroup>
+					<rich:column colspan="2" id="oblig">
+						<h:panelGrid columns="2">
+							<h:graphicImage
+								value="../../media/images/arrow_turn_up_and_down.png"
+								alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
+								title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
+							<h:outputText value="#{msgs['RECHERCHEETU.OBLIGATOIRE']}" />
+						</h:panelGrid>
+					</rich:column>
+					<t:htmlTag value="div" style="width: 10px;" />
 					<rich:message for="oblig">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
@@ -51,7 +53,7 @@
 						style="text-transform:uppercase;"
 						value="#{conventionController.rechNomEtudiant}">
 						<f:converter binding="#{sansAccentEnMAJConverter}" />
-						<a4j:ajax ajaxSingle="true" event="change" />
+						<a4j:ajax event="change" />
 					</h:inputText>
 					<t:htmlTag value="div" style="width: 10px;" />
 					<rich:message for="nom">
@@ -64,7 +66,7 @@
 						style="text-transform:uppercase;"
 						value="#{conventionController.rechPrenomEtudiant}">
 						<f:converter binding="#{sansAccentEnMAJConverter}" />
-						<a4j:ajax ajaxSingle="true" event="change" />
+						<a4j:ajax event="change" />
 					</h:inputText>
 					<t:htmlTag value="div" style="width: 10px;" />
 					<rich:message for="prenom">
@@ -74,15 +76,13 @@
 			</h:panelGrid>
 			<h:panelGrid columns="4">
 				<t:htmlTag value="div" style="height: 40px;" />
-				<a4j:commandButton
+				<h:commandButton
 					action="#{conventionController.goToCreerConventionConsignes}"
-					value="#{msgs['FORM.PREVIOUS']}" immediate="true">
-				</a4j:commandButton>
+					value="#{msgs['FORM.PREVIOUS']}" immediate="true"/>
 				<a4j:region id="rRechercher">
-					<a4j:commandButton
+					<h:commandButton
 						action="#{conventionController.rechercheEtudiant}"
-						value="#{msgs['FORM.RECHERCHER']}">
-					</a4j:commandButton>
+						value="#{msgs['FORM.RECHERCHER']}"/>
 				</a4j:region>
 				<a4j:status for="rRechercher">
 					<f:facet name="start">

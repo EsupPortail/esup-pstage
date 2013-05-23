@@ -1,13 +1,13 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
-	<e:panelGrid style="float:left;">
-		<%@include file="./_menu.jsp"%>
-	</e:panelGrid>
+	<h:panelGrid style="float:left;">
+		<ui:include src="./_menu.jsp"/>
+	</h:panelGrid>
 	<t:div
 		rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
-		<e:panelGrid columns="1" styleClass="panelEntreprise">
+		<h:panelGrid columns="1" styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
 					<e:text value="#{msgs['CONTACT.GESTION']}" />
@@ -20,7 +20,7 @@
 						rendered="#{empty etablissementController.listeServices}"
 						escape="false" />
 					<a4j:outputPanel id="opService">
-						<e:panelGrid columns="2">
+						<h:panelGrid columns="2">
 							<e:text value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
 								escape="false"
 								rendered="#{not empty etablissementController.listeServices}" />
@@ -37,8 +37,8 @@
 									reRender="opContactsDataTable, opActionsService"
 									ignoreDupResponses="true" ajaxSingle="true" />
 							</h:selectOneMenu>
-						</e:panelGrid>
-						<e:panelGrid columns="3">
+						</h:panelGrid>
+						<h:panelGrid columns="3">
 							<e:text value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
 							<a4j:commandLink ajaxSingle="true" id="ajout"
 								oncomplete="#{rich:component('ajoutService')}.show()"
@@ -52,7 +52,7 @@
 									value="../../media/images/new.png" style="border:0" />
 							</a4j:commandLink>
 							<rich:toolTip for="ajout" value="#{msgs['FORM.CREER']}" />
-						</e:panelGrid>
+						</h:panelGrid>
 					</a4j:outputPanel>
 					<rich:spacer height="20px" />
 					<a4j:outputPanel id="opActionsService">
@@ -64,7 +64,7 @@
 							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 							align="center">
-							<%@include file="../_commun/_serviceColumns.jsp"%>
+							<ui:include src="../_commun/_serviceColumns.jsp"/>
 							<rich:column>
 								<a4j:commandLink ajaxSingle="true" id="modif"
 									rendered="#{not empty etablissementController.idServiceSel}"
@@ -81,16 +81,16 @@
 										value="../../media/images/edit.png" style="border:0" />
 								</a4j:commandLink>
 								<rich:toolTip for="modif">
-									<e:panelGrid columns="1">
+									<h:panelGrid columns="1">
 										<e:bold value="#{msgs['FORM.MODIFIER']}" />
 										<t:div rendered="#{sessionController.adminPageAuthorized}">
 											<t:htmlTag value="br" />
 											<t:aliasBean alias="#{objet}"
 												value="#{etablissementController.serviceSel}">
-												<%@include file="../_commun/_updateInfos.jsp"%>
+												<ui:include src="../_commun/_updateInfos.jsp"/>
 											</t:aliasBean>
 										</t:div>
-									</e:panelGrid>
+									</h:panelGrid>
 								</rich:toolTip>
 								<a4j:commandLink ajaxSingle="true" id="suppr"
 									rendered="#{not empty etablissementController.idServiceSel}"
@@ -119,7 +119,7 @@
 							rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
 								and not empty etablissementController.listeContacts}" />
-						<e:panelGrid columns="2">
+						<h:panelGrid columns="2">
 							<e:text value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
 								escape="false"
 								rendered="#{not empty etablissementController.serviceSel
@@ -134,7 +134,7 @@
 									value="../../media/images/new.png" style="border:0" />
 							</a4j:commandLink>
 							<rich:toolTip for="ajoutC" value="#{msgs['FORM.CREER']}" />
-						</e:panelGrid>
+						</h:panelGrid>
 						<rich:dataTable align="center" width="600" id="contactsDataTable"
 							rows="10" columnClasses="col" var="contact"
 							rowKeyVar="rowContact"
@@ -275,15 +275,15 @@
 											value="../../media/images/edit.png" style="border:0" />
 									</a4j:commandLink>
 									<rich:toolTip for="modifC">
-										<e:panelGrid columns="1">
+										<h:panelGrid columns="1">
 											<e:bold value="#{msgs['FORM.MODIFIER']}" />
 											<t:div rendered="#{sessionController.adminPageAuthorized}">
 												<t:htmlTag value="br" />
 												<t:aliasBean alias="#{objet}" value="#{contact}">
-													<%@include file="../_commun/_updateInfos.jsp"%>
+													<ui:include src="../_commun/_updateInfos.jsp"/>
 												</t:aliasBean>
 											</t:div>
-										</e:panelGrid>
+										</h:panelGrid>
 									</rich:toolTip>
 									<a4j:commandLink ajaxSingle="true" id="supprC"
 										rendered="#{not empty etablissementController.serviceSel
@@ -299,7 +299,7 @@
 								</t:div>
 							</rich:column>
 							<rich:column>
-								<e:panelGrid columns="2" style="font-size:12px;"
+								<h:panelGrid columns="2" style="font-size:12px;"
 									rendered="#{sessionController.adminPageAuthorized 
 							and sessionController.currentManageStructure.idAccordPartenariat>0
 							and sessionController.currentManageStructure.accordPartenariat!=null
@@ -354,7 +354,7 @@
 										<e:text value="(#{msgs['CONTACT.LOGIN']} : #{contact.login})"
 											rendered="#{not empty contact.login and not empty contact.mdp}" />
 									</t:panelGroup>
-								</e:panelGrid>
+								</h:panelGrid>
 							</rich:column>
 							<f:facet name="footer">
 								<rich:datascroller id="ds" renderIfSinglePage="false"></rich:datascroller>
@@ -362,18 +362,18 @@
 						</rich:dataTable>
 					</a4j:outputPanel>
 				</h:form>
-				<%@include file="../_commun/_panelAjoutService.jsp"%>
-				<%@include file="../_commun/_panelModifService.jsp"%>
-				<%@include file="../_commun/_panelSupprService.jsp"%>
-				<%@include file="../_commun/_panelAjoutContact.jsp"%>
-				<%@include file="../_commun/_panelModifContact.jsp"%>
-				<%@include file="../_commun/_panelSupprContact.jsp"%>
-				<%@include file="_panelCreationCompteContact.jsp"%>
-				<%@include file="_panelSupprCompteContact.jsp"%>
-				<%@include file="_panelResetMdpContact.jsp"%>
+				<ui:include src="../_commun/_panelAjoutService.jsp"/>
+				<ui:include src="../_commun/_panelModifService.jsp"/>
+				<ui:include src="../_commun/_panelSupprService.jsp"/>
+				<ui:include src="../_commun/_panelAjoutContact.jsp"/>
+				<ui:include src="../_commun/_panelModifContact.jsp"/>
+				<ui:include src="../_commun/_panelSupprContact.jsp"/>
+				<ui:include src="_panelCreationCompteContact.jsp"/>
+				<ui:include src="_panelSupprCompteContact.jsp"/>
+				<ui:include src="_panelResetMdpContact.jsp"/>
 			</rich:panel>
-			<%@include file="_panelNousContacter.jsp"%>
-		</e:panelGrid>
+			<ui:include src="_panelNousContacter.jsp"/>
+		</h:panelGrid>
 	</t:div>
 </e:page>
 

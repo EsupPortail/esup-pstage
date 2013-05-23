@@ -1,17 +1,17 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
-<e:panelGrid columns="2">
+<h:panelGrid columns="2">
 	<h:column>
 		<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 			value="../../media/images/warning_50px.png" />
 	</h:column>
 	<h:column>
-		<e:panelGrid columns="1">
+		<h:panelGrid columns="1">
 			<e:text value="#{msgs['ACCORD.SUPPRESSION.QUESTION']}" escape="false">
 				<f:param value="#{adminController.accordASupprimer.raisonSociale}"/>
 			</e:text>
-		</e:panelGrid>
-		<e:panelGrid columns="3">
+		</h:panelGrid>
+		<h:panelGrid columns="3">
 			<a4j:commandButton ajaxSingle="true"
 				action="#{adminController.supprimerAccord}"
 				value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
@@ -19,6 +19,6 @@
 			<rich:spacer width="150px" />
 			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 				onclick="#{rich:component('supprimerAccordPanel')}.hide();return false;" />
-		</e:panelGrid>
+		</h:panelGrid>
 	</h:column>
-</e:panelGrid>
+</h:panelGrid>

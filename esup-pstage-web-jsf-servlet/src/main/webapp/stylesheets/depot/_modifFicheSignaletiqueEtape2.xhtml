@@ -1,9 +1,9 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <t:div rendered="#{not empty etablissementController.formStructure}">
-	<%@include file="../_commun/_etablissementForm.jsp"%>
+	<ui:include src="../_commun/_etablissementForm.jsp"/>
 </t:div>
-<e:panelGrid columns="5">
+<h:panelGrid columns="5">
 	<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 		action="#{etablissementController.annulerModifierFicheSignaletique}"
 		alt="#{msgs['FORM.ANNULER']}" title="#{msgs['FORM.ANNULER']}"
@@ -17,7 +17,7 @@
 	</a4j:commandButton>
 	<rich:spacer width="20px" />
 	<a4j:outputPanel id="opFCE">
-		<e:panelGrid columns="3"
+		<h:panelGrid columns="3"
 			rendered="#{facesContext.maximumSeverity != null}">
 			<h:graphicImage value="../../media/images/arrow_up.png"
 				alt="#{msgs['GENERAL.ARROW_UP']}"
@@ -26,6 +26,6 @@
 			<h:graphicImage value="../../media/images/arrow_up.png"
 				alt="#{msgs['GENERAL.ARROW_UP']}"
 				title="#{msgs['GENERAL.ARROW_UP']}" />
-		</e:panelGrid>
+		</h:panelGrid>
 	</a4j:outputPanel>
-</e:panelGrid>
+</h:panelGrid>

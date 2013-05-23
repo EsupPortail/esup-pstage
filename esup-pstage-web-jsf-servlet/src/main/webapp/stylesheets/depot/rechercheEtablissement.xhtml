@@ -1,30 +1,30 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp" />
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
-	<e:panelGrid style="float:left;">
-		<%@include file="./_menu.jsp"%>
-	</e:panelGrid>
+	<h:panelGrid style="float:left;">
+		<ui:include src="./_menu.jsp" />
+	</h:panelGrid>
 	<t:div
 		rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
-		<e:panelGrid columns="1" styleClass="panelEntreprise">
+		<h:panelGrid columns="1" styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
 					<e:text value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
 				</f:facet>
 				<h:form>
-					<%@include
-						file="../_commun/_rechercheEtablissementLiensOnglets.jsp"%>
+					<ui:include
+						src="../_commun/_rechercheEtablissementLiensOnglets.jsp" />
 					<h:commandButton action="#{rechercheController.goToOngletAccord}"
 						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6']}" immediate="true" />
 				</h:form>
-				<%@include file="../_commun/_rechercheEtablissementOnglets.jsp"%>
+				<ui:include src="../_commun/_rechercheEtablissementOnglets.jsp" />
 				<t:div
 					rendered="#{not empty rechercheController.ongletCourant 
 					and rechercheController.ongletCourant==6}">
-					<e:panelGrid columns="1">
+					<h:panelGrid columns="1">
 						<h:form id="formRechEtab6">
-							<e:panelGrid columns="2">
+							<h:panelGrid columns="2">
 								<e:outputLabel for="rechRaisonSocialeAccord"
 									value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
 								<h:inputText id="rechRaisonSocialeAccord" size="50"
@@ -41,17 +41,17 @@
 									<f:selectItems value="#{rechercheController.listTypeAccord}" />
 								</h:selectOneRadio>
 								<t:panelGroup colspan="2">
-									<e:panelGrid columns="2" style="font-size:11px;">
+									<h:panelGrid columns="2" style="font-size:11px;">
 										<h:graphicImage
 											alt="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}"
 											title="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}"
 											value="../../media/images/information.png" style="border:0" />
 										<e:text
 											value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}" />
-									</e:panelGrid>
+									</h:panelGrid>
 								</t:panelGroup>
 								<t:panelGroup colspan="2">
-									<e:panelGrid columns="4">
+									<h:panelGrid columns="4">
 										<e:outputLabel for="rechDateDebut"
 											value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEDEBUT']}" />
 										<rich:calendar id="rechDateDebut"
@@ -68,45 +68,37 @@
 											datePattern="#{rechercheController.datePattern}"
 											showApplyButton="false" cellWidth="24px" cellHeight="22px"
 											style="width:200px" />
-									</e:panelGrid>
+									</h:panelGrid>
 									<rich:message for="rechDateDebut">
-										<%@include file="../_commun/_messageErrorMarker.jsp"%>
+										<ui:include src="../_commun/_messageErrorMarker.jsp" />
 									</rich:message>
 								</t:panelGroup>
-							</e:panelGrid>
+							</h:panelGrid>
 							<h:commandButton action="#{rechercheController.rechercheAccord}"
 								value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
 						</h:form>
-					</e:panelGrid>
+					</h:panelGrid>
 				</t:div>
 				<h:form id="formResultatsRechEtab">
-					<e:panelGrid columns="1">
+					<h:panelGrid columns="1">
 						<rich:message for="formResultatsRechEtab">
 							<rich:spacer height="20px" />
-							<%@include file="../_commun/_messageErrorMarker.jsp"%>
+							<ui:include src="../_commun/_messageErrorMarker.jsp" />
 						</rich:message>
 						<rich:spacer height="10px" />
 						<t:div
 							rendered="#{not empty rechercheController.ongletCourant 
 						and rechercheController.ongletCourant!=6}">
-							<%@include file="../_commun/_buttonCreationEtablissement.jsp"%>
+							<ui:include src="../_commun/_buttonCreationEtablissement.jsp" />
 						</t:div>
 						<rich:spacer height="10px" />
-					</e:panelGrid>
+					</h:panelGrid>
 					<a4j:outputPanel id="opRechercheStructureDataTable">
-						<%
-							/*<t:div
-							 style="width:500px;position:relative;margin-left:auto;margin-right:auto;"
-							 rendered="#{not empty rechercheController.resultatRechercheStructure and
-							 empty rechercheController.listeResultatsRechercheStructure}">
-							 <%@include file="_affichageRechercheEtablissement.jsp" 
-							 </t:div>*/
-						%>
 						<t:div
 							rendered="#{not empty rechercheController.listeResultatsRechercheStructure
 					and not empty rechercheController.rechercheStructurePaginator}">
-							<%@include
-								file="../_commun/_rechercheEtablissementNbResultats.jsp"%>
+							<ui:include
+								src="../_commun/_rechercheEtablissementNbResultats.jsp" />
 							<rich:dataTable id="rechercheStructureDataTable"
 								var="varRechercheStructure"
 								rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
@@ -116,20 +108,20 @@
 								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
 								<f:facet name="header">
 									<rich:columnGroup>
-										<%@include
-											file="../_commun/_rechercheEtablissementResultatsHeaders.jsp"%>
+										<ui:include
+											src="../_commun/_rechercheEtablissementResultatsHeaders.jsp" />
 									</rich:columnGroup>
 								</f:facet>
 								<f:facet name="footer">
 									<h:panelGroup>
-										<%@include
-											file="../_commun/_rechercheEtablissementResultatsPaginator.jsp"%>
+										<ui:include
+											src="../_commun/_rechercheEtablissementResultatsPaginator.jsp" />
 									</h:panelGroup>
 								</f:facet>
-								<%@include
-									file="../_commun/_rechercheEtablissementResultatsColumns.jsp"%>
-								<%@include
-									file="../_commun/_rechercheEtablissementResultatsColumnsButtons.jsp"%>
+								<ui:include
+									src="../_commun/_rechercheEtablissementResultatsColumns.jsp" />
+								<ui:include
+									src="../_commun/_rechercheEtablissementResultatsColumnsButtons.jsp" />
 								<rich:column
 									rendered="#{sessionController.adminPageAuthorized and 
 								not empty rechercheController.ongletCourant}">
@@ -193,9 +185,9 @@
 					</a4j:outputPanel>
 				</h:form>
 			</rich:panel>
-			<%@include file="_panelSupprAccord.jsp"%>
-			<%@include file="../_commun/_panelSupprStructure.jsp"%>
-			<%@include file="_panelNousContacter.jsp"%>
-		</e:panelGrid>
+			<ui:include src="_panelSupprAccord.jsp" />
+			<ui:include src="../_commun/_panelSupprStructure.jsp" />
+			<ui:include src="_panelNousContacter.jsp" />
+		</h:panelGrid>
 	</t:div>
 </e:page>

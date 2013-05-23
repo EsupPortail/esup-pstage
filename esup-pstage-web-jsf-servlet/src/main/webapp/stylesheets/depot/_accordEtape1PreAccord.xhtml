@@ -1,10 +1,10 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:text value="#{msgs['ACCORD.PREACCORD']}" />
-<e:panelGrid columns="1">
-	<%@include file="../_commun/_champsObligatoires.jsp"%>
+<h:panelGrid columns="1">
+	<ui:include src="../_commun/_champsObligatoires.jsp"/>
 	<t:panelGroup>
-		<e:panelGrid columns="1">
+		<h:panelGrid columns="1">
 			<e:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
 				for="raisonSociale" />
 			<t:panelGroup colspan="3">
@@ -17,14 +17,14 @@
 				</h:inputText>
 				<rich:spacer width="10px" />
 				<rich:message for="raisonSociale">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 				</rich:message>
 			</t:panelGroup>
-		</e:panelGrid>
+		</h:panelGrid>
 	</t:panelGroup>
 	<t:panelGroup>
 		<a4j:region renderRegionOnly="true">
-			<e:panelGrid columns="1">
+			<h:panelGrid columns="1">
 				<e:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
 					for="typeStructure" />
 				<h:selectOneMenu id="typeStructure"
@@ -38,15 +38,15 @@
 							ignoreDupResponses="true" ajaxSingle="true" />
 				</h:selectOneMenu>
 				<rich:message for="typeStructure">
-					<%@include file="../_commun/_messageErrorMarker.jsp"%>
+					<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 				</rich:message>
-				<e:panelGrid id="olSiret" columns="2">
+				<h:panelGrid id="olSiret" columns="2">
 					<e:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']}"
 						for="siret" />
 					<e:outputLabel value=" *" for="siret"
 						rendered="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)
 						&& accordController.preAccord.structure.typeStructure.siretObligatoire}" />
-				</e:panelGrid>
+				</h:panelGrid>
 				<t:panelGroup colspan="3">
 					<h:inputText id="siret" size="20" maxlength="14"
 						value="#{accordController.preAccord.structure.numeroSiret}"
@@ -60,7 +60,7 @@
 					</h:inputText>
 					<rich:spacer width="10px" />
 					<rich:message for="siret" id="rmS">
-						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 					</rich:message>
 				</t:panelGroup>
 				<e:text value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}" escape="false" />
@@ -101,13 +101,13 @@
 					</h:selectOneMenu>
 					<rich:spacer width="10px" />
 					<rich:message for="pays">
-						<%@include file="../_commun/_messageErrorMarker.jsp"%>
+						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 					</rich:message>
 				</t:panelGroup>
-			</e:panelGrid>
+			</h:panelGrid>
 		</a4j:region>
 	</t:panelGroup>
-</e:panelGrid>
+</h:panelGrid>
 <h:commandButton action="#{accordController.goToEtabTrouve}"
 	value="#{msgs['FORM.NEXT']}">
 	<f:setPropertyActionListener value="#{false}"

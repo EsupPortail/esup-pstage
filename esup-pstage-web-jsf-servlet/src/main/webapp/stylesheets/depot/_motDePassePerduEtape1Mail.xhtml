@@ -1,7 +1,7 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <h:panelGrid columns="1">
-	<%@include file="../_commun/_champsObligatoires.jsp"%>
+	<ui:include src="../_commun/_champsObligatoires.jsp"/>
 	<h:outputLabel for="mdpoMail" value="#{msgs['MOTDEPASSEPERDU.MAIL']} *" />
 	<h:inputText id="mdpoMail" size="50" maxlength="50"
 		value="#{welcomeController.mailMotDePassePerdu}" required="true"
@@ -13,7 +13,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="mdpoMail">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 	</rich:message>
 </h:panelGrid>
 <a4j:commandButton

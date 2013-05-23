@@ -1,6 +1,6 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
-<e:panelGrid columns="2"
+<h:panelGrid columns="2"
 	rendered="#{not empty centreController.centreEntreprise}">
 	<e:bold value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} : " />
 	<e:text value="#{centreController.formCentreEntreprise.nomCentre}" />
@@ -17,16 +17,16 @@
 		rendered="#{not empty centreController.formCentreEntreprise.fax}" />
 	<e:text value="#{centreController.formCentreEntreprise.fax}"
 		rendered="#{empty centreController.formCentreEntreprise.fax}" />
-</e:panelGrid>
-<e:panelGrid columns="1" style="float:right;"
+</h:panelGrid>
+<h:panelGrid columns="1" style="float:right;"
 	rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}">
 	<t:aliasBean alias="#{objet}" value="#{centreController.centreEntreprise}">
-		<%@include file="../_commun/_updateInfos.jsp"%>
+		<ui:include src="../_commun/_updateInfos.jsp"/>
 	</t:aliasBean>
-</e:panelGrid>
-<e:panelGrid rendered="#{empty centreController.centreEntreprise}">
+</h:panelGrid>
+<h:panelGrid rendered="#{empty centreController.centreEntreprise}">
 	<e:text value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NONEXISTANT']}" />
-</e:panelGrid>
+</h:panelGrid>
 <t:htmlTag value="br" />
 <rich:spacer height="10px" />
 <a4j:commandLink
@@ -44,13 +44,13 @@
 	<e:text value=" #{msgs['FORM.MODIFIER']}" />
 </a4j:commandLink>
 
-<e:panelGrid columns="2" align="center">
+<h:panelGrid columns="2" align="center">
 	<h:column>
-		<%@include file="../_commun/_confirmationImagesPermanentes.jsp"%>
+		<ui:include src="../_commun/_confirmationImagesPermanentes.jsp"/>
 	</h:column>
 	<h:column>
 		<rich:message for="formCentreEntreprise">
-			<%@include file="../_commun/_messageErrorMarker.jsp"%>
+			<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 		</rich:message>
 	</h:column>
-</e:panelGrid>
+</h:panelGrid>

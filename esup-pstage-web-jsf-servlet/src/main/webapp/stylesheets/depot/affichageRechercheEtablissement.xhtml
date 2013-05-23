@@ -1,28 +1,28 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
-	<e:panelGrid style="float:left;">
-		<%@include file="./_menu.jsp"%>
-	</e:panelGrid>
+	<h:panelGrid style="float:left;">
+		<ui:include src="./_menu.jsp"/>
+	</h:panelGrid>
 	<t:div rendered="#{sessionController.adminPageAuthorized}">
-		<e:panelGrid columns="1"
+		<h:panelGrid columns="1"
 			styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
 					<e:text value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']}" />
 				</f:facet>
 				<h:form id="formAffEtab">
-					<e:panelGrid columns="2" align="center">
+					<h:panelGrid columns="2" align="center">
 						<h:column>
-							<%@include file="../_commun/_confirmationImagesPermanentes.jsp"%>
+							<ui:include src="../_commun/_confirmationImagesPermanentes.jsp"/>
 						</h:column>
 						<h:column>
 							<rich:message for="formAffEtab">
-								<%@include file="../_commun/_messageErrorMarker.jsp"%>
+								<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 							</rich:message>
 						</h:column>
-					</e:panelGrid>
+					</h:panelGrid>
 					<a4j:outputPanel id="opAffEtab">
 						<t:div
 							rendered="#{empty rechercheController.resultatRechercheStructure}">
@@ -31,15 +31,15 @@
 						<t:div
 							rendered="#{not empty rechercheController.resultatRechercheStructure}"
 							style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-							<%@include file="_affichageRechercheEtablissement.jsp"%>
+							<ui:include src="_affichageRechercheEtablissement.jsp"/>
 						</t:div>
-						<e:panelGrid columns="1" style="float:right;"
+						<h:panelGrid columns="1" style="float:right;"
 							rendered="#{sessionController.adminPageAuthorized}">
 							<t:aliasBean alias="#{objet}"
 								value="#{rechercheController.resultatRechercheStructure}">
-								<%@include file="../_commun/_updateInfos.jsp"%>
+								<ui:include src="../_commun/_updateInfos.jsp"/>
 							</t:aliasBean>
-						</e:panelGrid>
+						</h:panelGrid>
 					</a4j:outputPanel>
 					<t:htmlTag value="br"/>
 					<rich:spacer height="20px"/>
@@ -50,10 +50,10 @@
 					</h:commandButton>
 				</h:form>
 			</rich:panel>
-			<%@include file="_panelNousContacter.jsp"%>
-			<%@include file="_panelSupprAccord.jsp"%>
-			<%@include file="../_commun/_panelSupprStructure.jsp"%>
-		</e:panelGrid>
+			<ui:include src="_panelNousContacter.jsp"/>
+			<ui:include src="_panelSupprAccord.jsp"/>
+			<ui:include src="../_commun/_panelSupprStructure.jsp"/>
+		</h:panelGrid>
 	</t:div>
 </e:page>
 

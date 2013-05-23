@@ -1,7 +1,7 @@
-<%@include file="../_include.jsp"%>
+<ui:include src="../_include.jsp"/>
 
-<e:panelGrid columns="1">
-	<%@include file="../_commun/_champsObligatoires.jsp"%>
+<h:panelGrid columns="1">
+	<ui:include src="../_commun/_champsObligatoires.jsp"/>
 	<h:outputLabel for="nomCentre" value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} *" />
 	<h:inputText id="nomCentre"
 		value="#{centreController.formCentreEntreprise.nomCentre}"
@@ -10,7 +10,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="nomCentre">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 	</rich:message>
 	<h:outputLabel for="confidentialite"
 		value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} *" />
@@ -24,7 +24,7 @@
 			value="#{nomenclatureController.confidentialitesSansConfEtab}" />
 	</h:selectOneMenu>
 	<rich:message for="confidentialite">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 	</rich:message>
 	<h:outputLabel for="telCentre" value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']}" />
 	<h:inputText id="telCentre"
@@ -34,7 +34,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="telCentre">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 	</rich:message>
 	<h:outputLabel for="faxCentre" value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']}" />
 	<h:inputText id="faxCentre"
@@ -44,9 +44,9 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="faxCentre">
-		<%@include file="../_commun/_messageErrorMarker.jsp"%>
+		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
 	</rich:message>
-</e:panelGrid>
+</h:panelGrid>
 <a4j:commandButton rendered="#{empty centreController.centreEntreprise}"
 	value="#{msgs['FORM.CREER']}"
 	action="#{centreController.ajouterCentreEntreprise}"
