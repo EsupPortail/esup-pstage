@@ -7,16 +7,16 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 	<h:panelGrid columns="1" rendered="false">
 		<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.UNRESULTAT']}" />
-		<rich:spacer height="20px" />
+		<t:htmlTag value="div" style="height: 20px;" />
 	</h:panelGrid>
 	<t:aliasBean alias="#{structure}"
 		value="#{rechercheController.resultatRechercheStructure}">
 		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 	</t:aliasBean>
-	<rich:toolBar height="26" itemSeparator="none">
+	<rich:toolbar height="26" itemSeparator="none">
 		<ui:include
 			src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
-	</rich:toolBar>
+	</rich:toolbar>
 </ui:fragment>
 
 

@@ -6,9 +6,13 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:paginator id="rechercheStructurePaginator"
-		paginator="#{rechercheController.rechercheStructurePaginator}"
-		itemsName=" "
-		onchange="javascript:{simulateLinkClick('rechercheStructureDataTable:submitPageSize');}"
-		visibleBlocks="itemsNumbers,navigation" />
+<!-- 	<h:paginator id="rechercheStructurePaginator" -->
+<!-- 		paginator="#{rechercheController.rechercheStructurePaginator}" -->
+<!-- 		itemsName=" " -->
+<!-- 		onchange="javascript:{simulateLinkClick('rechercheStructureDataTable:submitPageSize');}" -->
+<!-- 		visibleBlocks="itemsNumbers,navigation" /> -->
+
+	<rich:dataTable id="rechercheStructurePaginator"
+		var="rechercheController.rechercheStructurePaginator.liste" />
+
 </ui:fragment>

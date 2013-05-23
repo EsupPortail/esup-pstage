@@ -4,7 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:jdt="http://www.jenia.org/jsf/dataTools">
 
 <h:panelGrid columns="1"
 	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
@@ -12,7 +13,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT']}" />
 		</f:facet>
-		<rich:spacer height="20" />
+		<t:htmlTag value="div" style="height: 20px;" />
 		<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
 
 		<t:htmlTag value="br" />
@@ -40,10 +41,10 @@
 				rendered="#{conventionController.etudiantUneEtape}" />
 			<a4j:outputPanel id="ufrs">
 				<h:outputLabel for="ufr" value="#{msgs['CONVENTION.VOTREUFR']}"
-					rendered="#{conventionController.etudiantSupUneEtape && conventionController.choixEtape}" />
+					rendered="#{conventionController.etudiantSupUneEtape and conventionController.choixEtape}" />
 				<h:outputText
 					value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}"
-					rendered="#{conventionController.etudiantSupUneEtape && conventionController.choixEtape}" />
+					rendered="#{conventionController.etudiantSupUneEtape and conventionController.choixEtape}" />
 			</a4j:outputPanel>
 			<a4j:outputPanel id="elp">
 				<h:outputLabel for="elp" value="#{msgs['CONVENTION.ELP']}"
@@ -61,7 +62,7 @@
 		<h:panelGrid columns="1"
 			rendered="#{conventionController.etudiantSupUneEtape}">
 
-			<rich:spacer height="30" />
+			<t:htmlTag value="div" style="height: 30px;" />
 			<rich:dataTable align="center" width="483" id="choixEtape" rows="10"
 				columnClasses="col"
 				value="#{conventionController.listeEtapesEtudiant}" var="item">
@@ -90,7 +91,7 @@
 			<rich:message for="choixEtape">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height: 20px;" />
 
 		</h:panelGrid>
 
@@ -98,7 +99,7 @@
 			<h:panelGrid columns="1"
 				rendered="#{conventionController.etudiantSupUnElp}">
 
-				<rich:spacer height="30" />
+				<t:htmlTag value="div" style="height: 30px;" />
 				<rich:dataTable align="center" width="483" id="choixElp" rows="10"
 					columnClasses="col" value="#{conventionController.listeELPEtapes}"
 					var="item">
@@ -131,12 +132,12 @@
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
 
-				<rich:spacer height="10" />
+				<t:htmlTag value="div" style="height: 10px;" />
 
 			</h:panelGrid>
 		</a4j:outputPanel>
 		<h:panelGrid columns="1">
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height: 20px;" />
 			<h:panelGrid columns="3">
 				<h:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']} *"
 					for="mainAddress" />
@@ -144,7 +145,7 @@
 					value="#{conventionController.etudiantRef.mainAddress}" size="50"
 					required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+					<a4j:ajax event="blur" ignoreDupResponses="true" />
 				</h:inputText>
 				<rich:message for="mainAddress">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -170,7 +171,7 @@
 				<h:inputText id="pays"
 					value="#{conventionController.etudiantRef.country}" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+					<a4j:ajax event="blur" ignoreDupResponses="true" />
 				</h:inputText>
 				<rich:message for="pays">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -210,7 +211,7 @@
 
 
 			</h:panelGrid>
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height: 20px;" />
 			<rich:panel>
 				<f:facet name="header">
 					<h:outputText value="#{msgs['CONVENTION.CHOIX.AFFILSS']} *" />
@@ -226,7 +227,7 @@
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
 			</rich:panel>
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height: 20px;" />
 			<rich:panel>
 				<f:facet name="header">
 					<h:outputText value="#{msgs['CONVENTION.CHOIX.CPAM']}" />

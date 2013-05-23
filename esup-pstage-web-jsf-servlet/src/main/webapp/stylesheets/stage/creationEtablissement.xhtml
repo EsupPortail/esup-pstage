@@ -18,7 +18,7 @@
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
 				<ui:include src="../_commun/_etablissementForm.xhtml" />
-				<h:panelGrid columns="3">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3">
 					<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 						action="#{rechercheController.goToRechercheEtablissementStage}"
 						alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"

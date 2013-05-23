@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -37,8 +37,10 @@
 				target="#{etablissementController.modificationEtabBoutonAnnuler}" />
 		</h:commandButton>
 		<rich:tooltip for="modifierStructure">
-			<h:panelGrid columns="1">
-				<h:bold value="#{msgs['FORM.MODIFIER']}" />
+			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+				<t:htmlTag value="em" >
+					<h:outputText value="#{msgs['FORM.MODIFIER']}"/>
+				 </t:htmlTag>
 				<t:htmlTag value="br" />
 				<t:aliasBean alias="#{objet}" value="#{varRechercheStructure}">
 					<ui:include src="../_commun/_updateInfos.xhtml" />
@@ -60,4 +62,4 @@
 		<rich:tooltip for="supprimerStructure"
 			value="#{msgs['FORM.SUPPRIMER']}" />
 	</rich:column>
-</ui:fragment>
+</ui:composition>
