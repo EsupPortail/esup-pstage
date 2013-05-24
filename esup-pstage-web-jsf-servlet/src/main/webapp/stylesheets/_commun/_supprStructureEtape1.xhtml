@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="2">
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="2">
 		<h:column>
 			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
 				value="../../media/images/help32.png" />
@@ -20,15 +21,16 @@
 				value="../../media/images/warning_50px.png" />
 		</h:column>
 		<h:column>
-			<h:panelGrid columns="1">
+			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 				<h:outputText value="#{msgs['STRUCTURE.SUPPRESSION.QUESTION']}"
 					escape="false">
 					<f:param
 						value="#{etablissementController.formStructure.raisonSociale}" />
 				</h:outputText>
 			</h:panelGrid>
-			<h:panelGrid columns="3">
-				<a4j:commandButton ajaxSingle="true"
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="3">
+				<h:commandButton ajaxSingle="true"
 					action="#{etablissementController.supprimerEtablissement}"
 					value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
 					reRender="opRechercheStructureDataTable, opAffEtab" />
@@ -38,4 +40,4 @@
 			</h:panelGrid>
 		</h:column>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

@@ -24,7 +24,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
 		</f:facet>
-		<h:panelGrid style="font-sizh:12px;" columns="1">
+		<h:panelGrid style="font-size:12px;" columns="1">
 			<h:outputText value="#{offre.typeOffre.libelle}" />
 			<h:bold value="#{offre.contratOffre.libelle}"
 				rendered="#{not empty offre.contratOffre}" />
@@ -56,7 +56,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
 		</f:facet>
-		<h:panelGrid columns="2" style="font-sizh:12px;">
+		<h:panelGrid columns="2" style="font-size:12px;">
 			<h:graphicImage id="flag" rendered="#{not empty offre.lieuPays}"
 				value="../../media/images/flags/#{offre.lieuPays.iso2}.png"
 				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"

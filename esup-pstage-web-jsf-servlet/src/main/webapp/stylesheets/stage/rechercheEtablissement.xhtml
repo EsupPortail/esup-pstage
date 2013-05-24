@@ -8,6 +8,20 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="_definedStageTemplate.xhtml">
 	<ui:define name="content">
+		<h:outputStylesheet>
+        .even-row {
+        background-color: #FCFFFE;
+        }
+ 
+        .odd-row {
+        background-color: #ECF3FE;
+        }
+ 
+        .active-row {
+        background-color: #FFEBDA !important;
+        cursor: pointer;
+        }
+    </h:outputStylesheet>
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
@@ -39,6 +53,7 @@
 						<rich:dataTable id="rechercheStructureDataTable"
 							var="varRechercheStructure"
 							value="#{rechercheController.listeResultatsRechercheStructure}"
+							styleClass="stable"
 							border="0" cellspacing="2" cellpadding="2" style="width: 600;">
 							<!-- 							rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}" -->
 							<!-- 							value="#{rechercheController.rechercheStructurePaginator.visibleItems}" -->
@@ -54,11 +69,17 @@
 							<!-- 										src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" /> -->
 							<!-- 								</h:panelGroup> -->
 							<!-- 							</f:facet> -->
-							
-							<ui:include src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-							
-							<ui:include	src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
+
+							<ui:include
+								src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+
+							<ui:include
+								src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
 						</rich:dataTable>
+						<rich:jQuery selector=".stable tr" event="mouseover"
+							query="jQuery(this).addClass('active-row')" />
+						<rich:jQuery selector=".stable tr" event="mouseout"
+							query="jQuery(this).removeClass('active-row')" />
 					</t:div>
 				</a4j:outputPanel>
 			</h:form>

@@ -21,10 +21,10 @@
 				title="#{msgs['GENERAL.LOADING']}" styleClass="hidelink" />
 		</rich:popupPanel>
 		<a4j:region id="rDiffusionCentreOffre">
-			<h:panelGrid columns="1" style="font-sizh:12px;">
+			<h:panelGrid columns="1" style="font-size:12px;">
 				<h:panelGrid columns="1"
 					rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
-					style="font-sizh:12px;">
+					style="font-size:12px;">
 					<h:outputText
 						value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONETAB']}"
 						rendered="#{sessionController.adminPageAuthorized}" />
@@ -50,10 +50,10 @@
 						value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNCENTRE']}"
 						rendered="#{empty offreController.listesCentresGestionUniversite
 					and offreController.idCentreEtablissementSelect>0}" />
-					<h:panelGrid columns="1" style="font-sizh:12px;"
+					<h:panelGrid columns="1" style="font-size:12px;"
 						rendered="#{not empty offreController.listesCentresGestionUniversite
 				and offreController.idCentreEtablissementSelect>0}">
-						<h:panelGrid columns="1" style="font-sizh:12px;">
+						<h:panelGrid columns="1" style="font-size:12px;">
 							<h:outputText
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONCENTRE']}"
 								rendered="#{sessionController.adminPageAuthorized}" />
@@ -70,7 +70,7 @@
 									value="#{offreController.listesCentresGestionUniversite}" />
 							</h:selectManyListbox>
 						</h:panelGrid>
-						<h:panelGrid columns="8" style="font-sizh:12px;">
+						<h:panelGrid columns="8" style="font-size:12px;">
 							<a4j:commandLink id="addAll"
 								action="#{offreController.addAllCentresGestionToListeADiffuser}"
 								reRender="lCgUnivSelect">
@@ -108,7 +108,7 @@
 							<rich:tooltip for="removeAll"
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}" />
 						</h:panelGrid>
-						<h:panelGrid columns="1" style="font-sizh:12px;">
+						<h:panelGrid columns="1" style="font-size:12px;">
 							<h:outputText
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.CENTRESELECT']}"
 								rendered="#{sessionController.adminPageAuthorized}" />

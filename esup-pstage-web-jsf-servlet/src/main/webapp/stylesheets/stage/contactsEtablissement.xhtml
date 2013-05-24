@@ -17,13 +17,15 @@
 				<h:outputText
 					value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
 					rendered="#{empty sessionController.currentManageStructure}" />
-				<h:panelGrid align="center"
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" align="center"
 					rendered="#{not empty sessionController.currentManageStructure}">
 					<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
 						rendered="#{empty etablissementController.listeServices}"
 						escape="false" />
 					<a4j:outputPanel id="opService">
-						<h:panelGrid columns="2">
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="2">
 							<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
 								escape="false"
 								rendered="#{not empty etablissementController.listeServices}" />
@@ -33,15 +35,16 @@
 								valueChangeListener="#{etablissementController.valueIdServiceChanged}"
 								rendered="#{not empty etablissementController.listeServices}">
 								<f:selectItems value="#{etablissementController.servicesItems}" />
-								<a4j:support event="onblur" ignoreDupResponses="true"
+								<a4j:ajax event="blur" ignoreDupResponses="true"
 									reRender="opContactsDataTable, opActionsService"
 									ajaxSingle="true" />
-								<a4j:support event="onchange"
+								<a4j:ajax event="change"
 									reRender="opContactsDataTable, opActionsService"
 									ignoreDupResponses="true" ajaxSingle="true" />
 							</h:selectOneMenu>
 						</h:panelGrid>
-						<h:panelGrid columns="3"
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="3"
 							rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 							<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}"
 								escape="false" />
@@ -80,20 +83,22 @@
 										target="#{etablissementController.formService}" />
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 										value="../../media/images/edit.png" style="border:0" />
+									<rich:tooltip>
+										<h:panelGrid columnClasses="paginatorData-text"
+											rowClasses="paginatorData-text" columns="1">
+											<em><h:outputText value="#{msgs['FORM.MODIFIER']}" /></em>
+											<t:div
+												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+												<t:htmlTag value="br" />
+												<t:aliasBean alias="#{objet}"
+													value="#{etablissementController.serviceSel}">
+													<ui:include src="../_commun/_updateInfos.xhtml" />
+												</t:aliasBean>
+											</t:div>
+										</h:panelGrid>
+									</rich:tooltip>
 								</a4j:commandLink>
-								<rich:tooltip for="modif">
-									<h:panelGrid columns="1">
-										<h:bold value="#{msgs['FORM.MODIFIER']}" />
-										<t:div
-											rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-											<t:htmlTag value="br" />
-											<t:aliasBean alias="#{objet}"
-												value="#{etablissementController.serviceSel}">
-												<ui:include src="../_commun/_updateInfos.xhtml" />
-											</t:aliasBean>
-										</t:div>
-									</h:panelGrid>
-								</rich:tooltip>
+								<t:htmlTag value="div" style="display: inline; margin: 4px;" />
 								<a4j:commandLink ajaxSingle="true" id="suppr"
 									rendered="#{not empty etablissementController.idServiceSel}"
 									oncomplete="#{rich:component('supprService')}.show()"
@@ -105,8 +110,8 @@
 										target="#{etablissementController.formService}" />
 									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 										value="../../media/images/delete.png" style="border:0" />
+									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 								</a4j:commandLink>
-								<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 							</rich:column>
 						</rich:dataTable>
 					</a4j:outputPanel>
@@ -118,12 +123,16 @@
 								and empty etablissementController.listeContacts
 								and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
 							escape="false" />
-						<h:bold value="#{msgs['CONTACT.GESTION.CONTACTS']}"
+						<t:htmlTag value="em"
 							rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
 								and not empty etablissementController.listeContacts
-								and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}" />
-						<h:panelGrid columns="2"
+								and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+							<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTS']}" />
+						</t:htmlTag>
+
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="2"
 							rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices
 									and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
@@ -203,20 +212,27 @@
 								<h:outputText id="fonctionC" value="#{contact.fonction}" />
 							</rich:column>
 							<rich:column>
-								<h:panelGrid columns="1">
-									<h:panelGrid columns="2" style="font-sizh:12px;">
+								<h:panelGrid columnClasses="paginatorData-text"
+									rowClasses="paginatorData-text" columns="1">
+									<h:panelGrid columnClasses="paginatorData-text"
+										rowClasses="paginatorData-text" columns="2"
+										style="font-size:12px;">
 										<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
 											title="#{msgs['CONTACT.TELEPHONE']}"
 											value="../../media/images/phone.png" style="border:0" />
 										<h:outputText id="telC" value="#{contact.tel}" />
 									</h:panelGrid>
-									<h:panelGrid columns="2" style="font-sizh:12px;">
+									<h:panelGrid columnClasses="paginatorData-text"
+										rowClasses="paginatorData-text" columns="2"
+										style="font-size:12px;">
 										<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
 											title="#{msgs['CONTACT.FAX']}"
 											value="../../media/images/printer.png" style="border:0" />
 										<h:outputText id="faxC" value="#{contact.fax}" />
 									</h:panelGrid>
-									<h:panelGrid columns="2" style="font-sizh:12px;">
+									<h:panelGrid columnClasses="paginatorData-text"
+										rowClasses="paginatorData-text" columns="2"
+										style="font-size:12px;">
 										<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
 											title="#{msgs['CONTACT.MAIL']}"
 											value="../../media/images/email.png" style="border:0" />
@@ -245,8 +261,9 @@
 										value="../../media/images/edit.png" style="border:0" />
 								</a4j:commandLink>
 								<rich:tooltip for="modifC">
-									<h:panelGrid columns="1">
-										<h:bold value="#{msgs['FORM.MODIFIER']}" />
+									<h:panelGrid columnClasses="paginatorData-text"
+										rowClasses="paginatorData-text" columns="1">
+										<em><h:outputText value="#{msgs['FORM.MODIFIER']}" /></em>
 										<t:div
 											rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 											<t:htmlTag value="br" />

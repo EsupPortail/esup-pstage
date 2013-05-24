@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid align="center" columns="1">
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" align="center" columns="1">
 		<h:form>
 			<rich:toolbar height="34" itemSeparator="line"
 				rendered="#{not empty rechercheController.resultatRechercheStructure}">
@@ -46,4 +46,4 @@
 		</h:form>
 		<t:htmlTag value="div" style="height: 20px;" />
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

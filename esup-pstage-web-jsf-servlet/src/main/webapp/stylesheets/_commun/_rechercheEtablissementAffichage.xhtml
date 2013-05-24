@@ -12,8 +12,8 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.INFOS']}" />
 		</f:facet>
-		<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
-			align="center" style="font-sizh:12px;">
+		<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" cellpadding="2" cellspacing="2"
+			align="center" style="font-size:12px;">
 			<h:outputLabel for="raisonSociale"
 				value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
 			<h:outputText id="raisonSociale" value="#{structure.raisonSociale}" />
@@ -52,16 +52,18 @@
 			<h:outputText id="cedex" rendered="#{not empty structure.libCedex}"
 				value="#{structure.libCedex}" />
 			<h:outputLabel for="pays" value="#{msgs['STRUCTURE.PAYS']}" />
-			<h:panelGrid columns="2" style="font-sizh:12px;">
+			<h:panelGrid columns="2" style="font-size:12px;">
 				<h:graphicImage id="flag" rendered="#{not empty structure.pays}"
 					value="../../media/images/flags/#{structure.pays.iso2}.png"
 					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 					title="#{structure.pays.libelle}" />
 				<h:outputText id="pays" value="#{structure.pays.libelle}" />
 			</h:panelGrid>
+			
 			<t:panelGroup colspan="2">
-				<rich:separator />
+				<t:htmlTag value="div" style="height: 4px;" styleClass="spacer"/>
 			</t:panelGroup>
+			
 			<h:outputLabel for="tel" value="#{msgs['STRUCTURE.TELEPHONE']}" />
 			<h:outputText id="tel" value="#{structure.telephone}" />
 			<h:outputLabel for="fax" rendered="#{not empty structure.fax}"
@@ -81,7 +83,7 @@
 				value="#{structure.siteWeb}" target="_blank">
 				<h:outputText value="#{structure.siteWeb}" />
 			</h:outputLink>
-		</h:panelGrid>
+		</t:panelGrid>
 	</rich:panel>
 	<rich:panel
 		rendered="#{not empty structure.nafN5 
@@ -89,8 +91,8 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.ACTIVITE']}" />
 		</f:facet>
-		<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
-			alternateColors="true" align="center" style="font-sizh:12px;">
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" cellpadding="2" cellspacing="2"
+			alternateColors="true" align="center" style="font-size:12px;">
 			<h:outputLabel for="nafN5" value="#{msgs['STRUCTURE.CODE_NAF']}"
 				rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}" />
 			<h:outputText id="nafN5"
@@ -101,7 +103,7 @@
 			<h:outputText id="nafN5Lib"
 				rendered="#{not empty structure.nafN5 and not empty structure.nafN5.libelle}"
 				value="#{structure.nafN5.libelle}" />
-			<t:panelGroup colspan="2" style="font-sizh:12px;">
+			<t:panelGroup colspan="2" style="font-size:12px;">
 				<h:outputLabel for="activite"
 					value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"
 					rendered="#{not empty structure.activitePrincipale}" />

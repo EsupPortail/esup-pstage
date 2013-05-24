@@ -14,9 +14,10 @@
 			alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
 			<f:setPropertyActionListener value="#{varRechercheStructure}"
 				target="#{rechercheController.resultatRechercheStructure}" />
+			<rich:tooltip for="detailStructure"
+				value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
 		</h:commandButton>
-		<rich:tooltip for="detailStructure"
-			value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+
 	</rich:column>
 	<rich:column
 		rendered="#{(sessionController.adminPageAuthorized || welcomeController.superAdmin 
@@ -35,18 +36,20 @@
 				target="#{etablissementController.formStructure}" />
 			<f:setPropertyActionListener value="#{false}"
 				target="#{etablissementController.modificationEtabBoutonAnnuler}" />
+			<rich:tooltip>
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="1">
+					<t:htmlTag value="em">
+						<h:outputText value="#{msgs['FORM.MODIFIER']}" />
+					</t:htmlTag>
+					<t:htmlTag value="br" />
+					<t:aliasBean alias="#{objet}" value="#{varRechercheStructure}">
+						<ui:include src="../_commun/_updateInfos.xhtml" />
+					</t:aliasBean>
+				</h:panelGrid>
+			</rich:tooltip>
 		</h:commandButton>
-		<rich:tooltip for="modifierStructure">
-			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
-				<t:htmlTag value="em" >
-					<h:outputText value="#{msgs['FORM.MODIFIER']}"/>
-				 </t:htmlTag>
-				<t:htmlTag value="br" />
-				<t:aliasBean alias="#{objet}" value="#{varRechercheStructure}">
-					<ui:include src="../_commun/_updateInfos.xhtml" />
-				</t:aliasBean>
-			</h:panelGrid>
-		</rich:tooltip>
+		
 		<a4j:commandLink ajaxSingle="true" id="supprimerStructure"
 			oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
 			reRender="supprimerStructurePanel"
@@ -58,8 +61,9 @@
 				value="../../media/images/delete.png" style="border:0" />
 			<f:setPropertyActionListener value="#{varRechercheStructure}"
 				target="#{etablissementController.formStructure}" />
+			<rich:tooltip for="supprimerStructure"
+				value="#{msgs['FORM.SUPPRIMER']}" />
 		</a4j:commandLink>
-		<rich:tooltip for="supprimerStructure"
-			value="#{msgs['FORM.SUPPRIMER']}" />
+
 	</rich:column>
 </ui:composition>
