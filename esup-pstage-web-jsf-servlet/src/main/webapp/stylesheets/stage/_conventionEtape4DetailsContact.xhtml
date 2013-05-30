@@ -7,7 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:panelGrid columns="1"
-		rendered="#{not empty conventionController.convention.contact && conventionController.convention.contact.id > 0}">
+		rendered="#{not empty conventionController.convention.contact and conventionController.convention.contact.id > 0}">
 		<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
 			escape="false" />
 		<rich:spacer width="50px" />

@@ -1,8 +1,8 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 <h:panelGrid columns="1" style="float:right;">
-	<e:text value="#{msgs['FORM.VOTRESAISIE']}" escape="false" />
-	<e:text value="#{accordController.preAccord.structure.raisonSociale}" />
-	<e:text value="#{accordController.preAccord.structure.numeroSiret}"
+	<h:outputText value="#{msgs['FORM.VOTRESAISIE']}" escape="false" />
+	<h:outputText value="#{accordController.preAccord.structure.raisonSociale}" />
+	<h:outputText value="#{accordController.preAccord.structure.numeroSiret}"
 		rendered="#{not empty accordController.preAccord.structure.numeroSiret}" />
 	<h:panelGrid columns="2"
 		rendered="#{not empty accordController.preAccord.structure.pays}">
@@ -10,15 +10,15 @@
 			value="../../media/images/flags/#{accordController.preAccord.structure.pays.iso2}.png"
 			alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 			title="#{accordController.preAccord.structure.pays.libelle}" />
-		<e:text value="#{accordController.preAccord.structure.pays.libelle}" />
+		<h:outputText value="#{accordController.preAccord.structure.pays.libelle}" />
 	</h:panelGrid>
 </h:panelGrid>
 <rich:spacer height="30px" />
 <t:htmlTag value="br" />
-<e:text value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCE']}"
+<h:outputText value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCE']}"
 	escape="false"
 	rendered="#{empty accordController.listeStructureExistante}" />
-<e:text value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCES']}"
+<h:outputText value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCES']}"
 	escape="false"
 	rendered="#{not empty accordController.listeStructureExistante}" />
 <t:htmlTag value="br" />
@@ -65,22 +65,22 @@
 		</rich:columnGroup>
 	</f:facet>
 	<rich:column>
-		<e:text value="#{structureExistante.raisonSociale}" />
+		<h:outputText value="#{structureExistante.raisonSociale}" />
 	</rich:column>
 	<rich:column>
-		<e:text value="#{structureExistante.numeroSiret}" />
+		<h:outputText value="#{structureExistante.numeroSiret}" />
 	</rich:column>
 	<rich:column>
-		<e:text value="#{structureExistante.batimentResidence}" />
+		<h:outputText value="#{structureExistante.batimentResidence}" />
 	</rich:column>
 	<rich:column>
-		<e:text value="#{structureExistante.voie}" />
+		<h:outputText value="#{structureExistante.voie}" />
 	</rich:column>
 	<rich:column>
-		<e:text value="#{structureExistante.codePostal}" />
+		<h:outputText value="#{structureExistante.codePostal}" />
 	</rich:column>
 	<rich:column>
-		<e:text value="#{structureExistante.commune}" />
+		<h:outputText value="#{structureExistante.commune}" />
 	</rich:column>
 	<rich:column>
 		<h:panelGrid columns="2">
@@ -89,7 +89,7 @@
 				value="../../media/images/flags/#{structureExistante.pays.iso2}.png"
 				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 				title="#{structureExistante.pays.libelle}" />
-			<e:text value="#{structureExistante.pays.libelle}" />
+			<h:outputText value="#{structureExistante.pays.libelle}" />
 		</h:panelGrid>
 	</rich:column>
 	<rich:column>
@@ -100,7 +100,7 @@
 			<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
 				value="../../media/images/zoom.png" style="border:0" />
 		</a4j:commandLink>
-		<rich:toolTip for="selectionStructure" followMouse="true"
+		<rich:tooltip for="selectionStructure" followMouse="true"
 			direction="top-right" styleClass="tooltip"
 			value="#{msgs['FORM.SELECTIONNER']}" />
 	</rich:column>
@@ -116,12 +116,12 @@
 			style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 			<t:aliasBean alias="#{structure}"
 				value="#{accordController.structureExistante}">
-				<ui:include src="../_commun/_rechercheEtablissementAffichage.jsp"/>
+				<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml"/>
 			</t:aliasBean>
 		</t:div>
 		<t:panelGroup colspan="2"
 			style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-			<e:text value="#{msgs['ACCORD.MODIFICATION']}" escape="false" />
+			<h:outputText value="#{msgs['ACCORD.MODIFICATION']}" escape="false" />
 		</t:panelGroup>
 		<t:panelGroup colspan="2"
 			rendered="#{not empty accordController.listeStructureExistante}">
@@ -131,12 +131,12 @@
 					target="#{accordController.structureExistante}" />
 				<h:graphicImage alt="#{msgs['FORM.DESELECTIONNER']}"
 					value="../../media/images/cancel.png" style="border:0" />
-				<e:text value="#{msgs['FORM.DESELECTIONNER']}" />
+				<h:outputText value="#{msgs['FORM.DESELECTIONNER']}" />
 			</a4j:commandLink>
 		</t:panelGroup>
 		<rich:spacer height="20px" />
 		<h:panelGrid columns="1" align="center">
-			<e:text value="#{msgs['ACCORD.ETABTROUVE_QUESTION']}" />
+			<h:outputText value="#{msgs['ACCORD.ETABTROUVE_QUESTION']}" />
 			<h:panelGrid columns="2">
 				<a4j:commandButton action="#{accordController.goToFormulaireAccord}"
 					value="#{msgs['FORM.OUI']}">
@@ -147,7 +147,7 @@
 						target="#{accordController.structureDejaExistante}" />
 				</a4j:commandButton>
 				<a4j:commandButton action="#{accordController.goToFormulaireAccord}"
-					rendered="#{accordController.accord.structure.pays!=beanUtils.france && accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
+					rendered="#{accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
 					value="#{msgs['FORM.NON']}">
 					<f:setPropertyActionListener value="#{null}"
 						target="#{accordController.structureExistante}" />
@@ -172,10 +172,10 @@
 	<t:div
 		rendered="#{not empty accordController.listeStructureExistante and empty accordController.structureExistante}">
 		<h:panelGrid align="center" columns="1">
-			<e:text value="#{msgs['ACCORD.ETABTROUVE_NONCORRESPONDANT']}" />
+			<h:outputText value="#{msgs['ACCORD.ETABTROUVE_NONCORRESPONDANT']}" />
 			<a4j:commandButton action="#{accordController.goToFormulaireAccord}"
 				ignoreDupResponses="true"
-				rendered="#{accordController.accord.structure.pays!=beanUtils.france && accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
+				rendered="#{accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
 				value="#{msgs['FORM.NEXT']}">
 				<f:setPropertyActionListener value="#{false}"
 					target="#{accordController.structureDejaExistante}" />

@@ -29,7 +29,7 @@
 						<h:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
 							action="#{conventionController.goToConventionModifStage}"
 							alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-							rendered="#{(not empty conventionController.convention && !conventionController.conventionValide)&& (welcomeController.superAdmin 
+							rendered="#{(not empty conventionController.convention and !conventionController.conventionValide)and (welcomeController.superAdmin 
 									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture || welcomeController.etudiant)}">
 						</h:commandButton>

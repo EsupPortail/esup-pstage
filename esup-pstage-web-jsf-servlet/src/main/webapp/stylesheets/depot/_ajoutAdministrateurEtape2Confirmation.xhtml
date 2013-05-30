@@ -1,11 +1,11 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <h:panelGrid columns="2" align="center">
 	<h:graphicImage alt="#{msgs['GENERAL.OK']}"
 		title="#{msgs['GENERAL.OK']}"
 		value="../../media/images/valid.png" style="border:0" />
 	<rich:messages>
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:messages>
 </h:panelGrid>
 <a4j:commandButton value="#{msgs['GENERAL.CLOSE']}" action="_ajoutAdministrateurEtape1"

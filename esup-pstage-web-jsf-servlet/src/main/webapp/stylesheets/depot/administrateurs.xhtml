@@ -1,24 +1,24 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.jsp"/>
+		<ui:include src="./_menu.xhtml"/>
 	</h:panelGrid>
 	<t:div rendered="#{sessionController.adminPageAuthorized}">
 		<h:panelGrid columns="1"
 			styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
-					<e:text value="Administrateurs" />
+					<h:outputText value="Administrateurs" />
 				</f:facet>
 				<h:form>
 					<h:panelGrid columns="1">
 						<a4j:outputPanel id="opAdminDataTable">
-							<e:text value="#{msgs['ADMINSTRUCTURE.VIDE']}"
+							<h:outputText value="#{msgs['ADMINSTRUCTURE.VIDE']}"
 								rendered="#{empty adminController.listeAdminStructure}" />
 							<h:panelGrid columns="3">
-								<e:text value="#{msgs['ADMINSTRUCTURE.CREER']}" escape="false" />
+								<h:outputText value="#{msgs['ADMINSTRUCTURE.CREER']}" escape="false" />
 								<a4j:commandLink ajaxSingle="true" id="ajAdmin"
 									action="#{adminController.beforeAjouterAdministrateur}"
 									oncomplete="#{rich:component('ajoutAdministrateur')}.show()">
@@ -28,7 +28,7 @@
 										title="#{msgs['FORM.CREER']}"
 										value="../../media/images/new.png" style="border:0" />
 								</a4j:commandLink>
-								<rich:toolTip for="ajAdmin" value="#{msgs['FORM.CREER']}" />
+								<rich:tooltip for="ajAdmin" value="#{msgs['FORM.CREER']}" />
 							</h:panelGrid>
 							<rich:dataTable align="center" width="600" id="adminDataTable"
 								rows="10" columnClasses="col" var="admin" rowKeyVar="rowAdmin"
@@ -61,29 +61,29 @@
 									</rich:columnGroup>
 								</f:facet>
 								<rich:column>
-									<e:text id="nomAd" value="#{admin.nom}" />
+									<h:outputText id="nomAd" value="#{admin.nom}" />
 								</rich:column>
 								<rich:column>
-									<e:text id="prenomAd" value="#{admin.prenom}" />
+									<h:outputText id="prenomAd" value="#{admin.prenom}" />
 								</rich:column>
 								<rich:column>
-									<e:text id="mailAd" value="#{admin.mail}" />
+									<h:outputText id="mailAd" value="#{admin.mail}" />
 								</rich:column>
 								<rich:column>
 									<h:panelGrid id="loginAd" style="font-size:12px;">
-										<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
+										<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
 											rendered="#{not empty admin.login and not empty admin.mdp and empty admin.eppn}" />
-										<e:text
+										<h:outputText
 											value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{admin.login}"
 											rendered="#{not empty admin.login and not empty admin.mdp and empty admin.eppn}" />
-										<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
+										<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
 											rendered="#{not empty admin.login and empty admin.mdp and empty admin.eppn}" />
-										<e:text
+										<h:outputText
 											value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{admin.login}"
 											rendered="#{not empty admin.login and empty admin.mdp and empty admin.eppn}" />
-										<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
+										<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
 											rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
-										<e:text value="#{msgs['ADMINSTRUCTURE.EPPN']} : #{admin.eppn}"
+										<h:outputText value="#{msgs['ADMINSTRUCTURE.EPPN']} : #{admin.eppn}"
 											rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
 									</h:panelGrid>
 								</rich:column>
@@ -98,16 +98,16 @@
 										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 											value="../../media/images/edit.png" style="border:0" />
 									</a4j:commandLink>
-									<rich:toolTip for="modif">
+									<rich:tooltip for="modif">
 										<h:panelGrid columns="1">
 											<e:bold value="#{msgs['FORM.MODIFIER']}"/>
 											<t:htmlTag value="br"/>
 											<t:aliasBean alias="#{objet}"
 												value="#{admin}">
-												<ui:include src="../_commun/_updateInfos.jsp"/>
+												<ui:include src="../_commun/_updateInfos.xhtml"/>
 											</t:aliasBean>
 										</h:panelGrid>
-									</rich:toolTip>
+									</rich:tooltip>
 									<a4j:commandLink ajaxSingle="true" id="suppr"
 										oncomplete="#{rich:component('supprAdministrateur')}.show()">
 										<f:setPropertyActionListener value="#{admin}"
@@ -117,7 +117,7 @@
 										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 											value="../../media/images/delete.png" style="border:0" />
 									</a4j:commandLink>
-									<rich:toolTip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+									<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 								</rich:column>
 								<f:facet name="footer">
 									<rich:datascroller align="center" for="adminDataTable"
@@ -128,10 +128,10 @@
 					</h:panelGrid>
 				</h:form>
 			</rich:panel>
-			<ui:include src="_panelNousContacter.jsp"/>
+			<ui:include src="_panelNousContacter.xhtml"/>
 		</h:panelGrid>
-		<ui:include src="_panelAjoutAdministrateur.jsp"/>
-		<ui:include src="_panelModifAdministrateur.jsp"/>
-		<ui:include src="_panelSupprAdministrateur.jsp"/>
+		<ui:include src="_panelAjoutAdministrateur.xhtml"/>
+		<ui:include src="_panelModifAdministrateur.xhtml"/>
+		<ui:include src="_panelSupprAdministrateur.xhtml"/>
 	</t:div>
 </e:page>

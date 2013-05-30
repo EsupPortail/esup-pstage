@@ -1,4 +1,4 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 <a4j:commandButton action="_validationAccordEtape1FormulaireAccord"
 	ignoreDupResponses="true" value="#{msgs['FORM.PREVIOUS']}"
 	immediate="true">
@@ -11,7 +11,7 @@
 	<h:panelGrid columns="2" style="font-size:12px;">
 		<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
 			value="../../media/images/help32.png" />
-		<e:text value="#{msgs['ACCORD.VALIDATION.AIDE']}" escape="false" />
+		<h:outputText value="#{msgs['ACCORD.VALIDATION.AIDE']}" escape="false" />
 	</h:panelGrid>
 	<h:panelGrid columns="3">
 		<a4j:commandButton action="#{adminController.validationAccord}"

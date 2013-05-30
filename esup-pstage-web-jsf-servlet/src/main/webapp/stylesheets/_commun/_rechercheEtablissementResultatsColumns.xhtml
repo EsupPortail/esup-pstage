@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -11,9 +11,9 @@
 			title="#{varRechercheStructure.raisonSociale}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
-		<h:graphicImage id="avecAc" alt="°"
+		<h:graphicImage id="avecAc" alt=""
 			value="../../media/images/bullet_green.png" style="border:0"
-			rendered="#{varRechercheStructure.idAccordPartenariat>0 && !welcomeController.etudiant}" />
+			rendered="#{varRechercheStructure.idAccordPartenariat>0 and !welcomeController.etudiant}" />
 		<rich:tooltip value="#{msgs['STRUCTURE.AVECACCORD']}" for="avecAc" />
 	</rich:column>
 	<rich:column>
@@ -41,7 +41,8 @@
 		</h:outputText>
 	</rich:column>
 	<rich:column>
-		<h:panelGrid columns="2" style="font-sizh:12px;">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2" style="font-size:12px;">
 			<h:graphicImage id="flag"
 				rendered="#{not empty varRechercheStructure.pays}"
 				value="../../media/images/flags/#{varRechercheStructure.pays.iso2}.png"
@@ -50,4 +51,4 @@
 			<h:outputText value="#{varRechercheStructure.pays.libelle}" />
 		</h:panelGrid>
 	</rich:column>
-</ui:fragment>
+</ui:composition>

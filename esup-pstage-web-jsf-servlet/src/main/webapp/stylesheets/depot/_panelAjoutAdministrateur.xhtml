@@ -1,10 +1,10 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 <rich:modalPanel id="ajoutAdministrateur" autosized="true" width="400"
 	styleClass="panel" domElementAttachment="parent">
 	<f:facet name="header">
 		<h:outputText value="#{msgs['ADMINSTRUCTURE.AJOUT']}" />
 	</f:facet>
 	<h:form id="formAdminStructure">
-		<a4j:include id="include" viewId="/stylesheets/depot/_ajoutAdministrateurEtape1.jsp"/>
+		<a4j:include id="include" viewId="/stylesheets/depot/_ajoutAdministrateurEtape1.xhtml"/>
 	</h:form>
 </rich:modalPanel>

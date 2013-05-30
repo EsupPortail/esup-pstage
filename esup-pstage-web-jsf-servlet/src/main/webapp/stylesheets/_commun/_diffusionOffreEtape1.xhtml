@@ -106,7 +106,7 @@
 							 <h:commandButton action="#{offreController.diffuserOffre1An}"
 							 value="#{msgs['FORM.DIFFUSER1AN']}" ignoreDupResponses="true" />
 							 </h:panelGrid>
-							 <h:panelGrid rendered="#{!sessionController.adminPageAuthorized && !welcomeController.superAdmin && !welcomeController.admin && !welcomeController.writer}">
+							 <h:panelGrid rendered="#{!sessionController.adminPageAuthorized and !welcomeController.superAdmin and !welcomeController.admin and !welcomeController.writer}">
 							 </h:panelGrid>
 							 <rich:spacer width="150px" />
 							 <h:commandButton value="#{msgs['FORM.ANNULER']}"

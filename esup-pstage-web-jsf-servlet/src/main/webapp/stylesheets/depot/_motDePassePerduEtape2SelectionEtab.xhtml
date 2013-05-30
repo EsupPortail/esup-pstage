@@ -1,136 +1,141 @@
-<ui:include src="../_include.jsp"/>
-
-<h:panelGrid columns="1" style="font-size:12px;">
-	<e:text value="#{msgs['MOTDEPASSEPERDU.CHOIXETAB']}"
-		rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"/>
-	<rich:dataTable align="center" width="700px"
-		id="listeStructuresTrouveeMotDePassePerdu" rows="5"
-		rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"
-		columnClasses="col"
-		value="#{welcomeController.listeStructuresTrouveeMotDePassePerdu}"
-		var="structure" 
-		onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">>
-		<f:facet name="header">
-			<rich:columnGroup>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.NUM_SIRET']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.VOIE']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.COMMUNE']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.PAYS']}" />
-				</rich:column>
-				<rich:column>
-				</rich:column>
-			</rich:columnGroup>
-		</f:facet>
-		<rich:column>
-			<e:text value="#{structure.raisonSociale}" />
-		</rich:column>
-		<rich:column>
-			<e:text value="#{structure.numeroSiret}" />
-		</rich:column>
-		<rich:column>
-			<e:text value="#{structure.batimentResidence}" />
-		</rich:column>
-		<rich:column>
-			<e:text value="#{structure.voie}" />
-		</rich:column>
-		<rich:column>
-			<e:text value="#{structure.codePostal}" />
-		</rich:column>
-		<rich:column>
-			<e:text value="#{structure.commune}" />
-		</rich:column>
-		<rich:column>
-			<h:panelGrid columns="2" style="font-size:12px;">
-				<h:graphicImage id="flag" rendered="#{not empty structure.pays}"
-					value="../../media/images/flags/#{structure.pays.iso2}.png"
-					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-					title="#{structure.pays.libelle}" />
-				<e:text value="#{structure.pays.libelle}" />
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:panelGrid columns="1" style="font-size:12px;">
+		<h:outputText value="#{msgs['MOTDEPASSEPERDU.CHOIXETAB']}"
+			rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}" />
+		<rich:dataTable align="center" width="700px"
+			id="listeStructuresTrouveeMotDePassePerdu" rows="5"
+			rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"
+			columnClasses="col"
+			value="#{welcomeController.listeStructuresTrouveeMotDePassePerdu}"
+			var="structure" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column>
+						<h:outputText styleClass="headerText"
+							value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText styleClass="headerText"
+							value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText styleClass="headerText"
+							value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText styleClass="headerText"
+							value="#{msgs['STRUCTURE.VOIE']}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText styleClass="headerText"
+							value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText styleClass="headerText"
+							value="#{msgs['STRUCTURE.COMMUNE']}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText styleClass="headerText"
+							value="#{msgs['STRUCTURE.PAYS']}" />
+					</rich:column>
+					<rich:column>
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<h:outputText value="#{structure.raisonSociale}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="#{structure.numeroSiret}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="#{structure.batimentResidence}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="#{structure.voie}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="#{structure.codePostal}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="#{structure.commune}" />
+			</rich:column>
+			<rich:column>
+				<h:panelGrid columns="2" style="font-size:12px;">
+					<h:graphicImage id="flag" rendered="#{not empty structure.pays}"
+						value="../../media/images/flags/#{structure.pays.iso2}.png"
+						alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+						title="#{structure.pays.libelle}" />
+					<h:outputText value="#{structure.pays.libelle}" />
+				</h:panelGrid>
+			</rich:column>
+			<rich:column>
+				<a4j:commandLink id="selectionStructure"
+					reRender="structureSelected">
+					<f:setPropertyActionListener value="#{structure}"
+						target="#{welcomeController.structureSelectionneeMotDePassePerdu}" />
+					<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
+						value="../../media/images/zoom.png" style="border:0" />
+				</a4j:commandLink>
+				<rich:tooltip for="selectionStructure" followMouse="true"
+					direction="top-right" styleClass="tooltip"
+					value="#{msgs['FORM.SELECTIONNER']}" />
+			</rich:column>
+			<f:facet name="footer">
+				<rich:datascroller align="center"
+					for="listeStructuresTrouveeMotDePassePerdu" maxPages="20" page="1"
+					renderIfSinglePage="false" />
+			</f:facet>
+		</rich:dataTable>
+	</h:panelGrid>
+	<rich:spacer height="20px" />
+	<a4j:outputPanel id="structureSelected">
+		<t:div
+			rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu}">
+			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+				alternateColors="true" align="center">
+				<h:outputLabel for="raisonSociale"
+					value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+				<h:outputText id="raisonSociale"
+					value="#{welcomeController.structureSelectionneeMotDePassePerdu.raisonSociale}" />
+				<h:outputLabel for="nsiret" value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+				<h:outputText id="nsiret"
+					value="#{welcomeController.structureSelectionneeMotDePassePerdu.numeroSiret}" />
+				<h:outputLabel for="batimentResidence"
+					value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+				<h:outputText id="batimentResidence"
+					value="#{welcomeController.structureSelectionneeMotDePassePerdu.batimentResidence}" />
+				<h:outputLabel for="voie" value="#{msgs['STRUCTURE.VOIE']}" />
+				<h:outputText id="voie"
+					value="#{welcomeController.structureSelectionneeMotDePassePerdu.voie}" />
+				<h:outputLabel for="codepostal"
+					value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+				<h:outputText id="codepostal"
+					value="#{welcomeController.structureSelectionneeMotDePassePerdu.codePostal}" />
+				<h:outputLabel for="commune" value="#{msgs['STRUCTURE.COMMUNE']}" />
+				<h:outputText id="commune"
+					value="#{welcomeController.structureSelectionneeMotDePassePerdu.commune}" />
+				<h:outputLabel for="pays" value="#{msgs['STRUCTURE.PAYS']}" />
+				<h:panelGrid columns="2">
+					<h:graphicImage id="flag"
+						rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu.pays}"
+						value="../../media/images/flags/#{welcomeController.structureSelectionneeMotDePassePerdu.pays.iso2}.png"
+						alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+						title="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
+					<h:outputText id="pays"
+						value="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
+				</h:panelGrid>
+				<rich:spacer height="40px" />
+				<a4j:commandButton
+					action="#{welcomeController.goToRecuperationMotDePasse}"
+					value="#{msgs['FORM.NEXT']}" />
 			</h:panelGrid>
-		</rich:column>
-		<rich:column>
-			<a4j:commandLink id="selectionStructure" reRender="structureSelected">
-				<f:setPropertyActionListener value="#{structure}"
-					target="#{welcomeController.structureSelectionneeMotDePassePerdu}" />
-				<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
-					value="../../media/images/zoom.png" style="border:0" />
-			</a4j:commandLink>
-			<rich:toolTip for="selectionStructure" followMouse="true"
-				direction="top-right" styleClass="tooltip"
-				value="#{msgs['FORM.SELECTIONNER']}" />
-		</rich:column>
-		<f:facet name="footer">
-			<rich:datascroller align="center"
-				for="listeStructuresTrouveeMotDePassePerdu" maxPages="20" page="1"
-				renderIfSinglePage="false" />
-		</f:facet>
-	</rich:dataTable>
-</h:panelGrid>
-<rich:spacer height="20px" />
-<a4j:outputPanel id="structureSelected">
-	<t:div
-		rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu}">
-		<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
-			alternateColors="true" align="center">
-			<e:outputLabel for="raisonSociale"
-				value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
-			<e:text id="raisonSociale"
-				value="#{welcomeController.structureSelectionneeMotDePassePerdu.raisonSociale}" />
-			<e:outputLabel for="nsiret" value="#{msgs['STRUCTURE.NUM_SIRET']}" />
-			<e:text id="nsiret"
-				value="#{welcomeController.structureSelectionneeMotDePassePerdu.numeroSiret}" />
-			<e:outputLabel for="batimentResidence"
-				value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-			<e:text id="batimentResidence"
-				value="#{welcomeController.structureSelectionneeMotDePassePerdu.batimentResidence}" />
-			<e:outputLabel for="voie" value="#{msgs['STRUCTURE.VOIE']}" />
-			<e:text id="voie"
-				value="#{welcomeController.structureSelectionneeMotDePassePerdu.voie}" />
-			<e:outputLabel for="codepostal"
-				value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-			<e:text id="codepostal"
-				value="#{welcomeController.structureSelectionneeMotDePassePerdu.codePostal}" />
-			<e:outputLabel for="commune" value="#{msgs['STRUCTURE.COMMUNE']}" />
-			<e:text id="commune"
-				value="#{welcomeController.structureSelectionneeMotDePassePerdu.commune}" />
-			<e:outputLabel for="pays" value="#{msgs['STRUCTURE.PAYS']}" />
-			<h:panelGrid columns="2">
-				<h:graphicImage id="flag"
-					rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu.pays}"
-					value="../../media/images/flags/#{welcomeController.structureSelectionneeMotDePassePerdu.pays.iso2}.png"
-					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-					title="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
-				<e:text id="pays"
-					value="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
-			</h:panelGrid>
-			<rich:spacer height="40px"/>
-			<a4j:commandButton
-				action="#{welcomeController.goToRecuperationMotDePasse}"
-				value="#{msgs['FORM.NEXT']}" />
-		</h:panelGrid>
-	</t:div>
-</a4j:outputPanel>
+		</t:div>
+	</a4j:outputPanel>
+</ui:composition>

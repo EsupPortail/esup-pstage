@@ -32,7 +32,7 @@
 		<h:panelGrid columns="3">
 			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
 			<a4j:commandLink ajaxSingle="true" id="ajout"
-				rendered="#{not empty etablissementController.idServiceSel && !conventionController.conventionValide}"
+				rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}"
 				oncomplete="#{rich:component('ajoutService')}.show()"
 				action="#{etablissementController.ajoutService}"
 				reRender="ajoutService">
@@ -56,13 +56,13 @@
 			<ui:include src="../_commun/_serviceColumns.xhtml" />
 			<rich:column>
 				<a4j:commandLink ajaxSingle="true" id="modif"
-					rendered="#{not empty etablissementController.idServiceSel && !conventionController.conventionValide
-						&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
+						and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
 						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-						|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+						|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
 						(!sessionController.autoriserEtudiantAModifierEntreprise 
-						&& ((empty etablissementController.serviceSel.loginModif &&
+						and ((empty etablissementController.serviceSel.loginModif and
 						etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
 						|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
 					oncomplete="#{rich:component('modifService')}.show()"
@@ -84,7 +84,7 @@
 			<rich:column>
 
 				<a4j:commandLink ajaxSingle="true" id="selectionService"
-					rendered="#{not empty etablissementController.idServiceSel && !conventionController.conventionValide}"
+					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}"
 					oncomplete="#{rich:component('demandeConfirmModifService')}.show()"
 					reRender="opActionsService">
 					<f:setPropertyActionListener

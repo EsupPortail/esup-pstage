@@ -35,11 +35,11 @@
 		<a4j:region renderRegionOnly="true">
 			<h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN']}"
 				for="avecFichierOuLien"
-				rendered="#{!(sessionController.adminPageAuthorized || (welcomeController.superAdmin && !sessionController.adminPageAuthorized) 
+				rendered="#{!(sessionController.adminPageAuthorized || (welcomeController.superAdmin and !sessionController.adminPageAuthorized) 
 			|| welcomeController.admin || welcomeController.writer)}" />
 			<h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN.ADMIN']}"
 				for="avecFichierOuLien"
-				rendered="#{sessionController.adminPageAuthorized || (welcomeController.superAdmin && !sessionController.adminPageAuthorized) 
+				rendered="#{sessionController.adminPageAuthorized || (welcomeController.superAdmin and !sessionController.adminPageAuthorized) 
 			|| welcomeController.admin || welcomeController.writer}" />
 			<h:selectOneRadio id="avecFichierOuLien"
 				value="#{offreController.avecFichierOuLien}">

@@ -1,18 +1,18 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.jsp"/>
+		<ui:include src="./_menu.xhtml"/>
 	</h:panelGrid>
 	<h:panelGrid columns="1"
 		styleClass="panelEntreprise">
 		<rich:panel>
 			<f:facet name="header">
-				<e:text value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+				<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
 			</f:facet>
 			<h:form id="formRechOffre">
-				<ui:include src="../_commun/_rechercheOffre.jsp"/>
+				<ui:include src="../_commun/_rechercheOffre.xhtml"/>
 				<h:panelGrid columns="5">
 					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
 						action="#{offreController.rechercherOffre}" />
@@ -29,9 +29,9 @@
 				</h:panelGrid>
 			</h:form>
 			<rich:message for="formRechOffre" style="color:red;font-weight:bold;">
-				<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+				<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 			</rich:message>
 		</rich:panel>
-		<ui:include src="_panelNousContacter.jsp"/>
+		<ui:include src="_panelNousContacter.xhtml"/>
 	</h:panelGrid>
 </e:page>

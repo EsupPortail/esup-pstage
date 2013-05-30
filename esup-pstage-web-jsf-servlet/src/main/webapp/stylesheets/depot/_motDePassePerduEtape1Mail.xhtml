@@ -1,21 +1,27 @@
-<ui:include src="../_include.jsp"/>
-
-<h:panelGrid columns="1">
-	<ui:include src="../_commun/_champsObligatoires.jsp"/>
-	<h:outputLabel for="mdpoMail" value="#{msgs['MOTDEPASSEPERDU.MAIL']} *" />
-	<h:inputText id="mdpoMail" size="50" maxlength="50"
-		value="#{welcomeController.mailMotDePassePerdu}" required="true"
-		requiredMessage="#{requiredMessageController.champObligatoire}"
-		validatorMessage="#{requiredMessageController.adresseMailNonValide}"
-		styleClass="text">
-		<f:validator binding="#{mailValidator}" />
-		<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
-		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
-	</h:inputText>
-	<rich:message for="mdpoMail">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
-	</rich:message>
-</h:panelGrid>
-<a4j:commandButton
-	action="#{welcomeController.goToMotDePassePerduEtabTrouve}"
-	value="#{msgs['FORM.NEXT']}" />
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:panelGrid columns="1">
+		<ui:include src="../_commun/_champsObligatoires.xhtml" />
+		<h:outputLabel for="mdpoMail"
+			value="#{msgs['MOTDEPASSEPERDU.MAIL']} *" />
+		<h:inputText id="mdpoMail" size="50" maxlength="50"
+			value="#{welcomeController.mailMotDePassePerdu}" required="true"
+			requiredMessage="#{requiredMessageController.champObligatoire}"
+			validatorMessage="#{requiredMessageController.adresseMailNonValide}"
+			styleClass="text">
+			<f:validator binding="#{mailValidator}" />
+<!-- 			<a4j:ajax event="onkeyup" ignoreDupResponses="true" /> -->
+			<a4j:ajax event="blur"/>
+		</h:inputText>
+		<rich:message for="mdpoMail">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
+	</h:panelGrid>
+	<a4j:commandButton
+		action="#{welcomeController.goToMotDePassePerduEtabTrouve}"
+		value="#{msgs['FORM.NEXT']}" />
+</ui:composition>

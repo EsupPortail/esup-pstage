@@ -1,7 +1,7 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <t:div rendered="#{not empty etablissementController.formStructure}">
-	<ui:include src="../_commun/_etablissementForm.jsp"/>
+	<ui:include src="../_commun/_etablissementForm.xhtml"/>
 </t:div>
 <h:panelGrid columns="5">
 	<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
@@ -22,7 +22,7 @@
 			<h:graphicImage value="../../media/images/arrow_up.png"
 				alt="#{msgs['GENERAL.ARROW_UP']}"
 				title="#{msgs['GENERAL.ARROW_UP']}" />
-			<e:text value="#{msgs['FORM.FORMERROR']}" />
+			<h:outputText value="#{msgs['FORM.FORMERROR']}" />
 			<h:graphicImage value="../../media/images/arrow_up.png"
 				alt="#{msgs['GENERAL.ARROW_UP']}"
 				title="#{msgs['GENERAL.ARROW_UP']}" />

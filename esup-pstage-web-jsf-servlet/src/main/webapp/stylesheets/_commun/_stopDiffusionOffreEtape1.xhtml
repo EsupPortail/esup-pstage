@@ -67,7 +67,7 @@
 			</rich:dataTable>
 		</h:panelGrid>
 		<h:panelGrid columns="2"
-			rendered="#{sessionController.moderationActive && sessionController.pageAuthorized}">
+			rendered="#{sessionController.moderationActive and sessionController.pageAuthorized}">
 			<h:graphicImage value="../../media/images/warning_20px.png"
 				alt="#{msgs['GENERAL.OK']}" />
 			<h:outputLabel

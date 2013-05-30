@@ -14,7 +14,7 @@
 					title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
 					style="border:0"
 					rendered="#{(facesContext.maximumSeverity == 'Info')
-				&& !(facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn')}" />
+				and !(facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn')}" />
 				<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 					title="#{msgs['GENERAL.WARNING']}"
 					value="../../media/images/warning_50px.png" style="border:0"
@@ -35,13 +35,13 @@
 				action="#{conventionController.goToConventionModifEtab}"
 				alt="#{msgs['FORM.MODIFIER.ETAB']}"
 				title="#{msgs['FORM.MODIFIER.ETAB']}"
-				rendered="#{not empty conventionController.convention.structure && !conventionController.conventionValide
-			&& ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+				rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
+			and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-			|| (welcomeController.etudiant && ((sessionController.autoriserEtudiantAModifierEntreprise ||
+			|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
 			(!sessionController.autoriserEtudiantAModifierEntreprise 
-			&& ((empty conventionController.convention.structure.loginModif &&
+			and ((empty conventionController.convention.structure.loginModif and
 			conventionController.convention.structure.loginCreation==sessionController.currentLogin)
 			|| (conventionController.convention.structure.loginModif==sessionController.currentLogin)))))))}">
 				<f:setPropertyActionListener
@@ -53,7 +53,7 @@
 				oncomplete="#{rich:component('demandeConfirmModifEtab')}.show()"
 				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
 				alt="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
-				rendered="#{not empty conventionController.convention.structure && !conventionController.conventionValide}">
+				rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide}">
 			</a4j:commandButton>
 			<rich:modalPanel id="demandeConfirmModifEtab" autosized="true"
 				width="400" styleClass="panel" domElementAttachment="parent">

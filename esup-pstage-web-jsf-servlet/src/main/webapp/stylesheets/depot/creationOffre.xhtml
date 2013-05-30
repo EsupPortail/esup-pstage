@@ -1,31 +1,31 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<t:div>
 		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.jsp"/>
+			<ui:include src="./_menu.xhtml"/>
 		</h:panelGrid>
 		<h:panelGrid columns="1"
 			styleClass="panelEntreprise"
 			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
 			<rich:panel>
 				<f:facet name="header">
-					<e:text value="#{msgs['OFFRE.CREATION']}" />
+					<h:outputText value="#{msgs['OFFRE.CREATION']}" />
 				</f:facet>
 				<h:form id="formCreationOffre">
 					<a4j:include id="include"
-						viewId="/stylesheets/_commun/_creationOffreEtape1.jsp" />
+						viewId="/stylesheets/_commun/_creationOffreEtape1.xhtml" />
 				</h:form>
 				<rich:message for="formCreationOffre">
-					<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+					<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 				</rich:message>
-				<ui:include src="../_commun/_panelAjoutService.jsp"/>
-				<ui:include src="../_commun/_panelModifService.jsp"/>
-				<ui:include src="../_commun/_panelAjoutContact.jsp"/>
-				<ui:include src="../_commun/_panelModifContact.jsp"/>
+				<ui:include src="../_commun/_panelAjoutService.xhtml"/>
+				<ui:include src="../_commun/_panelModifService.xhtml"/>
+				<ui:include src="../_commun/_panelAjoutContact.xhtml"/>
+				<ui:include src="../_commun/_panelModifContact.xhtml"/>
 			</rich:panel>
-			<ui:include src="_panelNousContacter.jsp"/>
+			<ui:include src="_panelNousContacter.xhtml"/>
 		</h:panelGrid>
 		<rich:editor rendered="false"/>
 	</t:div>

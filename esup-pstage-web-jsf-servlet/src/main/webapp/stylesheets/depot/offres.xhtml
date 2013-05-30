@@ -1,9 +1,9 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.jsp"/>
+		<ui:include src="./_menu.xhtml"/>
 	</h:panelGrid>
 	<t:div
 		rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
@@ -11,18 +11,18 @@
 			styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
-					<e:text value="#{msgs['OFFRE.GESTION']}" />
+					<h:outputText value="#{msgs['OFFRE.GESTION']}" />
 				</f:facet>
-				<e:text value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+				<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
 					rendered="#{empty sessionController.currentManageStructure}" />
 				<h:form rendered="#{not empty sessionController.currentManageStructure}">
-					<e:text value="#{msgs['OFFRE.GESTION.AUCUNE']}"
+					<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNE']}"
 						rendered="#{empty offreController.listeOffres}" escape="false" />
 					<h:panelGrid columns="2"
 						rendered="#{(sessionController.pageAuthorized 
 					|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)) 
-					&& empty offreController.listeOffres}">
-						<e:text value="#{msgs['OFFRE.GESTION.CREER']}" escape="false" />
+					and empty offreController.listeOffres}">
+						<h:outputText value="#{msgs['OFFRE.GESTION.CREER']}" escape="false" />
 						<h:commandLink id="ajoutO"
 							action="#{offreController.goToEntrepriseCreationOffre}">
 							<h:graphicImage alt="#{msgs['FORM.CREER']}"
@@ -32,18 +32,18 @@
 							<f:setPropertyActionListener value="#{1}"
 								target="#{offreController.typeAjoutModifOffre}" />
 						</h:commandLink>
-						<rich:toolTip for="ajoutO" value="#{msgs['FORM.CREER']}" />
+						<rich:tooltip for="ajoutO" value="#{msgs['FORM.CREER']}" />
 					</h:panelGrid>
 					<a4j:outputPanel id="opOffresDataTable">
 						<t:div rendered="#{not empty offreController.listeOffres}">
-							<e:text value="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']}"
+							<h:outputText value="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']}"
 								escape="false" />
 							<rich:dataTable value="#{offreController.listeOffres}"
 								var="offre" columnClasses="center" rows="15" reRender="ds"
 								rowKeyVar="rowOffre"
 								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-								<ui:include src="../_commun/_rechercheOffreResultatsColumns.jsp"/>
+								<ui:include src="../_commun/_rechercheOffreResultatsColumns.xhtml"/>
 								<rich:column>
 									<h:commandLink id="recap"
 										action="#{offreController.goToRecapitulatifOffre}">
@@ -55,7 +55,7 @@
 										<f:setPropertyActionListener value="#{offre}"
 											target="#{offreController.currentOffre}" />
 									</h:commandLink>
-									<rich:toolTip for="recap"
+									<rich:tooltip for="recap"
 										value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 									<h:commandLink id="modif"
 										action="#{offreController.goToEntrepriseModificationOffre}">
@@ -71,17 +71,17 @@
 										<f:setPropertyActionListener value="#{false}"
 											target="#{etablissementController.afficherSelectionCentreContact}" />
 									</h:commandLink>
-									<rich:toolTip for="modif">
+									<rich:tooltip for="modif">
 										<h:panelGrid columns="1">
 											<e:bold value="#{msgs['FORM.MODIFIER']}" />
 											<t:div rendered="#{sessionController.adminPageAuthorized}">
 												<t:htmlTag value="br" />
 												<t:aliasBean alias="#{objet}" value="#{offre}">
-													<ui:include src="../_commun/_updateInfos.jsp"/>
+													<ui:include src="../_commun/_updateInfos.xhtml"/>
 												</t:aliasBean>
 											</t:div>
 										</h:panelGrid>
-									</rich:toolTip>
+									</rich:tooltip>
 									<a4j:commandLink ajaxSingle="true" id="suppr"
 										reRender="supprOffre"
 										oncomplete="#{rich:component('supprOffre')}.show()">
@@ -93,7 +93,7 @@
 										<f:setPropertyActionListener value="#{offre}"
 											target="#{offreController.currentOffre}" />
 									</a4j:commandLink>
-									<rich:toolTip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+									<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 								</rich:column>
 								<f:facet name="footer">
 									<rich:datascroller id="ds" renderIfSinglePage="false"></rich:datascroller>
@@ -102,9 +102,9 @@
 						</t:div>
 					</a4j:outputPanel>
 				</h:form>
-				<ui:include src="../_commun/_panelSupprOffre.jsp"/>
+				<ui:include src="../_commun/_panelSupprOffre.xhtml"/>
 			</rich:panel>
-			<ui:include src="_panelNousContacter.jsp"/>
+			<ui:include src="_panelNousContacter.xhtml"/>
 		</h:panelGrid>
 	</t:div>
 </e:page>

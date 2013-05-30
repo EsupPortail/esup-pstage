@@ -1,6 +1,6 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 <h:panelGrid columns="1">
-	<ui:include src="../_commun/_champsObligatoires.jsp"/>
+	<ui:include src="../_commun/_champsObligatoires.xhtml"/>
 	<e:outputLabel for="typeCompte"
 		value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE']}" />
 	<h:selectOneRadio id="typeCompte"
@@ -23,7 +23,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="nomAdmin">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 	<e:outputLabel for="prenomAdmin"
 		value="#{msgs['ADMINSTRUCTURE.PRENOM']} *" />
@@ -36,7 +36,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="prenomAdmin">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 	<e:outputLabel for="mailAdmin" value="#{msgs['ADMINSTRUCTURE.MAIL']} *" />
 	<h:inputText id="mailAdmin"
@@ -49,7 +49,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="mailAdmin">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 	<e:outputLabel for="loginAdmin"
 		value="#{msgs['ADMINSTRUCTURE.LOGIN']} *"
@@ -62,7 +62,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="loginAdmin">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 	<e:outputLabel for="mdpAdmin" value="#{msgs['ADMINSTRUCTURE.MDP']} *"
 		rendered="#{adminController.typeCompteAdminStructure==0}" />
@@ -75,7 +75,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputSecret>
 	<rich:message for="mdpAdmin">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 	<e:outputLabel for="cmdpAdmin"
 		value="#{msgs['ADMINSTRUCTURE.MDP_CONFIRMATION']} *"
@@ -90,7 +90,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputSecret>
 	<rich:message for="cmdpAdmin">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 	<e:outputLabel for="eppnAdmin" value="#{msgs['ADMINSTRUCTURE.EPPN']} *"
 		rendered="#{adminController.typeCompteAdminStructure==2}" />
@@ -105,7 +105,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="eppnAdmin">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 </h:panelGrid>
 </a4j:outputPanel>

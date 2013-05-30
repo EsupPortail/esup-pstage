@@ -1,7 +1,7 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <h:panelGrid columns="1">
-	<ui:include src="../_commun/_champsObligatoires.jsp"/>
+	<ui:include src="../_commun/_champsObligatoires.xhtml"/>
 	<h:outputLabel for="nomCentre" value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} *" />
 	<h:inputText id="nomCentre"
 		value="#{centreController.formCentreEntreprise.nomCentre}"
@@ -10,7 +10,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="nomCentre">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 	<h:outputLabel for="confidentialite"
 		value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} *" />
@@ -24,7 +24,7 @@
 			value="#{nomenclatureController.confidentialitesSansConfEtab}" />
 	</h:selectOneMenu>
 	<rich:message for="confidentialite">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 	<h:outputLabel for="telCentre" value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']}" />
 	<h:inputText id="telCentre"
@@ -34,7 +34,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="telCentre">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 	<h:outputLabel for="faxCentre" value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']}" />
 	<h:inputText id="faxCentre"
@@ -44,7 +44,7 @@
 		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 	</h:inputText>
 	<rich:message for="faxCentre">
-		<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:message>
 </h:panelGrid>
 <a4j:commandButton rendered="#{empty centreController.centreEntreprise}"

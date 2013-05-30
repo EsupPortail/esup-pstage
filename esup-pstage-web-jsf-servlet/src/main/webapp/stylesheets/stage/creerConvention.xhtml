@@ -14,8 +14,10 @@
 				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
 			</f:facet>
 			<h:form id="formConvention">
-				<ui:include id="include"
-					src="#{conventionController.creerConventionCurrentPage}" />
+				<a4j:outputPanel id="a4jInclude" ajaxRendered="true">
+					<ui:include id="include"
+						src="#{conventionController.creerConventionCurrentPage}" />
+				</a4j:outputPanel>
 			</h:form>
 		</rich:panel>
 	</ui:define>

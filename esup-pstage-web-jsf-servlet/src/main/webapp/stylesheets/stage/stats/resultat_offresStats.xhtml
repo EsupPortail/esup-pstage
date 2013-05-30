@@ -52,7 +52,7 @@
 
 				<rich:panel id="idPanelResultatsStatsOffres"
 					rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
-					|| welcomeController.personnel) && centreController.centre != null}">
+					|| welcomeController.personnel) and centreController.centre != null}">
 					<f:facet name="header">
 						<e:text value="#{msgs['OFFRES.STATS.INDICATION']}" />
 					</f:facet>
@@ -70,7 +70,7 @@
 							<t:htmlTag value="div"
 								rendered="#{(not empty statistiquesOffresController.critereUnLib 
 								|| not empty statistiquesOffresController.critereDeuxLib)
-								&& not empty statistiquesOffresController.years}">
+								and not empty statistiquesOffresController.years}">
 								<h:panelGrid columns="2">
 									<h:graphicImage alt="info"
 										value="../../../media/images/information.png" style="border:0" />
@@ -252,7 +252,7 @@
 					<%@include file="../_redirection_droitsInsuffisants.jsp"%>
 				</t:div>
 				<t:div
-					rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) && centreController.centre == null}">
+					rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) and centreController.centre == null}">
 					<%@include file="../_redirection_accesDirectImpossible.jsp"%>
 				</t:div>
 			</t:div>

@@ -1,19 +1,19 @@
-<ui:include src="../_include.jsp" />
+<ui:include src="../_include.xhtml" />
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<t:div>
 		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.jsp" />
+			<ui:include src="./_menu.xhtml" />
 		</h:panelGrid>
 		<h:panelGrid columns="1" styleClass="panelEntreprise"
 			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
 			<rich:panel>
 				<f:facet name="header">
-					<e:text value="#{msgs['OFFRE.RECAPITULATIF']}" />
+					<h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
 				</f:facet>
 				<t:div rendered="#{empty offreController.currentOffre}">
-					<e:text value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
+					<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
 				</t:div>
 				<h:form>
 					<h:panelGrid>
@@ -21,7 +21,7 @@
 							action="#{offreController.editPdfOffre}">
 							<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 								value="../../media/images/printer.png" style="border:0" />
-							<e:text value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
+							<h:outputText value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
 								escape="false" />
 						</a4j:commandLink>
 					</h:panelGrid>
@@ -29,7 +29,7 @@
 					<t:div rendered="#{not empty offreController.currentOffre}">
 						<fieldset>
 							<legend>
-								<e:text value="#{msgs['OFFRE.GESTION.ETABLISSEMENT']} " />
+								<h:outputText value="#{msgs['OFFRE.GESTION.ETABLISSEMENT']} " />
 								<h:commandLink id="modifEtab"
 									action="#{offreController.goToModificationOffreEtab}">
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
@@ -39,15 +39,15 @@
 									<f:setPropertyActionListener value="#{2}"
 										target="#{offreController.typeAjoutModifOffre}" />
 								</h:commandLink>
-								<rich:toolTip for="modifEtab" value="#{msgs['FORM.MODIFIER']}" />
+								<rich:tooltip for="modifEtab" value="#{msgs['FORM.MODIFIER']}" />
 							</legend>
-							<ui:include src="../_commun/_detailsOffreEtab.jsp" />
+							<ui:include src="../_commun/_detailsOffreEtab.xhtml" />
 						</fieldset>
 						<t:htmlTag value="br" />
 						<rich:spacer height="10px" />
 						<fieldset>
 							<legend>
-								<e:text value="#{msgs['OFFRE.GESTION.DETAILS']} " />
+								<h:outputText value="#{msgs['OFFRE.GESTION.DETAILS']} " />
 								<h:commandLink id="modif"
 									action="#{offreController.goToModificationOffreEtab1}">
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
@@ -57,9 +57,9 @@
 									<f:setPropertyActionListener value="#{2}"
 										target="#{offreController.typeAjoutModifOffre}" />
 								</h:commandLink>
-								<rich:toolTip for="modif" value="#{msgs['FORM.MODIFIER']}" />
+								<rich:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
 							</legend>
-							<ui:include src="../_commun/_detailsOffre.jsp" />
+							<ui:include src="../_commun/_detailsOffre.xhtml" />
 						</fieldset>
 						<t:htmlTag value="br" />
 						<rich:spacer height="10px" />
@@ -67,7 +67,7 @@
 							rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
 							<fieldset>
 								<legend>
-									<e:text value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " />
+									<h:outputText value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " />
 									<h:commandLink id="modifF"
 										action="#{offreController.goToModificationOffreEtab3}">
 										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
@@ -77,16 +77,16 @@
 										<f:setPropertyActionListener value="#{2}"
 											target="#{offreController.typeAjoutModifOffre}" />
 									</h:commandLink>
-									<rich:toolTip for="modifF" value="#{msgs['FORM.MODIFIER']}" />
+									<rich:tooltip for="modifF" value="#{msgs['FORM.MODIFIER']}" />
 								</legend>
-								<ui:include src="../_commun/_detailsOffreFichier.jsp" />
+								<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
 							</fieldset>
 						</t:div>
 						<t:div
-							rendered="#{!offreController.currentOffre.avecFichier && !offreController.currentOffre.avecLien}">
+							rendered="#{!offreController.currentOffre.avecFichier and !offreController.currentOffre.avecLien}">
 							<fieldset>
 								<legend>
-									<e:text value="#{msgs['OFFRE.GESTION.CONTACTS']} " />
+									<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS']} " />
 									<h:commandLink id="modifC"
 										action="#{offreController.goToModificationOffreEtab3C}">
 										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
@@ -98,9 +98,9 @@
 										<f:setPropertyActionListener value="#{false}"
 											target="#{etablissementController.afficherSelectionCentreContact}" />
 									</h:commandLink>
-									<rich:toolTip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
+									<rich:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
 								</legend>
-								<ui:include src="../_commun/_detailsOffreContacts.jsp" />
+								<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
 							</fieldset>
 						</t:div>
 						<t:htmlTag value="br" />
@@ -108,9 +108,9 @@
 						<t:div>
 							<fieldset>
 								<legend>
-									<e:text value="#{msgs['OFFRE.DIFFUSION']}" />
+									<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
 								</legend>
-								<ui:include src="../_commun/_detailsOffreDiffusion.jsp"/>
+								<ui:include src="../_commun/_detailsOffreDiffusion.xhtml"/>
 							</fieldset>
 						</t:div>
 						<h:panelGrid columns="1" style="float:right;"
@@ -122,14 +122,14 @@
 									value="../../media/images/delete.png" style="border:0" />
 								<f:setPropertyActionListener value="resultatsRechercheOffre"
 									target="#{offreController.retour}" />
-								<e:text value=" #{msgs['OFFRE.SUPPRIMER']}" />
+								<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
 							</a4j:commandLink>
-							<rich:toolTip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+							<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 						</h:panelGrid>
 						<h:panelGrid columns="1" style="float:right;">
 							<t:aliasBean alias="#{objet}"
 								value="#{offreController.currentOffre}">
-								<ui:include src="../_commun/_updateInfos.jsp" />
+								<ui:include src="../_commun/_updateInfos.xhtml" />
 							</t:aliasBean>
 						</h:panelGrid>
 					</t:div>
@@ -144,13 +144,13 @@
 							action="#{offreController.goToRechercheOffre}" />
 					</h:panelGrid>
 				</h:form>
-				<ui:include src="../_commun/_panelDiffusionOffre.jsp" />
-				<ui:include src="../_commun/_panelStopDiffusionOffre.jsp" />
-				<ui:include src="../_commun/_panelOffrePourvue.jsp" />
-				<ui:include src="../_commun/_panelDiffusionCentreOffre.jsp" />
-				<ui:include src="../_commun/_panelSupprOffre.jsp" />
+				<ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
+				<ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
+				<ui:include src="../_commun/_panelOffrePourvue.xhtml" />
+				<ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
+				<ui:include src="../_commun/_panelSupprOffre.xhtml" />
 			</rich:panel>
-			<ui:include src="_panelNousContacter.jsp" />
+			<ui:include src="_panelNousContacter.xhtml" />
 		</h:panelGrid>
 		<rich:editor rendered="false" />
 	</t:div>

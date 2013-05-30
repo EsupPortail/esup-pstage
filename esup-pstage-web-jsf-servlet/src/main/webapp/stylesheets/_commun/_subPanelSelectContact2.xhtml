@@ -35,7 +35,7 @@
 				rendered="#{empty offreController.centreGestionDepotAnonyme}">
 				<a4j:outputPanel id="opActionsService2" ajaxRendered="true">
 					<a4j:commandLink ajaxSingle="true" id="modif2"
-						rendered="#{not empty etablissementController.listeServices && 
+						rendered="#{not empty etablissementController.listeServices and 
 					not empty etablissementController.idServiceSel}"
 						oncomplete="#{rich:component('modifService')}.show()"
 						reRender="modifService">

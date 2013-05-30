@@ -33,8 +33,7 @@
 			</a4j:commandLink>
 		</h:panelGrid>
 		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text"
-			rendered="#{!(welcomeController.etudiant and !conventionController.conventionValide)}">
+			rowClasses="paginatorData-text">
 			<a4j:commandLink ajaxSingle="true" id="impression"
 				action="conventionEtape9Impression">
 				<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"

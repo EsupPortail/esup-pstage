@@ -1,34 +1,34 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
-<e:text value="#{msgs['ADMINSTRUCTURE.MODIF.QUESTION']}" escape="false" />
+<h:outputText value="#{msgs['ADMINSTRUCTURE.MODIF.QUESTION']}" escape="false" />
 <a4j:outputPanel ajaxRendered="true">
 	<h:panelGrid columns="2" alternateColors="true">
 		<rich:column style="font-size:12px;">
-			<e:text id="nomAd" value="#{adminController.formAdminStructure.nom}" />
+			<h:outputText id="nomAd" value="#{adminController.formAdminStructure.nom}" />
 		</rich:column>
 		<rich:column style="font-size:12px;">
-			<e:text id="prenomAd"
+			<h:outputText id="prenomAd"
 				value="#{adminController.formAdminStructure.prenom}" />
 		</rich:column>
 		<rich:column style="font-size:12px;">
-			<e:text id="mailAd"
+			<h:outputText id="mailAd"
 				value="#{adminController.formAdminStructure.mail}" />
 		</rich:column>
 		<rich:column>
 			<h:panelGrid id="loginAd" style="font-size:12px;">
-				<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
+				<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
 					rendered="#{not empty adminController.formAdminStructure.login and not empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
-				<e:text
+				<h:outputText
 					value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{adminController.formAdminStructure.login}"
 					rendered="#{not empty adminController.formAdminStructure.login and not empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
-				<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
+				<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
 					rendered="#{not empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
-				<e:text
+				<h:outputText
 					value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{adminController.formAdminStructure.login}"
 					rendered="#{not empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and empty adminController.formAdminStructure.eppn}" />
-				<e:text value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
+				<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
 					rendered="#{empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and not empty adminController.formAdminStructure.eppn}" />
-				<e:text
+				<h:outputText
 					value="#{msgs['ADMINSTRUCTURE.EPPN']} : #{adminController.formAdminStructure.eppn}"
 					rendered="#{empty adminController.formAdminStructure.login and empty adminController.formAdminStructure.mdp and not empty adminController.formAdminStructure.eppn}" />
 			</h:panelGrid>

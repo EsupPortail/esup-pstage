@@ -1,24 +1,24 @@
-<ui:include src="../_include.jsp" />
+<ui:include src="../_include.xhtml" />
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.jsp" />
+		<ui:include src="./_menu.xhtml" />
 	</h:panelGrid>
 	<t:div
 		rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
 		<h:panelGrid columns="1" styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
-					<e:text value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
+					<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
 				</f:facet>
 				<h:form>
 					<ui:include
-						src="../_commun/_rechercheEtablissementLiensOnglets.jsp" />
+						src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 					<h:commandButton action="#{rechercheController.goToOngletAccord}"
 						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6']}" immediate="true" />
 				</h:form>
-				<ui:include src="../_commun/_rechercheEtablissementOnglets.jsp" />
+				<ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
 				<t:div
 					rendered="#{not empty rechercheController.ongletCourant 
 					and rechercheController.ongletCourant==6}">
@@ -46,7 +46,7 @@
 											alt="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}"
 											title="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}"
 											value="../../media/images/information.png" style="border:0" />
-										<e:text
+										<h:outputText
 											value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}" />
 									</h:panelGrid>
 								</t:panelGroup>
@@ -70,7 +70,7 @@
 											style="width:200px" />
 									</h:panelGrid>
 									<rich:message for="rechDateDebut">
-										<ui:include src="../_commun/_messageErrorMarker.jsp" />
+										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 									</rich:message>
 								</t:panelGroup>
 							</h:panelGrid>
@@ -83,13 +83,13 @@
 					<h:panelGrid columns="1">
 						<rich:message for="formResultatsRechEtab">
 							<rich:spacer height="20px" />
-							<ui:include src="../_commun/_messageErrorMarker.jsp" />
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
 						<rich:spacer height="10px" />
 						<t:div
 							rendered="#{not empty rechercheController.ongletCourant 
 						and rechercheController.ongletCourant!=6}">
-							<ui:include src="../_commun/_buttonCreationEtablissement.jsp" />
+							<ui:include src="../_commun/_buttonCreationEtablissement.xhtml" />
 						</t:div>
 						<rich:spacer height="10px" />
 					</h:panelGrid>
@@ -98,7 +98,7 @@
 							rendered="#{not empty rechercheController.listeResultatsRechercheStructure
 					and not empty rechercheController.rechercheStructurePaginator}">
 							<ui:include
-								src="../_commun/_rechercheEtablissementNbResultats.jsp" />
+								src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
 							<rich:dataTable id="rechercheStructureDataTable"
 								var="varRechercheStructure"
 								rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
@@ -109,19 +109,19 @@
 								<f:facet name="header">
 									<rich:columnGroup>
 										<ui:include
-											src="../_commun/_rechercheEtablissementResultatsHeaders.jsp" />
+											src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
 									</rich:columnGroup>
 								</f:facet>
 								<f:facet name="footer">
 									<h:panelGroup>
 										<ui:include
-											src="../_commun/_rechercheEtablissementResultatsPaginator.jsp" />
+											src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" />
 									</h:panelGroup>
 								</f:facet>
 								<ui:include
-									src="../_commun/_rechercheEtablissementResultatsColumns.jsp" />
+									src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 								<ui:include
-									src="../_commun/_rechercheEtablissementResultatsColumnsButtons.jsp" />
+									src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
 								<rich:column
 									rendered="#{sessionController.adminPageAuthorized and 
 								not empty rechercheController.ongletCourant}">
@@ -136,7 +136,7 @@
 										<f:setPropertyActionListener value="#{varRechercheStructure}"
 											target="#{sessionController.currentManageStructure}" />
 									</h:commandButton>
-									<rich:toolTip for="gererEtablissement"
+									<rich:tooltip for="gererEtablissement"
 										value="#{msgs['STRUCTURE.GERER']}" />
 								</rich:column>
 								<rich:column
@@ -153,7 +153,7 @@
 										<f:setPropertyActionListener value="#{varRechercheStructure}"
 											target="#{adminController.structureAccordAValider}" />
 									</h:commandButton>
-									<rich:toolTip for="consulterAccord"
+									<rich:tooltip for="consulterAccord"
 										value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
 										rendered="#{varRechercheStructure.accordPartenariat.estValide}" />
 									<h:commandButton id="consulterAccord"
@@ -166,7 +166,7 @@
 										<f:setPropertyActionListener value="#{varRechercheStructure}"
 											target="#{adminController.structureAccord}" />
 									</h:commandButton>
-									<rich:toolTip for="validerAccord"
+									<rich:tooltip for="validerAccord"
 										value="#{msgs['FORM.VALIDER']}" />
 									<a4j:commandLink ajaxSingle="true" id="supprimerAccord"
 										oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
@@ -177,7 +177,7 @@
 										<f:setPropertyActionListener value="#{varRechercheStructure}"
 											target="#{adminController.accordASupprimer}" />
 									</a4j:commandLink>
-									<rich:toolTip for="supprimerAccord"
+									<rich:tooltip for="supprimerAccord"
 										value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
 								</rich:column>
 							</rich:dataTable>
@@ -185,9 +185,9 @@
 					</a4j:outputPanel>
 				</h:form>
 			</rich:panel>
-			<ui:include src="_panelSupprAccord.jsp" />
-			<ui:include src="../_commun/_panelSupprStructure.jsp" />
-			<ui:include src="_panelNousContacter.jsp" />
+			<ui:include src="_panelSupprAccord.xhtml" />
+			<ui:include src="../_commun/_panelSupprStructure.xhtml" />
+			<ui:include src="_panelNousContacter.xhtml" />
 		</h:panelGrid>
 	</t:div>
 </e:page>

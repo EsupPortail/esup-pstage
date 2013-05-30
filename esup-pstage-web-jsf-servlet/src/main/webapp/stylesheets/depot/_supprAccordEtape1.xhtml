@@ -1,4 +1,4 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <h:panelGrid columns="2">
 	<h:column>
@@ -7,9 +7,9 @@
 	</h:column>
 	<h:column>
 		<h:panelGrid columns="1">
-			<e:text value="#{msgs['ACCORD.SUPPRESSION.QUESTION']}" escape="false">
+			<h:outputText value="#{msgs['ACCORD.SUPPRESSION.QUESTION']}" escape="false">
 				<f:param value="#{adminController.accordASupprimer.raisonSociale}"/>
-			</e:text>
+			</h:outputText>
 		</h:panelGrid>
 		<h:panelGrid columns="3">
 			<a4j:commandButton ajaxSingle="true"

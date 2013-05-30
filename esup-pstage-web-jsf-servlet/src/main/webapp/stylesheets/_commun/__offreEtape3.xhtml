@@ -17,7 +17,7 @@
 		</h:panelGrid>
 		<h:panelGrid rendered="#{offreController.fichierOuLien==1}">
 			<a4j:outputPanel id="opUploadFile">
-				<h:panelGrid rendered="#{offreController.formOffre.idFichier<=0}">
+				<h:panelGrid rendered="#{offreController.formOffre.idFichier le 0}">
 					<h:outputText value="#{msgs['OFFRE.SELECTIONFICHIER']}" />
 					<rich:fileUpload
 						fileUploadListener="#{sessionController.offreFileUploadBean.fileUploadListener}"
@@ -30,15 +30,15 @@
 						<a4j:support event="onuploadcomplete" reRender="opUploadFile"
 							action="#{offreController.insertUploadedFile}" ajaxSingle="true" />
 					</rich:fileUpload>
-					<h:outputText value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
-						style="font-sizh:10px;">
+					<h:outputFormat value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
+						style="font-size:10px;">
 						<f:param value="#{sessionController.uploadFilesFileSizeLimit}" />
-					</h:outputText>
-					<h:outputText value="#{msgs['OFFRE.EXTENSIONFICHIER']}"
-						style="font-sizh:10px;">
+					</h:outputFormat>
+					<h:outputFormat value="#{msgs['OFFRE.EXTENSIONFICHIER']}"
+						style="font-size:10px;">
 						<f:param
 							value="#{sessionController.uploadFilesOffresFileExtensions}" />
-					</h:outputText>
+					</h:outputFormat>
 					<rich:message for="uploadFile">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>

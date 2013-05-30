@@ -1,4 +1,0 @@
-modif 3
-edit conflict via egit
-modification 2.2
-edit via git

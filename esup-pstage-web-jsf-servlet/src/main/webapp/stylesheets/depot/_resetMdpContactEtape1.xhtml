@@ -1,11 +1,11 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <h:column>
 	<h:panelGrid columns="1">
-		<e:text value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP.QUESTION']}"
+		<h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP.QUESTION']}"
 			escape="false" />
 		<rich:dataTable value="#{etablissementController.formContact}">
-			<ui:include src="../_commun/_contactColumns.jsp"/>
+			<ui:include src="../_commun/_contactColumns.xhtml"/>
 		</rich:dataTable>
 	</h:panelGrid>
 	<h:panelGrid columns="3">

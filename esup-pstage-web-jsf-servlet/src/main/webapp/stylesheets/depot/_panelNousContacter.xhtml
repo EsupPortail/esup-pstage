@@ -1,41 +1,48 @@
-<ui:include src="../_include.jsp"/>
-<a4j:form>
-	<a4j:region id="rNC">
-		<a4j:commandLink ajaxSingle="true"
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:form>
+		<a4j:commandLink ajaxSingle="true" status="status1"
 			action="#{welcomeController.initNousContacter}"
 			oncomplete="#{rich:component('nousContacter')}.show()"
 			reRender="nousContacter">
 			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
 				title="#{msgs['GENERAL.HELP']}" value="../../media/images/help.png"
 				style="border:0" />
-			<e:text value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
+			<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
 		</a4j:commandLink>
-	</a4j:region>
-</a4j:form>
-<rich:modalPanel id="nousContacter" autosized="true" width="500"
-	styleClass="panel" domElementAttachment="parent">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
-	</f:facet>
-	<f:facet name="controls">
-		<h:panelGroup>
-			<h:graphicImage value="../../media/images/cancel.png" id="hidelink"
-				alt="#{msgs['GENERAL.CLOSE']}" title="#{msgs['GENERAL.CLOSE']}"
-				styleClass="hidelink" />
-			<rich:componentControl for="nousContacter" attachTo="hidelink"
-				operation="hide" event="onclick" />
-		</h:panelGroup>
-	</f:facet>
-	<h:form>
-		<a4j:include id="include" viewId="/stylesheets/depot/_nousContacterEtape1.jsp"/>
 	</h:form>
-</rich:modalPanel>
-<a4j:status for="rNC" onstart="#{rich:component('wait')}.show()"
-	onstop="#{rich:component('wait')}.hide()" />
-<rich:modalPanel id="wait" autosized="true" width="15" height="40"
-	moveable="false" resizeable="false" style="position:absolute;margin-left:auto;margin-right:auto;">
-	<f:facet name="header">
-		<e:text value="#{msgs['GENERAL.LOADING']}" />
-	</f:facet>
-	<ui:include src="../_commun/_veuillezPatienter.jsp"/>
-</rich:modalPanel>
+	<rich:popupPanel id="nousContacter" autosized="true" width="500"
+		styleClass="panel" domElementAttachment="parent">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="../../media/images/cancel.png" id="hidelink"
+					alt="#{msgs['GENERAL.CLOSE']}" title="#{msgs['GENERAL.CLOSE']}"
+					styleClass="hidelink">
+					<rich:componentControl target="nousContacter"
+						operation="hide" event="click" />
+				</h:graphicImage>
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<ui:include id="include"
+				src="/stylesheets/depot/_nousContacterEtape1.xhtml" />
+		</h:form>
+	</rich:popupPanel>
+	<a4j:status name="status1" onstart="#{rich:component('wait')}.show()"
+		onstop="#{rich:component('wait')}.hide()" />
+	<rich:popupPanel id="wait" autosized="true" width="15" height="40"
+		moveable="false" resizeable="false"
+		style="position:absolute;margin-left:auto;margin-right:auto;">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['GENERAL.LOADING']}" />
+		</f:facet>
+		<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+	</rich:popupPanel>
+</ui:composition>

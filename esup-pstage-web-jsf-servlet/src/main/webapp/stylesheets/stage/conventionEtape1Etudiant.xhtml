@@ -30,7 +30,7 @@
 							value="#{msgs['FORM.MODIFIER']}"
 							action="#{conventionController.goToConventionModifEtudiant}"
 							alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-							rendered="#{not empty conventionController.convention.etudiant && !conventionController.conventionValide}">
+							rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide}">
 						</h:commandButton>
 					</h:panelGrid>
 				</h:panelGrid>

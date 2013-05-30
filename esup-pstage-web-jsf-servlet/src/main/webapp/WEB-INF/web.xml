@@ -38,7 +38,7 @@
 			/WEB-INF/navigation-rules.xml
 		</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
 		<param-value>false</param-value>
@@ -162,7 +162,6 @@
 		<filter-name>CAS Validation Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
 	<filter>
 		<filter-name>CASLogout</filter-name>
 		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter
@@ -173,7 +172,7 @@
 		<filter-name>CASLogout</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<!-- END CAS -->
 
 	<servlet>
@@ -185,7 +184,6 @@
 		<servlet-name>Resource Servlet</servlet-name>
 		<url-pattern>/org.richfaces.resources/*</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<description>
 			The main servlet of the application. This class inherits

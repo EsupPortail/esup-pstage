@@ -13,7 +13,7 @@
 	</h:panelGrid>
 	<h:panelGrid columns="1"
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;"
-		rendered="#{!avenantController.listeAvenantVide && conventionController.convention.validationConvention}">
+		rendered="#{!avenantController.listeAvenantVide and conventionController.convention.validationConvention}">
 		<a4j:outputPanel>
 			<rich:spacer height="15" />
 			<rich:dataTable align="center" width="483" id="listeAvenant" rows="5"
@@ -132,7 +132,7 @@
 		rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-			&& conventionController.convention.validationConvention}">
+			and conventionController.convention.validationConvention}">
 		<h:panelGrid columns="3" align="center">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE11.CREATION']}"
 				escape="false" />
@@ -148,7 +148,7 @@
 		rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-			&& !conventionController.convention.validationConvention}">
+			and !conventionController.convention.validationConvention}">
 		<h:graphicImage id="warn2" alt="#{msgs['GENERAL.WARNING']}"
 			title="#{msgs['GENERAL.WARNING']}"
 			value="../../media/images/warning_20px.png" style="border:0" />

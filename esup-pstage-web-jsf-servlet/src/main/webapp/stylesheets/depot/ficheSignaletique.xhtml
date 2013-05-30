@@ -1,9 +1,9 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.jsp"/>
+		<ui:include src="./_menu.xhtml"/>
 	</h:panelGrid>
 	<t:div
 		rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
@@ -11,25 +11,25 @@
 			styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
-					<e:text value="#{msgs['MENU.FICHESIGNALETIQUE']}" />
+					<h:outputText value="#{msgs['MENU.FICHESIGNALETIQUE']}" />
 				</f:facet>
 				<h:form id="formModifEtab">
 					<h:panelGrid columns="2" align="center">
 						<h:column>
-							<ui:include src="../_commun/_confirmationImagesPermanentes.jsp"/>
+							<ui:include src="../_commun/_confirmationImagesPermanentes.xhtml"/>
 						</h:column>
 						<h:column>
 							<rich:message for="formModifEtab">
-								<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+								<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 							</rich:message>
 						</h:column>
 					</h:panelGrid>
 					<a4j:include id="include"
-						viewId="/stylesheets/depot/_modifFicheSignaletiqueEtape1.jsp" />
+						viewId="/stylesheets/depot/_modifFicheSignaletiqueEtape1.xhtml" />
 				</h:form>
 				<rich:editor rendered="false" />
 			</rich:panel>
-			<ui:include src="_panelNousContacter.jsp"/>
+			<ui:include src="_panelNousContacter.xhtml"/>
 		</h:panelGrid>
 	</t:div>
 </e:page>

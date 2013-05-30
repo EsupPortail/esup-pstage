@@ -1,4 +1,4 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <rich:spacer height="20px" />
 <rich:spacer height="20px" />
@@ -7,25 +7,25 @@
 	immediate="true" />
 <t:htmlTag value="br" />
 <t:htmlTag value="br" />
-<e:text value="#{msgs['ACCORD.EXISTANT.TITRE']}" />
+<h:outputText value="#{msgs['ACCORD.EXISTANT.TITRE']}" />
 <t:htmlTag value="br" />
 <t:div rendered="#{not empty accordController.accord.structure}">
 	<t:div
 		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 		<t:aliasBean alias="#{structure}"
 			value="#{accordController.accord.structure}">
-			<ui:include src="../_commun/_rechercheEtablissementAffichage.jsp"/>
+			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml"/>
 		</t:aliasBean>
 	</t:div>
 	<t:panelGroup colspan="2"
 		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-		<e:text value="#{msgs['ACCORD.MODIFICATION']}" escape="false" />
+		<h:outputText value="#{msgs['ACCORD.MODIFICATION']}" escape="false" />
 	</t:panelGroup>
 	<rich:spacer height="20px" />
-	<h2><e:text value="#{msgs['ACCORD.EXISTANT']}" escape="false" /></h2>
+	<h2><h:outputText value="#{msgs['ACCORD.EXISTANT']}" escape="false" /></h2>
 	<h:panelGrid columns="2" align="center">
 		<h:panelGrid columns="1">
-		<ui:include src="../_commun/_champsObligatoires.jsp"/>
+		<ui:include src="../_commun/_champsObligatoires.xhtml"/>
 			<h:panelGrid columns="3">
 				<h:panelGrid columns="1">
 					<h:panelGrid columns="2"
@@ -43,7 +43,7 @@
 						</h:selectOneMenu>
 						<t:panelGroup colspan="2">
 							<rich:message for="civilite">
-								<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+								<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 							</rich:message>
 						</t:panelGroup>
 					</h:panelGrid>
@@ -57,7 +57,7 @@
 						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 					</h:inputText>
 					<rich:message for="nom">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 					<e:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
 					<h:inputText id="prenom" style="text-transform:capitalize;"
@@ -69,13 +69,13 @@
 						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 					</h:inputText>
 					<rich:message for="prenom">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 					<e:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
 					<h:inputText id="fonction" size="50" maxlength="100"
 						value="#{accordController.contactDemandeCompte.fonction}" />
 					<rich:message for="fonction">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 					<e:outputLabel for="nomService" value="#{msgs['SERVICE.NOM']} *" />
 					<h:inputText id="nomService" style="text-transform:uppercase;"
@@ -87,7 +87,7 @@
 						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 					</h:inputText>
 					<rich:message for="nomService">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 				</h:panelGrid>
 				<h:panelGrid columns="3">
@@ -108,13 +108,13 @@
 						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 					</h:inputText>
 					<rich:message for="telC">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 					<e:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
 					<h:inputText id="faxC" size="20" maxlength="20"
 						value="#{accordController.contactDemandeCompte.fax}" />
 					<rich:message for="faxC">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 					<e:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
 					<h:inputText id="mailC"
@@ -127,7 +127,7 @@
 						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 					</h:inputText>
 					<rich:message for="mailC">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 					<e:outputLabel for="mailConfirmation"
 						value="#{msgs['CONTACT.MAIL_CONFIRMATION']} *" />
@@ -141,7 +141,7 @@
 						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
 					</h:inputText>
 					<rich:message for="mailConfirmation">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 				</h:panelGrid>
 			</h:panelGrid>

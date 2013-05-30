@@ -16,21 +16,15 @@
 		</f:facet>
 		<link rel="stylesheet" type="text/css"	href="../../media/style/skins/universality/etab/etab.css" />
 		<link rel="stylesheet" type="text/css"	href="../../media/style/spacer.css" />
-		<script type="text/javascript" language="Javascript" src="../../media/js/functions.js"></script>
+		<script type="text/javascript" language="Javascript" src="../../media/js/functions.js"/>
 	</h:head>
 	<h:body styleClass="fl-theme-app">
-		<ui:insert name="header" />
 		<t:div>
-			<ui:insert name="navigationHeader" />
 			<t:div id="body" styleClass="app-body fl-col-flex2">
-				<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-					<ui:insert name="menuDynamique" />
-				</t:div>
 				<t:div id="content" styleClass="app-content fl-col-flex85">
 					<ui:insert name="content" />
 				</t:div>
 			</t:div>
-			<ui:insert name="navigationFooter" />
 			<script type="text/javascript">
 				hideButton("welcomeManagerForm:localeChangeButton");
 			</script>

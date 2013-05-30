@@ -14,7 +14,7 @@
 		<h:panelGrid columns="1">
 			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU.DEMANDE']}" />
-			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+			<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
 				alternateColors="true">
 				<h:outputLabel for="numeroetudiant1"
 					value="#{msgs['CONVENTION.NUMETUDIANT']}" />
@@ -76,14 +76,12 @@
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columns="2">
+			<h:commandButton value="#{msgs['FORM.CANCEL']}" immediate="true">
+				<f:setPropertyActionListener value="/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml" target="#{conventionController.creerConventionCurrentPage}"/>
+			</h:commandButton>
 
-			<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
-				action="#{conventionController.goToChoixEtapeEtudiant}" />
-
-			<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
+			<h:commandButton value="#{msgs['FORM.VALIDER']}"
 				action="#{conventionController.goToCreerConventionEtape1DemandeLienOffre}" />
-
 		</h:panelGrid>
-
 	</h:panelGrid>
 </ui:fragment>

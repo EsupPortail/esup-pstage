@@ -10,7 +10,7 @@
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
 		<rich:panel
-			rendered="#{conventionController.convention != null && avenantController.avenant != null}">
+			rendered="#{conventionController.convention != null and avenantController.avenant != null}">
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CONVENTION.ETAPE11.RECAP']} #{conventionController.convention.idConvention}" />

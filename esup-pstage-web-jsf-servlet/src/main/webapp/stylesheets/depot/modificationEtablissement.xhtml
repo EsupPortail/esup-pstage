@@ -1,26 +1,26 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.jsp"/>
+		<ui:include src="./_menu.xhtml"/>
 	</h:panelGrid>
 	<t:div rendered="#{sessionController.adminPageAuthorized}">
 		<h:panelGrid columns="1"
 			styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
-					<e:text value="#{msgs['STRUCTURE.MODIF']}" />
+					<h:outputText value="#{msgs['STRUCTURE.MODIF']}" />
 				</f:facet>
 				<t:div rendered="#{empty etablissementController.formStructure}">
-					<e:text value="#{msgs['STRUCTURE.AUCUN']}" />
+					<h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
 				</t:div>
 				<t:div rendered="#{not empty etablissementController.formStructure}">
 					<h:form id="formModifEtab">
 						<rich:message for="formModifEtab">
-							<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+							<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 						</rich:message>
-						<ui:include src="../_commun/_etablissementForm.jsp"/>
+						<ui:include src="../_commun/_etablissementForm.xhtml"/>
 						<h:panelGrid columns="3">	
 							<h:commandButton value="#{msgs['FORM.MODIFIER']}"
 								action="#{etablissementController.modifierEtablissement}">
@@ -44,7 +44,7 @@
 					</h:form>
 				</t:div>
 			</rich:panel>
-			<ui:include src="_panelNousContacter.jsp"/>
+			<ui:include src="_panelNousContacter.xhtml"/>
 		</h:panelGrid>
 	</t:div>
 </e:page>

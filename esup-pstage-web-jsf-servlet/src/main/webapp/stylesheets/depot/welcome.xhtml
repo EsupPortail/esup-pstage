@@ -1,25 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="_definedDepotTemplate.xhtml">
 	<ui:define name="content">
 		<t:div
 			rendered="#{not sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
 			<h:panelGrid columns="1" styleClass="panelEntreprise">
-				<h:outputText
+				<h:outputFormat
 					value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.BIENVENUE']}"
 					escape="false">
 					<f:param value="#{sessionController.applicationNameEntreprise}" />
-				</h:outputText>
-				<rich:spacer height="20px" />
+				</h:outputFormat>
+                
+				<t:htmlTag value="div" style="height: 20px;" />
 				<h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ACCUEIL']}"
 					escape="false" />
-				<rich:spacer height="20px" />
+				<t:htmlTag value="div" style="height: 20px;" />
 				<rich:panel
 					rendered="#{not empty centreController.centreEntreprise}">
 					<f:facet name="header">
@@ -27,19 +26,21 @@
 							value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.AVECCOMPTE']}" />
 					</f:facet>
 					<h:panelGrid columns="1" align="center">
+						<t:htmlTag value="div" style="height:10px;" />
 						<h:panelGrid columns="1" align="center">
-							<ui:include src="./_formLogin.jsp" />
-							<h:form>
-								<h:commandLink value="#{msgs['MOTDEPASSEPERDU.TITRE']}"
-									action="#{welcomeController.goToMotDePassePerdu}" />
-							</h:form>
+							<ui:include src="./_formLogin.xhtml" />
+							<t:htmlTag value="center">
+								<h:form>
+									<h:commandLink value="#{msgs['MOTDEPASSEPERDU.TITRE']}"
+										action="#{welcomeController.goToMotDePassePerdu}" />
+								</h:form>
+							</t:htmlTag>
 						</h:panelGrid>
 						<h:panelGrid columns="3" align="center">
-							<rich:spacer height="30px" />
-							<rich:spacer width="400px"
-								style="background-color: #{a4jSkin.panelBorderColor};"
-								height="2px" />
-							<rich:spacer height="30px" />
+							<t:htmlTag value="div" style="height: 40px;" />
+							<t:htmlTag value="div"
+								style="width:400px; height: 2px; background-color: #{a4jSkin.panelBorderColor};" />
+							<t:htmlTag value="div" style="height: 40px;" />
 						</h:panelGrid>
 						<h:panelGrid columns="1" align="center">
 							<h:form>
@@ -52,27 +53,19 @@
 												value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ADMIN']}" />
 										</h:outputLink>
 									</t:div>
-									<t:div
-										rendered="#{sessionController.adminAuthentication == 'shibb'}">
-										<h:outputLink
-											value="#{sessionController.baseUrl}auth/shibb/auth.faces">
-											<h:outputText
-												value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ADMIN']}" />
-										</h:outputLink>
-									</t:div>
 									<h:outputText value="#{msgs['GENERAL.NOTAUTHORIZED']}"
 										rendered="#{sessionController.notAdminEntrepriseViaCasShibb}" />
 									<h:commandLink
 										action="#{welcomeController.disconnectEntreprise}"
 										value="#{msgs['GENERAL.DECONNEXION']}" immediate="true"
-										rendered="#{sessionController.notAdminEntrepriseViaCasShibb}">
-									</h:commandLink>
+										rendered="#{sessionController.notAdminEntrepriseViaCasShibb}" />
+									<t:htmlTag value="div" style="height:20px;" />
 								</h:panelGrid>
 							</h:form>
 						</h:panelGrid>
 					</h:panelGrid>
 				</rich:panel>
-				<rich:spacer height="20" />
+				<t:htmlTag value="div" style="height: 20px;" />
 				<rich:panel
 					rendered="#{not empty centreController.centreEntreprise}">
 					<f:facet name="header">
@@ -103,27 +96,18 @@
 							</h:form>
 						</h:panelGrid>
 						<h:panelGrid columns="3" style="text-align:center;">
-							<rich:spacer width="25px" />
-							<rich:spacer width="2px"
-								style="background-color: #{a4jSkin.panelBorderColor};"
-								height="125px" />
-							<rich:spacer width="25px" />
+							<t:htmlTag value="div" style="width: 25px;" />
+							<t:htmlTag value="div"
+								style="width: 2px; height: 125px; background-color: #{a4jSkin.panelBorderColor};" />
+							<t:htmlTag value="div" style="width: 25px;" />
 						</h:panelGrid>
 						<h:panelGrid columns="1" style="text-align:center;">
 							<h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ADMIN']}" />
 							<h:form>
 								<t:div
 									rendered="#{sessionController.adminAuthentication == 'cas'}">
-									<h:outputLink value="../../auth/cas/auth.faces">
+									<h:outputLink value="../../cas/auth.faces">
 										<h:graphicImage value="../../media/images/cas-login.png"
-											style="border:none;padding-right:2px;" />
-									</h:outputLink>
-								</t:div>
-								<t:div
-									rendered="#{sessionController.adminAuthentication == 'shibb'}">
-									<h:outputLink value="../../auth/shibb/auth.faces">
-										<h:graphicImage
-											value="../../media/images/shibboleth-login.png"
 											style="border:none;padding-right:2px;" />
 									</h:outputLink>
 								</t:div>
@@ -131,7 +115,7 @@
 						</h:panelGrid>
 					</h:panelGrid>
 				</rich:panel>
-				<rich:spacer height="15px" />
+				<t:htmlTag value="div" style="height: 15px;" />
 				<h:outputText value="#{msgs['MESSAGE_CNIL_ENTREPRISE']}"
 					escape="false"
 					rendered="#{not empty msgs['MESSAGE_CNIL_ENTREPRISE']}" />
@@ -140,16 +124,16 @@
 		<t:div
 			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
 			<h:panelGrid style="float:left;">
-				<ui:include src="./_menu.jsp" />
+				<ui:include src="./_menu.xhtml" />
 			</h:panelGrid>
 			<h:panelGrid columns="1" styleClass="panelEntreprise">
 				<rich:panel>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['MENU.ACCUEIL']}" />
 					</f:facet>
-					<ui:include src="_aide.jsp" />
+					<ui:include src="_aide.xhtml" />
 				</rich:panel>
-				<ui:include src="_panelNousContacter.jsp" />
+				<ui:include src="_panelNousContacter.xhtml" />
 			</h:panelGrid>
 		</t:div>
 	</ui:define>

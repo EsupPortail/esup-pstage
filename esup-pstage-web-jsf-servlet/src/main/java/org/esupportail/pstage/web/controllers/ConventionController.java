@@ -18,7 +18,7 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -133,10 +133,17 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Ufr selectionnee .
 	 */
 	private Object selectedUfr;
+
 	/**
 	 * EtapeEtude selectionnee .
 	 */
-	private Object selectedEtapeEtude;
+	private String selectedCodeEtape;
+
+	/**
+	 * Elp selectionne .
+	 */
+	private String selectedCodeElp;
+
 	/**
 	 * choixEtape.
 	 */
@@ -145,10 +152,6 @@ public class ConventionController extends AbstractContextAwareController {
 	 * listeELPEtapes.
 	 */
 	private List<ElementPedagogique> listeELPEtapes; 
-	/**
-	 * Elp selectionnee .
-	 */
-	private Object selectedElp;
 	/**
 	 * assurance selectionnee.
 	 */
@@ -389,6 +392,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	private String creerConventionCurrentPage = "/stylesheets/stage/creerConventionConsignes.xhtml";
 
+	private List<SelectItem> listeELPEtapesSelectItems;
 	/**
 	 * Bean constructor.
 	 */
@@ -413,8 +417,8 @@ public class ConventionController extends AbstractContextAwareController {
 	@Override
 	public void reset() {
 		super.reset();
-		selectedEtapeEtude = null;
-		selectedElp = null;
+		selectedCodeEtape = null;
+		selectedCodeElp = null;
 		selAssurance = null;
 		selCaisseRegime = null;
 		ctrlInfosEtuOK = false;
@@ -500,7 +504,6 @@ public class ConventionController extends AbstractContextAwareController {
 		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
 			retour = "creerConventionEtu";
 		}
-
 		return retour;
 	}
 
@@ -532,6 +535,12 @@ public class ConventionController extends AbstractContextAwareController {
 	public void goToChoixEtapeEtudiant() {
 		this.ctrlInfosEtuOK = false;
 		this.ctrlInfosStageOK = false;
+		this.selectedCodeElp = null;
+		this.selectedCodeEtape = null;
+		this.selectedUfr = null;
+		this.listeELPEtapes = new ArrayList<ElementPedagogique>();
+		this.selCaisseRegime = null;
+		this.selAssurance = null;
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("ConventionController:: goToChoixEtapeEtudiant ");
@@ -541,13 +550,13 @@ public class ConventionController extends AbstractContextAwareController {
 		//		return "creerConventionChoixEtapeEtudiant";
 	}
 	/**
-	 * @return A String
+	 * 
 	 */
-	public String goToCreerConventionCtrlInfosEtu() {
+	public void goToCreerConventionCtrlInfosEtu() {
 		boolean ctrlInfosOK = true;
 		this.ctrlInfosEtuOK = false;
 		this.ctrlInfosStageOK = false;
-		String retour = null;
+
 		// ctrl assurance maladie obligatoire
 		if (selAssurance == null) {
 			addErrorMessage("formConvention:affilss", "CONVENTION.CREERCONVENTION.AFFILSS.OBLIGATOIRE");
@@ -560,26 +569,21 @@ public class ConventionController extends AbstractContextAwareController {
 					addErrorMessage("formConvention:caisses", "CONVENTION.CREERCONVENTION.CAISSEREGIME.OBLIGATOIRE");
 					ctrlInfosOK = false;
 				}
-
 			}
 		}
-
 		if (isEtudiantSupUneEtape()) {
-			if (selectedEtapeEtude == null) {
+			if (selectedCodeEtape == null || this.selectedCodeEtape.isEmpty()) {
 				addErrorMessage("formConvention:choixEtape", "CONVENTION.CREERCONVENTION.ETAPE.OBLIGATOIRE");
 				ctrlInfosOK = false;
 			}
-
 		}
 
 		if (isEtudiantSupUnElp()) {
-			if (selectedElp == null) {
+			if (selectedCodeElp == null || this.selectedCodeElp.isEmpty()) {
 				addErrorMessage("formConvention:choixElp", "CONVENTION.CREERCONVENTION.ELP.OBLIGATOIRE");
 				ctrlInfosOK = false;
 			}
-
 		}
-
 
 		if (!StringUtils.hasText(etudiantRef.getPostalCode())) {
 			if (StringUtils.hasText(etudiantRef.getCountry())) {
@@ -589,17 +593,6 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 		}
-
-		if (selCaisseRegime == null) {
-			if (selAssurance != null) {
-				if (!selAssurance.getCodeCtrl().equals(DonneesStatic.ASS_CODE_CTRL_ETRANGER)) {
-					addErrorMessage("formConvention:caisses", "CONVENTION.CREERCONVENTION.CAISSEREGIME.OBLIGATOIRE");
-					ctrlInfosOK = false;
-				}
-
-			}
-		}
-
 		if (ctrlInfosOK) {
 			// On verifie que le personnel connecté n'est pas superadmin ou étudiant et a bien les droits requis sur le centre gérant l'étape séléctionnée
 			if (!getSessionController().isSuperAdminPageAuthorized() && this.getSessionController().getCurrentAuthEtudiant() == null){
@@ -647,7 +640,7 @@ public class ConventionController extends AbstractContextAwareController {
 						addErrorMessage("formConvention:etape", "CONVENTION.CREERCONVENTION.UNAUTHORIZED");
 					}
 					logger.info("CONVENTION.CREERCONVENTION.UNAUTHORIZED");
-					return "";
+					return;
 				}
 			}
 
@@ -658,9 +651,10 @@ public class ConventionController extends AbstractContextAwareController {
 				this.etudiantRef.setTheCaisseRegime(selCaisseRegime);
 			}
 			this.ctrlInfosEtuOK = true;
-			retour = "_creerConventionEtape1ConfirmInfosEtu";
+			//			retour = "_creerConventionEtape1ConfirmInfosEtu";
+			this.creerConventionCurrentPage = "_creerConventionEtape1ConfirmInfosEtu.xhtml";
 		}
-		return retour;
+		//		return retour;
 	}
 
 	/**
@@ -1502,23 +1496,24 @@ public class ConventionController extends AbstractContextAwareController {
 		convention.setCodeLangueConvention(selLangueConvention.getCode());
 	}
 	/**
-	 * @return A String
+	 * 
 	 */
 	public String goToCreerConventionValidElpEtu() {
 		return "creerConventionValidElpEtu";
 	}
 	/**
-	 * @return A String
+	 * 
 	 */
 	public void goToCreerConventionlisteEtu() {
 		creerConventionCurrentPage = "/stylesheets/stage/_creerConventionEtape1ListeEtudiant.xhtml";
-//		return "_creerConventionEtape1ListeEtudiant";
+		//		return "_creerConventionEtape1ListeEtudiant";
 	}
 
 	/**
 	 * @return A String
 	 */
 	public String goToCreerConventionlisteEtuR() {
+		//		creerConventionCurrentPage = "/stylesheets/stage/_creerConventionEtape1ListeEtudiant.xhtml";
 		return "creerConventionEtape1ListeEtudiant";
 	}
 	/**
@@ -1851,7 +1846,6 @@ public class ConventionController extends AbstractContextAwareController {
 
 		}
 		if (selAnneeUniversitaire != null) {
-			//	SelectItem selecAnneeUniv = (SelectItem) selAnneeUniversitaire;
 			String selAnneeUniv = selAnneeUniversitaire.toString();
 			conventionTmp.setAnnee(selAnneeUniv);
 		} else {
@@ -2381,7 +2375,7 @@ public class ConventionController extends AbstractContextAwareController {
 		boolean numEtuNomPrenomOK = true;
 		this.ctrlInfosEtuOK = false;
 		this.ctrlInfosStageOK = false;
-//		String retour = null;
+		//		String retour = null;
 		creerConventionCurrentPage = "/stylesheets/stage/creerConventionRechercheEtudiant.xhtml";
 		if ((!StringUtils.hasText(this.rechIdentEtudiant)) && (! StringUtils.hasText(this.rechNomEtudiant)) && (! StringUtils.hasText(this.rechPrenomEtudiant))) {
 			addErrorMessage("formConvention:oblig", "RECHERCHEETU.OBLIGATOIRE.RESPECTER");
@@ -2510,11 +2504,11 @@ public class ConventionController extends AbstractContextAwareController {
 				goToChoixEtapeEtudiant();
 			}
 			if (this.listeResultatsRechercheEtudiant != null) {
-//				retour = goToCreerConventionlisteEtu();
+				//				retour = goToCreerConventionlisteEtu();
 				goToCreerConventionlisteEtu();
 			}
 		}
-//		return retour;
+		//		return retour;
 	}
 	/**
 	 * @return String
@@ -2792,10 +2786,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 * recharge Ufr à partir de la selection etape etude.
 	 * @param e 
 	 */
-	public void rechargeUfr(final ActionEvent e) {
-		if (selectedEtapeEtude != null) {
-			SelectItem selEtapeEtude = (SelectItem) selectedEtapeEtude;
-			EtapeInscription ufrEtape = rechUfrEtape(selEtapeEtude.getValue().toString());
+	public void rechargeUfr() {
+		if (selectedCodeEtape != null) {
+			EtapeInscription ufrEtape = rechUfrEtape(selectedCodeEtape);
 			if (ufrEtape != null) {
 				this.etudiantRef.setThecodeUFR(ufrEtape.getCodeComposante());
 				this.etudiantRef.setTheUfr(ufrEtape.getLibComposante());
@@ -2804,7 +2797,7 @@ public class ConventionController extends AbstractContextAwareController {
 				rechLibVersEtape(ufrEtape.getCodeEtp());
 			}
 			this.choixEtape = true;
-			this.listeELPEtapes = rechElpEtape(selEtapeEtude.getValue().toString());
+			this.listeELPEtapes = rechElpEtape(selectedCodeEtape);
 			if (this.listeELPEtapes != null) {
 				if (this.listeELPEtapes.size() == 1) {
 					this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
@@ -2814,6 +2807,30 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 	}
+	/**
+	 * @param e
+	 */
+	public void rechargeElp(ValueChangeEvent event) {
+		if (selectedCodeElp != null) {
+			if (this.etudiantRef.getListeELPs() != null ) {
+				if (!this.etudiantRef.getListeELPs().isEmpty()) {
+					List<ElementPedagogique> listeELPs = new ArrayList<ElementPedagogique>();
+					listeELPs = this.etudiantRef.getListeELPs();
+
+					for (Iterator<ElementPedagogique> itelp = listeELPs.iterator(); itelp.hasNext();) {
+						ElementPedagogique elpedago = itelp.next();
+						if (elpedago.getCodElp().equals(selectedCodeElp)) {
+							this.etudiantRef.setTheCodeElp(elpedago.getCodElp());
+							this.etudiantRef.setTheLibElp(elpedago.getLibElp());
+							this.etudiantRef.setTheCreditECTS(elpedago.getNbrCrdElp());
+						}
+					}
+				}
+
+			}
+		}
+	}	
+
 	/**
 	 * @param codeEtape
 	 * @return EtapeInscription
@@ -2861,30 +2878,6 @@ public class ConventionController extends AbstractContextAwareController {
 			lELPEtapes = null;
 		}
 		return lELPEtapes;
-	}
-	/**
-	 * @param e
-	 */
-	public void rechargeElp(final ActionEvent e) {
-		if (selectedElp != null) {
-			ElementPedagogique selElp = (ElementPedagogique) selectedElp;
-			if (this.etudiantRef.getListeELPs() != null ) {
-				if (!this.etudiantRef.getListeELPs().isEmpty()) {
-					List<ElementPedagogique> listeELPs = new ArrayList<ElementPedagogique>();
-					listeELPs = this.etudiantRef.getListeELPs();
-
-					for (Iterator<ElementPedagogique> itelp = listeELPs.iterator(); itelp.hasNext();) {
-						ElementPedagogique elpedago = itelp.next();
-						if (elpedago.getCodElp().equals(selElp.getCodElp())) {
-							this.etudiantRef.setTheCodeElp(elpedago.getCodElp());
-							this.etudiantRef.setTheLibElp(elpedago.getLibElp());
-							this.etudiantRef.setTheCreditECTS(elpedago.getNbrCrdElp());
-						}
-					}
-				}
-
-			}
-		}
 	}
 	/**
 	 *
@@ -3085,6 +3078,7 @@ public class ConventionController extends AbstractContextAwareController {
 		return isSupUnElp;
 	}
 	/**
+		lELPEtapes.add(new ElementPedagogique());
 	 * @return boolean isEtudiantUnElp
 	 */
 	public boolean isEtudiantUnElp() {
@@ -3729,9 +3723,7 @@ public class ConventionController extends AbstractContextAwareController {
 					}
 				}
 			}
-
 		}
-
 
 		return listeEtapesEtudiant;
 	}
@@ -3784,18 +3776,6 @@ public class ConventionController extends AbstractContextAwareController {
 		this.selectedUfr = selectedUfr;
 	}
 	/**
-	 * @return the selectedEtapeEtude
-	 */
-	public Object getSelectedEtapeEtude() {
-		return selectedEtapeEtude;
-	}
-	/**
-	 * @param selectedEtapeEtude the selectedEtapeEtude to set
-	 */
-	public void setSelectedEtapeEtude(final Object selectedEtapeEtude) {
-		this.selectedEtapeEtude = selectedEtapeEtude;
-	}
-	/**
 	 * @param choixEtape the choixEtape to set
 	 */
 	public void setChoixEtape(final boolean choixEtape) {
@@ -3812,18 +3792,6 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void setListeELPEtapes(final List<ElementPedagogique> listeELPEtapes) {
 		this.listeELPEtapes = listeELPEtapes;
-	}
-	/**
-	 * @return the selectedElp
-	 */
-	public Object getSelectedElp() {
-		return selectedElp;
-	}
-	/**
-	 * @param selectedElp the selectedElp to set
-	 */
-	public void setSelectedElp(final Object selectedElp) {
-		this.selectedElp = selectedElp;
 	}
 	/**
 	 * @return the selTypeConvention
@@ -4576,5 +4544,59 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void setCreerConventionCurrentPage(String creerConventionCurrentPage) {
 		this.creerConventionCurrentPage = creerConventionCurrentPage;
+	}
+
+	/**
+	 * @return the selectedCodeElp
+	 */
+	public String getSelectedCodeElp() {
+		return selectedCodeElp;
+	}
+
+	/**
+	 * @param selectedCodeElp the selectedCodeElp to set
+	 */
+	public void setSelectedCodeElp(String selectedCodeElp) {
+		this.selectedCodeElp = selectedCodeElp;
+	}
+
+	/**
+	 * @return the selectedCodeEtape
+	 */
+	public String getSelectedCodeEtape() {
+		return selectedCodeEtape;
+	}
+
+	/**
+	 * @param selectedCodeEtape the selectedCodeEtape to set
+	 */
+	public void setSelectedCodeEtape(String selectedCodeEtape) {
+		this.selectedCodeEtape = selectedCodeEtape;
+	}
+
+	/**
+	 * @return the listeELPEtapesSelectItems
+	 */
+	public List<SelectItem> getListeELPEtapesSelectItems() {
+		listeELPEtapesSelectItems = new ArrayList<SelectItem>();
+		if (this.listeELPEtapes != null && !this.listeELPEtapes.isEmpty()) {
+			String clef = null;
+			String valeur = null;
+			for (ElementPedagogique e : listeELPEtapes){
+				clef = e.getLibElp();
+				valeur = e.getCodElp();
+				listeELPEtapesSelectItems.add(new SelectItem(clef, valeur));
+			}
+		}
+
+		return listeELPEtapesSelectItems;
+	}
+
+	/**
+	 * @param listeELPEtapesSelectItems the listeELPEtapesSelectItems to set
+	 */
+	public void setListeELPEtapesSelectItems(
+			List<SelectItem> listeELPEtapesSelectItems) {
+		this.listeELPEtapesSelectItems = listeELPEtapesSelectItems;
 	}
 }

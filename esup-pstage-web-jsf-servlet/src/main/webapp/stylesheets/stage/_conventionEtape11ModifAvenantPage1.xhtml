@@ -34,7 +34,7 @@
 				<rich:spacer height="10" />
 
 				<t:div
-					rendered="#{not empty avenantController.avenant.motifAvenant && avenantController.avenant.motifAvenant != ''}">
+					rendered="#{not empty avenantController.avenant.motifAvenant and avenantController.avenant.motifAvenant != ''}">
 					<h:panelGrid columns="2">
 						<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}*"
 							for="rupture" />

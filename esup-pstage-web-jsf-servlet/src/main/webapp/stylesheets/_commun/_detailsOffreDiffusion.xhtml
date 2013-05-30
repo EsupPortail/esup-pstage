@@ -7,9 +7,9 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<a4j:outputPanel id="opDiffusion" ajaxRendered="true">
-		<h:panelGrid columns="1" style="font-sizh:12px;"
+		<h:panelGrid columns="1" style="font-size:12px;"
 			rendered="#{!offreController.currentOffre.estDiffusee}">
-			<h:panelGrid columns="5" style="font-sizh:12px;">
+			<h:panelGrid columns="5" style="font-size:12px;">
 				<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
 					rendered="#{!offreController.currentOffre.estDiffusee}"
 					style="color:orange;" />
@@ -22,30 +22,30 @@
 					rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 					disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
-					|| (sessionController.moderationActive && sessionController.pageAuthorized)}">
+					|| (sessionController.moderationActive and sessionController.pageAuthorized)}">
 					<h:graphicImage alt="#{msgs['FORM.DIFFUSER']}"
 						value="../../media/images/flag_green.png" style="border:0"
 						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
-					&& !(sessionController.moderationActive && sessionController.pageAuthorized)}" />
+					and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
 					<h:graphicImage alt="#{msgs['FORM.DIFFUSER']}"
 						value="../../media/images/flag_block.png" style="border:0"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
-					|| (sessionController.moderationActive && sessionController.pageAuthorized)}" />
+					|| (sessionController.moderationActive and sessionController.pageAuthorized)}" />
 					<h:outputText value=" #{msgs['FORM.DIFFUSER']}" />
 				</a4j:commandLink>
 				<rich:tooltip for="diffusion" value="#{msgs['FORM.DIFFUSER']}"
 					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
-					&& !(sessionController.moderationActive && sessionController.pageAuthorized)}" />
+					and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
 				<rich:tooltip for="diffusion"
 					value="#{msgs['OFFRE.ERREUR.NODIFF2']}"
 					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
-					&& sessionController.moderationActive && sessionController.pageAuthorized}" />
+					and sessionController.moderationActive and sessionController.pageAuthorized}" />
 				<rich:tooltip for="diffusion" value="#{msgs['OFFRE.ERREUR.NODIFF']}"
 					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columns="1" style="font-sizh:12px;">
-			<h:panelGrid columns="8" style="font-sizh:12px;"
+		<h:panelGrid columns="1" style="font-size:12px;">
+			<h:panelGrid columns="8" style="font-size:12px;"
 				rendered="#{offreController.currentOffre.estDiffusee}">
 				<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
 					rendered="#{offreController.currentOffre.estDiffusee}"
@@ -91,13 +91,13 @@
 					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 			</h:panelGrid>
 			<t:div
-				rendered="#{sessionController.adminPageAuthorized || (sessionController.pageAuthorized && sessionController.autoriserEntrepriseAReserverOffre) ||
+				rendered="#{sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 				<a4j:commandLink ajaxSingle="true" id="diffusionCentre"
 					reRender="diffusionCentreOffre"
 					oncomplete="#{rich:component('diffusionCentreOffre')}.show()"
-					rendered="#{(sessionController.adminPageAuthorized || (sessionController.pageAuthorized && sessionController.autoriserEntrepriseAReserverOffre) ||
-				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) && !offreController.ciblageInterdit}"
+					rendered="#{(sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
+				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and !offreController.ciblageInterdit}"
 					disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"
 					action="#{offreController.majListesCentresDiffusion}">
 					<h:graphicImage alt="_" value="../../media/images/target.png"
@@ -111,26 +111,26 @@
 						rendered="#{sessionController.adminPageAuthorized}" />
 					<h:outputText
 						value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE']}"
-						rendered="#{sessionController.pageAuthorized && !sessionController.adminPageAuthorized}" />
+						rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
 					<h:outputText
 						value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE']}"
-						rendered="#{!sessionController.adminPageAuthorized && (welcomeController.admin || welcomeController.writer)}" />
+						rendered="#{!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)}" />
 				</a4j:commandLink>
 				<rich:tooltip for="diffusionCentre"
 					value="#{msgs['OFFRE.ERREUR.NODIFF']}"
 					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 				<a4j:outputPanel id="opOffreDiffusion">
-					<h:panelGrid columns="1" style="font-sizh:12px;">
+					<h:panelGrid columns="1" style="font-size:12px;">
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEA']}"
 							rendered="#{not empty offreController.currentOffre.offresDiffusion
-			and (!sessionController.pageAuthorized && (welcomeController.admin || welcomeController.writer))			
-			&& (offreController.currentOffre.centreGestion.idCentreGestion != centreController.centreEntreprise.idCentreGestion)}" />
+			and (!sessionController.pageAuthorized and (welcomeController.admin || welcomeController.writer))			
+			and (offreController.currentOffre.centreGestion.idCentreGestion != centreController.centreEntreprise.idCentreGestion)}" />
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEPARENTR']}"
 							rendered="#{not empty offreController.currentOffre.offresDiffusion
-			and (!sessionController.pageAuthorized && (welcomeController.admin || welcomeController.writer))			
-			&& (offreController.currentOffre.centreGestion.idCentreGestion == centreController.centreEntreprise.idCentreGestion)}" />
+			and (!sessionController.pageAuthorized and (welcomeController.admin || welcomeController.writer))			
+			and (offreController.currentOffre.centreGestion.idCentreGestion == centreController.centreEntreprise.idCentreGestion)}" />
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEA']}"
 							rendered="#{not empty offreController.currentOffre.offresDiffusion
@@ -142,22 +142,22 @@
 						</rich:dataList>
 						<%
 							/*<h:outputText
-													 rendered="#{not empty offreController.currentOffre.offresDiffusion && offreController.currentOffreSizeOffresDiffusion>5}"
+													 rendered="#{not empty offreController.currentOffre.offresDiffusion and offreController.currentOffreSizeOffresDiffusion>5}"
 													 value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.DETAILSCENTRES']}" />*/
 						%>
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEATLM']}"
-							rendered="#{offreController.currentOffre.estDiffusee && (empty offreController.currentOffre.offresDiffusion and
+							rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
 				(sessionController.pageAuthorized || sessionController.adminPageAuthorized))}" />
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNEDIFFUSION']}"
-							rendered="#{offreController.currentOffre.estDiffusee && (empty offreController.currentOffre.offresDiffusion and
-				(!sessionController.adminPageAuthorized && (welcomeController.admin || welcomeController.writer)))}" />
+							rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
+				(!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)))}" />
 					</h:panelGrid>
 				</a4j:outputPanel>
 			</t:div>
 		</h:panelGrid>
-		<h:panelGrid columns="5" style="font-sizh:12px;"
+		<h:panelGrid columns="5" style="font-size:12px;"
 			rendered="#{(sessionController.adminPageAuthorized || sessionController.pageAuthorized || welcomeController.superAdmin 
 				|| welcomeController.admin || welcomeController.writer)}">
 			<h:outputText value="#{msgs['OFFRE.GESTION.POURVOIROFFRE.POURVUE']}"

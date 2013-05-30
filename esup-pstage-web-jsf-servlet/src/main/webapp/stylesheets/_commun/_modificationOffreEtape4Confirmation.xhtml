@@ -8,7 +8,7 @@
 
 	<t:htmlTag value="center">
 		<h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
-			rendered="#{(welcomeController.personnel || welcomeController.admin) && !sessionController.pageAuthorized && !sessionController.adminPageAuthorized}"
+			rendered="#{(welcomeController.personnel || welcomeController.admin) and !sessionController.pageAuthorized and !sessionController.adminPageAuthorized}"
 			action="recapitulatifOffreEtabCentre"
 			alt="#{msgs['OFFRE.RECAPITULATIF']}"
 			title="#{msgs['OFFRE.RECAPITULATIF']}" />

@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1" style="font-sizh:14px;">
+	<h:panelGrid columns="1" style="font-size:14px;">
 		<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.ETABNONCACHE']}"
 			escape="false" style="color:green;"
 			rendered="#{!offreController.currentOffre.cacherEtablissement}" />
@@ -20,15 +20,15 @@
 				value="../../media/images/warning_20px.png" style="border:0" />
 			<h:outputText value="#{msgs['OFFRE.ERREUR.MODECOURRIER']}"
 				escape="false"
-				style="color:red;font-sizh:12px;
+				style="color:red;font-size:12px;
 					word-wrap:break-word;" />
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height: 20px;" />
 		<h:bold value="#{msgs['OFFRE.GESTION.CONTACTS.CANDIDATURE']}"
 			rendered="#{offreController.currentOffre.idContactCand>0 && not empty offreController.currentOffre.contactCand}" />
-		<h:panelGrid columns="3" style="font-sizh:12px;"
+		<h:panelGrid columns="3" style="font-size:12px;"
 			rendered="#{offreController.currentOffre.idContactCand>0 && not empty offreController.currentOffre.contactCand}">
-			<h:panelGrid columns="3" style="font-sizh:12px;">
+			<h:panelGrid columns="3" style="font-size:12px;">
 				<h:outputText
 					value="#{offreController.currentOffre.contactCand.civilite.libelle} "
 					rendered="#{not empty offreController.currentOffre.contactCand.civilite}" />
@@ -38,20 +38,20 @@
 					value="#{offreController.currentOffre.contactCand.prenom}" />
 			</h:panelGrid>
 			<t:htmlTag value="div" style="width: 50px;" />
-			<h:panelGrid columns="1" style="font-sizh:12px;">
+			<h:panelGrid columns="1" style="font-size:12px;">
 				<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
 					escape="false"
 					rendered="#{offreController.currentOffre.cacherNomContactCand}" />
 			</h:panelGrid>
-			<t:panelGroup colspan="3" style="font-sizh:12px;">
-				<h:panelGrid columns="2" style="font-sizh:12px;"
+			<t:panelGroup colspan="3" style="font-size:12px;">
+				<h:panelGrid columns="2" style="font-size:12px;"
 					rendered="#{not empty offreController.currentOffre.contactCand.fonction}">
 					<h:outputText value="#{msgs['CONTACT.FONCTION']} : " />
 					<h:outputText
 						value="#{offreController.currentOffre.contactCand.fonction}" />
 				</h:panelGrid>
 			</t:panelGroup>
-			<h:panelGrid columns="2" style="font-sizh:12px;">
+			<h:panelGrid columns="2" style="font-size:12px;">
 				<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
 					title="#{msgs['CONTACT.TELEPHONE']}"
 					value="../../media/images/phone.png" style="border:0" />
@@ -59,7 +59,7 @@
 					value=" #{offreController.currentOffre.contactCand.tel}" />
 			</h:panelGrid>
 			<t:htmlTag value="div" style="width: 50px;" />
-			<h:panelGrid columns="1" style="font-sizh:12px;">
+			<h:panelGrid columns="1" style="font-size:12px;">
 				<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
 					escape="false"
 					rendered="#{offreController.currentOffre.cacherTelContactCand}" />
@@ -73,11 +73,11 @@
 						value="../../media/images/warning_20px.png" style="border:0" />
 					<h:outputText value="#{msgs['OFFRE.ERREUR.MODETELEPHONE']}"
 						escape="false"
-						style="color:red;font-sizh:12px;
+						style="color:red;font-size:12px;
 										word-wrap:break-word;" />
 				</h:panelGrid>
 			</t:panelGroup>
-			<h:panelGrid columns="2" style="font-sizh:12px;"
+			<h:panelGrid columns="2" style="font-size:12px;"
 				rendered="#{not empty offreController.currentOffre.contactCand.fax}">
 				<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
 					title="#{msgs['CONTACT.FAX']}"
@@ -87,13 +87,13 @@
 			</h:panelGrid>
 			<t:htmlTag value="div" style="width: 50px;"
 				rendered="#{not empty offreController.currentOffre.contactCand.fax}" />
-			<h:panelGrid columns="1" style="font-sizh:12px;"
+			<h:panelGrid columns="1" style="font-size:12px;"
 				rendered="#{not empty offreController.currentOffre.contactCand.fax}">
 				<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
 					escape="false"
 					rendered="#{offreController.currentOffre.cacherFaxContactCand}" />
 			</h:panelGrid>
-			<h:panelGrid columns="2" style="font-sizh:12px;">
+			<h:panelGrid columns="2" style="font-size:12px;">
 				<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
 					title="#{msgs['CONTACT.MAIL']}"
 					value="../../media/images/email.png" style="border:0" />
@@ -101,7 +101,7 @@
 					value=" #{offreController.currentOffre.contactCand.mail}" />
 			</h:panelGrid>
 			<t:htmlTag value="div" style="width: 50px;" />
-			<h:panelGrid columns="1" style="font-sizh:12px;">
+			<h:panelGrid columns="1" style="font-size:12px;">
 				<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
 					escape="false"
 					rendered="#{offreController.currentOffre.cacherMailContactCand}" />
@@ -115,17 +115,17 @@
 						value="../../media/images/warning_20px.png" style="border:0" />
 					<h:outputText value="#{msgs['OFFRE.ERREUR.MODEMAIL']}"
 						escape="false"
-						style="color:red;font-sizh:12px;
+						style="color:red;font-size:12px;
 										word-wrap:break-word;" />
 				</h:panelGrid>
 			</t:panelGroup>
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height: 20px;" />
 		<h:bold value="#{msgs['OFFRE.GESTION.CONTACTS.INFORMATION']}"
-			rendered="#{offreController.currentOffre.idContactInfo>0 && not empty offreController.currentOffre.contactInfo}" />
-		<h:panelGrid columns="3" style="font-sizh:12px;"
-			rendered="#{offreController.currentOffre.idContactInfo>0 && not empty offreController.currentOffre.contactInfo}">
-			<h:panelGrid columns="3" style="font-sizh:12px;">
+			rendered="#{offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}" />
+		<h:panelGrid columns="3" style="font-size:12px;"
+			rendered="#{offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}">
+			<h:panelGrid columns="3" style="font-size:12px;">
 				<h:outputText
 					value="#{offreController.currentOffre.contactInfo.civilite.libelle} "
 					rendered="#{not empty offreController.currentOffre.contactInfo.civilite}" />
@@ -135,20 +135,20 @@
 					value="#{offreController.currentOffre.contactInfo.prenom}" />
 			</h:panelGrid>
 			<t:htmlTag value="div" style="width: 50px;" />
-			<h:panelGrid columns="1" style="font-sizh:12px;">
+			<h:panelGrid columns="1" style="font-size:12px;">
 				<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
 					escape="false"
 					rendered="#{offreController.currentOffre.cacherNomContactInfo}" />
 			</h:panelGrid>
 			<t:panelGroup colspan="3">
-				<h:panelGrid columns="2" style="font-sizh:12px;"
+				<h:panelGrid columns="2" style="font-size:12px;"
 					rendered="#{not empty offreController.currentOffre.contactInfo.fonction}">
 					<h:outputText value="#{msgs['CONTACT.FONCTION']} : " />
 					<h:outputText
 						value="#{offreController.currentOffre.contactInfo.fonction}" />
 				</h:panelGrid>
 			</t:panelGroup>
-			<h:panelGrid columns="2" style="font-sizh:12px;">
+			<h:panelGrid columns="2" style="font-size:12px;">
 				<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
 					title="#{msgs['CONTACT.TELEPHONE']}"
 					value="../../media/images/phone.png" style="border:0" />
@@ -156,12 +156,12 @@
 					value=" #{offreController.currentOffre.contactInfo.tel}" />
 			</h:panelGrid>
 			<t:htmlTag value="div" style="width: 50px;" />
-			<h:panelGrid columns="1" style="font-sizh:12px;">
+			<h:panelGrid columns="1" style="font-size:12px;">
 				<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
 					escape="false"
 					rendered="#{offreController.currentOffre.cacherTelContactInfo}" />
 			</h:panelGrid>
-			<h:panelGrid columns="2" style="font-sizh:12px;"
+			<h:panelGrid columns="2" style="font-size:12px;"
 				rendered="#{not empty offreController.currentOffre.contactInfo.fax}">
 				<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
 					title="#{msgs['CONTACT.FAX']}"
@@ -171,13 +171,13 @@
 			</h:panelGrid>
 			<t:htmlTag value="div" style="width: 50px;"
 				rendered="#{not empty offreController.currentOffre.contactInfo.fax}" />
-			<h:panelGrid columns="1" style="font-sizh:12px;"
+			<h:panelGrid columns="1" style="font-size:12px;"
 				rendered="#{not empty offreController.currentOffre.contactInfo.fax}">
 				<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
 					escape="false"
 					rendered="#{offreController.currentOffre.cacherFaxContactInfo}" />
 			</h:panelGrid>
-			<h:panelGrid columns="2" style="font-sizh:12px;">
+			<h:panelGrid columns="2" style="font-size:12px;">
 				<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
 					title="#{msgs['CONTACT.MAIL']}"
 					value="../../media/images/email.png" style="border:0" />
@@ -185,7 +185,7 @@
 					value=" #{offreController.currentOffre.contactInfo.mail}" />
 			</h:panelGrid>
 			<t:htmlTag value="div" style="width: 50px;" />
-			<h:panelGrid columns="1" style="font-sizh:12px;">
+			<h:panelGrid columns="1" style="font-size:12px;">
 				<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
 					escape="false"
 					rendered="#{offreController.currentOffre.cacherMailContactInfo}" />

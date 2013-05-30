@@ -1,15 +1,15 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <t:div
 	style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 	<t:aliasBean alias="#{structure}"
 		value="#{sessionController.currentManageStructure}">
-		<ui:include src="../_commun/_rechercheEtablissementAffichage.jsp"/>
+		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml"/>
 	</t:aliasBean>
 	<h:panelGrid columns="1" style="float:right;"
 		rendered="#{sessionController.adminPageAuthorized}">
 		<t:aliasBean alias="#{objet}" value="#{sessionController.currentManageStructure}">
-			<ui:include src="../_commun/_updateInfos.jsp"/>
+			<ui:include src="../_commun/_updateInfos.xhtml"/>
 		</t:aliasBean>
 	</h:panelGrid>
 	<a4j:commandLink
@@ -18,15 +18,15 @@
 		<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 			title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
 			style="border:0" />
-		<e:text value=" #{msgs['FORM.MODIFIER']}" />
+		<h:outputText value=" #{msgs['FORM.MODIFIER']}" />
 	</a4j:commandLink>
 	<h:panelGrid columns="2" align="center">
 		<h:column>
-			<ui:include src="../_commun/_confirmationImagesPermanentes.jsp"/>
+			<ui:include src="../_commun/_confirmationImagesPermanentes.xhtml"/>
 		</h:column>
 		<h:column>
 			<rich:message for="formAffEtab">
-				<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+				<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 			</rich:message>
 		</h:column>
 	</h:panelGrid>

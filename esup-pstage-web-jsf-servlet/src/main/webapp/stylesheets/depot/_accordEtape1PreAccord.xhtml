@@ -1,8 +1,8 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
-<e:text value="#{msgs['ACCORD.PREACCORD']}" />
+<h:outputText value="#{msgs['ACCORD.PREACCORD']}" />
 <h:panelGrid columns="1">
-	<ui:include src="../_commun/_champsObligatoires.jsp"/>
+	<ui:include src="../_commun/_champsObligatoires.xhtml"/>
 	<t:panelGroup>
 		<h:panelGrid columns="1">
 			<e:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
@@ -17,7 +17,7 @@
 				</h:inputText>
 				<rich:spacer width="10px" />
 				<rich:message for="raisonSociale">
-					<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+					<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 				</rich:message>
 			</t:panelGroup>
 		</h:panelGrid>
@@ -38,20 +38,20 @@
 							ignoreDupResponses="true" ajaxSingle="true" />
 				</h:selectOneMenu>
 				<rich:message for="typeStructure">
-					<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+					<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 				</rich:message>
 				<h:panelGrid id="olSiret" columns="2">
 					<e:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']}"
 						for="siret" />
 					<e:outputLabel value=" *" for="siret"
 						rendered="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)
-						&& accordController.preAccord.structure.typeStructure.siretObligatoire}" />
+						and accordController.preAccord.structure.typeStructure.siretObligatoire}" />
 				</h:panelGrid>
 				<t:panelGroup colspan="3">
 					<h:inputText id="siret" size="20" maxlength="14"
 						value="#{accordController.preAccord.structure.numeroSiret}"
 						required="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)
-						&& accordController.preAccord.structure.typeStructure.siretObligatoire}"
+						and accordController.preAccord.structure.typeStructure.siretObligatoire}"
 						requiredMessage="#{requiredMessageController.champObligatoire}"
 						validatorMessage="#{requiredMessageController.numeroSiretNonValide}">
 						<f:validator binding="#{numSiretValidator}" />
@@ -60,20 +60,20 @@
 					</h:inputText>
 					<rich:spacer width="10px" />
 					<rich:message for="siret" id="rmS">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 				</t:panelGroup>
-				<e:text value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}" escape="false" />
+				<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}" escape="false" />
 				<a4j:outputPanel id="opSiretOblig">
 					<t:panelGroup colspan="3"
 						rendered="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)
-						&& accordController.preAccord.structure.typeStructure.siretObligatoire}">
+						and accordController.preAccord.structure.typeStructure.siretObligatoire}">
 						<h:graphicImage id="arrow"
 							value="../../media/images/arrow_turn_up.png"
 							alt="#{msgs['GENERAL.ARROW_UP']}"
 							title="#{msgs['GENERAL.ARROW_UP']}" />
 						<rich:spacer width="10px" />
-						<e:text value="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}" />
+						<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}" />
 					</t:panelGroup>
 				</a4j:outputPanel>
 				<e:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="pays" />
@@ -101,7 +101,7 @@
 					</h:selectOneMenu>
 					<rich:spacer width="10px" />
 					<rich:message for="pays">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
 				</t:panelGroup>
 			</h:panelGrid>

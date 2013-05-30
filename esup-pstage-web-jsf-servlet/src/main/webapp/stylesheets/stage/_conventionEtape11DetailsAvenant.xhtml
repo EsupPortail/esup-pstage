@@ -297,7 +297,7 @@
 			</h:panelGrid>
 
 			<a4j:commandButton id="devalid" ajaxSingle="true"
-				rendered="#{avenantController.avenant.validationAvenant && (welcomeController.superAdmin
+				rendered="#{avenantController.avenant.validationAvenant and (welcomeController.superAdmin
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
 				oncomplete="#{rich:component('devalidAvenant')}.show()"

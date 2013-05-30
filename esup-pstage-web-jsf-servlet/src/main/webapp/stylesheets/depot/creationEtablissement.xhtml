@@ -1,22 +1,22 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.jsp"/>
+		<ui:include src="./_menu.xhtml"/>
 	</h:panelGrid>
 	<t:div rendered="#{sessionController.adminPageAuthorized}">
 		<h:panelGrid columns="1"
 			styleClass="panelEntreprise">
 			<rich:panel>
 				<f:facet name="header">
-					<e:text value="#{msgs['STRUCTURE.AJOUT']}" />
+					<h:outputText value="#{msgs['STRUCTURE.AJOUT']}" />
 				</f:facet>
 				<h:form id="formAjoutEtab" rendered="#{not empty etablissementController.formStructure}">
 					<rich:message for="formAjoutEtab">
-						<ui:include src="../_commun/_messageErrorMarker.jsp"/>
+						<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 					</rich:message>
-					<ui:include src="../_commun/_etablissementForm.jsp"/>
+					<ui:include src="../_commun/_etablissementForm.xhtml"/>
 					<h:panelGrid columns="3">
 						<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 							action="#{rechercheController.goToRechercheEtablissement}"
@@ -30,7 +30,7 @@
 					</h:panelGrid>
 				</h:form>
 			</rich:panel>
-			<ui:include src="_panelNousContacter.jsp"/>
+			<ui:include src="_panelNousContacter.xhtml"/>
 		</h:panelGrid>
 	</t:div>
 </e:page>

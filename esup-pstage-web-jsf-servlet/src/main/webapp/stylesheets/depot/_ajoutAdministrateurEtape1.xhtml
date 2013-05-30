@@ -1,6 +1,6 @@
-<ui:include src="../_include.jsp"/>
+<ui:include src="../_include.xhtml"/>
 
-<ui:include src="./_formAdministrateur.jsp"/>
+<ui:include src="./_formAdministrateur.xhtml"/>
 <a4j:commandButton action="#{adminController.ajouterAdministrateur}"
 	value="#{msgs['FORM.VALIDER']}" ignoreDupResponses="true"
 	reRender="opAdminDataTable" />
