@@ -6,6 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
+<a4j:outputPanel id="formSupprService">
 	<h:column>
 		<h:panelGrid columns="1">
 			<h:outputText value="#{msgs['SERVICE.SUPPR.QUESTION']}" escape="false" />
@@ -24,4 +25,5 @@
 				action="_supprServiceEtape1" immediate="true" />
 		</h:panelGrid>
 	</h:column>
+	</a4j:outputPanel>
 </ui:fragment>

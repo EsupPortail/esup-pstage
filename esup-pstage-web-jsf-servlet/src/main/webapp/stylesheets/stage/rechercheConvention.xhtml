@@ -86,7 +86,7 @@
 						</h:selectOneMenu>
 						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
 							rendered="#{conventionController.rechercheAvancee}" for="validee" />
-						<h:selectOneRadio id="validee" style="font-sizh:12px;"
+						<h:selectOneRadio id="validee" style="font-size:12px;"
 							value="#{conventionController.estValidee}"
 							rendered="#{conventionController.rechercheAvancee}">
 							<f:selectItem itemValue="#{'1'}"
@@ -155,7 +155,7 @@
 							style="height:100px;">
 							<f:selectItems value="#{conventionController.rechUfrs}" />
 						</h:selectManyMenu>
-						<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="font-sizh:11px;"
+						<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="font-size:11px;"
 							rendered="#{conventionController.rechercheAvancee and
 								not empty conventionController.rechUfrs}">
 							<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.UFRS']}"
@@ -174,7 +174,7 @@
 							style="height:100px;">
 							<f:selectItems value="#{conventionController.rechEtapes}" />
 						</h:selectManyMenu>
-						<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="font-sizh:11px;"
+						<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="font-size:11px;"
 							rendered="#{conventionController.rechercheAvancee
 								and not empty conventionController.rechEtapes}">
 							<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"

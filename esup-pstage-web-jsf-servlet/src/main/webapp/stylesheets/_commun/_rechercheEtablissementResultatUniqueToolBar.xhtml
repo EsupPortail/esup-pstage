@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -27,7 +27,7 @@
 		</h:commandLink>
 		<a4j:commandLink ajaxSingle="true" id="supprimerStructure"
 			oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
-			reRender="supprimerStructurePanel"
+			render="supprimerStructurePanel"
 			rendered="#{not empty rechercheController.ongletCourant 
 				and empty rechercheController.resultatRechercheStructure.accordPartenariat}">
 			<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
@@ -39,4 +39,4 @@
 				target="#{etablissementController.formStructure}" />
 		</a4j:commandLink>
 	</rich:toolbarGroup>
-</ui:fragment>
+</ui:composition>

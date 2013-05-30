@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,11 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
+
+	<ui:include src="_confirmationMessages.xhtml" />
 	<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		action="_ajoutContactEtape1"
+		action="#{etablissementController.resetCurrentPageAjoutContact}"
+		render="formAjoutContact"
 		onclick="#{rich:component('ajoutContact')}.hide();" />
-</ui:fragment>
+
+</ui:composition>

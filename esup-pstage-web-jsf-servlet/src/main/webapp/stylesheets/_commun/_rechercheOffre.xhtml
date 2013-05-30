@@ -44,7 +44,7 @@
 		</h:inputText>
 		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
 			for="lieuCodePostal" />
-		<h:panelGrid columns="2" style="font-sizh:11px;">
+		<h:panelGrid columns="2" style="font-size:11px;">
 			<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
 				title="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
 				value="../../media/images/information.png" style="border:0" />
@@ -89,7 +89,7 @@
 				<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
 			</h:selectOneMenu>
 		</h:panelGrid>
-		<h:panelGrid columns="2" style="font-sizh:11px;">
+		<h:panelGrid columns="2" style="font-size:11px;">
 			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.MOTSCLES']}"
 				for="motsCles" />
 			<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"
@@ -161,39 +161,39 @@
 					<t:column style="padding:0px;">
 						<h:outputText
 							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE']}"
-							style="font-sizh:10px;" />
+							style="font-size:10px;" />
 						<t:column style="padding:0px;">
 						</t:column>
 						<h:outputText
 							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESDIFFUSEES']}"
-							style="color:green;font-weight:bold;font-sizh:10px;"
+							style="color:green;font-weight:bold;font-size:10px;"
 							rendered="#{offreController.critereRechercheOffre.estDiffusee}" />
 						<t:column style="padding:0px;">
 						</t:column>
 						<h:outputText
 							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESNONDIFFUSEES']}"
-							style="color:green;font-weight:bold;font-sizh:10px;"
+							style="color:green;font-weight:bold;font-size:10px;"
 							rendered="#{!offreController.critereRechercheOffre.estDiffusee and
 						!offreController.critereRechercheOffre.estSupprimee}" />
 						<t:column style="padding:0px;">
 						</t:column>
-						<h:outputText value=", " style="font-sizh:10px;"
+						<h:outputText value=", " style="font-size:10px;"
 							rendered="#{offreController.critereRechercheOffre.diffusionTerminee}" />
 						<t:column style="padding:0px;">
 						</t:column>
 						<h:outputText
 							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESTERMINEES']}"
-							style="color:green;font-weight:bold;font-sizh:10px;"
+							style="color:green;font-weight:bold;font-size:10px;"
 							rendered="#{offreController.critereRechercheOffre.diffusionTerminee}" />
 						<t:column style="padding:0px;">
 						</t:column>
-						<h:outputText value=", " style="font-sizh:10px;"
+						<h:outputText value=", " style="font-size:10px;"
 							rendered="#{offreController.critereRechercheOffre.estSupprimee}" />
 						<t:column style="padding:0px;">
 						</t:column>
 						<h:outputText
 							value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.AIDE.OFFRESHISTORISEES']}"
-							style="color:green;font-weight:bold;font-sizh:10px;"
+							style="color:green;font-weight:bold;font-size:10px;"
 							rendered="#{offreController.critereRechercheOffre.estSupprimee}" />
 					</t:column>
 				</t:panelGrid>

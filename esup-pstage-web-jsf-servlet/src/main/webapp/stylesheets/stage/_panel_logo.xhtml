@@ -29,11 +29,11 @@
 							action="#{centreController.insertLogo}" ajaxSingle="true" />
 					</rich:fileUpload>
 					<h:outputText value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
-						style="font-sizh:10px;">
+						style="font-size:10px;">
 						<f:param value="#{sessionController.uploadImagesFileSizeLimit}" />
 					</h:outputText>
 					<h:outputText value="#{msgs['OFFRE.EXTENSIONFICHIER']}"
-						style="font-sizh:10px;">
+						style="font-size:10px;">
 						<f:param value="#{sessionController.uploadImagesFileExtensions}" />
 					</h:outputText>
 					<rich:message for="uploadImage">

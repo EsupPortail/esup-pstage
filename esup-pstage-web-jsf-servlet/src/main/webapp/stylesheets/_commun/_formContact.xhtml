@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,12 +6,12 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1"
+	<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1"
 		rendered="#{not empty etablissementController.formContact}">
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columns="3">
+		<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3">
 			<t:panelGroup colspan="3">
-				<h:panelGrid align="center">
+				<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" align="center">
 					<h:outputLabel value="#{msgs['CONTACT.GESTION.CENTREGESTION']} *"
 						for="centreGestion"
 						rendered="#{etablissementController.afficherSelectionCentreContact}" />
@@ -29,10 +29,10 @@
 					<rich:message for="centreGestion">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-				</h:panelGrid>
+				</t:panelGrid>
 			</t:panelGroup>
-			<h:panelGrid columns="1">
-				<h:panelGrid columns="2" style="margin-left:auto;margin-right:auto;">
+			<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+				<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="margin-left:auto;margin-right:auto;">
 					<h:outputLabel value="#{msgs['CONTACT.CIVILITE']} *" for="civilite" />
 					<h:selectOneMenu id="civilite"
 						value="#{etablissementController.formContact.civilite}"
@@ -47,7 +47,7 @@
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
 					</t:panelGroup>
-				</h:panelGrid>
+				</t:panelGrid>
 				<h:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
 				<h:inputText id="nom" style="text-transform:uppercase;"
 					value="#{etablissementController.formContact.nom}" size="50"
@@ -76,19 +76,19 @@
 				<rich:message for="fonction">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
-			</h:panelGrid>
-			<h:panelGrid columns="3">
+			</t:panelGrid>
+			<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3">
 				<t:htmlTag value="div" style="width: 25px;" />
 				<t:htmlTag value="div" style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 200px;" />
 				<t:htmlTag value="div" style="width: 25px;" />
-			</h:panelGrid>
-			<h:panelGrid columns="1">
-				<h:panelGrid columns="2">
+			</t:panelGrid>
+			<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+				<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 					<h:graphicImage value="../../media/images/arrow_turn_down.png"
 						style="border:0" />
 					<h:outputText id="msg1o3"
 						value="#{msgs['CONTACT.GESTION.UNDESTROIS']} " />
-				</h:panelGrid>
+				</t:panelGrid>
 				<t:htmlTag value="div" style="height: 5px;" />
 				<h:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} " />
 				<h:inputText id="telC" size="20" maxlength="20"
@@ -123,7 +123,7 @@
 				<rich:message for="msg1o3">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
-			</h:panelGrid>
-		</h:panelGrid>
-	</h:panelGrid>
-</ui:fragment>
+			</t:panelGrid>
+		</t:panelGrid>
+	</t:panelGrid>
+</ui:composition>

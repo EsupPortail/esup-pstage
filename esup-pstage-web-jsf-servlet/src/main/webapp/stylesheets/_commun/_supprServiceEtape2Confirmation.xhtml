@@ -6,9 +6,11 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<ui:include src="_confirmationMessages.xhtml" />
+	<a4j:outputPanel id="formSupprService">
+		<ui:include src="_confirmationMessages.xhtml" />
 
-	<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		action="_supprServiceEtape1"
-		onclick="#{rich:component('supprService')}.hide();" />
+		<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
+			action="_supprServiceEtape1"
+			onclick="#{rich:component('supprService')}.hide();" />
+	</a4j:outputPanel>
 </ui:fragment>

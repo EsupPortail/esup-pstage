@@ -7,7 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:panelGrid columns="2" cellpadding="2" cellspacing="2" align="center"
-		style="font-sizh:14px;">
+		style="font-size:14px;">
 		<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
 		<h:outputText
 			value="#{offreController.currentOffre.structure.raisonSociale}" />
@@ -50,7 +50,7 @@
 			rendered="#{not empty offreController.currentOffre.structure.libCedex}"
 			value="#{offreController.currentOffre.structure.libCedex}" />
 		<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" />
-		<h:panelGrid columns="2" style="font-sizh:12px;">
+		<h:panelGrid columns="2" style="font-size:12px;">
 			<h:graphicImage
 				rendered="#{not empty offreController.currentOffre.structure.pays}"
 				value="../../media/images/flags/#{offreController.currentOffre.structure.pays.iso2}.png"
