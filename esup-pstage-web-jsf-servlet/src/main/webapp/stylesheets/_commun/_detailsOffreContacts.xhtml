@@ -123,9 +123,9 @@
 		<t:htmlTag value="div" style="height: 20px;" />
 		<h:bold value="#{msgs['OFFRE.GESTION.CONTACTS.INFORMATION']}"
 			rendered="#{offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}" />
-		<h:panelGrid columns="3" style="font-size:12px;"
+		<h:panelGrid columns="3" style="font-sizh:12px;"
 			rendered="#{offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}">
-			<h:panelGrid columns="3" style="font-size:12px;">
+			<h:panelGrid columns="3" style="font-sizh:12px;">
 				<h:outputText
 					value="#{offreController.currentOffre.contactInfo.civilite.libelle} "
 					rendered="#{not empty offreController.currentOffre.contactInfo.civilite}" />

@@ -6,8 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="2" alternateColors="true" cellspacing="2px"
-		cellpadding="2px" style="font-size:12px;">
+	<h:panelGrid columns="2" alternateColors="true"style="font-size:12px;">
 		<h:bold value="#{msgs['OFFRE.ID']}" />
 		<h:outputText value="#{offreController.currentOffre.idOffre}" />
 		<h:bold value="#{msgs['OFFRE.INTITULE']}" />
@@ -19,8 +18,7 @@
 		<h:outputText
 			value="#{offreController.currentOffre.contratOffre.libelle}" />
 	</h:panelGrid>
-	<h:panelGrid columns="2" alternateColors="true" cellspacing="2px"
-		cellpadding="2px" style="font-size:12px;"
+	<h:panelGrid columns="2" alternateColors="true" style="font-size:12px;"
 		rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
 		<h:bold value="#{msgs['OFFRE.DEBUT']}" />
 		<h:panelGrid columns="2" style="font-size:12px;">
@@ -44,8 +42,7 @@
 				value="#{offreController.currentOffre.uniteDuree.libelle}" />
 		</h:panelGrid>
 	</h:panelGrid>
-	<h:panelGrid columns="2" alternateColors="true" cellspacing="2px"
-		cellpadding="2px" style="font-size:12px;">
+	<h:panelGrid columns="2" alternateColors="true" style="font-size:12px;">
 		<h:bold value="#{msgs['OFFRE.DOMAINE']}" />
 		<h:outputText value="#{offreController.currentOffre.fapN1.libelle}" />
 		<h:bold value="#{msgs['OFFRE.DESCRIPTION']}" />
@@ -61,8 +58,7 @@
 		<h:bold value="#{msgs['STRUCTURE.PAYS']}" />
 		<h:outputText value="#{offreController.currentOffre.lieuPays.libelle}" />
 	</h:panelGrid>
-	<h:panelGrid columns="2" alternateColors="true" cellspacing="2px"
-		cellpadding="2px" style="font-size:12px;"
+	<h:panelGrid columns="2" alternateColors="true" style="font-size:12px;"
 		rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
 		<h:bold value="#{msgs['OFFRE.DEPLACEMENT']}" />
 		<h:outputText value="#{msgs['FORM.OUI']}"
