@@ -26,8 +26,9 @@
 		</f:facet>
 		<h:panelGrid style="font-size:12px;" columns="1">
 			<h:outputText value="#{offre.typeOffre.libelle}" />
-			<h:bold value="#{offre.contratOffre.libelle}"
-				rendered="#{not empty offre.contratOffre}" />
+			<t:htmlTag value="bold" rendered="#{not empty offre.contratOffre}">
+				<h:outputText value="#{offre.contratOffre.libelle}" />
+			</t:htmlTag>
 		</h:panelGrid>
 	</rich:column>
 	<rich:column sortBy="#{offre.structure.raisonSociale}">

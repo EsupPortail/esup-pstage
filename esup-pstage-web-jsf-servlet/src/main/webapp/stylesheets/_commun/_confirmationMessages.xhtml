@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="2" align="center">
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" align="center">
 		<h:column>
 			<ui:include src="_confirmationImages.xhtml" />
 		</h:column>
@@ -16,4 +16,4 @@
 			</rich:messages>
 		</h:column>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

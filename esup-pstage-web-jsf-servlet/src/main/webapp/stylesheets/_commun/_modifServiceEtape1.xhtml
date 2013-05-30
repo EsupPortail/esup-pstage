@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,12 +6,19 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<ui:include src="./_formService.xhtml" />
+
+
+	<ui:include src="_formService.xhtml" />
+
 	<a4j:commandButton action="#{etablissementController.modifierService}"
-		value="#{msgs['FORM.MODIFIER']}" ignoreDupResponses="true"
-		reRender="opService, opActionsService, opContactsDataTable" />
-	<t:htmlTag value="div" style="width: 150px;" />
-	<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+		value="#{msgs['FORM.MODIFIER']}"
+		render="opService, opActionsService, opContactsDataTable, formModifService" />
+
+
+
+	<h:commandButton value="#{msgs['FORM.ANNULER']}"
 		onclick="#{rich:component('modifService')}.hide();"
-		action="_modifServiceEtape0" immediate="true" />
-</ui:fragment>
+		action="#{etablissementController.resetCurrentPageModifService}"
+		immediate="true" />
+
+</ui:composition>

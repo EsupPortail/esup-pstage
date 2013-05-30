@@ -35,12 +35,12 @@
 								valueChangeListener="#{etablissementController.valueIdServiceChanged}"
 								rendered="#{not empty etablissementController.listeServices}">
 								<f:selectItems value="#{etablissementController.servicesItems}" />
-								<a4j:ajax event="blur" ignoreDupResponses="true"
-									reRender="opContactsDataTable, opActionsService"
+								<a4j:ajax event="blur"
+									render="opContactsDataTable, opActionsService"
 									ajaxSingle="true" />
-								<a4j:ajax event="change"
-									reRender="opContactsDataTable, opActionsService"
-									ignoreDupResponses="true" ajaxSingle="true" />
+								<a4j:ajax event="valueChange"
+									render="opContactsDataTable, opActionsService"
+									ajaxSingle="true" />
 							</h:selectOneMenu>
 						</h:panelGrid>
 						<h:panelGrid columnClasses="paginatorData-text"
@@ -51,7 +51,7 @@
 							<a4j:commandLink ajaxSingle="true" id="ajout"
 								oncomplete="#{rich:component('ajoutService')}.show()"
 								action="#{etablissementController.ajoutService}"
-								reRender="ajoutService">
+								render="ajoutService">
 								<f:setPropertyActionListener value="#{true}"
 									target="#{etablissementController.memeAdresseStructure}" />
 								<h:graphicImage alt="#{msgs['FORM.CREER']}"
@@ -60,22 +60,23 @@
 							<rich:tooltip for="ajout" value="#{msgs['FORM.CREER']}" />
 						</h:panelGrid>
 					</a4j:outputPanel>
+
 					<t:htmlTag value="div" style="height: 20px;" />
+
+					<!-- Probleme  -->
 					<a4j:outputPanel id="opActionsService">
 						<h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
 							escape="false"
 							rendered="#{not empty etablissementController.serviceSel}" />
 						<rich:dataTable value="#{etablissementController.serviceSel}"
-							rendered="#{not empty etablissementController.serviceSel}"
-							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+							rendered="#{not empty etablissementController.serviceSel}">
 							<ui:include src="../_commun/_serviceColumns.xhtml" />
 							<rich:column
 								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 								<a4j:commandLink ajaxSingle="true" id="modif"
 									rendered="#{not empty etablissementController.idServiceSel}"
 									oncomplete="#{rich:component('modifService')}.show()"
-									reRender="modifService">
+									render="modifService">
 									<f:setPropertyActionListener value="#{false}"
 										target="#{etablissementController.memeAdresseStructure}" />
 									<f:setPropertyActionListener
@@ -86,7 +87,9 @@
 									<rich:tooltip>
 										<h:panelGrid columnClasses="paginatorData-text"
 											rowClasses="paginatorData-text" columns="1">
-											<em><h:outputText value="#{msgs['FORM.MODIFIER']}" /></em>
+											<t:htmlTag value="em">
+												<h:outputText value="#{msgs['FORM.MODIFIER']}" />
+											</t:htmlTag>
 											<t:div
 												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 												<t:htmlTag value="br" />
@@ -98,11 +101,13 @@
 										</h:panelGrid>
 									</rich:tooltip>
 								</a4j:commandLink>
+
 								<t:htmlTag value="div" style="display: inline; margin: 4px;" />
+
 								<a4j:commandLink ajaxSingle="true" id="suppr"
 									rendered="#{not empty etablissementController.idServiceSel}"
 									oncomplete="#{rich:component('supprService')}.show()"
-									reRender="supprService">
+									render="supprService">
 									<f:setPropertyActionListener value="#{false}"
 										target="#{etablissementController.memeAdresseStructure}" />
 									<f:setPropertyActionListener
@@ -112,11 +117,16 @@
 										value="../../media/images/delete.png" style="border:0" />
 									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 								</a4j:commandLink>
+
 							</rich:column>
 						</rich:dataTable>
 					</a4j:outputPanel>
+					<!-- Probleme  -->
+
 					<t:htmlTag value="div" style="height: 20px;" />
+
 					<a4j:outputPanel id="opContactsDataTable">
+
 						<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
 							rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
@@ -143,23 +153,22 @@
 									and not empty etablissementController.listeServices}"
 								oncomplete="#{rich:component('ajoutContact')}.show()"
 								action="#{etablissementController.ajoutContact}"
-								reRender="ajoutContact">
+								render="ajoutContact">
 								<h:graphicImage alt="#{msgs['FORM.CREER']}"
 									value="../../media/images/new.png" style="border:0" />
 								<f:setPropertyActionListener value="#{true}"
 									target="#{etablissementController.afficherSelectionCentreContact}" />
+								<rich:tooltip value="#{msgs['FORM.CREER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="ajoutC" value="#{msgs['FORM.CREER']}" />
 						</h:panelGrid>
+
 						<rich:dataTable width="600" id="contactsDataTable" rows="10"
 							columnClasses="col" var="contact" rowKeyVar="rowContact"
 							value="#{etablissementController.listeContacts}"
 							rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
 								and not empty etablissementController.listeContacts}"
-							ajaxKeys="#{etablissement.keysContacts}"
-							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+							ajaxKeys="#{etablissement.keysContacts}">
 							<f:facet name="header">
 								<rich:columnGroup>
 									<rich:column>
@@ -240,6 +249,8 @@
 									</h:panelGrid>
 								</h:panelGrid>
 							</rich:column>
+
+							<!-- modif contact -->
 							<rich:column
 								rendered="#{sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty contact.login and empty contact.mdp)
@@ -249,7 +260,7 @@
 									rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
 									oncomplete="#{rich:component('modifContact')}.show()"
-									reRender="modifContact">
+									render="modifContact">
 									<f:setPropertyActionListener value="#{rowContact}"
 										target="#{etablissementController.currentRowContact}" />
 									<f:setPropertyActionListener value="#{contact}"
@@ -259,32 +270,38 @@
 										target="#{etablissementController.afficherSelectionCentreContact}" />
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 										value="../../media/images/edit.png" style="border:0" />
+
+									<rich:tooltip>
+										<h:panelGrid columnClasses="paginatorData-text"
+											rowClasses="paginatorData-text" columns="1">
+											<em><h:outputText value="#{msgs['FORM.MODIFIER']}" /></em>
+											<t:div
+												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+												<t:htmlTag value="br" />
+												<t:aliasBean alias="#{objet}" value="#{contact}">
+													<ui:include src="../_commun/_updateInfos.xhtml" />
+												</t:aliasBean>
+											</t:div>
+										</h:panelGrid>
+									</rich:tooltip>
+
 								</a4j:commandLink>
-								<rich:tooltip for="modifC">
-									<h:panelGrid columnClasses="paginatorData-text"
-										rowClasses="paginatorData-text" columns="1">
-										<em><h:outputText value="#{msgs['FORM.MODIFIER']}" /></em>
-										<t:div
-											rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-											<t:htmlTag value="br" />
-											<t:aliasBean alias="#{objet}" value="#{contact}">
-												<ui:include src="../_commun/_updateInfos.xhtml" />
-											</t:aliasBean>
-										</t:div>
-									</h:panelGrid>
-								</rich:tooltip>
+
+
+								<!-- supp contact -->
 								<a4j:commandLink ajaxSingle="true" id="supprC"
 									rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
 									oncomplete="#{rich:component('supprContact')}.show()"
-									reRender="supprContact">
+									render="supprContact">
 									<f:setPropertyActionListener value="#{contact}"
 										target="#{etablissementController.formContact}" />
 									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 										value="../../media/images/delete.png" style="border:0" />
+										<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 								</a4j:commandLink>
-								<rich:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
 							</rich:column>
+							
 							<rich:column
 								rendered="#{(not empty contact.login and not empty contact.mdp)
 										and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
@@ -310,12 +327,14 @@
 					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}">
 				</h:commandButton>
 			</h:form>
+
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />
 			<ui:include src="../_commun/_panelModifService.xhtml" />
 			<ui:include src="../_commun/_panelSupprService.xhtml" />
 			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
 			<ui:include src="../_commun/_panelModifContact.xhtml" />
 			<ui:include src="../_commun/_panelSupprContact.xhtml" />
+
 		</rich:panel>
 	</ui:define>
 </ui:composition>

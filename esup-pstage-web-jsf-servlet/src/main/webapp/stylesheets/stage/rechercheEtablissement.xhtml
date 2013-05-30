@@ -9,18 +9,10 @@
 	template="_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<h:outputStylesheet>
-        .even-row {
-        background-color: #FCFFFE;
-        }
- 
-        .odd-row {
-        background-color: #ECF3FE;
-        }
- 
-        .active-row {
-        background-color: #FFEBDA !important;
-        cursor: pointer;
-        }
+	        .active-row {
+		        background-color: #FFEBDA !important;
+		        cursor: pointer;
+	        }
     </h:outputStylesheet>
 		<rich:panel>
 			<f:facet name="header">
@@ -35,7 +27,7 @@
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1">
 					<rich:message for="formResultatsRechEtab">
-						<t:htmlTag value="div" style="height: 20px;" />
+<!-- 						<t:htmlTag value="div" style="height: 20px;" /> -->
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 					<t:htmlTag value="div" style="height: 10px;" />
@@ -54,28 +46,17 @@
 							var="varRechercheStructure"
 							value="#{rechercheController.listeResultatsRechercheStructure}"
 							styleClass="stable"
-							border="0" cellspacing="2" cellpadding="2" style="width: 600;">
-							<!-- 							rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}" -->
-							<!-- 							value="#{rechercheController.rechercheStructurePaginator.visibleItems}" -->
-							<!-- 							onRowMouseOver="this.style.backgroundColor='#F1F1F1'" -->
-							<!-- 							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" -->
+							border="0" cellspacing="2" cellpadding="2" style="width: 600;"
+							rows="10">
+							
 							<f:facet name="header">
-								<ui:include
-									src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
+								<ui:include	src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
 							</f:facet>
-							<!-- 							<f:facet name="footer"> -->
-							<!-- 								<h:panelGroup> -->
-							<!-- 									<ui:include -->
-							<!-- 										src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" /> -->
-							<!-- 								</h:panelGroup> -->
-							<!-- 							</f:facet> -->
-
-							<ui:include
-								src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-
-							<ui:include
-								src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
+							<ui:include	src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+							<ui:include	src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
+							
 						</rich:dataTable>
+						<rich:dataScroller for="rechercheStructureDataTable" maxPages="20" renderIfSinglePage="false" />
 						<rich:jQuery selector=".stable tr" event="mouseover"
 							query="jQuery(this).addClass('active-row')" />
 						<rich:jQuery selector=".stable tr" event="mouseout"

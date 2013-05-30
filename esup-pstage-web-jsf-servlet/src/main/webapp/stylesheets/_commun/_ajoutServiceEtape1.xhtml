@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,15 +6,16 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<ui:include src="./_formService.xhtml" />
+
+	
+	<ui:include src="_formService.xhtml" />
 	<a4j:commandButton action="#{etablissementController.ajouterService}"
-		value="#{msgs['FORM.CREER']}" ignoreDupResponses="true"
-		reRender="opService, opActionsService, opContactsDataTable" />
-	<t:htmlTag value="div" style="spacer: 150px;" />
-	<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-		onclick="#{rich:component('ajoutService')}.hide();"
-		action="_ajoutServiceEtape1" immediate="true">
+		value="#{msgs['FORM.CREER']}" render="opService, opActionsService, opContactsDataTable, formAjoutService" />
+	<t:htmlTag value="div" style="display: inline; margin: 150px;" />
+	<h:commandButton value="#{msgs['FORM.ANNULER']}"
+		onclick="#{rich:component('ajoutService')}.hide()"
+		action="#{etablissementController.resetCurrentPageAjoutService}" immediate="true">
 		<f:setPropertyActionListener value="#{true}"
 			target="#{etablissementController.memeAdresseStructure}" />
-	</a4j:commandButton>
-</ui:fragment>
+	</h:commandButton>
+</ui:composition>

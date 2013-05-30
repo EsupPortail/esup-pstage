@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,13 +6,14 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
+
 	<rich:popupPanel id="ajoutService" autosized="true" styleClass="panel">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['SERVICE.AJOUT']}" />
 		</f:facet>
 		<h:form id="formAjoutService">
 			<ui:include id="include"
-				src="/stylesheets/_commun/_ajoutServiceEtape1.xhtml" />
+				src="#{etablissementController.currentPageAjoutService}" />
 		</h:form>
 	</rich:popupPanel>
-</ui:fragment>
+</ui:composition>

@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,8 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="supprService" autosized="true" width="400"
-		styleClass="panel" domElementAttachment="parent">
+	<rich:popupPanel id="supprService" autosized="true"	styleClass="panel">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['SERVICE.SUPPR']}" />
 		</f:facet>
@@ -16,4 +15,4 @@
 				src="/stylesheets/_commun/_supprServiceEtape1.xhtml" />
 		</h:form>
 	</rich:popupPanel>
-</ui:fragment>
+</ui:composition>

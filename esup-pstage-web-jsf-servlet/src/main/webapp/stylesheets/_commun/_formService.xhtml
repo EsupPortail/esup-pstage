@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="1">
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
 		<h:outputLabel for="nomService" value="#{msgs['SERVICE.NOM']} *" />
 		<h:inputText id="nomService"
@@ -27,13 +28,15 @@
 			<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 			<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 			<a4j:ajax event="change" ignoreDupResponses="true"
-				reRender="adresseService" ajaxSingle="true" />
+				render="adresseService" ajaxSingle="true" />
 		</h:selectOneRadio>
 		<a4j:outputPanel id="adresseService">
-			<h:panelGrid
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text"
 				rendered="#{not etablissementController.memeAdresseStructure}"
 				columns="3">
-				<h:panelGrid columns="1">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="1">
 					<h:outputLabel value="#{msgs['STRUCTURE.VOIE']} *" for="voie" />
 					<h:inputText id="voie"
 						value="#{etablissementController.formService.voie}" size="50"
@@ -56,20 +59,24 @@
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 				</h:panelGrid>
-				<h:panelGrid columns="3">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="3">
 					<t:htmlTag value="div" style="width: 25px;" />
 					<t:htmlTag value="div"
-						style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 124px;" />
+						style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 124px" />
 					<t:htmlTag value="div" style="width: 25px;" />
 				</h:panelGrid>
-				<h:panelGrid columns="1">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="1">
 					<a4j:region renderRegionOnly="true">
 						<a4j:outputPanel id="opCodePostal">
-							<h:panelGrid columns="1"
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="1"
 								rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 				(etablissementController.formServiceTmpPays!=beanUtils.france and etablissementController.formServiceTmpPays.cog!=beanUtils.cogFrance
 				and sessionController.recupererCommunesDepuisApogee)}">
-								<h:panelGrid columns="2">
+								<h:panelGrid columnClasses="paginatorData-text"
+									rowClasses="paginatorData-text" columns="2">
 									<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
 										for="codePostal" />
 									<h:outputLabel value=" *" for="codePostal"
@@ -88,11 +95,13 @@
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 								</rich:message>
 							</h:panelGrid>
-							<h:panelGrid columns="1"
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="1"
 								rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
 								<a4j:region id="dynaR">
-									<h:panelGrid columns="1">
+									<h:panelGrid columnClasses="paginatorData-text"
+										rowClasses="paginatorData-text" columns="1">
 										<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
 											for="dynaCodePostal" />
 										<h:inputText id="dynaCodePostal"
@@ -101,7 +110,8 @@
 											requiredMessage="#{requiredMessageController.champObligatoire}"
 											validatorMessage="#{requiredMessageController.codePostalNonValide}"
 											valueChangeListener="#{etablissementController.formServiceValueCodePostalChanged}">
-											<a4j:ajax event="keyup" reRender="opDynaCommune"
+									
+											<a4j:ajax event="valueChange" render="opDynaCommune"
 												ignoreDupResponses="true" ajaxSingle="true"
 												requestDelay="1000" />
 										</h:inputText>
@@ -115,7 +125,8 @@
 						<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *"
 							for="commune" />
 						<a4j:outputPanel id="opCommune">
-							<h:panelGrid columns="1"
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="1"
 								rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 				(etablissementController.formServiceTmpPays!=beanUtils.france and etablissementController.formServiceTmpPays.cog!=beanUtils.cogFrance
 				and sessionController.recupererCommunesDepuisApogee)}">
@@ -130,7 +141,8 @@
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 								</rich:message>
 							</h:panelGrid>
-							<h:panelGrid columns="1"
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="1"
 								rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
 								<a4j:outputPanel id="opDynaCommune">
@@ -141,7 +153,7 @@
 										<f:selectItem itemValue="" />
 										<f:selectItems
 											value="#{etablissementController.formServiceCommunesListening}" />
-										<a4j:ajax event="change" ignoreDupResponses="true" />
+										<a4j:ajax event="valueChange" ignoreDupResponses="true" />
 										<a4j:ajax event="keyup" ignoreDupResponses="true" />
 										<a4j:ajax event="blur" ignoreDupResponses="true" />
 									</h:selectOneMenu>
@@ -157,7 +169,8 @@
 							</h:panelGrid>
 						</a4j:outputPanel>
 						<h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
-						<h:panelGrid columns="2">
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="2">
 							<a4j:outputPanel id="opFlag">
 								<t:htmlTag value="div" style="width: 16px;"
 									rendered="#{empty etablissementController.formServiceTmpPays}" />
@@ -173,8 +186,8 @@
 								requiredMessage="#{requiredMessageController.champObligatoire}"
 								styleClass="paysInput">
 								<f:selectItems value="#{nomenclatureController.pays}" />
-								<a4j:ajax event="change"
-									reRender="opFlag, opCommune, opCodePostal"
+								<a4j:ajax event="valueChange"
+									render="opFlag, opCommune, opCodePostal"
 									ignoreDupResponses="true" ajaxSingle="true" />
 							</h:selectOneMenu>
 						</h:panelGrid>
@@ -186,4 +199,4 @@
 			</h:panelGrid>
 		</a4j:outputPanel>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

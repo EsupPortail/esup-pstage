@@ -27,7 +27,7 @@
 		</h:commandLink>
 		<a4j:commandLink ajaxSingle="true" id="supprimerStructure"
 			oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
-			reRender="supprimerStructurePanel"
+			render="supprimerStructurePanel"
 			rendered="#{not empty rechercheController.ongletCourant 
 				and empty rechercheController.resultatRechercheStructure.accordPartenariat}">
 			<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"

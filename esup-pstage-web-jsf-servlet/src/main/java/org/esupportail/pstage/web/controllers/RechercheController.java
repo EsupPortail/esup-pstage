@@ -191,6 +191,7 @@ public class RechercheController extends AbstractContextAwareController {
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
 		}
+		System.out.println("critereRechercheStructureAdresse => "+critereRechercheStructureAdresse);
 		return "affichageRechercheEtablissement";
 	}
 	

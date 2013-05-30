@@ -30,10 +30,8 @@
 			</h:panelGrid>
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="3">
-				<h:commandButton ajaxSingle="true"
-					action="#{etablissementController.supprimerEtablissement}"
-					value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
-					reRender="opRechercheStructureDataTable, opAffEtab" />
+				<a4j:commandButton action="#{etablissementController.supprimerEtablissement}"
+					value="#{msgs['FORM.SUPPRIMER']}" render="opRechercheStructureDataTable, opAffEtab" />
 				<t:htmlTag value="div" style="width: 150px;" />
 				<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 					onclick="#{rich:component('supprimerStructurePanel')}.hide();return false;" />
