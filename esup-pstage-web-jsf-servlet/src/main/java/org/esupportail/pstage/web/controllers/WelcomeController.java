@@ -257,10 +257,11 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * @return String
+	 * 
 	 */
-	public String nousContacter(){
-		String retour="_nousContacterEtape2";
+	public void nousContacter(){
+//		String retour="_nousContacterEtape2";
+		getSessionController().setNousContacterCurrentPage("_nousContacterEtape2");
 		if(!getSessionController().getNousContacter().isNull()){
 			addInfoMessage(null, "GENERAL.NOUS_CONTACTER.CONFIRMATION");
 			if(StringUtils.hasText(getSessionController().getMailingListEntr())){
@@ -277,7 +278,7 @@ public class WelcomeController extends AbstractContextAwareController {
 			}
 			getSessionController().setNousContacter(new NousContacter());
 		}
-		return retour;
+//		return retour;
 	}
 
 	/**
@@ -310,18 +311,6 @@ public class WelcomeController extends AbstractContextAwareController {
 		getSessionController().getNousContacter().setMessage("");
 		return null;
 	}
-
-	//	public String retourLigneHTML(String s){
-	//		String r="";
-	//		StringTokenizer st = new StringTokenizer(s, "\n");
-	//		r=st.nextToken();
-	//		while(st.hasMoreTokens()){
-	//			r=r+"</br>"+st.nextToken();
-	//		}
-	//		return r;
-	//	}
-
-
 
 	/**
 	 * @return String

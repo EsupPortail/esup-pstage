@@ -19,7 +19,7 @@
 
 	<navigation-rule>
 		<display-name>welcome</display-name>
-		<from-view-id>/stylesheets/depot/welcome.xhtml</from-view-id>
+		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>accord</from-outcome>
 			<to-view-id>/stylesheets/depot/accord.xhtml</to-view-id>

@@ -5,18 +5,19 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 	<h:form>
-		<a4j:commandLink ajaxSingle="true" status="status1"
+		<t:htmlTag value="div" style="height:5px;"/>
+		<a4j:commandLink execute="@this" status="status1"
 			action="#{welcomeController.initNousContacter}"
 			oncomplete="#{rich:component('nousContacter')}.show()"
-			reRender="nousContacter">
+			render="nousContacter">
 			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
 				title="#{msgs['GENERAL.HELP']}" value="../../media/images/help.png"
 				style="border:0" />
 			<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
 		</a4j:commandLink>
 	</h:form>
-	<rich:popupPanel id="nousContacter" autosized="true" width="500"
-		styleClass="panel" domElementAttachment="parent">
+	<rich:popupPanel id="nousContacter" autosized="true"
+		styleClass="panel">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
 		</f:facet>
@@ -30,16 +31,15 @@
 				</h:graphicImage>
 			</h:panelGroup>
 		</f:facet>
-		<h:form>
+		<h:form id="formNousContacter">
 			<ui:include id="include"
-				src="/stylesheets/depot/_nousContacterEtape1.xhtml" />
+				src="/stylesheets/depot/#{sessionController.nousContacterCurrentPage}.xhtml" />
 		</h:form>
 	</rich:popupPanel>
 	<a4j:status name="status1" onstart="#{rich:component('wait')}.show()"
 		onstop="#{rich:component('wait')}.hide()" />
-	<rich:popupPanel id="wait" autosized="true" width="15" height="40"
-		moveable="false" resizeable="false"
-		style="position:absolute;margin-left:auto;margin-right:auto;">
+	<rich:popupPanel id="wait" autosized="true"
+		moveable="false" resizeable="false">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['GENERAL.LOADING']}" />
 		</f:facet>

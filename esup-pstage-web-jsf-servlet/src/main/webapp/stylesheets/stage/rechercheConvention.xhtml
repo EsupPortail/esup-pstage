@@ -114,12 +114,6 @@
 							<f:selectItem itemValue="" />
 							<f:selectItems value="#{nomenclatureController.anneesConvention}" />
 						</h:selectOneMenu>
-						<!-- 						<p:spacer height="5px" -->
-						<!-- 							rendered="#{conventionController.rechercheAvancee}" /> -->
-						<!-- 						<p:separator height="4" lineType="beveled" -->
-						<!-- 							rendered="#{conventionController.rechercheAvancee}" /> -->
-						<!-- 						<p:spacer height="5px" -->
-						<!-- 							rendered="#{conventionController.rechercheAvancee}" /> -->
 
 						<t:htmlTag value="div" style="height: 5px;"
 							rendered="#{conventionController.rechercheAvancee}" />
@@ -182,18 +176,14 @@
 								value="../../media/images/information.png" style="border:0" />
 							<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
 						</h:panelGrid>
-						<!-- 						<rich:spacer height="5px" -->
-						<!-- 							rendered="#{conventionController.rechercheAvancee}" /> -->
-						<!-- 						<rich:separator height="4" lineType="beveled" -->
-						<!-- 							rendered="#{conventionController.rechercheAvancee}" /> -->
-						<!-- 						<rich:spacer height="5px" -->
-						<!-- 							rendered="#{conventionController.rechercheAvancee}" /> -->
+
 						<t:htmlTag value="div" style="height: 5px;"
 							rendered="#{conventionController.rechercheAvancee}" />
 						<t:htmlTag value="div" style="height: 4px;" styleClass="spacer"
 							rendered="#{conventionController.rechercheAvancee}" />
 						<t:htmlTag value="div" style="height: 5px;"
 							rendered="#{conventionController.rechercheAvancee}" />
+						
 						<h:outputLabel
 							value="#{msgs['RECHERCHECONVENTION.NOMENSEIGNANT']}"
 							for="nomEnseignant"
@@ -210,18 +200,14 @@
 							value="#{conventionController.critereRechercheConvention.prenomEnseignant}"
 							size="50" maxlength="50"
 							rendered="#{conventionController.rechercheAvancee}" />
-						<!-- 						<rich:spacer height="5px" -->
-						<!-- 							rendered="#{conventionController.rechercheAvancee}" /> -->
-						<!-- 						<rich:separator height="4" lineType="beveled" -->
-						<!-- 							rendered="#{conventionController.rechercheAvancee}" /> -->
-						<!-- 						<rich:spacer height="5px" -->
-						<!-- 							rendered="#{conventionController.rechercheAvancee}" /> -->
+
 						<t:htmlTag value="div" style="height: 5px;"
 							rendered="#{conventionController.rechercheAvancee}" />
 						<t:htmlTag value="div" style="height: 4px;" styleClass="spacer"
 							rendered="#{conventionController.rechercheAvancee}" />
 						<t:htmlTag value="div" style="height: 5px;"
 							rendered="#{conventionController.rechercheAvancee}" />
+						
 						<h:outputLabel
 							value="#{msgs['RECHERCHECONVENTION.RAISONSOCIALE']}"
 							for="raisonSociale"
@@ -292,7 +278,6 @@
 							<f:selectItems value="#{nomenclatureController.nafN1}" />
 						</h:selectOneMenu>
 					</h:panelGrid>
-					<!-- 					<rich:spacer height="20px" /> -->
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="8">
 						<h:commandButton value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
@@ -300,7 +285,6 @@
 							<f:setPropertyActionListener value="resultatsRechercheConvention"
 								target="#{conventionController.retourAction}" />
 						</h:commandButton>
-						<!-- 						<rich:spacer width="100px" /> -->
 						<t:htmlTag value="div" style="width: 100px;" />
 						<h:commandButton
 							value="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}"

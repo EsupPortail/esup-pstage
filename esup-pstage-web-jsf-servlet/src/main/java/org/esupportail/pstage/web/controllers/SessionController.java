@@ -302,6 +302,16 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * vrai si les gestionnaires doivent moderer les offres
 	 */
 	private boolean moderationActive;
+	
+	/**
+	 * Variable permettant l'enchainement d'ecran de la creation d'accord
+	 */
+	private String creerAccordCurrentPage = "_accordEtape1PreAccord";
+	/**
+	 * Variable permettant l'enchainement d'ecran de la popUp NousContacter
+	 */
+	private String nousContacterCurrentPage = "_nousContacterEtape1";
+	
 	/**
 	 * Constructor.
 	 */
@@ -1382,6 +1392,34 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public boolean isModerationActive() {
 		return moderationActive;
+	}
+
+	/**
+	 * @return the creerAccordCurrentPage
+	 */
+	public String getCreerAccordCurrentPage() {
+		return creerAccordCurrentPage;
+	}
+
+	/**
+	 * @param creerAccordCurrentPage the creerAccordCurrentPage to set
+	 */
+	public void setCreerAccordCurrentPage(String creerAccordCurrentPage) {
+		this.creerAccordCurrentPage = creerAccordCurrentPage;
+	}
+
+	/**
+	 * @return the nousContacterCurrentPage
+	 */
+	public String getNousContacterCurrentPage() {
+		return nousContacterCurrentPage;
+	}
+
+	/**
+	 * @param nousContacterCurrentPage the nousContacterCurrentPage to set
+	 */
+	public void setNousContacterCurrentPage(String nousContacterCurrentPage) {
+		this.nousContacterCurrentPage = nousContacterCurrentPage;
 	}
 	
 	

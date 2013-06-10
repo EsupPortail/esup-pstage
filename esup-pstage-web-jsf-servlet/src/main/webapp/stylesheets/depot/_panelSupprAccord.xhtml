@@ -1,10 +1,17 @@
-<ui:include src="../_include.xhtml"/>
-<rich:modalPanel id="supprimerAccordPanel" autosized="true" width="400"
-	styleClass="panel" domElementAttachment="parent">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['ACCORD.SUPPRESSION']}" />
-	</f:facet>
-	<h:form id="formSupprAccord">
-		<a4j:include id="include" viewId="/stylesheets/depot/_supprAccordEtape1.xhtml"/>
-	</h:form>
-</rich:modalPanel>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:popupPanel id="supprimerAccordPanel" autosized="true" width="400"
+		styleClass="panel" domElementAttachment="parent">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['ACCORD.SUPPRESSION']}" />
+		</f:facet>
+		<h:form id="formSupprAccord">
+			<ui:include id="include"
+				src="/stylesheets/depot/_supprAccordEtape1.xhtml" />
+		</h:form>
+	</rich:popupPanel>
+</ui:composition>

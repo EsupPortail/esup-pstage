@@ -4,10 +4,12 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1">
+	<h:panelGrid columns="1" columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text">
 		<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER.INFO']}" />
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="3" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
 			<h:panelGrid columns="1">
 				<h:outputLabel for="nomNC" value="#{msgs['CONTACT.NOM']} *" />
 				<h:inputText id="nomNC" style="text-transform:uppercase;"
@@ -15,7 +17,7 @@
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{upperCaseConverter}" />
-<!-- 					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+					<!-- 					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
 					<a4j:ajax event="blur" />
 				</h:inputText>
 				<rich:message for="nomNC">
@@ -35,7 +37,7 @@
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{premiereLettreMAJConverter}" />
-<!-- 					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+					<!-- 					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
 					<a4j:ajax event="blur" />
 				</h:inputText>
 				<rich:message for="prenomNC">
@@ -54,8 +56,8 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 				<f:validator binding="#{mailValidator}" />
-<!-- 				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
-				<a4j:ajax event="blur"/>
+				<!-- 				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+				<a4j:ajax event="blur" />
 			</h:inputText>
 			<rich:message for="mailNC">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -68,8 +70,8 @@
 				value="#{sessionController.nousContacter.sujet}" size="50"
 				maxlength="50" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-<!-- 				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
-				<a4j:ajax event="blur"/>
+				<!-- 				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+				<a4j:ajax event="blur" />
 			</h:inputText>
 			<rich:message for="sujetNC">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -81,65 +83,62 @@
 			value="#{sessionController.nousContacter.message}" width="400"
 			height="200" required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}">
-<!-- 			<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
-			<a4j:ajax event="blur"/>
+			<!-- 			<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+			<a4j:ajax event="blur" />
 		</rich:editor>
 		<rich:message for="messageNC">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
-		<a4j:region renderRegionOnly="true">
-			<a4j:outputPanel id="opCodePostalNC">
-				<h:panelGrid columns="2">
-					<h:outputLabel for="codePostalNC"
-						value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-					<h:outputLabel for="codePostalNC" value=" *"
-						rendered="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}" />
-				</h:panelGrid>
-				<h:panelGrid columns="2">
-					<h:inputText id="codePostalNC" style="text-transform:capitalize;"
-						value="#{sessionController.nousContacter.codePostal}" size="10"
-						maxlength="10"
-						required="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-<!-- 						<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
-						<a4j:ajax event="blur"/>
-					</h:inputText>
-					<rich:message for="codePostalNC">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-				</h:panelGrid>
+		<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="paysNC" />
+		<h:panelGrid columns="5">
+			<a4j:outputPanel id="opFlagNC">
+				<t:htmlTag value="div" style="width: 16px;"
+					rendered="#{empty sessionController.nousContacter.pays}" />
+				<h:graphicImage id="flagNC"
+					rendered="#{not empty sessionController.nousContacter.pays and not empty sessionController.nousContacter.pays.iso2}"
+					value="../../media/images/flags/#{sessionController.nousContacter.pays.iso2}.png"
+					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+					title="#{sessionController.nousContacter.pays.libelle}" />
 			</a4j:outputPanel>
-			<h:panelGrid columns="1">
-				<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="paysNC" />
-				<t:panelGroup colspan="5">
-					<a4j:outputPanel id="opFlagNC">
-						<t:htmlTag value="div" style="width: 16px;"
-							rendered="#{empty sessionController.nousContacter.pays}" />
-						<h:graphicImage id="flagNC"
-							rendered="#{not empty sessionController.nousContacter.pays and not empty sessionController.nousContacter.pays.iso2}"
-							value="../../media/images/flags/#{sessionController.nousContacter.pays.iso2}.png"
-							alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-							title="#{sessionController.nousContacter.pays.libelle}" />
-					</a4j:outputPanel>
-					<t:htmlTag value="div" style="width: 10px;" />
-					<h:selectOneMenu id="paysNC" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}"
-						value="#{sessionController.nousContacter.pays}"
-						converter="#{paysConverter}" styleClass="paysInput">
-						<a4j:ajax event="valueChange" render="opFlagNC, opCodePostalNC"/>
-						<f:selectItem itemValue="" />
-						<f:selectItems value="#{nomenclatureController.pays}" />
-					</h:selectOneMenu>
-					<t:htmlTag value="div" style="width: 10px;" />
-					<rich:message for="paysNC">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-				</t:panelGroup>
+			<t:htmlTag value="div" style="width:5px;" />
+			<h:selectOneMenu id="paysNC" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				value="#{sessionController.nousContacter.pays}"
+				converter="#{paysConverter}" styleClass="paysInput">
+				<a4j:ajax event="valueChange" render="opFlagNC, opCodePostalNC" />
+				<f:selectItem itemValue="" />
+				<f:selectItems value="#{nomenclatureController.pays}" />
+			</h:selectOneMenu>
+			<t:htmlTag value="div" style="width: 10px;" />
+			<rich:message for="paysNC">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</h:panelGrid>
+		<a4j:outputPanel id="opCodePostalNC">
+			<h:panelGrid columns="2">
+				<h:outputLabel for="codePostalNC"
+					value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+				<h:outputLabel for="codePostalNC" value=" *"
+					rendered="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}" />
 			</h:panelGrid>
-		</a4j:region>
+			<h:panelGrid columns="2">
+				<h:inputText id="codePostalNC" style="text-transform:capitalize;"
+					value="#{sessionController.nousContacter.codePostal}" size="10"
+					maxlength="10"
+					required="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}"
+					requiredMessage="#{requiredMessageController.champObligatoire}">
+					<!-- 						<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+					<a4j:ajax event="blur" />
+				</h:inputText>
+				<rich:message for="codePostalNC">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+			</h:panelGrid>
+		</a4j:outputPanel>
 	</h:panelGrid>
 	<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
-		action="#{welcomeController.nousContacter}" ignoreDupResponses="true" />
+		action="#{welcomeController.nousContacter}"
+		render="formNousContacter"/>
 	<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
 		onclick="#{rich:component('nousContacter')}.hide();return false;" />
 </ui:composition>

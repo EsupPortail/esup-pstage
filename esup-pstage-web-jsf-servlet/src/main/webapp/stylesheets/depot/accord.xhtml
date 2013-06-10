@@ -1,17 +1,22 @@
-<ui:include src="../_include.xhtml"/>
-
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
-	<h:panelGrid columns="1"
-		styleClass="panelEntreprise">
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['ACCORD.TITRE']}" />
-			</f:facet>
-			<h:form id="formAccord" rendered="#{not empty accordController.preAccord}">
-                <a4j:include id="include" viewId="/stylesheets/depot/_accordEtape1PreAccord.xhtml" />
-            </h:form>
-		</rich:panel>
-		<ui:include src="_panelNousContacter.xhtml"/>
-	</h:panelGrid>
-</e:page>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="_definedDepotTemplate.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="1" styleClass="panelEntreprise">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['ACCORD.TITRE']}" />
+				</f:facet>
+				<h:form id="formAccord"
+					rendered="#{not empty accordController.preAccord}">
+					<ui:include id="include" src="/stylesheets/depot/#{sessionController.creerAccordCurrentPage}.xhtml" />
+				</h:form>
+			</rich:panel>
+			<ui:include src="_panelNousContacter.xhtml" />
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>
