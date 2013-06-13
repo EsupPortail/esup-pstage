@@ -6,15 +6,16 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 	<h:form>
 		<t:htmlTag value="div" style="height:5px;"/>
-		<a4j:commandLink execute="@this" status="status1"
-			action="#{welcomeController.initNousContacter}"
-			oncomplete="#{rich:component('nousContacter')}.show()"
-			render="nousContacter">
+		<h:panelGrid columns="2">
 			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
 				title="#{msgs['GENERAL.HELP']}" value="../../media/images/help.png"
 				style="border:0" />
-			<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
-		</a4j:commandLink>
+			<a4j:commandLink execute="@this" status="status1" style="color:blue;"
+				action="#{welcomeController.initNousContacter}"
+				oncomplete="#{rich:component('nousContacter')}.show()"
+				render="nousContacter"
+				value="#{msgs['GENERAL.NOUS_CONTACTER']}"/>
+		</h:panelGrid>
 	</h:form>
 	<rich:popupPanel id="nousContacter" autosized="true"
 		styleClass="panel">

@@ -25,7 +25,7 @@
 			<f:setPropertyActionListener value="#{true}"
 				target="#{etablissementController.modificationEtabBoutonAnnuler}" />
 		</h:commandLink>
-		<a4j:commandLink ajaxSingle="true" id="supprimerStructure"
+		<a4j:commandLink execute="@this" id="supprimerStructure"
 			oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
 			render="supprimerStructurePanel"
 			rendered="#{not empty rechercheController.ongletCourant 

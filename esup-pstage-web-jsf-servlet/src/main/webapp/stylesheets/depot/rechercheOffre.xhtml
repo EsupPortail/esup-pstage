@@ -1,37 +1,44 @@
-<ui:include src="../_include.xhtml"/>
-
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
-	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.xhtml"/>
-	</h:panelGrid>
-	<h:panelGrid columns="1"
-		styleClass="panelEntreprise">
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
-			</f:facet>
-			<h:form id="formRechOffre">
-				<ui:include src="../_commun/_rechercheOffre.xhtml"/>
-				<h:panelGrid columns="5">
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
-						action="#{offreController.rechercherOffre}" />
-					<rich:spacer width="100px" />
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
-						action="#{offreController.rechercheSimpleAvancee}"
-						rendered="#{offreController.rechercheAvancee}" />
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
-						action="#{offreController.rechercheSimpleAvancee}"
-						rendered="#{!offreController.rechercheAvancee}" />
-					<rich:spacer width="20px" />
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
-						action="#{offreController.resetRechercheOffre}" />
-				</h:panelGrid>
-			</h:form>
-			<rich:message for="formRechOffre" style="color:red;font-weight:bold;">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
-			</rich:message>
-		</rich:panel>
-		<ui:include src="_panelNousContacter.xhtml"/>
-	</h:panelGrid>
-</e:page>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="../_basicTemplate.xhtml">
+	<ui:define name="content">
+		<h:panelGrid style="float:left;">
+			<ui:include src="./_menu.xhtml" />
+		</h:panelGrid>
+		<h:panelGrid columns="1" styleClass="panelEntreprise">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+				</f:facet>
+				<h:form id="formRechOffre">
+					<ui:include src="../_commun/_rechercheOffre.xhtml" />
+					<h:panelGrid columns="5" columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text">
+						<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
+							action="#{offreController.rechercherOffre}" />
+						<t:htmlTag value="div" style="width:100px;" />
+						<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
+							action="#{offreController.rechercheSimpleAvancee}"
+							rendered="#{offreController.rechercheAvancee}" />
+						<h:commandButton
+							value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
+							action="#{offreController.rechercheSimpleAvancee}"
+							rendered="#{!offreController.rechercheAvancee}" />
+						<t:htmlTag value="div" style="width:20px;" />
+						<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
+							action="#{offreController.resetRechercheOffre}" />
+					</h:panelGrid>
+				</h:form>
+				<rich:message for="formRechOffre"
+					style="color:red;font-weight:bold;">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+			</rich:panel>
+			<ui:include src="_panelNousContacter.xhtml" />
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>

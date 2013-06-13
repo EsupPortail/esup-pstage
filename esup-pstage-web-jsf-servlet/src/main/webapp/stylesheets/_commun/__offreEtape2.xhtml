@@ -59,7 +59,7 @@
 					<f:selectItem itemValue="" />
 					<f:selectItems value="#{offreController.contratsListening}" />
 					<a4j:support event="onchange" ignoreDupResponses="true"
-						reRender="opDuree" ajaxSingle="true" />
+						render="opDuree" execute="@this" />
 				</h:selectOneMenu>
 				<rich:message for="contrat">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -87,7 +87,7 @@
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.mois}" />
 								<a4j:ajax event="change" ignoreDupResponses="true"
-									reRender="precisionDebutMission" ajaxSingle="true"
+									render="precisionDebutMission" execute="@this"
 									process="anneeMission" />
 							</h:selectOneMenu>
 							<t:htmlTag value="div" style="width: 20px;" />
@@ -100,7 +100,7 @@
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.annees}" />
 								<a4j:ajax event="change" ignoreDupResponses="true"
-									reRender="precisionDebutMission" ajaxSingle="true"
+									render="precisionDebutMission" execute="@this"
 									process="moisMission" />
 							</h:selectOneMenu>
 							<t:panelGroup colspan="3">
@@ -122,7 +122,7 @@
 							required="#{empty offreController.formOffre.moisDebut and empty offreController.formOffre.anneeDebut}"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<a4j:ajax event="change" ignoreDupResponses="true"
-								reRender="moisMission, anneeMission" ajaxSingle="true" />
+								render="moisMission, anneeMission" execute="@this" />
 						</h:inputText>
 						<rich:message for="precisionDebutMission">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -255,8 +255,8 @@
 										requiredMessage="#{requiredMessageController.champObligatoire}"
 										validatorMessage="#{requiredMessageController.codePostalNonValide}"
 										valueChangeListener="#{offreController.formOffreValueCodePostalChanged}">
-										<a4j:support event="onkeyup" reRender="opDynaCommune"
-											ignoreDupResponses="true" ajaxSingle="true"
+										<a4j:support event="onkeyup" render="opDynaCommune"
+											ignoreDupResponses="true" execute="@this"
 											requestDelay="1000" />
 									</h:inputText>
 								</h:panelGrid>
@@ -328,8 +328,8 @@
 							styleClass="paysInput">
 							<f:selectItems value="#{nomenclatureController.pays}" />
 							<a4j:ajax event="change"
-								reRender="opFlag, opCommune, opCodePostal"
-								ignoreDupResponses="true" ajaxSingle="true" />
+								render="opFlag, opCommune, opCodePostal"
+								ignoreDupResponses="true" execute="@this" />
 						</h:selectOneMenu>
 					</h:panelGrid>
 					<rich:message for="pays">
@@ -346,7 +346,7 @@
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 						<a4j:ajax event="change" ignoreDupResponses="true"
-							ajaxSingle="true" reRender="opPrecisionsIndemnite" />
+							execute="@this" render="opPrecisionsIndemnite" />
 					</h:selectOneRadio>
 					<rich:message for="indemnite">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -447,7 +447,7 @@
 							<f:selectItem itemValue="" />
 							<f:selectItems value="#{nomenclatureController.tempsTravail}" />
 							<a4j:ajax event="change" ignoreDupResponses="true"
-								reRender="opQuotiteTravail" ajaxSingle="true" />
+								render="opQuotiteTravail" execute="@this" />
 						</h:selectOneMenu>
 						<rich:message for="tempsTravail">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -533,8 +533,8 @@
 				<h:selectOneRadio value="#{offreController.diffusionDirecte}">
 					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-					<a4j:ajax event="click" ignoreDupResponses="true" ajaxSingle="true"
-						reRender="diffusionOffre" />
+					<a4j:ajax event="click" ignoreDupResponses="true" execute="@this"
+						render="diffusionOffre" />
 				</h:selectOneRadio>
 			</h:panelGrid>
 			<h:panelGrid columns="2"

@@ -81,10 +81,10 @@
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.typesStructure}" />
 								<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
-								<a4j:support event="onchange" reRender="opStatutJuridique"
-									ignoreDupResponses="true" ajaxSingle="true" />
-								<a4j:support event="onkeyup" reRender="opStatutJuridique"
-									ignoreDupResponses="true" ajaxSingle="true" />
+								<a4j:support event="onchange" render="opStatutJuridique"
+									ignoreDupResponses="true" execute="@this" />
+								<a4j:support event="onkeyup" render="opStatutJuridique"
+									ignoreDupResponses="true" execute="@this" />
 							</h:selectOneMenu>
 							<rich:message for="typeStructure">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -130,10 +130,10 @@
 						<f:converter binding="#{codNafN5Converter}" />
 						<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
 						<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
-						<a4j:support event="onkeyup" reRender="opLibelleAPE"
-							ignoreDupResponses="true" ajaxSingle="true" />
-						<a4j:support event="onblur" reRender="opLibelleAPE"
-							ignoreDupResponses="true" ajaxSingle="true" />
+						<a4j:support event="onkeyup" render="opLibelleAPE"
+							ignoreDupResponses="true" execute="@this" />
+						<a4j:support event="onblur" render="opLibelleAPE"
+							ignoreDupResponses="true" execute="@this" />
 					</h:inputText>
 					<rich:spacer width="20px" />
 					<a4j:outputPanel id="opLibelleAPE">

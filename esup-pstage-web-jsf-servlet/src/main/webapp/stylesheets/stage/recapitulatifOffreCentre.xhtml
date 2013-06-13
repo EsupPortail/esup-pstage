@@ -156,8 +156,8 @@
 						<a4j:outputPanel ajaxRendered="true">
 							<h:panelGrid columns="1" style="float:right;"
 								rendered="#{!offreController.currentOffre.estSupprimee}">
-								<a4j:commandLink ajaxSingle="true" id="suppr"
-									reRender="supprOffre"
+								<a4j:commandLink execute="@this" id="suppr"
+									render="supprOffre"
 									oncomplete="#{rich:component('supprOffre')}.show()"
 									rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 									disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
@@ -178,7 +178,7 @@
 									rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 							</h:panelGrid>
 							<h:panelGrid columns="1" style="float:right;">
-								<a4j:commandLink ajaxSingle="true" id="transfert"
+								<a4j:commandLink execute="@this" id="transfert"
 									oncomplete="#{rich:component('panelTransfertOffre')}.show()"
 									rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 									disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">

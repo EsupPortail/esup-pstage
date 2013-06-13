@@ -16,8 +16,8 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputText value="--" />
 				<t:htmlTag value="div" style="height: 10px;" />
-				<a4j:commandLink ajaxSingle="true" id="diffusion"
-					reRender="diffusionOffre"
+				<a4j:commandLink execute="@this" id="diffusion"
+					render="diffusionOffre"
 					oncomplete="#{rich:component('diffusionOffre')}.show()"
 					rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
@@ -69,8 +69,8 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputText value="--" />
 				<t:htmlTag value="div" style="height: 10px;" />
-				<a4j:commandLink ajaxSingle="true" id="stopDiffusion"
-					reRender="stopDiffusionOffre"
+				<a4j:commandLink execute="@this" id="stopDiffusion"
+					render="stopDiffusionOffre"
 					oncomplete="#{rich:component('stopDiffusionOffre')}.show()"
 					rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
@@ -93,8 +93,8 @@
 			<t:div
 				rendered="#{sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-				<a4j:commandLink ajaxSingle="true" id="diffusionCentre"
-					reRender="diffusionCentreOffre"
+				<a4j:commandLink execute="@this" id="diffusionCentre"
+					render="diffusionCentreOffre"
 					oncomplete="#{rich:component('diffusionCentreOffre')}.show()"
 					rendered="#{(sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and !offreController.ciblageInterdit}"
@@ -170,8 +170,8 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputText value="--" />
 			<t:htmlTag value="div" style="height: 10px;" />
-			<a4j:commandLink ajaxSingle="true" id="offrePourvue"
-				reRender="panelOffrePourvue"
+			<a4j:commandLink execute="@this" id="offrePourvue"
+				render="panelOffrePourvue"
 				oncomplete="#{rich:component('panelOffrePourvue')}.show()"
 				rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"

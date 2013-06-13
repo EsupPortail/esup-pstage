@@ -12,7 +12,7 @@
 		<a4j:commandButton
 			action="#{etablissementController.resetMdp}"
 			value="#{msgs['FORM.RESET']}" ignoreDupResponses="true"
-			reRender="opContactsDataTable" />
+			render="opContactsDataTable" />
 		<rich:spacer width="150px" />
 		<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 			onclick="#{rich:component('resetMdpContact')}.hide();"

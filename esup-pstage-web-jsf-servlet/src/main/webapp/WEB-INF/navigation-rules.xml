@@ -26,7 +26,15 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-
+	
+	<navigation-rule>
+		<display-name>accueilEntr</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>accueilEntr</from-outcome>
+			<to-view-id>/stylesheets/depot/welcome.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<!-- Création d'un compte / Nouvel accord de partenariat -->
 
 	<navigation-rule>

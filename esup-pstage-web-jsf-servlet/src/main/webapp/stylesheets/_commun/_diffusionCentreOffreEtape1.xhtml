@@ -41,7 +41,7 @@
 						converter="#{intConverter}">
 						<f:selectItems
 							value="#{offreController.listesCentresGestionEtablissement}" />
-						<a4j:support reRender="opLCgUniv" ajaxSingle="true"
+						<a4j:support render="opLCgUniv" execute="@this"
 							ignoreDupResponses="true" event="onchange" />
 					</h:selectOneMenu>
 				</h:panelGrid>
@@ -73,7 +73,7 @@
 						<h:panelGrid columns="8" style="font-size:12px;">
 							<a4j:commandLink id="addAll"
 								action="#{offreController.addAllCentresGestionToListeADiffuser}"
-								reRender="lCgUnivSelect">
+								render="lCgUnivSelect">
 								<h:graphicImage
 									alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
 									value="../../media/images/addAll.png" style="border:0" />
@@ -82,7 +82,7 @@
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}" />
 							<a4j:commandLink id="add"
 								action="#{offreController.addCentresGestionToListeADiffuser}"
-								reRender="lCgUnivSelect">
+								render="lCgUnivSelect">
 								<h:graphicImage
 									alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
 									value="../../media/images/new.png" style="border:0" />
@@ -91,7 +91,7 @@
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTER']}" />
 							<a4j:commandLink id="remove"
 								action="#{offreController.deleteCentresGestionFromListeADiffuser}"
-								reRender="lCgUnivSelect">
+								render="lCgUnivSelect">
 								<h:graphicImage
 									alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}"
 									value="../../media/images/del.png" style="border:0" />
@@ -100,7 +100,7 @@
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}" />
 							<a4j:commandLink id="removeAll"
 								action="#{offreController.deleteAllCentresGestionFromListeADiffuser}"
-								reRender="lCgUnivSelect">
+								render="lCgUnivSelect">
 								<h:graphicImage
 									alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}"
 									value="../../media/images/forbidden.png" style="border:0" />

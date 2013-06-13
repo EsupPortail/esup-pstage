@@ -23,7 +23,7 @@
 		rowClasses="paginatorData-text" columns="2">
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text">
-			<a4j:commandLink ajaxSingle="true" id="editrecap"
+			<a4j:commandLink execute="@this" id="editrecap"
 				action="#{conventionController.editPdfRecap}">
 				<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 					value="../../media/images/printer.png" style="border:0" />
@@ -34,7 +34,7 @@
 		</h:panelGrid>
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text">
-			<a4j:commandLink ajaxSingle="true" id="impression"
+			<a4j:commandLink execute="@this" id="impression"
 				action="conventionEtape9Impression">
 				<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 					value="../../media/images/printer.png" style="border:0" />
@@ -670,7 +670,7 @@
 	<t:htmlTag value="div" style="height: 20px;" />
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" align="right">
-		<a4j:commandLink ajaxSingle="true" id="suppr"
+		<a4j:commandLink execute="@this" id="suppr"
 			oncomplete="#{rich:component('supprConvention')}.show()"
 			disabled="#{conventionController.conventionValide}">
 			<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"

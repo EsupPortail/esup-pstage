@@ -24,18 +24,18 @@
 				rendered="#{not empty etablissementController.listeServices}">
 				<f:selectItems value="#{etablissementController.servicesItems}" />
 				<a4j:support event="onblur" ignoreDupResponses="true"
-					reRender="opActionsService" ajaxSingle="true" />
-				<a4j:support event="onchange" reRender="opActionsService"
-					ignoreDupResponses="true" ajaxSingle="true" />
+					render="opActionsService" execute="@this" />
+				<a4j:support event="onchange" render="opActionsService"
+					ignoreDupResponses="true" execute="@this" />
 			</h:selectOneMenu>
 		</h:panelGrid>
 		<h:panelGrid columns="3">
 			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-			<a4j:commandLink ajaxSingle="true" id="ajout"
+			<a4j:commandLink execute="@this" id="ajout"
 				rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}"
 				oncomplete="#{rich:component('ajoutService')}.show()"
 				action="#{etablissementController.ajoutService}"
-				reRender="ajoutService">
+				render="ajoutService">
 				<f:setPropertyActionListener value="#{true}"
 					target="#{etablissementController.memeAdresseStructure}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
@@ -55,7 +55,7 @@
 			rendered="#{not empty etablissementController.serviceSel}">
 			<ui:include src="../_commun/_serviceColumns.xhtml" />
 			<rich:column>
-				<a4j:commandLink ajaxSingle="true" id="modif"
+				<a4j:commandLink execute="@this" id="modif"
 					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
 						and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
 						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
@@ -66,7 +66,7 @@
 						etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
 						|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
 					oncomplete="#{rich:component('modifService')}.show()"
-					reRender="modifService">
+					render="modifService">
 					<f:setPropertyActionListener value="#{false}"
 						target="#{etablissementController.memeAdresseStructure}" />
 					<f:setPropertyActionListener
@@ -83,10 +83,10 @@
 			</rich:column>
 			<rich:column>
 
-				<a4j:commandLink ajaxSingle="true" id="selectionService"
+				<a4j:commandLink execute="@this" id="selectionService"
 					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}"
 					oncomplete="#{rich:component('demandeConfirmModifService')}.show()"
-					reRender="opActionsService">
+					render="opActionsService">
 					<f:setPropertyActionListener
 						value="#{etablissementController.serviceSel}"
 						target="#{etablissementController.formService}" />
@@ -124,7 +124,7 @@
 
 			</a4j:commandButton>
 			<rich:spacer width="150px" />
-			<a4j:commandButton value="#{msgs['FORM.NON']}" ajaxSingle="true"
+			<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
 				onclick="#{rich:component('demandeConfirmModifService')}.hide();return false;" />
 		</rich:modalPanel>
 	</a4j:outputPanel>

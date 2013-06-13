@@ -1,15 +1,22 @@
-<%@include file="../_include.jsp"%>
-<t:panelGroup id="hideExceptionDetails" 
-	style="cursor: pointer" onclick="hideExceptionDetails(); return false;" >
-	<e:bold value="#{msgs['EXCEPTION.TEXT.HIDE_DETAILS']} " />
-	<t:graphicImage value="/media/images/hide.png"
-		alt="#{msgs['EXCEPTION.TEXT.HIDE_DETAILS']}" 
-		title="#{msgs['EXCEPTION.TEXT.HIDE_DETAILS']}" />
-</t:panelGroup>
-<t:panelGroup id="showExceptionDetails" 
-	style="cursor: pointer" onclick="showExceptionDetails(); return false;" >
-	<e:bold value="#{msgs['EXCEPTION.TEXT.SHOW_DETAILS']} " />
-	<t:graphicImage value="/media/images/show.png"
-		alt="#{msgs['EXCEPTION.TEXT.SHOW_DETAILS']}" 
-		title="#{msgs['EXCEPTION.TEXT.SHOW_DETAILS']}" />
-</t:panelGroup>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<t:panelGroup id="hideExceptionDetails" style="cursor: pointer"
+		onclick="hideExceptionDetails(); return false;">
+		<h:outputLabel value="#{msgs['EXCEPTION.TEXT.HIDE_DETAILS']} " />
+		<h:graphicImage value="/media/images/hide.png"
+			alt="#{msgs['EXCEPTION.TEXT.HIDE_DETAILS']}"
+			title="#{msgs['EXCEPTION.TEXT.HIDE_DETAILS']}" />
+	</t:panelGroup>
+	<t:panelGroup id="showExceptionDetails" style="cursor: pointer"
+		onclick="showExceptionDetails(); return false;">
+		<h:outputLabel value="#{msgs['EXCEPTION.TEXT.SHOW_DETAILS']} " />
+		<h:graphicImage value="/media/images/show.png"
+			alt="#{msgs['EXCEPTION.TEXT.SHOW_DETAILS']}"
+			title="#{msgs['EXCEPTION.TEXT.SHOW_DETAILS']}" />
+	</t:panelGroup>
+</ui:fragment>

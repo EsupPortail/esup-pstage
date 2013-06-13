@@ -106,7 +106,7 @@
 			datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
 			cellHeight="22px" style="width:200px" required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}">
-			<a4j:support event="onchanged" reRender="choixAnneeUniv" />
+			<a4j:support event="onchanged" render="choixAnneeUniv" />
 		</rich:calendar>
 		<rich:message for="dateDebutStage">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -273,14 +273,14 @@
 			value="#{conventionController.selIndemnisation}"
 			converter="#{indemnisationConverter}">
 			<a4j:support event="onchange"
-				reRender="opMontantGratificationOblig, opMessageMontantGratificationOblig"
-				ignoreDupResponses="true" ajaxSingle="true" />
+				render="opMontantGratificationOblig, opMessageMontantGratificationOblig"
+				ignoreDupResponses="true" execute="@this" />
 			<a4j:support event="onkeyup"
-				reRender="opMontantGratificationOblig, opMessageMontantGratificationOblig"
-				ignoreDupResponses="true" ajaxSingle="true" />
+				render="opMontantGratificationOblig, opMessageMontantGratificationOblig"
+				ignoreDupResponses="true" execute="@this" />
 			<a4j:support event="onblur"
-				reRender="opMontantGratificationOblig, opMessageMontantGratificationOblig"
-				ignoreDupResponses="true" ajaxSingle="true" />
+				render="opMontantGratificationOblig, opMessageMontantGratificationOblig"
+				ignoreDupResponses="true" execute="@this" />
 			<f:selectItem itemValue="" />
 			<f:selectItems value="#{nomenclatureController.indemnisations}" />
 		</h:selectOneMenu>

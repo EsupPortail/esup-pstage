@@ -50,12 +50,12 @@
 <a4j:commandButton rendered="#{empty centreController.centreEntreprise}"
 	value="#{msgs['FORM.CREER']}"
 	action="#{centreController.ajouterCentreEntreprise}"
-	reRender="formMenu" />
+	render="formMenu" />
 <a4j:commandButton
 	rendered="#{not empty centreController.centreEntreprise}"
 	value="#{msgs['FORM.MODIFIER']}"
 	action="#{centreController.modifierCentreEntreprise}"
-	reRender="formMenu" />
+	render="formMenu" />
 <a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 	action="_modifCentreEntrepriseEtape1"
 	alt="#{msgs['FORM.ANNULER']}" title="#{msgs['FORM.ANNULER']}"

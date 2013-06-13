@@ -8,7 +8,7 @@
 
 	<ui:include src="_confirmationMessages.xhtml" />
 
-	<a4j:commandButton ajaxSingle="true" value="#{msgs['GENERAL.CLOSE']}"
+	<a4j:commandButton execute="@this" value="#{msgs['GENERAL.CLOSE']}"
 		action="#{offreController.retourTo}"
 		onclick="#{rich:component('supprOffre')}.hide();" />
 </ui:fragment>

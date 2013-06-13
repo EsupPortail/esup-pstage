@@ -98,10 +98,10 @@
 								value="../../media/images/zoom.png" style="border:0" />
 						</h:commandLink>
 						<rich:toolTip for="see" value="#{msgs['FORM.CONSULTER']}" />
-						<a4j:commandLink ajaxSingle="true"
+						<a4j:commandLink execute="@this"
 							rendered="#{!avenant.validationAvenant}"
 							oncomplete="#{rich:component('suppressionAvenant')}.show()"
-							reRender="suppressionAvenant">
+							render="suppressionAvenant">
 							<f:setPropertyActionListener value="#{avenant}"
 								target="#{avenantController.avenant}" />
 							<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"

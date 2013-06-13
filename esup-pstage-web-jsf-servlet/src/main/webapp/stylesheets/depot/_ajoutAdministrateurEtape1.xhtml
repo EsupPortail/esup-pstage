@@ -3,7 +3,7 @@
 <ui:include src="./_formAdministrateur.xhtml"/>
 <a4j:commandButton action="#{adminController.ajouterAdministrateur}"
 	value="#{msgs['FORM.VALIDER']}" ignoreDupResponses="true"
-	reRender="opAdminDataTable" />
+	render="opAdminDataTable" />
 <rich:spacer width="150px" />
 <a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 	onclick="#{rich:component('ajoutAdministrateur')}.hide();return false;" />

@@ -31,7 +31,7 @@
 				<f:setPropertyActionListener
 					value="#{etablissementController.formStructure}"
 					target="#{rechercheController.resultatRechercheStructure}" />
-				<a4j:ajax event="click" reRender="opFCE" />
+				<a4j:ajax event="click" render="opFCE" />
 			</h:commandButton>
 			<t:htmlTag value="div" style="width: 20px;" />
 			<a4j:outputPanel id="opFCE">

@@ -70,7 +70,7 @@
 		<h:panelGrid columns="3">
 			<a4j:commandButton action="#{offreController.supprimerOffre}"
 				value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
-				reRender="opOffresDataTable" />
+				render="opOffresDataTable" />
 			<t:htmlTag value="div" style="width: 150px;" />
 			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 				onclick="#{rich:component('supprOffre')}.hide();"

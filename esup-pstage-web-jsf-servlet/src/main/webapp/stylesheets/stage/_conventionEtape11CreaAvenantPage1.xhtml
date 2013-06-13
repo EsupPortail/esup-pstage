@@ -16,7 +16,7 @@
 					<h:inputTextarea style="width:200px;" id="motif"
 						value="#{avenantController.avenant.motifAvenant}">
 						<a4j:support event="onkeyup" ignoreDupResponses="true"
-							requestDelay="1500" reRender="typeModifAvenant" />
+							requestDelay="1500" render="typeModifAvenant" />
 					</h:inputTextarea>
 				</h:panelGrid>
 
@@ -42,8 +42,8 @@
 							value="#{avenantController.avenant.rupture}">
 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-							<a4j:support ajaxSingle="true" event="onclick"
-								reRender="typeModifAvenant" />
+							<a4j:support execute="@this" event="onclick"
+								render="typeModifAvenant" />
 						</h:selectOneRadio>
 					</h:panelGrid>
 
@@ -63,8 +63,8 @@
 									value="#{avenantController.avenant.modificationSujet}">
 									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-									<a4j:support ajaxSingle="true" event="onclick"
-										reRender="divSujet" />
+									<a4j:support execute="@this" event="onclick"
+										render="divSujet" />
 								</h:selectOneRadio>
 							</h:panelGrid>
 							<t:div rendered="#{avenantController.avenant.modificationSujet}">
@@ -99,8 +99,8 @@
 									value="#{avenantController.avenant.modificationPeriode}">
 									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-									<a4j:support ajaxSingle="true" event="onclick"
-										reRender="divPeriode" />
+									<a4j:support execute="@this" event="onclick"
+										render="divPeriode" />
 								</h:selectOneRadio>
 							</h:panelGrid>
 							<t:div
@@ -169,8 +169,8 @@
 														itemValue="true" />
 													<f:selectItem itemLabel="#{msgs['FORM.NON']}"
 														itemValue="false" />
-													<a4j:support ajaxSingle="true" event="onclick"
-														reRender="divInterruption" />
+													<a4j:support execute="@this" event="onclick"
+														render="divInterruption" />
 												</h:selectOneRadio>
 											</h:panelGrid>
 											<h:outputText id="erreurInterruption" value="" />
@@ -244,8 +244,8 @@
 									value="#{avenantController.avenant.modificationMontantGratification}">
 									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-									<a4j:support ajaxSingle="true" event="onclick"
-										reRender="divGratif" />
+									<a4j:support execute="@this" event="onclick"
+										render="divGratif" />
 								</h:selectOneRadio>
 							</h:panelGrid>
 							<t:div
@@ -290,8 +290,8 @@
 									value="#{avenantController.avenant.modificationLieu}">
 									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-									<a4j:support ajaxSingle="true" event="onclick"
-										reRender="opActionsService">
+									<a4j:support execute="@this" event="onclick"
+										render="opActionsService">
 										<f:setPropertyActionListener
 											value="#{conventionController.convention.service}"
 											target="#{etablissementController.serviceSel}" />
@@ -338,7 +338,7 @@
 												<t:div
 													rendered="#{service.idService != etablissementController.serviceSel.idService}">
 													<a4j:commandLink id="lieuDispo" action="return null;"
-														reRender="opActionsService" ajaxSingle="true">
+														render="opActionsService" execute="@this">
 														<h:graphicImage id="appartenance"
 															alt="#{msgs['FORM.NON']}"
 															value="../../media/images/cross.png" style="border:0" />
@@ -407,11 +407,11 @@
 								<h:panelGrid columns="2">
 									<h:outputText
 										value="#{msgs['CONVENTION.ETAPE11.LIEU.MSG_ADD']}" />
-									<a4j:commandButton id="addService" ajaxSingle="true"
+									<a4j:commandButton id="addService" execute="@this"
 										value="#{msgs['CONVENTION.ETAPE11.LIEU.ADD']}"
 										oncomplete="#{rich:component('ajoutService')}.show()"
 										action="#{etablissementController.ajoutService}"
-										reRender="ajoutService">
+										render="ajoutService">
 										<f:setPropertyActionListener value="#{true}"
 											target="#{etablissementController.memeAdresseStructure}" />
 									</a4j:commandButton>
@@ -429,8 +429,8 @@
 										<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 										<f:selectItem itemLabel="#{msgs['FORM.NON']}"
 											itemValue="false" />
-										<a4j:support ajaxSingle="true" event="onclick"
-											reRender="opActionsService">
+										<a4j:support execute="@this" event="onclick"
+											render="opActionsService">
 											<f:setPropertyActionListener
 												value="#{conventionController.convention.contact}"
 												target="#{etablissementController.contactSel}" />
@@ -484,7 +484,7 @@
 												<t:div
 													rendered="#{salarie.id != etablissementController.contactSel.id}">
 													<a4j:commandLink id="salarieDispo" action="return null;"
-														reRender="opActionsService" ajaxSingle="true">
+														render="opActionsService" execute="@this">
 														<h:graphicImage id="appartenance2"
 															alt="#{msgs['FORM.NON']}"
 															value="../../media/images/cross.png" style="border:0" />
@@ -573,11 +573,11 @@
 								<h:panelGrid columns="2">
 									<h:outputText
 										value="#{msgs['CONVENTION.ETAPE11.SALARIE.MSG_ADD']}" />
-									<a4j:commandButton id="addSalarie" ajaxSingle="true"
+									<a4j:commandButton id="addSalarie" execute="@this"
 										value="#{msgs['CONVENTION.ETAPE11.SALARIE.ADD']}"
 										action="#{avenantController.ajoutContact}"
 										oncomplete="#{rich:component('ajoutContact')}.show()"
-										reRender="ajoutContact">
+										render="ajoutContact">
 										<f:setPropertyActionListener value="#{false}"
 											target="#{etablissementController.afficherSelectionCentreContact}" />
 										<f:setPropertyActionListener
@@ -597,8 +597,8 @@
 									value="#{avenantController.avenant.modificationEnseignant}">
 									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-									<a4j:support ajaxSingle="true" event="onclick"
-										reRender="divEnseignant" />
+									<a4j:support execute="@this" event="onclick"
+										render="divEnseignant" />
 								</h:selectOneRadio>
 							</h:panelGrid>
 							<t:div
@@ -622,11 +622,11 @@
 
 										<br />
 										<h:panelGrid columns="1">
-											<a4j:commandButton id="search" ajaxSingle="true"
+											<a4j:commandButton id="search" execute="@this"
 												value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RECHERCHE.BOUTON']}"
 												oncomplete="#{rich:component('rechEnseignantAvenant')}.show()"
 												action="#{avenantController.avantRechercheEnseignant}"
-												reRender="rechEnseignantAvenant" />
+												render="rechEnseignantAvenant" />
 										</h:panelGrid>
 									</t:div>
 								</h:panelGrid>

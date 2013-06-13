@@ -88,7 +88,7 @@
 			(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}"
 							value="#{msgs['STRUCTURE.DEMANDE_MODIFSIRET']}"
 							oncomplete="#{rich:component('nousContacter')}.show()"
-							reRender="nousContacter" />
+							render="nousContacter" />
 					</a4j:region>
 					<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}"
 						escape="false" />
@@ -315,7 +315,7 @@
 										valueChangeListener="#{etablissementController.valueCodePostalChanged}">
 										<f:validator binding="#{codePostalValidator}" />
 										<a4j:ajax event="valueChange" render="opDynaCommune"
-											ajaxSingle="true" requestDelay="1000" />
+											execute="@this" requestDelay="1000" />
 									</h:inputText>
 								</h:panelGrid>
 							</a4j:region>
@@ -388,8 +388,8 @@
 								value="#{etablissementController.formStructureTmpPays}"
 								converter="#{paysConverter}" styleClass="paysInput">
 								<a4j:ajax event="change"
-									reRender="opFlagNC, opSiretOblig, opCodePostal, opCommune, olSiret, siret, arrows, olActprinc"
-									ajaxSingle="true" />
+									render="opFlagNC, opSiretOblig, opCodePostal, opCommune, olSiret, siret, arrows, olActprinc"
+									execute="@this" />
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.pays}" />
 							</h:selectOneMenu>

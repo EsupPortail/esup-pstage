@@ -55,7 +55,7 @@
 					<h:panelGrid columns="1" align="center">
 						<a4j:commandButton value="#{msgs['FORM.RECHERCHER']}"
 							action="#{conventionController.rechercheEnseignantAvenant}"
-							reRender="divRechercheEnseignant" />
+							render="divRechercheEnseignant" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</a4j:region>
@@ -110,7 +110,7 @@
 						<t:div>
 							<a4j:commandLink id="choisir"
 								oncomplete="#{rich:component('rechEnseignantAvenant')}.hide()"
-								reRender="divEnseignant">
+								render="divEnseignant">
 								<h:outputText value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.CHOIX']}" />
 								<f:setPropertyActionListener
 									value="#{conventionController.resultatEnseignant}"
@@ -180,7 +180,7 @@
 								<t:div>
 									<a4j:commandLink id="choisir"
 										oncomplete="#{rich:component('rechEnseignantAvenant')}.hide()"
-										reRender="divEnseignant">
+										render="divEnseignant">
 										<h:graphicImage alt="#{msgs['GENERAL.OK']}"
 											value="../../media/images/arrow_right.png" style="border:0" />
 										<f:setPropertyActionListener value="#{enseignant}"

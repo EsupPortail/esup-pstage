@@ -33,8 +33,8 @@
 									value="#{centreController.personnel.nom}" size="30"
 									maxlength="30" style="text-transform:uppercase;">
 									<f:converter binding="#{sansAccentEnMAJConverter}" />
-									<a4j:ajax ajaxSingle="true" event="change"
-										reRender="erreurRecherche" />
+									<a4j:ajax execute="@this" event="change"
+										render="erreurRecherche" />
 								</h:inputText>
 							</h:panelGrid>
 
@@ -54,8 +54,8 @@
 									value="#{centreController.personnel.prenom}" size="30"
 									maxlength="50" style="text-transform:capitalize;">
 									<f:converter binding="#{premiereLettreMAJConverter}" />
-									<a4j:ajax ajaxSingle="true" event="change"
-										reRender="erreurRecherche" />
+									<a4j:ajax execute="@this" event="change"
+										render="erreurRecherche" />
 								</h:inputText>
 							</h:panelGrid>
 						</h:panelGrid>
@@ -71,8 +71,8 @@
 								value="#{centreController.codeAffectationPersonnel}">
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{conventionController.listeAffectation}" />
-								<a4j:ajax ajaxSingle="true" event="change"
-									reRender="erreurRecherche" />
+								<a4j:ajax execute="@this" event="change"
+									render="erreurRecherche" />
 							</h:selectOneMenu>
 						</h:panelGrid>
 						<h:panelGrid columnClasses="paginatorData-text"

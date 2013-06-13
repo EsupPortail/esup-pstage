@@ -21,7 +21,7 @@
 					</rich:message>
 				</t:div>
 
-				<a4j:commandButton ajaxSingle="true"
+				<a4j:commandButton execute="@this"
 					oncomplete="#{rich:component('selectServiceContact')}.show()"
 					value="#{msgs['CONVENTION.ETAPE2.MODIF.SERVICECONTACT.SELEC']}">
 					<f:setPropertyActionListener value="#{0}"
@@ -50,7 +50,7 @@
 							target="#{conventionController.convention.contact}" />
 					</a4j:commandButton>
 					<rich:spacer width="150px" />
-					<a4j:commandButton value="#{msgs['FORM.CANCEL']}" ajaxSingle="true"
+					<a4j:commandButton value="#{msgs['FORM.CANCEL']}" execute="@this"
 						onclick="#{rich:component('selectServiceContact')}.hide();return false;" />
 				</rich:modalPanel>
 

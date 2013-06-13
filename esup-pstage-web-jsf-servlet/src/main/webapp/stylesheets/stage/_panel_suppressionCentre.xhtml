@@ -84,7 +84,7 @@
 		<h:form id="formSupprCentre">
 			<h:panelGrid columns="3" align="center">
 				<a4j:commandButton action="#{centreController.supprimerCentre}"
-					value="#{msgs['FORM.OUI']}" reRender="centreDataTable" />
+					value="#{msgs['FORM.OUI']}" render="centreDataTable" />
 				<p:spacer width="30" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
 					onclick="#{rich:component('suppressionCentre')}.hide();return false;" />

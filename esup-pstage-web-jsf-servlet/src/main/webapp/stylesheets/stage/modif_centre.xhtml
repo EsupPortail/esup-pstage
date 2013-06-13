@@ -205,19 +205,19 @@
 									rowClasses="paginatorData-text" columns="2">
 									<a4j:commandButton
 										rendered="#{empty centreController.centre.nomViseur}"
-										id="searchViseur" ajaxSingle="true"
+										id="searchViseur" execute="@this"
 										value="#{msgs['CENTRE.VISEUR.RECHERCHE']}"
 										oncomplete="#{rich:component('rechercheViseur')}.show()"
 										action="#{centreController.avantRechercheViseur}"
-										reRender="rechercheViseur" />
+										render="rechercheViseur" />
 
 									<h:outputText
 										rendered="#{not empty centreController.centre.nomViseur}"
 										style="color:green; border:1px solid;"
 										value="#{centreController.centre.nomViseur} #{centreController.centre.prenomViseur}" />
-									<a4j:commandLink ajaxSingle="true"
+									<a4j:commandLink execute="@this"
 										rendered="#{not empty centreController.centre.nomViseur}"
-										id="removeViseur" reRender="panelViseur">
+										id="removeViseur" render="panelViseur">
 										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 											title="#{msgs['GENERAL.FILE']}"
 											value="../../media/images/cancel.png" style="border:0" />

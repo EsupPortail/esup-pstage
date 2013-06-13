@@ -60,9 +60,9 @@
 											value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
 									</f:facet>
 									<t:htmlTag value="center">
-										<a4j:commandLink ajaxSingle="true"
+										<a4j:commandLink execute="@this"
 											oncomplete="#{rich:component('suppressionCritere')}.show()"
-											reRender="suppressionCritere">
+											render="suppressionCritere">
 											<f:setPropertyActionListener value="#{critere}"
 												target="#{centreController.critere}" />
 											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"

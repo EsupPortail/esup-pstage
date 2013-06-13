@@ -22,7 +22,7 @@
 		<t:htmlTag value="div" style="height: 10px;" />
 		<h:panelGrid align="center" id="devalidPanel" columns="3">
 			<a4j:commandButton action="#{avenantController.devaliderAvenant}"
-				value="#{msgs['FORM.OUI']}" reRender="formDetailsAvenant" />
+				value="#{msgs['FORM.OUI']}" render="formDetailsAvenant" />
 			<t:htmlTag value="div" style="width: 30px;" />
 			<h:commandButton value="#{msgs['FORM.NON']}"
 				onclick="#{rich:component('devalidAvenant')}.hide();return false;" />

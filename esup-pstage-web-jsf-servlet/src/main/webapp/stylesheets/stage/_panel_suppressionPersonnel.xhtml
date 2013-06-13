@@ -19,7 +19,7 @@
 			<t:htmlTag value="center">
 				<a4j:commandButton value="#{msgs['FORM.OUI']}"
 					action="#{centreController.supprimerPersonnel}"
-					reRender="personnelDataTable" />
+					render="personnelDataTable" />
 				<t:htmlTag value="div" style="height: 30px;" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
 					onclick="#{rich:component('suppressionPersonnel')}.hide();return false;" />

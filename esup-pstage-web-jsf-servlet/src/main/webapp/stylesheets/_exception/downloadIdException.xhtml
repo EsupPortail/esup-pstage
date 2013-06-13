@@ -1,31 +1,33 @@
-<%@page import="javax.faces.application.FacesMessage"%>
-<%@page import="javax.faces.context.FacesContext"%>
-<%@include file="../_include.jsp"%>
-<%@page import="org.springframework.util.StringUtils"%>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="../_basicTemplate.xhtml">
+	<ui:define name="content">
+		<rich:panel styleClass="panelEntreprise">
+			<f:facet name="header">
+				<h:outputText value=" " />
+			</f:facet>
 
-<e:page>	
-	<rich:panel styleClass="panelEntreprise">
-		<f:facet name="header">
-			<e:text value=" " />
-		</f:facet>
-		<rich:spacer></rich:spacer>
-										
-		<e:panelGrid columns="3" width="100%" alternateColors="true"
-			cellspacing="0" cellpadding="0">
-			<h:graphicImage value="../../media/images/stop.png" style="border:0" />
-			<e:outputLabel for="exceptionName"
-				value="#{msgs['EXCEPTION.EXCEPTION.NAME']}" />
-			<e:text id="exceptionName" escape="false"
-				value="#{msgs['EXCEPTION.DOWNLOADEXCEPTION']}" />
-		</e:panelGrid>
-		<rich:spacer></rich:spacer>	
-		<e:panelGrid columns="3" width="100%" alternateColors="true"
-			cellspacing="0" cellpadding="0">
-			<h:graphicImage value="../../media/images/exclamation.png" style="border:0" />
-			<e:outputLabel for="exceptionMessage"
-				value="#{msgs['EXCEPTION.EXCEPTION.MESSAGE']}" />
-			<e:text id="exceptionMessage" escape="false"
-				value="#{msgs['EXCEPTION.DOWNLOADEXCEPTION.MESSAGE']}" />
-		</e:panelGrid>	
-	</rich:panel>
-</e:page>
+			<h:panelGrid columns="3" width="100%" alternateColors="true">
+				<h:graphicImage value="../../media/images/stop.png" style="border:0" />
+				<h:outputLabel for="exceptionName"
+					value="#{msgs['EXCEPTION.EXCEPTION.NAME']}" />
+				<h:outputText id="exceptionName" escape="false"
+					value="#{msgs['EXCEPTION.DOWNLOADEXCEPTION']}" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="3" width="100%" alternateColors="true">
+				<h:graphicImage value="../../media/images/exclamation.png"
+					style="border:0" />
+				<h:outputLabel for="exceptionMessage"
+					value="#{msgs['EXCEPTION.EXCEPTION.MESSAGE']}" />
+				<h:outputText id="exceptionMessage" escape="false"
+					value="#{msgs['EXCEPTION.DOWNLOADEXCEPTION.MESSAGE']}" />
+			</h:panelGrid>
+		</rich:panel>
+	</ui:define>
+</ui:composition>

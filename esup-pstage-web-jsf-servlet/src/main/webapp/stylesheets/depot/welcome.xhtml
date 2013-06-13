@@ -4,7 +4,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedDepotTemplate.xhtml">
+	template="../_basicTemplate.xhtml">
 	<ui:define name="content">
 		<t:div
 			rendered="#{not sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
@@ -14,7 +14,7 @@
 					escape="false">
 					<f:param value="#{sessionController.applicationNameEntreprise}" />
 				</h:outputFormat>
-                
+
 				<t:htmlTag value="div" style="height: 20px;" />
 				<h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ACCUEIL']}"
 					escape="false" />

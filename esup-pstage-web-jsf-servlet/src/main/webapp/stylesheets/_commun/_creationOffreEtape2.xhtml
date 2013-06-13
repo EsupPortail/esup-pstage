@@ -14,8 +14,8 @@
 		<h:commandButton value="#{msgs['FORM.NEXT']}"
 			action="#{offreController.goToCreationOffreEtape3}"
 			alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}">
-			<a4j:ajax ajaxSingle="true" event="click" ignoreDupResponses="true"
-				eventsQueue="creationOffreEtape2" reRender="opFCE" />
+			<a4j:ajax execute="@this" event="click" ignoreDupResponses="true"
+				eventsQueue="creationOffreEtape2" render="opFCE" />
 		</h:commandButton>
 		<t:htmlTag value="div" style="width: 20px;" />
 		<a4j:outputPanel id="opFCE">

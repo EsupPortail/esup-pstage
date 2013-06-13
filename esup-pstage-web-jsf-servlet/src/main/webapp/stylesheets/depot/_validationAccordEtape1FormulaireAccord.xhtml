@@ -92,12 +92,12 @@
 							<f:selectItem itemValue="" />
 							<f:selectItems value="#{nomenclatureController.typesStructure}" />
 							<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
-						<a4j:support event="onchange" reRender="opStatutJuridique, siret, olSiret"
-							ignoreDupResponses="true" ajaxSingle="true" />
-						<a4j:support event="onkeyup" reRender="opStatutJuridique, siret, olSiret"
-							ignoreDupResponses="true" ajaxSingle="true" />
-						<a4j:support event="onblur" reRender="opStatutJuridique, siret, olSiret"
-							ignoreDupResponses="true" ajaxSingle="true" />
+						<a4j:support event="onchange" render="opStatutJuridique, siret, olSiret"
+							ignoreDupResponses="true" execute="@this" />
+						<a4j:support event="onkeyup" render="opStatutJuridique, siret, olSiret"
+							ignoreDupResponses="true" execute="@this" />
+						<a4j:support event="onblur" render="opStatutJuridique, siret, olSiret"
+							ignoreDupResponses="true" execute="@this" />
 						</h:selectOneMenu>
 						<rich:message for="typeStructure">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
@@ -141,10 +141,10 @@
 					<f:converter binding="#{codNafN5Converter}"/>
 					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" />
 					<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
-					<a4j:support event="onkeyup" reRender="opLibelleAPE"
-						ignoreDupResponses="true" ajaxSingle="true" />
-					<a4j:support event="onblur" reRender="opLibelleAPE"
-						ignoreDupResponses="true" ajaxSingle="true" />
+					<a4j:support event="onkeyup" render="opLibelleAPE"
+						ignoreDupResponses="true" execute="@this" />
+					<a4j:support event="onblur" render="opLibelleAPE"
+						ignoreDupResponses="true" execute="@this" />
 				</h:inputText>
 				<rich:spacer width="20px" />
 				<a4j:outputPanel id="opLibelleAPE">
@@ -269,8 +269,8 @@
 								validatorMessage="#{requiredMessageController.codePostalNonValide}"
 								valueChangeListener="#{adminController.valueCodePostalChanged}">
 								<f:validator binding="#{codePostalValidator}" />
-								<a4j:support event="onkeyup" reRender="opDynaCommune"
-									ignoreDupResponses="true" ajaxSingle="true" requestDelay="1000" />
+								<a4j:support event="onkeyup" render="opDynaCommune"
+									ignoreDupResponses="true" execute="@this" requestDelay="1000" />
 							</h:inputText>
 							<rich:message for="dynaCodePostal">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
@@ -544,7 +544,7 @@
 		</h:commandButton>
 		<rich:spacer width="200px" />
 		<a4j:commandButton action="#{adminController.goToConfirmValidation}"
-			value="#{msgs['FORM.MODIFIERVALIDER']}" reRender="opFCE">
+			value="#{msgs['FORM.MODIFIERVALIDER']}" render="opFCE">
 		</a4j:commandButton>
 	</h:panelGrid>
 </t:div>

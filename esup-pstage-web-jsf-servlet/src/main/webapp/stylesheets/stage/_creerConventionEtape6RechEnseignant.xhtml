@@ -33,7 +33,7 @@
 				rendered="#{conventionController.convention.centreGestion.presenceTuteurEns == false}">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE']}"
 					escape="false" />
-				<a4j:commandLink ajaxSingle="true" id="passeretape"
+				<a4j:commandLink execute="@this" id="passeretape"
 					action="#{conventionController.goToCreerConventionEtape7Signataire}">
 					<f:setPropertyActionListener value="#{null}"
 						target="#{conventionController.convention.enseignant}" />

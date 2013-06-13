@@ -39,7 +39,7 @@
 				<a4j:commandButton
 					action="#{conventionController.ajouterCommentaireStage}"
 					oncomplete="#{rich:component('popup')}.show()"
-					reRender="formCommentaire" value="Enregistrer" alt="Enregistrer" />
+					render="formCommentaire" value="Enregistrer" alt="Enregistrer" />
 			</h:panelGrid>
 		</h:panelGrid>
 		<rich:modalPanel id="popup" autosized="true" width="400">
@@ -56,7 +56,7 @@
 			</center>
 			<h:panelGrid columns="1" align="center">
 				<rich:spacer height="10" />
-				<a4j:commandButton value="#{msgs['GENERAL.OK']}" ajaxSingle="true"
+				<a4j:commandButton value="#{msgs['GENERAL.OK']}" execute="@this"
 					immediate="true"
 					onclick="#{rich:component('popup')}.hide();return false;" />
 			</h:panelGrid>

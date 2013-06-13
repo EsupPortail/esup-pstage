@@ -203,11 +203,11 @@
 										
 										<t:htmlTag value="div" style="display: inline; margin: 4px;" />
 
-										<a4j:commandLink ajaxSingle="true" id="delete"
+										<a4j:commandLink execute="@this" id="delete"
 											rendered="#{welcomeController.superAdmin}"
 											action="#{centreController.avantSupprimer}"
 											oncomplete="#{rich:component('suppressionCentre')}.show()"
-											reRender="suppressionCentre">
+											render="suppressionCentre">
 											<f:setPropertyActionListener value="#{centre}"
 												target="#{centreController.centre}" />
 											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"

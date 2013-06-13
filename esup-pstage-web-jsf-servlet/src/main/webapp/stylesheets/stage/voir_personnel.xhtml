@@ -86,7 +86,7 @@
 					<t:htmlTag value="div" style="height: 20px;" />
 
 					<t:htmlTag value="center">
-						<a4j:commandButton ajaxSingle="true" id="modify"
+						<a4j:commandButton execute="@this" id="modify"
 							rendered="#{welcomeController.superAdmin
 							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
 							value="#{msgs['FORM.MODIFIER']}"

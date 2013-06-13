@@ -26,7 +26,7 @@
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.NON']}" />
 						<a4j:ajax event="change" ignoreDupResponses="true"
-							reRender="warningModeCourrier" ajaxSingle="true" />
+							render="warningModeCourrier" execute="@this" />
 					</h:selectOneRadio>
 					<rich:message for="cacherEtab">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -52,7 +52,7 @@
 					<rich:message for="contactCand">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					<a4j:commandButton ajaxSingle="true"
+					<a4j:commandButton execute="@this"
 						oncomplete="#{rich:component('selectContactCand')}.show()"
 						value="#{msgs['OFFRE.SELECTIONNERCONTACT']}">
 						<f:setPropertyActionListener value="#{0}"
@@ -68,14 +68,14 @@
 						<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 						<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 							oncomplete="#{rich:component('selectContactCand')}.hide();"
-							ignoreDupResponses="true" reRender="opContact">
+							ignoreDupResponses="true" render="opContact">
 							<f:setPropertyActionListener
 								value="#{etablissementController.contactSel}"
 								target="#{offreController.formOffre.contactCand}" />
 						</a4j:commandButton>
 						<t:htmlTag value="div" style="width: 150px;" />
 						<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
-							ajaxSingle="true"
+							execute="@this"
 							onclick="#{rich:component('selectContactCand')}.hide();return false;" />
 					</rich:popupPanel>
 
@@ -142,7 +142,7 @@
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
 										<a4j:ajax event="change" ignoreDupResponses="true"
-											reRender="warningModeTelephone" ajaxSingle="true" />
+											render="warningModeTelephone" execute="@this" />
 									</h:selectOneRadio>
 									<rich:message for="ctelC">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -212,7 +212,7 @@
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
 										<a4j:ajax event="change" ignoreDupResponses="true"
-											reRender="warningModeMail" ajaxSingle="true" />
+											render="warningModeMail" execute="@this" />
 									</h:selectOneRadio>
 									<rich:message for="cmailC">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -234,9 +234,9 @@
 									</a4j:outputPanel>
 								</t:panelGroup>
 							</h:panelGrid>
-							<a4j:commandLink ajaxSingle="true" id="modifC"
+							<a4j:commandLink execute="@this" id="modifC"
 								oncomplete="#{rich:component('modifContact')}.show()"
-								reRender="modifContact"
+								render="modifContact"
 								rendered="#{empty offreController.centreGestionDepotAnonyme}"
 								disabled="#{!(sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
@@ -285,7 +285,7 @@
 					<h:outputText value="#{msgs['OFFRE.SELECTIONCONTACTINFO']}"
 						escape="false" />
 					<h:panelGrid columns="3">
-						<a4j:commandButton ajaxSingle="true"
+						<a4j:commandButton execute="@this"
 							oncomplete="#{rich:component('selectContactInfo')}.show()"
 							value="#{msgs['OFFRE.SELECTIONNERCONTACT']}">
 							<f:setPropertyActionListener value="#{0}"
@@ -296,9 +296,9 @@
 						<t:panelGroup colspan="2">
 							<t:htmlTag value="div" style="width: 50px;" />
 							<a4j:outputPanel id="opDelContactInfo">
-								<a4j:commandLink reRender="opContactINFO, opDelContactInfo"
+								<a4j:commandLink render="opContactINFO, opDelContactInfo"
 									rendered="#{not empty offreController.formOffre.contactInfo}"
-									ajaxSingle="true">
+									execute="@this">
 									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 										title="#{msgs['FORM.SUPPRIMER']}"
 										value="../../media/images/cancel.png" style="border:0" />
@@ -319,14 +319,14 @@
 						<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 							oncomplete="#{rich:component('selectContactInfo')}.hide();"
 							ignoreDupResponses="true"
-							reRender="opContactINFO, opDelContactInfo">
+							render="opContactINFO, opDelContactInfo">
 							<f:setPropertyActionListener
 								value="#{etablissementController.contactSel}"
 								target="#{offreController.formOffre.contactInfo}" />
 						</a4j:commandButton>
 						<t:htmlTag value="div" style="width: 150px;" />
 						<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
-							ajaxSingle="true"
+							execute="@this"
 							onclick="#{rich:component('selectContactInfo')}.hide();return false;" />
 					</rich:popupPanel>
 
@@ -454,9 +454,9 @@
 									</rich:message>
 								</h:panelGrid>
 							</h:panelGrid>
-							<a4j:commandLink ajaxSingle="true" id="modifCI"
+							<a4j:commandLink execute="@this" id="modifCI"
 								oncomplete="#{rich:component('modifContact')}.show()"
-								reRender="modifContact"
+								render="modifContact"
 								rendered="#{empty offreController.centreGestionDepotAnonyme}"
 								disabled="#{!(sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)

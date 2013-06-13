@@ -70,12 +70,12 @@
 
 	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="4"
 		rendered="#{!(welcomeController.etudiant and !conventionController.conventionValide) and conventionController.convention.codeLangueConvention != 'fr'}">
-		<a4j:commandButton id="printFr" ajaxSingle="true"
+		<a4j:commandButton id="printFr" execute="@this"
 			action="#{conventionController.editPdfConventionFr}"
 			value="#{msgs['CONVENTION.IMPRESSION_FR']}"
 			rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}" />
 		<t:htmlTag value="div" style="height: 5px;" />
-		<a4j:commandButton id="printAutre" ajaxSingle="true"
+		<a4j:commandButton id="printAutre" execute="@this"
 			action="#{conventionController.editPdfConvention}"
 			value="#{msgs['CONVENTION.IMPRESSION_AUTRE']} #{conventionController.convention.langueConvention.libelle}"
 			rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}" />

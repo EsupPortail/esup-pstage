@@ -1,36 +1,13 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:form id="casForm">
-		<h:commandButton id="submitCAS"
-			action="#{welcomeController.connectCas}" value="Continuer" />
-		<h:inputText id="idLienDirect"
-			value="#{welcomeController.idLienDirect}" />
-	</h:form>
-	<script type="text/javascript">
-		<![CDATA[
-		hideButton('casForm:submitCAS');
-		hideButton('casForm:idLienDirect');
-
-		var t = location.search.substring(1).split('&');
-
-		if (t != null) {
-			var x = t[0].split('=');
-
-			if (x[0] == "id") {
-				var idLienDirect = document
-						.getElementById('casForm:idLienDirect');
-				idLienDirect.value = x[1];
-			}
-		}
-
-		window.onload = function() {
-			simulateLinkClick('casForm:submitCAS');
-		}
-
-		]]>
-	</script>
+	template="../_connexionTemplate.xhtml">
+	<ui:define name="content">
+		<h:form id="casForm" style="visibility:hidden;">
+			<h:commandButton id="submitCAS"
+				action="#{welcomeController.connectCas}" value="Continuer" />
+			<h:inputText id="idLienDirect"
+				value="#{welcomeController.idLienDirect}" />
+		</h:form>
+	</ui:define>
 </ui:composition>

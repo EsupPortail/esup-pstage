@@ -59,13 +59,13 @@
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
 			<h:panelGrid columns="2">
-				<a4j:commandButton ajaxSingle="true"
+				<a4j:commandButton execute="@this"
 					oncomplete="#{rich:component('demandeConfirmValidConvention')}.show()"
 					value="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
 					alt="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
 					rendered="#{!conventionController.convention.validationConvention}" />
 
-				<a4j:commandButton ajaxSingle="true"
+				<a4j:commandButton execute="@this"
 					oncomplete="#{rich:component('demandeConfirmInValidConvention')}.show()"
 					value="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
 					alt="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"

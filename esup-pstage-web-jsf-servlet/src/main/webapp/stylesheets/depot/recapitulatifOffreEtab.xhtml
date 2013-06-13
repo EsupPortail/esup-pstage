@@ -17,7 +17,7 @@
 				</t:div>
 				<h:form>
 					<h:panelGrid>
-						<a4j:commandLink ajaxSingle="true" id="editoffre"
+						<a4j:commandLink execute="@this" id="editoffre"
 							action="#{offreController.editPdfOffre}">
 							<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 								value="../../media/images/printer.png" style="border:0" />
@@ -115,8 +115,8 @@
 						</t:div>
 						<h:panelGrid columns="1" style="float:right;"
 							rendered="#{!offreController.currentOffre.estSupprimee}">
-							<a4j:commandLink ajaxSingle="true" id="suppr"
-								reRender="supprOffre"
+							<a4j:commandLink execute="@this" id="suppr"
+								render="supprOffre"
 								oncomplete="#{rich:component('supprOffre')}.show()">
 								<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
 									value="../../media/images/delete.png" style="border:0" />

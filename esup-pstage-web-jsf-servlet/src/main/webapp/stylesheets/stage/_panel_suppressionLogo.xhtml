@@ -15,7 +15,7 @@
 			<t:htmlTag value="div" style="height: 20px;" />
 			<t:htmlTag value="center">
 				<a4j:commandButton value="#{msgs['FORM.OUI']}"
-					action="#{centreController.deleteLogo}" reRender="opUploadImage" />
+					action="#{centreController.deleteLogo}" render="opUploadImage" />
 				<t:htmlTag value="div" style="height: 30px;" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
 					onclick="#{rich:component('suppressionLogo')}.hide();return false;" />

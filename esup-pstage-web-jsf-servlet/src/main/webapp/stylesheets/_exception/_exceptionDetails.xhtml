@@ -1,131 +1,134 @@
-<%@include file="../_include.jsp"%>
-<e:panelGrid alternateColors="true" columns="2" width="100%"
-	cellspacing="0" cellpadding="0">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
 	<f:facet name="header">
 		<t:htmlTag value="hr" />
 	</f:facet>
 
-	<e:outputLabel for="applicationName"
+	<h:outputLabel for="applicationName"
 		value="#{msgs['EXCEPTION.INFORMATION.APPLICATION']}" />
-	<e:text id="applicationName"
+	<h:outputText id="applicationName"
 		value="#{exceptionController.applicationName}" />
 
-	<e:outputLabel for="applicationVersion"
+	<h:outputLabel for="applicationVersion"
 		value="#{msgs['EXCEPTION.INFORMATION.VERSION']}" />
-	<e:text id="applicationVersion"
+	<h:outputText id="applicationVersion"
 		value="#{exceptionController.applicationVersion}" />
 
-	<e:outputLabel for="server"
+	<h:outputLabel for="server"
 		value="#{msgs['EXCEPTION.INFORMATION.SERVER']}" />
 	<t:panelGroup id="server">
-		<e:text value="#{exceptionController.server}"
+		<h:outputText value="#{exceptionController.server}"
 			rendered="#{exceptionController.server != null}" />
-		<e:italic value="#{msgs['EXCEPTION.INFORMATION.SERVER.UNKNOWN']}"
+		<h:italic value="#{msgs['EXCEPTION.INFORMATION.SERVER.UNKNOWN']}"
 			rendered="#{exceptionController.server == null}" />
 	</t:panelGroup>
 
-	<e:outputLabel for="date" value="#{msgs['EXCEPTION.INFORMATION.DATE']}" />
-	<e:text id="date" value="#{exceptionController.date}" />
+	<h:outputLabel for="date" value="#{msgs['EXCEPTION.INFORMATION.DATE']}" />
+	<h:outputText id="date" value="#{exceptionController.date}" />
 
-	<e:outputLabel for="userId"
+	<h:outputLabel for="userId"
 		value="#{msgs['EXCEPTION.INFORMATION.USER_ID']}" />
 	<t:panelGroup id="userId">
-		<e:text value="#{exceptionController.userId}"
+		<h:outputText value="#{exceptionController.userId}"
 			rendered="#{exceptionController.userId != null}" />
-		<e:italic value="#{msgs['EXCEPTION.INFORMATION.USER_ID.UNKNOWN']}"
+		<h:italic value="#{msgs['EXCEPTION.INFORMATION.USER_ID.UNKNOWN']}"
 			rendered="#{exceptionController.userId == null}" />
 	</t:panelGroup>
 
-	<e:outputLabel for="portal"
+	<h:outputLabel for="portal"
 		value="#{msgs['EXCEPTION.INFORMATION.PORTAL']}" />
 	<t:panelGroup id="portal">
 		<t:panelGroup rendered="#{exceptionController.portal != null}">
-			<e:text value="#{exceptionController.portal}" />
-			<e:text value=" #{msgs['EXCEPTION.INFORMATION.PORTAL.QUICK_START']}"
+			<h:outputText value="#{exceptionController.portal}" />
+			<h:outputText value=" #{msgs['EXCEPTION.INFORMATION.PORTAL.QUICK_START']}"
 				rendered="#{exceptionController.quickStart}" />
 		</t:panelGroup>
-		<e:italic value="#{msgs['EXCEPTION.INFORMATION.PORTAL.UNKNOWN']}"
+		<h:italic value="#{msgs['EXCEPTION.INFORMATION.PORTAL.UNKNOWN']}"
 			rendered="#{exceptionController.portal == null}" />
 	</t:panelGroup>
 
-	<e:outputLabel for="client"
+	<h:outputLabel for="client"
 		value="#{msgs['EXCEPTION.INFORMATION.CLIENT']}" />
 	<t:panelGroup id="client">
-		<e:text value="#{exceptionController.client}"
+		<h:outputText value="#{exceptionController.client}"
 			rendered="#{exceptionController.client != null}" />
-		<e:italic value="#{msgs['EXCEPTION.INFORMATION.CLIENT.UNKNOWN']}"
+		<h:italic value="#{msgs['EXCEPTION.INFORMATION.CLIENT.UNKNOWN']}"
 			rendered="#{exceptionController.client == null}" />
 	</t:panelGroup>
 
-	<e:outputLabel for="queryString"
+	<h:outputLabel for="queryString"
 		value="#{msgs['EXCEPTION.INFORMATION.QUERY_STRING']}" />
 	<t:panelGroup id="queryString">
-		<e:text value="#{exceptionController.queryString}"
+		<h:outputText value="#{exceptionController.queryString}"
 			rendered="#{exceptionController.queryString != null}" />
-		<e:italic
+		<h:italic
 			value="#{msgs['EXCEPTION.INFORMATION.QUERY_STRING.UNKNOWN']}"
 			rendered="#{exceptionController.queryString == null}" />
 	</t:panelGroup>
 
-	<e:outputLabel for="userAgent"
+	<h:outputLabel for="userAgent"
 		value="#{msgs['EXCEPTION.INFORMATION.USER_AGENT']}" />
 	<t:panelGroup id="userAgent">
-		<e:text value="#{exceptionController.userAgent}"
+		<h:outputText value="#{exceptionController.userAgent}"
 			rendered="#{exceptionController.userAgent != null}" />
-		<e:italic value="#{msgs['EXCEPTION.INFORMATION.USER_AGENT.UNKNOWN']}"
+		<h:italic value="#{msgs['EXCEPTION.INFORMATION.USER_AGENT.UNKNOWN']}"
 			rendered="#{exceptionController.userAgent == null}" />
 	</t:panelGroup>
 
 	<f:facet name="footer">
 		<t:htmlTag value="hr" />
 	</f:facet>
-</e:panelGrid>
+</h:panelGrid>
 
-<e:subSection value="#{msgs['EXCEPTION.HEADER.EXCEPTION']}" />
+<h:outputText value="#{msgs['EXCEPTION.HEADER.EXCEPTION']}" />
 
-<e:panelGrid columns="2" width="100%" alternateColors="true"
+<h:panelGrid columns="2" width="100%" alternateColors="true"
 	cellspacing="0" cellpadding="0">
 	<f:facet name="header">
 		<t:htmlTag value="hr" />
 	</f:facet>
 
-	<e:outputLabel for="exceptionName"
+	<h:outputLabel for="exceptionName"
 		value="#{msgs['EXCEPTION.EXCEPTION.NAME']}" />
-	<e:text id="exceptionName" value="#{exceptionController.exceptionName}" />
+	<h:outputText id="exceptionName" value="#{exceptionController.exceptionName}" />
 
-	<e:outputLabel for="exceptionMessage"
+	<h:outputLabel for="exceptionMessage"
 		value="#{msgs['EXCEPTION.EXCEPTION.MESSAGE']}" />
-	<e:text id="exceptionMessage"
+	<h:outputText id="exceptionMessage"
 		value="#{exceptionController.exceptionMessage}" />
 
-	<e:outputLabel for="exceptionShortStackTrace"
+	<h:outputLabel for="exceptionShortStackTrace"
 		value="#{msgs['EXCEPTION.EXCEPTION.SHORT_STACK_TRACE']}" />
-	<e:dataTable id="exceptionShortStackTrace"
+	<rich:dataTable id="exceptionShortStackTrace"
 		value="#{exceptionController.exceptionShortStackTrace}" var="string"
 		border="0" style="width: 100%">
 		<t:column>
-			<e:text value="#{string}" />
+			<h:outputText value="#{string}" />
 		</t:column>
-	</e:dataTable>
+	</rich:dataTable>
 
-	<e:outputLabel for="exceptionStackTrace"
+	<h:outputLabel for="exceptionStackTrace"
 		value="#{msgs['EXCEPTION.EXCEPTION.STACK_TRACE']}" />
-	<e:dataTable id="exceptionStackTrace"
+	<rich:dataTable id="exceptionStackTrace"
 		value="#{exceptionController.exceptionStackTrace}" var="string"
 		border="0" style="width: 100%">
 		<t:column>
-			<e:text value="#{string}" />
+			<h:outputText value="#{string}" />
 		</t:column>
-	</e:dataTable>
+	</rich:dataTable>
 
 	<f:facet name="footer">
 		<t:htmlTag value="hr" />
 	</f:facet>
-</e:panelGrid>
+</h:panelGrid>
 
-<e:subSection value="#{msgs['EXCEPTION.HEADER.REQUEST_ATTRIBUTES']}" />
+<h:outputText value="#{msgs['EXCEPTION.HEADER.REQUEST_ATTRIBUTES']}" />
 
-<e:dataTable id="requestAttributes"
+<rich:dataTable id="requestAttributes"
 	value="#{exceptionController.requestAttributes}" var="string"
 	border="0" style="width: 100%"
 	rendered="#{not empty exceptionController.requestAttributes}">
@@ -134,18 +137,18 @@
 		<t:htmlTag value="hr" />
 	</f:facet>
 	<t:column>
-		<e:text value="#{string}" />
+		<h:outputText value="#{string}" />
 	</t:column>
 	<f:facet name="footer">
 		<t:htmlTag value="hr" />
 	</f:facet>
-</e:dataTable>
-<e:text value="#{msgs['EXCEPTION.REQUEST_ATTRIBUTES.NONE']}"
+</rich:dataTable>
+<h:outputText value="#{msgs['EXCEPTION.REQUEST_ATTRIBUTES.NONE']}"
 	rendered="#{empty exceptionController.requestAttributes}" />
 
-<e:subSection value="#{msgs['EXCEPTION.HEADER.SESSION_ATTRIBUTES']}" />
+<h:outputText value="#{msgs['EXCEPTION.HEADER.SESSION_ATTRIBUTES']}" />
 
-<e:dataTable id="sessionAttributes"
+<rich:dataTable id="sessionAttributes"
 	value="#{exceptionController.sessionAttributes}" var="string"
 	border="0" style="width: 100%"
 	rendered="#{not empty exceptionController.sessionAttributes}">
@@ -154,19 +157,19 @@
 		<t:htmlTag value="hr" />
 	</f:facet>
 	<t:column>
-		<e:text value="#{string}" />
+		<h:outputText value="#{string}" />
 	</t:column>
 	<f:facet name="footer">
 		<t:htmlTag value="hr" />
 	</f:facet>
-</e:dataTable>
-<e:text value="#{msgs['EXCEPTION.SESSION_ATTRIBUTES.NONE']}"
+</rich:dataTable>
+<h:outputText value="#{msgs['EXCEPTION.SESSION_ATTRIBUTES.NONE']}"
 	rendered="#{empty exceptionController.sessionAttributes}" />
 
-<e:subSection
+<h:outputText
 	value="#{msgs['EXCEPTION.HEADER.GLOBAL_SESSION_ATTRIBUTES']}" />
 
-<e:dataTable id="globalSessionAttributes"
+<rich:dataTable id="globalSessionAttributes"
 	value="#{exceptionController.globalSessionAttributes}" var="string"
 	border="0" style="width: 100%"
 	rendered="#{not empty exceptionController.globalSessionAttributes}">
@@ -175,18 +178,18 @@
 		<t:htmlTag value="hr" />
 	</f:facet>
 	<t:column>
-		<e:text value="#{string}" />
+		<h:outputText value="#{string}" />
 	</t:column>
 	<f:facet name="footer">
 		<t:htmlTag value="hr" />
 	</f:facet>
-</e:dataTable>
-<e:text value="#{msgs['EXCEPTION.GLOBAL_SESSION_ATTRIBUTES.NONE']}"
+</rich:dataTable>
+<h:outputText value="#{msgs['EXCEPTION.GLOBAL_SESSION_ATTRIBUTES.NONE']}"
 	rendered="#{empty exceptionController.globalSessionAttributes}" />
 
-<e:subSection value="#{msgs['EXCEPTION.HEADER.REQUEST_HEADERS']}" />
+<h:outputText value="#{msgs['EXCEPTION.HEADER.REQUEST_HEADERS']}" />
 
-<e:dataTable id="requestHeaders"
+<rich:dataTable id="requestHeaders"
 	value="#{exceptionController.requestHeaders}" var="string" border="0"
 	style="width: 100%"
 	rendered="#{not empty exceptionController.requestHeaders}">
@@ -195,18 +198,18 @@
 		<t:htmlTag value="hr" />
 	</f:facet>
 	<t:column>
-		<e:text value="#{string}" />
+		<h:outputText value="#{string}" />
 	</t:column>
 	<f:facet name="footer">
 		<t:htmlTag value="hr" />
 	</f:facet>
-</e:dataTable>
-<e:text value="#{msgs['EXCEPTION.REQUEST_HEADERS.NONE']}"
+</rich:dataTable>
+<h:outputText value="#{msgs['EXCEPTION.REQUEST_HEADERS.NONE']}"
 	rendered="#{empty exceptionController.requestHeaders}" />
 
-<e:subSection value="#{msgs['EXCEPTION.HEADER.REQUEST_PARAMETERS']}" />
+<h:outputText value="#{msgs['EXCEPTION.HEADER.REQUEST_PARAMETERS']}" />
 
-<e:dataTable id="requestParameters"
+<rich:dataTable id="requestParameters"
 	value="#{exceptionController.requestParameters}" var="string"
 	border="0" style="width: 100%"
 	rendered="#{not empty exceptionController.requestParameters}">
@@ -215,18 +218,18 @@
 		<t:htmlTag value="hr" />
 	</f:facet>
 	<t:column>
-		<e:text value="#{string}" />
+		<h:outputText value="#{string}" />
 	</t:column>
 	<f:facet name="footer">
 		<t:htmlTag value="hr" />
 	</f:facet>
-</e:dataTable>
-<e:text value="#{msgs['EXCEPTION.REQUEST_PARAMETERS.NONE']}"
+</rich:dataTable>
+<h:outputText value="#{msgs['EXCEPTION.REQUEST_PARAMETERS.NONE']}"
 	rendered="#{empty exceptionController.requestParameters}" />
 
-<e:subSection value="#{msgs['EXCEPTION.HEADER.COOKIES']}" />
+<h:outputText value="#{msgs['EXCEPTION.HEADER.COOKIES']}" />
 
-<e:dataTable id="cookies" value="#{exceptionController.cookies}"
+<rich:dataTable id="cookies" value="#{exceptionController.cookies}"
 	var="string" border="0" style="width: 100%"
 	rendered="#{not empty exceptionController.cookies}">
 
@@ -234,18 +237,18 @@
 		<t:htmlTag value="hr" />
 	</f:facet>
 	<t:column>
-		<e:text value="#{string}" />
+		<h:outputText value="#{string}" />
 	</t:column>
 	<f:facet name="footer">
 		<t:htmlTag value="hr" />
 	</f:facet>
-</e:dataTable>
-<e:text value="#{msgs['EXCEPTION.COOKIES.NONE']}"
+</rich:dataTable>
+<h:outputText value="#{msgs['EXCEPTION.COOKIES.NONE']}"
 	rendered="#{empty exceptionController.cookies}" />
 
-<e:subSection value="#{msgs['EXCEPTION.HEADER.SYSTEM_PROPERTIES']}" />
+<h:outputText value="#{msgs['EXCEPTION.HEADER.SYSTEM_PROPERTIES']}" />
 
-<e:dataTable id="systemProperties"
+<rich:dataTable id="systemProperties"
 	value="#{exceptionController.systemProperties}" var="string" border="0"
 	style="width: 100%"
 	rendered="#{not empty exceptionController.systemProperties}">
@@ -254,16 +257,17 @@
 		<t:htmlTag value="hr" />
 	</f:facet>
 	<t:column>
-		<e:text value="#{string}" />
+		<h:outputText value="#{string}" />
 	</t:column>
 	<f:facet name="footer">
 		<t:htmlTag value="hr" />
 	</f:facet>
-</e:dataTable>
-<e:text value="#{msgs['EXCEPTION.SYSTEM_PROPERTIES.NONE']}"
+</rich:dataTable>
+<h:outputText value="#{msgs['EXCEPTION.SYSTEM_PROPERTIES.NONE']}"
 	rendered="#{empty exceptionController.systemProperties}" />
 
-<e:paragraph rendered="#{exceptionController.recipientEmail != null}"
+<h:outputText rendered="#{exceptionController.recipientEmail != null}"
 	value="#{msgs['EXCEPTION.TEXT.BOTTOM']}">
 	<f:param value="#{exceptionController.recipientEmail}" />
-</e:paragraph>
+</h:outputText>
+</ui:composition>

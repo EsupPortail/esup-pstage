@@ -28,7 +28,7 @@
 			<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 			<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 			<a4j:ajax event="change" ignoreDupResponses="true"
-				render="adresseService" ajaxSingle="true" />
+				render="adresseService" execute="@this" />
 		</h:selectOneRadio>
 		<a4j:outputPanel id="adresseService">
 			<h:panelGrid columnClasses="paginatorData-text"
@@ -112,7 +112,7 @@
 											valueChangeListener="#{etablissementController.formServiceValueCodePostalChanged}">
 									
 											<a4j:ajax event="valueChange" render="opDynaCommune"
-												ignoreDupResponses="true" ajaxSingle="true"
+												ignoreDupResponses="true" execute="@this"
 												requestDelay="1000" />
 										</h:inputText>
 									</h:panelGrid>
@@ -188,7 +188,7 @@
 								<f:selectItems value="#{nomenclatureController.pays}" />
 								<a4j:ajax event="valueChange"
 									render="opFlag, opCommune, opCodePostal"
-									ignoreDupResponses="true" ajaxSingle="true" />
+									ignoreDupResponses="true" execute="@this" />
 							</h:selectOneMenu>
 						</h:panelGrid>
 						<rich:message for="pays">

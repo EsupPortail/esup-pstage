@@ -46,7 +46,7 @@
 				<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 				<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 				<a4j:support event="onclick" ignoreDupResponses="true"
-					reRender="opAvecFichierOuLien" ajaxSingle="true" />
+					render="opAvecFichierOuLien" execute="@this" />
 			</h:selectOneRadio>
 			<a4j:outputPanel id="opAvecFichierOuLien">
 				<h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN.PRECISER']} *"

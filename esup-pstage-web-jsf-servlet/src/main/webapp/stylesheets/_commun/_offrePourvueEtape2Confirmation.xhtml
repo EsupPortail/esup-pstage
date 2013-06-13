@@ -7,7 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<ui:include src="_confirmationMessages.xhtml" />
-	<a4j:commandButton ajaxSingle="true" value="#{msgs['GENERAL.CLOSE']}"
+	<a4j:commandButton execute="@this" value="#{msgs['GENERAL.CLOSE']}"
 		action="_offrePourvueEtape1"
 		onclick="#{rich:component('panelOffrePourvue')}.hide();" />
 </ui:fragment>

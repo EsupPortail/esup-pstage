@@ -27,18 +27,18 @@
 					rendered="#{not empty etablissementController.listeServices}">
 					<f:selectItems value="#{etablissementController.servicesItems}" />
 					<a4j:ajax event="change"
-						reRender="opContactsDataTable2, opActionsService2"
-						ignoreDupResponses="true" ajaxSingle="true" />
+						render="opContactsDataTable2, opActionsService2"
+						ignoreDupResponses="true" execute="@this" />
 				</h:selectOneMenu>
 			</h:panelGrid>
 			<h:panelGrid
 				rendered="#{empty offreController.centreGestionDepotAnonyme}">
 				<a4j:outputPanel id="opActionsService2" ajaxRendered="true">
-					<a4j:commandLink ajaxSingle="true" id="modif2"
+					<a4j:commandLink execute="@this" id="modif2"
 						rendered="#{not empty etablissementController.listeServices and 
 					not empty etablissementController.idServiceSel}"
 						oncomplete="#{rich:component('modifService')}.show()"
-						reRender="modifService">
+						render="modifService">
 						<f:setPropertyActionListener value="#{false}"
 							target="#{etablissementController.memeAdresseStructure}" />
 						<f:setPropertyActionListener
@@ -54,10 +54,10 @@
 		<h:panelGrid columns="3"
 			rendered="#{empty offreController.centreGestionDepotAnonyme}">
 			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-			<a4j:commandLink ajaxSingle="true" id="ajout2"
+			<a4j:commandLink execute="@this" id="ajout2"
 				oncomplete="#{rich:component('ajoutService')}.show()"
 				action="#{etablissementController.ajoutService}"
-				reRender="ajoutService">
+				render="ajoutService">
 				<f:setPropertyActionListener value="#{true}"
 					target="#{etablissementController.memeAdresseStructure}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
@@ -83,12 +83,12 @@
 					escape="false"
 					rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices}" />
-				<a4j:commandLink ajaxSingle="true" id="ajoutC2"
+				<a4j:commandLink execute="@this" id="ajoutC2"
 					rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices}"
 					oncomplete="#{rich:component('ajoutContact')}.show()"
 					action="#{etablissementController.ajoutContact}"
-					reRender="ajoutContact">
+					render="ajoutContact">
 					<h:graphicImage alt="#{msgs['FORM.CREER']}"
 						value="../../media/images/new.png" style="border:0" />
 				</a4j:commandLink>
@@ -106,8 +106,8 @@
 				required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:selectItems value="#{etablissementController.contactsItems}" />
-				<a4j:ajax event="change" reRender="opContactINFO"
-					ignoreDupResponses="true" ajaxSingle="true" />
+				<a4j:ajax event="change" render="opContactINFO"
+					ignoreDupResponses="true" execute="@this" />
 			</h:selectOneMenu>
 			<rich:message for="sOMContact2">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />

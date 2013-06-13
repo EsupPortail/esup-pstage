@@ -14,7 +14,7 @@
 				</t:div>
 				<h:form>
 					<e:panelGrid>
-						<a4j:commandLink ajaxSingle="true" id="editoffre"
+						<a4j:commandLink execute="@this" id="editoffre"
 							action="#{offreController.editPdfOffre}">
 							<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 								value="../../media/images/printer.png" style="border:0" />

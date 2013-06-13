@@ -8,6 +8,6 @@
 		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
 	</rich:messages>
 </h:panelGrid>
-<a4j:commandButton ajaxSingle="true"
+<a4j:commandButton execute="@this"
 value="#{msgs['GENERAL.CLOSE']}" action="_supprAccordEtape1"
 	onclick="#{rich:component('supprimerAccordPanel')}.hide();" />

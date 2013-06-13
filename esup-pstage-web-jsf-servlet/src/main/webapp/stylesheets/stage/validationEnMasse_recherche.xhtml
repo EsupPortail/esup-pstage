@@ -25,19 +25,19 @@
 							<a4j:commandButton
 								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_TUTEUR']}"
 								disabled="#{conventionController.ongletCourant == 1}"
-								reRender="formRechConvention"
+								render="formRechConvention"
 								action="#{conventionController.ongletTuteur}" />
 							<t:htmlTag value="div" style="width: 10px;" />
 							<a4j:commandButton
 								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_UFR']}"
 								disabled="#{conventionController.ongletCourant == 2}"
-								reRender="formRechConvention"
+								render="formRechConvention"
 								action="#{conventionController.ongletUfr}" />
 							<t:htmlTag value="div" style="width: 10px;" />
 							<a4j:commandButton
 								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.BTN_ETAPE']}"
 								disabled="#{conventionController.ongletCourant == 3}"
-								reRender="formRechConvention"
+								render="formRechConvention"
 								action="#{conventionController.ongletEtape}" />
 						</h:panelGrid>
 						<t:htmlTag value="div" style="height: 10px;" />

@@ -39,7 +39,7 @@
 							<h:outputText value="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']}"
 								escape="false" />
 							<rich:dataTable value="#{offreController.listeOffres}"
-								var="offre" columnClasses="center" rows="15" reRender="ds"
+								var="offre" columnClasses="center" rows="15" render="ds"
 								rowKeyVar="rowOffre"
 								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
@@ -82,8 +82,8 @@
 											</t:div>
 										</h:panelGrid>
 									</rich:tooltip>
-									<a4j:commandLink ajaxSingle="true" id="suppr"
-										reRender="supprOffre"
+									<a4j:commandLink execute="@this" id="suppr"
+										render="supprOffre"
 										oncomplete="#{rich:component('supprOffre')}.show()">
 										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 											value="../../media/images/delete.png" style="border:0" />

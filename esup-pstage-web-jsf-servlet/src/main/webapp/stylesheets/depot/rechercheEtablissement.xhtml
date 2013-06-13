@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedDepotTemplate.xhtml">
+	template="../_basicTemplate.xhtml">
 	<ui:define name="content">
 		<h:panelGrid style="float:left;">
 			<ui:include src="./_menu.xhtml" />
@@ -29,9 +29,10 @@
 					<t:div
 						rendered="#{not empty rechercheController.ongletCourant 
 					and rechercheController.ongletCourant==6}">
-						<h:panelGrid columns="1">
+						<h:panelGrid columns="1" columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text">
 							<h:form id="formRechEtab6">
-								<h:panelGrid columns="2">
+								<t:panelGrid columns="2">
 									<h:outputLabel for="rechRaisonSocialeAccord"
 										value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
 									<h:inputText id="rechRaisonSocialeAccord" size="50"
@@ -80,16 +81,17 @@
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 										</rich:message>
 									</t:panelGroup>
-								</h:panelGrid>
+								</t:panelGrid>
 								<h:commandButton action="#{rechercheController.rechercheAccord}"
 									value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
 							</h:form>
 						</h:panelGrid>
 					</t:div>
 					<h:form id="formResultatsRechEtab">
-						<h:panelGrid columns="1">
+						<h:panelGrid columns="1" columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text">
 							<rich:message for="formResultatsRechEtab">
-							<t:htmlTag value="div" style="height:20px;" />
+								<t:htmlTag value="div" style="height:20px;" />
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 							</rich:message>
 							<t:htmlTag value="div" style="height:10px;" />
@@ -114,10 +116,8 @@
 									onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
 									<f:facet name="header">
-										<rich:columnGroup>
-											<ui:include
-												src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
-										</rich:columnGroup>
+										<ui:include
+											src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
 									</f:facet>
 									<f:facet name="footer">
 										<h:panelGroup>
@@ -175,9 +175,9 @@
 										</h:commandButton>
 										<rich:tooltip for="validerAccord"
 											value="#{msgs['FORM.VALIDER']}" />
-										<a4j:commandLink ajaxSingle="true" id="supprimerAccord"
+										<a4j:commandLink execute="@this" id="supprimerAccord"
 											oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
-											reRender="supprimerAccordPanel">
+											render="supprimerAccordPanel">
 											<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
 												title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
 												value="../../media/images/see_block.png" style="border:0" />

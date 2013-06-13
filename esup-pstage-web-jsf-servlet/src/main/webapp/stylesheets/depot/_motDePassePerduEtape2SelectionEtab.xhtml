@@ -77,7 +77,7 @@
 			</rich:column>
 			<rich:column>
 				<a4j:commandLink id="selectionStructure"
-					reRender="structureSelected">
+					render="structureSelected">
 					<f:setPropertyActionListener value="#{structure}"
 						target="#{welcomeController.structureSelectionneeMotDePassePerdu}" />
 					<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"

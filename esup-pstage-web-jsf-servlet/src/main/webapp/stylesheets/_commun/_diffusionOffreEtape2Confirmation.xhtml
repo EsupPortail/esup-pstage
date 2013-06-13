@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<a4j:commandButton ajaxSingle="true" value="#{msgs['GENERAL.CLOSE']}"
+	<a4j:commandButton execute="@this" value="#{msgs['GENERAL.CLOSE']}"
 		action="_diffusionOffreEtape1"
 		onclick="#{rich:component('diffusionOffre')}.hide();" />
 </ui:fragment>

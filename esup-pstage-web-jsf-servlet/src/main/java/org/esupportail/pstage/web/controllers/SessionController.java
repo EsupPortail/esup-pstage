@@ -115,7 +115,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * Envoi d'un mail à la suppression d'une offre par une entreprise ou admin
 	 */
 	private boolean mailingListEntrMailAvertissementSupprOffre;
-	
+
 	/**
 	 * InternetAddress
 	 */
@@ -262,7 +262,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * Map contenant les droits d'acces du personnel en fonction de l'id d'un centre
 	 */
 	private Map<Integer, DroitAdministrationDTO> droitsAccesMap = new HashMap<Integer,DroitAdministrationDTO>();
-	
+
 	/**
 	 * True if simulate portlet mode.
 	 */
@@ -272,27 +272,27 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * Critere vide, UFR ou ETAPE récupéré depuis le fichier config.properties
 	 */
 	private String critereGestion;
-	
+
 	/**
 	 * Vrai si Espace Entreprise - l'entreprise peut acceder l'application CVtheque
 	 */
 	private boolean cvtheque;
-	
+
 	/**
 	 * si cvtheque=true - url de l'application CVtheque
 	 */
 	private String cvthequeUrl;
-	
+
 	/**
 	 * Vrai si url assistance
 	 */
 	private boolean assistance;
-	
+
 	/**
 	 * url assistance
 	 */
 	private String urlAssistance;
-	
+
 	/**
 	 * vrai si Enseignant Tuteur
 	 */
@@ -302,7 +302,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * vrai si les gestionnaires doivent moderer les offres
 	 */
 	private boolean moderationActive;
-	
+
 	/**
 	 * Variable permettant l'enchainement d'ecran de la creation d'accord
 	 */
@@ -311,14 +311,14 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * Variable permettant l'enchainement d'ecran de la popUp NousContacter
 	 */
 	private String nousContacterCurrentPage = "_nousContacterEtape1";
-	
+
 	/**
 	 * Constructor.
 	 */
 	public SessionController() {
 		super();
 	}
-	
+
 	/**
 	 * @see org.esupportail.pstage.web.controllers.AbstractDomainAwareBean#reset()
 	 */
@@ -327,7 +327,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		super.reset();
 		isEnt = true;
 	}
-	
+
 	/* ***************************************************************
 	 * Actions
 	 ****************************************************************/
@@ -375,7 +375,7 @@ public class SessionController extends AbstractDomainAwareBean {
 			this.superAdminTab = this.superAdmin.split(";");
 		}else{
 			logger.warn("Property superAdmin (-> init.superAdmin) of class " 
-				+ this.getClass().getName() + " can not be null : "+superAdmin);
+					+ this.getClass().getName() + " can not be null : "+superAdmin);
 		}
 		if(org.springframework.util.StringUtils.hasText(adminAuthentication)){
 			if(!adminAuthentication.equals("cas") && !adminAuthentication.equals("shibb")){
@@ -401,7 +401,7 @@ public class SessionController extends AbstractDomainAwareBean {
 				this.uploadFilesFileSizeLimit=i+"mo";
 			}
 		}
-		
+
 		Assert.isTrue(this.uploadFilesLogosCentrePath!= null && !this.uploadFilesLogosCentrePath.isEmpty(), "property uploadFilesLogosCentrePath of class " 
 				+ this.getClass().getName() + " can not be null");	
 		this.imageUploadBean=new ImageUploadBean(this.uploadFilesLogosCentrePath);
@@ -421,12 +421,12 @@ public class SessionController extends AbstractDomainAwareBean {
 				this.uploadImagesFileSizeLimit=i+"mo";
 			}
 		}
-		
+
 		Assert.notNull(this.uploadFilesOffresFileExtensions, "property uploadFilesOffresFileExtensions of class " 
 				+ this.getClass().getName() + " can not be null");
 		Assert.notNull(this.uploadImagesFileExtensions, "property uploadImagesFileExtensions of class " 
 				+ this.getClass().getName() + " can not be null");
-		
+
 	}
 
 	/**
@@ -436,7 +436,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	public User getCurrentUser() {
 		return authenticator.getUser();
 	}
-	
+
 	/**
 	 * @return true if the login button should be printed. 
 	 */
@@ -446,7 +446,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		}
 		return getIsServlet()&& getCurrentUser() == null;
 	}
-	
+
 	/**
 	 * @return true if the logout button should be printed. 
 	 */
@@ -454,10 +454,10 @@ public class SessionController extends AbstractDomainAwareBean {
 		if (!printLoginLogoutButtons) {
 			return false;
 		}
-		
+
 		return getIsServlet()&& getCurrentUser() != null; 
 	}
-	
+
 	/**
 	 * @return true if this application is mode servlet. 
 	 */
@@ -468,7 +468,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		return ContextUtils.isServlet();
 	}
 
-	
+
 	/**
 	 * @return a debug String.
 	 */
@@ -496,11 +496,10 @@ public class SessionController extends AbstractDomainAwareBean {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-		String returnUrl = request.getRequestURL().toString().replaceFirst("/stylesheets/[^/]*$", "");
+		String returnUrl = request.getRequestURL().toString().replaceFirst("/stylesheets/depot/.*", "/stylesheets/depot/welcome.xhtml");
+		returnUrl = returnUrl.replaceFirst("/stylesheets/stage/.*", "/stylesheets/stage/welcome.xhtml");
 		String forwardUrl;
-		Assert.hasText(
-				casLogoutUrl, 
-				"property casLogoutUrl of class " + getClass().getName() + " is null");
+		Assert.hasText(casLogoutUrl, "property casLogoutUrl of class " + getClass().getName() + " is null");
 		forwardUrl = String.format(casLogoutUrl, StringUtils.utf8UrlEncode(returnUrl));
 		// note: the session beans will be kept even when invalidating 
 		// the session so they have to be reset (by the exception controller).
@@ -513,8 +512,8 @@ public class SessionController extends AbstractDomainAwareBean {
 		facesContext.responseComplete();
 		return null;
 	}
-	
-	
+
+
 	/**
 	 * @param logoutEnt
 	 */
@@ -525,7 +524,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-		
+
 		// note: the session beans will be kept even when invalidating 
 		// the session so they have to be reset (by the exception controller).
 		// We invalidate the session however for the other attributes.
@@ -535,7 +534,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		exceptionController.restart();
 		facesContext.responseComplete();
 	}
-	
+
 	/**
 	 * Espace entreprise seulement
 	 * @return true if the current user is a Contact
@@ -545,7 +544,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		if(this.currentAuthContact!=null && this.currentManageStructure!=null) isAuthorized=true;
 		return isAuthorized;
 	}
-	
+
 	/**
 	 * Espace entreprise seulement
 	 * @return true if the current user is an Admin
@@ -555,7 +554,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		if(this.currentAuthAdminStructure!=null) isAuthorized=true;
 		return isAuthorized;
 	}
-	
+
 	/**
 	 * @return true if the current user is a Super Admin
 	 * Entreprise / Stage confondu
@@ -964,7 +963,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	public List<CentreGestionDTO> getCurrentCentresGestion() {
 		return currentCentresGestion;
 	}
-	
+
 	/**
 	 * @return List<Integer>
 	 */
@@ -1020,7 +1019,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		}
 		return currentLogin;
 	}
-		/**
+	/**
 	 * @return the notAdminEntrepriseViaCasShibb
 	 */
 	public boolean isNotAdminEntrepriseViaCasShibb() {
@@ -1322,7 +1321,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	public void setCvthequeUrl(String cvthequeUrl) {
 		this.cvthequeUrl = cvthequeUrl;
 	}
-		
+
 
 	/**
 	 * @return the assistance
@@ -1421,6 +1420,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	public void setNousContacterCurrentPage(String nousContacterCurrentPage) {
 		this.nousContacterCurrentPage = nousContacterCurrentPage;
 	}
-	
-	
+
+
 }

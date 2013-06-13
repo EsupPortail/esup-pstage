@@ -237,7 +237,7 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 
 				<t:htmlTag value="center">
-					<a4j:commandButton ajaxSingle="true"
+					<a4j:commandButton execute="@this"
 						rendered="#{welcomeController.superAdmin
 							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
 						action="#{centreController.goToModifCentre}"

@@ -37,10 +37,10 @@
 								<f:selectItems value="#{etablissementController.servicesItems}" />
 								<a4j:ajax event="blur"
 									render="opContactsDataTable, opActionsService"
-									ajaxSingle="true" />
+									execute="@this" />
 								<a4j:ajax event="valueChange"
 									render="opContactsDataTable, opActionsService"
-									ajaxSingle="true" />
+									execute="@this" />
 							</h:selectOneMenu>
 						</h:panelGrid>
 						<h:panelGrid columnClasses="paginatorData-text"
@@ -48,7 +48,7 @@
 							rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 							<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}"
 								escape="false" />
-							<a4j:commandLink ajaxSingle="true" id="ajout"
+							<a4j:commandLink execute="@this" id="ajout"
 								oncomplete="#{rich:component('ajoutService')}.show()"
 								action="#{etablissementController.ajoutService}"
 								render="ajoutService">
@@ -73,7 +73,7 @@
 							<ui:include src="../_commun/_serviceColumns.xhtml" />
 							<rich:column
 								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-								<a4j:commandLink ajaxSingle="true" id="modif"
+								<a4j:commandLink execute="@this" id="modif"
 									rendered="#{not empty etablissementController.idServiceSel}"
 									oncomplete="#{rich:component('modifService')}.show()"
 									render="modifService">
@@ -104,7 +104,7 @@
 
 								<t:htmlTag value="div" style="display: inline; margin: 4px;" />
 
-								<a4j:commandLink ajaxSingle="true" id="suppr"
+								<a4j:commandLink execute="@this" id="suppr"
 									rendered="#{not empty etablissementController.idServiceSel}"
 									oncomplete="#{rich:component('supprService')}.show()"
 									render="supprService">
@@ -148,7 +148,7 @@
 									and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
 							<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
 								escape="false" />
-							<a4j:commandLink ajaxSingle="true" id="ajoutC"
+							<a4j:commandLink execute="@this" id="ajoutC"
 								rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
 								oncomplete="#{rich:component('ajoutContact')}.show()"
@@ -256,7 +256,7 @@
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id)}">
-								<a4j:commandLink ajaxSingle="true" id="modifC"
+								<a4j:commandLink execute="@this" id="modifC"
 									rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
 									oncomplete="#{rich:component('modifContact')}.show()"
@@ -289,7 +289,7 @@
 
 
 								<!-- supp contact -->
-								<a4j:commandLink ajaxSingle="true" id="supprC"
+								<a4j:commandLink execute="@this" id="supprC"
 									rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
 									oncomplete="#{rich:component('supprContact')}.show()"
@@ -305,7 +305,7 @@
 							<rich:column
 								rendered="#{(not empty contact.login and not empty contact.mdp)
 										and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
-								<a4j:commandLink ajaxSingle="true" id="modifBlock"
+								<a4j:commandLink execute="@this" id="modifBlock"
 									disabled="true">
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 										value="../../media/images/edit_block.png" style="border:0" />

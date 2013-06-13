@@ -41,7 +41,7 @@ import org.springframework.util.StringUtils;
 public class AccordController extends AbstractContextAwareController {
 
 	/* ***************************************************************
-	 * Propri�t�s
+	 * Propriétés
 	 ****************************************************************/
 
 	/**
@@ -62,11 +62,11 @@ public class AccordController extends AbstractContextAwareController {
 	 */
 	private AccordPartenariatDTO accord;
 	/**
-	 * preAccord : structure trouv�e
+	 * preAccord : structure trouvée
 	 */
 	private StructureDTO structureExistante;
 	/**
-	 * preAccord : liste de structure correspondant � la raison sociale saisie
+	 * preAccord : liste de structure correspondant à la raison sociale saisie
 	 */
 	private List<StructureDTO> listeStructureExistante;
 	/**
@@ -139,9 +139,9 @@ public class AccordController extends AbstractContextAwareController {
 
 	/**
 	 * SuggestionBox
-	 * Liste des structures retourn� pour l'autocompl�tion
+	 * Liste des structures retourné pour l'autocomplétion
 	 * @param begin
-	 * @return la liste des structures commen�ant et/ou contenant begin
+	 * @return la liste des structures commencant et/ou contenant begin
 	 */
 	public List<StructureDTO> suggest(Object begin){
 		if(logger.isDebugEnabled()){
@@ -312,14 +312,14 @@ public class AccordController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Liste dynamique mise � jour en fonction du type de structure
+	 * Liste dynamique mise à jour en fonction du type de structure
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getStatutsJuridiquesListening(){
 		return this.statutsJuridiquesListening;
 	}
 	/**
-	 * Mise � jour de la liste Statut juridique en fonction de la liste Type de Structure
+	 * Mise à jour de la liste Statut juridique en fonction de la liste Type de Structure
 	 * @param event
 	 */
 	public void valueTypeStructureChanged(ValueChangeEvent event){
@@ -485,7 +485,7 @@ public class AccordController extends AbstractContextAwareController {
 				try {
 					logger.error("WebServiceDataBaseException", w.fillInStackTrace());
 					addErrorMessage(null, "ACCORD.ERREUR");
-					//Suppression des �l�ments ajout�s en base
+					//Suppression des éléments ajoutés en base
 					if(contactTmp.getId()>0){
 						if(logger.isInfoEnabled()){
 							logger.info("Suppression Contact : " +contactTmp);

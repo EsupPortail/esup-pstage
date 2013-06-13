@@ -26,7 +26,7 @@
 						<ui:include src="../_commun/_messageInfoMarker.xhtml" />
 					</rich:message>
 				</t:div>
-				<a4j:commandButton ajaxSingle="true"
+				<a4j:commandButton execute="@this"
 					rendered="#{conventionController.saisieTuteurProParEtudiant}"
 					oncomplete="#{rich:component('selectSignataire')}.show()"
 					value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.SELECTION']}">
@@ -42,7 +42,7 @@
 					rendered="#{conventionController.convention.centreGestion.presenceTuteurPro == false and conventionController.saisieTuteurProParEtudiant}">
 					<h:outputText value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE']}"
 						escape="false" />
-					<a4j:commandLink ajaxSingle="true" id="passeretape"
+					<a4j:commandLink execute="@this" id="passeretape"
 						action="#{conventionController.goToCreerConventionEtape8Recap}">
 						<f:setPropertyActionListener value="#{null}"
 							target="#{conventionController.signataireSel}" />
@@ -60,7 +60,7 @@
 					<h:outputText
 						value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SAISIETUTEURPRONON']}"
 						escape="false" />
-					<a4j:commandLink ajaxSingle="true" id="passeretape2"
+					<a4j:commandLink execute="@this" id="passeretape2"
 						action="#{conventionController.goToCreerConventionEtape8Recap}">
 						<f:setPropertyActionListener value="#{null}"
 							target="#{conventionController.signataireSel}" />
@@ -79,13 +79,13 @@
 					<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 					<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 						oncomplete="#{rich:component('selectSignataire')}.hide();"
-						ignoreDupResponses="true" reRender="opSignataire">
+						ignoreDupResponses="true" render="opSignataire">
 						<f:setPropertyActionListener
 							value="#{etablissementController.contactSel}"
 							target="#{conventionController.signataireSel}" />
 					</a4j:commandButton>
 					<t:htmlTag value="div" style="width: 150px;" />
-					<a4j:commandButton value="#{msgs['FORM.CANCEL']}" ajaxSingle="true"
+					<a4j:commandButton value="#{msgs['FORM.CANCEL']}" execute="@this"
 						onclick="#{rich:component('selectSignataire')}.hide();return false;" />
 				</rich:popupPanel>
 				<a4j:outputPanel id="opSignataire"
@@ -118,9 +118,9 @@
 						<h:outputText id="mailC"
 							value="#{conventionController.signataireSel.mail}" />
 						<t:htmlTag value="div" style="width: 50px;" />
-						<a4j:commandLink ajaxSingle="true" id="modifC"
+						<a4j:commandLink execute="@this" id="modifC"
 							oncomplete="#{rich:component('modifContact')}.show()"
-							reRender="modifContact"
+							render="modifContact"
 							disabled="#{!(sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
 								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)

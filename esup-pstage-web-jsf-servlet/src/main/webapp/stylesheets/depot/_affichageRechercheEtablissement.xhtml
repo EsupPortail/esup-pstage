@@ -58,9 +58,9 @@
 					target="#{adminController.structureAccord}" />
 				<h:outputText value="#{msgs['ACCORD.CONSULTATION.BUTTON']}" />
 			</h:commandLink>
-			<a4j:commandLink ajaxSingle="true" id="supprimerAccord"
+			<a4j:commandLink execute="@this" id="supprimerAccord"
 				oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
-				reRender="supprimerAccordPanel">
+				render="supprimerAccordPanel">
 				<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
 					title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
 					value="../../media/images/see_block.png" style="border:0" />

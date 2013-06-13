@@ -109,7 +109,7 @@
 					<h:panelGrid columns="5" align="center">
 						<a4j:commandButton id="ajouter" value="#{msgs['FORM.AJOUTER']}"
 							action="#{centreController.ajouterPersonnel}"
-							reRender="personnelDataTable" />
+							render="personnelDataTable" />
 						<rich:tooltip for="ajouter"
 							value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
 						<t:htmlTag value="div" style="width: 10px;" />

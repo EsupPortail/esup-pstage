@@ -31,7 +31,7 @@
 			<t:htmlTag value="center">
 				<a4j:commandButton value="#{msgs['FORM.OUI']}"
 					action="#{centreController.supprimerCritere}"
-					reRender="critereDataTable" />
+					render="critereDataTable" />
 				<t:htmlTag value="div" style="width: 30px;" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
 					onclick="#{rich:component('suppressionCritere')}.hide();return false;" />

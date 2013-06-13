@@ -8,7 +8,7 @@
 		converter="#{intConverter}" required="true"
 		requiredMessage="#{requiredMessageController.champObligatoire}">
 		<f:selectItems value="#{adminController.listTypeCompteAdminStructure}" />
-		<a4j:support event="onchange" reRender="opFormAdmin" ajaxSingle="true" />
+		<a4j:support event="onchange" render="opFormAdmin" execute="@this" />
 	</h:selectOneRadio>
 </h:panelGrid>
 <a4j:outputPanel id="opFormAdmin" ajaxRendered="true">

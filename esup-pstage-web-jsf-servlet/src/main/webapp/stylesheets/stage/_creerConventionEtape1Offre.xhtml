@@ -17,7 +17,7 @@
 						validatorMessage="#{requiredMessageController.superieurA0}">
 						<f:validator binding="#{entierValidator}" />
 						<a4j:support event="onblur" ignoreDupResponses="true"
-							ajaxSingle="true" />
+							execute="@this" />
 						<f:validateLongRange minimum="1" />
 					</h:inputText>
 				</h:panelGrid>
@@ -84,7 +84,7 @@
 								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 							</h:outputText>
 						</h:column>
-						<a4j:support ajaxSingle="true" event="onselect" reRender="idOffre">
+						<a4j:support execute="@this" event="onselect" render="idOffre">
 							<f:setPropertyActionListener value="#{rechOffre.idOffre}"
 								target="#{conventionController.numOffreConvention}" />
 						</a4j:support>

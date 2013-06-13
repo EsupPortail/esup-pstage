@@ -31,19 +31,19 @@
 								rendered="#{not empty etablissementController.listeServices}">
 								<f:selectItems value="#{etablissementController.servicesItems}" />
 								<a4j:support event="onblur" ignoreDupResponses="true"
-									reRender="opContactsDataTable, opActionsService"
-									ajaxSingle="true" />
+									render="opContactsDataTable, opActionsService"
+									execute="@this" />
 								<a4j:support event="onchange"
-									reRender="opContactsDataTable, opActionsService"
-									ignoreDupResponses="true" ajaxSingle="true" />
+									render="opContactsDataTable, opActionsService"
+									ignoreDupResponses="true" execute="@this" />
 							</h:selectOneMenu>
 						</h:panelGrid>
 						<h:panelGrid columns="3">
 							<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-							<a4j:commandLink ajaxSingle="true" id="ajout"
+							<a4j:commandLink execute="@this" id="ajout"
 								oncomplete="#{rich:component('ajoutService')}.show()"
 								action="#{etablissementController.ajoutService}"
-								reRender="ajoutService">
+								render="ajoutService">
 								<f:setPropertyActionListener value="#{true}"
 									target="#{etablissementController.memeAdresseStructure}" />
 								<f:setPropertyActionListener value="#{false}"
@@ -66,10 +66,10 @@
 							align="center">
 							<ui:include src="../_commun/_serviceColumns.xhtml"/>
 							<rich:column>
-								<a4j:commandLink ajaxSingle="true" id="modif"
+								<a4j:commandLink execute="@this" id="modif"
 									rendered="#{not empty etablissementController.idServiceSel}"
 									oncomplete="#{rich:component('modifService')}.show()"
-									reRender="modifService">
+									render="modifService">
 									<f:setPropertyActionListener value="#{false}"
 										target="#{etablissementController.memeAdresseStructure}" />
 									<f:setPropertyActionListener
@@ -92,10 +92,10 @@
 										</t:div>
 									</h:panelGrid>
 								</rich:tooltip>
-								<a4j:commandLink ajaxSingle="true" id="suppr"
+								<a4j:commandLink execute="@this" id="suppr"
 									rendered="#{not empty etablissementController.idServiceSel}"
 									oncomplete="#{rich:component('supprService')}.show()"
-									reRender="supprService">
+									render="supprService">
 									<f:setPropertyActionListener value="#{false}"
 										target="#{etablissementController.memeAdresseStructure}" />
 									<f:setPropertyActionListener
@@ -124,12 +124,12 @@
 								escape="false"
 								rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}" />
-							<a4j:commandLink ajaxSingle="true" id="ajoutC"
+							<a4j:commandLink execute="@this" id="ajoutC"
 								rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
 								oncomplete="#{rich:component('ajoutContact')}.show()"
 								action="#{etablissementController.ajoutContact}"
-								reRender="ajoutContact">
+								render="ajoutContact">
 								<h:graphicImage alt="#{msgs['FORM.CREER']}"
 									value="../../media/images/new.png" style="border:0" />
 							</a4j:commandLink>
@@ -262,11 +262,11 @@
 									rendered="#{sessionController.adminPageAuthorized 
 								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id)}">
-									<a4j:commandLink ajaxSingle="true" id="modifC"
+									<a4j:commandLink execute="@this" id="modifC"
 										rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
 										oncomplete="#{rich:component('modifContact')}.show()"
-										reRender="modifContact">
+										render="modifContact">
 										<f:setPropertyActionListener value="#{rowContact}"
 											target="#{etablissementController.currentRowContact}" />
 										<f:setPropertyActionListener value="#{contact}"
@@ -285,11 +285,11 @@
 											</t:div>
 										</h:panelGrid>
 									</rich:tooltip>
-									<a4j:commandLink ajaxSingle="true" id="supprC"
+									<a4j:commandLink execute="@this" id="supprC"
 										rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
 										oncomplete="#{rich:component('supprContact')}.show()"
-										reRender="supprContact">
+										render="supprContact">
 										<f:setPropertyActionListener value="#{contact}"
 											target="#{etablissementController.formContact}" />
 										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
@@ -305,12 +305,12 @@
 							and sessionController.currentManageStructure.accordPartenariat!=null
 							and sessionController.currentManageStructure.accordPartenariat.estValide}">
 									<t:div>
-										<a4j:commandLink ajaxSingle="true" id="creationCompte"
+										<a4j:commandLink execute="@this" id="creationCompte"
 											rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices
 									and empty contact.mdp}"
 											oncomplete="#{rich:component('creationCompteContact')}.show()"
-											reRender="creationCompteContact">
+											render="creationCompteContact">
 											<f:setPropertyActionListener value="#{contact}"
 												target="#{etablissementController.formContact}" />
 											<h:graphicImage
@@ -321,12 +321,12 @@
 											value="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}" />
 									</t:div>
 									<t:div>
-										<a4j:commandLink ajaxSingle="true" id="supprCompte"
+										<a4j:commandLink execute="@this" id="supprCompte"
 											rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices
 									and not empty contact.mdp}"
 											oncomplete="#{rich:component('supprCompteContact')}.show()"
-											reRender="supprCompteContact">
+											render="supprCompteContact">
 											<f:setPropertyActionListener value="#{contact}"
 												target="#{etablissementController.formContact}" />
 											<h:graphicImage
@@ -335,12 +335,12 @@
 										</a4j:commandLink>
 										<rich:tooltip for="supprCompte"
 											value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION']}" />
-										<a4j:commandLink ajaxSingle="true" id="resetMdp"
+										<a4j:commandLink execute="@this" id="resetMdp"
 											rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices
 									and not empty contact.mdp}"
 											oncomplete="#{rich:component('resetMdpContact')}.show()"
-											reRender="resetMdpContact">
+											render="resetMdpContact">
 											<f:setPropertyActionListener value="#{contact}"
 												target="#{etablissementController.formContact}" />
 											<h:graphicImage

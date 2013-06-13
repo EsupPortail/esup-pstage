@@ -36,7 +36,7 @@
 	</h:panelGrid>
 </a4j:outputPanel>
 <a4j:commandButton action="_modifAdministrateurEtape1"
-	value="#{msgs['FORM.OUI']}" ignoreDupResponses="true" ajaxSingle="true" />
+	value="#{msgs['FORM.OUI']}" ignoreDupResponses="true" execute="@this" />
 <rich:spacer width="150px" />
 <a4j:commandButton value="#{msgs['FORM.NON']}"
 	onclick="#{rich:component('modifAdministrateur')}.hide();return false;" />

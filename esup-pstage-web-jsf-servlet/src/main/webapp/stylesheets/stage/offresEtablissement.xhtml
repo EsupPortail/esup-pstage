@@ -26,7 +26,7 @@
 							<h:outputText value="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']} "
 								escape="false" />
 							<rich:dataTable value="#{offreController.listeOffres}"
-								var="offre" columnClasses="center" rows="15" reRender="ds"
+								var="offre" columnClasses="center" rows="15" render="ds"
 								rowKeyVar="rowOffre"
 								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
@@ -49,7 +49,7 @@
 								</f:facet>
 							</rich:dataTable>
 							<rich:dataTable value="#{offreController.listeOffres}"
-								var="offre" columnClasses="center" rows="15" reRender="ds"
+								var="offre" columnClasses="center" rows="15" render="ds"
 								rowKeyVar="rowOffre"
 								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"

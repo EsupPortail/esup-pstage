@@ -35,12 +35,12 @@
 							escape="false"
 							rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}" />
-						<a4j:commandLink ajaxSingle="true" id="ajoutC"
+						<a4j:commandLink execute="@this" id="ajoutC"
 							rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
 							oncomplete="#{rich:component('ajoutContact')}.show()"
 							action="#{etablissementController.ajoutContact}"
-							reRender="ajoutContact">
+							render="ajoutContact">
 							<f:setPropertyActionListener value="#{false}"
 								target="#{etablissementController.afficherSelectionCentreContact}" />
 							<h:graphicImage alt="#{msgs['FORM.CREER']}"
@@ -117,10 +117,10 @@
 								and ((empty contact.loginModif and
 								contact.loginCreation==sessionController.currentLogin)
 								|| (contact.loginModif==sessionController.currentLogin)))))))}">
-							<a4j:commandLink ajaxSingle="true" id="modifC"
+							<a4j:commandLink execute="@this" id="modifC"
 								rendered="#{not empty etablissementController.listeContacts}"
 								oncomplete="#{rich:component('modifContact')}.show()"
-								reRender="modifContact">
+								render="modifContact">
 								<f:setPropertyActionListener value="#{rowContact}"
 									target="#{etablissementController.currentRowContact}" />
 								<f:setPropertyActionListener value="#{contact}"
@@ -131,10 +131,10 @@
 									value="../../media/images/edit.png" style="border:0" />
 							</a4j:commandLink>
 							<rich:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
-							<a4j:commandLink ajaxSingle="true" id="supprC"
+							<a4j:commandLink execute="@this" id="supprC"
 								rendered="#{not empty etablissementController.listeContacts}"
 								oncomplete="#{rich:component('supprContact')}.show()"
-								reRender="supprContact">
+								render="supprContact">
 								<f:setPropertyActionListener value="#{contact}"
 									target="#{etablissementController.formContact}" />
 								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
@@ -154,7 +154,7 @@
 								and ((empty contact.loginModif and
 								contact.loginCreation==sessionController.currentLogin)
 								|| (contact.loginModif==sessionController.currentLogin)))))))}">
-							<a4j:commandLink ajaxSingle="true" id="modifBlock"
+							<a4j:commandLink execute="@this" id="modifBlock"
 								disabled="true">
 								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 									value="../../media/images/edit_block.png" style="border:0" />
@@ -163,7 +163,7 @@
 								value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
 						</rich:column>
 						<rich:column>
-							<a4j:commandLink ajaxSingle="true" id="selC"
+							<a4j:commandLink execute="@this" id="selC"
 								rendered="#{not empty etablissementController.listeContacts}"
 								action="#{conventionController.goToCreerConventionEtape5Stage}">
 
@@ -187,7 +187,7 @@
 					rendered="#{conventionController.convention.centreGestion.presenceTuteurPro == false and conventionController.saisieTuteurProParEtudiant}">
 					<h:outputText value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE']}"
 						escape="false" />
-					<a4j:commandLink ajaxSingle="true" id="passeretape"
+					<a4j:commandLink execute="@this" id="passeretape"
 						action="#{conventionController.goToCreerConventionEtape5Stage}">
 						<f:setPropertyActionListener value="#{null}"
 							target="#{conventionController.convention.contact}" />
@@ -204,7 +204,7 @@
 					<h:outputText
 						value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SAISIETUTEURPRONON']}"
 						escape="false" />
-					<a4j:commandLink ajaxSingle="true" id="passeretape2"
+					<a4j:commandLink execute="@this" id="passeretape2"
 						action="#{conventionController.goToCreerConventionEtape5Stage}">
 						<f:setPropertyActionListener value="#{null}"
 							target="#{conventionController.convention.contact}" />

@@ -22,7 +22,7 @@
 			<h:panelGrid id="delete" columns="3" align="center">
 				<a4j:commandButton value="#{msgs['FORM.OUI']}"
 					action="#{avenantController.supprimerAvenant}"
-					reRender="listeAvenant" />
+					render="listeAvenant" />
 				<t:htmlTag value="div" style="width: 30px;" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
 					onclick="#{rich:component('suppressionAvenant')}.hide();return false;" />

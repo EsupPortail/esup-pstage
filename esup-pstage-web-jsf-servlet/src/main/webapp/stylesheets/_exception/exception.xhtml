@@ -1,14 +1,20 @@
-<%@include file="../_include.jsp"%>
-<e:page stringsVar="msgs">
-	<e:emptyMenu />
-	<e:panelGrid columns="2" columnClasses="colLeft,colRight" width="100%">
-		<e:section value="#{msgs['EXCEPTION.TITLE']}" />
-		<t:panelGroup>
-			<%@include file="_exceptionDetailsButtons.jsp"%>
-		</t:panelGroup>
-	</e:panelGrid>
-	<e:messages />
-	<e:paragraph value="#{msgs['EXCEPTION.TEXT.TOP']}" />
-	<%@include file="_exceptionForm.jsp"%>
-	<%@include file="_exceptionDetailsPanel.jsp"%>
-</e:page>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="../_basicTemplate.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2" columnClasses="colLeft,colRight" width="100%">
+			<h:outputText value="#{msgs['EXCEPTION.TITLE']}" />
+			<t:panelGroup>
+				<ui:include src="_exceptionDetailsButtons.xhtml" />
+			</t:panelGroup>
+		</h:panelGrid>
+		<rich:messages />
+		<h:outputText value="#{msgs['EXCEPTION.TEXT.TOP']}" />
+		<ui:include src="_exceptionForm.jsp" />
+		<ui:include src="_exceptionDetailsPanel.jsp" />
+	</ui:define>
+</ui:composition>

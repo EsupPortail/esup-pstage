@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<f:view locale="#{sessionController.locale}">
+	<h:head>
+		<title><h:outputText value="#{applicationService.name}" /></title>
+		<script type="text/javascript" language="Javascript"
+			src="../../media/js/functions.js" />
+		<script type="text/javascript" language="Javascript">
+			//<![CDATA[
+	
+			var t = location.search.substring(1).split('&');
+	
+			if (t != null) {
+				var x = t[0].split('=');
+	
+				if (x[0] == "id") {
+					var idLienDirect = document.getElementById('casForm:idLienDirect');
+					idLienDirect.value = x[1];
+				}
+			}
+			window.onload = function() {
+				simulateLinkClick('casForm:submitCAS');
+			}
+			//]]>
+		</script>
+	</h:head>
+	<h:body>
+		<ui:insert name="content" />
+	</h:body>
+</f:view>
+</html>

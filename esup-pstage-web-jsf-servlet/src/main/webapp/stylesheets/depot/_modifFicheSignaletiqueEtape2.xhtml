@@ -13,7 +13,7 @@
 	<a4j:commandButton value="#{msgs['FORM.MODIFIER']}"
 		rendered="#{not empty etablissementController.formStructure}"
 		action="#{etablissementController.modifierFicheSignaletique}"
-		reRender="opFCE">
+		render="opFCE">
 	</a4j:commandButton>
 	<rich:spacer width="20px" />
 	<a4j:outputPanel id="opFCE">

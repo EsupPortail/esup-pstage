@@ -25,8 +25,8 @@
 						cancelEntryControlLabel="" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<a4j:ajax event="uploadcomplete"
-							reRender="opUploadImage,panelUpload"
-							action="#{centreController.insertLogo}" ajaxSingle="true" />
+							render="opUploadImage,panelUpload"
+							action="#{centreController.insertLogo}" execute="@this" />
 					</rich:fileUpload>
 					<h:outputText value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
 						style="font-size:10px;">
@@ -51,8 +51,8 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1" align="center">
-					<a4j:commandButton id="cancel" ajaxSingle="true"
-						reRender="opUploadImage"
+					<a4j:commandButton id="cancel" execute="@this"
+						render="opUploadImage"
 						action="#{centreController.cleanFichiers}"
 						value=" #{msgs['GENERAL.RETOUR']}" />
 

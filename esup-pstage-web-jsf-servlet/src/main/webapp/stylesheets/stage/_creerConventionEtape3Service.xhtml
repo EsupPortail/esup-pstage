@@ -45,19 +45,19 @@
 							rendered="#{not empty etablissementController.listeServices}">
 							<f:selectItems value="#{etablissementController.servicesItems}" />
 							<a4j:support event="onblur" ignoreDupResponses="true"
-								reRender="opActionsService" ajaxSingle="true" />
-							<a4j:support event="onchange" reRender="opActionsService"
-								ignoreDupResponses="true" ajaxSingle="true" />
+								render="opActionsService" execute="@this" />
+							<a4j:support event="onchange" render="opActionsService"
+								ignoreDupResponses="true" execute="@this" />
 						</h:selectOneMenu>
 					</h:panelGrid>
 					<h:panelGrid columns="3">
 						<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}"
 							escape="false" />
-						<a4j:commandLink ajaxSingle="true" id="ajout"
+						<a4j:commandLink execute="@this" id="ajout"
 							rendered="#{not empty etablissementController.idServiceSel}"
 							oncomplete="#{rich:component('ajoutService')}.show()"
 							action="#{etablissementController.ajoutService}"
-							reRender="ajoutService">
+							render="ajoutService">
 							<f:setPropertyActionListener value="#{true}"
 								target="#{etablissementController.memeAdresseStructure}" />
 							<h:graphicImage alt="#{msgs['FORM.CREER']}"
@@ -78,7 +78,7 @@
 						<ui:include src="../_commun/_serviceColumns.xhtml" />
 
 						<rich:column>
-							<a4j:commandLink ajaxSingle="true" id="modif"
+							<a4j:commandLink execute="@this" id="modif"
 								rendered="#{not empty etablissementController.idServiceSel
 							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 							welcomeController.admin || welcomeController.personnel || welcomeController.writer)
@@ -88,7 +88,7 @@
 							etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
 							|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
 								oncomplete="#{rich:component('modifService')}.show()"
-								reRender="modifService">
+								render="modifService">
 								<f:setPropertyActionListener value="#{false}"
 									target="#{etablissementController.memeAdresseStructure}" />
 								<f:setPropertyActionListener
@@ -98,7 +98,7 @@
 									value="../../media/images/edit.png" style="border:0" />
 							</a4j:commandLink>
 							<rich:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
-							<a4j:commandLink ajaxSingle="true" id="suppr"
+							<a4j:commandLink execute="@this" id="suppr"
 								rendered="#{not empty etablissementController.idServiceSel
 							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 							welcomeController.admin || welcomeController.personnel || welcomeController.writer)
@@ -108,7 +108,7 @@
 							etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
 							|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
 								oncomplete="#{rich:component('supprService')}.show()"
-								reRender="supprService">
+								render="supprService">
 								<f:setPropertyActionListener value="#{false}"
 									target="#{etablissementController.memeAdresseStructure}" />
 								<f:setPropertyActionListener
@@ -118,7 +118,7 @@
 									value="../../media/images/delete.png" style="border:0" />
 							</a4j:commandLink>
 							<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
-							<a4j:commandLink ajaxSingle="true" id="selC"
+							<a4j:commandLink execute="@this" id="selC"
 								rendered="#{not empty etablissementController.idServiceSel}"
 								action="#{conventionController.goToCreerConventionEtape4Contact}">
 

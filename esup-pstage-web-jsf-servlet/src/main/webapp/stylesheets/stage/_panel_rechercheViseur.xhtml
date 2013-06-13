@@ -55,7 +55,7 @@
 						<h:panelGrid columns="1" align="center" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 							<a4j:commandButton value="#{msgs['FORM.RECHERCHER']}"
 								action="#{centreController.rechercherViseur}"
-								reRender="divRechercheViseur" />
+								render="divRechercheViseur" />
 						</h:panelGrid>
 					</h:panelGrid>
 				</a4j:region>
@@ -118,7 +118,7 @@
 								<h:panelGrid columns="1" align="center" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 									<a4j:commandLink id="choisir"
 										oncomplete="#{rich:component('rechercheViseur')}.hide()"
-										reRender="panelViseur">
+										render="panelViseur">
 										<h:graphicImage alt="#{msgs['GENERAL.OK']}"
 											value="../../media/images/arrow_right.png" style="border:0" />
 										<f:setPropertyActionListener value="#{personnel.nom}"

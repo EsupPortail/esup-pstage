@@ -10,22 +10,23 @@
 	version="2.0">
 
 	<application>
-		<el-resolver>org.esupportail.commons.jsf.ResourceBundleFacesELResolver
-		</el-resolver>
+		<el-resolver>org.esupportail.commons.jsf.ResourceBundleFacesELResolver</el-resolver>
 		<locale-config>
 			<default-locale>fr</default-locale>
 			<supported-locale>fr</supported-locale>
 			<supported-locale>en</supported-locale>
 		</locale-config>
-		<message-bundle>properties.i18n.bundles.JsfMessages</message-bundle>
+		<message-bundle>META-INF/i18n/bundles/Messages</message-bundle>
 
 	</application>
-	<factory>
-		<exception-handler-factory>org.esupportail.commons.exceptions.ExceptionHandlerFactory
-		</exception-handler-factory>
-	</factory>
-	<lifecycle>
-		<phase-listener>org.esupportail.commons.jsf.DeepLinkingPhaseListener
-		</phase-listener>
-	</lifecycle>
+	
+<!-- 	<factory> -->
+<!-- 		<exception-handler-factory>org.esupportail.commons.exceptions.ExceptionHandlerFactory -->
+<!-- 		</exception-handler-factory> -->
+<!-- 	</factory> -->
+	
+<!-- 	<lifecycle> -->
+<!-- 		<phase-listener>org.esupportail.commons.jsf.DeepLinkingPhaseListener -->
+<!-- 		</phase-listener> -->
+<!-- 	</lifecycle> -->
 </faces-config>

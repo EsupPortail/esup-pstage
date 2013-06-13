@@ -27,8 +27,8 @@
 						autoclear="true" addControlLabel="Sélectionner "
 						cancelEntryControlLabel="" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<a4j:support event="onuploadcomplete" reRender="opUploadFile"
-							action="#{offreController.insertUploadedFile}" ajaxSingle="true" />
+						<a4j:support event="onuploadcomplete" render="opUploadFile"
+							action="#{offreController.insertUploadedFile}" execute="@this" />
 					</rich:fileUpload>
 					<h:outputFormat value="#{msgs['GENERAL.FILESIZERESTRICTED']}">
 						<f:param value="#{sessionController.uploadFilesFileSizeLimit}" />
@@ -55,7 +55,7 @@
 							rendered="#{empty offreController.formOffre.fichier.nomReel}" />
 					</h:panelGrid>
 					<a4j:commandLink action="#{offreController.deleteUploadedFile}"
-						reRender="opUploadFile">
+						render="opUploadFile">
 						<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
 							title="#{msgs['GENERAL.FILE']}"
 							value="../../media/images/cancel.png" style="border:0" />

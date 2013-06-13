@@ -284,11 +284,11 @@
 
 			<h:panelGrid columns="3"
 				rendered="#{!avenantController.avenant.validationAvenant}">
-				<a4j:commandButton id="modif" ajaxSingle="true"
+				<a4j:commandButton id="modif" execute="@this"
 					action="#{avenantController.goToModifAvenantPage1}"
 					value="#{msgs['FORM.MODIFIER']}" />
 				<rich:spacer width="20" />
-				<a4j:commandButton id="valid" ajaxSingle="true"
+				<a4j:commandButton id="valid" execute="@this"
 					rendered="#{welcomeController.superAdmin
 					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}"
@@ -296,7 +296,7 @@
 					value="#{msgs['FORM.VALIDER']}" />
 			</h:panelGrid>
 
-			<a4j:commandButton id="devalid" ajaxSingle="true"
+			<a4j:commandButton id="devalid" execute="@this"
 				rendered="#{avenantController.avenant.validationAvenant and (welcomeController.superAdmin
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
@@ -305,18 +305,18 @@
 
 			<rich:spacer width="20" />
 
-			<a4j:commandButton id="print" ajaxSingle="true"
+			<a4j:commandButton id="print" execute="@this"
 				rendered="#{conventionController.convention.codeLangueConvention == 'fr'}"
 				action="#{avenantController.editPdfAvenant}"
 				value="#{msgs['CONVENTION.ETAPE11.IMPRIMER']}" />
 
 			<h:panelGrid columns="3"
 				rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
-				<a4j:commandButton id="printFr" ajaxSingle="true"
+				<a4j:commandButton id="printFr" execute="@this"
 					action="#{avenantController.editPdfAvenantFr}"
 					value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_FR']}" />
 				<rich:spacer width="20" />
-				<a4j:commandButton id="printAutre" ajaxSingle="true"
+				<a4j:commandButton id="printAutre" execute="@this"
 					action="#{avenantController.editPdfAvenant}"
 					value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_AUTRE']} #{conventionController.convention.langueConvention.libelle}" />
 			</h:panelGrid>
