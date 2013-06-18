@@ -1,9 +1,9 @@
-<ui:include src="../_include.xhtml"/>
+<ui:include src="../_include.xhtml" />
 
 <e:page stringsVar="msgs" locale="#{sessionController.locale}"
 	authorized="true">
 	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.xhtml"/>
+		<ui:include src="./_menu.xhtml" />
 	</h:panelGrid>
 	<t:div
 		rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
@@ -12,7 +12,8 @@
 				<f:facet name="header">
 					<h:outputText value="#{msgs['CONTACT.GESTION']}" />
 				</f:facet>
-				<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+				<h:outputText
+					value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
 					rendered="#{empty sessionController.currentManageStructure}" />
 				<h:form
 					rendered="#{not empty sessionController.currentManageStructure}">
@@ -31,15 +32,15 @@
 								rendered="#{not empty etablissementController.listeServices}">
 								<f:selectItems value="#{etablissementController.servicesItems}" />
 								<a4j:support event="onblur" ignoreDupResponses="true"
-									render="opContactsDataTable, opActionsService"
-									execute="@this" />
+									render="opContactsDataTable, opActionsService" execute="@this" />
 								<a4j:support event="onchange"
 									render="opContactsDataTable, opActionsService"
 									ignoreDupResponses="true" execute="@this" />
 							</h:selectOneMenu>
 						</h:panelGrid>
 						<h:panelGrid columns="3">
-							<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
+							<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}"
+								escape="false" />
 							<a4j:commandLink execute="@this" id="ajout"
 								oncomplete="#{rich:component('ajoutService')}.show()"
 								action="#{etablissementController.ajoutService}"
@@ -50,8 +51,8 @@
 									target="#{etablissementController.afficherSelectionCentreContact}" />
 								<h:graphicImage alt="#{msgs['FORM.CREER']}"
 									value="../../media/images/new.png" style="border:0" />
+								<rich:tooltip value="#{msgs['FORM.CREER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="ajout" value="#{msgs['FORM.CREER']}" />
 						</h:panelGrid>
 					</a4j:outputPanel>
 					<rich:spacer height="20px" />
@@ -64,7 +65,7 @@
 							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 							align="center">
-							<ui:include src="../_commun/_serviceColumns.xhtml"/>
+							<ui:include src="../_commun/_serviceColumns.xhtml" />
 							<rich:column>
 								<a4j:commandLink execute="@this" id="modif"
 									rendered="#{not empty etablissementController.idServiceSel}"
@@ -79,19 +80,19 @@
 										target="#{etablissementController.afficherSelectionCentreContact}" />
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 										value="../../media/images/edit.png" style="border:0" />
+									<rich:tooltip>
+										<h:panelGrid columns="1">
+											<e:bold value="#{msgs['FORM.MODIFIER']}" />
+											<t:div rendered="#{sessionController.adminPageAuthorized}">
+												<t:htmlTag value="br" />
+												<t:aliasBean alias="#{objet}"
+													value="#{etablissementController.serviceSel}">
+													<ui:include src="../_commun/_updateInfos.xhtml" />
+												</t:aliasBean>
+											</t:div>
+										</h:panelGrid>
+									</rich:tooltip>
 								</a4j:commandLink>
-								<rich:tooltip for="modif">
-									<h:panelGrid columns="1">
-										<e:bold value="#{msgs['FORM.MODIFIER']}" />
-										<t:div rendered="#{sessionController.adminPageAuthorized}">
-											<t:htmlTag value="br" />
-											<t:aliasBean alias="#{objet}"
-												value="#{etablissementController.serviceSel}">
-												<ui:include src="../_commun/_updateInfos.xhtml"/>
-											</t:aliasBean>
-										</t:div>
-									</h:panelGrid>
-								</rich:tooltip>
 								<a4j:commandLink execute="@this" id="suppr"
 									rendered="#{not empty etablissementController.idServiceSel}"
 									oncomplete="#{rich:component('supprService')}.show()"
@@ -103,8 +104,8 @@
 										target="#{etablissementController.formService}" />
 									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 										value="../../media/images/delete.png" style="border:0" />
+									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 								</a4j:commandLink>
-								<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 							</rich:column>
 						</rich:dataTable>
 					</a4j:outputPanel>
@@ -132,8 +133,8 @@
 								render="ajoutContact">
 								<h:graphicImage alt="#{msgs['FORM.CREER']}"
 									value="../../media/images/new.png" style="border:0" />
+								<rich:tooltip value="#{msgs['FORM.CREER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="ajoutC" value="#{msgs['FORM.CREER']}" />
 						</h:panelGrid>
 						<rich:dataTable align="center" width="600" id="contactsDataTable"
 							rows="10" columnClasses="col" var="contact"
@@ -273,18 +274,18 @@
 											target="#{etablissementController.formContact}" />
 										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 											value="../../media/images/edit.png" style="border:0" />
+										<rich:tooltip>
+											<h:panelGrid columns="1">
+												<e:bold value="#{msgs['FORM.MODIFIER']}" />
+												<t:div rendered="#{sessionController.adminPageAuthorized}">
+													<t:htmlTag value="br" />
+													<t:aliasBean alias="#{objet}" value="#{contact}">
+														<ui:include src="../_commun/_updateInfos.xhtml" />
+													</t:aliasBean>
+												</t:div>
+											</h:panelGrid>
+										</rich:tooltip>
 									</a4j:commandLink>
-									<rich:tooltip for="modifC">
-										<h:panelGrid columns="1">
-											<e:bold value="#{msgs['FORM.MODIFIER']}" />
-											<t:div rendered="#{sessionController.adminPageAuthorized}">
-												<t:htmlTag value="br" />
-												<t:aliasBean alias="#{objet}" value="#{contact}">
-													<ui:include src="../_commun/_updateInfos.xhtml"/>
-												</t:aliasBean>
-											</t:div>
-										</h:panelGrid>
-									</rich:tooltip>
 									<a4j:commandLink execute="@this" id="supprC"
 										rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
@@ -294,8 +295,8 @@
 											target="#{etablissementController.formContact}" />
 										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 											value="../../media/images/delete.png" style="border:0" />
+										<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 									</a4j:commandLink>
-									<rich:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
 								</t:div>
 							</rich:column>
 							<rich:column>
@@ -316,9 +317,9 @@
 											<h:graphicImage
 												alt="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}"
 												value="../../media/images/door_open.png" style="border:0" />
+											<rich:tooltip
+												value="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}" />
 										</a4j:commandLink>
-										<rich:tooltip for="creationCompte"
-											value="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}" />
 									</t:div>
 									<t:div>
 										<a4j:commandLink execute="@this" id="supprCompte"
@@ -332,9 +333,9 @@
 											<h:graphicImage
 												alt="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION']}"
 												value="../../media/images/door.png" style="border:0" />
+											<rich:tooltip
+												value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION']}" />
 										</a4j:commandLink>
-										<rich:tooltip for="supprCompte"
-											value="#{msgs['CONTACT.GESTION.COMPTE.SUPPRESSION']}" />
 										<a4j:commandLink execute="@this" id="resetMdp"
 											rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices
@@ -346,12 +347,13 @@
 											<h:graphicImage
 												alt="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}"
 												value="../../media/images/clock.png" style="border:0" />
+											<rich:tooltip
+												value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}" />
 										</a4j:commandLink>
-										<rich:tooltip for="resetMdp"
-											value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}" />
 									</t:div>
 									<t:panelGroup colspan="2">
-										<h:outputText value="(#{msgs['CONTACT.LOGIN']} : #{contact.login})"
+										<h:outputText
+											value="(#{msgs['CONTACT.LOGIN']} : #{contact.login})"
 											rendered="#{not empty contact.login and not empty contact.mdp}" />
 									</t:panelGroup>
 								</h:panelGrid>
@@ -362,17 +364,17 @@
 						</rich:dataTable>
 					</a4j:outputPanel>
 				</h:form>
-				<ui:include src="../_commun/_panelAjoutService.xhtml"/>
-				<ui:include src="../_commun/_panelModifService.xhtml"/>
-				<ui:include src="../_commun/_panelSupprService.xhtml"/>
-				<ui:include src="../_commun/_panelAjoutContact.xhtml"/>
-				<ui:include src="../_commun/_panelModifContact.xhtml"/>
-				<ui:include src="../_commun/_panelSupprContact.xhtml"/>
-				<ui:include src="_panelCreationCompteContact.xhtml"/>
-				<ui:include src="_panelSupprCompteContact.xhtml"/>
-				<ui:include src="_panelResetMdpContact.xhtml"/>
+				<ui:include src="../_commun/_panelAjoutService.xhtml" />
+				<ui:include src="../_commun/_panelModifService.xhtml" />
+				<ui:include src="../_commun/_panelSupprService.xhtml" />
+				<ui:include src="../_commun/_panelAjoutContact.xhtml" />
+				<ui:include src="../_commun/_panelModifContact.xhtml" />
+				<ui:include src="../_commun/_panelSupprContact.xhtml" />
+				<ui:include src="_panelCreationCompteContact.xhtml" />
+				<ui:include src="_panelSupprCompteContact.xhtml" />
+				<ui:include src="_panelResetMdpContact.xhtml" />
 			</rich:panel>
-			<ui:include src="_panelNousContacter.xhtml"/>
+			<ui:include src="_panelNousContacter.xhtml" />
 		</h:panelGrid>
 	</t:div>
 </e:page>

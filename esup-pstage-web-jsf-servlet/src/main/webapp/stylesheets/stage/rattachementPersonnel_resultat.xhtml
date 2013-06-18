@@ -74,9 +74,9 @@
 											target="#{centreController.personnel}" />
 										<h:graphicImage alt="#{msgs['FORM.AJOUTER']}"
 											value="../../media/images/new.png" style="border:0" />
+										<rich:tooltip
+											value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
 									</h:commandLink>
-									<rich:tooltip for="add"
-										value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
 								</t:htmlTag>
 							</rich:column>
 
@@ -90,9 +90,10 @@
 						<h:panelGrid columns="2" align="center">
 							<h:commandButton id="back" value="#{msgs['GENERAL.RETOUR']}"
 								action="#{centreController.goToRattachPersonnelRecherche}"
-								immediate="true" />
-							<rich:tooltip for="back"
-								value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.RETOUR']}" />
+								immediate="true">
+								<rich:tooltip
+									value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.RETOUR']}" />
+							</h:commandButton>
 						</h:panelGrid>
 					</a4j:outputPanel>
 					<t:htmlTag value="div" style="height: 20px;" />

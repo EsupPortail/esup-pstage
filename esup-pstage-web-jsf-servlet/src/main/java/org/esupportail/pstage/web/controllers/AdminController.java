@@ -59,7 +59,7 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	private final Logger logger = Logger.getLogger(this.getClass());
 	/**
-	 * Objet Administrateur utilis� pour l'ajout et la modification
+	 * Objet Administrateur utilisé pour l'ajout et la modification
 	 * d'administrateurs de l'espace Entreprise
 	 */
 	private AdminStructureDTO formAdminStructure;
@@ -99,11 +99,11 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	private AccordPartenariatDTO accordPartenariatAValider;
 	/**
-	 * Structure de l'accord � valider
+	 * Structure de l'accord à valider
 	 */
 	private StructureDTO structureAccordAValider;
 	/**
-	 * Contact de l'accord � valider
+	 * Contact de l'accord à valider
 	 */
 	private ContactDTO contactAccordAValider;
 	/**
@@ -115,7 +115,7 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	private StructureDTO accordASupprimer;
 	/**
-	 * Liste dynamique mise � jour en fonction du type de structure
+	 * Liste dynamique mise à jour en fonction du type de structure
 	 */
 	private List<SelectItem> statutsJuridiquesListening=null;
 	/**
@@ -123,7 +123,7 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	private CommuneDTO accordAValiderStructureCommuneDTO;
 	/**
-	 * Liste dynamique mise � jour en fonction du d�partement saisi
+	 * Liste dynamique mise à jour en fonction du département saisi
 	 */
 	private List<SelectItem> communesListening=new ArrayList<SelectItem>();
 
@@ -218,14 +218,15 @@ public class AdminController extends AbstractContextAwareController {
 		this.keysAdminStructure = new HashSet<Integer>();
 		this.formAdminStructure=new AdminStructureDTO();
 		this.formAdminMdpConfirmation="";
+		getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape1");
 		return null;
 	}
 	/**
 	 * Ajout d'un administrateur
 	 * @return a String
 	 */
-	public String ajouterAdministrateur(){
-		String ret=null;
+	public void ajouterAdministrateur(){
+//		String ret=null;
 		boolean ok = false;
 		if(this.formAdminStructure!=null){
 			this.formAdminStructure.setLoginCreation(getSessionController().getCurrentAuthAdminStructure().getLogin());
@@ -244,10 +245,11 @@ public class AdminController extends AbstractContextAwareController {
 							}
 							this.formAdminStructure.setEppn(null);
 							getAdminDomainService().addAdminStructure(this.formAdminStructure);
-							ret="_ajoutAdministrateurEtape2Confirmation";
+//							ret="_ajoutAdministrateurEtape2Confirmation";
+							getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 							ok=true;
 						}else{
-							addErrorMessage("formAdminStructure:include:mdpAdmin", "ADMINSTRUCTURE.MDP_CONFIRMATION.VALIDATION");
+							addErrorMessage("formAdminStructure:mdpAdmin", "ADMINSTRUCTURE.MDP_CONFIRMATION.VALIDATION");
 						}
 					}
 					break;
@@ -261,7 +263,8 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setMdp(null);
 						this.formAdminStructure.setEppn(null);
 						getAdminDomainService().addAdminStructure(this.formAdminStructure);
-						ret="_ajoutAdministrateurEtape2Confirmation";
+//						ret="_ajoutAdministrateurEtape2Confirmation";
+						getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 						ok=true;
 					}
 					break;
@@ -275,7 +278,8 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setLogin(null);
 						this.formAdminStructure.setMdp(null);
 						getAdminDomainService().addAdminStructure(this.formAdminStructure);
-						ret="_ajoutAdministrateurEtape2Confirmation";
+//						ret="_ajoutAdministrateurEtape2Confirmation";
+						getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 						ok=true;
 					}
 					break;
@@ -288,25 +292,28 @@ public class AdminController extends AbstractContextAwareController {
 					logger.info("DataAddException ",d.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
-				ret="_ajoutAdministrateurEtape2Confirmation";
+//				ret="_ajoutAdministrateurEtape2Confirmation";
+				getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 			}catch (WebServiceDataBaseException w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
-				ret="_ajoutAdministrateurEtape2Confirmation";
+//				ret="_ajoutAdministrateurEtape2Confirmation";
+				getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 			}catch (AdminStructureAccountException aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
-				ret="_ajoutAdministrateurEtape2Confirmation";
+//				ret="_ajoutAdministrateurEtape2Confirmation";
+				getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");
 				}
-				if(al.isLogin()) addErrorMessage("formAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
-				if(al.isEppn()) addErrorMessage("formAdminStructure:include:eppnAdmin", "ADMINSTRUCTURE.ERREUREPPN");
+				if(al.isLogin()) addErrorMessage("formAdminStructure:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
+				if(al.isEppn()) addErrorMessage("formAdminStructure:eppnAdmin", "ADMINSTRUCTURE.ERREUREPPN");
 			}
 		}
 		if(ok){
@@ -314,13 +321,14 @@ public class AdminController extends AbstractContextAwareController {
 			this.formAdminStructure=new AdminStructureDTO();
 			this.formAdminMdpConfirmation="";
 		}
-		return ret;
+//		return ret;
 	}
 	/**
 	 * @return a String
 	 */
 	public String beforeModifAdministrateur(){
 		this.keysAdminStructure = new HashSet<Integer>();
+		
 		if(this.formAdminStructure!=null){
 			if(StringUtils.hasText(this.formAdminStructure.getLogin()) 
 					&& StringUtils.hasText(this.formAdminStructure.getMdp())
@@ -340,8 +348,11 @@ public class AdminController extends AbstractContextAwareController {
 						this.typeCompteAdminStructure=0;
 					}
 		}
+		getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape0");
+		
 		return null;
 	}
+	
 	/**
 	 * Reset du formulaire de l'admin structure
 	 * @return String
@@ -355,8 +366,8 @@ public class AdminController extends AbstractContextAwareController {
 	 * Modification d'un administrateur
 	 * @return a String
 	 */
-	public String modifierAdministrateur(){
-		String ret=null;
+	public void modifierAdministrateur(){
+//		String ret=null;
 		boolean ok=false;
 		if(this.formAdminStructure!=null){
 			this.formAdminStructure.setLoginModif(getSessionController().getCurrentAuthAdminStructure().getLogin());
@@ -375,10 +386,11 @@ public class AdminController extends AbstractContextAwareController {
 							}
 							this.formAdminStructure.setEppn(null);
 							getAdminDomainService().updateAdminStructure(this.formAdminStructure);
-							ret="_modifAdministrateurEtape2Confirmation";
+//							ret="_modifAdministrateurEtape2Confirmation";
+							getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
 							ok=true;
 						}else{
-							addErrorMessage("formModifAdminStructure:include:mdpAdmin", "ADMINSTRUCTURE.MDP_CONFIRMATION.VALIDATION");
+							addErrorMessage("formModifAdminStructure:mdpAdmin", "ADMINSTRUCTURE.MDP_CONFIRMATION.VALIDATION");
 						}
 					}
 					break;
@@ -392,7 +404,8 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setMdp(null);
 						this.formAdminStructure.setEppn(null);
 						getAdminDomainService().updateAdminStructure(this.formAdminStructure);
-						ret="_modifAdministrateurEtape2Confirmation";
+//						ret="_modifAdministrateurEtape2Confirmation";
+						getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
 						ok=true;
 					}
 					break;
@@ -406,7 +419,8 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setLogin(null);
 						this.formAdminStructure.setMdp(null);
 						getAdminDomainService().updateAdminStructure(this.formAdminStructure);
-						ret="_modifAdministrateurEtape2Confirmation";
+//						ret="_modifAdministrateurEtape2Confirmation";
+						getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
 						ok=true;
 					}
 					break;
@@ -419,25 +433,28 @@ public class AdminController extends AbstractContextAwareController {
 					logger.info("DataUpdateException ",d.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
-				ret="_modifAdministrateurEtape2Confirmation";
+//				ret="_modifAdministrateurEtape2Confirmation";
+				getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
 			}catch (WebServiceDataBaseException w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
-				ret="_modifAdministrateurEtape2Confirmation";
+//				ret="_modifAdministrateurEtape2Confirmation";
+				getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
 			}catch (AdminStructureAccountException aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
-				ret="_modifAdministrateurEtape2Confirmation";
+//				ret="_modifAdministrateurEtape2Confirmation";
+				getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
 			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");
 				}
-				if(al.isLogin()) addErrorMessage("formModifAdminStructure:include:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
-				if(al.isEppn()) addErrorMessage("formModifAdminStructure:include:eppnAdmin", "ADMINSTRUCTURE.ERREUREPPN");
+				if(al.isLogin()) addErrorMessage("formModifAdminStructure:loginAdmin", "ADMINSTRUCTURE.ERREURLOGIN");
+				if(al.isEppn()) addErrorMessage("formModifAdminStructure:eppnAdmin", "ADMINSTRUCTURE.ERREUREPPN");
 			}
 		}	
 		if(ok){
@@ -446,13 +463,14 @@ public class AdminController extends AbstractContextAwareController {
 			this.formAdminStructure=new AdminStructureDTO();
 			this.formAdminMdpConfirmation="";
 		}
-		return ret;
+//		return ret;
 	}
 	/**
-	 * @return a String
+	 * 
 	 */
-	public String supprimerAdministrateur(){
-		String ret="_supprAdministrateurEtape2Confirmation";
+	public void supprimerAdministrateur(){
+//		String ret="_supprAdministrateurEtape2Confirmation";
+		getSessionController().setSupprimerAdminStructureCurrentPage("_supprAdministrateurEtape2Confirmation");
 		if(this.formAdminStructure!=null){
 			try{
 				if(logger.isInfoEnabled()){
@@ -474,7 +492,6 @@ public class AdminController extends AbstractContextAwareController {
 			this.listeAdminStructure=getAdminDomainService().getAdminsStructure();
 			this.formAdminStructure=new AdminStructureDTO();
 		}
-		return ret;
 	}
 
 	/**
@@ -656,7 +673,7 @@ public class AdminController extends AbstractContextAwareController {
 			this.communesListening=lTmp;
 		}else{
 			this.communesListening=new ArrayList<SelectItem>();
-			addErrorMessage("formValidationAccord:include:dynaCodePostal", "STRUCTURE.CODE_POSTAL.VALIDATION");
+			addErrorMessage("formValidationAccord:dynaCodePostal", "STRUCTURE.CODE_POSTAL.VALIDATION");
 		}
 	}
 	

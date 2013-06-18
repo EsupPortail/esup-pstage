@@ -53,7 +53,7 @@
 			</h:panelGrid>
 
 			<t:htmlTag value="div"
-				style="width: 100%; height: 3px;"
+				style="width: 80%; height: 3px;"
 				styleClass="spacer"
 				rendered="#{sessionController.pageAuthorized 
 			|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
@@ -116,9 +116,9 @@
 					value="../../media/images/edit_block.png" style="border:0"
 					rendered="#{sessionController.adminPageAuthorized}" />
 				<h:outputText value=" #{msgs['MENU.MODIFMDP']}" />
+				<rich:tooltip value="#{msgs['MENU.MODIFMDP.BLOCK']}"
+					rendered="#{sessionController.adminPageAuthorized}" />
 			</h:commandLink>
-			<rich:tooltip for="lmodifMdp" value="#{msgs['MENU.MODIFMDP.BLOCK']}"
-				rendered="#{sessionController.adminPageAuthorized}" />
 			<t:htmlTag value="div" style="height: 10px;"
 				rendered="#{sessionController.pageAuthorized and sessionController.cvtheque
 		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure and sessionController.cvtheque)}" />
@@ -142,7 +142,7 @@
 		<h:panelGrid columns="1" style="width:200px" columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text">
 			<t:htmlTag value="div"
-				style="width: 100%; height: 3px;"
+				style="width: 80%; height: 3px;"
 				styleClass="spacer"
 				rendered="#{sessionController.adminPageAuthorized}" />
 				
@@ -200,7 +200,7 @@
 				</h:commandLink>
 			</h:panelGrid>
 			<t:htmlTag value="div"
-				style="width: 100%; height: 3px;"
+				style="width: 80%; height: 3px;"
 				styleClass="spacer" />
 			<h:commandLink action="#{welcomeController.goToAccueilEntr}">
 				<h:graphicImage alt="#{msgs['MENU.AIDE']}"
@@ -209,7 +209,7 @@
 				<h:outputText value=" #{msgs['MENU.AIDE']}" />
 			</h:commandLink>
 			<t:htmlTag value="div"
-				style="width: 100%; height: 3px;"
+				style="width: 80%; height: 3px;"
 				styleClass="spacer" />
 			<h:commandLink action="#{welcomeController.disconnectEntreprise}"
 				rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}">

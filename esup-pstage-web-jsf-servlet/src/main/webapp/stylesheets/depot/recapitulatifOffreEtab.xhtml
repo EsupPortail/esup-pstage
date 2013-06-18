@@ -38,8 +38,8 @@
 										target="#{offreController.retour}" />
 									<f:setPropertyActionListener value="#{2}"
 										target="#{offreController.typeAjoutModifOffre}" />
+									<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 								</h:commandLink>
-								<rich:tooltip for="modifEtab" value="#{msgs['FORM.MODIFIER']}" />
 							</legend>
 							<ui:include src="../_commun/_detailsOffreEtab.xhtml" />
 						</fieldset>
@@ -56,8 +56,8 @@
 										target="#{offreController.retour}" />
 									<f:setPropertyActionListener value="#{2}"
 										target="#{offreController.typeAjoutModifOffre}" />
+									<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 								</h:commandLink>
-								<rich:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
 							</legend>
 							<ui:include src="../_commun/_detailsOffre.xhtml" />
 						</fieldset>
@@ -76,8 +76,8 @@
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{2}"
 											target="#{offreController.typeAjoutModifOffre}" />
+										<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 									</h:commandLink>
-									<rich:tooltip for="modifF" value="#{msgs['FORM.MODIFIER']}" />
 								</legend>
 								<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
 							</fieldset>
@@ -97,8 +97,8 @@
 											target="#{offreController.typeAjoutModifOffre}" />
 										<f:setPropertyActionListener value="#{false}"
 											target="#{etablissementController.afficherSelectionCentreContact}" />
+										<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 									</h:commandLink>
-									<rich:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
 								</legend>
 								<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
 							</fieldset>
@@ -123,8 +123,8 @@
 								<f:setPropertyActionListener value="resultatsRechercheOffre"
 									target="#{offreController.retour}" />
 								<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
+								<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 						</h:panelGrid>
 						<h:panelGrid columns="1" style="float:right;">
 							<t:aliasBean alias="#{objet}"

@@ -163,16 +163,17 @@
 										onclick="checkAll(this.checked)">
 										<a4j:ajax event="click"
 											render="formResultConventions:resultatConventionsDataTable" />
+										<rich:tooltip
+											value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
 									</h:selectBooleanCheckbox>
-									<rich:tooltip for="checkAll"
-										value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
 								</h:panelGrid>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:selectBooleanCheckbox id="checkEntry"
-									value="#{convention.selected}" />
-								<rich:tooltip for="checkEntry"
-									value="#{msgs['FORM.SELECTIONNER']}" />
+									value="#{convention.selected}">
+									<rich:tooltip
+										value="#{msgs['FORM.SELECTIONNER']}" />
+								</h:selectBooleanCheckbox>
 							</t:htmlTag>
 						</rich:column>
 					</rich:dataTable>

@@ -27,8 +27,8 @@
 						target="#{etablissementController.memeAdresseStructure}" />
 					<h:graphicImage alt="#{msgs['FORM.CREER']}"
 						value="../../media/images/new.png" style="border:0" />
+					<rich:tooltip value="#{msgs['FORM.CREER']}" />
 				</h:commandLink>
-				<rich:tooltip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
 			</h:panelGrid>
 		</t:div>
 		<t:htmlTag value="div" style="height: 20px;" />
@@ -72,9 +72,8 @@
 							title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
 							<f:setPropertyActionListener value="#{varRechercheStructure}"
 								target="#{rechercheController.resultatRechercheStructure}" />
+							<rich:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
 						</h:commandButton>
-						<rich:tooltip for="selectionEtab"
-							value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
 					</rich:column>
 				</rich:dataTable>
 			</t:div>

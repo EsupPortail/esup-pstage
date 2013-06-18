@@ -46,8 +46,8 @@
 							target="#{etablissementController.formService}" />
 						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 							value="../../media/images/edit.png" style="border:0" />
+						<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 					</a4j:commandLink>
-					<rich:tooltip for="modif2" value="#{msgs['FORM.MODIFIER']}" />
 				</a4j:outputPanel>
 			</h:panelGrid>
 		</h:panelGrid>
@@ -62,20 +62,20 @@
 					target="#{etablissementController.memeAdresseStructure}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
 					value="../../media/images/new.png" style="border:0" />
+				<rich:tooltip value="#{msgs['FORM.CREER']}" />
 			</a4j:commandLink>
-			<rich:tooltip for="ajout2" value="#{msgs['FORM.CREER']}" />
 		</h:panelGrid>
 	</a4j:outputPanel>
 
 	<t:htmlTag value="div"
-		style="height: 2px; background-color: #{a4jSkin.panelBorderColor}; width: 600px;" />
+		style="height: 2px; background-color:#{a4jSkin.panelBorderColor}; width:600px;" />
 
 	<a4j:outputPanel id="opContactsDataTable2" ajaxRendered="true">
 		<h:panelGrid>
 			<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
 				rendered="#{not empty etablissementController.serviceSel
-								and not empty etablissementController.listeServices
-								and empty etablissementController.listeContacts}"
+						and not empty etablissementController.listeServices
+						and empty etablissementController.listeContacts}"
 				escape="false" />
 			<h:panelGrid columns="2"
 				rendered="#{empty offreController.centreGestionDepotAnonyme}">
@@ -91,8 +91,8 @@
 					render="ajoutContact">
 					<h:graphicImage alt="#{msgs['FORM.CREER']}"
 						value="../../media/images/new.png" style="border:0" />
+					<rich:tooltip value="#{msgs['FORM.CREER']}" />
 				</a4j:commandLink>
-				<rich:tooltip for="ajoutC2" value="#{msgs['FORM.CREER']}" />
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columns="3"

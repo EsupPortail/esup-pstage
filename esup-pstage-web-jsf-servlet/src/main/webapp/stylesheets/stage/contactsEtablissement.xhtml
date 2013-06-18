@@ -56,8 +56,8 @@
 									target="#{etablissementController.memeAdresseStructure}" />
 								<h:graphicImage alt="#{msgs['FORM.CREER']}"
 									value="../../media/images/new.png" style="border:0" />
+								<rich:tooltip value="#{msgs['FORM.CREER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="ajout" value="#{msgs['FORM.CREER']}" />
 						</h:panelGrid>
 					</a4j:outputPanel>
 
@@ -309,9 +309,9 @@
 									disabled="true">
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 										value="../../media/images/edit_block.png" style="border:0" />
+									<rich:tooltip
+										value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
 								</a4j:commandLink>
-								<rich:tooltip for="modifBlock"
-									value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
 							</rich:column>
 							<f:facet name="footer">
 								<rich:dataScroller id="ds" renderIfSinglePage="false"></rich:dataScroller>

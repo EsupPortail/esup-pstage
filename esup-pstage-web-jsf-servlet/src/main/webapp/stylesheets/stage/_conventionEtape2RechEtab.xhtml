@@ -32,8 +32,8 @@
 						rendered="#{rechercheController.afficherBoutonAjoutEtab}">
 						<h:graphicImage alt="#{msgs['FORM.CREER']}"
 							value="../../media/images/new.png" style="border:0" />
+						<rich:tooltip value="#{msgs['FORM.CREER']}" />
 					</h:commandLink>
-					<rich:toolTip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
 				</t:div>
 				<rich:spacer height="20px" />
 				<rich:message for="formResultatsRechEtab">
@@ -77,9 +77,8 @@
 										target="#{rechercheController.resultatRechercheStructure}" />
 									<f:setPropertyActionListener value="#{varRechercheStructure}"
 										target="#{conventionController.convention.structure}" />
+									<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
 								</a4j:commandButton>
-								<rich:toolTip for="selectionEtab"
-									value="#{msgs['FORM.SELECTIONNER']}" />
 							</rich:column>
 						</rich:dataTable>
 					</t:div>

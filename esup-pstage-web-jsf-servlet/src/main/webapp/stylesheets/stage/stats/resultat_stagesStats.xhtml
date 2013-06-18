@@ -228,9 +228,9 @@
 									action="#{centreController.goToIndicateurStat}">
 									<h:graphicImage alt="Retour"
 										value="../../../media/images/arrow_undo.png" style="border:0" />
+									<rich:tooltip
+										value="#{msgs['CONVENTION.STATS.INFO.NOUVEAU']}" />
 								</h:commandLink>
-								<rich:toolTip for="idLienRetourAuxStats"
-									value="#{msgs['CONVENTION.STATS.INFO.NOUVEAU']}" />
 
 								<rich:spacer width="30" />
 
@@ -238,9 +238,9 @@
 									action="#{statistiquesConventionController.edition}">
 									<h:graphicImage alt="Excel"
 										value="../../../media/images/excelSmall.png" style="border:0" />
+									<rich:tooltip
+										value="#{msgs['CONVENTION.STATS.INFO.ENREGISTRER']}" />
 								</h:commandLink>
-								<rich:toolTip for="idLienEnregisterFormatExcel"
-									value="#{msgs['CONVENTION.STATS.INFO.ENREGISTRER']}" />
 							</t:htmlTag>
 						</h:form>
 					</t:htmlTag>

@@ -11,7 +11,7 @@
 	<a4j:commandButton action="#{etablissementController.ajouterContact}"
 		value="#{msgs['FORM.CREER']}"
 		render="opContactsDataTable, formAjoutContact" />
-	<t:htmlTag value="div" style="width: 150px; display: inline;" />
+	<t:htmlTag value="div" style="width: 150px; display:inline;" />
 	<h:commandButton value="#{msgs['FORM.ANNULER']}"
 		onclick="#{rich:component('ajoutContact')}.hide();"
 		action="#{etablissementController.resetCurrentPageAjoutContact}"

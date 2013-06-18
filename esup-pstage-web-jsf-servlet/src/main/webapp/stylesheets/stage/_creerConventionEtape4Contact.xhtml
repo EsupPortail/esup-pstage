@@ -45,8 +45,8 @@
 								target="#{etablissementController.afficherSelectionCentreContact}" />
 							<h:graphicImage alt="#{msgs['FORM.CREER']}"
 								value="../../media/images/new.png" style="border:0" />
+							<rich:tooltip value="#{msgs['FORM.CREER']}" />
 						</a4j:commandLink>
-						<rich:tooltip for="ajoutC" value="#{msgs['FORM.CREER']}" />
 					</h:panelGrid>
 					<rich:dataTable align="center" width="600" id="contactsDataTable"
 						rows="10" columnClasses="col" var="contact" rowKeyVar="rowContact"
@@ -129,8 +129,8 @@
 									target="#{etablissementController.afficherSelectionCentreContact}" />
 								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 									value="../../media/images/edit.png" style="border:0" />
+								<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
 							<a4j:commandLink execute="@this" id="supprC"
 								rendered="#{not empty etablissementController.listeContacts}"
 								oncomplete="#{rich:component('supprContact')}.show()"
@@ -139,8 +139,8 @@
 									target="#{etablissementController.formContact}" />
 								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
 									value="../../media/images/delete.png" style="border:0" />
+								<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
 						</rich:column>
 						<rich:column
 							rendered="#{!(sessionController.adminPageAuthorized 
@@ -154,13 +154,12 @@
 								and ((empty contact.loginModif and
 								contact.loginCreation==sessionController.currentLogin)
 								|| (contact.loginModif==sessionController.currentLogin)))))))}">
-							<a4j:commandLink execute="@this" id="modifBlock"
-								disabled="true">
+							<a4j:commandLink execute="@this" id="modifBlock" disabled="true">
 								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 									value="../../media/images/edit_block.png" style="border:0" />
+								<rich:tooltip
+									value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="modifBlock"
-								value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
 						</rich:column>
 						<rich:column>
 							<a4j:commandLink execute="@this" id="selC"
@@ -171,9 +170,8 @@
 									target="#{conventionController.convention.contact}" />
 								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
 									value="../../media/images/back.png" style="border:0" />
+								<rich:tooltip value="#{msgs['CONVENTION.SELECCONTACT']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="selC"
-								value="#{msgs['CONVENTION.SELECCONTACT']}" />
 						</rich:column>
 
 						<f:facet name="footer">
@@ -194,9 +192,9 @@
 						<h:outputText
 							value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}"
 							escape="false" />
+						<rich:tooltip
+							value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
 					</a4j:commandLink>
-					<rich:tooltip for="passeretape"
-						value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
 				</h:panelGrid>
 
 				<h:panelGrid
@@ -211,9 +209,9 @@
 						<h:outputText
 							value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}"
 							escape="false" />
+						<rich:tooltip
+							value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
 					</a4j:commandLink>
-					<rich:tooltip for="passeretape2"
-						value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
 				</h:panelGrid>
 
 			</h:panelGrid>

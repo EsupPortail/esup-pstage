@@ -94,14 +94,16 @@
 			<h:graphicImage id="imageLien" alt="#{msgs['FORM.OUI']}"
 				title="#{msgs['OFFRE.LIEN']}"
 				value="../../media/images/world_link.png" style="border:0"
-				rendered="#{offre.avecLien}" />
+				rendered="#{offre.avecLien}">
+				<rich:tooltip value="#{msgs['OFFRE.LIEN']}" />
+			</h:graphicImage>
 			<h:graphicImage id="imageFichier" alt="#{msgs['FORM.OUI']}"
 				title="#{msgs['OFFRE.FICHIER']}"
 				value="../../media/images/page_link.png" style="border:0"
-				rendered="#{offre.avecFichier}" />
+				rendered="#{offre.avecFichier}">
+				<rich:tooltip value="#{msgs['OFFRE.FICHIER']}" />
+			</h:graphicImage>
 		</h:panelGrid>
-		<rich:tooltip for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
-		<rich:tooltip for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
 		<h:outputText value="#{msgs['FORM.NON']}"
 			rendered="#{!(offre.avecFichier || offre.avecLien)}" />
 	</rich:column>

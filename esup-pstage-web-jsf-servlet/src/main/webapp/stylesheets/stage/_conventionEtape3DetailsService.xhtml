@@ -40,8 +40,8 @@
 					target="#{etablissementController.memeAdresseStructure}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
 					value="../../media/images/new.png" style="border:0" />
+				<rich:tooltip value="#{msgs['FORM.CREER']}" />
 			</a4j:commandLink>
-			<rich:toolTip for="ajout" value="#{msgs['FORM.CREER']}" />
 		</h:panelGrid>
 	</a4j:outputPanel>
 	<rich:spacer height="20px" />
@@ -77,8 +77,8 @@
 						target="#{conventionController.convention.service}" />
 					<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 						value="../../media/images/edit.png" style="border:0" />
+					<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 				</a4j:commandLink>
-				<rich:toolTip for="modif" value="#{msgs['FORM.MODIFIER']}" />
 
 			</rich:column>
 			<rich:column>
@@ -95,9 +95,8 @@
 						target="#{conventionController.convention.service}" />
 					<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
 						value="../../media/images/back.png" style="border:0" />
+					<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
 				</a4j:commandLink>
-				<rich:toolTip for="selectionService"
-					value="#{msgs['FORM.SELECTIONNER']}" />
 			</rich:column>
 		</rich:dataTable>
 
@@ -108,7 +107,6 @@
 			</f:facet>
 			<h:panelGrid columns="2" align="center">
 				<h:column>
-
 					<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 						title="#{msgs['GENERAL.WARNING']}"
 						value="../../media/images/warning_50px.png" style="border:0" />

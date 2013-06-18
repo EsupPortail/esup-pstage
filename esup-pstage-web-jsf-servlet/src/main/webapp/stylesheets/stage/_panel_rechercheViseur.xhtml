@@ -125,9 +125,9 @@
 											target="#{centreController.centre.nomViseur}" />
 										<f:setPropertyActionListener value="#{personnel.prenom}"
 											target="#{centreController.centre.prenomViseur}" />
+										<rich:tooltip
+											value="#{msgs['CENTRE.VISEUR.CHOIX']}" />
 									</a4j:commandLink>
-									<rich:tooltip for="choisir"
-										value="#{msgs['CENTRE.VISEUR.CHOIX']}" />
 								</h:panelGrid>
 							</rich:column>
 

@@ -107,9 +107,9 @@
 					target="#{accordController.structureExistante}" />
 				<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
 					value="../../media/images/zoom.png" style="border:0" />
+				<rich:tooltip followMouse="true" styleClass="tooltip"
+					value="#{msgs['FORM.SELECTIONNER']}" />
 			</a4j:commandLink>
-			<rich:tooltip for="selectionStructure" followMouse="true" styleClass="tooltip"
-				value="#{msgs['FORM.SELECTIONNER']}" />
 		</rich:column>
 		<f:facet name="footer">
 			<rich:dataScroller align="center" for="strucureExistanteListe"

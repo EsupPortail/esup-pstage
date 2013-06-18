@@ -11,22 +11,22 @@
 			alt="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}" style="border:0"
 			rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount gt 1
 						and rechercheController.rechercheStructurePaginator.totalItemsCount lt 200}" />
-		<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}"
+		<h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}"
 			rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount gt 1
 						and rechercheController.rechercheStructurePaginator.totalItemsCount lt 200}"
 			escape="false">
 			<f:param
 				value="#{rechercheController.rechercheStructurePaginator.totalItemsCount}" />
-		</h:outputText>
+		</h:outputFormat>
 		<h:graphicImage value="../../media/images/building.png"
 			alt="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}" style="border:0"
 			rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount ge 200}" />
-		<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}"
+		<h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}"
 			rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount ge 200}"
 			escape="false">
 			<f:param
 				value="#{rechercheController.rechercheStructurePaginator.totalItemsCount}" />
-		</h:outputText>
+		</h:outputFormat>
 	</h:panelGrid>
 	<t:htmlTag value="br" />
 	<t:htmlTag value="div" style="height: 20px;" />

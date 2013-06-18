@@ -14,10 +14,8 @@
 			alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
 			<f:setPropertyActionListener value="#{varRechercheStructure}"
 				target="#{rechercheController.resultatRechercheStructure}" />
-			<rich:tooltip for="detailStructure"
-				value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+			<rich:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
 		</h:commandButton>
-
 	</rich:column>
 	<rich:column
 		rendered="#{(sessionController.adminPageAuthorized || welcomeController.superAdmin 
@@ -49,7 +47,7 @@
 				</h:panelGrid>
 			</rich:tooltip>
 		</h:commandButton>
-		
+
 		<a4j:commandLink execute="@this" id="supprimerStructure"
 			oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
 			render="supprimerStructurePanel"
@@ -61,8 +59,7 @@
 				value="../../media/images/delete.png" style="border:0" />
 			<f:setPropertyActionListener value="#{varRechercheStructure}"
 				target="#{etablissementController.formStructure}" />
-			<rich:tooltip for="supprimerStructure"
-				value="#{msgs['FORM.SUPPRIMER']}" />
+			<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 		</a4j:commandLink>
 
 	</rich:column>

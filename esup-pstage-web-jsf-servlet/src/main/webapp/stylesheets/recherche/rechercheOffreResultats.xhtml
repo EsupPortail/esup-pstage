@@ -31,9 +31,9 @@
 								value="#{sessionController.baseUrl}stylesheets/recherche/?args=idOffre=#{offre.idOffre}">
 								<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}" title="#{msgs['OFFRE.GESTION.DETAILS']}"
 									value="../../media/images/document.png" style="border:0" />
+								<rich:tooltip
+									value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 							</h:outputLink>
-							<rich:toolTip for="recap"
-								value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 						</rich:column>
 					</rich:dataTable>
 				</t:div>

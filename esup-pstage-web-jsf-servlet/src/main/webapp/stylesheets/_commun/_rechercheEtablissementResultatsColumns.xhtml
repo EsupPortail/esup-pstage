@@ -11,23 +11,24 @@
 			title="#{varRechercheStructure.raisonSociale}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
-		<h:graphicImage id="avecAc" alt=""
+		<h:graphicImage id="avecAc" alt="*"
 			value="../../media/images/bullet_green.png" style="border:0"
-			rendered="#{varRechercheStructure.idAccordPartenariat>0 and !welcomeController.etudiant}" />
-		<rich:tooltip value="#{msgs['STRUCTURE.AVECACCORD']}" for="avecAc" />
+			rendered="#{varRechercheStructure.idAccordPartenariat gt 0 and !welcomeController.etudiant}">
+			<rich:tooltip value="#{msgs['STRUCTURE.AVECACCORD']}"/>
+		</h:graphicImage>
 	</rich:column>
 	<rich:column>
 		<h:outputText value="#{varRechercheStructure.numeroSiret}" />
 	</rich:column>
 	<rich:column>
-		<h:outputText value="#{varRechercheStructure.batimentResidence}"
-			title="#{varRechercheStructure.batimentResidence}">
+		<h:outputText value="#{varRechercheStructure.voie}"
+			title="#{varRechercheStructure.voie}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
 	</rich:column>
 	<rich:column>
-		<h:outputText value="#{varRechercheStructure.voie}"
-			title="#{varRechercheStructure.voie}">
+		<h:outputText value="#{varRechercheStructure.batimentResidence}"
+			title="#{varRechercheStructure.batimentResidence}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
 	</rich:column>

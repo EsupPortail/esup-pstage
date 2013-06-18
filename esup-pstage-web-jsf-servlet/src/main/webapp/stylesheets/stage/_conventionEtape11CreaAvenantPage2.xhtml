@@ -280,9 +280,10 @@
 
 		<h:commandButton id="retour" style="float:left;"
 			value="#{msgs['GENERAL.RETOUR']}"
-			action="#{avenantController.rectifierAvenant}" />
-		<rich:toolTip for="retour"
-			value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+			action="#{avenantController.rectifierAvenant}">
+			<rich:tooltip
+				value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+		</h:commandButton>
 		<rich:spacer height="20" />
 	</h:panelGrid>
 </ui:fragment>

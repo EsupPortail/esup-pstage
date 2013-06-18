@@ -62,8 +62,8 @@
 								target="#{etablissementController.memeAdresseStructure}" />
 							<h:graphicImage alt="#{msgs['FORM.CREER']}"
 								value="../../media/images/new.png" style="border:0" />
+							<rich:tooltip value="#{msgs['FORM.CREER']}" />
 						</a4j:commandLink>
-						<rich:tooltip for="ajout" value="#{msgs['FORM.CREER']}" />
 					</h:panelGrid>
 				</a4j:outputPanel>
 				<t:htmlTag value="div" style="height: 20px;" />
@@ -96,8 +96,8 @@
 									target="#{etablissementController.formService}" />
 								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 									value="../../media/images/edit.png" style="border:0" />
+								<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
 							<a4j:commandLink execute="@this" id="suppr"
 								rendered="#{not empty etablissementController.idServiceSel
 							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
@@ -116,8 +116,8 @@
 									target="#{etablissementController.formService}" />
 								<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 									value="../../media/images/delete.png" style="border:0" />
+								<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 							<a4j:commandLink execute="@this" id="selC"
 								rendered="#{not empty etablissementController.idServiceSel}"
 								action="#{conventionController.goToCreerConventionEtape4Contact}">
@@ -127,9 +127,9 @@
 									target="#{conventionController.convention.service}" />
 								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
 									value="../../media/images/back.png" style="border:0" />
+								<rich:tooltip
+									value="#{msgs['CONVENTION.SELECSERVICE']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="selC"
-								value="#{msgs['CONVENTION.SELECSERVICE']}" />
 						</rich:column>
 
 

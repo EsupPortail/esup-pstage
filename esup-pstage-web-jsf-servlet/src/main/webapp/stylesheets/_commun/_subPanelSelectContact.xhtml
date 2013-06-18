@@ -12,15 +12,15 @@
 	<a4j:outputPanel id="opService" ajaxRendered="true">
 		<h:panelGrid columns="2">
 			<t:panelGroup colspan="2">
-			< value="#{msgs['SERVICE.AUCUNSERVICE']}"
-				rendered="#{empty etablissementController.listeServices}"
-				escape="false" />
-		</t:panelGroup>
+				<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
+					rendered="#{empty etablissementController.listeServices}"
+					escape="false" />
+			</t:panelGroup>
 			<h:panelGrid columns="2">
-			< value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
-				escape="false"
-				rendered="#{not empty etablissementController.listeServices}" />
-			<h:selectOneMenu id="sOMService"
+				<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
+					escape="false"
+					rendered="#{not empty etablissementController.listeServices}" />
+				<h:selectOneMenu id="sOMService"
 					value="#{etablissementController.idServiceSel}"
 					converter="#{intConverter}"
 					valueChangeListener="#{etablissementController.valueIdServiceChanged}"
@@ -54,15 +54,15 @@
 							target="#{etablissementController.formService}" />
 						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 							value="../../media/images/edit.png" style="border:0" />
+						<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 					</a4j:commandLink>
-					<rich:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
 				</a4j:outputPanel>
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columns="3"
 			rendered="#{empty offreController.centreGestionDepotAnonyme}">
-		< value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-		<a4j:commandLink execute="@this" id="ajout"
+			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
+			<a4j:commandLink execute="@this" id="ajout"
 				oncomplete="#{rich:component('ajoutService')}.show()"
 				action="#{etablissementController.ajoutService}"
 				render="ajoutService">
@@ -70,8 +70,8 @@
 					target="#{etablissementController.memeAdresseStructure}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
 					value="../../media/images/new.png" style="border:0" />
+				<rich:tooltip value="#{msgs['FORM.CREER']}" />
 			</a4j:commandLink>
-			<rich:tooltip for="ajout" value="#{msgs['FORM.CREER']}" />
 		</h:panelGrid>
 	</a4j:outputPanel>
 
@@ -80,17 +80,18 @@
 
 	<a4j:outputPanel id="opContactsDataTable" ajaxRendered="true">
 		<h:panelGrid>
-		< value="#{msgs['CONTACT.GESTION.AUCUN']}"
-			rendered="#{not empty etablissementController.serviceSel
+			<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
+				rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
 								and empty etablissementController.listeContacts}"
-			escape="false" />
-		<h:panelGrid columns="2"
+				escape="false" />
+			<h:panelGrid columns="2"
 				rendered="#{empty offreController.centreGestionDepotAnonyme}">
-			< value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}" escape="false" 
-			rendered="#{not empty etablissementController.serviceSel
-								and not empty etablissementController.listeServices}"/>
-			<a4j:commandLink execute="@this" id="ajoutC"
+				<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
+					escape="false"
+					rendered="#{not empty etablissementController.serviceSel
+								and not empty etablissementController.listeServices}" />
+				<a4j:commandLink execute="@this" id="ajoutC"
 					rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices}"
 					oncomplete="#{rich:component('ajoutContact')}.show()"
@@ -98,15 +99,15 @@
 					render="ajoutContact">
 					<h:graphicImage alt="#{msgs['FORM.CREER']}"
 						value="../../media/images/new.png" style="border:0" />
+					<rich:tooltip value="#{msgs['FORM.CREER']}" />
 				</a4j:commandLink>
-				<rich:tooltip for="ajoutC" value="#{msgs['FORM.CREER']}" />
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columns="3"
 			rendered="#{not empty etablissementController.listeContacts}">
-		< value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
-			escape="false" />
-		<h:selectOneMenu id="sOMContact"
+			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
+				escape="false" />
+			<h:selectOneMenu id="sOMContact"
 				value="#{etablissementController.idContactSel}"
 				converter="#{intConverter}"
 				valueChangeListener="#{etablissementController.valueIdContactChanged}"

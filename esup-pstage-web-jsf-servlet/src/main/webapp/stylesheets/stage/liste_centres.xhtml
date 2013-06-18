@@ -39,23 +39,26 @@
 										<h:panelGrid columns="1">
 											<h:graphicImage id="appartenanceHead"
 												alt="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE']}"
-												value="../../media/images/user_gray.png" style="border:0" />
-											<rich:tooltip for="appartenanceHead"
-												value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
+												value="../../media/images/user_gray.png" style="border:0">
+												<rich:tooltip
+													value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
+											</h:graphicImage>
 										</h:panelGrid>
 									</f:facet>
 									<t:htmlTag value="center">
 										<h:graphicImage id="appartenance1" alt="#{msgs['FORM.OUI']}"
 											rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] != null}"
-											value="../../media/images/tick.png" style="border:0" />
-										<rich:tooltip for="appartenance1"
-											value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.OUI']}" />
+											value="../../media/images/tick.png" style="border:0">
+											<rich:tooltip
+												value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.OUI']}" />
+										</h:graphicImage>
 
 										<h:graphicImage id="appartenance2" alt="#{msgs['FORM.NON']}"
 											rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] == null}"
-											value="../../media/images/cross.png" style="border:0" />
-										<rich:tooltip for="appartenance2"
-											value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}" />
+											value="../../media/images/cross.png" style="border:0">
+											<rich:tooltip
+												value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}" />
+										</h:graphicImage>
 									</t:htmlTag>
 								</rich:column>
 
@@ -234,8 +237,8 @@
 								action="#{centreController.goToAjoutCentre}">
 								<h:graphicImage alt="#{msgs['FORM.AJOUTER']}"
 									value="../../media/images/new.png" style="border:0" />
+								<rich:tooltip value="#{msgs['FORM.AJOUTER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="add" value="#{msgs['FORM.AJOUTER']}" />
 						</h:panelGrid>
 					</a4j:region>
 					<t:htmlTag value="center">

@@ -36,8 +36,8 @@
 						rendered="#{rechercheController.afficherBoutonAjoutEtab}">
 						<h:graphicImage alt="#{msgs['FORM.CREER']}"
 							value="../../media/images/new.png" style="border:0" />
+						<rich:tooltip value="#{msgs['FORM.CREER']}" />
 					</h:commandLink>
-					<rich:tooltip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
 				</t:div>
 
 				<t:htmlTag value="div" style="height: 20px;" />
@@ -82,9 +82,9 @@
 										target="#{rechercheController.resultatRechercheStructure}" />
 									<f:setPropertyActionListener value="_creerConventionEtape2Etab"
 										target="#{conventionController.retourAction}" />
+									<rich:tooltip
+										value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
 								</a4j:commandButton>
-								<rich:tooltip for="selectionEtab"
-									value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
 							</rich:column>
 						</rich:dataTable>
 					</t:div>

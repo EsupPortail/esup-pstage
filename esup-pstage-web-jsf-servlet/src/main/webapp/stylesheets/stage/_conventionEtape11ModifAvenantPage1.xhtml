@@ -63,8 +63,7 @@
 									value="#{avenantController.avenant.modificationSujet}">
 									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-									<a4j:support execute="@this" event="onclick"
-										render="divSujet" />
+									<a4j:support execute="@this" event="onclick" render="divSujet" />
 								</h:selectOneRadio>
 							</h:panelGrid>
 							<t:div rendered="#{avenantController.avenant.modificationSujet}">
@@ -244,8 +243,7 @@
 									value="#{avenantController.avenant.modificationMontantGratification}">
 									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-									<a4j:support execute="@this" event="onclick"
-										render="divGratif" />
+									<a4j:support execute="@this" event="onclick" render="divGratif" />
 								</h:selectOneRadio>
 							</h:panelGrid>
 							<t:div
@@ -331,9 +329,10 @@
 												<t:div
 													rendered="#{service.idService == etablissementController.serviceSel.idService}">
 													<h:graphicImage id="lieuChoisi" alt="#{msgs['GENERAL.OK']}"
-														value="../../media/images/tick.png" style="border:0" />
-													<rich:toolTip for="lieuChoisi"
-														value="#{msgs['CONVENTION.ETAPE11.LIEU.SELECTIONNE']}" />
+														value="../../media/images/tick.png" style="border:0">
+														<rich:tooltip
+															value="#{msgs['CONVENTION.ETAPE11.LIEU.SELECTIONNE']}" />
+													</h:graphicImage>
 												</t:div>
 												<t:div
 													rendered="#{service.idService != etablissementController.serviceSel.idService}">
@@ -347,9 +346,9 @@
 														<f:setPropertyActionListener
 															value="#{conventionController.convention.contact}"
 															target="#{etablissementController.contactSel}" />
+														<rich:tooltip
+															value="#{msgs['CONVENTION.ETAPE11.LIEU.CHOIX']}" />
 													</a4j:commandLink>
-													<rich:toolTip for="lieuDispo"
-														value="#{msgs['CONVENTION.ETAPE11.LIEU.CHOIX']}" />
 												</t:div>
 											</t:htmlTag>
 										</rich:column>
@@ -477,9 +476,10 @@
 													rendered="#{salarie.id == etablissementController.contactSel.id}">
 													<h:graphicImage id="salarieChoisi"
 														alt="#{msgs['GENERAL.OK']}"
-														value="../../media/images/tick.png" style="border:0" />
-													<rich:toolTip for="salarieChoisi"
-														value="#{msgs['CONVENTION.ETAPE11.SALARIE.SELECTIONNE']}" />
+														value="../../media/images/tick.png" style="border:0">
+														<rich:tooltip
+															value="#{msgs['CONVENTION.ETAPE11.SALARIE.SELECTIONNE']}" />
+													</h:graphicImage>
 												</t:div>
 												<t:div
 													rendered="#{salarie.id != etablissementController.contactSel.id}">
@@ -490,9 +490,8 @@
 															value="../../media/images/cross.png" style="border:0" />
 														<f:setPropertyActionListener value="#{salarie}"
 															target="#{etablissementController.contactSel}" />
+														<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
 													</a4j:commandLink>
-													<rich:toolTip for="salarieDispo"
-														value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
 												</t:div>
 											</t:htmlTag>
 										</rich:column>
@@ -659,9 +658,10 @@
 
 		<h:commandButton id="retour" style="float:left;"
 			value="#{msgs['GENERAL.RETOUR']}" immediate="true"
-			action="#{avenantController.goToDetailAvenant}" />
-		<rich:toolTip for="retour"
-			value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+			action="#{avenantController.goToDetailAvenant}">
+			<rich:tooltip
+				value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+		</h:commandButton>
 		<rich:spacer height="20" />
 	</h:panelGrid>
 </ui:fragment>

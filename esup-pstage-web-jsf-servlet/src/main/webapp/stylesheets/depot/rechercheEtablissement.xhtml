@@ -5,8 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="../_basicTemplate.xhtml">
+	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
 	<ui:define name="content">
 		<h:panelGrid style="float:left;">
 			<ui:include src="./_menu.xhtml" />
@@ -121,8 +120,11 @@
 									</f:facet>
 									<f:facet name="footer">
 										<h:panelGroup>
-											<ui:include
-												src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" />
+											<rich:dataScroller align="center"
+												for="rechercheStructureDataTable" maxPages="20" page="1"
+												id="listeScroller" renderIfSinglePage="false" />
+											<!-- 											<ui:include -->
+											<!-- 												src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" /> -->
 										</h:panelGroup>
 									</f:facet>
 									<ui:include
@@ -142,9 +144,8 @@
 												target="#{sessionController.menuGestionEtab}" />
 											<f:setPropertyActionListener value="#{varRechercheStructure}"
 												target="#{sessionController.currentManageStructure}" />
+											<rich:tooltip value="#{msgs['STRUCTURE.GERER']}" />
 										</h:commandButton>
-										<rich:tooltip for="gererEtablissement"
-											value="#{msgs['STRUCTURE.GERER']}" />
 									</rich:column>
 									<rich:column
 										rendered="#{sessionController.adminPageAuthorized and 
@@ -159,10 +160,8 @@
 											rendered="#{not varRechercheStructure.accordPartenariat.estValide}">
 											<f:setPropertyActionListener value="#{varRechercheStructure}"
 												target="#{adminController.structureAccordAValider}" />
+											<rich:tooltip value="#{msgs['FORM.VALIDER']}" />
 										</h:commandButton>
-										<rich:tooltip for="consulterAccord"
-											value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-											rendered="#{varRechercheStructure.accordPartenariat.estValide}" />
 										<h:commandButton id="consulterAccord"
 											value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
 											action="#{adminController.goToConsulterAccord}"
@@ -172,9 +171,9 @@
 											rendered="#{varRechercheStructure.accordPartenariat.estValide}">
 											<f:setPropertyActionListener value="#{varRechercheStructure}"
 												target="#{adminController.structureAccord}" />
+											<rich:tooltip value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+												rendered="#{varRechercheStructure.accordPartenariat.estValide}" />
 										</h:commandButton>
-										<rich:tooltip for="validerAccord"
-											value="#{msgs['FORM.VALIDER']}" />
 										<a4j:commandLink execute="@this" id="supprimerAccord"
 											oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
 											render="supprimerAccordPanel">
@@ -183,9 +182,8 @@
 												value="../../media/images/see_block.png" style="border:0" />
 											<f:setPropertyActionListener value="#{varRechercheStructure}"
 												target="#{adminController.accordASupprimer}" />
+											<rich:tooltip value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
 										</a4j:commandLink>
-										<rich:tooltip for="supprimerAccord"
-											value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
 									</rich:column>
 								</rich:dataTable>
 							</t:div>

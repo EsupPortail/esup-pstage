@@ -77,36 +77,36 @@
 								<h:graphicImage
 									alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
 									value="../../media/images/addAll.png" style="border:0" />
+								<rich:tooltip
+									value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="addAll"
-								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}" />
 							<a4j:commandLink id="add"
 								action="#{offreController.addCentresGestionToListeADiffuser}"
 								render="lCgUnivSelect">
 								<h:graphicImage
 									alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
 									value="../../media/images/new.png" style="border:0" />
+								<rich:tooltip
+									value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="add"
-								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTER']}" />
 							<a4j:commandLink id="remove"
 								action="#{offreController.deleteCentresGestionFromListeADiffuser}"
 								render="lCgUnivSelect">
 								<h:graphicImage
 									alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}"
 									value="../../media/images/del.png" style="border:0" />
+								<rich:tooltip
+									value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="remove"
-								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}" />
 							<a4j:commandLink id="removeAll"
 								action="#{offreController.deleteAllCentresGestionFromListeADiffuser}"
 								render="lCgUnivSelect">
 								<h:graphicImage
 									alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}"
 									value="../../media/images/forbidden.png" style="border:0" />
+								<rich:tooltip
+									value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="removeAll"
-								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}" />
 						</h:panelGrid>
 						<h:panelGrid columns="1" style="font-size:12px;">
 							<h:outputText

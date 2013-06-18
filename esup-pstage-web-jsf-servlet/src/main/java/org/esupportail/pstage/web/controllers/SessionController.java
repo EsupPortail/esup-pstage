@@ -302,15 +302,31 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * vrai si les gestionnaires doivent moderer les offres
 	 */
 	private boolean moderationActive;
-
+	
+	/* ***************************************************************
+	 * Variables de navigation
+	 ****************************************************************/
 	/**
-	 * Variable permettant l'enchainement d'ecran de la creation d'accord
+	 * CREATION ACCORDS
 	 */
 	private String creerAccordCurrentPage = "_accordEtape1PreAccord";
 	/**
-	 * Variable permettant l'enchainement d'ecran de la popUp NousContacter
+	 * NOUS CONTACTER
 	 */
 	private String nousContacterCurrentPage = "_nousContacterEtape1";
+	/**
+	 * CREER ADMINSTRUCTURE
+	 */
+	private String creerAdminStructureCurrentPage = "_ajoutAdministrateurEtape1";
+	/**
+	 * MODIFIER ADMINSTRUCTURE
+	 */
+	private String modifAdminStructureCurrentPage = "_modifAdministrateurEtape0";
+	/**
+	 * SUPPRIMER ADMINSTRUCTURE
+	 */
+	private String supprimerAdminStructureCurrentPage = "_supprAdministrateurEtape1";
+	
 
 	/**
 	 * Constructor.
@@ -1419,6 +1435,51 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setNousContacterCurrentPage(String nousContacterCurrentPage) {
 		this.nousContacterCurrentPage = nousContacterCurrentPage;
+	}
+	
+	/**
+	 * @return the supprimerAdminStructureCurrentPage
+	 */
+	public String getSupprimerAdminStructureCurrentPage() {
+		return supprimerAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @param supprimerAdminStructureCurrentPage the supprimerAdminStructureCurrentPage to set
+	 */
+	public void setSupprimerAdminStructureCurrentPage(
+			String supprimerAdminStructureCurrentPage) {
+		this.supprimerAdminStructureCurrentPage = supprimerAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @return the creerAdminStructureCurrentPage
+	 */
+	public String getCreerAdminStructureCurrentPage() {
+		return creerAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @param creerAdminStructureCurrentPage the creerAdminStructureCurrentPage to set
+	 */
+	public void setCreerAdminStructureCurrentPage(
+			String creerAdminStructureCurrentPage) {
+		this.creerAdminStructureCurrentPage = creerAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @return the modifAdminStructureCurrentPage
+	 */
+	public String getModifAdminStructureCurrentPage() {
+		return modifAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @param modifAdminStructureCurrentPage the modifAdminStructureCurrentPage to set
+	 */
+	public void setModifAdminStructureCurrentPage(
+			String modifAdminStructureCurrentPage) {
+		this.modifAdminStructureCurrentPage = modifAdminStructureCurrentPage;
 	}
 
 

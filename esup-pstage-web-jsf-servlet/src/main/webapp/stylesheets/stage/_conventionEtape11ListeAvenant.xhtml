@@ -96,8 +96,8 @@
 								target="#{avenantController.avenant}" />
 							<h:graphicImage alt="#{msgs['FORM.VOIR']}"
 								value="../../media/images/zoom.png" style="border:0" />
+							<rich:tooltip value="#{msgs['FORM.CONSULTER']}" />
 						</h:commandLink>
-						<rich:toolTip for="see" value="#{msgs['FORM.CONSULTER']}" />
 						<a4j:commandLink execute="@this"
 							rendered="#{!avenant.validationAvenant}"
 							oncomplete="#{rich:component('suppressionAvenant')}.show()"
@@ -106,8 +106,8 @@
 								target="#{avenantController.avenant}" />
 							<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"
 								value="../../media/images/delete.png" style="border:0" />
+							<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 						</a4j:commandLink>
-						<rich:toolTip for="delete" value="#{msgs['FORM.SUPPRIMER']}" />
 					</t:htmlTag>
 				</rich:column>
 				<f:facet name="footer">
@@ -140,8 +140,8 @@
 				action="#{avenantController.goToCreaAvenantPage1}">
 				<h:graphicImage alt="#{msgs['CONVENTION.ETAPE11.AJOUTER']}"
 					value="../../media/images/new.png" style="border:0" />
+				<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.AJOUTER']}" />
 			</h:commandLink>
-			<rich:toolTip for="add" value="#{msgs['CONVENTION.ETAPE11.AJOUTER']}" />
 		</h:panelGrid>
 	</h:panelGrid>
 	<h:panelGrid columns="2" align="center"

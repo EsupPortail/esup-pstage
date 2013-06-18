@@ -1,22 +1,29 @@
-<ui:include src="../_include.xhtml"/>
-
-<h:panelGrid columns="2">
-	<h:column>
-		<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-			value="../../media/images/warning_50px.png" />
-	</h:column>
-	<h:column>
-		<h:panelGrid columns="1">
-			<h:outputText value="#{msgs['ADMINSTRUCTURE.SUPPRESSION_QUESTION']}" />
-		</h:panelGrid>
-		<h:panelGrid columns="3">
-			<a4j:commandButton
-				action="#{adminController.supprimerAdministrateur}"
-				value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
-				render="opAdminDataTable" />
-			<rich:spacer width="150px" />
-			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="#{rich:component('supprAdministrateur')}.hide();return false;" />
-		</h:panelGrid>
-	</h:column>
-</h:panelGrid>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:panelGrid columns="2">
+		<h:column>
+			<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+				value="../../media/images/warning_50px.png" />
+		</h:column>
+		<h:column>
+			<h:panelGrid columns="1">
+				<h:outputText value="#{msgs['ADMINSTRUCTURE.SUPPRESSION_QUESTION']}" />
+				<t:htmlTag value="div" style="height:10px;" />
+			</h:panelGrid>
+			<h:panelGrid columns="3" align="center"
+				rowClasses="paginatorData-text" columnClasses="paginatorData-text">
+				<a4j:commandButton
+					action="#{adminController.supprimerAdministrateur}"
+					value="#{msgs['FORM.SUPPRIMER']}"
+					render="opAdminDataTable, formAdminStructure" />
+				<t:htmlTag value="div" style="width:70px;" />
+				<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+					onclick="#{rich:component('supprAdministrateur')}.hide();return false;" />
+			</h:panelGrid>
+		</h:column>
+	</h:panelGrid>
+</ui:composition>

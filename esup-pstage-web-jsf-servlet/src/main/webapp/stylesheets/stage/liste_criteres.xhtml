@@ -67,8 +67,8 @@
 												target="#{centreController.critere}" />
 											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"
 												value="../../media/images/delete.png" style="border:0" />
+											<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 										</a4j:commandLink>
-										<rich:tooltip for="delete" value="#{msgs['FORM.SUPPRIMER']}" />
 									</t:htmlTag>
 								</rich:column>
 								<f:facet name="footer">
@@ -90,8 +90,8 @@
 								action="#{centreController.goToAjoutCritere}">
 								<h:graphicImage alt="#{msgs['FORM.RATTACHER']}"
 									value="../../media/images/new.png" style="border:0" />
+								<rich:tooltip value="#{msgs['FORM.RATTACHER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="add" value="#{msgs['FORM.RATTACHER']}" />
 						</h:panelGrid>
 					</a4j:region>
 					<t:htmlTag value="center">

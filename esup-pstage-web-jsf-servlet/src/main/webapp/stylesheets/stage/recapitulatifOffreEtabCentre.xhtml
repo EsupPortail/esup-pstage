@@ -48,13 +48,11 @@
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{3}"
 											target="#{offreController.typeAjoutModifOffre}" />
+										<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+										<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									</h:commandLink>
-									<rich:tooltip for="modifCentre"
-										value="#{msgs['FORM.MODIFIER']}"
-										rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-									<rich:tooltip for="modifCentre"
-										value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
-										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 								</legend>
 								<h:outputText
 									value="(#{offreController.currentOffre.centreGestion.idCentreGestion}) #{offreController.currentOffre.centreGestion.nomCentre}"
@@ -80,12 +78,11 @@
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{3}"
 											target="#{offreController.typeAjoutModifOffre}" />
+										<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+										<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									</h:commandLink>
-									<rich:tooltip for="modifEtab" value="#{msgs['FORM.MODIFIER']}"
-										rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-									<rich:tooltip for="modifEtab"
-										value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
-										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 								</legend>
 								<ui:include src="../_commun/_detailsOffreEtab.xhtml" />
 							</fieldset>
@@ -109,12 +106,11 @@
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{3}"
 											target="#{offreController.typeAjoutModifOffre}" />
+										<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+										<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									</h:commandLink>
-									<rich:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}"
-										rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-									<rich:tooltip for="modif"
-										value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
-										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 								</legend>
 								<ui:include src="../_commun/_detailsOffre.xhtml" />
 							</fieldset>
@@ -141,12 +137,11 @@
 												target="#{offreController.retour}" />
 											<f:setPropertyActionListener value="#{3}"
 												target="#{offreController.typeAjoutModifOffre}" />
+											<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+											<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										</h:commandLink>
-										<rich:tooltip for="modifF" value="#{msgs['FORM.MODIFIER']}"
-											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										<rich:tooltip for="modifF"
-											value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
-											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									</legend>
 									<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
 								</fieldset>
@@ -173,12 +168,11 @@
 												target="#{offreController.retour}" />
 											<f:setPropertyActionListener value="#{3}"
 												target="#{offreController.typeAjoutModifOffre}" />
+											<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+											<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										</h:commandLink>
-										<rich:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}"
-											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										<rich:tooltip for="modifC"
-											value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
-											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									</legend>
 									<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
 								</fieldset>
@@ -197,8 +191,7 @@
 						<a4j:outputPanel ajaxRendered="true">
 							<h:panelGrid columns="1" style="float:right;"
 								rendered="#{!offreController.currentOffre.estSupprimee}">
-								<a4j:commandLink execute="@this" id="suppr"
-									render="supprOffre"
+								<a4j:commandLink execute="@this" id="suppr" render="supprOffre"
 									oncomplete="#{rich:component('supprOffre')}.show()"
 									rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 									disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
@@ -211,12 +204,11 @@
 									<f:setPropertyActionListener value="resultatsRechercheOffre"
 										target="#{offreController.retour}" />
 									<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
+									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}"
+										rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+									<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
+										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 								</a4j:commandLink>
-								<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}"
-									rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-								<rich:tooltip for="suppr"
-									value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
-									rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 							</h:panelGrid>
 							<h:panelGrid columns="1" style="float:right;">
 								<a4j:commandLink execute="@this" id="transfert"
@@ -231,7 +223,7 @@
 										style="border:0"
 										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									<h:outputText value=" #{msgs['OFFRE.TRANSFERT']}" />
-									<rich:tooltip for="transfert"
+									<rich:tooltip
 										value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
 										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 								</a4j:commandLink>

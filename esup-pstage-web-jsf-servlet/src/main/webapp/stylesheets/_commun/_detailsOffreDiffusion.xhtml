@@ -32,16 +32,16 @@
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
 					|| (sessionController.moderationActive and sessionController.pageAuthorized)}" />
 					<h:outputText value=" #{msgs['FORM.DIFFUSER']}" />
+					<rich:tooltip value="#{msgs['FORM.DIFFUSER']}"
+						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
+						and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
+					<rich:tooltip
+						value="#{msgs['OFFRE.ERREUR.NODIFF2']}"
+						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
+						and sessionController.moderationActive and sessionController.pageAuthorized}" />
+					<rich:tooltip value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 				</a4j:commandLink>
-				<rich:tooltip for="diffusion" value="#{msgs['FORM.DIFFUSER']}"
-					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
-					and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
-				<rich:tooltip for="diffusion"
-					value="#{msgs['OFFRE.ERREUR.NODIFF2']}"
-					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
-					and sessionController.moderationActive and sessionController.pageAuthorized}" />
-				<rich:tooltip for="diffusion" value="#{msgs['OFFRE.ERREUR.NODIFF']}"
-					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columns="1" style="font-size:12px;">
@@ -82,13 +82,13 @@
 						value="../../media/images/flag_block.png" style="border:0"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 					<h:outputText value=" #{msgs['FORM.STOPDIFFUSER']}" />
+					<rich:tooltip
+						value="#{msgs['FORM.STOPDIFFUSER']}"
+						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+					<rich:tooltip
+						value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 				</a4j:commandLink>
-				<rich:tooltip for="stopDiffusion"
-					value="#{msgs['FORM.STOPDIFFUSER']}"
-					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-				<rich:tooltip for="stopDiffusion"
-					value="#{msgs['OFFRE.ERREUR.NODIFF']}"
-					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 			</h:panelGrid>
 			<t:div
 				rendered="#{sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
@@ -115,10 +115,10 @@
 					<h:outputText
 						value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE']}"
 						rendered="#{!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)}" />
+					<rich:tooltip
+						value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 				</a4j:commandLink>
-				<rich:tooltip for="diffusionCentre"
-					value="#{msgs['OFFRE.ERREUR.NODIFF']}"
-					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 				<a4j:outputPanel id="opOffreDiffusion">
 					<h:panelGrid columns="1" style="font-size:12px;">
 						<h:outputText

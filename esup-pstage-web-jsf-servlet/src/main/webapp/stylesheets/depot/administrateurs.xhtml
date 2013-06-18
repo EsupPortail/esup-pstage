@@ -20,10 +20,11 @@
 							<a4j:outputPanel id="opAdminDataTable">
 								<h:outputText value="#{msgs['ADMINSTRUCTURE.VIDE']}"
 									rendered="#{empty adminController.listeAdminStructure}" />
-								<h:panelGrid columns="3">
+								<h:panelGrid columns="3" rowClasses="paginatorData-text" columnClasses="paginatorData-text">
 									<h:outputText value="#{msgs['ADMINSTRUCTURE.CREER']}"
 										escape="false" />
 									<a4j:commandLink execute="@this" id="ajAdmin"
+										render="formAdminStructure"
 										action="#{adminController.beforeAjouterAdministrateur}"
 										oncomplete="#{rich:component('ajoutAdministrateur')}.show()">
 										<f:setPropertyActionListener value="#{true}"
@@ -31,9 +32,10 @@
 										<h:graphicImage alt="#{msgs['FORM.CREER']}"
 											title="#{msgs['FORM.CREER']}"
 											value="../../media/images/new.png" style="border:0" />
+										<rich:tooltip value="#{msgs['FORM.CREER']}" />
 									</a4j:commandLink>
-									<rich:tooltip for="ajAdmin" value="#{msgs['FORM.CREER']}" />
 								</h:panelGrid>
+								<t:htmlTag value="div" style="height:5px;" />
 								<rich:dataTable align="center" width="600" id="adminDataTable"
 									rows="10" columnClasses="col" var="admin" rowKeyVar="rowAdmin"
 									value="#{adminController.listeAdminStructure}"
@@ -96,7 +98,7 @@
 										</h:panelGrid>
 									</rich:column>
 									<rich:column>
-										<a4j:commandLink execute="@this" id="modif"
+										<a4j:commandLink execute="@this" id="modif" render="formModifAdminStructure"
 											action="#{adminController.beforeModifAdministrateur}"
 											oncomplete="#{rich:component('modifAdministrateur')}.show()">
 											<f:setPropertyActionListener value="#{admin}"
@@ -105,29 +107,31 @@
 												target="#{adminController.currentRowAdminStructure}" />
 											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 												value="../../media/images/edit.png" style="border:0" />
+											<rich:tooltip>
+												<h:panelGrid columns="1">
+													<h:outputLabel for="modif" value="#{msgs['FORM.MODIFIER']}" />
+													<t:htmlTag value="br" />
+													<t:aliasBean alias="#{objet}" value="#{admin}">
+														<ui:include src="../_commun/_updateInfos.xhtml" />
+													</t:aliasBean>
+												</h:panelGrid>
+											</rich:tooltip>
 										</a4j:commandLink>
-										<rich:tooltip for="modif">
-											<h:panelGrid columns="1">
-												<h:outputLabel value="#{msgs['FORM.MODIFIER']}" />
-												<t:htmlTag value="br" />
-												<t:aliasBean alias="#{objet}" value="#{admin}">
-													<ui:include src="../_commun/_updateInfos.xhtml" />
-												</t:aliasBean>
-											</h:panelGrid>
-										</rich:tooltip>
 										<a4j:commandLink execute="@this" id="suppr"
 											oncomplete="#{rich:component('supprAdministrateur')}.show()">
 											<f:setPropertyActionListener value="#{admin}"
 												target="#{adminController.formAdminStructure}" />
 											<f:setPropertyActionListener value="#{rowAdmin}"
 												target="#{adminController.currentRowAdminStructure}" />
+											<f:setPropertyActionListener value="_supprAdministrateurEtape1"
+												target="#{sessionController.supprimerAdminStructureCurrentPage}" />
 											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 												value="../../media/images/delete.png" style="border:0" />
+											<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 										</a4j:commandLink>
-										<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 									</rich:column>
 									<f:facet name="footer">
-										<rich:datascroller align="center" for="adminDataTable"
+										<rich:dataScroller align="center" for="adminDataTable"
 											maxPages="20" page="1" id="sc2" renderIfSinglePage="false" />
 									</f:facet>
 								</rich:dataTable>

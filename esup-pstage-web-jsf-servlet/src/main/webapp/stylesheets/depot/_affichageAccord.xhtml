@@ -7,8 +7,7 @@
 	<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 		action="#{rechercheController.goToRechercheEtablissement}"
 		alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-		title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" immediate="true">
-	</h:commandButton>
+		title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" immediate="true" />
 	<t:div rendered="#{empty adminController.structureAccord}">
 		<h:outputText value="#{msgs['ACCORD.AUCUN']}" />
 	</t:div>
@@ -50,14 +49,15 @@
 					<rich:message for="effectif">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-				</h:panelGrid>
+				</h:panelGrid>				
+				
 				<h:panelGrid columns="3">
-					<rich:spacer width="25px" />
-					<rich:spacer width="2px"
-						style="background-color: #{a4jSkin.panelBorderColor};"
-						height="125px" />
-					<rich:spacer width="25px" />
-				</h:panelGrid>
+					<t:htmlTag value="div" style="width: 25px;" />
+					<t:htmlTag value="div"
+						style="width: 2px; height: 125px; background-color: #{a4jSkin.panelBorderColor};" />
+					<t:htmlTag value="div" style="width: 25px;" />
+				</h:panelGrid>				
+				
 				<h:panelGrid columns="1">
 					<h:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']} " for="siret" />
 					<h:panelGrid columns="1">
@@ -135,12 +135,12 @@
 						<a4j:support event="onblur" render="opLibelleAPE"
 							ignoreDupResponses="true" execute="@this" />
 					</h:inputText>
-					<rich:spacer width="20px" />
+					<t:htmlTag value="div" style="width: 20px;" />
 					<a4j:outputPanel id="opLibelleAPE">
 						<h:graphicImage
 							rendered="#{!empty adminController.structureAccord.nafN5}"
 							value="../../media/images/tick.png" alt="Validé" title="Validé" />
-						<rich:spacer width="10px" />
+						<t:htmlTag value="div" style="width: 10px;" />
 						<h:outputText
 							rendered="#{!empty adminController.structureAccord.nafN5}"
 							value="#{adminController.structureAccord.nafN5.libelle}" />
@@ -153,12 +153,12 @@
 			<h:panelGrid columns="4"
 				rendered="#{!etablissementController.codeNafObligatoire ||
 			(adminController.structureAccord.pays!=beanUtils.france and adminController.structureAccord.pays.cog!=beanUtils.cogFrance)}">
-				<rich:spacer width="20px" />
+				<t:htmlTag value="div" style="width: 20px;" />
 				<h:graphicImage
 					value="../../media/images/arrow_turn_up_and_down.png"
 					alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
 					title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
-				<rich:spacer width="5px" />
+				<t:htmlTag value="div" style="width: 5px;" />
 				<h:outputText value="#{msgs['STRUCTURE.CODE_NAF.OBLIGATOIRE']}" />
 			</h:panelGrid>
 			<h:panelGrid columns="2">
@@ -179,7 +179,7 @@
 			<h:outputText value="#{msgs['STRUCTURE.ADRESSE']}" />
 			<h:panelGrid columns="3">
 				<h:panelGrid columns="1">
-					<e:outputLabel value="#{msgs['STRUCTURE.VOIE']} *" for="voie" />
+					<h:outputLabel value="#{msgs['STRUCTURE.VOIE']} *" for="voie" />
 					<h:panelGrid columns="1">
 						<h:inputText id="voie"
 							value="#{adminController.structureAccord.voie}" size="50"
@@ -192,7 +192,7 @@
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
 					</h:panelGrid>
-					<e:outputLabel value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']} "
+					<h:outputLabel value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']} "
 						for="batimentResidence" />
 					<h:panelGrid columns="1">
 						<h:inputText id="batimentResidence"
@@ -206,7 +206,7 @@
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
 					</h:panelGrid>
-					<e:outputLabel value="#{msgs['STRUCTURE.CEDEX']} " for="cedex" />
+					<h:outputLabel value="#{msgs['STRUCTURE.CEDEX']} " for="cedex" />
 					<h:panelGrid columns="1">
 						<h:inputText id="cedex"
 							value="#{adminController.structureAccord.libCedex}" size="30"
@@ -217,10 +217,10 @@
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
 					</h:panelGrid>
-					<e:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
+					<h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
 					<h:panelGrid columns="1">
 						<h:panelGrid columns="3">
-							<rich:spacer width="16px"
+							<t:htmlTag value="div" style="width: 16px;"
 								rendered="#{empty adminController.structureAccord.pays}" />
 							<h:graphicImage id="flag"
 								rendered="#{not empty adminController.structureAccord.pays}"
@@ -248,7 +248,7 @@
 					<rich:spacer width="25px" />
 				</h:panelGrid>
 				<h:panelGrid columns="1">
-					<e:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
+					<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
 						for="codePostal" />
 					<h:panelGrid columns="1">
 						<h:inputText id="codePostal"
@@ -262,7 +262,7 @@
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
 					</h:panelGrid>
-					<e:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
+					<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
 					<h:panelGrid columns="1">
 						<h:inputText id="commune" style="text-transform:uppercase;"
 							value="#{adminController.structureAccord.commune}" size="50"
@@ -282,7 +282,7 @@
 			<h:panelGrid columns="3">
 				<h:panelGrid columns="1">
 					<h:panelGrid columns="2">
-						<e:outputLabel value="#{msgs['STRUCTURE.MAIL']} " for="mail" />
+						<h:outputLabel value="#{msgs['STRUCTURE.MAIL']} " for="mail" />
 						<h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
 					</h:panelGrid>
 					<h:panelGrid columns="1">
@@ -299,7 +299,7 @@
 						</rich:message>
 					</h:panelGrid>
 					<h:panelGrid columns="2">
-						<e:outputLabel value="#{msgs['STRUCTURE.SITEWEB']} " for="siteWeb" />
+						<h:outputLabel value="#{msgs['STRUCTURE.SITEWEB']} " for="siteWeb" />
 						<h:outputText value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
 							escape="false" />
 					</h:panelGrid>
@@ -325,7 +325,7 @@
 					<rich:spacer width="25px" />
 				</h:panelGrid>
 				<h:panelGrid columns="1">
-					<e:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']} *"
+					<h:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']} *"
 						for="telephone" />
 					<h:panelGrid columns="1">
 						<h:inputText id="telephone"
@@ -339,7 +339,7 @@
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
 					</h:panelGrid>
-					<e:outputLabel value="#{msgs['STRUCTURE.FAX']} " for="fax" />
+					<h:outputLabel value="#{msgs['STRUCTURE.FAX']} " for="fax" />
 					<h:panelGrid columns="1">
 						<h:inputText id="fax"
 							value="#{adminController.structureAccord.fax}" size="20"
@@ -361,7 +361,7 @@
 				<h:panelGrid columns="1">
 					<h:panelGrid columns="2"
 						style="margin-left:auto;margin-right:auto;">
-						<e:outputLabel value="#{msgs['CONTACT.CIVILITE']} *"
+						<h:outputLabel value="#{msgs['CONTACT.CIVILITE']} *"
 							for="civilite" />
 						<h:selectOneMenu id="civilite"
 							value="#{adminController.structureAccord.accordPartenariat.contact.civilite}"
@@ -378,7 +378,7 @@
 							</rich:message>
 						</t:panelGroup>
 					</h:panelGrid>
-					<e:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
+					<h:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
 					<h:inputText id="nom" style="text-transform:uppercase;"
 						value="#{adminController.structureAccord.accordPartenariat.contact.nom}"
 						size="50" maxlength="50" required="true"
@@ -390,7 +390,7 @@
 					<rich:message for="nom">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					<e:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
+					<h:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
 					<h:inputText id="prenom" style="text-transform:capitalize;"
 						value="#{adminController.structureAccord.accordPartenariat.contact.prenom}"
 						size="50" maxlength="50" required="true"
@@ -402,7 +402,7 @@
 					<rich:message for="prenom">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					<e:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
+					<h:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
 					<h:inputText id="fonction" size="50" maxlength="100"
 						value="#{adminController.structureAccord.accordPartenariat.contact.fonction}"
 						disabled="true" />
@@ -419,7 +419,7 @@
 				</h:panelGrid>
 				<h:panelGrid columns="1">
 					<rich:spacer height="25px" />
-					<e:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} *" />
+					<h:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} *" />
 					<h:inputText id="telC" size="20" maxlength="20"
 						value="#{adminController.structureAccord.accordPartenariat.contact.tel}"
 						required="true"
@@ -430,14 +430,14 @@
 					<rich:message for="telC">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					<e:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
+					<h:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
 					<h:inputText id="faxC" size="20" maxlength="20"
 						value="#{adminController.structureAccord.accordPartenariat.contact.fax}"
 						disabled="true" />
 					<rich:message for="faxC">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					<e:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
+					<h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
 					<h:inputText id="mailC"
 						value="#{adminController.structureAccord.accordPartenariat.contact.mail}"
 						size="50" maxlength="50" required="true"
@@ -457,21 +457,21 @@
 		<h:panelGrid>
 			<h:panelGrid columns="2">
 				<h:outputText value="#{msgs['ACCORD.DATECREATION']}" escape="false" />
-				<e:bold
+				<h:outputLabel
 					value="#{adminController.structureAccord.accordPartenariat.dateCreation}">
 					<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-				</e:bold>
+				</h:outputLabel>
 			</h:panelGrid>
 			<h:panelGrid columns="3">
 				<h:outputText value="#{msgs['ACCORD.DATEVALIDATION']}"
 					escape="false"
 					rendered="#{adminController.structureAccord.accordPartenariat.estValide}" />
-				<e:bold
+				<h:outputLabel
 					rendered="#{adminController.structureAccord.accordPartenariat.estValide}"
 					value="#{adminController.structureAccord.accordPartenariat.dateValidation}">
 					<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-				</e:bold>
-				<e:bold
+				</h:outputLabel>
+				<h:outputLabel
 					rendered="#{adminController.structureAccord.accordPartenariat.estValide}"
 					value=", #{adminController.structureAccord.accordPartenariat.loginValidation}" />
 			</h:panelGrid>
@@ -484,7 +484,6 @@
 					<h:graphicImage value="../../media/images/arrow_up.png"
 						alt="#{msgs['GENERAL.ARROW_UP']}"
 						title="#{msgs['GENERAL.ARROW_UP']}" />
-					<h:outputText value="#{msgs['FORM.FORMERROR']}" />
 					<h:graphicImage value="../../media/images/arrow_up.png"
 						alt="#{msgs['GENERAL.ARROW_UP']}"
 						title="#{msgs['GENERAL.ARROW_UP']}" />
@@ -494,7 +493,6 @@
 		<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 			action="#{rechercheController.goToRechercheEtablissement}"
 			alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-			title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" immediate="true">
-		</h:commandButton>
+			title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" immediate="true"/>
 	</t:div>
 </ui:composition>

@@ -31,8 +31,8 @@
 								target="#{etablissementController.afficherSelectionCentreContact}" />
 							<f:setPropertyActionListener value="#{1}"
 								target="#{offreController.typeAjoutModifOffre}" />
+							<rich:tooltip value="#{msgs['FORM.CREER']}" />
 						</h:commandLink>
-						<rich:tooltip for="ajoutO" value="#{msgs['FORM.CREER']}" />
 					</h:panelGrid>
 					<a4j:outputPanel id="opOffresDataTable">
 						<t:div rendered="#{not empty offreController.listeOffres}">
@@ -54,9 +54,9 @@
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{offre}"
 											target="#{offreController.currentOffre}" />
+										<rich:tooltip
+											value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 									</h:commandLink>
-									<rich:tooltip for="recap"
-										value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 									<h:commandLink id="modif"
 										action="#{offreController.goToEntrepriseModificationOffre}">
 										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
@@ -70,18 +70,18 @@
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{false}"
 											target="#{etablissementController.afficherSelectionCentreContact}" />
+										<rich:tooltip>
+											<h:panelGrid columns="1">
+												<e:bold value="#{msgs['FORM.MODIFIER']}" />
+												<t:div rendered="#{sessionController.adminPageAuthorized}">
+													<t:htmlTag value="br" />
+													<t:aliasBean alias="#{objet}" value="#{offre}">
+														<ui:include src="../_commun/_updateInfos.xhtml"/>
+													</t:aliasBean>
+												</t:div>
+											</h:panelGrid>
+										</rich:tooltip>
 									</h:commandLink>
-									<rich:tooltip for="modif">
-										<h:panelGrid columns="1">
-											<e:bold value="#{msgs['FORM.MODIFIER']}" />
-											<t:div rendered="#{sessionController.adminPageAuthorized}">
-												<t:htmlTag value="br" />
-												<t:aliasBean alias="#{objet}" value="#{offre}">
-													<ui:include src="../_commun/_updateInfos.xhtml"/>
-												</t:aliasBean>
-											</t:div>
-										</h:panelGrid>
-									</rich:tooltip>
 									<a4j:commandLink execute="@this" id="suppr"
 										render="supprOffre"
 										oncomplete="#{rich:component('supprOffre')}.show()">
@@ -92,8 +92,8 @@
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{offre}"
 											target="#{offreController.currentOffre}" />
+										<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 									</a4j:commandLink>
-									<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 								</rich:column>
 								<f:facet name="footer">
 									<rich:datascroller id="ds" renderIfSinglePage="false"></rich:datascroller>

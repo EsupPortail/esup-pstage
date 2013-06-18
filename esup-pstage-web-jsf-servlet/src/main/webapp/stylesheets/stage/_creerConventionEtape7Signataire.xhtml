@@ -51,9 +51,9 @@
 						<h:outputText
 							value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}"
 							escape="false" />
+						<rich:tooltip
+							value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}" />
 					</a4j:commandLink>
-					<rich:tooltip for="passeretape"
-						value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}" />
 				</h:panelGrid>
 				<h:panelGrid
 					rendered="#{!conventionController.saisieTuteurProParEtudiant}">
@@ -69,9 +69,9 @@
 						<h:outputText
 							value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SUIVANTE']}"
 							escape="false" />
+						<rich:tooltip
+							value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
 					</a4j:commandLink>
-					<rich:tooltip for="passeretape2"
-						value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
 				</h:panelGrid>
 				<t:htmlTag value="div" style="height: 20px;" />
 				<rich:popupPanel id="selectSignataire" autosized="true" width="400"
@@ -166,32 +166,32 @@
 								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
 								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
 							<h:outputText value=" #{msgs['OFFRE.SELECTIONCONTACT.MODIFIER']}" />
+							<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+								rendered="#{(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
+								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise 
+								and ((empty conventionController.signataireSel.loginModif and
+								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
+								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
+							<rich:tooltip
+								value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
+								rendered="#{!(sessionController.adminPageAuthorized 
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
+								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise 
+								and ((empty conventionController.signataireSel.loginModif and
+								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
+								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
 						</a4j:commandLink>
-						<rich:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}"
-							rendered="#{(sessionController.adminPageAuthorized 
-								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
-								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
-								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
-								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								and ((empty conventionController.signataireSel.loginModif and
-								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
-								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
-						<rich:tooltip for="modifC"
-							value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
-							rendered="#{!(sessionController.adminPageAuthorized 
-								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
-								or (sessionController.pageAuthorized and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
-								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.signataireSel.id))
-								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								and ((empty conventionController.signataireSel.loginModif and
-								conventionController.signataireSel.loginCreation==sessionController.currentLogin)
-								|| (conventionController.signataireSel.loginModif==sessionController.currentLogin)))))))}" />
 						<h:panelGrid columns="2">
 							<a4j:commandButton
 								action="#{conventionController.goToCreerConventionEtape8Recap}"

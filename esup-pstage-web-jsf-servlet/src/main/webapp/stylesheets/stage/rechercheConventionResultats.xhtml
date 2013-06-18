@@ -172,9 +172,9 @@
 									value="../../media/images/document.png" style="border:0" />
 								<f:setPropertyActionListener value="#{convention}"
 									target="#{conventionController.currentConvention}" />
+								<rich:tooltip
+									value="#{msgs['RECHERCHECONVENTION.DETAILS']}" />
 							</h:commandLink>
-							<rich:tooltip for="recap"
-								value="#{msgs['RECHERCHECONVENTION.DETAILS']}" />
 						</rich:column>
 					</rich:dataTable>
 				</t:div>

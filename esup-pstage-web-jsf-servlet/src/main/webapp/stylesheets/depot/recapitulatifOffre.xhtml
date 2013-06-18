@@ -51,8 +51,8 @@
 										target="#{offreController.retour}" />
 									<f:setPropertyActionListener value="#{1}"
 										target="#{offreController.typeAjoutModifOffre}" />
+									<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 								</h:commandLink>
-								<rich:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
 							</legend>
 							<ui:include src="../_commun/_detailsOffre.xhtml" />
 						</fieldset>
@@ -71,8 +71,8 @@
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{1}"
 											target="#{offreController.typeAjoutModifOffre}" />
+										<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 									</h:commandLink>
-									<rich:tooltip for="modifF" value="#{msgs['FORM.MODIFIER']}" />
 								</legend>
 								<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
 							</fieldset>
@@ -90,8 +90,8 @@
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{1}"
 											target="#{offreController.typeAjoutModifOffre}" />
+										<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 									</h:commandLink>
-									<rich:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
 								</legend>
 								<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
 							</fieldset>
@@ -116,8 +116,8 @@
 								<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
 									value="../../media/images/delete.png" style="border:0" />
 								<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
+								<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 							</a4j:commandLink>
-							<rich:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
 						</h:panelGrid>
 						<h:panelGrid columns="1" style="float:right;">
 							<t:aliasBean alias="#{objet}"

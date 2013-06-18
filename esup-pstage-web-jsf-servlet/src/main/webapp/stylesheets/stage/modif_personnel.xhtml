@@ -115,8 +115,9 @@
 					</t:htmlTag>
 				</h:panelGrid>
 				<h:commandButton id="retour" value="#{msgs['GENERAL.RETOUR']}"
-					action="#{centreController.goToListePersonnel}" immediate="true" />
-				<rich:tooltip for="retour" value="#{msgs['GENERAL.RETOUR']}" />
+					action="#{centreController.goToListePersonnel}" immediate="true">
+					<rich:tooltip value="#{msgs['GENERAL.RETOUR']}" />
+				</h:commandButton>
 			</h:form>
 		</rich:panel>
 		<t:div

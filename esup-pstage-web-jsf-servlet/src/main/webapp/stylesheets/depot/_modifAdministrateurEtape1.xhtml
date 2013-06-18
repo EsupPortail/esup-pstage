@@ -1,11 +1,16 @@
-<ui:include src="../_include.xhtml"/>
-
-<ui:include src="./_formAdministrateur.xhtml"/>
-<a4j:commandButton action="#{adminController.modifierAdministrateur}"
-	value="#{msgs['FORM.MODIFIER']}" ignoreDupResponses="true"
-	render="nomAd, prenomAd, mailAd, loginAd" />
-<rich:spacer width="150px" />
-<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-	onclick="#{rich:component('modifAdministrateur')}.hide();" 
-	action="_modifAdministrateurEtape0"
-	immediate="true"/>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<ui:include src="./_formAdministrateur.xhtml" />
+	<h:panelGrid columns="3" align="center">
+		<a4j:commandButton action="#{adminController.modifierAdministrateur}"
+			value="#{msgs['FORM.MODIFIER']}"
+			render="nomAd, prenomAd, mailAd, loginAd, formModifAdminStructure" />
+		<t:htmlTag value="div" style="width:150px;" />
+		<a4j:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
+			onclick="#{rich:component('modifAdministrateur')}.hide();"/>
+	</h:panelGrid>
+</ui:composition>
