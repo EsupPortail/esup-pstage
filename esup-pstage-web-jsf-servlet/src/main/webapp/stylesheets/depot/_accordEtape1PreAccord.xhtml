@@ -55,7 +55,7 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				validatorMessage="#{requiredMessageController.numeroSiretNonValide}">
 				<f:validator binding="#{numSiretValidator}" />
-				<!-- 							<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+				<!-- 							<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
 				<a4j:ajax event="blur" />
 			</h:inputText>
 			<t:htmlTag value="div" style="width: 10px;" />

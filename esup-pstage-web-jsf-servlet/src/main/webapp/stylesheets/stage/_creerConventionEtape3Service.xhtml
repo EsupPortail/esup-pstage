@@ -44,9 +44,9 @@
 							valueChangeListener="#{etablissementController.valueIdServiceChanged}"
 							rendered="#{not empty etablissementController.listeServices}">
 							<f:selectItems value="#{etablissementController.servicesItems}" />
-							<a4j:support event="onblur" ignoreDupResponses="true"
+							<a4j:ajax event="blur" ignoreDupResponses="true"
 								render="opActionsService" execute="@this" />
-							<a4j:support event="onchange" render="opActionsService"
+							<a4j:ajax event="valueChange" render="opActionsService"
 								ignoreDupResponses="true" execute="@this" />
 						</h:selectOneMenu>
 					</h:panelGrid>
@@ -60,6 +60,8 @@
 							render="ajoutService">
 							<f:setPropertyActionListener value="#{true}"
 								target="#{etablissementController.memeAdresseStructure}" />
+							<f:setPropertyActionListener value="_ajoutServiceEtape1"
+								target="#{sessionController.ajoutServiceCurrentPage}" />
 							<h:graphicImage alt="#{msgs['FORM.CREER']}"
 								value="../../media/images/new.png" style="border:0" />
 							<rich:tooltip value="#{msgs['FORM.CREER']}" />
@@ -94,6 +96,8 @@
 								<f:setPropertyActionListener
 									value="#{etablissementController.serviceSel}"
 									target="#{etablissementController.formService}" />
+								<f:setPropertyActionListener value="_modifServiceEtape0"
+									target="#{sessionController.modifServiceCurrentPage}" />
 								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 									value="../../media/images/edit.png" style="border:0" />
 								<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
@@ -127,8 +131,7 @@
 									target="#{conventionController.convention.service}" />
 								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
 									value="../../media/images/back.png" style="border:0" />
-								<rich:tooltip
-									value="#{msgs['CONVENTION.SELECSERVICE']}" />
+								<rich:tooltip value="#{msgs['CONVENTION.SELECSERVICE']}" />
 							</a4j:commandLink>
 						</rich:column>
 

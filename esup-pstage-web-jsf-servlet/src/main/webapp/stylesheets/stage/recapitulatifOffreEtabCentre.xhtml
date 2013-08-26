@@ -17,8 +17,10 @@
 				<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
 			</t:div>
 			<h:form>
-				<h:panelGrid>
-					<a4j:commandLink execute="@this" id="editoffre"
+<				<!-- erreur jvm outofmemory -->
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
+					<a4j:commandLink ajaxSingle="true" id="editoffre"
 						action="#{offreController.editPdfOffre}">
 						<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 							value="../../media/images/printer.png" style="border:0" />
@@ -26,6 +28,7 @@
 							escape="false" />
 					</a4j:commandLink>
 				</h:panelGrid>
+
 				<t:div rendered="#{not empty offreController.currentOffre}">
 					<t:div
 						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader}">
@@ -33,6 +36,7 @@
 							<fieldset>
 								<legend>
 									<h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']} " />
+
 									<h:commandLink id="modifCentre"
 										rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 										action="#{offreController.goToModificationOffreEtabCentre}"
@@ -53,13 +57,15 @@
 										<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
 											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									</h:commandLink>
+
 								</legend>
 								<h:outputText
 									value="(#{offreController.currentOffre.centreGestion.idCentreGestion}) #{offreController.currentOffre.centreGestion.nomCentre}"
 									rendered="#{not empty offreController.currentOffre.centreGestion}" />
 							</fieldset>
-							<t:htmlTag value="br" />
+
 							<t:htmlTag value="div" style="height: 10px;" />
+
 							<fieldset>
 								<legend>
 									<h:outputText value="#{msgs['OFFRE.GESTION.ETABLISSEMENT']} " />
@@ -86,8 +92,9 @@
 								</legend>
 								<ui:include src="../_commun/_detailsOffreEtab.xhtml" />
 							</fieldset>
-							<t:htmlTag value="br" />
-							<t:htmlTag value="div" style="height: 10px;" />
+
+							<t:htmlTag value="div" style="height: 20px;" />
+
 							<fieldset>
 								<legend>
 									<h:outputText value="#{msgs['OFFRE.GESTION.DETAILS']} " />
@@ -111,11 +118,13 @@
 										<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
 											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									</h:commandLink>
+
 								</legend>
 								<ui:include src="../_commun/_detailsOffre.xhtml" />
 							</fieldset>
-							<t:htmlTag value="br" />
-							<t:htmlTag value="div" style="height: 10px;" />
+
+							<t:htmlTag value="div" style="height: 20px;" />
+
 							<t:div
 								rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
 								<fieldset>
@@ -146,6 +155,7 @@
 									<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
 								</fieldset>
 							</t:div>
+
 							<t:div
 								rendered="#{(!offreController.currentOffre.avecFichier and !offreController.currentOffre.avecLien
 										and offreController.currentOffre.centreGestion.codeConfidentialite==beanUtils.confidentialiteNulle.code)
@@ -173,13 +183,15 @@
 											<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
 												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										</h:commandLink>
+
 									</legend>
 									<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
 								</fieldset>
 							</t:div>
 						</a4j:outputPanel>
-						<t:htmlTag value="br" />
-						<t:htmlTag value="div" style="height: 10px;" />
+
+						<t:htmlTag value="div" style="height: 20px;" />
+
 						<t:div>
 							<fieldset>
 								<legend>
@@ -189,9 +201,12 @@
 							</fieldset>
 						</t:div>
 						<a4j:outputPanel ajaxRendered="true">
-							<h:panelGrid columns="1" style="float:right;"
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="1" style="float:right;"
 								rendered="#{!offreController.currentOffre.estSupprimee}">
-								<a4j:commandLink execute="@this" id="suppr" render="supprOffre"
+
+								<a4j:commandLink ajaxSingle="true" id="suppr"
+									render="supprOffre"
 									oncomplete="#{rich:component('supprOffre')}.show()"
 									rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 									disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
@@ -210,8 +225,10 @@
 										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 								</a4j:commandLink>
 							</h:panelGrid>
-							<h:panelGrid columns="1" style="float:right;">
-								<a4j:commandLink execute="@this" id="transfert"
+
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="1" style="float:right;">
+								<a4j:commandLink ajaxSingle="true" id="transfert"
 									oncomplete="#{rich:component('panelTransfertOffre')}.show()"
 									rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 									disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
@@ -223,12 +240,13 @@
 										style="border:0"
 										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									<h:outputText value=" #{msgs['OFFRE.TRANSFERT']}" />
-									<rich:tooltip
-										value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
+
+									<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
 										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 								</a4j:commandLink>
 							</h:panelGrid>
-							<h:panelGrid columns="1" style="float:right;">
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="1" style="float:right;">
 								<t:aliasBean alias="#{objet}"
 									value="#{offreController.currentOffre}">
 									<ui:include src="../_commun/_updateInfos.xhtml" />
@@ -238,11 +256,14 @@
 					</t:div>
 					<t:div
 						rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader)}">
-						<h:panelGrid align="center">
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" align="center">
 							<h:outputText value="#{offreController.currentOffre.intitule}"
 								style="font-weight:bold;text-transform:uppercase;font-size:24px;" />
 						</h:panelGrid>
-						<h:panelGrid columns="1" style="font-size:12px;width:800px;">
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="1"
+							style="font-size:12px;width:800px;">
 							<t:div
 								rendered="#{!offreController.currentOffre.cacherEtablissement}">
 								<h:outputText
@@ -256,7 +277,8 @@
 					</t:div>
 				</t:div>
 				<t:htmlTag value="div" style="height: 20px;" />
-				<h:panelGrid columns="3">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="3">
 					<h:commandButton
 						value="#{msgs['RECHERCHEOFFRE.RETOURAUXRESULTATS']}"
 						action="resultatsRechercheOffre" />
@@ -266,12 +288,12 @@
 						action="#{offreController.goToRechercheOffreStage}" />
 				</h:panelGrid>
 			</h:form>
-			<ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
-			<ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
-			<ui:include src="../_commun/_panelOffrePourvue.xhtml" />
-			<ui:include src="../_commun/_panelTransfertOffre.xhtml" />
-			<ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
-			<ui:include src="../_commun/_panelSupprOffre.xhtml" />
+			<!-- 			<ui:include src="../_commun/_panelDiffusionOffre.xhtml" /> -->
+			<!-- 			<ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" /> -->
+			<!-- 			<ui:include src="../_commun/_panelOffrePourvue.xhtml" /> -->
+			<!-- 			<ui:include src="../_commun/_panelTransfertOffre.xhtml" /> -->
+			<!-- 			<ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" /> -->
+			<!-- 			<ui:include src="../_commun/_panelSupprOffre.xhtml" /> -->
 		</rich:panel>
 	</ui:define>
 </ui:composition>

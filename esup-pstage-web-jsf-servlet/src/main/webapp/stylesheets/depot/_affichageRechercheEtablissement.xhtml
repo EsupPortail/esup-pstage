@@ -3,81 +3,88 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<t:aliasBean alias="#{structure}"
-			value="#{rechercheController.resultatRechercheStructure}">
-			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
-		</t:aliasBean>
-		<a4j:outputPanel id="opAffAccord" ajaxRendered="true">
-			<rich:toolBar height="26" itemSeparator="none">
-				<ui:include
-					src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
-			</rich:toolBar>
-			<h:panelGrid columns="5"
-				rendered="#{sessionController.adminPageAuthorized and 
+	xmlns:a4j="http://richfaces.org/a4j">
+	<t:aliasBean alias="#{structure}"
+		value="#{rechercheController.resultatRechercheStructure}">
+		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+	</t:aliasBean>
+	<a4j:outputPanel id="opAffAccord" ajaxRendered="true">
+		<rich:toolbar height="26" itemSeparator="none">
+			<ui:include
+				src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+		</rich:toolbar>
+
+		<t:htmlTag value="div" style="height:5px;" />
+
+		<h:panelGrid columns="5" rowClasses="paginatorData-text"
+			columnClasses="paginatorData-text"
+			rendered="#{sessionController.adminPageAuthorized and 
 				not empty rechercheController.ongletCourant 
 				and rechercheController.ongletCourant==6
 				and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">
-				<h:outputText value="#{msgs['ACCORD.DATECREATION']}" escape="false" />
-				<h:outputText
-					value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateCreation}">
-					<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-				</h:outputText>
-				<h:outputText value="#{msgs['ACCORD.DATEVALIDATION']}"
-					escape="false"
-					rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
-				<h:outputText
-					value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateValidation}"
-					rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
-					<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-				</h:outputText>
-				<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
-					rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
-				<h:outputText
-					value="#{rechercheController.resultatRechercheStructure.accordPartenariat.loginValidation}"
-					rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
-			</h:panelGrid>
-			<rich:toolBar height="26" itemSeparator="none"
+			<h:outputText value="#{msgs['ACCORD.DATECREATION']}" escape="false" />
+			<h:outputText
+				value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateCreation}">
+				<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+			</h:outputText>
+			<h:outputText value="#{msgs['ACCORD.DATEVALIDATION']}" escape="false"
+				rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
+			<h:outputText
+				value="#{rechercheController.resultatRechercheStructure.accordPartenariat.dateValidation}"
+				rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+				<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+			</h:outputText>
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
+				rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
+			<h:outputText
+				value="#{rechercheController.resultatRechercheStructure.accordPartenariat.loginValidation}"
+				rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}" />
+		</h:panelGrid>
+
+		<t:htmlTag value="div" style="height:5px;" />
+
+		<rich:toolbar height="26" itemSeparator="none">
+			<h:panelGrid columns="4" rowClasses="paginatorData-text"
+				columnClasses="paginatorData-text"
 				rendered="#{sessionController.adminPageAuthorized
 			and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">
-				<rich:toolBarGroup>
-					<h:commandLink id="validerAccord"
-						action="#{adminController.goToValidationAccord}"
-						rendered="#{not rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
-						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-							alt="#{msgs['FORM.VALIDER']}" title="#{msgs['FORM.VALIDER']}"
-							value="../../media/images/tick.png" style="border:0" />
-						<f:setPropertyActionListener
-							value="#{rechercheController.resultatRechercheStructure}"
-							target="#{adminController.structureAccordAValider}" />
-						<h:outputText value="#{msgs['FORM.VALIDER']}" />
-					</h:commandLink>
-					<h:commandLink id="consulterAccord"
-						action="#{adminController.goToConsulterAccord}"
-						rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
-						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-							alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-							title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-							value="../../media/images/see.png" style="border:0" />
-						<f:setPropertyActionListener
-							value="#{rechercheController.resultatRechercheStructure}"
-							target="#{adminController.structureAccord}" />
-						<h:outputText value="#{msgs['ACCORD.CONSULTATION.BUTTON']}" />
-					</h:commandLink>
-					<a4j:commandLink execute="@this" id="supprimerAccord"
-						oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
-						render="supprimerAccordPanel">
-						<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-							title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-							value="../../media/images/see_block.png" style="border:0" />
-						<h:outputText value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
-						<f:setPropertyActionListener
-							value="#{rechercheController.resultatRechercheStructure}"
-							target="#{adminController.accordASupprimer}" />
-					</a4j:commandLink>
-				</rich:toolBarGroup>
-			</rich:toolBar>
-		</a4j:outputPanel>
-	</ui:define>
+				<h:commandLink id="validerAccord"
+					action="#{adminController.goToValidationAccord}"
+					rendered="#{not rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+					<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
+						title="#{msgs['FORM.VALIDER']}"
+						value="../../media/images/tick.png" style="border:0" />
+					<f:setPropertyActionListener
+						value="#{rechercheController.resultatRechercheStructure}"
+						target="#{adminController.structureAccordAValider}" />
+					<h:outputText value="#{msgs['FORM.VALIDER']}" />
+				</h:commandLink>
+				<h:commandLink id="consulterAccord"
+					action="#{adminController.goToConsulterAccord}"
+					rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
+					<h:graphicImage alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+						title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+						value="../../media/images/see.png" style="border:0" />
+					<f:setPropertyActionListener
+						value="#{rechercheController.resultatRechercheStructure}"
+						target="#{adminController.structureAccord}" />
+					<h:outputText value="#{msgs['ACCORD.CONSULTATION.BUTTON']}" />
+				</h:commandLink>
+				<t:htmlTag value="div" style="width:10px;" />
+				<a4j:commandLink execute="@this" id="supprimerAccord"
+					oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
+					render="supprimerAccordPanel">
+					<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+						title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+						value="../../media/images/see_block.png" style="border:0" />
+					<h:outputText value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
+					<f:setPropertyActionListener
+						value="#{rechercheController.resultatRechercheStructure}"
+						target="#{adminController.accordASupprimer}" />
+					<f:setPropertyActionListener value="_supprAccordEtape1" 
+						target="#{sessionController.suppressionAccordCurrentPage}" />
+				</a4j:commandLink>
+			</h:panelGrid>
+		</rich:toolbar>
+	</a4j:outputPanel>
 </ui:composition>

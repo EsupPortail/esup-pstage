@@ -10,7 +10,7 @@
 		action="_modificationOffreEtape04DetailsEtab"
 		alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
 		immediate="true"
-		rendered="#{offreController.typeAjoutModifOffre>1
+		rendered="#{offreController.typeAjoutModifOffre gt 1
 	and not empty offreController.formOffre.structure}" />
 	<t:htmlTag value="div" style="width: 20px;" />
 	<h:commandButton value="#{msgs['FORM.NEXT']}"

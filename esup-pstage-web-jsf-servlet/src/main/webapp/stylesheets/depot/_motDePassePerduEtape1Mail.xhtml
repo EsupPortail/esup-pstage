@@ -14,7 +14,7 @@
 			validatorMessage="#{requiredMessageController.adresseMailNonValide}"
 			styleClass="text">
 			<f:validator binding="#{mailValidator}" />
-<!-- 			<a4j:ajax event="onkeyup" ignoreDupResponses="true" /> -->
+<!-- 			<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
 			<a4j:ajax event="blur"/>
 		</h:inputText>
 		<rich:message for="mdpoMail">

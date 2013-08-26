@@ -8,14 +8,13 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<ui:include file="_roadmapSel.xhtml" />
+		<ui:include src="_roadmapSel.xhtml" />
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<ui:include
-					file="/stylesheets/stage/_conventionEtape2RechEtab.xhtml" />
+				<ui:include	src="/stylesheets/stage/_conventionEtape2RechEtab.xhtml" />
 			</h:form>
 		</rich:panel>
 	</ui:define>

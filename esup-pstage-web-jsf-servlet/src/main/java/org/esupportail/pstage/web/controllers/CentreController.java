@@ -56,7 +56,7 @@ import org.springframework.util.StringUtils;
 public class CentreController extends AbstractContextAwareController {
 
 	/* ****************************************************************
-	 * Propri�t�s
+	 * Propriétés
 	 ****************************************************************/
 
 	/**
@@ -342,8 +342,8 @@ public class CentreController extends AbstractContextAwareController {
 	public boolean isAjoutPossible() {
 		ajoutPossible = true;
 
-		// Si le centre Etablissement a �t� cr�� ET que le critere de gestion est vide (un seul centre pour g�rer l'etablissement)
-		// On ne peut acceder � l'ajout �tant donn� qu'aucun centre suppl�mentaire ne peut �tre ajout�.
+		// Si le centre Etablissement a été créé ET que le critere de gestion est vide (un seul centre pour gérer l'etablissement)
+		// On ne peut acceder à l'ajout étant donné qu'aucun centre supplémentaire ne peut être ajouté.
 		if (getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())!=null
 				&& (getSessionController().getCritereGestion()).isEmpty()){
 			if (logger.isInfoEnabled()){
@@ -530,50 +530,53 @@ public class CentreController extends AbstractContextAwareController {
 		}else{
 			this.formCentreEntreprise=new CentreGestionDTO();
 		}
+		getSessionController().setModifCentreEntrepriseCurrentPage("_modifCentreEntrepriseEtape1");
 		return "centreEntreprise";
 	}
 
 	/**
-	 * Action de cr�ation du centre entreprise si non existant
-	 * @return String
+	 * Action de création du centre entreprise si non existant
+	 * 
 	 */
-	public String ajouterCentreEntreprise(){
-		String ret=null;
+	public void ajouterCentreEntreprise(){
+//		String ret=null;
+		System.out.println("ajout");
 		if(getCentreEntreprise()==null){
 			if(StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) &&
 					this.formCentreEntreprise.getConfidentialite()!=null){
-				try{
+				try {
 					this.formCentreEntreprise.setCodeConfidentialite(this.formCentreEntreprise.getConfidentialite().getCode());
 					this.formCentreEntreprise.setCodeUniversite("entreprise");
 					this.formCentreEntreprise.setIdNiveauCentre(getBeanUtils().getEntreprise().getId());
 					this.formCentreEntreprise.setLoginCreation(getSessionController().getCurrentLogin());
 					getCentreGestionDomainService().addCentreGestion(this.formCentreEntreprise);
 					addInfoMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
-					ret="_modifCentreEntrepriseEtape1";
-				}catch (DataAddException d) {	
+					getSessionController().setModifCentreEntrepriseCurrentPage("modifCentreEntrepriseEtape1");
+//					ret="_modifCentreEntrepriseEtape1";
+				} catch (DataAddException d) {	
 					logger.error("DataAddException", d.fillInStackTrace());				
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", d.getMessage());
-					return null;
-				}catch (CentreEntrepriseDejaExistantException e) {
+//					return null;
+				} catch (CentreEntrepriseDejaExistantException e) {
 					logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-					return null;
-				}catch (WebServiceDataBaseException e) {
+//					return null;
+				} catch (WebServiceDataBaseException e) {
 					logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-					return null;
+//					return null;
 				}
 			}
 		}
-		return ret;
+//		return ret;
 	}
 
 	/**
 	 * Action de modification du centre entreprise
-	 * @return String
 	 */
-	public String modifierCentreEntreprise(){
-		String ret=null;
+	public void modifierCentreEntreprise(){
+//		String ret=null;
+		System.out.println("test");
 		if(getCentreEntreprise()!=null){
 			if(StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) &&
 					this.formCentreEntreprise.getConfidentialite()!=null){
@@ -583,24 +586,25 @@ public class CentreController extends AbstractContextAwareController {
 					this.formCentreEntreprise.setIdNiveauCentre(getBeanUtils().getEntreprise().getId());
 					this.formCentreEntreprise.setLoginModif(getSessionController().getCurrentLogin());
 					getCentreGestionDomainService().updateCentreGestion(this.formCentreEntreprise);
-					addInfoMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
-					ret="_modifCentreEntrepriseEtape1";
+					getSessionController().setModifCentreEntrepriseCurrentPage("_modifCentreEntrepriseEtape1");
+					addInfoMessage("msgsEts", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
+//					ret="_modifCentreEntrepriseEtape1";
 				} catch (DataAddException d){
 					logger.error("DataAddException", d.fillInStackTrace());				
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE");
-					return null;
+//					return null;
 				} catch (CentreEntrepriseDejaExistantException e) {
 					logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-					return null;
+//					return null;
 				} catch (WebServiceDataBaseException e) {
 					logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-					return null;
+//					return null;
 				}
 			}
 		}
-		return ret;
+//		return "centreEntreprise";
 	}
 
 	/* ****************************************************************************	 * 

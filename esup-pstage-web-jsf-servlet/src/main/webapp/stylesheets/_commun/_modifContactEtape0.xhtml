@@ -6,7 +6,6 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-
 	<h:outputText value="#{msgs['CONTACT.GESTION.MODIF.QUESTION']}"
 		escape="false" />
 	<t:htmlTag value="div" style="height: 20px;" />
@@ -16,12 +15,14 @@
 
 	<t:htmlTag value="div" style="height: 20px;" />
 
-	<a4j:commandButton action="_modifContactEtape1"
-		value="#{msgs['FORM.OUI']}" execute="@this" />
+	<a4j:commandButton value="#{msgs['FORM.OUI']}" execute="@this"
+		render="formModifContact">
+		<f:setPropertyActionListener value="_modifContactEtape1" target="#{sessionController.modifContactCurrentPage}" />
+	</a4j:commandButton>
 
 	<t:htmlTag value="div" style="width: 150px; display: inline;" />
 
-	<a4j:commandButton value="#{msgs['FORM.NON']}"
-		onclick="#{rich:component('modifContact')}.hide();" />
+	<h:commandButton value="#{msgs['FORM.NON']}"
+		onclick="#{rich:component('modifContact')}.hide();"/>
 
 </ui:composition>

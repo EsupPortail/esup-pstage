@@ -47,7 +47,7 @@ import org.springframework.util.StringUtils;
 public class AdminController extends AbstractContextAwareController {
 
 	/* ***************************************************************
-	 * Propri�t�s
+	 * Propriétés
 	 ****************************************************************/
 
 	/**
@@ -218,7 +218,7 @@ public class AdminController extends AbstractContextAwareController {
 		this.keysAdminStructure = new HashSet<Integer>();
 		this.formAdminStructure=new AdminStructureDTO();
 		this.formAdminMdpConfirmation="";
-		getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape1");
+		getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape1");
 		return null;
 	}
 	/**
@@ -246,7 +246,7 @@ public class AdminController extends AbstractContextAwareController {
 							this.formAdminStructure.setEppn(null);
 							getAdminDomainService().addAdminStructure(this.formAdminStructure);
 //							ret="_ajoutAdministrateurEtape2Confirmation";
-							getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+							getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 							ok=true;
 						}else{
 							addErrorMessage("formAdminStructure:mdpAdmin", "ADMINSTRUCTURE.MDP_CONFIRMATION.VALIDATION");
@@ -264,7 +264,7 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setEppn(null);
 						getAdminDomainService().addAdminStructure(this.formAdminStructure);
 //						ret="_ajoutAdministrateurEtape2Confirmation";
-						getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+						getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 						ok=true;
 					}
 					break;
@@ -279,7 +279,7 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setMdp(null);
 						getAdminDomainService().addAdminStructure(this.formAdminStructure);
 //						ret="_ajoutAdministrateurEtape2Confirmation";
-						getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+						getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 						ok=true;
 					}
 					break;
@@ -293,21 +293,21 @@ public class AdminController extends AbstractContextAwareController {
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
 //				ret="_ajoutAdministrateurEtape2Confirmation";
-				getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+				getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 			}catch (WebServiceDataBaseException w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
 //				ret="_ajoutAdministrateurEtape2Confirmation";
-				getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+				getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 			}catch (AdminStructureAccountException aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.fillInStackTrace());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
 //				ret="_ajoutAdministrateurEtape2Confirmation";
-				getSessionController().setCreerAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+				getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
 			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");
@@ -470,7 +470,7 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	public void supprimerAdministrateur(){
 //		String ret="_supprAdministrateurEtape2Confirmation";
-		getSessionController().setSupprimerAdminStructureCurrentPage("_supprAdministrateurEtape2Confirmation");
+		getSessionController().setSuppressionAdminStructureCurrentPage("_supprAdministrateurEtape2Confirmation");
 		if(this.formAdminStructure!=null){
 			try{
 				if(logger.isInfoEnabled()){
@@ -502,7 +502,8 @@ public class AdminController extends AbstractContextAwareController {
 		String ret=null;
 		if(this.structureAccordAValider!=null && this.structureAccordAValider.getAccordPartenariat()!=null){
 			ret="validationAccord";
-			//M�j de liste des statuts juridiques
+			getSessionController().setValidationAccordCurrentPage("_validationAccordEtape1FormulaireAccord");
+			//Màj de liste des statuts juridiques
 			if(this.structureAccordAValider!=null){
 				if(this.structureAccordAValider.getTypeStructure()!=null){
 					this.statutsJuridiquesListening=getStatutsJuridiquesFromIdTypeStructure(
@@ -535,8 +536,8 @@ public class AdminController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */ 
-	public String goToConfirmValidation(){
-		String ret=null;
+	public void goToConfirmValidation(){
+//		String ret=null;
 		if(this.accordPartenariatAValider!=null 
 				&& !this.accordPartenariatAValider.isEstValide()){
 			AccordPartenariatDTO tmp = getStructureDomainService().getAccordFromId(this.accordPartenariatAValider.getIdAccordPartenariat());
@@ -545,7 +546,7 @@ public class AdminController extends AbstractContextAwareController {
 					String login = getSessionController().getCurrentAuthAdminStructure().displayLogin();
 					if(getBeanUtils().isFrance(this.structureAccordAValider.getPays()) && getSessionController().isRecupererCommunesDepuisApogee()){
 						this.structureAccordAValider.setCodeCommune(this.accordAValiderStructureCommuneDTO.getCodeCommune());
-						//R�cup�ration de la commune pour en avoir le libell�
+						//Récupération de la commune pour en avoir le libellé
 						this.accordAValiderStructureCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.structureAccordAValider.getCodePostal(), ""+this.accordAValiderStructureCommuneDTO.getCodeCommune());
 						if(this.accordAValiderStructureCommuneDTO!=null){
 							this.structureAccordAValider.setCommune(this.accordAValiderStructureCommuneDTO.getLibCommune());					
@@ -560,12 +561,12 @@ public class AdminController extends AbstractContextAwareController {
 					if(this.structureAccordAValider.getNafN5()!=null)
 						structureAccordAValider.setCodeNAF_N5(this.structureAccordAValider.getNafN5().getCode());
 					else structureAccordAValider.setCodeNAF_N5(null);
-					//M�j structure
+					// Màj structure
 					this.structureAccordAValider.setLoginModif(login);
 					if(!getStructureDomainService().updateStructure(this.structureAccordAValider)){
 						addErrorMessage(null, "ACCORD.ERREUR_VALIDATION", "updateStructure");
 					}
-					//M�j contact
+					// Màj contact
 					this.contactAccordAValider.setLoginModif(login);
 					if(this.contactAccordAValider.getCivilite()!=null){
 						this.contactAccordAValider.setIdCivilite(this.contactAccordAValider.getCivilite().getId());
@@ -579,7 +580,8 @@ public class AdminController extends AbstractContextAwareController {
 						this.structureAccordAValider.getIdStructure()){
 						getSessionController().setCurrentManageStructure(this.structureAccordAValider);
 					}
-					ret="_validationAccordEtape2Confirm";
+//					ret="_validationAccordEtape2Confirm";
+					getSessionController().setValidationAccordCurrentPage("_validationAccordEtape2Confirm");
 				}catch (DataUpdateException e) {
 					if(logger.isInfoEnabled()){
 						logger.info("DataUpdateException ",e.fillInStackTrace());
@@ -625,7 +627,7 @@ public class AdminController extends AbstractContextAwareController {
 				addErrorMessage(null, "ACCORD.DEJAVALIDE");
 			}
 		}
-		return ret;
+//		return ret;
 	}
 
 	/**
@@ -699,8 +701,8 @@ public class AdminController extends AbstractContextAwareController {
 	 * Validation d'un accord
 	 * @return a String
 	 */
-	public String validationAccord(){
-		String ret=null;
+	public void validationAccord(){
+//		String ret=null;
 		if(this.accordPartenariatAValider!=null 
 				&& !this.accordPartenariatAValider.isEstValide()){
 			AccordPartenariatDTO tmp = getStructureDomainService().getAccordFromId(this.accordPartenariatAValider.getIdAccordPartenariat());
@@ -709,18 +711,18 @@ public class AdminController extends AbstractContextAwareController {
 					String login = getSessionController().getCurrentAuthAdminStructure().displayLogin();
 					if(getBeanUtils().isFrance(this.structureAccordAValider.getPays()) && getSessionController().isRecupererCommunesDepuisApogee()){
 						this.structureAccordAValider.setCodeCommune(this.accordAValiderStructureCommuneDTO.getCodeCommune());
-						//R�cup�ration de la commune pour en avoir le libell�
+						//Récupération de la commune pour en avoir le libellé
 						this.accordAValiderStructureCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.structureAccordAValider.getCodePostal(), ""+this.accordAValiderStructureCommuneDTO.getCodeCommune());
 						if(this.accordAValiderStructureCommuneDTO!=null){
-							this.structureAccordAValider.setCommune(this.accordAValiderStructureCommuneDTO.getLibCommune());					
+							this.structureAccordAValider.setCommune(this.accordAValiderStructureCommuneDTO.getLibCommune());
 						}
 					}
-					//M�j structure
+					//Màj structure
 					/*this.structureAccordAValider.setLoginModif(login);
 					if(!getStructureDomainService().updateStructure(this.structureAccordAValider)){
 						addErrorMessage(null, "ACCORD.ERREUR_VALIDATION", "updateStructure");
 					}*/
-					//M�j contact + g�n�ration login/mdp
+					//Màj contact + génération login/mdp
 					this.contactAccordAValider.setLoginModif(login);
 					this.contactAccordAValider.setLogin(Utils.loginGeneration(this.structureAccordAValider.getRaisonSociale(),
 							""+this.contactAccordAValider.getId()));
@@ -735,7 +737,7 @@ public class AdminController extends AbstractContextAwareController {
 					if(!getStructureDomainService().updateCompteContact(this.contactAccordAValider)){
 						addErrorMessage(null, "ACCORD.ERREUR_VALIDATION", "updateCompteContact");
 					}
-					//M�j accord
+					//Màj accord
 					this.accordPartenariatAValider.setEstValide(true);
 					this.accordPartenariatAValider.setLoginValidation(login);
 					if(!getStructureDomainService().updateAccord(this.accordPartenariatAValider)){
@@ -786,7 +788,8 @@ public class AdminController extends AbstractContextAwareController {
 						}
 						addErrorMessage(null, "MAIL.VALIDATION");
 					}
-					ret="_validationAccordEtape3Confirmation";
+//					ret="_validationAccordEtape3Confirmation";
+					getSessionController().setValidationAccordCurrentPage("_validationAccordEtape3Confirmation");
 					addInfoMessage(null, "ACCORD.VALIDATION.CONFIRMATION", this.structureAccordAValider.getRaisonSociale(), this.contactAccordAValider.getMail());
 					this.structureAccordAValider=null;
 					this.contactAccordAValider=null;
@@ -836,7 +839,7 @@ public class AdminController extends AbstractContextAwareController {
 				addErrorMessage(null, "ACCORD.DEJAVALIDE");
 			}
 		}
-		return ret;
+//		return ret;
 	}
 	
 	/**
@@ -854,10 +857,10 @@ public class AdminController extends AbstractContextAwareController {
 	}
 	
 	/**
-	 * @return String
+	 * 
 	 */
-	public String supprimerAccord(){
-		String ret=null;
+	public void supprimerAccord(){
+//		String ret=null;
 		try{
 			if(this.accordASupprimer!=null && this.accordASupprimer.getAccordPartenariat()!=null
 					&& this.accordASupprimer.getAccordPartenariat().getIdAccordPartenariat()>0){
@@ -892,6 +895,7 @@ public class AdminController extends AbstractContextAwareController {
 			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 			addErrorMessage(null, "ACCORD.SUPPRESSION.ERREUR",this.accordASupprimer.getRaisonSociale());
 		}
+		this.rechercheController.reloadRechercheStructurePaginator();
 		if(this.rechercheController.getListeResultatsRechercheStructure()!=null){
 			this.rechercheController.getListeResultatsRechercheStructure().remove(this.accordASupprimer);
 			this.rechercheController.setResultatRechercheStructure(null);
@@ -900,8 +904,9 @@ public class AdminController extends AbstractContextAwareController {
 			this.rechercheController.setResultatRechercheStructure(null);
 		}
 		this.accordASupprimer=null;
-		ret="_supprAccordEtape2Confirmation";
-		return ret;
+//		ret="_supprAccordEtape2Confirmation";
+		getSessionController().setSuppressionAccordCurrentPage("_supprAccordEtape2Confirmation");
+//		return ret;
 	}
 
 	/* ***************************************************************

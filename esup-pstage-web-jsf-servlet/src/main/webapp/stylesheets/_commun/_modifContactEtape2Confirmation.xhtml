@@ -6,8 +6,9 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		action="_modifContactEtape0"
-		onclick="#{rich:component('modifContact')}.hide();" />
+	<ui:include src="_confirmationMessages.xhtml" />
 
+	<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
+		oncomplete="#{rich:component('modifContact')}.hide();" />
+		
 </ui:composition>

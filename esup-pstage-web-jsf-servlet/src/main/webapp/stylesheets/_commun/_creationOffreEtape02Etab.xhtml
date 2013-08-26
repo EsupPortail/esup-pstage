@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
+	<h:outputStylesheet>
+	        .active-row {
+		        background-color: #F1F1F1 !important;
+		        cursor: pointer;
+	        }
+	 </h:outputStylesheet>
+
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="1">
 		<h:outputText value="#{msgs['OFFRE.TEXT.ETAPE02']}" />
 		<t:htmlTag value="div" style="height: 10px;" />
 	</h:panelGrid>
@@ -15,20 +23,23 @@
 			src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
 		<ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 	</t:div>
-	<h:panelGrid columns="1" id="formResultatsRechEtab">
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="1" id="formResultatsRechEtab">
 		<t:div rendered="#{empty offreController.centreGestionDepotAnonyme}">
-			<h:panelGrid columns="3"
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="3"
 				rendered="#{rechercheController.afficherBoutonAjoutEtab}">
 				<h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}"
 					escape="false" />
-				<h:commandLink id="ajoutEtab"
-					action="#{offreController.goToCreationOffreCreaEtab}">
+				<a4j:commandLink id="ajoutEtab"
+					action="#{offreController.goToCreationOffreCreaEtab}"
+					render="formCreationOffre">
 					<f:setPropertyActionListener value="#{true}"
 						target="#{etablissementController.memeAdresseStructure}" />
 					<h:graphicImage alt="#{msgs['FORM.CREER']}"
 						value="../../media/images/new.png" style="border:0" />
 					<rich:tooltip value="#{msgs['FORM.CREER']}" />
-				</h:commandLink>
+				</a4j:commandLink>
 			</h:panelGrid>
 		</t:div>
 		<t:htmlTag value="div" style="height: 20px;" />
@@ -36,30 +47,18 @@
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
 		<a4j:outputPanel id="opRechercheStructureDataTable">
-
 			<t:div
-				rendered="#{not empty rechercheController.listeResultatsRechercheStructure
-					and not empty rechercheController.rechercheStructurePaginator}">
+				rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
 				<ui:include
 					src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
 				<rich:dataTable id="rechercheStructureDataTable"
 					var="varRechercheStructure"
-					rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
-					value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
-					onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-					border="0" cellspacing="2" cellpadding="2" width="600">
+					value="#{rechercheController.listeResultatsRechercheStructure}"
+					border="0" cellspacing="2" cellpadding="2" styleClass="stable"
+					rows="20">
 					<f:facet name="header">
-						<rich:columnGroup>
-							<ui:include
-								src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
-						</rich:columnGroup>
-					</f:facet>
-					<f:facet name="footer">
-						<h:panelGroup>
-							<ui:include
-								src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" />
-						</h:panelGroup>
+						<ui:include
+							src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
 					</f:facet>
 					<ui:include
 						src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
@@ -76,13 +75,23 @@
 						</h:commandButton>
 					</rich:column>
 				</rich:dataTable>
+				<rich:dataScroller for="rechercheStructureDataTable" maxPages="20"
+					renderIfSinglePage="false" />
+				<rich:jQuery selector=".stable tr" event="mouseover"
+					query="jQuery(this).addClass('active-row')" />
+				<rich:jQuery selector=".stable tr" event="mouseout"
+					query="jQuery(this).removeClass('active-row')" />
 			</t:div>
 		</a4j:outputPanel>
-		<h:panelGrid>
-			<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-				action="_creationOffreEtape01Centre" alt="#{msgs['FORM.PREVIOUS']}"
-				title="#{msgs['FORM.PREVIOUS']}" immediate="true"
-				rendered="#{offreController.typeAjoutModifOffre>2}" />
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
+			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+				immediate="true" rendered="#{offreController.typeAjoutModifOffre gt 2}"
+				render="formCreationOffre">
+				<f:setPropertyActionListener value="_creationOffreEtape01Centre"
+					target="#{sessionController.creationOffreStageCurrentPage}" />
+			</a4j:commandButton>
 		</h:panelGrid>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

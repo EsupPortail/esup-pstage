@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -12,9 +12,9 @@
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHETAB']}" />
 			</f:facet>
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height: 20px;" />
 			<h:outputText value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height: 20px;" />
 			<t:div>
 				<ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
 				<ui:include
@@ -35,7 +35,7 @@
 						<rich:tooltip value="#{msgs['FORM.CREER']}" />
 					</h:commandLink>
 				</t:div>
-				<rich:spacer height="20px" />
+				<t:htmlTag value="div" style="height: 20px;" />
 				<rich:message for="formResultatsRechEtab">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
@@ -53,10 +53,10 @@
 							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 							border="0" cellspacing="2" cellpadding="2" width="600">
 							<f:facet name="header">
-								<rich:columnGroup>
+								<h:panelGroup>
 									<ui:include
 										src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
-								</rich:columnGroup>
+								</h:panelGroup>
 							</f:facet>
 							<f:facet name="footer">
 								<h:panelGroup>
@@ -86,4 +86,4 @@
 			</h:panelGrid>
 		</rich:panel>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

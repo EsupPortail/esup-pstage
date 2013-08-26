@@ -1,40 +1,43 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	
-<rich:popupPanel id="validAvenant" autosized="true" width="600">
-	<f:facet name="header">
-		<h:outputText
-			value="#{msgs['CONVENTION.ETAPE11.VALIDATION.HEAD']}#{avenantController.avenant.idAvenant}" />
-	</f:facet>
-	<rich:panel style="border:none">
-		<h:panelGrid columns="1" align="center">
-			<h:outputText value="#{msgs['CONVENTION.ETAPE11.VALIDATION.INFO']}" />
+
+	<rich:popupPanel id="validAvenant" autosized="true" domElementAttachment="parent">
+		<f:facet name="header">
 			<h:outputText
-				value="#{msgs['CONVENTION.ETAPE11.VALIDATION.AVERTISSEMENT']}" />
+				value="#{msgs['CONVENTION.ETAPE11.VALIDATION.HEAD']}#{avenantController.avenant.idAvenant}" />
+		</f:facet>
+		<rich:panel style="border:none">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="1" align="center">
+				<h:outputText value="#{msgs['CONVENTION.ETAPE11.VALIDATION.INFO']}" />
+				<h:outputText
+					value="#{msgs['CONVENTION.ETAPE11.VALIDATION.AVERTISSEMENT']}" />
+			</h:panelGrid>
+		</rich:panel>
+		<t:htmlTag value="center">
+			<h:outputLabel for="validPanel"
+				value="#{msgs['CONVENTION.ETAPE11.VALIDATION.QUESTION']}" />
+		</t:htmlTag>
+		<t:htmlTag value="div" style="height: 10px;" />
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" align="center" id="validPanel"
+			columns="3">
+			<a4j:commandButton action="#{avenantController.validerAvenant}"
+				value="#{msgs['FORM.OUI']}" render="formDetailsAvenant" />
+			<t:htmlTag value="div" style="width: 30px;" />
+			<h:commandButton value="#{msgs['FORM.NON']}"
+				onclick="#{rich:component('validAvenant')}.hide();return false;" />
 		</h:panelGrid>
-	</rich:panel>
-	<t:htmlTag value="center">
-		<h:outputLabel for="validPanel"
-			value="#{msgs['CONVENTION.ETAPE11.VALIDATION.QUESTION']}" />
-	</t:htmlTag>
-	<t:htmlTag value="div" style="height: 10px;" />
-	<h:panelGrid align="center" id="validPanel" columns="3">
-		<a4j:commandButton action="#{avenantController.validerAvenant}"
-			value="#{msgs['FORM.OUI']}" render="formDetailsAvenant" />
-		<t:htmlTag value="div" style="width: 30px;" />
-		<h:commandButton value="#{msgs['FORM.NON']}"
-			onclick="#{rich:component('validAvenant')}.hide();return false;" />
-	</h:panelGrid>
-	<t:htmlTag value="center">
-		<h:outputText id="erreurValidAvenant" value="" />
-		<rich:message for="erreurValidAvenant">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
-	</t:htmlTag>
-</rich:popupPanel>
-</ui:fragment>
+		<t:htmlTag value="center">
+			<h:outputText id="erreurValidAvenant" value="" />
+			<rich:message for="erreurValidAvenant">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</t:htmlTag>
+	</rich:popupPanel>
+</ui:composition>

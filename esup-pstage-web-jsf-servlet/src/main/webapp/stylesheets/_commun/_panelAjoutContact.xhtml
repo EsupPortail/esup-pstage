@@ -11,8 +11,7 @@
 			<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT']}" />
 		</f:facet>
 		<h:form id="formAjoutContact">
-			<ui:include id="include"
-				src="#{etablissementController.currentPageAjoutContact}" />
+			<ui:include src="/stylesheets/_commun/#{sessionController.ajoutContactCurrentPage}.xhtml" />
 		</h:form>
 	</rich:popupPanel>
 </ui:composition>

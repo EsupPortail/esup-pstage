@@ -24,7 +24,7 @@
 						<f:selectItem itemValue="" />
 						<f:selectItems
 							value="#{offreController.listeItemsCurrentCentresGestion}" />
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur"/>
 					</h:selectOneMenu>
 					<rich:message for="centreGestion">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -40,7 +40,7 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.civilites}" />
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur" />
 					</h:selectOneMenu>
 					<t:panelGroup colspan="2">
 						<rich:message for="civilite">
@@ -54,7 +54,7 @@
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{upperCaseConverter}" />
-					<a4j:ajax event="blur" ignoreDupResponses="true" />
+					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="nom">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -65,7 +65,7 @@
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{premiereLettreMAJConverter}" />
-					<a4j:ajax event="blur" ignoreDupResponses="true" />
+					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="prenom">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -93,7 +93,7 @@
 				<h:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} " />
 				<h:inputText id="telC" size="20" maxlength="20"
 					value="#{etablissementController.formContact.tel}">
-					<a4j:ajax event="blur" ignoreDupResponses="true" />
+					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="telC">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -110,8 +110,8 @@
 					maxlength="50"
 					validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 					<f:validator binding="#{mailValidator}" />
-					<a4j:ajax event="keyup" ignoreDupResponses="true" />
-					<a4j:ajax event="blur" ignoreDupResponses="true" />
+					<a4j:ajax event="keyup"/>
+					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="mailC">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />

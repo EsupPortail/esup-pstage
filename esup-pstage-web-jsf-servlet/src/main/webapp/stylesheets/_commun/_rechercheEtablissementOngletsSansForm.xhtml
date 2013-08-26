@@ -9,11 +9,15 @@
 	<t:div
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant le 1}">
-		<h:panelGrid columns="1">
+
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="1">
+
 			<h:outputText escape="false"
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIRET']}" />
 
-			<h:panelGrid columns="2">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2">
 				<h:inputText id="rechNumeroSiret" size="20" maxlength="14"
 					value="#{rechercheController.rechNumeroSiret}">
 				</h:inputText>
@@ -24,7 +28,8 @@
 			<h:outputText escape="false"
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIREN']}" />
 
-			<h:panelGrid columns="2">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2">
 				<h:inputText id="rechNumeroSiren" size="20" maxlength="9"
 					value="#{rechercheController.rechNumeroSiren}">
 				</h:inputText>
@@ -37,18 +42,21 @@
 	<t:div
 		rendered="#{empty rechercheController.ongletCourant 
 	or rechercheController.ongletCourant==2}">
-		<h:panelGrid columns="1">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="1">
 			<h:outputText
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE']}"
 				escape="false" />
 
-			<h:panelGrid columns="1">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="1">
 				<h:inputText id="rechRaisonSociale" size="50" maxlength="100"
 					value="#{rechercheController.rechRaisonSociale}"
 					style="text-transform:uppercase;">
 					<f:converter binding="#{sansAccentEnMAJConverter}" />
 				</h:inputText>
-				<h:panelGrid columns="2">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="2">
 					<h:outputLabel for="rechDepartement2"
 						value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
 					<h:inputText id="rechDepartement2" size="2" maxlength="2"
@@ -67,9 +75,11 @@
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant==3}">
 
-		<h:panelGrid columns="2">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2">
 			<t:panelGroup colspan="2">
-				<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.ACTIVITE']}"
+				<h:outputText
+					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.ACTIVITE']}"
 					escape="false" />
 			</t:panelGroup>
 			<h:outputLabel for="rechTypeStructure"
@@ -100,11 +110,14 @@
 	<t:div
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant==4}">
-		<h:panelGrid columns="1">
-			<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TELFAX']}"
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="1">
+			<h:outputText
+				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TELFAX']}"
 				escape="false" />
 
-			<h:panelGrid columns="3">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="3">
 				<h:outputLabel for="rechTelephone"
 					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TEL']}" />
 				<h:inputText id="rechTelephone" size="20" maxlength="20"
@@ -115,7 +128,8 @@
 			</h:panelGrid>
 
 
-			<h:panelGrid columns="3">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="3">
 				<h:outputLabel for="rechFax"
 					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}" />
 				<h:inputText id="rechFax" size="20" maxlength="20"
@@ -130,11 +144,15 @@
 	<t:div
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant==7}">
-		<h:panelGrid columns="1">
-			<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.ADRESSE']}"
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="1">
+			<h:outputText
+				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.ADRESSE']}"
 				escape="false" />
-			<h:panelGrid columns="2">
-				<h:panelGrid columns="2">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="2">
 					<h:outputLabel for="rechVoie"
 						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VOIE']}" />
 					<h:inputText id="rechVoie" size="30" maxlength="200"
@@ -151,7 +169,8 @@
 						value="#{rechercheController.critereRechercheStructureAdresse.rechVille}">
 					</h:inputText>
 				</h:panelGrid>
-				<h:panelGrid columns="2">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="2">
 					<h:outputLabel for="rechDeps"
 						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.DEP']}" />
 					<h:inputText id="rechDeps" size="20" maxlength="20"
@@ -174,10 +193,13 @@
 	<t:div
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant==5}">
-		<h:panelGrid columns="1">
-			<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.SERVICE']}"
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="1">
+			<h:outputText
+				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.SERVICE']}"
 				escape="false" />
-			<h:panelGrid columns="2">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2">
 				<h:outputLabel for="rechNomService"
 					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.NOMSERVICE']}" />
 				<h:inputText id="rechNomService" size="30" maxlength="200"

@@ -513,13 +513,16 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 				this.avenant.setValidationAvenant(true);
 				getAvenantDomainService().updateAvenant(this.avenant);
+				System.out.println("Avenant validé !");
 			}catch (DataDeleteException d) {
 				logger.error("DataUpdateException ",d.fillInStackTrace());
 				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d.getMessage());
+				System.out.println("validerAvenant() => return null");
 				return null;
 			}catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
 				addErrorMessage("formDetailsAvenant:erreurValidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
+				System.out.println("validerAvenant() => return null");
 				return null;
 			}
 		}
@@ -540,13 +543,16 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 				this.avenant.setValidationAvenant(false);
 				getAvenantDomainService().updateAvenant(this.avenant);
+				System.out.println("Avenant dévalidé !");
 			}catch (DataDeleteException d) {
 				logger.error("DataUpdateException ",d.fillInStackTrace());
 				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_VALIDATION", d.getMessage());
+				System.out.println("devaliderAvenant() => return null");
 				return null;
 			}catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
 				addErrorMessage("formDetailsAvenant:erreurDevalidAvenant", "CONVENTION.ETAPE11.ERREUR_WS", we.getMessage());
+				System.out.println("devaliderAvenant() => return null");
 				return null;
 			}
 		}

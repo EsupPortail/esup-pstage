@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -44,30 +44,30 @@
 		<rich:column>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.civilite.libelle}" />
-			<rich:spacer height="5" />
+				<t:htmlTag value="div" style="height: 5px;" />
 		</rich:column>
 		<rich:column>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.nom}" />
-			<rich:spacer height="5" />
+			<t:htmlTag value="div" style="height: 5px;" />
 		</rich:column>
 		<rich:column>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.prenom}" />
-			<rich:spacer height="5" />
+			<t:htmlTag value="div" style="height: 5px;" />
 		</rich:column>
 		<rich:column>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.typePersonne}" />
-			<rich:spacer height="5" />
+			<t:htmlTag value="div" style="height: 5px;" />
 		</rich:column>
 		<rich:column>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.codeAffectation} - #{conventionController.convention.enseignant.affectation.libelle}" />
 		</rich:column>
 		<rich:column>
-			<h:panelGrid columns="1">
-				<h:panelGrid columns="2">
+			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 					<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
 						title="#{msgs['CONTACT.TELEPHONE']}"
 						value="../../media/images/phone.png" style="border:0" />
@@ -75,7 +75,7 @@
 						value="#{conventionController.convention.enseignant.tel}" />
 				</h:panelGrid>
 
-				<h:panelGrid columns="2">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 					<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
 						title="#{msgs['CONTACT.MAIL']}"
 						value="../../media/images/email.png" style="border:0" />
@@ -85,8 +85,8 @@
 			</h:panelGrid>
 		</rich:column>
 		<rich:column>
-			<h:panelGrid columns="1">
-				<h:panelGrid columns="2">
+			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 					<h:graphicImage alt="#{msgs['CONVENTION.CAMPUS']}"
 						title="#{msgs['CONVENTION.CAMPUS']}"
 						value="../../media/images/house.png" style="border:0" />
@@ -94,14 +94,14 @@
 						value="#{conventionController.convention.enseignant.campus}" />
 				</h:panelGrid>
 
-				<h:panelGrid columns="2">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 					<h:graphicImage alt="#{msgs['CONVENTION.BATIMENT']}"
 						title="#{msgs['CONVENTION.BATIMENT']}"
 						value="../../media/images/building.png" style="border:0" />
 					<h:outputText id="batimentC"
 						value="#{conventionController.convention.enseignant.batiment}" />
 				</h:panelGrid>
-				<h:panelGrid columns="2">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 					<h:graphicImage alt="#{msgs['CONVENTION.BUREAU']}"
 						title="#{msgs['CONVENTION.BUREAU']}"
 						value="../../media/images/computer.png" style="border:0" />
@@ -111,10 +111,10 @@
 			</h:panelGrid>
 		</rich:column>
 	</rich:dataTable>
-	<h:panelGrid columns="1"
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1"
 		rendered="#{empty conventionController.convention.enseignant}">
 		<h:outputText value="#{msgs['CONVENTION.AUCUNENSEIGNANT']}"
 			escape="false" />
-		<rich:spacer width="50px" />
+		<t:htmlTag value="div" style="width: 50px;" />
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

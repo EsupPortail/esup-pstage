@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -15,8 +13,7 @@
 			</f:facet>
 			<h:form id="formConvention">
 				<a4j:outputPanel id="a4jInclude" ajaxRendered="true">
-					<ui:include id="include"
-						src="/stylesheets/stage/#{conventionController.creerConventionCurrentPage}.xhtml" />
+					<ui:include src="/stylesheets/stage/#{sessionController.creationConventionCurrentPage}.xhtml" />
 				</a4j:outputPanel>
 			</h:form>
 		</rich:panel>

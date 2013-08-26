@@ -1,32 +1,34 @@
-<ui:include src="../_include.xhtml"/>
-
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
-	<t:div>
-		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.xhtml"/>
-		</h:panelGrid>
-		<h:panelGrid columns="1"
-			styleClass="panelEntreprise"
-			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
-			<rich:panel>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['OFFRE.CREATION']}" />
-				</f:facet>
-				<h:form id="formCreationOffre">
-					<a4j:include id="include"
-						viewId="/stylesheets/_commun/_creationOffreEtape1.xhtml" />
-				</h:form>
-				<rich:message for="formCreationOffre">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
-				</rich:message>
-				<ui:include src="../_commun/_panelAjoutService.xhtml"/>
-				<ui:include src="../_commun/_panelModifService.xhtml"/>
-				<ui:include src="../_commun/_panelAjoutContact.xhtml"/>
-				<ui:include src="../_commun/_panelModifContact.xhtml"/>
-			</rich:panel>
-			<ui:include src="_panelNousContacter.xhtml"/>
-		</h:panelGrid>
-		<rich:editor rendered="false"/>
-	</t:div>
-</e:page>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	<ui:define name="content">
+		<t:div>
+			<h:panelGrid style="float:left;">
+				<ui:include src="./_menu.xhtml" />
+			</h:panelGrid>
+			<h:panelGrid columns="1" styleClass="panelEntreprise"
+				rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['OFFRE.CREATION']}" />
+					</f:facet>
+					<h:form id="formCreationOffre">
+						<ui:include id="include"
+							src="/stylesheets/_commun/#{sessionController.creationOffreCurrentPage}.xhtml" />
+					</h:form>
+					<rich:message for="formCreationOffre">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+					<ui:include src="../_commun/_panelAjoutService.xhtml" />
+					<ui:include src="../_commun/_panelModifService.xhtml" />
+					<ui:include src="../_commun/_panelAjoutContact.xhtml" />
+					<ui:include src="../_commun/_panelModifContact.xhtml" />
+				</rich:panel>
+				<ui:include src="_panelNousContacter.xhtml" />
+			</h:panelGrid>
+		</t:div>
+	</ui:define>
+</ui:composition>

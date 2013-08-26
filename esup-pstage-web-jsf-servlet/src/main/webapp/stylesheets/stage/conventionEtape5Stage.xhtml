@@ -13,17 +13,17 @@
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columns="1">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE5.STAGE']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="" />
-					<h:panelGrid columns="1">
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 						<ui:include
 							src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
 					</h:panelGrid>
-					<h:panelGrid columns="1">
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 						<h:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
 							action="#{conventionController.goToConventionModifStage}"
 							alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"

@@ -15,13 +15,13 @@
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columns="1">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE3.SERVICE.INFO']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="" />
-					<h:panelGrid columns="1">
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 						<rich:messages showDetail="true">
 						</rich:messages>
 						<ui:include

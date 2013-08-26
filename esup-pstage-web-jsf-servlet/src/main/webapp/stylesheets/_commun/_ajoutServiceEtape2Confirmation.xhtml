@@ -8,6 +8,6 @@
 
 	<ui:include src="_confirmationMessages.xhtml" />
 	<h:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		action="#{etablissementController.resetCurrentPageAjoutService}"
+		render="formAjoutService"
 		onclick="#{rich:component('ajoutService')}.hide()" />
 </ui:composition>

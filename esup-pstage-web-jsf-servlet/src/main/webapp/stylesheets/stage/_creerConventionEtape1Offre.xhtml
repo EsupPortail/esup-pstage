@@ -16,7 +16,7 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}"
 						validatorMessage="#{requiredMessageController.superieurA0}">
 						<f:validator binding="#{entierValidator}" />
-						<a4j:support event="onblur" ignoreDupResponses="true"
+						<a4j:ajax event="blur" ignoreDupResponses="true"
 							execute="@this" />
 						<f:validateLongRange minimum="1" />
 					</h:inputText>
@@ -84,10 +84,10 @@
 								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 							</h:outputText>
 						</h:column>
-						<a4j:support execute="@this" event="onselect" render="idOffre">
+						<a4j:ajax execute="@this" event="onselect" render="idOffre">
 							<f:setPropertyActionListener value="#{rechOffre.idOffre}"
 								target="#{conventionController.numOffreConvention}" />
-						</a4j:support>
+						</a4j:ajax>
 					</rich:suggestionbox>
 				</a4j:region>
 				<h:outputText value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.MINIMUM']}"

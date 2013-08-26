@@ -6,28 +6,29 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+	</f:facet>
+	<title><h:outputText value="#{applicationService.name}" /></title>
+	<link rel="stylesheet" type="text/css"
+		href="../../media/style/skins/universality/etab/etab.css" />
+	<link rel="stylesheet" type="text/css"
+		href="../../media/style/spacer.css" />
+	<script type="text/javascript" language="Javascript"
+		src="../../media/js/functions.js" />
+</h:head>
 <f:view locale="fr">
-	<h:head>
-		<f:facet name="first">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
-			<title><h:outputText value="#{applicationService.name}" /></title>
-		</f:facet>
-		<link rel="stylesheet" type="text/css"
-			href="../../media/style/skins/universality/etab/etab.css" />
-		<link rel="stylesheet" type="text/css"
-			href="../../media/style/spacer.css" />
-		<script type="text/javascript" language="Javascript"
-			src="../../media/js/functions.js" />
-	</h:head>
 	<h:body styleClass="fl-theme-app">
 		<t:div id="body" styleClass="app-body fl-col-flex2">
 			<t:div id="content" styleClass="app-content fl-col-flex85">
 				<ui:insert name="content" />
 			</t:div>
 		</t:div>
+		<a4j:log />
 	</h:body>
 </f:view>
 </html>

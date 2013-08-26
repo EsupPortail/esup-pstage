@@ -28,14 +28,14 @@
 							render="opUploadImage,panelUpload"
 							action="#{centreController.insertLogo}" execute="@this" />
 					</rich:fileUpload>
-					<h:outputText value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
+					<h:outputFormat value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
 						style="font-size:10px;">
 						<f:param value="#{sessionController.uploadImagesFileSizeLimit}" />
-					</h:outputText>
-					<h:outputText value="#{msgs['OFFRE.EXTENSIONFICHIER']}"
+					</h:outputFormat>
+					<h:outputFormat value="#{msgs['OFFRE.EXTENSIONFICHIER']}"
 						style="font-size:10px;">
 						<f:param value="#{sessionController.uploadImagesFileExtensions}" />
-					</h:outputText>
+					</h:outputFormat>
 					<rich:message for="uploadImage">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>

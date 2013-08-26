@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -14,9 +14,9 @@
 			<ui:include src="../_commun/_messageInfoMarker.xhtml" />
 		</rich:message>
 	</t:div>
-	<h:panelGrid columns="1">
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 		<t:htmlTag value="div" style="height: 20px;" />
-		<h:panelGrid columns="4">
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="4">
 			<h:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
 			<h:inputText id="nom" size="50" maxlength="30"
 				style="text-transform:uppercase;"
@@ -59,4 +59,4 @@
 			</rich:message>
 		</h:panelGrid>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

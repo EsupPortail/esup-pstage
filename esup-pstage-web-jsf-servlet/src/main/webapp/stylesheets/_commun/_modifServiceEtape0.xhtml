@@ -6,24 +6,22 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
+	<h:outputText value="#{msgs['SERVICE.MODIF.QUESTION']}" escape="false" />
+	<t:htmlTag value="div" style="height:20px;" />
 
-	
-		<h:outputText value="#{msgs['SERVICE.MODIF.QUESTION']}" escape="false" />
-		<t:htmlTag value="div" style="height: 20px;" />
+<!-- 	<rich:dataTable value="#{etablissementController.serviceSel}"> -->
+<!-- 		<ui:include src="../_commun/_serviceColumns.xhtml" /> -->
+<!-- 	</rich:dataTable> -->
 
-		<rich:dataTable value="#{etablissementController.serviceSel}">
-			<ui:include src="../_commun/_serviceColumns.xhtml" />
-		</rich:dataTable>
+	<t:htmlTag value="div" style="height:20px;" />
 
-		<t:htmlTag value="div" style="height: 20px;" />
+	<a4j:commandButton action="#{etablissementController.modifService}"
+		value="#{msgs['FORM.OUI']}" render="formModifService" />
 
-		<a4j:commandButton action="#{etablissementController.modifService}"
-			value="#{msgs['FORM.OUI']}" render="formModifService" />
+	<t:htmlTag value="div" style="margin:150px; display: inline;" />
 
-		<t:htmlTag value="div" style="margin: 150px; display: inline;" />
-
-		<h:commandButton value="#{msgs['FORM.NON']}"
-			action="#{etablissementController.resetCurrentPageModifService}"
-			onclick="#{rich:component('modifService')}.hide();" />
+	<a4j:commandButton value="#{msgs['FORM.NON']}"
+		execute="@this"
+		onclick="#{rich:component('modifService')}.hide();" />
 
 </ui:composition>

@@ -144,17 +144,18 @@
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 		</h:panelGrid>
-		<h:panelGrid columns="4"
-			rendered="#{!etablissementController.codeNafObligatoire ||
-		(accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance)}">
-
-			<t:htmlTag value="div" style="width:20px;" />
-			<h:graphicImage value="../../media/images/arrow_turn_up_and_down.png"
-				alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
-				title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
-			<t:htmlTag value="div" style="width:5px;" />
-			<h:outputText value="#{msgs['STRUCTURE.CODE_NAF.OBLIGATOIRE']}" />
-		</h:panelGrid>
+		<t:div id="arrows">
+			<h:panelGrid columns="4"
+				rendered="#{!etablissementController.codeNafObligatoire ||
+			(accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance)}">
+				<t:htmlTag value="div" style="width:20px;" />
+				<h:graphicImage value="../../media/images/arrow_turn_up_and_down.png"
+					alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
+					title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
+				<t:htmlTag value="div" style="width:5px;" />
+				<h:outputText value="#{msgs['STRUCTURE.CODE_NAF.OBLIGATOIRE']}" />
+			</h:panelGrid>
+		</t:div>
 		<h:panelGrid columns="2" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text">
 			<h:outputLabel value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"

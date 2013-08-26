@@ -36,11 +36,9 @@
 								rendered="#{not empty etablissementController.listeServices}">
 								<f:selectItems value="#{etablissementController.servicesItems}" />
 								<a4j:ajax event="blur"
-									render="opContactsDataTable, opActionsService"
-									execute="@this" />
+									render="opContactsDataTable, opActionsService" />
 								<a4j:ajax event="valueChange"
-									render="opContactsDataTable, opActionsService"
-									execute="@this" />
+									render="opContactsDataTable, opActionsService" />
 							</h:selectOneMenu>
 						</h:panelGrid>
 						<h:panelGrid columnClasses="paginatorData-text"
@@ -54,6 +52,8 @@
 								render="ajoutService">
 								<f:setPropertyActionListener value="#{true}"
 									target="#{etablissementController.memeAdresseStructure}" />
+								<f:setPropertyActionListener value="_ajoutServiceEtape1"
+									target="#{sessionController.ajoutServiceCurrentPage}" />
 								<h:graphicImage alt="#{msgs['FORM.CREER']}"
 									value="../../media/images/new.png" style="border:0" />
 								<rich:tooltip value="#{msgs['FORM.CREER']}" />
@@ -82,6 +82,8 @@
 									<f:setPropertyActionListener
 										value="#{etablissementController.serviceSel}"
 										target="#{etablissementController.formService}" />
+									<f:setPropertyActionListener value="_modifServiceEtape0"
+										target="#{sessionController.modifServiceCurrentPage}" />
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 										value="../../media/images/edit.png" style="border:0" />
 									<rich:tooltip>
@@ -90,14 +92,16 @@
 											<t:htmlTag value="em">
 												<h:outputText value="#{msgs['FORM.MODIFIER']}" />
 											</t:htmlTag>
-											<t:div
+											<!-- <t:div -->
+											<t:htmlTag value="div"
 												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-												<t:htmlTag value="br" />
+												<!-- 												<t:htmlTag value="br" /> -->
 												<t:aliasBean alias="#{objet}"
 													value="#{etablissementController.serviceSel}">
 													<ui:include src="../_commun/_updateInfos.xhtml" />
 												</t:aliasBean>
-											</t:div>
+											</t:htmlTag>
+											<!-- </t:div> -->
 										</h:panelGrid>
 									</rich:tooltip>
 								</a4j:commandLink>
@@ -158,6 +162,8 @@
 									value="../../media/images/new.png" style="border:0" />
 								<f:setPropertyActionListener value="#{true}"
 									target="#{etablissementController.afficherSelectionCentreContact}" />
+								<f:setPropertyActionListener value="_ajoutContactEtape1"
+									target="#{sessionController.ajoutContactCurrentPage}" />
 								<rich:tooltip value="#{msgs['FORM.CREER']}" />
 							</a4j:commandLink>
 						</h:panelGrid>
@@ -268,20 +274,26 @@
 									<f:setPropertyActionListener
 										value="#{etablissementController.currentCentresGestionContainsCentreContact}"
 										target="#{etablissementController.afficherSelectionCentreContact}" />
+									<f:setPropertyActionListener value="_modifContactEtape0"
+										target="#{sessionController.modifContactCurrentPage}" />
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 										value="../../media/images/edit.png" style="border:0" />
 
 									<rich:tooltip>
 										<h:panelGrid columnClasses="paginatorData-text"
 											rowClasses="paginatorData-text" columns="1">
-											<em><h:outputText value="#{msgs['FORM.MODIFIER']}" /></em>
-											<t:div
+											<t:htmlTag value="em">
+												<h:outputText value="#{msgs['FORM.MODIFIER']}" />
+											</t:htmlTag>
+											<!-- 											<t:div -->
+											<t:htmlTag value="div"
 												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 												<t:htmlTag value="br" />
 												<t:aliasBean alias="#{objet}" value="#{contact}">
 													<ui:include src="../_commun/_updateInfos.xhtml" />
 												</t:aliasBean>
-											</t:div>
+											</t:htmlTag>
+											<!-- 											</t:div> -->
 										</h:panelGrid>
 									</rich:tooltip>
 
@@ -296,17 +308,18 @@
 									render="supprContact">
 									<f:setPropertyActionListener value="#{contact}"
 										target="#{etablissementController.formContact}" />
+									<f:setPropertyActionListener value="_supprContactEtape1"
+										target="#{sessionController.suppressionContactCurrentPage}" />
 									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 										value="../../media/images/delete.png" style="border:0" />
-										<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 								</a4j:commandLink>
 							</rich:column>
-							
+
 							<rich:column
 								rendered="#{(not empty contact.login and not empty contact.mdp)
 										and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
-								<a4j:commandLink execute="@this" id="modifBlock"
-									disabled="true">
+								<a4j:commandLink execute="@this" id="modifBlock" disabled="true">
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 										value="../../media/images/edit_block.png" style="border:0" />
 									<rich:tooltip
@@ -334,7 +347,7 @@
 			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
 			<ui:include src="../_commun/_panelModifContact.xhtml" />
 			<ui:include src="../_commun/_panelSupprContact.xhtml" />
-
+			<a4j:log />
 		</rich:panel>
 	</ui:define>
 </ui:composition>

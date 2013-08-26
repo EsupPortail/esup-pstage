@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -16,18 +16,17 @@
 		<rich:message for="erreurConventionValidation">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
-		<h:panelGrid columns="1">
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 			<rich:messages showDetail="true" />
 
 			<h:outputText value="#{msgs['CONVENTION.VALIDATION.INFO']}" />
-			<rich:spacer height="5" />
+			<t:htmlTag value="div" style="height: 5px;" />
 			<h:outputText
 				value="#{msgs['CONVENTION.NUMEROCONVENTION']} : #{conventionController.convention.idConvention}, 
 					#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}   
 					#{conventionController.convention.etudiant.prenom}" />
 
-			<rich:spacer height="5"
-				rendered="#{!conventionController.convention.validationConvention}" />
+			<t:htmlTag value="div" style="height: 5px;"	rendered="#{!conventionController.convention.validationConvention}" />
 			<h:panelGrid
 				rendered="#{!conventionController.convention.validationConvention}">
 				<h:outputText value="#{msgs['CONVENTION.VALIDATION.NONVALIDE']}"
@@ -41,8 +40,7 @@
 				</h:column>
 			</h:panelGrid>
 
-			<rich:spacer height="5"
-				rendered="#{conventionController.convention.validationConvention}" />
+			<t:htmlTag value="div" style="height: 5px;"	rendered="#{conventionController.convention.validationConvention}" />
 			<h:panelGrid
 				rendered="#{conventionController.convention.validationConvention}">
 				<h:column>
@@ -54,11 +52,11 @@
 				</h:column>
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columns="1"
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1"
 			rendered="#{welcomeController.superAdmin 
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-			<h:panelGrid columns="2">
+			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 				<a4j:commandButton execute="@this"
 					oncomplete="#{rich:component('demandeConfirmValidConvention')}.show()"
 					value="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
@@ -71,41 +69,39 @@
 					alt="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
 					rendered="#{conventionController.convention.validationConvention}" />
 			</h:panelGrid>
-			<rich:modalPanel id="demandeConfirmValidConvention" autosized="true"
-				width="400" styleClass="panel" domElementAttachment="parent">
+			<rich:popupPanel id="demandeConfirmValidConvention" autosized="true"
+				styleClass="panel" domElementAttachment="parent">
 				<f:facet name="header">
 					<h:outputText value="#{msgs['CONVENTION.VALIDATION.DEMANDE']}" />
 				</f:facet>
-				<rich:spacer height="10" />
+				<t:htmlTag value="div" style="height: 10px;" />
 				<t:htmlTag value="center">
 					<a4j:commandButton value="#{msgs['FORM.OUI']}"
 						oncomplete="#{rich:component('demandeConfirmValidConvention')}.hide();"
 						ignoreDupResponses="true"
 						action="#{conventionController.goToConventionValidation}" />
-					<rich:spacer width="100px" />
+					<t:htmlTag value="div" style="margin: 100px; display: inline;" />
 					<h:commandButton value="#{msgs['FORM.NON']}"
 						onclick="#{rich:component('demandeConfirmValidConvention')}.hide();return false;" />
 				</t:htmlTag>
-				<rich:spacer height="10" />
-			</rich:modalPanel>
-			<rich:modalPanel id="demandeConfirmInValidConvention"
-				autosized="true" width="400" styleClass="panel"
+				<t:htmlTag value="div" style="height: 10px;" />
+			</rich:popupPanel>
+			<rich:popupPanel id="demandeConfirmInValidConvention"
+				autosized="true" styleClass="panel"
 				domElementAttachment="parent">
 				<f:facet name="header">
 					<h:outputText value="#{msgs['CONVENTION.INVALIDATION.DEMANDE']}" />
 				</f:facet>
-				<rich:spacer height="10" />
+				<t:htmlTag value="div" style="height: 10px;" />
 				<t:htmlTag value="center">
 					<a4j:commandButton value="#{msgs['FORM.OUI']}"
 						oncomplete="#{rich:component('demandeConfirmInValidConvention')}.hide();"
-						ignoreDupResponses="true"
 						action="#{conventionController.goToConventionInValidation}" />
-					<rich:spacer width="100px" />
+					<t:htmlTag value="div" style="margin: 100px; display: inline;" />
 					<h:commandButton value="#{msgs['FORM.NON']}"
 						onclick="#{rich:component('demandeConfirmInValidConvention')}.hide();return false;" />
 				</t:htmlTag>
-			</rich:modalPanel>
+			</rich:popupPanel>
 		</h:panelGrid>
 	</fieldset>
-
-</ui:fragment>
+</ui:composition>

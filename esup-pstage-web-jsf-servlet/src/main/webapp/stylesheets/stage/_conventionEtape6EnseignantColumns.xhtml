@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -35,22 +35,22 @@
 	</f:facet>
 	<rich:column>
 		<h:outputText value="#{enseignant.civilite.libelle}" />
-		<rich:spacer height="5" />
+		<t:htmlTag value="div" style="height: 5px;" />
 	</rich:column>
 	<rich:column>
 		<h:outputText value="#{enseignant.nom}" />
-		<rich:spacer height="5" />
+		<t:htmlTag value="div" style="height: 5px;" />
 	</rich:column>
 	<rich:column>
 		<h:outputText value="#{enseignant.prenom}" />
-		<rich:spacer height="5" />
+		<t:htmlTag value="div" style="height: 5px;" />
 	</rich:column>
 	<rich:column>
 		<h:outputText value="#{enseignant.mail}" />
-		<rich:spacer height="5" />
+		<t:htmlTag value="div" style="height: 5px;" />
 	</rich:column>
 	<rich:column>
 		<h:outputText
 			value="#{enseignant.codeAffectation} - #{enseignant.affectation.libelle}" />
 	</rich:column>
-</ui:fragment>
+</ui:composition>

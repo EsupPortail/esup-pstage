@@ -10,9 +10,10 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONTACT.GESTION.MODIF']}" />
 		</f:facet>
-		<h:form id="formModifContact">
-			<ui:include id="include"
-				src="/stylesheets/_commun/_modifContactEtape0.xhtml" />
-		</h:form>
+		<a4j:outputPanel ajaxRendered="true">
+			<h:form id="formModifContact">
+				<ui:include	src="/stylesheets/_commun/#{sessionController.modifContactCurrentPage}.xhtml" />
+			</h:form>
+		</a4j:outputPanel>
 	</rich:popupPanel>
 </ui:composition>

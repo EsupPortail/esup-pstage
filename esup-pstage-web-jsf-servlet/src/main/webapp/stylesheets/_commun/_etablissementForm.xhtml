@@ -42,7 +42,7 @@
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:selectItem itemValue="" />
 					<f:selectItems value="#{nomenclatureController.effectifs}" />
-					<a4j:ajax event="blur" />
+					<a4j:ajax event="valueChange" />
 				</h:selectOneMenu>
 				<rich:message for="effectif">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -75,13 +75,12 @@
 						validatorMessage="#{requiredMessageController.numeroSiretNonValide}"
 						readonly="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
 						<f:validator binding="#{numSiretValidator}" />
-						<a4j:ajax event="keyup" />
 						<a4j:ajax event="blur" />
 					</h:inputText>
 					<rich:message for="siret">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					<a4j:region id="rNCSiret">
+<!-- 					<a4j:region id="rNCSiret"> -->
 						<a4j:commandButton
 							action="#{welcomeController.nousContacterModifSiret}"
 							rendered="#{sessionController.pageAuthorized and sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure and
@@ -89,7 +88,7 @@
 							value="#{msgs['STRUCTURE.DEMANDE_MODIFSIRET']}"
 							oncomplete="#{rich:component('nousContacter')}.show()"
 							render="nousContacter" />
-					</a4j:region>
+<!-- 					</a4j:region> -->
 					<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}"
 						escape="false" />
 					<a4j:outputPanel id="opSiretOblig">
@@ -105,7 +104,7 @@
 						</t:panelGroup>
 					</a4j:outputPanel>
 				</h:panelGrid>
-				<a4j:region>
+<!-- 				<a4j:region> -->
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="1">
 						<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
@@ -149,7 +148,7 @@
 							</h:panelGrid>
 						</a4j:outputPanel>
 					</h:panelGrid>
-				</a4j:region>
+<!-- 				</a4j:region> -->
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columnClasses="paginatorData-text"
@@ -169,20 +168,19 @@
 					size="20" maxlength="6">
 					<f:validator binding="#{codeNAFValidator}" />
 					<f:converter binding="#{codNafN5Converter}" />
-					<a4j:ajax event="keyup" />
-					<a4j:ajax event="blur" />
-					<a4j:ajax event="keyup" render="opLibelleAPE" />
 					<a4j:ajax event="blur" render="opLibelleAPE" />
 				</h:inputText>
 				<t:htmlTag value="div" style="width: 20px;" />
 				<a4j:outputPanel id="opLibelleAPE">
-					<h:graphicImage
-						rendered="#{!empty etablissementController.formStructureTmpNafN5.libelle}"
-						value="../../media/images/tick.png" alt="Validé" title="Validé" />
-					<t:htmlTag value="div" style="width: 10px;" />
-					<h:outputText
-						rendered="#{!empty etablissementController.formStructureTmpNafN5.libelle}"
-						value="#{etablissementController.formStructureTmpNafN5.libelle}" />
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="2">
+						<h:graphicImage
+							rendered="#{!empty etablissementController.formStructureTmpNafN5.libelle}"
+							value="../../media/images/tick.png" alt="Valide" title="Valide" />
+						<h:outputText
+							rendered="#{!empty etablissementController.formStructureTmpNafN5.libelle}"
+							value="#{etablissementController.formStructureTmpNafN5.libelle}" />
+					</h:panelGrid>
 				</a4j:outputPanel>
 			</h:panelGrid>
 			<rich:message for="ape">
@@ -271,7 +269,7 @@
 			</h:panelGrid>
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="1">
-				<a4j:region>
+<!-- 				<a4j:region> -->
 					<a4j:outputPanel id="opCodePostal">
 						<h:panelGrid columnClasses="paginatorData-text"
 							rowClasses="paginatorData-text" columns="1"
@@ -302,7 +300,7 @@
 							rowClasses="paginatorData-text" columns="1"
 							rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
-							<a4j:region id="dynaR">
+<!-- 							<a4j:region id="dynaR"> -->
 								<h:panelGrid columnClasses="paginatorData-text"
 									rowClasses="paginatorData-text" columns="1">
 									<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
@@ -315,10 +313,10 @@
 										valueChangeListener="#{etablissementController.valueCodePostalChanged}">
 										<f:validator binding="#{codePostalValidator}" />
 										<a4j:ajax event="valueChange" render="opDynaCommune"
-											execute="@this" requestDelay="1000" />
+											execute="@this" />
 									</h:inputText>
 								</h:panelGrid>
-							</a4j:region>
+<!-- 							</a4j:region> -->
 							<rich:message for="dynaCodePostal">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 							</rich:message>
@@ -354,25 +352,23 @@
 									<f:selectItem itemValue="" />
 									<f:selectItems
 										value="#{etablissementController.communesListening}" />
-									<a4j:ajax event="change" />
-									<a4j:ajax event="keyup" />
-									<a4j:ajax event="blur" />
+									<a4j:ajax event="valueChange" />
 								</h:selectOneMenu>
 								<rich:message for="dynaCommune">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 								</rich:message>
 							</a4j:outputPanel>
-							<a4j:status for="dynaR">
-								<f:facet name="start">
-									<h:graphicImage value="../../media/images/ajax_process.gif" />
-								</f:facet>
-							</a4j:status>
+<!-- 							<a4j:status for="dynaR"> -->
+<!-- 								<f:facet name="start"> -->
+<!-- 									<h:graphicImage value="../../media/images/ajax_process.gif" /> -->
+<!-- 								</f:facet> -->
+<!-- 							</a4j:status> -->
 						</h:panelGrid>
 					</a4j:outputPanel>
-					<h:panelGrid columnClasses="paginatorData-text"
+					<t:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="1">
 						<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="paysNC" />
-						<t:panelGroup colspan="3">
+						<h:panelGrid columns="3">
 							<a4j:outputPanel id="opFlagNC">
 								<t:htmlTag value="div" style="width: 16px;"
 									rendered="#{empty etablissementController.formStructureTmpPays}" />
@@ -382,7 +378,7 @@
 									alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 									title="#{etablissementController.formStructureTmpPays.libelle}" />
 							</a4j:outputPanel>
-							<t:htmlTag value="div" style="width: 10px;" />
+							<t:htmlTag value="div" style="width:5px;" />
 							<h:selectOneMenu id="paysNC" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}"
 								value="#{etablissementController.formStructureTmpPays}"
@@ -393,12 +389,12 @@
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.pays}" />
 							</h:selectOneMenu>
-						</t:panelGroup>
+						</h:panelGrid>
 						<rich:message for="paysNC">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
-					</h:panelGrid>
-				</a4j:region>
+					</t:panelGrid>
+<!-- 				</a4j:region> -->
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columnClasses="paginatorData-text"

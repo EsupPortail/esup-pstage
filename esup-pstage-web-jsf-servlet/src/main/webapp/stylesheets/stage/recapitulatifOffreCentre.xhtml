@@ -43,12 +43,12 @@
 										<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
 											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									</h:commandLink>
+
 								</legend>
 								<h:outputText
 									value="(#{offreController.currentOffre.centreGestion.idCentreGestion}) #{offreController.currentOffre.centreGestion.nomCentre}"
 									rendered="#{not empty offreController.currentOffre.centreGestion}" />
 							</fieldset>
-							<t:htmlTag value="br" />
 							<t:htmlTag value="div" style="height: 10px;" />
 							<fieldset>
 								<legend>
@@ -73,10 +73,13 @@
 											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									</h:commandLink>
 								</legend>
+
 								<ui:include src="../_commun/_detailsOffre.xhtml" />
+
 							</fieldset>
-							<t:htmlTag value="br" />
+
 							<t:htmlTag value="div" style="height: 10px;" />
+
 							<t:div
 								rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
 								<fieldset>
@@ -133,12 +136,13 @@
 											<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
 												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										</h:commandLink>
+
 									</legend>
 									<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
 								</fieldset>
 							</t:div>
 						</a4j:outputPanel>
-						<t:htmlTag value="br" />
+
 						<t:htmlTag value="div" style="height: 10px;" />
 						<t:div>
 							<fieldset>
@@ -169,6 +173,7 @@
 									<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
 										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 								</a4j:commandLink>
+
 							</h:panelGrid>
 							<h:panelGrid columns="1" style="float:right;">
 								<a4j:commandLink execute="@this" id="transfert"

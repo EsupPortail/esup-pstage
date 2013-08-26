@@ -22,11 +22,11 @@
 		</h:column>
 		<h:column>
 			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
-				<h:outputText value="#{msgs['STRUCTURE.SUPPRESSION.QUESTION']}"
+				<h:outputFormat value="#{msgs['STRUCTURE.SUPPRESSION.QUESTION']}"
 					escape="false">
 					<f:param
 						value="#{etablissementController.formStructure.raisonSociale}" />
-				</h:outputText>
+				</h:outputFormat>
 			</h:panelGrid>
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="3">

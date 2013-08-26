@@ -17,6 +17,7 @@
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form id="formModifCentre">
+			<a4j:queue ignoreDupResponses="true" />
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1" align="center">
 					<h:outputText value="#{msgs['CENTRE.AJOUT_CENTRE.ACCUEIL']}" />
@@ -29,7 +30,7 @@
 							maxlength="100" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:converter binding="#{sansAccentEnMAJConverter}" />
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							
 						</h:inputText>
 						<rich:message for="nomCentre">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -45,7 +46,7 @@
 							<h:inputText id="voie" value="#{centreController.centre.voie}"
 								size="50" maxlength="200" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								
 							</h:inputText>
 							<rich:message for="voie">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -76,7 +77,7 @@
 									value="#{centreController.centre.codePostal}" size="20"
 									maxlength="10" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}">
-									<a4j:ajax event="blur" ignoreDupResponses="true" />
+									
 								</h:inputText>
 								<rich:message for="codePostal">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -88,7 +89,7 @@
 								value="#{centreController.centre.commune}" size="50"
 								maxlength="200" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								
 							</h:inputText>
 							<rich:message for="commune">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -111,8 +112,7 @@
 								validatorMessage="#{requiredMessageController.adresseMailNonValide}"
 								maxlength="50">
 								<f:validator binding="#{mailValidator}" />
-								<a4j:ajax event="keyup" ignoreDupResponses="true" />
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								
 							</h:inputText>
 							<rich:message for="mail">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -128,8 +128,7 @@
 								validatorMessage="#{requiredMessageController.siteWebNonValide}"
 								maxlength="200">
 								<f:validator binding="#{siteWebValidator}" />
-								<a4j:ajax event="keyup" ignoreDupResponses="true" />
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								
 							</h:inputText>
 							<rich:message for="siteWeb">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -153,7 +152,7 @@
 									value="#{centreController.centre.telephone}" size="20"
 									maxlength="20" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}">
-									<a4j:ajax event="blur" ignoreDupResponses="true" />
+									
 								</h:inputText>
 								<rich:message for="telephone">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -187,7 +186,7 @@
 								validatorMessage="#{requiredMessageController.siteWebNonValide}"
 								maxlength="200">
 								<f:validator binding="#{siteWebValidator}" />
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								
 							</h:inputText>
 							<rich:message for="pageInstruction">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -242,7 +241,7 @@
 								converter="#{niveauCentreConverter}"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
 								<f:selectItems value="#{centreController.niveauxCentre}" />
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								
 							</h:selectOneMenu>
 							<rich:message for="critereGestion">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -263,7 +262,7 @@
 									required="true" converter="#{confidentialiteConverter}"
 									requiredMessage="#{requiredMessageController.champObligatoire}">
 									<f:selectItems value="#{centreController.confidentialites}" />
-									<a4j:ajax event="blur" ignoreDupResponses="true" />
+									
 								</h:selectOneMenu>
 								<rich:message for="confidentialite">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />

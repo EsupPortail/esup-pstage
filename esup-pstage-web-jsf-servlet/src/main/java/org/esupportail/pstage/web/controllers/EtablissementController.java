@@ -54,20 +54,8 @@ import org.springframework.util.StringUtils;
 public class EtablissementController extends AbstractContextAwareController {
 
 	/* ***************************************************************
-	 * Propri�t�s**************************************************************
-	 */
-	private final String ajoutServiceEtape1 = "/stylesheets/_commun/_ajoutServiceEtape1.xhtml";
-	private final String ajoutServiceEtape2 = "/stylesheets/_commun/_ajoutServiceEtape2Confirmation.xhtml";
-	private String currentPageAjoutService = ajoutServiceEtape1;
-
-	private final String modifServiceEtape0 = "/stylesheets/_commun/_modifServiceEtape0.xhtml";
-	private final String modifServiceEtape1 = "/stylesheets/_commun/_modifServiceEtape1.xhtml";
-	private final String modifServiceEtape2 = "/stylesheets/_commun/_modifServiceEtape2Confirmation.xhtml";
-	private String currentPageModifService = modifServiceEtape0;
-	
-	private final String ajoutContactEtape1 = "/stylesheets/_commun/_ajoutContactEtape1.xhtml";
-	private final String ajoutContactEtape2 = "/stylesheets/_commun/_ajoutContactEtape2Confirmation.xhtml";
-	private String currentPageAjoutContact = ajoutContactEtape1;
+	 * Propriétés
+	 ***************************************************************/
 
 	/**
 	 * The serialization id.
@@ -83,38 +71,38 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private RechercheController rechercheController;
 	/* *******************************************************************
-	 * Variables pour le formulaire d'�tablissement ajout/modif
+	 * Variables pour le formulaire d'établissement ajout/modif
 	 */
 	/**
-	 * Objet Structure uniquement utilis� pour l'ajout/modification
+	 * Objet Structure uniquement utilisé pour l'ajout/modification
 	 */
 	private StructureDTO formStructure = null;
 	/**
-	 * Liste dynamique mise � jour en fonction du type de structure
+	 * Liste dynamique mise à jour en fonction du type de structure
 	 */
 	private List<SelectItem> statutsJuridiquesListening = null;
 	/**
-	 * Objet TypeStructure temporaire utilis� pour le choix dynamique du Statut
-	 * juridique � cause de a4j:support
+	 * Objet TypeStructure temporaire utilisé pour le choix dynamique du Statut
+	 * juridique à cause de a4j:support
 	 */
 	private TypeStructureDTO formStructureTmpTypeStructure;
 	/**
 	 * Objet StatutJuridiqueDTO temporaire utilis� pour l'affichage dynamique du
-	 * Statut juridique � cause de a4j:support
+	 * Statut juridique à cause de a4j:support
 	 */
 	private StatutJuridiqueDTO formStructureTmpStatutJuridique;
 	/**
-	 * Objet PaysDTO temporaire utilis� pour l'affichage dynamique du drapeau �
+	 * Objet PaysDTO temporaire utilisé pour l'affichage dynamique du drapeau à
 	 * cause de a4j:support
 	 */
 	private PaysDTO formStructureTmpPays;
 	/**
-	 * Objet NafN5DTO temporaire utilis� pour l'affichage dynamique du libell� �
+	 * Objet NafN5DTO temporaire utilis� pour l'affichage dynamique du libellé à
 	 * cause de a4j:support
 	 */
 	private NafN5DTO formStructureTmpNafN5;
 	/**
-	 * Code postal temporaire utilis� pour la saisie de la commune � cause de
+	 * Code postal temporaire utilisé pour la saisie de la commune à cause de
 	 * a4j:support
 	 */
 	private String formStructureTmpCodePostal;
@@ -123,12 +111,12 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private CommuneDTO formStructureTmpCommuneDTO;
 	/**
-	 * Liste dynamique mise � jour en fonction du d�partement saisi
+	 * Liste dynamique mise à jour en fonction du département saisi
 	 */
 	private List<SelectItem> communesListening = new ArrayList<SelectItem>();
 	/**
 	 * Affichage ou non du bouton annuler sur la page de modification d'un
-	 * �tablissement
+	 * établissement
 	 */
 	private boolean modificationEtabBoutonAnnuler = false;
 	/**
@@ -136,14 +124,14 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private boolean codeNafObligatoire;
 	/* **
-	 * FIN Variables pour le formulaire d'�tablissement ajout/modif
+	 * FIN Variables pour le formulaire d'établissement ajout/modif
 	 * ********************************************************************
 	 */
 	/* *******************************************************************
 	 * Variables pour la gestion des contacts et services
 	 */
 	/**
-	 * Liste des services de la structure actuellement g�r�e
+	 * Liste des services de la structure actuellement gérée
 	 */
 	private List<ServiceDTO> listeServices;
 	/**
@@ -151,15 +139,15 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private List<SelectItem> servicesItems;
 	/**
-	 * Service actuellement g�r�
+	 * Service actuellement géré
 	 */
 	private ServiceDTO formService;
 	/**
-	 * Objet PaysDTO temporaire utilis� pour l'affichage dynamique du drapeau
+	 * Objet PaysDTO temporaire utilisé pour l'affichage dynamique du drapeau
 	 */
 	private PaysDTO formServiceTmpPays;
 	/**
-	 * Code postal temporaire utilis� pour la saisie de la commune
+	 * Code postal temporaire utilisé pour la saisie de la commune
 	 */
 	private String formServiceTmpCodePostal;
 	/**
@@ -167,16 +155,16 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private CommuneDTO formServiceTmpCommuneDTO = new CommuneDTO();
 	/**
-	 * Liste dynamique mise � jour en fonction du d�partement saisi
+	 * Liste dynamique mise à jour en fonction du département saisi
 	 */
 	private List<SelectItem> formServiceCommunesListening = new ArrayList<SelectItem>();
 	/**
-	 * Vrai l'adresse du service � ajouter/en cours de modification est la m�me
+	 * Vrai l'adresse du service à ajouter/en cours de modification est la même
 	 * que l'adresse de la structure
 	 */
 	private boolean memeAdresseStructure;
 	/**
-	 * Id du service s�lectionn�
+	 * Id du service sélectionné
 	 */
 	private int idServiceSel;
 	/**
@@ -184,15 +172,15 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private ServiceDTO serviceSel;
 	/**
-	 * Liste des contacts pour le service actuellement g�r�
+	 * Liste des contacts pour le service actuellement géré
 	 */
 	private List<ContactDTO> listeContacts;
 	/**
-	 * Id du contact s�lectionn� (formulaire d'offre et convention)
+	 * Id du contact sélectionné (formulaire d'offre et convention)
 	 */
 	private int idContactSel;
 	/**
-	 * Contact s�lectionn� (form offre/convention)
+	 * Contact sélectionné (form offre/convention)
 	 */
 	private ContactDTO contactSel;
 	/**
@@ -200,7 +188,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private List<SelectItem> contactsItems;
 	/**
-	 * Contact actuellement g�r�
+	 * Contact actuellement géré
 	 */
 	private ContactDTO formContact;
 	/**
@@ -208,7 +196,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private Set<Integer> keysContacts = new HashSet<Integer>();
 	/**
-	 * afficherSelectionCentre � la modification d'un contact
+	 * afficherSelectionCentre à la modification d'un contact
 	 */
 	private boolean afficherSelectionCentreContact = false;
 	/**
@@ -220,7 +208,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private boolean currentCentresGestionContainsCentreEntr = true;
 	/**
-	 * Num�ro de la ligne contact s�lectionn�e
+	 * Numéro de la ligne contact sélectionnée
 	 */
 	private int currentRowContact;
 	/* **
@@ -241,43 +229,6 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private String mdpNouveauConfirmation;
 
-	/* **
-	 * Gestion de l'affichage des popups
-	 */
-
-	public String getCurrentPageAjoutService() {
-		return currentPageAjoutService;
-	}
-
-	public void resetCurrentPageAjoutService() {
-		System.out.println("resetCurrentPageAjoutService() avant reset => "
-				+ currentPageAjoutService);
-		currentPageAjoutService = ajoutServiceEtape1;
-		System.out.println("resetCurrentPageAjoutService() apres reset => "
-				+ currentPageAjoutService);
-	}
-
-	public String getCurrentPageModifService() {
-		return currentPageModifService;
-	}
-
-	public void resetCurrentPageModifService() {
-		System.out.println("resetCurrentPageModifService() avant reset = > "
-				+ currentPageModifService);
-		currentPageModifService = modifServiceEtape0;
-		System.out.println("resetCurrentPageModifService() apres reset = > "
-				+ currentPageModifService);
-	}
-
-	public String getCurrentPageAjoutContact(){
-		return currentPageAjoutContact;
-	}
-
-	public void resetCurrentPageAjoutContact(){
-		currentPageAjoutContact = ajoutContactEtape1;
-		System.out.println("resetCurrentPageAjoutContact() => "+currentPageAjoutContact);
-	}
-	
 	/**
 	 * Bean constructor.
 	 */
@@ -316,41 +267,41 @@ public class EtablissementController extends AbstractContextAwareController {
 					.getContactsFromIdService(
 							this.idServiceSel,
 							getSessionController()
-									.getCurrentIdsCentresGestion(),
+							.getCurrentIdsCentresGestion(),
 							getSessionController().getCodeUniversite());
 			if (this.listeContacts != null && !this.listeContacts.isEmpty()) {
 				Collections.sort(this.listeContacts,
 						new Comparator<ContactDTO>() {
-							/**
-							 * @see java.util.Comparator#compare(java.lang.Object,
-							 *      java.lang.Object)
-							 */
-							@Override
-							public int compare(ContactDTO c1, ContactDTO c2) {
-								return c1.getNom().compareTo(c2.getNom());
-							}
-						});
+					/**
+					 * @see java.util.Comparator#compare(java.lang.Object,
+					 *      java.lang.Object)
+					 */
+					@Override
+					public int compare(ContactDTO c1, ContactDTO c2) {
+						return c1.getNom().compareTo(c2.getNom());
+					}
+				});
 				// Recup centre si en session
 				for (ContactDTO c : this.listeContacts) {
 					CentreGestionDTO cgTmp = new CentreGestionDTO();
 					cgTmp.setIdCentreGestion(c.getIdCentreGestion());
 					if (getSessionController().getCurrentCentresGestion() != null
 							&& !getSessionController()
-									.getCurrentCentresGestion().isEmpty()
+							.getCurrentCentresGestion().isEmpty()
 							&& ((ArrayList<CentreGestionDTO>) getSessionController()
 									.getCurrentCentresGestion())
 									.contains(cgTmp)) {
 						c.setCentreGestion(getSessionController()
 								.getCurrentCentresGestion().get(
 										getSessionController()
-												.getCurrentCentresGestion()
-												.indexOf(cgTmp)));
+										.getCurrentCentresGestion()
+										.indexOf(cgTmp)));
 					} else {
 						CentreGestionDTO cgEntr = getCentreGestionDomainService()
 								.getCentreEntreprise();
 						if (cgEntr != null
 								&& c.getIdCentreGestion() == cgEntr
-										.getIdCentreGestion()) {
+								.getIdCentreGestion()) {
 							c.setCentreGestion(cgEntr);
 						}
 					}
@@ -369,19 +320,19 @@ public class EtablissementController extends AbstractContextAwareController {
 			this.listeServices = getStructureDomainService()
 					.getServicesFromIdStructure(
 							getSessionController().getCurrentManageStructure()
-									.getIdStructure());
+							.getIdStructure());
 			if (this.listeServices != null) {
 				Collections.sort(this.listeServices,
 						new Comparator<ServiceDTO>() {
-							/**
-							 * @see java.util.Comparator#compare(java.lang.Object,
-							 *      java.lang.Object)
-							 */
-							@Override
-							public int compare(ServiceDTO s1, ServiceDTO s2) {
-								return s1.getNom().compareTo(s2.getNom());
-							}
-						});
+					/**
+					 * @see java.util.Comparator#compare(java.lang.Object,
+					 *      java.lang.Object)
+					 */
+					@Override
+					public int compare(ServiceDTO s1, ServiceDTO s2) {
+						return s1.getNom().compareTo(s2.getNom());
+					}
+				});
 			}
 		}
 	}
@@ -416,38 +367,39 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	public String goToFicheSignaletique() {
 		String ret = "ficheSignaletique";
+		getSessionController().setFicheSignaletiqueCurrentPage("_modifFicheSignaletiqueEtape1");
 		return ret;
 	}
 
 	/**
 	 * @return a String
 	 */
-	public String goToModifierFicheSignaletique() {
-		String ret = "_modifFicheSignaletiqueEtape2";
+	public void goToModifierFicheSignaletique() {
+		//		String ret = "_modifFicheSignaletiqueEtape2";
+		getSessionController().setFicheSignaletiqueCurrentPage("_modifFicheSignaletiqueEtape2");
 		if (getSessionController().getCurrentManageStructure() != null) {
-			this.formStructure = getSessionController()
-					.getCurrentManageStructure();
+			this.formStructure = getSessionController().getCurrentManageStructure();
 			goToModificationEtablissement();
 		}
-		return ret;
+		//		return ret;
 	}
 
 	/**
-	 * Modification de la fiche signal�tique
+	 * Modification de la fiche signaletique
 	 * 
 	 * @return String
 	 */
-	public String modifierFicheSignaletique() {
-		String ret = null;
+	public void modifierFicheSignaletique() {
+		//		String ret = null;
 		String tmp = modifierEtablissement();
 		if (tmp != null) {
-			ret = "_modifFicheSignaletiqueEtape1";
-			getSessionController()
-					.setCurrentManageStructure(this.formStructure);
+			//			ret = "_modifFicheSignaletiqueEtape1";
+			getSessionController().setFicheSignaletiqueCurrentPage("_modifFicheSignaletiqueEtape1");
+			getSessionController().setCurrentManageStructure(this.formStructure);
 			getSessionController().setMenuGestionEtab(true);
 			this.formStructure = null;
 		}
-		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -456,14 +408,15 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String annulerModifierFicheSignaletique() {
-		String ret = "_modifFicheSignaletiqueEtape1";
+		//		String ret = "_modifFicheSignaletiqueEtape1";
+		getSessionController().setFicheSignaletiqueCurrentPage("_modifFicheSignaletiqueEtape1");
 		this.formStructure = null;
-		return ret;
+		return "ficheSignaletique";
 	}
 
 	/* *********************************************
-	 * Ajout d'un �tablissement********************************************
-	 */
+	 * Ajout d'un établissement
+	 * ********************************************/
 
 	/**
 	 * @return a String
@@ -481,7 +434,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Ajout d'un �tablissement
+	 * Ajout d'un établissement
 	 * 
 	 * @return a String
 	 */
@@ -492,48 +445,48 @@ public class EtablissementController extends AbstractContextAwareController {
 		if ((this.formStructure.getNafN5() != null
 				&& this.formStructure.getNafN5().getCode() != null
 				&& StringUtils.hasText(this.formStructure.getNafN5().getCode()) && !StringUtils
-					.hasText(this.formStructure.getActivitePrincipale()))
+				.hasText(this.formStructure.getActivitePrincipale()))
 				|| ((this.formStructure.getNafN5() == null
-						|| (this.formStructure.getNafN5() != null && this.formStructure
-								.getNafN5().getCode() == null) || (this.formStructure
+				|| (this.formStructure.getNafN5() != null && this.formStructure
+				.getNafN5().getCode() == null) || (this.formStructure
 						.getNafN5() != null
 						&& this.formStructure.getNafN5().getCode() != null && this.formStructure
 						.getNafN5().getCode().isEmpty())) && StringUtils
-							.hasText(this.formStructure.getActivitePrincipale()))
-				|| (this.formStructure.getNafN5() != null
+						.hasText(this.formStructure.getActivitePrincipale()))
+						|| (this.formStructure.getNafN5() != null
 						&& this.formStructure.getNafN5().getCode() != null
 						&& StringUtils.hasText(this.formStructure.getNafN5()
 								.getCode()) && StringUtils
-							.hasText(this.formStructure.getActivitePrincipale()))) {
+								.hasText(this.formStructure.getActivitePrincipale()))) {
 			nafActiviteOK = true;
 		}
 		if (nafActiviteOK) {
 			this.formStructure.setPays(this.formStructureTmpPays);
 			this.formStructure
-					.setTypeStructure(this.formStructureTmpTypeStructure);
+			.setTypeStructure(this.formStructureTmpTypeStructure);
 			this.formStructure
-					.setStatutJuridique(this.formStructureTmpStatutJuridique);
+			.setStatutJuridique(this.formStructureTmpStatutJuridique);
 			this.formStructure.setCodePostal(this.formStructureTmpCodePostal);
 			if (getBeanUtils().isFrance(this.formStructureTmpPays)
 					&& getSessionController().isRecupererCommunesDepuisApogee()) {
 				this.formStructure
-						.setCodeCommune(this.formStructureTmpCommuneDTO
-								.getCodeCommune());
-				// R�cup�ration de la commune pour en avoir le libell�
+				.setCodeCommune(this.formStructureTmpCommuneDTO
+						.getCodeCommune());
+				// Récupération de la commune pour en avoir le libellé
 				this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain()
 						.getCommuneFromDepartementEtCodeCommune(
 								this.formStructureTmpCodePostal,
 								"" + this.formStructure.getCodeCommune());
 				if (this.formStructureTmpCommuneDTO != null) {
 					this.formStructure
-							.setCommune(this.formStructureTmpCommuneDTO
-									.getLibCommune());
+					.setCommune(this.formStructureTmpCommuneDTO
+							.getLibCommune());
 				}
 			}
 			retour = "affichageRechercheEtablissement";
 			StructureDTO structureTmp = this.formStructure;
 			structureTmp
-					.setIdEffectif(this.formStructure.getEffectif().getId());
+			.setIdEffectif(this.formStructure.getEffectif().getId());
 			structureTmp.setIdPays(this.formStructure.getPays().getId());
 			if (this.statutsJuridiquesListening != null
 					&& this.formStructure.getStatutJuridique() != null)
@@ -560,7 +513,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				}
 				addInfoMessage("formAffEtab", "STRUCTURE.AJOUT.CONFIRMATION");
 				this.rechercheController
-						.setResultatRechercheStructure(structureTmp);
+				.setResultatRechercheStructure(structureTmp);
 				// this.formStructure=null;
 				this.formStructureTmpPays = null;
 				this.formStructureTmpTypeStructure = null;
@@ -577,13 +530,13 @@ public class EtablissementController extends AbstractContextAwareController {
 					String infoPersonne = "";
 					if (getSessionController().isAdminPageAuthorized()
 							&& getSessionController()
-									.getCurrentAuthAdminStructure() != null) {
+							.getCurrentAuthAdminStructure() != null) {
 						infoPersonne += getSessionController()
 								.getCurrentAuthAdminStructure().getNom()
 								+ " "
 								+ getSessionController()
-										.getCurrentAuthAdminStructure()
-										.getPrenom()
+								.getCurrentAuthAdminStructure()
+								.getPrenom()
 								+ " ("
 								+ getSessionController().getCurrentLogin()
 								+ ")";
@@ -593,7 +546,7 @@ public class EtablissementController extends AbstractContextAwareController {
 								.getCurrentAuthContact().getNom()
 								+ " "
 								+ getSessionController()
-										.getCurrentAuthContact().getPrenom()
+								.getCurrentAuthContact().getPrenom()
 								+ " ("
 								+ getSessionController().getCurrentLogin()
 								+ ")";
@@ -605,14 +558,14 @@ public class EtablissementController extends AbstractContextAwareController {
 							getSessionController().getMailingListEntrIA(),
 							getString("MAIL.ADMIN.ETAB.SUJETAJOUT",
 									getSessionController()
-											.getApplicationNameEntreprise(),
+									.getApplicationNameEntreprise(),
 									this.formStructure.printAdresse(),
 									infoPersonne),
-							getString("MAIL.ADMIN.ETAB.MESSAGEAJOUT",
-									getSessionController()
+									getString("MAIL.ADMIN.ETAB.MESSAGEAJOUT",
+											getSessionController()
 											.getApplicationNameEntreprise(),
-									this.formStructure.printAdresse(),
-									infoPersonne), "");
+											this.formStructure.printAdresse(),
+											infoPersonne), "");
 				}
 			} catch (DataAddException ae) {
 				logger.error("DataAddException", ae.fillInStackTrace());
@@ -625,7 +578,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				retour = null;
 			} catch (StructureNumSiretException se) {
 				if (logger.isInfoEnabled()) {
-					logger.info("Structure d�j� existante pour ce num�ro siret "
+					logger.info("Structure déjà existante pour ce numéro siret "
 							+ structureTmp);
 				}
 				addErrorMessage("formAjoutEtab", "STRUCTURE.DEJA_EXISTANTE");
@@ -633,7 +586,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			} catch (UnvalidNumSiretException ue) {
 				// Impossible
 				if (logger.isInfoEnabled()) {
-					logger.info("Num�ro siret invalide pour " + structureTmp);
+					logger.info("Numéro siret invalide pour " + structureTmp);
 				}
 				addErrorMessage("formAjoutEtab",
 						"STRUCTURE.NUM_SIRET.VALIDATION");
@@ -695,7 +648,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Formulaire �tablissement
+	 * Formulaire établissement
 	 * 
 	 * @param event
 	 */
@@ -706,7 +659,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			this.communesListening = lTmp;
 		} else {
 			this.communesListening = new ArrayList<SelectItem>();
-			addErrorMessage("formModifEtab:include:dynaCodePostal",
+			addErrorMessage("formModifEtab:dynaCodePostal",
 					"STRUCTURE.CODE_POSTAL.VALIDATION");
 		}
 	}
@@ -724,7 +677,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				this.formServiceCommunesListening = lTmp;
 			} else {
 				this.formServiceCommunesListening = new ArrayList<SelectItem>();
-				addErrorMessage("formModifService:include:dynaCodePostal",
+				addErrorMessage("formModifService:dynaCodePostal",
 						"STRUCTURE.CODE_POSTAL.VALIDATION");
 			}
 		}
@@ -750,7 +703,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/* *********************************************
-	 * Modification d'un �tablissement
+	 * Modification d'un établissement
 	 * ********************************************
 	 */
 
@@ -766,7 +719,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			this.formStructureTmpStatutJuridique = this.formStructure
 					.getStatutJuridique();
 			this.formStructureTmpNafN5 = this.formStructure.getNafN5() == null ? new NafN5DTO()
-					: this.formStructure.getNafN5();
+			: this.formStructure.getNafN5();
 			this.formStructureTmpCodePostal = this.formStructure
 					.getCodePostal();
 			if (getBeanUtils().isFrance(this.formStructureTmpPays)
@@ -784,18 +737,18 @@ public class EtablissementController extends AbstractContextAwareController {
 								"" + this.formStructure.getCodeCommune());
 				if (this.formStructureTmpCommuneDTO != null) {
 					this.formStructure
-							.setCommune(this.formStructureTmpCommuneDTO
-									.getLibCommune());
+					.setCommune(this.formStructureTmpCommuneDTO
+							.getLibCommune());
 					this.formStructure
-							.setCodeCommune(this.formStructureTmpCommuneDTO
-									.getCodeCommune());
+					.setCodeCommune(this.formStructureTmpCommuneDTO
+							.getCodeCommune());
 				} else {
 					this.formStructureTmpCommuneDTO = new CommuneDTO();
 				}
 			} else {
 				this.formStructureTmpCommuneDTO = new CommuneDTO();
 			}
-			// M�j de liste des statuts juridiques
+			// Màj de liste des statuts juridiques
 			if (this.formStructure.getTypeStructure() != null) {
 				this.statutsJuridiquesListening = getStatutsJuridiquesFromIdTypeStructure(this.formStructure
 						.getTypeStructure().getId());
@@ -805,7 +758,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Modification d'un �tablissement
+	 * Modification d'un établissement
 	 * 
 	 * @return a String
 	 */
@@ -813,51 +766,49 @@ public class EtablissementController extends AbstractContextAwareController {
 		String retour = null;
 		boolean nafActiviteOK = false;
 		this.formStructure.setNafN5(this.formStructureTmpNafN5);
+
 		if ((this.formStructure.getNafN5() != null
 				&& this.formStructure.getNafN5().getCode() != null
-				&& StringUtils.hasText(this.formStructure.getNafN5().getCode()) && !StringUtils
-					.hasText(this.formStructure.getActivitePrincipale()))
+				&& StringUtils.hasText(this.formStructure.getNafN5().getCode())
+				&& !StringUtils.hasText(this.formStructure.getActivitePrincipale()) )
 				|| ((this.formStructure.getNafN5() == null
-						|| (this.formStructure.getNafN5() != null && this.formStructure
-								.getNafN5().getCode() == null) || (this.formStructure
-						.getNafN5() != null
-						&& this.formStructure.getNafN5().getCode() != null && this.formStructure
-						.getNafN5().getCode().isEmpty())) && StringUtils
-							.hasText(this.formStructure.getActivitePrincipale()))
+				|| (this.formStructure.getNafN5() != null && this.formStructure.getNafN5().getCode() == null)
+				|| (this.formStructure.getNafN5() != null && this.formStructure.getNafN5().getCode() != null && this.formStructure.getNafN5().getCode().isEmpty()))
+				&& StringUtils.hasText(this.formStructure.getActivitePrincipale()) )
 				|| (this.formStructure.getNafN5() != null
-						&& this.formStructure.getNafN5().getCode() != null
-						&& StringUtils.hasText(this.formStructure.getNafN5()
-								.getCode()) && StringUtils
-							.hasText(this.formStructure.getActivitePrincipale()))) {
+				&& this.formStructure.getNafN5().getCode() != null
+				&& StringUtils.hasText(this.formStructure.getNafN5().getCode())
+				&& StringUtils.hasText(this.formStructure.getActivitePrincipale())) ) {
 			nafActiviteOK = true;
 		}
+
 		if (nafActiviteOK) {
 			this.formStructure.setPays(this.formStructureTmpPays);
 			this.formStructure
-					.setTypeStructure(this.formStructureTmpTypeStructure);
+			.setTypeStructure(this.formStructureTmpTypeStructure);
 			this.formStructure
-					.setStatutJuridique(this.formStructureTmpStatutJuridique);
+			.setStatutJuridique(this.formStructureTmpStatutJuridique);
 			this.formStructure.setCodePostal(this.formStructureTmpCodePostal);
 			if (getBeanUtils().isFrance(this.formStructureTmpPays)
 					&& getSessionController().isRecupererCommunesDepuisApogee()) {
 				this.formStructure
-						.setCodeCommune(this.formStructureTmpCommuneDTO
-								.getCodeCommune());
-				// R�cup�ration de la commune pour en avoir le libell�
+				.setCodeCommune(this.formStructureTmpCommuneDTO
+						.getCodeCommune());
+				// Récupération de la commune pour en avoir le libellé
 				this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain()
 						.getCommuneFromDepartementEtCodeCommune(
 								this.formStructureTmpCodePostal,
 								"" + this.formStructure.getCodeCommune());
 				if (this.formStructureTmpCommuneDTO != null) {
 					this.formStructure
-							.setCommune(this.formStructureTmpCommuneDTO
-									.getLibCommune());
+					.setCommune(this.formStructureTmpCommuneDTO
+							.getLibCommune());
 				}
 			}
 			retour = "affichageRechercheEtablissement";
 			StructureDTO structureTmp = this.formStructure;
 			structureTmp
-					.setIdEffectif(this.formStructure.getEffectif().getId());
+			.setIdEffectif(this.formStructure.getEffectif().getId());
 			structureTmp.setIdPays(this.formStructure.getPays().getId());
 			if (this.statutsJuridiquesListening != null
 					&& this.formStructure.getStatutJuridique() != null)
@@ -874,7 +825,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				structureTmp.setCodeNAF_N5(null);
 			structureTmp.setDateModif(new Date());
 			structureTmp
-					.setLoginModif(getSessionController().getCurrentLogin());
+			.setLoginModif(getSessionController().getCurrentLogin());
 			structureTmp.setLoginInfosAJour(getSessionController()
 					.getCurrentLogin());
 			try {
@@ -889,10 +840,10 @@ public class EtablissementController extends AbstractContextAwareController {
 					if (this.rechercheController
 							.getListeResultatsRechercheStructure() != null
 							&& !this.rechercheController
-									.getListeResultatsRechercheStructure()
-									.isEmpty()) {
+							.getListeResultatsRechercheStructure()
+							.isEmpty()) {
 						this.rechercheController
-								.setResultatRechercheStructure(structureTmp);
+						.setResultatRechercheStructure(structureTmp);
 						Iterator<StructureDTO> its = this.rechercheController
 								.getListeResultatsRechercheStructure()
 								.iterator();
@@ -904,10 +855,10 @@ public class EtablissementController extends AbstractContextAwareController {
 							}
 						}
 						this.rechercheController
-								.getListeResultatsRechercheStructure().add(
-										structureTmp);
+						.getListeResultatsRechercheStructure().add(
+								structureTmp);
 						this.rechercheController
-								.reloadRechercheStructurePaginator();
+						.reloadRechercheStructurePaginator();
 					}
 					// this.formStructure=null;
 					this.formStructureTmpPays = null;
@@ -924,25 +875,25 @@ public class EtablissementController extends AbstractContextAwareController {
 						String infoPersonne = "";
 						if (getSessionController().isAdminPageAuthorized()
 								&& getSessionController()
-										.getCurrentAuthAdminStructure() != null) {
+								.getCurrentAuthAdminStructure() != null) {
 							infoPersonne += getSessionController()
 									.getCurrentAuthAdminStructure().getNom()
 									+ " "
 									+ getSessionController()
-											.getCurrentAuthAdminStructure()
-											.getPrenom()
+									.getCurrentAuthAdminStructure()
+									.getPrenom()
 									+ " ("
 									+ getSessionController().getCurrentLogin()
 									+ ")";
 						} else if (getSessionController().isPageAuthorized()
 								&& getSessionController()
-										.getCurrentAuthContact() != null) {
+								.getCurrentAuthContact() != null) {
 							infoPersonne += getSessionController()
 									.getCurrentAuthContact().getNom()
 									+ " "
 									+ getSessionController()
-											.getCurrentAuthContact()
-											.getPrenom()
+									.getCurrentAuthContact()
+									.getPrenom()
 									+ " ("
 									+ getSessionController().getCurrentLogin()
 									+ ")";
@@ -951,21 +902,21 @@ public class EtablissementController extends AbstractContextAwareController {
 									.getCurrentLogin();
 						}
 						getSmtpService()
-								.send(getSessionController()
-										.getMailingListEntrIA(),
-										getString(
-												"MAIL.ADMIN.ETAB.SUJETMODIF",
-												getSessionController()
-														.getApplicationNameEntreprise(),
-												this.formStructure
-														.printAdresse(),
-												infoPersonne),
+						.send(getSessionController()
+								.getMailingListEntrIA(),
+								getString(
+										"MAIL.ADMIN.ETAB.SUJETMODIF",
+										getSessionController()
+										.getApplicationNameEntreprise(),
+										this.formStructure
+										.printAdresse(),
+										infoPersonne),
 										getString(
 												"MAIL.ADMIN.ETAB.MESSAGEMODIF",
 												getSessionController()
-														.getApplicationNameEntreprise(),
+												.getApplicationNameEntreprise(),
 												this.formStructure
-														.printAdresse(),
+												.printAdresse(),
 												infoPersonne), "");
 					}
 				} else {
@@ -982,7 +933,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				retour = null;
 			} catch (StructureNumSiretException se) {
 				if (logger.isInfoEnabled()) {
-					logger.info("Structure d�j� existante pour ce num�ro siret "
+					logger.info("Structure déjà existante pour ce numéro siret "
 							+ structureTmp);
 				}
 				addErrorMessage("formModifEtab", "STRUCTURE.DEJA_EXISTANTE");
@@ -990,7 +941,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			} catch (UnvalidNumSiretException ue) {
 				// Impossible
 				if (logger.isInfoEnabled()) {
-					logger.info("Num�ro siret invalide pour " + structureTmp);
+					logger.info("Numéro siret invalide pour " + structureTmp);
 				}
 				addErrorMessage("formModifEtab",
 						"STRUCTURE.NUM_SIRET.VALIDATION");
@@ -1001,53 +952,36 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Suppression d'un �tablissement
+	 * Suppression d'un établissement
 	 * 
 	 * @return a String
 	 */
 	public String supprimerEtablissement() {
 		if (this.formStructure != null
 				&& this.formStructure.getIdStructure() > 0) {
-			System.out.println("supprimerEtablissement() 1 = " + formStructure);
 			try {
-				System.out
-						.println("supprimerEtablissement() 1.2 getStructureDomainService() = "
-								+ getStructureDomainService());
-				System.out
-						.println("supprimerEtablissement() 1.3 this.formStructure.getIdStructure() = "
-								+ this.formStructure.getIdStructure());
 				Boolean delete = getStructureDomainService().deleteStructure(
 						this.formStructure.getIdStructure());
-				System.out.println("supprimerEtablissement() 1.4 delete = "
-						+ delete);
 				if (delete) {
-					System.out.println("supprimerEtablissement() 2 = "
-							+ formStructure);
 					addInfoMessage(null, "STRUCTURE.SUPPRESSION.CONFIRMATION",
 							this.formStructure.getRaisonSociale());
 					if (this.rechercheController
 							.getListeResultatsRechercheStructure() != null
 							&& !this.rechercheController
-									.getListeResultatsRechercheStructure()
-									.isEmpty()) {
-						System.out.println("supprimerEtablissement() 3 = "
-								+ formStructure);
+							.getListeResultatsRechercheStructure()
+							.isEmpty()) {
 						this.rechercheController
-								.getListeResultatsRechercheStructure().remove(
-										this.formStructure);
+						.getListeResultatsRechercheStructure().remove(
+								this.formStructure);
 						this.rechercheController
-								.setResultatRechercheStructure(null);
+						.setResultatRechercheStructure(null);
 					} else {
-						System.out.println("supprimerEtablissement() 4 = "
-								+ formStructure);
 						this.rechercheController
-								.setListeResultatsRechercheStructure(null);
+						.setListeResultatsRechercheStructure(null);
 						this.rechercheController
-								.setResultatRechercheStructure(null);
+						.setResultatRechercheStructure(null);
 					}
 				} else {
-					System.out.println("supprimerEtablissement() 5 = "
-							+ formStructure);
 					addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",
 							this.formStructure.getRaisonSociale());
 				}
@@ -1067,13 +1001,13 @@ public class EtablissementController extends AbstractContextAwareController {
 					String infoPersonne = "";
 					if (getSessionController().isAdminPageAuthorized()
 							&& getSessionController()
-									.getCurrentAuthAdminStructure() != null) {
+							.getCurrentAuthAdminStructure() != null) {
 						infoPersonne += getSessionController()
 								.getCurrentAuthAdminStructure().getNom()
 								+ " "
 								+ getSessionController()
-										.getCurrentAuthAdminStructure()
-										.getPrenom()
+								.getCurrentAuthAdminStructure()
+								.getPrenom()
 								+ " ("
 								+ getSessionController().getCurrentLogin()
 								+ ")";
@@ -1083,7 +1017,7 @@ public class EtablissementController extends AbstractContextAwareController {
 								.getCurrentAuthContact().getNom()
 								+ " "
 								+ getSessionController()
-										.getCurrentAuthContact().getPrenom()
+								.getCurrentAuthContact().getPrenom()
 								+ " ("
 								+ getSessionController().getCurrentLogin()
 								+ ")";
@@ -1095,14 +1029,14 @@ public class EtablissementController extends AbstractContextAwareController {
 							getSessionController().getMailingListEntrIA(),
 							getString("MAIL.ADMIN.ETAB.SUJETSUPPR",
 									getSessionController()
-											.getApplicationNameEntreprise(),
+									.getApplicationNameEntreprise(),
 									this.formStructure.printAdresse(),
 									infoPersonne),
-							getString("MAIL.ADMIN.ETAB.MESSAGESUPPR",
-									getSessionController()
+									getString("MAIL.ADMIN.ETAB.MESSAGESUPPR",
+											getSessionController()
 											.getApplicationNameEntreprise(),
-									this.formStructure.printAdresse(),
-									infoPersonne), "");
+											this.formStructure.printAdresse(),
+											infoPersonne), "");
 				}
 			} catch (StructureDeleteException e) {
 				logger.error("DataDeleteException", e.fillInStackTrace());
@@ -1112,7 +1046,7 @@ public class EtablissementController extends AbstractContextAwareController {
 						e.getNbOffres(), e.getNbConventions(),
 						e.isAccordExistant() ? getString("FORM.OUI")
 								: getString("FORM.NON"),
-						e.getNbComptesContact());
+								e.getNbComptesContact());
 			} catch (DataDeleteException e) {
 				logger.error("DataDeleteException", e.fillInStackTrace());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",
@@ -1234,61 +1168,6 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * 
 	 * @return String
 	 */
-	// public String ajouterService(){
-	// String ret="_ajoutServiceEtape2Confirmation";
-	// try{
-	// if(this.memeAdresseStructure){
-	// this.formService=BeanUtils.copieAdresseStructureVersService(
-	// getSessionController().getCurrentManageStructure(), this.formService);
-	// }else{
-	// this.formService.setPays(this.formServiceTmpPays);
-	// if(getBeanUtils().isFrance(this.formServiceTmpPays) &&
-	// getSessionController().isRecupererCommunesDepuisApogee()){
-	// this.formService.setCodePostal(this.formServiceTmpCodePostal);
-	// this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
-	// //R�cup�ration de la commune pour en avoir le libell�
-	// this.formServiceTmpCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.formServiceTmpCodePostal,
-	// ""+this.formService.getCodeCommune());
-	// if(this.formServiceTmpCommuneDTO!=null){
-	// this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());
-	// }
-	// }
-	// }
-	// if (this.formService.getPays() != null){
-	// this.formService.setIdPays(this.formService.getPays().getId());
-	// }
-	// this.formService.setLoginCreation(getSessionController().getCurrentLogin());
-	// this.formService.setLoginInfosAJour(getSessionController().getCurrentLogin());
-	// this.formService.setIdStructure(getSessionController().getCurrentManageStructure().getIdStructure());
-	// int i = getStructureDomainService().addService(this.formService);
-	// this.formService.setIdService(i);
-	// if(i>0){
-	// addInfoMessage(null, "SERVICE.AJOUT.CONFIRMATION");
-	// reloadServices();
-	// this.idServiceSel=i;
-	// this.serviceSel=this.formService;
-	// reloadContacts();
-	// if(logger.isInfoEnabled()){
-	// logger.info(getSessionController().getCurrentLogin()+" ajoute le service : "+this.serviceSel
-	// +" � l'�tablissement : "+getSessionController().getCurrentManageStructure());
-	// }
-	// this.formService=null;
-	// this.formServiceTmpCodePostal=null;
-	// this.formServiceTmpCommuneDTO=new CommuneDTO();
-	// this.formServiceTmpPays=getBeanUtils().getFrance();
-	// }else{
-	// addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
-	// }
-	// }catch (DataAddException e) {
-	// logger.error("DataAddException", e.fillInStackTrace());
-	// addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
-	// }catch (WebServiceDataBaseException e) {
-	// logger.error("DataUpdateException", e.fillInStackTrace());
-	// addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
-	// }
-	// return ret;
-	// }
-
 	public void ajouterService() {
 		try {
 			if (this.memeAdresseStructure) {
@@ -1299,21 +1178,21 @@ public class EtablissementController extends AbstractContextAwareController {
 				this.formService.setPays(this.formServiceTmpPays);
 				if (getBeanUtils().isFrance(this.formServiceTmpPays)
 						&& getSessionController()
-								.isRecupererCommunesDepuisApogee()) {
+						.isRecupererCommunesDepuisApogee()) {
 					this.formService
-							.setCodePostal(this.formServiceTmpCodePostal);
+					.setCodePostal(this.formServiceTmpCodePostal);
 					this.formService
-							.setCodeCommune(this.formServiceTmpCommuneDTO
-									.getCodeCommune());
-					// R�cup�ration de la commune pour en avoir le libell�
+					.setCodeCommune(this.formServiceTmpCommuneDTO
+							.getCodeCommune());
+					// Récupération de la commune pour en avoir le libellé
 					this.formServiceTmpCommuneDTO = getGeographieRepositoryDomain()
 							.getCommuneFromDepartementEtCodeCommune(
 									this.formServiceTmpCodePostal,
 									"" + this.formService.getCodeCommune());
 					if (this.formServiceTmpCommuneDTO != null) {
 						this.formService
-								.setCommune(this.formServiceTmpCommuneDTO
-										.getLibCommune());
+						.setCommune(this.formServiceTmpCommuneDTO
+								.getLibCommune());
 					}
 				}
 			}
@@ -1338,9 +1217,9 @@ public class EtablissementController extends AbstractContextAwareController {
 					logger.info(getSessionController().getCurrentLogin()
 							+ " ajoute le service : "
 							+ this.serviceSel
-							+ " � l'�tablissement : "
+							+ " à l'établissement : "
 							+ getSessionController()
-									.getCurrentManageStructure());
+							.getCurrentManageStructure());
 				}
 				this.formService = null;
 				this.formServiceTmpCodePostal = null;
@@ -1356,73 +1235,35 @@ public class EtablissementController extends AbstractContextAwareController {
 			logger.error("DataUpdateException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
 		}
-		currentPageAjoutService = ajoutServiceEtape2;
-		System.out.println("ajouterService() switch to (etp2) => "
-				+ currentPageAjoutService);
+		getSessionController().setAjoutServiceCurrentPage("_ajoutServiceEtape2Confirmation");
 	}
 
 	/**
 	 * @return a String
 	 */
-	// public String goToModifService(){
-	// if(this.formService!=null){
-	// this.formServiceTmpPays=this.formService.getPays();
-	// this.formServiceTmpCodePostal=this.formService.getCodePostal();
-	// if(getBeanUtils().isFrance(this.formServiceTmpPays) &&
-	// getSessionController().isRecupererCommunesDepuisApogee()){
-	// List<SelectItem> lTmp = majCommunes(""+this.formService.getCodePostal());
-	// if(lTmp!=null && !lTmp.isEmpty()){
-	// this.formServiceCommunesListening=lTmp;
-	// }else{
-	// this.formServiceCommunesListening=new ArrayList<SelectItem>();
-	// }
-	// this.formServiceTmpCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.formServiceTmpCodePostal,
-	// ""+this.formService.getCodeCommune());
-	// if(this.formServiceTmpCommuneDTO!=null){
-	// this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());
-	// this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
-	// }else{
-	// this.formServiceTmpCommuneDTO=new CommuneDTO();
-	// }
-	// }
-	// }
-	// return "_modifServiceEtape1";
-	// }
-
 	public void modifService() {
-		System.out.println("goToModifService() => debut methode");
 		if (this.formService != null) {
 			this.formServiceTmpPays = this.formService.getPays();
 			this.formServiceTmpCodePostal = this.formService.getCodePostal();
 			if (getBeanUtils().isFrance(this.formServiceTmpPays)
 					&& getSessionController().isRecupererCommunesDepuisApogee()) {
-				List<SelectItem> lTmp = majCommunes(""
-						+ this.formService.getCodePostal());
+				List<SelectItem> lTmp = majCommunes(""+ this.formService.getCodePostal());
 				if (lTmp != null && !lTmp.isEmpty()) {
 					this.formServiceCommunesListening = lTmp;
 				} else {
 					this.formServiceCommunesListening = new ArrayList<SelectItem>();
 				}
-				this.formServiceTmpCommuneDTO = getGeographieRepositoryDomain()
-						.getCommuneFromDepartementEtCodeCommune(
-								this.formServiceTmpCodePostal,
-								"" + this.formService.getCodeCommune());
+				this.formServiceTmpCommuneDTO = getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(
+								this.formServiceTmpCodePostal,"" + this.formService.getCodeCommune());
 				if (this.formServiceTmpCommuneDTO != null) {
-					this.formService.setCommune(this.formServiceTmpCommuneDTO
-							.getLibCommune());
-					this.formService
-							.setCodeCommune(this.formServiceTmpCommuneDTO
-									.getCodeCommune());
+					this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());
+					this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
 				} else {
 					this.formServiceTmpCommuneDTO = new CommuneDTO();
 				}
 			}
 		}
-		System.out.println("goToModifService() => avant maj : "
-				+ currentPageModifService);
-		currentPageModifService = modifServiceEtape1;
-		System.out.println("goToModifService() => apres maj : "
-				+ currentPageModifService);
+		getSessionController().setModifServiceCurrentPage("_modifServiceEtape1");
 		// return "_modifServiceEtape1";
 	}
 
@@ -1431,64 +1272,8 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * 
 	 * @return String
 	 */
-	// public String modifierService(){
-	// String ret="_modifServiceEtape2Confirmation";
-	// try{
-	// if(this.memeAdresseStructure){
-	// this.formService=BeanUtils.copieAdresseStructureVersService(
-	// getSessionController().getCurrentManageStructure(), this.formService);
-	// }else{
-	// this.formService.setPays(this.formServiceTmpPays);
-	// if(getBeanUtils().isFrance(this.formServiceTmpPays) &&
-	// getSessionController().isRecupererCommunesDepuisApogee()){
-	// this.formService.setCodePostal(this.formServiceTmpCodePostal);
-	// this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
-	// //R�cup�ration de la commune pour en avoir le libell�
-	// this.formServiceTmpCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(this.formServiceTmpCodePostal,
-	// ""+this.formService.getCodeCommune());
-	// if(this.formServiceTmpCommuneDTO!=null){
-	// this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());
-	// }
-	// }
-	// }
-	// this.formService.setIdPays(this.formService.getPays().getId());
-	// this.formService.setDateModif(new Date());
-	// this.formService.setLoginModif(getSessionController().getCurrentLogin());
-	// this.formService.setLoginInfosAJour(getSessionController().getCurrentLogin());
-	// this.formService.setIdStructure(getSessionController().getCurrentManageStructure().getIdStructure());
-	// if(getStructureDomainService().updateService(this.formService)){
-	// addInfoMessage(null, "SERVICE.MODIF.CONFIRMATION");
-	// reloadServices();
-	// /*for(ServiceDTO s : this.listeServices){
-	// if(s.getIdService()==this.formService.getIdService()){
-	// s=this.formService;
-	// break;
-	// }
-	// }*/
-	// if(logger.isInfoEnabled()){
-	// logger.info(getSessionController().getCurrentLogin()+" modifie le service : "+this.serviceSel
-	// +" de l'�tablissement : "+getSessionController().getCurrentManageStructure());
-	// }
-	// this.formService=null;
-	// this.formServiceTmpCodePostal=null;
-	// this.formServiceTmpCommuneDTO=new CommuneDTO();
-	// this.formServiceTmpPays=getBeanUtils().getFrance();
-	// }else{
-	// addErrorMessage(null, "SERVICE.MODIF.ERREUR");
-	// }
-	// }catch (DataUpdateException e) {
-	// logger.error("DataUpdateException", e.fillInStackTrace());
-	// addErrorMessage(null, "SERVICE.MODIF.ERREUR");
-	// }catch (WebServiceDataBaseException e) {
-	// logger.error("DataUpdateException", e.fillInStackTrace());
-	// addErrorMessage(null, "SERVICE.MODIF.ERREUR");
-	// }
-	// return ret;
-	// }
-
 	public void modifierService() {
 		// String ret="_modifServiceEtape2Confirmation";
-		System.out.println("debut methode modifierService()");
 		try {
 			if (this.memeAdresseStructure) {
 				this.formService = BeanUtils.copieAdresseStructureVersService(
@@ -1498,21 +1283,21 @@ public class EtablissementController extends AbstractContextAwareController {
 				this.formService.setPays(this.formServiceTmpPays);
 				if (getBeanUtils().isFrance(this.formServiceTmpPays)
 						&& getSessionController()
-								.isRecupererCommunesDepuisApogee()) {
+						.isRecupererCommunesDepuisApogee()) {
 					this.formService
-							.setCodePostal(this.formServiceTmpCodePostal);
+					.setCodePostal(this.formServiceTmpCodePostal);
 					this.formService
-							.setCodeCommune(this.formServiceTmpCommuneDTO
-									.getCodeCommune());
-					// R�cup�ration de la commune pour en avoir le libell�
+					.setCodeCommune(this.formServiceTmpCommuneDTO
+							.getCodeCommune());
+					// Récupération de la commune pour en avoir le libellé
 					this.formServiceTmpCommuneDTO = getGeographieRepositoryDomain()
 							.getCommuneFromDepartementEtCodeCommune(
 									this.formServiceTmpCodePostal,
 									"" + this.formService.getCodeCommune());
 					if (this.formServiceTmpCommuneDTO != null) {
 						this.formService
-								.setCommune(this.formServiceTmpCommuneDTO
-										.getLibCommune());
+						.setCommune(this.formServiceTmpCommuneDTO
+								.getLibCommune());
 					}
 				}
 			}
@@ -1527,18 +1312,13 @@ public class EtablissementController extends AbstractContextAwareController {
 			if (getStructureDomainService().updateService(this.formService)) {
 				addInfoMessage(null, "SERVICE.MODIF.CONFIRMATION");
 				reloadServices();
-				/*
-				 * for(ServiceDTO s : this.listeServices){
-				 * if(s.getIdService()==this.formService.getIdService()){
-				 * s=this.formService; break; } }
-				 */
 				if (logger.isInfoEnabled()) {
 					logger.info(getSessionController().getCurrentLogin()
 							+ " modifie le service : "
 							+ this.serviceSel
-							+ " de l'�tablissement : "
+							+ " de l'établissement : "
 							+ getSessionController()
-									.getCurrentManageStructure());
+							.getCurrentManageStructure());
 				}
 				this.formService = null;
 				this.formServiceTmpCodePostal = null;
@@ -1555,11 +1335,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			addErrorMessage(null, "SERVICE.MODIF.ERREUR");
 		}
 		// return ret;
-		System.out.println("modifierService() => avant maj : "
-				+ currentPageModifService);
-		currentPageModifService = modifServiceEtape2;
-		System.out.println("modifierService() => apres maj : "
-				+ currentPageModifService);
+		getSessionController().setModifServiceCurrentPage("_modifServiceEtape2Confirmation");
 	}
 
 	/**
@@ -1592,9 +1368,9 @@ public class EtablissementController extends AbstractContextAwareController {
 						logger.info(getSessionController().getCurrentLogin()
 								+ " supprime le service : "
 								+ this.serviceSel
-								+ " de l'�tablissement : "
+								+ " de l'établissement : "
 								+ getSessionController()
-										.getCurrentManageStructure());
+								.getCurrentManageStructure());
 					}
 					this.formContact = null;
 					this.formService = null;
@@ -1656,7 +1432,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void ajouterContact() {
-//		String ret = "_ajoutContactEtape2Confirmation";
+		//		String ret = "_ajoutContactEtape2Confirmation";
 		if (this.idServiceSel > 0 && this.formContact != null
 				&& StringUtils.hasText(this.formContact.getNom())
 				&& this.formContact.getCivilite() != null) {
@@ -1675,21 +1451,21 @@ public class EtablissementController extends AbstractContextAwareController {
 						if (getSessionController()
 								.getCentreGestionRattachement() != null) {
 							this.formContact
-									.setIdCentreGestion(getSessionController()
-											.getCentreGestionRattachement()
-											.getIdCentreGestion());
+							.setIdCentreGestion(getSessionController()
+									.getCentreGestionRattachement()
+									.getIdCentreGestion());
 						} else {
 							CentreGestionDTO cgEntr = getCentreGestionDomainService()
 									.getCentreEntreprise();
 							if (cgEntr != null) {
 								this.formContact
-										.setIdCentreGestion(getCentreGestionDomainService()
-												.getCentreEntreprise()
-												.getIdCentreGestion());
+								.setIdCentreGestion(getCentreGestionDomainService()
+										.getCentreEntreprise()
+										.getIdCentreGestion());
 							} else {
 								addErrorMessage(null,
 										"CONTACT.GESTION.AJOUT.ERREUR");
-//								return null;
+								//								return null;
 								return;
 							}
 						}
@@ -1701,7 +1477,7 @@ public class EtablissementController extends AbstractContextAwareController {
 						addInfoMessage(null,
 								"CONTACT.GESTION.AJOUT.CONFIRMATION");
 						reloadContacts();
-						// Dernier contact ajout� toujours visible
+						// Dernier contact ajouté toujours visible
 						if (this.listeContacts != null
 								&& !this.listeContacts.isEmpty()) {
 							if (this.listeContacts.contains(this.formContact)) {
@@ -1722,24 +1498,24 @@ public class EtablissementController extends AbstractContextAwareController {
 							if (getSessionController()
 									.getCurrentCentresGestion() != null
 									&& !getSessionController()
-											.getCurrentCentresGestion()
-											.isEmpty()
+									.getCurrentCentresGestion()
+									.isEmpty()
 									&& ((ArrayList<CentreGestionDTO>) getSessionController()
 											.getCurrentCentresGestion())
 											.contains(cgTmp)) {
 								this.formContact
-										.setCentreGestion(getSessionController()
+								.setCentreGestion(getSessionController()
+										.getCurrentCentresGestion()
+										.get(getSessionController()
 												.getCurrentCentresGestion()
-												.get(getSessionController()
-														.getCurrentCentresGestion()
-														.indexOf(cgTmp)));
+												.indexOf(cgTmp)));
 							} else {
 								CentreGestionDTO cgEntr = getCentreGestionDomainService()
 										.getCentreEntreprise();
 								if (cgEntr != null
 										&& this.formContact
-												.getIdCentreGestion() == cgEntr
-												.getIdCentreGestion()) {
+										.getIdCentreGestion() == cgEntr
+										.getIdCentreGestion()) {
 									this.formContact.setCentreGestion(cgEntr);
 								}
 							}
@@ -1747,17 +1523,17 @@ public class EtablissementController extends AbstractContextAwareController {
 							this.listeContacts.add(this.formContact);
 							Collections.sort(this.listeContacts,
 									new Comparator<ContactDTO>() {
-										/**
-										 * @see java.util.Comparator#compare(java.lang.Object,
-										 *      java.lang.Object)
-										 */
-										@Override
-										public int compare(ContactDTO c1,
-												ContactDTO c2) {
-											return c1.getNom().compareTo(
-													c2.getNom());
-										}
-									});
+								/**
+								 * @see java.util.Comparator#compare(java.lang.Object,
+								 *      java.lang.Object)
+								 */
+								@Override
+								public int compare(ContactDTO c1,
+										ContactDTO c2) {
+									return c1.getNom().compareTo(
+											c2.getNom());
+								}
+							});
 						} else {
 							this.listeContacts = new ArrayList<ContactDTO>();
 							this.listeContacts.add(this.formContact);
@@ -1769,9 +1545,9 @@ public class EtablissementController extends AbstractContextAwareController {
 									.getCurrentLogin()
 									+ " ajoute le contact : "
 									+ this.formContact
-									+ " � l'�tablissement : "
+									+ " à l'établissement : "
 									+ getSessionController()
-											.getCurrentManageStructure());
+									.getCurrentManageStructure());
 						}
 						this.formContact = null;
 					} else {
@@ -1787,24 +1563,23 @@ public class EtablissementController extends AbstractContextAwareController {
 				} catch (MailAlreadyUsedForStructureException e) {
 					logger.info("MailAlreadyUsedForStructureException",
 							e.fillInStackTrace());
-					addErrorMessage("formAjoutContact:include:mailC",
+					addErrorMessage("formAjoutContact:mailC",
 							"CONTACT.GESTION.ERREURACCOUNT");
-//					ret = null;
+					//					ret = null;
 					return;
 				}
 			} else {
-				addErrorMessage("formAjoutContact:include:msg1o3",
+				addErrorMessage("formAjoutContact:msg1o3",
 						"CONTACT.GESTION.UNDESTROIS");
-//				ret = null;
+				//				ret = null;
 				return;
 			}
 		} else {
-//			ret = null;
+			//			ret = null;
 			return;
 		}
-//		return ret;
-		currentPageAjoutContact = ajoutContactEtape2;
-		System.out.println(currentPageAjoutContact);
+		//		return ret;
+		getSessionController().setAjoutContactCurrentPage("_ajoutContactEtape2Confirmation");
 	}
 
 	/**
@@ -1812,8 +1587,8 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * 
 	 * @return String
 	 */
-	public String modifierContact() {
-		String ret = "_modifContactEtape2Confirmation";
+	public void modifierContact() {
+		//		String ret = "_modifContactEtape2Confirmation";
 		this.keysContacts = new HashSet<Integer>();
 		if (this.idServiceSel > 0 && this.formContact != null
 				&& StringUtils.hasText(this.formContact.getNom())
@@ -1834,21 +1609,21 @@ public class EtablissementController extends AbstractContextAwareController {
 						if (getSessionController()
 								.getCentreGestionRattachement() != null) {
 							this.formContact
-									.setIdCentreGestion(getSessionController()
-											.getCentreGestionRattachement()
-											.getIdCentreGestion());
+							.setIdCentreGestion(getSessionController()
+									.getCentreGestionRattachement()
+									.getIdCentreGestion());
 						} else {
 							CentreGestionDTO cgEntr = getCentreGestionDomainService()
 									.getCentreEntreprise();
 							if (cgEntr != null) {
 								this.formContact
-										.setIdCentreGestion(getCentreGestionDomainService()
-												.getCentreEntreprise()
-												.getIdCentreGestion());
+								.setIdCentreGestion(getCentreGestionDomainService()
+										.getCentreEntreprise()
+										.getIdCentreGestion());
 							} else {
 								addErrorMessage(null,
 										"CONTACT.GESTION.MODIF.ERREUR");
-								return null;
+								return;
 							}
 						}
 					}
@@ -1874,41 +1649,41 @@ public class EtablissementController extends AbstractContextAwareController {
 							if (getSessionController()
 									.getCurrentCentresGestion() != null
 									&& !getSessionController()
-											.getCurrentCentresGestion()
-											.isEmpty()
+									.getCurrentCentresGestion()
+									.isEmpty()
 									&& ((ArrayList<CentreGestionDTO>) getSessionController()
 											.getCurrentCentresGestion())
 											.contains(cgTmp)) {
 								this.formContact
-										.setCentreGestion(getSessionController()
+								.setCentreGestion(getSessionController()
+										.getCurrentCentresGestion()
+										.get(getSessionController()
 												.getCurrentCentresGestion()
-												.get(getSessionController()
-														.getCurrentCentresGestion()
-														.indexOf(cgTmp)));
+												.indexOf(cgTmp)));
 							} else {
 								CentreGestionDTO cgEntr = getCentreGestionDomainService()
 										.getCentreEntreprise();
 								if (cgEntr != null
 										&& this.formContact
-												.getIdCentreGestion() == cgEntr
-												.getIdCentreGestion()) {
+										.getIdCentreGestion() == cgEntr
+										.getIdCentreGestion()) {
 									this.formContact.setCentreGestion(cgEntr);
 								}
 							}
 							this.listeContacts.add(this.formContact);
 							Collections.sort(this.listeContacts,
 									new Comparator<ContactDTO>() {
-										/**
-										 * @see java.util.Comparator#compare(java.lang.Object,
-										 *      java.lang.Object)
-										 */
-										@Override
-										public int compare(ContactDTO c1,
-												ContactDTO c2) {
-											return c1.getNom().compareTo(
-													c2.getNom());
-										}
-									});
+								/**
+								 * @see java.util.Comparator#compare(java.lang.Object,
+								 *      java.lang.Object)
+								 */
+								@Override
+								public int compare(ContactDTO c1,
+										ContactDTO c2) {
+									return c1.getNom().compareTo(
+											c2.getNom());
+								}
+							});
 						}
 						addInfoMessage(null,
 								"CONTACT.GESTION.MODIF.CONFIRMATION");
@@ -1917,9 +1692,9 @@ public class EtablissementController extends AbstractContextAwareController {
 									.getCurrentLogin()
 									+ " modifie le contact : "
 									+ this.formContact
-									+ " de l'�tablissement : "
+									+ " de l'établissement : "
 									+ getSessionController()
-											.getCurrentManageStructure());
+									.getCurrentManageStructure());
 						}
 						this.formContact = null;
 					} else {
@@ -1937,19 +1712,24 @@ public class EtablissementController extends AbstractContextAwareController {
 				} catch (MailAlreadyUsedForStructureException e) {
 					logger.info("MailAlreadyUsedForStructureException",
 							e.fillInStackTrace());
-					addErrorMessage("formModifContact:include:mailC",
+					addErrorMessage("formModifContact:mailC",
 							"CONTACT.GESTION.ERREURACCOUNT");
-					ret = null;
+					//					ret = null;
 				}
 			} else {
-				addErrorMessage("formModifContact:include:msg1o3",
+				addErrorMessage("formModifContact:msg1o3",
 						"CONTACT.GESTION.UNDESTROIS");
-				ret = null;
+				//				ret = null;
+
+				return;
 			}
 		} else {
-			ret = null;
+			//			ret = null;
+
+			return;
 		}
-		return ret;
+		//		return ret;
+		getSessionController().setModifContactCurrentPage("_modifContactEtape2Confirmation");
 	}
 
 	/**
@@ -1957,8 +1737,8 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * 
 	 * @return String
 	 */
-	public String supprimerContact() {
-		String ret = "_supprContactEtape2Confirmation";
+	public void supprimerContact() {
+		//		String ret = "_supprContactEtape2Confirmation";
 		try {
 			if (getStructureDomainService().deleteContact(
 					this.formContact.getId())) {
@@ -1972,9 +1752,9 @@ public class EtablissementController extends AbstractContextAwareController {
 					logger.info(getSessionController().getCurrentLogin()
 							+ " supprime le contact : "
 							+ this.formContact
-							+ " de l'�tablissement : "
+							+ " de l'établissement : "
 							+ getSessionController()
-									.getCurrentManageStructure());
+							.getCurrentManageStructure());
 				}
 				this.formContact = null;
 			} else {
@@ -1990,11 +1770,12 @@ public class EtablissementController extends AbstractContextAwareController {
 			logger.info("ContactDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREURREF");
 		}
-		return ret;
+		//		return ret;
+		getSessionController().setSuppressionContactCurrentPage("_supprContactEtape2Confirmation");
 	}
 
 	/**
-	 * Cr�ation d'un compte pour un contact s�lectionn�
+	 * Création d'un compte pour un contact sélectionné
 	 * 
 	 * @return String
 	 */
@@ -2014,11 +1795,11 @@ public class EtablissementController extends AbstractContextAwareController {
 						.getId());
 				this.formContact.setIdService(this.idServiceSel);
 				this.formContact
-						.setIdCentreGestion(getCentreGestionDomainService()
-								.getCentreEntreprise().getIdCentreGestion());
+				.setIdCentreGestion(getCentreGestionDomainService()
+						.getCentreEntreprise().getIdCentreGestion());
 				this.formContact.setLogin(Utils.loginGeneration(
 						getSessionController().getCurrentManageStructure()
-								.getRaisonSociale(),
+						.getRaisonSociale(),
 						"" + this.formContact.getId()));
 				String mdpGenere = Utils.encodeMD5(
 						"random" + Math.random() * 10000).substring(0, 8);
@@ -2030,14 +1811,14 @@ public class EtablissementController extends AbstractContextAwareController {
 							"CONTACT.GESTION.COMPTE.CREATION.CONFIRMATION",
 							this.formContact.getNom() + " "
 									+ this.formContact.getPrenom(),
-							this.formContact.getMail());
+									this.formContact.getMail());
 					if (logger.isInfoEnabled()) {
 						logger.info(getSessionController().getCurrentLogin()
-								+ " cr�� un compte pour le contact : "
+								+ " crée un compte pour le contact : "
 								+ this.formContact
-								+ " de l'�tablissement : "
+								+ " de l'établissement : "
 								+ getSessionController()
-										.getCurrentManageStructure());
+								.getCurrentManageStructure());
 					}
 					if (logger.isInfoEnabled()) {
 						logger.info("Creation de compte - Envoi du mail au contact");
@@ -2046,15 +1827,15 @@ public class EtablissementController extends AbstractContextAwareController {
 							ia,
 							getString("MAIL.COMPTECONTACT.CREATION.SUJET",
 									getSessionController()
-											.getApplicationNameEntreprise()),
-							getString(
-									"MAIL.COMPTECONTACT.CREATION.MESSAGE",
-									this.formContact.getLogin(),
-									getBlowfishUtils().decode(
-											this.formContact.getMdp()),
-									getSessionController().getEntrepriseUrl(),
-									getSessionController()
-											.getApplicationNameEntreprise()),
+									.getApplicationNameEntreprise()),
+									getString(
+											"MAIL.COMPTECONTACT.CREATION.MESSAGE",
+											this.formContact.getLogin(),
+											getBlowfishUtils().decode(
+													this.formContact.getMdp()),
+													getSessionController().getEntrepriseUrl(),
+													getSessionController()
+													.getApplicationNameEntreprise()),
 							"");
 					this.formContact = null;
 				} else {
@@ -2106,9 +1887,9 @@ public class EtablissementController extends AbstractContextAwareController {
 						logger.info(getSessionController().getCurrentLogin()
 								+ " supprime le compte du contact : "
 								+ this.formContact
-								+ " de l'�tablissement : "
+								+ " de l'établissement : "
 								+ getSessionController()
-										.getCurrentManageStructure());
+								.getCurrentManageStructure());
 					}
 					this.formContact = null;
 				} else {
@@ -2163,9 +1944,9 @@ public class EtablissementController extends AbstractContextAwareController {
 						logger.info(getSessionController().getCurrentLogin()
 								+ " reset le mot de passe du contact : "
 								+ this.formContact
-								+ " de l'�tablissement : "
+								+ " de l'établissement : "
 								+ getSessionController()
-										.getCurrentManageStructure());
+								.getCurrentManageStructure());
 					}
 					try {
 						if (logger.isInfoEnabled()) {
@@ -2175,22 +1956,22 @@ public class EtablissementController extends AbstractContextAwareController {
 								this.formContact.getMail());
 						ia.validate();
 						getSmtpService()
-								.send(ia,
-										getString(
-												"MAIL.COMPTECONTACT.RESETMDP.SUJET",
-												getSessionController()
-														.getApplicationNameEntreprise()),
+						.send(ia,
+								getString(
+										"MAIL.COMPTECONTACT.RESETMDP.SUJET",
+										getSessionController()
+										.getApplicationNameEntreprise()),
 										getString(
 												"MAIL.COMPTECONTACT.RESETMDP.MESSAGE",
 												this.formContact.getLogin(),
 												getBlowfishUtils().decode(
 														this.formContact
-																.getMdp()),
-												getSessionController()
+														.getMdp()),
+														getSessionController()
 														.getEntrepriseUrl(),
-												getSessionController()
+														getSessionController()
 														.getApplicationNameEntreprise()),
-										"");
+								"");
 					} catch (AddressException e) {
 						if (logger.isDebugEnabled()) {
 							e.printStackTrace();
@@ -2256,43 +2037,43 @@ public class EtablissementController extends AbstractContextAwareController {
 							if (getStructureDomainService()
 									.updateCompteContact(
 											getSessionController()
-													.getCurrentAuthContact())) {
+											.getCurrentAuthContact())) {
 								InternetAddress cIA;
 								try {
 									cIA = new InternetAddress(
 											getSessionController()
-													.getCurrentAuthContact()
-													.getMail());
+											.getCurrentAuthContact()
+											.getMail());
 									cIA.validate();
 									getSmtpService()
-											.send(cIA,
-													getString(
-															"MAIL.RECAPIDENTS.SUJET",
-															getSessionController()
-																	.getApplicationNameEntreprise()),
+									.send(cIA,
+											getString(
+													"MAIL.RECAPIDENTS.SUJET",
+													getSessionController()
+													.getApplicationNameEntreprise()),
 													getString(
 															"MAIL.RECAPIDENTS.MESSAGE",
 															getSessionController()
-																	.getCurrentAuthContact()
-																	.getLogin(),
+															.getCurrentAuthContact()
+															.getLogin(),
 															getBlowfishUtils()
-																	.decode(getSessionController()
-																			.getCurrentAuthContact()
-																			.getMdp()),
-															getSessionController()
+															.decode(getSessionController()
+																	.getCurrentAuthContact()
+																	.getMdp()),
+																	getSessionController()
 																	.getApplicationNameEntreprise()),
-													"");
+											"");
 									if (logger.isInfoEnabled()) {
 										logger.info("Recuperation de mot de passe pour : "
 												+ getSessionController()
-														.getCurrentAuthContact());
+												.getCurrentAuthContact());
 									}
 									addInfoMessage(
 											null,
 											"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.CONFIRMATION",
 											getSessionController()
-													.getCurrentAuthContact()
-													.getMail());
+											.getCurrentAuthContact()
+											.getMail());
 								} catch (AddressException e) {
 									logger.error(e.getMessage());
 									e.printStackTrace();
@@ -2319,12 +2100,12 @@ public class EtablissementController extends AbstractContextAwareController {
 						}
 					} else {
 						ret = null;
-						addErrorMessage("changementMotDePasse:include:mdpNew",
+						addErrorMessage("changementMotDePasse:mdpNew",
 								"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPCONFIRMINCORRECT");
 					}
 				} else {
 					ret = null;
-					addErrorMessage("changementMotDePasse:include:mdp",
+					addErrorMessage("changementMotDePasse:mdp",
 							"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPACTUELINCORRECT");
 				}
 			}
@@ -2490,7 +2271,7 @@ public class EtablissementController extends AbstractContextAwareController {
 		this.servicesItems = new ArrayList<SelectItem>();
 		for (ServiceDTO s : this.listeServices) {
 			this.servicesItems
-					.add(new SelectItem(s.getIdService(), s.getNom()));
+			.add(new SelectItem(s.getIdService(), s.getNom()));
 		}
 		return this.servicesItems;
 	}
@@ -2694,7 +2475,7 @@ public class EtablissementController extends AbstractContextAwareController {
 		currentCentresGestionContainsCentreContact = false;
 		if (getSessionController().getCurrentIdsCentresGestion() != null
 				&& !getSessionController().getCurrentIdsCentresGestion()
-						.isEmpty()
+				.isEmpty()
 				&& ((ArrayList<Integer>) getSessionController()
 						.getCurrentIdsCentresGestion())
 						.contains(this.formContact.getIdCentreGestion())) {
@@ -2702,7 +2483,7 @@ public class EtablissementController extends AbstractContextAwareController {
 					.getCentreEntreprise();
 			if (cgEntr != null
 					&& cgEntr.getIdCentreGestion() != this.formContact
-							.getIdCentreGestion())
+					.getIdCentreGestion())
 				currentCentresGestionContainsCentreContact = true;
 		}
 		return currentCentresGestionContainsCentreContact;

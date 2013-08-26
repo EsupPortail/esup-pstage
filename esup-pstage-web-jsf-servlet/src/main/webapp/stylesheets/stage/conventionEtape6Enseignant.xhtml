@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -15,19 +13,19 @@
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columns="1">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE6.ENSEIGNANT']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="" />
-					<h:panelGrid columns="1">
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 						<rich:messages showDetail="true">
 						</rich:messages>
 						<ui:include
 							src="/stylesheets/stage/_conventionEtape6DetailsEnseignant.xhtml" />
 					</h:panelGrid>
-					<h:panelGrid columns="1">
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 						<h:commandButton id="modifEnseigant"
 							value="#{msgs['FORM.MODIFIER']}"
 							action="#{conventionController.goToConventionModifEnseignant}"

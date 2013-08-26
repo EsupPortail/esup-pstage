@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -11,7 +9,6 @@
 		<h:panelGrid columns="1">
 			<t:div styleClass="sections">
 				<t:htmlTag value="br" />
-<!-- 				<h:paragraph escape="false" -->
 					<p> <h:outputText escape="false" value="#{msgs['GENERAL.ACCUEIL.STAGE.WELCOME']}"/> </p>
 				<t:htmlTag value="br" />
 			</t:div>
@@ -22,13 +19,12 @@
 					value="#{msgs['GENERAL.ACCUEIL.STAGE.DECOENTR']}"
 					disabled="#{!sessionController.adminPageAuthorized}" />
 			</h:form>
-			<script type="text/javascript" language="JavaScript">
+			<script type="text/javascript">
 				hideButton('disconnectEntr:disco');
 				window.onload = function() {
 					simulateLinkClick('disconnectEntr:disco');
 				};
 			</script>
-<!-- 			<p:spacer height="15px" /> -->
 			<h:outputText value="#{msgs['MESSAGE_CNIL_STAGE']}" escape="false"
 				rendered="#{not empty msgs['MESSAGE_CNIL_STAGE']}" />
 		</h:panelGrid>

@@ -8,7 +8,7 @@
 		maxlength="12" size="12"
 		requiredMessage="#{requiredMessageController.champObligatoire}">
 		<f:converter binding="#{passwordConverter}" />
-		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+		<a4j:ajax event="blur" ignoreDupResponses="true" />
 	</h:inputSecret>
 	<rich:message for="mdp">
 		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
@@ -26,7 +26,7 @@
 		requiredMessage="#{requiredMessageController.champObligatoire}"
 		validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
 		<f:validateLength minimum="6" maximum="12"/>
-		<rich:ajaxValidator event="onblur" />
+		<a4j:ajax event="blur" />
 	</h:inputSecret>
 	<rich:message for="mdpNew">
 		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
@@ -38,7 +38,7 @@
 		requiredMessage="#{requiredMessageController.champObligatoire}"
 		validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
 		<f:validateLength minimum="6" maximum="12"/>
-		<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+		<a4j:ajax event="blur" ignoreDupResponses="true" />
 	</h:inputSecret>
 	<rich:message for="mdpConfirm">
 		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>

@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -49,22 +49,26 @@
 				value="#{conventionController.convention.contact.fonction}" />
 		</rich:column>
 		<rich:column>
-			<h:panelGrid columns="1">
-				<h:panelGrid columns="2">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="2">
 					<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
 						title="#{msgs['CONTACT.TELEPHONE']}"
 						value="../../media/images/phone.png" style="border:0" />
 					<h:outputText id="telC"
 						value="#{conventionController.convention.contact.tel}" />
 				</h:panelGrid>
-				<h:panelGrid columns="2">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="2">
 					<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
 						title="#{msgs['CONTACT.FAX']}"
 						value="../../media/images/printer.png" style="border:0" />
 					<h:outputText id="faxC"
 						value="#{conventionController.convention.contact.fax}" />
 				</h:panelGrid>
-				<h:panelGrid columns="2">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="2">
 					<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
 						title="#{msgs['CONTACT.MAIL']}"
 						value="../../media/images/email.png" style="border:0" />
@@ -74,4 +78,4 @@
 			</h:panelGrid>
 		</rich:column>
 	</rich:dataTable>
-</ui:fragment>
+</ui:composition>

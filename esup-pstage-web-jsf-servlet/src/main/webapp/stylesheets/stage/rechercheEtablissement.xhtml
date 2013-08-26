@@ -8,6 +8,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="_definedStageTemplate.xhtml">
 	<ui:define name="content">
+
 		<h:outputStylesheet>
 	        .active-row {
 		        background-color: #FFEBDA !important;
@@ -27,7 +28,7 @@
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1">
 					<rich:message for="formResultatsRechEtab">
-<!-- 						<t:htmlTag value="div" style="height: 20px;" /> -->
+						<!-- 						<t:htmlTag value="div" style="height: 20px;" /> -->
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 					<t:htmlTag value="div" style="height: 10px;" />
@@ -45,18 +46,23 @@
 						<rich:dataTable id="rechercheStructureDataTable"
 							var="varRechercheStructure"
 							value="#{rechercheController.listeResultatsRechercheStructure}"
-							styleClass="stable"
-							border="0" cellspacing="2" cellpadding="2" style="width: 600;"
-							rows="10">
-							
+							styleClass="stable" border="0" cellspacing="2" cellpadding="2"
+							style="width: 600;" rows="20">
+
 							<f:facet name="header">
-								<ui:include	src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
+								<ui:include
+									src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
 							</f:facet>
-							<ui:include	src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-							<ui:include	src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
-							
+							<ui:include
+								src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+							<ui:include
+								src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
+
+							<f:facet name="footer">
+								<rich:dataScroller for="rechercheStructureDataTable" maxPages="10"
+								renderIfSinglePage="false" boundaryControls="auto"/>
+							</f:facet>
 						</rich:dataTable>
-						<rich:dataScroller for="rechercheStructureDataTable" maxPages="20" renderIfSinglePage="false" />
 						<rich:jQuery selector=".stable tr" event="mouseover"
 							query="jQuery(this).addClass('active-row')" />
 						<rich:jQuery selector=".stable tr" event="mouseout"

@@ -16,21 +16,9 @@
 						<h:outputText value="#{msgs['MENU.FICHESIGNALETIQUE']}" />
 					</f:facet>
 					<h:form id="formModifEtab">
-						<h:panelGrid columns="2" align="center">
-							<h:column>
-								<ui:include
-									src="../_commun/_confirmationImagesPermanentes.xhtml" />
-							</h:column>
-							<h:column>
-								<rich:message for="formModifEtab">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
-							</h:column>
-						</h:panelGrid>
 						<ui:include id="include"
-							src="/stylesheets/depot/_modifFicheSignaletiqueEtape1.xhtml" />
+							src="/stylesheets/depot/#{sessionController.ficheSignaletiqueCurrentPage}.xhtml" />
 					</h:form>
-					<rich:editor rendered="false" />
 				</rich:panel>
 				<ui:include src="_panelNousContacter.xhtml" />
 			</h:panelGrid>

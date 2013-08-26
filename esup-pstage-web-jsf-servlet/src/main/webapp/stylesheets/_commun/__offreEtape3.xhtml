@@ -11,9 +11,9 @@
 		<h:panelGrid columns="3"
 			rendered="#{offreController.formOffre.idOffre>0}"
 			style="float:right;">
-			<h:bold value="#{msgs['OFFRE']} " />
-			<h:bold value=" #{msgs['OFFRE.ID']}" />
-			<h:outputText value="#{offreController.formOffre.idOffre}" />
+			<h:outputLabel value="#{msgs['OFFRE']} " for="idOffre"/>
+			<h:outputLabel value=" #{msgs['OFFRE.ID']}" for="idOffre" />
+			<h:outputText id="idOffre" value="#{offreController.formOffre.idOffre}" />
 		</h:panelGrid>
 		<h:panelGrid rendered="#{offreController.fichierOuLien==1}">
 			<a4j:outputPanel id="opUploadFile">
@@ -27,7 +27,7 @@
 						autoclear="true" addControlLabel="Sélectionner "
 						cancelEntryControlLabel="" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<a4j:support event="onuploadcomplete" render="opUploadFile"
+						<a4j:ajax event="onuploadcomplete" render="opUploadFile"
 							action="#{offreController.insertUploadedFile}" execute="@this" />
 					</rich:fileUpload>
 					<h:outputFormat value="#{msgs['GENERAL.FILESIZERESTRICTED']}">

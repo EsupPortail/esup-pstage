@@ -3,7 +3,6 @@
  */
 package org.esupportail.pstage.web.converters;
 
-import java.io.Serializable;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -15,24 +14,21 @@ import org.springframework.util.StringUtils;
 
 /**
  * @author Florian Garot : florian.garot@univ-artois.fr
- *
  */
-public class ConfidentialiteConverter implements Serializable, Converter {
+public class ConfidentialiteConverter implements Converter {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	/**
 	 * NomenclatureDomainService
 	 */
 	private NomenclatureDomainService nomenclatureDomainService;
+	
 	/**
 	 * Bean constructor.
 	 */
 	public ConfidentialiteConverter() {
 		super();
 	}
+
 	/**
 	 * @see javax.faces.convert.Converter#getAsString(
 	 * javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
@@ -52,7 +48,7 @@ public class ConfidentialiteConverter implements Serializable, Converter {
 		ConfidentialiteDTO c = (ConfidentialiteDTO) value;
 		return ""+c.getCode();
 	}
-	
+
 	/**
 	 * @see javax.faces.convert.Converter#getAsObject(
 	 * javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
@@ -62,18 +58,13 @@ public class ConfidentialiteConverter implements Serializable, Converter {
 			final FacesContext context, 
 			final UIComponent component, 
 			final String value) {
-		
 		if (!StringUtils.hasText(value)) {
 			return null;
 		}
-		return getNomenclatureDomainService().getConfidentialiteFromCode(value);
+
+		return this.nomenclatureDomainService.getConfidentialiteFromCode(value);
 	}
-	/**
-	 * @return the nomenclatureDomainService
-	 */
-	public NomenclatureDomainService getNomenclatureDomainService() {
-		return nomenclatureDomainService;
-	}
+
 	/**
 	 * @param nomenclatureDomainService the nomenclatureDomainService to set
 	 */
@@ -81,5 +72,5 @@ public class ConfidentialiteConverter implements Serializable, Converter {
 			NomenclatureDomainService nomenclatureDomainService) {
 		this.nomenclatureDomainService = nomenclatureDomainService;
 	}
-	
+
 }

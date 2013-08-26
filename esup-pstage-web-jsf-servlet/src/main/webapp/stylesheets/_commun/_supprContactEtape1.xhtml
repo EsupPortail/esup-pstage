@@ -18,11 +18,11 @@
 			<a4j:commandButton
 				action="#{etablissementController.supprimerContact}"
 				value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
-				render="opContactsDataTable" />
+				render="opContactsDataTable, formSupprContact" />
 			<t:htmlTag value="div" style="width: 150px;" />
 			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 				onclick="#{rich:component('supprContact')}.hide();"
-				action="_supprContactEtape1" immediate="true" />
+				immediate="true" />
 		</h:panelGrid>
 	</h:column>
 

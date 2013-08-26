@@ -91,8 +91,8 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.ACTIVITE']}" />
 		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" cellpadding="2" cellspacing="2"
-			alternateColors="true" align="center" style="font-size:12px;">
+		<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2"
+			align="center" style="font-size:12px;">
 			<h:outputLabel for="nafN5" value="#{msgs['STRUCTURE.CODE_NAF']}"
 				rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}" />
 			<h:outputText id="nafN5"
@@ -111,6 +111,6 @@
 					rendered="#{not empty structure.activitePrincipale}"
 					value="#{structure.activitePrincipale}" escape="false" />
 			</t:panelGroup>
-		</h:panelGrid>
+		</t:panelGrid>
 	</rich:panel>
 </ui:fragment>

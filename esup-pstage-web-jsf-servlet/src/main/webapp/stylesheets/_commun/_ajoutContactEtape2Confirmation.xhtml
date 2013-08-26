@@ -9,7 +9,6 @@
 
 	<ui:include src="_confirmationMessages.xhtml" />
 	<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		action="#{etablissementController.resetCurrentPageAjoutContact}"
 		render="formAjoutContact"
 		onclick="#{rich:component('ajoutContact')}.hide();" />
 

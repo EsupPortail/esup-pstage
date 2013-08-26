@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1"
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1"
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<rich:panel>
 			<f:facet name="header">
@@ -44,7 +44,7 @@
 				rowClasses="paginatorData-text"
 				rendered="#{conventionController.etudiantSupUneEtape}">
 				<h:outputLabel for="etapes" value="#{msgs['CONVENTION.VOTREETAPE']}" />
-				<h:panelGrid columns="2" id="etapes">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" id="etapes">
 					<h:selectOneMenu id="choixEtape"
 						value="#{conventionController.selectedCodeEtape}" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}">
@@ -77,7 +77,7 @@
 						rendered="#{conventionController.etudiantUnElp}" />
 				</a4j:outputPanel>
 				<a4j:outputPanel id="panelElp">
-					<h:panelGrid columns="3"
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3"
 						rendered="#{conventionController.etudiantSupUnElp}">
 						<h:outputLabel for="choixElp" value="#{msgs['CONVENTION.ELP']}" />
 						<h:selectOneMenu id="choixElp"
@@ -99,7 +99,7 @@
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 
-			<h:panelGrid columns="1">
+			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 				<t:htmlTag value="div" style="height:20px;" />
 				<h:panelGrid columns="3" columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text">
@@ -207,7 +207,7 @@
 				</rich:panel>
 				<t:htmlTag value="div" style="height: 10px;" />
 			</h:panelGrid>
-			<h:panelGrid columns="3">
+			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3">
 				<h:commandButton
 					action="#{conventionController.goToCreerConventionRechEtu}"
 					value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}" immediate="true"

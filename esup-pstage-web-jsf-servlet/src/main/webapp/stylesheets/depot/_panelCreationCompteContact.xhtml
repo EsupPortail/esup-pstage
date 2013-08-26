@@ -1,11 +1,18 @@
-<ui:include src="../_include.xhtml"/>
-<rich:modalPanel id="creationCompteContact" autosized="true" width="400"
-	styleClass="panel" domElementAttachment="parent">
-	<f:facet name="header">
-		<h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}" />
-	</f:facet>
-	<h:form id="formCreationCompteContact">
-		<a4j:include id="include"
-			viewId="/stylesheets/depot/_creationCompteContactEtape1.xhtml" />
-	</h:form>
-</rich:modalPanel>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<rich:popupPanel id="creationCompteContact" autosized="true" width="400"
+		styleClass="panel">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}" />
+		</f:facet>
+		<h:form id="formCreationCompteContact">
+			<ui:include id="include"
+				src="/stylesheets/depot/#{sessionController.creationCompteContactCurrentPage}.xhtml" />
+		</h:form>
+	</rich:popupPanel>
+</ui:composition>

@@ -34,20 +34,20 @@
 				rowClasses="paginatorData-text">
 				<h:graphicImage alt="V" value="../../media/images/tick.png"
 					style="border:0"
-					rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
+					rendered="#{sessionController.currentManageStructure.idAccordPartenariat gt 0
 				and sessionController.currentManageStructure.accordPartenariat!=null
 				and sessionController.currentManageStructure.accordPartenariat.estValide}" />
 				<h:graphicImage alt="X" value="../../media/images/cross.png"
 					style="border:0"
-					rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
+					rendered="#{sessionController.currentManageStructure.idAccordPartenariat gt 0
 				and sessionController.currentManageStructure.accordPartenariat!=null
 				and !sessionController.currentManageStructure.accordPartenariat.estValide}" />
 				<h:outputText value="#{msgs['STRUCTURE.ACCORDVALIDE']}"
-					rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
+					rendered="#{sessionController.currentManageStructure.idAccordPartenariat gt 0
 				and sessionController.currentManageStructure.accordPartenariat!=null
 				and sessionController.currentManageStructure.accordPartenariat.estValide}" />
 				<h:outputText value="#{msgs['STRUCTURE.ACCORDNONVALIDE']}"
-					rendered="#{sessionController.currentManageStructure.idAccordPartenariat>0
+					rendered="#{sessionController.currentManageStructure.idAccordPartenariat gt 0
 				and sessionController.currentManageStructure.accordPartenariat!=null
 				and !sessionController.currentManageStructure.accordPartenariat.estValide}" />
 			</h:panelGrid>

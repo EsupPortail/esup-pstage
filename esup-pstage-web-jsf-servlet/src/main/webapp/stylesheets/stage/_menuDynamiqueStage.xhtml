@@ -170,7 +170,7 @@
 								target="#{rechercheController.ongletCourant}" />
 						</h:commandLink>
 					</t:htmlTag>
-					<t:htmlTag value="li" rendered="#{sessionController.moderationActive &amp;&amp; (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+					<t:htmlTag value="li" rendered="#{sessionController.moderationActive and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
 						<h:commandLink action="#{offreController.goToOffreADiffuser}">
 							<h:graphicImage alt="#{msgs['MENU.OFFRESADIFFUSER']})"
 								title="#{msgs['MENU.OFFRESADIFFUSER']})"

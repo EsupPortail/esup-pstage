@@ -6,8 +6,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1" columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text">
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1">
+
 		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.NUMOFFRE']}"
 			for="numOffre" />
 		<h:inputText id="numOffre"
@@ -45,7 +45,7 @@
 		</h:inputText>
 		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
 			for="lieuCodePostal" />
-		<h:panelGrid columns="2" style="font-size:11px;">
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" style="font-size:11px;">
 			<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
 				title="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
 				value="../../media/images/information.png" style="border:0" />
@@ -71,7 +71,7 @@
 			<f:selectItem itemValue="" />
 			<f:selectItems value="#{nomenclatureController.fapN1}" />
 		</h:selectOneMenu>
-		<h:panelGrid columns="1"
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1"
 			rendered="#{offreController.rechercheAvancee}">
 			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.SECTEURACTIVITE']}"
 				for="nafN1" />
@@ -90,7 +90,7 @@
 				<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
 			</h:selectOneMenu>
 		</h:panelGrid>
-		<h:panelGrid columns="2" style="font-size:11px;">
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" style="font-size:11px;">
 			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.MOTSCLES']}"
 				for="motsCles" />
 			<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"
@@ -101,11 +101,14 @@
 			value="#{offreController.critereRechercheOffre.motsCles}" size="50"
 			maxlength="200" />
 		<t:htmlTag value="div" style="height: 20px;" />
-		<h:panelGrid columns="1"
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1"
 			rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin
 			|| welcomeController.admin}">
-			<t:htmlTag value="div" style="height: 4px; width:600px;" styleClass="spacer"/>
-<!-- 			<rich:separator width="600px" /> -->
+
+			<!-- 			<rich:separator width="600px" /> -->
+			<t:htmlTag value="div" style="height: 5px; width: 600px;"
+				styleClass="spacer" />
+
 			<t:htmlTag value="div" style="height: 20px;" />
 			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPESTRUCTURE']}"
 				for="typeStructure" />
@@ -125,8 +128,9 @@
 				<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 			</h:selectOneRadio>
 			<a4j:outputPanel id="diffOP">
-				<h:panelGrid columns="7" columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
+
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="7">
+
 					<h:outputText value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION']}"
 						escape="false" style="font-weight:bold;" />
 					<h:outputText
@@ -134,24 +138,24 @@
 						escape="false" />
 					<h:selectBooleanCheckbox
 						value="#{offreController.critereRechercheOffre.estDiffusee}">
-						<a4j:ajax event="click" render="critDiffOP, diffOP"
-							execute="@this" />
+						<a4j:ajax event="click" render="critDiffOP, diffOP"	ajaxSingle="true" />
+
 					</h:selectBooleanCheckbox>
 					<h:outputText
 						value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.TERMINEES']}"
 						escape="false" />
 					<h:selectBooleanCheckbox
 						value="#{offreController.critereRechercheOffre.diffusionTerminee}">
-						<a4j:ajax event="click" render="critDiffOP, diffOP"
-							execute="@this" />
+						<a4j:ajax event="click" render="critDiffOP, diffOP" ajaxSingle="true" />
+
 					</h:selectBooleanCheckbox>
 					<h:outputText
 						value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION.HISTORISEES']}"
 						escape="false" />
 					<h:selectBooleanCheckbox
 						value="#{offreController.critereRechercheOffre.estSupprimee}">
-						<a4j:ajax event="click" render="critDiffOP, diffOP"
-							execute="@this" />
+						<a4j:ajax event="click" render="critDiffOP, diffOP"	ajaxSingle="true" />
+
 					</h:selectBooleanCheckbox>
 				</h:panelGrid>
 			</a4j:outputPanel>

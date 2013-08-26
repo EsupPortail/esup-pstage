@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,9 +6,11 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="1">
 		<h:outputText value=" " id="formAffEtab" />
-		<h:panelGrid columns="2" align="center">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2" align="center">
 			<h:column>
 				<h:graphicImage alt="#{msgs['GENERAL.OK']}"
 					title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
@@ -30,7 +32,8 @@
 			value="#{conventionController.convention.structure}">
 			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 		</t:aliasBean>
-		<h:panelGrid columns="2">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2">
 			<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
 				action="#{conventionController.goToConventionModifEtab}"
 				alt="#{msgs['FORM.MODIFIER.ETAB']}"
@@ -55,12 +58,13 @@
 				alt="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
 				rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide}">
 			</a4j:commandButton>
-			<rich:modalPanel id="demandeConfirmModifEtab" autosized="true"
-				width="400" styleClass="panel" domElementAttachment="parent">
+			
+			<rich:popupPanel id="demandeConfirmModifEtab" autosized="true" styleClass="panel">
 				<f:facet name="header">
 					<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.DEMANDE']}" />
 				</f:facet>
-				<h:panelGrid columns="2" align="center">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="2" align="center">
 					<h:column>
 						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 							title="#{msgs['GENERAL.WARNING']}"
@@ -68,19 +72,19 @@
 						<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.QUESTION']}"
 							escape="false" />
 					</h:column>
-
 				</h:panelGrid>
+				
 				<a4j:commandButton value="#{msgs['FORM.OUI']}"
-					oncomplete="#{rich:component('demandeConfirmModifEtab')}.hide();"
-					ignoreDupResponses="true"
+					onclick="#{rich:component('demandeConfirmModifEtab')}.hide();"
 					action="#{conventionController.goToConventionRechEtab}">
-
 				</a4j:commandButton>
-				<rich:spacer width="150px" />
+				
+				<t:htmlTag value="div" style="width: 150px; display: inline;" />
+				
 				<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
 					onclick="#{rich:component('demandeConfirmModifEtab')}.hide();return false;" />
-			</rich:modalPanel>
+			</rich:popupPanel>
 		</h:panelGrid>
 
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

@@ -386,12 +386,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Onglet courant dans la validation en masse
 	 */
 	private int ongletCourant = 1;
-
-	/**
-	 * 
-	 */
-	private String creerConventionCurrentPage = "creerConventionConsignes";
-
+	
 	private List<SelectItem> listeELPEtapesSelectItems;
 	/**
 	 * Bean constructor.
@@ -417,6 +412,7 @@ public class ConventionController extends AbstractContextAwareController {
 	@Override
 	public void reset() {
 		super.reset();
+		
 		selectedCodeEtape = null;
 		selectedCodeElp = null;
 		selAssurance = null;
@@ -424,8 +420,6 @@ public class ConventionController extends AbstractContextAwareController {
 		ctrlInfosEtuOK = false;
 		ctrlInfosStageOK = false;
 		sequenceEtapeEnum = null;
-		creerConventionCurrentPage = "creerConventionConsignes";
-
 		selTypeConvention = null;
 		selTheme = null;
 		selUniteDureeExceptionnelle = null;
@@ -440,6 +434,8 @@ public class ConventionController extends AbstractContextAwareController {
 		signataireSel = null;
 		this.conventionCree = false;
 		selAnneeUniversitaire = null;
+		getSessionController().setCreationConventionCurrentPage("creerConventionConsignes");
+		
 		enter();
 	}
 	/**
@@ -475,7 +471,8 @@ public class ConventionController extends AbstractContextAwareController {
 		this.convention.setSignataire(new ContactDTO());
 		this.convention.setEnseignant(new EnseignantDTO());
 		sequenceEtapeEnum = null;
-		creerConventionCurrentPage = "creerConventionConsignes";
+		
+		getSessionController().setCreationConventionCurrentPage("creerConventionConsignes");
 		//		return "creerConventionConsignes";
 	}
 
@@ -494,7 +491,8 @@ public class ConventionController extends AbstractContextAwareController {
 		this.convention.setSignataire(new ContactDTO());
 		this.convention.setEnseignant(new EnseignantDTO());
 		sequenceEtapeEnum = null;
-		creerConventionCurrentPage = "creerConventionConsignes";
+		
+		getSessionController().setCreationConventionCurrentPage("creerConventionConsignes");
 		if (getSessionController().getCurrentStageCasUser() != null) {
 			if (logger.isInfoEnabled()) {
 				logger.debug("ConventionController:: goToCreerConvention : user connecte : " 
@@ -515,7 +513,6 @@ public class ConventionController extends AbstractContextAwareController {
 		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
 			retour = rechercheInfosEtudiant(this.getSessionController().getCurrentAuthEtudiant().getIdentEtudiant());
 		}
-
 		return retour;
 	}
 	/**
@@ -525,7 +522,7 @@ public class ConventionController extends AbstractContextAwareController {
 		this.rechIdentEtudiant = "";
 		this.rechNomEtudiant = "";
 		this.rechPrenomEtudiant = "";
-		creerConventionCurrentPage = "creerConventionRechercheEtudiant";
+		getSessionController().setCreationConventionCurrentPage("creerConventionRechercheEtudiant");
 		//		return "creerConventionRechercheEtudiant";
 	}
 
@@ -546,7 +543,7 @@ public class ConventionController extends AbstractContextAwareController {
 			logger.debug("ConventionController:: goToChoixEtapeEtudiant ");
 		}
 		sequenceEtapeEnum = SequenceEtapeEnum.etape1;
-		creerConventionCurrentPage = "_creerConventionEtape1ChoixEtapeEtudiant";
+		getSessionController().setCreationConventionCurrentPage("_creerConventionEtape1ChoixEtapeEtudiant");
 		//		return "creerConventionChoixEtapeEtudiant";
 	}
 	/**
@@ -652,7 +649,7 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 			this.ctrlInfosEtuOK = true;
 			//			retour = "_creerConventionEtape1ConfirmInfosEtu";
-			this.creerConventionCurrentPage = "_creerConventionEtape1ConfirmInfosEtu";
+			getSessionController().setCreationConventionCurrentPage("_creerConventionEtape1ConfirmInfosEtu");
 		}
 		//		return retour;
 	}
@@ -1164,6 +1161,7 @@ public class ConventionController extends AbstractContextAwareController {
 	public String goToConventionRechEtab() {
 		String ret = "conventionEtape2RechEtab";
 		return ret;
+		
 	}
 
 	/**
@@ -1505,7 +1503,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * 
 	 */
 	public void goToCreerConventionlisteEtu() {
-		creerConventionCurrentPage = "_creerConventionEtape1ListeEtudiant";
+		getSessionController().setCreationConventionCurrentPage("_creerConventionEtape1ListeEtudiant");
 		//		return "_creerConventionEtape1ListeEtudiant";
 	}
 
@@ -2376,7 +2374,7 @@ public class ConventionController extends AbstractContextAwareController {
 		this.ctrlInfosEtuOK = false;
 		this.ctrlInfosStageOK = false;
 		//		String retour = null;
-		creerConventionCurrentPage = "creerConventionRechercheEtudiant";
+		getSessionController().setCreationConventionCurrentPage("creerConventionRechercheEtudiant");
 		if ((!StringUtils.hasText(this.rechIdentEtudiant)) && (! StringUtils.hasText(this.rechNomEtudiant)) && (! StringUtils.hasText(this.rechPrenomEtudiant))) {
 			addErrorMessage("formConvention:oblig", "RECHERCHEETU.OBLIGATOIRE.RESPECTER");
 			numEtuNomPrenomOK = false;
@@ -3192,7 +3190,6 @@ public class ConventionController extends AbstractContextAwareController {
 		String ret = "rechercheConvention";
 		this.conventionCree = false;
 		this.critereRechercheConvention=new CritereRechercheConventionDTO();
-		//resetRechercheConvention();
 		return ret;
 	}
 	/**
@@ -4530,20 +4527,6 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public int getOngletCourant() {
 		return ongletCourant;
-	}
-
-	/**
-	 * @return the creerConventionCurrentPage
-	 */
-	public String getCreerConventionCurrentPage() {
-		return creerConventionCurrentPage;
-	}
-
-	/**
-	 * @param creerConventionCurrentPage the creerConventionCurrentPage to set
-	 */
-	public void setCreerConventionCurrentPage(String creerConventionCurrentPage) {
-		this.creerConventionCurrentPage = creerConventionCurrentPage;
 	}
 
 	/**

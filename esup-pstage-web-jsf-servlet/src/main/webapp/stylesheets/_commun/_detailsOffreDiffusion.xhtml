@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -7,15 +7,16 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<a4j:outputPanel id="opDiffusion" ajaxRendered="true">
-		<h:panelGrid columns="1" style="font-size:12px;"
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1"
 			rendered="#{!offreController.currentOffre.estDiffusee}">
-			<h:panelGrid columns="5" style="font-size:12px;">
+			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="5" style="font-size:12px;">
 				<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
 					rendered="#{!offreController.currentOffre.estDiffusee}"
 					style="color:orange;" />
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputText value="--" />
 				<t:htmlTag value="div" style="height: 10px;" />
+
 				<a4j:commandLink execute="@this" id="diffusion"
 					render="diffusionOffre"
 					oncomplete="#{rich:component('diffusionOffre')}.show()"
@@ -44,8 +45,8 @@
 				</a4j:commandLink>
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columns="1" style="font-size:12px;">
-			<h:panelGrid columns="8" style="font-size:12px;"
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1" style="font-size:12px;">
+			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="8" style="font-size:12px;"
 				rendered="#{offreController.currentOffre.estDiffusee}">
 				<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
 					rendered="#{offreController.currentOffre.estDiffusee}"
@@ -69,6 +70,7 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputText value="--" />
 				<t:htmlTag value="div" style="height: 10px;" />
+
 				<a4j:commandLink execute="@this" id="stopDiffusion"
 					render="stopDiffusionOffre"
 					oncomplete="#{rich:component('stopDiffusionOffre')}.show()"
@@ -82,12 +84,12 @@
 						value="../../media/images/flag_block.png" style="border:0"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 					<h:outputText value=" #{msgs['FORM.STOPDIFFUSER']}" />
+					<rich:tooltip 
+					value="#{msgs['FORM.STOPDIFFUSER']}"
+					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 					<rich:tooltip
-						value="#{msgs['FORM.STOPDIFFUSER']}"
-						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-					<rich:tooltip
-						value="#{msgs['OFFRE.ERREUR.NODIFF']}"
-						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+					value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 				</a4j:commandLink>
 			</h:panelGrid>
 			<t:div
@@ -119,8 +121,9 @@
 						value="#{msgs['OFFRE.ERREUR.NODIFF']}"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 				</a4j:commandLink>
+				
 				<a4j:outputPanel id="opOffreDiffusion">
-					<h:panelGrid columns="1" style="font-size:12px;">
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1" style="font-size:12px;">
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEA']}"
 							rendered="#{not empty offreController.currentOffre.offresDiffusion
@@ -135,29 +138,24 @@
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEA']}"
 							rendered="#{not empty offreController.currentOffre.offresDiffusion
 			and (sessionController.pageAuthorized || sessionController.pageAuthorized)}" />
-						<rich:dataList var="odiff"
+						<rich:list var="odiff"
 							rendered="#{not empty offreController.currentOffre.offresDiffusion}"
 							value="#{offreController.currentOffre.offresDiffusion}">
 							<h:outputText value="#{odiff.nomCentre}" />
-						</rich:dataList>
-						<%
-							/*<h:outputText
-													 rendered="#{not empty offreController.currentOffre.offresDiffusion and offreController.currentOffreSizeOffresDiffusion>5}"
-													 value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.DETAILSCENTRES']}" />*/
-						%>
+						</rich:list>
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEATLM']}"
 							rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
-				(sessionController.pageAuthorized || sessionController.adminPageAuthorized))}" />
+							(sessionController.pageAuthorized || sessionController.adminPageAuthorized))}" />
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNEDIFFUSION']}"
 							rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
-				(!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)))}" />
+							(!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)))}" />
 					</h:panelGrid>
 				</a4j:outputPanel>
 			</t:div>
 		</h:panelGrid>
-		<h:panelGrid columns="5" style="font-size:12px;"
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="5" style="font-size:12px;"
 			rendered="#{(sessionController.adminPageAuthorized || sessionController.pageAuthorized || welcomeController.superAdmin 
 				|| welcomeController.admin || welcomeController.writer)}">
 			<h:outputText value="#{msgs['OFFRE.GESTION.POURVOIROFFRE.POURVUE']}"
@@ -197,4 +195,4 @@
 			</a4j:commandLink>
 		</h:panelGrid>
 	</a4j:outputPanel>
-</ui:fragment>
+</ui:composition>

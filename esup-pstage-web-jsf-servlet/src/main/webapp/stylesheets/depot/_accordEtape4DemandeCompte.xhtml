@@ -105,7 +105,7 @@
 							value="#{accordController.contactDemandeCompte.tel}" size="20"
 							maxlength="20" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<a4j:ajax event="onblur" />
+							<a4j:ajax event="blur" />
 						</h:inputText>
 						<rich:message for="telC">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />

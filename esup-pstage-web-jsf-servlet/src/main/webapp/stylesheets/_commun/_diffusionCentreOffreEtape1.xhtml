@@ -41,8 +41,8 @@
 						converter="#{intConverter}">
 						<f:selectItems
 							value="#{offreController.listesCentresGestionEtablissement}" />
-						<a4j:support render="opLCgUniv" execute="@this"
-							ignoreDupResponses="true" event="onchange" />
+						<a4j:ajax render="opLCgUniv" execute="@this"
+							ignoreDupResponses="true" event="valueChange" />
 					</h:selectOneMenu>
 				</h:panelGrid>
 				<a4j:outputPanel id="opLCgUniv">

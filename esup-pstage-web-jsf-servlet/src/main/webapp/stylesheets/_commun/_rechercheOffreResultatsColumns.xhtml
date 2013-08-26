@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -24,7 +24,8 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
 		</f:facet>
-		<h:panelGrid style="font-size:12px;">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" style="font-size:12px;">
 			<h:outputText value="#{offre.typeOffre.libelle}" />
 			<h:outputText value="#{offre.contratOffre.libelle}"
 				rendered="#{not empty offre.contratOffre}" />
@@ -88,7 +89,8 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
 		</f:facet>
-		<h:panelGrid columns="2" style="font-size:12px;">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2" style="font-size:12px;">
 			<h:outputText value="#{msgs['FORM.OUI']}"
 				rendered="#{offre.avecFichier || offre.avecLien}" />
 			<h:graphicImage id="imageLien" alt="#{msgs['FORM.OUI']}"
@@ -107,4 +109,4 @@
 		<h:outputText value="#{msgs['FORM.NON']}"
 			rendered="#{!(offre.avecFichier || offre.avecLien)}" />
 	</rich:column>
-</ui:fragment>
+</ui:composition>

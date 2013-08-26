@@ -173,6 +173,7 @@ public class RechercheController extends AbstractContextAwareController {
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
 		}
+		reloadRechercheStructurePaginator();
 		return "rechercheEtablissement";
 	}
 	/**
@@ -182,6 +183,7 @@ public class RechercheController extends AbstractContextAwareController {
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
 		}
+		reloadRechercheStructurePaginator();
 		return "rechercheEtablissementStage";
 	}
 	/**
@@ -191,7 +193,6 @@ public class RechercheController extends AbstractContextAwareController {
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
 		}
-		System.out.println("critereRechercheStructureAdresse => "+critereRechercheStructureAdresse);
 		return "affichageRechercheEtablissement";
 	}
 	
@@ -338,20 +339,6 @@ public class RechercheController extends AbstractContextAwareController {
 		}else{
 			resetResultats();
 		}
-		
-		System.out.println("dudul");
-		System.out.println("rechercheStructurePaginator.getListe() => "+rechercheStructurePaginator.getListe());
-		System.out.println("Visible items => "+rechercheStructurePaginator.getVisibleItems());
-		System.out.println("toto");
-		System.out.println("this.listeResultatsRechercheStructure => "+listeResultatsRechercheStructure);
-		System.out.println("tata");
-		System.out.println("resultatRechercheStructure => "+resultatRechercheStructure);
-		System.out.println("class of rechercheStructurePaginator.getListe() => "+rechercheStructurePaginator.getListe().getClass());
-		System.out.println("size of rechercheStructurePaginator.getListe() => "+rechercheStructurePaginator.getListe().size());
-		List<StructureDTO> a = rechercheStructurePaginator.getListe();
-		
-		
-		
 		
 		return null;
 	}

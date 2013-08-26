@@ -16,7 +16,7 @@
 			requiredMessage="#{requiredMessageController.champObligatoire}"
 			style="text-transform:uppercase;">
 			<f:converter binding="#{upperCaseConverter}" />
-			<a4j:ajax event="blur" ignoreDupResponses="true" />
+			<a4j:ajax event="blur"  />
 		</h:inputText>
 		<rich:message for="nomService">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -27,7 +27,7 @@
 			value="#{etablissementController.memeAdresseStructure}">
 			<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 			<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-			<a4j:ajax event="change" ignoreDupResponses="true"
+			<a4j:ajax event="change" 
 				render="adresseService" execute="@this" />
 		</h:selectOneRadio>
 		<a4j:outputPanel id="adresseService">
@@ -42,7 +42,7 @@
 						value="#{etablissementController.formService.voie}" size="50"
 						maxlength="200" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur"  />
 					</h:inputText>
 					<rich:message for="voie">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -53,7 +53,7 @@
 						value="#{etablissementController.formService.batimentResidence}"
 						size="50" maxlength="50" style="text-transform:uppercase;">
 						<f:converter binding="#{upperCaseConverter}" />
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur"  />
 					</h:inputText>
 					<rich:message for="batimentService">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -68,7 +68,7 @@
 				</h:panelGrid>
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1">
-					<a4j:region renderRegionOnly="true">
+<!-- 					<a4j:region renderRegionOnly="true"> -->
 						<a4j:outputPanel id="opCodePostal">
 							<h:panelGrid columnClasses="paginatorData-text"
 								rowClasses="paginatorData-text" columns="1"
@@ -89,7 +89,7 @@
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									required="#{!sessionController.recupererCommunesDepuisApogee and 
 								(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)}">
-									<a4j:ajax event="blur" ignoreDupResponses="true" />
+									<a4j:ajax event="blur"  />
 								</h:inputText>
 								<rich:message for="codePostal">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -99,7 +99,7 @@
 								rowClasses="paginatorData-text" columns="1"
 								rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
-								<a4j:region id="dynaR">
+<!-- 								<a4j:region id="dynaR"> -->
 									<h:panelGrid columnClasses="paginatorData-text"
 										rowClasses="paginatorData-text" columns="1">
 										<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
@@ -112,11 +112,10 @@
 											valueChangeListener="#{etablissementController.formServiceValueCodePostalChanged}">
 									
 											<a4j:ajax event="valueChange" render="opDynaCommune"
-												ignoreDupResponses="true" execute="@this"
-												requestDelay="1000" />
+												 execute="@this" />
 										</h:inputText>
 									</h:panelGrid>
-								</a4j:region>
+<!-- 								</a4j:region> -->
 								<rich:message for="dynaCodePostal">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 								</rich:message>
@@ -135,7 +134,7 @@
 									size="50" maxlength="200" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}">
 									<f:converter binding="#{sansAccentEnMAJConverter}" />
-									<a4j:ajax event="blur" ignoreDupResponses="true" />
+									<a4j:ajax event="blur"  />
 								</h:inputText>
 								<rich:message for="commune">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -153,9 +152,9 @@
 										<f:selectItem itemValue="" />
 										<f:selectItems
 											value="#{etablissementController.formServiceCommunesListening}" />
-										<a4j:ajax event="valueChange" ignoreDupResponses="true" />
-										<a4j:ajax event="keyup" ignoreDupResponses="true" />
-										<a4j:ajax event="blur" ignoreDupResponses="true" />
+										<a4j:ajax event="valueChange"  />
+										<a4j:ajax event="keyup"  />
+										<a4j:ajax event="blur"  />
 									</h:selectOneMenu>
 									<rich:message for="dynaCommune">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -188,13 +187,13 @@
 								<f:selectItems value="#{nomenclatureController.pays}" />
 								<a4j:ajax event="valueChange"
 									render="opFlag, opCommune, opCodePostal"
-									ignoreDupResponses="true" execute="@this" />
+									 execute="@this" />
 							</h:selectOneMenu>
 						</h:panelGrid>
 						<rich:message for="pays">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
-					</a4j:region>
+<!-- 					</a4j:region> -->
 				</h:panelGrid>
 			</h:panelGrid>
 		</a4j:outputPanel>

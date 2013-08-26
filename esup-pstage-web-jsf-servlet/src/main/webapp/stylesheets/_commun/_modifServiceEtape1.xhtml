@@ -6,19 +6,14 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-
-
 	<ui:include src="_formService.xhtml" />
 
 	<a4j:commandButton action="#{etablissementController.modifierService}"
 		value="#{msgs['FORM.MODIFIER']}"
 		render="opService, opActionsService, opContactsDataTable, formModifService" />
 
-
-
 	<h:commandButton value="#{msgs['FORM.ANNULER']}"
 		onclick="#{rich:component('modifService')}.hide();"
-		action="#{etablissementController.resetCurrentPageModifService}"
 		immediate="true" />
 
 </ui:composition>

@@ -4,26 +4,25 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="2"
+	<h:panelGrid columns="2" rowClasses="paginatorData-text"
+		columnClasses="paginatorData-text"
 		rendered="#{not empty centreController.centreEntreprise}">
-		<h:outputLabel value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} : " />
-		<h:outputText
+		<h:outputLabel for="nomEntr"
+			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} : " />
+		<h:outputText id="nomEntr"
 			value="#{centreController.formCentreEntreprise.nomCentre}" />
-		<h:outputLabel value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} : " />
-		<h:outputText
+		<h:outputLabel for="confEntr"
+			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} : " />
+		<h:outputText id="confEntr"
 			value="#{centreController.formCentreEntreprise.confidentialite.libelle}" />
-		<h:outputLabel value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']} : " />
-		<h:outputText
-			value="#{centreController.formCentreEntreprise.telephone}"
-			rendered="#{not empty centreController.formCentreEntreprise.telephone}" />
-		<h:outputText
-			value="#{centreController.formCentreEntreprise.telephone}"
-			rendered="#{empty centreController.formCentreEntreprise.telephone}" />
-		<h:outputLabel value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']} : " />
-		<h:outputText value="#{centreController.formCentreEntreprise.fax}"
-			rendered="#{not empty centreController.formCentreEntreprise.fax}" />
-		<h:outputText value="#{centreController.formCentreEntreprise.fax}"
-			rendered="#{empty centreController.formCentreEntreprise.fax}" />
+		<h:outputLabel for="telEntr"
+			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']} : " />
+		<h:outputText id="telEntr"
+			value="#{centreController.formCentreEntreprise.telephone}" />
+		<h:outputLabel for="faxEntr"
+			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']} : " />
+		<h:outputText id="faxEntr"
+			value="#{centreController.formCentreEntreprise.fax}" />
 	</h:panelGrid>
 	<h:panelGrid columns="1" style="float:right;"
 		rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}">
@@ -39,27 +38,25 @@
 	<t:htmlTag value="div" style="height:10px;" />
 	<a4j:commandLink
 		rendered="#{empty centreController.centreEntreprise and sessionController.adminPageAuthorized}"
-		action="_modifCentreEntrepriseEtape2">
+		render="formCentreEntreprise">
 		<h:graphicImage alt="#{msgs['FORM.CREER']}"
 			title="#{msgs['FORM.CREER']}" value="../../media/images/new.png"
 			style="border:0" />
 		<h:outputText value=" #{msgs['FORM.CREER']}" />
+		<f:setPropertyActionListener value="_modifCentreEntrepriseEtape2"
+			target="#{sessionController.modifCentreEntrepriseCurrentPage}" />
 	</a4j:commandLink>
-	<a4j:commandLink action="_modifCentreEntrepriseEtape2">
+	<a4j:commandLink
+		rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}"
+		render="formCentreEntreprise">
 		<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 			title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
 			style="border:0" />
 		<h:outputText value=" #{msgs['FORM.MODIFIER']}" />
+		<f:setPropertyActionListener value="_modifCentreEntrepriseEtape2"
+			target="#{sessionController.modifCentreEntrepriseCurrentPage}" />
 	</a4j:commandLink>
-
-	<h:panelGrid columns="2" align="center">
-		<h:column>
-			<ui:include src="../_commun/_confirmationImagesPermanentes.xhtml" />
-		</h:column>
-		<h:column>
-			<rich:message for="formCentreEntreprise">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</h:column>
+	<h:panelGrid align="center" id="msgsEts">
+		<rich:messages style="font-size:16px;" />
 	</h:panelGrid>
 </ui:composition>

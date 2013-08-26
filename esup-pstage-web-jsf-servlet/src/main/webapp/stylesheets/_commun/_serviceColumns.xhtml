@@ -50,7 +50,7 @@
 		<h:outputText value="#{etablissementController.serviceSel.commune}" />
 	</rich:column>
 	<rich:column>
-		<h:panelGrid columns="2" style="font-size:12px;"
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="font-size:12px;"
 			rendered="#{not empty etablissementController.serviceSel.pays}">
 			<h:graphicImage
 				value="../../media/images/flags/#{etablissementController.serviceSel.pays.iso2}.png"

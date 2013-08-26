@@ -266,8 +266,8 @@
 <h:outputText value="#{msgs['EXCEPTION.SYSTEM_PROPERTIES.NONE']}"
 	rendered="#{empty exceptionController.systemProperties}" />
 
-<h:outputText rendered="#{exceptionController.recipientEmail != null}"
+<h:outputFormat rendered="#{exceptionController.recipientEmail != null}"
 	value="#{msgs['EXCEPTION.TEXT.BOTTOM']}">
 	<f:param value="#{exceptionController.recipientEmail}" />
-</h:outputText>
+</h:outputFormat>
 </ui:composition>

@@ -5,22 +5,23 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<!-- Probleme possible pour l'inclusion de __offreEtape3Contacts -->
 
 	<ui:include src="__offreEtape3Contacts.xhtml" />
-
-	<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-		action="_creationOffreEtape2" alt="#{msgs['FORM.PREVIOUS']}"
-		title="#{msgs['FORM.PREVIOUS']}" immediate="true">
-		<f:setPropertyActionListener value="#{null}"
-			target="#{offreController.formOffre.contactCand}" />
-		<f:setPropertyActionListener value="#{null}"
-			target="#{offreController.formOffre.contactInfo}" />
-	</h:commandButton>
-	<t:htmlTag value="div" style="width: 20px;" />
-	<h:commandButton value="#{msgs['FORM.ENREGISTRER']}"
-		action="#{offreController.ajoutOffre}"
-		alt="#{msgs['FORM.ENREGISTRER']}" title="#{msgs['FORM.ENREGISTRER']}">
-		<a4j:ajax event="click" eventsQueue="creationOffreEtape3" />
-	</h:commandButton>
+	
+	<h:panelGrid columns="3">
+		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+			immediate="true">
+			<f:setPropertyActionListener value="#{null}"
+				target="#{offreController.formOffre.contactCand}" />
+			<f:setPropertyActionListener value="#{null}"
+				target="#{offreController.formOffre.contactInfo}" />
+			<f:setPropertyActionListener value="_creationOffreEtape2"
+				target="#{sessionController.creationOffreCurrentPage}" />
+		</h:commandButton>
+		<t:htmlTag value="div" style="width: 20px;" />
+		<h:commandButton value="#{msgs['FORM.ENREGISTRER']}"
+			action="#{offreController.ajoutOffre}"
+			alt="#{msgs['FORM.ENREGISTRER']}" title="#{msgs['FORM.ENREGISTRER']}" />
+	</h:panelGrid>
 </ui:fragment>

@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -13,7 +13,7 @@
 				<h:outputText
 					value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
 			</f:facet>
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height: 20px;" />
 			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}" />
 			<t:htmlTag value="br" />
@@ -34,7 +34,7 @@
 					</a4j:commandLink>
 				</rich:column>
 				<f:facet name="footer">
-					<rich:datascroller align="center" for="choixEtape" maxPages="20"
+					<rich:dataScroller align="center" for="choixEtape" maxPages="20"
 						page="1" id="listeEnseignantScroller" renderIfSinglePage="false" />
 				</f:facet>
 			</rich:dataTable>
@@ -47,4 +47,4 @@
 			</h:panelGrid>
 		</rich:panel>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

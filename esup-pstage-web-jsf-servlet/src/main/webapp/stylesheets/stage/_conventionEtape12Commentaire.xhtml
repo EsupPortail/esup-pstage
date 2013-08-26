@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,43 +6,43 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:spacer height="20" />
+	<t:htmlTag value="div" style="height: 20px;" />
 	<h:outputLabel value="Commentaire sur le stage : " />
 	<t:div
 		rendered="#{welcomeController.etudiant || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitLecture}">
 		<h:outputText
 			rendered="#{empty conventionController.convention.commentaireStage}"
-			value="Aucun commentaire enregistré." />
+			value="Aucun commentaire enregistr." />
 		<h:outputText escape="false"
 			rendered="#{not empty conventionController.convention.commentaireStage}"
 			value="#{conventionController.convention.commentaireStage}" />
 	</t:div>
 	<t:div
 		rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-		<h:panelGrid columns="1" style="margin-left:30;"
+		<h:panelGrid  columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" style="margin-left:30;"
 			rendered="#{conventionController.convention.validationConvention}">
 			<h:outputText escape="false"
 				rendered="#{not empty conventionController.convention.commentaireStage}"
 				value="#{conventionController.convention.commentaireStage}" />
 			<h:outputText
 				rendered="#{empty conventionController.convention.commentaireStage}"
-				value="Aucun commentaire enregistré." />
+				value="Aucun commentaire enregistr." />
 		</h:panelGrid>
-		<h:panelGrid columns="1" style="margin-left:30;"
+		<h:panelGrid  columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" style="margin-left:30;"
 			rendered="#{!conventionController.convention.validationConvention}">
-			<rich:spacer height="10" />
+			<t:htmlTag value="div" style="height: 10px;" />
 			<rich:editor id="commentaireStage"
 				value="#{conventionController.convention.commentaireStage}"
 				width="400" height="200" />
-			<rich:spacer height="10" />
-			<h:panelGrid columns="1" align="center">
+			<t:htmlTag value="div" style="height: 10px;" />
+			<h:panelGrid  columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" align="center">
 				<a4j:commandButton
 					action="#{conventionController.ajouterCommentaireStage}"
 					oncomplete="#{rich:component('popup')}.show()"
 					render="formCommentaire" value="Enregistrer" alt="Enregistrer" />
 			</h:panelGrid>
 		</h:panelGrid>
-		<rich:modalPanel id="popup" autosized="true" width="400">
+		<rich:popupPanel id="popup" autosized="true" width="400">
 			<f:facet name="header">
 				<h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
 			</f:facet>
@@ -54,13 +54,12 @@
 					</f:facet>
 				</rich:message>
 			</center>
-			<h:panelGrid columns="1" align="center">
-				<rich:spacer height="10" />
+			<h:panelGrid  columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" align="center">
+				<t:htmlTag value="div" style="height: 10px;" />
 				<a4j:commandButton value="#{msgs['GENERAL.OK']}" execute="@this"
 					immediate="true"
 					onclick="#{rich:component('popup')}.hide();return false;" />
 			</h:panelGrid>
-		</rich:modalPanel>
+		</rich:popupPanel>
 	</t:div>
-
-</ui:fragment>
+</ui:composition>

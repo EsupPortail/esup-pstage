@@ -1,7 +1,10 @@
-<ui:include src="../_include.xhtml"/>
-
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	<ui:define name="content">
 	<h:panelGrid style="float:left;">
 		<ui:include src="./_menu.xhtml"/>
 	</h:panelGrid>
@@ -31,6 +34,8 @@
 								target="#{etablissementController.afficherSelectionCentreContact}" />
 							<f:setPropertyActionListener value="#{1}"
 								target="#{offreController.typeAjoutModifOffre}" />
+							<f:setPropertyActionListener value="_creationOffreEtape1"
+								target="#{sessionController.creationOffreCurrentPage}" />
 							<rich:tooltip value="#{msgs['FORM.CREER']}" />
 						</h:commandLink>
 					</h:panelGrid>
@@ -72,7 +77,7 @@
 											target="#{etablissementController.afficherSelectionCentreContact}" />
 										<rich:tooltip>
 											<h:panelGrid columns="1">
-												<e:bold value="#{msgs['FORM.MODIFIER']}" />
+												<h:outputLabel for="modif" value="#{msgs['FORM.MODIFIER']}" />
 												<t:div rendered="#{sessionController.adminPageAuthorized}">
 													<t:htmlTag value="br" />
 													<t:aliasBean alias="#{objet}" value="#{offre}">
@@ -96,7 +101,7 @@
 									</a4j:commandLink>
 								</rich:column>
 								<f:facet name="footer">
-									<rich:datascroller id="ds" renderIfSinglePage="false"></rich:datascroller>
+									<rich:dataScroller id="ds" renderIfSinglePage="false" />
 								</f:facet>
 							</rich:dataTable>
 						</t:div>
@@ -107,5 +112,5 @@
 			<ui:include src="_panelNousContacter.xhtml"/>
 		</h:panelGrid>
 	</t:div>
-</e:page>
-
+</ui:define>
+</ui:composition>

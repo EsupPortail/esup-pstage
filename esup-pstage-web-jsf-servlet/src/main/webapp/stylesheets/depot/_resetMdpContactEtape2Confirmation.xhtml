@@ -1,5 +1,14 @@
-<ui:include src="../_commun/_confirmationMessages.xhtml"/>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
 
-<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-	action="_resetMdpContactEtape1"
-	onclick="#{rich:component('resetMdpContact')}.hide();" />
+	<ui:include src="../_commun/_confirmationMessages.xhtml" />
+
+	<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
+		action="_resetMdpContactEtape1"
+		onclick="#{rich:component('resetMdpContact')}.hide();" />
+
+</ui:composition>

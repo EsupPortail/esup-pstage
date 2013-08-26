@@ -307,25 +307,77 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * Variables de navigation
 	 ****************************************************************/
 	/**
-	 * CREATION ACCORDS
-	 */
-	private String creerAccordCurrentPage = "_accordEtape1PreAccord";
-	/**
 	 * NOUS CONTACTER
 	 */
 	private String nousContacterCurrentPage = "_nousContacterEtape1";
 	/**
-	 * CREER ADMINSTRUCTURE
+	 * CREATION ACCORD
 	 */
-	private String creerAdminStructureCurrentPage = "_ajoutAdministrateurEtape1";
+	private String creationAccordCurrentPage = "_accordEtape1PreAccord";
 	/**
-	 * MODIFIER ADMINSTRUCTURE
+	 * VALIDATION ACCORD
+	 */
+	private String validationAccordCurrentPage = "_validationAccordEtape1FormulaireAccord";
+	/**
+	 * SUPPRESSION ACCORD
+	 */
+	private String suppressionAccordCurrentPage = "_supprAccordEtape1";
+	/**
+	 * CREATION ADMINSTRUCTURE
+	 */
+	private String creationAdminStructureCurrentPage = "_ajoutAdministrateurEtape1";
+	/**
+	 * MODIF ADMINSTRUCTURE
 	 */
 	private String modifAdminStructureCurrentPage = "_modifAdministrateurEtape0";
 	/**
-	 * SUPPRIMER ADMINSTRUCTURE
+	 * SUPPRESSION ADMINSTRUCTURE
 	 */
-	private String supprimerAdminStructureCurrentPage = "_supprAdministrateurEtape1";
+	private String suppressionAdminStructureCurrentPage = "_supprAdministrateurEtape1";
+	/**
+	 * AJOUT/MODIF CENTRE ENTREPRISE
+	 */
+	private String modifCentreEntrepriseCurrentPage = "_modifCentreEntrepriseEtape1";
+	/**
+	 * FICHE SIGNALETIQUE
+	 */
+	private String ficheSignaletiqueCurrentPage = "_modifFicheSignaletiqueEtape1";
+	/**
+	 * CREATION COMPTE CONTACT
+	 */
+	private String creationCompteContactCurrentPage = "_creationCompteContactEtape1";
+	/**
+	 * CREATION OFFRE - PARTIE DEPOT
+	 */
+	private String creationOffreCurrentPage = "_creationOffreEtape1";
+	/**
+	 * CREATION OFFRE - PARTIE STAGE
+	 */
+	private String creationOffreStageCurrentPage = "_creationOffreEtape01Centre";
+	/**
+	 * AJOUT SERVICE
+	 */
+	private String ajoutServiceCurrentPage = "_ajoutServiceEtape1";
+	/**
+	 * MODIF SERVICE
+	 */
+	private String modifServiceCurrentPage = "_modifServiceEtape0";
+	/**
+	 * AJOUT CONTACT
+	 */
+	private String ajoutContactCurrentPage = "_ajoutContactEtape1";
+	/**
+	 * MODIF CONTACT
+	 */
+	private String modifContactCurrentPage = "_modifContactEtape0";
+	/**
+	 * SUPPRESSION CONTACT
+	 */
+	private String suppressionContactCurrentPage = "_modifContactEtape0";
+	/**
+	 * CREATION CONVENTION
+	 */
+	private String creationConventionCurrentPage = "creerConventionConsignes";
 	
 
 	/**
@@ -1410,20 +1462,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	}
 
 	/**
-	 * @return the creerAccordCurrentPage
-	 */
-	public String getCreerAccordCurrentPage() {
-		return creerAccordCurrentPage;
-	}
-
-	/**
-	 * @param creerAccordCurrentPage the creerAccordCurrentPage to set
-	 */
-	public void setCreerAccordCurrentPage(String creerAccordCurrentPage) {
-		this.creerAccordCurrentPage = creerAccordCurrentPage;
-	}
-
-	/**
 	 * @return the nousContacterCurrentPage
 	 */
 	public String getNousContacterCurrentPage() {
@@ -1435,36 +1473,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setNousContacterCurrentPage(String nousContacterCurrentPage) {
 		this.nousContacterCurrentPage = nousContacterCurrentPage;
-	}
-	
-	/**
-	 * @return the supprimerAdminStructureCurrentPage
-	 */
-	public String getSupprimerAdminStructureCurrentPage() {
-		return supprimerAdminStructureCurrentPage;
-	}
-
-	/**
-	 * @param supprimerAdminStructureCurrentPage the supprimerAdminStructureCurrentPage to set
-	 */
-	public void setSupprimerAdminStructureCurrentPage(
-			String supprimerAdminStructureCurrentPage) {
-		this.supprimerAdminStructureCurrentPage = supprimerAdminStructureCurrentPage;
-	}
-
-	/**
-	 * @return the creerAdminStructureCurrentPage
-	 */
-	public String getCreerAdminStructureCurrentPage() {
-		return creerAdminStructureCurrentPage;
-	}
-
-	/**
-	 * @param creerAdminStructureCurrentPage the creerAdminStructureCurrentPage to set
-	 */
-	public void setCreerAdminStructureCurrentPage(
-			String creerAdminStructureCurrentPage) {
-		this.creerAdminStructureCurrentPage = creerAdminStructureCurrentPage;
 	}
 
 	/**
@@ -1480,6 +1488,240 @@ public class SessionController extends AbstractDomainAwareBean {
 	public void setModifAdminStructureCurrentPage(
 			String modifAdminStructureCurrentPage) {
 		this.modifAdminStructureCurrentPage = modifAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @return the modifCentreEntrepriseCurrentPage
+	 */
+	public String getModifCentreEntrepriseCurrentPage() {
+		return modifCentreEntrepriseCurrentPage;
+	}
+
+	/**
+	 * @param modifCentreEntrepriseCurrentPage the modifCentreEntrepriseCurrentPage to set
+	 */
+	public void setModifCentreEntrepriseCurrentPage(
+			String modifCentreEntrepriseCurrentPage) {
+		this.modifCentreEntrepriseCurrentPage = modifCentreEntrepriseCurrentPage;
+	}
+
+	/**
+	 * @return the validationAccordCurrentPage
+	 */
+	public String getValidationAccordCurrentPage() {
+		return validationAccordCurrentPage;
+	}
+
+	/**
+	 * @param validationAccordCurrentPage the validationAccordCurrentPage to set
+	 */
+	public void setValidationAccordCurrentPage(
+			String validationAccordCurrentPage) {
+		this.validationAccordCurrentPage = validationAccordCurrentPage;
+	}
+
+	/**
+	 * @return the ficheSignaletiqueCurrentPage
+	 */
+	public String getFicheSignaletiqueCurrentPage() {
+		return ficheSignaletiqueCurrentPage;
+	}
+
+	/**
+	 * @param ficheSignaletiqueCurrentPage the ficheSignaletiqueCurrentPage to set
+	 */
+	public void setFicheSignaletiqueCurrentPage(
+			String ficheSignaletiqueCurrentPage) {
+		this.ficheSignaletiqueCurrentPage = ficheSignaletiqueCurrentPage;
+	}
+
+	/**
+	 * @return the creationAccordCurrentPage
+	 */
+	public String getCreationAccordCurrentPage() {
+		return creationAccordCurrentPage;
+	}
+
+	/**
+	 * @param creationAccordCurrentPage the creationAccordCurrentPage to set
+	 */
+	public void setCreationAccordCurrentPage(String creationAccordCurrentPage) {
+		this.creationAccordCurrentPage = creationAccordCurrentPage;
+	}
+
+	/**
+	 * @return the creationAdminStructureCurrentPage
+	 */
+	public String getCreationAdminStructureCurrentPage() {
+		return creationAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @param creationAdminStructureCurrentPage the creationAdminStructureCurrentPage to set
+	 */
+	public void setCreationAdminStructureCurrentPage(
+			String creationAdminStructureCurrentPage) {
+		this.creationAdminStructureCurrentPage = creationAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @return the suppressionAdminStructureCurrentPage
+	 */
+	public String getSuppressionAdminStructureCurrentPage() {
+		return suppressionAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @param suppressionAdminStructureCurrentPage the suppressionAdminStructureCurrentPage to set
+	 */
+	public void setSuppressionAdminStructureCurrentPage(
+			String suppressionAdminStructureCurrentPage) {
+		this.suppressionAdminStructureCurrentPage = suppressionAdminStructureCurrentPage;
+	}
+
+	/**
+	 * @return the creationCompteContactCurrentPage
+	 */
+	public String getCreationCompteContactCurrentPage() {
+		return creationCompteContactCurrentPage;
+	}
+
+	/**
+	 * @param creationCompteContactCurrentPage the creationCompteContactCurrentPage to set
+	 */
+	public void setCreationCompteContactCurrentPage(
+			String creationCompteContactCurrentPage) {
+		this.creationCompteContactCurrentPage = creationCompteContactCurrentPage;
+	}
+
+	/**
+	 * @return the suppressionAccordCurrentPage
+	 */
+	public String getSuppressionAccordCurrentPage() {
+		return suppressionAccordCurrentPage;
+	}
+
+	/**
+	 * @param suppressionAccordCurrentPage the suppressionAccordCurrentPage to set
+	 */
+	public void setSuppressionAccordCurrentPage(
+			String suppressionAccordCurrentPage) {
+		this.suppressionAccordCurrentPage = suppressionAccordCurrentPage;
+	}
+
+	/**
+	 * @return the creationOffreCurrentPage
+	 */
+	public String getCreationOffreCurrentPage() {
+		return creationOffreCurrentPage;
+	}
+
+	/**
+	 * @param creationOffreCurrentPage the creationOffreCurrentPage to set
+	 */
+	public void setCreationOffreCurrentPage(String creationOffreCurrentPage) {
+		this.creationOffreCurrentPage = creationOffreCurrentPage;
+	}
+
+	/**
+	 * @return the creationOffreStageCurrentPage
+	 */
+	public String getCreationOffreStageCurrentPage() {
+		return creationOffreStageCurrentPage;
+	}
+
+	/**
+	 * @param creationOffreStageCurrentPage the creationOffreStageCurrentPage to set
+	 */
+	public void setCreationOffreStageCurrentPage(
+			String creationOffreStageCurrentPage) {
+		this.creationOffreStageCurrentPage = creationOffreStageCurrentPage;
+	}
+
+	/**
+	 * @return the ajoutServiceCurrentPage
+	 */
+	public String getAjoutServiceCurrentPage() {
+		return ajoutServiceCurrentPage;
+	}
+
+	/**
+	 * @param ajoutServiceCurrentPage the ajoutServiceCurrentPage to set
+	 */
+	public void setAjoutServiceCurrentPage(String ajoutServiceCurrentPage) {
+		this.ajoutServiceCurrentPage = ajoutServiceCurrentPage;
+	}
+
+	/**
+	 * @return the modifServiceCurrentPage
+	 */
+	public String getModifServiceCurrentPage() {
+		return modifServiceCurrentPage;
+	}
+
+	/**
+	 * @param modifServiceCurrentPage the modifServiceCurrentPage to set
+	 */
+	public void setModifServiceCurrentPage(String modifServiceCurrentPage) {
+		this.modifServiceCurrentPage = modifServiceCurrentPage;
+	}
+
+	/**
+	 * @return the ajoutContactCurrentPage
+	 */
+	public String getAjoutContactCurrentPage() {
+		return ajoutContactCurrentPage;
+	}
+
+	/**
+	 * @param ajoutContactCurrentPage the ajoutContactCurrentPage to set
+	 */
+	public void setAjoutContactCurrentPage(String ajoutContactCurrentPage) {
+		this.ajoutContactCurrentPage = ajoutContactCurrentPage;
+	}
+
+	/**
+	 * @return the modifContactCurrentPage
+	 */
+	public String getModifContactCurrentPage() {
+		return modifContactCurrentPage;
+	}
+
+	/**
+	 * @param modifContactCurrentPage the modifContactCurrentPage to set
+	 */
+	public void setModifContactCurrentPage(String modifContactCurrentPage) {
+		this.modifContactCurrentPage = modifContactCurrentPage;
+	}
+
+	/**
+	 * @return the suppressionContactCurrentPage
+	 */
+	public String getSuppressionContactCurrentPage() {
+		return suppressionContactCurrentPage;
+	}
+
+	/**
+	 * @param suppressionContactCurrentPage the suppressionContactCurrentPage to set
+	 */
+	public void setSuppressionContactCurrentPage(
+			String suppressionContactCurrentPage) {
+		this.suppressionContactCurrentPage = suppressionContactCurrentPage;
+	}
+
+	/**
+	 * @return the creationConventionCurrentPage
+	 */
+	public String getCreationConventionCurrentPage() {
+		return creationConventionCurrentPage;
+	}
+
+	/**
+	 * @param creationConventionCurrentPage the creationConventionCurrentPage to set
+	 */
+	public void setCreationConventionCurrentPage(
+			String creationConventionCurrentPage) {
+		this.creationConventionCurrentPage = creationConventionCurrentPage;
 	}
 
 

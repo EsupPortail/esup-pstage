@@ -13,18 +13,16 @@
 							|| welcomeController.admin)
 							and centreController.centre != null}">
 			<f:facet name="header">
-				<h:text value="#{msgs['CENTRE.PERSONNEL.RESULTAT.HEAD']}" />
+				<h:outputText value="#{msgs['CENTRE.PERSONNEL.RESULTAT.HEAD']}" />
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form>
 				<h:panelGrid columns="1" align="center">
 					<a4j:outputPanel id="rattachResultDataTable">
 						<t:htmlTag value="div" style="height: 15px;" />
-						<rich:dataTable align="center" width="483" id="listePersonnels"
-							rows="10" columnClasses="col"
-							value="#{centreController.recherchePersonnels}" var="personnel"
-							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						<rich:dataTable align="center" id="listePersonnels" rows="20"
+							columnClasses="col"
+							value="#{centreController.recherchePersonnels}" var="personnel">
 
 							<rich:column sortBy="#{personnel.civilite.libelle}">
 								<f:facet name="header">
@@ -32,7 +30,7 @@
 										value="#{msgs['CENTRE.PERSONNEL.CIVILITE']}" />
 								</f:facet>
 								<t:htmlTag value="center">
-									<h:text value="#{personnel.civilite.libelle}" />
+									<h:outputText value="#{personnel.civilite.libelle}" />
 								</t:htmlTag>
 							</rich:column>
 							<rich:column sortBy="#{personnel.nom}">
@@ -41,7 +39,7 @@
 										value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
 								</f:facet>
 								<t:htmlTag value="center">
-									<h:text value="#{personnel.nom}" />
+									<h:outputText value="#{personnel.nom}" />
 								</t:htmlTag>
 							</rich:column>
 							<rich:column sortBy="#{personnel.prenom}">
@@ -50,7 +48,7 @@
 										value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
 								</f:facet>
 								<t:htmlTag value="center">
-									<h:text value="#{personnel.prenom}" />
+									<h:outputText value="#{personnel.prenom}" />
 								</t:htmlTag>
 							</rich:column>
 							<rich:column sortBy="#{personnel.affectation.libelle}">
@@ -59,7 +57,7 @@
 										value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
 								</f:facet>
 								<t:htmlTag value="center">
-									<h:text value="#{personnel.affectation.libelle}" />
+									<h:outputText value="#{personnel.affectation.libelle}" />
 								</t:htmlTag>
 							</rich:column>
 							<rich:column>
@@ -74,18 +72,19 @@
 											target="#{centreController.personnel}" />
 										<h:graphicImage alt="#{msgs['FORM.AJOUTER']}"
 											value="../../media/images/new.png" style="border:0" />
-										<rich:tooltip
-											value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
+
+										<rich:tooltip value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
+
 									</h:commandLink>
+
 								</t:htmlTag>
 							</rich:column>
-
 							<f:facet name="footer">
 								<rich:dataScroller align="center" for="listePersonnels"
-									maxPages="20" page="1" id="listeScroller"
-									renderIfSinglePage="false" />
+									maxPages="20" id="listeScroller" renderIfSinglePage="false" />
 							</f:facet>
 						</rich:dataTable>
+
 						<t:htmlTag value="div" style="height: 10px;" />
 						<h:panelGrid columns="2" align="center">
 							<h:commandButton id="back" value="#{msgs['GENERAL.RETOUR']}"

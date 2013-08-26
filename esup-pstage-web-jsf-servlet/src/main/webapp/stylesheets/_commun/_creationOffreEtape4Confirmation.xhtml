@@ -1,10 +1,12 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<ui:include src="_confirmationMessages.xhtml"/>
 
 	<t:htmlTag value="center">
 		<h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
@@ -17,4 +19,4 @@
 			action="recapitulatifOffreEtab" alt="#{msgs['OFFRE.RECAPITULATIF']}"
 			title="#{msgs['OFFRE.RECAPITULATIF']}" />
 	</t:htmlTag>
-</ui:fragment>
+</ui:composition>

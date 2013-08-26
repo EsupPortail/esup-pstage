@@ -6,16 +6,13 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-
-	
 	<ui:include src="_formService.xhtml" />
+
 	<a4j:commandButton action="#{etablissementController.ajouterService}"
 		value="#{msgs['FORM.CREER']}" render="opService, opActionsService, opContactsDataTable, formAjoutService" />
 	<t:htmlTag value="div" style="display: inline; margin: 150px;" />
-	<h:commandButton value="#{msgs['FORM.ANNULER']}"
-		onclick="#{rich:component('ajoutService')}.hide()"
-		action="#{etablissementController.resetCurrentPageAjoutService}" immediate="true">
-		<f:setPropertyActionListener value="#{true}"
-			target="#{etablissementController.memeAdresseStructure}" />
-	</h:commandButton>
+	<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+		immediate="true"
+		execute="@this"
+		onclick="#{rich:component('ajoutService')}.hide()"/>
 </ui:composition>

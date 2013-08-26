@@ -6,15 +6,18 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-
 	<ui:include src="_formContact.xhtml" />
+	
 	<a4j:commandButton action="#{etablissementController.ajouterContact}"
 		value="#{msgs['FORM.CREER']}"
-		render="opContactsDataTable, formAjoutContact" />
+		render="opContactsDataTable, formAjoutContact">
+		<f:setPropertyActionListener value="_ajoutContactEtape1" 
+			target="#{sessionController.ajoutContactCurrentPage}"/>
+	</a4j:commandButton>
 	<t:htmlTag value="div" style="width: 150px; display:inline;" />
-	<h:commandButton value="#{msgs['FORM.ANNULER']}"
-		onclick="#{rich:component('ajoutContact')}.hide();"
-		action="#{etablissementController.resetCurrentPageAjoutContact}"
-		immediate="true" />
+	<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
+		execute="@this"
+		immediate="true"
+		onclick="#{rich:component('ajoutContact')}.hide();"/>
 
 </ui:composition>

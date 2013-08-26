@@ -17,7 +17,7 @@
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{upperCaseConverter}" />
-					<!-- 					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+					<!-- 					<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
 					<a4j:ajax event="blur" />
 				</h:inputText>
 				<rich:message for="nomNC">
@@ -37,7 +37,7 @@
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{premiereLettreMAJConverter}" />
-					<!-- 					<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+					<!-- 					<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
 					<a4j:ajax event="blur" />
 				</h:inputText>
 				<rich:message for="prenomNC">
@@ -56,7 +56,7 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 				<f:validator binding="#{mailValidator}" />
-				<!-- 				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+				<!-- 				<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
 				<a4j:ajax event="blur" />
 			</h:inputText>
 			<rich:message for="mailNC">
@@ -70,7 +70,7 @@
 				value="#{sessionController.nousContacter.sujet}" size="50"
 				maxlength="50" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<!-- 				<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+				<!-- 				<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
 				<a4j:ajax event="blur" />
 			</h:inputText>
 			<rich:message for="sujetNC">
@@ -83,7 +83,7 @@
 			value="#{sessionController.nousContacter.message}" width="400"
 			height="200" required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}">
-			<!-- 			<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+			<!-- 			<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
 			<a4j:ajax event="blur" />
 		</rich:editor>
 		<rich:message for="messageNC">
@@ -127,7 +127,7 @@
 					maxlength="10"
 					required="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<!-- 						<rich:ajaxValidator event="onkeyup" ignoreDupResponses="true" /> -->
+					<!-- 						<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
 					<a4j:ajax event="blur" />
 				</h:inputText>
 				<rich:message for="codePostalNC">

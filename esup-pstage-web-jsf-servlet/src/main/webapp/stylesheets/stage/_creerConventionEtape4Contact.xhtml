@@ -43,6 +43,8 @@
 							render="ajoutContact">
 							<f:setPropertyActionListener value="#{false}"
 								target="#{etablissementController.afficherSelectionCentreContact}" />
+							<f:setPropertyActionListener value="_ajoutContactEtape1"
+								target="#{sessionController.ajoutContactCurrentPage}" />
 							<h:graphicImage alt="#{msgs['FORM.CREER']}"
 								value="../../media/images/new.png" style="border:0" />
 							<rich:tooltip value="#{msgs['FORM.CREER']}" />
@@ -127,6 +129,8 @@
 									target="#{etablissementController.formContact}" />
 								<f:setPropertyActionListener value="#{false}"
 									target="#{etablissementController.afficherSelectionCentreContact}" />
+								<f:setPropertyActionListener value="_modifContactEtape0"
+									target="#{sessionController.modifContactCurrentPage}" />
 								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 									value="../../media/images/edit.png" style="border:0" />
 								<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
@@ -137,6 +141,8 @@
 								render="supprContact">
 								<f:setPropertyActionListener value="#{contact}"
 									target="#{etablissementController.formContact}" />
+								<f:setPropertyActionListener value="_supprContactEtape1"
+									target="#{sessionController.suppressionContactCurrentPage}" />
 								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
 									value="../../media/images/delete.png" style="border:0" />
 								<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />

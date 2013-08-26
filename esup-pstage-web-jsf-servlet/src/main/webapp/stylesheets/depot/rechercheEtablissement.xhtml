@@ -110,22 +110,10 @@
 								<rich:dataTable id="rechercheStructureDataTable"
 									var="varRechercheStructure"
 									rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
-									value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
-									border="0" cellspacing="2" cellpadding="2" width="600"
-									onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+									value="#{rechercheController.rechercheStructurePaginator.visibleItems}" width="600">
 									<f:facet name="header">
 										<ui:include
 											src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
-									</f:facet>
-									<f:facet name="footer">
-										<h:panelGroup>
-											<rich:dataScroller align="center"
-												for="rechercheStructureDataTable" maxPages="20" page="1"
-												id="listeScroller" renderIfSinglePage="false" />
-											<!-- 											<ui:include -->
-											<!-- 												src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" /> -->
-										</h:panelGroup>
 									</f:facet>
 									<ui:include
 										src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
@@ -152,39 +140,52 @@
 								not empty rechercheController.ongletCourant 
 								and rechercheController.ongletCourant==6
 								and not empty varRechercheStructure.accordPartenariat}">
-										<h:commandButton id="validerAccord"
-											value="#{msgs['FORM.VALIDER']}"
-											action="#{adminController.goToValidationAccord}"
-											image="../../media/images/tick.png"
-											alt="#{msgs['FORM.VALIDER']}" title="#{msgs['FORM.VALIDER']}"
-											rendered="#{not varRechercheStructure.accordPartenariat.estValide}">
-											<f:setPropertyActionListener value="#{varRechercheStructure}"
-												target="#{adminController.structureAccordAValider}" />
-											<rich:tooltip value="#{msgs['FORM.VALIDER']}" />
-										</h:commandButton>
-										<h:commandButton id="consulterAccord"
-											value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-											action="#{adminController.goToConsulterAccord}"
-											image="../../media/images/see.png"
-											alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-											title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-											rendered="#{varRechercheStructure.accordPartenariat.estValide}">
-											<f:setPropertyActionListener value="#{varRechercheStructure}"
-												target="#{adminController.structureAccord}" />
-											<rich:tooltip value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-												rendered="#{varRechercheStructure.accordPartenariat.estValide}" />
-										</h:commandButton>
-										<a4j:commandLink execute="@this" id="supprimerAccord"
-											oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
-											render="supprimerAccordPanel">
-											<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-												title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-												value="../../media/images/see_block.png" style="border:0" />
-											<f:setPropertyActionListener value="#{varRechercheStructure}"
-												target="#{adminController.accordASupprimer}" />
-											<rich:tooltip value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
-										</a4j:commandLink>
+										<h:panelGrid columns="3">
+											<h:commandButton id="validerAccord"
+												value="#{msgs['FORM.VALIDER']}"
+												action="#{adminController.goToValidationAccord}"
+												image="../../media/images/tick.png"
+												alt="#{msgs['FORM.VALIDER']}"
+												title="#{msgs['FORM.VALIDER']}"
+												rendered="#{not varRechercheStructure.accordPartenariat.estValide}">
+												<f:setPropertyActionListener
+													value="#{varRechercheStructure}"
+													target="#{adminController.structureAccordAValider}" />
+												<rich:tooltip value="#{msgs['FORM.VALIDER']}" />
+											</h:commandButton>
+											<h:commandButton id="consulterAccord"
+												value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+												action="#{adminController.goToConsulterAccord}"
+												image="../../media/images/see.png"
+												alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+												title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+												rendered="#{varRechercheStructure.accordPartenariat.estValide}">
+												<f:setPropertyActionListener
+													value="#{varRechercheStructure}"
+													target="#{adminController.structureAccord}" />
+												<rich:tooltip value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+													rendered="#{varRechercheStructure.accordPartenariat.estValide}" />
+											</h:commandButton>
+											<a4j:commandLink execute="@this" id="supprimerAccord"
+												oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
+												render="supprimerAccordPanel">
+												<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+													title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+													value="../../media/images/see_block.png" style="border:0" />
+												<f:setPropertyActionListener
+													value="#{varRechercheStructure}"
+													target="#{adminController.accordASupprimer}" />
+												<f:setPropertyActionListener
+													value="_supprAccordEtape1"
+													target="#{sessionController.suppressionAccordCurrentPage}" />
+												<rich:tooltip value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
+											</a4j:commandLink>
+										</h:panelGrid>
 									</rich:column>
+									<f:facet name="footer">
+										<rich:dataScroller for="rechercheStructureDataTable" maxPages="20"
+											renderIfSinglePage="false" id="listeScroller"/>
+									</f:facet>
 								</rich:dataTable>
 							</t:div>
 						</a4j:outputPanel>

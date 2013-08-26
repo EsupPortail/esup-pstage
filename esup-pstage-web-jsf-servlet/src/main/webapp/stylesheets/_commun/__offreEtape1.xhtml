@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -8,15 +8,15 @@
 
 	<h:outputText value="#{msgs['OFFRE.ERREUR.AUCUNETABSELECT']}"
 		rendered="#{empty offreController.formOffre.structure}" />
-	<h:panelGrid columns="1"
+	<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
 		rendered="#{not empty offreController.formOffre.structure}">
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columns="3"
+		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
 			rendered="#{offreController.formOffre.idOffre>0}"
 			style="float:right;">
-			<h:bold value="#{msgs['OFFRE']} " />
-			<h:bold value=" #{msgs['OFFRE.ID']}" />
-			<h:outputText value="#{offreController.formOffre.idOffre}" />
+			<h:outputLabel value="#{msgs['OFFRE']} " for="idOffre"/>
+			<h:outputLabel value=" #{msgs['OFFRE.ID']}" for="idOffre" />
+			<h:outputText id="idOffre" value="#{offreController.formOffre.idOffre}" />
 		</h:panelGrid>
 		<h:outputLabel value="#{msgs['OFFRE.TYPEOFFRE']} *" for="typeOffre" />
 		<h:panelGrid columns="2">
@@ -26,7 +26,7 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:selectItem itemValue="" />
 				<f:selectItems value="#{nomenclatureController.typesOffre}" />
-				<rich:ajaxValidator event="onblur" ignoreDupResponses="true" />
+				<a4j:ajax event="valueChange"  />
 			</h:selectOneMenu>
 			<rich:message for="typeOffre">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -45,29 +45,27 @@
 				value="#{offreController.avecFichierOuLien}">
 				<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 				<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-				<a4j:support event="onclick" ignoreDupResponses="true"
+				<a4j:ajax event="click" 
 					render="opAvecFichierOuLien" execute="@this" />
 			</h:selectOneRadio>
 			<a4j:outputPanel id="opAvecFichierOuLien">
 				<h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN.PRECISER']} *"
 					rendered="#{offreController.avecFichierOuLien}" for="fichierOuLien" />
-				<h:panelGrid columns="1">
-					<t:panelGroup colspan="2">
-						<h:selectOneRadio id="fichierOuLien"
-							value="#{offreController.fichierOuLien}"
-							rendered="#{offreController.avecFichierOuLien}" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<f:selectItem itemValue="1"
-								itemLabel="#{msgs['OFFRE.UNFICHIER']}" />
-							<f:selectItem itemValue="2" itemLabel="#{msgs['OFFRE.UNLIEN']}" />
-							<rich:ajaxValidator event="onclick" ignoreDupResponses="true" />
-						</h:selectOneRadio>
-						<rich:message for="fichierOuLien">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-					</t:panelGroup>
+				<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+					<h:selectOneRadio id="fichierOuLien"
+						value="#{offreController.fichierOuLien}"
+						rendered="#{offreController.avecFichierOuLien}" required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}">
+						<f:selectItem itemValue="1"
+							itemLabel="#{msgs['OFFRE.UNFICHIER']}" />
+						<f:selectItem itemValue="2" itemLabel="#{msgs['OFFRE.UNLIEN']}" />
+						<a4j:ajax event="click"  />
+					</h:selectOneRadio>
+					<rich:message for="fichierOuLien">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
 				</h:panelGrid>
 			</a4j:outputPanel>
 		</a4j:region>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

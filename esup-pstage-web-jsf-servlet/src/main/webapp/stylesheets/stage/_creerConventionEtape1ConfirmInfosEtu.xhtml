@@ -77,7 +77,7 @@
 		</h:panelGrid>
 		<h:panelGrid columns="2">
 			<h:commandButton value="#{msgs['FORM.CANCEL']}" immediate="true">
-				<f:setPropertyActionListener value="/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml" target="#{conventionController.creerConventionCurrentPage}"/>
+				<f:setPropertyActionListener value="_creerConventionEtape1ChoixEtapeEtudiant" target="#{sessionController.creationConventionCurrentPage}"/>
 			</h:commandButton>
 
 			<h:commandButton value="#{msgs['FORM.VALIDER']}"

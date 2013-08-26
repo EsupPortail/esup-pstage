@@ -42,22 +42,22 @@
 							value="../../media/images/script.png" style="border:0"
 							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
 						and conventionController.rechercheConventionPaginator.totalItemsCount gt 200}" />
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
+						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
 							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
 						and conventionController.rechercheConventionPaginator.totalItemsCount gt 200}"
 							escape="false">
 							<f:param
 								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
-						</h:outputText>
+						</h:outputFormat>
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
 							value="../../media/images/script.png" style="border:0"
 							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 200}" />
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
+						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
 							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 200}"
 							escape="false">
 							<f:param
 								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
-						</h:outputText>
+						</h:outputFormat>
 					</h:panelGrid>
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
@@ -193,6 +193,8 @@
 							target="#{exportController.resultatsRechercheConvention}" />
 					</h:commandButton>
 				</h:panelGrid>
+				<h:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
+						action="#{conventionController.goToRechercheConvention}" immediate="true" />
 			</h:form>
 		</rich:panel>
 	</ui:define>

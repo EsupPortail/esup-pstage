@@ -11,8 +11,7 @@
 			<h:outputText value="#{msgs['CONTACT.GESTION.SUPPR']}" />
 		</f:facet>
 		<h:form id="formSupprContact">
-			<ui:include id="include"
-				src="/stylesheets/_commun/_supprContactEtape1.xhtml" />
+			<ui:include	src="/stylesheets/_commun/#{sessionController.suppressionContactCurrentPage}.xhtml" />
 		</h:form>
 	</rich:popupPanel>
 </ui:composition>

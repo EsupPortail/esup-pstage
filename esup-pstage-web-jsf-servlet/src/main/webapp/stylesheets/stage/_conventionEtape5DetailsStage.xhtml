@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -7,7 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 
-	<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" cellpadding="2" cellspacing="2"
 		alternateColors="true">
 		<h:outputLabel for="typeConvention1"
 			value="#{msgs['CONVENTION.TYPECONVENTION']}" />
@@ -134,4 +134,4 @@
 			value="#{conventionController.convention.travailNuitFerie}"
 			escape="false" />
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

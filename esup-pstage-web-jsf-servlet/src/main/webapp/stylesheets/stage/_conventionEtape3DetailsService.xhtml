@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -13,7 +13,8 @@
 		escape="false" />
 
 	<a4j:outputPanel id="opService">
-		<h:panelGrid columns="2">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2">
 			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
 				escape="false"
 				rendered="#{not empty etablissementController.listeServices}" />
@@ -23,13 +24,15 @@
 				valueChangeListener="#{etablissementController.valueIdServiceChanged}"
 				rendered="#{not empty etablissementController.listeServices}">
 				<f:selectItems value="#{etablissementController.servicesItems}" />
-				<a4j:support event="onblur" ignoreDupResponses="true"
+				<a4j:ajax event="blur" ignoreDupResponses="true"
 					render="opActionsService" execute="@this" />
-				<a4j:support event="onchange" render="opActionsService"
+				<a4j:ajax event="change" render="opActionsService"
 					ignoreDupResponses="true" execute="@this" />
 			</h:selectOneMenu>
 		</h:panelGrid>
-		<h:panelGrid columns="3">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="3"
+			rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}">
 			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
 			<a4j:commandLink execute="@this" id="ajout"
 				rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}"
@@ -38,13 +41,15 @@
 				render="ajoutService">
 				<f:setPropertyActionListener value="#{true}"
 					target="#{etablissementController.memeAdresseStructure}" />
+				<f:setPropertyActionListener value="_ajoutServiceEtape1"
+					target="#{sessionController.ajoutServiceCurrentPage}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
 					value="../../media/images/new.png" style="border:0" />
 				<rich:tooltip value="#{msgs['FORM.CREER']}" />
 			</a4j:commandLink>
 		</h:panelGrid>
 	</a4j:outputPanel>
-	<rich:spacer height="20px" />
+	<t:htmlTag value="div" style="height: 20px;" />
 	<a4j:outputPanel id="opActionsService">
 		<h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
 			escape="false"
@@ -75,13 +80,14 @@
 					<f:setPropertyActionListener
 						value="#{etablissementController.serviceSel}"
 						target="#{conventionController.convention.service}" />
+					<f:setPropertyActionListener value="_modifServiceEtape0"
+						target="#{sessionController.modifServiceCurrentPage}" />
 					<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 						value="../../media/images/edit.png" style="border:0" />
 					<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 				</a4j:commandLink>
 
-			</rich:column>
-			<rich:column>
+				<!-- 				<t:htmlTag value="div" style="display: inline; magin: 4px;"/>  -->
 
 				<a4j:commandLink execute="@this" id="selectionService"
 					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}"
@@ -100,12 +106,13 @@
 			</rich:column>
 		</rich:dataTable>
 
-		<rich:modalPanel id="demandeConfirmModifService" autosized="true"
+		<rich:popupPanel id="demandeConfirmModifService" autosized="true"
 			width="400" styleClass="panel" domElementAttachment="parent">
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.MODIF.SERVICE.DEMANDE']}" />
 			</f:facet>
-			<h:panelGrid columns="2" align="center">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2" align="center">
 				<h:column>
 					<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 						title="#{msgs['GENERAL.WARNING']}"
@@ -121,9 +128,9 @@
 				action="#{conventionController.goToConventionEtape3ServiceModif}">
 
 			</a4j:commandButton>
-			<rich:spacer width="150px" />
+			<t:htmlTag value="div" style="height: 150px; display: inline;" />
 			<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
 				onclick="#{rich:component('demandeConfirmModifService')}.hide();return false;" />
-		</rich:modalPanel>
+		</rich:popupPanel>
 	</a4j:outputPanel>
-</ui:fragment>
+</ui:composition>

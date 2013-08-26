@@ -1,33 +1,34 @@
-<ui:include src="../_include.xhtml"/>
-
-<t:div
-	style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-	<t:aliasBean alias="#{structure}"
-		value="#{sessionController.currentManageStructure}">
-		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml"/>
-	</t:aliasBean>
-	<h:panelGrid columns="1" style="float:right;"
-		rendered="#{sessionController.adminPageAuthorized}">
-		<t:aliasBean alias="#{objet}" value="#{sessionController.currentManageStructure}">
-			<ui:include src="../_commun/_updateInfos.xhtml"/>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:panelGrid columns="1"
+		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
+		<t:aliasBean alias="#{structure}"
+			value="#{sessionController.currentManageStructure}">
+			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 		</t:aliasBean>
+		<h:panelGrid columns="1" style="float:right;"
+			rendered="#{sessionController.adminPageAuthorized}">
+			<t:aliasBean alias="#{objet}"
+				value="#{sessionController.currentManageStructure}">
+				<ui:include src="../_commun/_updateInfos.xhtml" />
+			</t:aliasBean>
+		</h:panelGrid>
+		<h:commandLink
+			rendered="#{not empty sessionController.currentManageStructure}"
+			action="#{etablissementController.goToModifierFicheSignaletique}">
+			<f:ajax render="formModifEtab" />
+			<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+				title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
+				style="border:0" />
+			<h:outputText value=" #{msgs['FORM.MODIFIER']}" />
+		</h:commandLink>
+		<h:panelGrid align="center">
+			<rich:messages style="font-size:16px;"/>
+		</h:panelGrid>
+		<t:htmlTag value="div" style="height:5px;" />
 	</h:panelGrid>
-	<a4j:commandLink
-		rendered="#{not empty sessionController.currentManageStructure}"
-		action="#{etablissementController.goToModifierFicheSignaletique}">
-		<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-			title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
-			style="border:0" />
-		<h:outputText value=" #{msgs['FORM.MODIFIER']}" />
-	</a4j:commandLink>
-	<h:panelGrid columns="2" align="center">
-		<h:column>
-			<ui:include src="../_commun/_confirmationImagesPermanentes.xhtml"/>
-		</h:column>
-		<h:column>
-			<rich:message for="formAffEtab">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
-			</rich:message>
-		</h:column>
-	</h:panelGrid>
-</t:div>
+</ui:composition>

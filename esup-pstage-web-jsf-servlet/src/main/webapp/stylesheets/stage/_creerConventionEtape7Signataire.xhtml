@@ -137,6 +137,8 @@
 								target="#{etablissementController.formContact}" />
 							<f:setPropertyActionListener value="#{false}"
 								target="#{etablissementController.afficherSelectionCentreContact}" />
+							<f:setPropertyActionListener value="_modifContactEtape0"
+								target="#{sessionController.modifContactCurrentPage}" />
 							<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 								title="#{msgs['FORM.MODIFIER']}"
 								value="../../media/images/edit.png" style="border:0"
