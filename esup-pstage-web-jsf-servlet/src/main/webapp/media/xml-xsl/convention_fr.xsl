@@ -261,7 +261,7 @@
 								hyphenate="false" language="fr" country="FR" font-size="11.5pt"
 								font-family="Times New Roman,serif" padding-left="0.141cm"
 								padding-right="0.141cm" padding-top="0.035cm" padding-bottom="0.035cm" >
-								Représenté par : (nom du (de la) signataire de la convention) : 
+								Représenté par : 
 									<fo:inline font-weight="bold">
 										<xsl:choose>
 											<xsl:when test="nom-signataire-composante">
@@ -457,7 +457,7 @@
 									hyphenate="false" language="fr" country="FR" font-size="11.5pt"
 									font-family="Times New Roman,serif" padding-left="0.141cm"
 									padding-right="0.141cm" padding-top="0.035cm" padding-bottom="0.035cm" >
-									Lieu du stage : (si différent de l'adresse de l'entreprise)  
+									Lieu du stage : (si différent de l'adresse de l'organisme d'accueil)  
 										
 										<xsl:if test="service/voie != structure/voie"> 
 							 				<fo:inline font-weight="bold">
@@ -714,15 +714,6 @@
 										</xsl:otherwise>
 									</xsl:choose>
   						   </fo:block>
-							<fo:block line-height="110%" 
-								hyphenate="false" language="fr" country="FR" font-size="11.5pt"
-								font-family="Times New Roman,serif" padding-left="0.141cm"
-								padding-right="0.141cm" padding-top="0.035cm" padding-bottom="0.035cm" >
-								<fo:inline font-weight="bold" font-style="italic">
-										<xsl:text> </xsl:text> soit en JOURS : ...............<fo:inline  font-size="5pt" vertical-align="super">2</fo:inline>
-								</fo:inline> 
-							</fo:block>
-
 						</fo:table-cell>
 					</fo:table-row>
 					
@@ -954,7 +945,7 @@
 							</fo:block>
 							<fo:block line-height="110%"  hyphenate="false" language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif" >
 									<fo:inline  font-size="5pt" vertical-align="super">1</fo:inline>
-									<fo:inline font-size="8pt"> Article L612-9 du code de l'éducation :" La durée du ou des stages effectués par un même stagiaire dans une même entreprise ne peut excéder six mois par année d'enseignement"
+									<fo:inline font-size="8pt"> Article L612-9 du code de l'éducation : " La durée du ou des stages effectués par un même stagiaire dans une même entreprise ne peut excéder six mois par année d'enseignement"
 									</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%"  hyphenate="false" language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif" font-weight="bold" font-style="italic">
@@ -1011,19 +1002,11 @@
 								
 							<fo:block line-height="110%" padding-top="1pt" padding-bottom="1pt"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">Le stage de
-								formation a pour objet de permettre à  l'étudiant(e) de
-								mettre en pratique les outils théoriques et méthodologiques
-								acquis au cours de sa formation, d'identifier ses compétences
-								et de conforter son objectif professionnel. </fo:block>
-							<fo:block line-height="110%" padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">Le stage a
-								ainsi pour but de préparer l'étudiant(e) à  l'entrée dans
-								la vie active par une meilleure connaissance de l'Organisme
-								d'accueil. Le stage s'inscrit dans le cadre de la formation et
-								du projet personnel et professionnel de l'étudiant(e). Il
-								entre dans son cursus pédagogique.</fo:block>
+								font-family="Times New Roman,serif" text-align="justify">Le stage correspond à une période temporaire 
+								de mise en situation en milieu professionnel au cour de laquelle l'étudiant acquiert des compétences professionnelles 
+								qui mettent en oeuvre les acquis de sa formation en vue de l'obtention d'un diplôme ou d'une certification. 
+								Le stagiaire se voit confier une ou des missions conformes au projet pédagogique défini par son établissement d'enseignement 
+								et approuvées par l'organisme d'accueil.</fo:block>
 							<fo:block line-height="110%" padding-top="2pt" padding-bottom="2pt"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">Le programme
@@ -1140,19 +1123,9 @@
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
 								Lorsque la durée du stage est supérieure à deux mois consécutifs ou non, 
-								celui-ci fait obligatoirement l'objet d'une gratification lorsqu'il 
-								se déroule en entreprise privée ou publique, en association, 
-								en établissement public à caractère industriel et commercial, sur le territoire français.
-							</fo:block>
-							<fo:block line-height="110%" padding-top="1pt" padding-bottom="1pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Lorsque la durée du stage est supérieure à deux mois consécutifs 
-								et <fo:inline text-decoration="underline">au moins égale à 40 jours de présence,</fo:inline> 
-								celui-ci fait obligatoirement 
-								l'objet d'une gratification lorsqu'il se déroule en administration 
-								ou établissement public administratif de l'Etat, sur le territoire français.
+								celui-ci fait obligatoirement l'objet d'une gratification, sur le territoire français, 
+								sauf règles particulières applicables dans certaines collectivités d'outre-mer ou relevant 
+								de l'article L4381-1 du code de la santé publique.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt" padding-bottom="1pt"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
