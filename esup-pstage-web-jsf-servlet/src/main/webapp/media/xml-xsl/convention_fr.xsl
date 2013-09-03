@@ -1003,7 +1003,7 @@
 							<fo:block line-height="110%" padding-top="1pt" padding-bottom="1pt"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">Le stage correspond à une période temporaire 
-								de mise en situation en milieu professionnel au cour de laquelle l'étudiant acquiert des compétences professionnelles 
+								de mise en situation en milieu professionnel au cours de laquelle l'étudiant acquiert des compétences professionnelles 
 								qui mettent en oeuvre les acquis de sa formation en vue de l'obtention d'un diplôme ou d'une certification. 
 								Le stagiaire se voit confier une ou des missions conformes au projet pédagogique défini par son établissement d'enseignement 
 								et approuvées par l'organisme d'accueil.</fo:block>
