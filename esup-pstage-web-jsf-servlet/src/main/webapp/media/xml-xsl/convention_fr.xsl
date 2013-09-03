@@ -1210,8 +1210,7 @@
 										hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
 										font-weight="bold">
 								Pour les stages en administration ou établissement public administratif de l'État : 
-								prise en charge des trajets domicile - lieu de stage, selon les conditions des décrets 82-887 et
-								2006-1663 : ...................(indiquer oui ou non)
+								prise en charge des trajets domicile - lieu de stage, selon les conditions des décrets 2010-676 : ...................(indiquer oui ou non)
 							</fo:block>
 							
 							<fo:block line-height="110%" 
