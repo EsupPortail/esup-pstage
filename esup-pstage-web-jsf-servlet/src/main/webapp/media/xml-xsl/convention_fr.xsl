@@ -945,7 +945,7 @@
 							</fo:block>
 							<fo:block line-height="110%"  hyphenate="false" language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif" >
 									<fo:inline  font-size="5pt" vertical-align="super">1</fo:inline>
-									<fo:inline font-size="8pt"> Article L612-9 du code de l'éducation : " La durée du ou des stages effectués par un même stagiaire dans une même entreprise ne peut excéder six mois par année d'enseignement"
+									<fo:inline font-size="8pt"> Article L612-9 du code de l'éducation : " La durée du ou des stages effectués par un même stagiaire dans une même entreprise ne peut excéder six mois par année d'enseignement", sauf exceptions
 									</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%"  hyphenate="false" language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif" font-weight="bold" font-style="italic">
