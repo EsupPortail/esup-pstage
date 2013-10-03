@@ -13,7 +13,7 @@
 		<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} * "
 			for="raisonSociale" />
 		<h:panelGrid columns="3">
-			<h:inputText id="raisonSociale" size="50" maxlength="100"
+			<h:inputText id="raisonSociale" size="50" maxlength="150"
 				style="text-transform:uppercase;"
 				value="#{accordController.preAccord.structure.raisonSociale}"
 				required="true"
@@ -55,7 +55,6 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				validatorMessage="#{requiredMessageController.numeroSiretNonValide}">
 				<f:validator binding="#{numSiretValidator}" />
-				<!-- 							<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
 				<a4j:ajax event="blur" />
 			</h:inputText>
 			<t:htmlTag value="div" style="width: 10px;" />
@@ -103,7 +102,7 @@
 		</h:panelGrid>
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height:10px;" />
-	<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}" action="welcome"
+	<a4j:commandButton value="#{msgs['GENERAL.RETOUR']}" action="welcome"
 		immediate="true"/>
 	<h:commandButton action="#{accordController.goToEtabTrouve}"
 		value="#{msgs['FORM.NEXT']}">

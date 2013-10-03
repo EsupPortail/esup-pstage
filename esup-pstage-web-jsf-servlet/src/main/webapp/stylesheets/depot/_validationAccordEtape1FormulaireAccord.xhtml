@@ -77,7 +77,6 @@
 							validatorMessage="#{requiredMessageController.numeroSiretNonValide}"
 							readonly="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
 							<f:validator binding="#{numSiretValidator}" />
-							<a4j:ajax event="keyup" />
 							<a4j:ajax event="blur" />
 						</h:inputText>
 						<rich:message for="siret">
@@ -143,7 +142,6 @@
 						size="20" maxlength="6">
 						<f:validator binding="#{codeNAFValidator}" />
 						<f:converter binding="#{codNafN5Converter}" />
-						<a4j:ajax event="keyup" render="opLibelleAPE" execute="@this" />
 						<a4j:ajax event="blur" render="opLibelleAPE" execute="@this" />
 					</h:inputText>
 					<t:htmlTag value="div" style="width:20px;" />
@@ -279,7 +277,7 @@
 									validatorMessage="#{requiredMessageController.codePostalNonValide}"
 									valueChangeListener="#{adminController.valueCodePostalChanged}">
 									<f:validator binding="#{codePostalValidator}" />
-									<a4j:ajax event="keyup" render="opDynaCommune" execute="@this" />
+									<a4j:ajax event="blur" render="opDynaCommune" execute="@this" />
 								</h:inputText>
 								<rich:message for="dynaCodePostal">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -361,7 +359,6 @@
 							validatorMessage="#{requiredMessageController.adresseMailNonValide}"
 							maxlength="50">
 							<f:validator binding="#{mailValidator}" />
-							<a4j:ajax event="keyup" />
 							<a4j:ajax event="blur" />
 						</h:inputText>
 						<rich:message for="mail">
@@ -380,7 +377,6 @@
 							validatorMessage="#{requiredMessageController.siteWebNonValide}"
 							maxlength="200">
 							<f:validator binding="#{siteWebValidator}" />
-							<a4j:ajax event="keyup" />
 							<a4j:ajax event="blur" />
 						</h:inputText>
 						<rich:message for="siteWeb">
@@ -507,7 +503,6 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}"
 						validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 						<f:validator binding="#{mailValidator}" />
-						<a4j:ajax event="keyup" />
 						<a4j:ajax event="blur" />
 					</h:inputText>
 					<rich:message for="mailC">

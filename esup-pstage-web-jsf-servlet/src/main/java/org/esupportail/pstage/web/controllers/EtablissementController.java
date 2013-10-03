@@ -4,7 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -168,7 +168,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	private int idServiceSel;
 	/**
-	 * Service s�lectionn�
+	 * Service sélectionné
 	 */
 	private ServiceDTO serviceSel;
 	/**
@@ -1162,7 +1162,7 @@ public class EtablissementController extends AbstractContextAwareController {
 		this.formServiceTmpCommuneDTO = new CommuneDTO();
 		return null;
 	}
-
+	
 	/**
 	 * Ajout d'un service
 	 * 
@@ -1340,11 +1340,9 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Suppression d'un service
-	 * 
-	 * @return String
 	 */
-	public String supprimerService() {
-		String ret = "_supprServiceEtape2Confirmation";
+	public void supprimerService() {
+//		String ret = "_supprServiceEtape2Confirmation";
 		try {
 			if (getStructureDomainService().deleteService(
 					this.formService.getIdService())) {
@@ -1380,7 +1378,13 @@ public class EtablissementController extends AbstractContextAwareController {
 			}
 		} catch (DataDeleteException e) {
 			logger.error("DataDeleteException", e.fillInStackTrace());
-			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
+			getSessionController().setSuppressionServiceCurrentPage("_supprServiceEtape2Confirmation");
+			System.out.println("e.get message : " + e.getMessage());
+			if (e.getMessage().contains("constraint")){
+				addErrorMessage(null, "SERVICE.SUPPR.ERREUR.CONTACT");
+			} else {
+				addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
+			}
 		} catch (WebServiceDataBaseException e) {
 			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
@@ -1388,11 +1392,11 @@ public class EtablissementController extends AbstractContextAwareController {
 			logger.error("ServiceDeleteException", e.fillInStackTrace());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 		}
-		return ret;
+		getSessionController().setSuppressionServiceCurrentPage("_supprServiceEtape2Confirmation");
 	}
 
 	/**
-	 * Mise � jour de la liste des contacts en fonction du service s�lectionn�
+	 * Mise à jour de la liste des contacts en fonction du service sélectionné
 	 * 
 	 * @param event
 	 */
@@ -1408,7 +1412,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Mise � jour de la liste des contacts en fonction du service s�lectionn�
+	 * Mise à jour de la liste des contacts en fonction du service sélectionné
 	 * 
 	 * @param event
 	 */
@@ -2018,8 +2022,9 @@ public class EtablissementController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String changerMotDePasse() {
-		String ret = "_changementMotDePasseEtape2Confirmation";
+	public void changerMotDePasse() {
+//		String ret = "_changementMotDePasseEtape2Confirmation";
+		getSessionController().setModifMdpCurrentPage("_changementMotDePasseEtape2Confirmation");
 		if (getSessionController().getCurrentAuthContact() != null) {
 			if (StringUtils.hasText(mdpActuel)) {
 				if (mdpActuel.equals(getSessionController()
@@ -2099,18 +2104,20 @@ public class EtablissementController extends AbstractContextAwareController {
 									"CONTACT.GESTION.ERREURACCOUNT");
 						}
 					} else {
-						ret = null;
+//						ret = null;
+						getSessionController().setModifMdpCurrentPage("_changementMotDePasseEtape1");
 						addErrorMessage("changementMotDePasse:mdpNew",
 								"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPCONFIRMINCORRECT");
 					}
 				} else {
-					ret = null;
+//					ret = null;
+					getSessionController().setModifMdpCurrentPage("_changementMotDePasseEtape1");
 					addErrorMessage("changementMotDePasse:mdp",
 							"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPACTUELINCORRECT");
 				}
 			}
 		}
-		return ret;
+//		return ret;
 	}
 
 	/* ***************************************************************

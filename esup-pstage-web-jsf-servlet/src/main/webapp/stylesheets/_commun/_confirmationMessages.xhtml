@@ -6,14 +6,9 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" align="center">
-		<h:column>
-			<ui:include src="_confirmationImages.xhtml" />
-		</h:column>
-		<h:column>
-			<rich:messages>
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:messages>
-		</h:column>
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" align="center">
+		<rich:messages>
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:messages>
 	</h:panelGrid>
 </ui:composition>

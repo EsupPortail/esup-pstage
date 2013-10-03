@@ -19,8 +19,7 @@
 		<t:htmlTag value="div" style="height: 10px;" />
 	</h:panelGrid>
 	<t:div>
-		<ui:include
-			src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
+		<ui:include src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
 		<ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 	</t:div>
 	<h:panelGrid columnClasses="paginatorData-text"
@@ -54,8 +53,7 @@
 				<rich:dataTable id="rechercheStructureDataTable"
 					var="varRechercheStructure"
 					value="#{rechercheController.listeResultatsRechercheStructure}"
-					border="0" cellspacing="2" cellpadding="2" styleClass="stable"
-					rows="20">
+					border="0" styleClass="stable" rows="20">
 					<f:facet name="header">
 						<ui:include
 							src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
@@ -83,15 +81,12 @@
 					query="jQuery(this).removeClass('active-row')" />
 			</t:div>
 		</a4j:outputPanel>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-				immediate="true" rendered="#{offreController.typeAjoutModifOffre gt 2}"
-				render="formCreationOffre">
-				<f:setPropertyActionListener value="_creationOffreEtape01Centre"
-					target="#{sessionController.creationOffreStageCurrentPage}" />
-			</a4j:commandButton>
-		</h:panelGrid>
+		<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+			immediate="true" rendered="#{offreController.typeAjoutModifOffre gt 2}"
+			render="formCreationOffre">
+			<f:setPropertyActionListener value="_creationOffreEtape01Centre"
+				target="#{sessionController.creationOffreStageCurrentPage}" />
+		</a4j:commandButton>
 	</h:panelGrid>
 </ui:composition>

@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,39 +6,43 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1"
+	<rich:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE']}" />
-			</f:facet>
-			<t:htmlTag value="div" style="height: 20px;" />
-			<h:outputText value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.DEMANDE']}" />
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE']}" />
+		</f:facet>
 
-			<t:htmlTag value="div" style="height: 20px;" />
-			<ui:include src="/stylesheets/stage/_conventionEtape5StageForm.xhtml" />
-			<h:panelGrid columns="3">
-				<a4j:commandButton
-					action="#{conventionController.goToCreerConventionEtape4Contact}"
-					value="#{msgs['FORM.PREVIOUS']}" immediate="true">
-				</a4j:commandButton>
-				<a4j:commandButton
-					action="#{conventionController.goToCreerConventionCtrlStage}"
-					value="#{msgs['FORM.VALIDER']}" render="opFCE">
-				</a4j:commandButton>
-				<a4j:outputPanel id="opFCE">
-					<h:panelGrid columns="3"
-						rendered="#{facesContext.maximumSeverity != null}">
-						<h:graphicImage value="../../media/images/arrow_up.png"
-							alt="#{msgs['GENERAL.ARROW_UP']}"
-							title="#{msgs['GENERAL.ARROW_UP']}" />
-						<h:outputText value="#{msgs['FORM.FORMERROR']}" />
-						<h:graphicImage value="../../media/images/arrow_up.png"
-							alt="#{msgs['GENERAL.ARROW_UP']}"
-							title="#{msgs['GENERAL.ARROW_UP']}" />
-					</h:panelGrid>
-				</a4j:outputPanel>
-			</h:panelGrid>
-		</rich:panel>
-	</h:panelGrid>
-</ui:fragment>
+		<t:htmlTag value="div" style="height: 20px;" />
+
+		<h:outputText value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.DEMANDE']}" />
+
+		<t:htmlTag value="div" style="height: 20px;" />
+
+		<ui:include src="/stylesheets/stage/_conventionEtape5StageForm.xhtml" />
+
+		<t:htmlTag value="div" style="height: 40px;" />
+		
+		<h:panelGrid columns="4">
+			<h:commandButton
+				action="#{conventionController.goToCreerConventionEtape4Contact}"
+				value="#{msgs['FORM.PREVIOUS']}" immediate="true" />
+			<t:htmlTag value="div" style="width:100px;" />
+			<a4j:commandButton
+				action="#{conventionController.goToCreerConventionCtrlStage}"
+				value="#{msgs['FORM.VALIDER']}" render="opFCE,formConvention" />
+			<a4j:outputPanel id="opFCE">
+				<h:panelGrid columns="3"
+					rendered="#{facesContext.maximumSeverity != null}">
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+					<h:outputText value="#{msgs['FORM.FORMERROR']}" />
+					<h:graphicImage value="../../media/images/arrow_up.png"
+						alt="#{msgs['GENERAL.ARROW_UP']}"
+						title="#{msgs['GENERAL.ARROW_UP']}" />
+				</h:panelGrid>
+			</a4j:outputPanel>
+		</h:panelGrid>
+		<t:htmlTag value="div" style="height: 20px;" />
+	</rich:panel>
+</ui:composition>

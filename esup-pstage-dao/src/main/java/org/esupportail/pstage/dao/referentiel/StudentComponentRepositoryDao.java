@@ -5,14 +5,13 @@ import java.util.Map;
 
 import org.esupportail.pstage.domain.beans.EtabRef;
 import org.esupportail.pstage.domain.beans.SignataireRef;
-import org.springframework.beans.factory.InitializingBean;
 
 
 /**
  * @author dhouillo
  *
  */
-public interface StudentComponentRepositoryDao extends Serializable, InitializingBean{
+public interface StudentComponentRepositoryDao extends Serializable{
 
 
 	 /**

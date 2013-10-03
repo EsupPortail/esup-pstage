@@ -370,8 +370,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#addEtape(org.esupportail.pstagedata.domain.dto.EtapeDTO)
 	 */
-	public int addEtape(EtapeDTO etape) throws DataAddException,
-	WebServiceDataBaseException, EtapeAlreadyExistingForCodeException {
+	public int addEtape(EtapeDTO etape) throws DataAddException, WebServiceDataBaseException, EtapeAlreadyExistingForCodeException {
 		return this.remoteServices.addEtape(etape);
 	}
 

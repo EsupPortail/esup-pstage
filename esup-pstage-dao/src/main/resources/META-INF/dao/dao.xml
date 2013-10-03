@@ -8,20 +8,17 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-
 <!-- 	<bean id="databaseManagerStore class="org.esupportail.commons.services.database.EmptyDatabaseManagerStoreImpl" /> -->
 
-	<bean id="daoService" class="org.esupportail.pstage.dao.EmptyDaoService" />
+	<bean id="daoService" class="org.esupportail.pstage.dao.EmptyDaoService">
+	</bean>
 
 	<bean id="geographieRepositoryDao"
 		class="org.esupportail.pstage.dao.referentiel.GeographieRepositoryDaoWS">
-		<property name="geographieMetierService" ref="geographieMetierService"/>
 	</bean>
 
 	<bean id="personalComponentRepositoryDaoWS"
-		class="org.esupportail.pstage.dao.referentiel.PersonalComponentRepositoryDaoWS">
-		<property name="referentielMetierService" ref="referentielMetierService"/>
-	</bean>
+		class="org.esupportail.pstage.dao.referentiel.PersonalComponentRepositoryDaoWS"/>
 	
 	<bean id="personalDataRepositoryDaoWS"
 		class="org.esupportail.pstage.dao.referentiel.PersonalDataRepositoryDaoWS">
@@ -35,10 +32,8 @@
 	<bean id="studentComponentRepositoryDaoWS"
 		class="org.esupportail.pstage.dao.referentiel.StudentComponentRepositoryDaoWS">
 		<!--  proprietes pour WS Apogee CRI-->
-		<property name="remoteCriApogeeEns" ref="remoteCriApogeeEns" />
 		<property name="startYearDay" value="${start.year.day}" />
 		<property name="startYearMonth" value="${start.year.month}" />
-		<property name="referentielMetierService" ref="referentielMetierService"/>
 	</bean>
 
 	<bean id="studentDataRepositoryDaoWS"
@@ -49,11 +44,6 @@
 		<property name="ldapStudentIdIsCODETU" value="${ldap.student.id.isCODETU}" />
 		<property name="ldapUserService" ref="ldapUserService" />
 		<property name="ldapAttributes" ref="ldapAttributes" />
-		<property name="etudiantMetierService" ref="etudiantMetierService"/>
-		<property name="administratifMetierService" ref="administratifMetierService"/>
-		<property name="pedagogiqueMetierService" ref="pedagogiqueMetierService"/>
-		<property name="offreFormationMetierService" ref="offreFormationMetierService"/>
-		<property name="referentielMetierService" ref="referentielMetierService"/>
 	</bean>
 
 	<bean id="personalComponentRepositoryDaoLdap"

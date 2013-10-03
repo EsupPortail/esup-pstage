@@ -11,7 +11,7 @@
 	<packaging>war</packaging>
 	<description>couche vue-controller</description>
 	<properties>
-		<org.richfaces.bom.version>4.3.2.Final</org.richfaces.bom.version>
+		<org.richfaces.bom.version>4.3.3.Final</org.richfaces.bom.version>
 	</properties>
 	<build>
 		<defaultGoal>install</defaultGoal>
@@ -61,6 +61,30 @@
 			<groupId>org.esupportail</groupId>
 			<artifactId>esup-commons2-jsf2-exception</artifactId>
 			<version>${esupcommons.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-simple</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml</groupId>
+			<artifactId>jaxrpc-api</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-discovery</groupId>
+			<artifactId>commons-discovery</artifactId>
+			<version>0.5</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>

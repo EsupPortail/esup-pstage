@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -21,21 +21,20 @@
 
 			<ui:include src="../_commun/_etablissementForm.xhtml" />
 
-			<rich:messages showDetail="true" />
-
 			<h:panelGrid columns="3">
-				<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-					action="_creerConventionEtape2Etab" alt="#{msgs['FORM.PREVIOUS']}"
-					title="#{msgs['FORM.PREVIOUS']}" immediate="true">
-				</a4j:commandButton>
+				<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+					alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+					immediate="true" action="creerConventionEtape2Etab">
+					<f:setPropertyActionListener value="_creerConventionEtape2Etab" target="#{sessionController.creationConventionEtape2CurrentPage}"/>
+				</h:commandButton>
 				<t:htmlTag value="div" style="width: 20px;" />
 				<a4j:commandButton value="#{msgs['FORM.CREER']}"
-					action="#{conventionController.ajouterEtablissement}">
-				</a4j:commandButton>
+					render="formConvention"
+					action="#{conventionController.ajouterEtablissement}" />
 			</h:panelGrid>
 		</rich:panel>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>
 
 
 

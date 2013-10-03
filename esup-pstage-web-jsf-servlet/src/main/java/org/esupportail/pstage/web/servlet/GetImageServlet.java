@@ -65,15 +65,13 @@ public class GetImageServlet extends HttpServlet{
 		
 		if (Utils.isNumber(imageId)){
 			FichierDTO logo = offreDomainService.getFichierFromIdFichier(Utils.convertStringToInt(imageId));
-
+			System.out.println("logo " +logo.getNomReel());
 			if(logo != null){
 				String imageName = imageId+"_"+logo.getNomFichier();
 				String imagePath = this.uploadLogoCentrePath+File.separator+imageName;
 				File file = new File (imagePath);
 				if (!file.exists()){
-					if(logger.isDebugEnabled()){
-						logger.debug("Trying to get image - id : "+imageId+", but not found");
-					}
+					logger.info("Trying to get image - id : "+imagePath+", but not found");
 				} else {
 					String mimeType = sc.getMimeType(imagePath);
 					// Lecture et affichage de l'image

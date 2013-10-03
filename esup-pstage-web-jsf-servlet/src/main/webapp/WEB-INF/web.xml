@@ -15,7 +15,7 @@
 		<param-value>classpath:log4j.properties
 		</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<description>
 			The location of the main configuration file of the Spring
@@ -37,6 +37,11 @@
 		<param-value>
 			/WEB-INF/navigation-rules.xml
 		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
+		<param-value>512000</param-value>
 	</context-param>
 
 	<context-param>
@@ -91,12 +96,43 @@
 		<param-value>true</param-value>
 	</context-param>
 
+<!-- 	<context-param> -->
+<!-- 		<param-name>org.apache.myfaces.ERROR_HANDLING</param-name> -->
+<!-- 		<param-value>true</param-value> -->
+<!-- 	</context-param> -->
+<!-- 	<context-param> -->
+<!-- 		<param-name>org.apache.myfaces.ERROR_HANDLER -->
+<!-- 		</param-name> -->
+<!-- 		<param-value> -->
+<!-- 			org.esupportail.commons.services.exceptionHandling.ExceptionHandler -->
+<!-- 		</param-value> -->
+<!-- 	</context-param> -->
+
+	<listener>
+		<listener-class>
+			org.springframework.web.util.Log4jConfigListener
+		</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+
+	<!-- <context-param> -->
+	<!-- <param-name>javax.faces.PROJECT_STAGE</param-name> -->
+	<!-- <param-value>Production</param-value> -->
+	<!-- </context-param> -->
 	<context-param>
-		<param-name>org.apache.myfaces.ERROR_HANDLER
-		</param-name>
-		<param-value>
-			org.esupportail.commons.services.exceptionHandling.ExceptionHandler
-		</param-value>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
 	</context-param>
 
 	<context-param>
@@ -122,17 +158,15 @@
 
 	<!--END-RICHFACES -->
 
+	<!--BEGIN CAS -->
+
 	<filter>
 		<filter-name>CAS Authentication Filter</filter-name>
-		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
 		</filter-class>
 		<init-param>
-			<param-name>casServerLoginUrl</param-name>
-			<param-value>https://auth.univ-artois.fr/cas/login</param-value>
-		</init-param>
-		<init-param>
-			<param-name>serverName</param-name>
-			<param-value>http://localhost:8080</param-value>
+			<param-name>targetBeanName</param-name>
+			<param-value>authenticationFilter</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
@@ -146,23 +180,18 @@
 
 	<filter>
 		<filter-name>CAS Validation Filter</filter-name>
-		<filter-class>org.jasig.cas.client.validation.Cas10TicketValidationFilter
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
 		</filter-class>
 		<init-param>
-			<param-name>casServerUrlPrefix</param-name>
-			<param-value>https://auth.univ-artois.fr/cas</param-value>
-		</init-param>
-		<init-param>
-			<param-name>serverName</param-name>
-			<param-value>http://localhost:8080</param-value>
+			<param-name>targetBeanName</param-name>
+			<param-value>ticketValidationFilter</param-value>
 		</init-param>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>CAS Validation Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<!-- END CAS -->
 
 	<servlet>
@@ -209,11 +238,11 @@
 		</servlet-class>
 		<init-param>
 			<param-name>uploadLogoEntreprisePath</param-name>
-			<param-value>${uploadFiles.logosEntreprise.path}</param-value>
+			<param-value>C:/esup-pstage-files/logosEntreprise</param-value>
 		</init-param>
 		<init-param>
 			<param-name>uploadLogoCentrePath</param-name>
-			<param-value>${uploadFiles.logosCentre.path}</param-value>
+			<param-value>C:/esup-pstage-files/logosCentre</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -227,7 +256,7 @@
 		</servlet-class>
 		<init-param>
 			<param-name>uploadFilesPath</param-name>
-			<param-value>${uploadFiles.offres.path}</param-value>
+			<param-value>C:/esup-pstage-files/offresEntreprise</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -235,51 +264,9 @@
 		<url-pattern>*.file</url-pattern>
 	</servlet-mapping>
 
-	<filter>
-		<description>
-			This filter is needed to use some Tomahawk extentions.
-		</description>
-		<display-name>MyFacesExtensionsFilter</display-name>
-		<filter-name>MyFacesExtensionsFilter</filter-name>
-		<filter-class>
-			org.apache.myfaces.webapp.filter.ExtensionsFilter
-		</filter-class>
-		<init-param>
-			<description>
-				The maximum size of uploaded files.
-			</description>
-			<param-name>maxFileSize</param-name>
-			<param-value>20m</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>MyFacesExtensionsFilter</filter-name>
-		<servlet-name>Faces Servlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>MyFacesExtensionsFilter</filter-name>
-		<url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
-	</filter-mapping>
-
-	<listener>
-		<listener-class>
-			org.springframework.web.util.Log4jConfigListener
-		</listener-class>
-	</listener>
-
-	<listener>
-		<listener-class>
-			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
-
-	<listener>
-		<listener-class>
-			org.springframework.web.context.request.RequestContextListener
-		</listener-class>
-	</listener>
-
 	<welcome-file-list>
 		<welcome-file>stylesheets/welcome.xhtml</welcome-file>
+		<welcome-file>stylesheets/stage/welcome.xhtml</welcome-file>
+		<welcome-file>stylesheets/depot/welcome.xhtml</welcome-file>
 	</welcome-file-list>
 </web-app>

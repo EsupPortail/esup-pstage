@@ -13,6 +13,7 @@ import org.esupportail.pstage.domain.beans.SignataireRef;
  */
 public interface StudentComponentRepositoryDomain extends Serializable{
 
+
 	 /**
 	 * @param universityCode
 	 * @return etablissementReference

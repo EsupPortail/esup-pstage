@@ -40,7 +40,7 @@
 					<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 					<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 						oncomplete="#{rich:component('selectServiceSignataire')}.hide();"
-						ignoreDupResponses="true"
+						
 						action="#{conventionController.goToConventionModifEtabServiceSignataire}">
 
 						<f:setPropertyActionListener

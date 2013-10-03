@@ -16,8 +16,8 @@
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<value>classpath:META-INF/i18n/bundles/Messages</value>
-				<value>classpath:META-INF/i18n/bundles/Custom</value>
+				<value>classpath:properties/i18n/bundles/Messages</value>
+				<value>classpath:properties/i18n/bundles/Custom</value>
 			</list>
 		</property>
 		<property name="cacheSeconds" value="60" />

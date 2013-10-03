@@ -37,6 +37,8 @@
 			<f:setPropertyActionListener
 				value="#{rechercheController.resultatRechercheStructure}"
 				target="#{etablissementController.formStructure}" />
+			<f:setPropertyActionListener value="_supprStructureEtape1"
+				target="#{sessionController.suppressionStructureCurrentPage}" />
 		</a4j:commandLink>
 	</rich:toolbarGroup>
 </ui:composition>

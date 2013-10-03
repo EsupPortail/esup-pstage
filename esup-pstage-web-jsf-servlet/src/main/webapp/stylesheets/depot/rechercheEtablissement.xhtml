@@ -37,9 +37,8 @@
 									<h:inputText id="rechRaisonSocialeAccord" size="50"
 										maxlength="100"
 										value="#{rechercheController.rechRaisonSociale}"
-										style="text-transform:uppercase;">
-										<f:converter binding="#{sansAccentEnMAJConverter}" />
-									</h:inputText>
+										style="text-transform:uppercase;"
+										converter="#{sansAccentEnMAJConverter}" />
 									<h:outputLabel for="rechTypeAccord"
 										value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.ACCORD']}" />
 									<h:selectOneRadio id="rechTypeAccord"

@@ -1,54 +1,53 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	
-<h:panelGrid columns="1"
-	style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-	<rich:panel>
+
+	<rich:panel
+		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
 		</f:facet>
-		<t:htmlTag value="div" style="height: 20px;" />
-		<h:outputText value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}" />
 
-		<t:htmlTag value="br" />
+		<t:htmlTag value="div" style="height: 10px;" />
 
-		<rich:dataTable align="center" width="483" id="choixEtape" rows="10"
-			columnClasses="col" value="#{conventionController.listeEnseignant}"
-			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-			var="enseignant">
-			<ui:include src="/stylesheets/stage/_conventionEtape6EnseignantColumns.xhtml" />
-			<rich:column>
-				<a4j:commandLink id="add"
-					action="#{conventionController.goToCreerConventionEtape6Enseignant}">
-					<f:setPropertyActionListener value="#{enseignant}"
-						target="#{conventionController.resultatEnseignant}" />
-					<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
-						value="../../media/images/zoom.png" style="border:0" />
-				</a4j:commandLink>
-			</rich:column>
+		<h:panelGrid align="center" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
+			<rich:dataTable id="listeEns" rows="15"
+				value="#{conventionController.listeEnseignant}" var="enseignant">
+				<ui:include src="/stylesheets/stage/_conventionEtape6EnseignantColumns.xhtml" />
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerText"
+							value="#{msgs['GENERAL.ACTIONS']}" />
+					</f:facet>
+					<a4j:commandLink id="add"
+						action="#{conventionController.goToCreerConventionEtape6Enseignant}"
+						render="formConvention">
+						<f:setPropertyActionListener value="#{enseignant}"
+							target="#{conventionController.resultatEnseignant}" />
+						<h:graphicImage alt="#{msgs['FORM.VOIR']}"
+							value="../../media/images/zoom.png" style="border:0" />
+						<rich:tooltip
+							value="#{msgs['FORM.VOIR']}" />
+					</a4j:commandLink>
+				</rich:column>
 
-			<f:facet name="footer">
-				<rich:dataScroller align="center" for="choixEtape" maxPages="20"
-					page="1" id="listeEnseignantScroller" renderIfSinglePage="false" />
-			</f:facet>
-
-		</rich:dataTable>
-
-		<h:panelGrid columns="1">
-
-			<a4j:commandButton
-				action="#{conventionController.goToCreerConventionEtape6RespPedago}"
-				value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}" immediate="true">
-			</a4j:commandButton>
-
+				<f:facet name="footer">
+					<rich:dataScroller align="center" for="listeEns" maxPages="20"
+						page="1" id="listeEnseignantScroller" renderIfSinglePage="false" />
+				</f:facet>
+			</rich:dataTable>
 		</h:panelGrid>
-
+		<t:htmlTag value="div" style="height: 10px;" />
+		<h:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
+			action="creerConventionEtape6Enseignant" immediate="true">
+			<f:setPropertyActionListener
+				value="_creerConventionEtape6RechEnseignant"
+				target="#{sessionController.creationConventionEtape6CurrentPage}" />
+		</h:commandButton>
 	</rich:panel>
-</h:panelGrid>
-</ui:fragment>
+</ui:composition>

@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<rich:panel>
 			<f:facet name="header">
@@ -17,7 +17,7 @@
 					rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2">
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
 							value="../../media/images/script.png" style="border:0" />
 						<h:outputText value="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
@@ -28,16 +28,16 @@
 					rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2"
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2"
 						rendered="#{welcomeController.enseignantTuteur}">
-						<h:graphicImage value="../../media/images/information.png"
+						<h:graphicImage value="../../media/images/information.png" alt="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR']}"
 							style="border:0" />
 						<h:outputText value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR']}"
 							escape="false" />
 					</h:panelGrid>
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2">
+					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
 							value="../../media/images/script.png" style="border:0"
 							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
@@ -83,7 +83,7 @@
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
 							</f:facet>
-							<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" style="font-size:12px;"
+							<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="font-size:12px;"
 								rendered="#{not empty convention.etudiant}">
 								<h:outputText value="#{convention.etudiant.prenom}" />
 								<h:outputText value="#{convention.etudiant.nom}" />
@@ -178,7 +178,7 @@
 						</rich:column>
 					</rich:dataTable>
 				</t:div>
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="4">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="4">
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:commandButton
 						value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"

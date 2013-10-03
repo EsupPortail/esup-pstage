@@ -6,15 +6,9 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="../_basicTemplate.xhtml">
 	<ui:define name="content">
-		<h:panelGrid columns="2" columnClasses="colLeft,colRight" width="100%">
+		<h:panelGrid columns="1">
 			<h:outputText value="#{msgs['EXCEPTION.TITLE']}" />
-			<t:panelGroup>
-				<ui:include src="_exceptionDetailsButtons.xhtml" />
-			</t:panelGroup>
+			<rich:messages />
 		</h:panelGrid>
-		<rich:messages />
-		<h:outputText value="#{msgs['EXCEPTION.TEXT.TOP']}" />
-		<ui:include src="_exceptionForm.jsp" />
-		<ui:include src="_exceptionDetailsPanel.jsp" />
 	</ui:define>
 </ui:composition>

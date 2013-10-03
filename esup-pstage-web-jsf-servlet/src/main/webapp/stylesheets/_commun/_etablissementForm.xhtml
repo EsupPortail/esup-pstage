@@ -17,9 +17,9 @@
 					for="raisonSociale" />
 				<h:inputText id="raisonSociale" style="text-transform:uppercase;"
 					value="#{etablissementController.formStructure.raisonSociale}"
-					size="50" maxlength="100" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<f:converter binding="#{sansAccentEnMAJConverter}" />
+					size="50" maxlength="150" required="true"
+					requiredMessage="#{requiredMessageController.champObligatoire}"
+					converter="#{sansAccentEnMAJConverter}">
 					<a4j:ajax event="blur" />
 				</h:inputText>
 				<rich:message for="raisonSociale">
@@ -28,9 +28,7 @@
 				<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" />
 				<h:inputText id="groupe" style="text-transform:uppercase;"
 					value="#{etablissementController.formStructure.groupe}" size="50"
-					maxlength="50">
-					<f:converter binding="#{sansAccentEnMAJConverter}" />
-				</h:inputText>
+					maxlength="50" converter="#{sansAccentEnMAJConverter}"/>
 				<rich:message for="groupe">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
@@ -92,16 +90,15 @@
 					<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}"
 						escape="false" />
 					<a4j:outputPanel id="opSiretOblig">
-						<t:panelGroup colspan="3"
+						<h:panelGrid columns="2" columnClasses="paginatorData-Text" rowClasses="paginatorData-Text"
 							rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
 						and etablissementController.formStructureTmpTypeStructure.siretObligatoire}">
 							<h:graphicImage id="arrow"
 								value="../../media/images/arrow_turn_up.png"
 								alt="#{msgs['GENERAL.ARROW_UP']}"
 								title="#{msgs['GENERAL.ARROW_UP']}" />
-							<t:htmlTag value="div" style="width: 10px;" />
 							<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}" />
-						</t:panelGroup>
+						</h:panelGrid>
 					</a4j:outputPanel>
 				</h:panelGrid>
 <!-- 				<a4j:region> -->
@@ -116,11 +113,7 @@
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:selectItem itemValue="" />
 							<f:selectItems value="#{nomenclatureController.typesStructure}" />
-							<a4j:ajax event="change"
-								render="opStatutJuridique, siret, olSiret" />
-							<a4j:ajax event="keyup"
-								render="opStatutJuridique, siret, olSiret" />
-							<a4j:ajax event="blur"
+							<a4j:ajax event="valueChange"
 								render="opStatutJuridique, siret, olSiret" />
 						</h:selectOneMenu>
 						<rich:message for="typeStructure">
@@ -165,9 +158,9 @@
 					value="#{etablissementController.formStructureTmpNafN5.code}"
 					validatorMessage="#{requiredMessageController.codeNafNonValide}"
 					valueChangeListener="#{etablissementController.valueCodeNafChanged}"
+					converter="#{codNafN5Converter}"
 					size="20" maxlength="6">
 					<f:validator binding="#{codeNAFValidator}" />
-					<f:converter binding="#{codNafN5Converter}" />
 					<a4j:ajax event="blur" render="opLibelleAPE" />
 				</h:inputText>
 				<t:htmlTag value="div" style="width: 20px;" />
@@ -332,8 +325,8 @@
 							<h:inputText id="commune" style="text-transform:uppercase;"
 								value="#{etablissementController.formStructure.commune}"
 								size="50" maxlength="200" required="true"
+								converter="#{sansAccentEnMAJConverter}"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<f:converter binding="#{sansAccentEnMAJConverter}" />
 								<a4j:ajax event="blur" />
 							</h:inputText>
 							<rich:message for="commune">
@@ -413,7 +406,6 @@
 						validatorMessage="#{requiredMessageController.adresseMailNonValide}"
 						maxlength="50">
 						<f:validator binding="#{mailValidator}" />
-						<a4j:ajax event="keyup" />
 						<a4j:ajax event="blur" />
 					</h:inputText>
 					<rich:message for="mail">
@@ -433,7 +425,6 @@
 						validatorMessage="#{requiredMessageController.siteWebNonValide}"
 						maxlength="200">
 						<f:validator binding="#{siteWebValidator}" />
-						<a4j:ajax event="keyup" />
 						<a4j:ajax event="blur" />
 					</h:inputText>
 					<rich:message for="siteWeb">

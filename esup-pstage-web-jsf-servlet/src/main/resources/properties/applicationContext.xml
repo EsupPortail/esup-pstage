@@ -14,7 +14,7 @@
 			<list>
 				<value>classpath:/properties/defaults.properties</value>
 				<value>classpath:/properties/config.properties</value>
-				<value>classpath:/properties/configUrlServices.properties</value>
+				<value>classpath:/configUrlServices.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -28,11 +28,11 @@
 	<import resource="classpath*:/META-INF/dao/dao.xml" />
 	<import resource="classpath*:/META-INF/domain/domain.xml" />
 	<import resource="exceptionHandling/exceptionHandling.xml" />
-	<import resource="classpath*:/META-INF/i18n/i18n.xml" />
 	<import resource="classpath*:/META-INF/ldap/ldap.xml" />
 	<import resource="classpath*:/META-INF/misc/abstractBeans.xml" />
 	<import resource="classpath*:/META-INF/misc/application.xml" />
 	<import resource="classpath*:/META-INF/export/castor.xml" />
+	<import resource="i18n/i18n.xml" />
 	<import resource="smtp/smtp.xml" />
 	<import resource="classpath*:/META-INF/init/init.xml" />
 	<import resource="web/controllers.xml" />

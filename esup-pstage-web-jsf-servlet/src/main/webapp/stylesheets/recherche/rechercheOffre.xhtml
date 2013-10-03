@@ -1,44 +1,49 @@
-<%@include file="../_include.jsp"%>
-
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
-	<e:panelGrid columns="1"
-		styleClass="panelRecherche">
-		<rich:panel>
-			<f:facet name="header">
-				<e:text value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
-			</f:facet>
-			<h:form id="formRechOffre">
-				<%@include file="../_commun/_rechercheOffre.jsp"%>
-				<e:panelGrid columns="5">
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
-						action="#{offreController.rechercherOffrePublic}">
-						<f:setPropertyActionListener value="#{null}"
-							target="#{offreController.critereRechercheOffre.typeStructure}" />
-						<f:setPropertyActionListener value="#{true}"
-							target="#{offreController.critereRechercheOffre.inclureOffresEntreprise}" />
-						<f:setPropertyActionListener value="#{true}"
-							target="#{offreController.critereRechercheOffre.estDiffusee}" />
-						<f:setPropertyActionListener value="#{false}"
-							target="#{offreController.critereRechercheOffre.diffusionTerminee}" />
-						<f:setPropertyActionListener value="#{false}"
-							target="#{offreController.critereRechercheOffre.estSupprimee}" />
-					</h:commandButton>
-					<rich:spacer width="100px" />
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
-						action="#{offreController.rechercheSimpleAvancee}"
-						rendered="#{offreController.rechercheAvancee}" />
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
-						action="#{offreController.rechercheSimpleAvancee}"
-						rendered="#{!offreController.rechercheAvancee}" />
-					<rich:spacer width="20px" />
-					<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
-						action="#{offreController.resetRechercheOffre}" />
-				</e:panelGrid>
-			</h:form>
-			<rich:message for="formRechOffre" style="color:red;font-weight:bold;">
-				<%@include file="../_commun/_messageErrorMarker.jsp"%>
-			</rich:message>
-		</rich:panel>
-	</e:panelGrid>
-</e:page>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="1" styleClass="panelRecherche">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+				</f:facet>
+				<h:form id="formRechOffre">
+					<ui:include src="../_commun/_rechercheOffre.xhtml" />
+					<h:panelGrid columns="5">
+						<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
+							action="#{offreController.rechercherOffrePublic}">
+							<f:setPropertyActionListener value="#{null}"
+								target="#{offreController.critereRechercheOffre.typeStructure}" />
+							<f:setPropertyActionListener value="#{true}"
+								target="#{offreController.critereRechercheOffre.inclureOffresEntreprise}" />
+							<f:setPropertyActionListener value="#{true}"
+								target="#{offreController.critereRechercheOffre.estDiffusee}" />
+							<f:setPropertyActionListener value="#{false}"
+								target="#{offreController.critereRechercheOffre.diffusionTerminee}" />
+							<f:setPropertyActionListener value="#{false}"
+								target="#{offreController.critereRechercheOffre.estSupprimee}" />
+						</h:commandButton>
+						<t:htmlTag value="div" style="width:100px;" />
+						<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
+							action="#{offreController.rechercheSimpleAvancee}"
+							rendered="#{offreController.rechercheAvancee}" />
+						<h:commandButton
+							value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
+							action="#{offreController.rechercheSimpleAvancee}"
+							rendered="#{!offreController.rechercheAvancee}" />
+						<t:htmlTag value="div" style="width: 20px;" />
+						<h:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}"
+							action="#{offreController.resetRechercheOffre}" />
+					</h:panelGrid>
+				</h:form>
+				<rich:message for="formRechOffre"
+					style="color:red;font-weight:bold;">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+			</rich:panel>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>

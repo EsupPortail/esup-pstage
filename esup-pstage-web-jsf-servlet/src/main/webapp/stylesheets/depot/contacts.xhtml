@@ -38,7 +38,7 @@
 										render="opContactsDataTable, opActionsService" execute="@this" />
 								</h:selectOneMenu>
 							</h:panelGrid>
-							<h:panelGrid columns="3">
+							<h:panelGrid columns="2">
 								<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}"
 									escape="false" />
 								<a4j:commandLink execute="@this" id="ajout"
@@ -106,6 +106,8 @@
 											<f:setPropertyActionListener
 												value="#{etablissementController.serviceSel}"
 												target="#{etablissementController.formService}" />
+											<f:setPropertyActionListener value="_supprServiceEtape1"
+												target="#{sessionController.suppressionServiceCurrentPage}" />
 											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 												value="../../media/images/delete.png" style="border:0" />
 											<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
@@ -153,9 +155,7 @@
 									rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
 								and not empty etablissementController.listeContacts}"
-									ajaxKeys="#{etablissement.keysContacts}"
-									onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+									ajaxKeys="#{etablissement.keysContacts}">
 									<rich:column>
 										<f:facet name="header">
 											<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
@@ -342,8 +342,8 @@
 											<t:div>
 												<a4j:commandLink execute="@this" id="supprCompte"
 													rendered="#{not empty etablissementController.serviceSel
-									and not empty etablissementController.listeServices
-									and not empty contact.mdp}"
+													and not empty etablissementController.listeServices
+													and not empty contact.mdp}"
 													oncomplete="#{rich:component('supprCompteContact')}.show()"
 													render="supprCompteContact">
 													<f:setPropertyActionListener value="#{contact}"
@@ -356,8 +356,8 @@
 												</a4j:commandLink>
 												<a4j:commandLink execute="@this" id="resetMdp"
 													rendered="#{not empty etablissementController.serviceSel
-									and not empty etablissementController.listeServices
-									and not empty contact.mdp}"
+													and not empty etablissementController.listeServices
+													and not empty contact.mdp}"
 													oncomplete="#{rich:component('resetMdpContact')}.show()"
 													render="resetMdpContact">
 													<f:setPropertyActionListener value="#{contact}"

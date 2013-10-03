@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 
 		<rich:panel id="centreDataTable"
@@ -29,9 +29,7 @@
 							<t:htmlTag value="div" style="height: 15px;" />
 							<rich:dataTable align="center" id="listeCentres" rows="15"
 								style="border-right:1px solid #C0C0C0;"
-								value="#{centreController.centresGestion}" var="centre"
-								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+								value="#{centreController.centresGestion}" var="centre">
 
 								<rich:column
 									sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}">
@@ -201,9 +199,9 @@
 												target="#{centreController.centre}" />
 											<h:graphicImage alt="#{msgs['FORM.VOIR']}"
 												value="../../media/images/zoom.png" style="border:0" />
-												<rich:tooltip value="#{msgs['FORM.CONSULTER']}" />
+											<rich:tooltip value="#{msgs['FORM.CONSULTER']}" />
 										</h:commandLink>
-										
+
 										<t:htmlTag value="div" style="display: inline; margin: 4px;" />
 
 										<a4j:commandLink execute="@this" id="delete"
@@ -215,9 +213,9 @@
 												target="#{centreController.centre}" />
 											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 												value="../../media/images/delete.png" style="border:0" />
-												<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+											<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 										</a4j:commandLink>
-										
+
 									</t:htmlTag>
 								</rich:column>
 								<f:facet name="footer">
@@ -230,18 +228,15 @@
 
 						<t:htmlTag value="div" style="height: 10px;" />
 
-						<h:panelGrid columns="3" align="center"
+						<h:panelGrid columns="2" align="center"
 							rendered="#{welcomeController.superAdmin and centreController.ajoutPossible}">
 							<h:outputLabel for="add" value="#{msgs['CENTRE.AJOUT_CENTRE']}" />
 							<a4j:commandLink id="add"
 								action="#{centreController.goToAjoutCentre}">
 								<h:graphicImage alt="#{msgs['FORM.AJOUTER']}"
 									value="../../media/images/new.png" style="border:0" />
-
 								<rich:tooltip value="#{msgs['FORM.AJOUTER']}" />
-
 							</a4j:commandLink>
-
 						</h:panelGrid>
 					</a4j:region>
 					<t:htmlTag value="center">

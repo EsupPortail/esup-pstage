@@ -15,21 +15,23 @@
 		<h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
 			rendered="#{empty etablissementController.formStructure}" />
 		<t:div rendered="#{not empty etablissementController.formStructure}">
-
 			<ui:include src="../_commun/_etablissementForm.xhtml" />
 		</t:div>
 
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-				action="_creerConventionEtape2DetailsEtab"
 				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+				render="formConvention"
 				immediate="true">
-
+				<f:setPropertyActionListener
+					value="_creerConventionEtape2DetailsEtab"
+					target="#{sessionController.creationConventionEtape2CurrentPage}" />
 			</a4j:commandButton>
 			<t:htmlTag value="div" style="width: 20px;" />
-			<a4j:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
-				action="#{conventionController.modifierEtablissement}"
+			<a4j:commandButton id="modifEtab2" value="#{msgs['FORM.MODIFIER']}"
 				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+				action="#{conventionController.modifierEtablissement}"
+				render="formConvention"
 				rendered="#{not empty etablissementController.formStructure}">
 				<f:setPropertyActionListener
 					value="#{etablissementController.formStructure}"

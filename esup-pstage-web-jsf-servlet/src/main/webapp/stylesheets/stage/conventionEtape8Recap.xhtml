@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
 		<rich:panel>
@@ -15,30 +15,31 @@
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="3" align="center"
-					rendered="#{conventionController.conventionCree}">
-					<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-						title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
-						style="border:0" />
-					<h:outputText id="confirmCreationConvention"
-						rendered="#{!welcomeController.etudiant}"
-						value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}" />
-					<h:outputText id="confirmCreationConventionEtu"
-						rendered="#{welcomeController.etudiant}"
-						value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION.ETUDIANT']}" />
-				</h:panelGrid>
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE8.RECAP']} " />
+						<h:outputText value="#{msgs['CONVENTION.ETAPE8.NAVIGATION']} " />
 					</f:facet>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputText value="" />
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1">
-						<rich:messages showDetail="true">
-						</rich:messages>
-						<ui:include
-							src="/stylesheets/stage/_conventionEtape8DetailsRecap.xhtml" />
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="3"
+						rendered="#{conventionController.conventionCree}">
+						<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+							title="#{msgs['GENERAL.OK']}"
+							value="../../media/images/valid.png" style="border:0" />
+						<h:outputText id="confirmCreationConvention"
+							rendered="#{!welcomeController.etudiant}"
+							value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}" />
+						<h:outputText id="confirmCreationConventionEtu"
+							rendered="#{welcomeController.etudiant}"
+							value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION.ETUDIANT']}" />
 					</h:panelGrid>
+
+					<t:htmlTag value="div" style="height: 10px;" />
+
+					<ui:include src="/stylesheets/stage/_conventionEtape8DetailsRecap.xhtml" />
+					
+					<t:htmlTag value="div" style="height: 10px;" />
+					
+					<rich:messages />
 				</h:panelGrid>
 			</h:form>
 		</rich:panel>

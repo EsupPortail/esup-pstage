@@ -14,49 +14,48 @@
 			<ui:include src="../_commun/_messageInfoMarker.xhtml" />
 		</rich:message>
 	</t:div>
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
-		<t:htmlTag value="div" style="height: 20px;" />
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="4">
-			<h:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
-			<h:inputText id="nom" size="50" maxlength="30"
-				style="text-transform:uppercase;"
-				value="#{conventionController.rechNomEnseignant}">
-				<f:converter binding="#{sansAccentEnMAJConverter}" />
-			</h:inputText>
-			<t:htmlTag value="div" style="width: 10px;" />
-			<rich:message for="nom">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<h:outputLabel value="#{msgs['CONVENTION.PRENOM']}" for="prenom" />
-			<h:inputText id="prenom" size="50" maxlength="30"
-				style="text-transform:uppercase;"
-				value="#{conventionController.rechPrenomEnseignant}">
-				<f:converter binding="#{sansAccentEnMAJConverter}" />
-			</h:inputText>
-			<t:htmlTag value="div" style="width: 10px;" />
-			<rich:message for="prenom">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}"
-				for="codeAffectation" />
-			<h:selectOneMenu id="codeAffectation"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				value="#{conventionController.selCodeAffectationEnseignant}">
-				<f:selectItem itemValue="" />
-				<f:selectItems value="#{conventionController.listeAffectation}" />
-			</h:selectOneMenu>
-			<t:htmlTag value="div" style="width: 10px;" />
-			<rich:message for="codeAffectation">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</h:panelGrid>
+	<t:htmlTag value="div" style="height: 20px;" />
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="4">
+		<h:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
+		<h:inputText id="nom" size="50" maxlength="30"
+			style="text-transform:uppercase;"
+			value="#{conventionController.rechNomEnseignant}">
+			<f:converter binding="#{sansAccentEnMAJConverter}" />
+		</h:inputText>
+		<t:htmlTag value="div" style="width: 10px;" />
+		<rich:message for="nom">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
+		<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<h:outputLabel value="#{msgs['CONVENTION.PRENOM']}" for="prenom" />
+		<h:inputText id="prenom" size="50" maxlength="30"
+			style="text-transform:uppercase;"
+			value="#{conventionController.rechPrenomEnseignant}">
+			<f:converter binding="#{sansAccentEnMAJConverter}" />
+		</h:inputText>
+		<t:htmlTag value="div" style="width: 10px;" />
+		<rich:message for="prenom">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
+		<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}"
+			for="codeAffectation" />
+		<h:selectOneMenu id="codeAffectation"
+			requiredMessage="#{requiredMessageController.champObligatoire}"
+			value="#{conventionController.selCodeAffectationEnseignant}">
+			<f:selectItem itemValue="" />
+			<f:selectItems value="#{conventionController.listeAffectation}" />
+		</h:selectOneMenu>
+		<t:htmlTag value="div" style="width: 10px;" />
+		<rich:message for="codeAffectation">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
 	</h:panelGrid>
 </ui:composition>

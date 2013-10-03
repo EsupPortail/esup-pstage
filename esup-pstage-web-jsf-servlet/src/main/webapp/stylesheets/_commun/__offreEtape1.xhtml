@@ -1,4 +1,4 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -32,7 +32,7 @@
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 		</h:panelGrid>
-		<a4j:region renderRegionOnly="true">
+<!-- 		<a4j:region renderRegionOnly="true"> -->
 			<h:outputLabel value="#{msgs['OFFRE.AVECFICHIEROULIEN']}"
 				for="avecFichierOuLien"
 				rendered="#{!(sessionController.adminPageAuthorized || (welcomeController.superAdmin and !sessionController.adminPageAuthorized) 
@@ -66,6 +66,6 @@
 					</rich:message>
 				</h:panelGrid>
 			</a4j:outputPanel>
-		</a4j:region>
+<!-- 		</a4j:region> -->
 	</h:panelGrid>
-</ui:composition>
+</ui:fragment>

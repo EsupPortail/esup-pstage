@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1">
+	<h:panelGrid columns="1" columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE9.IMPRESSION']}" />
 		</f:facet>
@@ -17,8 +18,9 @@
 		</rich:message>
 		<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.INFO']}" />
 
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" cellpadding="2" cellspacing="2"
-			alternateColors="true">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2" cellpadding="2"
+			cellspacing="2" alternateColors="true">
 			<t:htmlTag value="div" style="height: 20px;" />
 			<rich:messages showDetail="true">
 			</rich:messages>
@@ -57,31 +59,33 @@
 		</h:outputLabel>
 		<t:htmlTag value="div" style="height: 20px;" />
 	</h:panelGrid>
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1"
-		rendered="#{!(welcomeController.etudiant and !conventionController.conventionValide) and conventionController.convention.codeLangueConvention == 'fr'}">
-		<a4j:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
-			action="#{conventionController.editPdfConvention}"
-			rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}" />
-		<t:htmlTag  value="em"
-			rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant}" >
-			<h:outputText value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}"/>
+	<t:div
+		rendered="#{!sessionController.validationPedagogique || (sessionController.validationPedagogique and !welcomeController.etudiant)}">
+		<t:div rendered="#{conventionController.convention.codeLangueConvention == 'fr'}">
+			<a4j:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
+				action="#{conventionController.editPdfConvention}"
+				rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}" />
+			<t:htmlTag value="em"
+				rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant}">
+				<h:outputText value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}" />
 			</t:htmlTag>
-	</h:panelGrid>
-
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="4"
-		rendered="#{!(welcomeController.etudiant and !conventionController.conventionValide) and conventionController.convention.codeLangueConvention != 'fr'}">
-		<a4j:commandButton id="printFr" execute="@this"
-			action="#{conventionController.editPdfConventionFr}"
-			value="#{msgs['CONVENTION.IMPRESSION_FR']}"
-			rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}" />
-		<t:htmlTag value="div" style="height: 5px;" />
-		<a4j:commandButton id="printAutre" execute="@this"
-			action="#{conventionController.editPdfConvention}"
-			value="#{msgs['CONVENTION.IMPRESSION_AUTRE']} #{conventionController.convention.langueConvention.libelle}"
-			rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}" />
-			<t:htmlTag  value="em"
-			rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant}" >
-			<h:outputText value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}"/>
+		</t:div>
+		<t:div rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="3"
+				rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}">
+				<a4j:commandButton id="printFr" execute="@this"
+					action="#{conventionController.editPdfConventionFr}"
+					value="#{msgs['CONVENTION.IMPRESSION_FR']}"/>
+				<t:htmlTag value="div" style="width: 5px;" />
+				<a4j:commandButton id="printAutre" execute="@this"
+					action="#{conventionController.editPdfConvention}"
+					value="#{msgs['CONVENTION.IMPRESSION_AUTRE']} #{conventionController.convention.langueConvention.libelle}"/>
+			</h:panelGrid>
+			<t:htmlTag value="em"
+				rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant}">
+				<h:outputText value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}" />
 			</t:htmlTag>
-	</h:panelGrid>
-</ui:fragment>
+		</t:div>
+	</t:div>
+</ui:composition>

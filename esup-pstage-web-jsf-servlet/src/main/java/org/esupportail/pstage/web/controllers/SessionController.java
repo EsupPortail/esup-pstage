@@ -302,6 +302,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * vrai si les gestionnaires doivent moderer les offres
 	 */
 	private boolean moderationActive;
+	/**
+	* vrai si les gestionnaires doivent verifier les conventions
+	*/
+	private boolean validationPedagogique;
 	
 	/* ***************************************************************
 	 * Variables de navigation
@@ -355,6 +359,42 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private String creationOffreStageCurrentPage = "_creationOffreEtape01Centre";
 	/**
+	 * MODIFICATION OFFRE - PARTIE DEPOT
+	 */
+	private String modificationOffreCurrentPage = "_modificationOffreEtape1";
+	/**
+	 * MODIFICATION OFFRE 3 - PARTIE DEPOT
+	 */
+	private String modificationOffre3CurrentPage = "_modificationOffreEtape3";
+	/**
+	 * MODIFICATION OFFRE 3C - PARTIE DEPOT
+	 */
+	private String modificationOffre3CCurrentPage = "_modificationOffreEtape3Contacts";
+	/**
+	 * MODIFICATION ETABLISSEMENT OFFRE
+	 */
+	private String modificationEtabOffreCurrentPage = "_modificationOffreEtape04DetailsEtab";
+	/**
+	 * SUPPRESSION OFFRE
+	 */
+	private String suppressionOffreCurrentPage = "_supprOffreEtape1";
+	/**
+	 * DIFFUSION OFFRE
+	 */
+	private String diffusionOffreCurrentPage = "_diffusionOffreEtape1";
+	/**
+	 * STOP DIFFUSION OFFRE
+	 */
+	private String stopDiffusionOffreCurrentPage = "_stopDiffusionOffreEtape1";
+	/**
+	 * DIFFUSION CENTRE OFFRE (CIBLAGE)
+	 */
+	private String diffusionCentreOffreCurrentPage = "_diffusionCentreOffreEtape1";
+	/**
+	 * OFFRE POURVUE
+	 */
+	private String offrePourvueCurrentPage = "_offrePourvueEtape1";
+	/**
 	 * AJOUT SERVICE
 	 */
 	private String ajoutServiceCurrentPage = "_ajoutServiceEtape1";
@@ -362,6 +402,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * MODIF SERVICE
 	 */
 	private String modifServiceCurrentPage = "_modifServiceEtape0";
+	/**
+	 * SUPPRESSION SERVICE
+	 */
+	private String suppressionServiceCurrentPage = "_supprServiceEtape1";
 	/**
 	 * AJOUT CONTACT
 	 */
@@ -373,13 +417,36 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * SUPPRESSION CONTACT
 	 */
-	private String suppressionContactCurrentPage = "_modifContactEtape0";
+	private String suppressionContactCurrentPage = "_supprContactEtape1";
 	/**
-	 * CREATION CONVENTION
+	 * CREATION CONVENTION ETAPE 1
 	 */
-	private String creationConventionCurrentPage = "creerConventionConsignes";
+	private String creationConventionEtape1CurrentPage = "_creerConventionEtape1RechercheEtudiant";
+	/**
+	 * CREATION CONVENTION ETAPE 2
+	 */
+	private String creationConventionEtape2CurrentPage = "_creerConventionEtape2Etab";
+	/**
+	 * CREATION CONVENTION ETAPE 5
+	 */
+	private String creationConventionEtape5CurrentPage = "_creerConventionEtape5Stage";
+	/**
+	 * CREATION CONVENTION ETAPE 6
+	 */
+	private String creationConventionEtape6CurrentPage = "_creerConventionEtape6RechEnseignant";
+	/**
+	 * MDP PERDU
+	 */
+	private String mdpPerduCurrentPage = "_motDePassePerduEtape1Mail";
+	/**
+	 * CHANGEMENT MDP
+	 */
+	private String modifMdpCurrentPage = "_changementMotDePasseEtape1";
+	/**
+	 * SUPPRESSION STRUCTURE
+	 */
+	private String suppressionStructureCurrentPage = "_supprStructureEtape1";
 	
-
 	/**
 	 * Constructor.
 	 */
@@ -1710,18 +1777,268 @@ public class SessionController extends AbstractDomainAwareBean {
 	}
 
 	/**
-	 * @return the creationConventionCurrentPage
+	 * @return the suppressionServiceCurrentPage
 	 */
-	public String getCreationConventionCurrentPage() {
-		return creationConventionCurrentPage;
+	public String getSuppressionServiceCurrentPage() {
+		return suppressionServiceCurrentPage;
 	}
 
 	/**
-	 * @param creationConventionCurrentPage the creationConventionCurrentPage to set
+	 * @param suppressionServiceCurrentPage the suppressionServiceCurrentPage to set
 	 */
-	public void setCreationConventionCurrentPage(
-			String creationConventionCurrentPage) {
-		this.creationConventionCurrentPage = creationConventionCurrentPage;
+	public void setSuppressionServiceCurrentPage(
+			String suppressionServiceCurrentPage) {
+		this.suppressionServiceCurrentPage = suppressionServiceCurrentPage;
+	}
+
+	/**
+	 * @return the suppressionOffreCurrentPage
+	 */
+	public String getSuppressionOffreCurrentPage() {
+		return suppressionOffreCurrentPage;
+	}
+
+	/**
+	 * @param suppressionOffreCurrentPage the suppressionOffreCurrentPage to set
+	 */
+	public void setSuppressionOffreCurrentPage(
+			String suppressionOffreCurrentPage) {
+		this.suppressionOffreCurrentPage = suppressionOffreCurrentPage;
+	}
+
+	/**
+	 * @return the diffusionOffreCurrentPage
+	 */
+	public String getDiffusionOffreCurrentPage() {
+		return diffusionOffreCurrentPage;
+	}
+
+	/**
+	 * @param diffusionOffreCurrentPage the diffusionOffreCurrentPage to set
+	 */
+	public void setDiffusionOffreCurrentPage(String diffusionOffreCurrentPage) {
+		this.diffusionOffreCurrentPage = diffusionOffreCurrentPage;
+	}
+
+	/**
+	 * @return the modificationOffreCurrentPage
+	 */
+	public String getModificationOffreCurrentPage() {
+		return modificationOffreCurrentPage;
+	}
+
+	/**
+	 * @param modificationOffreCurrentPage the modificationOffreCurrentPage to set
+	 */
+	public void setModificationOffreCurrentPage(
+			String modificationOffreCurrentPage) {
+		this.modificationOffreCurrentPage = modificationOffreCurrentPage;
+	}
+
+	/**
+	 * @return the mdpPerduCurrentPage
+	 */
+	public String getMdpPerduCurrentPage() {
+		return mdpPerduCurrentPage;
+	}
+
+	/**
+	 * @param mdpPerduCurrentPage the mdpPerduCurrentPage to set
+	 */
+	public void setMdpPerduCurrentPage(String mdpPerduCurrentPage) {
+		this.mdpPerduCurrentPage = mdpPerduCurrentPage;
+	}
+
+	/**
+	 * @return the modificationEtabOffreCurrentPage
+	 */
+	public String getModificationEtabOffreCurrentPage() {
+		return modificationEtabOffreCurrentPage;
+	}
+
+	/**
+	 * @param modificationEtabOffreCurrentPage the modificationEtabOffreCurrentPage to set
+	 */
+	public void setModificationEtabOffreCurrentPage(
+			String modificationEtabOffreCurrentPage) {
+		this.modificationEtabOffreCurrentPage = modificationEtabOffreCurrentPage;
+	}
+
+	/**
+	 * @return the modifMdpCurrentPage
+	 */
+	public String getModifMdpCurrentPage() {
+		return modifMdpCurrentPage;
+	}
+
+	/**
+	 * @param modifMdpCurrentPage the modifMdpCurrentPage to set
+	 */
+	public void setModifMdpCurrentPage(String modifMdpCurrentPage) {
+		this.modifMdpCurrentPage = modifMdpCurrentPage;
+	}
+
+	/**
+	 * @return the modificationOffre3CurrentPage
+	 */
+	public String getModificationOffre3CurrentPage() {
+		return modificationOffre3CurrentPage;
+	}
+
+	/**
+	 * @param modificationOffre3CurrentPage the modificationOffre3CurrentPage to set
+	 */
+	public void setModificationOffre3CurrentPage(
+			String modificationOffre3CurrentPage) {
+		this.modificationOffre3CurrentPage = modificationOffre3CurrentPage;
+	}
+
+	/**
+	 * @return the modificationOffre3CCurrentPage
+	 */
+	public String getModificationOffre3CCurrentPage() {
+		return modificationOffre3CCurrentPage;
+	}
+
+	/**
+	 * @param modificationOffre3CCurrentPage the modificationOffre3CCurrentPage to set
+	 */
+	public void setModificationOffre3CCurrentPage(
+			String modificationOffre3CCurrentPage) {
+		this.modificationOffre3CCurrentPage = modificationOffre3CCurrentPage;
+	}
+
+	/**
+	 * @return the diffusionCentreOffreCurrentPage
+	 */
+	public String getDiffusionCentreOffreCurrentPage() {
+		return diffusionCentreOffreCurrentPage;
+	}
+
+	/**
+	 * @param diffusionCentreOffreCurrentPage the diffusionCentreOffreCurrentPage to set
+	 */
+	public void setDiffusionCentreOffreCurrentPage(
+			String diffusionCentreOffreCurrentPage) {
+		this.diffusionCentreOffreCurrentPage = diffusionCentreOffreCurrentPage;
+	}
+
+	/**
+	 * @return the stopDiffusionOffreCurrentPage
+	 */
+	public String getStopDiffusionOffreCurrentPage() {
+		return stopDiffusionOffreCurrentPage;
+	}
+
+	/**
+	 * @param stopDiffusionOffreCurrentPage the stopDiffusionOffreCurrentPage to set
+	 */
+	public void setStopDiffusionOffreCurrentPage(
+			String stopDiffusionOffreCurrentPage) {
+		this.stopDiffusionOffreCurrentPage = stopDiffusionOffreCurrentPage;
+	}
+
+	/**
+	 * @return the offrePourvueCurrentPage
+	 */
+	public String getOffrePourvueCurrentPage() {
+		return offrePourvueCurrentPage;
+	}
+
+	/**
+	 * @param offrePourvueCurrentPage the offrePourvueCurrentPage to set
+	 */
+	public void setOffrePourvueCurrentPage(String offrePourvueCurrentPage) {
+		this.offrePourvueCurrentPage = offrePourvueCurrentPage;
+	}
+
+	/**
+	 * @return the suppressionStructureCurrentPage
+	 */
+	public String getSuppressionStructureCurrentPage() {
+		return suppressionStructureCurrentPage;
+	}
+
+	/**
+	 * @param suppressionStructureCurrentPage the suppressionStructureCurrentPage to set
+	 */
+	public void setSuppressionStructureCurrentPage(
+			String suppressionStructureCurrentPage) {
+		this.suppressionStructureCurrentPage = suppressionStructureCurrentPage;
+	}
+
+	/**
+	 * @return the creationConventionEtape1CurrentPage
+	 */
+	public String getCreationConventionEtape1CurrentPage() {
+		return creationConventionEtape1CurrentPage;
+	}
+
+	/**
+	 * @param creationConventionEtape1CurrentPage the creationConventionEtape1CurrentPage to set
+	 */
+	public void setCreationConventionEtape1CurrentPage(
+			String creationConventionEtape1CurrentPage) {
+		this.creationConventionEtape1CurrentPage = creationConventionEtape1CurrentPage;
+	}
+
+	/**
+	 * @return the creationConventionEtape2CurrentPage
+	 */
+	public String getCreationConventionEtape2CurrentPage() {
+		return creationConventionEtape2CurrentPage;
+	}
+
+	/**
+	 * @param creationConventionEtape2CurrentPage the creationConventionEtape2CurrentPage to set
+	 */
+	public void setCreationConventionEtape2CurrentPage(
+			String creationConventionEtape2CurrentPage) {
+		this.creationConventionEtape2CurrentPage = creationConventionEtape2CurrentPage;
+	}
+
+	/**
+	 * @return the creationConventionEtape5CurrentPage
+	 */
+	public String getCreationConventionEtape5CurrentPage() {
+		return creationConventionEtape5CurrentPage;
+	}
+
+	/**
+	 * @param creationConventionEtape5CurrentPage the creationConventionEtape5CurrentPage to set
+	 */
+	public void setCreationConventionEtape5CurrentPage(
+			String creationConventionEtape5CurrentPage) {
+		this.creationConventionEtape5CurrentPage = creationConventionEtape5CurrentPage;
+	}
+
+	/**
+	 * @return the creationConventionEtape6CurrentPage
+	 */
+	public String getCreationConventionEtape6CurrentPage() {
+		return creationConventionEtape6CurrentPage;
+	}
+
+	/**
+	 * @param creationConventionEtape6CurrentPage the creationConventionEtape6CurrentPage to set
+	 */
+	public void setCreationConventionEtape6CurrentPage(
+			String creationConventionEtape6CurrentPage) {
+		this.creationConventionEtape6CurrentPage = creationConventionEtape6CurrentPage;
+	}
+
+	/**
+	 * @return the validationPedagogique
+	 */
+	public boolean isValidationPedagogique() {
+		return validationPedagogique;
+	}
+
+	/**
+	 * @param validationPedagogique the validationPedagogique to set
+	 */
+	public void setValidationPedagogique(boolean validationPedagogique) {
+		this.validationPedagogique = validationPedagogique;
 	}
 
 

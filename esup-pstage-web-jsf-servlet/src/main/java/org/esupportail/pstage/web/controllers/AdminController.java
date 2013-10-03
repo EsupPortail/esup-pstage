@@ -4,7 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 
 import java.util.ArrayList;
 import java.util.Collections;

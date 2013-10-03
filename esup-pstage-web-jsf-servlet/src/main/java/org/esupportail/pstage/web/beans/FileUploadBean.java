@@ -17,19 +17,19 @@ import org.richfaces.model.UploadedFile;
 public class FileUploadBean {
 
 	/**
-	 * Rï¿½pertoire de rï¿½ception des fichiers
+	 * Répertoire de réception des fichiers
 	 */
 	private String directory;
 	/**
-	 * Nom du fichier uploadï¿½
+	 * Nom du fichier uploadé
 	 */
 	private String nameUploadedFile;
 	/**
-	 * Nom rï¿½el du fichier
+	 * Nom réel du fichier
 	 */
 	private String realNameFile;
 	/**
-	 * Prefix pour le nom de fichier (numï¿½ro offre)
+	 * Prefix pour le nom de fichier (numéro offre)
 	 */
 	private int prefix;
 
@@ -51,14 +51,14 @@ public class FileUploadBean {
 		}else{
 			// on recupere l'item envoye
 			UploadedFile uploadItem = event.getUploadedFile();
-
+			
 			String fileName = uploadItem.getName();
 			String extension="";
 			if(fileName.lastIndexOf(".")>0){
 				extension = fileName.substring(fileName.lastIndexOf("."));
 			}
 			this.realNameFile=fileName;
-			//encodage du nom en md5 pour s'affranchir des accents et caractï¿½res spï¿½ciaux
+			//encodage du nom en md5 pour s'affranchir des accents et caractéres spéciaux
 			fileName = Utils.encodeMD5(this.prefix+"")+extension;
 			this.nameUploadedFile=fileName;
 			if(this.prefix>=0) fileName = this.prefix+"_"+fileName;
@@ -66,7 +66,7 @@ public class FileUploadBean {
 			FileChannel in = null;
 			FileChannel out = null;
 			try{
-				in = new FileInputStream((File)uploadItem).getChannel();
+				in = ((FileInputStream)uploadItem.getInputStream()).getChannel();
 				out = new FileOutputStream(fileToWrite).getChannel();
 				in.transferTo(0, in.size(), out);
 			} catch(IOException e){

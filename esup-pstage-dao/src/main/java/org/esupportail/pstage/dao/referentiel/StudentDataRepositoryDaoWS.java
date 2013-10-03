@@ -1,5 +1,32 @@
 package org.esupportail.pstage.dao.referentiel;
 
+import gouv.education.apogee.commun.client.utils.WSUtils;
+import gouv.education.apogee.commun.client.ws.administratifmetier.AdministratifMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.etudiantmetier.EtudiantMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.pedagogiquemetier.PedagogiqueMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierServiceInterface;
+import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierSoapBindingStub;
+import gouv.education.apogee.commun.servicesmetiers.AdministratifMetierServiceInterface;
+import gouv.education.apogee.commun.servicesmetiers.EtudiantMetierServiceInterface;
+import gouv.education.apogee.commun.servicesmetiers.OffreFormationMetierServiceInterface;
+import gouv.education.apogee.commun.servicesmetiers.PedagogiqueMetierServiceInterface;
+import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmAnuDTO2;
+import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmEtpDTO2;
+import gouv.education.apogee.commun.transverse.dto.etudiant.CoordonneesDTO;
+import gouv.education.apogee.commun.transverse.dto.etudiant.IdentifiantsEtudiantDTO;
+import gouv.education.apogee.commun.transverse.dto.etudiant.InfoAdmEtuDTO;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ElementPedagogiDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ListeElementPedagogiDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.OffreFormationDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.SECritereDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionDiplomeDTO2;
+import gouv.education.apogee.commun.transverse.dto.pedagogique.ComposanteDTO3;
+import gouv.education.apogee.commun.transverse.dto.pedagogique.ContratPedagogiqueResultatVdiVetDTO;
+import gouv.education.apogee.commun.transverse.dto.pedagogique.EtapeResVdiVetDTO;
+import gouv.education.apogee.commun.transverse.exception.WebBaseException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,29 +49,8 @@ import org.esupportail.pstage.domain.beans.LdapAttributes;
 import org.esupportail.pstage.exceptions.AdministrationApogeeException;
 import org.esupportail.pstage.exceptions.CommunicationApogeeException;
 import org.esupportail.pstage.utils.DonneesStatic;
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import pedagogiquemetier_28022011_impl.servicesmetiers.commun.apogee.education.gouv.PedagogiqueMetierServiceInterface;
-import referentielmetier_18062010_impl.servicesmetiers.commun.apogee.education.gouv.ReferentielMetierServiceInterface;
-import administratifmetier_17062009_impl.servicesmetiers.commun.apogee.education.gouv.AdministratifMetierServiceInterface;
-import offreformationmetier_19072010_impl.servicesmetiers.commun.apogee.education.gouv.OffreFormationMetierServiceInterface;
-import administratifmetier_17062009_impl.servicesmetiers.commun.apogee.education.gouv.WebBaseException;
-import etudiantwebserviceimpl.impl.webservices.commun.apogee.education.gouv.EtudiantMetierServiceInterface;
-import gouv.education.apogee.commun.transverse.dto.administratif.insadmanudto2.InsAdmAnuDTO2;
-import gouv.education.apogee.commun.transverse.dto.administratif.insadmetpdto2.InsAdmEtpDTO2;
-import gouv.education.apogee.commun.transverse.dto.etudiant.coordonneesdto.CoordonneesDTO;
-import gouv.education.apogee.commun.transverse.dto.etudiant.identifiantsetudiantdto.IdentifiantsEtudiantDTO;
-import gouv.education.apogee.commun.transverse.dto.etudiant.infoadmetudto.InfoAdmEtuDTO;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.diplomedto2.DiplomeDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.elementpedagogidto2.ElementPedagogiDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.listeelementpedagogidto2.ListeElementPedagogiDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.offreformationdto2.OffreFormationDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.secriteredto2.SECritereDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.versiondiplomedto2.VersionDiplomeDTO2;
-import gouv.education.apogee.commun.transverse.dto.pedagogique.composantedto3.ComposanteDTO3;
-import gouv.education.apogee.commun.transverse.dto.pedagogique.contratpedagogiqueresultatvdivetdto.ContratPedagogiqueResultatVdiVetDTO;
-import gouv.education.apogee.commun.transverse.dto.pedagogique.etaperesvdivetdto.EtapeResVdiVetDTO;
 
 
 /**
@@ -52,7 +58,8 @@ import gouv.education.apogee.commun.transverse.dto.pedagogique.etaperesvdivetdto
  */
 
 @SuppressWarnings("serial")
-public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
+public class StudentDataRepositoryDaoWS implements
+StudentDataRepositoryDao {
 
 	/**
 	 * 
@@ -89,30 +96,6 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 	 */
 	private LdapAttributes ldapAttributes;
 
-	/**
-	 * 
-	 */
-	private EtudiantMetierServiceInterface etudiantMetierService;
-
-	/**
-	 * 
-	 */
-	private AdministratifMetierServiceInterface administratifMetierService;
-
-	/**
-	 * 
-	 */
-	private PedagogiqueMetierServiceInterface pedagogiqueMetierService;
-
-	/**
-	 * 
-	 */
-	private OffreFormationMetierServiceInterface offreFormationMetierService;
-
-	/**
-	 * 
-	 */
-	private ReferentielMetierServiceInterface referentielMetierService;
 
 	/**
 	 * @see org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao#getEtudiantRef(java.lang.String, java.lang.String)
@@ -136,7 +119,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		for (Iterator<LdapUser> iter = listeLdapUser.iterator(); iter.hasNext();) {
 			LdapUser ldapuser = iter.next();
 
-			// creation d'un user et alimentation des données 
+			// creation d'un user et alimentation des donn�es 
 			EtudiantRef etudiantUser = new EtudiantRef();
 			etudiantUser.setIdentEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapUid()));
 			etudiantUser.setNumEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapStudentId()));    
@@ -226,7 +209,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		for (Iterator<LdapUser> iter = listeLdapUser.iterator(); iter.hasNext();) {
 			LdapUser ldapuser = iter.next();
 
-			// creation d'un user et alimentation des données 
+			// creation d'un user et alimentation des donn�es 
 			EtudiantRef etudiantUser = new EtudiantRef();
 			etudiantUser.setIdentEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapUid()));
 			etudiantUser.setNumEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapStudentId()));    
@@ -333,7 +316,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		for (Iterator<LdapUser> iter = listeLdapUser.iterator(); iter.hasNext();) {
 			LdapUser ldapuser = iter.next();
 
-			// creation d'un user et alimentation des données 
+			// creation d'un user et alimentation des donn�es 
 			EtudiantRef etudiantUser = new EtudiantRef();
 			etudiantUser.setIdentEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapUid()));
 			etudiantUser.setNumEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapStudentId()));    
@@ -435,6 +418,11 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		adminApogee.setRaison("");
 
 		try {
+			// appel au WS AMUE
+			EtudiantMetierServiceInterface etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+
+			AdministratifMetierServiceInterface serviceAdministratif = 
+					new AdministratifMetierServiceInterfaceProxy();
 
 			// Recherche l'etudiant dans Apogee
 			IdentifiantsEtudiantDTO etudiant;
@@ -449,6 +437,8 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			CoordonneesDTO coordonnees = etudiantMetierService.recupererAdressesEtudiant(
 					etudiant.getCodEtu().toString(), null, this.temoinRecupAnnu);
 
+			// cod_ind = (BigDecimal)listeInd.get(0).get("COD_IND"); 
+			// code_etu = (BigDecimal)listeInd.get(0).get("COD_ETU");
 			cod_ind = etudiant.getCodInd();
 
 			// recuperation du nom, prenom
@@ -469,7 +459,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			}
 
 			if (infosAdmEtu.getDateNaissance() != null) {
-				dateNais = infosAdmEtu.getDateNaissance().toGregorianCalendar().getTime();
+				dateNais = infosAdmEtu.getDateNaissance();
 			}
 
 			// recherche des informations etudiant dans APOGEE
@@ -575,9 +565,9 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			try {
 				// recuperer les donnees CPAM
 				if (logger.isDebugEnabled()) {
-					logger.debug("StudentDataRepositoryDaoWS:: getStudentByNum.  administratifMetierService.recupererIAAnnuelles_v2 = ");
+					logger.debug("StudentDataRepositoryDaoWS:: getStudentByNum.  serviceAdministratif.recupererIAAnnuelles_v2 = ");
 				}
-				List<InsAdmAnuDTO2> tabinsAdmAnu = administratifMetierService.recupererIAAnnuellesV2(etudiant.getCodEtu().toString(), getYear(), "E");
+				InsAdmAnuDTO2[] tabinsAdmAnu = serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), getYear(), "E");
 				for (InsAdmAnuDTO2 insAdmAnu : tabinsAdmAnu) {
 					if (logger.isDebugEnabled()) {
 						logger.debug("StudentDataRepositoryDaoWS:: getStudentByNum.  insAdmAnu.getTemoinAffiliationSS()= "+insAdmAnu.getTemoinAffiliationSS());
@@ -638,6 +628,12 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			studentApogee.setAdministrationApogee(adminApogee);
 			return studentApogee;
 
+		} catch (WebBaseException e) {
+			logger.error("WebBaseException getStudentApogee = " + e );
+			if (e.toString().equals("technical.data.nullretrieve.etudiant")) {
+				logger.error("etudiant non trouve = " + id );
+			}
+			return null;
 		} catch (AdministrationApogeeException e) {
 			logger.error("AdministrationApogeeException getStudentApogee = " + e);
 			logger.error("AdministrationApogeeException getStudentApogee = e.getCause()" + e.getCause());
@@ -775,17 +771,17 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 	 * @param cod
 	 * @return ApogeeMap
 	 */
+	@SuppressWarnings("unused")
 	public ApogeeMap getStudentSteps(String cod) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("StudentDataRepositoryDaoWS:: getStudentSteps  cod = " + cod);
 		}
-
 		// recherche des Inscriptions Administratives et Inscription Pedagogiques
 		ApogeeMap apogeeMap = getStudentIAIP(cod);
 		if (apogeeMap != null) {
-			apogeeMap.getStudentSteps();
+			LinkedHashMap<String,String> l2 = apogeeMap.getStudentSteps();
 			// recherche des elements pedagogiques
-			getStudentELPV2(cod, apogeeMap);
+			ApogeeMap apogeeMapELP = getStudentELPV2(cod, apogeeMap);
 		}
 
 		return apogeeMap;
@@ -804,12 +800,18 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 
 		try {
 
+			AdministratifMetierServiceInterface serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
+
+			PedagogiqueMetierServiceInterface servicePedagogique =  new PedagogiqueMetierServiceInterfaceProxy();
+
 			HashMap<String, Object> parameterMap2 = new HashMap<String, Object>();
 			parameterMap2.put("val", Arrays.asList(cod,getYear()));
 
 			// recuperer les Inscriptions Administratives de l'etudiant
-			// dont inscription admin annuelle est en cours (E), inscription admin  etape est en cours (E), pour annee
-			List<InsAdmEtpDTO2> tabInsAdmEtp = administratifMetierService.recupererIAEtapesV2(cod, getYear(),"E", "E");
+			// dont inscription admin annuelle est en cours (E), inscription admin etape est en cours (E), pour annee
+
+			InsAdmEtpDTO2[] tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, getYear(),"E", "E");
+
 			LinkedHashMap<String,String> lEtape = new LinkedHashMap<String, String>();
 			LinkedHashMap<String,String> lEtapeVet = new LinkedHashMap<String, String>();
 			LinkedHashMap<String,String> lEtapeVetPedago = new LinkedHashMap<String, String>();
@@ -845,6 +847,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 						String versDiplome = insAdmEtp.getDiplome().getVersionDiplome();
 						etpins.setVersionDiplome(versDiplome);
 						try {
+							OffreFormationMetierServiceInterface offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
 
 							// recherche du cursus LMD, codFinalite
 							SECritereDTO2 seCritereDTO = new SECritereDTO2();
@@ -855,18 +858,18 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 							seCritereDTO.setCodVrsVdi(versDiplome);
 							seCritereDTO.setCodVrsVet("aucun");
 
-							List<DiplomeDTO2> diplomeDTO = offreFormationMetierService.recupererSEV2(seCritereDTO);
+							DiplomeDTO2[] diplomeDTO = offreFormationMetierService.recupererSE_v2(seCritereDTO);
 							if (diplomeDTO != null) {
 								if (logger.isDebugEnabled()) {
-									logger.debug("StudentDataRepositoryDaoWS:: getStudentIAIP. diplomeDTO  = " + diplomeDTO.size());
+									logger.debug("StudentDataRepositoryDaoWS:: getStudentIAIP. diplomeDTO  = " + diplomeDTO.length);
 								}
-								for (int i = 0; i < diplomeDTO.size(); i++) {
-									List<VersionDiplomeDTO2> versionDiplome = diplomeDTO.get(i).getListVersionDiplome().getItem();
-									for (int j = 0; j < versionDiplome.size(); j++) {
-										if (versionDiplome.get(j).getCodCursusLmd() != null) {
-											etpins.setCodCursusLmd(versionDiplome.get(j).getCodCursusLmd());
+								for (int i = 0; i < diplomeDTO.length; i++) {
+									VersionDiplomeDTO2[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
+									for (int j = 0; j < versionDiplome.length; j++) {
+										if (versionDiplome[j].getCodCursusLmd() != null) {
+											etpins.setCodCursusLmd(versionDiplome[j].getCodCursusLmd());
 										}
-										OffreFormationDTO2 offreFormation = versionDiplome.get(j).getOffreFormation();
+										OffreFormationDTO2 offreFormation = versionDiplome[j].getOffreFormation();
 										if (offreFormation != null) {
 											if (offreFormation.getCodFinalite() != null) {
 												etpins.setCodFinalite(offreFormation.getCodFinalite());
@@ -878,8 +881,8 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 									}
 								}
 							}
-						} catch (Exception e) {
-							logger.error("Exception getStudentIAIP = " + e );
+						} catch (WebBaseException e) {
+							logger.error("WebBaseException getStudentIAIP recupererSE_v2 = " + e );
 							if (e.toString().equals("technical.data.nullretrieve.recupererse")) {
 								logger.error("aucune donnee en sortie = " + cod + "diplome/vers = " + codeDiplome + versDiplome);
 								continue;
@@ -903,15 +906,15 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			}
 			// recherche les Inscriptions pedagogiques 
 			if (logger.isDebugEnabled()){
-				logger.debug("pedagogiqueMetierService.recupererContratPedagogiqueResultatVdiVet");
+				logger.debug("servicePedagogique.recupererContratPedagogiqueResultatVdiVet");
 
 			}
-			List<ContratPedagogiqueResultatVdiVetDTO>  tabcontratPedagoResultatVdiVet = 
-					pedagogiqueMetierService.recupererContratPedagogiqueResultatVdiVet(cod, getYear(), DonneesStatic.ws_sourceRes_Apogee, "", "", "");
+			ContratPedagogiqueResultatVdiVetDTO[]  tabcontratPedagoResultatVdiVet = 
+					servicePedagogique.recupererContratPedagogiqueResultatVdiVet(cod, getYear(), DonneesStatic.ws_sourceRes_Apogee, "", "", "");
 			if(tabcontratPedagoResultatVdiVet!=null){
 				for (ContratPedagogiqueResultatVdiVetDTO contratPedagoResVdiVet : tabcontratPedagoResultatVdiVet) {
 
-					List<EtapeResVdiVetDTO> tabEtapeResVdiVet = contratPedagoResVdiVet.getEtapes().getItem();
+					EtapeResVdiVetDTO[]  tabEtapeResVdiVet = contratPedagoResVdiVet.getEtapes();
 					for (EtapeResVdiVetDTO etapeResVdiVet : tabEtapeResVdiVet) {
 						if (etapeResVdiVet.getEtape() != null) {
 							if (logger.isDebugEnabled()){
@@ -961,8 +964,8 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			}
 			if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
 				logger.error(e + " : " + cod );
-				logger.error(e.getMessage() + " : " + cod );
-				throw new AdministrationApogeeException(e.getMessage(),e);
+				logger.error(e.getLastErrorMsg() + " : " + cod );
+				throw new AdministrationApogeeException(e.getLastErrorMsg(),e);
 			}
 			return apogeeMap;
 		}
@@ -985,6 +988,9 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			logger.debug("StudentDataRepositoryDaoWS:: getStudentELPV2 cod = " + cod);
 		}
 		try {
+
+			OffreFormationMetierServiceInterface offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
+
 			// recuperation des etapes pedagogiques
 			LinkedHashMap<String,String> tabStudentsEtapesVets = apogeeMap.getStudentsEtapesVetsPedago();
 			String etape = "";
@@ -1011,38 +1017,37 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 						seCritereDTO.setCodVrsVet(vetEtape);
 
 						// recherche des Elements Pedagogiques des etapes, versions etapes
-						List<DiplomeDTO2> diplomeDTO = 
-								offreFormationMetierService.recupererSEV2(seCritereDTO);
+						DiplomeDTO2[] diplomeDTO = offreFormationMetierService.recupererSE_v2(seCritereDTO);
 						if (diplomeDTO != null) {
 							if (logger.isDebugEnabled()) {
-								logger.debug("StudentDataRepositoryDaoWS:: getStudentELPV2. diplomeDTO  = " + diplomeDTO.size());
+								logger.debug("StudentDataRepositoryDaoWS:: getStudentELPV2. diplomeDTO  = " + diplomeDTO.length);
 							}
-							for (int i = 0; i < diplomeDTO.size(); i++) {
-								List<VersionDiplomeDTO2> versionDiplome = diplomeDTO.get(i).getListVersionDiplome().getItem();
-								for (int j = 0; j < versionDiplome.size(); j++) {
-									OffreFormationDTO2 offreFormation = versionDiplome.get(j).getOffreFormation();
-									List<ListeElementPedagogiDTO2> listeelementPedagogiDTO = 
-											offreFormation.getListEtape().getItem().get(0).getListVersionEtape().getItem().get(0).getListListeElementPedagogi().getItem();
-									for (int k = 0; k < listeelementPedagogiDTO.size(); k++) {
-										List<ElementPedagogiDTO2> elementPedagogique = listeelementPedagogiDTO.get(k).getListElementPedagogi().getItem();
-										for (int l = 0; l < elementPedagogique.size(); l++) {
+							for (int i = 0; i < diplomeDTO.length; i++) {
+								VersionDiplomeDTO2[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
+								for (int j = 0; j < versionDiplome.length; j++) {
+									OffreFormationDTO2 offreFormation = versionDiplome[j].getOffreFormation();
+									ListeElementPedagogiDTO2[] listeelementPedagogiDTO = 
+											offreFormation.getListEtape()[0].getListVersionEtape()[0].getListListeElementPedagogi();
+									for (int k = 0; k < listeelementPedagogiDTO.length; k++) {
+										ElementPedagogiDTO2[] elementPedagogique = listeelementPedagogiDTO[k].getListElementPedagogi();
+										for (int l = 0; l < elementPedagogique.length; l++) {
 											if (logger.isDebugEnabled()) {
-												logger.debug("elementPedagogique.get(l).getCodElp() = " + elementPedagogique.get(l).getCodElp());
-												logger.debug("elementPedagogique.get(l).getCredits() = " + elementPedagogique.get(l).getCredits());
+												logger.debug("elementPedagogique[l].getCodElp() = " + elementPedagogique[l].getCodElp());
+												logger.debug("elementPedagogique[l].getCredits() = " + elementPedagogique[l].getCredits());
 											}
 											//remplissage de la table des elements pedagogiques, si elp de type stage
-											if (elementPedagogique.get(l).getTemStage().equals("O") ) {
-												elementPedagogique.get(l).getCodElp();
-												elementPedagogique.get(l).getCredits();
-												elementPedagogique.get(l).getTemStage();
+											if (elementPedagogique[l].getTemStage().equals("O") ) {
+												elementPedagogique[l].getCodElp();
+												elementPedagogique[l].getCredits();
+												elementPedagogique[l].getTemStage();
 												ElementPedagogique elpedago = new ElementPedagogique();
 												elpedago.setCodEtp(etape);
 												elpedago.setCodVrsVet(vetEtape);
-												elpedago.setCodElp(elementPedagogique.get(l).getCodElp());
-												elpedago.setLibElp(elementPedagogique.get(l).getLibElp());
-												elpedago.setTemElpTypeStage(elementPedagogique.get(l).getTemStage());
-												if (elementPedagogique.get(l).getCredits() != null) {
-													elpedago.setNbrCrdElp(elementPedagogique.get(l).getCredits());
+												elpedago.setCodElp(elementPedagogique[l].getCodElp());
+												elpedago.setLibElp(elementPedagogique[l].getLibElp());
+												elpedago.setTemElpTypeStage(elementPedagogique[l].getTemStage());
+												if (elementPedagogique[l].getCredits() != null) {
+													elpedago.setNbrCrdElp(elementPedagogique[l].getCredits());
 												}
 												//renseignement de la map element pedagogique
 												Object idl=etape;
@@ -1052,17 +1057,16 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 													listeELPs.add(elpedago) ;
 												}
 
-
 											}
 										}
 									}
 								}
 							}
 						}
-					} catch (Exception e) {
-						logger.error("Exception getStudentELPV2 recupererSE_v2 = " + e );
+					} catch (WebBaseException e) {
+						logger.error("WebBaseException getStudentELPV2 = " + e );
 						if (e.toString().equals("technical.data.nullretrieve.recupererse")) {
-							logger.error("aucune donnee en sortie = " + cod + "etape/vet = " + etape + vetEtape);
+							logger.error("aucune donnee en sortie = " + cod + " etape/vet = " + etape + vetEtape);
 							continue;
 						}
 						continue;
@@ -1072,6 +1076,10 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			apogeeMap.setElementPedagogiques(elementPedagogiques);
 			apogeeMap.setListeELPs(listeELPs);
 			return apogeeMap;
+		} catch (WebBaseException e) {
+			logger.error("WebBaseException in getStudentELPV2 = " + e );
+
+			return apogeeMap;
 		} catch (Exception e) {
 			logger.error("Exception in getStudentELPV2 = " + e);
 			throw new CommunicationApogeeException(e);
@@ -1080,11 +1088,14 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 
 	/**
 	 * @param codInd
-	 * @return le codEtu pour le codInd passé en paramètre
+	 * @return le codEtu pour le codInd pass� en param�tre
 	 */
 	public String getStudentCodEtu(final String codInd) {
 		String codEtu = codInd;
 		try {
+			EtudiantMetierServiceInterface etudiantMetierService 
+			= new EtudiantMetierServiceInterfaceProxy();
+
 			if (logger.isDebugEnabled()) {
 				logger.debug("StudentDataRepositoryDaoWS:: " 
 						+ "getStudentCodEtu  this.temoinRecupAnnu = " + this.temoinRecupAnnu);
@@ -1093,7 +1104,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			IdentifiantsEtudiantDTO etudiant = etudiantMetierService.recupererIdentifiantsEtudiant(
 					null, codInd, null, null, null, null, null, null, null, this.temoinRecupAnnu);
 			codEtu = etudiant.getCodEtu().toString();
-		} catch (etudiantwebserviceimpl.impl.webservices.commun.apogee.education.gouv.WebBaseException e) {
+		} catch (WebBaseException e) {
 			logger.error("WebBaseException in getStudentByNum = " + e );
 			if (e.toString().equals("technical.security.invaliduser.user")) {
 				logger.error("etudiant non trouve IAA = " + codInd );
@@ -1110,11 +1121,14 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 
 	/**
 	 * @param codEtu
-	 * @return le codInd pour le codEtu passé en paramètre
+	 * @return le codInd pour le codEtu pass� en param�tre
 	 */
 	public String getStudentCodInd(final String codEtu) {
 		String codInd = codEtu;
 		try {
+			EtudiantMetierServiceInterface etudiantMetierService 
+			= new EtudiantMetierServiceInterfaceProxy();
+
 			if (logger.isDebugEnabled()) {
 				logger.debug("StudentDataRepositoryDaoWS:: " 
 						+ "getStudentCodInd  this.temoinRecupAnnu = " + this.temoinRecupAnnu);
@@ -1123,7 +1137,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 			IdentifiantsEtudiantDTO etudiant = etudiantMetierService.recupererIdentifiantsEtudiant(
 					codEtu, null, null, null, null, null, null, null, null, this.temoinRecupAnnu);
 			codInd = etudiant.getCodInd().toString();
-		} catch (etudiantwebserviceimpl.impl.webservices.commun.apogee.education.gouv.WebBaseException e) {
+		} catch (WebBaseException e) {
 			logger.error("WebBaseException in getStudentByNum = " + e );
 			if (e.toString().equals("technical.security.invaliduser.user")) {
 				logger.error("etudiant non trouve IAA = " + codEtu );
@@ -1147,11 +1161,16 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		}
 		LinkedHashMap<String,String> lvide = new LinkedHashMap<String, String>();
 		try {
+
+
+			AdministratifMetierServiceInterface serviceAdministratif = 
+					new AdministratifMetierServiceInterfaceProxy();
 			HashMap<String, Object> parameterMap = new HashMap<String, Object>();
 			parameterMap.put("val", Arrays.asList(cod,getYear()));
 			// recuperer les Inscriptions Administratives de l'etudiant
 			// dont inscription admin annuelle est en cours (E), inscription admin a etape est en cours (E), pour annee
-			List<InsAdmEtpDTO2> tabInsAdmEtp = administratifMetierService.recupererIAEtapesV2(cod, getYear(),"E", "E");
+			//InsAdmEtpDTO[] tabInsAdmEtp = serviceAdministratif.recupererIAEtapes(cod, getYear(),"E", "E");
+			InsAdmEtpDTO2[] tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, getYear(),"E", "E");
 
 			LinkedHashMap<String,String> l = new LinkedHashMap<String, String>();
 
@@ -1165,9 +1184,12 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 					Object idl = insAdmEtp.getComposante().getCodComposante();
 					String lib = insAdmEtp.getComposante().getLibComposante();
 					if(lib == null){
-						List<ComposanteDTO3> lcomposante = referentielMetierService.recupererComposanteV2((String)idl, null);
-						if(lcomposante.get(0)!=null && lcomposante.get(0).getLibCmp()!=null){
-							lib=lcomposante.get(0).getLibCmp();
+						ReferentielMetierServiceInterface referentielMetierService = 
+								(ReferentielMetierSoapBindingStub) WSUtils.getService(
+										WSUtils.REFERENTIEL_SERVICE_NAME);
+						ComposanteDTO3[] lcomposante = referentielMetierService.recupererComposante_v2((String)idl, null);
+						if(lcomposante[0]!=null && lcomposante[0].getLibCmp()!=null){
+							lib=lcomposante[0].getLibCmp();
 						}
 					}
 					l.put(idl + "" , lib);
@@ -1221,7 +1243,7 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 		try{
 			int sYM = Integer.parseInt(this.startYearMonth);
 			int sYD = Integer.parseInt(this.startYearDay);
-			if(sYM <= month && sYD <= day){
+			if(sYM < month || (sYM == month && sYD <= day)){
 				year=formatY.format(d);
 			}else{
 				year=Integer.parseInt(formatY.format(d))-1+"";
@@ -1325,55 +1347,6 @@ public class StudentDataRepositoryDaoWS implements StudentDataRepositoryDao {
 	 */
 	public void setLdapAttributes(LdapAttributes ldapAttributes) {
 		this.ldapAttributes = ldapAttributes;
-	}
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(etudiantMetierService,"La propriété etudiantMetierService ne doit pas être null.");
-		Assert.notNull(administratifMetierService,"La propriété administratifMetierService ne doit pas être null.");
-		Assert.notNull(pedagogiqueMetierService,"La propriété pedagogiqueMetierService ne doit pas être null.");
-		Assert.notNull(offreFormationMetierService,"La propriété offreFormationMetierService ne doit pas être null.");
-		Assert.notNull(referentielMetierService,"La propriété referentielMetierService ne doit pas être null.");
-	}
-	
-	/**
-	 * @param etudiantMetierService the etudiantMetierService to set
-	 */
-	public void setEtudiantMetierService(
-			EtudiantMetierServiceInterface etudiantMetierService) {
-		this.etudiantMetierService = etudiantMetierService;
-	}
-	
-	/**
-	 * @param administratifMetierService the administratifMetierService to set
-	 */
-	public void setAdministratifMetierService(
-			AdministratifMetierServiceInterface administratifMetierService) {
-		this.administratifMetierService = administratifMetierService;
-	}
-
-	/**
-	 * @param pedagogiqueMetierService the pedagogiqueMetierService to set
-	 */
-	public void setPedagogiqueMetierService(
-			PedagogiqueMetierServiceInterface pedagogiqueMetierService) {
-		this.pedagogiqueMetierService = pedagogiqueMetierService;
-	}
-
-	/**
-	 * @param offreFormationMetierService the offreFormationMetierService to set
-	 */
-	public void setOffreFormationMetierService(
-			OffreFormationMetierServiceInterface offreFormationMetierService) {
-		this.offreFormationMetierService = offreFormationMetierService;
-	}
-
-	/**
-	 * @param referentielMetierService the referentielMetierService to set
-	 */
-	public void setReferentielMetierService(
-			ReferentielMetierServiceInterface referentielMetierService) {
-		this.referentielMetierService = referentielMetierService;
 	}
 
 }

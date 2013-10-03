@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -19,6 +19,7 @@
         cursor: pointer;
         }
     </h:outputStylesheet>
+    
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="2">
 		<h:panelGrid columnClasses="paginatorData-text"
@@ -47,7 +48,7 @@
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height: 10px;" />
 
-	<rich:dataTable cellpadding="0" cellspacing="0" id="table" border="0" var="convention"	value="#{conventionController.convention}" rowClasses="odd-row, even-row"  styleClass="stable">
+	<rich:dataTable id="table" var="convention"	value="#{conventionController.convention}" rowClasses="odd-row, even-row"  styleClass="stable">
 		<rich:columnGroup>
 			<rich:column>
 				<h:outputLabel for="numeroconvention"
@@ -73,7 +74,7 @@
 				<h:outputLabel for="valide" value="#{msgs['CONVENTION.VALIDER']}" />
 			</rich:column>
 			<rich:column>
-				<h:outputText value="#{msgs['FORM.NON']}" />
+				<h:outputText id="valide" value="#{msgs['FORM.NON']}" />
 			</rich:column>
 		</rich:columnGroup>
 		<rich:columnGroup
@@ -82,10 +83,10 @@
 				<h:outputLabel for="valide2" value="#{msgs['CONVENTION.VALIDER']}" />
 			</rich:column>
 			<rich:column>
-				<h:outputText value="#{msgs['FORM.OUI']}" />
+				<h:outputText id="valide2" value="#{msgs['FORM.OUI']}" />
 			</rich:column>
 		</rich:columnGroup>
-		<rich:columnGroup rendered="#{conventionController.nbAvenant > 0}">
+		<rich:columnGroup rendered="#{conventionController.nbAvenant gt 0}">
 			<rich:column>
 				<h:outputLabel for="avenantOui"
 					value="#{msgs['CONVENTION.AVENANT']}" />
@@ -156,7 +157,7 @@
 				<h:outputLabel for="elp" value="#{msgs['CONVENTION.ELP']}" />
 			</rich:column>
 			<rich:column>
-				<h:outputText
+				<h:outputText id="elp"
 					value="#{conventionController.convention.codeElp} - #{conventionController.convention.creditECTS} #{msgs['CONVENTION.CREDITS']}" />
 			</rich:column>
 		</rich:columnGroup>
@@ -328,7 +329,7 @@
 				<h:outputLabel for="interruptionStage1"
 					value="#{msgs['CONVENTION.INTERRUPTION']}" />
 			</rich:column>
-			<rich:column>
+			<rich:column id="interruptionStage1">
 				<h:outputText value="#{msgs['FORM.NON']}" />
 			</rich:column>
 		</rich:columnGroup>
@@ -339,7 +340,7 @@
 					rendered="#{conventionController.convention.interruptionStage == true}" />
 			</rich:column>
 			<rich:column>
-				<h:outputText value="#{msgs['FORM.OUI']}"
+				<h:outputText id="interruptionStage2" value="#{msgs['FORM.OUI']}"
 					rendered="#{conventionController.convention.interruptionStage == true}" />
 			</rich:column>
 		</rich:columnGroup>
@@ -497,7 +498,7 @@
 					rendered="#{conventionController.booltemConfSujetTeme == false}" />
 			</rich:column>
 			<rich:column>
-				<h:outputText value="#{msgs['FORM.NON']}"
+				<h:outputText id="temConfSujetTemeN" value="#{msgs['FORM.NON']}"
 					rendered="#{conventionController.booltemConfSujetTeme == false}" />
 			</rich:column>
 		</rich:columnGroup>
@@ -658,14 +659,13 @@
     <rich:jQuery selector=".stable tr:even" query="addClass('even-row')" />
     <rich:jQuery selector=".stable tr" event="mouseover" query="jQuery(this).addClass('active-row')" />
     <rich:jQuery selector=".stable tr" event="mouseout" query="jQuery(this).removeClass('active-row')" />
-	<t:htmlTag value="div" style="height: 20px;" />
 
 	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="1">
+		rowClasses="paginatorData-text" columns="1"
+		rendered="#{conventionController.retourListe}">
 		<t:htmlTag value="div" style="height: 20px;" />
 		<h:commandButton value="#{msgs['RECHERCHECONVENTION.RETOURLISTE']}"
-			action="#{conventionController.goToRetourAction}"
-			rendered="#{conventionController.retourListe}" />
+			action="#{conventionController.goToRetourAction}" />
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height: 20px;" />
 	<h:panelGrid columnClasses="paginatorData-text"
@@ -705,7 +705,7 @@
 			rowClasses="paginatorData-text" columns="3">
 			<a4j:commandButton value="#{msgs['FORM.OUI']}"
 				oncomplete="#{rich:component('supprConvention')}.hide();"
-				ignoreDupResponses="true"
+				
 				action="#{conventionController.goToSuppConvention}">
 			</a4j:commandButton>
 			<t:htmlTag value="div" style="width: 150px;" />
@@ -714,4 +714,4 @@
 				oncomplete="#{rich:component('supprConvention')}.hide();" />
 		</h:panelGrid>
 	</rich:popupPanel>
-</ui:fragment>
+</ui:composition>

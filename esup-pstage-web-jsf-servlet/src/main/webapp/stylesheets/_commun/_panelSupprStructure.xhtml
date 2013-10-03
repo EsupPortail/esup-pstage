@@ -6,13 +6,13 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="supprimerStructurePanel" autosized="true" styleClass="panel" >
+	<rich:popupPanel id="supprimerStructurePanel" autosized="true" styleClass="panel"
+		domElementAttachment="parent">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.SUPPRESSION']}" />
 		</f:facet>
 		<h:form id="formSupprStructure">
-			<ui:include id="include"
-				src="/stylesheets/_commun/_supprStructureEtape1.xhtml" />
+			<ui:include src="/stylesheets/_commun/#{sessionController.suppressionStructureCurrentPage}.xhtml" />
 		</h:form>
 	</rich:popupPanel>
 </ui:composition>

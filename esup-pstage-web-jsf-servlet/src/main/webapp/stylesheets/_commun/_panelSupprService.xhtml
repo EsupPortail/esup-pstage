@@ -11,8 +11,7 @@
 			<h:outputText value="#{msgs['SERVICE.SUPPR']}" />
 		</f:facet>
 		<h:form id="formSupprService">
-			<ui:include id="include"
-				src="/stylesheets/_commun/_supprServiceEtape1.xhtml" />
+			<ui:include src="/stylesheets/_commun/#{sessionController.suppressionServiceCurrentPage}.xhtml" />
 		</h:form>
 	</rich:popupPanel>
 </ui:composition>

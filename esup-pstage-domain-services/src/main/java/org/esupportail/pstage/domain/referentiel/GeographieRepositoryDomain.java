@@ -1,6 +1,6 @@
 package org.esupportail.pstage.domain.referentiel;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface GeographieRepositoryDomain extends Serializable{
 	/**
 	 * @param departement
-	 * @return la liste des communes franï¿½aises ï¿½ partir du dï¿½partement
+	 * @return la liste des communes fran�aises � partir du d�partement
 	 */
 	public List<CommuneDTO> getCommuneFromDepartement(String departement);
 	/**

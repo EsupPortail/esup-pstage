@@ -6,9 +6,8 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
@@ -17,10 +16,9 @@
 				<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
 			</t:div>
 			<h:form>
-<				<!-- erreur jvm outofmemory -->
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text">
-					<a4j:commandLink ajaxSingle="true" id="editoffre"
+					<a4j:commandLink id="editoffre" execute="@this"
 						action="#{offreController.editPdfOffre}">
 						<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 							value="../../media/images/printer.png" style="border:0" />
@@ -218,6 +216,9 @@
 										rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 									<f:setPropertyActionListener value="resultatsRechercheOffre"
 										target="#{offreController.retour}" />
+									<f:setPropertyActionListener
+										value="_supprOffreEtape1"
+										target="#{sessionController.suppressionOffreCurrentPage}" />
 									<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
 									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}"
 										rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />

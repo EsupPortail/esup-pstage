@@ -14,7 +14,6 @@ import org.esupportail.commons.services.ldap.LdapGroup;
 import org.esupportail.commons.services.ldap.LdapGroupService;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
-import org.esupportail.commons.utils.Assert;
 import org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao;
 import org.esupportail.pstage.domain.beans.AdministrationApogee;
 import org.esupportail.pstage.domain.beans.EtudiantRef;
@@ -42,10 +41,10 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	private LdapGroupService ldapGroupServiceSpecial;
 
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(this.ldapUserService, "La propriété ldapUserService de la classe " +this.getClass().getSimpleName()+ " ne doit pas être null.");
-	}
+//	@Override
+//	public void afterPropertiesSet() throws Exception {
+//		Assert.notNull(this.ldapUserService, "La propriété ldapUserService de la classe " +this.getClass().getSimpleName()+ " ne doit pas être null.");
+//	}
 
 	/**
 	 * Etudiant par son identifiant ldap

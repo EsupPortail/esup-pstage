@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<rich:panel
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin)
@@ -83,7 +83,7 @@
 							converter="#{droitAdminConverter}"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:selectItems value="#{nomenclatureController.droitsAdmin}" />
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur"  />
 						</h:selectOneMenu>
 						<rich:message for="droit">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />

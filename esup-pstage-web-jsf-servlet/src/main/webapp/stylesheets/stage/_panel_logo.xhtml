@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,8 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-
-	<rich:popupPanel id="addLogo" autosized="true" width="400">
+	<rich:popupPanel id="addLogo" autosized="true">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CENTRE.LOGO.SELECTION']}" />
 		</f:facet>
@@ -16,18 +15,16 @@
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1"
 					rendered="#{centreController.centre.idFichier le 0}">
-					<rich:fileUpload
+					
+					<rich:fileUpload id="uploadImage" immediateUpload="true"
 						fileUploadListener="#{sessionController.imageUploadBean.imageUploadListener}"
-						id="uploadImage" immediateUpload="true"
 						acceptedTypes="#{sessionController.uploadImagesFileExtensions}"
-						maxFilesQuantity="1" listHeight="0" listWidth="250"
-						autoclear="true" addControlLabel="Sélectionner "
-						cancelEntryControlLabel="" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<a4j:ajax event="uploadcomplete"
-							render="opUploadImage,panelUpload"
-							action="#{centreController.insertLogo}" execute="@this" />
-					</rich:fileUpload>
+						ontyperejected="alert('Type de fichier incorrect');"
+						maxFilesQuantity="1" required="true" listHeight="20"
+						requiredMessage="#{requiredMessageController.champObligatoire}"/>
+					
+					<t:htmlTag value="div" style="height:10px;" />
+					
 					<h:outputFormat value="#{msgs['GENERAL.FILESIZERESTRICTED']}"
 						style="font-size:10px;">
 						<f:param value="#{sessionController.uploadImagesFileSizeLimit}" />
@@ -40,6 +37,21 @@
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 				</h:panelGrid>
+				<t:htmlTag value="div" style="height: 10px;" />
+				<h:panelGrid columns="3" align="center" columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
+					<a4j:commandButton id="cancel" execute="@this"
+						render="opUploadImage"
+						action="#{centreController.cleanFichiers}"
+						value=" #{msgs['GENERAL.RETOUR']}" />
+						
+					<t:htmlTag value="div" style="width:50px;" />
+					
+					<a4j:commandButton action="#{centreController.insertLogo}"
+						style="border-color:red;"
+						value="Ajouter l'image au centre" />
+				</h:panelGrid>
+				<t:htmlTag value="div" style="height: 5px;" />
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="2"
 					rendered="#{centreController.centre.idFichier>0}">
@@ -48,22 +60,11 @@
 						style="border:0" />
 					<h:outputText value="#{msgs['CENTRE.LOGO.CONFIRM']}" />
 				</h:panelGrid>
-				<t:htmlTag value="div" style="height: 10px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1" align="center">
-					<a4j:commandButton id="cancel" execute="@this"
-						render="opUploadImage"
-						action="#{centreController.cleanFichiers}"
-						value=" #{msgs['GENERAL.RETOUR']}" />
-
-					<t:htmlTag value="div" style="height: 5px;" />
-
-					<h:outputText id="erreurLogo" value="" />
-					<rich:message for="erreurLogo">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-				</h:panelGrid>
+				<h:outputText id="erreurLogo" value="" />
+				<rich:message for="erreurLogo">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
 			</h:form>
 		</t:htmlTag>
 	</rich:popupPanel>
-</ui:fragment>
+</ui:composition>

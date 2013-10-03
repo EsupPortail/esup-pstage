@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<rich:panel
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin)
@@ -17,6 +17,12 @@
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form id="formAjoutCritere">
+				
+				<t:htmlTag value="center">
+					<h:outputText rendered="#{centreController.listeCriteres == null}"
+						value="#{msgs['CENTRE.CRITERE.VIDE']}" />
+				</t:htmlTag>
+				
 				<h:panelGrid columns="1" align="center"
 					rendered="#{centreController.listeCriteres != null}">
 					<h:outputText
@@ -31,26 +37,21 @@
 						value="#{centreController.listeCriteresChoisis}">
 						<f:selectItems value="#{centreController.listeCriteres}" />
 					</h:selectManyListbox>
+					
+					<t:htmlTag value="div" style="height: 20px;" />
+	
+					<t:htmlTag value="center">
+						<h:commandButton id="ajouter"
+							action="#{centreController.ajouterCriteres}"
+							value="#{msgs['FORM.AJOUTER']}" />
+					</t:htmlTag>
 				</h:panelGrid>
 
-				<t:htmlTag value="center">
-					<h:outputText rendered="#{centreController.listeCriteres == null}"
-						value="#{msgs['CENTRE.CRITERE.VIDE']}" />
-				</t:htmlTag>
-
-				<t:htmlTag value="div" style="height: 20px;" />
-
-				<t:htmlTag value="center">
-					<h:commandButton id="ajouter"
-						action="#{centreController.ajouterCriteres}"
-						value="#{msgs['FORM.AJOUTER']}" />
-				</t:htmlTag>
-				<t:htmlTag value="center">
-					<h:outputText id="erreurAjoutCritere" value="" />
+				<h:panelGrid id="erreurAjoutCritere" align="center">
 					<rich:message for="erreurAjoutCritere">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-				</t:htmlTag>
+				</h:panelGrid>
 			</h:form>
 		</rich:panel>
 		<t:div

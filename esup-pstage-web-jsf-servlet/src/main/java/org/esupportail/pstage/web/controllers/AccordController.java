@@ -4,7 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -588,9 +588,9 @@ public class AccordController extends AbstractContextAwareController {
 				
 				String urlAuth = "";
 				if (getSessionController().getAdminAuthentication().equals("shibb")){
-					urlAuth = "auth/shibb/auth.faces?id=";
+					urlAuth = "/auth/shibb/auth.faces?id=";
 				} else {
-					urlAuth = "auth/cas/auth.faces?id=";
+					urlAuth = "/auth/cas/auth.faces?id=";
 				}
 				
 				getSmtpService().send(getSessionController().getMailingListEntrIA(), 

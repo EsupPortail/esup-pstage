@@ -27,11 +27,6 @@
 								<rich:dataScroller align="center" for="listeOffres"
 									maxPages="20" page="1" id="listeScroller"
 									renderIfSinglePage="false" />
-<!-- 								<e:paginator id="rechercheOffrePaginator" -->
-<!-- 									paginator="#{offreController.rechercheOffrePaginator}" -->
-<!-- 									itemsName=" " -->
-<!-- 									onchange="javascript:{simulateLinkClick('rechercheOffreDataTable:submitPageSize');}" -->
-<!-- 									visibleBlocks="itemsNumbers,navigation" /> -->
 							</f:facet>
 							<ui:include
 								src="../_commun/_rechercheOffreResultatsColumns.xhtml" />
@@ -76,6 +71,9 @@
 										value="../../media/images/delete.png" style="border:0" />
 									<f:setPropertyActionListener value="resultatsRechercheOffre"
 										target="#{offreController.retour}" />
+									<f:setPropertyActionListener
+										value="_supprOffreEtape1"
+										target="#{sessionController.suppressionOffreCurrentPage}" />
 									<f:setPropertyActionListener value="#{offre}"
 										target="#{offreController.currentOffre}" />
 									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
@@ -85,7 +83,6 @@
 					</t:div>
 					<h:panelGrid columns="1">
 						<t:htmlTag value="div" style="height:20px;" />
-<!-- 						<rich:spacer height="20px" /> -->
 						<h:commandButton
 							value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
 							action="#{offreController.goToRechercheOffre}" />

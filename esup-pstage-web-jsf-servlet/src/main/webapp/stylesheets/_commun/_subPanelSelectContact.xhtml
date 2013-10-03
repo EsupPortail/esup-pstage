@@ -42,7 +42,7 @@
 								and ((empty etablissementController.serviceSel.loginModif and
 								etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
 								|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin))))))))}">
-<!-- 				<a4j:outputPanel id="opActionsService" ajaxRendered="true"> -->
+				<a4j:outputPanel id="opActionsService" ajaxRendered="true">
 					<a4j:commandLink execute="@this" id="modif"
 						rendered="#{not empty etablissementController.listeServices and 
 					not empty etablissementController.idServiceSel}"
@@ -53,13 +53,15 @@
 						<f:setPropertyActionListener
 							value="#{etablissementController.serviceSel}"
 							target="#{etablissementController.formService}" />
+						<f:setPropertyActionListener value="#{false}"
+							target="#{etablissementController.afficherSelectionCentreContact}" />
 						<f:setPropertyActionListener value="_modifServiceEtape0"
 							target="#{sessionController.modifServiceCurrentPage}" />
 						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 							value="../../media/images/edit.png" style="border:0" />
 						<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 					</a4j:commandLink>
-<!-- 				</a4j:outputPanel> -->
+				</a4j:outputPanel>
 			</h:panelGrid>
 		</t:panelGrid>
 		<h:panelGrid columns="3" columnClasses="paginatorData-text"

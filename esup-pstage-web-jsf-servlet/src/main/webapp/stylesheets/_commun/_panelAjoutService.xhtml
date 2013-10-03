@@ -6,14 +6,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-
 	<rich:popupPanel id="ajoutService" autosized="true" styleClass="panel">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['SERVICE.AJOUT']}" />
 		</f:facet>
-		<h:form id="formAjoutService">
-			<ui:include id="include"
-				src="/stylesheets/_commun/#{sessionController.ajoutServiceCurrentPage}.xhtml" />
-		</h:form>
+		<a4j:outputPanel ajaxRendered="true">
+			<h:form id="formAjoutService">
+				<ui:include
+					src="/stylesheets/_commun/#{sessionController.ajoutServiceCurrentPage}.xhtml" />
+			</h:form>
+		</a4j:outputPanel>
 	</rich:popupPanel>
 </ui:composition>

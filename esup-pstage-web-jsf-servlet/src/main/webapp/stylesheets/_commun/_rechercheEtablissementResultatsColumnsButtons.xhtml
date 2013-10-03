@@ -59,6 +59,8 @@
 					value="../../media/images/delete.png" style="border:0" />
 				<f:setPropertyActionListener value="#{varRechercheStructure}"
 					target="#{etablissementController.formStructure}" />
+				<f:setPropertyActionListener value="_supprStructureEtape1"
+					target="#{sessionController.suppressionStructureCurrentPage}" />
 				<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 			</a4j:commandLink>
 		</h:panelGrid>

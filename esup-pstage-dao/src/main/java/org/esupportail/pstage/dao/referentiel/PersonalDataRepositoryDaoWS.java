@@ -67,7 +67,7 @@ PersonalDataRepositoryDao {
 
 	/**
 	 * @param codeLdapComposante
-	 * @return le code composante Apogée en fonction du code Ldap en paramètre
+	 * @return le code composante Apog�e en fonction du code Ldap en param�tre
 	 */
 	@SuppressWarnings("unchecked")
 	public String getCodeApogeeComposante(String codeLdapComposante) {
@@ -83,7 +83,7 @@ PersonalDataRepositoryDao {
 
 	/**
 	 * @param codeApogeeComposante
-	 * @return le code composante Ldap en fonction du code Apogée en paramètre
+	 * @return le code composante Ldap en fonction du code Apog�e en param�tre
 	 */
 	@SuppressWarnings("unchecked")
 	public String getCodeLdapComposante(String codeApogeeComposante) {
@@ -168,7 +168,6 @@ PersonalDataRepositoryDao {
 	@Override
 	public List<EnseignantDTO> getEnseignantsByName(String universityCode,
 			String name) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -289,9 +288,9 @@ PersonalDataRepositoryDao {
 		return teachers;
 	}
 
-	/** TODO
-	 * Met en forme l'etudiant avec les parametres qui vont bien 
-	 * @param etudiantRef TODO
+	/**
+	 * Met en forme l'enseignant
+	 * @param enseignant
 	 * @param ldapUser
 	 */
 	private EnseignantDTO enseignantFormate(EnseignantDTO enseignant, LdapUser ldapUser) {		
@@ -363,7 +362,7 @@ PersonalDataRepositoryDao {
 	/**
 	 * @param id
 	 * @param filtre
-	 * @return PersonnelCentreGestionDTO
+	 * @return PersonnelCentreGestion
 	 */
 	private PersonnelCentreGestionDTO retrievePersonnelCentreGestion(String id,
 			Filter filtre) {
@@ -399,7 +398,7 @@ PersonalDataRepositoryDao {
 	}
 
 	/**
-	 * Format le personnel en mappant les attributs ceux du personnel
+	 * Format le personnel
 	 * @param personnelCentreGestion
 	 * @param ldapUser
 	 */
@@ -464,7 +463,7 @@ PersonalDataRepositoryDao {
 	/**
 	 * @see org.esupportail.pstage.dao.referentiel.PersonalDataRepositoryDao#getPersonnelCentreGestionRefByName(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public List<PersonnelCentreGestionDTO> getPersonnelCentreGestionRefByName( String universityCode, String name, String firstName, String codeAffectation) {
+	public List<PersonnelCentreGestionDTO> getPersonnelCentreGestionRefByName(String universityCode, String name, String firstName, String codeAffectation) {
 		if(logger.isInfoEnabled()){
 			logger.info(" Appel de getPersonnelCentreGestionRefByName()");
 		}
@@ -472,7 +471,6 @@ PersonalDataRepositoryDao {
 			codeAffectation=getCodeLdapComposante(codeAffectation);
 		}
 
-		//FIXME pour le moment pas de prise en compte de universityCode
 		AndFilter filter = new AndFilter();
 
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(), name));

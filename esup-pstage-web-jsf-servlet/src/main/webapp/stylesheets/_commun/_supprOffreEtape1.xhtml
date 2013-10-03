@@ -1,13 +1,11 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-
-	<h:column>
-		<h:panelGrid columns="1">
+		<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 			<h:outputText value="#{msgs['OFFRE.SUPPR.QUESTION']}" escape="false" />
 			<h:outputText value="#{msgs['OFFRE.SUPPR.QUESTION.SIADMIN']}"
 				escape="false" />
@@ -67,14 +65,13 @@
 				</rich:column>
 			</rich:dataTable>
 		</h:panelGrid>
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 			<a4j:commandButton action="#{offreController.supprimerOffre}"
-				value="#{msgs['FORM.SUPPRIMER']}" ignoreDupResponses="true"
-				render="opOffresDataTable" />
-			<t:htmlTag value="div" style="width: 150px;" />
+				value="#{msgs['FORM.SUPPRIMER']}"
+				render="formSupprOffre, opOffresDataTable" />
+			<t:htmlTag value="div" style="width: 100px;" />
 			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 				onclick="#{rich:component('supprOffre')}.hide();"
-				action="_supprOffreEtape1" immediate="true" />
+				immediate="true" />
 		</h:panelGrid>
-	</h:column>
-</ui:fragment>
+</ui:composition>

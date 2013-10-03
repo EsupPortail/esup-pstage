@@ -240,10 +240,10 @@
 						<h:outputText
 							value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.MODALITESREP']} " />
 					</t:htmlTag>
-					<rich:dataList var="mode"
+					<rich:list var="mode"
 						value="#{offreController.currentOffre.modesCandidature}" rows="10">
 						<h:outputText value="#{mode.libelle}" />
-					</rich:dataList>
+					</rich:list>
 				</h:panelGrid>
 				<h:panelGrid style="font-size:12px;" columns="2">
 					<t:htmlTag value="em">
@@ -254,7 +254,7 @@
 				</h:panelGrid>
 				<h:panelGrid columns="3" style="font-size:12px;" align="center">
 					<h:panelGrid columns="1" style="font-size:12px;"
-						rendered="#{offreController.currentOffre.idContactCand>0 && not empty offreController.currentOffre.contactCand}">
+						rendered="#{offreController.currentOffre.idContactCand>0 and not empty offreController.currentOffre.contactCand}">
 						<t:htmlTag value="em">
 							<h:outputText
 								value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CONTACTCAND']}" />
@@ -306,15 +306,15 @@
 						</h:panelGrid>
 					</h:panelGrid>
 					<h:panelGrid columns="3"
-						rendered="#{offreController.currentOffre.idContactCand>0 && not empty offreController.currentOffre.contactCand
-					and offreController.currentOffre.idContactInfo>0 && not empty offreController.currentOffre.contactInfo}">
+						rendered="#{offreController.currentOffre.idContactCand gt 0 and not empty offreController.currentOffre.contactCand
+					and offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}">
 						<t:htmlTag value="div" style="width: 25px;" />
 						<t:htmlTag value="div"
 							style="width:2px; height:180px; background-color:#{a4jSkin.panelBorderColor};" />
 						<t:htmlTag value="div" style="width: 25px;" />
 					</h:panelGrid>
 					<h:panelGrid columns="1" style="font-size:12px;"
-						rendered="#{offreController.currentOffre.idContactInfo>0 && not empty offreController.currentOffre.contactInfo}">
+						rendered="#{offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}">
 						<t:htmlTag value="em">
 							<h:outputText
 								value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CONTACTINFO']}" />
@@ -388,8 +388,8 @@
 					styleClass="titreOffre" />
 				<h:panelGrid
 					rendered="#{offreController.currentOffre.avecFichier 
-							&& offreController.currentOffre.idFichier>0
-							&& not empty offreController.currentOffre.fichier}">
+							and offreController.currentOffre.idFichier gt 0
+							and not empty offreController.currentOffre.fichier}">
 
 					<h:panelGrid columns="2">
 						<h:outputLink

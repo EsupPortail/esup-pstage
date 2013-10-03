@@ -18,6 +18,16 @@
 	-->
 
 	<navigation-rule>
+		<display-name>accueilEntr</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>accueilEntr</from-outcome>
+			<to-view-id>/stylesheets/depot/welcome.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- Création d'un compte / Nouvel accord de partenariat -->
+	<navigation-rule>
 		<display-name>welcome</display-name>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
@@ -27,16 +37,6 @@
 		</navigation-case>
 	</navigation-rule>
 	
-	<navigation-rule>
-		<display-name>accueilEntr</display-name>
-		<from-view-id>*</from-view-id>
-		<navigation-case>
-			<from-outcome>accueilEntr</from-outcome>
-			<to-view-id>/stylesheets/depot/welcome.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<!-- Création d'un compte / Nouvel accord de partenariat -->
-
 	<navigation-rule>
 		<display-name>_accordEtape1PreAccord</display-name>
 		<from-view-id>/stylesheets/depot/_accordEtape1PreAccord.xhtml</from-view-id>
@@ -1233,18 +1233,9 @@
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>creerConventionConsignes</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionConsignes.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>creerConventionEtape1Etudiant</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</to-view-id>
 			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>creerConventionEtape2DetailsEtab</from-outcome>
@@ -1267,8 +1258,8 @@
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>creerConventionEtape6DetailsEnseignant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape6DetailsEnseignant.xhtml</to-view-id>
+			<from-outcome>creerConventionEtape6Enseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape6Enseignant.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
@@ -1467,17 +1458,6 @@
 		</navigation-case>
 	</navigation-rule>
 	
-	<!-- creation convention suivant consignes -->
-	<navigation-rule>
-		<display-name>creerConvention</display-name>
-		<from-view-id>/stylesheets/stage/creerConvention.xhtml</from-view-id>
-		<navigation-case>
-			<!-- suivant -->
-			<from-outcome>creerConventionConsignes</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionConsignes.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
 	<!-- creation convention consignesEtudiant -->
 	<navigation-rule>
 		<display-name>creerConventionEtu</display-name>
@@ -1487,61 +1467,17 @@
 			<to-view-id>/stylesheets/stage/creerConventionEtu.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml</to-view-id>
-		</navigation-case>
 	</navigation-rule>
 
-	<!-- creation convention consignes -->
+	<!-- creation convention -->
 	<navigation-rule>
-		<display-name>creerConventionConsignes</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionConsignes.xhtml</from-view-id> 
+		<display-name>creerConvention</display-name>
+		<from-view-id>/stylesheets/stage/creerConvention.xhtml</from-view-id> 
 		<!-- suivant-->
 		<navigation-case>
 			<from-outcome>creerConventionRechercheEtudiant</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.xhtml</to-view-id>
-		</navigation-case>
-		<!--
-			<navigation-case>
-			<from-outcome>creerConventionEtape5Stage</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.xhtml</to-view-id>
-			</navigation-case>
-		-->
-	</navigation-rule>
-
-	<!-- creation convention recherche etudiant -->
-	<navigation-rule>
-		<display-name>creerConventionRechercheEtudiant</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.xhtml</from-view-id>
-		<navigation-case>
-			<!-- precedent consignes-->
-			<from-outcome>creerConventionConsignes</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionConsignes.xhtml</to-view-id>
-		</navigation-case>
-		<!--  suivant -->
-		<navigation-case>
-			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1ListeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ListeEtudiant.xhtml</to-view-id>
-		</navigation-case>
-		
-	</navigation-rule>
-	
-	<!-- etape 1 liste etudiant-->
-	<navigation-rule>
-		<display-name>_creerConventionEtape1ListeEtudiant</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape1ListeEtudiant.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionRechercheEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.xhtml</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	
@@ -1556,94 +1492,23 @@
 	
 	<!-- creation etape 1 - choix etude etudiant -->
 	<navigation-rule>
-		<display-name>creerConventionChoixEtapeEtudiant</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml</from-view-id>
-		<!-- recherche autre etudiant -->
-		<navigation-case>
-			<from-outcome>creerConventionRechercheEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionRechercheEtudiant.xhtml</to-view-id>
-		</navigation-case>
-		<!-- liste Etudiant -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape1ListeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1ListeEtudiant.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<!--  suivant -->
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
-		</navigation-case>
-
+		<display-name>creerConventionEtape1Etudiant</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>creerConventionEtape5Stage</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape2Etab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		
-	</navigation-rule>
-	
-	<!-- creation etape 1 - Choix etape etudiant -->
-	<navigation-rule>
-		<display-name>creerConventionEtape1Etudiant</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape2Etab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape1Offre</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		
 	</navigation-rule>
 
-	<!-- creation etape 1 - confirmation des informations etudiant  -->
-	<navigation-rule>
-		<display-name>_creerConventionEtape1ConfirmInfosEtu</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</from-view-id>
-		<!-- annuler -->
-		<navigation-case>
-			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml</to-view-id>
-		</navigation-case>
-		<!-- envoyer -->
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</to-view-id>
-		</navigation-case>
-		<!-- envoyer -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape2Etab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape1Offre</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1Offre.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		
-	</navigation-rule>
 	<!-- creation etape 1 - DemandeLienOffre  -->
 	<navigation-rule>
 		<display-name>_creerConventionEtape1DemandeLienOffre</display-name>
 		<from-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</from-view-id>
 		<!-- annuler -->
 		<navigation-case>
-			<from-outcome>creerConventionChoixEtapeEtudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ChoixEtapeEtudiant.xhtml</to-view-id>
+			<from-outcome>creerConventionEtape1Etudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</to-view-id>
 		</navigation-case>
 		<!--  annuler -->
 		<navigation-case>
@@ -1686,7 +1551,7 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-		<navigation-rule>
+	<navigation-rule>
 		<display-name>_creerConventionEtape1Offre</display-name>
 		<from-view-id>/stylesheets/stage/_creerConventionEtape1Offre.xhtml</from-view-id>
 		
@@ -2801,11 +2666,6 @@
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>recapitulatifOffreEtab</from-outcome>
-			<to-view-id>/stylesheets/recherche/detailOffre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>resultatsRechercheConvention</from-outcome>
 			<to-view-id>/stylesheets/stage/rechercheConventionResultats.xhtml</to-view-id>
 			<redirect/>
@@ -2906,22 +2766,46 @@
 			FIN PARTIE CENTRES DE GESTION
 			*************************************************************************
 		-->
-
-		<!--
-			*********************************************************************
-			EXCEPTIONS
-			*************************************************************************
-		-->
-		<navigation-case>
-			<from-outcome>exception</from-outcome>
-			<to-view-id>/stylesheets/_exception/index.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<!--
-			*********************************************************************
-			FIN EXCEPTIONS
-			*************************************************************************
-		-->
 	</navigation-rule>
 
+	<!--
+		*********************************************************************
+		EXCEPTIONS
+		*************************************************************************
+	-->
+	<navigation-rule>
+		<description>Gestion des exceptions</description>
+		<display-name>go_exception</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>go_exception</from-outcome>
+			<to-view-id>/stylesheets/_exception/exception.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<description>Renvoi vers l'accueil stage en cas de view expired exception</description>
+		<display-name>go_welcome_stage</display-name>
+		<from-view-id>/stylesheets/stage/*</from-view-id>
+		<navigation-case>
+			<from-outcome>go_welcome</from-outcome>
+			<to-view-id>/stylesheets/stage/welcome.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<description>Renvoi vers l'accueil entreprise en cas de view expired exception</description>
+		<display-name>go_welcome_depot</display-name>
+		<from-view-id>/stylesheets/depot/*</from-view-id>
+		<navigation-case>
+			<from-outcome>go_welcome</from-outcome>
+			<to-view-id>/stylesheets/depot/welcome.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- 
+		********************************************************************* 
+		FIN EXCEPTIONS 
+		*************************************************************************
+	-->
+		
 </faces-config>

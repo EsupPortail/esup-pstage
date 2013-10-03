@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -11,25 +11,22 @@
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE2.CREATION.ETAB']}" />
 			</f:facet>
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height:20px;" />
 			<h:outputText value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
 
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height:20px;" />
 			<rich:message for="formAjoutEtab">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 
 			<ui:include src="../_commun/_etablissementForm.xhtml" />
 
-			<rich:messages showDetail="true">
-			</rich:messages>
+			<rich:messages showDetail="true"/>
 
 			<h:panelGrid columns="1">
-
 				<a4j:commandButton value="#{msgs['FORM.CREER']}"
-					action="#{conventionController.ajouterEtablissementModif}">
-				</a4j:commandButton>
+					action="#{conventionController.ajouterEtablissementModif}" />
 			</h:panelGrid>
 		</rich:panel>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

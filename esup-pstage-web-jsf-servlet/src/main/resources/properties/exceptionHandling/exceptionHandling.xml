@@ -22,29 +22,17 @@
 		<property name="recipientEmail" value="${exceptionHandling.email}" />
 		<property name="exceptionViews">
 			<map>
-				<entry key="java.lang.OutOfMemoryError" value="/stylesheets/_exception/outOfMemoryException.xhtml" />
-				<entry key="javax.faces.application.ViewExpiredException" value="/stylesheets/welcome.xhtml" />
-<!-- 				<entry key="org.esupportail.commons.services.database.DatabaseException" value="/stylesheets/databaseException.jsp" /> -->
-<!-- 				<entry key="org.esupportail.commons.services.application.UninitializedDatabaseException" value="/stylesheets/uninitializedDatabaseException.jsp" /> -->
-<!-- 				<entry key="org.esupportail.commons.services.application.VersionException" value="/stylesheets/versionException.jsp" /> -->
-<!-- 				<entry key="org.esupportail.commons.exceptions.WebFlowException" value="/stylesheets/webFlowException.jsp" /> -->
-<!-- 				<entry key="org.esupportail.commons.exceptions.ConfigException" value="/stylesheets/configException.jsp" /> -->
-<!-- 				<entry key="org.esupportail.commons.services.ldap.LdapConnectionException" value="/stylesheets/ldapException.jsp" /> -->
-<!-- 				<entry key="com.mysql.jdbc.CommunicationsException" value="/stylesheets/databaseException.jsp" /> -->
-<!-- 				<entry key="com.mchange.v2.resourcepool.CannotAcquireResourceException" value="/stylesheets/databaseException.jsp" /> -->
-<!-- 				<entry key="java.lang.Exception" value="exception" /> -->
-<!-- 				<entry key="org.esupportail.commons.exceptions.DownloadException" value="exception"  /> -->
-<!-- 				<entry key="javax.servlet.ServletException" value="exception"  /> -->
+				<entry key="javax.faces.application.ViewExpiredException" value="go_welcome" />
+				<entry key="java.lang.Exception" value="go_exception"/> 
 			</map>
 		</property>
 		<property name="noEmailExceptions" >
 			<list>
-				<value>org.esupportail.commons.services.ldap.LdapConnectionException</value>
 				<value>javax.faces.application.ViewExpiredException</value>
+				<value>org.esupportail.commons.services.ldap.LdapConnectionException</value>
 			</list>
 		</property>
 		<property name="cacheManager" ref="cacheManager" />
-		<property name="cacheName" value="" />
 		<property name="logLevel" value="${exceptionHandling.logLevel}" />
 	</bean>
 
