@@ -20,7 +20,6 @@ public class StudentComponentRepositoryDomainLdap implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private StudentComponentRepositoryDao studentComponentRepositoryDao;
 	
 	/**
@@ -49,4 +48,9 @@ public class StudentComponentRepositoryDomainLdap implements
 			Map<String, String> lesComposantes) {
 		return studentComponentRepositoryDao.getComposantesPrincipalesRef(universityCode, lesComposantes);
 	}
+
+
+
+
+
 }

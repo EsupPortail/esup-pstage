@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<rich:panel
 			rendered="#{welcomeController.superAdmin and centreController.centre.idCentreGestion == 0}">
@@ -25,7 +25,7 @@
 							maxlength="100" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:converter binding="#{sansAccentEnMAJConverter}" />
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur"  />
 						</h:inputText>
 						<rich:message for="nomCentre">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -39,7 +39,7 @@
 							<h:inputText id="voie" value="#{centreController.centre.voie}"
 								size="50" maxlength="200" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								<a4j:ajax event="blur"  />
 							</h:inputText>
 							<rich:message for="voie">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -66,7 +66,7 @@
 									value="#{centreController.centre.codePostal}" size="20"
 									maxlength="10" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}">
-									<a4j:ajax event="blur" ignoreDupResponses="true" />
+									<a4j:ajax event="blur"  />
 								</h:inputText>
 								<rich:message for="codePostal">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -78,7 +78,7 @@
 								value="#{centreController.centre.commune}" size="50"
 								maxlength="200" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								<a4j:ajax event="blur"  />
 							</h:inputText>
 							<rich:message for="commune">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -100,8 +100,7 @@
 								validatorMessage="#{requiredMessageController.adresseMailNonValide}"
 								maxlength="50">
 								<f:validator binding="#{mailValidator}" />
-								<a4j:ajax event="keyup" ignoreDupResponses="true" />
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								<a4j:ajax event="blur"  />
 							</h:inputText>
 							<rich:message for="mail">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -116,8 +115,7 @@
 								validatorMessage="#{requiredMessageController.siteWebNonValide}"
 								maxlength="200">
 								<f:validator binding="#{siteWebValidator}" />
-								<a4j:ajax event="keyup" ignoreDupResponses="true" />
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								<a4j:ajax event="blur"  />
 							</h:inputText>
 							<rich:message for="siteWeb">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -137,7 +135,7 @@
 									value="#{centreController.centre.telephone}" size="20"
 									maxlength="20" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}">
-									<a4j:ajax event="blur" ignoreDupResponses="true" />
+									<a4j:ajax event="blur"  />
 								</h:inputText>
 								<rich:message for="telephone">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -169,7 +167,7 @@
 								validatorMessage="#{requiredMessageController.siteWebNonValide}"
 								maxlength="200">
 								<f:validator binding="#{siteWebValidator}" />
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
+								<a4j:ajax event="blur"  />
 							</h:inputText>
 							<rich:message for="pageInstruction">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -258,7 +256,7 @@
 							value="#{centreController.centre.presenceTuteurPro}">
 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur"  />
 						</h:selectOneRadio>
 
 						<t:htmlTag value="div" style="height: 5px;" />

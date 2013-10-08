@@ -8,15 +8,19 @@ import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 
 
 /**
+ * 
  * acces aux donnees du personnel
+ *
  */
-public class PersonalDataRepositoryDomainLdap implements PersonalDataRepositoryDomain {
 
+public class PersonalDataRepositoryDomainLdap implements
+		PersonalDataRepositoryDomain {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	private PersonalDataRepositoryDao personalDataRepositoryDao;
 
 	/**

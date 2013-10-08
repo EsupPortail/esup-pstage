@@ -10,31 +10,6 @@
 	<!-- esup-pstagedata -->
 	<jaxws:client id="remoteServices"
 		serviceClass="org.esupportail.pstagedata.remote.RemoteServices"
-		address="${pstagedata.serviceUrl}" />
-	
-	<!-- ws si -->
-	<jaxws:client id="remoteCriApogeeEns"
-		serviceClass="org.esupportail.wssi.services.remote.ReadEnseignement"
-		address="${readEnseignement.urlService}" />
-	
-	<!-- ws apogee -->
-	<jaxws:client id="administratifMetierService"
-		serviceClass="administratifmetier_17062009_impl.servicesmetiers.commun.apogee.education.gouv.AdministratifMetierServiceInterface"
-		address="${administratifMetier.urlService}" />
-	<jaxws:client id="etudiantMetierService"
-		serviceClass="etudiantwebserviceimpl.impl.webservices.commun.apogee.education.gouv.EtudiantMetierServiceInterface"
-		address="${etudiantMetier.urlService}" />
-	<jaxws:client id="geographieMetierService"
-		serviceClass="geographiemetier_06062007_impl.servicesmetiers.commun.apogee.education.gouv.GeographieMetierServiceInterface"
-		address="${geographieMetier.urlService}" />
-	<jaxws:client id="offreFormationMetierService"
-		serviceClass="offreformationmetier_19072010_impl.servicesmetiers.commun.apogee.education.gouv.OffreFormationMetierServiceInterface"
-		address="${offreFormationMetier.urlService}" />
-	<jaxws:client id="pedagogiqueMetierService"
-		serviceClass="pedagogiquemetier_28022011_impl.servicesmetiers.commun.apogee.education.gouv.PedagogiqueMetierServiceInterface"
-		address="${pedagogiqueMetier.urlService}" />
-	<jaxws:client id="referentielMetierService"
-		serviceClass="referentielmetier_18062010_impl.servicesmetiers.commun.apogee.education.gouv.ReferentielMetierServiceInterface"
-		address="${referentielMetier.urlService}" />
+		address="${pstagedata.serviceUrl}"/>
 
 </beans>

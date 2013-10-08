@@ -1,72 +1,64 @@
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:fragment xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1" style="font-size:12px;">
+	<h:panelGrid columns="1" align="center" style="font-size:12px;"
+		columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 		<h:outputText value="#{msgs['MOTDEPASSEPERDU.CHOIXETAB']}"
 			rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}" />
-		<rich:dataTable align="center" width="700px"
-			id="listeStructuresTrouveeMotDePassePerdu" rows="5"
+		<rich:dataTable id="listeStructuresTrouveeMotDePassePerdu" rows="10"
 			rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"
-			columnClasses="col"
 			value="#{welcomeController.listeStructuresTrouveeMotDePassePerdu}"
-			var="structure" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-			<f:facet name="header">
-				<rich:columnGroup>
-					<rich:column>
-						<h:outputText styleClass="headerText"
-							value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
-					</rich:column>
-					<rich:column>
-						<h:outputText styleClass="headerText"
-							value="#{msgs['STRUCTURE.NUM_SIRET']}" />
-					</rich:column>
-					<rich:column>
-						<h:outputText styleClass="headerText"
-							value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-					</rich:column>
-					<rich:column>
-						<h:outputText styleClass="headerText"
-							value="#{msgs['STRUCTURE.VOIE']}" />
-					</rich:column>
-					<rich:column>
-						<h:outputText styleClass="headerText"
-							value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-					</rich:column>
-					<rich:column>
-						<h:outputText styleClass="headerText"
-							value="#{msgs['STRUCTURE.COMMUNE']}" />
-					</rich:column>
-					<rich:column>
-						<h:outputText styleClass="headerText"
-							value="#{msgs['STRUCTURE.PAYS']}" />
-					</rich:column>
-					<rich:column>
-					</rich:column>
-				</rich:columnGroup>
-			</f:facet>
+			var="structure">
 			<rich:column>
+				<f:facet name="header">
+					<h:outputText styleClass="headerText"
+						value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+				</f:facet>
 				<h:outputText value="#{structure.raisonSociale}" />
 			</rich:column>
 			<rich:column>
+				<f:facet name="header">
+					<h:outputText styleClass="headerText"
+						value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+				</f:facet>
 				<h:outputText value="#{structure.numeroSiret}" />
 			</rich:column>
 			<rich:column>
-				<h:outputText value="#{structure.batimentResidence}" />
-			</rich:column>
-			<rich:column>
+				<f:facet name="header">
+					<h:outputText styleClass="headerText"
+						value="#{msgs['STRUCTURE.VOIE']}" />
+				</f:facet>
 				<h:outputText value="#{structure.voie}" />
 			</rich:column>
 			<rich:column>
+				<f:facet name="header">
+					<h:outputText styleClass="headerText"
+						value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+				</f:facet>
+				<h:outputText value="#{structure.batimentResidence}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText styleClass="headerText"
+						value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+				</f:facet>
 				<h:outputText value="#{structure.codePostal}" />
 			</rich:column>
 			<rich:column>
+				<f:facet name="header">
+					<h:outputText styleClass="headerText"
+						value="#{msgs['STRUCTURE.COMMUNE']}" />
+				</f:facet>
 				<h:outputText value="#{structure.commune}" />
 			</rich:column>
 			<rich:column>
+				<f:facet name="header">
+					<h:outputText styleClass="headerText"
+						value="#{msgs['STRUCTURE.PAYS']}" />
+				</f:facet>
 				<h:panelGrid columns="2" style="font-size:12px;">
 					<h:graphicImage id="flag" rendered="#{not empty structure.pays}"
 						value="../../media/images/flags/#{structure.pays.iso2}.png"
@@ -76,30 +68,26 @@
 				</h:panelGrid>
 			</rich:column>
 			<rich:column>
-				<a4j:commandLink id="selectionStructure"
-					render="structureSelected">
+				<a4j:commandLink id="selectionStructure" render="structureSelected">
 					<f:setPropertyActionListener value="#{structure}"
 						target="#{welcomeController.structureSelectionneeMotDePassePerdu}" />
 					<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
 						value="../../media/images/zoom.png" style="border:0" />
-					<rich:tooltip followMouse="true"
-						direction="top-right" styleClass="tooltip"
-						value="#{msgs['FORM.SELECTIONNER']}" />
+					<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
 				</a4j:commandLink>
 			</rich:column>
 			<f:facet name="footer">
-				<rich:datascroller align="center"
+				<rich:dataScroller align="center"
 					for="listeStructuresTrouveeMotDePassePerdu" maxPages="20" page="1"
 					renderIfSinglePage="false" />
 			</f:facet>
 		</rich:dataTable>
 	</h:panelGrid>
-	<rich:spacer height="20px" />
+	<t:htmlTag value="div" style="height:20px;" />
 	<a4j:outputPanel id="structureSelected">
 		<t:div
 			rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu}">
-			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
-				alternateColors="true" align="center">
+			<h:panelGrid columns="2" align="center" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 				<h:outputLabel for="raisonSociale"
 					value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
 				<h:outputText id="raisonSociale"
@@ -107,13 +95,13 @@
 				<h:outputLabel for="nsiret" value="#{msgs['STRUCTURE.NUM_SIRET']}" />
 				<h:outputText id="nsiret"
 					value="#{welcomeController.structureSelectionneeMotDePassePerdu.numeroSiret}" />
-				<h:outputLabel for="batimentResidence"
-					value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-				<h:outputText id="batimentResidence"
-					value="#{welcomeController.structureSelectionneeMotDePassePerdu.batimentResidence}" />
 				<h:outputLabel for="voie" value="#{msgs['STRUCTURE.VOIE']}" />
 				<h:outputText id="voie"
 					value="#{welcomeController.structureSelectionneeMotDePassePerdu.voie}" />
+				<h:outputLabel for="batimentResidence" rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu.batimentResidence}"
+					value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+				<h:outputText id="batimentResidence" rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu.batimentResidence}"
+					value="#{welcomeController.structureSelectionneeMotDePassePerdu.batimentResidence}" />
 				<h:outputLabel for="codepostal"
 					value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
 				<h:outputText id="codepostal"
@@ -131,11 +119,11 @@
 					<h:outputText id="pays"
 						value="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
 				</h:panelGrid>
-				<rich:spacer height="40px" />
+				<t:htmlTag value="div" style="height:40px;" />
 				<a4j:commandButton
 					action="#{welcomeController.goToRecuperationMotDePasse}"
-					value="#{msgs['FORM.NEXT']}" />
+					render="formMotDePassePerdu" value="#{msgs['FORM.NEXT']}" />
 			</h:panelGrid>
 		</t:div>
 	</a4j:outputPanel>
-</ui:composition>
+</ui:fragment>

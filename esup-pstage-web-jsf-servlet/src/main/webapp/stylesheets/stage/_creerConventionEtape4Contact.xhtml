@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -13,11 +13,10 @@
 				<h:outputText value="#{msgs['CONVENTION.ETAPE4.CONTACT']}" />
 			</f:facet>
 			<h:panelGrid columns="1">
-				<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-					action="_creerConventionEtape3Service"
+				<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+					action="creerConventionEtape3Service"
 					alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-					immediate="true">
-				</a4j:commandButton>
+					immediate="true"/>
 				<t:htmlTag value="div" style="height: 20px;" />
 				<h:outputText
 					value="#{msgs['CONVENTION.ETAPE4.CHOIXCONTACT.DEMANDE']}"
@@ -175,13 +174,13 @@
 								<f:setPropertyActionListener value="#{contact}"
 									target="#{conventionController.convention.contact}" />
 								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
-									value="../../media/images/back.png" style="border:0" />
+									value="../../media/images/tick.png" style="border:0" />
 								<rich:tooltip value="#{msgs['CONVENTION.SELECCONTACT']}" />
 							</a4j:commandLink>
 						</rich:column>
 
 						<f:facet name="footer">
-							<rich:datascroller id="ds" renderIfSinglePage="false"></rich:datascroller>
+							<rich:dataScroller id="ds" renderIfSinglePage="false" />
 						</f:facet>
 					</rich:dataTable>
 				</a4j:outputPanel>
@@ -223,4 +222,4 @@
 			</h:panelGrid>
 		</rich:panel>
 	</h:panelGrid>
-</ui:fragment>
+</ui:composition>

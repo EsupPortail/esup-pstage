@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,10 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<a4j:commandButton execute="@this" value="#{msgs['GENERAL.CLOSE']}"
-		action="_diffusionOffreEtape1"
-		onclick="#{rich:component('diffusionOffre')}.hide();" />
-</ui:fragment>
+	<ui:include src="_confirmationMessages.xhtml" />
+
+	<t:htmlTag value="center">
+		<a4j:commandButton execute="@this" value="#{msgs['GENERAL.CLOSE']}"
+			onclick="#{rich:component('diffusionOffre')}.hide();" />
+	</t:htmlTag>
+</ui:composition>

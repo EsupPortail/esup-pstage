@@ -14,4 +14,23 @@
 		class="org.esupportail.commons.services.authentication.CasFilterAuthenticationService">
 	</bean>
 
+	<bean id="servletCasService"
+		class="org.esupportail.commons.services.cas.ServletCasServiceImpl"
+		scope="session" lazy-init="true" />
+
+	<bean id="authenticationFilter"
+		class="org.jasig.cas.client.authentication.AuthenticationFilter"
+		p:casServerLoginUrl="${cas.url}/login" p:serverName="${base.url}" />
+
+	<!-- Ticket validation filter -->
+	<bean id="ticketValidationFilter"
+		class="org.jasig.cas.client.validation.Cas10TicketValidationFilter"
+		p:serverName="${base.url}">
+		<property name="ticketValidator">
+			<bean class="org.jasig.cas.client.validation.Cas10TicketValidator">
+				<constructor-arg index="0" value="${cas.url}" />
+			</bean>
+		</property>
+	</bean>
+
 </beans>

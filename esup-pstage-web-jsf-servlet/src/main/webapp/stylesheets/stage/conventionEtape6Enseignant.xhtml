@@ -4,7 +4,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
 		<rich:panel>
@@ -30,8 +30,7 @@
 							value="#{msgs['FORM.MODIFIER']}"
 							action="#{conventionController.goToConventionModifEnseignant}"
 							alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-							rendered="#{!conventionController.conventionValide}">
-						</h:commandButton>
+							rendered="#{!conventionController.conventionValide}" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>

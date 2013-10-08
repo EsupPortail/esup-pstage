@@ -7,11 +7,11 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:panelGrid columns="3"
-		rendered="#{offreController.currentOffre.idOffre>0}"
+		rendered="#{offreController.currentOffre.idOffre gt 0}"
 		style="float:right;">
-		<h:bold value="#{msgs['OFFRE']} " />
-		<h:bold value=" #{msgs['OFFRE.ID']}" />
-		<h:outputText value="#{offreController.currentOffre.idOffre}" />
+		<h:outputLabel for="idOffre" value="#{msgs['OFFRE']} " />
+		<h:outputLabel for="idOffre" value=" #{msgs['OFFRE.ID']}" />
+		<h:outputText id="idOffre" value="#{offreController.currentOffre.idOffre}" />
 	</h:panelGrid>
 	<t:div rendered="#{not empty offreController.currentOffre.structure}"
 		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
@@ -27,16 +27,11 @@
 				value="#{offreController.currentOffre.structure}"
 				target="#{etablissementController.formStructure}" />
 		</h:commandButton>
-		<h:outputText value=" " id="formAffEtab" />
-		<h:panelGrid columns="2" align="center">
-			<h:column>
-				<ui:include src="../_commun/_confirmationImagesPermanentes.xhtml" />
-			</h:column>
-			<h:column>
-				<rich:message for="formAffEtab">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-			</h:column>
+		<h:panelGrid id="formAffEtab" align="center">
+			<rich:message for="formAffEtab">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+			<t:htmlTag value="div" style="height:10px;"/>
 		</h:panelGrid>
 		<h:panelGrid columns="2">
 			<h:column>
@@ -52,11 +47,10 @@
 					rendered="#{offreController.typeAjoutModifOffre gt 2}" />
 			</h:column>
 			<h:column>
-				<h:panelGrid columns="2">
-					<h:commandButton id="continuer" value="#{msgs['FORM.NEXT']}"
-						action="#{offreController.goToModificationOffreEtape1}"
-						alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}" />
-				</h:panelGrid>
+				<a4j:commandButton id="continuer" value="#{msgs['FORM.NEXT']}"
+					action="#{offreController.goToModificationOffreEtape1}"
+					render="formModificationOffre"
+					alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}" />
 			</h:column>
 		</h:panelGrid>
 	</t:div>

@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,143 +6,135 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1"
+	<rich:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.ETAPE3.SERVICE']}" />
-			</f:facet>
-			<h:panelGrid columns="1">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE3.SERVICE']}" />
+		</f:facet>
 
-				<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-					action="_creerConventionEtape2DetailsEtab"
-					alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-					immediate="true">
-				</a4j:commandButton>
-				<t:htmlTag value="div" style="height: 20px;" />
-				<t:htmlTag value="div" style="height: 20px;" />
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE3.CHOIXSERVICE.DEMANDE']}" />
+		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+			action="creerConventionEtape2Etab" immediate="true">
+			<f:setPropertyActionListener
+				value="_creerConventionEtape2DetailsEtab"
+				target="#{sessionController.creationConventionEtape2CurrentPage}" />
+		</h:commandButton>
 
-				<t:htmlTag value="div" style="height: 20px;" />
+		<t:htmlTag value="div" style="height: 40px;" />
 
-				<h:outputText
-					value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
-					rendered="#{empty sessionController.currentManageStructure}" />
-				<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
-					rendered="#{empty etablissementController.listeServices}"
-					escape="false" />
+		<h:outputText
+			value="#{msgs['CONVENTION.ETAPE3.CHOIXSERVICE.DEMANDE']}" />
 
-				<a4j:outputPanel id="opService">
-					<h:panelGrid columns="2">
-						<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
-							escape="false"
-							rendered="#{not empty etablissementController.listeServices}" />
-						<h:selectOneMenu id="sOMService"
-							value="#{etablissementController.idServiceSel}"
-							converter="#{intConverter}"
-							valueChangeListener="#{etablissementController.valueIdServiceChanged}"
-							rendered="#{not empty etablissementController.listeServices}">
-							<f:selectItems value="#{etablissementController.servicesItems}" />
-							<a4j:ajax event="blur" ignoreDupResponses="true"
-								render="opActionsService" execute="@this" />
-							<a4j:ajax event="valueChange" render="opActionsService"
-								ignoreDupResponses="true" execute="@this" />
-						</h:selectOneMenu>
-					</h:panelGrid>
-					<h:panelGrid columns="3">
-						<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}"
-							escape="false" />
-						<a4j:commandLink execute="@this" id="ajout"
-							rendered="#{not empty etablissementController.idServiceSel}"
-							oncomplete="#{rich:component('ajoutService')}.show()"
-							action="#{etablissementController.ajoutService}"
-							render="ajoutService">
-							<f:setPropertyActionListener value="#{true}"
-								target="#{etablissementController.memeAdresseStructure}" />
-							<f:setPropertyActionListener value="_ajoutServiceEtape1"
-								target="#{sessionController.ajoutServiceCurrentPage}" />
-							<h:graphicImage alt="#{msgs['FORM.CREER']}"
-								value="../../media/images/new.png" style="border:0" />
-							<rich:tooltip value="#{msgs['FORM.CREER']}" />
-						</a4j:commandLink>
-					</h:panelGrid>
-				</a4j:outputPanel>
-				<t:htmlTag value="div" style="height: 20px;" />
-				<a4j:outputPanel id="opActionsService">
-					<h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
-						escape="false"
-						rendered="#{not empty etablissementController.serviceSel}" />
-					<rich:dataTable value="#{etablissementController.serviceSel}"
-						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-						rendered="#{not empty etablissementController.serviceSel}">
-						<ui:include src="../_commun/_serviceColumns.xhtml" />
+		<t:htmlTag value="div" style="height: 20px;" />
 
-						<rich:column>
-							<a4j:commandLink execute="@this" id="modif"
-								rendered="#{not empty etablissementController.idServiceSel
-							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-							welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-							|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-							(!sessionController.autoriserEtudiantAModifierEntreprise 
-							and ((empty etablissementController.serviceSel.loginModif and
-							etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
-							|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
-								oncomplete="#{rich:component('modifService')}.show()"
-								render="modifService">
-								<f:setPropertyActionListener value="#{false}"
-									target="#{etablissementController.memeAdresseStructure}" />
-								<f:setPropertyActionListener
-									value="#{etablissementController.serviceSel}"
-									target="#{etablissementController.formService}" />
-								<f:setPropertyActionListener value="_modifServiceEtape0"
-									target="#{sessionController.modifServiceCurrentPage}" />
-								<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-									value="../../media/images/edit.png" style="border:0" />
-								<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-							</a4j:commandLink>
-							<a4j:commandLink execute="@this" id="suppr"
-								rendered="#{not empty etablissementController.idServiceSel
-							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-							welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-							|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-							(!sessionController.autoriserEtudiantAModifierEntreprise 
-							and ((empty etablissementController.serviceSel.loginModif and
-							etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
-							|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
-								oncomplete="#{rich:component('supprService')}.show()"
-								render="supprService">
-								<f:setPropertyActionListener value="#{false}"
-									target="#{etablissementController.memeAdresseStructure}" />
-								<f:setPropertyActionListener
-									value="#{etablissementController.serviceSel}"
-									target="#{etablissementController.formService}" />
-								<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-									value="../../media/images/delete.png" style="border:0" />
-								<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-							</a4j:commandLink>
-							<a4j:commandLink execute="@this" id="selC"
-								rendered="#{not empty etablissementController.idServiceSel}"
-								action="#{conventionController.goToCreerConventionEtape4Contact}">
+		<h:outputText
+			value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+			rendered="#{empty sessionController.currentManageStructure}" />
+		<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
+			rendered="#{empty etablissementController.listeServices}"
+			escape="false" />
 
-								<f:setPropertyActionListener
-									value="#{etablissementController.serviceSel}"
-									target="#{conventionController.convention.service}" />
-								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
-									value="../../media/images/back.png" style="border:0" />
-								<rich:tooltip value="#{msgs['CONVENTION.SELECSERVICE']}" />
-							</a4j:commandLink>
-						</rich:column>
-
-
-						<f:facet name="footer">
-							<rich:datascroller id="ds" renderIfSinglePage="false"></rich:datascroller>
-						</f:facet>
-					</rich:dataTable>
-				</a4j:outputPanel>
-				<t:htmlTag value="div" style="height: 20px;" />
+		<a4j:outputPanel id="opService">
+			<h:panelGrid columns="2">
+				<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
+					escape="false"
+					rendered="#{not empty etablissementController.listeServices}" />
+				<h:selectOneMenu id="sOMService"
+					value="#{etablissementController.idServiceSel}"
+					converter="#{intConverter}"
+					valueChangeListener="#{etablissementController.valueIdServiceChanged}"
+					rendered="#{not empty etablissementController.listeServices}">
+					<f:selectItems value="#{etablissementController.servicesItems}" />
+					<a4j:ajax event="valueChange" render="opActionsService"
+						execute="@this" />
+				</h:selectOneMenu>
 			</h:panelGrid>
-		</rich:panel>
-	</h:panelGrid>
-</ui:fragment>
+			<h:panelGrid columns="3">
+				<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
+				<a4j:commandLink execute="@this" id="ajout"
+					rendered="#{not empty etablissementController.idServiceSel}"
+					oncomplete="#{rich:component('ajoutService')}.show()"
+					action="#{etablissementController.ajoutService}"
+					render="ajoutService">
+					<f:setPropertyActionListener value="#{true}"
+						target="#{etablissementController.memeAdresseStructure}" />
+					<f:setPropertyActionListener value="_ajoutServiceEtape1"
+						target="#{sessionController.ajoutServiceCurrentPage}" />
+					<h:graphicImage alt="#{msgs['FORM.CREER']}"
+						value="../../media/images/new.png" style="border:0" />
+					<rich:tooltip value="#{msgs['FORM.CREER']}" />
+				</a4j:commandLink>
+			</h:panelGrid>
+		</a4j:outputPanel>
+		<t:htmlTag value="div" style="height: 20px;" />
+		<a4j:outputPanel id="opActionsService">
+			<h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
+				escape="false"
+				rendered="#{not empty etablissementController.serviceSel}" />
+			<rich:dataTable value="#{etablissementController.serviceSel}"
+				rendered="#{not empty etablissementController.serviceSel}">
+				<ui:include src="../_commun/_serviceColumns.xhtml" />
+
+				<rich:column>
+					<a4j:commandLink execute="@this" id="modif"
+						rendered="#{not empty etablissementController.idServiceSel
+							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+							welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+							|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+							(!sessionController.autoriserEtudiantAModifierEntreprise 
+							and ((empty etablissementController.serviceSel.loginModif and
+							etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
+							|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
+						oncomplete="#{rich:component('modifService')}.show()"
+						render="modifService">
+						<f:setPropertyActionListener value="#{false}"
+							target="#{etablissementController.memeAdresseStructure}" />
+						<f:setPropertyActionListener
+							value="#{etablissementController.serviceSel}"
+							target="#{etablissementController.formService}" />
+						<f:setPropertyActionListener value="_modifServiceEtape0"
+							target="#{sessionController.modifServiceCurrentPage}" />
+						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+							value="../../media/images/edit.png" style="border:0" />
+						<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
+					</a4j:commandLink>
+					<a4j:commandLink execute="@this" id="suppr"
+						rendered="#{not empty etablissementController.idServiceSel
+							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+							welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+							|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+							(!sessionController.autoriserEtudiantAModifierEntreprise 
+							and ((empty etablissementController.serviceSel.loginModif and
+							etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
+							|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
+						oncomplete="#{rich:component('supprService')}.show()"
+						render="supprService">
+						<f:setPropertyActionListener value="#{false}"
+							target="#{etablissementController.memeAdresseStructure}" />
+						<f:setPropertyActionListener
+							value="#{etablissementController.serviceSel}"
+							target="#{etablissementController.formService}" />
+						<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+							value="../../media/images/delete.png" style="border:0" />
+						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+					</a4j:commandLink>
+					<a4j:commandLink execute="@this" id="selC"
+						rendered="#{not empty etablissementController.idServiceSel}"
+						action="#{conventionController.goToCreerConventionEtape4Contact}">
+
+						<f:setPropertyActionListener
+							value="#{etablissementController.serviceSel}"
+							target="#{conventionController.convention.service}" />
+						<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
+							value="../../media/images/tick.png" style="border:0" />
+						<rich:tooltip value="#{msgs['CONVENTION.SELECSERVICE']}" />
+					</a4j:commandLink>
+				</rich:column>
+				<f:facet name="footer">
+					<rich:dataScroller id="ds" renderIfSinglePage="false" />
+				</f:facet>
+			</rich:dataTable>
+		</a4j:outputPanel>
+		<t:htmlTag value="div" style="height: 20px;" />
+	</rich:panel>
+</ui:composition>

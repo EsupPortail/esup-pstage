@@ -1,23 +1,26 @@
-<ui:include src="../_include.xhtml"/>
-
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
-	<h:panelGrid style="float:left;">
-		<ui:include src="./_menu.xhtml"/>
-	</h:panelGrid>
-	<t:div rendered="#{sessionController.adminPageAuthorized}">
-		<h:panelGrid columns="1"
-			styleClass="panelEntreprise">
-			<rich:panel>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['ACCORD.CONSULTATION']}" />
-				</f:facet>
-				<h:form id="formConsultationAccord">
-					<ui:include src="_affichageAccord.xhtml"/>
-				</h:form>
-			</rich:panel>
-			<ui:include src="_panelNousContacter.xhtml"/>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	<ui:define name="content">
+		<h:panelGrid style="float:left;">
+			<ui:include src="./_menu.xhtml" />
 		</h:panelGrid>
-	</t:div>
-</e:page>
+		<t:div rendered="#{sessionController.adminPageAuthorized}">
+			<h:panelGrid columns="1" styleClass="panelEntreprise">
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['ACCORD.CONSULTATION']}" />
+					</f:facet>
+					<h:form id="formConsultationAccord">
+						<ui:include src="_affichageAccord.xhtml" />
+					</h:form>
+				</rich:panel>
+				<ui:include src="_panelNousContacter.xhtml" />
+			</h:panelGrid>
+		</t:div>
+	</ui:define>
+</ui:composition>
 

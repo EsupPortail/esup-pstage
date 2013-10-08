@@ -6,37 +6,37 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['EXPORTCONVENTION.TITRE']}" />
 			</f:facet>
 			<h:form id="formRechConvention">
-				<a4j:region id="rExport">
 					<h:panelGrid columns="1" style="width:auto;">
 						<h:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES']}"
 							for="numConvention" />
-						<t:htmlTag value="div" style="height: 5px;" />>
-								<h:outputLabel
+						<t:htmlTag value="div" style="height: 5px;" />
+						<h:outputLabel for="formRechConvention"
 							value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
 						<rich:pickList listHeight="250" listWidth="250"
-							copyAllControlLabel="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-							copyControlLabel="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-							removeControlLabel="#{msgs['EXPORTCONVENTION.RETIRER']}"
-							removeAllControlLabel="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
+							addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
+							addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
+							removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
+							removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
 							value="#{exportController.conventionColonnesChoisies}">
 							<f:selectItems value="#{exportController.conventionColonnes}" />
 						</rich:pickList>
 
 						<t:htmlTag value="div" style="height: 10px;" />
 
-						<h:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
-						<rich:pickList listHeight="250" listWidth="250"
-							copyAllControlLabel="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-							copyControlLabel="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-							removeControlLabel="#{msgs['EXPORTCONVENTION.RETIRER']}"
-							removeAllControlLabel="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
+						<h:outputLabel for="formRechConvention"
+							value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
+						<rich:pickList listHeight="250" listWidth="250" 
+							addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
+							addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
+							removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
+							removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
 							value="#{exportController.conventionEntrepriseColonnesChoisies}">
 							<f:selectItems
 								value="#{exportController.conventionEntrepriseColonnes}" />
@@ -52,15 +52,8 @@
 							<h:commandButton
 								value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
 								action="#{exportController.goToExportConvention}" />
-							<a4j:status for="rExport">
-								<f:facet name="start">
-									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-								</f:facet>
-							</a4j:status>
-							<t:htmlTag value="div" style="width: 100px;" />
 						</h:panelGrid>
 					</h:panelGrid>
-				</a4j:region>
 			</h:form>
 			<rich:message for="formRechConvention" showDetail="true">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />

@@ -17,8 +17,7 @@
 					value="#{msgs['CONVENTION.ETAPE11.MOTIF']} *" />
 				<h:inputTextarea style="width:200px;" id="motif"
 					value="#{avenantController.avenant.motifAvenant}">
-					<a4j:ajax event="keyup" ignoreDupResponses="true"
-						requestDelay="1500" render="typeModifAvenant" />
+					<a4j:ajax event="blur" render="typeModifAvenant" />
 				</h:inputTextarea>
 			</h:panelGrid>
 			<t:div id="typeModifAvenant">
@@ -85,7 +84,7 @@
 										<h:inputTextarea required="true" id="textSujet"
 											value="#{avenantController.avenant.sujetStage}"
 											requiredMessage="#{requiredMessageController.champObligatoire}">
-											<a4j:ajax event="blur" ignoreDupResponses="true" />
+											<a4j:ajax event="blur"  />
 										</h:inputTextarea>
 										<h:outputText />
 										<rich:message for="textSujet">
@@ -284,7 +283,7 @@
 												validatorMessage="#{requiredMessageController.mtGratificationNonValide}"
 												value="#{avenantController.avenant.montantGratification}">
 												<f:validator binding="#{mtGratificationValidator}" />
-												<a4j:ajax event="blur" ignoreDupResponses="true" />
+												<a4j:ajax event="blur"  />
 											</h:inputText>
 											<h:selectOneMenu id="uniteGratification"
 												value="#{avenantController.avenant.uniteGratification}"

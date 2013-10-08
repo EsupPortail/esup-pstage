@@ -4,13 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.esupportail.pstage.domain.beans.EtudiantRef;
-import org.springframework.beans.factory.InitializingBean;
 
 /**
  * @author dhouillo
  *
  */
-public interface StudentDataRepositoryDao extends Serializable, InitializingBean {
+public interface StudentDataRepositoryDao extends Serializable{
 	/**
  * @param universityCode
  * @param id

@@ -6,14 +6,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
 
 <f:view locale="fr">
 	<h:head>
 		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
-			<title><h:outputText value="#{applicationService.name}" /></title>
 		</f:facet>
+		<title><h:outputText value="#{applicationService.name}" /></title>
 		<link rel="stylesheet" type="text/css"
 			href="../../../media/style/skins/universality/etab/etab.css" />
 		<link rel="stylesheet" type="text/css"
@@ -38,6 +40,7 @@
 				hideButton("welcomeManagerForm:localeChangeButton");
 			</script>
 		</t:div>
+		<a4j:log />
 	</h:body>
 </f:view>
 </html>

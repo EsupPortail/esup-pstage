@@ -55,7 +55,6 @@ public class GetFileServlet extends HttpServlet{
 	 */
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res){
-
 		ServletContext sc = getServletContext();
 		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(sc);
 		offreDomainService = (OffreDomainService)ac.getBean("offreDomainService");

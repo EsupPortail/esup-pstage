@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,13 +6,11 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1"
-		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<rich:panel>
+		<rich:panel
+			style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
 			</f:facet>
-			<t:htmlTag value="div" style="height: 20px;" />
 			<h:outputText value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
 
 			<t:htmlTag value="div" style="height: 20px;" />
@@ -24,7 +22,6 @@
 					src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 			</t:div>
 			<h:panelGrid columns="1" id="formResultatsRechEtab">
-
 				<t:div
 					rendered="#{not empty rechercheController.ongletCourant 
 					and rechercheController.ongletCourant!=6}">
@@ -54,50 +51,41 @@
 							var="varRechercheStructure"
 							rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
 							value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
-							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-							border="0" cellspacing="2" cellpadding="2" width="600">
+							rows="20">
 							<f:facet name="header">
-								<rich:columnGroup>
-									<ui:include
-										src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
-								</rich:columnGroup>
-							</f:facet>
-							<f:facet name="footer">
-								<h:panelGroup>
-									<ui:include
-										src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" />
-								</h:panelGroup>
+								<ui:include src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
 							</f:facet>
 							<ui:include
 								src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 							<rich:column>
 								<a4j:commandButton id="selectionEtab"
 									value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+									alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+									title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
 									action="#{conventionController.goToCreerConventionEtape2DetailsEtab}"
 									image="../../media/images/zoom.png"
-									alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-									title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
+									render="formConvention">
 									<f:setPropertyActionListener value="#{varRechercheStructure}"
 										target="#{rechercheController.resultatRechercheStructure}" />
 									<f:setPropertyActionListener value="_creerConventionEtape2Etab"
 										target="#{conventionController.retourAction}" />
-									<rich:tooltip
-										value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+									<rich:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
 								</a4j:commandButton>
 							</rich:column>
+							<f:facet name="footer">
+								<rich:dataScroller for="rechercheStructureDataTable"
+									maxPages="20" page="1"
+									renderIfSinglePage="false" id="listeScroller"/>
+							</f:facet>
 						</rich:dataTable>
 					</t:div>
 				</a4j:outputPanel>
 			</h:panelGrid>
-
 		</rich:panel>
-		<h:panelGrid columns="2">
-			<a4j:commandButton
-				action="#{conventionController.goToCreerConventionEtape1ConfirmInfosEtu}"
-				value="#{msgs['FORM.PREVIOUS']}" immediate="true">
-			</a4j:commandButton>
-
-		</h:panelGrid>
-	</h:panelGrid>
-</ui:fragment>
+		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			immediate="true"
+			action="creerConventionEtape1Etudiant">
+			<f:setPropertyActionListener value="_creerConventionEtape1DemandeLienOffre"
+				target="#{sessionController.creationConventionEtape1CurrentPage}" />
+		</h:commandButton>
+</ui:composition>

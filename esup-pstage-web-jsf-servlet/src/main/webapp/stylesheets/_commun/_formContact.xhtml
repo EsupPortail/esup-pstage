@@ -52,8 +52,8 @@
 				<h:inputText id="nom" style="text-transform:uppercase;"
 					value="#{etablissementController.formContact.nom}" size="50"
 					maxlength="50" required="true"
+					converter="#{upperCaseConverter}"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<f:converter binding="#{upperCaseConverter}" />
 					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="nom">
@@ -63,8 +63,8 @@
 				<h:inputText id="prenom" style="text-transform:capitalize;"
 					value="#{etablissementController.formContact.prenom}" size="50"
 					maxlength="50" required="true"
+					converter="#{premiereLettreMAJConverter}"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<f:converter binding="#{premiereLettreMAJConverter}" />
 					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="prenom">
@@ -90,27 +90,21 @@
 						value="#{msgs['CONTACT.GESTION.UNDESTROIS']} " />
 				</t:panelGrid>
 				<t:htmlTag value="div" style="height: 5px;" />
+				
 				<h:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} " />
 				<h:inputText id="telC" size="20" maxlength="20"
-					value="#{etablissementController.formContact.tel}">
-					<a4j:ajax event="blur"/>
-				</h:inputText>
-				<rich:message for="telC">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+					value="#{etablissementController.formContact.tel}" />
+				
 				<h:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
 				<h:inputText id="faxC" size="20" maxlength="20"
 					value="#{etablissementController.formContact.fax}" />
-				<rich:message for="faxC">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				
 				<h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} " />
 				<h:inputText id="mailC"
 					value="#{etablissementController.formContact.mail}" size="50"
 					maxlength="50"
 					validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 					<f:validator binding="#{mailValidator}" />
-					<a4j:ajax event="keyup"/>
 					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="mailC">

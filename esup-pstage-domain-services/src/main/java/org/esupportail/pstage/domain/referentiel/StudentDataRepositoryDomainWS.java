@@ -18,7 +18,7 @@ public class StudentDataRepositoryDomainWS implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -885157544610644035L;
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
@@ -52,7 +52,7 @@ public class StudentDataRepositoryDomainWS implements
 		if(logger.isInfoEnabled()){
 			logger.info(" Appel de StudentDataRepositoryWS.getStudentByNum(String universityCode, String id) : " + universityCode +  "id : " + id);
 		}
-		
+
 		EtudiantRef etudiantRef = studentDataRepositoryDaoWS.getEtudiantRefByNum(universityCode, id);
 		
 		if(logger.isDebugEnabled()){
@@ -97,5 +97,11 @@ public class StudentDataRepositoryDomainWS implements
 			StudentDataRepositoryDaoWS studentDataRepositoryDaoWS) {
 		this.studentDataRepositoryDaoWS = studentDataRepositoryDaoWS;
 	}
+
+
+
+	
+
+
 
 }

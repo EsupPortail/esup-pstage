@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -12,8 +12,7 @@
 			<h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSION']}" />
 		</f:facet>
 		<h:form id="formDiffusionOffre">
-			<ui:include id="include"
-				src="/stylesheets/_commun/_diffusionOffreEtape1.xhtml" />
+			<ui:include src="/stylesheets/_commun/#{sessionController.diffusionOffreCurrentPage}.xhtml" />
 		</h:form>
 	</rich:popupPanel>
-</ui:fragment>
+</ui:composition>

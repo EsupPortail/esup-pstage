@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,107 +6,87 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1"
+	<rich:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT']}" />
-			</f:facet>
-			<t:htmlTag value="div" style="height: 20px;" />
-			<h:outputText
-				value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT']}" />
+		</f:facet>
 
-			<t:htmlTag value="br" />
+		<t:htmlTag value="div" style="height: 10px;" />
 
-			<rich:dataTable align="center" width="483" id="choixEtape" rows="10"
-				columnClasses="col"
-				value="#{conventionController.listeResultatsRechercheEtudiant}"
-				var="etudiantRef">
-				<f:facet name="header">
-					<rich:columnGroup>
+		<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
 
-						<rich:column>
-							<h:outputText styleClass="headerText"
-								value="#{msgs['CONVENTION.NUMETUDIANT']}" />
-						</rich:column>
-						<rich:column>
-							<h:outputText styleClass="headerText"
-								value="#{msgs['CONVENTION.NOM']}" />
-						</rich:column>
-						<rich:column>
-							<h:outputText styleClass="headerText"
-								value="#{msgs['CONVENTION.PRENOM']}" />
-						</rich:column>
-						<rich:column>
-							<h:outputText styleClass="headerText"
-								value="#{msgs['CONVENTION.VOTREETAPE']}" />
-						</rich:column>
-						<rich:column>
-							<h:outputText styleClass="headerText"
-								value="#{msgs['CONVENTION.VOTREUFR']}" />
-						</rich:column>
-						<rich:column>
-							<h:outputText styleClass="headerText"
-								value="#{msgs['FORM.VOIR']}" />
-						</rich:column>
-					</rich:columnGroup>
-				</f:facet>
+		<t:htmlTag value="div" style="height: 10px;" />
 
+		<h:panelGrid align="center"
+			columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+			<rich:dataTable id="listeEtu" rows="15" var="etudiantRef"
+				value="#{conventionController.listeResultatsRechercheEtudiant}">
 				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerText"
+							value="#{msgs['CONVENTION.NUMETUDIANT']}" />
+					</f:facet>
 					<h:outputText value="#{etudiantRef.numEtudiant}" />
-					<t:htmlTag value="div" style="height: 5px;" />
 				</rich:column>
 				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerText"
+							value="#{msgs['CONVENTION.NOM']}" />
+					</f:facet>
 					<h:outputText value="#{etudiantRef.nom}  #{etudiantRef.nomMarital}" />
-					<t:htmlTag value="div" style="height: 5px;" />
 				</rich:column>
 				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerText"
+							value="#{msgs['CONVENTION.PRENOM']}" />
+					</f:facet>
 					<h:outputText value="#{etudiantRef.prenom}" />
-					<t:htmlTag value="div" style="height: 5px;" />
 				</rich:column>
 				<rich:column>
-					<rich:dataList var="key" value="#{etudiantRef.stepsKey }">
-						<rich:column>
-							<h:outputText value="#{key} : #{etudiantRef.steps[key]}  " />
-						</rich:column>
-					</rich:dataList>
+					<f:facet name="header">
+						<h:outputText styleClass="headerText"
+							value="#{msgs['CONVENTION.VOTREETAPE']}" />
+					</f:facet>
+					<rich:list var="key" value="#{etudiantRef.stepsKey}">
+						<h:outputText value="#{key} : #{etudiantRef.steps[key]}  " />
+					</rich:list>
 				</rich:column>
 				<rich:column>
-					<rich:dataList var="keyU" value="#{etudiantRef.studysKey }">
-						<rich:column>
-							<h:outputText value="#{keyU} : #{etudiantRef.studys[keyU]}  " />
-						</rich:column>
-					</rich:dataList>
+					<f:facet name="header">
+						<h:outputText styleClass="headerText"
+							value="#{msgs['CONVENTION.VOTREUFR']}" />
+					</f:facet>
+					<rich:list var="keyU" value="#{etudiantRef.studysKey }">
+						<h:outputText value="#{keyU} : #{etudiantRef.studys[keyU]}  " />
+					</rich:list>
 				</rich:column>
-
 				<rich:column>
-					<a4j:commandLink id="voir"
+					<f:facet name="header">
+						<h:outputText styleClass="headerText" value="#{msgs['FORM.VOIR']}" />
+					</f:facet>
+					<h:commandLink id="voir"
 						action="#{conventionController.recupInfosEtudiantRef}">
 						<f:setPropertyActionListener value="#{etudiantRef}"
 							target="#{conventionController.resultatEtudiantRef}" />
 						<h:graphicImage alt="#{msgs['FORM.VOIR']}"
 							value="../../media/images/zoom.png" style="border:0" />
 						<rich:tooltip value="#{msgs['FORM.VOIR']}" />
-					</a4j:commandLink>
+					</h:commandLink>
 				</rich:column>
 
 				<f:facet name="footer">
-					<rich:datascroller align="center" for="choixEtape" maxPages="20"
-						page="1" id="listeScroller" renderIfSinglePage="false" />
+					<rich:dataScroller align="center" for="listeEtu" maxPages="20"
+						page="1" id="listeEtuScroller" renderIfSinglePage="false" />
 				</f:facet>
 			</rich:dataTable>
-
-			<h:panelGrid columns="1">
-
-				<a4j:commandButton
-					action="#{conventionController.goToCreerConventionRechEtu}"
-					value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}" immediate="true">
-				</a4j:commandButton>
-
-			</h:panelGrid>
-
-		</rich:panel>
-	</h:panelGrid>
-</ui:fragment>
-
-
+		</h:panelGrid>
+		<t:htmlTag value="div" style="height:10px;" />
+		<h:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}"
+			action="creerConventionEtape1Etudiant" immediate="true">
+			<f:setPropertyActionListener
+				value="_creerConventionEtape1RechercheEtudiant"
+				target="#{sessionController.creationConventionEtape1CurrentPage}" />
+		</h:commandButton>
+	</rich:panel>
+</ui:composition>

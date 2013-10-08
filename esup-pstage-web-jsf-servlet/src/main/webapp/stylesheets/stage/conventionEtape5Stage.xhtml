@@ -4,7 +4,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
 		<rich:panel>
@@ -27,10 +27,9 @@
 						<h:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
 							action="#{conventionController.goToConventionModifStage}"
 							alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-							rendered="#{(not empty conventionController.convention and !conventionController.conventionValide)and (welcomeController.superAdmin 
+							rendered="#{(not empty conventionController.convention and !conventionController.conventionValide) and (welcomeController.superAdmin 
 									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture || welcomeController.etudiant)}">
-						</h:commandButton>
+									|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture || welcomeController.etudiant)}" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>

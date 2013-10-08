@@ -11,31 +11,32 @@ import org.esupportail.pstage.domain.beans.EtudiantRef;
  *
  */
 
-public class StudentDataRepositoryDomainLdap implements StudentDataRepositoryDomain {
+public class StudentDataRepositoryDomainLdap implements
+	StudentDataRepositoryDomain {
 
-	/**
+/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
-	private StudentDataRepositoryDao studentDataRepositoryDao;
+private StudentDataRepositoryDao studentDataRepositoryDao;
 	/**
-	 * @param studentDataRepositoryDao the studentDataRepositoryDao to set
-	 */
-	public void setStudentDataRepositoryDao(
-			StudentDataRepositoryDao studentDataRepositoryDao) {
-		this.studentDataRepositoryDao = studentDataRepositoryDao;
-	}
+ * @param studentDataRepositoryDao the studentDataRepositoryDao to set
+ */
+public void setStudentDataRepositoryDao(
+		StudentDataRepositoryDao studentDataRepositoryDao) {
+	this.studentDataRepositoryDao = studentDataRepositoryDao;
+}
+
 
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRef(java.lang.String, java.lang.String)
 	 */
 	public EtudiantRef getEtudiantRef(String universityCode, String id) {
-
+	
 		return studentDataRepositoryDao.getEtudiantRef(universityCode, id);
 	}
 
+	
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String)
 	 */
@@ -51,5 +52,8 @@ public class StudentDataRepositoryDomainLdap implements StudentDataRepositoryDom
 			String name, String firstName) {
 		return studentDataRepositoryDao.getEtudiantsRefByName(universityCode, name, firstName);
 	}
+
+
+
 
 }

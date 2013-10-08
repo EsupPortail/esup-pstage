@@ -95,6 +95,9 @@
 										<f:setPropertyActionListener
 											value="gestionOffres"
 											target="#{offreController.retour}" />
+										<f:setPropertyActionListener
+											value="_supprOffreEtape1"
+											target="#{sessionController.suppressionOffreCurrentPage}" />
 										<f:setPropertyActionListener value="#{offre}"
 											target="#{offreController.currentOffre}" />
 										<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />

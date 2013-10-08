@@ -6,8 +6,6 @@ package org.esupportail.pstage.batch;
 
 import java.math.BigInteger;
 
-import org.esupportail.commons.services.application.ApplicationService;
-import org.esupportail.commons.services.application.ApplicationUtils;
 import org.esupportail.commons.services.exceptionHandling.ExceptionUtils;
 import org.esupportail.commons.services.logging.Logger;
 import org.esupportail.commons.services.logging.LoggerImpl;
@@ -56,7 +54,8 @@ public class BatchBlowfish {
 			if("-g".equals(args[0])){
 				//Génération de la clé
 				byte[] secretKey = BlowfishUtils.getSecretKeyInBytes(BlowfishUtils.generateKey());
-				LOG.info("Your secret key : "+new BigInteger(secretKey));
+				LOG.info("\n\n\n\nVotre clé : "+new BigInteger(secretKey));
+				LOG.info("A copier dans la propriété blowfishKey du fichier config.properties.\n\n\n\n ");
 			}else{
 				syntax();
 			}
@@ -94,8 +93,6 @@ public class BatchBlowfish {
 	 */
 	public static void main(final String[] args) {
 		try {
-			ApplicationService applicationService = ApplicationUtils.createApplicationService();
-			LOG.info(applicationService.getName() + " v" + applicationService.getVersion());
 			dispatch(args);
 		} catch (Throwable t) {
 			ExceptionUtils.catchException(t);

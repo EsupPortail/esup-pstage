@@ -17,9 +17,8 @@
 			for="intitule" />
 		<h:inputText id="intitule" style="text-transform:uppercase;"
 			value="#{offreController.critereRechercheOffre.intitule}" size="50"
-			maxlength="200">
-			<f:converter binding="#{sansAccentEnMAJConverter}" />
-		</h:inputText>
+			maxlength="200"
+			converter="#{sansAccentEnMAJConverter}"/>
 		<h:outputLabel
 			rendered="#{not empty nomenclatureController.anneesUnivOffres}"
 			value="#{msgs['RECHERCHEOFFRE.ANNEEU']}" for="anU" />
@@ -40,9 +39,8 @@
 			for="lieuCommune" />
 		<h:inputText id="lieuCommune"
 			value="#{offreController.critereRechercheOffre.lieuCommune}"
-			size="50" maxlength="200">
-			<f:converter binding="#{sansAccentEnMAJConverter}" />
-		</h:inputText>
+			size="50" maxlength="200"
+			converter="#{sansAccentEnMAJConverter}"/>
 		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
 			for="lieuCodePostal" />
 		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" style="font-size:11px;">
@@ -138,7 +136,7 @@
 						escape="false" />
 					<h:selectBooleanCheckbox
 						value="#{offreController.critereRechercheOffre.estDiffusee}">
-						<a4j:ajax event="click" render="critDiffOP, diffOP"	ajaxSingle="true" />
+						<a4j:ajax event="click" render="critDiffOP, diffOP" />
 
 					</h:selectBooleanCheckbox>
 					<h:outputText
@@ -146,7 +144,7 @@
 						escape="false" />
 					<h:selectBooleanCheckbox
 						value="#{offreController.critereRechercheOffre.diffusionTerminee}">
-						<a4j:ajax event="click" render="critDiffOP, diffOP" ajaxSingle="true" />
+						<a4j:ajax event="click" render="critDiffOP, diffOP"/>
 
 					</h:selectBooleanCheckbox>
 					<h:outputText
@@ -154,7 +152,7 @@
 						escape="false" />
 					<h:selectBooleanCheckbox
 						value="#{offreController.critereRechercheOffre.estSupprimee}">
-						<a4j:ajax event="click" render="critDiffOP, diffOP"	ajaxSingle="true" />
+						<a4j:ajax event="click" render="critDiffOP, diffOP"/>
 
 					</h:selectBooleanCheckbox>
 				</h:panelGrid>

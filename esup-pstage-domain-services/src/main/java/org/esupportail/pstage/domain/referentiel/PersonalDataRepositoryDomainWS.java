@@ -20,7 +20,7 @@ public class PersonalDataRepositoryDomainWS implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3598515568295577686L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
@@ -43,7 +43,6 @@ public class PersonalDataRepositoryDomainWS implements
 	@Override
 	public List<EnseignantDTO> getEnseignantsByName(String universityCode,
 			String name) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -58,7 +57,7 @@ public class PersonalDataRepositoryDomainWS implements
 					+ " firstName : " + firstName + "codeAffectation : " + codeAffectation);
 		}
 		
-		List<EnseignantDTO> lEnseignant = personalDataRepositoryDaoWS.getEnseignantsByName(universityCode, name, firstName, codeAffectation);
+		List<EnseignantDTO>  lEnseignant = personalDataRepositoryDaoWS.getEnseignantsByName(universityCode, name, firstName, codeAffectation);
 		if(logger.isDebugEnabled()){
 			
 			logger.debug(" PersonalDataRepositoryDomainWS lEnseignant  ==> " + lEnseignant.size());

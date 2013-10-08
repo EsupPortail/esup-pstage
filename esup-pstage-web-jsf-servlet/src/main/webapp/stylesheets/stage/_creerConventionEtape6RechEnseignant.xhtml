@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,46 +6,52 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1"
+	<rich:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<rich:panel>
-			<f:facet name="header">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
+		</f:facet>
+		<ui:include src="/stylesheets/stage/_conventionEtape6RechEnseignantForm.xhtml" />
+			
+		<t:htmlTag value="div" style="height: 20px;" />
+		
+		<h:panelGrid columns="3">
+			<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				action="creerConventionEtape5Stage">
+				<f:setPropertyActionListener value="false"
+					target="#{conventionController.ctrlInfosStageOK}" />
+				<f:setPropertyActionListener value="_creerConventionEtape5Stage"
+					target="#{sessionController.creationConventionEtape5CurrentPage}" />
+			</h:commandButton>
+			<t:htmlTag value="div" style="width: 30px;" />
+			<a4j:commandButton status="statusRechEns"
+				action="#{conventionController.rechercheEnseignantCrea}"
+				render="formConvention" value="#{msgs['FORM.RECHERCHER']}" />
+		</h:panelGrid>
+		<t:htmlTag value="center">
+			<a4j:status name="statusRechEns">
+				<f:facet name="start">
+					<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+				</f:facet>
+			</a4j:status>
+		</t:htmlTag>
+		
+		<t:htmlTag value="div" style="height: 20px;" />
+
+		<h:panelGrid
+			rendered="#{conventionController.convention.centreGestion.presenceTuteurEns == false}">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE']}"
+				escape="false" />
+			<a4j:commandLink execute="@this" id="passeretape"
+				action="#{conventionController.goToCreerConventionEtape7Signataire}">
+				<f:setPropertyActionListener value="#{null}"
+					target="#{conventionController.convention.enseignant}" />
 				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
-			</f:facet>
-			<ui:include
-				src="/stylesheets/stage/_conventionEtape6RechEnseignantForm.xhtml" />
-
-			<t:htmlTag value="div" style="height: 20px;" />
-			<h:panelGrid columns="2">
-				<a4j:commandButton
-					action="#{conventionController.goToCreerConventionEtape5StageR}"
-					value="#{msgs['FORM.PREVIOUS']}">
-				</a4j:commandButton>
-				<a4j:commandButton
-					action="#{conventionController.rechercheEnseignantCrea}"
-					value="#{msgs['FORM.RECHERCHER']}">
-				</a4j:commandButton>
-			</h:panelGrid>
-			<t:htmlTag value="div" style="height: 20px;" />
-
-			<h:panelGrid
-				rendered="#{conventionController.convention.centreGestion.presenceTuteurEns == false}">
-				<h:outputText value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE']}"
+					value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}"
 					escape="false" />
-				<a4j:commandLink execute="@this" id="passeretape"
-					action="#{conventionController.goToCreerConventionEtape7Signataire}">
-					<f:setPropertyActionListener value="#{null}"
-						target="#{conventionController.convention.enseignant}" />
-					<h:outputText
-						value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}"
-						escape="false" />
-					<rich:tooltip
-						value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}" />
-				</a4j:commandLink>
-			</h:panelGrid>
-		</rich:panel>
-
-
-	</h:panelGrid>
-</ui:fragment>
+				<rich:tooltip
+					value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}" />
+			</a4j:commandLink>
+		</h:panelGrid>
+	</rich:panel>
+</ui:composition>

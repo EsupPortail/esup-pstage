@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1">
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
 		<h:outputText value=" " id="formModifEtab" />
 		<rich:message for="formModifEtab">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -18,7 +18,7 @@
 			<ui:include src="../_commun/_etablissementForm.xhtml" />
 		</t:div>
 
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="5">
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="5">
 			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
 				action="#{offreController.goToCreationOffreDetailsEtab}"
 				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
@@ -34,17 +34,7 @@
 					value="#{etablissementController.formStructure}"
 					target="#{rechercheController.resultatRechercheStructure}" />
 				<a4j:ajax event="click" render="opFCE" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 			</a4j:commandButton>
-=======
-=======
->>>>>>> branch 'master' of https://github.com/EsupPortail/esup-pstage.git
-=======
->>>>>>> branch 'master' of https://github.com/EsupPortail/esup-pstage.git
-			</h:commandButton>
->>>>>>> branch 'master' of https://github.com/EsupPortail/esup-pstage.git
 			<t:htmlTag value="div" style="width: 20px;" />
 			<a4j:outputPanel id="opFCE">
 				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="3"

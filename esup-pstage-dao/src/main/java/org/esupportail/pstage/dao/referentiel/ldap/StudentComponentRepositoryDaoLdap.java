@@ -16,7 +16,6 @@ import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.filter.OrFilter;
 import org.springframework.ldap.filter.WhitespaceWildcardsFilter;
-import org.springframework.util.Assert;
 
 public class StudentComponentRepositoryDaoLdap implements
 StudentComponentRepositoryDao {
@@ -40,10 +39,10 @@ StudentComponentRepositoryDao {
 	 */
 	private LdapGroupeAttributs ldapGroupeAttributs;
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(ldapGroupeAttributs,"La propriété ldapGroupeAttributs ne peut être null.");
-	}
+//	@Override
+//	public void afterPropertiesSet() throws Exception {
+//		Assert.notNull(ldapGroupeAttributs,"La propriété ldapGroupeAttributs ne peut être null.");
+//	}
 
 	/**
 	 * recherche informations Etablissement de Reference

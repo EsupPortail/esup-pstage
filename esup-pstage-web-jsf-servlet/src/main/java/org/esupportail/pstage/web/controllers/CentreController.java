@@ -576,7 +576,6 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	public void modifierCentreEntreprise(){
 //		String ret=null;
-		System.out.println("test");
 		if(getCentreEntreprise()!=null){
 			if(StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) &&
 					this.formCentreEntreprise.getConfidentialite()!=null){
@@ -790,6 +789,7 @@ public class CentreController extends AbstractContextAwareController {
 				try{
 					// codes et libelles de toutes les ETAPES
 					this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
+					System.out.println("taille : " + toutLesCriteres.size());
 				} catch (CommunicationApogeeException cae){
 					logger.error(cae.fillInStackTrace());
 					addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
@@ -1013,7 +1013,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Methode appel�e avant l'affichage du panel_logo
+	 * Methode appelée avant l'affichage du panel_logo
 	 */
 	public void avantAjoutLogo(){
 		if(logger.isDebugEnabled()){
@@ -1038,9 +1038,9 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Action appell�e apr�s l'upload d'un fichier
+	 * Action appellée après l'upload d'un fichier
 	 */
-	public void insertLogo() {
+	public String insertLogo() {
 		String nomFichier = getSessionController().getImageUploadBean().getNameUploadedImage();
 		String nomReel = getSessionController().getImageUploadBean().getRealNameImage();
 		//Si nom de fichier non vide (cas des fichiers volumineux)
@@ -1053,6 +1053,7 @@ public class CentreController extends AbstractContextAwareController {
 				getOffreDomainService().updateFichier(this.centre.getFichier());
 				getCentreGestionDomainService().updateIdFichier(this.centre.getIdCentreGestion(), this.centre.getFichier().getIdFichier());
 				this.centre.setIdFichier(this.centre.getFichier().getIdFichier());
+				return "modifLogo";
 			} catch (DataUpdateException d){
 				logger.error("DataUpdateException",d.fillInStackTrace());
 				addErrorMessage("panelUpload:erreurLogo",d.getMessage());
@@ -1061,6 +1062,7 @@ public class CentreController extends AbstractContextAwareController {
 				addErrorMessage("panelUpload:erreurLogo",e.getMessage());
 			}
 		}
+		return null;
 	}
 
 	/**

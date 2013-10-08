@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.esupportail.pstagedata.domain.beans.StatisticCriteria;
+import org.esupportail.pstage.web.beans.StatisticCriteria;
 import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
 
 

@@ -12,7 +12,7 @@
 		value="#{msgs['FORM.MODIFIER']}"
 		render="opService, opActionsService, opContactsDataTable, formModifService" />
 
-	<h:commandButton value="#{msgs['FORM.ANNULER']}"
+	<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 		onclick="#{rich:component('modifService')}.hide();"
 		immediate="true" />
 

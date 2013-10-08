@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
 		<rich:panel>
@@ -20,11 +20,8 @@
 						<h:outputText value="#{msgs['CONVENTION.ETAPE2.ETAB']}" />
 					</f:facet>
 					<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-
-						<rich:messages showDetail="true">
-						</rich:messages>
-						<ui:include
-							src="/stylesheets/stage/_conventionEtape2DetailsEtab.xhtml" />
+						<rich:messages />
+						<ui:include src="/stylesheets/stage/_conventionEtape2DetailsEtab.xhtml" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>

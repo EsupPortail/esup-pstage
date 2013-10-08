@@ -20,7 +20,7 @@ public enum SequenceEtapeEnum {
 	/**
 	 * etape 2, Etablissement d'Accueil
 	 */
-	etape2(2, "Etab. d'Accueil", "creerConventionEtape2DetailsEtab"),
+	etape2(2, "Etab. d'Accueil", "creerConventionEtape2Etab"),
 	
 	/**
 	 * etape 3,Service d'accueil
@@ -40,7 +40,7 @@ public enum SequenceEtapeEnum {
 	/**
 	 * etape6, Responsable Pédagogique
 	 */
-	etape6(6, "Resp. Pedagogique","creerConventionEtape6DetailsEnseignant"),
+	etape6(6, "Resp. Pedagogique","creerConventionEtape6Enseignant"),
 	
 	/**
 	 * etape7, Signataire
@@ -50,7 +50,7 @@ public enum SequenceEtapeEnum {
 	/**
 	 * etape 8, Récapitulatif
 	 */
-	etape8(8,"Recapitulatif","creerConventionEtape8DetailsRecap"),
+	etape8(8,"Recapitulatif","creerConventionEtape8Recap"),
 	
 	/**
 	 * etape 9, Impression
@@ -60,7 +60,7 @@ public enum SequenceEtapeEnum {
 	/**
 	 * etape 10,  
 	 */
-	etape10(10,"","");
+	etape10(10," ","");
 	
 	/*
 	 ******************* PROPERTIES ******************* */

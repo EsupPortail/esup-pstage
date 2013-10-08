@@ -6,50 +6,43 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<f:facet name="header">
-		<rich:columnGroup>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.CIVILITE']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.NOM']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.PRENOM']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.MAIL']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
-					value="#{msgs['CONVENTION.DEPARTEMENT']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText" value="#{msgs['FORM.VOIR']}" />
-			</rich:column>
-		</rich:columnGroup>
-	</f:facet>
 	<rich:column>
+		<f:facet name="header">
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.CIVILITE']}" />
+		</f:facet>
 		<h:outputText value="#{enseignant.civilite.libelle}" />
 		<t:htmlTag value="div" style="height: 5px;" />
 	</rich:column>
 	<rich:column>
+		<f:facet name="header">
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.NOM']}" />
+		</f:facet>
 		<h:outputText value="#{enseignant.nom}" />
 		<t:htmlTag value="div" style="height: 5px;" />
 	</rich:column>
 	<rich:column>
+		<f:facet name="header">
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.PRENOM']}" />
+		</f:facet>
 		<h:outputText value="#{enseignant.prenom}" />
 		<t:htmlTag value="div" style="height: 5px;" />
 	</rich:column>
 	<rich:column>
+		<f:facet name="header">
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.MAIL']}" />
+		</f:facet>
 		<h:outputText value="#{enseignant.mail}" />
 		<t:htmlTag value="div" style="height: 5px;" />
 	</rich:column>
 	<rich:column>
+		<f:facet name="header">
+			<h:outputText styleClass="headerText"
+				value="#{msgs['CONVENTION.DEPARTEMENT']}" />
+		</f:facet>
 		<h:outputText
 			value="#{enseignant.codeAffectation} - #{enseignant.affectation.libelle}" />
 	</rich:column>

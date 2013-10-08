@@ -41,7 +41,7 @@
 					<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 					<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 						oncomplete="#{rich:component('selectServiceContact')}.hide();"
-						ignoreDupResponses="true"
+						
 						action="#{conventionController.goToConventionModifServiceContact}">
 						<f:setPropertyActionListener
 							value="#{etablissementController.serviceSel}"

@@ -33,6 +33,8 @@
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
 					|| (sessionController.moderationActive and sessionController.pageAuthorized)}" />
 					<h:outputText value=" #{msgs['FORM.DIFFUSER']}" />
+					<f:setPropertyActionListener value="_diffusionOffreEtape1"
+						target="#{sessionController.diffusionOffreCurrentPage}" />
 					<rich:tooltip value="#{msgs['FORM.DIFFUSER']}"
 						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
 						and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
@@ -45,7 +47,7 @@
 				</a4j:commandLink>
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1" style="font-size:12px;">
+		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" style="font-size:12px;">
 			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="8" style="font-size:12px;"
 				rendered="#{offreController.currentOffre.estDiffusee}">
 				<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
@@ -84,6 +86,8 @@
 						value="../../media/images/flag_block.png" style="border:0"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 					<h:outputText value=" #{msgs['FORM.STOPDIFFUSER']}" />
+					<f:setPropertyActionListener value="_stopDiffusionOffreEtape1"
+						target="#{sessionController.stopDiffusionOffreCurrentPage}" />
 					<rich:tooltip 
 					value="#{msgs['FORM.STOPDIFFUSER']}"
 					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
@@ -117,6 +121,8 @@
 					<h:outputText
 						value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE']}"
 						rendered="#{!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)}" />
+					<f:setPropertyActionListener value="_diffusionCentreOffreEtape1"
+						target="#{sessionController.diffusionCentreOffreCurrentPage}" />
 					<rich:tooltip
 						value="#{msgs['OFFRE.ERREUR.NODIFF']}"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
@@ -192,6 +198,8 @@
 				<h:outputText
 					value=" #{msgs['OFFRE.GESTION.POURVOIROFFRE.STOPPOURVUE']}"
 					rendered="#{offreController.currentOffre.estPourvue}" />
+				<f:setPropertyActionListener value="_offrePourvueEtape1"
+					target="#{sessionController.offrePourvueCurrentPage}" />
 			</a4j:commandLink>
 		</h:panelGrid>
 	</a4j:outputPanel>

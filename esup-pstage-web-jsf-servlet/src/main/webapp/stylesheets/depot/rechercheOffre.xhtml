@@ -33,10 +33,14 @@
 							action="#{offreController.resetRechercheOffre}" />
 					</h:panelGrid>
 				</h:form>
-				<rich:message for="formRechOffre"
-					style="color:red;font-weight:bold;">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				<h:panelGrid align="center" columns="1">
+					<t:htmlTag value="div" style="height:20px;" />
+					<rich:message for="formRechOffre"
+						style="color:red;font-weight:bold;">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+					<t:htmlTag value="div" style="height:20px;" />
+				</h:panelGrid>
 			</rich:panel>
 			<ui:include src="_panelNousContacter.xhtml" />
 		</h:panelGrid>

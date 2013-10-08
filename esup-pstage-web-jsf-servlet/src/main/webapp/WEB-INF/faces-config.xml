@@ -16,17 +16,12 @@
 			<supported-locale>fr</supported-locale>
 			<supported-locale>en</supported-locale>
 		</locale-config>
-		<message-bundle>META-INF/i18n/bundles/Messages</message-bundle>
+		<message-bundle>properties/i18n/bundles/Messages</message-bundle>
 
 	</application>
-	
+
 <!-- 	<factory> -->
-<!-- 		<exception-handler-factory>org.esupportail.commons.exceptions.ExceptionHandlerFactory -->
-<!-- 		</exception-handler-factory> -->
+<!-- 		<exception-handler-factory>org.esupportail.commons.exceptions.ExceptionHandlerFactory</exception-handler-factory> -->
 <!-- 	</factory> -->
-	
-<!-- 	<lifecycle> -->
-<!-- 		<phase-listener>org.esupportail.commons.jsf.DeepLinkingPhaseListener -->
-<!-- 		</phase-listener> -->
-<!-- 	</lifecycle> -->
+
 </faces-config>

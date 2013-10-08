@@ -15,12 +15,13 @@ import org.esupportail.pstage.domain.beans.SignataireRef;
  *
  */
 
-public class StudentComponentRepositoryDomainWS implements StudentComponentRepositoryDomain {
+public class StudentComponentRepositoryDomainWS implements
+	StudentComponentRepositoryDomain {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 9006972118347383714L;
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
@@ -61,6 +62,7 @@ public class StudentComponentRepositoryDomainWS implements StudentComponentRepos
 		return etapes;
 	}
 
+
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.StudentComponentRepositoryDomain#getSigCompoRef(java.lang.String, java.lang.String)
 	 */
@@ -68,6 +70,7 @@ public class StudentComponentRepositoryDomainWS implements StudentComponentRepos
 		SignataireRef sigRef = studentComponentRepositoryDaoWS.getSigCompoRef(universityCode, composante);
 		return sigRef;
 	}
+
 
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.StudentComponentRepositoryDomain#getComposantesPrincipalesRef(java.lang.String, java.util.Map)
@@ -100,4 +103,9 @@ public class StudentComponentRepositoryDomainWS implements StudentComponentRepos
 			StudentComponentRepositoryDaoWS studentComponentRepositoryDaoWS) {
 		this.studentComponentRepositoryDaoWS = studentComponentRepositoryDaoWS;
 	}
+
+
+
+
+
 }

@@ -1,157 +1,164 @@
-<ui:include src="../_include.xhtml" />
-
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
-	<t:div>
-		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.xhtml" />
-		</h:panelGrid>
-		<h:panelGrid columns="1" styleClass="panelEntreprise"
-			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
-			<rich:panel>
-				<f:facet name="header">
-					<h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
-				</f:facet>
-				<t:div rendered="#{empty offreController.currentOffre}">
-					<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
-				</t:div>
-				<h:form>
-					<h:panelGrid>
-						<a4j:commandLink execute="@this" id="editoffre"
-							action="#{offreController.editPdfOffre}">
-							<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-								value="../../media/images/printer.png" style="border:0" />
-							<h:outputText value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
-								escape="false" />
-						</a4j:commandLink>
-					</h:panelGrid>
-					<rich:spacer height="5px" />
-					<t:div rendered="#{not empty offreController.currentOffre}">
-						<fieldset>
-							<legend>
-								<h:outputText value="#{msgs['OFFRE.GESTION.ETABLISSEMENT']} " />
-								<h:commandLink id="modifEtab"
-									action="#{offreController.goToModificationOffreEtab}">
-									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-										value="../../media/images/edit.png" style="border:0" />
-									<f:setPropertyActionListener value="recapitulatifOffreEtab"
-										target="#{offreController.retour}" />
-									<f:setPropertyActionListener value="#{2}"
-										target="#{offreController.typeAjoutModifOffre}" />
-									<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-								</h:commandLink>
-							</legend>
-							<ui:include src="../_commun/_detailsOffreEtab.xhtml" />
-						</fieldset>
-						<t:htmlTag value="br" />
-						<rich:spacer height="10px" />
-						<fieldset>
-							<legend>
-								<h:outputText value="#{msgs['OFFRE.GESTION.DETAILS']} " />
-								<h:commandLink id="modif"
-									action="#{offreController.goToModificationOffreEtab1}">
-									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-										value="../../media/images/edit.png" style="border:0" />
-									<f:setPropertyActionListener value="recapitulatifOffreEtab"
-										target="#{offreController.retour}" />
-									<f:setPropertyActionListener value="#{2}"
-										target="#{offreController.typeAjoutModifOffre}" />
-									<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-								</h:commandLink>
-							</legend>
-							<ui:include src="../_commun/_detailsOffre.xhtml" />
-						</fieldset>
-						<t:htmlTag value="br" />
-						<rich:spacer height="10px" />
-						<t:div
-							rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
-							<fieldset>
-								<legend>
-									<h:outputText value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " />
-									<h:commandLink id="modifF"
-										action="#{offreController.goToModificationOffreEtab3}">
-										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-											value="../../media/images/edit.png" style="border:0" />
-										<f:setPropertyActionListener value="recapitulatifOffreEtab"
-											target="#{offreController.retour}" />
-										<f:setPropertyActionListener value="#{2}"
-											target="#{offreController.typeAjoutModifOffre}" />
-										<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-									</h:commandLink>
-								</legend>
-								<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
-							</fieldset>
-						</t:div>
-						<t:div
-							rendered="#{!offreController.currentOffre.avecFichier and !offreController.currentOffre.avecLien}">
-							<fieldset>
-								<legend>
-									<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS']} " />
-									<h:commandLink id="modifC"
-										action="#{offreController.goToModificationOffreEtab3C}">
-										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-											value="../../media/images/edit.png" style="border:0" />
-										<f:setPropertyActionListener value="recapitulatifOffreEtab"
-											target="#{offreController.retour}" />
-										<f:setPropertyActionListener value="#{2}"
-											target="#{offreController.typeAjoutModifOffre}" />
-										<f:setPropertyActionListener value="#{false}"
-											target="#{etablissementController.afficherSelectionCentreContact}" />
-										<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-									</h:commandLink>
-								</legend>
-								<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
-							</fieldset>
-						</t:div>
-						<t:htmlTag value="br" />
-						<rich:spacer height="10px" />
-						<t:div>
-							<fieldset>
-								<legend>
-									<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
-								</legend>
-								<ui:include src="../_commun/_detailsOffreDiffusion.xhtml"/>
-							</fieldset>
-						</t:div>
-						<h:panelGrid columns="1" style="float:right;"
-							rendered="#{!offreController.currentOffre.estSupprimee}">
-							<a4j:commandLink execute="@this" id="suppr"
-								render="supprOffre"
-								oncomplete="#{rich:component('supprOffre')}.show()">
-								<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
-									value="../../media/images/delete.png" style="border:0" />
-								<f:setPropertyActionListener value="resultatsRechercheOffre"
-									target="#{offreController.retour}" />
-								<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
-								<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	<ui:define name="content">
+		<t:div>
+			<h:panelGrid style="float:left;">
+				<ui:include src="./_menu.xhtml" />
+			</h:panelGrid>
+			<h:panelGrid columns="1" styleClass="panelEntreprise"
+				rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
+					</f:facet>
+					<t:div rendered="#{empty offreController.currentOffre}">
+						<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
+					</t:div>
+					<h:form>
+						<h:panelGrid>
+							<a4j:commandLink execute="@this" id="editoffre"
+								action="#{offreController.editPdfOffre}">
+								<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+									value="../../media/images/printer.png" style="border:0" />
+								<h:outputText value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
+									escape="false" />
 							</a4j:commandLink>
 						</h:panelGrid>
-						<h:panelGrid columns="1" style="float:right;">
-							<t:aliasBean alias="#{objet}"
-								value="#{offreController.currentOffre}">
-								<ui:include src="../_commun/_updateInfos.xhtml" />
-							</t:aliasBean>
+						<t:htmlTag value="div" style="height:5px;" />
+						<t:div rendered="#{not empty offreController.currentOffre}">
+							<fieldset>
+								<legend>
+									<h:outputText value="#{msgs['OFFRE.GESTION.ETABLISSEMENT']} " />
+									<h:commandLink id="modifEtab"
+										action="#{offreController.goToModificationOffreEtab}">
+										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+											value="../../media/images/edit.png" style="border:0" />
+										<f:setPropertyActionListener value="recapitulatifOffreEtab"
+											target="#{offreController.retour}" />
+										<f:setPropertyActionListener value="#{2}"
+											target="#{offreController.typeAjoutModifOffre}" />
+										<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
+									</h:commandLink>
+								</legend>
+								<ui:include src="../_commun/_detailsOffreEtab.xhtml" />
+							</fieldset>
+							<t:htmlTag value="br" />
+							<t:htmlTag value="div" style="height:10px;" />
+							<fieldset>
+								<legend>
+									<h:outputText value="#{msgs['OFFRE.GESTION.DETAILS']} " />
+									<h:commandLink id="modif"
+										action="#{offreController.goToModificationOffreEtab1}">
+										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+											value="../../media/images/edit.png" style="border:0" />
+										<f:setPropertyActionListener value="recapitulatifOffreEtab"
+											target="#{offreController.retour}" />
+										<f:setPropertyActionListener value="#{2}"
+											target="#{offreController.typeAjoutModifOffre}" />
+										<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
+									</h:commandLink>
+								</legend>
+								<ui:include src="../_commun/_detailsOffre.xhtml" />
+							</fieldset>
+							<t:htmlTag value="br" />
+							<t:htmlTag value="div" style="height:10px;" />
+							<t:div
+								rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
+								<fieldset>
+									<legend>
+										<h:outputText
+											value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " />
+										<h:commandLink id="modifF"
+											action="#{offreController.goToModificationOffreEtab3}">
+											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+												value="../../media/images/edit.png" style="border:0" />
+											<f:setPropertyActionListener value="recapitulatifOffreEtab"
+												target="#{offreController.retour}" />
+											<f:setPropertyActionListener value="#{2}"
+												target="#{offreController.typeAjoutModifOffre}" />
+											<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
+										</h:commandLink>
+									</legend>
+									<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
+								</fieldset>
+							</t:div>
+							<t:div
+								rendered="#{!offreController.currentOffre.avecFichier and !offreController.currentOffre.avecLien}">
+								<fieldset>
+									<legend>
+										<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS']} " />
+										<h:commandLink id="modifC"
+											action="#{offreController.goToModificationOffreEtab3C}">
+											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+												value="../../media/images/edit.png" style="border:0" />
+											<f:setPropertyActionListener value="recapitulatifOffreEtab"
+												target="#{offreController.retour}" />
+											<f:setPropertyActionListener value="#{2}"
+												target="#{offreController.typeAjoutModifOffre}" />
+											<f:setPropertyActionListener value="#{false}"
+												target="#{etablissementController.afficherSelectionCentreContact}" />
+											<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
+										</h:commandLink>
+									</legend>
+									<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
+								</fieldset>
+							</t:div>
+							<t:htmlTag value="br" />
+							<t:htmlTag value="div" style="height:10px;" />
+							<t:div>
+								<fieldset>
+									<legend>
+										<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
+									</legend>
+									<ui:include src="../_commun/_detailsOffreDiffusion.xhtml" />
+								</fieldset>
+							</t:div>
+							<h:panelGrid columns="1" style="float:right;"
+								rendered="#{!offreController.currentOffre.estSupprimee}">
+								<a4j:commandLink execute="@this" id="suppr" render="supprOffre"
+									oncomplete="#{rich:component('supprOffre')}.show()">
+									<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
+										value="../../media/images/delete.png" style="border:0" />
+									<f:setPropertyActionListener value="resultatsRechercheOffre"
+										target="#{offreController.retour}" />
+									<f:setPropertyActionListener
+										value="_supprOffreEtape1"
+										target="#{sessionController.suppressionOffreCurrentPage}" />
+									<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
+									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+								</a4j:commandLink>
+							</h:panelGrid>
+							<h:panelGrid columns="1" style="float:right;">
+								<t:aliasBean alias="#{objet}"
+									value="#{offreController.currentOffre}">
+									<ui:include src="../_commun/_updateInfos.xhtml" />
+								</t:aliasBean>
+							</h:panelGrid>
+						</t:div>
+						<t:htmlTag value="div" style="height:20px;" />
+						<h:panelGrid columns="3">
+							<h:commandButton
+								value="#{msgs['RECHERCHEOFFRE.RETOURAUXRESULTATS']}"
+								action="resultatsRechercheOffre" />
+							<t:htmlTag value="div" style="width:100px;" />
+							<h:commandButton
+								value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
+								action="#{offreController.goToRechercheOffre}" />
 						</h:panelGrid>
-					</t:div>
-					<rich:spacer height="20px" />
-					<h:panelGrid columns="3">
-						<h:commandButton
-							value="#{msgs['RECHERCHEOFFRE.RETOURAUXRESULTATS']}"
-							action="resultatsRechercheOffre" />
-						<rich:spacer width="100px" />
-						<h:commandButton
-							value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
-							action="#{offreController.goToRechercheOffre}" />
-					</h:panelGrid>
-				</h:form>
-				<ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
-				<ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
-				<ui:include src="../_commun/_panelOffrePourvue.xhtml" />
-				<ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
-				<ui:include src="../_commun/_panelSupprOffre.xhtml" />
-			</rich:panel>
-			<ui:include src="_panelNousContacter.xhtml" />
-		</h:panelGrid>
-		<rich:editor rendered="false" />
-	</t:div>
-</e:page>
+					</h:form>
+					<ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
+					<ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
+					<ui:include src="../_commun/_panelOffrePourvue.xhtml" />
+					<ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
+					<ui:include src="../_commun/_panelSupprOffre.xhtml" />
+				</rich:panel>
+				<ui:include src="_panelNousContacter.xhtml" />
+			</h:panelGrid>
+			<rich:editor rendered="false" />
+		</t:div>
+	</ui:define>
+</ui:composition>

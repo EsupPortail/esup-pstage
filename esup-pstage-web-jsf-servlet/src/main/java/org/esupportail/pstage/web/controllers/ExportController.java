@@ -56,7 +56,7 @@ public class ExportController extends AbstractContextAwareController {
 	 */
 	private List<SelectItem> rechTypesStatutsStructure;
 	/**
-	 * Type ou statut structure s�lectionn� pour la recherche.
+	 * Type ou statut structure sélectionné pour la recherche.
 	 */
 	private String rechTypeOuStatut;
 
@@ -158,7 +158,7 @@ public class ExportController extends AbstractContextAwareController {
 				return ret;
 			}
 		}
-		//au moins le crit�re annee doit etre saisi
+		//au moins le critère annee doit etre saisi
 		if (!StringUtils.hasText(this.critereRechercheConvention.getIdConvention()) 
 				&& !StringUtils.hasText(this.critereRechercheConvention.getNumeroEtudiant()) 
 				&& !StringUtils.hasText(this.critereRechercheConvention.getNomEtudiant())
@@ -209,6 +209,8 @@ public class ExportController extends AbstractContextAwareController {
 					this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteresByEnseignantTuteur(tmpEns.getId(),this.critereRechercheConvention);
 				}			
 			}
+			if (this.resultatsRechercheConvention == null)
+				this.resultatsRechercheConvention = new ArrayList<ConventionDTO>();
 			// recherche aussi avec critere CG
 			if (this.critereRechercheConvention.getIdsCentreGestion() != null) {
 				List<ConventionDTO> resultatsRechercheConventionCG = getConventionDomainService().getConventionsFromCriteresExport(this.critereRechercheConvention);
@@ -217,7 +219,7 @@ public class ExportController extends AbstractContextAwareController {
 						ConventionDTO conventionDTO = itercg.next();
 						if (!this.resultatsRechercheConvention.contains(conventionDTO)) {
 							this.resultatsRechercheConvention.add(conventionDTO);
-						}		
+						}
 					}
 					Collections.sort(this.resultatsRechercheConvention, new Comparator<ConventionDTO>(){
 						/**

@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -12,7 +12,7 @@
 		</f:facet>
 		<rich:panel style="border:none">
 			<h:panelGrid columns="1" align="center">
-				<h:outputLabel value="#{centreController.centre.nomCentre}" />
+				<h:outputLabel value="#{centreController.centre.nomCentre}" for="suppressionCentre" />
 				<h:panelGrid columns="2">
 					<h:outputText value="#{centreController.centre.voie}" />
 					<h:outputText value="#{centreController.centre.batimentResidence}" />
@@ -21,40 +21,40 @@
 					<h:outputText value="#{centreController.centre.codePostal}" />
 					<h:outputText value="#{centreController.centre.commune}" />
 				</h:panelGrid>
-				<p:spacer height="5" />
+				<t:htmlTag value="div" style="height:5px;" />
 				<t:div
 					rendered="#{centreController.nbCriteres != 0 || centreController.nbPersonnels != 0 || centreController.nbContacts != 0
 				|| centreController.nbConventions != 0 || centreController.nbOffres != 0}">
-					<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}" />
+					<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}" for="suppressionCentre" />
 					<h:panelGrid columns="2"
 						rendered="#{centreController.nbCriteres != 0}">
 						<h:outputText value="#{centreController.nbCriteres}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CRITERES']}" />
-						<p:spacer height="3" />
+						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
 					<h:panelGrid columns="2"
 						rendered="#{centreController.nbPersonnels != 0}">
 						<h:outputText value="#{centreController.nbPersonnels}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_PERSONNES']}" />
-						<p:spacer height="3" />
+						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
 					<h:panelGrid columns="2"
 						rendered="#{centreController.nbConventions != 0}">
 						<h:outputText value="#{centreController.nbConventions}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONVENTIONS']}" />
-						<p:spacer height="3" />
+						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
 					<h:panelGrid columns="2"
 						rendered="#{centreController.nbOffres != 0}">
 						<h:outputText value="#{centreController.nbOffres}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_OFFRES']}" />
-						<p:spacer height="3" />
+						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
 					<h:panelGrid columns="2"
 						rendered="#{centreController.nbContacts != 0}">
 						<h:outputText value="#{centreController.nbContacts}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONTACTS']}" />
-						<p:spacer height="3" />
+						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
 				</t:div>
 				<t:div
@@ -72,21 +72,21 @@
 							<t:htmlTag value="center">
 								<h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL']}" />
 							</t:htmlTag>
-							<p:spacer height="2" />
+							<t:htmlTag value="div" style="height:2px;" />
 							<h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL_BIS']}" />
 						</h:panelGrid>
 					</fieldset>
 				</t:div>
-				<p:spacer height="15" />
-				<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.AVERTISSEMENT']}" />
+				<t:htmlTag value="div" style="height:15px;" />
+				<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.AVERTISSEMENT']}" for="suppressionCentre" />
 			</h:panelGrid>
 		</rich:panel>
 		<h:form id="formSupprCentre">
 			<h:panelGrid columns="3" align="center">
 				<a4j:commandButton action="#{centreController.supprimerCentre}"
 					value="#{msgs['FORM.OUI']}" render="centreDataTable" />
-				<p:spacer width="30" />
-				<h:commandButton value="#{msgs['FORM.NON']}"
+				<t:htmlTag value="div" style="width:30px;" />
+				<a4j:commandButton value="#{msgs['FORM.NON']}"
 					onclick="#{rich:component('suppressionCentre')}.hide();return false;" />
 			</h:panelGrid>
 			<t:htmlTag value="center">
@@ -97,5 +97,5 @@
 			</t:htmlTag>
 		</h:form>
 	</rich:popupPanel>
-</ui:fragment>
+</ui:composition>
 

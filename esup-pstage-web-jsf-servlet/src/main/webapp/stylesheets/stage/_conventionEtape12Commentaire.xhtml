@@ -12,7 +12,7 @@
 		rendered="#{welcomeController.etudiant || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitLecture}">
 		<h:outputText
 			rendered="#{empty conventionController.convention.commentaireStage}"
-			value="Aucun commentaire enregistr." />
+			value="Aucun commentaire saisi." />
 		<h:outputText escape="false"
 			rendered="#{not empty conventionController.convention.commentaireStage}"
 			value="#{conventionController.convention.commentaireStage}" />

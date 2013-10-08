@@ -1,13 +1,23 @@
-<%@include file="../../_include.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<e:page stringsVar="msgs" locale="#{sessionController.locale}">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/xhtml/jstl/core">
 
-	<jsp:include page="/stylesheets/_header.jsp" />
-	
-	<c:set var="styD" value="${beanUtils.startYearDay}"/>
-	<c:set var="styM" value="${beanUtils.startYearMonth}"/>
+	<ui:define name="content">
+		<rich:panel id="indicateursStats">
+			<f:facet name="header">
+				<h:outputText
+					value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']} pour le centre #{centreController.centre.nomCentre}" />
+			</f:facet>
+			<ui:include src="../_menu_centre.xhtml" />
+			<c:set var="styD" value="${beanUtils.startYearDay}" />
+			<c:set var="styM" value="${beanUtils.startYearMonth}" />
 	<%
-		//Récupère l'année scolaire sélectionnée
+		//RÃ©cupÃ¨re l'annÃ©e scolaire sÃ©lectionnÃ©e
 		String annee_scolaire = request.getParameter("annee_scolaire");
 		int startDay = Integer.parseInt((String)pageContext.findAttribute("styD"));
 		int startMonth = Integer.parseInt((String)pageContext.findAttribute("styM"));
@@ -32,21 +42,8 @@
 		}
 	%>
 	<c:set var="annee_scolaire" value="<%= annee_scolaire %>" />
-	
-	<t:div>
-		<t:div styleClass="app-pagebar">
-			<h:form id="navigationHeader" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</h:form>
-		</t:div>
 
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-				<!--  la navigation -->
-				<%@include file="../_menuDynamiqueStage.jsp"%>
-			</t:div>
-
-			<t:div id="content" styleClass="app-content fl-col-flex85">
+			<t:div>
 
 				<!-- contenu de la page -->
 
@@ -54,16 +51,16 @@
 					rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 					|| welcomeController.personnel) and centreController.centre != null}">
 					<f:facet name="header">
-						<e:text value="#{msgs['CONVENTION.STATS.INDICATION']}" />
+						<h:outputText value="#{msgs['CONVENTION.STATS.INDICATION']}" />
 					</f:facet>
 
-					<%@include file="../_menu_centre.jsp"%>
+					<ui:include src="../_menu_centre.xhtml" />
 
-					<e:panelGrid align="center"
+					<h:panelGrid align="center"
 						rendered="#{empty statistiquesConventionController.years}">
 						<b><c:out
-							value="Aucun stage n'est actuellement référencé pour ce centre." /></b>
-					</e:panelGrid>
+								value="Aucun stage n'est actuellement rÃ©fÃ©rencÃ© pour ce centre." /></b>
+					</h:panelGrid>
 					<t:htmlTag value="div"
 						rendered="#{not empty statistiquesConventionController.years}">
 						<center>
@@ -74,16 +71,14 @@
 								<h:panelGrid columns="2">
 									<h:graphicImage alt="info"
 										value="../../../media/images/information.png" style="border:0" />
-									<h:outputText value="Changer d'année : " />
+									<h:outputText value="Changer d'annÃ©e : " />
 								</h:panelGrid>
 								<tr style="color: green;">
 									<c:forEach var="annee"
 										items="${statistiquesConventionController.years}">
-										<td>
-											<a href="${sessionController.baseUrl}stylesheets/stage/stats/resultat_stagesStats.faces?annee_scolaire=${annee}">
-												${annee}
-											</a>
-										</td>
+										<td><a
+											href="${sessionController.baseUrl}/stylesheets/stage/stats/resultat_stagesStats.faces?annee_scolaire=${annee}">
+												${annee} </a></td>
 									</c:forEach>
 								</tr>
 							</t:htmlTag>
@@ -91,12 +86,13 @@
 						<br />
 
 						<div align="center">
-							<b>
-								<h:outputText value="#{statistiquesConventionController.message}" />
+							<b> <h:outputText
+									value="#{statistiquesConventionController.message}" />
 							</b>
-							<h:panelGrid rendered="#{not empty statistiquesConventionController.critereUnLib 
+							<h:panelGrid
+								rendered="#{not empty statistiquesConventionController.critereUnLib 
 								|| not empty statistiquesConventionController.critereDeuxLib}">
-								<b><c:out value=" pour l'année universitaire " /></b>
+								<b><c:out value=" pour l'annÃ©e universitaire " /></b>
 								<b><c:out value="${annee_scolaire}" /></b>
 							</h:panelGrid>
 						</div>
@@ -104,7 +100,8 @@
 
 						<c:set var="map" value="${statistiquesConventionController.map}" />
 						<c:choose>
-							<c:when test="${empty statistiquesConventionController.critereUnLib and empty statistiquesConventionController.critereDeuxLib}">
+							<c:when
+								test="${empty statistiquesConventionController.critereUnLib and empty statistiquesConventionController.critereDeuxLib}">
 								<c:set var="liste" value="${map['all']}" />
 							</c:when>
 							<c:otherwise>
@@ -115,7 +112,7 @@
 						<c:set var="libPrec" value="" />
 						<c:set var="sousTotal" value="0" />
 						<c:set var="pourcent" value="0" />
- 
+
 						<c:forEach var="statsItem" items="${liste}">
 							<c:set var="total" value="${total+statsItem.number}" />
 						</c:forEach>
@@ -205,7 +202,7 @@
 								<rich:columnGroup>
 									<rich:column>
 										<b><h:outputText
-											value="#{statistiquesConventionController.critereUnLib}" /></b>
+												value="#{statistiquesConventionController.critereUnLib}" /></b>
 									</rich:column>
 									<rich:column>
 										<b><h:outputText value="Total" /></b>
@@ -221,18 +218,15 @@
 
 							<br />
 
-
-
 							<t:htmlTag value="center">
 								<h:commandLink id="idLienRetourAuxStats"
 									action="#{centreController.goToIndicateurStat}">
 									<h:graphicImage alt="Retour"
 										value="../../../media/images/arrow_undo.png" style="border:0" />
-									<rich:tooltip
-										value="#{msgs['CONVENTION.STATS.INFO.NOUVEAU']}" />
+									<rich:tooltip value="#{msgs['CONVENTION.STATS.INFO.NOUVEAU']}" />
 								</h:commandLink>
 
-								<rich:spacer width="30" />
+								<t:htmlTag value="div" style="width:30px;" />
 
 								<h:commandLink id="idLienEnregisterFormatExcel"
 									action="#{statistiquesConventionController.edition}">
@@ -244,28 +238,18 @@
 							</t:htmlTag>
 						</h:form>
 					</t:htmlTag>
-					<rich:spacer height="30"/>
+					<t:htmlTag value="div" style="height:30px;" />
 				</rich:panel>
 
 				<t:div
 					rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel)}">
-					<%@include file="../_redirection_droitsInsuffisants.jsp"%>
+					<ui:include src="../_redirection_droitsInsuffisants.xhtml" />
 				</t:div>
 				<t:div
 					rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) and centreController.centre == null}">
-					<%@include file="../_redirection_accesDirectImpossible.jsp"%>
+					<ui:include src="../_redirection_accesDirectImpossible.xhtml" />
 				</t:div>
 			</t:div>
-		</t:div>
-		<t:div styleClass="fl-container-flex">
-			<e:form id="navigationFooter" styleClass="app-form">
-				<%@include file="/stylesheets/_navigation.jsp"%>
-			</e:form>
-		</t:div>
-		<%@include file="/stylesheets/_script_navigations.jsp"%>
-		<script type="text/javascript">
-			hideButton("welcomeManagerForm:localeChangeButton");
-		</script>
-
-	</t:div>
-</e:page>
+		</rich:panel>
+	</ui:define>
+</ui:composition>

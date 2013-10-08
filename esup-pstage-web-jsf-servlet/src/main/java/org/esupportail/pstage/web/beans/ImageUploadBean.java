@@ -27,20 +27,20 @@ import org.richfaces.model.UploadedFile;
 public class ImageUploadBean{
 
 	/**
-	 * Rï¿½pertoire de rï¿½ception
+	 * Répertoire de réception
 	 */
 	private String directory;
 
 	/**
-	 * Nom du fichier uploadï¿½
+	 * Nom du fichier uploadé
 	 */
 	private String nameUploadedImage;
 	/**
-	 * Nom rï¿½el de l'image
+	 * Nom réel de l'image
 	 */
 	private String realNameImage;
 	/**
-	 * Prefix pour le nom de fichier (numï¿½ro offre)
+	 * Prefix pour le nom de fichier (numéro offre)
 	 */
 	private int prefix;
 	/**
@@ -81,23 +81,43 @@ public class ImageUploadBean{
 
 			//code ici on recupere le path vers le repertoire ou stocker le fichier
 			File fileToWrite = new File(this.directory + File.separator + imageName);
-
+			ByteArrayInputStream is = null;
+			FileOutputStream fos = null;
 			try {
-				ByteArrayInputStream is = (ByteArrayInputStream) scaleImage(new BufferedInputStream(new FileInputStream((File)uploadItem)), 300, 300,this.extension);
-				FileOutputStream fos = new FileOutputStream(fileToWrite);
+//				test = scaleImage(uploadItem.getInputStream(), 300, 300, this.extension);
+//				in = ((FileInputStream)test).getChannel();
+//				out = new FileOutputStream(fileToWrite).getChannel();
+//				in.transferTo(0, in.size(), out);
+				is = (ByteArrayInputStream) scaleImage(new BufferedInputStream((FileInputStream)uploadItem.getInputStream()), 300, 300,this.extension);
+				fos = new FileOutputStream(fileToWrite);
 				int data;
 				while((data=is.read())!=-1){
 					char ch = (char)data;
 					fos.write(ch);
 				}
 				fos.flush();
-				fos.close();
 			}catch (IOException ex1){ 
+				ex1.printStackTrace();
 				//
 			}catch (Exception e){
 				e.printStackTrace();
-			}finally{
-				//
+			}finally{ // fermeture des filechannel
+				if(is != null){
+					try{
+						is.close();
+					}catch(IOException e){
+						e.printStackTrace();
+						//logger.error("Can't close input file channel");
+					}
+					if(fos != null){
+						try{
+							fos.close();
+						}catch (IOException e){
+							e.printStackTrace();
+							// logger.error("Can't close ouput file channel");
+						}
+					}
+				}
 			}
 		}
 	}

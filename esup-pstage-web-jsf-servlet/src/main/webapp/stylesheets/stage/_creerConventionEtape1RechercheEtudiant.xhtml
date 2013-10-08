@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+	<rich:panel
+		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT']}" />
+		</f:facet>
+		
+		<t:htmlTag value="div" style="height: 10px;" />
+		
+		<h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT.DEMANDE']}" />
+
+		<h:panelGrid columns="1" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
+			<t:htmlTag value="div" style="height: 20px;" />
+			<h:panelGrid columns="4" columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text">
+				<h:outputLabel value="#{msgs['CONVENTION.NUMETUDIANT']}"
+					for="identEtudiant" />
+				<h:inputText id="identEtudiant" size="50" maxlength="30"
+					value="#{conventionController.rechIdentEtudiant}">
+				</h:inputText>
+				<t:htmlTag value="div" style="width: 10px;" />
+				<rich:message for="identEtudiant">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+
+				<t:htmlTag value="div" style="width: 20px;" />
+				<h:panelGrid id="oblig" columns="2">
+					<h:graphicImage
+						value="../../media/images/arrow_turn_up_and_down.png"
+						alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
+						title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
+					<h:outputText value="#{msgs['RECHERCHEETU.OBLIGATOIRE']}" />
+				</h:panelGrid>
+				<t:htmlTag value="div" style="width: 10px;" />
+				<rich:message for="oblig">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+
+				<h:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
+
+				<h:inputText id="nom" size="50" maxlength="30"
+					style="text-transform:uppercase;"
+					value="#{conventionController.rechNomEtudiant}">
+					<f:converter binding="#{sansAccentEnMAJConverter}" />
+				</h:inputText>
+				<t:htmlTag value="div" style="width: 10px;" />
+				<rich:message for="nom">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+
+				<h:outputLabel value="#{msgs['CONVENTION.PRENOM']}" for="prenom" />
+
+				<h:inputText id="prenom" size="50" maxlength="30"
+					style="text-transform:uppercase;"
+					value="#{conventionController.rechPrenomEtudiant}">
+					<f:converter binding="#{sansAccentEnMAJConverter}" />
+				</h:inputText>
+				<t:htmlTag value="div" style="width: 10px;" />
+				<rich:message for="prenom">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+			</h:panelGrid>
+		</h:panelGrid>
+		<t:htmlTag value="div" style="height: 40px;" />
+		<h:panelGrid columns="3">
+			<h:commandButton
+				value="#{msgs['FORM.PREVIOUS']}"
+				action="#{conventionController.goToCreerConventionConsignes}"
+				immediate="true" />
+				
+			<a4j:commandButton value="#{msgs['FORM.RECHERCHER']}"
+				status="statusRechEtu" action="#{conventionController.rechercheEtudiant}"
+				render="formConvention"/>
+			<a4j:status name="statusRechEtu">
+				<f:facet name="start">
+					<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+				</f:facet>
+			</a4j:status>
+		</h:panelGrid>
+	</rich:panel>
+</ui:composition>

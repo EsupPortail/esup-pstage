@@ -6,8 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3" cellpadding="2" cellspacing="2"
-		alternateColors="true">
+	<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3">
 		<h:outputLabel
 			value="#{msgs['CONVENTION.TYPECONVENTION']} #{msgs['CONVENTION.ETOILE']}"
 			for="typeConvention" />
@@ -32,9 +31,7 @@
 			converter="#{themeConverter}" required="true">
 			<f:selectItem itemValue="" />
 			<f:selectItems value="#{nomenclatureController.themes}" />
-			<a4j:ajax event="keyup" ignoreDupResponses="true" />
-			<a4j:ajax event="change" ignoreDupResponses="true" />
-			<a4j:ajax event="blur" ignoreDupResponses="true" />
+			<a4j:ajax event="valueChange" />
 		</h:selectOneMenu>
 		<rich:message for="theme">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -45,13 +42,12 @@
 		<h:outputLabel
 			value="#{msgs['CONVENTION.SUJET']} #{msgs['CONVENTION.ETOILE']}"
 			for="sujetStage" />
-		<rich:editor id="sujetStage" viewMode="source"
-			value="#{conventionController.convention.sujetStage}" width="400"
-			height="100" required="true"
+		<h:inputTextarea id="sujetStage" viewMode="source"
+			value="#{conventionController.convention.sujetStage}" 
+			width="400" height="100" required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}">
-<!-- 			<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
-			<a4j:ajax event="blur" ignoreDupResponses="true" />
-		</rich:editor>
+			<a4j:ajax event="blur" />
+		</h:inputTextarea>
 		<rich:message for="sujetStage">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
@@ -60,13 +56,12 @@
 		<t:htmlTag value="div" style="height: 5px;" />
 		<h:outputLabel for="fonctionsEtTaches"
 			value="#{msgs['CONVENTION.FONCTION']} #{msgs['CONVENTION.ETOILE']} #{msgs['CONVENTION.FONCTION.APPARAITRA']}" />
-		<rich:editor id="fonctionsEtTaches" viewMode="source"
+		<h:inputTextarea id="fonctionsEtTaches" viewMode="source"
 			value="#{conventionController.convention.fonctionsEtTaches}"
 			width="400" height="100" required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}">
-<!-- 			<a4j:ajax event="keyup" ignoreDupResponses="true" /> -->
-			<a4j:ajax event="blur" ignoreDupResponses="true" />
-		</rich:editor>
+			<a4j:ajax event="blur" />
+		</h:inputTextarea>
 		<rich:message for="fonctionsEtTaches">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
@@ -74,7 +69,7 @@
 		<t:htmlTag value="div" style="height: 5px;" />
 		<t:htmlTag value="div" style="height: 5px;" />
 		<h:outputLabel for="details" value="#{msgs['CONVENTION.DETAILS']}" />
-		<rich:editor id="details" viewMode="source"
+		<h:inputTextarea id="details" viewMode="source"
 			value="#{conventionController.convention.details}" width="400"
 			height="100" />
 		<rich:message for="details">
@@ -106,7 +101,7 @@
 			datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
 			cellHeight="22px" style="width:200px" required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}">
-<!-- 			<a4j:ajax event="change" render="choixAnneeUniv" /> -->
+			<a4j:ajax event="change" render="choixAnneeUniv" />
 		</rich:calendar>
 		<rich:message for="dateDebutStage">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -138,7 +133,7 @@
 			onclick="#{rich:component('dateDebutInterruption')}.resetSelectedDate(),#{rich:component('dateFinInterruption')}.resetSelectedDate()">
 			<f:selectItem itemLabel="oui" itemValue="true" />
 			<f:selectItem itemLabel="non" itemValue="false" />
-			<a4j:ajax event="blur" ignoreDupResponses="true" />
+			<a4j:ajax event="blur" />
 		</h:selectOneRadio>
 		<rich:message for="interruptionStage">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -233,10 +228,10 @@
 		<t:htmlTag value="div" style="height: 5px;" />
 		<h:outputLabel for="commentaireDureeTravail"
 			value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL']}" />
-		<rich:editor id="commentaireDureeTravail" viewMode="source"
+		<h:inputTextarea id="commentaireDureeTravail" viewMode="source"
 			value="#{conventionController.convention.commentaireDureeTravail}"
 			width="400" height="100">
-		</rich:editor>
+		</h:inputTextarea>
 		<rich:message for="commentaireDureeTravail">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
@@ -272,15 +267,9 @@
 			requiredMessage="#{requiredMessageController.champObligatoire}"
 			value="#{conventionController.selIndemnisation}"
 			converter="#{indemnisationConverter}">
-			<a4j:ajax event="change"
+			<a4j:ajax event="valueChange"
 				render="opMontantGratificationOblig, opMessageMontantGratificationOblig"
-				ignoreDupResponses="true" execute="@this" />
-			<a4j:ajax event="keyup"
-				render="opMontantGratificationOblig, opMessageMontantGratificationOblig"
-				ignoreDupResponses="true" execute="@this" />
-			<a4j:ajax event="blur"
-				render="opMontantGratificationOblig, opMessageMontantGratificationOblig"
-				ignoreDupResponses="true" execute="@this" />
+				execute="@this" />
 			<f:selectItem itemValue="" />
 			<f:selectItems value="#{nomenclatureController.indemnisations}" />
 		</h:selectOneMenu>
@@ -301,7 +290,7 @@
 						value="#{conventionController.convention.montantGratification}"
 						validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
 						<f:validator binding="#{mtGratificationValidator}" />
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur" />
 					</h:inputText>
 				</a4j:outputPanel>
 				<rich:message for="montantGratification">
@@ -341,7 +330,6 @@
 				</t:panelGroup>
 			</a4j:outputPanel>
 		</t:panelGroup>
-<!-- 		toto -->
 		<t:htmlTag value="div" style="height: 5px;" />
 		<t:htmlTag value="div" style="height: 5px;" />
 		<t:htmlTag value="div" style="height: 5px;" />
@@ -379,7 +367,7 @@
 			value="#{conventionController.booltemConfSujetTeme}">
 			<f:selectItem itemLabel="oui" itemValue="true" />
 			<f:selectItem itemLabel="non" itemValue="false" />
-			<a4j:ajax event="blur" ignoreDupResponses="true" />
+			<a4j:ajax event="blur" />
 		</h:selectOneRadio>
 		<rich:message for="temConfSujetTeme">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -390,10 +378,10 @@
 		<t:htmlTag value="div" style="height: 5px;" />
 		<h:outputLabel for="modeEncadreSuivi"
 			value="#{msgs['CONVENTION.MODESUIVI']}" />
-		<rich:editor id="modeEncadreSuivi" viewMode="source"
+		<h:inputTextarea id="modeEncadreSuivi" viewMode="source"
 			value="#{conventionController.convention.modeEncadreSuivi}"
 			width="400" height="100">
-		</rich:editor>
+		</h:inputTextarea>
 		<rich:message for="modeEncadreSuivi">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
@@ -403,10 +391,10 @@
 		<t:htmlTag value="div" style="height: 5px;" />
 		<h:outputLabel for="avantagesNature"
 			value="#{msgs['CONVENTION.AVANTAGESNATURE']}" />
-		<rich:editor id="avantagesNature" viewMode="source"
+		<h:inputTextarea id="avantagesNature" viewMode="source"
 			value="#{conventionController.convention.avantagesNature}"
 			width="400" height="100">
-		</rich:editor>
+		</h:inputTextarea>
 		<rich:message for="avantagesNature">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
@@ -444,7 +432,7 @@
 		<t:htmlTag value="div" style="height: 5px;" />
 		<h:outputLabel for="travailNuitFerie"
 			value="#{msgs['CONVENTION.TRAVAILNUITFERIE']}" />
-		<rich:editor id="travailNuitFerie" viewMode="source"
+		<h:inputTextarea id="travailNuitFerie" viewMode="source"
 			value="#{conventionController.convention.travailNuitFerie}"
 			width="400" height="100" />
 		<rich:message for="travailNuitFerie">

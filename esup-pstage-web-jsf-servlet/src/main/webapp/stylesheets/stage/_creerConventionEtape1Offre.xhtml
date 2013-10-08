@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,101 +6,101 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1" align="center">
-		<h:panelGrid columns="3">
-			<h:panelGrid columns="1" width="400">
-				<h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.OFFRE']}" />
-				<h:panelGrid columns="2">
-					<h:inputText id="idOffre" size="20"
-						value="#{conventionController.numOffreConvention}" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}"
-						validatorMessage="#{requiredMessageController.superieurA0}">
-						<f:validator binding="#{entierValidator}" />
-						<a4j:ajax event="blur" ignoreDupResponses="true"
-							execute="@this" />
-						<f:validateLongRange minimum="1" />
-					</h:inputText>
-				</h:panelGrid>
-				<rich:message for="idOffre">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<t:htmlTag value="div" style="height: 15px;" />
-				<h:panelGrid columns="2" style="font-size:11px;">
-					<h:graphicImage alt="#{msgs['CONVENTION.ETAPE1.OFFRE.RECUPINFO']}"
-						title="#{msgs['CONVENTION.ETAPE1.OFFRE.RECUPINFO']}"
-						value="../../media/images/information.png" style="border:0" />
-					<h:outputText value="#{msgs['CONVENTION.ETAPE1.OFFRE.RECUPINFO']}" />
+		<rich:panel
+			style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE']}" />
+			</f:facet>
+			<h:panelGrid columns="3">
+				<h:panelGrid align="center" columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
+					<h:panelGrid columns="3">
+						<h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.OFFRE']}" />
+						<h:inputText id="idOffre" size="10"
+							value="#{conventionController.numOffreConvention}"
+							required="true"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							validatorMessage="#{requiredMessageController.superieurA0}">
+							<f:validator binding="#{entierValidator}" />
+							<a4j:ajax event="blur" execute="@this" />
+							<f:validateLongRange minimum="1" />
+						</h:inputText>
+						<rich:message for="idOffre">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+					</h:panelGrid>
+					<h:panelGrid columns="2" style="font-size:11px;">
+						<h:graphicImage alt="#{msgs['CONVENTION.ETAPE1.OFFRE.RECUPINFO']}"
+							title="#{msgs['CONVENTION.ETAPE1.OFFRE.RECUPINFO']}"
+							value="../../media/images/information.png" style="border:0" />
+						<h:outputText value="#{msgs['CONVENTION.ETAPE1.OFFRE.RECUPINFO']}" />
+					</h:panelGrid>
+					<t:htmlTag value="div" style="height: 10px;" />
+					<h:panelGrid columns="3">
+						<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+							immediate="true"
+							action="creerConventionEtape1Etudiant">
+							<f:setPropertyActionListener
+								value="_creerConventionEtape1DemandeLienOffre"
+								target="#{sessionController.creationConventionEtape1CurrentPage}" />
+						</h:commandButton>
+						<t:htmlTag value="div" style="width:75px;" />
+						<h:commandButton
+							action="#{conventionController.rechercheNumOffre}"
+							render="formConvention" value="#{msgs['FORM.NEXT']}">
+							<f:setPropertyActionListener value="_creerConventionEtape1Offre"
+								target="#{conventionController.retourAction}" />
+						</h:commandButton>
+					</h:panelGrid>
 				</h:panelGrid>
 				<h:panelGrid columns="3">
-					<a4j:commandButton
-						action="#{conventionController.goToCreerConventionEtape1ConfirmInfosEtu}"
-						value="#{msgs['FORM.PREVIOUS']}" immediate="true">
-					</a4j:commandButton>
-					<t:htmlTag value="div" style="width: 100px;" />
-					<a4j:commandButton
-						action="#{conventionController.rechercheNumOffre}"
-						value="#{msgs['FORM.NEXT']}">
-						<f:setPropertyActionListener value="creerConventionEtape1Offre"
-							target="#{conventionController.retourAction}" />
-					</a4j:commandButton>
+					<t:htmlTag value="div" style="width: 10px;" />
+					<t:htmlTag value="div"
+						style="width: 3px; height: 200px; background-color: #{a4jSkin.panelBorderColor};" />
+					<t:htmlTag value="div" style="width: 10px;" />
 				</h:panelGrid>
-			</h:panelGrid>
-			<h:panelGrid columns="3">
-				<t:htmlTag value="div" style="width: 10px;" />
-				<t:htmlTag value="div"
-					style="width: 3px; height: 200px; background-color: #{a4jSkin.panelBorderColor};" />
-				<t:htmlTag value="div" style="width: 10px;" />
-			</h:panelGrid>
-			<h:panelGrid columns="1">
-				<h:outputText value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.TITRE']}" />
-				<a4j:region id="rRechNum">
-					<h:inputText id="intituleOffre" size="50"
-						value="#{conventionController.intituleOffreConvention}" />
-					<rich:suggestionbox for="intituleOffre" minChars="5"
-						fetchValue="#{rechOffre.intitule}"
-						nothingLabel="#{msgs['CONVENTION.MINIRECHNUMOFFRE.AUCUNOFFFRE']}"
+				<h:panelGrid columns="1">
+					<h:outputText value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.TITRE']}" />
+
+					<rich:autocomplete mode="ajax" minChars="5" status="status1"
+						autocompleteMethod="#{conventionController.suggestOffre}"
+						autofill="false" layout="table" fetchValue="#{rechOffre.intitule}"
 						suggestionAction="#{conventionController.suggestOffre}"
-						var="rechOffre" width="500" height="150">
-						<h:column>
+						var="rechOffre">
+						<rich:column>
 							<h:outputText value="#{rechOffre.idOffre} : "
 								style="font-weight: bold" />
-						</h:column>
-						<h:column>
+						</rich:column>
+						<rich:column>
 							<h:outputText value="#{rechOffre.intitule}">
 								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 							</h:outputText>
-						</h:column>
-						<h:column>
+						</rich:column>
+						<rich:column>
 							<h:outputText value="#{rechOffre.typeOffre.libelle}"
 								rendered="#{not empty rechOffre.typeOffre}" />
-						</h:column>
-						<h:column>
+						</rich:column>
+						<rich:column>
 							<h:outputText value="#{rechOffre.contratOffre.libelle}"
 								rendered="#{not empty rechOffre.contratOffre}" />
-						</h:column>
-						<h:column>
+						</rich:column>
+						<rich:column>
 							<h:outputText value="#{rechOffre.structure.raisonSociale}"
 								rendered="#{not empty rechOffre.structure}">
 								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 							</h:outputText>
-						</h:column>
-						<a4j:ajax execute="@this" event="onselect" render="idOffre">
-							<f:setPropertyActionListener value="#{rechOffre.idOffre}"
-								target="#{conventionController.numOffreConvention}" />
-						</a4j:ajax>
-					</rich:suggestionbox>
-				</a4j:region>
-				<h:outputText value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.MINIMUM']}"
-					style="font-size:10px;" />
-				<a4j:status for="rRechNum">
-					<f:facet name="start">
-						<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-					</f:facet>
-					<f:facet name="stop">
-						<t:htmlTag value="div" style="height: 32px;" />
-					</f:facet>
-				</a4j:status>
+						</rich:column>
+					</rich:autocomplete>
+					<h:outputText
+						value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.MINIMUM']}"
+						style="font-size:10px;" />
+
+					<a4j:status name="status1">
+						<f:facet name="start">
+							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+						</f:facet>
+					</a4j:status>
+				</h:panelGrid>
 			</h:panelGrid>
-		</h:panelGrid>
-	</h:panelGrid>
-</ui:fragment>
+		</rich:panel>
+</ui:composition>

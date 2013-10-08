@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<rich:panel
 			rendered="#{welcomeController.superAdmin	
@@ -42,20 +42,21 @@
 					<h:panelGrid columns="2">
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
 							value="../../media/images/script.png" style="border:0"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount >= 1
-											and conventionController.rechercheConventionPaginator.totalItemsCount < 200}" />
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
+											and conventionController.rechercheConventionPaginator.totalItemsCount lt 200}" />
 						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount >= 1
-											and conventionController.rechercheConventionPaginator.totalItemsCount < 200}"
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
+											and conventionController.rechercheConventionPaginator.totalItemsCount lt 200}"
 							escape="false">
 							<f:param
 								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
 						</h:outputFormat>
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
 							value="../../media/images/script.png" style="border:0"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount >= 200}" />
-						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount >= 200}"
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 200}" />
+						<h:outputFormat
+							value="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 200}"
 							escape="false">
 							<f:param
 								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
@@ -64,16 +65,7 @@
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
 					<rich:dataTable id="resultatConventionsDataTable" var="convention"
-						value="#{conventionController.rechercheConventionPaginator.visibleItems}"
-						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-						<f:facet name="footer">
-							<h:paginator id="rechercheConventionPaginator"
-								paginator="#{conventionController.rechercheConventionPaginator}"
-								itemsName=" "
-								onchange="javascript:{simulateLinkClick('resultatConventionsDataTablh:submitPageSize');}"
-								visibleBlocks="itemsNumbers,navigation" />
-						</f:facet>
+						value="#{conventionController.rechercheConventionPaginator.visibleItems}">
 						<rich:column sortBy="#{convention.idConvention}">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.ID']}" />
@@ -144,42 +136,44 @@
 							<f:facet name="header">
 								<h:panelGrid columns="1" align="center">
 									<script type="text/javascript">
-												function checkAll(state){
-													var tableElement = document.getElementById('formResultConventions:resultatConventionsDataTable');
-													var inputs = tableElement.getElementsByTagName('input');
-													for (var i = 0; i <= inputs.length; i++){
-														if(inputs[i] != undefined){
-															var input = inputs[i];
-															if(input.getAttribute('type') == 'checkbox' && state){
-																input.setAttribute('checked', true);
-															} else {
-																input.removeAttribute('checked');
-															}
-														}
+									//<![CDATA[
+										function checkAll(state){
+											var tableElement = document.getElementById('formResultConventions:resultatConventionsDataTable');
+											var inputs = tableElement.getElementsByTagName('input');
+											for (var i = 0; i <= inputs.length; i++){
+												if(inputs[i] != undefined){
+													var input = inputs[i];
+													if(input.getAttribute('type') == 'checkbox' && state){
+														input.setAttribute('checked', true);
+													} else {
+														input.removeAttribute('checked');
 													}
 												}
-											</script>
+											}
+										}
+										//]]>
+									</script>
 									<h:selectBooleanCheckbox id="checkAll"
 										onclick="checkAll(this.checked)">
-										<a4j:ajax event="click"
-											render="formResultConventions:resultatConventionsDataTable" />
-										<rich:tooltip
-											value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
+										<rich:tooltip value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
 									</h:selectBooleanCheckbox>
 								</h:panelGrid>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:selectBooleanCheckbox id="checkEntry"
 									value="#{convention.selected}">
-									<rich:tooltip
-										value="#{msgs['FORM.SELECTIONNER']}" />
+									<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
 								</h:selectBooleanCheckbox>
 							</t:htmlTag>
 						</rich:column>
+						<f:facet name="footer">
+							<rich:dataScroller align="center" for="resultatConventionsDataTable" maxPages="20"
+								page="1" id="listeMasseConventionScroller" renderIfSinglePage="false" />
+						</f:facet>
 					</rich:dataTable>
 					<t:htmlTag value="div" style="height: 15px;" />
 					<h:panelGrid columns="2" align="center"
-						rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount > 20}">
+						rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount gt 20}">
 						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 							title="#{msgs['GENERAL.WARNING']}"
 							value="../../media/images/warning_20px.png" style="border:0" />
@@ -187,21 +181,20 @@
 							value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.WARN']}" />
 					</h:panelGrid>
 					<h:panelGrid align="center">
-						<a4j:region id="result">
-							<a4j:commandButton
-								oncomplete="#{rich:component('confirmValidEnMasse')}.show()"
-								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.VALIDER']}"
-								alt="#{msgs['CONVENTION.VALIDATION.VALIDER']}" />
-						</a4j:region>
+						<a4j:commandButton 
+							value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.VALIDER']}"
+							oncomplete="#{rich:component('confirmValidEnMasse')}.show()"
+							alt="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
+							status="statusValidation"/>
 						<t:htmlTag value="div" style="height: 10px;" />
-						<a4j:status for="result">
+						<a4j:status name="statusValidation">
 							<f:facet name="start">
 								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 							</f:facet>
 						</a4j:status>
 					</h:panelGrid>
 					<rich:popupPanel id="confirmValidEnMasse" autosized="true"
-						width="400">
+						width="400" domElementAttachment="parent">
 						<f:facet name="header">
 							<h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
 						</f:facet>
@@ -222,15 +215,14 @@
 						</h:panelGrid>
 					</rich:popupPanel>
 				</h:panelGrid>
-				<center>
-					<h:outputText id="messageResultat" value="" />
+				<h:panelGrid id="messageResultat" align="center">
 					<rich:message for="messageResultat" style="font-weight:bold;">
 						<f:facet name="infoMarker">
 							<h:graphicImage value="../../media/images/tick.png"
 								title="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
 						</f:facet>
 					</rich:message>
-				</center>
+				</h:panelGrid>
 				<h:commandButton immediate="true"
 					value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
 					action="rechercheMasseConvention" />

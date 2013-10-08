@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -90,29 +90,11 @@
 				</h:panelGrid>
 			</h:panelGrid>
 			<a4j:commandButton action="#{offreController.diffuserOffre}"
-				value="#{msgs['FORM.DIFFUSER']}" ignoreDupResponses="true" />
+				render="formDiffusionOffre"
+				value="#{msgs['FORM.DIFFUSER']}"/>
 			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 				onclick="#{rich:component('diffusionOffre')}.hide();"
-				action="_diffusionOffreEtape1" immediate="true" />
+				immediate="true" />
 		</h:panelGrid>
-
-		<%
-			/*<h:panelGrid columns="4">
-							 <h:commandButton action="#{offreController.diffuserOffre}"
-							 value="#{msgs['FORM.DIFFUSER']}" ignoreDupResponses="true" />
-							 <h:panelGrid columns="2"
-							 rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-							 <rich:spacer width="50px" />
-							 <h:commandButton action="#{offreController.diffuserOffre1An}"
-							 value="#{msgs['FORM.DIFFUSER1AN']}" ignoreDupResponses="true" />
-							 </h:panelGrid>
-							 <h:panelGrid rendered="#{!sessionController.adminPageAuthorized and !welcomeController.superAdmin and !welcomeController.admin and !welcomeController.writer}">
-							 </h:panelGrid>
-							 <rich:spacer width="150px" />
-							 <h:commandButton value="#{msgs['FORM.ANNULER']}"
-							 onclick="#{rich:component('diffusionOffre')}.hide();"
-							 action="_diffusionOffreEtape1" immediate="true" />
-							 </h:panelGrid> */
-		%>
 	</h:column>
-</ui:fragment>
+</ui:composition>

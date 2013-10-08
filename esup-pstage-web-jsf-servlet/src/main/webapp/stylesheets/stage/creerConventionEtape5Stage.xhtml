@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmap.xhtml" />
 		<rich:panel>
@@ -14,8 +14,7 @@
 				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
 			</f:facet>
 			<h:form id="formConvention">
-				<ui:include id="include"
-					src="/stylesheets/stage/_creerConventionEtape5Stage.xhtml" />
+				<ui:include src="/stylesheets/stage/#{sessionController.creationConventionEtape5CurrentPage}.xhtml" />
 			</h:form>
 		</rich:panel>
 	</ui:define>

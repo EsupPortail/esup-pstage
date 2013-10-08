@@ -44,7 +44,7 @@
 						disabled="true">
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.effectifs}" />
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur" />
 					</h:selectOneMenu>
 					<rich:message for="effectif">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -80,11 +80,7 @@
 								disabled="true">
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.typesStructure}" />
-								<a4j:ajax event="blur" ignoreDupResponses="true" />
-								<a4j:ajax event="valueChange" render="opStatutJuridique"
-									ignoreDupResponses="true" execute="@this" />
-								<a4j:ajax event="keyup" render="opStatutJuridique"
-									ignoreDupResponses="true" execute="@this" />
+								<a4j:ajax event="valueChange" render="opStatutJuridique" execute="@this" />
 							</h:selectOneMenu>
 							<rich:message for="typeStructure">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -103,7 +99,7 @@
 										<f:selectItem itemValue="" />
 										<f:selectItems
 											value="#{adminController.statutsJuridiquesListening}" />
-										<a4j:ajax event="blur" ignoreDupResponses="true" />
+										<a4j:ajax event="blur"/>
 									</h:selectOneMenu>
 									<rich:message for="statutJuridique">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -128,12 +124,8 @@
 						size="20" maxlength="6" disabled="true">
 						<f:validator binding="#{codeNAFValidator}" />
 						<f:converter binding="#{codNafN5Converter}" />
-						<a4j:ajax event="keyup" ignoreDupResponses="true" />
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
-						<a4j:ajax event="keyup" render="opLibelleAPE"
-							ignoreDupResponses="true" execute="@this" />
-						<a4j:ajax event="blur" render="opLibelleAPE"
-							ignoreDupResponses="true" execute="@this" />
+						<a4j:ajax event="blur" />
+						<a4j:ajax event="blur" render="opLibelleAPE" execute="@this" />
 					</h:inputText>
 					<t:htmlTag value="div" style="width: 20px;" />
 					<a4j:outputPanel id="opLibelleAPE">
@@ -186,7 +178,7 @@
 							maxlength="200" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
 							disabled="true">
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur" />
 						</h:inputText>
 						<rich:message for="voie">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -200,7 +192,7 @@
 							size="50" maxlength="200" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
 							disabled="true">
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur"/>
 						</h:inputText>
 						<rich:message for="batimentResidence">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -241,11 +233,10 @@
 					</h:panelGrid>
 				</h:panelGrid>
 				<h:panelGrid columns="3">
-					<rich:spacer width="25px" />
-					<rich:spacer width="2px"
-						style="background-color: #{a4jSkin.panelBorderColor};"
-						height="125px" />
-					<rich:spacer width="25px" />
+					<t:htmlTag value="div" style="width: 25px;" />
+					<t:htmlTag value="div"
+						style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height:125px;" />
+					<t:htmlTag value="div" style="width: 25px;" />
 				</h:panelGrid>
 				<h:panelGrid columns="1">
 					<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
@@ -256,7 +247,7 @@
 							maxlength="10" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
 							disabled="true">
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur" />
 						</h:inputText>
 						<rich:message for="codePostal">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -270,7 +261,7 @@
 							requiredMessage="#{requiredMessageController.champObligatoire}"
 							disabled="true">
 							<f:converter binding="#{sansAccentEnMAJConverter}" />
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur" />
 						</h:inputText>
 						<rich:message for="commune">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -291,8 +282,7 @@
 							validatorMessage="#{requiredMessageController.adresseMailNonValide}"
 							maxlength="50" disabled="true">
 							<f:validator binding="#{mailValidator}" />
-							<a4j:ajax event="keyup" ignoreDupResponses="true" />
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur"/>
 						</h:inputText>
 						<rich:message for="mail">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -309,8 +299,7 @@
 							validatorMessage="#{requiredMessageController.siteWebNonValide}"
 							maxlength="200" disabled="true">
 							<f:validator binding="#{siteWebValidator}" />
-							<a4j:ajax event="keyup" ignoreDupResponses="true" />
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur"/>
 						</h:inputText>
 						<rich:message for="siteWeb">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -318,11 +307,10 @@
 					</h:panelGrid>
 				</h:panelGrid>
 				<h:panelGrid columns="3">
-					<rich:spacer width="25px" />
-					<rich:spacer width="2px"
-						style="background-color: #{a4jSkin.panelBorderColor};"
-						height="125px" />
-					<rich:spacer width="25px" />
+					<t:htmlTag value="div" style="width: 25px;" />
+					<t:htmlTag value="div"
+						style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 125px" />
+					<t:htmlTag value="div" style="width: 25px;" />
 				</h:panelGrid>
 				<h:panelGrid columns="1">
 					<h:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']} *"
@@ -333,7 +321,7 @@
 							maxlength="20" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
 							disabled="true">
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur"/>
 						</h:inputText>
 						<rich:message for="telephone">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -352,9 +340,9 @@
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columns="1">
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height:20px;" />
 			<h:outputText value="#{msgs['ACCORD.CONTACT']}" escape="false" />
-			<rich:spacer height="20" />
+			<t:htmlTag value="div" style="height:20px;" />
 		</h:panelGrid>
 		<h:panelGrid columns="1">
 			<h:panelGrid columns="3">
@@ -370,7 +358,7 @@
 							disabled="true">
 							<f:selectItem itemValue="" />
 							<f:selectItems value="#{nomenclatureController.civilites}" />
-							<a4j:ajax event="blur" ignoreDupResponses="true" />
+							<a4j:ajax event="blur"/>
 						</h:selectOneMenu>
 						<t:panelGroup colspan="2">
 							<rich:message for="civilite">
@@ -385,7 +373,7 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}"
 						disabled="true">
 						<f:converter binding="#{upperCaseConverter}" />
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur" />
 					</h:inputText>
 					<rich:message for="nom">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -397,7 +385,7 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}"
 						disabled="true">
 						<f:converter binding="#{premiereLettreMAJConverter}" />
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur" />
 					</h:inputText>
 					<rich:message for="prenom">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -411,21 +399,20 @@
 					</rich:message>
 				</h:panelGrid>
 				<h:panelGrid columns="3">
-					<rich:spacer width="25px" />
-					<rich:spacer width="2px"
-						style="background-color: #{a4jSkin.panelBorderColor};"
-						height="225px" />
-					<rich:spacer width="25px" />
+					<t:htmlTag value="div" style="width: 25px;" />
+					<t:htmlTag value="div"
+						style="width: 2px; height: 225px; background-color: #{a4jSkin.panelBorderColor};" />
+					<t:htmlTag value="div" style="width: 25px;" />
 				</h:panelGrid>
 				<h:panelGrid columns="1">
-					<rich:spacer height="25px" />
+					<t:htmlTag value="div" style="height:25px;" />
 					<h:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} *" />
 					<h:inputText id="telC" size="20" maxlength="20"
 						value="#{adminController.structureAccord.accordPartenariat.contact.tel}"
 						required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}"
 						disabled="true">
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur"/>
 					</h:inputText>
 					<rich:message for="telC">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -445,8 +432,7 @@
 						validatorMessage="#{requiredMessageController.adresseMailNonValide}"
 						disabled="true">
 						<f:validator binding="#{mailValidator}" />
-						<a4j:ajax event="keyup" ignoreDupResponses="true" />
-						<a4j:ajax event="blur" ignoreDupResponses="true" />
+						<a4j:ajax event="blur"/>
 					</h:inputText>
 					<rich:message for="mailC">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -477,7 +463,7 @@
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columns="3">
-			<rich:spacer width="20px" />
+			<t:htmlTag value="div" style="width: 20px;" />
 			<a4j:outputPanel id="opFCE">
 				<h:panelGrid columns="3"
 					rendered="#{facesContext.maximumSeverity != null}">

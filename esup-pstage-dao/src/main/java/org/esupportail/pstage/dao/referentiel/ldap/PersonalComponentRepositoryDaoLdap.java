@@ -12,7 +12,6 @@ import org.esupportail.pstage.dao.referentiel.PersonalComponentRepositoryDao;
 import org.esupportail.pstage.domain.beans.LdapGroupeAttributs;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.WhitespaceWildcardsFilter;
-import org.springframework.util.Assert;
 
 /**
  *  Acces des composantes pour du personnel avec Ldap
@@ -109,9 +108,9 @@ public class PersonalComponentRepositoryDaoLdap implements PersonalComponentRepo
 		this.ldapGroupeAttributs = ldapGroupeAttributs;
 	}
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(ldapGroupService,"La propriété ldapGroupService ne peut être null.");
-	}
+//	@Override
+//	public void afterPropertiesSet() throws Exception {
+//		Assert.notNull(ldapGroupService,"La propriété ldapGroupService ne peut être null.");
+//	}
 
 }

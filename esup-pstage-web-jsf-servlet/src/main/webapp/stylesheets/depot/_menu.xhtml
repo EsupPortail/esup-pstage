@@ -107,6 +107,7 @@
 				rendered="#{sessionController.pageAuthorized and not empty sessionController.currentAuthContact 
 					and not empty sessionController.currentManageStructure
 					and sessionController.menuGestionEtab}">
+				<f:setPropertyActionListener value="_changementMotDePasseEtape1" target="#{sessionController.modifMdpCurrentPage}"  />
 				<h:graphicImage alt="#{msgs['MENU.MODIFMDP']}"
 					title="#{msgs['MENU.MODIFMDP']}"
 					value="../../media/images/edit.png" style="border:0"

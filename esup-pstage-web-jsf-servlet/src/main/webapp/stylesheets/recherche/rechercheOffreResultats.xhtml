@@ -1,49 +1,50 @@
-<%@include file="../_include.jsp"%>
-
-<e:page stringsVar="msgs" locale="#{sessionController.locale}"
-	authorized="true">
-	<e:panelGrid columns="1"
-		styleClass="panelRecherche">
-		<rich:panel>
-			<f:facet name="header">
-				<e:text value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
-			</f:facet>
-			<h:form id="formRechOffre">
-				<t:div
-					rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
-					<%@include file="../_commun/_rechercheOffreNbResultats.jsp"%>
-					<rich:dataTable id="rechercheOffreDataTable" value="#{offreController.rechercheOffrePaginator.visibleItems}"
-						var="offre" columnClasses="center"
-						rowKeyVar="rowOffre"
-						onRowMouseOver="this.style.backgroundColor='#F1F1F1';this.style.cursor='pointer';"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-						onRowClick="location.href='#{sessionController.baseUrl}stylesheets/recherche/?args=idOffre=#{offre.idOffre}'">
-						<f:facet name="footer">
-							<e:paginator id="rechercheOffrePaginator"
-								paginator="#{offreController.rechercheOffrePaginator}"
-								itemsName=" "
-								onchange="javascript:{simulateLinkClick('rechercheOffreDataTable:submitPageSize');}"
-								visibleBlocks="itemsNumbers,navigation" />
-						</f:facet>
-						<%@include file="../_commun/_rechercheOffreResultatsEtudiantColumns.jsp"%>
-						<rich:column>
-							<h:outputLink id="recap"
-								value="#{sessionController.baseUrl}stylesheets/recherche/?args=idOffre=#{offre.idOffre}">
-								<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}" title="#{msgs['OFFRE.GESTION.DETAILS']}"
-									value="../../media/images/document.png" style="border:0" />
-								<rich:tooltip
-									value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-							</h:outputLink>
-						</rich:column>
-					</rich:dataTable>
-				</t:div>
-				<e:panelGrid columns="1">
-					<rich:spacer height="20px" />
-					<h:commandButton
-						value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
-						action="#{offreController.goToRechercheOffrePublic}" />
-				</e:panelGrid>
-			</h:form>
-		</rich:panel>
-	</e:panelGrid>
-</e:page>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="1" styleClass="panelRecherche">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+				</f:facet>
+				<h:form id="formRechOffre">
+					<t:div
+						rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
+						<ui:include src="../_commun/_rechercheOffreNbResultats.xhtml" />
+						<rich:dataTable id="rechercheOffreDataTable"
+							value="#{offreController.rechercheOffrePaginator.visibleItems}"
+							var="offre" columnClasses="center" rowKeyVar="rowOffre"
+							onRowMouseOver="this.style.backgroundColor='#F1F1F1';this.style.cursor='pointer';"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							onRowClick="location.href='#{sessionController.baseUrl}/stylesheets/recherche/?args=idOffre=#{offre.idOffre}'">
+							<f:facet name="footer">
+								<rich:dataScroller align="center" for="rechercheOffreDataTable"
+									maxPages="20" page="1" id="listeOffreScroller"
+									renderIfSinglePage="false" />
+							</f:facet>
+							<ui:include src="../_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
+							<rich:column>
+								<h:outputLink id="recap"
+									value="#{sessionController.baseUrl}/stylesheets/recherche/?args=idOffre=#{offre.idOffre}">
+									<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
+										title="#{msgs['OFFRE.GESTION.DETAILS']}"
+										value="../../media/images/document.png" style="border:0" />
+									<rich:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+								</h:outputLink>
+							</rich:column>
+						</rich:dataTable>
+					</t:div>
+					<h:panelGrid columns="1">
+						<t:htmlTag value="div" style="height: 20px;" />
+						<h:commandButton
+							value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
+							action="#{offreController.goToRechercheOffrePublic}" />
+					</h:panelGrid>
+				</h:form>
+			</rich:panel>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>

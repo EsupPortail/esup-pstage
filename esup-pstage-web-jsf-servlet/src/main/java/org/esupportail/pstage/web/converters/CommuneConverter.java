@@ -3,7 +3,7 @@
  */
 package org.esupportail.pstage.web.converters;
 
-import gouv.education.apogee.commun.transverse.dto.geographie.communedto.CommuneDTO;
+import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 
 import java.io.Serializable;
 import java.util.List;

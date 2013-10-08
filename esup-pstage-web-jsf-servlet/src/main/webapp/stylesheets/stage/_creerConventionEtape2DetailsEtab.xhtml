@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,33 +6,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1" align="center">
-		<h:outputText value=" " id="formAffEtab" />
-		<h:panelGrid columns="2" align="center">
-			<h:column>
-				<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-					title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
-					style="border:0"
-					rendered="#{(facesContext.maximumSeverity == 'Info')
-				and !(facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn')}" />
-				<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-					title="#{msgs['GENERAL.WARNING']}"
-					value="../../media/images/warning_50px.png" style="border:0"
-					rendered="#{facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn'}" />
-			</h:column>
-			<h:column>
-				<rich:message for="formAffEtab">
-					<ui:include src="../_commun/_messageErrorMarker.hwtml" />
-				</rich:message>
-			</h:column>
-		</h:panelGrid>
+	<t:div
+		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 		<t:aliasBean alias="#{structure}"
 			value="#{rechercheController.resultatRechercheStructure}">
 			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 		</t:aliasBean>
 		<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
-			action="#{conventionController.goToCreerConventionModifEtab}"
 			alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+			action="#{conventionController.goToCreerConventionModifEtab}"
 			rendered="#{not empty rechercheController.resultatRechercheStructure
 		and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 			welcomeController.admin || welcomeController.personnel || welcomeController.writer)
@@ -45,26 +27,34 @@
 				value="#{rechercheController.resultatRechercheStructure}"
 				target="#{etablissementController.formStructure}" />
 		</h:commandButton>
-		<h:panelGrid columns="3">
-			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-				action="#{conventionController.goToCreerConventionEtape2EtabR}"
-				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-				immediate="true">
 
+		<h:panelGrid id="formAffEtab" align="center">
+			<rich:message for="formAffEtab">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+			<t:htmlTag value="div" style="height:10px;"/>
+		</h:panelGrid>
+
+		<h:panelGrid columns="3" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
+			<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+				action="#{conventionController.goToCreerConventionEtape2EtabR}"
+				immediate="true">
 				<f:setPropertyActionListener value="#{null}"
 					target="#{rechercheController.resultatRechercheStructure}" />
-			</a4j:commandButton>
+			</h:commandButton>
 			<t:htmlTag value="div" style="width: 20px;" />
-			<a4j:commandButton id="selectionEtab"
+			<h:commandButton id="selectionEtab"
 				value="#{msgs['OFFRE.SELECTIONETAB']}"
-				action="#{conventionController.goToCreerConventionEtape3Service}"
 				alt="#{msgs['OFFRE.SELECTIONETAB']}"
 				title="#{msgs['OFFRE.SELECTIONETAB']}"
+				action="#{conventionController.goToCreerConventionEtape3Service}"
 				rendered="#{not empty rechercheController.resultatRechercheStructure}">
 				<f:setPropertyActionListener
 					value="#{rechercheController.resultatRechercheStructure}"
 					target="#{conventionController.convention.structure}" />
-			</a4j:commandButton>
+			</h:commandButton>
 		</h:panelGrid>
-	</h:panelGrid>
-</ui:fragment>
+	</t:div>
+</ui:composition>

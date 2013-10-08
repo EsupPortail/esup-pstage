@@ -165,23 +165,27 @@ public class WelcomeController extends AbstractContextAwareController {
 	public String goToMotDePassePerdu(){
 		this.mailMotDePassePerdu="";
 		this.listeStructuresTrouveeMotDePassePerdu=null;
+		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape1Mail");
 		return "motDePassePerdu";
 	}
 
 	/**
 	 * Envoi vers la 2éme ou 3éme étape de récupération d'un mot de passe
-	 * @return String
 	 */
 	public String goToMotDePassePerduEtabTrouve(){
-		String ret="_motDePassePerduEtape3Confirmation";
+//		String ret="_motDePassePerduEtape3Confirmation";
+		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 		if(StringUtils.hasText(this.mailMotDePassePerdu)){
 			List<StructureDTO> ls = getStructureDomainService().getStructureFromContactMailEntrepriseAvecCompte(this.mailMotDePassePerdu);
 			if(ls!=null){
 				if(ls.size()>1){
-					ret="_motDePassePerduEtape2SelectionEtab";
+//					ret="_motDePassePerduEtape2SelectionEtab";
+					getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape2SelectionEtab");
 					this.listeStructuresTrouveeMotDePassePerdu=ls;
+					return "motDePassePerdu";
 				}else{
-					ret="_motDePassePerduEtape3Confirmation";
+//					ret="_motDePassePerduEtape3Confirmation";
+					getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 					ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu, 
 							ls.get(0).getIdStructure());
 					if(c!=null){
@@ -211,19 +215,20 @@ public class WelcomeController extends AbstractContextAwareController {
 					}
 				}
 			}else{
-				ret="_motDePassePerduEtape3Confirmation";
+//				ret="_motDePassePerduEtape3Confirmation";
+				getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 				addErrorMessage(null, "MOTDEPASSEPERDU.INCONNUE");
 			}
 		}
-		return ret;
+		return null;
 	}
 
 	/**
 	 * Envoi vers l'étape 3 de récupération de mot de passe depuis l'étape 2
-	 * @return String
 	 */
-	public String goToRecuperationMotDePasse(){
-		String ret="_motDePassePerduEtape3Confirmation";
+	public void goToRecuperationMotDePasse(){
+//		String ret="_motDePassePerduEtape3Confirmation";
+		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 		if(this.structureSelectionneeMotDePassePerdu!=null){
 			ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu, 
 					this.structureSelectionneeMotDePassePerdu.getIdStructure());
@@ -253,7 +258,7 @@ public class WelcomeController extends AbstractContextAwareController {
 				addErrorMessage(null, "MOTDEPASSEPERDU.ERREUR");
 			}
 		}
-		return ret;
+//		return ret;
 	}
 
 	/**

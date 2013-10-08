@@ -8,110 +8,107 @@
 
 	<rich:dataTable value="#{conventionController.convention.enseignant}"
 		rendered="#{not empty conventionController.convention.enseignant}">
-		<f:facet name="header">
-			<rich:columnGroup>
-				<rich:column>
-					<h:graphicImage alt="#{msgs['CONVENTION.CIVILITE']}"
-						title="#{msgs['CONVENTION.CIVILITE']}"
-						value="../../media/images/user_gray.png" style="border:0" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['CONVENTION.NOM']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['CONVENTION.PRENOM']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['CONVENTION.TYPE']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['CONVENTION.DEPARTEMENT']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['CONTACT.TELFAXMAIL']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['CONVENTION.CAMPUS']}" />
-				</rich:column>
-			</rich:columnGroup>
-		</f:facet>
 		<rich:column>
+			<f:facet name="header">
+				<h:graphicImage alt="#{msgs['CONVENTION.CIVILITE']}"
+					title="#{msgs['CONVENTION.CIVILITE']}"
+					value="../../media/images/user_gray.png" style="border:0" />
+			</f:facet>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.civilite.libelle}" />
-				<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
 		</rich:column>
 		<rich:column>
+			<f:facet name="header">
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.NOM']}" />
+			</f:facet>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.nom}" />
 			<t:htmlTag value="div" style="height: 5px;" />
 		</rich:column>
 		<rich:column>
+			<f:facet name="header">
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.PRENOM']}" />
+			</f:facet>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.prenom}" />
 			<t:htmlTag value="div" style="height: 5px;" />
 		</rich:column>
 		<rich:column>
+			<f:facet name="header">
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.TYPE']}" />
+			</f:facet>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.typePersonne}" />
 			<t:htmlTag value="div" style="height: 5px;" />
 		</rich:column>
 		<rich:column>
+			<f:facet name="header">
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.DEPARTEMENT']}" />
+			</f:facet>
 			<h:outputText
 				value="#{conventionController.convention.enseignant.codeAffectation} - #{conventionController.convention.enseignant.affectation.libelle}" />
 		</rich:column>
 		<rich:column>
-			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
-					<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-						title="#{msgs['CONTACT.TELEPHONE']}"
-						value="../../media/images/phone.png" style="border:0" />
-					<h:outputText id="telC"
-						value="#{conventionController.convention.enseignant.tel}" />
-				</h:panelGrid>
+			<f:facet name="header">
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONTACT.TELFAXMAIL']}" />
+			</f:facet>
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2">
+				<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+					title="#{msgs['CONTACT.TELEPHONE']}"
+					value="../../media/images/phone.png" style="border:0" />
+				<h:outputText id="telC"
+					value="#{conventionController.convention.enseignant.tel}" />
+			</h:panelGrid>
 
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
-					<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-						title="#{msgs['CONTACT.MAIL']}"
-						value="../../media/images/email.png" style="border:0" />
-					<h:outputText id="mailC"
-						value="#{conventionController.convention.enseignant.mail}" />
-				</h:panelGrid>
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2">
+				<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+					title="#{msgs['CONTACT.MAIL']}"
+					value="../../media/images/email.png" style="border:0" />
+				<h:outputText id="mailC"
+					value="#{conventionController.convention.enseignant.mail}" />
 			</h:panelGrid>
 		</rich:column>
 		<rich:column>
-			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
-					<h:graphicImage alt="#{msgs['CONVENTION.CAMPUS']}"
-						title="#{msgs['CONVENTION.CAMPUS']}"
-						value="../../media/images/house.png" style="border:0" />
-					<h:outputText id="campusC"
-						value="#{conventionController.convention.enseignant.campus}" />
-				</h:panelGrid>
-
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
-					<h:graphicImage alt="#{msgs['CONVENTION.BATIMENT']}"
-						title="#{msgs['CONVENTION.BATIMENT']}"
-						value="../../media/images/building.png" style="border:0" />
-					<h:outputText id="batimentC"
-						value="#{conventionController.convention.enseignant.batiment}" />
-				</h:panelGrid>
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
-					<h:graphicImage alt="#{msgs['CONVENTION.BUREAU']}"
-						title="#{msgs['CONVENTION.BUREAU']}"
-						value="../../media/images/computer.png" style="border:0" />
-					<h:outputText id="bureauC"
-						value="#{conventionController.convention.enseignant.bureau}" />
-				</h:panelGrid>
+			<f:facet name="header">
+				<h:outputText styleClass="headerText"
+					value="#{msgs['CONVENTION.CAMPUS']}" />
+			</f:facet>
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2">
+				<h:graphicImage alt="#{msgs['CONVENTION.CAMPUS']}"
+					title="#{msgs['CONVENTION.CAMPUS']}"
+					value="../../media/images/house.png" style="border:0" />
+				<h:outputText id="campusC"
+					value="#{conventionController.convention.enseignant.campus}" />
+			</h:panelGrid>
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2">
+				<h:graphicImage alt="#{msgs['CONVENTION.BATIMENT']}"
+					title="#{msgs['CONVENTION.BATIMENT']}"
+					value="../../media/images/building.png" style="border:0" />
+				<h:outputText id="batimentC"
+					value="#{conventionController.convention.enseignant.batiment}" />
+			</h:panelGrid>
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2">
+				<h:graphicImage alt="#{msgs['CONVENTION.BUREAU']}"
+					title="#{msgs['CONVENTION.BUREAU']}"
+					value="../../media/images/computer.png" style="border:0" />
+				<h:outputText id="bureauC"
+					value="#{conventionController.convention.enseignant.bureau}" />
 			</h:panelGrid>
 		</rich:column>
 	</rich:dataTable>
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1"
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="1"
 		rendered="#{empty conventionController.convention.enseignant}">
 		<h:outputText value="#{msgs['CONVENTION.AUCUNENSEIGNANT']}"
 			escape="false" />

@@ -6,12 +6,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="ajoutContact" autosized="true"	styleClass="panel">
+	<rich:popupPanel id="ajoutContact" autosized="true" styleClass="panel">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT']}" />
 		</f:facet>
-		<h:form id="formAjoutContact">
-			<ui:include src="/stylesheets/_commun/#{sessionController.ajoutContactCurrentPage}.xhtml" />
-		</h:form>
+		<a4j:outputPanel ajaxRendered="true">
+			<h:form id="formAjoutContact">
+				<ui:include
+					src="/stylesheets/_commun/#{sessionController.ajoutContactCurrentPage}.xhtml" />
+			</h:form>
+		</a4j:outputPanel>
 	</rich:popupPanel>
 </ui:composition>

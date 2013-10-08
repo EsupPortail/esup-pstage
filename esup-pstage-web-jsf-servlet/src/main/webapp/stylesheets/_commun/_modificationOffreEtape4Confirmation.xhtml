@@ -5,6 +5,8 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+	<ui:include src="_confirmationMessages.xhtml" />
 
 	<t:htmlTag value="center">
 		<h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
@@ -14,7 +16,7 @@
 			title="#{msgs['OFFRE.RECAPITULATIF']}" />
 		<h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
 			rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
-			action="recapitulatifOffreEtab" alt="#{msgs['OFFRE.RECAPITULATIF']}"
+			action="#{offreController.getRetour}" alt="#{msgs['OFFRE.RECAPITULATIF']}"
 			title="#{msgs['OFFRE.RECAPITULATIF']}" />
 	</t:htmlTag>
 </ui:fragment>

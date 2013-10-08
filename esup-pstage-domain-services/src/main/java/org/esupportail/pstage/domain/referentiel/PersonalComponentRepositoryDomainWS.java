@@ -19,7 +19,7 @@ public class PersonalComponentRepositoryDomainWS implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 315467803408970453L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 

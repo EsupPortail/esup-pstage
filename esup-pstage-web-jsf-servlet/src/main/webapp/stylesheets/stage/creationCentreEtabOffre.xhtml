@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<rich:panel>
 			<f:facet name="header">
@@ -17,8 +17,7 @@
 					<rich:message for="formCreationOffre">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					<ui:include id="include"
-						src="/stylesheets/_commun/#{sessionController.creationOffreStageCurrentPage}.xhtml" />
+					<ui:include src="/stylesheets/_commun/#{sessionController.creationOffreStageCurrentPage}.xhtml" />
 				</h:form>
 			<rich:message for="formCreationOffre">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />

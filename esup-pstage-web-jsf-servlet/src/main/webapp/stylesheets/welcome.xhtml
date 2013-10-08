@@ -4,12 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-<!-- 	<f:view locale="#{sessionController.locale}"> -->
-		<h:outputLink value="/stylesheets/depot/welcome.xhtml">Vers depot d'offres</h:outputLink>
-		<t:htmlTag value="br" />
-		<h:outputLink value="/stylesheets/stage/welcome.xhtml">Vers stage</h:outputLink>
-		<h:panelGroup layout="block" styleClass="app-footer" align="center">
-			<h:outputText value="#{msgs['COPYRIGHT']}" />
-		</h:panelGroup>
-<!-- 	</f:view> -->
+	<h:outputLink value="/stylesheets/depot/welcome.xhtml">Vers depot d'offres</h:outputLink>
+	<t:htmlTag value="br" />
+	<h:outputLink value="/stylesheets/stage/welcome.xhtml">Vers stage</h:outputLink>
+	<h:panelGroup layout="block" styleClass="app-footer" align="center">
+		<h:outputText value="#{msgs['COPYRIGHT']}" />
+	</h:panelGroup>
 </html>

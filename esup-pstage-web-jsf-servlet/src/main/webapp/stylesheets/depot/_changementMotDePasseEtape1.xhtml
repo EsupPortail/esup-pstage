@@ -1,49 +1,58 @@
-<ui:include src="../_include.xhtml"/>
-
-<h:panelGrid columns="1">
-	<ui:include src="../_commun/_champsObligatoires.xhtml"/>
-	<e:outputLabel for="mdp" value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPACTUEL']} *" />
-	<h:inputSecret id="mdp" size="12" maxlength="12"
-		value="#{etablissementController.mdpActuel}" required="true"
-		maxlength="12" size="12"
-		requiredMessage="#{requiredMessageController.champObligatoire}">
-		<f:converter binding="#{passwordConverter}" />
-		<a4j:ajax event="blur" ignoreDupResponses="true" />
-	</h:inputSecret>
-	<rich:message for="mdp">
-		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
-	</rich:message>
-	<h:panelGrid columns="2" style="font-size:11px;">
-		<h:graphicImage alt="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']}"
-			title="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']}"
-			value="../../media/images/information.png" style="border:0" />
-		<h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP.AIDE']}" />
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+		<ui:include src="../_commun/_champsObligatoires.xhtml" />
+		<h:outputLabel for="mdp"
+			value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPACTUEL']} *" />
+		<h:inputSecret id="mdp" size="12" maxlength="12"
+			value="#{etablissementController.mdpActuel}" required="true"
+			requiredMessage="#{requiredMessageController.champObligatoire}"
+			converter="#{passwordConverter}" >
+			<a4j:ajax event="blur" />
+		</h:inputSecret>
+		<rich:message for="mdp">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
+		<h:panelGrid columns="2" style="font-size:11px;">
+			<h:graphicImage
+				alt="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']}"
+				title="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']}"
+				value="../../media/images/information.png" style="border:0" />
+			<h:outputText
+				value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP.AIDE']}" />
+		</h:panelGrid>
+		<h:outputLabel for="mdpNew"
+			value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']} *" />
+		<h:inputSecret id="mdpNew" size="12" maxlength="12"
+			value="#{etablissementController.mdpNouveau}" required="true"
+			requiredMessage="#{requiredMessageController.champObligatoire}"
+			validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
+			<f:validateLength minimum="6" maximum="12" />
+			<a4j:ajax event="blur" />
+		</h:inputSecret>
+		<rich:message for="mdpNew">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
+		<h:outputLabel for="mdpConfirm"
+			value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDPCONFIRM']} *" />
+		<h:inputSecret id="mdpConfirm" size="12" maxlength="12"
+			value="#{etablissementController.mdpNouveauConfirmation}"
+			required="true" requiredMessage="#{requiredMessageController.champObligatoire}"
+			validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
+			<f:validateLength minimum="6" maximum="12" />
+			<a4j:ajax event="blur" />
+		</h:inputSecret>
+		<rich:message for="mdpConfirm">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
 	</h:panelGrid>
-	<e:outputLabel for="mdpNew" value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDP']} *" />
-	<h:inputSecret id="mdpNew" size="12" maxlength="12"
-		value="#{etablissementController.mdpNouveau}" required="true"
-		maxlength="12" size="12"
-		requiredMessage="#{requiredMessageController.champObligatoire}"
-		validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
-		<f:validateLength minimum="6" maximum="12"/>
-		<a4j:ajax event="blur" />
-	</h:inputSecret>
-	<rich:message for="mdpNew">
-		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
-	</rich:message>
-	<e:outputLabel for="mdpConfirm" value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDPCONFIRM']} *" />
-	<h:inputSecret id="mdpConfirm" size="12" maxlength="12"
-		value="#{etablissementController.mdpNouveauConfirmation}" required="true"
-		maxlength="12" size="12"
-		requiredMessage="#{requiredMessageController.champObligatoire}"
-		validatorMessage="#{requiredMessageController.nouveauMotDePasse}">
-		<f:validateLength minimum="6" maximum="12"/>
-		<a4j:ajax event="blur" ignoreDupResponses="true" />
-	</h:inputSecret>
-	<rich:message for="mdpConfirm">
-		<ui:include src="../_commun/_messageErrorMarker.xhtml"/>
-	</rich:message>
-</h:panelGrid>
-<a4j:commandButton
-	action="#{etablissementController.changerMotDePasse}"
-	value="#{msgs['FORM.NEXT']}" />
+	<a4j:commandButton
+		render="changementMotDePasse"
+		action="#{etablissementController.changerMotDePasse}"
+		value="#{msgs['FORM.NEXT']}" />
+</ui:composition>

@@ -7,8 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" cellpadding="2" cellspacing="2"
-		alternateColors="true">
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
 		<h:outputLabel for="typeConvention1"
 			value="#{msgs['CONVENTION.TYPECONVENTION']}" />
 		<h:outputText id="typeConvention1"
@@ -42,12 +41,12 @@
 		<h:outputLabel for="interruptionStage1"
 			value="#{msgs['CONVENTION.INTERRUPTION']}"
 			rendered="#{conventionController.convention.interruptionStage == false}" />
-		<h:outputText value="#{msgs['FORM.NON']}"
+		<h:outputText id="interruptionStage1" value="#{msgs['FORM.NON']}"
 			rendered="#{conventionController.convention.interruptionStage == false}" />
 		<h:outputLabel for="interruptionStage2"
 			value="#{msgs['CONVENTION.INTERRUPTION']}"
 			rendered="#{conventionController.convention.interruptionStage == true}" />
-		<h:outputText value="#{msgs['FORM.OUI']}"
+		<h:outputText id="interruptionStage2" value="#{msgs['FORM.OUI']}"
 			rendered="#{conventionController.convention.interruptionStage == true}" />
 		<h:outputLabel for="dateDebutInterruption1"
 			value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}"
