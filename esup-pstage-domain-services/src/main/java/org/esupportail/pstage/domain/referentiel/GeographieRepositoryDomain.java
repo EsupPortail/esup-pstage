@@ -12,7 +12,7 @@ import java.util.List;
 public interface GeographieRepositoryDomain extends Serializable{
 	/**
 	 * @param departement
-	 * @return la liste des communes françaises à partir du département
+	 * @return la liste des communes franÃ§aises Ã  partir du dÃ©partement
 	 */
 	public List<CommuneDTO> getCommuneFromDepartement(String departement);
 	/**
