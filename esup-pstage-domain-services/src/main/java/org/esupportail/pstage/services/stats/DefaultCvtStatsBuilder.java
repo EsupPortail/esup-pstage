@@ -31,7 +31,6 @@ public class DefaultCvtStatsBuilder extends AbstractStatsBuilder implements Init
 	}
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		
 		preparedStats = new HashMap<String, String>();
 		this.prepareStats();
 	}

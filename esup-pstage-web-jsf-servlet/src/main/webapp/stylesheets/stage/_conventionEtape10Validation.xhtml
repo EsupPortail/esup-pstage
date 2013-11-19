@@ -6,8 +6,9 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 	<t:htmlTag value="div" style="height:10px;" />
-	
-	<t:div rendered="#{sessionController.validationPedagogique
+
+	<t:div
+		rendered="#{sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique
 		and !conventionController.convention.validationConvention}">
 		<fieldset>
 			<legend>
@@ -17,10 +18,13 @@
 			</legend>
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" id="erreurConventionVerification">
-				<rich:messages for="erreurConventionVerification" />
-				<h:outputText value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.INFO']}" escape="false" />
+				<rich:message for="erreurConventionVerification" />
+				<h:outputText
+					value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.INFO']}"
+					escape="false" />
 				<t:htmlTag value="div" style="height:5px;" />
-				<h:outputText value="#{msgs['CONVENTION.NUMEROCONVENTION']} : #{conventionController.convention.idConvention}, 
+				<h:outputText
+					value="#{msgs['CONVENTION.NUMEROCONVENTION']} : #{conventionController.convention.idConvention}, 
 				#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}   
 				#{conventionController.convention.etudiant.prenom}" />
 
@@ -28,13 +32,15 @@
 					rendered="#{!conventionController.convention.validationPedagogique}" />
 				<h:panelGrid
 					rendered="#{!conventionController.convention.validationPedagogique}">
-					<h:outputText value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.NONVERIF']}"
+					<h:outputText
+						value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.NONVERIF']}"
 						escape="false" />
 					<h:column>
 						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 							title="#{msgs['GENERAL.WARNING']}"
 							value="../../media/images/warning_20px.png" style="border:0" />
-						<h:outputText value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ATTENTION']}"
+						<h:outputText
+							value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ATTENTION']}"
 							escape="false" />
 					</h:column>
 				</h:panelGrid>
@@ -47,7 +53,8 @@
 						<h:graphicImage alt="#{msgs['GENERAL.OK']}"
 							title="#{msgs['GENERAL.OK']}" value="../../media/images/tick.png"
 							style="border:0" />
-						<h:outputText value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIF']}"
+						<h:outputText
+							value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIF']}"
 							escape="false"
 							rendered="#{conventionController.convention.validationPedagogique}" />
 					</h:column>
@@ -58,23 +65,22 @@
 				rendered="#{welcomeController.superAdmin 
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-				<h:panelGrid columns="2">
-					<a4j:commandButton execute="@this"
-						oncomplete="#{rich:component('demandeConfirmVerifConvention')}.show()"
-						value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIFIER']}"
-						alt="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIFIER']}"
-						rendered="#{!conventionController.convention.validationPedagogique}" />
+				<a4j:commandButton execute="@this"
+					oncomplete="#{rich:component('demandeConfirmVerifConvention')}.show()"
+					value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIFIER']}"
+					alt="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIFIER']}"
+					rendered="#{!conventionController.convention.validationPedagogique}" />
 
-					<a4j:commandButton execute="@this"
-						oncomplete="#{rich:component('demandeConfirmUnVerifConvention')}.show()"
-						value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ANNULER_VERIF']}"
-						alt="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ANNULER_VERIF']}"
-						rendered="#{conventionController.convention.validationPedagogique}" />
-				</h:panelGrid>
+				<a4j:commandButton execute="@this"
+					oncomplete="#{rich:component('demandeConfirmUnVerifConvention')}.show()"
+					value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ANNULER_VERIF']}"
+					alt="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ANNULER_VERIF']}"
+					rendered="#{conventionController.convention.validationPedagogique}" />
 				<rich:popupPanel id="demandeConfirmVerifConvention" autosized="true"
 					width="400" styleClass="panel" domElementAttachment="parent">
 					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.DEMANDE']}" />
+						<h:outputText
+							value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.DEMANDE']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 5px;" />
 					<h:panelGrid align="center" columns="3">
@@ -87,8 +93,9 @@
 					</h:panelGrid>
 					<t:htmlTag value="div" style="height: 5px;" />
 				</rich:popupPanel>
-				<rich:popupPanel id="demandeConfirmUnVerifConvention" autosized="true" 
-					width="400" styleClass="panel" domElementAttachment="parent">
+				<rich:popupPanel id="demandeConfirmUnVerifConvention"
+					autosized="true" width="400" styleClass="panel"
+					domElementAttachment="parent">
 					<f:facet name="header">
 						<h:outputText
 							value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.DEMANDE_UNVERIF']}" />
@@ -110,10 +117,10 @@
 
 	<t:htmlTag value="div" style="height: 10px;" />
 
-
 	<t:div
 		rendered="#{!sessionController.validationPedagogique
-	|| (sessionController.validationPedagogique and conventionController.convention.validationPedagogique)}">
+	|| (sessionController.validationPedagogique and !conventionController.convention.centreGestion.validationPedagogique)
+	|| (sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique and conventionController.convention.validationPedagogique)}">
 		<fieldset>
 			<legend>
 				<h:outputLabel for="erreurConventionValidation"
@@ -126,8 +133,6 @@
 			</rich:message>
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="1">
-				<rich:messages showDetail="true" />
-
 				<h:outputText value="#{msgs['CONVENTION.VALIDATION.INFO']}" />
 				<t:htmlTag value="div" style="height: 5px;" />
 				<h:outputText
@@ -164,24 +169,22 @@
 				</h:panelGrid>
 			</h:panelGrid>
 			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1"
+				rowClasses="paginatorData-text"
 				rendered="#{welcomeController.superAdmin 
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
-					<a4j:commandButton execute="@this"
-						oncomplete="#{rich:component('demandeConfirmValidConvention')}.show()"
-						value="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
-						alt="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
-						rendered="#{!conventionController.convention.validationConvention}" />
-
-					<a4j:commandButton execute="@this"
-						oncomplete="#{rich:component('demandeConfirmInValidConvention')}.show()"
-						value="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
-						alt="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
-						rendered="#{conventionController.convention.validationConvention}" />
-				</h:panelGrid>
+				
+				<a4j:commandButton execute="@this"
+					oncomplete="#{rich:component('demandeConfirmValidConvention')}.show()"
+					value="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
+					alt="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
+					rendered="#{!conventionController.convention.validationConvention}" />
+				<a4j:commandButton execute="@this"
+					oncomplete="#{rich:component('demandeConfirmInValidConvention')}.show()"
+					value="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
+					alt="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
+					rendered="#{conventionController.convention.validationConvention}" />
+					
 				<rich:popupPanel id="demandeConfirmValidConvention" autosized="true"
 					width="400" styleClass="panel" domElementAttachment="parent">
 					<f:facet name="header">
@@ -198,8 +201,9 @@
 					</h:panelGrid>
 					<t:htmlTag value="div" style="height: 5px;" />
 				</rich:popupPanel>
-				<rich:popupPanel id="demandeConfirmInValidConvention" autosized="true"
-					width="400" styleClass="panel" domElementAttachment="parent">
+				<rich:popupPanel id="demandeConfirmInValidConvention"
+					autosized="true" width="400" styleClass="panel"
+					domElementAttachment="parent">
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.INVALIDATION.DEMANDE']}" />
 					</f:facet>

@@ -41,21 +41,21 @@
 		<rich:message for="prenom">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
-		<t:htmlTag value="div" style="height: 5px;" />
-		<t:htmlTag value="div" style="height: 5px;" />
-		<t:htmlTag value="div" style="height: 5px;" />
-		<t:htmlTag value="div" style="height: 5px;" />
-		<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}"
-			for="codeAffectation" />
-		<h:selectOneMenu id="codeAffectation"
-			requiredMessage="#{requiredMessageController.champObligatoire}"
-			value="#{conventionController.selCodeAffectationEnseignant}">
-			<f:selectItem itemValue="" />
-			<f:selectItems value="#{conventionController.listeAffectation}" />
-		</h:selectOneMenu>
-		<t:htmlTag value="div" style="width: 10px;" />
-		<rich:message for="codeAffectation">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+<!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
+<!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
+<!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
+<!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
+<!-- 		<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}" -->
+<!-- 			for="codeAffectation" /> -->
+<!-- 		<h:selectOneMenu id="codeAffectation" -->
+<!-- 			requiredMessage="#{requiredMessageController.champObligatoire}" -->
+<!-- 			value="#{conventionController.selCodeAffectationEnseignant}"> -->
+<!-- 			<f:selectItem itemValue="" /> -->
+<!-- 			<f:selectItems value="#{conventionController.listeAffectation}" /> -->
+<!-- 		</h:selectOneMenu> -->
+<!-- 		<t:htmlTag value="div" style="width: 10px;" /> -->
+<!-- 		<rich:message for="codeAffectation"> -->
+<!-- 			<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+<!-- 		</rich:message> -->
 	</h:panelGrid>
 </ui:composition>

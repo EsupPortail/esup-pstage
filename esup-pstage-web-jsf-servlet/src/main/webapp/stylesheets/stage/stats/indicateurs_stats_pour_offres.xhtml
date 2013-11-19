@@ -16,7 +16,7 @@
 				<h:form id="idFormOffreStats"
 					rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) and centreController.centre != null}">
 					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+						rowClasses="paginatorData-text">
 						<h:panelGroup>
 							<h:outputText value="#{msgs['OFFRES.STATS.CRITERE.UN']}" />
 							<t:htmlTag value="div" style="width: 20px;" />
@@ -30,7 +30,7 @@
 					</h:panelGrid>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+						rowClasses="paginatorData-text">
 						<h:panelGroup>
 							<h:outputText value="#{msgs['OFFRES.STATS.CRITERE.DEUX']}" />
 							<t:htmlTag value="div" style="width: 20px;" />

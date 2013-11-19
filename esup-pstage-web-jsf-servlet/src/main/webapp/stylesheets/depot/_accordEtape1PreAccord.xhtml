@@ -12,7 +12,11 @@
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
 		<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} * "
 			for="raisonSociale" />
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="4">
+			<h:graphicImage id="imgInfo" alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
+				value="../../media/images/information.png" style="border:0">
+				<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
+			</h:graphicImage>
 			<h:inputText id="raisonSociale" size="50" maxlength="150"
 				style="text-transform:uppercase;"
 				value="#{accordController.preAccord.structure.raisonSociale}"
@@ -36,7 +40,6 @@
 			<f:selectItem itemValue="" />
 			<f:selectItems value="#{nomenclatureController.typesStructure}" />
 			<a4j:ajax event="valueChange" render="siret, olSiret" execute="@this" />
-			<a4j:ajax event="blur" render="siret, olSiret" execute="@this" />
 		</h:selectOneMenu>
 		<rich:message for="typeStructure">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -47,7 +50,12 @@
 				rendered="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)
 						and accordController.preAccord.structure.typeStructure.siretObligatoire}" />
 		</h:panelGrid>
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="4">
+			<h:graphicImage id="infoNumsiret"
+				alt="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
+				value="../../media/images/information.png" style="border:0">
+				<rich:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
+			</h:graphicImage>
 			<h:inputText id="siret" size="20" maxlength="14"
 				value="#{accordController.preAccord.structure.numeroSiret}"
 				required="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)

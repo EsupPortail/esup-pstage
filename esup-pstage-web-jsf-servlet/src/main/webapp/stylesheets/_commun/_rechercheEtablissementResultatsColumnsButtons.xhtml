@@ -11,7 +11,8 @@
 			value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
 			action="#{rechercheController.goToAffichageRechercheEtablissement}"
 			image="../../media/images/document.png"
-			alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
+			alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+			rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
 			<f:setPropertyActionListener value="#{varRechercheStructure}"
 				target="#{rechercheController.resultatRechercheStructure}" />
 			<rich:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
@@ -20,50 +21,73 @@
 	<rich:column
 		rendered="#{(sessionController.adminPageAuthorized || welcomeController.superAdmin 
 	|| welcomeController.admin || welcomeController.writer)}">
-		<h:panelGrid columns="2">
-			<h:commandButton id="modifierStructure"
-				value="#{msgs['FORM.MODIFIER']}"
-				action="#{etablissementController.goToModificationEtablissement}"
-				image="../../media/images/edit.png" alt="#{msgs['FORM.MODIFIER']}"
-				rendered="#{not empty rechercheController.ongletCourant
+		<t:div style="display:inline;">
+			<t:div style="display:inline;"
+				rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
+				<h:commandButton id="modifierStructure"
+					value="#{msgs['FORM.MODIFIER']}"
+					action="#{etablissementController.goToModificationEtablissement}"
+					image="../../media/images/edit.png" alt="#{msgs['FORM.MODIFIER']}"
+					rendered="#{not empty rechercheController.ongletCourant
 				and rechercheController.ongletCourant!=6
 				or (rechercheController.ongletCourant==6 and
 				(empty varRechercheStructure.accordPartenariat
 				or (not empty varRechercheStructure.accordPartenariat
 				and varRechercheStructure.accordPartenariat.estValide)))}">
-				<f:setPropertyActionListener value="#{varRechercheStructure}"
-					target="#{etablissementController.formStructure}" />
-				<f:setPropertyActionListener value="#{false}"
-					target="#{etablissementController.modificationEtabBoutonAnnuler}" />
-				<rich:tooltip>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1">
-						<t:htmlTag value="em">
-							<h:outputText value="#{msgs['FORM.MODIFIER']}" />
-						</t:htmlTag>
+					<f:setPropertyActionListener value="#{varRechercheStructure}"
+						target="#{etablissementController.formStructure}" />
+					<f:setPropertyActionListener value="#{false}"
+						target="#{etablissementController.modificationEtabBoutonAnnuler}" />
+					<rich:tooltip>
+						<h:outputLabel for="tooltip" value="#{msgs['FORM.MODIFIER']}" />
 						<t:htmlTag value="br" />
-						<t:aliasBean alias="#{objet}" value="#{varRechercheStructure}">
+						<t:aliasBean id="tooltip" alias="#{objet}" value="#{varRechercheStructure}">
 							<ui:include src="../_commun/_updateInfos.xhtml" />
 						</t:aliasBean>
-					</h:panelGrid>
-				</rich:tooltip>
-			</h:commandButton>
-			<a4j:commandLink execute="@this" id="supprimerStructure"
-				oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
-				render="supprimerStructurePanel"
-				rendered="#{not empty rechercheController.ongletCourant 		
+					</rich:tooltip>
+				</h:commandButton>
+				<a4j:commandLink execute="@this" id="supprimerStructure"
+					oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
+					render="supprimerStructurePanel"
+					rendered="#{not empty rechercheController.ongletCourant 		
 				and rechercheController.ongletCourant!=6
 				or (rechercheController.ongletCourant==6 and
 				(empty varRechercheStructure.accordPartenariat))}">
-				<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-					value="../../media/images/delete.png" style="border:0" />
+					<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+						value="../../media/images/delete.png" style="border:0" />
+					<f:setPropertyActionListener value="#{varRechercheStructure}"
+						target="#{etablissementController.formStructure}" />
+					<f:setPropertyActionListener value="_supprStructureEtape1"
+						target="#{sessionController.suppressionStructureCurrentPage}" />
+					<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+				</a4j:commandLink>
+			</t:div>
+			<a4j:commandLink execute="@this" id="validerStructure"
+				oncomplete="#{rich:component('validerStructurePanel')}.show()"
+				rendered="#{!varRechercheStructure.estValidee}"
+				action="#{etablissementController.avantValidation}"
+				render="validerStructurePanel">
+				<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
+					value="../../media/images/tick.png" style="border:0" />
 				<f:setPropertyActionListener value="#{varRechercheStructure}"
-					target="#{etablissementController.formStructure}" />
-				<f:setPropertyActionListener value="_supprStructureEtape1"
-					target="#{sessionController.suppressionStructureCurrentPage}" />
-				<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+					target="#{etablissementController.currentStruct}" />
+				<f:setPropertyActionListener value="_validStructureEtape1"
+					target="#{sessionController.validationStructureCurrentPage}" />
+				<rich:tooltip value="#{msgs['FORM.VALIDER']}" />
 			</a4j:commandLink>
-		</h:panelGrid>
-
+			<a4j:commandLink execute="@this" id="devaliderStructure"
+				oncomplete="#{rich:component('validerStructurePanel')}.show()"
+				rendered="#{varRechercheStructure.estValidee}"
+				action="#{etablissementController.avantValidation}"
+				render="validerStructurePanel">
+				<h:graphicImage alt="#{msgs['FORM.DEVALIDER']}"
+					value="../../media/images/cross.png" style="border:0" />
+				<f:setPropertyActionListener value="#{varRechercheStructure}"
+					target="#{etablissementController.currentStruct}" />
+				<f:setPropertyActionListener value="_validStructureEtape1"
+					target="#{sessionController.validationStructureCurrentPage}" />
+				<rich:tooltip value="#{msgs['FORM.DEVALIDER']}" />
+			</a4j:commandLink>
+		</t:div>
 	</rich:column>
 </ui:composition>

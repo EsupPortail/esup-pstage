@@ -6,28 +6,34 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2"
+		rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
 		<h:graphicImage value="../../media/images/building.png"
 			alt="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}" style="border:0"
-			rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount gt 1
-						and rechercheController.rechercheStructurePaginator.totalItemsCount lt 200}" />
+			rendered="#{rechercheController.resultatRechercheSize gt 1
+						and rechercheController.resultatRechercheSize lt 200}" />
 		<h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}"
-			rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount gt 1
-						and rechercheController.rechercheStructurePaginator.totalItemsCount lt 200}"
+			rendered="#{rechercheController.resultatRechercheSize gt 1
+						and rechercheController.resultatRechercheSize lt 200}"
 			escape="false">
 			<f:param
-				value="#{rechercheController.rechercheStructurePaginator.totalItemsCount}" />
+				value="#{rechercheController.resultatRechercheSize}" />
 		</h:outputFormat>
 		<h:graphicImage value="../../media/images/building.png"
 			alt="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}" style="border:0"
-			rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount ge 200}" />
+			rendered="#{rechercheController.resultatRechercheSize ge 200}" />
 		<h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}"
-			rendered="#{rechercheController.rechercheStructurePaginator.totalItemsCount ge 200}"
+			rendered="#{rechercheController.resultatRechercheSize ge 200}"
 			escape="false">
 			<f:param
-				value="#{rechercheController.rechercheStructurePaginator.totalItemsCount}" />
+				value="#{rechercheController.resultatRechercheSize}" />
 		</h:outputFormat>
 	</h:panelGrid>
-	<t:htmlTag value="br" />
-	<t:htmlTag value="div" style="height: 20px;" />
+	<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+		rendered="#{sessionController.moderationStructures and rechercheController.toVerificationStructures}">
+		<h:graphicImage alt="avertissement"
+			value="../../media/images/information.png" style="border:0" />
+		<h:outputText value="#{msgs['STRUCTURE.MODERATION.INFORMATION']}" escape="false"/>
+	</h:panelGrid>
+	<t:htmlTag value="div" style="height:10px;" />
 </ui:composition>

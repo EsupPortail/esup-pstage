@@ -155,6 +155,18 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Date pattern
 	 */
 	private static String datePattern=Utils.DATE_PATTERN;
+
+	/**
+	 * Taille de la liste de résultats de la recherche d'établissement
+	 */
+	@SuppressWarnings("unused")
+	private int resultatRechercheSize;
+	
+	/**
+	 * Indique si la liste de resultats d'établissement est celle de la page de verification
+	 */
+	private boolean toVerificationStructures = false;
+	
 	/**
 	 * Bean constructor.
 	 */
@@ -165,6 +177,35 @@ public class RechercheController extends AbstractContextAwareController {
 	/* ***************************************************************
 	 * Actions
 	 ****************************************************************/
+	/**
+	 * @return A String
+	 */
+	public String goToEtablissementsAVerifier(){
+		
+		this.afficherBoutonAjoutEtab=false;
+		this.toVerificationStructures=true;
+		
+		if(this.critereRechercheStructureAdresse==null){
+			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
+		}
+		resetResultats();
+		reloadRechercheStructurePaginator();
+		
+		this.listeResultatsRechercheStructure=new ArrayList<StructureDTO>();
+
+		this.listeResultatsRechercheStructure = getStructureDomainService().getStructuresFromVerification(false);
+
+		checkListeResultats();
+		
+		return "rechercheEtablissementStage";
+	}
+	
+	/**
+	 * @return int
+	 */
+	public int getResultatRechercheSize(){
+		return this.listeResultatsRechercheStructure.size();
+	}
 	
 	/**
 	 * @return A String
@@ -180,6 +221,8 @@ public class RechercheController extends AbstractContextAwareController {
 	 * @return A String
 	 */
 	public String goToRechercheEtablissementStage(){
+		this.toVerificationStructures = false;
+		
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
 		}
@@ -331,9 +374,6 @@ public class RechercheController extends AbstractContextAwareController {
 				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtDepartement(this.rechRaisonSociale, this.rechDepartement);
 			}else{
 				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSociale(this.rechRaisonSociale);
-				System.out.println("la liste => "+listeResultatsRechercheStructure);
-				if(listeResultatsRechercheStructure != null)
-				System.out.println(" size => "+listeResultatsRechercheStructure.size());
 			}
 			checkListeResultats();
 		}else{
@@ -508,13 +548,7 @@ public class RechercheController extends AbstractContextAwareController {
 		if(this.listeResultatsRechercheStructure==null && this.resultatRechercheStructure==null){
 			addInfoMessage("formResultatsRechEtab", "RECHERCHEETABLISSEMENT.AUCUNRESULTAT");
 		}else if(this.listeResultatsRechercheStructure!=null){
-			/*if(this.listeResultatsRechercheStructure.size()==1){
-				this.resultatRechercheStructure=this.listeResultatsRechercheStructure.get(0);
-				this.listeResultatsRechercheStructure=null;*/
-				reloadRechercheStructurePaginator();
-			/*}else{
-				reloadRechercheStructurePaginator();
-			}*/
+			reloadRechercheStructurePaginator();
 		}
 	}
 	
@@ -854,6 +888,20 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	public String getDatePattern() {
 		return datePattern;
+	}
+
+	/**
+	 * @return the toVerificationStructures
+	 */
+	public boolean isToVerificationStructures() {
+		return toVerificationStructures;
+	}
+
+	/**
+	 * @param toVerificationStructures the toVerificationStructures to set
+	 */
+	public void setToVerificationStructures(boolean toVerificationStructures) {
+		this.toVerificationStructures = toVerificationStructures;
 	}
 
 }

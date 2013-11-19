@@ -5,8 +5,8 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 	<a4j:commandButton immediate="true" value="#{msgs['FORM.PREVIOUS']}"
-		action="#{accordController.goToEtapePrecedente}"/>
-	
+		action="#{accordController.goToEtapePrecedente}" />
+
 	<ui:include src="_accordArticles.xhtml" />
 	<h:panelGrid columns="1">
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
@@ -16,11 +16,18 @@
 				rowClasses="paginatorData-text">
 				<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
 					for="raisonSociale" />
-				<h:inputText id="raisonSociale" style="text-transform:uppercase;"
-					value="#{accordController.accord.structure.raisonSociale}"
-					size="50" maxlength="100" disabled="true" required="true">
-					<f:converter binding="#{sansAccentEnMAJConverter}" />
-				</h:inputText>
+				<h:panelGrid columns="2" columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
+					<h:graphicImage id="imgInfo" alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
+						value="../../media/images/information.png" style="border:0">
+						<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+					</h:graphicImage>
+					<h:inputText id="raisonSociale" style="text-transform:uppercase;"
+						value="#{accordController.accord.structure.raisonSociale}"
+						size="50" maxlength="100" disabled="true" required="true">
+						<f:converter binding="#{sansAccentEnMAJConverter}" />
+					</h:inputText>
+				</h:panelGrid>
 				<rich:message for="raisonSociale">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
@@ -51,7 +58,8 @@
 			</h:panelGrid>
 			<h:panelGrid columns="3">
 				<t:htmlTag value="div" style="width:25px;" />
-				<t:htmlTag value="div" style="width:2px; height:125px; background-color:#{a4jSkin.panelBorderColor};"/>
+				<t:htmlTag value="div"
+					style="width:2px; height:125px; background-color:#{a4jSkin.panelBorderColor};" />
 				<t:htmlTag value="div" style="width:25px;" />
 			</h:panelGrid>
 			<h:panelGrid columns="1" columnClasses="paginatorData-text"
@@ -65,48 +73,48 @@
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 				</h:panelGrid>
-<!-- 				<a4j:region renderRegionOnly="true"> -->
-					<h:panelGrid columns="1">
-						<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
-							for="typeStructure" />
-						<h:selectOneMenu id="typeStructure"
-							value="#{accordController.accord.structure.typeStructure}"
-							converter="#{typeStructureConverter}" required="true"
-							valueChangeListener="#{accordController.valueTypeStructureChanged}"
-							requiredMessage="#{requiredMessageController.champObligatoire}"
-							disabled="true">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.typesStructure}" />
-							<a4j:ajax event="blur"/>
-							<a4j:ajax event="valueChange" render="opStatutJuridique"
-								execute="@this" />
-						</h:selectOneMenu>
-						<rich:message for="typeStructure">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-						<a4j:outputPanel id="opStatutJuridique">
-							<h:panelGrid columns="1"
-								rendered="#{!empty accordController.statutsJuridiquesListening
+				<!-- 				<a4j:region renderRegionOnly="true"> -->
+				<h:panelGrid columns="1">
+					<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
+						for="typeStructure" />
+					<h:selectOneMenu id="typeStructure"
+						value="#{accordController.accord.structure.typeStructure}"
+						converter="#{typeStructureConverter}" required="true"
+						valueChangeListener="#{accordController.valueTypeStructureChanged}"
+						requiredMessage="#{requiredMessageController.champObligatoire}"
+						disabled="true">
+						<f:selectItem itemValue="" />
+						<f:selectItems value="#{nomenclatureController.typesStructure}" />
+						<a4j:ajax event="blur" />
+						<a4j:ajax event="valueChange" render="opStatutJuridique"
+							execute="@this" />
+					</h:selectOneMenu>
+					<rich:message for="typeStructure">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+					<a4j:outputPanel id="opStatutJuridique">
+						<h:panelGrid columns="1"
+							rendered="#{!empty accordController.statutsJuridiquesListening
 							and !empty accordController.accord.structure.typeStructure}">
-								<h:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']} *"
-									for="statutJuridique" />
-								<h:selectOneMenu id="statutJuridique"
-									value="#{accordController.accord.structure.statutJuridique}"
-									converter="#{statutJuridiqueConverter}" required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}"
-									disabled="#{accordController.structureDejaExistante}">
-									<f:selectItem itemValue="" />
-									<f:selectItems
-										value="#{accordController.statutsJuridiquesListening}" />
-									<a4j:ajax event="blur"/>
-								</h:selectOneMenu>
-								<rich:message for="statutJuridique">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
-							</h:panelGrid>
-						</a4j:outputPanel>
-					</h:panelGrid>
-<!-- 				</a4j:region> -->
+							<h:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']} *"
+								for="statutJuridique" />
+							<h:selectOneMenu id="statutJuridique"
+								value="#{accordController.accord.structure.statutJuridique}"
+								converter="#{statutJuridiqueConverter}" required="true"
+								requiredMessage="#{requiredMessageController.champObligatoire}"
+								disabled="#{accordController.structureDejaExistante}">
+								<f:selectItem itemValue="" />
+								<f:selectItems
+									value="#{accordController.statutsJuridiquesListening}" />
+								<a4j:ajax event="blur" />
+							</h:selectOneMenu>
+							<rich:message for="statutJuridique">
+								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							</rich:message>
+						</h:panelGrid>
+					</a4j:outputPanel>
+				</h:panelGrid>
+				<!-- 				</a4j:region> -->
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columns="2" columnClasses="paginatorData-text"
@@ -117,8 +125,12 @@
 		</h:panelGrid>
 		<h:panelGrid columns="1" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text">
-			<h:panelGrid columns="3" columnClasses="paginatorData-text"
+			<h:panelGrid columns="4" columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text">
+				<h:graphicImage id="infoApe" alt="#{msgs['INFOSBULLES.CODE_APE']}"
+					value="../../media/images/information.png" style="border:0">
+					<rich:tooltip value="#{msgs['INFOSBULLES.CODE_APE']}"/>
+				</h:graphicImage>
 				<h:inputText id="ape" style="text-transform:uppercase;"
 					value="#{accordController.accord.structure.codeNAF_N5}"
 					validatorMessage="#{requiredMessageController.codeNafNonValide}"
@@ -149,7 +161,8 @@
 				rendered="#{!etablissementController.codeNafObligatoire ||
 			(accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance)}">
 				<t:htmlTag value="div" style="width:20px;" />
-				<h:graphicImage value="../../media/images/arrow_turn_up_and_down.png"
+				<h:graphicImage
+					value="../../media/images/arrow_turn_up_and_down.png"
 					alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
 					title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
 				<t:htmlTag value="div" style="width:5px;" />
@@ -219,59 +232,59 @@
 			</h:panelGrid>
 			<h:panelGrid columns="3">
 				<t:htmlTag value="div" style="width:25px;" />
-				<t:htmlTag value="div" style="width:2px; height:125px; background-color: #{a4jSkin.panelBorderColor};"/>
+				<t:htmlTag value="div"
+					style="width:2px; height:125px; background-color: #{a4jSkin.panelBorderColor};" />
 				<t:htmlTag value="div" style="width:25px;" />
 			</h:panelGrid>
 			<h:panelGrid columns="1" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-<!-- 				<a4j:region renderRegionOnly="true"> -->
-					<a4j:outputPanel id="opCodePostal">
-						<h:panelGrid columns="1"
-							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+				rowClasses="paginatorData-text">
+				<!-- 				<a4j:region renderRegionOnly="true"> -->
+				<a4j:outputPanel id="opCodePostal">
+					<h:panelGrid columns="1"
+						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 				(accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance
 				and sessionController.recupererCommunesDepuisApogee)}">
-							<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
-								for="codePostal" />
-							<h:inputText id="codePostal"
-								value="#{accordController.accord.structure.codePostal}"
-								size="20" maxlength="10"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								disabled="#{accordController.structureDejaExistante}">
-								<a4j:ajax event="blur" />
-								<a4j:ajax event="valueChange" />
-							</h:inputText>
-							<rich:message for="codePostal">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-					</a4j:outputPanel>
-<!-- 				</a4j:region> -->
+						<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
+							for="codePostal" />
+						<h:inputText id="codePostal"
+							value="#{accordController.accord.structure.codePostal}" size="20"
+							maxlength="10"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							disabled="#{accordController.structureDejaExistante}">
+							<a4j:ajax event="blur" />
+							<a4j:ajax event="valueChange" />
+						</h:inputText>
+						<rich:message for="codePostal">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+					</h:panelGrid>
+				</a4j:outputPanel>
+				<!-- 				</a4j:region> -->
 				<h:panelGrid columns="1" columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text"
 					rendered="#{(accordController.accord.structure.pays==beanUtils.france || accordController.accord.structure.pays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
-<!-- 					<a4j:region id="dynaR"> -->
-						<h:panelGrid columns="1">
-							<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
-								for="dynaCodePostal" />
-							<h:inputText id="dynaCodePostal"
-								value="#{accordController.accord.structure.codePostal}" size="5"
-								maxlength="5" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								validatorMessage="#{requiredMessageController.codePostalNonValide}"
-								valueChangeListener="#{accordController.valueCodePostalChanged}"
-								disabled="#{accordController.structureDejaExistante}">
-								<f:validator binding="#{codePostalValidator}" />
-								<a4j:ajax event="blur" render="opDynaCommune"
-									execute="@this">
-									<a4j:attachQueue requestDelay="1000" />
-								</a4j:ajax>
-							</h:inputText>
-							<rich:message for="dynaCodePostal">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-<!-- 					</a4j:region> -->
+					<!-- 					<a4j:region id="dynaR"> -->
+					<h:panelGrid columns="1">
+						<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
+							for="dynaCodePostal" />
+						<h:inputText id="dynaCodePostal"
+							value="#{accordController.accord.structure.codePostal}" size="5"
+							maxlength="5" required="true"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							validatorMessage="#{requiredMessageController.codePostalNonValide}"
+							valueChangeListener="#{accordController.valueCodePostalChanged}"
+							disabled="#{accordController.structureDejaExistante}">
+							<f:validator binding="#{codePostalValidator}" />
+							<a4j:ajax event="blur" render="opDynaCommune" execute="@this">
+								<a4j:attachQueue requestDelay="1000" />
+							</a4j:ajax>
+						</h:inputText>
+						<rich:message for="dynaCodePostal">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+					</h:panelGrid>
+					<!-- 					</a4j:region> -->
 				</h:panelGrid>
 				<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
 				<a4j:outputPanel id="opCommune">
@@ -309,11 +322,11 @@
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 							</rich:message>
 						</a4j:outputPanel>
-<!-- 						<a4j:status for="dynaR"> -->
-<!-- 							<f:facet name="start"> -->
-<!-- 								<h:graphicImage value="../../media/images/ajax_process.gif" /> -->
-<!-- 							</f:facet> -->
-<!-- 						</a4j:status> -->
+						<!-- 						<a4j:status for="dynaR"> -->
+						<!-- 							<f:facet name="start"> -->
+						<!-- 								<h:graphicImage value="../../media/images/ajax_process.gif" /> -->
+						<!-- 							</f:facet> -->
+						<!-- 						</a4j:status> -->
 					</h:panelGrid>
 				</a4j:outputPanel>
 				<h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
@@ -343,7 +356,7 @@
 
 		<h:panelGrid columns="3" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text">
-			<h:panelGrid columns="1" >
+			<h:panelGrid columns="1">
 				<h:panelGrid columns="2">
 					<h:outputLabel value="#{msgs['STRUCTURE.MAIL']} " for="mail" />
 					<h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
@@ -382,7 +395,8 @@
 			</h:panelGrid>
 			<h:panelGrid columns="3">
 				<t:htmlTag value="div" style="width:25px;" />
-				<t:htmlTag value="div" style="width:2px; height:125px; background-color: #{a4jSkin.panelBorderColor};"/>
+				<t:htmlTag value="div"
+					style="width:2px; height:125px; background-color: #{a4jSkin.panelBorderColor};" />
 				<t:htmlTag value="div" style="width:25px;" />
 			</h:panelGrid>
 			<h:panelGrid columns="1">
@@ -424,7 +438,7 @@
 	<h:panelGrid columns="1">
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
 		<h:panelGrid columns="3" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
+			rowClasses="paginatorData-text">
 			<h:panelGrid columns="1">
 				<t:panelGrid columns="2" style="margin-left:auto;margin-right:auto;">
 					<h:outputLabel value="#{msgs['CONTACT.CIVILITE']} *" for="civilite" />
@@ -434,7 +448,7 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.civilites}" />
-						<a4j:ajax event="blur"/>
+						<a4j:ajax event="blur" />
 					</h:selectOneMenu>
 					<t:panelGroup colspan="2">
 						<rich:message for="civilite">
@@ -448,7 +462,7 @@
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{upperCaseConverter}" />
-					<a4j:ajax event="blur"/>
+					<a4j:ajax event="blur" />
 				</h:inputText>
 				<rich:message for="nom">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -476,7 +490,7 @@
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{upperCaseConverter}" />
-					<a4j:ajax event="blur"/>
+					<a4j:ajax event="blur" />
 				</h:inputText>
 				<rich:message for="nomService">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -484,7 +498,8 @@
 			</h:panelGrid>
 			<h:panelGrid columns="3">
 				<t:htmlTag value="div" style="width:25px;" />
-				<t:htmlTag value="div" style="width:2px; height:225px; background-color: #{a4jSkin.panelBorderColor};"/>
+				<t:htmlTag value="div"
+					style="width:2px; height:225px; background-color: #{a4jSkin.panelBorderColor};" />
 				<t:htmlTag value="div" style="width:25px;" />
 			</h:panelGrid>
 			<h:panelGrid columns="1">
@@ -493,7 +508,7 @@
 				<h:inputText id="telC" size="20" maxlength="20"
 					value="#{accordController.accord.contact.tel}" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<a4j:ajax event="blur"/>
+					<a4j:ajax event="blur" />
 				</h:inputText>
 				<rich:message for="telC">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />

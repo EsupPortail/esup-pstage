@@ -14,7 +14,7 @@
 			<h:form id="formMenuIE">
 				<h:panelGrid columns="1" style="width:auto;"
 					columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-					
+
 					<t:htmlTag value="div" style="height: 5px;" />
 
 					<h:commandLink action="#{centreController.goToListeCentre}"
@@ -78,7 +78,7 @@
 						<h:outputText value=" #{msgs['MENUSTAGE.RECHCONVENTION.ETU']}" />
 						<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					
+
 
 					<h:commandLink action="#{conventionController.goToCreerConvention}"
 						rendered="#{welcomeController.etudiant and welcomeController.creationConventionAutorisee}">
@@ -88,7 +88,7 @@
 						<h:outputText value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
 						<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					
+
 					<h:commandLink
 						action="#{rechercheController.goToRechercheEtablissementStage}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHETAB']}"
@@ -103,9 +103,27 @@
 							target="#{etablissementController.listeServices}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{etablissementController.listeContacts}" />
-							<t:htmlTag value="div" style="height: 5px;" />
+						<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					
+
+					<h:commandLink
+						action="#{rechercheController.goToEtablissementsAVerifier}"
+						rendered="#{sessionController.moderationStructures and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
+							title="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
+							value="/media/images/zoom.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}" />
+						<f:setPropertyActionListener value="#{2}"
+							target="#{rechercheController.ongletCourant}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{sessionController.currentManageStructure}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeServices}" />
+						<f:setPropertyActionListener value="#{null}"
+							target="#{etablissementController.listeContacts}" />
+						<t:htmlTag value="div" style="height: 5px;" />
+					</h:commandLink>
+
 					<h:commandLink action="#{offreController.goToRechercheOffreStage}"
 						rendered="#{welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
@@ -118,9 +136,9 @@
 							target="#{etablissementController.listeServices}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{etablissementController.listeContacts}" />
-							<t:htmlTag value="div" style="height: 5px;" />
+						<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					
+
 					<h:commandLink
 						action="#{offreController.goToCreationOffreSelectionCentre}"
 						rendered="#{welcomeController.superAdmin || welcomeController.writer}">
@@ -138,9 +156,9 @@
 							target="#{offreController.typeAjoutModifOffre}" />
 						<f:setPropertyActionListener value="#{2}"
 							target="#{rechercheController.ongletCourant}" />
-							<t:htmlTag value="div" style="height: 5px;" />
+						<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					
+
 					<h:commandLink action="#{offreController.goToRechercheOffreStage}"
 						rendered="#{welcomeController.etudiant}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
@@ -153,9 +171,9 @@
 							target="#{etablissementController.listeServices}" />
 						<f:setPropertyActionListener value="#{null}"
 							target="#{etablissementController.listeContacts}" />
-							<t:htmlTag value="div" style="height: 5px;" />
+						<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
-					
+
 					<h:commandLink action="#{offreController.goToOffreADiffuser}"
 						rendered="#{sessionController.moderationActive and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
 						<h:graphicImage alt="#{msgs['MENU.OFFRESADIFFUSER']})"
@@ -163,7 +181,7 @@
 							value="../../media/images/tick.png" style="border:0" />
 						<h:outputText
 							value=" #{msgs['MENU.OFFRESADIFFUSER']} (#{offreController.offreADiffuser})" />
-					<t:htmlTag value="div" style="height: 5px;" />
+						<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
 				</h:panelGrid>
 			</h:form>

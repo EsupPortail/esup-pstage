@@ -32,7 +32,7 @@
 					<t:htmlTag value="div" style="height: 5px;" />
 					<h:panelGrid columns="2"
 						rendered="#{welcomeController.enseignantTuteur}">
-						<h:graphicImage value="../../media/images/information.png"
+						<h:graphicImage alt="info" value="../../media/images/information.png"
 							style="border:0" />
 						<h:outputText value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR']}"
 							escape="false" />
@@ -77,9 +77,12 @@
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
 							</f:facet>
-							<h:panelGrid columns="2" style="font-size:12px;"
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="3"
+								style="font-size:12px;"
 								rendered="#{not empty convention.etudiant}">
 								<h:outputText value="#{convention.etudiant.prenom}" />
+								<t:htmlTag value="div" style="width:5px;" />
 								<h:outputText value="#{convention.etudiant.nom}" />
 							</h:panelGrid>
 						</rich:column>
@@ -167,8 +170,9 @@
 							</t:htmlTag>
 						</rich:column>
 						<f:facet name="footer">
-							<rich:dataScroller align="center" for="resultatConventionsDataTable" maxPages="20"
-								page="1" id="listeMasseConventionScroller" renderIfSinglePage="false" />
+							<rich:dataScroller align="center"
+								for="resultatConventionsDataTable" maxPages="20" page="1"
+								id="listeMasseConventionScroller" renderIfSinglePage="false" />
 						</f:facet>
 					</rich:dataTable>
 					<t:htmlTag value="div" style="height: 15px;" />
@@ -181,11 +185,11 @@
 							value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.WARN']}" />
 					</h:panelGrid>
 					<h:panelGrid align="center">
-						<a4j:commandButton 
+						<a4j:commandButton
 							value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.VALIDER']}"
 							oncomplete="#{rich:component('confirmValidEnMasse')}.show()"
 							alt="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
-							status="statusValidation"/>
+							status="statusValidation" />
 						<t:htmlTag value="div" style="height: 10px;" />
 						<a4j:status name="statusValidation">
 							<f:facet name="start">
@@ -204,6 +208,7 @@
 							<t:htmlTag value="div" style="height: 10px;" />
 							<h:panelGrid columns="3" align="center">
 								<a4j:commandButton value="#{msgs['FORM.OUI']}"
+									status="statusConfirmValid"
 									oncomplete="#{rich:component('confirmValidEnMasse')}.hide();return false;"
 									render="formResultConventions"
 									action="#{conventionController.validerEnMasse}" />
@@ -213,12 +218,19 @@
 									onclick="#{rich:component('confirmValidEnMasse')}.hide();return false;" />
 							</h:panelGrid>
 						</h:panelGrid>
+						<t:htmlTag value="center">
+							<a4j:status name="statusConfirmValid">
+								<f:facet name="start">
+									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+								</f:facet>
+							</a4j:status>
+						</t:htmlTag>
 					</rich:popupPanel>
 				</h:panelGrid>
 				<h:panelGrid id="messageResultat" align="center">
 					<rich:message for="messageResultat" style="font-weight:bold;">
 						<f:facet name="infoMarker">
-							<h:graphicImage value="../../media/images/tick.png"
+							<h:graphicImage alt="tick" value="../../media/images/tick.png"
 								title="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
 						</f:facet>
 					</rich:message>

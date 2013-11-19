@@ -5,3 +5,4 @@ target/
 .project
 config.properties
 configUrlServices.properties
+convention_fr_artois.xsl

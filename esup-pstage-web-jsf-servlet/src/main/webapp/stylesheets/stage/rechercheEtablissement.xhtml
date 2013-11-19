@@ -8,27 +8,34 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-
 		<h:outputStylesheet>
-	        .active-row {
-		        background-color: #FFEBDA !important;
-		        cursor: pointer;
+	        .even-row {
+	        background-color: #FCFFFE;
 	        }
-    	</h:outputStylesheet>
+	        .odd-row {
+	        background-color: #ECF3FE;
+	        }
+	        .active-row {
+	        background-color: #FFEBDA !important;
+	        }
+	    </h:outputStylesheet>
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
 			</f:facet>
-			<h:form>
-				<ui:include
-					src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
-			</h:form>
-			<ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
+			<t:div
+				rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
+				<h:form>
+					<ui:include
+						src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
+				</h:form>
+				<ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
+			</t:div>
 			<h:form id="formResultatsRechEtab">
 				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+					rowClasses="paginatorData-text"
+					rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
 					<rich:message for="formResultatsRechEtab">
-						<!-- 						<t:htmlTag value="div" style="height: 20px;" /> -->
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 					<t:htmlTag value="div" style="height: 10px;" />
@@ -44,11 +51,10 @@
 						<ui:include
 							src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
 						<rich:dataTable id="rechercheStructureDataTable"
-							var="varRechercheStructure"
+							var="varRechercheStructure" rowClasses="odd-row, even-row"
+							styleClass="stable"
 							value="#{rechercheController.listeResultatsRechercheStructure}"
-							styleClass="stable" border="0" cellspacing="2" cellpadding="2"
-							style="width: 600;" rows="20">
-
+							style="width:1000px;" rows="10">
 							<f:facet name="header">
 								<ui:include
 									src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
@@ -57,12 +63,14 @@
 								src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 							<ui:include
 								src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
-
 							<f:facet name="footer">
-								<rich:dataScroller for="rechercheStructureDataTable" maxPages="10"
-								renderIfSinglePage="false" boundaryControls="auto"/>
+								<rich:dataScroller for="rechercheStructureDataTable"
+									maxPages="20" renderIfSinglePage="false" />
 							</f:facet>
 						</rich:dataTable>
+						<rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
+						<rich:jQuery selector=".stable tr:even"
+							query="addClass('even-row')" />
 						<rich:jQuery selector=".stable tr" event="mouseover"
 							query="jQuery(this).addClass('active-row')" />
 						<rich:jQuery selector=".stable tr" event="mouseout"
@@ -72,5 +80,6 @@
 			</h:form>
 		</rich:panel>
 		<ui:include src="../_commun/_panelSupprStructure.xhtml" />
+		<ui:include src="./_panel_validStructure.xhtml" />
 	</ui:define>
 </ui:composition>

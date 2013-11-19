@@ -11,17 +11,18 @@
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE2.CREATION.ETAB']}" />
 			</f:facet>
+			
 			<t:htmlTag value="div" style="height:20px;" />
+			
 			<h:outputText value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
 
 			<t:htmlTag value="div" style="height:20px;" />
+			
 			<rich:message for="formAjoutEtab">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 
 			<ui:include src="../_commun/_etablissementForm.xhtml" />
-
-			<rich:messages showDetail="true"/>
 
 			<h:panelGrid columns="1">
 				<a4j:commandButton value="#{msgs['FORM.CREER']}"

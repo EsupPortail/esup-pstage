@@ -71,20 +71,31 @@
 						<h:outputText id="droit"
 							value="#{centreController.personnel.droitAdmin.libelle}" />
 					</h:panelGrid>
-
-					<h:panelGrid columns="1">
-						<h:outputLabel for=""
-							value="#{msgs['CENTRE.PERSONNEL.AJOUT.CONVENTION']}" />
-						<h:panelGrid align="center" columns="1">
+<!-- 					<h:panelGrid columns="2"> -->
+<!-- 						<h:outputLabel for="impressionConvention" -->
+<!-- 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.CONVENTION']}" /> -->
+<!-- 						<h:panelGrid id="impressionConvention" align="center"> -->
+<!-- 							<h:outputText -->
+<!-- 								rendered="#{centreController.personnel.impressionConvention}" -->
+<!-- 								value="#{msgs['FORM.OUI']}" /> -->
+<!-- 							<h:outputText -->
+<!-- 								rendered="#{!centreController.personnel.impressionConvention}" -->
+<!-- 								value="#{msgs['FORM.NON']}" /> -->
+<!-- 						</h:panelGrid> -->
+<!-- 					</h:panelGrid> -->
+					<h:panelGrid columns="2">
+						<h:outputLabel for="alertesMail"
+							value="#{msgs['CENTRE.PERSONNEL.AJOUT.ALERTES_MAIL']}" />
+						<h:panelGrid id="alertesMail" align="center">
 							<h:outputText
-								rendered="#{centreController.personnel.impressionConvention}"
+								rendered="#{centreController.personnel.alertesMail}"
 								value="#{msgs['FORM.OUI']}" />
 							<h:outputText
-								rendered="#{!centreController.personnel.impressionConvention}"
+								rendered="#{!centreController.personnel.alertesMail}"
 								value="#{msgs['FORM.NON']}" />
 						</h:panelGrid>
 					</h:panelGrid>
-
+					
 					<t:htmlTag value="div" style="height: 20px;" />
 
 					<t:htmlTag value="center">

@@ -13,15 +13,17 @@
 				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE']}" />
 		</f:facet>
 
-		<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<h:outputText value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']}" />
-			<ui:include src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
+		<h:panelGrid columns="1" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
+			<h:outputText
+				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']}" />
+			<ui:include
+				src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
 		</h:panelGrid>
 		<h:panelGrid columns="3">
-			<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
-				action="#{conventionController.goToCreerConventionEtape5StageR}"
-				render="formConvention" />
-			<t:htmlTag value="div" style="width: 100px;" />
+			<h:commandButton value="#{msgs['FORM.CANCEL']}"
+				action="#{conventionController.goToCreerConventionEtape5StageR}" />
+			<t:htmlTag value="div" style="width:100px;" />
 			<h:commandButton value="#{msgs['FORM.VALIDER']}"
 				action="#{conventionController.goToCreerConventionEtape6RespPedago}" />
 		</h:panelGrid>

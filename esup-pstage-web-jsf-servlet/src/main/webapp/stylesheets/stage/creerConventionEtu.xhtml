@@ -14,8 +14,59 @@
 				<h:outputText value="#{msgs['CONVENTION.TITRE.CONSIGNES']}" />
 			</f:facet>
 			<h:form id="formConvention">
-				<ui:include id="include"
-					src="/stylesheets/stage/_creerConventionConsignesEtu.xhtml" />
+				<h:panelGrid
+					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+						</f:facet>
+
+						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU']}"
+							escape="false" />
+						<t:htmlTag value="div" style="height: 20px;" />
+
+						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU1']}"
+							escape="false" />
+						<t:htmlTag value="div" style="height: 20px;" />
+
+						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU2']}"
+							escape="false" />
+						<t:htmlTag value="div" style="height: 20px;" />
+
+						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU3']}"
+							escape="false" />
+						<t:htmlTag value="div" style="height: 20px;" />
+
+						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU4']}"
+							escape="false" />
+						<t:htmlTag value="div" style="height: 20px;" />
+
+						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU5']}"
+							escape="false" />
+						<t:htmlTag value="div" style="height: 20px;" />
+
+						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU6']}"
+							escape="false" />
+						<t:htmlTag value="div" style="height: 20px;" />
+
+						<t:htmlTag value="div" style="width: 10px;" id="identEtudiant" />
+						<rich:message for="identEtudiant">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+						<t:htmlTag value="div" style="height: 10px;" />
+						<h:panelGrid columns="2" columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text">
+							<a4j:commandButton status="create"
+								action="#{conventionController.goToCreerConventionEtu}"
+								value="#{msgs['MENUSTAGE.CREERCONVENTION']}" />
+							<a4j:status name="create">
+								<f:facet name="start">
+									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+								</f:facet>
+							</a4j:status>
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
 			</h:form>
 		</rich:panel>
 	</ui:define>

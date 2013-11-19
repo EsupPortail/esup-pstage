@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -14,8 +16,31 @@
 					value="#{msgs['CONVENTION.ETAPE11.RECAP']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formCreaAvenantPage2">
-				<ui:include
-					src="/stylesheets/stage/_conventionEtape11CreaAvenantPage2.xhtml" />
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="1"
+					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+
+					<ui:include src="/stylesheets/stage/_conventionEtape11FormAvenantPage2.xhtml" />
+					
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" align="center" columns="1">
+						<h:commandButton
+							value="#{msgs['CONVENTION.ETAPE11.CONFIRMATION']}"
+							action="#{avenantController.creerAvenant}" />
+						<h:outputText id="erreurAjoutAvenant" value="" />
+						<rich:message for="erreurAjoutAvenant">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+					</h:panelGrid>
+					<br />
+
+					<h:commandButton id="retour" style="float:left;"
+						value="#{msgs['GENERAL.RETOUR']}"
+						action="#{avenantController.rectifierAvenant}">
+						<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+					</h:commandButton>
+					<t:htmlTag value="div" style="height: 20px;" />
+				</h:panelGrid>
 			</h:form>
 		</rich:panel>
 		<t:div

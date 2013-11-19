@@ -221,9 +221,9 @@
 											title="#{msgs['GENERAL.FILE']}"
 											value="../../media/images/cancel.png" style="border:0" />
 										<h:outputText value="#{msgs['CENTRE.VISEUR.RETIRER']}" />
-										<f:setPropertyActionListener value=""
+										<f:setPropertyActionListener value="#{null}"
 											target="#{centreController.centre.nomViseur}" />
-										<f:setPropertyActionListener value=""
+										<f:setPropertyActionListener value="#{null}"
 											target="#{centreController.centre.prenomViseur}" />
 									</a4j:commandLink>
 								</h:panelGrid>
@@ -317,6 +317,16 @@
 						<h:selectOneRadio id="impressionConvention"
 							rendered="#{sessionController.autoriserCentresBloquerImpressionConvention}"
 							value="#{centreController.centre.autoriserImpressionConvention}">
+							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+						</h:selectOneRadio>
+						
+						<h:outputLabel value="Validation Pedagogique *"
+							for="validationPedagogique"
+							rendered="#{sessionController.validationPedagogique}" />
+						<h:selectOneRadio id="validationPedagogique"
+							rendered="#{sessionController.validationPedagogique}"
+							value="#{centreController.centre.validationPedagogique}">
 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>

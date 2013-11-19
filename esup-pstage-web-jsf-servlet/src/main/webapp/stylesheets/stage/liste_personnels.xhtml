@@ -18,127 +18,132 @@
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:panelGrid rendered="#{centreController.listePersonnelVide}"
-				columns="1" align="center">
+				align="center">
 				<h:outputText value="#{msgs['CENTRE.PERSONNEL.LISTE.VIDE']}" />
 			</h:panelGrid>
 			<h:form id="formListePersonnel">
 				<a4j:outputPanel>
-					<a4j:region id="ajout">
-						<h:panelGrid columns="1" align="center"
-							rendered="#{!centreController.listePersonnelVide}">
-							<rich:dataTable align="center" width="483"
-								style="border-right:1px solid #C0C0C0;" id="listePersonnels"
-								rows="20" columnClasses="col"
-								value="#{centreController.personnels}" var="personnel"
-								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-								<rich:column sortBy="#{personnel.civilite.libelle}">
-									<f:facet name="header">
-										<h:outputText style="width:50px; display:block;"
-											value="#{msgs['CENTRE.PERSONNEL.CIVILITE']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{personnel.civilite.libelle}" />
-									</t:htmlTag>
-								</rich:column>
-								<rich:column sortBy="#{personnel.nom}">
-									<f:facet name="header">
-										<h:outputText style="width:100px; display:block;"
-											value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{personnel.nom}" />
-									</t:htmlTag>
-								</rich:column>
-								<rich:column sortBy="#{personnel.prenom}">
-									<f:facet name="header">
-										<h:outputText style="width:100px; display:block;"
-											value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{personnel.prenom}" />
-									</t:htmlTag>
-								</rich:column>
-								<rich:column sortBy="#{personnel.affectation.libelle}">
-									<f:facet name="header">
-										<h:outputText style="width:150px; display:block;"
-											value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{personnel.affectation.libelle}" />
-									</t:htmlTag>
-								</rich:column>
-								<rich:column sortBy="#{personnel.droitAdmin.libelle}">
-									<f:facet name="header">
-										<h:outputText style="width:75px; display:block;"
-											value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{personnel.droitAdmin.libelle}" />
-									</t:htmlTag>
-								</rich:column>
-								<rich:column>
-									<f:facet name="header">
-										<h:outputText style="width:50px; display:block;"
-											value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<a4j:commandLink id="see"
-											action="#{centreController.goToVoirPersonnel}">
-											<f:setPropertyActionListener value="#{personnel}"
-												target="#{centreController.personnel}" />
-											<h:graphicImage alt="#{msgs['FORM.VOIR']}"
-												value="../../media/images/zoom.png" style="border:0" />
-												<rich:tooltip value="#{msgs['FORM.VOIR']}" />
-										</a4j:commandLink>
-										
-
-										<a4j:commandLink execute="@this" id="delete"
-											rendered="#{welcomeController.superAdmin
-													|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
-											oncomplete="#{rich:component('suppressionPersonnel')}.show()"
-											render="suppressionPersonnel">
-											<f:setPropertyActionListener value="#{personnel}"
-												target="#{centreController.personnel}" />
-											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-												value="../../media/images/delete.png" style="border:0" />
-												<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-										</a4j:commandLink>
-										
-									</t:htmlTag>
-								</rich:column>
-								<f:facet name="footer">
-									<rich:dataScroller align="center" for="listePersonnels"
-										maxPages="20" page="1" id="listeScroller"
-										renderIfSinglePage="false" />
+					<h:panelGrid columns="1" align="center"
+						rendered="#{!centreController.listePersonnelVide}">
+						<rich:dataTable align="center" width="483"
+							style="border-right:1px solid #C0C0C0;" id="listePersonnels"
+							rows="20" columnClasses="col"
+							value="#{centreController.personnels}" var="personnel">
+							<rich:column sortBy="#{personnel.civilite.libelle}">
+								<f:facet name="header">
+									<h:outputText style="width:50px; display:block;"
+										value="#{msgs['CENTRE.PERSONNEL.CIVILITE']}" />
 								</f:facet>
-							</rich:dataTable>
-						</h:panelGrid>
+								<t:htmlTag value="center">
+									<h:outputText value="#{personnel.civilite.libelle}" />
+								</t:htmlTag>
+							</rich:column>
+							<rich:column sortBy="#{personnel.nom}">
+								<f:facet name="header">
+									<h:outputText style="width:100px; display:block;"
+										value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
+								</f:facet>
+								<t:htmlTag value="center">
+									<h:outputText value="#{personnel.nom}" />
+								</t:htmlTag>
+							</rich:column>
+							<rich:column sortBy="#{personnel.prenom}">
+								<f:facet name="header">
+									<h:outputText style="width:100px; display:block;"
+										value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
+								</f:facet>
+								<t:htmlTag value="center">
+									<h:outputText value="#{personnel.prenom}" />
+								</t:htmlTag>
+							</rich:column>
+							<rich:column sortBy="#{personnel.affectation.libelle}">
+								<f:facet name="header">
+									<h:outputText style="width:150px; display:block;"
+										value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
+								</f:facet>
+								<t:htmlTag value="center">
+									<h:outputText value="#{personnel.affectation.libelle}" />
+								</t:htmlTag>
+							</rich:column>
+							<rich:column sortBy="#{personnel.droitAdmin.libelle}">
+								<f:facet name="header">
+									<h:outputText style="width:75px; display:block;"
+										value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT']}" />
+								</f:facet>
+								<t:htmlTag value="center">
+									<h:outputText value="#{personnel.droitAdmin.libelle}" />
+								</t:htmlTag>
+							</rich:column>
+							<rich:column sortBy="#{personnel.alertesMail}">
+								<f:facet name="header">
+									<h:outputText value="#{msgs['CENTRE.PERSONNEL.ALERTES_MAIL']}" />
+								</f:facet>
+								<t:htmlTag value="center">
+									<h:outputText
+										rendered="#{personnel.alertesMail}"
+										value="#{msgs['FORM.OUI']}" />
+									<h:outputText
+										rendered="#{!personnel.alertesMail}"
+										value="#{msgs['FORM.NON']}" />
+								</t:htmlTag>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText style="width:50px; display:block;"
+										value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
+								</f:facet>
+								<t:htmlTag value="center">
+									<a4j:commandLink id="see"
+										action="#{centreController.goToVoirPersonnel}">
+										<f:setPropertyActionListener value="#{personnel}"
+											target="#{centreController.personnel}" />
+										<h:graphicImage alt="#{msgs['FORM.VOIR']}"
+											value="../../media/images/zoom.png" style="border:0" />
+										<rich:tooltip value="#{msgs['FORM.VOIR']}" />
+									</a4j:commandLink>
 
-						<t:htmlTag value="div" style="height: 10px;" />
+									<a4j:commandLink execute="@this" id="delete"
+										rendered="#{welcomeController.superAdmin
+													|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
+										oncomplete="#{rich:component('suppressionPersonnel')}.show()"
+										render="suppressionPersonnel">
+										<f:setPropertyActionListener value="#{personnel}"
+											target="#{centreController.personnel}" />
+										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+											value="../../media/images/delete.png" style="border:0" />
+										<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+									</a4j:commandLink>
+								</t:htmlTag>
+							</rich:column>
+							<f:facet name="footer">
+								<rich:dataScroller align="center" for="listePersonnels"
+									maxPages="20" page="1" id="listeScroller"
+									renderIfSinglePage="false" />
+							</f:facet>
+						</rich:dataTable>
+					</h:panelGrid>
 
-						<h:panelGrid columns="3" align="center"
-							rendered="#{welcomeController.superAdmin
+					<t:htmlTag value="div" style="height: 10px;" />
+
+					<h:panelGrid columns="3" align="center"
+						rendered="#{welcomeController.superAdmin
 									|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}">
-							<h:outputLabel for="add"
-								value="#{msgs['CENTRE.PERSONNEL.RATTACHER']}" />
-							<h:commandLink id="add"
-								action="#{centreController.goToRattachPersonnelRecherche}">
-								<h:graphicImage alt="#{msgs['FORM.RATTACHER']}"
-									value="../../media/images/new.png" style="border:0" />
-									<rich:tooltip value="#{msgs['FORM.RATTACHER']}" />
-							</h:commandLink>
-							
-						</h:panelGrid>
-					</a4j:region>
+						<h:outputLabel for="add"
+							value="#{msgs['CENTRE.PERSONNEL.RATTACHER']}" />
+						<a4j:commandLink id="add" status="statusAjout"
+							action="#{centreController.goToRattachPersonnelRecherche}">
+							<h:graphicImage alt="#{msgs['FORM.RATTACHER']}"
+								value="../../media/images/new.png" style="border:0" />
+							<rich:tooltip value="#{msgs['FORM.RATTACHER']}" />
+						</a4j:commandLink>
+					</h:panelGrid>
 					<t:htmlTag value="center">
-						<a4j:status for="ajout">
+						<a4j:status name="statusAjout">
 							<f:facet name="start">
 								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 							</f:facet>
 						</a4j:status>
 					</t:htmlTag>
-
 				</a4j:outputPanel>
 				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>

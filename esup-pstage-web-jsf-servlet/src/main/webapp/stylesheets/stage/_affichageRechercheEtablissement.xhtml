@@ -5,15 +5,13 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" rendered="false">
-		<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.UNRESULTAT']}" />
-		<t:htmlTag value="div" style="height: 20px;" />
-	</h:panelGrid>
 	<t:aliasBean alias="#{structure}"
 		value="#{rechercheController.resultatRechercheStructure}">
 		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 	</t:aliasBean>
 	<rich:toolbar height="26" itemSeparator="none">
-		<ui:include	src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+	
+		<ui:include src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+		
 	</rich:toolbar>
 </ui:composition>

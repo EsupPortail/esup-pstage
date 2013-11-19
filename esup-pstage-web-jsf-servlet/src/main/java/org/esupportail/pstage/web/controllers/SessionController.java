@@ -303,10 +303,43 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private boolean moderationActive;
 	/**
+	 * vrai si les gestionnaires doivent moderer les offres
+	 */
+	private boolean moderationStructures;
+	
+	/**
 	* vrai si les gestionnaires doivent verifier les conventions
 	*/
 	private boolean validationPedagogique;
 	
+	/**
+	 * Envoi d'un mail aux étudiants à la validation de leur convention
+	 */
+	private boolean avertissementEtudiantConvention;
+	/**
+	 * Envoi d'un mail aux étudiants à la validation de leur avenant
+	 */
+	private boolean avertissementEtudiantAvenant;
+	/**
+	 * Envoi d'un mail aux Personnels à la création d'une convention les concernant
+	 */
+	private boolean avertissementPersonnelCreaConvention;
+	/**
+	 * Envoi d'un mail aux Personnels à la modification d'une convention les concernant
+	 */
+	private boolean avertissementPersonnelModifConvention;
+	/**
+	 * Envoi d'un mail aux Personnels à la création d'un avenant les concernant
+	 */
+	private boolean avertissementPersonnelCreaAvenant;
+	/**
+	 * Envoi d'un mail aux Personnels à la modification d'un avenant les concernant
+	 */
+	private boolean avertissementPersonnelModifAvenant;
+	/**
+	 * Envoi d'un mail aux Entreprises à la diffusion de leurs offres par un gestionnaire
+	 */
+	private boolean avertissementEntrepriseDiffusion;
 	/* ***************************************************************
 	 * Variables de navigation
 	 ****************************************************************/
@@ -446,6 +479,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * SUPPRESSION STRUCTURE
 	 */
 	private String suppressionStructureCurrentPage = "_supprStructureEtape1";
+	/**
+	 * VALIDATION STRUCTURE
+	 */
+	private String validationStructureCurrentPage = "_validStructureEtape1";
 	
 	/**
 	 * Constructor.
@@ -2039,6 +2076,139 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setValidationPedagogique(boolean validationPedagogique) {
 		this.validationPedagogique = validationPedagogique;
+	}
+
+	/**
+	 * @return the avertissementEtudiantConvention
+	 */
+	public boolean isAvertissementEtudiantConvention() {
+		return avertissementEtudiantConvention;
+	}
+
+	/**
+	 * @param avertissementEtudiantConvention the avertissementEtudiantConvention to set
+	 */
+	public void setAvertissementEtudiantConvention(
+			boolean avertissementEtudiantConvention) {
+		this.avertissementEtudiantConvention = avertissementEtudiantConvention;
+	}
+
+	/**
+	 * @return the avertissementEtudiantAvenant
+	 */
+	public boolean isAvertissementEtudiantAvenant() {
+		return avertissementEtudiantAvenant;
+	}
+
+	/**
+	 * @param avertissementEtudiantAvenant the avertissementEtudiantAvenant to set
+	 */
+	public void setAvertissementEtudiantAvenant(boolean avertissementEtudiantAvenant) {
+		this.avertissementEtudiantAvenant = avertissementEtudiantAvenant;
+	}
+
+	/**
+	 * @return the avertissementPersonnelCreaConvention
+	 */
+	public boolean isAvertissementPersonnelCreaConvention() {
+		return avertissementPersonnelCreaConvention;
+	}
+
+	/**
+	 * @param avertissementPersonnelCreaConvention the avertissementPersonnelCreaConvention to set
+	 */
+	public void setAvertissementPersonnelCreaConvention(
+			boolean avertissementPersonnelCreaConvention) {
+		this.avertissementPersonnelCreaConvention = avertissementPersonnelCreaConvention;
+	}
+
+	/**
+	 * @return the avertissementPersonnelModifConvention
+	 */
+	public boolean isAvertissementPersonnelModifConvention() {
+		return avertissementPersonnelModifConvention;
+	}
+
+	/**
+	 * @param avertissementPersonnelModifConvention the avertissementPersonnelModifConvention to set
+	 */
+	public void setAvertissementPersonnelModifConvention(
+			boolean avertissementPersonnelModifConvention) {
+		this.avertissementPersonnelModifConvention = avertissementPersonnelModifConvention;
+	}
+
+	/**
+	 * @return the avertissementPersonnelCreaAvenant
+	 */
+	public boolean isAvertissementPersonnelCreaAvenant() {
+		return avertissementPersonnelCreaAvenant;
+	}
+
+	/**
+	 * @param avertissementPersonnelCreaAvenant the avertissementPersonnelCreaAvenant to set
+	 */
+	public void setAvertissementPersonnelCreaAvenant(
+			boolean avertissementPersonnelCreaAvenant) {
+		this.avertissementPersonnelCreaAvenant = avertissementPersonnelCreaAvenant;
+	}
+
+	/**
+	 * @return the avertissementPersonnelModifAvenant
+	 */
+	public boolean isAvertissementPersonnelModifAvenant() {
+		return avertissementPersonnelModifAvenant;
+	}
+
+	/**
+	 * @param avertissementPersonnelModifAvenant the avertissementPersonnelModifAvenant to set
+	 */
+	public void setAvertissementPersonnelModifAvenant(
+			boolean avertissementPersonnelModifAvenant) {
+		this.avertissementPersonnelModifAvenant = avertissementPersonnelModifAvenant;
+	}
+
+	/**
+	 * @return the avertissementEntrepriseDiffusion
+	 */
+	public boolean isAvertissementEntrepriseDiffusion() {
+		return avertissementEntrepriseDiffusion;
+	}
+
+	/**
+	 * @param avertissementEntrepriseDiffusion the avertissementEntrepriseDiffusion to set
+	 */
+	public void setAvertissementEntrepriseDiffusion(
+			boolean avertissementEntrepriseDiffusion) {
+		this.avertissementEntrepriseDiffusion = avertissementEntrepriseDiffusion;
+	}
+
+	/**
+	 * @return the moderationStructures
+	 */
+	public boolean isModerationStructures() {
+		return moderationStructures;
+	}
+
+	/**
+	 * @param moderationStructures the moderationStructures to set
+	 */
+	public void setModerationStructures(boolean moderationStructures) {
+		this.moderationStructures = moderationStructures;
+	}
+
+	/**
+	 * @return the validationStructureCurrentPage
+	 */
+	public String getValidationStructureCurrentPage() {
+		return validationStructureCurrentPage;
+	}
+
+	/**
+	 * @param validationStructureCurrentPage the validationStructureCurrentPage to set
+	 */
+	public void setValidationStructureCurrentPage(
+			String validationStructureCurrentPage) {
+		this.validationStructureCurrentPage = validationStructureCurrentPage;
 	}
 
 
