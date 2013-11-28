@@ -6,50 +6,50 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid id="panelDetail" columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" align="center"
+	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" align="center"
 		style="font-size:14px;">
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
 		<h:outputText
 			value="#{offreController.currentOffre.structure.raisonSociale}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.TYPE_STRUCTURE']}" />
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.TYPE_STRUCTURE']}" />
 		<h:outputText
 			value="#{offreController.currentOffre.structure.typeStructure.libelle}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']}"
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']}"
 			rendered="#{not empty offreController.currentOffre.structure.statutJuridique}" />
 		<h:outputText
 			value="#{offreController.currentOffre.structure.statutJuridique.libelle}"
 			rendered="#{not empty offreController.currentOffre.structure.statutJuridique}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.EFFECTIF']}"
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.EFFECTIF']}"
 			rendered="#{not empty offreController.currentOffre.structure.effectif}" />
 		<h:outputText
 			value="#{offreController.currentOffre.structure.effectif.libelle}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.NUM_SIRET']}"
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.NUM_SIRET']}"
 			rendered="#{not empty offreController.currentOffre.structure.numeroSiret}" />
 		<h:outputText
 			rendered="#{not empty offreController.currentOffre.structure.numeroSiret}"
 			value="#{offreController.currentOffre.structure.numeroSiret}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.GROUPE']}"
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.GROUPE']}"
 			rendered="#{not empty offreController.currentOffre.structure.groupe}" />
 		<h:outputText
 			rendered="#{not empty offreController.currentOffre.structure.groupe}"
 			value="#{offreController.currentOffre.structure.groupe}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
 		<h:outputText
 			value="#{offreController.currentOffre.structure.batimentResidence}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.VOIE']}" />
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.VOIE']}" />
 		<h:outputText value="#{offreController.currentOffre.structure.voie}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
 		<h:outputText
 			value="#{offreController.currentOffre.structure.codePostal}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.COMMUNE']}" />
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.COMMUNE']}" />
 		<h:outputText
 			value="#{offreController.currentOffre.structure.commune}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.CEDEX']}"
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.CEDEX']}"
 			rendered="#{not empty offreController.currentOffre.structure.libCedex}" />
 		<h:outputText
 			rendered="#{not empty offreController.currentOffre.structure.libCedex}"
 			value="#{offreController.currentOffre.structure.libCedex}" />
-		<h:outputLabel for="panelDetail" value="#{msgs['STRUCTURE.PAYS']}" />
+		<h:outputText style="font-weight:bold;" value="#{msgs['STRUCTURE.PAYS']}" />
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="2" style="font-size:12px;">
 			<h:graphicImage

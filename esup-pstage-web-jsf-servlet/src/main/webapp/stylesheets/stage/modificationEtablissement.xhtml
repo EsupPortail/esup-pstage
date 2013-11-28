@@ -23,21 +23,18 @@
 					<ui:include src="../_commun/_etablissementForm.xhtml" />
 					<h:panelGrid columns="3">
 						<h:commandButton value="#{msgs['FORM.MODIFIER']}"
-							action="#{etablissementController.modifierEtablissement}">
-						</h:commandButton>
+							action="#{etablissementController.modifierEtablissement}"/>
 						<t:htmlTag value="div" style="width: 100px;" />
 						<h:commandButton value="#{msgs['FORM.ANNULER']}"
 							action="affichageRechercheEtablissement"
 							alt="#{msgs['FORM.ANNULER']}" title="#{msgs['FORM.ANNULER']}"
 							immediate="true"
-							rendered="#{etablissementController.modificationEtabBoutonAnnuler}">
-						</h:commandButton>
+							rendered="#{etablissementController.modificationEtabBoutonAnnuler}"/>
 						<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 							action="#{rechercheController.goToRechercheEtablissementStage}"
 							alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 							title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" immediate="true"
-							rendered="#{!etablissementController.modificationEtabBoutonAnnuler}">
-						</h:commandButton>
+							rendered="#{!etablissementController.modificationEtabBoutonAnnuler}"/>
 					</h:panelGrid>
 				</h:form>
 			</t:div>

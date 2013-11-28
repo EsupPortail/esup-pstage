@@ -211,6 +211,10 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * Numéro de la ligne contact sélectionnée
 	 */
 	private int currentRowContact;
+	/**
+	 * Structure en cours de validation
+	 */
+	private StructureDTO currentStruct;
 	/* **
 	 * FIN Variables pour la gestion des contacts et services
 	 * *******************************************************************
@@ -255,6 +259,44 @@ public class EtablissementController extends AbstractContextAwareController {
 	public void reset() {
 		super.reset();
 		loadContactsServices();
+	}
+
+	public String recharge(){
+		return "rechercheEtablissementStage";
+	}
+
+	public void avantValidation(){
+		this.formStructure = getStructureDomainService().getStructureFromId(this.currentStruct.getIdStructure());
+	}
+	/**
+	 * Validation de la structure
+	 */
+	public void validerStructure(){
+
+		getSessionController().setValidationStructureCurrentPage("_validStructureEtape2");
+
+		if (getStructureDomainService().updateStructureValidation(this.formStructure.getIdStructure(),getSessionController().getCurrentLogin())){
+			this.currentStruct.setEstValidee(true);
+			if (this.rechercheController.isToVerificationStructures())
+				this.rechercheController.getListeResultatsRechercheStructure().remove(this.currentStruct);
+			addInfoMessage(null, "STRUCTURE.MODERATION.CONFIRMATION");
+		} else {
+			addErrorMessage(null, "STRUCTURE.MODERATION.ERREUR");
+		}
+	}
+
+	/**
+	 * Dévalidation de la structure
+	 */
+	public void devaliderStructure(){
+		getSessionController().setValidationStructureCurrentPage("_validStructureEtape2");
+		
+		if(getStructureDomainService().updateStructureStopValidation(this.formStructure.getIdStructure(),getSessionController().getCurrentLogin())){
+			this.currentStruct.setEstValidee(false);
+			addInfoMessage(null, "STRUCTURE.MODERATION.DEVALIDATION.CONFIRMATION");
+		} else {
+			addErrorMessage(null, "STRUCTURE.MODERATION.ERREUR");
+		}
 	}
 
 	/**
@@ -1162,7 +1204,7 @@ public class EtablissementController extends AbstractContextAwareController {
 		this.formServiceTmpCommuneDTO = new CommuneDTO();
 		return null;
 	}
-	
+
 	/**
 	 * Ajout d'un service
 	 * 
@@ -1254,7 +1296,7 @@ public class EtablissementController extends AbstractContextAwareController {
 					this.formServiceCommunesListening = new ArrayList<SelectItem>();
 				}
 				this.formServiceTmpCommuneDTO = getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(
-								this.formServiceTmpCodePostal,"" + this.formService.getCodeCommune());
+						this.formServiceTmpCodePostal,"" + this.formService.getCodeCommune());
 				if (this.formServiceTmpCommuneDTO != null) {
 					this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());
 					this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
@@ -1342,7 +1384,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * Suppression d'un service
 	 */
 	public void supprimerService() {
-//		String ret = "_supprServiceEtape2Confirmation";
+		//		String ret = "_supprServiceEtape2Confirmation";
 		try {
 			if (getStructureDomainService().deleteService(
 					this.formService.getIdService())) {
@@ -2023,7 +2065,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void changerMotDePasse() {
-//		String ret = "_changementMotDePasseEtape2Confirmation";
+		//		String ret = "_changementMotDePasseEtape2Confirmation";
 		getSessionController().setModifMdpCurrentPage("_changementMotDePasseEtape2Confirmation");
 		if (getSessionController().getCurrentAuthContact() != null) {
 			if (StringUtils.hasText(mdpActuel)) {
@@ -2104,20 +2146,20 @@ public class EtablissementController extends AbstractContextAwareController {
 									"CONTACT.GESTION.ERREURACCOUNT");
 						}
 					} else {
-//						ret = null;
+						//						ret = null;
 						getSessionController().setModifMdpCurrentPage("_changementMotDePasseEtape1");
 						addErrorMessage("changementMotDePasse:mdpNew",
 								"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPCONFIRMINCORRECT");
 					}
 				} else {
-//					ret = null;
+					//					ret = null;
 					getSessionController().setModifMdpCurrentPage("_changementMotDePasseEtape1");
 					addErrorMessage("changementMotDePasse:mdp",
 							"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPACTUELINCORRECT");
 				}
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/* ***************************************************************
@@ -2626,5 +2668,19 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	public boolean isCodeNafObligatoire() {
 		return codeNafObligatoire;
+	}
+
+	/**
+	 * @return the currentStruct
+	 */
+	public StructureDTO getCurrentStruct() {
+		return currentStruct;
+	}
+
+	/**
+	 * @param currentStruct the currentStruct to set
+	 */
+	public void setCurrentStruct(StructureDTO currentStruct) {
+		this.currentStruct = currentStruct;
 	}
 }

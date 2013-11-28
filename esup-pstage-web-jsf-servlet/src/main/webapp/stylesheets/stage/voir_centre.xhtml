@@ -231,6 +231,20 @@
 								rendered="#{!centreController.centre.autoriserImpressionConvention}"
 								value="#{msgs['FORM.NON']}" />
 						</h:panelGrid>
+						
+						<h:outputLabel value="Validation Pedagogique"
+							for="validationPedagogique"
+							rendered="#{sessionController.validationPedagogique}" />
+						<h:panelGrid id="validationPedagogique" columns="1"
+							columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+							rendered="#{sessionController.validationPedagogique}">
+							<h:outputText
+								rendered="#{centreController.centre.validationPedagogique}"
+								value="#{msgs['FORM.OUI']}" />
+							<h:outputText
+								rendered="#{!centreController.centre.validationPedagogique}"
+								value="#{msgs['FORM.NON']}" />
+						</h:panelGrid>
 					</h:panelGrid>
 				</h:panelGrid>
 

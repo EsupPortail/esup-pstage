@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 
 import org.esupportail.pstage.domain.StatistiquesDomainService;
 import org.esupportail.pstage.exceptions.StatistiquesException;
+import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.beans.StatisticCriteria;
 import org.esupportail.pstage.web.servlet.EditXlsServlet;
 import org.esupportail.pstagedata.domain.dto.StatisticItemDTO;
@@ -29,15 +30,15 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 	LinkedHashMap<String,String> secondStatsCriteriumList;
 
 	//critere de niveau 1 pour les conventions 
-	private 	List<SelectItem> firstLevelStatCriteriaForConvention ;
+	private List<SelectItem> firstLevelStatCriteriaForConvention ;
 	//critere de niveau 2 pour les conventions 
-	private 	List<SelectItem> secondLevelStatCriteriaForConvention ; 
+	private List<SelectItem> secondLevelStatCriteriaForConvention ; 
 
 	private String critereUnLib;
-	private String 	critereDeuxLib;
+	private String critereDeuxLib;
 
 	private String critereUnCle;
-	private String 	critereDeuxCle;
+	private String critereDeuxCle;
 
 	private String message = "";
 
@@ -52,6 +53,8 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 	private String libelle;
 	private int total;
 	private int pourcentage;
+
+	private String annee_scolaire = "";
 
 	/********************Initialise la liste des criteres **************************************/
 
@@ -212,7 +215,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		return critere;
 	}
 
-	//arrondir le double x � n d�cimales : pour que le pourcentage n'est que 2 d�cimales
+	//arrondir le double x à n décimales : pour que le pourcentage n'ait que 2 décimales
 	/*private static double arrondiNDecimales(double x, int n)
 	{
 		double pow = Math.pow(10, n);
@@ -224,26 +227,40 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 	public String gotoResultatStagesStats () throws StatistiquesException{
 
 		map= new LinkedHashMap<String,List<StatisticItemDTO>>();
-		//		idCentreGestion = new Integer(1);
-		String etab = "CDG";
-//				System.out.println("idCentreGestion="+idCentreGestion);
 
-		// r�cup�re les diff�rentes ann�es, soit 2007 � 2012
+		String etab = "CDG";
+
+		// récupère les différentes années
 		years = statistiquesDomainService.getAnneesConventions(idCentreGestion, etab);
 
-		//		System.out.println("Critere 1 Lib = "+critereUnLib);
 		critereUnCle = ValueToKeyForCritere(firstStatsCriteriumList,critereUnLib);
-		//		System.out.println("Critere 1 Cle = "+critereUnCle);
-
-		//		System.out.println("Critere 2 Lib = "+critereDeuxLib);
 		critereDeuxCle = ValueToKeyForCritere(secondStatsCriteriumList,critereDeuxLib);
-		//		System.out.println("Critere 2 Cle = "+critereDeuxCle);
-		//		System.out.println("years="+years);
 
-		/*Statistiques pour tout le centre de gestion*/
-
+		if (annee_scolaire == "" || annee_scolaire == null) {
+			java.util.Date date = new java.util.Date();
+			java.util.Calendar calendar = new java.util.GregorianCalendar();
+			calendar.setTime(date);
+			int month = calendar.get(java.util.Calendar.MONTH);
+			int day = calendar.get(java.util.Calendar.DAY_OF_MONTH);
+			int startDay = Utils.convertStringToInt(getBeanUtils().getStartYearDay());
+			int startMonth = Utils.convertStringToInt(getBeanUtils().getStartYearMonth());
+			
+			if(month < startMonth){
+				annee_scolaire = String.valueOf(calendar.get(java.util.Calendar.YEAR)-1)+"/"+String.valueOf(calendar.get(java.util.Calendar.YEAR));
+			} else if(month == startMonth){
+				if(day < startDay){
+					annee_scolaire = String.valueOf(calendar.get(java.util.Calendar.YEAR)-1)+"/"+String.valueOf(calendar.get(java.util.Calendar.YEAR));
+				} else {
+					annee_scolaire = String.valueOf(calendar.get(java.util.Calendar.YEAR))+"/"+String.valueOf(calendar.get(java.util.Calendar.YEAR)+1);
+				}
+			} else {
+				annee_scolaire = String.valueOf(calendar.get(java.util.Calendar.YEAR))+"/"+String.valueOf(calendar.get(java.util.Calendar.YEAR)+1);
+			}
+		}
+		
+		/*Statistiques pour tous les centres de gestion*/
 		if(years != null){
-			//boucle sur les differentes ann�es universitaires depuis 2007
+			//boucle sur les differentes années universitaires
 			for (String uneAnnee:years){
 
 				//Critere 1 = vide
@@ -519,15 +536,15 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 				}//fin Critere 1 = ETAPE
 
 
-				//Calcul du r�sultat
+				//Calcul du résultat
 				if (statsItemList!=null && !statsItemList.isEmpty()){
 					total = 0;
-					//connaitre le nombre de conventions ramen�s
+					//connaitre le nombre de conventions ramenés
 					for (StatisticItemDTO unItem : statsItemList){
 						libelle = unItem.getLib();
 						total = total + unItem.getNumber();
 					}
-					//connaitre le pourcentage de conventions ramen�s
+					//connaitre le pourcentage de conventions ramenés
 					pourcentage=0;
 					for (StatisticItemDTO unItem : statsItemList){
 						pourcentage = (unItem.getNumber()*100)/total;
@@ -552,6 +569,22 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 		return "resultatEditionStats";
 
+	}
+
+
+	/**
+	 * @return the annee_scolaire
+	 */
+	public String getAnnee_scolaire() {
+		return annee_scolaire;
+	}
+
+
+	/**
+	 * @param annee_scolaire the annee_scolaire to set
+	 */
+	public void setAnnee_scolaire(String annee_scolaire) {
+		this.annee_scolaire = annee_scolaire;
 	}
 
 }

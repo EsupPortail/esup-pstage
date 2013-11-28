@@ -118,7 +118,6 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#getConventionFromId(int)
 	 */
 	public ConventionDTO getConventionFromId(int id) {
-
 		ConventionDTO c = this.remoteServices.getConventionFromId(id);
 		setObjects(c);
 		return c;
@@ -140,7 +139,6 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 */
 	public boolean updateConvention(ConventionDTO convention)
 	throws DataUpdateException, WebServiceDataBaseException {
-
 		return this.remoteServices.updateConvention(convention);
 	}
 	/**

@@ -5,178 +5,200 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
-	<rich:panel id="idPanelResultatsStatsOffres"
-		rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="../../_definedStageTemplate.xhtml">
+
+	<ui:define name="content">
+		<rich:panel id="idPanelResultatsStatsOffres"
+			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 					|| welcomeController.personnel) and centreController.centre != null}">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['OFFRES.STATS.INDICATION']}" />
-		</f:facet>
+			<f:facet name="header">
+				<h:outputText
+					value="#{msgs['OFFRES.STATS.INDICATION']} pour le centre #{centreController.centre.nomCentre}" />
+			</f:facet>
 
-		<ui:include src="../_menu_centre.xhtml" />
+			<ui:include src="../_menu_centre.xhtml" />
 
-		<h:panelGrid align="center"
-			rendered="#{empty statistiquesOffresController.years}">
-			<t:htmlTag value="b"><h:outputText value="Aucune offre n'est actuellement référencée pour ce centre." /></t:htmlTag>
-		</h:panelGrid>
-		<t:htmlTag value="div"
-			rendered="#{not empty statistiquesOffresController.years}">
-			<center>
-				<t:htmlTag value="div"
+			<h:panelGrid align="center" id="years"
+				rendered="#{empty statistiquesOffresController.years}">
+				<h:outputLabel for="years"
+					value="Aucune offre n'est actuellement référencée pour ce centre." />
+			</h:panelGrid>
+
+			<h:form id="formResultatsStatsStages"
+				rendered="#{not empty statistiquesOffresController.years}">
+				<h:panelGrid align="center" rowClasses="paginatorData-text"
+					columnClasses="paginatorData-text" columns="2"
 					rendered="#{(not empty statistiquesOffresController.critereUnLib 
-								|| not empty statistiquesOffresController.critereDeuxLib)
-								and not empty statistiquesOffresController.years}">
+						|| not empty statistiquesOffresController.critereDeuxLib)
+						and not empty statistiquesOffresController.years}">
 					<h:panelGrid columns="2">
 						<h:graphicImage alt="info"
 							value="../../../media/images/information.png" style="border:0" />
 						<h:outputText value="Changer d'année : " />
 					</h:panelGrid>
-					<tr style="color: green;">
+					<h:panelGrid>
 						<c:forEach var="annee"
-							items="${statistiquesOffresController.years}">
-							<td><a
-								href="${sessionController.baseUrl}/stylesheets/stage/stats/resultat_offresStats.faces?annee_scolaire=${annee}">
-									${annee} </a></td>
+							items="#{statistiquesOffresController.years}">
+							<h:commandLink value="#{annee}" style="color:green;"
+								disabled="true"
+								rendered="#{statistiquesOffresController.annee_scolaire == annee}"
+								action="#{statistiquesOffresController.gotoResultatOffresStats}">
+								<f:setPropertyActionListener value="#{annee}"
+									target="#{statistiquesOffresController.annee_scolaire}" />
+							</h:commandLink>
+
+							<h:commandLink value="#{annee}"
+								rendered="#{statistiquesOffresController.annee_scolaire != annee}"
+								action="#{statistiquesOffresController.gotoResultatOffresStats}">
+								<f:setPropertyActionListener value="#{annee}"
+									target="#{statistiquesOffresController.annee_scolaire}" />
+							</h:commandLink>
 						</c:forEach>
-					</tr>
-				</t:htmlTag>
-			</center>
-			<br />
-
-			<div align="center">
-				<b> <h:outputText
-						value="#{statistiquesOffresController.message}" />
-				</b>
-				<h:panelGrid
-					rendered="#{not empty statistiquesOffresController.critereUnLib 
-								|| not empty statistiquesOffresController.critereDeuxLib}">
-					<b><c:out value=" pour l'année universitaire " /></b>
-					<b><c:out value="${annee_scolaire}" /></b>
+					</h:panelGrid>
 				</h:panelGrid>
-			</div>
-			<br />
 
-			<c:set var="map" value="${statistiquesOffresController.map}" />
-			<c:choose>
-				<c:when
-					test="${empty statistiquesOffresController.critereUnLib 
-								and empty statistiquesOffresController.critereDeuxLib}">
-					<c:set var="liste" value="${map['all']}" />
-				</c:when>
-				<c:otherwise>
-					<c:set var="liste" value="${map[annee_scolaire]}" />
-				</c:otherwise>
-			</c:choose>
-			<c:set var="total" value="0" />
-			<c:set var="libPrec" value="" />
-			<c:set var="sousTotal" value="0" />
-			<c:set var="pourcent" value="0" />
+				<t:htmlTag value="div" style="height:10px;" />
 
-			<c:forEach var="statsItem" items="${liste}">
-				<c:set var="total" value="${total+statsItem.number}" />
-			</c:forEach>
+				<h:panelGrid align="center" columns="2"
+					rowClasses="paginatorData-text" columnClasses="paginatorData-text">
+					<h:outputText value="#{statistiquesOffresController.message}" />
+					<h:panelGrid columns="2"
+						rendered="#{not empty statistiquesOffresController.critereUnLib 
+								|| not empty statistiquesOffresController.critereDeuxLib}">
+						<h:outputText value=" pour l'année universitaire " />
+						<h:outputText style="color:green;"
+							value="#{statistiquesOffresController.annee_scolaire}" />
+					</h:panelGrid>
+				</h:panelGrid>
 
-			<h:form id="formResultatsStatsStages">
-				<rich:dataTable value="" var="list" id="idOffresStatsResultats"
-					rows="4" width="60%" align="center" style="text-align: center;">
-					<f:facet name="header">
-						<rich:columnGroup>
-							<rich:column>
-								<h:outputText
-									value="#{statistiquesOffresController.critereUnLib}" />
-							</rich:column>
-							<rich:column>
-								<h:outputText
-									value="#{statistiquesOffresController.critereDeuxLib}" />
-							</rich:column>
-							<rich:column>
-								<h:outputText value="#{msgs['OFFRES.NBRE.OFFRES.LIB']}" />
-							</rich:column>
-							<rich:column>
-								<h:outputText value="#{msgs['OFFRES.POURCENT.TOTAL.LIB']}" />
-							</rich:column>
-						</rich:columnGroup>
-					</f:facet>
-
-					<c:forEach var="list" items="${liste}">
-
-						<c:if
-							test="${list.libPriorCriteria ne libPrec and (!empty libPrec)}">
-							<rich:columnGroup>
-								<rich:column>
-									<b><c:out value="${libPrec}" /></b>
-								</rich:column>
-								<rich:column>
-									<b><c:out value="sous-total" /></b>
-								</rich:column>
-								<rich:column>
-									<b><c:out value="${sousTotal}" /></b>
-								</rich:column>
-								<rich:column>
-									<b><c:out value="${pourcent} %" /></b>
-								</rich:column>
-
-							</rich:columnGroup>
-							<c:set var="sousTotal" value="0" />
-							<c:set var="pourcent" value="0" />
-						</c:if>
-
-						<rich:columnGroup>
-							<rich:column>
-								<c:out value="${list.libPriorCriteria}" />
-							</rich:column>
-							<rich:column>
-								<c:out value="${list.lib}" />
-							</rich:column>
-							<rich:column>
-								<c:out value="${list.number}" />
-							</rich:column>
-							<rich:column>
-								<c:out value="${list.percentage} %" />
-							</rich:column>
-						</rich:columnGroup>
-
-						<c:set var="libPrec" value="${list.libPriorCriteria}" />
-						<c:set var="sousTotal" value="${sousTotal+list.number}" />
-						<c:set var="pourcent" value="${pourcent+list.percentage}" />
-
-					</c:forEach>
-
-					<rich:columnGroup>
-						<rich:column>
-							<b><c:out value="${libPrec}" /></b>
-						</rich:column>
-						<rich:column>
-							<b><c:out value="sous-total" /></b>
-						</rich:column>
-						<rich:column>
-							<b><c:out value="${sousTotal}" /></b>
-						</rich:column>
-						<rich:column>
-							<b><c:out value="${pourcent} %" /></b>
-						</rich:column>
-					</rich:columnGroup>
-
-					<rich:columnGroup>
-						<rich:column>
-							<b><h:outputText
-									value="#{statistiquesOffresController.critereUnLib}" /></b>
-						</rich:column>
-						<rich:column>
-							<b><h:outputText value="Total" /></b>
-						</rich:column>
-						<rich:column>
-							<b><c:out value="${total}" /></b>
-						</rich:column>
-						<rich:column>
-							<b><h:outputText value="100 %" /></b>
-						</rich:column>
-					</rich:columnGroup>
-				</rich:dataTable>
-
-				<br />
+				<t:htmlTag value="div" style="height:10px;" />
 
 				<t:htmlTag value="center">
+					<c:set var="map" value="#{statistiquesOffresController.map}" />
+					<c:choose>
+						<c:when
+							test="#{empty statistiquesOffresController.critereUnLib 
+								and empty statistiquesOffresController.critereDeuxLib}">
+							<c:set var="liste" value="#{map['all']}" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="liste"
+								value="#{map[statistiquesOffresController.annee_scolaire]}" />
+						</c:otherwise>
+					</c:choose>
+					<c:set var="total" value="0" />
+					<c:set var="libPrec" value="" />
+					<c:set var="sousTotal" value="0" />
+					<c:set var="pourcent" value="0" />
+
+					<c:forEach var="statsItem" items="#{liste}">
+						<c:set var="total" value="#{total+statsItem.number}" />
+					</c:forEach>
+
+					<rich:dataTable value="" var="var" rows="4"
+						id="idOffresStatsResultats">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText
+										value="#{statistiquesOffresController.critereUnLib}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText
+										value="#{statistiquesOffresController.critereDeuxLib}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msgs['OFFRES.NBRE.OFFRES.LIB']}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{msgs['OFFRES.POURCENT.TOTAL.LIB']}" />
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+
+						<c:forEach var="list" items="#{liste}">
+
+							<c:if
+								test="#{list.libPriorCriteria ne libPrec and (!empty libPrec)}">
+								<rich:columnGroup>
+									<rich:column>
+										<b><h:outputText value="#{libPrec}" /></b>
+									</rich:column>
+									<rich:column>
+										<b><h:outputText value="sous-total" /></b>
+									</rich:column>
+									<rich:column>
+										<b><h:outputText value="#{sousTotal}" /></b>
+									</rich:column>
+									<rich:column>
+										<b><h:outputText value="#{pourcent} %" /></b>
+									</rich:column>
+
+								</rich:columnGroup>
+								<c:set var="sousTotal" value="0" />
+								<c:set var="pourcent" value="0" />
+							</c:if>
+
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="#{list.libPriorCriteria}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{list.lib}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{list.number}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{list.percentage} %" />
+								</rich:column>
+							</rich:columnGroup>
+
+							<c:set var="libPrec" value="#{list.libPriorCriteria}" />
+							<c:set var="sousTotal" value="#{sousTotal+list.number}" />
+							<c:set var="pourcent" value="#{pourcent+list.percentage}" />
+
+						</c:forEach>
+
+						<rich:columnGroup>
+							<rich:column>
+								<b><h:outputText value="#{libPrec}" /></b>
+							</rich:column>
+							<rich:column>
+								<b><h:outputText value="sous-total" /></b>
+							</rich:column>
+							<rich:column>
+								<b><h:outputText value="#{sousTotal}" /></b>
+							</rich:column>
+							<rich:column>
+								<b><h:outputText value="#{pourcent} %" /></b>
+							</rich:column>
+						</rich:columnGroup>
+
+						<rich:columnGroup>
+							<rich:column>
+								<b><h:outputText
+										value="#{statistiquesOffresController.critereUnLib}" /></b>
+							</rich:column>
+							<rich:column>
+								<b><h:outputText value="Total" /></b>
+							</rich:column>
+							<rich:column>
+								<b><h:outputText value="#{total}" /></b>
+							</rich:column>
+							<rich:column>
+								<b><h:outputText value="100 %" /></b>
+							</rich:column>
+						</rich:columnGroup>
+					</rich:dataTable>
+
+					<br />
+				</t:htmlTag>
+
+				<t:htmlTag value="div" style="height:10px;" />
+
+				<h:panelGrid align="center" columns="3">
 					<h:commandLink id="idLienRetourAuxStats"
 						action="#{centreController.goToIndicateurStat}">
 						<h:graphicImage alt="Retour"
@@ -192,18 +214,18 @@
 							value="../../../media/images/excelSmall.png" style="border:0" />
 						<rich:tooltip value="#{msgs['CONVENTION.STATS.INFO.ENREGISTRER']}" />
 					</h:commandLink>
-				</t:htmlTag>
+				</h:panelGrid>
 			</h:form>
-		</t:htmlTag>
-		<t:htmlTag value="div" style="height:30px;" />
-	</rich:panel>
+			<t:htmlTag value="div" style="height:30px;" />
+		</rich:panel>
 
-	<t:div
-		rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel)}">
-		<ui:include src="../_redirection_droitsInsuffisants.xhtml" />
-	</t:div>
-	<t:div
-		rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) and centreController.centre == null}">
-		<ui:include src="../_redirection_accesDirectImpossible.xhtml" />
-	</t:div>
+		<t:div
+			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel)}">
+			<ui:include src="../_redirection_droitsInsuffisants.xhtml" />
+		</t:div>
+		<t:div
+			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel) and centreController.centre == null}">
+			<ui:include src="../_redirection_accesDirectImpossible.xhtml" />
+		</t:div>
+	</ui:define>
 </ui:composition>

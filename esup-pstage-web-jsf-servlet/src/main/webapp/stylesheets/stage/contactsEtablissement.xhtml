@@ -327,7 +327,7 @@
 								</a4j:commandLink>
 							</rich:column>
 							<f:facet name="footer">
-								<rich:dataScroller id="ds" renderIfSinglePage="false"></rich:dataScroller>
+								<rich:dataScroller id="ds" renderIfSinglePage="false" />
 							</f:facet>
 						</rich:dataTable>
 					</a4j:outputPanel>
@@ -337,8 +337,7 @@
 				<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 					action="#{rechercheController.goToRechercheEtablissementStage}"
 					alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}">
-				</h:commandButton>
+					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
 			</h:form>
 
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />
@@ -347,7 +346,6 @@
 			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
 			<ui:include src="../_commun/_panelModifContact.xhtml" />
 			<ui:include src="../_commun/_panelSupprContact.xhtml" />
-			<a4j:log />
 		</rich:panel>
 	</ui:define>
 </ui:composition>

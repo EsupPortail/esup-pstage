@@ -211,16 +211,28 @@
 					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.RAISONSOCIALE']}"
 						for="raisonSociale"
 						rendered="#{conventionController.rechercheAvancee}" />
-					<h:inputText id="raisonSociale"
-						value="#{conventionController.critereRechercheConvention.raisonSociale}"
-						size="50" maxlength="200"
-						rendered="#{conventionController.rechercheAvancee}" />
+					<h:panelGrid columns="2" rendered="#{conventionController.rechercheAvancee}">
+						<h:graphicImage id="infoRs"
+							alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
+							value="../../media/images/information.png" style="border:0">
+							<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+						</h:graphicImage>
+						<h:inputText id="raisonSociale"
+							value="#{conventionController.critereRechercheConvention.raisonSociale}"
+							size="50" maxlength="200" />
+					</h:panelGrid>
 					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.NUMEROSIRET']}"
 						for="numSiret" rendered="#{conventionController.rechercheAvancee}" />
-					<h:inputText id="numSiret"
-						value="#{conventionController.critereRechercheConvention.numeroSiret}"
-						size="20" maxlength="14"
-						rendered="#{conventionController.rechercheAvancee}" />
+					<h:panelGrid columns="2" rendered="#{conventionController.rechercheAvancee}">
+						<h:graphicImage id="infoNumsiret"
+							alt="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
+							value="../../media/images/information.png" style="border:0">
+							<rich:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
+						</h:graphicImage>
+						<h:inputText id="numSiret"
+							value="#{conventionController.critereRechercheConvention.numeroSiret}"
+							size="20" maxlength="14" />
+					</h:panelGrid>
 					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.COMMUNE']}"
 						for="commune" rendered="#{conventionController.rechercheAvancee}" />
 					<h:inputText id="commune"

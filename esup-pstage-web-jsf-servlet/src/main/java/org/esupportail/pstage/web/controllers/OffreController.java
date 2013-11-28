@@ -64,7 +64,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * Navigation à renvoyer au cours de l'ajout d'offre selon si l'on est coté entreprise ou stage
 	 */
 	private String creationOffre;
-	
+
 	/**
 	 * The serialization id.
 	 */
@@ -260,9 +260,9 @@ public class OffreController extends AbstractContextAwareController {
 			this.listeOffres = getOffreDomainService()
 					.getOffresFromIdStructureAndIdsCentreGestion(
 							getSessionController().getCurrentManageStructure()
-									.getIdStructure(),
+							.getIdStructure(),
 							getSessionController()
-									.getCurrentIdsCentresGestion(),
+							.getCurrentIdsCentresGestion(),
 							getSessionController().getCurrentAuthEtudiant() != null);
 			if (this.listeOffres != null && !this.listeOffres.isEmpty()) {
 				for (OffreDTO o : this.listeOffres) {
@@ -367,13 +367,13 @@ public class OffreController extends AbstractContextAwareController {
 		if (ret != null
 				&& this.etablissementController.getFormStructure() != null) {
 			this.etablissementController.getRechercheController()
-					.setResultatRechercheStructure(
-							this.etablissementController.getFormStructure());
+			.setResultatRechercheStructure(
+					this.etablissementController.getFormStructure());
 			this.etablissementController.setFormStructure(null);
 			ret = "_creationOffreEtape04DetailsEtab";
 			getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape04DetailsEtab");
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -460,8 +460,8 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToCreationOffreEtape2(){
-//		String ret=null;
-//		ret="_creationOffreEtape2";
+		//		String ret=null;
+		//		ret="_creationOffreEtape2";
 		getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape2");
 		getSessionController().setCreationOffreCurrentPage("_creationOffreEtape2");
 		this.formOffre.setLieuPays(this.formOffre.getStructure().getPays());
@@ -502,7 +502,7 @@ public class OffreController extends AbstractContextAwareController {
 				this.formOffre.setLienAttache("http://");
 				break;
 			default:
-//				ret=null;
+				//				ret=null;
 				getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape1");
 				getSessionController().setCreationOffreCurrentPage("_creationOffreEtape1");
 				break;
@@ -530,7 +530,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToCreationOffreEtape3(){
-//		String ret=null;
+		//		String ret=null;
 		if(getBeanUtils().isFrance(this.formOffre.getLieuPays()) && getSessionController().isRecupererCommunesDepuisApogee()){
 			if(!this.formOffre.getCodeCommune().equals("0")){
 				//Récupération de la commune pour en avoir le libellé
@@ -541,11 +541,11 @@ public class OffreController extends AbstractContextAwareController {
 			}
 		}
 		if(this.avecFichierOuLien){
-//			ret="_creationOffreEtape3";
+			//			ret="_creationOffreEtape3";
 			getSessionController().setCreationOffreCurrentPage("_creationOffreEtape3");
 			getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape3");
 		}else{
-//			ret="_creationOffreEtape3Contacts";
+			//			ret="_creationOffreEtape3Contacts";
 			getSessionController().setCreationOffreCurrentPage("_creationOffreEtape3Contacts");
 			getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape3Contacts");
 		}
@@ -566,7 +566,7 @@ public class OffreController extends AbstractContextAwareController {
 				this.formOffre=new OffreDTO();
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -574,7 +574,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void _ajoutOffre(){
-//		String ret=null;
+		//		String ret=null;
 		if(this.centreGestionDepotAnonyme!=null){
 			this.formOffre.setLoginCreation("depotAnonyme");
 		}else{
@@ -613,7 +613,7 @@ public class OffreController extends AbstractContextAwareController {
 						this.formOffre.setIdOffre(idOffreAjoutee);
 						this.formOffre.setDateCreation(new Date());
 						this.formOffre.setLoginCreation(getSessionController().getCurrentLogin());
-//						ret="_creationOffreEtape4Confirmation";
+						//						ret="_creationOffreEtape4Confirmation";
 						getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape4Confirmation");
 						getSessionController().setCreationOffreCurrentPage("_creationOffreEtape4Confirmation");
 						addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
@@ -637,7 +637,7 @@ public class OffreController extends AbstractContextAwareController {
 					this.formOffre.setIdOffre(idOffreAjoutee);
 					this.formOffre.setDateCreation(new Date());
 					this.formOffre.setLoginCreation(getSessionController().getCurrentLogin());
-//					ret="_creationOffreEtape4Confirmation";
+					//					ret="_creationOffreEtape4Confirmation";
 					getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape4Confirmation");
 					getSessionController().setCreationOffreCurrentPage("_creationOffreEtape4Confirmation");
 					addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
@@ -695,7 +695,7 @@ public class OffreController extends AbstractContextAwareController {
 					this.formOffre.setIdOffre(idOffreAjoutee);
 					this.formOffre.setDateCreation(new Date());
 					this.formOffre.setLoginCreation(getSessionController().getCurrentLogin());
-//					ret="_creationOffreEtape4Confirmation";
+					//					ret="_creationOffreEtape4Confirmation";
 					getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape4Confirmation");
 					getSessionController().setCreationOffreCurrentPage("_creationOffreEtape4Confirmation");
 					addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
@@ -718,7 +718,7 @@ public class OffreController extends AbstractContextAwareController {
 			addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION.DIFFUSION", this.formOffre.getIdOffre());
 		}
 		this.diffusionDirecte = false;
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -1007,11 +1007,11 @@ public class OffreController extends AbstractContextAwareController {
 	 * 
 	 */
 	public void goToModificationOffreModifEtab(){
-//		String ret=null;
+		//		String ret=null;
 		this.etablissementController.goToModificationEtablissement();
-//		ret="_modificationOffreEtape05ModifEtab";
+		//		ret="_modificationOffreEtape05ModifEtab";
 		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape05ModifEtab");
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -1020,7 +1020,7 @@ public class OffreController extends AbstractContextAwareController {
 	public void modifierOffreModifierEtablissement(){
 		String ret=null;
 		ret=this.etablissementController.modifierEtablissement();
-		
+
 		this.currentOffre.setStructure(this.etablissementController.getFormStructure());
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Iterator<FacesMessage> ifm = fc.getMessages("formModifEtab");
@@ -1035,12 +1035,12 @@ public class OffreController extends AbstractContextAwareController {
 			fc.addMessage("formModificationOffre:formAffEtab", new FacesMessage(fm.getSummary(),fm.getDetail()));
 			ifm.remove();
 		}
-		
+
 		if(StringUtils.hasText(ret)){
 			getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
 		}
-		
-//		return "";
+
+		//		return "";
 	}
 
 	/**
@@ -1068,15 +1068,15 @@ public class OffreController extends AbstractContextAwareController {
 		getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape1");
 		getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape1");
 		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape1");
-//		return "_modificationOffreEtape1";
+		//		return "_modificationOffreEtape1";
 	}
 
 	/**
 	 * Envoi vers l'Etape 2 : Saisie de l'offre
 	 */
 	public void goToModificationOffreEtape2(){
-//		String ret=null;
-//		ret="_modificationOffreEtape2";
+		//		String ret=null;
+		//		ret="_modificationOffreEtape2";
 		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape2");
 		getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape2");
 		getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape2");
@@ -1152,7 +1152,7 @@ public class OffreController extends AbstractContextAwareController {
 				this.formOffreCommunesListening=new ArrayList<SelectItem>();
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -1161,7 +1161,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void goToModificationOffreEtape3(){
-//		String ret=null;
+		//		String ret=null;
 		if(getBeanUtils().isFrance(this.formOffre.getLieuPays()) && getSessionController().isRecupererCommunesDepuisApogee()){
 			if(!this.formOffre.getCodeCommune().equals("0")){
 				//Récupération de la commune pour en avoir le libellé
@@ -1172,17 +1172,17 @@ public class OffreController extends AbstractContextAwareController {
 			}
 		}
 		if(this.avecFichierOuLien){
-//			ret="_modificationOffreEtape3";
+			//			ret="_modificationOffreEtape3";
 			getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3");
 			getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape3");
 			getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape3");
 		}else{
-//			ret="_modificationOffreEtape3Contacts";
+			//			ret="_modificationOffreEtape3Contacts";
 			getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3Contacts");
 			getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape3Contacts");
 			getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape3Contacts");
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -1213,7 +1213,7 @@ public class OffreController extends AbstractContextAwareController {
 				}
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -1430,9 +1430,9 @@ public class OffreController extends AbstractContextAwareController {
 	 * Suppression d'une offre
 	 */
 	public void supprimerOffre(){
-//		String ret=null;
+		//		String ret=null;
 		try{
-//			ret="_supprOffreEtape2Confirmation";
+			//			ret="_supprOffreEtape2Confirmation";
 			getSessionController().setSuppressionOffreCurrentPage("_supprOffreEtape2Confirmation");
 			if(getOffreDomainService().deleteOffreLogique(this.currentOffre.getIdOffre())){
 				//Maj listes
@@ -1454,7 +1454,7 @@ public class OffreController extends AbstractContextAwareController {
 			logger.error(e.fillInStackTrace());
 			addErrorMessage(null, "OFFRE.SUPPR.ERREUR");
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -1503,8 +1503,8 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void diffuserOffre(){
-//		String ret=null;
-//		ret="_diffusionOffreEtape2Confirmation";
+		//		String ret=null;
+		//		ret="_diffusionOffreEtape2Confirmation";
 		getSessionController().setDiffusionOffreCurrentPage("_diffusionOffreEtape2Confirmation");
 		if(this.currentOffre!=null && this.currentOffre.getIdOffre()>0){
 			try{
@@ -1533,6 +1533,21 @@ public class OffreController extends AbstractContextAwareController {
 				getOffreDomainService().updateValidationOffre(this.currentOffre.getIdOffre(), getSessionController().getCurrentLogin());
 				addInfoMessage(null, "OFFRE.GESTION.DIFFUSION.CONFIRMATION");
 				getOffreDomainService().updateOffrePourvue(this.currentOffre.getIdOffre(), false);
+
+				if (getSessionController().isModerationActive() && getSessionController().isAvertissementEntrepriseDiffusion()){
+					
+					String text=getString("ALERTES_MAIL.AVERTISSEMENT_ENTREPRISE_DIFFUSION",this.currentOffre.getIdOffre());
+					
+					String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_ENTREPRISE_DIFFUSION.SUJET",this.currentOffre.getIdOffre());
+					
+					if (this.currentOffre.getContactCand().getMail() != null && !this.currentOffre.getContactCand().getMail().isEmpty()){
+						getSmtpService().send(new InternetAddress(this.currentOffre.getContactCand().getMail()),
+								sujet,text,text);
+					} else {
+						addErrorMessage(null, "GENERAL.ERREUR_MAIL");
+					}
+				}
+
 				//Màj de l'objet courant
 				this.currentOffre.setEstPourvue(false);
 				this.currentOffre.setEstDiffusee(true);
@@ -1554,9 +1569,12 @@ public class OffreController extends AbstractContextAwareController {
 			}catch (WebServiceDataBaseException e) {
 				logger.error(e.fillInStackTrace());
 				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
+			}catch (AddressException ade){
+				logger.error("AddressException", ade.fillInStackTrace());
+				addErrorMessage(null, "GENERAL.ERREUR_MAIL");
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -1664,8 +1682,8 @@ public class OffreController extends AbstractContextAwareController {
 	 * Arrêt de la diffusion de l'offre actuellement sélectionnée
 	 */
 	public void stopDiffusionOffre(){
-//		String ret=null;
-//		ret="_stopDiffusionOffreEtape2Confirmation";
+		//		String ret=null;
+		//		ret="_stopDiffusionOffreEtape2Confirmation";
 		getSessionController().setStopDiffusionOffreCurrentPage("_stopDiffusionOffreEtape2Confirmation");
 		if(this.currentOffre!=null){
 			try{
@@ -1694,15 +1712,15 @@ public class OffreController extends AbstractContextAwareController {
 				addErrorMessage(null, "OFFRE.GESTION.STOPDIFFUSION.ERREUR");
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
 	 * Indiquer l'offre comme pourvue
 	 */
 	public void offrePourvue(){
-//		String ret=null;
-//		ret="_offrePourvueEtape2Confirmation";
+		//		String ret=null;
+		//		ret="_offrePourvueEtape2Confirmation";
 		getSessionController().setOffrePourvueCurrentPage("_offrePourvueEtape2Confirmation");
 		if(this.currentOffre!=null){
 			try{
@@ -1734,7 +1752,7 @@ public class OffreController extends AbstractContextAwareController {
 				addErrorMessage(null, "OFFRE.GESTION.POURVOIROFFRE.ERREUR");
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -1908,7 +1926,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * Action de diffusion de l'offre aux centres sélectionnés
 	 */
 	public void diffusionCentreOffre(){
-//		String ret="_diffusionCentreOffreEtape2Confirmation";
+		//		String ret="_diffusionCentreOffreEtape2Confirmation";
 		getSessionController().setDiffusionCentreOffreCurrentPage("_diffusionCentreOffreEtape2Confirmation");
 		if(this.currentOffre!=null){
 			if(this.idCentreEtablissementSelect==0 || this.listesCentreGestionUniversiteADiffuser==null 
@@ -1954,7 +1972,7 @@ public class OffreController extends AbstractContextAwareController {
 				}
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
@@ -2087,7 +2105,7 @@ public class OffreController extends AbstractContextAwareController {
 			l.add(getCentreGestionDomainService().getCentreEntreprise());
 			getSessionController().setCurrentCentresGestion(l);
 		}
-		
+
 		List<Integer> idCG = getSessionController().getCurrentIdsCentresGestion();
 		if (idCG == null) idCG = new ArrayList<Integer>();
 		boolean trouveCGEtab = false;
@@ -2580,7 +2598,7 @@ public class OffreController extends AbstractContextAwareController {
 					}
 
 				}
-				
+
 				String idOffre = Integer.toString(offreEdit.getIdOffre());
 				nomDocxsl = "offre" + ".xsl";
 				fileNameXml = "offre_" + idOffre;

@@ -151,6 +151,20 @@
 		<property name="urlAssistance" value="${assistance.url}" />
 		<property name="moderationActive" value="${moderationActive}" />
 		<property name="validationPedagogique" value="${validationPedagogique}" />
+		<property name="avertissementEtudiantConvention"
+			value="${alerteMail.avertissementEtudiantConvention}" />
+		<property name="avertissementEtudiantAvenant" value="${alerteMail.avertissementEtudiantAvenant}" />
+		<property name="avertissementPersonnelCreaConvention"
+			value="${alerteMail.avertissementPersonnelCreaConvention}" />
+		<property name="avertissementPersonnelModifConvention"
+			value="${alerteMail.avertissementPersonnelModifConvention}" />
+		<property name="avertissementPersonnelCreaAvenant"
+			value="${alerteMail.avertissementPersonnelCreaAvenant}" />
+		<property name="avertissementPersonnelModifAvenant"
+			value="${alerteMail.avertissementPersonnelModifAvenant}" />
+		<property name="avertissementEntrepriseDiffusion"
+			value="${alerteMail.avertissementEntrepriseDiffusion}" />
+		<property name="moderationStructures" value="${moderationStructures}" />
 	</bean>
 
 	<bean id="abstractContextAwareController" abstract="true"
@@ -247,22 +261,22 @@
 	<bean id="anneesAccademiques" class="java.util.ArrayList" scope="prototype" />
 
 	<bean id="abstractBuilder" abstract="true">
-		<property name="remoteServices" ref="remoteServices"/>
-		<property name="anneesAccademiques" ref="anneesAccademiques"/>
+		<property name="remoteServices" ref="remoteServices" />
+		<property name="anneesAccademiques" ref="anneesAccademiques" />
 	</bean>
 
 	<bean id="statistiquesConventionController"
 		class="org.esupportail.pstage.web.controllers.StatistiquesConventionController"
 		lazy-init="true" parent="abstractContextAwareController" scope="session"
 		init-method="initAll">
-		<property name="statistiquesDomainService" ref="statistiquesDomainService"/>
+		<property name="statistiquesDomainService" ref="statistiquesDomainService" />
 	</bean>
 
 	<bean id="statistiquesOffresController"
 		class="org.esupportail.pstage.web.controllers.StatistiquesOffresController"
 		lazy-init="true" parent="abstractContextAwareController" scope="session"
 		init-method="prepareOffres">
-		<property name="statistiquesDomainService" ref="statistiquesDomainService"/>
+		<property name="statistiquesDomainService" ref="statistiquesDomainService" />
 	</bean>
 
 </beans>

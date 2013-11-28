@@ -13,8 +13,40 @@
 					value="#{msgs['CONVENTION.ETAPE11.CREA']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formCreaAvenantPage1">
-				<ui:include
-					src="/stylesheets/stage/_conventionEtape11CreaAvenantPage1.xhtml" />
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text"
+					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+					
+					<ui:include src="/stylesheets/stage/_conventionEtape11FormAvenantPage1.xhtml" />
+					
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" align="center">
+						<a4j:commandButton value="#{msgs['CONVENTION.ETAPE11.CREER']}"
+							status="statusCreaAvenant"
+							action="#{avenantController.goToCreaAvenantPage2}" />
+						<h:outputText id="erreurCreation" value="" />
+						<rich:message for="erreurCreation">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+						<t:htmlTag value="center">
+							<a4j:status name="statusCreaAvenant">
+								<f:facet name="start">
+									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+								</f:facet>
+							</a4j:status>
+						</t:htmlTag>
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<t:htmlTag value="div" style="height:10px;" />
+
+				<h:commandButton id="retour" style="float:left;"
+					value="#{msgs['GENERAL.RETOUR']}" immediate="true"
+					action="#{avenantController.goToListeAvenant}">
+					<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+				</h:commandButton>
+
+				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />
 			<ui:include src="../_commun/_panelAjoutContact.xhtml" />

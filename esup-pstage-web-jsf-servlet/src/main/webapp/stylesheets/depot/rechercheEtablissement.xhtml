@@ -34,11 +34,18 @@
 								<t:panelGrid columns="2">
 									<h:outputLabel for="rechRaisonSocialeAccord"
 										value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
-									<h:inputText id="rechRaisonSocialeAccord" size="50"
-										maxlength="100"
-										value="#{rechercheController.rechRaisonSociale}"
-										style="text-transform:uppercase;"
-										converter="#{sansAccentEnMAJConverter}" />
+									<h:panelGrid columns="2">
+										<h:graphicImage id="infoRs"
+											alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
+											value="../../media/images/information.png" style="border:0">
+											<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+										</h:graphicImage>
+										<h:inputText id="rechRaisonSocialeAccord" size="50"
+											maxlength="100"
+											value="#{rechercheController.rechRaisonSociale}"
+											style="text-transform:uppercase;"
+											converter="#{sansAccentEnMAJConverter}" />
+									</h:panelGrid>
 									<h:outputLabel for="rechTypeAccord"
 										value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.ACCORD']}" />
 									<h:selectOneRadio id="rechTypeAccord"
@@ -109,7 +116,8 @@
 								<rich:dataTable id="rechercheStructureDataTable"
 									var="varRechercheStructure"
 									rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
-									value="#{rechercheController.rechercheStructurePaginator.visibleItems}" width="600">
+									value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
+									width="600">
 									<f:facet name="header">
 										<ui:include
 											src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
@@ -174,16 +182,15 @@
 												<f:setPropertyActionListener
 													value="#{varRechercheStructure}"
 													target="#{adminController.accordASupprimer}" />
-												<f:setPropertyActionListener
-													value="_supprAccordEtape1"
+												<f:setPropertyActionListener value="_supprAccordEtape1"
 													target="#{sessionController.suppressionAccordCurrentPage}" />
 												<rich:tooltip value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
 											</a4j:commandLink>
 										</h:panelGrid>
 									</rich:column>
 									<f:facet name="footer">
-										<rich:dataScroller for="rechercheStructureDataTable" maxPages="20"
-											renderIfSinglePage="false" id="listeScroller"/>
+										<rich:dataScroller for="rechercheStructureDataTable"
+											maxPages="20" renderIfSinglePage="false" id="listeScroller" />
 									</f:facet>
 								</rich:dataTable>
 							</t:div>

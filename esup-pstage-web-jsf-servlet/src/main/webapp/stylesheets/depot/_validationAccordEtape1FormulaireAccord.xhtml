@@ -20,13 +20,21 @@
 					columnClasses="paginatorData-text">
 					<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
 						for="raisonSociale" />
-					<h:inputText id="raisonSociale" style="text-transform:uppercase;"
-						value="#{adminController.structureAccordAValider.raisonSociale}"
-						size="50" maxlength="100" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<f:converter binding="#{sansAccentEnMAJConverter}" />
-						<a4j:ajax event="blur" />
-					</h:inputText>
+					<h:panelGrid columns="2" columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text">
+						<h:graphicImage id="imgInfo" alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
+							title="#{msgs['MENU.AIDE']}"
+							value="../../media/images/information.png" style="border:0">
+							<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+						</h:graphicImage>
+						<h:inputText id="raisonSociale" style="text-transform:uppercase;"
+							value="#{adminController.structureAccordAValider.raisonSociale}"
+							size="50" maxlength="100" required="true"
+							requiredMessage="#{requiredMessageController.champObligatoire}">
+							<f:converter binding="#{sansAccentEnMAJConverter}" />
+							<a4j:ajax event="blur" />
+						</h:inputText>
+					</h:panelGrid>
 					<rich:message for="raisonSociale">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
@@ -134,7 +142,12 @@
 			</h:panelGrid>
 			<h:panelGrid columns="1" rowClasses="paginatorData-text"
 				columnClasses="paginatorData-text">
-				<h:panelGrid columns="3">
+				<h:panelGrid columns="4" rowClasses="paginatorData-text"
+				columnClasses="paginatorData-text">
+					<h:graphicImage id="infoApe" alt="#{msgs['INFOSBULLES.CODE_APE']}"
+						value="../../media/images/information.png" style="border:0">
+						<rich:tooltip value="#{msgs['INFOSBULLES.CODE_APE']}"/>
+					</h:graphicImage>
 					<h:inputText id="ape" style="text-transform:uppercase;"
 						value="#{adminController.structureAccordAValider.codeNAF_N5}"
 						validatorMessage="#{requiredMessageController.codeNafNonValide}"

@@ -13,8 +13,32 @@
 					value="#{msgs['CONVENTION.ETAPE11.MODIF']} #{avenantController.avenant.idAvenant}" />
 			</f:facet>
 			<h:form id="formModifAvenantPage1">
-				<ui:include
-					src="/stylesheets/stage/_conventionEtape11ModifAvenantPage1.xhtml" />
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text"
+					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+
+					<ui:include src="/stylesheets/stage/_conventionEtape11FormAvenantPage1.xhtml" />
+
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" align="center" columns="1">
+						<h:commandButton value="#{msgs['CONVENTION.ETAPE11.MODIFIER']}"
+							action="#{avenantController.goToModifAvenantPage2}" />
+						<h:outputText id="erreurModification" value="" />
+						<rich:message for="erreurModification">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+					</h:panelGrid>
+				</h:panelGrid>
+				
+				<t:htmlTag value="div" style="height: 10px;" />
+
+				<h:commandButton id="retour" style="float:left;"
+					value="#{msgs['GENERAL.RETOUR']}" immediate="true"
+					action="#{avenantController.goToDetailAvenant}">
+					<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+				</h:commandButton>
+				
+				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />
 			<ui:include src="../_commun/_panelAjoutContact.xhtml" />

@@ -127,6 +127,22 @@
 								target="#{etablissementController.listeContacts}" />
 						</h:commandLink>
 					</t:htmlTag>
+					<t:htmlTag value="li" rendered="#{sessionController.moderationStructures and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}">
+						<h:commandLink action="#{rechercheController.goToEtablissementsAVerifier}">
+							<h:graphicImage alt="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
+								title="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
+								value="/media/images/zoom.png" style="border:0" />
+							<h:outputText value=" #{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}" />
+							<f:setPropertyActionListener value="#{2}"
+								target="#{rechercheController.ongletCourant}" />
+							<f:setPropertyActionListener value="#{null}"
+								target="#{sessionController.currentManageStructure}" />
+							<f:setPropertyActionListener value="#{null}"
+								target="#{etablissementController.listeServices}" />
+							<f:setPropertyActionListener value="#{null}"
+								target="#{etablissementController.listeContacts}" />
+						</h:commandLink>
+					</t:htmlTag>
 				</t:htmlTag>
 			</t:htmlTag>
 			<t:htmlTag value="li"

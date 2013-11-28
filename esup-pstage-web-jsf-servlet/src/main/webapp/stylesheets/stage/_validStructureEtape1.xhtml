@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<t:aliasBean alias="#{structure}"
+		value="#{etablissementController.formStructure}">
+		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+	</t:aliasBean>
+	
+	<t:htmlTag value="div" style="height:10px;"/>
+	
+	<t:htmlTag value="center">
+		<t:div rendered="#{!etablissementController.formStructure.estValidee}">
+			<h:outputLabel for="validStructurePanel"
+				value="#{msgs['STRUCTURE.MODERATION.VALIDATION.QUESTION']}" />
+	
+			<t:htmlTag value="div" style="height: 5px;" />
+	
+			<h:panelGrid id="validStructurePanel" align="center" columns="3"
+				columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+				<a4j:commandButton
+					action="#{etablissementController.validerStructure}"
+					value="#{msgs['FORM.OUI']}" render="formValidStructure" />
+	
+				<t:htmlTag value="div" style="width:30px;" />
+	
+				<h:commandButton value="#{msgs['FORM.NON']}"
+					onclick="#{rich:component('validerStructurePanel')}.hide();return false;" />
+			</h:panelGrid>
+		</t:div>
+	</t:htmlTag>
+	
+	<t:div rendered="#{etablissementController.formStructure.estValidee}">
+		<h:outputLabel for="devalidStructurePanel"
+			value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.QUESTION']}" />
+
+		<t:htmlTag value="div" style="height: 5px;" />
+
+		<h:panelGrid id="devalidStructurePanel" align="center" columns="3"
+			columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+			<a4j:commandButton
+				action="#{etablissementController.devaliderStructure}"
+				value="#{msgs['FORM.OUI']}" render="formValidStructure" />
+
+			<t:htmlTag value="div" style="width:30px;" />
+
+			<h:commandButton value="#{msgs['FORM.NON']}"
+				onclick="#{rich:component('validerStructurePanel')}.hide();return false;" />
+		</h:panelGrid>
+	</t:div>
+</ui:composition>
