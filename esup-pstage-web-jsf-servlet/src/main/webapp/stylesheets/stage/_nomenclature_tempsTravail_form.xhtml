@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<ui:include src="../_commun/_champsObligatoires.xhtml" />
+
+	<t:htmlTag value="div" style="height:5px;" />
+		
+	<h:panelGrid columns="3" style="margin-left:10%;"
+		columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text">
+		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.LIBELLE']}"
+			for="libelleTempsTravail" />
+		<t:htmlTag value="div" style="width:5px;" />
+		<h:panelGrid columns="2">
+			<h:inputText id="libelleTempsTravail"
+				value="#{nomenclatureController.tpsTravail.libelle}" size="30"
+				maxlength="100" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<a4j:ajax event="blur" render="msgLibelleTpsTravail" />
+			</h:inputText>
+			<rich:message id="msgLibelleTpsTravail" for="libelleTempsTravail">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:composition>

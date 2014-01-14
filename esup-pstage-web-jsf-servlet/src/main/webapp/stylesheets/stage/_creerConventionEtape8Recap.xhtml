@@ -124,13 +124,19 @@
 				rendered="#{conventionController.convention.interruptionStage }" />
 			<h:outputText id="dateFinInterruption1"
 				value="#{conventionController.convention.dateFinInterruption}"
-				rendered="#{conventionController.convention.interruptionStage }">
+				rendered="#{conventionController.convention.interruptionStage}">
 				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
 			</h:outputText>
 			<h:outputLabel for="dureeExceptionnelle1"
+				rendered="#{not empty conventionController.convention.dureeExceptionnelle}"
 				value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
-			<h:outputText id="dureeExceptionnelle1"
-				value="#{conventionController.convention.dureeExceptionnelle}" />
+			<h:panelGrid columns="2"
+				rendered="#{not empty conventionController.convention.dureeExceptionnelle}">
+				<h:outputText id="dureeExceptionnelle1"
+					value="#{conventionController.convention.dureeExceptionnelle}" />
+				<h:outputText
+					value="#{conventionController.convention.uniteDuree.libelle}" />
+			</h:panelGrid>
 			<h:outputLabel for="nbJoursHebdo1"
 				value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
 			<h:outputText id="nbJoursHebdo1"

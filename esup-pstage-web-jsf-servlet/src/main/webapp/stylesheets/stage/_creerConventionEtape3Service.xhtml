@@ -76,6 +76,7 @@
 				<ui:include src="../_commun/_serviceColumns.xhtml" />
 
 				<rich:column>
+				<h:panelGrid columns="3">
 					<a4j:commandLink execute="@this" id="modif"
 						rendered="#{not empty etablissementController.idServiceSel
 							and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
@@ -118,17 +119,29 @@
 							value="../../media/images/delete.png" style="border:0" />
 						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 					</a4j:commandLink>
-					<a4j:commandLink execute="@this" id="selC"
+<!-- 					<a4j:commandLink execute="@this" id="selC" -->
+<!-- 						rendered="#{not empty etablissementController.idServiceSel}" -->
+<!-- 						action="#{conventionController.goToCreerConventionEtape4Contact}"> -->
+
+<!-- 						<f:setPropertyActionListener -->
+<!-- 							value="#{etablissementController.serviceSel}" -->
+<!-- 							target="#{conventionController.convention.service}" /> -->
+<!-- 						<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}" -->
+<!-- 							value="../../media/images/tick.png" style="border:0" /> -->
+<!-- 						<rich:tooltip value="#{msgs['CONVENTION.SELECSERVICE']}" /> -->
+<!-- 					</a4j:commandLink> -->
+					
+					<a4j:commandButton execute="@this" id="selC"
+						style="color:green;"
+						value="#{msgs['FORM.SELECTIONNER']}"
 						rendered="#{not empty etablissementController.idServiceSel}"
 						action="#{conventionController.goToCreerConventionEtape4Contact}">
-
 						<f:setPropertyActionListener
 							value="#{etablissementController.serviceSel}"
 							target="#{conventionController.convention.service}" />
-						<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
-							value="../../media/images/tick.png" style="border:0" />
 						<rich:tooltip value="#{msgs['CONVENTION.SELECSERVICE']}" />
-					</a4j:commandLink>
+					</a4j:commandButton>
+				</h:panelGrid>
 				</rich:column>
 				<f:facet name="footer">
 					<rich:dataScroller id="ds" renderIfSinglePage="false" />

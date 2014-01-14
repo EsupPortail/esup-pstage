@@ -2808,4 +2808,14 @@
 		*************************************************************************
 	-->
 		
+	<navigation-rule>
+		<description>Renvoi vers l'interface de gestion des tables de nomenclature</description>
+		<display-name>gestionNomenclatures</display-name>
+		<from-view-id>/stylesheets/stage/*</from-view-id>
+		<navigation-case>
+			<from-outcome>gestionNomenclatures</from-outcome>
+			<to-view-id>/stylesheets/stage/gestionNomenclatures.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

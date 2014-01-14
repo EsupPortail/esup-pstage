@@ -313,6 +313,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	private boolean validationPedagogique;
 	
 	/**
+	* nombre de conventions à atteindre avant de considérer un tuteur comme surchargé et afficher un avertissement
+	*/
+	private Integer surchargeTuteur;
+	
+	/**
 	 * Envoi d'un mail aux étudiants à la validation de leur convention
 	 */
 	private boolean avertissementEtudiantConvention;
@@ -340,6 +345,19 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * Envoi d'un mail aux Entreprises à la diffusion de leurs offres par un gestionnaire
 	 */
 	private boolean avertissementEntrepriseDiffusion;
+	/**
+	 * Utilisation ou non de la partie entreprise
+	 */
+	private boolean utilisationEntreprise;
+	/**
+	 * Utilisation ou non de la partie stage
+	 */
+	private boolean utilisationStage;
+	/**
+	 * Chemin vers le dossier media
+	 */
+	private String mediaPath;
+	
 	/* ***************************************************************
 	 * Variables de navigation
 	 ****************************************************************/
@@ -2211,5 +2229,60 @@ public class SessionController extends AbstractDomainAwareBean {
 		this.validationStructureCurrentPage = validationStructureCurrentPage;
 	}
 
+	/**
+	 * @return the utilisationEntreprise
+	 */
+	public boolean isUtilisationEntreprise() {
+		return utilisationEntreprise;
+	}
+
+	/**
+	 * @param utilisationEntreprise the utilisationEntreprise to set
+	 */
+	public void setUtilisationEntreprise(boolean utilisationEntreprise) {
+		this.utilisationEntreprise = utilisationEntreprise;
+	}
+
+	/**
+	 * @return the utilisationStage
+	 */
+	public boolean isUtilisationStage() {
+		return utilisationStage;
+	}
+
+	/**
+	 * @param utilisationStage the utilisationStage to set
+	 */
+	public void setUtilisationStage(boolean utilisationStage) {
+		this.utilisationStage = utilisationStage;
+	}
+
+	/**
+	 * @return the mediaPath
+	 */
+	public String getMediaPath() {
+		return mediaPath;
+	}
+
+	/**
+	 * @param mediaPath the mediaPath to set
+	 */
+	public void setMediaPath(String mediaPath) {
+		this.mediaPath = mediaPath;
+	}
+
+	/**
+	 * @return the surchargeTuteur
+	 */
+	public Integer getSurchargeTuteur() {
+		return surchargeTuteur;
+	}
+
+	/**
+	 * @param surchargeTuteur the surchargeTuteur to set
+	 */
+	public void setSurchargeTuteur(Integer surchargeTuteur) {
+		this.surchargeTuteur = surchargeTuteur;
+	}
 
 }

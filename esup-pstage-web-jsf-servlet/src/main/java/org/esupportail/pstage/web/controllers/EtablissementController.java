@@ -849,46 +849,39 @@ public class EtablissementController extends AbstractContextAwareController {
 			}
 			retour = "affichageRechercheEtablissement";
 			StructureDTO structureTmp = this.formStructure;
-			structureTmp
-			.setIdEffectif(this.formStructure.getEffectif().getId());
+			structureTmp.setIdEffectif(this.formStructure.getEffectif().getId());
 			structureTmp.setIdPays(this.formStructure.getPays().getId());
 			if (this.statutsJuridiquesListening != null
-					&& this.formStructure.getStatutJuridique() != null)
-				structureTmp.setIdStatutJuridique(this.formStructure
-						.getStatutJuridique().getId());
+			&& this.formStructure.getStatutJuridique() != null)
+				structureTmp.setIdStatutJuridique(this.formStructure.getStatutJuridique().getId());
 			else
 				structureTmp.setIdStatutJuridique(0);
-			structureTmp.setIdTypeStructure(this.formStructure
-					.getTypeStructure().getId());
+			structureTmp.setIdTypeStructure(this.formStructure.getTypeStructure().getId());
 			if (this.formStructure.getNafN5() != null)
-				structureTmp.setCodeNAF_N5(this.formStructure.getNafN5()
-						.getCode());
+				structureTmp.setCodeNAF_N5(this.formStructure.getNafN5().getCode());
 			else
 				structureTmp.setCodeNAF_N5(null);
 			structureTmp.setDateModif(new Date());
-			structureTmp
-			.setLoginModif(getSessionController().getCurrentLogin());
-			structureTmp.setLoginInfosAJour(getSessionController()
-					.getCurrentLogin());
+			structureTmp.setLoginModif(getSessionController().getCurrentLogin());
+			structureTmp.setLoginInfosAJour(getSessionController().getCurrentLogin());
+
+			if (getSessionController().getCurrentAuthEtudiant() != null && structureTmp.isEstValidee()){
+				getStructureDomainService().updateStructureStopValidation(structureTmp.getIdStructure(), getSessionController().getCurrentLogin());
+				this.formStructure.setEstValidee(true);
+			}
 			try {
-				if (this.getStructureDomainService().updateStructure(
-						structureTmp)) {
+				if (this.getStructureDomainService().updateStructure(structureTmp)) {
 					if (logger.isInfoEnabled()) {
 						logger.info("Modif structure : " + structureTmp);
 					}
-					addInfoMessage("formAffEtab",
-							"STRUCTURE.MODIF.CONFIRMATION");
+					addInfoMessage("formAffEtab", "STRUCTURE.MODIF.CONFIRMATION");
+					
 					// Maj recherche
-					if (this.rechercheController
-							.getListeResultatsRechercheStructure() != null
-							&& !this.rechercheController
-							.getListeResultatsRechercheStructure()
-							.isEmpty()) {
+					if (this.rechercheController.getListeResultatsRechercheStructure() != null
+							&& !this.rechercheController.getListeResultatsRechercheStructure().isEmpty()) {
 						this.rechercheController
 						.setResultatRechercheStructure(structureTmp);
-						Iterator<StructureDTO> its = this.rechercheController
-								.getListeResultatsRechercheStructure()
-								.iterator();
+						Iterator<StructureDTO> its = this.rechercheController.getListeResultatsRechercheStructure().iterator();
 						while (its.hasNext()) {
 							StructureDTO s = its.next();
 							if (s.equals(structureTmp)) {
@@ -896,11 +889,9 @@ public class EtablissementController extends AbstractContextAwareController {
 								break;
 							}
 						}
-						this.rechercheController
-						.getListeResultatsRechercheStructure().add(
+						this.rechercheController.getListeResultatsRechercheStructure().add(
 								structureTmp);
-						this.rechercheController
-						.reloadRechercheStructurePaginator();
+						this.rechercheController.reloadRechercheStructurePaginator();
 					}
 					// this.formStructure=null;
 					this.formStructureTmpPays = null;
@@ -909,57 +900,39 @@ public class EtablissementController extends AbstractContextAwareController {
 					this.formStructureTmpNafN5 = new NafN5DTO();
 					this.statutsJuridiquesListening = null;
 					this.formStructureTmpCommuneDTO = new CommuneDTO();
-					if (getSessionController()
-							.isMailingListEntrMailAvertissementModifEtab()
-							&& StringUtils.hasText(getSessionController()
-									.getMailingListEntr())) {
+					if (getSessionController().isMailingListEntrMailAvertissementModifEtab()
+							&& StringUtils.hasText(getSessionController().getMailingListEntr())) {
 						// Envoi mail sur la mailing list entreprise
 						String infoPersonne = "";
 						if (getSessionController().isAdminPageAuthorized()
-								&& getSessionController()
-								.getCurrentAuthAdminStructure() != null) {
-							infoPersonne += getSessionController()
-									.getCurrentAuthAdminStructure().getNom()
+						&& getSessionController().getCurrentAuthAdminStructure() != null) {
+							infoPersonne += getSessionController().getCurrentAuthAdminStructure().getNom()
 									+ " "
-									+ getSessionController()
-									.getCurrentAuthAdminStructure()
-									.getPrenom()
+									+ getSessionController().getCurrentAuthAdminStructure().getPrenom()
 									+ " ("
 									+ getSessionController().getCurrentLogin()
 									+ ")";
 						} else if (getSessionController().isPageAuthorized()
-								&& getSessionController()
-								.getCurrentAuthContact() != null) {
-							infoPersonne += getSessionController()
-									.getCurrentAuthContact().getNom()
+								&& getSessionController().getCurrentAuthContact() != null) {
+							infoPersonne += getSessionController().getCurrentAuthContact().getNom()
 									+ " "
-									+ getSessionController()
-									.getCurrentAuthContact()
-									.getPrenom()
+									+ getSessionController().getCurrentAuthContact().getPrenom()
 									+ " ("
 									+ getSessionController().getCurrentLogin()
 									+ ")";
 						} else {
-							infoPersonne += getSessionController()
-									.getCurrentLogin();
+							infoPersonne += getSessionController().getCurrentLogin();
 						}
-						getSmtpService()
-						.send(getSessionController()
-								.getMailingListEntrIA(),
-								getString(
-										"MAIL.ADMIN.ETAB.SUJETMODIF",
-										getSessionController()
-										.getApplicationNameEntreprise(),
-										this.formStructure
-										.printAdresse(),
-										infoPersonne),
-										getString(
-												"MAIL.ADMIN.ETAB.MESSAGEMODIF",
-												getSessionController()
-												.getApplicationNameEntreprise(),
-												this.formStructure
-												.printAdresse(),
-												infoPersonne), "");
+						getSmtpService().send(getSessionController().getMailingListEntrIA(),
+								getString("MAIL.ADMIN.ETAB.SUJETMODIF",
+									getSessionController().getApplicationNameEntreprise(),
+									this.formStructure.printAdresse(),
+									infoPersonne),
+								getString("MAIL.ADMIN.ETAB.MESSAGEMODIF",
+									getSessionController().getApplicationNameEntreprise(),
+									this.formStructure.printAdresse(),
+									infoPersonne),
+									"");
 					}
 				} else {
 					addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");

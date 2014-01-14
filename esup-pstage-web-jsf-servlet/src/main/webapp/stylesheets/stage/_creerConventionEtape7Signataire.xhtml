@@ -9,7 +9,9 @@
 	<rich:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
-			<h:outputText value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE']}" />
+			<h:outputFormat value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE']}">
+				<f:param value="#{conventionController.convention.structure.raisonSociale}"/>
+			</h:outputFormat>
 		</f:facet>
 		<h:panelGrid columns="1" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text">
@@ -20,8 +22,10 @@
 					target="#{sessionController.creationConventionEtape6CurrentPage}" />
 			</h:commandButton>
 			<t:htmlTag value="div" style="height: 20px;" />
-			<h:outputText value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.DEMANDE']}"
-				rendered="#{conventionController.saisieTuteurProParEtudiant}" />
+			<h:outputFormat value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.DEMANDE']}"
+				rendered="#{conventionController.saisieTuteurProParEtudiant}">
+				<f:param value="#{conventionController.convention.structure.raisonSociale}"/>
+			</h:outputFormat>
 			<t:div id="information">
 				<rich:message for="information">
 					<ui:include src="../_commun/_messageInfoMarker.xhtml" />

@@ -138,25 +138,31 @@
 						<t:htmlTag value="div" style="height: 5px;" />
 
 						<h:outputLabel value="#{msgs['CENTRE.CRITERE.CRITERES']}"
+							rendered="#{centreController.centre.niveauCentre!=null}"
 							for="critereGestion" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1" id="critereGestion">
-							<h:outputText
-								value="#{centreController.centre.niveauCentre.libelle}" />
-						</h:panelGrid>
+						<h:outputText id="critereGestion"
+							rendered="#{centreController.centre.niveauCentre!=null}"
+							value="#{centreController.centre.niveauCentre.libelle}" />
 
 						<t:htmlTag value="div" style="height: 5px;" />
 
 						<h:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']}"
+							rendered="#{centreController.centre.confidentialite != null}"
 							for="confidentialite" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1" id="confidentialite">
-							<h:outputText
-								value="#{centreController.centre.confidentialite.libelle}" />
-						</h:panelGrid>
+						<h:outputText id="confidentialite"
+							value="#{centreController.centre.confidentialite.libelle}"
+							rendered="#{centreController.centre.confidentialite != null}"/>
 
 						<t:htmlTag value="div" style="height: 5px;" />
+						
+						<h:outputLabel value="#{msgs['CENTRE.MODEVALIDATIONSTAGE']}"
+							rendered="#{centreController.centre.modeValidationStage != null}"
+							for="modeValidationStage"/>
+						<h:outputText id="modeValidationStage" rendered="#{centreController.centre.modeValidationStage != null}"
+							value="#{centreController.centre.modeValidationStage.libelle}" />
 
+						<t:htmlTag value="div" style="height: 5px;" />
+						
 						<h:outputLabel value="#{msgs['CENTRE.TUTEUR_ENS_OBLIGATOIRE']} "
 							for="tuteurEnsObligatoire" />
 						<h:panelGrid columnClasses="paginatorData-text"
@@ -169,6 +175,7 @@
 								rendered="#{!centreController.centre.presenceTuteurEns}"
 								value="#{msgs['FORM.NON']}" />
 						</h:panelGrid>
+						
 						<t:htmlTag value="div" style="height: 5px;" />
 
 						<h:outputLabel value="#{msgs['CENTRE.TUTEUR_PRO_OBLIGATOIRE']} "
@@ -231,12 +238,26 @@
 								rendered="#{!centreController.centre.autoriserImpressionConvention}"
 								value="#{msgs['FORM.NON']}" />
 						</h:panelGrid>
-						
+
+						<h:outputLabel value="#{msgs['CENTRE.CREATIONCONVENTION']}"
+							for="creationConvention" />
+						<h:panelGrid id="creationConvention"
+							columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text">
+							<h:outputText
+								rendered="#{centreController.centre.autorisationEtudiantCreationConvention}"
+								value="#{msgs['FORM.OUI']}" />
+							<h:outputText
+								rendered="#{!centreController.centre.autorisationEtudiantCreationConvention}"
+								value="#{msgs['FORM.NON']}" />
+						</h:panelGrid>
+
 						<h:outputLabel value="Validation Pedagogique"
 							for="validationPedagogique"
 							rendered="#{sessionController.validationPedagogique}" />
 						<h:panelGrid id="validationPedagogique" columns="1"
-							columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+							columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text"
 							rendered="#{sessionController.validationPedagogique}">
 							<h:outputText
 								rendered="#{centreController.centre.validationPedagogique}"
@@ -247,7 +268,7 @@
 						</h:panelGrid>
 					</h:panelGrid>
 				</h:panelGrid>
-
+				
 				<t:htmlTag value="div" style="height: 10px;" />
 
 				<t:htmlTag value="center">
@@ -258,7 +279,7 @@
 						value="#{msgs['FORM.MODIFIER']}" />
 				</t:htmlTag>
 				<h:commandButton id="back" value="#{msgs['CENTRE.RETOUR_LISTE']}"
-						action="#{centreController.goToListeCentre}" immediate="true" />
+					action="#{centreController.goToListeCentre}" immediate="true" />
 			</h:form>
 		</rich:panel>
 		<t:div

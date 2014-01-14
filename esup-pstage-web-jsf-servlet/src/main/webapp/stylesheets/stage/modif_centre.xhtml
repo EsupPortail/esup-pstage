@@ -17,7 +17,7 @@
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form id="formModifCentre">
-			<a4j:queue ignoreDupResponses="true" />
+				<a4j:queue ignoreDupResponses="true" />
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1" align="center">
 					<h:outputText value="#{msgs['CENTRE.AJOUT_CENTRE.ACCUEIL']}" />
@@ -30,7 +30,6 @@
 							maxlength="100" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:converter binding="#{sansAccentEnMAJConverter}" />
-							
 						</h:inputText>
 						<rich:message for="nomCentre">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -45,9 +44,7 @@
 							<h:outputLabel value="#{msgs['CENTRE.VOIE']} *" for="voie" />
 							<h:inputText id="voie" value="#{centreController.centre.voie}"
 								size="50" maxlength="200" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}">
-								
-							</h:inputText>
+								requiredMessage="#{requiredMessageController.champObligatoire}" />
 							<rich:message for="voie">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 							</rich:message>
@@ -76,9 +73,7 @@
 								<h:inputText id="codePostal"
 									value="#{centreController.centre.codePostal}" size="20"
 									maxlength="10" required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}">
-									
-								</h:inputText>
+									requiredMessage="#{requiredMessageController.champObligatoire}" />
 								<rich:message for="codePostal">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 								</rich:message>
@@ -88,9 +83,7 @@
 							<h:inputText id="commune" style="text-transform:uppercase;"
 								value="#{centreController.centre.commune}" size="50"
 								maxlength="200" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}">
-								
-							</h:inputText>
+								requiredMessage="#{requiredMessageController.champObligatoire}" />
 							<rich:message for="commune">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 							</rich:message>
@@ -112,7 +105,6 @@
 								validatorMessage="#{requiredMessageController.adresseMailNonValide}"
 								maxlength="50">
 								<f:validator binding="#{mailValidator}" />
-								
 							</h:inputText>
 							<rich:message for="mail">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -128,7 +120,6 @@
 								validatorMessage="#{requiredMessageController.siteWebNonValide}"
 								maxlength="200">
 								<f:validator binding="#{siteWebValidator}" />
-								
 							</h:inputText>
 							<rich:message for="siteWeb">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -151,9 +142,7 @@
 								<h:inputText id="telephone"
 									value="#{centreController.centre.telephone}" size="20"
 									maxlength="20" required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}">
-									
-								</h:inputText>
+									requiredMessage="#{requiredMessageController.champObligatoire}" />
 								<rich:message for="telephone">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 								</rich:message>
@@ -186,7 +175,6 @@
 								validatorMessage="#{requiredMessageController.siteWebNonValide}"
 								maxlength="200">
 								<f:validator binding="#{siteWebValidator}" />
-								
 							</h:inputText>
 							<rich:message for="pageInstruction">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -209,7 +197,6 @@
 										oncomplete="#{rich:component('rechercheViseur')}.show()"
 										action="#{centreController.avantRechercheViseur}"
 										render="rechercheViseur" />
-
 									<h:outputText
 										rendered="#{not empty centreController.centre.nomViseur}"
 										style="color:green; border:1px solid;"
@@ -241,7 +228,6 @@
 								converter="#{niveauCentreConverter}"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
 								<f:selectItems value="#{centreController.niveauxCentre}" />
-								
 							</h:selectOneMenu>
 							<rich:message for="critereGestion">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -262,7 +248,6 @@
 									required="true" converter="#{confidentialiteConverter}"
 									requiredMessage="#{requiredMessageController.champObligatoire}">
 									<f:selectItems value="#{centreController.confidentialites}" />
-									
 								</h:selectOneMenu>
 								<rich:message for="confidentialite">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -272,6 +257,26 @@
 
 						<t:htmlTag value="div" style="height: 5px;" />
 
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="1">
+							<h:outputLabel value="#{msgs['CENTRE.MODEVALIDATIONSTAGE']} *"
+								for="modeValidationStage" />
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="2">
+								<h:selectOneMenu id="modeValidationStage"
+									value="#{centreController.centre.modeValidationStage}"
+									required="true" converter="#{modeValidationStageConverter}"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:selectItems value="#{nomenclatureController.modeValidationStages}" />
+								</h:selectOneMenu>
+								<rich:message for="modeValidationStage">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</rich:message>
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<t:htmlTag value="div" style="height: 5px;" />
+						
 						<h:outputLabel value="#{msgs['CENTRE.TUTEUR_ENS_OBLIGATOIRE']} *"
 							for="tuteurEnsObligatoire" />
 						<h:selectOneRadio id="tuteurEnsObligatoire"
@@ -321,6 +326,14 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 						
+						<h:outputLabel value="#{msgs['CENTRE.CREATIONCONVENTION']} *"
+							for="creationConvention" />
+						<h:selectOneRadio id="creationConvention"
+							value="#{centreController.centre.autorisationEtudiantCreationConvention}">
+							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+						</h:selectOneRadio>
+
 						<h:outputLabel value="Validation Pedagogique *"
 							for="validationPedagogique"
 							rendered="#{sessionController.validationPedagogique}" />
@@ -331,7 +344,7 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 					</h:panelGrid>
-
+					
 					<t:htmlTag value="div" style="height: 20px;" />
 					<t:htmlTag value="center">
 						<h:commandButton action="#{centreController.modifierCentre}"

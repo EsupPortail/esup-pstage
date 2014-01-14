@@ -81,18 +81,34 @@
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.langueConventions}" />
 					</h:selectOneMenu>
-					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
-						rendered="#{conventionController.rechercheAvancee}" for="validee" />
-					<h:selectOneRadio id="validee" style="font-size:12px;"
-						value="#{conventionController.estValidee}"
+					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
 						rendered="#{conventionController.rechercheAvancee}">
-						<f:selectItem itemValue="#{'1'}"
-							itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUI']}" />
-						<f:selectItem itemValue="#{'2'}"
-							itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.NON']}" />
-						<f:selectItem itemValue="#{null}"
-							itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUIETNON']}" />
-					</h:selectOneRadio>
+						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
+							rendered="#{conventionController.rechercheAvancee}" for="validee" />
+						<h:selectOneRadio id="validee" style="font-size:12px;"
+							value="#{conventionController.estValidee}">
+							<f:selectItem itemValue="#{'1'}"
+								itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUI']}" />
+							<f:selectItem itemValue="#{'2'}"
+								itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.NON']}" />
+							<f:selectItem itemValue="#{null}"
+								itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUIETNON']}" />
+						</h:selectOneRadio>
+					</h:panelGrid>
+					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+						rendered="#{conventionController.rechercheAvancee and sessionController.validationPedagogique}">
+						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VERIFIEE']}"
+							rendered="#{conventionController.rechercheAvancee}" for="validee" />
+						<h:selectOneRadio id="verifiee" style="font-size:12px;"
+							value="#{conventionController.estVerifiee}">
+							<f:selectItem itemValue="#{'1'}"
+								itemLabel="#{msgs['RECHERCHECONVENTION.VERIFIEE.OUI']}" />
+							<f:selectItem itemValue="#{'2'}"
+								itemLabel="#{msgs['RECHERCHECONVENTION.VERIFIEE.NON']}" />
+							<f:selectItem itemValue="#{null}"
+								itemLabel="#{msgs['RECHERCHECONVENTION.VERIFIEE.OUIETNON']}" />
+						</h:selectOneRadio>
+					</h:panelGrid>
 					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE']}"
 						rendered="#{conventionController.rechercheAvancee}"
 						for="dateStage" />
@@ -211,7 +227,8 @@
 					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.RAISONSOCIALE']}"
 						for="raisonSociale"
 						rendered="#{conventionController.rechercheAvancee}" />
-					<h:panelGrid columns="2" rendered="#{conventionController.rechercheAvancee}">
+					<h:panelGrid columns="2"
+						rendered="#{conventionController.rechercheAvancee}">
 						<h:graphicImage id="infoRs"
 							alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
 							value="../../media/images/information.png" style="border:0">
@@ -223,7 +240,8 @@
 					</h:panelGrid>
 					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.NUMEROSIRET']}"
 						for="numSiret" rendered="#{conventionController.rechercheAvancee}" />
-					<h:panelGrid columns="2" rendered="#{conventionController.rechercheAvancee}">
+					<h:panelGrid columns="2"
+						rendered="#{conventionController.rechercheAvancee}">
 						<h:graphicImage id="infoNumsiret"
 							alt="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
 							value="../../media/images/information.png" style="border:0">

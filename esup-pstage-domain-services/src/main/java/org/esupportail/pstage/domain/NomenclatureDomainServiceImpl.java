@@ -45,6 +45,10 @@ import org.esupportail.pstagedata.domain.dto.TypeOffreDTO;
 import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
 import org.esupportail.pstagedata.domain.dto.UniteDureeDTO;
 import org.esupportail.pstagedata.domain.dto.UniteGratificationDTO;
+import org.esupportail.pstagedata.exceptions.DataAddException;
+import org.esupportail.pstagedata.exceptions.DataDeleteException;
+import org.esupportail.pstagedata.exceptions.DataUpdateException;
+import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.esupportail.pstagedata.remote.RemoteServices;
 
 /**
@@ -73,6 +77,185 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	 */
 	public void setRemoteServices(RemoteServices remoteServices) {
 		this.remoteServices = remoteServices;
+	}
+
+	/* ****************************************************************************
+	 * AJOUTS/UPDATES/SUPPRESSIONS
+	 *****************************************************************************/
+	@Override
+	public int addCaisseRegime(CaisseRegimeDTO cr) throws DataAddException, WebServiceDataBaseException{
+		return this.remoteServices.addCaisseRegime(cr);
+	}
+	
+	@Override
+	public boolean updateCaisseRegime(CaisseRegimeDTO cr,String codeCaisse) throws DataUpdateException, WebServiceDataBaseException{
+		return this.remoteServices.updateCaisseRegime(cr, codeCaisse);
+	}
+
+	@Override
+	public boolean deleteCaisseRegime(String codeCaisse) throws DataDeleteException, WebServiceDataBaseException{
+		return this.remoteServices.deleteCaisseRegime(codeCaisse);	
+	}
+	@Override
+	public int addNiveauFormation(NiveauFormationDTO nf)
+			throws DataAddException, WebServiceDataBaseException {
+		return this.remoteServices.addNiveauFormation(nf);
+	}
+
+	@Override
+	public boolean updateNiveauFormation(NiveauFormationDTO nf)
+			throws DataUpdateException, WebServiceDataBaseException {
+		return this.remoteServices.updateNiveauFormation(nf);
+	}
+
+	@Override
+	public boolean deleteNiveauFormation(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteNiveauFormation(id);
+	}
+
+	@Override
+	public int addEffectif(EffectifDTO ef) throws DataAddException,
+			WebServiceDataBaseException {
+		return this.remoteServices.addEffectif(ef);
+	}
+
+	@Override
+	public boolean updateEffectif(EffectifDTO ef) throws DataUpdateException,
+			WebServiceDataBaseException {
+		return this.remoteServices.updateEffectif(ef);
+	}
+
+	@Override
+	public boolean deleteEffectif(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteEffectif(id);
+	}
+
+	@Override
+	public int addTempsTravail(TempsTravailDTO tt) throws DataAddException,
+			WebServiceDataBaseException {
+		return this.remoteServices.addTempsTravail(tt);
+	}
+
+	@Override
+	public boolean updateTempsTravail(TempsTravailDTO tt)
+			throws DataUpdateException, WebServiceDataBaseException {
+		return this.remoteServices.updateTempsTravail(tt);
+	}
+
+	@Override
+	public boolean deleteTempsTravail(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteTempsTravail(id);
+	}
+
+	@Override
+	public int addOrigineStage(OrigineStageDTO os) throws DataAddException,
+			WebServiceDataBaseException {
+		return this.remoteServices.addOrigineStage(os);
+	}
+
+	@Override
+	public boolean updateOrigineStage(OrigineStageDTO os)
+			throws DataUpdateException, WebServiceDataBaseException {
+		return this.remoteServices.updateOrigineStage(os);
+	}
+
+	@Override
+	public boolean deleteOrigineStage(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteOrigineStage(id);
+	}
+
+	@Override
+	public int addTypeConvention(TypeConventionDTO tc) throws DataAddException,
+			WebServiceDataBaseException {
+		return this.remoteServices.addTypeConvention(tc);
+	}
+
+	@Override
+	public boolean updateTypeConvention(TypeConventionDTO tc)
+			throws DataUpdateException, WebServiceDataBaseException {
+		return this.remoteServices.updateTypeConvention(tc);
+	}
+
+	@Override
+	public boolean deleteTypeConvention(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteTypeConvention(id);
+	}
+
+	@Override
+	public int addTypeStructure(TypeStructureDTO ts) throws DataAddException,
+			WebServiceDataBaseException {
+		return this.remoteServices.addTypeStructure(ts);
+	}
+
+	@Override
+	public boolean updateTypeStructure(TypeStructureDTO ts)
+			throws DataUpdateException, WebServiceDataBaseException {
+		return this.remoteServices.updateTypeStructure(ts);
+	}
+
+	@Override
+	public boolean deleteTypeStructure(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteTypeStructure(id);
+	}
+
+	@Override
+	public int addStatutJuridique(StatutJuridiqueDTO sj)
+			throws DataAddException, WebServiceDataBaseException {
+		return this.remoteServices.addStatutJuridique(sj);
+	}
+
+	@Override
+	public boolean updateStatutJuridique(StatutJuridiqueDTO sj)
+			throws DataUpdateException, WebServiceDataBaseException {
+		return this.remoteServices.updateStatutJuridique(sj);
+	}
+
+	@Override
+	public boolean deleteStatutJuridique(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteStatutJuridique(id);
+	}
+
+	@Override
+	public int addTypeOffre(TypeOffreDTO to) throws DataAddException,
+			WebServiceDataBaseException {
+		return this.remoteServices.addTypeOffre(to);
+	}
+
+	@Override
+	public boolean updateTypeOffre(TypeOffreDTO to) throws DataUpdateException,
+			WebServiceDataBaseException {
+		return this.remoteServices.updateTypeOffre(to);
+	}
+
+	@Override
+	public boolean deleteTypeOffre(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteTypeOffre(id);
+	}
+
+	@Override
+	public int addContratOffre(ContratOffreDTO co) throws DataAddException,
+			WebServiceDataBaseException {
+		return this.remoteServices.addContratOffre(co);
+	}
+
+	@Override
+	public boolean updateContratOffre(ContratOffreDTO co)
+			throws DataUpdateException, WebServiceDataBaseException {
+		return this.remoteServices.updateContratOffre(co);
+	}
+
+	@Override
+	public boolean deleteContratOffre(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteContratOffre(id);
 	}
 	
 	/* ****************************************************************************
@@ -133,7 +316,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getCaisseRegimes()
 	 */
-	@SessionCache
 	public List<CaisseRegimeDTO> getCaisseRegimes() {
 		return this.remoteServices.getCaisseRegimes();
 	}
@@ -213,9 +395,12 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getContrats()
 	 */
-	@SessionCache
 	public List<ContratOffreDTO> getContrats(){
-		return this.remoteServices.getContrats();
+		List<ContratOffreDTO> list = this.remoteServices.getContrats();
+		for (ContratOffreDTO contrat : list){
+			contrat.setTypeOffre(getTypeOffreFromId(contrat.getIdParent()));
+		}
+		return list;
 	}
 	
 	/**
@@ -326,7 +511,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getEffectifs()
 	 */
-	@SessionCache
 	public List<EffectifDTO> getEffectifs(){
 		return this.remoteServices.getEffectifs();
 	}
@@ -924,7 +1108,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getNiveauxFormation()
 	 */
-	@SessionCache
 	public List<NiveauFormationDTO> getNiveauxFormation(){
 		return this.remoteServices.getNiveauxFormation();
 	}
@@ -1003,9 +1186,12 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getStatutsJuridiques()
 	 */
-	@SessionCache
 	public List<StatutJuridiqueDTO> getStatutsJuridiques(){
-		return this.remoteServices.getStatutsJuridiques();
+		List<StatutJuridiqueDTO> list = this.remoteServices.getStatutsJuridiques();
+		for (StatutJuridiqueDTO statut : list){
+			statut.setTypeStructure(getTypeStructureFromId(statut.getIdParent()));
+		}
+		return list;
 	}
 	
 	/**
@@ -1047,7 +1233,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getTempsTravail()
 	 */
-	@SessionCache
 	public List<TempsTravailDTO> getTempsTravail(){
 		return this.remoteServices.getTempsTravail();
 	}
@@ -1097,7 +1282,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getTypeConventions()
 	 */
-	@SessionCache
 	public List<TypeConventionDTO> getTypeConventions() {
 		return this.remoteServices.getTypeConventions();
 	}
@@ -1123,7 +1307,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getTypesOffre()
 	 */
-	@SessionCache
 	public List<TypeOffreDTO> getTypesOffre(){
 		return this.remoteServices.getTypesOffre();
 	}
@@ -1149,7 +1332,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getTypesStructure()
 	 */
-	@SessionCache
 	public List<TypeStructureDTO> getTypesStructure(){
 		return this.remoteServices.getTypesStructure();
 	}

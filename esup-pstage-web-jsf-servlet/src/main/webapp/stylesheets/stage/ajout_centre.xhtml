@@ -240,6 +240,26 @@
 
 						<t:htmlTag value="div" style="height: 5px;" />
 
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="1">
+							<h:outputLabel value="#{msgs['CENTRE.MODEVALIDATIONSTAGE']} *"
+								for="modeValidationStage" />
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="2">
+								<h:selectOneMenu id="modeValidationStage"
+									value="#{centreController.centre.modeValidationStage}"
+									required="true" converter="#{modeValidationStageConverter}"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:selectItems value="#{nomenclatureController.modeValidationStages}" />
+								</h:selectOneMenu>
+								<rich:message for="modeValidationStage">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</rich:message>
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<t:htmlTag value="div" style="height: 5px;" />
+
 						<h:outputLabel value="#{msgs['CENTRE.TUTEUR_ENS_OBLIGATOIRE']} *"
 							for="tuteurEnsObligatoire" />
 						<h:selectOneRadio id="tuteurEnsObligatoire"

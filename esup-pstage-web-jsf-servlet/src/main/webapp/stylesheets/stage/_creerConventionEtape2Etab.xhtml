@@ -84,8 +84,16 @@
 		</rich:panel>
 		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
 			immediate="true"
+			rendered="#{sessionController.utilisationEntreprise}"
 			action="creerConventionEtape1Etudiant">
 			<f:setPropertyActionListener value="_creerConventionEtape1DemandeLienOffre"
+				target="#{sessionController.creationConventionEtape1CurrentPage}" />
+		</h:commandButton>
+		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			immediate="true"
+			rendered="#{!sessionController.utilisationEntreprise}"
+			action="creerConventionEtape1Etudiant">
+			<f:setPropertyActionListener value="_creerConventionEtape1ConfirmInfosEtu"
 				target="#{sessionController.creationConventionEtape1CurrentPage}" />
 		</h:commandButton>
 </ui:composition>

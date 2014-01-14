@@ -16,16 +16,16 @@
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1">
 					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.INFO']}" />
+						<h:outputFormat value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.INFO']}">
+							<f:param value="#{conventionController.convention.structure.raisonSociale}" />
+						</h:outputFormat>
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="" />
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="1">
-						<rich:messages showDetail="true">
-						</rich:messages>
-						<ui:include
-							src="/stylesheets/stage/_conventionEtape7DetailsSignataire.xhtml" />
+						<rich:messages />
+						<ui:include src="/stylesheets/stage/_conventionEtape7DetailsSignataire.xhtml" />
 					</h:panelGrid>
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="2">

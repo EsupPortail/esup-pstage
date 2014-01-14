@@ -6,17 +6,32 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
+	<t:htmlTag value="div" style="height: 15px;" />
+	
+	<h:outputLabel for="titre"
+		value="#{msgs['CONVENTION.ETAPE11.TITRE']} *" />
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="2">
+		<h:inputText id="titre" required="true"
+			requiredMessage="#{requiredMessageController.champObligatoire}"
+			value="#{avenantController.avenant.titreAvenant}">
+			<a4j:ajax event="blur" render="msgTitre"/>
+		</h:inputText>
+		<rich:message id="msgTitre" for="titre" />
+	</h:panelGrid>
+
+	<t:htmlTag value="div" style="height: 10px;" />
+	
 	<h:outputLabel for="motif"
 		value="#{msgs['CONVENTION.ETAPE11.MOTIF']} *" />
-
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="2">
 		<h:inputTextarea style="width:200px;" id="motif" required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}"
 			value="#{avenantController.avenant.motifAvenant}">
-			<a4j:ajax event="blur" />
+			<a4j:ajax event="blur" render="msgMotif"/>
 		</h:inputTextarea>
-		<rich:message for="motif" />
+		<rich:message id="msgMotif" for="motif" />
 	</h:panelGrid>
 
 	<t:htmlTag value="div" style="height: 15px;" />
@@ -24,7 +39,7 @@
 	<!-- Rupture -->
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="2">
-		<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}*"
+		<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}"
 			for="rupture" />
 		<h:selectOneRadio id="rupture"
 			value="#{avenantController.avenant.rupture}">

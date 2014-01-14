@@ -152,16 +152,6 @@ public class AvenantController extends AbstractContextAwareController {
 		if (logger.isDebugEnabled()) {
 			logger.debug("AvenantController:: goToCreaAvenantPage2");
 		}
-		if(!this.avenant.isRupture()
-				&& !this.avenant.isModificationSujet()
-				&& !this.avenant.isModificationPeriode()
-				&& !this.avenant.isModificationMontantGratification()
-				&& !this.avenant.isModificationLieu()
-				&& !this.avenant.isModificationSalarie()
-				&& !this.avenant.isModificationEnseignant()){
-			addErrorMessage("formCreaAvenantPage1:erreurCreation", "CONVENTION.ETAPE11.ERREUR_TYPE");
-			return null;
-		}
 		if(!this.avenant.isRupture()){
 			if (this.avenant.isModificationPeriode()){
 				java.util.Date dateDebutStage = this.avenant.getDateDebutStage();
@@ -277,16 +267,6 @@ public class AvenantController extends AbstractContextAwareController {
 	public String goToModifAvenantPage2(){
 		if (logger.isDebugEnabled()) {
 			logger.debug("AvenantController:: goToModifAvenantPage2");
-		}
-		if(!this.avenant.isRupture()
-				&& !this.avenant.isModificationSujet()
-				&& !this.avenant.isModificationPeriode()
-				&& !this.avenant.isModificationMontantGratification()
-				&& !this.avenant.isModificationLieu()
-				&& !this.avenant.isModificationSalarie()
-				&& !this.avenant.isModificationEnseignant()){
-			addErrorMessage("formModifAvenantPage1:erreurModification", "CONVENTION.ETAPE11.ERREUR_TYPE");
-			return null;
 		}
 		if(!this.avenant.isRupture()){
 			if (this.avenant.isModificationPeriode()){

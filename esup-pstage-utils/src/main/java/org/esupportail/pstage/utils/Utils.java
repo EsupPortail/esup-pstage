@@ -104,11 +104,11 @@ public class Utils {
 		Calendar c = Calendar.getInstance();
 		int year = c.get(Calendar.YEAR);
 		int month = c.get(Calendar.MONTH);
-		if (month >= Calendar.JULY && month <= Calendar.DECEMBER) {
-			year += 1;
+		if (month <= Calendar.JULY) {
+			year -= 1;
 		}
 		if (period) {
-			return String.valueOf(year) + " - " + String.valueOf(year + 1);
+			return String.valueOf(year) + "/" + String.valueOf(year + 1);
 		}
 		return String.valueOf(year);
 	}

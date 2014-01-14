@@ -58,6 +58,16 @@
 					</t:htmlTag>
 				</rich:column>
 
+				<rich:column sortBy="#{avenant.titreAvenant}">
+					<f:facet name="header">
+						<h:outputText style="headerClass"
+							value="#{msgs['CONVENTION.ETAPE11.TITRE']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<h:outputText value="#{avenant.titreAvenant}" />
+					</t:htmlTag>
+				</rich:column>
+				
 				<rich:column sortBy="#{avenant.motifAvenant}">
 					<f:facet name="header">
 						<h:outputText style="headerClass"

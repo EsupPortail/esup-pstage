@@ -18,7 +18,7 @@
 					<t:htmlTag value="div" style="height: 5px;" />
 
 					<h:commandLink action="#{centreController.goToListeCentre}"
-						rendered="#{welcomeController.personnel || welcomeController.superAdmin}">
+						rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin)}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.LISTECENTRE']}"
 							title="#{msgs['MENUSTAGE.LISTECENTRE']}"
 							value="../../media/images/list.png" style="border:0" />
@@ -28,7 +28,7 @@
 
 					<h:commandLink
 						action="#{conventionController.goToRechercheConvention}"
-						rendered="#{welcomeController.personnel || welcomeController.superAdmin }">
+						rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin)}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION']}"
 							title="#{msgs['MENUSTAGE.RECHCONVENTION']}"
 							value="../../media/images/zoom.png" style="border:0" />
@@ -38,7 +38,7 @@
 
 
 					<h:commandLink action="#{conventionController.goToCreerConvention}"
-						rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
+						rendered="#{sessionController.utilisationStage and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
 							title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
 							value="../../media/images/new.png" style="border:0" />
@@ -48,7 +48,7 @@
 
 
 					<h:commandLink action="#{conventionController.goToValiderEnMasse}"
-						rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
+						rendered="#{sessionController.utilisationStage and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
 							title="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
 							value="../../media/images/tick.png" style="border:0" />
@@ -59,7 +59,7 @@
 
 					<h:commandLink
 						action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
-						rendered="#{welcomeController.enseignantTuteur}">
+						rendered="#{sessionController.utilisationStage and (welcomeController.enseignantTuteur)}">
 						<h:graphicImage
 							alt="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
 							title="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
@@ -71,7 +71,7 @@
 
 					<h:commandLink
 						action="#{conventionController.goToRechercheConventionEtu}"
-						rendered="#{welcomeController.etudiant}">
+						rendered="#{sessionController.utilisationStage and (welcomeController.etudiant)}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
 							title="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
 							value="../../media/images/list.png" style="border:0" />
@@ -81,7 +81,7 @@
 
 
 					<h:commandLink action="#{conventionController.goToCreerConvention}"
-						rendered="#{welcomeController.etudiant and welcomeController.creationConventionAutorisee}">
+						rendered="#{sessionController.utilisationStage and welcomeController.etudiant and welcomeController.creationConventionAutorisee}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
 							title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
 							value="../../media/images/new.png" style="border:0" />
@@ -125,7 +125,7 @@
 					</h:commandLink>
 
 					<h:commandLink action="#{offreController.goToRechercheOffreStage}"
-						rendered="#{welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant}">
+						rendered="#{sessionController.utilisationEntreprise and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant)}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
 							title="#{msgs['MENUSTAGE.RECHOFFRE']}"
 							value="../../media/images/zoom.png" style="border:0" />
@@ -141,7 +141,7 @@
 
 					<h:commandLink
 						action="#{offreController.goToCreationOffreSelectionCentre}"
-						rendered="#{welcomeController.superAdmin || welcomeController.writer}">
+						rendered="#{sessionController.utilisationEntreprise and (welcomeController.superAdmin || welcomeController.writer)}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
 							title="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
 							value="../../media/images/new.png" style="border:0" />
@@ -160,7 +160,7 @@
 					</h:commandLink>
 
 					<h:commandLink action="#{offreController.goToRechercheOffreStage}"
-						rendered="#{welcomeController.etudiant}">
+						rendered="#{sessionController.utilisationEntreprise and welcomeController.etudiant}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
 							title="#{msgs['MENUSTAGE.RECHOFFRE']}"
 							value="../../media/images/zoom.png" style="border:0" />
@@ -175,13 +175,22 @@
 					</h:commandLink>
 
 					<h:commandLink action="#{offreController.goToOffreADiffuser}"
-						rendered="#{sessionController.moderationActive and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+						rendered="#{sessionController.utilisationEntreprise and sessionController.moderationActive and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
 						<h:graphicImage alt="#{msgs['MENU.OFFRESADIFFUSER']})"
 							title="#{msgs['MENU.OFFRESADIFFUSER']})"
 							value="../../media/images/tick.png" style="border:0" />
 						<h:outputText
 							value=" #{msgs['MENU.OFFRESADIFFUSER']} (#{offreController.offreADiffuser})" />
 						<t:htmlTag value="div" style="height: 5px;" />
+					</h:commandLink>
+					
+					<t:htmlTag value="div" style="height: 5px;" />
+					<h:commandLink action="#{nomenclatureController.goToGestionNomenclatures}"
+						rendered="#{welcomeController.superAdmin}">
+						<h:graphicImage alt="#{msgs['MENU.GESTIONNOMENCLATURES.GESTION']})"
+							title="#{msgs['MENU.GESTIONNOMENCLATURES']})"
+							value="../../media/images/list.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENU.GESTIONNOMENCLATURES.GESTION']}" />
 					</h:commandLink>
 				</h:panelGrid>
 			</h:form>

@@ -6,13 +6,38 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
+	<t:htmlTag value="div" style="height:10px;" />
+	
 	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="3">
+		rowClasses="paginatorData-text" columns="2"
+		style="font-size:16px;"
+		rendered="#{!avenantController.avenant.rupture
+		and !avenantController.avenant.modificationSujet
+		and !avenantController.avenant.modificationPeriode
+		and !avenantController.avenant.modificationMontantGratification
+		and !avenantController.avenant.modificationLieu
+		and !avenantController.avenant.modificationSalarie
+		and !avenantController.avenant.modificationEnseignant}">
+		<h:outputLabel for="motif1"
+			value="#{msgs['CONVENTION.ETAPE11.MOTIF']} :" />
+		<h:outputText id="motif1"
+			value="#{avenantController.avenant.motifAvenant}" />
+	</h:panelGrid>
+	
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="3"
+		rendered="#{avenantController.avenant.rupture
+		|| avenantController.avenant.modificationSujet
+		|| avenantController.avenant.modificationPeriode
+		|| avenantController.avenant.modificationMontantGratification
+		|| avenantController.avenant.modificationLieu
+		|| avenantController.avenant.modificationSalarie
+		|| avenantController.avenant.modificationEnseignant}">
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="1">
-			<h:outputLabel for="motif"
+			<h:outputLabel for="motif2"
 				value="#{msgs['CONVENTION.ETAPE11.MOTIF']} :" />
-			<h:outputText id="motif"
+			<h:outputText id="motif2"
 				value="#{avenantController.avenant.motifAvenant}" />
 		</h:panelGrid>
 
@@ -62,11 +87,9 @@
 				</h:panelGrid>
 			</h:panelGrid>
 		</h:panelGrid>
-
 	</h:panelGrid>
 
 	<t:div rendered="#{!avenantController.avenant.rupture}">
-
 		<t:div rendered="#{avenantController.avenant.modificationSujet}">
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="sujet"
@@ -284,7 +307,7 @@
 
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="1" align="center">
-		<t:htmlTag value="div" style="height: 20px;" />
+		<t:htmlTag value="div" style="height: 10px;" />
 		<t:htmlTag value="div"
 			style="width: 400px; background-color: #{a4jSkin.panelBorderColor}; height: 3px;" />
 		<t:htmlTag value="div" style="height: 10px;" />

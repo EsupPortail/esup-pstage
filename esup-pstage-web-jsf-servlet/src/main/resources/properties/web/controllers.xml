@@ -165,6 +165,10 @@
 		<property name="avertissementEntrepriseDiffusion"
 			value="${alerteMail.avertissementEntrepriseDiffusion}" />
 		<property name="moderationStructures" value="${moderationStructures}" />
+		<property name="utilisationEntreprise" value="${utilisationEntreprise}" />
+		<property name="utilisationStage" value="${utilisationStage}" />
+		<property name="mediaPath" value="${mediaPath.servlet}" />
+		<property name="surchargeTuteur" value="${surchargeTuteur}" />
 	</bean>
 
 	<bean id="abstractContextAwareController" abstract="true"
