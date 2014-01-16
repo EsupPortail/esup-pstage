@@ -1132,8 +1132,7 @@
 								d'enseignement
 								et approuvées par l'organisme d'accueil.
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+							<fo:block line-height="110%" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Le programme
 								du stage est établi par l'établissement et
@@ -1274,13 +1273,55 @@
 								Lorsque la durée du stage est supérieure à deux mois consécutifs
 								ou non,
 								celui-ci fait obligatoirement l'objet d'une
-								gratification, sur le
+								gratification sur le
 								territoire français,
-								sauf règles
-								particulières applicables dans certaines collectivités
-								d'outre-mer ou relevant
-								de l'article L4381-1 du code de la santé
-								publique.
+								sauf : 
+								<fo:block line-height="110%" 
+								hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
+									<fo:list-block provisional-label-separation="1pt" provisional-distance-between-starts="1em">								
+									 <fo:list-item>
+									  <fo:list-item-label end-indent="label-end()">
+									   <fo:block>
+									    <fo:inline>-</fo:inline>
+									   </fo:block>
+									  </fo:list-item-label>
+									  <fo:list-item-body start-indent="body-start()">
+									   <fo:block text-decoration="underline">règles particulières applicables dans certaines collectivités d'outre-mer françaises</fo:block>
+									  </fo:list-item-body>
+									 </fo:list-item>	
+									 <fo:list-item>
+									  <fo:list-item-label end-indent="label-end()">
+									   <fo:block>
+									    <fo:inline>-</fo:inline>
+									   </fo:block>
+									  </fo:list-item-label>
+									  <fo:list-item-body start-indent="body-start()">
+									   <fo:block text-decoration="underline">stages relevant de l'article L4381-1 du code de la santé publique.</fo:block>
+									  </fo:list-item-body>
+									 </fo:list-item>	 					
+									  <fo:list-item>
+									  <fo:list-item-label end-indent="label-end()">
+									   <fo:block>
+									    <fo:inline>-</fo:inline>
+									   </fo:block>
+									  </fo:list-item-label>
+									  <fo:list-item-body start-indent="body-start()">
+									   <fo:block text-decoration="underline">stages effectués en établissements publics de santé et établissements publics du secteur médico-social français</fo:block>
+									  </fo:list-item-body>
+									 </fo:list-item>	 					
+									  <fo:list-item>
+									  <fo:list-item-label end-indent="label-end()">
+									   <fo:block>
+									    <fo:inline>-</fo:inline>
+									   </fo:block>
+									  </fo:list-item-label>
+									  <fo:list-item-body start-indent="body-start()">
+									   <fo:block text-decoration="underline">stages en collectivités territoriales</fo:block>
+									  </fo:list-item-body>
+									 </fo:list-item>	  							
+									</fo:list-block>					
+								</fo:block>
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -1351,8 +1392,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+							<fo:block line-height="110%" padding-top="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Si le(la) stagiaire bénéficie d'avantages en nature (gratuité
 								des repas par exemple),
@@ -1365,8 +1405,7 @@
 								légale de travail hebdomadaire de 35
 								heures.
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+							<fo:block line-height="110%" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Les frais de déplacement et d'hébergement engagés par
 								l'étudiant(e) à la demande de l'organisme,
