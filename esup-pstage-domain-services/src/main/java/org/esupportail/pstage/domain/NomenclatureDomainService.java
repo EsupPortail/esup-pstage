@@ -244,6 +244,24 @@ public interface NomenclatureDomainService extends Serializable {
 	 */
 	public boolean deleteContratOffre(int id) throws DataDeleteException,WebServiceDataBaseException;
 	
+	/**
+	 * @return int
+	 * @throws DataAddException 
+	 * @throws WebServiceDataBaseException 
+	 */
+	public int addModeValidationStage(ModeValidationStageDTO mv) throws DataAddException, WebServiceDataBaseException;
+	/**
+	 * @return boolean
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
+	 */
+	public boolean updateModeValidationStage(ModeValidationStageDTO mv) throws DataUpdateException,WebServiceDataBaseException;
+	/**
+	 * @return boolean
+	 * @throws DataDeleteException 
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean deleteModeValidationStage(int id) throws DataDeleteException,WebServiceDataBaseException;
 	/* ****************************************************************************
 	 * AFFECTATION
 	 *****************************************************************************/

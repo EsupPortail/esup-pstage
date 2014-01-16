@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<rich:popupPanel id="suppressionModeValidationStage" autosized="true" width="400">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['NOMENCLATURES.SUPPRESSION.HEADER']}" />
+		</f:facet>
+		<h:outputFormat value="#{msgs['NOMENCLATURES.SUPPRESSION.QUESTION']}" escape="false">
+			<f:param value="#{nomenclatureController.modeValidationStage.libelle}"/>
+		</h:outputFormat>
+		<h:form id="formSupprModeValidationStage">
+			<t:htmlTag value="div" style="height: 20px;" />
+			<h:panelGrid align="center" columns="3">
+				<h:commandButton value="#{msgs['FORM.OUI']}"
+					action="#{nomenclatureController.deleteModeValidationStage}"/>
+				<t:htmlTag value="div" style="width:100px;" />
+				<h:commandButton value="#{msgs['FORM.NON']}"
+					onclick="#{rich:component('suppressionModeValidationStage')}.hide();return false;" />
+			</h:panelGrid>
+		</h:form>
+	</rich:popupPanel>
+</ui:composition>

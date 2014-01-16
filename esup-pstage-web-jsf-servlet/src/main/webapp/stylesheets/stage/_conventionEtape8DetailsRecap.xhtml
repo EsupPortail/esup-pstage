@@ -42,7 +42,8 @@
 	
 	<a4j:commandLink execute="@this"
 		action="#{conventionController.editPdfRemerciement}"
-		rendered="#{conventionController.convention.validationConvention}">
+		rendered="#{sessionController.courrierRemerciement
+		and conventionController.convention.validationConvention}">
 		<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 			value="../../media/images/printer.png" style="border:0" />
 		<t:htmlTag value="div" style="display: inline; margin: 4px;" />

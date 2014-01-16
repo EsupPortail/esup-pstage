@@ -9,20 +9,20 @@
 	<ui:include src="../_commun/_champsObligatoires.xhtml" />
 
 	<t:htmlTag value="div" style="height:5px;" />
-		
+
 	<h:panelGrid columns="3" style="margin-left:10%;"
 		columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.LIBELLE']}"
-			for="libelleNiveauFormation" />
+			for="libelleModeValidationStage" />
 		<t:htmlTag value="div" style="width:5px;" />
 		<h:panelGrid columns="2">
-			<h:inputText id="libelleNiveauFormation"
-				value="#{nomenclatureController.niveauFormation.libelle}" size="30"
+			<h:inputText id="libelleModeValidationStage"
+				value="#{nomenclatureController.modeValidationStage.libelle}" size="30"
 				maxlength="100" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<a4j:ajax event="blur" render="msgLibelleNiveau" />
+				<a4j:ajax event="blur" render="msgLibelleModeValid" />
 			</h:inputText>
-			<rich:message id="msgLibelleNiveau" for="libelleNiveauFormation">
+			<rich:message id="msgLibelleModeValid" for="libelleModeValidationStage">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 		</h:panelGrid>

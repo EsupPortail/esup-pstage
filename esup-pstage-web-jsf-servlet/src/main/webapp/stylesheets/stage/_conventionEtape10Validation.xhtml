@@ -16,18 +16,64 @@
 					style="font-size:12px"
 					value="#{msgs['CONVENTION.ETAPE10.VALIDATION_PEDAGOGIQUE']}" />
 			</legend>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="erreurConventionVerification">
+			<h:panelGrid id="erreurConventionVerification"
+				columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 				<rich:message for="erreurConventionVerification" />
 				<h:outputText
 					value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.INFO']}"
 					escape="false" />
 				<t:htmlTag value="div" style="height:5px;" />
-				<h:outputText
-					value="#{msgs['CONVENTION.NUMEROCONVENTION']} : #{conventionController.convention.idConvention}, 
-				#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}   
-				#{conventionController.convention.etudiant.prenom}" />
 
+				<h:outputText value="#{msgs['GENERAL.RAPPEL']}" />
+				<h:panelGrid columns="2" columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
+					<h:outputLabel for="etu"
+						value="#{msgs['RECHERCHECONVENTION.ETUDIANT']} : " />
+					<h:outputText id="etu"
+						value="	#{conventionController.convention.etudiant.nom}  #{conventionController.convention.etudiant.nomMarital}   
+						#{conventionController.convention.etudiant.prenom}" />
+
+					<h:outputLabel for="dateDebutStage1"
+						value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
+					<h:outputText id="dateDebutStage1"
+						value="#{conventionController.convention.dateDebutStage}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+					</h:outputText>
+					<h:outputLabel for="dateFinStage1"
+						value="#{msgs['CONVENTION.FINSTAGE']}" />
+					<h:outputText id="dateFinStage1"
+						value="#{conventionController.convention.dateFinStage}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+					</h:outputText>
+
+					<h:outputLabel for="sujetStage1"
+						value="#{msgs['CONVENTION.SUJET']}" />
+					<h:outputText id="sujetStage1"
+						value="#{conventionController.convention.sujetStage}"
+						escape="false" />
+
+					<h:outputLabel for="fonctionsEtTaches1"
+						value="#{msgs['CONVENTION.FONCTION']}" />
+					<h:outputText id="fonctionsEtTaches1"
+						value="#{conventionController.convention.fonctionsEtTaches}"
+						escape="false" />
+
+					<h:outputLabel for="modeValidationStage1"
+						value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
+					<h:outputText id="modeValidationStage1"
+						value="#{conventionController.convention.modeValidationStage.libelle}" />
+
+					<h:outputLabel for="structure1"
+						value="#{msgs['CONVENTION.STRUCTURE']}" />
+					<h:outputText id="structure1"
+						value="#{conventionController.convention.structure.raisonSociale} 
+								#{conventionController.convention.structure.commune} #{conventionController.convention.structure.pays.libelle}" />
+
+					<h:outputLabel for="service1" value="#{msgs['CONVENTION.SERVICE']}" />
+					<h:outputText id="service1"
+						value="#{conventionController.convention.service.nom} 
+								#{conventionController.convention.service.commune} #{conventionController.convention.service.pays.libelle}" />
+				</h:panelGrid>
 				<t:htmlTag value="div" style="height: 5px;"
 					rendered="#{!conventionController.convention.validationPedagogique}" />
 				<h:panelGrid
@@ -173,7 +219,7 @@
 				rendered="#{welcomeController.superAdmin 
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-				
+
 				<a4j:commandButton execute="@this"
 					oncomplete="#{rich:component('demandeConfirmValidConvention')}.show()"
 					value="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
@@ -184,7 +230,7 @@
 					value="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
 					alt="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
 					rendered="#{conventionController.convention.validationConvention}" />
-					
+
 				<rich:popupPanel id="demandeConfirmValidConvention" autosized="true"
 					width="400" styleClass="panel" domElementAttachment="parent">
 					<f:facet name="header">

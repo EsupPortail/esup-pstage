@@ -35,6 +35,11 @@
 							<ui:include
 								src="/stylesheets/stage/_nomenclature_caisse_#{nomenclatureController.caisseRegimeCurrentPage}.xhtml" />
 						</rich:tab>
+						
+						<rich:tab id="modeValidationStageTab" header="ModeValidationStage">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_modeValidationStage_#{nomenclatureController.modeValidationStageCurrentPage}.xhtml" />
+						</rich:tab>
 
 						<rich:tab id="niveauFormationTab" header="NiveauFormation">
 							<ui:include
@@ -99,5 +104,6 @@
 		<ui:include src="./_nomenclature_typeOffre_panel_suppr.xhtml" />
 		<ui:include src="./_nomenclature_contratOffre_panel_suppr.xhtml" />
 		<ui:include src="./_nomenclature_effectif_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_modeValidationStage_panel_suppr.xhtml" />
 	</ui:define>
 </ui:composition>

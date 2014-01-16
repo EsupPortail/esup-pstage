@@ -2332,6 +2332,128 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		return retour;
 	}
+	
+	/**
+	 * @return String
+	 */
+	public String goToValidConvention() {
+		String retour = null;
+		if (this.currentConvention != null) {
+			if (logger.isDebugEnabled()) {
+				logger.info("Validation Convention: " + this.currentConvention.toString());
+			}
+
+			ConventionDTO conventionTmp = this.getConventionDomainService().getConventionFromId(this.currentConvention.getIdConvention());
+			if (conventionTmp != null) {
+				this.convention = conventionTmp;
+				// renseignement des zones de selections a partir de la convention
+				setSelTypeConvention(conventionTmp.getTypeConvention());
+				setSelTheme(conventionTmp.getTheme());
+				setSelTempsTravail(conventionTmp.getTempsTravail());
+				setSelIndemnisation(conventionTmp.getIndemnisation());
+				if (conventionTmp.getAnnee() != null) {
+					setSelAnneeUniversitaire(conventionTmp.getAnnee());
+				}
+				if (conventionTmp.getUniteGratification() != null) {
+					setSelUniteGratification(conventionTmp.getUniteGratification());
+				}
+				if (conventionTmp.getModeVersGratification() != null) {
+					setSelModeVersGratification(conventionTmp.getModeVersGratification());
+				}
+				if (conventionTmp.getOrigineStage() != null) {
+					setSelOrigineStage(conventionTmp.getOrigineStage());
+				}
+				if (conventionTmp.getUniteDuree() != null) {
+					setSelUniteDureeExceptionnelle(conventionTmp.getUniteDuree());
+				}
+
+				setSelNatureTravail(conventionTmp.getNatureTravail());			
+				setSelModeValidationStage(conventionTmp.getModeValidationStage());
+				setSelLangueConvention(conventionTmp.getLangueConvention());
+
+				if (conventionTmp.getAssurance() != null) {
+					setSelAssurance(conventionTmp.getAssurance());
+				}
+
+				if (conventionTmp.getCaisseRegime() != null) {
+					setSelCaisseRegime(conventionTmp.getCaisseRegime());
+				}
+
+				if (this.currentConvention.getEtape() != null) {
+					this.convention.setEtape(this.currentConvention.getEtape());
+				}
+				if (this.currentConvention.getUfr() != null) {
+					this.convention.setUfr(this.currentConvention.getUfr());
+				}
+				if (conventionTmp.getIdEtudiant() > 0) {
+					EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(conventionTmp.getIdEtudiant());
+					if (etudiantTmp != null) {
+						this.convention.setEtudiant(etudiantTmp);
+					}
+				}
+				if (conventionTmp.getIdCentreGestion() > 0) {
+					CentreGestionDTO centreGestionTmp = this.getCentreGestionDomainService().getCentreGestion(conventionTmp.getIdCentreGestion());
+					if (centreGestionTmp != null) {
+						this.convention.setCentreGestion(centreGestionTmp);
+						getSessionController().setCentreGestionRattachement(centreGestionTmp);
+					}
+				}
+				if (conventionTmp.getIdEnseignant() > 0 ) {
+					EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(conventionTmp.getIdEnseignant());
+					if (enseignantTmp != null) {
+						if (StringUtils.hasText(enseignantTmp.getCodeAffectation())) {
+							AffectationDTO affecDTO = rechAffec(enseignantTmp.getCodeAffectation());
+							if (affecDTO != null) {
+								enseignantTmp.setAffectation(affecDTO);
+							}
+
+						}
+						enseignantTmp.setCivilite(getNomenclatureDomainService().getCiviliteFromId(enseignantTmp.getIdCivilite()));
+						this.convention.setEnseignant(enseignantTmp);
+					}
+				}
+				if (conventionTmp.getIdStructure() > 0) {
+					StructureDTO structureTmp = this.getStructureDomainService().getStructureFromId(conventionTmp.getIdStructure());
+					if (structureTmp != null) {
+						this.convention.setStructure(structureTmp);
+					}
+				}
+				if (conventionTmp.getIdService() > 0) {
+					ServiceDTO serviceTmp = this.getStructureDomainService().getServiceFromId(conventionTmp.getIdService());
+					if (serviceTmp != null) {
+						this.convention.setService(serviceTmp);
+						this.etablissementController.setServiceSel(serviceTmp);
+						this.etablissementController.setIdServiceSel(serviceTmp.getIdService());
+						getSessionController().setCurrentManageStructure(this.convention.getStructure());
+						getSessionController().setMenuGestionEtab(false);
+						//this.etablissementController.loadContactsServices();
+						this.etablissementController.reloadServices();
+
+					}
+				}
+				if (conventionTmp.getIdContact() > 0) {
+					ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(conventionTmp.getIdContact());
+					if (contactTmp != null) {
+						this.convention.setContact(contactTmp);
+						this.etablissementController.reloadContacts();
+						this.etablissementController.setIdContactSel(contactTmp.getId());
+					}
+				}
+				if (conventionTmp.getIdSignataire() > 0) {
+					ContactDTO signataireTmp = this.getStructureDomainService().getContactFromId(conventionTmp.getIdSignataire());
+					if (signataireTmp != null) {
+						this.convention.setSignataire(signataireTmp);
+					}
+				}
+			}
+			sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape10;
+			retour = "conventionEtape10Validation";
+		}
+		return retour;
+	}
+	
+	
+	
 	/**
 	 * @return String
 	 */
@@ -3421,6 +3543,9 @@ public class ConventionController extends AbstractContextAwareController {
 				if (tmpEns != null) {
 					this.resultatsRechercheConvention = getConventionDomainService().getConventionsByEnseignant(tmpEns.getId(),getBeanUtils().getAnneeUniversitaireCourante(new Date()));
 					if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()) {
+						for (ConventionDTO convention : resultatsRechercheConvention){
+							convention.setCentreGestion(getCentreGestionDomainService().getCentreGestion(convention.getIdCentreGestion()));
+						}
 						//renseignement de la liste de resultats en vue d'export
 						this.exportController.setResultatsRechercheConvention(resultatsRechercheConvention);
 					}

@@ -309,6 +309,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		this.typeOffreCurrentPage = "table";
 		this.contratOffreCurrentPage = "table";
 		this.effectifCurrentPage = "table";
+		this.modeValidationStageCurrentPage = "table";
 		
 		return "gestionNomenclatures";
 	}
@@ -327,6 +328,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		this.typeOffre = new TypeOffreDTO();
 		this.contratOffre = new ContratOffreDTO();
 		this.effectif = new EffectifDTO();
+		this.modeValidationStage = new ModeValidationStageDTO();
 	}	
 
 	/**
@@ -342,6 +344,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	private String typeOffreCurrentPage = "table";
 	private String contratOffreCurrentPage = "table";
 	private String effectifCurrentPage = "table";
+	private String modeValidationStageCurrentPage = "table";
 
 	/**
 	 * Objets
@@ -356,6 +359,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	private TypeOffreDTO typeOffre;
 	private ContratOffreDTO contratOffre;
 	private EffectifDTO effectif;
+	private ModeValidationStageDTO modeValidationStage;
 
 	/**
 	 * Code de l'objet CaisseRegime en cours de modification
@@ -891,6 +895,55 @@ public class NomenclatureController extends AbstractContextAwareController {
 	public void deleteEffectif(){
 		try{
 			if (getNomenclatureDomainService().deleteEffectif(this.effectif.getId())){
+				addInfoMessage("formNomenclature","NOMENCLATURES.SUPPRESSION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+			}
+		} catch(Exception e){
+			logger.error("Exception", e.fillInStackTrace());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+		}
+	}
+	/**
+	 * @return
+	 */
+	public void addModeValidationStage(){
+		try{			
+			getNomenclatureDomainService().addModeValidationStage(this.modeValidationStage);
+			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
+			this.modeValidationStageCurrentPage="table";
+		} catch(WebServiceDataBaseException we){
+			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+
+		} catch(Exception e){
+			logger.error("Exception", e.fillInStackTrace());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	public void updateModeValidationStage(){
+		try{
+			getNomenclatureDomainService().updateModeValidationStage(this.modeValidationStage);
+			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
+			this.modeValidationStageCurrentPage="table";
+		} catch(WebServiceDataBaseException we){
+			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+		} catch(Exception e){
+			logger.error("Exception", e.fillInStackTrace());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+		}
+	}
+	/**
+	 * @return
+	 */
+	public void deleteModeValidationStage(){
+		try{
+			if (getNomenclatureDomainService().deleteModeValidationStage(this.modeValidationStage.getId())){
 				addInfoMessage("formNomenclature","NOMENCLATURES.SUPPRESSION.CONFIRMATION");
 			} else {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
@@ -1884,5 +1937,34 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	public void setEffectifCurrentPage(String effectifCurrentPage) {
 		this.effectifCurrentPage = effectifCurrentPage;
+	}
+
+	/**
+	 * @return the modeValidationStageCurrentPage
+	 */
+	public String getModeValidationStageCurrentPage() {
+		return modeValidationStageCurrentPage;
+	}
+
+	/**
+	 * @param modeValidationStageCurrentPage the modeValidationStageCurrentPage to set
+	 */
+	public void setModeValidationStageCurrentPage(
+			String modeValidationStageCurrentPage) {
+		this.modeValidationStageCurrentPage = modeValidationStageCurrentPage;
+	}
+
+	/**
+	 * @return the modeValidationStage
+	 */
+	public ModeValidationStageDTO getModeValidationStage() {
+		return modeValidationStage;
+	}
+
+	/**
+	 * @param modeValidationStage the modeValidationStage to set
+	 */
+	public void setModeValidationStage(ModeValidationStageDTO modeValidationStage) {
+		this.modeValidationStage = modeValidationStage;
 	}
 }

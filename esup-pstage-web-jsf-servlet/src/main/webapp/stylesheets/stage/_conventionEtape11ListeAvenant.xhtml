@@ -32,6 +32,16 @@
 					</t:htmlTag>
 				</rich:column>
 
+				<rich:column sortBy="#{avenant.titreAvenant}">
+					<f:facet name="header">
+						<h:outputText style="headerClass"
+							value="#{msgs['CONVENTION.ETAPE11.TITRE']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<h:outputText value="#{avenant.titreAvenant}" />
+					</t:htmlTag>
+				</rich:column>
+
 				<rich:column>
 					<f:facet name="header">
 						<h:outputText style="headerClass"
@@ -51,30 +61,11 @@
 								value="#{msgs['CONVENTION.ETAPE11.SALARIE']}" />
 							<h:outputText rendered="#{avenant.modificationEnseignant}"
 								value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT']}" />
-							<h:outputText
-								rendered="#{avenant.modificationMontantGratification}"
+							<h:outputText rendered="#{avenant.modificationMontantGratification}"
 								value="#{msgs['CONVENTION.ETAPE11.MONTANT_GRATIFICATION']}" />
+							<h:outputText rendered="#{not empty avenant.motifAvenant}"
+								value="#{avenant.motifAvenant}" />
 						</h:panelGrid>
-					</t:htmlTag>
-				</rich:column>
-
-				<rich:column sortBy="#{avenant.titreAvenant}">
-					<f:facet name="header">
-						<h:outputText style="headerClass"
-							value="#{msgs['CONVENTION.ETAPE11.TITRE']}" />
-					</f:facet>
-					<t:htmlTag value="center">
-						<h:outputText value="#{avenant.titreAvenant}" />
-					</t:htmlTag>
-				</rich:column>
-				
-				<rich:column sortBy="#{avenant.motifAvenant}">
-					<f:facet name="header">
-						<h:outputText style="headerClass"
-							value="#{msgs['CONVENTION.ETAPE11.MOTIF']}" />
-					</f:facet>
-					<t:htmlTag value="center">
-						<h:outputText value="#{avenant.motifAvenant}" />
 					</t:htmlTag>
 				</rich:column>
 

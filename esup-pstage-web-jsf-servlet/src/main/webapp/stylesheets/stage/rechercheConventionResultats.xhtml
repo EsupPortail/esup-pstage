@@ -38,6 +38,15 @@
 						<h:outputText value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR']}"
 							escape="false" />
 					</h:panelGrid>
+					
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="2"
+						rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique}">
+						<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
+							value="../../media/images/tick.png" style="border:0" />
+						<h:outputText value=" = #{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}" />
+					</h:panelGrid>
+					
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
 					<h:panelGrid columnClasses="paginatorData-text"
@@ -178,6 +187,17 @@
 								<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
 							</f:facet>
 							<t:htmlTag value="center">
+								<h:commandLink id="validConvention"
+									rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique 
+									and convention.centreGestion.validationPedagogique and !convention.validationPedagogique}"
+									action="#{conventionController.goToValidConvention}">
+									<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
+										value="../../media/images/tick.png" style="border:0" />
+									<f:setPropertyActionListener value="#{convention}"
+										target="#{conventionController.currentConvention}" />
+									<rich:tooltip value="#{msgs['FORM.VALIDER']}" />
+								</h:commandLink>
+								
 								<h:commandLink id="recap"
 									action="#{conventionController.goToRecapConvention}">
 									<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.DETAILS']}"

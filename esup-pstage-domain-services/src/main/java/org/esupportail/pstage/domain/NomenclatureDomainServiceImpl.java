@@ -257,7 +257,23 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 			WebServiceDataBaseException {
 		return this.remoteServices.deleteContratOffre(id);
 	}
-	
+	@Override
+	public int addModeValidationStage(ModeValidationStageDTO mv)
+			throws DataAddException, WebServiceDataBaseException {
+		return this.remoteServices.addModeValidationStage(mv);
+	}
+
+	@Override
+	public boolean updateModeValidationStage(ModeValidationStageDTO mv)
+			throws DataUpdateException, WebServiceDataBaseException {
+		return this.remoteServices.updateModeValidationStage(mv);
+	}
+
+	@Override
+	public boolean deleteModeValidationStage(int id) throws DataDeleteException,
+			WebServiceDataBaseException {
+		return this.remoteServices.deleteModeValidationStage(id);
+	}
 	/* ****************************************************************************
 	 * AFFECTATION
 	 *****************************************************************************/
@@ -909,7 +925,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	/**
 	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#getModeValidationStages()
 	 */
-	@SessionCache
 	public List<ModeValidationStageDTO> getModeValidationStages() {
 		return this.remoteServices.getModeValidationStages();
 	}

@@ -85,6 +85,11 @@ public class AvenantController extends AbstractContextAwareController {
 	private CastorService castorService;
 	
 	/**
+	 * true si l'on choisi d'associer un texte libre a l'avenant
+	 */
+	private boolean modificationTexteLibre;
+	
+	/**
 	 * editAvFR.
 	 */
 	private boolean editAvFR = false;
@@ -213,6 +218,13 @@ public class AvenantController extends AbstractContextAwareController {
 					return null;
 				}
 			}
+			if(this.isModificationTexteLibre()){
+				if (this.avenant.getMotifAvenant() == null){
+					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
+					addErrorMessage("formCreaAvenantPage1:erreurTexteLibre","CONVENTION.ETAPE11.ERREUR_TEXTELIBRE");
+					return null;
+				}
+			}
 		}
 		return "conventionEtape11CreaAvenantPage2";
 	}
@@ -246,6 +258,9 @@ public class AvenantController extends AbstractContextAwareController {
 		} else {
 			etablissementController.setContactSel(conventionController.getConvention().getContact());
 		}
+		if (this.avenant.getMotifAvenant() != null && !this.avenant.getMotifAvenant().isEmpty()){
+			this.modificationTexteLibre = true;
+		}	
 		return "conventionEtape11ModifAvenantPage1";
 	}
 	
@@ -327,6 +342,13 @@ public class AvenantController extends AbstractContextAwareController {
 				if (this.avenant.getEnseignant() == null){
 					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
 					addErrorMessage("formModifAvenantPage1:erreurCreation","CONVENTION.ETAPE11.ERREUR_ENSEIGNANT");
+					return null;
+				}
+			}
+			if(this.isModificationTexteLibre()){
+				if (this.avenant.getMotifAvenant() == null){
+					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
+					addErrorMessage("formCreaAvenantPage1:erreurTexteLibre","CONVENTION.ETAPE11.ERREUR_TEXTELIBRE");
 					return null;
 				}
 			}
@@ -818,6 +840,20 @@ public class AvenantController extends AbstractContextAwareController {
 	 */
 	public void setEditAvFR(boolean editAvFR) {
 		this.editAvFR = editAvFR;
+	}
+
+	/**
+	 * @return the modificationTexteLibre
+	 */
+	public boolean isModificationTexteLibre() {
+		return modificationTexteLibre;
+	}
+
+	/**
+	 * @param modificationTexteLibre the modificationTexteLibre to set
+	 */
+	public void setModificationTexteLibre(boolean modificationTexteLibre) {
+		this.modificationTexteLibre = modificationTexteLibre;
 	}
 	
 	

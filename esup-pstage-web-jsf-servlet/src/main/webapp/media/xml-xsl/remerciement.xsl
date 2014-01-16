@@ -138,12 +138,6 @@
 		</fo:block>
 		
 		<fo:block >
-			Entête
-		</fo:block>
-		<fo:block font-family="Times New Roman,serif">
-			<fo:leader />
-		</fo:block>
-		<fo:block >
 			Corps du texte
 		</fo:block>
 		<fo:block font-family="Times New Roman,serif">

@@ -357,6 +357,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * Chemin vers le dossier media
 	 */
 	private String mediaPath;
+	/**
+	 * Utilisation ou non de l'impression du courrier de remerciement a l'entreprise
+	 */
+	private boolean courrierRemerciement;
 	
 	/* ***************************************************************
 	 * Variables de navigation
@@ -2283,6 +2287,20 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setSurchargeTuteur(Integer surchargeTuteur) {
 		this.surchargeTuteur = surchargeTuteur;
+	}
+
+	/**
+	 * @return the courrierRemerciement
+	 */
+	public boolean isCourrierRemerciement() {
+		return courrierRemerciement;
+	}
+
+	/**
+	 * @param courrierRemerciement the courrierRemerciement to set
+	 */
+	public void setCourrierRemerciement(boolean courrierRemerciement) {
+		this.courrierRemerciement = courrierRemerciement;
 	}
 
 }
