@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="../_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<h:form id="formNomenclature">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Gestion des tables de nomenclature" />
+				</f:facet>
+
+				<t:htmlTag value="div" style="height:5px;" />
+
+				<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+					<h:graphicImage alt="info"
+						value="../../media/images/information.png" />
+					<h:panelGrid>
+						<h:outputText value="#{msgs['NOMENCLATURES.INFOS.PART1']}"/>
+						<h:outputText value="#{msgs['NOMENCLATURES.INFOS.PART2']}"/>
+						<h:outputText value="#{msgs['NOMENCLATURES.INFOS.PART3']}"/>
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<t:htmlTag value="div" style="height:10px;" />
+
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
+					<rich:tabPanel switchType="ajax">
+						<rich:tab id="caisseRegimeTab" header="CaisseRegime">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_caisse_#{nomenclatureController.caisseRegimeCurrentPage}.xhtml" />
+						</rich:tab>
+						
+						<rich:tab id="modeValidationStageTab" header="ModeValidationStage">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_modeValidationStage_#{nomenclatureController.modeValidationStageCurrentPage}.xhtml" />
+						</rich:tab>
+
+						<rich:tab id="niveauFormationTab" header="NiveauFormation">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_niveauFormation_#{nomenclatureController.niveauFormationCurrentPage}.xhtml" />
+						</rich:tab>
+
+						<rich:tab id="tempsTravailTab" header="TempsTravail">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_tempsTravail_#{nomenclatureController.tempsTravailCurrentPage}.xhtml" />
+						</rich:tab>
+
+						<rich:tab id="origineStageTab" header="OrigineStage">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_origineStage_#{nomenclatureController.origineStageCurrentPage}.xhtml" />
+						</rich:tab>
+
+						<rich:tab id="typeConventionTab" header="TypeConvention">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_typeConvention_#{nomenclatureController.typeConventionCurrentPage}.xhtml" />
+						</rich:tab>
+
+						<rich:tab id="typeStructureTab" header="TypeStructure">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_typeStructure_#{nomenclatureController.typeStructureCurrentPage}.xhtml" />
+						</rich:tab>
+
+						<rich:tab id="statutJuridiqueTab" header="StatutJuridique">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_statutJuridique_#{nomenclatureController.statutJuridiqueCurrentPage}.xhtml" />
+						</rich:tab>
+
+						<rich:tab id="typeOffreTab" header="TypeOffre">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_typeOffre_#{nomenclatureController.typeOffreCurrentPage}.xhtml" />
+						</rich:tab>
+
+						<rich:tab id="contratOffreTab" header="ContratOffre">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_contratOffre_#{nomenclatureController.contratOffreCurrentPage}.xhtml" />
+						</rich:tab>
+
+						<rich:tab id="effectifTab" header="Effectif">
+							<ui:include
+								src="/stylesheets/stage/_nomenclature_effectif_#{nomenclatureController.effectifCurrentPage}.xhtml" />
+						</rich:tab>
+					</rich:tabPanel>
+					<t:htmlTag value="div" style="height:10px;" />
+					<h:panelGrid align="center" columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text">
+						<rich:message for="formNomenclature" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+		<ui:include src="./_nomenclature_caisse_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_niveauFormation_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_tempsTravail_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_origineStage_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_typeConvention_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_typeStructure_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_statutJuridique_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_typeOffre_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_contratOffre_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_effectif_panel_suppr.xhtml" />
+		<ui:include src="./_nomenclature_modeValidationStage_panel_suppr.xhtml" />
+	</ui:define>
+</ui:composition>

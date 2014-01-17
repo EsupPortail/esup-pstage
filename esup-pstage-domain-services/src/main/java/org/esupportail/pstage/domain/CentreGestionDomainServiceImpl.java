@@ -221,6 +221,8 @@ public class CentreGestionDomainServiceImpl implements CentreGestionDomainServic
 				c.setNiveauCentre(nomenclatureDomainService.getNiveauCentreFromId(c.getIdNiveauCentre()));
 			if (c.getIdFichier() > 0)
 				c.setFichier(remoteServices.getFichierFromIdFichier(c.getIdFichier()));
+			if (c.getIdModeValidationStage() > 0)
+				c.setModeValidationStage(nomenclatureDomainService.getModeValidationStageDTOFromId(c.getIdModeValidationStage()));
 		}
 	}
 

@@ -8,7 +8,7 @@
 	<h:form id="menuDynamiqueStage" styleClass="app-form">
 		<t:htmlTag value="ul">
 			<t:htmlTag value="li"
-				rendered="#{welcomeController.personnel || welcomeController.superAdmin}">
+				rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin)}">
 				<h:commandLink action="menuIE">
 					<h:outputText value="#{msgs['MENUSTAGE.GESTIONCENTRE']}"
 						styleClass="menuTitre" />
@@ -25,7 +25,7 @@
 				</t:htmlTag>
 			</t:htmlTag>
 			<t:htmlTag value="li"
-				rendered="#{welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant}">
+				rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant)}">
 				<h:commandLink action="menuIE">
 					<h:outputText value="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
 						styleClass="menuTitre" />
@@ -75,7 +75,7 @@
 					</t:htmlTag>
 				</t:htmlTag>
 			</t:htmlTag>
-			<t:htmlTag value="li" rendered="#{welcomeController.etudiant}">
+			<t:htmlTag value="li" rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
 				<h:commandLink action="menuIE">
 					<h:outputText value="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
 						styleClass="menuTitre" />
@@ -146,7 +146,7 @@
 				</t:htmlTag>
 			</t:htmlTag>
 			<t:htmlTag value="li"
-				rendered="#{welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant}">
+				rendered="#{sessionController.utilisationEntreprise and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant)}">
 				<h:commandLink action="menuIE">
 					<h:outputText value="#{msgs['MENUSTAGE.GESTIONOFFRE']}"
 						styleClass="menuTitre" />
@@ -197,7 +197,7 @@
 					</t:htmlTag>
 				</t:htmlTag>
 			</t:htmlTag>
-			<t:htmlTag value="li" rendered="#{welcomeController.etudiant}">
+			<t:htmlTag value="li" rendered="#{sessionController.utilisationEntreprise and welcomeController.etudiant}">
 				<h:commandLink action="menuIE">
 					<h:outputText value="#{msgs['MENUSTAGE.GESTIONOFFRE']}"
 						styleClass="menuTitre" />
@@ -215,6 +215,23 @@
 								target="#{etablissementController.listeServices}" />
 							<f:setPropertyActionListener value="#{null}"
 								target="#{etablissementController.listeContacts}" />
+						</h:commandLink>
+					</t:htmlTag>
+				</t:htmlTag>
+			</t:htmlTag>
+			<t:htmlTag value="li" rendered="#{welcomeController.superAdmin}">
+				<h:commandLink action="menuIE">
+					<h:outputText value="#{msgs['MENU.GESTIONNOMENCLATURES']}"
+						styleClass="menuTitre" />
+				</h:commandLink>
+				<t:htmlTag value="ul">
+					<t:htmlTag value="li">
+						<h:commandLink action="#{nomenclatureController.goToGestionNomenclatures}"
+							rendered="#{welcomeController.superAdmin}">
+							<h:graphicImage alt="#{msgs['MENU.GESTIONNOMENCLATURES.GESTION']})"
+								title="#{msgs['MENU.GESTIONNOMENCLATURES']})"
+								value="../../media/images/list.png" style="border:0" />
+							<h:outputText value=" #{msgs['MENU.GESTIONNOMENCLATURES.GESTION']}" />
 						</h:commandLink>
 					</t:htmlTag>
 				</t:htmlTag>

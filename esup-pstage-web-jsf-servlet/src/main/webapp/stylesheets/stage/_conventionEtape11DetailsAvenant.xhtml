@@ -9,8 +9,32 @@
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text"
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+		<t:htmlTag value="div" style="height:10px;" />
+
 		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3">
+			rowClasses="paginatorData-text" columns="2" style="font-size:16px;"
+			rendered="#{!avenantController.avenant.rupture
+				and !avenantController.avenant.modificationSujet
+				and !avenantController.avenant.modificationPeriode
+				and !avenantController.avenant.modificationMontantGratification
+				and !avenantController.avenant.modificationLieu
+				and !avenantController.avenant.modificationSalarie
+				and !avenantController.avenant.modificationEnseignant}">
+			<h:outputLabel for="motif1"
+				value="#{msgs['CONVENTION.ETAPE11.MOTIF']} :" />
+			<h:outputText id="motif1"
+				value="#{avenantController.avenant.motifAvenant}" />
+		</h:panelGrid>
+		
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="3"
+			rendered="#{avenantController.avenant.rupture
+				|| avenantController.avenant.modificationSujet
+				|| avenantController.avenant.modificationPeriode
+				|| avenantController.avenant.modificationMontantGratification
+				|| avenantController.avenant.modificationLieu
+				|| avenantController.avenant.modificationSalarie
+				|| avenantController.avenant.modificationEnseignant}">
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text">
 				<h:outputLabel for="motif"

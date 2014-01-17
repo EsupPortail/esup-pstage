@@ -231,7 +231,7 @@ public class CentreController extends AbstractContextAwareController {
 	 * ID du centre de gestion encodé md5 pour le dépot anonyme
 	 */
 	private String depotEncode;
-
+	
 	/**
 	 * Bean constructor.
 	 */
@@ -377,6 +377,9 @@ public class CentreController extends AbstractContextAwareController {
 		// On défini le niveauCentre à partir de l'objet NiveauCentre attaché au centre
 		centre.setIdNiveauCentre(centre.getNiveauCentre().getId());
 
+		// On défini le modeValidationStage à partir de l'objet modeValidationStage attaché au centre
+		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
+		
 		// Ajout temporaire du premier centre superviseur
 		try{
 			(getCentreGestionDomainService().getCentreGestionSuperviseur()).isEmpty();
@@ -474,10 +477,12 @@ public class CentreController extends AbstractContextAwareController {
 			centre.setCodeConfidentialite((getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite())).getCodeConfidentialite());
 		}
 
-
 		// On défini le niveauCentre à partir de l'objet NiveauCentre attaché au centre
 		centre.setIdNiveauCentre(centre.getNiveauCentre().getId());
 
+		// On défini le modeValidationStage à partir de l'objet modeValidationStage attaché au centre
+		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
+		
 		// On met le viseur a null s'il est vide
 		if (centre.getNomViseur() == "" && centre.getPrenomViseur() == ""){
 			centre.setNomViseur(null);
@@ -540,7 +545,6 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	public void ajouterCentreEntreprise(){
 //		String ret=null;
-		System.out.println("ajout");
 		if(getCentreEntreprise()==null){
 			if(StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) &&
 					this.formCentreEntreprise.getConfidentialite()!=null){
@@ -789,7 +793,6 @@ public class CentreController extends AbstractContextAwareController {
 				try{
 					// codes et libelles de toutes les ETAPES
 					this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
-					System.out.println("taille : " + toutLesCriteres.size());
 				} catch (CommunicationApogeeException cae){
 					logger.error(cae.fillInStackTrace());
 					addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
@@ -1679,7 +1682,7 @@ public class CentreController extends AbstractContextAwareController {
 		} else {
 			// Sinon, aucun centre n'est stocké dans la variable centre du CentreController (donc en cours d'ajout)
 			if (etab != null){
-				// Si l'Etablissement existe déjé
+				// Si l'Etablissement existe déjà
 				// On retire la confidentialite libre (qui n'est dispo que pour l'etablissement)
 				ls.remove(itmConfLibre);
 			}

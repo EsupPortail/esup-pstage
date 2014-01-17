@@ -60,15 +60,15 @@
 		<t:htmlTag value="div" style="height: 20px;" />
 	</h:panelGrid>
 	<t:div
-		rendered="#{!sessionController.validationPedagogique || (sessionController.validationPedagogique and !welcomeController.etudiant)}">
+		rendered="#{welcomeController.personnel || (welcomeController.etudiant 
+		and conventionController.convention.centreGestion.autoriserImpressionConvention
+		and (!sessionController.validationPedagogique || (sessionController.validationPedagogique and !conventionController.convention.centreGestion.validationPedagogique)
+		|| (sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique 
+		and conventionController.convention.validationPedagogique)))}">
 		<t:div rendered="#{conventionController.convention.codeLangueConvention == 'fr'}">
 			<a4j:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
 				action="#{conventionController.editPdfConvention}"
 				rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}" />
-			<t:htmlTag value="em"
-				rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant}">
-				<h:outputText value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}" />
-			</t:htmlTag>
 		</t:div>
 		<t:div rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
 			<h:panelGrid columnClasses="paginatorData-text"
@@ -76,16 +76,16 @@
 				rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}">
 				<a4j:commandButton id="printFr" execute="@this"
 					action="#{conventionController.editPdfConventionFr}"
-					value="#{msgs['CONVENTION.IMPRESSION_FR']}"/>
+					value="#{msgs['CONVENTION.IMPRESSION_FR']}" />
 				<t:htmlTag value="div" style="width: 5px;" />
 				<a4j:commandButton id="printAutre" execute="@this"
 					action="#{conventionController.editPdfConvention}"
-					value="#{msgs['CONVENTION.IMPRESSION_AUTRE']} #{conventionController.convention.langueConvention.libelle}"/>
+					value="#{msgs['CONVENTION.IMPRESSION_AUTRE']} #{conventionController.convention.langueConvention.libelle}" />
 			</h:panelGrid>
-			<t:htmlTag value="em"
-				rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant}">
-				<h:outputText value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}" />
-			</t:htmlTag>
 		</t:div>
 	</t:div>
+	<t:htmlTag value="em"
+		rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant}">
+		<h:outputText value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}" />
+	</t:htmlTag>
 </ui:composition>

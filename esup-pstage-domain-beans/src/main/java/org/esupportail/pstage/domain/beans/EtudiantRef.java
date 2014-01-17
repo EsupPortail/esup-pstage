@@ -124,7 +124,7 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	public List<EtapeInscription> listeEtapeInscriptions;
 	
 	/**
-	 * Affiliation Ã¯Â¿Â½ la sÃ¯Â¿Â½curitÃ¯Â¿Â½ sociale
+	 * Affiliation a la securite sociale
 	 */
 	private AssuranceDTO  theAssurance;
 	

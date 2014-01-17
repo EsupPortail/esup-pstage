@@ -6,3 +6,4 @@ target/
 config.properties
 configUrlServices.properties
 convention_fr_artois.xsl
+/bin

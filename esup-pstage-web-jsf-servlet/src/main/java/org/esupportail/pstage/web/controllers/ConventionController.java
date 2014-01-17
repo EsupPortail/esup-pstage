@@ -306,6 +306,12 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	private String estValidee = null;
 	/**
+	 * 1 = Oui.
+	 * 2 = Non
+	 * null = Les 2
+	 */
+	private String estVerifiee = null;
+	/**
 	 * Liste des etapes dispo pour la recherche.
 	 */
 	private List<SelectItem> rechEtapes = null;
@@ -550,6 +556,8 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		sequenceEtapeEnum = SequenceEtapeEnum.etape1;
 
+		this.checkConventionExistante();
+
 		getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ChoixEtapeEtudiant");
 
 		//		return "creerConventionEtape1Etudiant";
@@ -601,56 +609,75 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 		if (ctrlInfosOK) {
-			// On verifie que le personnel connecté n'est pas superadmin ou étudiant et a bien les droits requis sur le centre gérant l'étape séléctionnée
-			if (!getSessionController().isSuperAdminPageAuthorized() && this.getSessionController().getCurrentAuthEtudiant() == null){
-				// recuperation du centre gérant l'etape/ufr selectionnée
-				CentreGestionDTO centreGestionRattachement = new CentreGestionDTO();
-				if (getSessionController().getCritereGestion() != null) {
-					// centre gestion UFR
-					if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
+			// recuperation du centre gérant l'etape/ufr selectionnée
+			CentreGestionDTO centreGestionRattachement = new CentreGestionDTO();
+			if (getSessionController().getCritereGestion() != null) {
+				// centre gestion UFR
+				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
+					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
+				}
+				// centre gestion Etape
+				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
+					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
+				}
+				// centre gestion Mixte
+				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
+					// recherche cg gérant l'etape
+					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
+					// si non trouvé, recherche centre gérant l'Ufr
+					if (centreGestionRattachement == null) {
 						centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
 					}
-					// centre gestion Etape
-					if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
-						centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
-					}
-					// centre gestion Mixte
-					if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
-						// recherche cg gérant l'etape
-						centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
-						// si non trouvé, recherche centre gérant l'Ufr
-						if (centreGestionRattachement == null) {
-							centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
+				}
+			}
+			// recherche centre etablissement, si centre ou critere vide
+			if (centreGestionRattachement == null || getSessionController().getCritereGestion() == null || getSessionController().getCritereGestion().equals("")) {
+				centreGestionRattachement = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
+			}
+
+			if (centreGestionRattachement != null) {
+				getSessionController().setCentreGestionRattachement(centreGestionRattachement);
+				this.convention.setIdCentreGestion(centreGestionRattachement.getIdCentreGestion());
+				this.convention.setCentreGestion(centreGestionRattachement);
+
+				if (!getSessionController().isSuperAdminPageAuthorized()){
+					if (this.getSessionController().getCurrentAuthEtudiant() != null){
+						// Si la personne connectée est un étudiant, on vérifie que le centre de gestion leur autorise la création de convention
+						if (!centreGestionRattachement.isAutorisationEtudiantCreationConvention()){
+							if (this.isEtudiantSupUneEtape()){
+								addErrorMessage("formConvention:choixEtape", "CONVENTION.CREERCONVENTION.ETUDIANT_UNAUTHORIZED");
+							} else {
+								addErrorMessage("formConvention:etape", "CONVENTION.CREERCONVENTION.ETUDIANT_UNAUTHORIZED");
+							}
+							logger.info("CONVENTION.CREERCONVENTION.ETUDIANT_UNAUTHORIZED");
+							return ;
+						}
+					} else {
+						// Sinon, on verifie que le personnel connecté a bien les droits requis sur le centre gérant l'étape séléctionnée
+
+						boolean creationAutorisee = false;
+						if (getSessionController().getCurrentIdsCentresGestion() != null 
+								&& getSessionController().getCurrentIdsCentresGestion().contains(centreGestionRattachement.getIdCentreGestion())){
+							// On recupere les droits grace à la droitsAccesMap
+							DroitAdministrationDTO droits = getSessionController().getDroitsAccesMap().get(centreGestionRattachement.getIdCentreGestion());
+							if (droits != null && (droits.getLibelle().equalsIgnoreCase(DonneesStatic.LIBELLE_DROIT_ECRITURE)
+									|| droits.getLibelle().equalsIgnoreCase(DonneesStatic.LIBELLE_DROIT_ADMIN))){
+								// Si le personnel a bien les droits Ecriture ou Admin sur le centre, on autorise la création
+								creationAutorisee = true;
+							}
+						}
+						if (!creationAutorisee){
+							if (this.isEtudiantSupUneEtape()){
+								addErrorMessage("formConvention:choixEtape", "CONVENTION.CREERCONVENTION.UNAUTHORIZED");
+							} else {
+								addErrorMessage("formConvention:etape", "CONVENTION.CREERCONVENTION.UNAUTHORIZED");
+							}
+							logger.info("CONVENTION.CREERCONVENTION.UNAUTHORIZED");
+							return ;
 						}
 					}
 				}
-				// recherche centre etablissement, si centre ou critere vide
-				if (centreGestionRattachement == null || getSessionController().getCritereGestion() == null || getSessionController().getCritereGestion().equals("")) {
-					centreGestionRattachement = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
-				}
-
-				boolean creationAutorisee = false;
-				if (getSessionController().getCurrentIdsCentresGestion() != null 
-						&& getSessionController().getCurrentIdsCentresGestion().contains(centreGestionRattachement.getIdCentreGestion())){
-					// On recupere les droits grace à la droitsAccesMap
-					DroitAdministrationDTO droits = getSessionController().getDroitsAccesMap().get(centreGestionRattachement.getIdCentreGestion());
-					if (droits != null && (droits.getLibelle().equalsIgnoreCase(DonneesStatic.LIBELLE_DROIT_ECRITURE)
-							|| droits.getLibelle().equalsIgnoreCase(DonneesStatic.LIBELLE_DROIT_ADMIN))){
-						// Si le personnel a bien les droits Ecriture ou Admin sur le centre, on autorise la création
-						creationAutorisee = true;
-					}
-				}
-				if (!creationAutorisee){
-					if (this.isEtudiantSupUneEtape()){
-						addErrorMessage("formConvention:choixEtape", "CONVENTION.CREERCONVENTION.UNAUTHORIZED");
-					} else {
-						addErrorMessage("formConvention:etape", "CONVENTION.CREERCONVENTION.UNAUTHORIZED");
-					}
-					logger.info("CONVENTION.CREERCONVENTION.UNAUTHORIZED");
-					return ;
-				}
 			}
-
 			if (selAssurance != null) {
 				this.etudiantRef.setTheAssurance(selAssurance);
 			}
@@ -857,40 +884,37 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void ajoutInfosEtudiant() {
 
-		// recherche du centre de gestion qui gere Ufr ou Etape
-		CentreGestionDTO centreGestionRattachement = new CentreGestionDTO();
-		if (getSessionController().getCritereGestion() != null) {
-			// centre gestion UFR
-			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
-				centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
-			}
-			// centre gestion Etape
-			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
-				centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
-			}
-			// centre gestion Mixte, recherche centre qui gere etape
-			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
-				// recherche cg qui gere etape de etudiant
-				centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
-				// si non trouve, recherche centre qui gere Ufr
-				if (centreGestionRattachement == null) {
-					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
-				}
-			}
-		}
-		// recherche centre etablissement, si critere = 
-		if (getSessionController().getCritereGestion().equals("")|| getSessionController().getCritereGestion() == null) {
-			centreGestionRattachement = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
-		}
-		// centre non trouve , rattachement au centre etablissement
-		if (centreGestionRattachement == null) {
-			centreGestionRattachement = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
-		}
-		if (centreGestionRattachement != null) {
-			getSessionController().setCentreGestionRattachement(centreGestionRattachement);
-			this.convention.setIdCentreGestion(centreGestionRattachement.getIdCentreGestion());
-			this.convention.setCentreGestion(centreGestionRattachement);
-		}
+		//		// recherche du centre de gestion qui gere Ufr ou Etape
+		//		CentreGestionDTO centreGestionRattachement = new CentreGestionDTO();
+		//		if (getSessionController().getCritereGestion() != null) {
+		//			// centre gestion UFR
+		//			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
+		//				centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
+		//			}
+		//			// centre gestion Etape
+		//			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
+		//				centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
+		//			}
+		//			// centre gestion Mixte, recherche centre qui gere etape
+		//			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
+		//				// recherche cg qui gere etape de etudiant
+		//				centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
+		//				// si non trouve, recherche centre qui gere Ufr
+		//				if (centreGestionRattachement == null) {
+		//					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
+		//				}
+		//			}
+		//		}
+		//		// recherche centre etablissement, si critere = 
+		//		if (centreGestionRattachement == null || getSessionController().getCritereGestion() == null || getSessionController().getCritereGestion().equals("")) {
+		//			centreGestionRattachement = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
+		//		}
+		//		if (centreGestionRattachement != null) {
+		//			getSessionController().setCentreGestionRattachement(centreGestionRattachement);
+		//			this.convention.setIdCentreGestion(centreGestionRattachement.getIdCentreGestion());
+		//			this.convention.setCentreGestion(centreGestionRattachement);
+		//		}
+
 		if (this.etudiantRef.getTheCodeEtape() != null) {
 			EtapeDTO etapeTmp = new EtapeDTO(); 
 			etapeTmp.setCode(this.etudiantRef.getTheCodeEtape());
@@ -1017,7 +1041,7 @@ public class ConventionController extends AbstractContextAwareController {
 		try {
 			if (this.getConventionDomainService().updateConvention(conventionTmp)) {
 				this.alerteMailModifConvention(" l'établissement d'accueil ");
-				
+
 				//retour=sequenceEtapeEnumSel.etape2.actionEtape();
 				retour = "conventionEtape2ModifEtabServiceSignataire";
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
@@ -1435,7 +1459,6 @@ public class ConventionController extends AbstractContextAwareController {
 				addErrorMessage(nomForm+":dateFinStage", "CONVENTION.CREERCONVENTION.DATEFIN.FINAVANTDEBUT");
 				ctrlInfosOK = false;
 			} else {
-
 				// controle pour les stage conseilles - codectrl=CONS
 				if (selTypeConvention.getCodeCtrl().equals(DonneesStatic.TYPE_CONVENTION_CODE_CTRL_CONS)) {
 					Calendar finMax = Calendar.getInstance();
@@ -1521,8 +1544,12 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		convention.setNatureTravail(selNatureTravail);
 		convention.setIdNatureTravail(selNatureTravail.getId());
-		convention.setModeValidationStage(selModeValidationStage);
-		convention.setIdModeValidationStage(selModeValidationStage.getId());
+		// Passage du mode de validation par le centre de gestion
+		if (this.convention.getCentreGestion().getModeValidationStage()!=null){
+			this.selModeValidationStage=this.convention.getCentreGestion().getModeValidationStage();
+		}
+		convention.setModeValidationStage(this.selModeValidationStage);
+		convention.setIdModeValidationStage(this.selModeValidationStage.getId());
 		convention.setLangueConvention(selLangueConvention);
 		convention.setCodeLangueConvention(selLangueConvention.getCode());
 	}
@@ -1605,7 +1632,7 @@ public class ConventionController extends AbstractContextAwareController {
 	public void goToCreerConventionEtape6Enseignant() {
 		sequenceEtapeEnum = SequenceEtapeEnum.etape6;
 		this.convention.setEnseignant(this.resultatEnseignant);
-
+		checkSurchargeTuteur();
 		//		return "_creerConventionEtape6Enseignant";
 		getSessionController().setCreationConventionEtape6CurrentPage("_creerConventionEtape6Enseignant");
 	}
@@ -1820,6 +1847,7 @@ public class ConventionController extends AbstractContextAwareController {
 					enseignantTmp.setId(enseignantExist.getId());
 					enseignantTmp.setLoginModif(getSessionController().getCurrentLogin());
 					getEnseignantDomainService().updateEnseignant(enseignantTmp);
+					conventionTmp.setIdEnseignant(enseignantExist.getId());
 				}
 			}
 		} catch (DataAddException ae) {
@@ -2158,6 +2186,37 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
+	public String editPdfRemerciement() {
+		String retour = null;
+		try	{
+			/**
+			 *  Methodes de creation des documents PDF selon l'edition demandee
+			 */
+			String nomDocxsl = "";
+			String fileNameXml = "";
+			String fileNameXmlfin = ".xml";
+			String idConvention = this.convention.getIdConvention().toString();
+			nomDocxsl = "remerciement" + ".xsl";
+			fileNameXml = "remerciement_" + idConvention;
+			// appel castor pour fichier xml a partir de objet java convention
+			castorService.objectToFileXml(this.convention, fileNameXml + fileNameXmlfin);
+			//fusion du xsl et xml en pdf
+			String fileNamePdf = fileNameXml + ".pdf";
+			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
+					castorService.getXslXmlPath(),
+					fileNamePdf, nomDocxsl);
+			addInfoMessage(null, "CONVENTION.IMPRESSION.REMERCIEMENT.CONFIRMATION");
+		} catch (ExportException e) {
+			logger.error("editPdfRemerciement ", e.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.EDIT.RECAP.ERREUR", e.getMessage());
+		}
+		return retour;
+	}
+
+
+	/**
+	 * @return String
+	 */
 	public String goToRecapConvention() {
 		String retour = null;
 		if (this.currentConvention != null) {
@@ -2273,6 +2332,128 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		return retour;
 	}
+	
+	/**
+	 * @return String
+	 */
+	public String goToValidConvention() {
+		String retour = null;
+		if (this.currentConvention != null) {
+			if (logger.isDebugEnabled()) {
+				logger.info("Validation Convention: " + this.currentConvention.toString());
+			}
+
+			ConventionDTO conventionTmp = this.getConventionDomainService().getConventionFromId(this.currentConvention.getIdConvention());
+			if (conventionTmp != null) {
+				this.convention = conventionTmp;
+				// renseignement des zones de selections a partir de la convention
+				setSelTypeConvention(conventionTmp.getTypeConvention());
+				setSelTheme(conventionTmp.getTheme());
+				setSelTempsTravail(conventionTmp.getTempsTravail());
+				setSelIndemnisation(conventionTmp.getIndemnisation());
+				if (conventionTmp.getAnnee() != null) {
+					setSelAnneeUniversitaire(conventionTmp.getAnnee());
+				}
+				if (conventionTmp.getUniteGratification() != null) {
+					setSelUniteGratification(conventionTmp.getUniteGratification());
+				}
+				if (conventionTmp.getModeVersGratification() != null) {
+					setSelModeVersGratification(conventionTmp.getModeVersGratification());
+				}
+				if (conventionTmp.getOrigineStage() != null) {
+					setSelOrigineStage(conventionTmp.getOrigineStage());
+				}
+				if (conventionTmp.getUniteDuree() != null) {
+					setSelUniteDureeExceptionnelle(conventionTmp.getUniteDuree());
+				}
+
+				setSelNatureTravail(conventionTmp.getNatureTravail());			
+				setSelModeValidationStage(conventionTmp.getModeValidationStage());
+				setSelLangueConvention(conventionTmp.getLangueConvention());
+
+				if (conventionTmp.getAssurance() != null) {
+					setSelAssurance(conventionTmp.getAssurance());
+				}
+
+				if (conventionTmp.getCaisseRegime() != null) {
+					setSelCaisseRegime(conventionTmp.getCaisseRegime());
+				}
+
+				if (this.currentConvention.getEtape() != null) {
+					this.convention.setEtape(this.currentConvention.getEtape());
+				}
+				if (this.currentConvention.getUfr() != null) {
+					this.convention.setUfr(this.currentConvention.getUfr());
+				}
+				if (conventionTmp.getIdEtudiant() > 0) {
+					EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(conventionTmp.getIdEtudiant());
+					if (etudiantTmp != null) {
+						this.convention.setEtudiant(etudiantTmp);
+					}
+				}
+				if (conventionTmp.getIdCentreGestion() > 0) {
+					CentreGestionDTO centreGestionTmp = this.getCentreGestionDomainService().getCentreGestion(conventionTmp.getIdCentreGestion());
+					if (centreGestionTmp != null) {
+						this.convention.setCentreGestion(centreGestionTmp);
+						getSessionController().setCentreGestionRattachement(centreGestionTmp);
+					}
+				}
+				if (conventionTmp.getIdEnseignant() > 0 ) {
+					EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(conventionTmp.getIdEnseignant());
+					if (enseignantTmp != null) {
+						if (StringUtils.hasText(enseignantTmp.getCodeAffectation())) {
+							AffectationDTO affecDTO = rechAffec(enseignantTmp.getCodeAffectation());
+							if (affecDTO != null) {
+								enseignantTmp.setAffectation(affecDTO);
+							}
+
+						}
+						enseignantTmp.setCivilite(getNomenclatureDomainService().getCiviliteFromId(enseignantTmp.getIdCivilite()));
+						this.convention.setEnseignant(enseignantTmp);
+					}
+				}
+				if (conventionTmp.getIdStructure() > 0) {
+					StructureDTO structureTmp = this.getStructureDomainService().getStructureFromId(conventionTmp.getIdStructure());
+					if (structureTmp != null) {
+						this.convention.setStructure(structureTmp);
+					}
+				}
+				if (conventionTmp.getIdService() > 0) {
+					ServiceDTO serviceTmp = this.getStructureDomainService().getServiceFromId(conventionTmp.getIdService());
+					if (serviceTmp != null) {
+						this.convention.setService(serviceTmp);
+						this.etablissementController.setServiceSel(serviceTmp);
+						this.etablissementController.setIdServiceSel(serviceTmp.getIdService());
+						getSessionController().setCurrentManageStructure(this.convention.getStructure());
+						getSessionController().setMenuGestionEtab(false);
+						//this.etablissementController.loadContactsServices();
+						this.etablissementController.reloadServices();
+
+					}
+				}
+				if (conventionTmp.getIdContact() > 0) {
+					ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(conventionTmp.getIdContact());
+					if (contactTmp != null) {
+						this.convention.setContact(contactTmp);
+						this.etablissementController.reloadContacts();
+						this.etablissementController.setIdContactSel(contactTmp.getId());
+					}
+				}
+				if (conventionTmp.getIdSignataire() > 0) {
+					ContactDTO signataireTmp = this.getStructureDomainService().getContactFromId(conventionTmp.getIdSignataire());
+					if (signataireTmp != null) {
+						this.convention.setSignataire(signataireTmp);
+					}
+				}
+			}
+			sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape10;
+			retour = "conventionEtape10Validation";
+		}
+		return retour;
+	}
+	
+	
+	
 	/**
 	 * @return String
 	 */
@@ -2655,9 +2836,9 @@ public class ConventionController extends AbstractContextAwareController {
 					int idAffectationEnseignant = getPersonnelCentreGestionDomainService().addAffectation(this.convention.getEnseignant().getAffectation());
 					if (logger.isInfoEnabled()) logger.info("Ajout affectation : " + idAffectationEnseignant);
 				}
-				
+
 				enseignantTmp.setCodeUniversiteAffectation(getSessionController().getCodeUniversite());
-				
+
 				int idEnseignant = this.getEnseignantDomainService().addEnseignant(enseignantTmp); 
 				if (idEnseignant > 0) {
 					if (logger.isInfoEnabled())logger.info("Ajout enseignant : "+ this.convention.getEnseignant().getUidEnseignant());
@@ -2667,7 +2848,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 				if (enseignantTmp.getCodeAffectation() == null || enseignantTmp.getCodeAffectation().isEmpty())
 					enseignantTmp.setCodeAffectation("");
-				
+
 				enseignantTmp.setCodeUniversiteAffectation(getSessionController().getCodeUniversite());
 				enseignantTmp.setId(enseignantExist.getId());
 				enseignantTmp.setLoginModif(getSessionController().getCurrentLogin());
@@ -3362,6 +3543,9 @@ public class ConventionController extends AbstractContextAwareController {
 				if (tmpEns != null) {
 					this.resultatsRechercheConvention = getConventionDomainService().getConventionsByEnseignant(tmpEns.getId(),getBeanUtils().getAnneeUniversitaireCourante(new Date()));
 					if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()) {
+						for (ConventionDTO convention : resultatsRechercheConvention){
+							convention.setCentreGestion(getCentreGestionDomainService().getCentreGestion(convention.getIdCentreGestion()));
+						}
 						//renseignement de la liste de resultats en vue d'export
 						this.exportController.setResultatsRechercheConvention(resultatsRechercheConvention);
 					}
@@ -3411,9 +3595,14 @@ public class ConventionController extends AbstractContextAwareController {
 			this.critereRechercheConvention.setTypeStructure(null);
 			this.critereRechercheConvention.setStatutJuridique(null);
 		}
-		if (!StringUtils.hasText(this.estValidee))	this.critereRechercheConvention.setEstValidee(null);
-		else if(this.estValidee.equals("1"))	this.critereRechercheConvention.setEstValidee(true);
-		else if(this.estValidee.equals("2"))	this.critereRechercheConvention.setEstValidee(false);
+		if (!StringUtils.hasText(this.estValidee)) this.critereRechercheConvention.setEstValidee(null);
+		else if(this.estValidee.equals("1")) this.critereRechercheConvention.setEstValidee(true);
+		else if(this.estValidee.equals("2")) this.critereRechercheConvention.setEstValidee(false);
+
+		if (!StringUtils.hasText(this.estVerifiee))	this.critereRechercheConvention.setEstVerifiee(null);
+		else if(this.estVerifiee.equals("1")) this.critereRechercheConvention.setEstVerifiee(true);
+		else if(this.estVerifiee.equals("2")) this.critereRechercheConvention.setEstVerifiee(false);
+		
 		//this.critereRechercheConvention.setLimit(true);
 		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.NB_RECHERCHE_MAXI));
 		// si enseignant tuteur, recherche des conventions pour les enseignants tuteur
@@ -3561,8 +3750,7 @@ public class ConventionController extends AbstractContextAwareController {
 				debutStage.setTime(this.convention.getDateDebutStage());
 				int year = debutStage.get(Calendar.YEAR);
 				Calendar debutAnnee = Calendar.getInstance();
-				debutAnnee.set(year, Integer.parseInt(startYearMonth) - 1, Integer
-						.parseInt(startYearDay), 0, 0, 0);
+				debutAnnee.set(year, Integer.parseInt(startYearMonth) - 1, Integer.parseInt(startYearDay), 0, 0, 0);
 				// pas de millisecond (sinon c sera toujours avant debut annee, meme
 				// s'il s'agit du meme jour)
 				debutAnnee.clear(Calendar.MILLISECOND);
@@ -3612,6 +3800,22 @@ public class ConventionController extends AbstractContextAwareController {
 					isChoixAnneeUniv = true;
 				}
 
+				// Inserer verif date debut -> date fin < 6 mois
+				if (this.convention.getDateFinStage() != null){
+					long dateDebStageLong = this.convention.getDateDebutStage().getTime();
+					long dateFinStageLong = this.convention.getDateFinStage().getTime();
+
+					if (dateFinStageLong >= dateDebStageLong) {
+
+						long dureeLong = dateFinStageLong - dateDebStageLong;
+
+						long sixMois = 15721200000L;
+
+						if (dureeLong >= sixMois){
+							addWarnMessage("formConvention:choixAnneeUniv", "CONVENTION.CREERCONVENTION.DUREEMAX");
+						}
+					}
+				}
 			}
 		}
 		return isChoixAnneeUniv;
@@ -3784,10 +3988,10 @@ public class ConventionController extends AbstractContextAwareController {
 				EnseignantDTO tmp = getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
 				if (tmp !=null && tmp.getId() != 0 && tmp.getMail() != null && !tmp.getMail().isEmpty())
 					getSmtpService().send(new InternetAddress(tmp.getMail()),sujet,text,text);
-				
+
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.convention.getIdCentreGestion());
-				
+
 				if (listePersonnels != null){
 					for (PersonnelCentreGestionDTO personnel : listePersonnels){
 						if (personnel.isAlertesMail()){
@@ -3801,6 +4005,46 @@ public class ConventionController extends AbstractContextAwareController {
 		} catch (AddressException ade){
 			logger.error("AddressException", ade.fillInStackTrace());
 			addErrorMessage(null, "GENERAL.ERREUR_MAIL");
+		}
+	}
+
+	private boolean conventionExistante;
+	/**
+	 * @return boolean
+	 */
+	public boolean isConventionExistante(){
+		return this.conventionExistante;
+	}
+	public void checkConventionExistante(){
+		this.conventionExistante = false;
+		List<ConventionDTO> list = getConventionDomainService().getConventionsEtudiant(this.etudiantRef.getIdentEtudiant(), getSessionController().getCodeUniversite());
+		if (list != null && !list.isEmpty()){
+			for(ConventionDTO convention : list){
+				if(convention.getAnnee().equalsIgnoreCase(Utils.getCurrentYear(true))){
+					// L'étudiant dispose d'une convention sur l'année courante
+					this.conventionExistante = true;
+					break;
+				}
+			}
+		}
+
+	}
+
+	private boolean surchargeTuteur;
+	/**
+	 * @return boolean
+	 */
+	public boolean isSurchargeTuteur(){
+		return this.surchargeTuteur;
+	}
+	public void checkSurchargeTuteur(){
+		this.surchargeTuteur = false;
+		Integer limiteSurcharge = getSessionController().getSurchargeTuteur();
+		if (limiteSurcharge != null){
+			Integer nbConventions= getEnseignantDomainService().getNombreConventionByEnseignant(this.convention.getEnseignant().getUidEnseignant(), getSessionController().getCodeUniversite());
+			if(nbConventions > limiteSurcharge){
+				this.surchargeTuteur = true;
+			}
 		}
 	}
 
@@ -4778,5 +5022,18 @@ public class ConventionController extends AbstractContextAwareController {
 	public void setListeELPEtapesSelectItems(
 			List<SelectItem> listeELPEtapesSelectItems) {
 		this.listeELPEtapesSelectItems = listeELPEtapesSelectItems;
+	}
+	
+	/**
+	 * @return the estVerifiee
+	 */
+	public String getEstVerifiee() {
+		return estVerifiee;
+	}
+	/**
+	 * @param estVerifiee the estVerifiee to set
+	 */
+	public void setEstVerifiee(String estVerifiee) {
+		this.estVerifiee = estVerifiee;
 	}
 }

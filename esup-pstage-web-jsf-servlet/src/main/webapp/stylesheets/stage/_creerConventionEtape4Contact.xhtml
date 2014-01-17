@@ -167,16 +167,26 @@
 							</a4j:commandLink>
 						</rich:column>
 						<rich:column>
-							<a4j:commandLink execute="@this" id="selC"
+<!-- 							<a4j:commandLink execute="@this" id="selC" -->
+<!-- 								rendered="#{not empty etablissementController.listeContacts}" -->
+<!-- 								action="#{conventionController.goToCreerConventionEtape5Stage}"> -->
+
+<!-- 								<f:setPropertyActionListener value="#{contact}" -->
+<!-- 									target="#{conventionController.convention.contact}" /> -->
+<!-- 								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}" -->
+<!-- 									value="../../media/images/tick.png" style="border:0" /> -->
+<!-- 								<rich:tooltip value="#{msgs['CONVENTION.SELECCONTACT']}" /> -->
+<!-- 							</a4j:commandLink> -->
+							
+							<a4j:commandButton execute="@this" id="selC"
+								style="color:green;"
+								value="#{msgs['FORM.SELECTIONNER']}"
 								rendered="#{not empty etablissementController.listeContacts}"
 								action="#{conventionController.goToCreerConventionEtape5Stage}">
-
 								<f:setPropertyActionListener value="#{contact}"
 									target="#{conventionController.convention.contact}" />
-								<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
-									value="../../media/images/tick.png" style="border:0" />
 								<rich:tooltip value="#{msgs['CONVENTION.SELECCONTACT']}" />
-							</a4j:commandLink>
+							</a4j:commandButton>
 						</rich:column>
 
 						<f:facet name="footer">

@@ -7,7 +7,8 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="2">
 		<h:outputLabel for="typeConvention1"
 			value="#{msgs['CONVENTION.TYPECONVENTION']}" />
 		<h:outputText id="typeConvention1"
@@ -65,9 +66,15 @@
 			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
 		</h:outputText>
 		<h:outputLabel for="dureeExceptionnelle1"
+			rendered="#{not empty conventionController.convention.dureeExceptionnelle}"
 			value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
-		<h:outputText id="dureeExceptionnelle1"
-			value="#{conventionController.convention.dureeExceptionnelle}" />
+		<h:panelGrid columns="2"
+			rendered="#{not empty conventionController.convention.dureeExceptionnelle}">
+			<h:outputText id="dureeExceptionnelle1"
+				value="#{conventionController.convention.dureeExceptionnelle}" />
+			<h:outputText
+				value="#{conventionController.convention.uniteDuree.libelle}" />
+		</h:panelGrid>
 		<h:outputLabel for="nbJoursHebdo1"
 			value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
 		<h:outputText id="nbJoursHebdo1"

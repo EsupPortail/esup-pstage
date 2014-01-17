@@ -630,6 +630,7 @@
 							
 							<fo:block line-height="110%" padding-top="2pt" padding-bottom="2pt" 
 								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+
 							<xsl:if test="@modification-periode = 'true'"> 
 								<xsl:if test="@interruption-stage = 'true'"> 
 									interruption de stage : oui
@@ -641,11 +642,11 @@
 								 	<fo:inline font-weight="bold">
 										<xsl:value-of select="concat(substring(./date-fin-interruption,9,2),'/',substring(./date-fin-interruption,6,2), '/',substring(./date-fin-interruption,1,4))"/> 
 									</fo:inline>
-									<xsl:if test="convention/interruption-stage = 'false'"> 
+									<xsl:if test="convention/@interruption-stage = 'false'"> 
 								 	au lieu de  : "pas d'interruption de stage"
 									</xsl:if>
 									
-									<xsl:if test="convention/interruption-stage = 'true'"> 
+									<xsl:if test="convention/@interruption-stage = 'true'"> 
 								 	au lieu de : interruption prévu du : 
 										<fo:inline font-weight="bold">
 											<xsl:value-of select="concat(substring(./convention/date-debut-interruption,9,2),'/',substring(./convention/date-debut-interruption,6,2), '/',substring(./convention/date-debut-interruption,1,4))"/> 
@@ -654,11 +655,11 @@
 								 		<fo:inline font-weight="bold">
 											<xsl:value-of select="concat(substring(./convention/date-fin-interruption,9,2),'/',substring(./convention/date-fin-interruption,6,2), '/',substring(./convention/date-fin-interruption,1,4))"/> 
 										</fo:inline>
-								</xsl:if>
+									</xsl:if>
 									
 								</xsl:if>
 								<xsl:if test="@interruption-stage = 'false'"> 
-									<xsl:if test="convention/interruption-stage = 'true'"> 
+									<xsl:if test="convention/@interruption-stage = 'true'"> 
 									interruption de stage : non au lieu de : 
 								 	interruption prévu du : 
 										<fo:inline font-weight="bold">

@@ -40,16 +40,6 @@
 	</context-param>
 
 	<context-param>
-		<param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
-		<param-value>512000</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
-		<param-value>false</param-value>
-	</context-param>
-
-	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
@@ -126,14 +116,14 @@
 		</listener-class>
 	</listener>
 
-	<!-- <context-param> -->
-	<!-- <param-name>javax.faces.PROJECT_STAGE</param-name> -->
-	<!-- <param-value>Production</param-value> -->
-	<!-- </context-param> -->
 	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
+	<param-name>javax.faces.PROJECT_STAGE</param-name>
+	<param-value>Production</param-value>
 	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>javax.faces.PROJECT_STAGE</param-name> -->
+<!-- 		<param-value>Development</param-value> -->
+<!-- 	</context-param> -->
 
 	<context-param>
 		<param-name>org.fckfaces.CUSTOM_CONFIGURATIONS_PATH
@@ -264,6 +254,16 @@
 		<url-pattern>*.file</url-pattern>
 	</servlet-mapping>
 
+	<context-param>
+		<param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
+		<param-value>512000</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	
 	<welcome-file-list>
 		<welcome-file>stylesheets/welcome.xhtml</welcome-file>
 		<welcome-file>stylesheets/stage/welcome.xhtml</welcome-file>

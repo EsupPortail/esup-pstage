@@ -13,11 +13,11 @@
 		<rich:panel style="border:none">
 			<h:panelGrid columns="1" align="center">
 				<h:outputLabel value="#{centreController.centre.nomCentre}" for="suppressionCentre" />
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 					<h:outputText value="#{centreController.centre.voie}" />
 					<h:outputText value="#{centreController.centre.batimentResidence}" />
 				</h:panelGrid>
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 					<h:outputText value="#{centreController.centre.codePostal}" />
 					<h:outputText value="#{centreController.centre.commune}" />
 				</h:panelGrid>
@@ -26,31 +26,31 @@
 					rendered="#{centreController.nbCriteres != 0 || centreController.nbPersonnels != 0 || centreController.nbContacts != 0
 				|| centreController.nbConventions != 0 || centreController.nbOffres != 0}">
 					<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}" for="suppressionCentre" />
-					<h:panelGrid columns="2"
+					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
 						rendered="#{centreController.nbCriteres != 0}">
 						<h:outputText value="#{centreController.nbCriteres}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CRITERES']}" />
 						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="2"
+					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
 						rendered="#{centreController.nbPersonnels != 0}">
 						<h:outputText value="#{centreController.nbPersonnels}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_PERSONNES']}" />
 						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="2"
+					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
 						rendered="#{centreController.nbConventions != 0}">
 						<h:outputText value="#{centreController.nbConventions}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONVENTIONS']}" />
 						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="2"
+					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
 						rendered="#{centreController.nbOffres != 0}">
 						<h:outputText value="#{centreController.nbOffres}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_OFFRES']}" />
 						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="2"
+					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
 						rendered="#{centreController.nbContacts != 0}">
 						<h:outputText value="#{centreController.nbContacts}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONTACTS']}" />
@@ -66,9 +66,9 @@
 					<fieldset>
 						<legend>
 							<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-								value="../../media/images/warning_30px.png" />
+								value="../../media/images/warning_20px.png" />
 						</legend>
-						<h:panelGrid columns="1">
+						<h:panelGrid>
 							<t:htmlTag value="center">
 								<h:outputText value="#{msgs['CENTRE.SUPPRESSION.RAPPEL']}" />
 							</t:htmlTag>

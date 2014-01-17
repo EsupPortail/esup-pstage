@@ -21,30 +21,37 @@
     
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="2">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<a4j:commandLink execute="@this" id="editrecap"
-				action="#{conventionController.editPdfRecap}">
-				<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-					value="../../media/images/printer.png" style="border:0" />
-				<t:htmlTag value="div" style="display: inline; margin: 4px;" />
-				<h:outputText value="#{msgs['CONVENTION.IMPRESSION.RECAP.DEMANDE']}"
-					escape="false" />
-			</a4j:commandLink>
-		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<a4j:commandLink execute="@this" id="impression"
-				action="conventionEtape9Impression">
-				<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-					value="../../media/images/printer.png" style="border:0" />
-					<t:htmlTag value="div" style="display: inline; margin: 4px;" />
-				<h:outputText
-					value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.DEMANDE']}"
-					escape="false" />
-			</a4j:commandLink>
-		</h:panelGrid>
+		<a4j:commandLink execute="@this" id="editrecap"
+			action="#{conventionController.editPdfRecap}">
+			<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+				value="../../media/images/printer.png" style="border:0" />
+			<t:htmlTag value="div" style="display: inline; margin: 4px;" />
+			<h:outputText value="#{msgs['CONVENTION.IMPRESSION.RECAP.DEMANDE']}"
+				escape="false" />
+		</a4j:commandLink>
+		<a4j:commandLink execute="@this" id="impression"
+			action="conventionEtape9Impression">
+			<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+				value="../../media/images/printer.png" style="border:0" />
+			<t:htmlTag value="div" style="display: inline; margin: 4px;" />
+			<h:outputText
+				value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.DEMANDE']}"
+				escape="false" />
+		</a4j:commandLink>
 	</h:panelGrid>
+	
+	<a4j:commandLink execute="@this"
+		action="#{conventionController.editPdfRemerciement}"
+		rendered="#{sessionController.courrierRemerciement
+		and conventionController.convention.validationConvention}">
+		<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+			value="../../media/images/printer.png" style="border:0" />
+		<t:htmlTag value="div" style="display: inline; margin: 4px;" />
+		<h:outputText
+			value="#{msgs['CONVENTION.IMPRESSION.REMERCIEMENT.DEMANDE']}"
+			escape="false" />
+	</a4j:commandLink>
+	
 	<t:htmlTag value="div" style="height: 10px;" />
 
 	<rich:dataTable id="table" var="convention"	value="#{conventionController.convention}" rowClasses="odd-row, even-row"  styleClass="stable">
@@ -68,7 +75,7 @@
 			</rich:column>
 		</rich:columnGroup>
 		<rich:columnGroup
-			rendered="#{conventionController.convention.validationConvention == false}">
+			rendered="#{!conventionController.convention.validationConvention}">
 			<rich:column>
 				<h:outputLabel for="valide" value="#{msgs['CONVENTION.VALIDER']}" />
 			</rich:column>
@@ -379,14 +386,17 @@
 					value="#{conventionController.convention.dureeStage}" />
 			</rich:column>
 		</rich:columnGroup>
-		<rich:columnGroup>
+		<rich:columnGroup rendered="#{ not emptyconventionController.convention.dureeExceptionnelle}">
 			<rich:column>
 				<h:outputLabel for="dureeExceptionnelle1"
 					value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
 			</rich:column>
 			<rich:column>
-				<h:outputText id="dureeExceptionnelle1"
-					value="#{conventionController.convention.dureeExceptionnelle}" />
+				<h:panelGrid columns="2">
+					<h:outputText id="dureeExceptionnelle1"
+						value="#{conventionController.convention.dureeExceptionnelle}" />
+					<h:outputText value="#{conventionController.convention.uniteDuree.libelle}" />
+				</h:panelGrid>
 			</rich:column>
 		</rich:columnGroup>
 		<rich:columnGroup>

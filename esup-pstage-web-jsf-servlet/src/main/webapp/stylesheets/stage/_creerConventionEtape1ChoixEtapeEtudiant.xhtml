@@ -12,6 +12,16 @@
 				<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT']}" />
 			</f:facet>
 			<t:htmlTag value="div" style="height:10px;" />
+			
+			<h:panelGrid columns="2" rendered="#{conventionController.conventionExistante}">
+				<h:graphicImage value="../../media/images/warn.png"
+					alt="#{msgs['GENERAL.WARNING']}"
+					title="#{msgs['GENERAL.WARNING']}" />
+				<h:outputText value="#{msgs['CONVENTION.ETAPE1.AVERTISSEMENT.ETUDIANT.CONVENTION_EXISTANTE']}" rendered="#{welcomeController.etudiant}"/>
+				<h:outputText value="#{msgs['CONVENTION.ETAPE1.AVERTISSEMENT.PERSONNEL.CONVENTION_EXISTANTE']}" rendered="#{!welcomeController.etudiant}"/>
+			</h:panelGrid>
+			<t:htmlTag value="div" style="height: 10px;" />
+		
 			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
 
