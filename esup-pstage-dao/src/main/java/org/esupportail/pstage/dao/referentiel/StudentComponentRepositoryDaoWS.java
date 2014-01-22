@@ -157,12 +157,11 @@ StudentComponentRepositoryDao {
 			param.setTemOuvertRecrutement("O");
 			param.setCodEtp("tous");
 			param.setCodVrsVet("tous");
-			param.setCodDip("tous");
-			param.setCodVrsVdi("tous");
+			param.setCodDip("aucun");
+			param.setCodVrsVdi("aucun");
 			param.setCodElp("aucun");
-			
 			DiplomeDTO2[] diplomeDTO2 = offreFormationMetierService.recupererSE_v2(param);
-
+			
 			for(DiplomeDTO2 ld : diplomeDTO2){
 				VersionDiplomeDTO2[] versionDiplomeDTO2 =ld.getListVersionDiplome();
 				for(VersionDiplomeDTO2 lvd : versionDiplomeDTO2){
@@ -172,7 +171,7 @@ StudentComponentRepositoryDao {
 						for(VersionEtapeDTO2 ve : versionEtapeDTO2){
 							idl = le.getCodEtp();
 							lib = ve.getLibWebVet();
-							lSI.put(idl + "", lib);
+							lSI.put(idl+";"+ve.getCodVrsVet(), lib);
 						}
 					}
 				}

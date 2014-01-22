@@ -119,16 +119,16 @@
 					<t:htmlTag value="div" style="height: 20px;" />
 
 					<h:panelGrid columns="3" align="center">
+						<h:commandButton id="retour" value="#{msgs['GENERAL.RETOUR']}"
+							action="#{centreController.goToRattachPersonnelResultat}">
+							<rich:tooltip value="#{msgs['CENTRE.PERSONNEL.RETOUR']}" />
+						</h:commandButton>
+						<t:htmlTag value="div" style="width: 70px;" />
 						<a4j:commandButton id="ajouter" value="#{msgs['FORM.AJOUTER']}"
 							action="#{centreController.ajouterPersonnel}"
 							render="personnelDataTable">
 							<rich:tooltip value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
 						</a4j:commandButton>
-						<t:htmlTag value="div" style="width: 10px;" />
-						<h:commandButton id="retour" value="#{msgs['GENERAL.RETOUR']}"
-							action="#{centreController.goToRattachPersonnelResultat}">
-							<rich:tooltip value="#{msgs['CENTRE.PERSONNEL.RETOUR']}" />
-						</h:commandButton>
 					</h:panelGrid>
 				</h:panelGrid>
 

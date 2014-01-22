@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.esupportail.commons.annotations.cache.SessionCache;
 import org.esupportail.pstage.dao.referentiel.StudentComponentRepositoryDaoWS;
 import org.esupportail.pstage.domain.beans.EtabRef;
 import org.esupportail.pstage.domain.beans.SignataireRef;
@@ -49,6 +50,7 @@ public class StudentComponentRepositoryDomainWS implements
 	/**
 	 * @see org.esupportail.pstage.domain.referentiel.StudentComponentRepositoryDomain#getEtapesRef(java.lang.String)
 	 */
+	@SessionCache
 	public Map<String, String> getEtapesRef(String universityCode) {
 		if(logger.isInfoEnabled()){
 			logger.info(" Appel de StudentComponentRepositoryWS.getEtapesRef(String universityCode) : " + universityCode);

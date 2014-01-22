@@ -167,10 +167,6 @@ public class CentreController extends AbstractContextAwareController {
 	 * True si aucun critere n'a été ajouté
 	 */
 	private boolean listeCritereVide;
-	/**
-	 * Liste des criteres rattachés (en selectItem)
-	 */
-	private List<SelectItem> criteresRattachesItem;
 	/* ***************************************************************
 	 * Logo
 	 ****************************************************************/
@@ -231,7 +227,7 @@ public class CentreController extends AbstractContextAwareController {
 	 * ID du centre de gestion encodé md5 pour le dépot anonyme
 	 */
 	private String depotEncode;
-	
+
 	/**
 	 * Bean constructor.
 	 */
@@ -379,7 +375,7 @@ public class CentreController extends AbstractContextAwareController {
 
 		// On défini le modeValidationStage à partir de l'objet modeValidationStage attaché au centre
 		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
-		
+
 		// Ajout temporaire du premier centre superviseur
 		try{
 			(getCentreGestionDomainService().getCentreGestionSuperviseur()).isEmpty();
@@ -482,7 +478,7 @@ public class CentreController extends AbstractContextAwareController {
 
 		// On défini le modeValidationStage à partir de l'objet modeValidationStage attaché au centre
 		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
-		
+
 		// On met le viseur a null s'il est vide
 		if (centre.getNomViseur() == "" && centre.getPrenomViseur() == ""){
 			centre.setNomViseur(null);
@@ -544,7 +540,7 @@ public class CentreController extends AbstractContextAwareController {
 	 * 
 	 */
 	public void ajouterCentreEntreprise(){
-//		String ret=null;
+		//		String ret=null;
 		if(getCentreEntreprise()==null){
 			if(StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) &&
 					this.formCentreEntreprise.getConfidentialite()!=null){
@@ -556,30 +552,30 @@ public class CentreController extends AbstractContextAwareController {
 					getCentreGestionDomainService().addCentreGestion(this.formCentreEntreprise);
 					addInfoMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
 					getSessionController().setModifCentreEntrepriseCurrentPage("modifCentreEntrepriseEtape1");
-//					ret="_modifCentreEntrepriseEtape1";
+					//					ret="_modifCentreEntrepriseEtape1";
 				} catch (DataAddException d) {	
 					logger.error("DataAddException", d.fillInStackTrace());				
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", d.getMessage());
-//					return null;
+					//					return null;
 				} catch (CentreEntrepriseDejaExistantException e) {
 					logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-//					return null;
+					//					return null;
 				} catch (WebServiceDataBaseException e) {
 					logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-//					return null;
+					//					return null;
 				}
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
 	 * Action de modification du centre entreprise
 	 */
 	public void modifierCentreEntreprise(){
-//		String ret=null;
+		//		String ret=null;
 		if(getCentreEntreprise()!=null){
 			if(StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) &&
 					this.formCentreEntreprise.getConfidentialite()!=null){
@@ -591,23 +587,23 @@ public class CentreController extends AbstractContextAwareController {
 					getCentreGestionDomainService().updateCentreGestion(this.formCentreEntreprise);
 					getSessionController().setModifCentreEntrepriseCurrentPage("_modifCentreEntrepriseEtape1");
 					addInfoMessage("msgsEts", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
-//					ret="_modifCentreEntrepriseEtape1";
+					//					ret="_modifCentreEntrepriseEtape1";
 				} catch (DataAddException d){
 					logger.error("DataAddException", d.fillInStackTrace());				
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE");
-//					return null;
+					//					return null;
 				} catch (CentreEntrepriseDejaExistantException e) {
 					logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-//					return null;
+					//					return null;
 				} catch (WebServiceDataBaseException e) {
 					logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-//					return null;
+					//					return null;
 				}
 			}
 		}
-//		return "centreEntreprise";
+		//		return "centreEntreprise";
 	}
 
 	/* ****************************************************************************	 * 
@@ -689,9 +685,8 @@ public class CentreController extends AbstractContextAwareController {
 	 * @return List<CritereGestionDTO>
 	 */
 	public List<CritereGestionDTO> getListeCriteresRattaches(){
-		this.listeCriteresRattaches = new ArrayList<CritereGestionDTO>();
-		List<CritereGestionDTO> l = getCritereGestionDomainService().getCritereGestionFromIdCentre(this.centre.getIdCentreGestion());
-		return l;
+		this.listeCriteresRattaches = getCritereGestionDomainService().getCritereGestionFromIdCentre(this.centre.getIdCentreGestion());
+		return this.listeCriteresRattaches;
 	}
 
 	/**
@@ -714,16 +709,141 @@ public class CentreController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToAjoutCritere() ");
 		}
-		this.criteresRattachesItem = new ArrayList<SelectItem>();
-		String code;
-		String libelle;
-		if (this.listeCriteresRattaches != null && !this.listeCriteresRattaches.isEmpty()){
-			for (int i = 0; i<this.listeCriteresRattaches.size();i++){
-				code = this.listeCriteresRattaches.get(i).getCode();
-				libelle = this.listeCriteresRattaches.get(i).getLibelle();
-				this.criteresRattachesItem.add(new SelectItem(code,(code +" - "+libelle)));
+
+		String codeUniversite = getSessionController().getCodeUniversite();
+		this.listeCriteres = new ArrayList<SelectItem>();
+		this.toutLesCriteres = new HashMap<String,String>();
+		LinkedHashMap <String,String> criteresDisponibles = new LinkedHashMap<String,String>();
+		List<String> codesSaisis = new ArrayList<String>();
+
+
+		if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_UFR)){
+			try{
+				// Liste des codes ufr deja rattaches
+				List<CritereGestionDTO> criteresSaisis = getCritereGestionDomainService().getCritereGestion();
+				if (criteresSaisis != null && !criteresSaisis.isEmpty()){
+					for(int i=0; i < criteresSaisis.size();i++){
+						codesSaisis.add(criteresSaisis.get(i).getCode());
+					}
+				} else {
+					logger.info("Liste de codes ufr saisis pour l'universite vide.");
+				}
+
+				// codes et libelles de toutes les UFR
+				this.toutLesCriteres = getPersonalComponentRepositoryDomain().getComposantesRef(codeUniversite);
+			} catch (CommunicationApogeeException cae){
+				logger.error(cae.fillInStackTrace());
+				addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
+				return null;
+			} catch (Exception e){
+				logger.error(e.fillInStackTrace());
+				addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR");
+				return null;
+			}
+
+			if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
+				return null;
+			}
+
+			// Liste des codes ufr uniquement
+			List<String> codesUfr = new ArrayList<String>();
+			for(Iterator<String> iter = this.toutLesCriteres.keySet().iterator(); iter.hasNext(); ){
+				codesUfr.add(iter.next().toString());
+			}
+			Collections.sort(codesUfr);
+
+			//Creation d'une liste des codes disponibles (non rattaches)
+			if (!codesSaisis.isEmpty()){
+				for(String codeUfr : codesUfr){
+					if(!codesSaisis.contains(codeUfr)){
+						criteresDisponibles.put(codeUfr,this.toutLesCriteres.get(codeUfr));
+					}
+				}
+			} else {
+				for(String codeUfr : codesUfr){
+					criteresDisponibles.put(codeUfr,this.toutLesCriteres.get(codeUfr));
+				}
+			}
+
+		} else if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_ETAPE)){
+			try{
+				// Liste des codes etape deja rattaches
+				List<CritereGestionDTO> criteresSaisis = getCritereGestionDomainService().getCritereGestion();
+				if (criteresSaisis != null && !criteresSaisis.isEmpty()){
+					for(CritereGestionDTO critereSaisi : criteresSaisis){
+						if (critereSaisi.getCodeVersionEtape() != null && !critereSaisi.getCodeVersionEtape().isEmpty()){
+							// S'il y a un code version etape, on combine les deux codes
+							codesSaisis.add(critereSaisi.getCode()+";"+critereSaisi.getCodeVersionEtape());
+						} else {
+							// Sinon on n'ajoute que le code etape
+							codesSaisis.add(critereSaisi.getCode());
+						}
+					}
+				} else {
+					logger.info("Liste de codes etape saisis pour l'universite vide.");
+				}
+
+				// codes et libelles de toutes les ETAPES
+				this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
+			} catch (CommunicationApogeeException cae){
+				logger.error(cae.fillInStackTrace());
+				addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
+				return null;
+			}catch (Exception e){
+				logger.error(e.fillInStackTrace());
+				addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR");
+				return null;
+			}
+
+			if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
+				return null;
+			}
+			// liste des codes ETAPES et version etapes
+			List<String> codesEtape = new ArrayList<String>();
+			for(Iterator<String> iter = this.toutLesCriteres.keySet().iterator();iter.hasNext();){
+				String[] tabCodes = iter.next().split(";");
+				if(tabCodes[1]!= null && !tabCodes[1].isEmpty()){
+					codesEtape.add(tabCodes[0]);
+					codesEtape.add(tabCodes[0]+";"+tabCodes[1]);
+				} else {
+					codesEtape.add(tabCodes[0]);
+				}
+			}
+
+			if (logger.isDebugEnabled()){
+				logger.debug("Codes deja saisis : " + codesSaisis);
+				logger.debug("Codes recuperes depuis apogee : " + codesEtape);
+			}
+			//Creation d'une liste des codes disponibles (non rattaches)
+			if (!codesSaisis.isEmpty()){
+				// pour tous les codes existants
+				for(String codeEtp : codesEtape){
+					// si le code n'est pas saisi et qu'il est un combine code/codeVersion
+					if(!codesSaisis.contains(codeEtp) && codeEtp.contains(";")){
+						// on en extrait juste sa partie codeEtape et on verifie qu'elle n'est pas non plus rattachee avant d'ajouter le code
+						String[] tabCodes2 = codeEtp.split(";");
+						if(!codesSaisis.contains(tabCodes2[0])){
+							criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
+						}
+					}
+				}
+			} else {
+				for (String codeEtp : codesEtape){
+					criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
+				}
 			}
 		}
+
+		String clef = null;
+		String valeur = null;
+		Iterator<String> i = criteresDisponibles.keySet().iterator();
+		while (i.hasNext()){
+			clef = i.next();
+			valeur = (clef+ " - " +criteresDisponibles.get(clef));
+			this.listeCriteres.add(new SelectItem(clef,valeur));
+		}
+		Collections.sort(this.listeCriteres, new ComparatorSelectItem());
+
 		return "ajoutCritere";
 	}
 
@@ -731,115 +851,6 @@ public class CentreController extends AbstractContextAwareController {
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getListeCriteres(){
-		if (this.listeCriteres == null || this.listeCriteres.isEmpty()){
-			String codeUniversite = getSessionController().getCodeUniversite();
-			this.listeCriteres = new ArrayList<SelectItem>();
-			this.toutLesCriteres = new HashMap<String,String>();
-			LinkedHashMap <String,String> criteresDisponibles = new LinkedHashMap<String,String>();
-			List<String> codesSaisis = new ArrayList<String>();
-
-			try{
-				// Liste des codes deja rattaches
-				List<CritereGestionDTO> criteresSaisis = getCritereGestionDomainService().getCritereGestion();
-				for(int i=0; i < criteresSaisis.size();i++){
-					codesSaisis.add(criteresSaisis.get(i).getCode());
-				}
-			} catch (NullPointerException e){
-				logger.info("Liste de codes saisis pour l'universite vide.");
-			}
-
-			if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_UFR)){
-
-				try{
-					// codes et libelles de toutes les UFR
-					this.toutLesCriteres = getPersonalComponentRepositoryDomain().getComposantesRef(codeUniversite);
-				} catch (CommunicationApogeeException cae){
-					logger.error(cae.fillInStackTrace());
-					addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
-					return null;
-				} catch (Exception e){
-					logger.error(e.fillInStackTrace());
-					addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR");
-					return null;
-				}
-
-				if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
-					return null;
-				}
-
-				// Liste des codes ufr uniquement
-				List<String> codesUfr = new ArrayList<String>();
-				for(Iterator<String> iter = this.toutLesCriteres.keySet().iterator(); iter.hasNext(); ){
-					codesUfr.add(iter.next().toString());
-				}
-
-				Collections.sort(codesUfr);
-
-				//Creation d'une liste des codes disponibles (non rattaches)
-				if (!codesSaisis.isEmpty()){
-					for(String code : codesUfr){
-						if(!codesSaisis.contains(code)){
-							criteresDisponibles.put(code,this.toutLesCriteres.get(code));
-						}
-					}
-				} else {
-					for(String code : codesUfr){
-						criteresDisponibles.put(code,this.toutLesCriteres.get(code));
-					}
-				}
-
-			} else if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_ETAPE)){
-
-				try{
-					// codes et libelles de toutes les ETAPES
-					this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
-				} catch (CommunicationApogeeException cae){
-					logger.error(cae.fillInStackTrace());
-					addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
-					return null;
-				}catch (Exception e){
-					logger.error(e.fillInStackTrace());
-					addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR");
-					return null;
-				}
-
-				if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
-					return null;
-				}
-				// liste des codes ETAPES uniquement
-				List<String> codesEtape = new ArrayList<String>();
-
-				for(Iterator<String> iter = this.toutLesCriteres.keySet().iterator();iter.hasNext(); ) {
-					codesEtape.add(iter.next().toString());
-				}
-				Collections.sort(codesEtape);
-
-
-				//Creation d'une liste des codes disponibles (non rattaches)
-				if (!codesSaisis.isEmpty()){
-					for(String code : codesEtape){
-						if(!codesSaisis.contains(code)){
-							criteresDisponibles.put(code,this.toutLesCriteres.get(code));
-						}
-					}
-				} else {
-					for (String code : codesEtape){
-						criteresDisponibles.put(code,this.toutLesCriteres.get(code));
-					}
-				}
-			}
-
-			String clef = null;
-			String valeur = null;
-			Iterator<String> i = criteresDisponibles.keySet().iterator();
-			while (i.hasNext()){
-				clef = i.next();
-				valeur = (clef+ " - " +criteresDisponibles.get(clef));
-				this.listeCriteres.add(new SelectItem(clef,valeur));
-			}
-			Collections.sort(this.listeCriteres, new ComparatorSelectItem());
-		}
-
 		return this.listeCriteres;
 	}
 
@@ -863,10 +874,12 @@ public class CentreController extends AbstractContextAwareController {
 		}
 
 		for(int i=0;i < this.listeCriteresChoisis.size();i++){
-
 			code = (String)listeCriteresChoisis.get(i);
-			tmp.setCode(code);
 			tmp.setLibelle(this.toutLesCriteres.get(code));
+			String [] tabCodes = code.split(";");
+			tmp.setCode(tabCodes[0]);
+			tmp.setCodeVersionEtape(tabCodes[1]);
+			
 			tmp.setIdCentreGestion(this.centre.getIdCentreGestion());
 
 			for (int j=0; j<this.listeCriteres.size(); j++){
@@ -886,7 +899,7 @@ public class CentreController extends AbstractContextAwareController {
 			} else {
 				for(CritereGestionDTO crit : liste){
 					getCritereGestionDomainService().addCritere(crit);
-					code = crit.getCode();
+					code = crit.getCode()+";"+crit.getCodeVersionEtape();
 					getConventionDomainService().updateCentreConventionByEtape(code, this.centre.getIdCentreGestion(),getSessionController().getCodeUniversite());
 				}
 			}
@@ -911,7 +924,7 @@ public class CentreController extends AbstractContextAwareController {
 		if (this.critere!=null){
 			String codeUniversite = getSessionController().getCodeUniversite();
 			this.toutLesCriteres = new HashMap<String,String>();
-	
+
 			if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_UFR)){
 				try{
 					// codes et libelles de toutes les UFR
@@ -936,8 +949,8 @@ public class CentreController extends AbstractContextAwareController {
 				}
 			}
 			if (this.toutLesCriteres != null 
-			&& !this.toutLesCriteres.isEmpty()
-			&& !this.toutLesCriteres.containsKey(this.critere.getCode())){
+					&& !this.toutLesCriteres.isEmpty()
+					&& !this.toutLesCriteres.containsKey(this.critere.getCode())){
 				return true;
 			}
 		}
@@ -1111,6 +1124,7 @@ public class CentreController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToListePersonnel() ");
 		}
+		this.personnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.centre.getIdCentreGestion());
 		return "listePersonnels";
 	}
 
@@ -1127,10 +1141,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return List<PersonnelCentreGestionDTO>
 	 */
-	public List<PersonnelCentreGestionDTO> getPersonnels(){		
-		if (this.personnels == null || this.personnels.isEmpty()){
-			this.personnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.centre.getIdCentreGestion());
-		}
+	public List<PersonnelCentreGestionDTO> getPersonnels(){
 		return this.personnels;
 	}
 
@@ -2071,17 +2082,5 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	public int getNbOffres() {
 		return nbOffres;
-	}
-	/**
-	 * @return the criteresRattachesItem
-	 */
-	public List<SelectItem> getCriteresRattachesItem() {
-		return criteresRattachesItem;
-	}
-	/**
-	 * @param criteresRattachesItem the criteresRattachesItem to set
-	 */
-	public void setCriteresRattachesItem(List<SelectItem> criteresRattachesItem) {
-		this.criteresRattachesItem = criteresRattachesItem;
 	}
 }

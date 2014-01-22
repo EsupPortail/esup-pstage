@@ -588,9 +588,9 @@ public class AccordController extends AbstractContextAwareController {
 				
 				String urlAuth = "";
 				if (getSessionController().getAdminAuthentication().equals("shibb")){
-					urlAuth = "/auth/shibb/auth.faces?id=";
+					urlAuth = "/stylesheets/shibb/auth.xhtml?id=";
 				} else {
-					urlAuth = "/auth/cas/auth.faces?id=";
+					urlAuth = "/stylesheets/cas/auth.xhtml?id=";
 				}
 				
 				getSmtpService().send(getSessionController().getMailingListEntrIA(), 

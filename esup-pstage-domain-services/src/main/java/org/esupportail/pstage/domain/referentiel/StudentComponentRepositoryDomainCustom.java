@@ -2,6 +2,7 @@ package org.esupportail.pstage.domain.referentiel;
 
 import java.util.Map;
 
+import org.esupportail.commons.annotations.cache.SessionCache;
 import org.esupportail.pstage.domain.beans.EtabRef;
 import org.esupportail.pstage.domain.beans.SignataireRef;
 
@@ -25,7 +26,7 @@ public class StudentComponentRepositoryDomainCustom implements
 		return null;
 	}
 
-	@Override
+	@SessionCache
 	public Map<String, String> getEtapesRef(String universityCode) {
 		return null;
 	}
