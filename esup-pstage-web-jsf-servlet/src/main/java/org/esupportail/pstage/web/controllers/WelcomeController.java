@@ -18,6 +18,7 @@ import javax.mail.internet.InternetAddress;
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
+import org.esupportail.pstage.domain.beans.EtapeInscription;
 import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.NousContacter;
 import org.esupportail.pstage.utils.DonneesStatic;
@@ -108,7 +109,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	private boolean creationConventionAutorisee=true;
 
 	private String idLienDirect;
-	
+
 	/**
 	 * Bean constructor.
 	 */
@@ -173,18 +174,18 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * Envoi vers la 2éme ou 3éme étape de récupération d'un mot de passe
 	 */
 	public String goToMotDePassePerduEtabTrouve(){
-//		String ret="_motDePassePerduEtape3Confirmation";
+		//		String ret="_motDePassePerduEtape3Confirmation";
 		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 		if(StringUtils.hasText(this.mailMotDePassePerdu)){
 			List<StructureDTO> ls = getStructureDomainService().getStructureFromContactMailEntrepriseAvecCompte(this.mailMotDePassePerdu);
 			if(ls!=null){
 				if(ls.size()>1){
-//					ret="_motDePassePerduEtape2SelectionEtab";
+					//					ret="_motDePassePerduEtape2SelectionEtab";
 					getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape2SelectionEtab");
 					this.listeStructuresTrouveeMotDePassePerdu=ls;
 					return "motDePassePerdu";
 				}else{
-//					ret="_motDePassePerduEtape3Confirmation";
+					//					ret="_motDePassePerduEtape3Confirmation";
 					getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 					ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu, 
 							ls.get(0).getIdStructure());
@@ -198,7 +199,7 @@ public class WelcomeController extends AbstractContextAwareController {
 									getString("MAIL.RECAPIDENTS.SUJET", getSessionController().getApplicationNameEntreprise()),
 									getString("MAIL.RECAPIDENTS.MESSAGE", c.getLogin(), getBlowfishUtils().decode(c.getMdp()),getSessionController().getApplicationNameEntreprise()),
 									""
-							);
+									);
 							if(logger.isInfoEnabled()){
 								logger.info("Recuperation de mot de passe pour : "+c);
 							}
@@ -215,7 +216,7 @@ public class WelcomeController extends AbstractContextAwareController {
 					}
 				}
 			}else{
-//				ret="_motDePassePerduEtape3Confirmation";
+				//				ret="_motDePassePerduEtape3Confirmation";
 				getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 				addErrorMessage(null, "MOTDEPASSEPERDU.INCONNUE");
 			}
@@ -227,7 +228,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * Envoi vers l'étape 3 de récupération de mot de passe depuis l'étape 2
 	 */
 	public void goToRecuperationMotDePasse(){
-//		String ret="_motDePassePerduEtape3Confirmation";
+		//		String ret="_motDePassePerduEtape3Confirmation";
 		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 		if(this.structureSelectionneeMotDePassePerdu!=null){
 			ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu, 
@@ -242,7 +243,7 @@ public class WelcomeController extends AbstractContextAwareController {
 							getString("MAIL.RECAPIDENTS.SUJET", getSessionController().getApplicationNameEntreprise()),
 							getString("MAIL.RECAPIDENTS.MESSAGE", c.getLogin(), getBlowfishUtils().decode(c.getMdp()),getSessionController().getApplicationNameEntreprise()),
 							""
-					);
+							);
 					if(logger.isInfoEnabled()){
 						logger.info("Recuperation de mot de passe pour : "+c);
 					}
@@ -258,14 +259,14 @@ public class WelcomeController extends AbstractContextAwareController {
 				addErrorMessage(null, "MOTDEPASSEPERDU.ERREUR");
 			}
 		}
-//		return ret;
+		//		return ret;
 	}
 
 	/**
 	 * 
 	 */
 	public void nousContacter(){
-//		String retour="_nousContacterEtape2";
+		//		String retour="_nousContacterEtape2";
 		getSessionController().setNousContacterCurrentPage("_nousContacterEtape2");
 		if(!getSessionController().getNousContacter().isNull()){
 			addInfoMessage(null, "GENERAL.NOUS_CONTACTER.CONFIRMATION");
@@ -279,11 +280,11 @@ public class WelcomeController extends AbstractContextAwareController {
 								getSessionController().getNousContacter().getSujet(),
 								getSessionController().getNousContacter().getMessage()),
 								""
-				);
+						);
 			}
 			getSessionController().setNousContacter(new NousContacter());
 		}
-//		return retour;
+		//		return retour;
 	}
 
 	/**
@@ -363,14 +364,14 @@ public class WelcomeController extends AbstractContextAwareController {
 						getSessionController().setCurrentAuthContact(tmp);
 						getSessionController().setCurrentManageStructure(getStructureDomainService().getStructureFromIdService(tmp.getIdService()));
 						getSessionController().setMenuGestionEtab(true);
-						
+
 						List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
 						l.add(getCentreGestionDomainService().getCentreEntreprise());
 						getSessionController().setCurrentCentresGestion(l);
 						this.etablissementController.loadContactsServices();
 						this.offreController.loadOffres();
 						getStructureDomainService().updateContactDerniereConnexion(tmp.getId(), tmp.getDerniereConnexion());
-						
+
 						getSessionController().setCurrentAuthAdminStructure(null);
 						getSessionController().setCurrentAuthEtudiant(null);
 						getSessionController().setCurrentAuthEnseignant(null);
@@ -462,7 +463,7 @@ public class WelcomeController extends AbstractContextAwareController {
 
 			// methode redirigeant l'utilisateur vers la page des contacts s'il passe par le lien du mail de demande de compte
 			ret = this.goToContactsLienDirect(ret);
-			
+
 		}
 		return ret;
 	}
@@ -525,9 +526,9 @@ public class WelcomeController extends AbstractContextAwareController {
 			}
 			// methode redirigeant l'utilisateur vers la page des contacts s'il passe par le lien du mail de demande de compte
 			ret = this.goToContactsLienDirect(ret);
-			
+
 		}
-		
+
 		return ret;
 	}
 
@@ -618,8 +619,8 @@ public class WelcomeController extends AbstractContextAwareController {
 					if(getSessionController().getCurrentCentresGestion()!=null && !getSessionController().getCurrentCentresGestion().isEmpty()){
 						// Ajout des droits pour le centre entreprise (artois) si la personne est superadmin ou adminStructure
 						if ((getSessionController().isSuperAdminPageAuthorized() 
-						|| getAdminDomainService().getAdminStructureFromLogin(getSessionController().getCurrentLogin()) != null)
-						&& getCentreGestionDomainService().getCentreEntreprise() != null){
+								|| getAdminDomainService().getAdminStructureFromLogin(getSessionController().getCurrentLogin()) != null)
+								&& getCentreGestionDomainService().getCentreEntreprise() != null){
 							getSessionController().getCurrentCentresGestion().add(getCentreGestionDomainService().getCentreEntreprise());
 						}
 						Collections.sort(getSessionController().getCurrentCentresGestion(), new Comparator<CentreGestionDTO>(){
@@ -675,51 +676,52 @@ public class WelcomeController extends AbstractContextAwareController {
 					CentreGestionDTO tmp = new CentreGestionDTO();
 					CentreGestionDTO cgEtab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
 					if (e != null){
+
+						List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
+						for (EtapeInscription etapeAcontroler : e.getListeEtapeInscriptions()){
+							if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+								listFiltree.add(etapeAcontroler);
+							}
+						}
+						
 						if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
 							// On recupere la liste des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
 							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
-							if(e.getStudysKey() != null) {
-								if (!e.getStudysKey().isEmpty()) {
-									for(String code : e.getStudysKey()){
-										tmp = recupCentre(code);
-										if (tmp != null
-												&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
-											getSessionController().getCurrentCentresGestion().add(tmp);
-										}
-									}
-								}else {
-									// par default, on met le centre etablissement
-									getSessionController().getCurrentCentresGestion().add(cgEtab);
-								}
-							}
-						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
-							// On recupere la liste des etapes de l'etudiant et on vérifie si elles sont gerees par un centre
-							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
-							if(e.getStepsKey() != null){
-								if (!e.getStepsKey().isEmpty()) {
-									for(String code : e.getStepsKey()){
-										tmp = recupCentre(code);
-										if (tmp != null
-												&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
-											getSessionController().getCurrentCentresGestion().add(tmp);
-										}
-									}
-								}else {
-									// par default, on met le centre etablissement
-									getSessionController().getCurrentCentresGestion().add(cgEtab);
-								}
-							}
-							
-						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
-							// On recupere les listes des etapes et des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
-							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
-							if(e.getStepsKey() != null){
-								for(String code : e.getStepsKey()){
+							if(e.getStudysKey() != null && !e.getStudysKey().isEmpty()) {
+								for(String code : e.getStudysKey()){
 									tmp = recupCentre(code);
 									if (tmp != null
 											&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
 										getSessionController().getCurrentCentresGestion().add(tmp);
 									}
+								}
+							} else {
+								// par default, on met le centre etablissement
+								getSessionController().getCurrentCentresGestion().add(cgEtab);
+							}
+						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
+							// On recupere la liste des etapes de l'etudiant et on vérifie si elles sont gerees par un centre
+							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
+							if(listFiltree != null && !listFiltree.isEmpty()) {
+								for(EtapeInscription etp : listFiltree){
+										tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
+										if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
+											getSessionController().getCurrentCentresGestion().add(tmp);
+										}
+								}
+							} else {
+								// par default, on met le centre etablissement
+								getSessionController().getCurrentCentresGestion().add(cgEtab);
+							}
+
+						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
+							// On recupere les listes des etapes et des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
+							if(listFiltree != null && !listFiltree.isEmpty()) {
+								for(EtapeInscription etp : listFiltree){
+										tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
+										if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
+											getSessionController().getCurrentCentresGestion().add(tmp);
+										}
 								}
 							}
 							if(e.getStudysKey() != null) {
@@ -731,7 +733,7 @@ public class WelcomeController extends AbstractContextAwareController {
 									}
 								}
 							}
-							if (e.getStudysKey().isEmpty() && e.getStepsKey().isEmpty()) {
+							if (e.getStudysKey().isEmpty() && listFiltree.isEmpty()) {
 								// par default, on met le centre etablissement
 								getSessionController().getCurrentCentresGestion().add(cgEtab);
 							}
@@ -777,7 +779,7 @@ public class WelcomeController extends AbstractContextAwareController {
 					"\nCurrentCentresGestions : " + getSessionController().getCurrentCentresGestion() +
 					"\nDroitsAccesMap : " + getSessionController().getDroitsAccesMap() +
 					"\nCentreGestionRattachement : " + getSessionController().getCentreGestionRattachement());
-		
+
 	}
 
 	/**
@@ -793,6 +795,22 @@ public class WelcomeController extends AbstractContextAwareController {
 			centre = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
 		}
 
+		return centre;
+	}
+
+	/**
+	 * @param code
+	 * @return CentreGestionDTO
+	 */
+	public CentreGestionDTO recupCentre(String code, String codeVers){
+
+		// S'il n'y en a pas, recherche avec le code version etape
+		CentreGestionDTO centre = getCentreGestionDomainService().getCentreFromCritere(code+";"+codeVers, getSessionController().getCodeUniversite());
+
+		// S'il n'y en a pas, rattachement au centre etablissement
+		if (centre == null) {
+			centre = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
+		}
 		return centre;
 	}
 

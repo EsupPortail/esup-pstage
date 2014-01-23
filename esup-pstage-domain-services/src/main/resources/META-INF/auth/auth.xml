@@ -20,12 +20,12 @@
 
 	<bean id="authenticationFilter"
 		class="org.jasig.cas.client.authentication.AuthenticationFilter"
-		p:casServerLoginUrl="${cas.url}/login" p:serverName="${base.url}" />
+		p:casServerLoginUrl="${cas.url}/login" p:serverName="${tomcat.host}${tomcat.port}" />
 
 	<!-- Ticket validation filter -->
 	<bean id="ticketValidationFilter"
 		class="org.jasig.cas.client.validation.Cas10TicketValidationFilter"
-		p:serverName="${base.url}">
+		p:serverName="${tomcat.host}${tomcat.port}">
 		<property name="ticketValidator">
 			<bean class="org.jasig.cas.client.validation.Cas10TicketValidator">
 				<constructor-arg index="0" value="${cas.url}" />

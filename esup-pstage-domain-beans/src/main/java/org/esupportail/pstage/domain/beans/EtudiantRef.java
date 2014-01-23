@@ -45,6 +45,10 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	 * theCodeEtape
 	 */
 	private String theCodeEtape = "";
+	/**
+	 * theCodeVersionEtape
+	 */
+	private String theCodeVersionEtape = "";
 	
 	/**
 	 * Map element pedagogique
@@ -555,6 +559,22 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	 */
 	public void setAdministrationApogee(AdministrationApogee administrationApogee) {
 		this.administrationApogee = administrationApogee;
+	}
+
+
+	/**
+	 * @return the theCodeVersionEtape
+	 */
+	public String getTheCodeVersionEtape() {
+		return theCodeVersionEtape;
+	}
+
+
+	/**
+	 * @param theCodeVersionEtape the theCodeVersionEtape to set
+	 */
+	public void setTheCodeVersionEtape(String theCodeVersionEtape) {
+		this.theCodeVersionEtape = theCodeVersionEtape;
 	}
 
 

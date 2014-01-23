@@ -558,6 +558,18 @@ public class ConventionController extends AbstractContextAwareController {
 
 		this.checkConventionExistante();
 
+		this.listeEtapesEtudiant = new ArrayList<SelectItem>();
+		if (this.resultatEtudiantRef != null) {
+			if (this.resultatEtudiantRef.getListeEtapeInscriptions()!= null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()) {
+				List<EtapeInscription> list = this.resultatEtudiantRef.getListeEtapeInscriptions();
+				for (EtapeInscription etp : list){
+					if (etp.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+						this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp()+";"+etp.getCodVrsVet(), etp.getLibWebVet()));
+					}
+				}
+			}
+		}
+
 		getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ChoixEtapeEtudiant");
 
 		//		return "creerConventionEtape1Etudiant";
@@ -618,12 +630,12 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 				// centre gestion Etape
 				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
-					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
+					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape()+";"+this.etudiantRef.getTheCodeVersionEtape(), getSessionController().getCodeUniversite());
 				}
 				// centre gestion Mixte
 				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
 					// recherche cg gérant l'etape
-					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
+					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape()+";"+this.etudiantRef.getTheCodeVersionEtape(), getSessionController().getCodeUniversite());
 					// si non trouvé, recherche centre gérant l'Ufr
 					if (centreGestionRattachement == null) {
 						centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
@@ -884,43 +896,14 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void ajoutInfosEtudiant() {
 
-		//		// recherche du centre de gestion qui gere Ufr ou Etape
-		//		CentreGestionDTO centreGestionRattachement = new CentreGestionDTO();
-		//		if (getSessionController().getCritereGestion() != null) {
-		//			// centre gestion UFR
-		//			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
-		//				centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
-		//			}
-		//			// centre gestion Etape
-		//			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
-		//				centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
-		//			}
-		//			// centre gestion Mixte, recherche centre qui gere etape
-		//			if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
-		//				// recherche cg qui gere etape de etudiant
-		//				centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape(), getSessionController().getCodeUniversite());
-		//				// si non trouve, recherche centre qui gere Ufr
-		//				if (centreGestionRattachement == null) {
-		//					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
-		//				}
-		//			}
-		//		}
-		//		// recherche centre etablissement, si critere = 
-		//		if (centreGestionRattachement == null || getSessionController().getCritereGestion() == null || getSessionController().getCritereGestion().equals("")) {
-		//			centreGestionRattachement = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
-		//		}
-		//		if (centreGestionRattachement != null) {
-		//			getSessionController().setCentreGestionRattachement(centreGestionRattachement);
-		//			this.convention.setIdCentreGestion(centreGestionRattachement.getIdCentreGestion());
-		//			this.convention.setCentreGestion(centreGestionRattachement);
-		//		}
-
 		if (this.etudiantRef.getTheCodeEtape() != null) {
 			EtapeDTO etapeTmp = new EtapeDTO(); 
 			etapeTmp.setCode(this.etudiantRef.getTheCodeEtape());
+			etapeTmp.setCodeVersionEtape(this.etudiantRef.getTheCodeVersionEtape());
 			etapeTmp.setLibelle(this.etudiantRef.getTheEtape());
 			this.convention.setEtape(etapeTmp);
 			this.convention.setCodeEtape(etapeTmp.getCode());
+			this.convention.setCodeVersionEtape(etapeTmp.getCodeVersionEtape());
 			this.convention.setCodeUniversiteEtape(getSessionController().getCodeUniversite());
 		}
 		if (this.etudiantRef.getThecodeUFR() != null) {
@@ -2332,7 +2315,7 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		return retour;
 	}
-	
+
 	/**
 	 * @return String
 	 */
@@ -2451,9 +2434,9 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		return retour;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * @return String
 	 */
@@ -2503,40 +2486,48 @@ public class ConventionController extends AbstractContextAwareController {
 	 * 
 	 */
 	public void retirerEtapesOrphelines(){
-		Map<String,String> mapCodes = this.resultatEtudiantRef.getSteps();
+
+		List<EtapeInscription> listEtapes = new ArrayList<EtapeInscription>();
+		for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
+			if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+				listEtapes.add(etapeAcontroler);
+			}
+		}
+
 		List<String> list = new ArrayList<String>();
-		Iterator<String> iterator = mapCodes.keySet().iterator();
 		String code;
 		CentreGestionDTO centreTmp;
-		// On parcours l'ensemble des etapes de l'etudiant
-		while (iterator.hasNext()){
-			code = iterator.next();
+		// On parcours l'ensemble des etapes avec inscription admin de l'etudiant
+		for (EtapeInscription etp : listEtapes){
+			code = etp.getCodeEtp();
 			// On regarde s'il existe un centre associe au code etape
-			centreTmp = getCentreGestionDomainService().getCentreFromCritere(code, getSessionController().getCodeUniversite());
+			centreTmp = getCentreGestionDomainService().getCentreFromCritere(code+";"+etp.getCodVrsVet(), getSessionController().getCodeUniversite());
 			if (centreTmp == null){
-				// S'il n'y en a pas, on vérifie à nouveau mais à partir du code ufr
+				// S'il n'y en a pas, on vérifie une derniere fois a partir du code ufr
 				this.etudiantRef = this.resultatEtudiantRef;
 				EtapeInscription ufrEtape = rechUfrEtape(code);
-				centreTmp = getCentreGestionDomainService().getCentreFromCritere(ufrEtape.getCodeComposante(), getSessionController().getCodeUniversite());
-				if (centreTmp == null){
-					list.add(code);
+				if (ufrEtape != null){
+					centreTmp = getCentreGestionDomainService().getCentreFromCritere(ufrEtape.getCodeComposante(), getSessionController().getCodeUniversite());
+					if (centreTmp == null){
+						list.add(code);
+					}
 				}
 			}
 		}
+
 		for (int i=0;i<list.size();i++){
-			mapCodes.remove(list.get(i)); // retrait effectif des codes non utilisés dans la map
+			// retrait des codes non rattaches
+			listEtapes.remove(list.get(i));
 		}
 
-		if (this.resultatEtudiantRef.getSteps().size() == 1){
-			Iterator<String> i = this.resultatEtudiantRef.getSteps().keySet().iterator();
+		if (listEtapes.size() == 1){
+
 			this.etudiantRef = this.resultatEtudiantRef;
 			Map<String,String> mapTmp = new HashMap<String,String>();
-			while (i.hasNext())	{
-				EtapeInscription ufrEtape = rechUfrEtape(i.next());
-				mapTmp.put(ufrEtape.getCodeComposante(), ufrEtape.getLibComposante());
-			}
+			mapTmp.put(listEtapes.get(0).getCodeComposante(), listEtapes.get(0).getLibComposante());
 			this.resultatEtudiantRef.setStudys(mapTmp);
-		} else if (this.resultatEtudiantRef.getSteps().isEmpty()){
+
+		} else if (listEtapes.isEmpty()){
 			if (this.isEtudiantSupUneEtape()){
 				addErrorMessage("formConvention:choixEtape", "CONVENTION.CREERCONVENTION.ETAPES.NONRATTACHE");
 			} else {
@@ -2577,18 +2568,22 @@ public class ConventionController extends AbstractContextAwareController {
 					}
 				}
 			}
-			if (this.resultatEtudiantRef.getSteps().size() == 1) {
-				String clef = null;
+
+			List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
+			for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
+				if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+					listFiltree.add(etapeAcontroler);
+				}
+			}
+
+			if (listFiltree.size() == 1) {
 				//String valeur = null;
-				Iterator<String> i = this.resultatEtudiantRef.getSteps().keySet().iterator();
-				while (i.hasNext())	{
-					clef = i.next();
-					//valeur = this.resultatEtudiantRef.getSteps().get(clef);
-					this.etudiantRef.setTheCodeEtape(clef);
-					// recherche libelle version etape
-					rechLibVersEtape(clef);
+				for (EtapeInscription etp : listFiltree){
+					this.etudiantRef.setTheCodeEtape(etp.getCodeEtp());
+					this.etudiantRef.setTheCodeVersionEtape(etp.getCodVrsVet());
+					this.etudiantRef.setTheEtape(etp.getLibWebVet());
 					// recherche des elements pedagogiques
-					this.listeELPEtapes = rechElpEtape(clef);
+					this.listeELPEtapes = rechElpEtape(etp.getCodeEtp());
 					if (this.listeELPEtapes != null) {
 						if (this.listeELPEtapes.size() == 1) {
 							this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
@@ -2596,10 +2591,8 @@ public class ConventionController extends AbstractContextAwareController {
 							this.etudiantRef.setTheCreditECTS(this.listeELPEtapes.get(0).getNbrCrdElp());
 						}
 					}
-
 				}
 			}
-			//			retour = goToChoixEtapeEtudiant();
 			goToChoixEtapeEtudiant();
 		}
 		//		return retour;
@@ -2717,18 +2710,22 @@ public class ConventionController extends AbstractContextAwareController {
 
 					}
 				}
-				if (this.resultatEtudiantRef.getSteps().size() == 1) {
-					String clef = null;
+
+				List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
+				for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
+					if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+						listFiltree.add(etapeAcontroler);
+					}
+				}
+
+				if (listFiltree.size() == 1) {
 					//String valeur = null;
-					Iterator<String> i = this.resultatEtudiantRef.getSteps().keySet().iterator();
-					while (i.hasNext())	{
-						clef = i.next();
-						//valeur = this.resultatEtudiantRef.getSteps().get(clef);
-						this.etudiantRef.setTheCodeEtape(clef);
-						// recherche libelle version etape
-						rechLibVersEtape(clef);
+					for (EtapeInscription etp : listFiltree){
+						this.etudiantRef.setTheCodeEtape(etp.getCodeEtp());
+						this.etudiantRef.setTheCodeVersionEtape(etp.getCodVrsVet());
+						this.etudiantRef.setTheEtape(etp.getLibWebVet());
 						// recherche des elements pedagogiques
-						this.listeELPEtapes = rechElpEtape(clef);
+						this.listeELPEtapes = rechElpEtape(etp.getCodeEtp());
 						if (this.listeELPEtapes != null) {
 							if (this.listeELPEtapes.size() == 1) {
 								this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
@@ -3080,37 +3077,22 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * @param codeEtape
-	 */
-	public void rechLibVersEtape(final String codeEtape) {
-		if (this.etudiantRef.getListeEtapeInscriptions() != null) {
-			if (!this.etudiantRef.getListeEtapeInscriptions().isEmpty()) {
-				for (Iterator<EtapeInscription> iter = 
-						this.etudiantRef.getListeEtapeInscriptions().iterator(); iter.hasNext();) {
-					EtapeInscription etpins = iter.next();
-					if (codeEtape.equals(etpins.getCodeEtp())) {
-						this.etudiantRef.setTheEtape(etpins.getLibWebVet());
-					}
-				}
-			}
-		}
-	}
-	/**
 	 * recharge Ufr à partir de la selection etape etude.
 	 * @param e 
 	 */
 	public void rechargeUfr() {
 		if (selectedCodeEtape != null) {
-			EtapeInscription ufrEtape = rechUfrEtape(selectedCodeEtape);
+			String[] tabCodes = selectedCodeEtape.split(";");
+			EtapeInscription ufrEtape = rechUfrEtape(tabCodes[0]);
 			if (ufrEtape != null) {
 				this.etudiantRef.setThecodeUFR(ufrEtape.getCodeComposante());
 				this.etudiantRef.setTheUfr(ufrEtape.getLibComposante());
 				this.etudiantRef.setTheCodeEtape(ufrEtape.getCodeEtp());
-				// recherche libelle version etape
-				rechLibVersEtape(ufrEtape.getCodeEtp());
+				this.etudiantRef.setTheCodeVersionEtape(ufrEtape.getCodVrsVet());
+				this.etudiantRef.setTheEtape(ufrEtape.getLibWebVet());
 			}
 			this.choixEtape = true;
-			this.listeELPEtapes = rechElpEtape(selectedCodeEtape);
+			this.listeELPEtapes = rechElpEtape(tabCodes[0]);
 			if (this.listeELPEtapes != null) {
 				if (this.listeELPEtapes.size() == 1) {
 					this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
@@ -3150,18 +3132,17 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public EtapeInscription rechUfrEtape(final String codeEtape) {
 		EtapeInscription ufrEtape = null;
-		if (this.etudiantRef.getListeEtapeInscriptions() != null ) {
-			if (!this.etudiantRef.getListeEtapeInscriptions().isEmpty()) {
-				for (Iterator<EtapeInscription> iter = this.etudiantRef.getListeEtapeInscriptions().iterator(); iter.hasNext();) {
-					EtapeInscription etpins = iter.next();
-					if (codeEtape.equals(etpins.getCodeEtp())) {
-						if (etpins.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-							if (etpins.getCodeComposante()!=null && !etpins.getCodeComposante().isEmpty()) {
-								ufrEtape = etpins;
-							}
+		if (this.etudiantRef.getListeEtapeInscriptions() != null && !this.etudiantRef.getListeEtapeInscriptions().isEmpty()) {
+			for (Iterator<EtapeInscription> iter = this.etudiantRef.getListeEtapeInscriptions().iterator(); iter.hasNext();) {
+				EtapeInscription etpins = iter.next();
+				if (codeEtape.equals(etpins.getCodeEtp())) {
+					if (etpins.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+						if (etpins.getCodeComposante()!=null && !etpins.getCodeComposante().isEmpty()) {
+							ufrEtape = etpins;
 						}
 					}
 				}
+
 			}
 		}
 		return ufrEtape;
@@ -3332,8 +3313,16 @@ public class ConventionController extends AbstractContextAwareController {
 	public boolean isEtudiantSupUneEtape() {
 		boolean isSupUneEtape = false;
 		if (this.resultatEtudiantRef != null) {
-			if (this.resultatEtudiantRef.getSteps().size() > 1) {
-				isSupUneEtape = true;
+			List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
+			for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
+				if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+					listFiltree.add(etapeAcontroler);
+				}
+			}
+			if (listFiltree != null) {
+				if (listFiltree.size() > 1) {
+					isSupUneEtape = true;
+				}
 			}
 		}
 
@@ -3345,8 +3334,14 @@ public class ConventionController extends AbstractContextAwareController {
 	public boolean isEtudiantUneEtape() {
 		boolean isUneEtape = false;
 		if (this.resultatEtudiantRef != null) {
-			if (this.resultatEtudiantRef.getSteps() != null) {
-				if (this.resultatEtudiantRef.getSteps().size() == 1) {
+			List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
+			for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
+				if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+					listFiltree.add(etapeAcontroler);
+				}
+			}
+			if (listFiltree != null) {
+				if (listFiltree.size() == 1) {
 					isUneEtape = true;
 				}
 			}
@@ -4146,23 +4141,6 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return the listeEtapesEtudiant
 	 */
 	public List<SelectItem> getListeEtapesEtudiant() {
-		listeEtapesEtudiant = new ArrayList<SelectItem>();
-		if (this.resultatEtudiantRef != null) {
-			if (this.resultatEtudiantRef.getSteps() != null && !this.resultatEtudiantRef.getSteps().isEmpty()) {
-				LinkedHashMap<String,String> steps = (LinkedHashMap<String, String>) this.resultatEtudiantRef.getSteps();
-				if( steps != null) {
-					String clef = null;
-					String valeur = null;
-					Iterator<String> i = this.resultatEtudiantRef.getSteps().keySet().iterator();
-					while (i.hasNext()) {
-						clef = i.next();
-						valeur = this.resultatEtudiantRef.getSteps().get(clef);
-						listeEtapesEtudiant.add(new SelectItem(clef, valeur));
-					}
-				}
-			}
-		}
-
 		return listeEtapesEtudiant;
 	}
 	/**
@@ -5023,7 +5001,7 @@ public class ConventionController extends AbstractContextAwareController {
 			List<SelectItem> listeELPEtapesSelectItems) {
 		this.listeELPEtapesSelectItems = listeELPEtapesSelectItems;
 	}
-	
+
 	/**
 	 * @return the estVerifiee
 	 */

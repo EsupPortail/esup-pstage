@@ -2,6 +2,7 @@ package org.esupportail.pstage.domain.referentiel;
 
 import java.util.Map;
 
+import org.esupportail.commons.annotations.cache.SessionCache;
 import org.esupportail.pstage.dao.referentiel.StudentComponentRepositoryDao;
 import org.esupportail.pstage.domain.beans.EtabRef;
 import org.esupportail.pstage.domain.beans.SignataireRef;
@@ -35,6 +36,7 @@ public class StudentComponentRepositoryDomainLdap implements
 		return null;
 	}
 
+	@SessionCache
 	public Map<String, String> getEtapesRef(String universityCode) {
 		return studentComponentRepositoryDao.getEtapesRef(universityCode);
 	}

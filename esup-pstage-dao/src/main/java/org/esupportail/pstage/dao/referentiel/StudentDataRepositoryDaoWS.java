@@ -416,13 +416,11 @@ StudentDataRepositoryDao {
 		AdministrationApogee adminApogee = new AdministrationApogee();
 		adminApogee.setStatusApogee(true);
 		adminApogee.setRaison("");
-
 		try {
 			// appel au WS AMUE
 			EtudiantMetierServiceInterface etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
 
-			AdministratifMetierServiceInterface serviceAdministratif = 
-					new AdministratifMetierServiceInterfaceProxy();
+			AdministratifMetierServiceInterface serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
 
 			// Recherche l'etudiant dans Apogee
 			IdentifiantsEtudiantDTO etudiant;
@@ -890,11 +888,9 @@ StudentDataRepositoryDao {
 							continue;
 						}
 
-
-
 					}
-
 					listeEtapeInscriptions.add(etpins);
+					
 					if (logger.isDebugEnabled()){
 						logger.debug("StudentDataRepositoryDaoWS:: cod = "+cod);
 						logger.debug("StudentDataRepositoryDaoWS:: getYear() = "+getYear());

@@ -415,7 +415,7 @@ public class ExportController extends AbstractContextAwareController {
 				ExportConventionsServlet edit = new ExportConventionsServlet();
 				edit.doGet(baosXLS);
 			} catch (Exception e){
-				logger.error("exportConvention() - Exception lors de la tentative d'�criture du baosXLS : " + e.getMessage());
+				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
 			}
 		}
 	}
