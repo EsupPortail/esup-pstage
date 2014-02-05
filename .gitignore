@@ -1,6 +1,7 @@
 *~
 target/
 .settings/
+.metadata/
 .classpath
 .project
 config.properties
