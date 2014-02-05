@@ -170,6 +170,7 @@
 		<property name="mediaPath" value="${mediaPath.servlet}" />
 		<property name="surchargeTuteur" value="${surchargeTuteur}" />
 		<property name="courrierRemerciement" value="${courrierRemerciement}" />
+		<property name="isEnt" value="${isEnt}" />
 	</bean>
 
 	<bean id="abstractContextAwareController" abstract="true"

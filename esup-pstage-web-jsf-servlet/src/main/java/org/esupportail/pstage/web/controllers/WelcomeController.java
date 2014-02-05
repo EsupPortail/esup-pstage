@@ -678,12 +678,14 @@ public class WelcomeController extends AbstractContextAwareController {
 					if (e != null){
 
 						List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
-						for (EtapeInscription etapeAcontroler : e.getListeEtapeInscriptions()){
-							if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-								listFiltree.add(etapeAcontroler);
+						if (e.getListeEtapeInscriptions() != null && !e.getListeEtapeInscriptions().isEmpty()){
+							for (EtapeInscription etapeAcontroler : e.getListeEtapeInscriptions()){
+								if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+									listFiltree.add(etapeAcontroler);
+								}
 							}
 						}
-						
+
 						if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
 							// On recupere la liste des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
 							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
@@ -704,10 +706,10 @@ public class WelcomeController extends AbstractContextAwareController {
 							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
 							if(listFiltree != null && !listFiltree.isEmpty()) {
 								for(EtapeInscription etp : listFiltree){
-										tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
-										if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
-											getSessionController().getCurrentCentresGestion().add(tmp);
-										}
+									tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
+									if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
+										getSessionController().getCurrentCentresGestion().add(tmp);
+									}
 								}
 							} else {
 								// par default, on met le centre etablissement
@@ -718,10 +720,10 @@ public class WelcomeController extends AbstractContextAwareController {
 							// On recupere les listes des etapes et des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
 							if(listFiltree != null && !listFiltree.isEmpty()) {
 								for(EtapeInscription etp : listFiltree){
-										tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
-										if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
-											getSessionController().getCurrentCentresGestion().add(tmp);
-										}
+									tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
+									if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
+										getSessionController().getCurrentCentresGestion().add(tmp);
+									}
 								}
 							}
 							if(e.getStudysKey() != null) {

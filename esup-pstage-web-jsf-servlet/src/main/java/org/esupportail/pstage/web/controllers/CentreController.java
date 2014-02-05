@@ -374,7 +374,7 @@ public class CentreController extends AbstractContextAwareController {
 		centre.setIdNiveauCentre(centre.getNiveauCentre().getId());
 
 		// On défini le modeValidationStage à partir de l'objet modeValidationStage attaché au centre
-		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
+//		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
 
 		// Ajout temporaire du premier centre superviseur
 		try{
@@ -477,7 +477,7 @@ public class CentreController extends AbstractContextAwareController {
 		centre.setIdNiveauCentre(centre.getNiveauCentre().getId());
 
 		// On défini le modeValidationStage à partir de l'objet modeValidationStage attaché au centre
-		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
+//		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
 
 		// On met le viseur a null s'il est vide
 		if (centre.getNomViseur() == "" && centre.getPrenomViseur() == ""){
@@ -872,14 +872,17 @@ public class CentreController extends AbstractContextAwareController {
 			addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_CHOIX");
 			return null;
 		}
-
 		for(int i=0;i < this.listeCriteresChoisis.size();i++){
 			code = (String)listeCriteresChoisis.get(i);
 			tmp.setLibelle(this.toutLesCriteres.get(code));
-			String [] tabCodes = code.split(";");
-			tmp.setCode(tabCodes[0]);
-			tmp.setCodeVersionEtape(tabCodes[1]);
-			
+			if (code.contains(";")){
+				String [] tabCodes = code.split(";");
+				tmp.setCode(tabCodes[0]);
+				tmp.setCodeVersionEtape(tabCodes[1]);
+			} else {
+				tmp.setCode(code);
+				tmp.setCodeVersionEtape("");
+			}
 			tmp.setIdCentreGestion(this.centre.getIdCentreGestion());
 
 			for (int j=0; j<this.listeCriteres.size(); j++){

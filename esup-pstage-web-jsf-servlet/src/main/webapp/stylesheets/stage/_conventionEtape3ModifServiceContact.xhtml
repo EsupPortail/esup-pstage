@@ -21,17 +21,17 @@
 					</rich:message>
 				</t:div>
 
-				<a4j:commandButton execute="@this"
+				<a4j:commandButton render="@form"
 					oncomplete="#{rich:component('selectServiceContact')}.show()"
 					value="#{msgs['CONVENTION.ETAPE2.MODIF.SERVICECONTACT.SELEC']}">
-					<f:setPropertyActionListener value="#{0}"
-						target="#{etablissementController.idContactSel}" />
-					<f:setPropertyActionListener value="#{null}"
-						target="#{etablissementController.contactSel}" />
-					<f:setPropertyActionListener value="#{0}"
-						target="#{etablissementController.idServiceSel}" />
-					<f:setPropertyActionListener value="#{null}"
-						target="#{etablissementController.serviceSel}" />
+<!-- 					<f:setPropertyActionListener value="#{0}" -->
+<!-- 						target="#{etablissementController.idContactSel}" /> -->
+<!-- 					<f:setPropertyActionListener value="#{null}" -->
+<!-- 						target="#{etablissementController.contactSel}" /> -->
+<!-- 					<f:setPropertyActionListener value="#{0}" -->
+<!-- 						target="#{etablissementController.idServiceSel}" /> -->
+<!-- 					<f:setPropertyActionListener value="#{null}" -->
+<!-- 						target="#{etablissementController.serviceSel}" /> -->
 					<f:setPropertyActionListener value="#{false}"
 						target="#{etablissementController.afficherSelectionCentreContact}" />
 				</a4j:commandButton>
@@ -41,7 +41,6 @@
 					<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 					<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 						oncomplete="#{rich:component('selectServiceContact')}.hide();"
-						
 						action="#{conventionController.goToConventionModifServiceContact}">
 						<f:setPropertyActionListener
 							value="#{etablissementController.serviceSel}"
@@ -51,7 +50,7 @@
 							target="#{conventionController.convention.contact}" />
 					</a4j:commandButton>
 					
-					<t:htmlTag value="div" style="margin: 150px; display: inline;" />
+					<t:htmlTag value="div" style="margin: 100px; display: inline;" />
 					
 					<a4j:commandButton value="#{msgs['FORM.CANCEL']}" execute="@this"
 						onclick="#{rich:component('selectServiceContact')}.hide();return false;" />

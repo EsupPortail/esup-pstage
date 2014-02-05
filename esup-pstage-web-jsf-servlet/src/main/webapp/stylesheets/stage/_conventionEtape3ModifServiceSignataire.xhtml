@@ -24,14 +24,14 @@
 				<a4j:commandButton execute="@this"
 					oncomplete="#{rich:component('selectServiceSignataire')}.show()"
 					value="#{msgs['CONVENTION.ETAPE2.MODIF.SERVICESIGNATAIRE.SELEC']}">
-					<f:setPropertyActionListener value="#{0}"
-						target="#{etablissementController.idContactSel}" />
-					<f:setPropertyActionListener value="#{null}"
-						target="#{etablissementController.contactSel}" />
-					<f:setPropertyActionListener value="#{0}"
-						target="#{etablissementController.idServiceSel}" />
-					<f:setPropertyActionListener value="#{null}"
-						target="#{etablissementController.serviceSel}" />
+<!-- 					<f:setPropertyActionListener value="#{0}" -->
+<!-- 						target="#{etablissementController.idContactSel}" /> -->
+<!-- 					<f:setPropertyActionListener value="#{null}" -->
+<!-- 						target="#{etablissementController.contactSel}" /> -->
+<!-- 					<f:setPropertyActionListener value="#{0}" -->
+<!-- 						target="#{etablissementController.idServiceSel}" /> -->
+<!-- 					<f:setPropertyActionListener value="#{null}" -->
+<!-- 						target="#{etablissementController.serviceSel}" /> -->
 					<f:setPropertyActionListener value="#{false}"
 						target="#{etablissementController.afficherSelectionCentreContact}" />
 				</a4j:commandButton>
@@ -40,9 +40,7 @@
 					<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 					<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 						oncomplete="#{rich:component('selectServiceSignataire')}.hide();"
-						
 						action="#{conventionController.goToConventionModifServiceSignataire}">
-
 						<f:setPropertyActionListener
 							value="#{etablissementController.contactSel}"
 							target="#{conventionController.convention.signataire}" />

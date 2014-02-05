@@ -519,7 +519,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	@Override
 	public void reset() {
 		super.reset();
-		isEnt = true;
 	}
 
 	/* ***************************************************************
