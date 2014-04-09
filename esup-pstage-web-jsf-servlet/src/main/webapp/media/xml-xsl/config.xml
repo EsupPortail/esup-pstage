@@ -10,5 +10,5 @@
 	<!-- Logo supplémentaire si besoin /!\ Doit se situer dans le sous-dossier images /!\ -->
 	<logoFacultatif>logoPres.jpg</logoFacultatif>
 	<!-- Répertoire de stockage des logos des centres de gestion avec / , renseigne au moment du deploy-->
-	<uploadFiles.logosCentre.path>${uploadFiles.logosCentre.path}/</uploadFiles.logosCentre.path>
+	<uploadFiles.logosCentre.path>C:/esup-pstage-files/logosCentre/</uploadFiles.logosCentre.path>
 </config>

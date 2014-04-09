@@ -505,6 +505,18 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * VALIDATION STRUCTURE
 	 */
 	private String validationStructureCurrentPage = "_validStructureEtape1";
+	/**
+	 * FICHE EVALUATION
+	 */
+	private String ficheEvaluationCurrentPage = "_conventionEtape13FicheEvaluation";
+	/**
+	 * EDITION QUESTION FICHE EVALUATION 
+	 */
+	private String editQuestionEvalCurrentPage = "_questionEval_editEtape1Ajout";
+	/**
+	 * SUPPRESSION QUESTION FICHE EVALUATION 
+	 */
+	private String suppressionQuestionEvalCurrentPage = "_questionEval_deleteEtape1";
 	
 	/**
 	 * Constructor.
@@ -2300,6 +2312,50 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setCourrierRemerciement(boolean courrierRemerciement) {
 		this.courrierRemerciement = courrierRemerciement;
+	}
+
+	/**
+	 * @return the ficheEvaluationCurrentPage
+	 */
+	public String getFicheEvaluationCurrentPage() {
+		return ficheEvaluationCurrentPage;
+	}
+
+	/**
+	 * @param ficheEvaluationCurrentPage the ficheEvaluationCurrentPage to set
+	 */
+	public void setFicheEvaluationCurrentPage(String ficheEvaluationCurrentPage) {
+		this.ficheEvaluationCurrentPage = ficheEvaluationCurrentPage;
+	}
+
+	/**
+	 * @return the editQuestionEvalCurrentPage
+	 */
+	public String getEditQuestionEvalCurrentPage() {
+		return editQuestionEvalCurrentPage;
+	}
+
+	/**
+	 * @param editQuestionEvalCurrentPage the editQuestionEvalCurrentPage to set
+	 */
+	public void setEditQuestionEvalCurrentPage(
+			String editQuestionEvalCurrentPage) {
+		this.editQuestionEvalCurrentPage = editQuestionEvalCurrentPage;
+	}
+
+	/**
+	 * @return the suppressionQuestionEvalCurrentPage
+	 */
+	public String getSuppressionQuestionEvalCurrentPage() {
+		return suppressionQuestionEvalCurrentPage;
+	}
+
+	/**
+	 * @param suppressionQuestionEvalCurrentPage the suppressionQuestionEvalCurrentPage to set
+	 */
+	public void setSuppressionQuestionEvalCurrentPage(
+			String suppressionQuestionEvalCurrentPage) {
+		this.suppressionQuestionEvalCurrentPage = suppressionQuestionEvalCurrentPage;
 	}
 
 }

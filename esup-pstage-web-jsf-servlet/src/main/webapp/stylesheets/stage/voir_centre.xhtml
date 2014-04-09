@@ -16,7 +16,7 @@
 			<ui:include src="_menu_centre.xhtml" />
 			<h:form id="formVoirCentre">
 				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1" align="center">
+					rowClasses="paginatorData-text" style="margin-left:100px; width:500px;">
 					<h:outputLabel value="#{msgs['CENTRE.NOM']} " for="nomCentre" />
 					<h:outputText id="nomCentre"
 						value="#{centreController.centre.nomCentre}" />
@@ -151,18 +151,19 @@
 							for="confidentialite" />
 						<h:outputText id="confidentialite"
 							value="#{centreController.centre.confidentialite.libelle}"
-							rendered="#{centreController.centre.confidentialite != null}"/>
+							rendered="#{centreController.centre.confidentialite != null}" />
 
 						<t:htmlTag value="div" style="height: 5px;" />
-						
+
 						<h:outputLabel value="#{msgs['CENTRE.MODEVALIDATIONSTAGE']}"
 							rendered="#{centreController.centre.modeValidationStage != null}"
-							for="modeValidationStage"/>
-						<h:outputText id="modeValidationStage" rendered="#{centreController.centre.modeValidationStage != null}"
+							for="modeValidationStage" />
+						<h:outputText id="modeValidationStage"
+							rendered="#{centreController.centre.modeValidationStage != null}"
 							value="#{centreController.centre.modeValidationStage.libelle}" />
 
 						<t:htmlTag value="div" style="height: 5px;" />
-						
+
 						<h:outputLabel value="#{msgs['CENTRE.TUTEUR_ENS_OBLIGATOIRE']} "
 							for="tuteurEnsObligatoire" />
 						<h:panelGrid columnClasses="paginatorData-text"
@@ -175,7 +176,7 @@
 								rendered="#{!centreController.centre.presenceTuteurEns}"
 								value="#{msgs['FORM.NON']}" />
 						</h:panelGrid>
-						
+
 						<t:htmlTag value="div" style="height: 5px;" />
 
 						<h:outputLabel value="#{msgs['CENTRE.TUTEUR_PRO_OBLIGATOIRE']} "
@@ -267,17 +268,15 @@
 								value="#{msgs['FORM.NON']}" />
 						</h:panelGrid>
 					</h:panelGrid>
-				</h:panelGrid>
-				
-				<t:htmlTag value="div" style="height: 10px;" />
 
-				<t:htmlTag value="center">
-					<a4j:commandButton execute="@this"
-						rendered="#{welcomeController.superAdmin
+					<t:htmlTag value="center">
+						<a4j:commandButton execute="@this" style="font-size:16px; border-color:green;"
+							rendered="#{welcomeController.superAdmin
 							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
-						action="#{centreController.goToModifCentre}"
-						value="#{msgs['FORM.MODIFIER']}" />
-				</t:htmlTag>
+							action="#{centreController.goToModifCentre}"
+							value="#{msgs['FORM.MODIFIER']}" />
+					</t:htmlTag>
+				</h:panelGrid>
 				<h:commandButton id="back" value="#{msgs['CENTRE.RETOUR_LISTE']}"
 					action="#{centreController.goToListeCentre}" immediate="true" />
 			</h:form>

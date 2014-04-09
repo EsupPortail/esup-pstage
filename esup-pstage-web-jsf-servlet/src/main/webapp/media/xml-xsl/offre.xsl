@@ -75,8 +75,8 @@
 				<fo:table-column column-width="proportional-column-width(0.50)" />
 				<fo:table-column column-width="proportional-column-width(1)" />
 				<fo:table-body>
-					<fo:table-row >
-						<fo:table-cell >
+					<fo:table-row>
+						<fo:table-cell>
 							<fo:block>
 								<xsl:choose>
 									<xsl:when test="document('config.xml')/config/logoUniversiteOffre">
@@ -103,16 +103,16 @@
 								</xsl:choose>
 							</fo:block>
 						</fo:table-cell>
-						<fo:table-cell >
+						<fo:table-cell>
 							<fo:block>
 								<xsl:choose>
 									<xsl:when test="centre-gestion/fichier/nom-fichier">
 										<xsl:variable name="cheminLogo" select="document('config.xml')/config/uploadFiles.logosCentre.path" />
 										<xsl:variable name="logo" select="centre-gestion/fichier/nom-fichier" />
 											<fo:external-graphic height="1cm">
-											<xsl:attribute name="src" >
-												<xsl:value-of select="$cheminLogo"/><xsl:value-of select="centre-gestion/fichier/@id-fichier"/>_<xsl:value-of select="$logo"/>
-											</xsl:attribute>
+												<xsl:attribute name="src" >
+													<xsl:value-of select="$cheminLogo"/><xsl:value-of select="centre-gestion/fichier/@id-fichier"/>_<xsl:value-of select="$logo"/>
+												</xsl:attribute>
 											</fo:external-graphic>
 									</xsl:when>
 									<xsl:otherwise>
@@ -262,7 +262,7 @@
 							<fo:block line-height="110%"  
 								hyphenate="false" language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
 								<fo:leader/>
-						</fo:block>
+							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
 					

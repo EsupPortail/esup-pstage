@@ -24,22 +24,24 @@
 				escape="false" />
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height: 10px;" />
-		<h:outputText
-			value="#{msgs['CENTRE.CRITERE.SUPPRESSION.RAPPEL']} #{msgs['NAVIGATION.ACCESSKEY.ABOUT']}" />
 		<h:form id="formSupprCritere">
-			<t:htmlTag value="div" style="height: 10px;" />
-			<t:htmlTag value="center">
-				<a4j:commandButton value="#{msgs['FORM.OUI']}"
-					action="#{centreController.supprimerCritere}"
-					render="critereDataTable" />
-				<t:htmlTag value="div" style="width: 30px;" />
-				<h:commandButton value="#{msgs['FORM.NON']}"
-					onclick="#{rich:component('suppressionCritere')}.hide();return false;" />
+			<h:panelGrid align="center">
+				<h:outputText
+					value="#{msgs['CENTRE.CRITERE.SUPPRESSION.RAPPEL']} #{msgs['NAVIGATION.ACCESSKEY.ABOUT']}" />
+				<t:htmlTag value="div" style="height: 10px;" />
+				<h:panelGrid columns="3">
+					<a4j:commandButton value="#{msgs['FORM.OUI']}"
+						action="#{centreController.supprimerCritere}"
+						render="critereDataTable" />
+					<t:htmlTag value="div" style="width: 30px;" />
+					<h:commandButton value="#{msgs['FORM.NON']}"
+						onclick="#{rich:component('suppressionCritere')}.hide();return false;" />
+				</h:panelGrid>
 				<h:outputText id="erreurCritere" value="" />
 				<rich:message for="erreurCritere">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
-			</t:htmlTag>
+			</h:panelGrid>
 		</h:form>
 	</rich:popupPanel>
 </ui:composition>

@@ -1419,6 +1419,28 @@
 		</navigation-case>
 		
 		<navigation-case>
+			<from-outcome>conventionEtape13FicheEvaluation</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape13FicheEvaluation.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>conventionEtape13FicheEvaluationEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape13FicheEvaluationEtudiant.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape13FicheEvaluationEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape13FicheEvaluationEnseignant.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionEtape13FicheEvaluationEntreprise</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape13FicheEvaluationEntreprise.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
 			<from-outcome>conventionEtape11CreaAvenantPage1</from-outcome>
 			<to-view-id>/stylesheets/stage/conventionEtape11CreaAvenantPage1.xhtml</to-view-id>
 			<redirect />
@@ -2462,6 +2484,34 @@
 		</navigation-case>
 	</navigation-rule>
 	<!-- FIN Recherche Conventions-->
+	
+	
+	<!--  Fiche d'evaluation  -->
+	<navigation-rule>
+		<display-name>goToFicheEvaluation</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>goToFicheEvaluation</from-outcome>
+			<to-view-id>/stylesheets/stage/ficheEvaluation.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>goToFicheEtudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/ficheEvaluation_etudiant.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>goToFicheEnseignant</from-outcome>
+			<to-view-id>/stylesheets/stage/ficheEvaluation_enseignant.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>goToFicheEntreprise</from-outcome>
+			<to-view-id>/stylesheets/stage/ficheEvaluation_entreprise.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	
 	<!--
 		*********************************************************************
 		FIN PARTIE PSTAGE

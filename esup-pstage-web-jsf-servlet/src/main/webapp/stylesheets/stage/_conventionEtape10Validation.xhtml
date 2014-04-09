@@ -8,7 +8,8 @@
 	<t:htmlTag value="div" style="height:10px;" />
 
 	<t:div
-		rendered="#{sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique
+		rendered="#{sessionController.validationPedagogique 
+		and (conventionController.convention.centreGestion.validationPedagogique or conventionController.convention.validationPedagogique)
 		and !conventionController.convention.validationConvention}">
 		<fieldset>
 			<legend>
@@ -164,7 +165,7 @@
 	<t:htmlTag value="div" style="height: 10px;" />
 
 	<t:div
-		rendered="#{!sessionController.validationPedagogique
+		rendered="#{!sessionController.validationPedagogique || conventionController.convention.validationConvention
 	|| (sessionController.validationPedagogique and !conventionController.convention.centreGestion.validationPedagogique)
 	|| (sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique and conventionController.convention.validationPedagogique)}">
 		<fieldset>

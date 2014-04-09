@@ -215,7 +215,21 @@ public class Utils {
 		if(numSiret.length()!=14 || !isNumber(numSiret)) return false;
 
 		int total = 0;
-		int nb = 0;		
+		int nb = 0;
+		
+        /** Cas de la Poste, nouvel algo en 2012 car plus de 10000 établissement, nombre limite de l'algo de Luhn **/
+        if (numSiret.substring(0, 9).equals("356000000")) {
+            for (int i = 0; i<numSiret.length(); i++) {
+                /** somme simple des chiffres du SIRET */
+                nb = convertStringToInt(String.valueOf(numSiret.charAt(i)));
+                total += nb;
+            }
+            boolean ret=true;
+            if(isNumber(numSiret) && Long.parseLong(numSiret)==0)ret=false;
+            /** Si la somme est un multiple de 5 alors le SIRET de la Poste est valide */
+            return (total % 5 == 0) ? ret : false;
+        }
+        /** Cas classique **/
 		for (int i = 0; i<numSiret.length(); i++) {
 			/** Recherche les positions impaires : 1er, 3e, 5e, etc... que l'on multiplie par 2*/
 			if ((i % 2) == 0) {

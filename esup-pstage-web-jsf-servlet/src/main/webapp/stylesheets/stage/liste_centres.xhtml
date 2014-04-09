@@ -16,237 +16,234 @@
 				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.HEAD']}" />
 			</f:facet>
 			<h:panelGrid align="center"
-				rendered="#{centreController.listeCentreVide}" columns="1">
+				rendered="#{empty centreController.centresGestion}" columns="1">
 				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.ACCUEIL']}" />
 				<t:htmlTag value="div" style="height: 5px;" />
 				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.VIDE']}" />
 			</h:panelGrid>
 			<h:form id="formListeCentre">
-				<a4j:outputPanel>
-					<a4j:region id="ajout">
-						<h:panelGrid columns="1"
-							rendered="#{!centreController.listeCentreVide}">
-							<t:htmlTag value="div" style="height: 15px;" />
-							<rich:dataTable align="center" id="listeCentres" rows="15"
-								style="border-right:1px solid #C0C0C0;"
-								value="#{centreController.centresGestion}" var="centre">
+				<h:panelGrid columns="1"
+					rendered="#{not empty centreController.centresGestion}">
+					<t:htmlTag value="div" style="height: 15px;" />
+					<rich:dataTable align="center" id="listeCentres" rows="15"
+						style="border-right:1px solid #C0C0C0;"
+						value="#{centreController.centresGestion}" var="centre">
 
-								<rich:column
-									sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}">
-									<f:facet name="header">
-										<h:panelGrid columns="1">
-											<h:graphicImage id="appartenanceHead"
-												alt="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE']}"
-												value="../../media/images/user_gray.png" style="border:0">
-												<rich:tooltip
-													value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
-											</h:graphicImage>
-										</h:panelGrid>
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:graphicImage id="appartenance1" alt="#{msgs['FORM.OUI']}"
-											rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] != null}"
-											value="../../media/images/tick.png" style="border:0">
-											<rich:tooltip
-												value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.OUI']}" />
-										</h:graphicImage>
-
-										<h:graphicImage id="appartenance2" alt="#{msgs['FORM.NON']}"
-											rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] == null}"
-											value="../../media/images/cross.png" style="border:0">
-											<rich:tooltip
-												value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}" />
-										</h:graphicImage>
-									</t:htmlTag>
-								</rich:column>
-
-								<rich:column sortBy="#{centre.idCentreGestion}">
-									<f:facet name="header">
-										<h:outputText value="#{msgs['CENTRE.NUMCG']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{centre.idCentreGestion}" />
-									</t:htmlTag>
-								</rich:column>
-
-								<rich:column sortBy="#{centre.nomCentre}">
-									<f:facet name="header">
-										<h:panelGrid columns="1" align="center">
-											<t:htmlTag value="center">
-												<h:outputText style="font-weight:bold;"
-													value="#{msgs['CENTRE.LISTE_CENTRE.NOM']}" />
-											</t:htmlTag>
-										</h:panelGrid>
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{centre.nomCentre}" />
-									</t:htmlTag>
-								</rich:column>
-
-								<rich:column sortBy="#{centre.niveauCentre.libelle}">
-									<f:facet name="header">
-										<h:panelGrid columns="1" align="center">
-											<t:htmlTag value="center">
-												<h:outputText style="font-weight:bold;"
-													value="#{msgs['CENTRE.LISTE_CENTRE.CRITERE']}" />
-											</t:htmlTag>
-										</h:panelGrid>
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{centre.niveauCentre.libelle}" />
-									</t:htmlTag>
-								</rich:column>
-
-								<rich:column sortBy="#{centre.presenceTuteurPro}">
-									<f:facet name="header">
-										<h:panelGrid columns="1" align="center">
-											<t:htmlTag value="center">
-												<h:outputText style="font-weight:bold;"
-													value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_PRO']}" />
-											</t:htmlTag>
-										</h:panelGrid>
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText rendered="#{centre.presenceTuteurPro}"
-											value="#{msgs['FORM.OUI']}" />
-										<h:outputText rendered="#{!centre.presenceTuteurPro}"
-											value="#{msgs['FORM.NON']}" />
-									</t:htmlTag>
-								</rich:column>
-
-								<rich:column sortBy="#{centre.presenceTuteurEns}">
-									<f:facet name="header">
-										<h:panelGrid columns="1" align="center">
-											<t:htmlTag value="center">
-												<h:outputText style="font-weight:bold;"
-													value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_ENS']}" />
-											</t:htmlTag>
-										</h:panelGrid>
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText rendered="#{centre.presenceTuteurEns}"
-											value="#{msgs['FORM.OUI']}" />
-										<h:outputText rendered="#{!centre.presenceTuteurEns}"
-											value="#{msgs['FORM.NON']}" />
-									</t:htmlTag>
-								</rich:column>
-
-								<rich:column sortBy="#{centre.saisieTuteurProParEtudiant}">
-									<f:facet name="header">
-										<h:panelGrid columns="1" align="center">
-											<t:htmlTag value="center">
-												<h:outputText style="font-weight:bold;"
-													value="#{msgs['CENTRE.LISTE_CENTRE.SAISIE_TUTEUR_PRO']}" />
-											</t:htmlTag>
-										</h:panelGrid>
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText rendered="#{centre.saisieTuteurProParEtudiant}"
-											value="#{msgs['FORM.OUI']}" />
-										<h:outputText rendered="#{!centre.saisieTuteurProParEtudiant}"
-											value="#{msgs['FORM.NON']}" />
-									</t:htmlTag>
-								</rich:column>
-
-								<rich:column sortBy="#{centre.choixAnneeAvantDebutAnnee}">
-									<f:facet name="header">
-										<h:panelGrid columns="1" align="center">
-											<t:htmlTag value="center">
-												<h:outputText style="font-weight:bold;"
-													value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" />
-											</t:htmlTag>
-										</h:panelGrid>
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText
-											rendered="#{centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}"
-											value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" />
-										<h:outputText
-											rendered="#{centre.choixAnneeApresDebutAnnee and !centre.choixAnneeAvantDebutAnnee}"
-											value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" />
-										<h:outputText
-											rendered="#{centre.choixAnneeApresDebutAnnee and centre.choixAnneeAvantDebutAnnee}"
-											value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANTAPRES']}" />
-										<h:outputText
-											rendered="#{!centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}"
-											value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" />
-									</t:htmlTag>
-								</rich:column>
-
-								<rich:column sortBy="#{centre.confidentialite.libelle}">
-									<f:facet name="header">
-										<h:panelGrid columns="1" align="center">
-											<t:htmlTag value="center">
-												<h:outputText style="font-weight:bold;"
-													value="#{msgs['CENTRE.LISTE_CENTRE.CONFIDENTIALITE']}" />
-											</t:htmlTag>
-										</h:panelGrid>
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{centre.confidentialite.libelle}" />
-									</t:htmlTag>
-								</rich:column>
-
-								<rich:column>
-									<f:facet name="header">
-										<h:outputText style="white-space:normal;"
-											value="#{msgs['CENTRE.LISTE_CENTRE.ACTIONS']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:commandLink id="see"
-											action="#{centreController.goToVoirCentre}">
-											<f:setPropertyActionListener value="#{centre}"
-												target="#{centreController.centre}" />
-											<h:graphicImage alt="#{msgs['FORM.VOIR']}"
-												value="../../media/images/zoom.png" style="border:0" />
-											<rich:tooltip value="#{msgs['FORM.CONSULTER']}" />
-										</h:commandLink>
-
-										<t:htmlTag value="div" style="display: inline; margin: 4px;" />
-
-										<a4j:commandLink execute="@this" id="delete"
-											rendered="#{welcomeController.superAdmin}"
-											action="#{centreController.avantSupprimer}"
-											oncomplete="#{rich:component('suppressionCentre')}.show()"
-											render="suppressionCentre">
-											<f:setPropertyActionListener value="#{centre}"
-												target="#{centreController.centre}" />
-											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-												value="../../media/images/delete.png" style="border:0" />
-											<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-										</a4j:commandLink>
-
-									</t:htmlTag>
-								</rich:column>
-								<f:facet name="footer">
-									<rich:dataScroller align="center" for="listeCentres"
-										maxPages="20" page="1" id="listeScroller"
-										renderIfSinglePage="false" />
-								</f:facet>
-							</rich:dataTable>
-						</h:panelGrid>
-
-						<t:htmlTag value="div" style="height: 10px;" />
-
-						<h:panelGrid columns="2" align="center"
-							rendered="#{welcomeController.superAdmin and centreController.ajoutPossible}">
-							<h:outputLabel for="add" value="#{msgs['CENTRE.AJOUT_CENTRE']}" />
-							<a4j:commandLink id="add"
-								action="#{centreController.goToAjoutCentre}">
-								<h:graphicImage alt="#{msgs['FORM.AJOUTER']}"
-									value="../../media/images/new.png" style="border:0" />
-								<rich:tooltip value="#{msgs['FORM.AJOUTER']}" />
-							</a4j:commandLink>
-						</h:panelGrid>
-					</a4j:region>
-					<t:htmlTag value="center">
-						<a4j:status for="ajout">
-							<f:facet name="start">
-								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+						<rich:column
+							sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}">
+							<f:facet name="header">
+								<h:panelGrid columns="1">
+									<h:graphicImage id="appartenanceHead"
+										alt="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE']}"
+										value="../../media/images/user_gray.png" style="border:0">
+										<rich:tooltip
+											value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
+									</h:graphicImage>
+								</h:panelGrid>
 							</f:facet>
-						</a4j:status>
-					</t:htmlTag>
-				</a4j:outputPanel>
+							<t:htmlTag value="center">
+								<h:graphicImage id="appartenance1" alt="#{msgs['FORM.OUI']}"
+									rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] != null}"
+									value="../../media/images/tick.png" style="border:0">
+									<rich:tooltip
+										value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.OUI']}" />
+								</h:graphicImage>
+
+								<h:graphicImage id="appartenance2" alt="#{msgs['FORM.NON']}"
+									rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] == null}"
+									value="../../media/images/cross.png" style="border:0">
+									<rich:tooltip
+										value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}" />
+								</h:graphicImage>
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column sortBy="#{centre.idCentreGestion}">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['CENTRE.NUMCG']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{centre.idCentreGestion}" />
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column sortBy="#{centre.nomCentre}">
+							<f:facet name="header">
+								<h:panelGrid columns="1" align="center">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold;"
+											value="#{msgs['CENTRE.LISTE_CENTRE.NOM']}" />
+									</t:htmlTag>
+								</h:panelGrid>
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{centre.nomCentre}" />
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column sortBy="#{centre.niveauCentre.libelle}">
+							<f:facet name="header">
+								<h:panelGrid columns="1" align="center">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold;"
+											value="#{msgs['CENTRE.LISTE_CENTRE.CRITERE']}" />
+									</t:htmlTag>
+								</h:panelGrid>
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{centre.niveauCentre.libelle}" />
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column sortBy="#{centre.presenceTuteurPro}">
+							<f:facet name="header">
+								<h:panelGrid columns="1" align="center">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold;"
+											value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_PRO']}" />
+									</t:htmlTag>
+								</h:panelGrid>
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText rendered="#{centre.presenceTuteurPro}"
+									value="#{msgs['FORM.OUI']}" />
+								<h:outputText rendered="#{!centre.presenceTuteurPro}"
+									value="#{msgs['FORM.NON']}" />
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column sortBy="#{centre.presenceTuteurEns}">
+							<f:facet name="header">
+								<h:panelGrid columns="1" align="center">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold;"
+											value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_ENS']}" />
+									</t:htmlTag>
+								</h:panelGrid>
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText rendered="#{centre.presenceTuteurEns}"
+									value="#{msgs['FORM.OUI']}" />
+								<h:outputText rendered="#{!centre.presenceTuteurEns}"
+									value="#{msgs['FORM.NON']}" />
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column sortBy="#{centre.saisieTuteurProParEtudiant}">
+							<f:facet name="header">
+								<h:panelGrid columns="1" align="center">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold;"
+											value="#{msgs['CENTRE.LISTE_CENTRE.SAISIE_TUTEUR_PRO']}" />
+									</t:htmlTag>
+								</h:panelGrid>
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText rendered="#{centre.saisieTuteurProParEtudiant}"
+									value="#{msgs['FORM.OUI']}" />
+								<h:outputText rendered="#{!centre.saisieTuteurProParEtudiant}"
+									value="#{msgs['FORM.NON']}" />
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column sortBy="#{centre.choixAnneeAvantDebutAnnee}">
+							<f:facet name="header">
+								<h:panelGrid columns="1" align="center">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold;"
+											value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" />
+									</t:htmlTag>
+								</h:panelGrid>
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText
+									rendered="#{centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}"
+									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" />
+								<h:outputText
+									rendered="#{centre.choixAnneeApresDebutAnnee and !centre.choixAnneeAvantDebutAnnee}"
+									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" />
+								<h:outputText
+									rendered="#{centre.choixAnneeApresDebutAnnee and centre.choixAnneeAvantDebutAnnee}"
+									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANTAPRES']}" />
+								<h:outputText
+									rendered="#{!centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}"
+									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" />
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column sortBy="#{centre.confidentialite.libelle}">
+							<f:facet name="header">
+								<h:panelGrid columns="1" align="center">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold;"
+											value="#{msgs['CENTRE.LISTE_CENTRE.CONFIDENTIALITE']}" />
+									</t:htmlTag>
+								</h:panelGrid>
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{centre.confidentialite.libelle}" />
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText style="white-space:normal;"
+									value="#{msgs['CENTRE.LISTE_CENTRE.ACTIONS']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:commandLink id="see"
+									action="#{centreController.goToVoirCentre}">
+									<f:setPropertyActionListener value="#{centre}"
+										target="#{centreController.centre}" />
+									<h:graphicImage alt="#{msgs['FORM.VOIR']}"
+										value="../../media/images/zoom.png" style="border:0" />
+									<rich:tooltip value="#{msgs['FORM.CONSULTER']}" />
+								</h:commandLink>
+
+								<t:htmlTag value="div" style="display: inline; margin: 4px;" />
+
+								<a4j:commandLink execute="@this" id="delete"
+									status="listeCentreStatus"
+									rendered="#{welcomeController.superAdmin}"
+									action="#{centreController.avantSupprimer}"
+									oncomplete="#{rich:component('suppressionCentre')}.show()"
+									render="suppressionCentre">
+									<f:setPropertyActionListener value="#{centre}"
+										target="#{centreController.centre}" />
+									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+										value="../../media/images/delete.png" style="border:0" />
+									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+								</a4j:commandLink>
+
+							</t:htmlTag>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:dataScroller align="center" for="listeCentres"
+								maxPages="20" page="1" id="listeScroller"
+								renderIfSinglePage="false" />
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGrid>
+
+				<t:htmlTag value="div" style="height: 10px;" />
+
+				<h:panelGrid columns="2" align="center"
+					rendered="#{welcomeController.superAdmin and centreController.ajoutPossible}">
+					<h:outputLabel for="add" value="#{msgs['CENTRE.AJOUT_CENTRE']}" />
+					<a4j:commandLink id="add" status="listeCentreStatus"
+						action="#{centreController.goToAjoutCentre}">
+						<h:graphicImage alt="#{msgs['FORM.AJOUTER']}"
+							value="../../media/images/new.png" style="border:0" />
+						<rich:tooltip value="#{msgs['FORM.AJOUTER']}" />
+					</a4j:commandLink>
+				</h:panelGrid>
+				<t:htmlTag value="center">
+					<a4j:status name="listeCentreStatus">
+						<f:facet name="start">
+							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+						</f:facet>
+					</a4j:status>
+				</t:htmlTag>
 				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>
 		</rich:panel>

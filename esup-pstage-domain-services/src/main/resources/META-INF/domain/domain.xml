@@ -55,18 +55,22 @@
 		<property name="remoteServices" ref="remoteServices" />
 	</bean>
 
-
 	<bean id="conventionDomainService"
 		class="org.esupportail.pstage.domain.ConventionDomainServiceImpl">
 		<property name="remoteServices" ref="remoteServices" />
 		<property name="nomenclatureDomainService" ref="nomenclatureDomainService" />
 		<property name="structureDomainService" ref="structureDomainService" />
+		<property name="ficheEvaluationDomainService" ref="ficheEvaluationDomainService" />
 	</bean>
 
 	<bean id="etudiantDomainService" class="org.esupportail.pstage.domain.EtudiantDomainServiceImpl">
 		<property name="remoteServices" ref="remoteServices" />
 	</bean>
 
+	<bean id="ficheEvaluationDomainService" class="org.esupportail.pstage.domain.FicheEvaluationDomainServiceImpl">
+		<property name="remoteServices" ref="remoteServices" />
+	</bean>
+	
 	<bean id="domainService" class="org.esupportail.pstage.domain.DomainServiceImpl">
 		<property name="daoService" ref="daoService" />
 		<property name="ldapUserService" ref="ldapUserService" />

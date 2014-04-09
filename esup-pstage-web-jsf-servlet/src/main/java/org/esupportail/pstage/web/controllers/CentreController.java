@@ -29,9 +29,11 @@ import org.esupportail.pstagedata.domain.dto.CentreGestionSuperviseurDTO;
 import org.esupportail.pstagedata.domain.dto.ConfidentialiteDTO;
 import org.esupportail.pstagedata.domain.dto.CritereGestionDTO;
 import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
+import org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO;
 import org.esupportail.pstagedata.domain.dto.FichierDTO;
 import org.esupportail.pstagedata.domain.dto.NiveauCentreDTO;
 import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.QuestionSupplementaireDTO;
 import org.esupportail.pstagedata.exceptions.AffectationAlreadyExistingForCodeException;
 import org.esupportail.pstagedata.exceptions.CentreEntrepriseDejaExistantException;
 import org.esupportail.pstagedata.exceptions.CentreEtablissementDejaExistantException;
@@ -105,7 +107,6 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * Liste Centre gestion DTO
 	 */
-	@SuppressWarnings("unused")
 	private List<CentreGestionDTO> centresGestion;
 
 	/**
@@ -228,6 +229,42 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	private String depotEncode;
 
+	/* ***************************************************************
+	 * FICHE EVAL
+	 ****************************************************************/
+	/**
+	 * Fiche d'evaluation
+	 */
+	private FicheEvaluationDTO ficheEvaluation;
+	/**
+	 * QuestionSupplementaire
+	 */
+	private QuestionSupplementaireDTO questionSupplementaire;
+	/**
+	 * Liste Questions supplementaires de la fiche Etudiant 1
+	 */
+	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEtudiant1;
+	/**
+	 * Liste Questions supplementaires de la fiche Etudiant 2
+	 */
+	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEtudiant2;
+	/**
+	 * Liste Questions supplementaires de la fiche Etudiant 3
+	 */
+	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEtudiant3;
+	/**
+	 * Liste Questions supplementaires de la fiche Enseignant 1
+	 */
+	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEnseignant1;
+	/**
+	 * Liste Questions supplementaires de la fiche Enseignant 2
+	 */
+	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEnseignant2;
+	/**
+	 * Liste Questions supplementaires de la fiche Entreprise
+	 */
+	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise;
+
 	/**
 	 * Bean constructor.
 	 */
@@ -290,6 +327,7 @@ public class CentreController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToListeCentre() ");
 		}
+		this.centresGestion = getCentreGestionDomainService().getCentreGestionList(getSessionController().getCodeUniversite());
 		return "listeCentres";
 	}
 
@@ -307,8 +345,7 @@ public class CentreController extends AbstractContextAwareController {
 	 * @return List<CentreGestionDTO>
 	 */
 	public List<CentreGestionDTO> getCentresGestion(){
-		List<CentreGestionDTO> l = getCentreGestionDomainService().getCentreGestionList(getSessionController().getCodeUniversite());
-		return l;
+		return this.centresGestion;
 	}
 
 	/* ****************************************************************************
@@ -374,7 +411,7 @@ public class CentreController extends AbstractContextAwareController {
 		centre.setIdNiveauCentre(centre.getNiveauCentre().getId());
 
 		// On défini le modeValidationStage à partir de l'objet modeValidationStage attaché au centre
-//		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
+		//		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
 
 		// Ajout temporaire du premier centre superviseur
 		try{
@@ -477,7 +514,7 @@ public class CentreController extends AbstractContextAwareController {
 		centre.setIdNiveauCentre(centre.getNiveauCentre().getId());
 
 		// On défini le modeValidationStage à partir de l'objet modeValidationStage attaché au centre
-//		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
+		//		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
 
 		// On met le viseur a null s'il est vide
 		if (centre.getNomViseur() == "" && centre.getPrenomViseur() == ""){
@@ -1127,7 +1164,10 @@ public class CentreController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToListePersonnel() ");
 		}
-		this.personnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.centre.getIdCentreGestion());
+		if(this.personnels == null || this.personnels.isEmpty()){
+			this.personnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.centre.getIdCentreGestion());
+		}
+
 		return "listePersonnels";
 	}
 
@@ -1504,7 +1544,7 @@ public class CentreController extends AbstractContextAwareController {
 
 		this.personnel = new PersonnelCentreGestionDTO();
 
-		return goToListePersonnel();
+		return "listePersonnels";
 	}
 
 	/* ****************************************************************************
@@ -1812,6 +1852,306 @@ public class CentreController extends AbstractContextAwareController {
 		return depotEncode;
 	}
 
+	/* ****************************************************************************
+	 * Fiche d'evaluation
+	 *****************************************************************************/
+	/**
+	 * @return String
+	 */
+	public String goToFicheEvaluation(){
+		this.ficheEvaluation = new FicheEvaluationDTO();
+		this.questionSupplementaire = new QuestionSupplementaireDTO();
+		FicheEvaluationDTO tmp = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.centre.getIdCentreGestion());
+		if (tmp != null){
+			this.ficheEvaluation = tmp;
+		} else {
+			this.ficheEvaluation.setIdCentreGestion(this.centre.getIdCentreGestion());
+			try{
+				int idFicheEvaluation = getFicheEvaluationDomainService().addFicheEvaluation(this.ficheEvaluation);
+				if (idFicheEvaluation > 0){
+					this.ficheEvaluation.setIdFicheEvaluation(idFicheEvaluation);
+				}
+			} catch (DataAddException d){
+				logger.error("DataAddException",d.fillInStackTrace());
+				addErrorMessage("formFicheEtudiant","CENTRE.AJOUT_CENTRE.ERREUR");
+				return null;
+			} catch (WebServiceDataBaseException w){
+				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				addErrorMessage("formFicheEtudiant", "CENTRE.AJOUT_CENTRE.ERREUR");
+				return null;
+			}
+		}
+		return "goToFicheEvaluation";
+	}
+
+	/**
+	 * @return String
+	 */
+	public String goToFicheEtudiant(){
+		this.listeQuestionsSupplementairesEtudiant1 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(), 1);
+		if(this.listeQuestionsSupplementairesEtudiant1 == null){
+			this.listeQuestionsSupplementairesEtudiant1 = new ArrayList<QuestionSupplementaireDTO>();
+		}
+		this.listeQuestionsSupplementairesEtudiant2 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(), 2);
+		if(this.listeQuestionsSupplementairesEtudiant2 == null){
+			this.listeQuestionsSupplementairesEtudiant2 = new ArrayList<QuestionSupplementaireDTO>();
+		}
+		this.listeQuestionsSupplementairesEtudiant3 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(), 3);
+		if(this.listeQuestionsSupplementairesEtudiant3 == null){
+			this.listeQuestionsSupplementairesEtudiant3 = new ArrayList<QuestionSupplementaireDTO>();
+		}
+		return "goToFicheEtudiant";
+	}
+
+	/**
+	 * 
+	 */
+	public void updateFicheEtudiant(){
+		if (this.ficheEvaluation != null){
+			try {
+				this.ficheEvaluation.setValidationEtudiant(true);
+				getFicheEvaluationDomainService().updateFicheEvaluationEtudiant(this.ficheEvaluation);
+				addInfoMessage("formFicheEtudiant", "CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
+			} catch (DataUpdateException d){
+				logger.error("DataUpdateException",d.fillInStackTrace());
+				addErrorMessage("formFicheEtudiant","CENTRE.FICHE_EVALUATION.ERREUR");
+			} catch (WebServiceDataBaseException w){
+				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				addErrorMessage("formFicheEtudiant", "CENTRE.FICHE_EVALUATION.ERREUR");
+			}
+		}
+	}
+
+	/**
+	 * @return String
+	 */
+	public String goToFicheEnseignant(){
+		this.listeQuestionsSupplementairesEnseignant1 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),4);
+		if(this.listeQuestionsSupplementairesEnseignant1 == null){
+			this.listeQuestionsSupplementairesEnseignant1 = new ArrayList<QuestionSupplementaireDTO>();
+		}
+		this.listeQuestionsSupplementairesEnseignant2 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),5);
+		if(this.listeQuestionsSupplementairesEnseignant2 == null){
+			this.listeQuestionsSupplementairesEnseignant2 = new ArrayList<QuestionSupplementaireDTO>();
+		}
+		return "goToFicheEnseignant";
+	}
+
+	/**
+	 * 
+	 */
+	public void updateFicheEntreprise(){
+		if (this.ficheEvaluation != null){
+			try {
+				this.ficheEvaluation.setValidationEntreprise(true);
+				getFicheEvaluationDomainService().updateFicheEvaluationEntreprise(this.ficheEvaluation);
+				addInfoMessage("formFicheEntreprise", "CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
+			} catch (DataUpdateException d){
+				logger.error("DataUpdateException",d.fillInStackTrace());
+				addErrorMessage("formFicheEntreprise","CENTRE.FICHE_EVALUATION.ERREUR");
+			} catch (WebServiceDataBaseException w){
+				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				addErrorMessage("formFicheEntreprise", "CENTRE.FICHE_EVALUATION.ERREUR");
+			}
+		}
+	}
+
+	/**
+	 * @return String
+	 */
+	public String goToFicheEntreprise(){
+		this.listeQuestionsSupplementairesEntreprise = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),6);
+		if(this.listeQuestionsSupplementairesEntreprise == null){
+			this.listeQuestionsSupplementairesEntreprise = new ArrayList<QuestionSupplementaireDTO>();
+		}
+		return "goToFicheEntreprise";
+	}
+
+	/**
+	 * 
+	 */
+	public void updateFicheEnseignant(){
+		if (this.ficheEvaluation != null){
+			try {
+				this.ficheEvaluation.setValidationEnseignant(true);
+				getFicheEvaluationDomainService().updateFicheEvaluationEnseignant(this.ficheEvaluation);
+				addInfoMessage("formFicheEnseignant", "CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
+			} catch (DataUpdateException d){
+				logger.error("DataUpdateException",d.fillInStackTrace());
+				addErrorMessage("formFicheEnseignant","CENTRE.FICHE_EVALUATION.ERREUR");
+			} catch (WebServiceDataBaseException w){
+				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				addErrorMessage("formFicheEnseignant", "CENTRE.FICHE_EVALUATION.ERREUR");
+			}
+		}
+	}
+
+	/**
+	 * initialisation question supplementaire etudiant I
+	 */
+	public void avantAjoutQuestionEtudiant1(){
+		this.questionSupplementaire = new QuestionSupplementaireDTO();
+		this.questionSupplementaire.setIdPlacement(1);
+	}
+	/**
+	 * initialisation question supplementaire etudiant II
+	 */
+	public void avantAjoutQuestionEtudiant2(){
+		this.questionSupplementaire = new QuestionSupplementaireDTO();
+		this.questionSupplementaire.setIdPlacement(2);
+	}
+	/**
+	 * initialisation question supplementaire etudiant III
+	 */
+	public void avantAjoutQuestionEtudiant3(){
+		this.questionSupplementaire = new QuestionSupplementaireDTO();
+		this.questionSupplementaire.setIdPlacement(3);
+	}
+	/**
+	 * initialisation question supplementaire enseignant I
+	 */
+	public void avantAjoutQuestionEnseignant1(){
+		this.questionSupplementaire = new QuestionSupplementaireDTO();
+		this.questionSupplementaire.setIdPlacement(4);
+	}
+	/**
+	 * initialisation question supplementaire enseignant II
+	 */
+	public void avantAjoutQuestionEnseignant2(){
+		this.questionSupplementaire = new QuestionSupplementaireDTO();
+		this.questionSupplementaire.setIdPlacement(5);
+	}
+	/**
+	 * initialisation question supplementaire entreprise
+	 */
+	public void avantAjoutQuestionEntreprise(){
+		this.questionSupplementaire = new QuestionSupplementaireDTO();
+		this.questionSupplementaire.setIdPlacement(6);
+	}
+
+	/**
+	 * 
+	 */
+	public void ajouterQuestionSupplementaire(){
+		try{
+			getSessionController().setEditQuestionEvalCurrentPage("_questionEval_editEtape2");
+			this.questionSupplementaire.setIdFicheEvaluation(this.ficheEvaluation.getIdFicheEvaluation());
+
+			int idQuestionSupplementaire = getFicheEvaluationDomainService().addQuestionSupplementaire(this.questionSupplementaire);
+			
+			if (idQuestionSupplementaire > 0) {
+				this.questionSupplementaire.setIdQuestionSupplementaire(idQuestionSupplementaire);
+				
+				int idPlacement = this.questionSupplementaire.getIdPlacement();
+				switch (idPlacement) {
+				case 1 :
+					this.listeQuestionsSupplementairesEtudiant1.add(this.questionSupplementaire);
+					break;
+				case 2 :
+					this.listeQuestionsSupplementairesEtudiant2.add(this.questionSupplementaire);
+					break;
+				case 3 :
+					this.listeQuestionsSupplementairesEtudiant3.add(this.questionSupplementaire);
+					break;
+				case 4 :
+					this.listeQuestionsSupplementairesEnseignant1.add(this.questionSupplementaire);
+					break;
+				case 5 :
+					this.listeQuestionsSupplementairesEnseignant2.add(this.questionSupplementaire);
+					break;
+				case 6 :
+					this.listeQuestionsSupplementairesEntreprise.add(this.questionSupplementaire);
+					break;
+				default:
+					break;
+				}
+	
+				addInfoMessage(null, "CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.CONFIRMATION_AJOUT");
+				logger.info("Ajout de la question supplementaire n°"+idQuestionSupplementaire+" pour la fiche n°" +this.ficheEvaluation.getIdFicheEvaluation());
+			} else {
+				logger.error(getString("CENTRE.FICHE_EVALUATION.ERREUR"));
+				addErrorMessage("formEditQuestionEval", "CENTRE.FICHE_EVALUATION.ERREUR");
+			}
+		} catch (DataAddException d){
+			logger.error("DataAddException",d.fillInStackTrace());
+			addErrorMessage("formEditQuestionEval","CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
+		} catch (WebServiceDataBaseException w){
+			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+			addErrorMessage("formEditQuestionEval", "CENTRE.FICHE_EVALUATION.ERREUR");
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void modifierQuestionSupplementaire(){
+		try {
+			getSessionController().setEditQuestionEvalCurrentPage("_questionEval_editEtape2");
+
+			if (getFicheEvaluationDomainService().updateQuestionSupplementaire(this.questionSupplementaire)){
+				addInfoMessage(null, "CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.CONFIRMATION_MODIF");
+				logger.info("Modification de la question supplementaire n°"+this.questionSupplementaire.getIdQuestionSupplementaire()+" pour la fiche n°" +this.ficheEvaluation.getIdFicheEvaluation());
+			} else {
+				logger.error(getString("CENTRE.FICHE_EVALUATION.ERREUR"));
+				addErrorMessage("formEditQuestionEval", "CENTRE.FICHE_EVALUATION.ERREUR");
+			}
+				
+		} catch (DataUpdateException d){
+			logger.error("DataUpdateException",d.fillInStackTrace());
+			addErrorMessage("formEditQuestionEval","CENTRE.FICHE_EVALUATION.ERREUR");
+		} catch (WebServiceDataBaseException w){
+			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+			addErrorMessage("formEditQuestionEval", "CENTRE.FICHE_EVALUATION.ERREUR");
+		}
+	}
+	/**
+	 * @return a String
+	 */
+	public void supprimerQuestionSupplementaire(){
+		try{
+			getSessionController().setSuppressionQuestionEvalCurrentPage("_questionEval_deleteEtape2");
+			
+			if (getFicheEvaluationDomainService().deleteQuestionSupplementaire(this.questionSupplementaire.getIdQuestionSupplementaire())){
+				int idPlacement = this.questionSupplementaire.getIdPlacement();
+				switch (idPlacement) {
+				case 1 :
+					this.listeQuestionsSupplementairesEtudiant1.remove(this.questionSupplementaire);
+					break;
+				case 2 :
+					this.listeQuestionsSupplementairesEtudiant2.remove(this.questionSupplementaire);
+					break;
+				case 3 :
+					this.listeQuestionsSupplementairesEtudiant3.remove(this.questionSupplementaire);
+					break;
+				case 4 :
+					this.listeQuestionsSupplementairesEnseignant1.remove(this.questionSupplementaire);
+					break;
+				case 5 :
+					this.listeQuestionsSupplementairesEnseignant2.remove(this.questionSupplementaire);
+					break;
+				case 6 :
+					this.listeQuestionsSupplementairesEntreprise.remove(this.questionSupplementaire);
+					break;
+				default:
+					break;
+				}
+
+				logger.info(getSessionController().getCurrentLogin()+" supprime la question : "
+						+this.questionSupplementaire.getIdQuestionSupplementaire()+" - " +this.questionSupplementaire.getQuestion());
+				addInfoMessage(null, "CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.CONFIRMATION_SUPPR");
+			} else {
+				logger.error(getString("CENTRE.FICHE_EVALUATION.ERREUR"));
+				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
+			}
+			
+		}catch (DataDeleteException de) {
+			logger.error("DataDeleteException ",de.fillInStackTrace());
+			addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
+		}catch (WebServiceDataBaseException we) {
+			logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
+			addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
+		}
+	}
 
 	/* ***************************************************************
 	 * Getters / Setters
@@ -2085,5 +2425,107 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	public int getNbOffres() {
 		return nbOffres;
+	}
+	/**
+	 * @return the ficheEvaluation
+	 */
+	public FicheEvaluationDTO getFicheEvaluation() {
+		return ficheEvaluation;
+	}
+	/**
+	 * @param ficheEvaluation the ficheEvaluation to set
+	 */
+	public void setFicheEvaluation(FicheEvaluationDTO ficheEvaluation) {
+		this.ficheEvaluation = ficheEvaluation;
+	}
+	/**
+	 * @return the questionSupplementaire
+	 */
+	public QuestionSupplementaireDTO getQuestionSupplementaire() {
+		return questionSupplementaire;
+	}
+	/**
+	 * @param questionSupplementaire the questionSupplementaire to set
+	 */
+	public void setQuestionSupplementaire(QuestionSupplementaireDTO questionSupplementaire) {
+		this.questionSupplementaire = questionSupplementaire;
+	}
+	/**
+	 * @return the listeQuestionsSupplementairesEntreprise
+	 */
+	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEntreprise() {
+		return listeQuestionsSupplementairesEntreprise;
+	}
+	/**
+	 * @param listeQuestionsSupplementairesEntreprise the listeQuestionsSupplementairesEntreprise to set
+	 */
+	public void setListeQuestionsSupplementairesEntreprise(
+			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise) {
+		this.listeQuestionsSupplementairesEntreprise = listeQuestionsSupplementairesEntreprise;
+	}
+	/**
+	 * @return the listeQuestionsSupplementairesEtudiant1
+	 */
+	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEtudiant1() {
+		return listeQuestionsSupplementairesEtudiant1;
+	}
+	/**
+	 * @param listeQuestionsSupplementairesEtudiant1 the listeQuestionsSupplementairesEtudiant1 to set
+	 */
+	public void setListeQuestionsSupplementairesEtudiant1(
+			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEtudiant1) {
+		this.listeQuestionsSupplementairesEtudiant1 = listeQuestionsSupplementairesEtudiant1;
+	}
+	/**
+	 * @return the listeQuestionsSupplementairesEtudiant2
+	 */
+	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEtudiant2() {
+		return listeQuestionsSupplementairesEtudiant2;
+	}
+	/**
+	 * @param listeQuestionsSupplementairesEtudiant2 the listeQuestionsSupplementairesEtudiant2 to set
+	 */
+	public void setListeQuestionsSupplementairesEtudiant2(
+			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEtudiant2) {
+		this.listeQuestionsSupplementairesEtudiant2 = listeQuestionsSupplementairesEtudiant2;
+	}
+	/**
+	 * @return the listeQuestionsSupplementairesEtudiant3
+	 */
+	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEtudiant3() {
+		return listeQuestionsSupplementairesEtudiant3;
+	}
+	/**
+	 * @param listeQuestionsSupplementairesEtudiant3 the listeQuestionsSupplementairesEtudiant3 to set
+	 */
+	public void setListeQuestionsSupplementairesEtudiant3(
+			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEtudiant3) {
+		this.listeQuestionsSupplementairesEtudiant3 = listeQuestionsSupplementairesEtudiant3;
+	}
+	/**
+	 * @return the listeQuestionsSupplementairesEnseignant1
+	 */
+	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEnseignant1() {
+		return listeQuestionsSupplementairesEnseignant1;
+	}
+	/**
+	 * @param listeQuestionsSupplementairesEnseignant1 the listeQuestionsSupplementairesEnseignant1 to set
+	 */
+	public void setListeQuestionsSupplementairesEnseignant1(
+			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEnseignant1) {
+		this.listeQuestionsSupplementairesEnseignant1 = listeQuestionsSupplementairesEnseignant1;
+	}
+	/**
+	 * @return the listeQuestionsSupplementairesEnseignant2
+	 */
+	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEnseignant2() {
+		return listeQuestionsSupplementairesEnseignant2;
+	}
+	/**
+	 * @param listeQuestionsSupplementairesEnseignant2 the listeQuestionsSupplementairesEnseignant2 to set
+	 */
+	public void setListeQuestionsSupplementairesEnseignant2(
+			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEnseignant2) {
+		this.listeQuestionsSupplementairesEnseignant2 = listeQuestionsSupplementairesEnseignant2;
 	}
 }

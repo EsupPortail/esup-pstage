@@ -16,14 +16,13 @@
 					value="#{msgs['CENTRE.CRITERE.LISTE.HEAD']} pour le centre #{centreController.centre.nomCentre}" />
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
-			<h:panelGrid rendered="#{centreController.listeCritereVide}"
-				columns="1" align="center">
-				<h:outputText value="#{msgs['CENTRE.CRITERE.LISTE.VIDE']}" />
-			</h:panelGrid>
-			<h:form id="formListeCritere">
-				<h:panelGrid columns="1" align="center"
+			<h:form id="formListeCritere" style="margin-left:100px; width:500px;">
+				<h:panelGrid rendered="#{centreController.listeCritereVide}">
+					<h:outputText value="#{msgs['CENTRE.CRITERE.LISTE.VIDE']}" />
+				</h:panelGrid>
+				<h:panelGrid columns="1"
 					rendered="#{!centreController.listeCritereVide}">
-					<rich:dataTable align="center"
+					<rich:dataTable
 						style="width: 483px; border-right:1px solid #C0C0C0;"
 						id="listeCriteres" rows="20" columnClasses="col"
 						value="#{centreController.listeCriteresRattaches}" var="critere"
@@ -58,7 +57,7 @@
 									value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
 							</f:facet>
 							<t:htmlTag value="center">
-								<a4j:commandLink execute="@this"
+								<a4j:commandLink execute="@this" status="ajoutStatus"
 									oncomplete="#{rich:component('suppressionCritere')}.show()"
 									render="suppressionCritere">
 									<f:setPropertyActionListener value="#{critere}"
@@ -77,22 +76,15 @@
 					</rich:dataTable>
 				</h:panelGrid>
 
-				<t:htmlTag value="div" style="height: 10px;" />
+				<t:htmlTag value="div" style="height:15px;" />
 
-				<h:panelGrid columns="3" align="center"
-					rendered="#{welcomeController.superAdmin
-										|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}">
-					<h:outputLabel for="add"
-						value="#{msgs['CENTRE.CRITERE.RATTACHER']}" />
-					<a4j:commandLink id="add" status="ajoutStatus"
-						action="#{centreController.goToAjoutCritere}">
-						<h:graphicImage alt="#{msgs['FORM.RATTACHER']}"
-							value="../../media/images/new.png" style="border:0" />
-						<rich:tooltip value="#{msgs['FORM.RATTACHER']}" />
-					</a4j:commandLink>
-
-				</h:panelGrid>
 				<t:htmlTag value="center">
+					<a4j:commandButton id="add" status="ajoutStatus"
+						value="#{msgs['CENTRE.CRITERE.RATTACHER']}"
+						action="#{centreController.goToAjoutCritere}"
+						style="font-size:16px; font-weight:bold; border-color:green;"
+						rendered="#{welcomeController.superAdmin
+							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}" />
 					<a4j:status name="ajoutStatus">
 						<f:facet name="start">
 							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
@@ -110,8 +102,7 @@
 		</t:div>
 		<t:div
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
-					|| welcomeController.personnel)
-					and centreController.centre == null}">
+					|| welcomeController.personnel) and centreController.centre == null}">
 			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
 		</t:div>
 	</ui:define>

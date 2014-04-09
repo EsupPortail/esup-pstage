@@ -421,8 +421,8 @@ public class AvenantController extends AbstractContextAwareController {
 						this.avenant.getIdConvention());
 				
 				// Envoi d'une alerte à l'enseignant tuteur
-				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
-					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
+//				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
+//					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
 				
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
@@ -521,8 +521,8 @@ public class AvenantController extends AbstractContextAwareController {
 						this.avenant.getIdConvention());
 				
 				// Envoi d'une alerte à l'enseignant tuteur
-				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
-					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
+//				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
+//					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
 				
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());

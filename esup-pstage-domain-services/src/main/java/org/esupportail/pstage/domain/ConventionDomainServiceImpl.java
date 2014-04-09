@@ -78,21 +78,38 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * RemoteServices
 	 */
 	private RemoteServices remoteServices;
-
 	/**
 	 * @return the remoteServices
 	 */
 	public RemoteServices getRemoteServices() {
 		return remoteServices;
 	}
-
 	/**
 	 * @param remoteServices the remoteServices to set
 	 */
 	public void setRemoteServices(RemoteServices remoteServices) {
 		this.remoteServices = remoteServices;
 	}
+	
+	/**
+	 * ficheEvaluationDomainService
+	 */
+	private FicheEvaluationDomainService ficheEvaluationDomainService;
 
+	/**
+	 * @return the ficheEvaluationDomainService
+	 */
+	public FicheEvaluationDomainService getFicheEvaluationDomainService() {
+		return ficheEvaluationDomainService;
+	}
+
+	/**
+	 * @param ficheEvaluationDomainService the ficheEvaluationDomainService to set
+	 */
+	public void setFicheEvaluationDomainService(
+			FicheEvaluationDomainService ficheEvaluationDomainService) {
+		this.ficheEvaluationDomainService = ficheEvaluationDomainService;
+	}
 
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#addConvention(org.esupportail.pstagedata.domain.dto.ConventionDTO)
@@ -324,6 +341,12 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 			if(c.getCodeEtape()!=null){
 				c.setEtape(getEtapeFromId(c.getCodeEtape(), c.getCodeUniversiteEtape()));
 			}
+			if(c.getIdCentreGestion()!=null && c.getIdCentreGestion() > 0){
+				c.setFicheEvaluation(this.ficheEvaluationDomainService.getFicheEvaluationFromIdCentre(c.getIdCentreGestion()));
+			}
+			if(c.getFicheEvaluation() != null){
+				c.setReponseEvaluation(remoteServices.getReponseEvaluation(c.getFicheEvaluation().getIdFicheEvaluation(),c.getIdConvention()));
+			}
 		}
 	}
 	
@@ -403,4 +426,5 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	public String getCodeUFRFromCodeEtape(String codeEtape, String codeUniversite) {
 		return this.remoteServices.getCodeUFRFromCodeEtapeFromCodUniv(codeEtape, codeUniversite);
 	}
+
 }

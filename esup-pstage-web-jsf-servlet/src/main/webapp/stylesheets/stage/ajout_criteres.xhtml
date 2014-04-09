@@ -16,23 +16,24 @@
 					value="#{msgs['CENTRE.CRITERE.HEAD']} #{centreController.centre.nomCentre}" />
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
-			<h:form id="formAjoutCritere">
+			<h:form id="formAjoutCritere" style="margin-left:100px; width:500px;">
 				
 				<t:htmlTag value="center">
 					<h:outputText rendered="#{centreController.listeCriteres == null}"
 						value="#{msgs['CENTRE.CRITERE.VIDE']}" />
 				</t:htmlTag>
 				
-				<h:panelGrid columns="1" align="center"
+				<h:panelGrid align="center"
 					rendered="#{centreController.listeCriteres != null}">
 					<h:outputText
 						value="#{msgs['CENTRE.CRITERE.TYPE']} #{centreController.centre.niveauCentre.libelle}" />
 
-					<t:htmlTag value="div" style="height: 10px;" />
+					<t:htmlTag value="div" style="height:15px;" />
 					<t:htmlTag value="center">
 						<h:outputLabel for="critere"
 							value="#{msgs['CENTRE.CRITERE.CRITERES']}" />
 					</t:htmlTag>
+					<t:htmlTag value="div" style="height:5px;" />
 					<h:selectManyListbox id="critere" size="20" style="width:550px;"
 						value="#{centreController.listeCriteresChoisis}">
 						<f:selectItems value="#{centreController.listeCriteres}" />
@@ -42,6 +43,7 @@
 	
 					<t:htmlTag value="center">
 						<h:commandButton id="ajouter"
+							style="font-size:16px; font-weight:bold; border-color:green;"
 							action="#{centreController.ajouterCriteres}"
 							value="#{msgs['FORM.AJOUTER']}" />
 					</t:htmlTag>

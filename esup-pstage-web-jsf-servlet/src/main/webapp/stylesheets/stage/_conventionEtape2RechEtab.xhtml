@@ -47,8 +47,8 @@
 							src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
 						<rich:dataTable id="rechercheStructureDataTable"
 							var="varRechercheStructure"
-							rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
-							value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
+							rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}"
+							value="#{rechercheController.rechercheStructurePaginator.liste}"
 							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 							border="0" cellspacing="2" cellpadding="2" width="600">
@@ -59,10 +59,9 @@
 								</h:panelGroup>
 							</f:facet>
 							<f:facet name="footer">
-								<h:panelGroup>
-									<ui:include
-										src="../_commun/_rechercheEtablissementResultatsPaginator.xhtml" />
-								</h:panelGroup>
+								<rich:dataScroller for="rechercheStructureDataTable"
+									maxPages="20" page="1"
+									renderIfSinglePage="false"/>
 							</f:facet>
 							<ui:include
 								src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />

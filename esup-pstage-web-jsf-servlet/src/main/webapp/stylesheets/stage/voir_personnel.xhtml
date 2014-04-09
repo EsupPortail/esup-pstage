@@ -18,7 +18,8 @@
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form>
 				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1" align="center">
+					rowClasses="paginatorData-text"
+					style="margin-left:100px; width:500px;">
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="3">
 						<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}" for="nom" />
@@ -71,18 +72,18 @@
 						<h:outputText id="droit"
 							value="#{centreController.personnel.droitAdmin.libelle}" />
 					</h:panelGrid>
-<!-- 					<h:panelGrid columns="2"> -->
-<!-- 						<h:outputLabel for="impressionConvention" -->
-<!-- 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.CONVENTION']}" /> -->
-<!-- 						<h:panelGrid id="impressionConvention" align="center"> -->
-<!-- 							<h:outputText -->
-<!-- 								rendered="#{centreController.personnel.impressionConvention}" -->
-<!-- 								value="#{msgs['FORM.OUI']}" /> -->
-<!-- 							<h:outputText -->
-<!-- 								rendered="#{!centreController.personnel.impressionConvention}" -->
-<!-- 								value="#{msgs['FORM.NON']}" /> -->
-<!-- 						</h:panelGrid> -->
-<!-- 					</h:panelGrid> -->
+					<!-- 					<h:panelGrid columns="2"> -->
+					<!-- 						<h:outputLabel for="impressionConvention" -->
+					<!-- 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.CONVENTION']}" /> -->
+					<!-- 						<h:panelGrid id="impressionConvention" align="center"> -->
+					<!-- 							<h:outputText -->
+					<!-- 								rendered="#{centreController.personnel.impressionConvention}" -->
+					<!-- 								value="#{msgs['FORM.OUI']}" /> -->
+					<!-- 							<h:outputText -->
+					<!-- 								rendered="#{!centreController.personnel.impressionConvention}" -->
+					<!-- 								value="#{msgs['FORM.NON']}" /> -->
+					<!-- 						</h:panelGrid> -->
+					<!-- 					</h:panelGrid> -->
 					<h:panelGrid columns="2">
 						<h:outputLabel for="alertesMail"
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.ALERTES_MAIL']}" />
@@ -95,22 +96,23 @@
 								value="#{msgs['FORM.NON']}" />
 						</h:panelGrid>
 					</h:panelGrid>
-					
+
 					<t:htmlTag value="div" style="height: 20px;" />
 
 					<t:htmlTag value="center">
 						<a4j:commandButton execute="@this" id="modify"
+							style="font-size:16px; font-weight:bold; border-color:green;"
 							rendered="#{welcomeController.superAdmin
 							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
 							value="#{msgs['FORM.MODIFIER']}"
 							action="#{centreController.goToModifPersonnel}" />
 					</t:htmlTag>
-
-					<h:commandButton id="retour" value="#{msgs['GENERAL.RETOUR']}"
-						action="#{centreController.goToListePersonnel}">
-						<rich:tooltip value="#{msgs['CENTRE.PERSONNEL.RETOUR']}" />
-					</h:commandButton>
 				</h:panelGrid>
+
+				<h:commandButton id="retour" value="#{msgs['GENERAL.RETOUR']}"
+					action="#{centreController.goToListePersonnel}">
+					<rich:tooltip value="#{msgs['CENTRE.PERSONNEL.RETOUR']}" />
+				</h:commandButton>
 				<t:htmlTag value="div" style="height: 15px;" />
 			</h:form>
 		</rich:panel>

@@ -922,12 +922,7 @@
 							padding-bottom="0.035cm">
 							Fonction :
 							<fo:inline font-weight="bold">
-								<xsl:if test="enseignant/type-personne = 'ENS'">
-									enseignant
-								</xsl:if>
-								<xsl:if test="enseignant/type-personne  != 'ENS'">
-									personnel
-								</xsl:if>
+								<xsl:value-of select="enseignant/type-personne" />
 							</fo:inline>
 						</fo:block>
 					</fo:table-cell>

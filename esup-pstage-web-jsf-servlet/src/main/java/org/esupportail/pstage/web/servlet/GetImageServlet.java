@@ -65,7 +65,6 @@ public class GetImageServlet extends HttpServlet{
 		
 		if (Utils.isNumber(imageId)){
 			FichierDTO logo = offreDomainService.getFichierFromIdFichier(Utils.convertStringToInt(imageId));
-			System.out.println("logo " +logo.getNomReel());
 			if(logo != null){
 				String imageName = imageId+"_"+logo.getNomFichier();
 				String imagePath = this.uploadLogoCentrePath+File.separator+imageName;

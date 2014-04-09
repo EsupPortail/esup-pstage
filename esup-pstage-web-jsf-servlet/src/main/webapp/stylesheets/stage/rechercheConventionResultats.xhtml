@@ -228,7 +228,7 @@
 				</h:panelGrid>
 				<h:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
 					action="#{conventionController.goToRechercheConvention}"
-					immediate="true" />
+					immediate="true" rendered="#{!welcomeController.etudiant}"/>
 			</h:form>
 		</rich:panel>
 	</ui:define>

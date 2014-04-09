@@ -1,0 +1,194 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="../_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<ui:include src="_roadmapSel.xhtml" />
+		<rich:panel rendered="#{conventionController.convention != null}">
+			<f:facet name="header">
+				<h:outputFormat value="#{msgs['CONVENTION.ETAPE13.HEADER']}">
+					<f:param value="#{conventionController.convention.idCentreGestion}" />
+				</h:outputFormat>
+			</f:facet>
+			<h:form id="formAccueilFiche">
+				<fieldset style="width: 600px;">
+					<t:div
+						rendered="#{welcomeController.superAdmin || welcomeController.etudiant || conventionController.tuteurCurrentConvention}">
+						<h:panelGrid columns="2" style="padding:10px;"
+							rendered="#{empty conventionController.convention.ficheEvaluation 
+						|| !conventionController.convention.ficheEvaluation.validationEtudiant}">
+							<h:graphicImage value="../../media/images/warn.png"
+								alt="#{msgs['GENERAL.WARNING']}"
+								title="#{msgs['GENERAL.WARNING']}" />
+							<h:outputFormat escape="false"
+								value="#{msgs['CONVENTION.ETAPE13.FICHE_ETUDIANT_VIDE']}">
+								<f:param
+									value="#{conventionController.convention.idCentreGestion}" />
+							</h:outputFormat>
+						</h:panelGrid>
+						<h:panelGrid style="padding:10px; width:600px;"
+							rendered="#{not empty conventionController.convention.ficheEvaluation
+						and conventionController.convention.ficheEvaluation.validationEtudiant}">
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.HEADER']}"
+									style="font-weight:bold; font-size:14px;" />
+							</f:facet>
+
+							<t:htmlTag value="center">
+								<h:panelGrid columns="2" style="padding:10px;"
+									rendered="#{not empty conventionController.convention.reponseEvaluation
+									and conventionController.convention.reponseEvaluation.validationEtudiant}">
+									<h:graphicImage value="../../media/images/tick.png"
+										alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
+									<h:outputText value="#{msgs['CONVENTION.ETAPE13.FICHE_VALIDE']}" />
+								</h:panelGrid>
+								<h:panelGrid columns="2" style="padding:10px;"
+									rendered="#{empty conventionController.convention.reponseEvaluation
+									|| !conventionController.convention.reponseEvaluation.validationEtudiant}">
+									<h:graphicImage value="../../media/images/cross.png"
+										alt="#{msgs['GENERAL.WARNING']}"
+										title="#{msgs['GENERAL.WARNING']}" />
+									<h:outputText
+										value="#{msgs['CONVENTION.ETAPE13.FICHE_INVALIDE']}" />
+								</h:panelGrid>
+								<h:commandButton
+									rendered="#{welcomeController.superAdmin || welcomeController.etudiant}"
+									value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
+									action="#{conventionController.goToFicheEtudiant}" />
+								<t:htmlTag value="div" style="width:10px; display:inline;" />
+								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
+									action="#{conventionController.editPdfFicheEtudiant}"
+									rendered="#{conventionController.convention.reponseEvaluation.validationEtudiant}" />
+								
+							</t:htmlTag>
+						</h:panelGrid>
+						<t:htmlTag value="div" style="height:5px;" />
+						<t:htmlTag value="center">
+							<t:htmlTag value="div" style="height: 2px; width:500px;"
+								styleClass="spacer" />
+						</t:htmlTag>
+						<t:htmlTag value="div" style="height:5px;" />
+
+						<h:panelGrid columns="2" style="padding:10px;"
+							rendered="#{empty conventionController.convention.ficheEvaluation 
+						|| !conventionController.convention.ficheEvaluation.validationEnseignant}">
+							<h:graphicImage value="../../media/images/warn.png"
+								alt="#{msgs['GENERAL.WARNING']}"
+								title="#{msgs['GENERAL.WARNING']}" />
+							<h:outputFormat escape="false"
+								value="#{msgs['CONVENTION.ETAPE13.FICHE_ENSEIGNANT_VIDE']}">
+								<f:param
+									value="#{conventionController.convention.idCentreGestion}" />
+							</h:outputFormat>
+						</h:panelGrid>
+						<h:panelGrid style="padding:10px; width:600px;"
+							rendered="#{not empty conventionController.convention.ficheEvaluation
+						and conventionController.convention.ficheEvaluation.validationEnseignant}">
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.HEADER']}"
+									style="font-weight:bold; font-size:14px;" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:panelGrid columns="2" style="padding:10px;"
+									rendered="#{not empty conventionController.convention.reponseEvaluation
+									and conventionController.convention.reponseEvaluation.validationEnseignant}">
+									<h:graphicImage value="../../media/images/tick.png"
+										alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
+									<h:outputText value="#{msgs['CONVENTION.ETAPE13.FICHE_VALIDE']}" />
+								</h:panelGrid>
+								<h:panelGrid columns="2" style="padding:10px;"
+									rendered="#{empty conventionController.convention.reponseEvaluation
+									|| !conventionController.convention.reponseEvaluation.validationEnseignant}">
+									<h:graphicImage value="../../media/images/cross.png"
+										alt="#{msgs['GENERAL.WARNING']}"
+										title="#{msgs['GENERAL.WARNING']}" />
+									<h:outputText
+										value="#{msgs['CONVENTION.ETAPE13.FICHE_INVALIDE']}" />
+								</h:panelGrid>
+								<h:commandButton
+									rendered="#{welcomeController.superAdmin || conventionController.tuteurCurrentConvention}"
+									value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
+									action="#{conventionController.goToFicheEnseignant}" />
+								<t:htmlTag value="div" style="width:10px; display:inline;" />
+								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
+									action="#{conventionController.editPdfFicheEnseignant}"
+									rendered="#{conventionController.convention.reponseEvaluation.validationEnseignant}" />
+<!-- 								<t:htmlTag value="div" style="height:10px;" /> -->
+<!-- 								<h:panelGrid columns="2" style="padding:5px;"> -->
+<!-- 									<h:graphicImage value="../../media/images/information.png" /> -->
+<!-- 									<h:outputText value="Cliquez sur le bouton ci-dessous afin d'envoyer un mail a votre tuteur contenant un lien lui permettant de remplir sa fiche"/> -->
+<!-- 								</h:panelGrid> -->
+<!-- 								<a4j:commandButton value="#{msgs['FORM.ENVOYER']}" -->
+<!-- 									action="#{conventionController.envoiMailEnseignant}" -->
+<!-- 									rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" /> -->
+							</t:htmlTag>
+						</h:panelGrid>
+
+						<t:htmlTag value="div" style="height:5px;" />
+						<t:htmlTag value="center">
+							<t:htmlTag value="div" style="height:2px; width:500px;"
+								styleClass="spacer" />
+						</t:htmlTag>
+						<t:htmlTag value="div" style="height:5px;" />
+
+						<h:panelGrid columns="2" style="padding:10px;"
+							rendered="#{empty conventionController.convention.ficheEvaluation 
+						|| !conventionController.convention.ficheEvaluation.validationEntreprise}">
+							<h:graphicImage value="../../media/images/warn.png"
+								alt="#{msgs['GENERAL.WARNING']}"
+								title="#{msgs['GENERAL.WARNING']}" />
+							<h:outputFormat escape="false"
+								value="#{msgs['CONVENTION.ETAPE13.FICHE_ENTREPRISE_VIDE']}">
+								<f:param
+									value="#{conventionController.convention.idCentreGestion}" />
+							</h:outputFormat>
+						</h:panelGrid>
+						<h:panelGrid style="padding:10px; width:600px;"
+							rendered="#{welcomeController.superAdmin
+							and not empty conventionController.convention.ficheEvaluation
+							and conventionController.convention.ficheEvaluation.validationEnseignant}">
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.HEADER']}"
+									style="font-weight:bold; font-size:14px;" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:panelGrid columns="2" style="padding:10px;"
+									rendered="#{not empty conventionController.convention.reponseEvaluation
+								and conventionController.convention.reponseEvaluation.validationEntreprise}">
+									<h:graphicImage value="../../media/images/tick.png"
+										alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
+									<h:outputText value="#{msgs['CONVENTION.ETAPE13.FICHE_VALIDE']}" />
+								</h:panelGrid>
+								<h:panelGrid columns="2" style="padding:10px;"
+									rendered="#{empty conventionController.convention.reponseEvaluation
+								|| !conventionController.convention.reponseEvaluation.validationEntreprise}">
+									<h:graphicImage value="../../media/images/cross.png"
+										alt="#{msgs['GENERAL.WARNING']}"
+										title="#{msgs['GENERAL.WARNING']}" />
+									<h:outputText
+										value="#{msgs['CONVENTION.ETAPE13.FICHE_INVALIDE']}" />
+								</h:panelGrid>
+								<h:commandButton rendered="#{welcomeController.superAdmin}"
+									value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
+									action="#{conventionController.goToFicheEntreprise}" />
+								<t:htmlTag value="div" style="width:10px; display:inline;" />
+								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
+									action="#{conventionController.editPdfFicheEntreprise}"
+									rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" />
+							</t:htmlTag>
+						</h:panelGrid>
+					</t:div>
+				</fieldset>
+			</h:form>
+		</rich:panel>
+		<t:div rendered="#{conventionController.convention == null}">
+			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+		</t:div>
+	</ui:define>
+</ui:composition>

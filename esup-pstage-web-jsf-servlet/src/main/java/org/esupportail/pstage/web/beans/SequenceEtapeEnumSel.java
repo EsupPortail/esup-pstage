@@ -70,8 +70,12 @@ public enum SequenceEtapeEnumSel {
 	/**
 	 * etape 12, Commentaire
 	 */
-	etape12(12,"Commentaire","conventionEtape12Commentaire");
+	etape12(12,"Commentaire","conventionEtape12Commentaire"),
 	
+	/**
+	 * etape 13, Fiche d'évaluation
+	 */
+	etape13(13,"Evaluation du Stage","conventionEtape13FicheEvaluation");
 	
 	/*
 	 ******************* PROPERTIES ******************* */

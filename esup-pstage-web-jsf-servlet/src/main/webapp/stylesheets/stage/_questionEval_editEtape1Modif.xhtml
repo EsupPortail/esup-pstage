@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<t:panelGrid columns="2" columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text">
+		<h:outputLabel for="libelleQuestionModif"
+			value="Libelle de la question : " />
+		<h:inputTextarea id="libelleQuestionModif" required="true"
+			style="width:200px; height:50px; resize:none;"
+			value="#{centreController.questionSupplementaire.question}" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<rich:message for="libelleQuestionModif">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</rich:message>
+		<h:outputLabel for="typeQuestionModif"
+			value="Type de la reponse demandee : " />
+		<h:selectOneMenu id="typeQuestionModif" required="true"
+			value="#{centreController.questionSupplementaire.typeQuestion}">
+			<f:selectItem itemValue="TXT"
+				itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE.TXT']}" />
+			<f:selectItem itemValue="INT"
+				itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE.INT']}" />
+			<f:selectItem itemValue="BOOL"
+				itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE.BOOL']}" />
+		</h:selectOneMenu>
+		<t:panelGroup colspan="2">
+			<rich:message for="typeQuestionModif">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</t:panelGroup>
+	</t:panelGrid>
+
+	<t:htmlTag value="div" style="height:15px;" />
+
+	<h:panelGrid align="center" columns="3"
+		columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+		<a4j:commandButton
+			action="#{centreController.modifierQuestionSupplementaire}"
+			value="#{msgs['FORM.MODIFIER']}" render="formEditQuestionEval" />
+		<t:htmlTag value="div" style="width:30px;" />
+		<a4j:commandButton value="#{msgs['FORM.ANNULER']}" execute="@this"
+			onclick="#{rich:component('editQuestionEvalPanel')}.hide();return false;" />
+	</h:panelGrid>
+
+</ui:composition>

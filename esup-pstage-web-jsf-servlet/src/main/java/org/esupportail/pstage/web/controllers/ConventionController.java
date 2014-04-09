@@ -63,6 +63,9 @@ import org.esupportail.pstagedata.domain.dto.NatureTravailDTO;
 import org.esupportail.pstagedata.domain.dto.OffreDTO;
 import org.esupportail.pstagedata.domain.dto.OrigineStageDTO;
 import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
+import org.esupportail.pstagedata.domain.dto.QuestionSupplementaireDTO;
+import org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO;
+import org.esupportail.pstagedata.domain.dto.ReponseSupplementaireDTO;
 import org.esupportail.pstagedata.domain.dto.ServiceDTO;
 import org.esupportail.pstagedata.domain.dto.StatutJuridiqueDTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
@@ -84,6 +87,10 @@ import org.springframework.util.StringUtils;
 
 /**
  * A visual bean for the welcome page.
+ */
+/**
+ * @author Garot
+ *
  */
 public class ConventionController extends AbstractContextAwareController {
 
@@ -398,7 +405,45 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	private int ongletCourant = 1;
 
+	/**
+	 * Affichage ou non de l'alerte de surcharge du tuteur
+	 */
+	private boolean surchargeTuteur;
+
+	/* ***************************************************************
+	 * Ajouts 2.2.1 Fiche Evaluation
+	 ****************************************************************/
+	/**
+	 * Liste selectItem des elements pedagogiques
+	 */
 	private List<SelectItem> listeELPEtapesSelectItems;
+
+	/**
+	 * Listes contenant les questions supplementaires pour chaque fiche d'evaluation
+	 */
+	private List<QuestionSupplementaireDTO> questionsSupplementairesEtudiant1;
+	private List<QuestionSupplementaireDTO> questionsSupplementairesEtudiant2;
+	private List<QuestionSupplementaireDTO> questionsSupplementairesEtudiant3;
+	private List<QuestionSupplementaireDTO> questionsSupplementairesEnseignant1;
+	private List<QuestionSupplementaireDTO> questionsSupplementairesEnseignant2;
+	private List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise;
+
+	/**
+	 * Listes contenant les reponses supplementaires a add/update
+	 */
+	private List<ReponseSupplementaireDTO> reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
+
+	/**
+	 * return String
+	 */
+	private String togglePanelActiveItem;
+	
+	/**
+	 * return true si la personne connectee est tuteur de la convention en cours de consultation
+	 */
+	@SuppressWarnings("unused")
+	private boolean tuteurCurrentConvention;
+
 	/**
 	 * Bean constructor.
 	 */
@@ -506,7 +551,7 @@ public class ConventionController extends AbstractContextAwareController {
 		//		getSessionController().setCreationConventionCurrentPage("creerConventionConsignes");
 		if (getSessionController().getCurrentStageCasUser() != null) {
 			if (logger.isInfoEnabled()) {
-				logger.debug("ConventionController:: goToCreerConvention : user connecte : " 
+				logger.info("ConventionController:: goToCreerConvention : user connecte : " 
 						+ getSessionController().getCurrentStageCasUser().getId());
 			}
 		}
@@ -532,6 +577,17 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return A String
 	 */
 	public String goToCreerConventionRechEtu() {
+		reset();
+		this.convention = new ConventionDTO();
+		this.convention.setEtudiant(new EtudiantDTO());
+		this.convention.setCentreGestion(new CentreGestionDTO());
+		this.convention.setStructure(new StructureDTO());
+		this.convention.setService(new ServiceDTO());
+		this.convention.setContact(new ContactDTO());
+		this.convention.setSignataire(new ContactDTO());
+		this.convention.setEnseignant(new EnseignantDTO());
+		sequenceEtapeEnum = null;
+
 		this.rechIdentEtudiant = "";
 		this.rechNomEtudiant = "";
 		this.rechPrenomEtudiant = "";
@@ -1150,8 +1206,7 @@ public class ConventionController extends AbstractContextAwareController {
 				this.alerteMailModifConvention(" le signataire ");
 				retour = SequenceEtapeEnumSel.etape3.actionEtape();
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
-			} 
-
+			}
 		} catch (DataUpdateException ae) {
 			logger.error("DataUpdateException", ae.fillInStackTrace());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
@@ -1954,8 +2009,8 @@ public class ConventionController extends AbstractContextAwareController {
 							idConvention);
 
 					// Envoi d'une alerte à l'enseignant tuteur
-					if (this.convention.getEnseignant().getMail() != null && !this.convention.getEnseignant().getMail().isEmpty())
-						getSmtpService().send(new InternetAddress(this.convention.getEnseignant().getMail()),sujet,text,text);
+					//					if (this.convention.getEnseignant().getMail() != null && !this.convention.getEnseignant().getMail().isEmpty())
+					//						getSmtpService().send(new InternetAddress(this.convention.getEnseignant().getMail()),sujet,text,text);
 
 					// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 					List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.convention.getIdCentreGestion());
@@ -1973,7 +2028,7 @@ public class ConventionController extends AbstractContextAwareController {
 				//sequenceEtapeEnum = SequenceEtapeEnum.etape9;
 				sequenceEtapeEnum = SequenceEtapeEnum.etape10;
 				//retour vers detail convention (validation, avenant ), idem recherche 
-				sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape12;
+				sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape13;
 				retour = "conventionEtape8Recap";
 			}
 		} catch (DataAddException ae) {
@@ -2206,7 +2261,6 @@ public class ConventionController extends AbstractContextAwareController {
 			if (logger.isDebugEnabled()) {
 				logger.info("Selection Convention: " + this.currentConvention.toString());
 			}
-
 			ConventionDTO conventionTmp = this.getConventionDomainService().getConventionFromId(this.currentConvention.getIdConvention());
 			if (conventionTmp != null) {
 				this.convention = conventionTmp;
@@ -2310,7 +2364,7 @@ public class ConventionController extends AbstractContextAwareController {
 					}
 				}
 			}
-			sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape12;
+			sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape13;
 			retour = "conventionEtape8Recap";
 		}
 		return retour;
@@ -3011,7 +3065,6 @@ public class ConventionController extends AbstractContextAwareController {
 				return null;
 			}
 		}
-
 		this.convention.setValidationConvention(false);
 		ConventionDTO conventionTmp = this.convention;
 		conventionTmp.setLoginValidation(null);
@@ -3597,7 +3650,7 @@ public class ConventionController extends AbstractContextAwareController {
 		if (!StringUtils.hasText(this.estVerifiee))	this.critereRechercheConvention.setEstVerifiee(null);
 		else if(this.estVerifiee.equals("1")) this.critereRechercheConvention.setEstVerifiee(true);
 		else if(this.estVerifiee.equals("2")) this.critereRechercheConvention.setEstVerifiee(false);
-		
+
 		//this.critereRechercheConvention.setLimit(true);
 		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.NB_RECHERCHE_MAXI));
 		// si enseignant tuteur, recherche des conventions pour les enseignants tuteur
@@ -3926,14 +3979,44 @@ public class ConventionController extends AbstractContextAwareController {
 		calendar.setTime(date);
 		String year = String.valueOf(calendar.get(Calendar.YEAR));
 		this.critereRechercheConvention.setAnneeUniversitaire(year);
-		this.critereRechercheConvention.setIdsCentreGestion(getSessionController().getCurrentIdsCentresGestion());
 		this.critereRechercheConvention.setTypeStructure(null);
 		this.critereRechercheConvention.setStatutJuridique(null);
-
 		//this.critereRechercheConvention.setLimit(true);
 		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.NB_RECHERCHE_MAXI));
 
-		this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
+		if (getSessionController().isValidationPedagogique()){
+			// Listes des ids des centres de gestion avec ou sans validation pédagogique
+			List<Integer> idsCentresSansVP = new ArrayList<Integer>();
+			List<Integer> idsCentresAvecVP = new ArrayList<Integer>();
+			for (int idCg : getSessionController().getCurrentIdsCentresGestion()){
+				if (getCentreGestionDomainService().getCentreGestion(idCg).isValidationPedagogique()){
+					idsCentresAvecVP.add(idCg);
+				} else {
+					idsCentresSansVP.add(idCg);
+				}
+			}
+			// Premiere recherche pour les centres avec Validation pedago, et donc avec le critere de recherche Correspondant
+			this.critereRechercheConvention.setEstVerifiee(true);
+			this.critereRechercheConvention.setIdsCentreGestion(idsCentresAvecVP);
+
+			this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
+			if (this.resultatsRechercheConvention == null){
+				this.resultatsRechercheConvention = new ArrayList<ConventionDTO>();
+			}
+
+			// Deuxieme recherche pour les autres centre
+			this.critereRechercheConvention.setEstVerifiee(null);
+			this.critereRechercheConvention.setIdsCentreGestion(idsCentresSansVP);
+
+			List<ConventionDTO> listeSansVP = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
+			if (listeSansVP!= null){
+				this.resultatsRechercheConvention.addAll(getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention));
+			}
+		} else {
+			this.critereRechercheConvention.setIdsCentreGestion(getSessionController().getCurrentIdsCentresGestion());
+
+			this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
+		}
 		if (!checkListeResultats()) {
 			ret = null;
 		}
@@ -3980,9 +4063,9 @@ public class ConventionController extends AbstractContextAwareController {
 						this.convention.getIdConvention());
 
 				// Envoi d'une alerte à l'enseignant tuteur s'il est renseigné dans la convention
-				EnseignantDTO tmp = getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
-				if (tmp !=null && tmp.getId() != 0 && tmp.getMail() != null && !tmp.getMail().isEmpty())
-					getSmtpService().send(new InternetAddress(tmp.getMail()),sujet,text,text);
+				//				EnseignantDTO tmp = getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
+				//				if (tmp !=null && tmp.getId() != 0 && tmp.getMail() != null && !tmp.getMail().isEmpty())
+				//					getSmtpService().send(new InternetAddress(tmp.getMail()),sujet,text,text);
 
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.convention.getIdCentreGestion());
@@ -4024,14 +4107,9 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 
 	}
-
-	private boolean surchargeTuteur;
 	/**
-	 * @return boolean
+	 * Verification du nombre de conventions assignees au tuteur
 	 */
-	public boolean isSurchargeTuteur(){
-		return this.surchargeTuteur;
-	}
 	public void checkSurchargeTuteur(){
 		this.surchargeTuteur = false;
 		Integer limiteSurcharge = getSessionController().getSurchargeTuteur();
@@ -4043,6 +4121,456 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 	}
 
+	/* ***************************************************************
+	 * Ajouts 2.2.1 Fiche Evaluation
+	 ****************************************************************/
+	//TODO
+	/**
+	 * Acces a la partie Etudiant de la fiche d'evaluation
+	 */
+	public String goToFicheEtudiant(){
+		this.togglePanelActiveItem = "etudiantTogglePanel1";
+		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+		// Si la reponse n'a pas ete initialise a la creation de la convention, il n'y en a pas encore, on l'initialise donc vide en base
+		if (reponseEvalTmp == null){
+			reponseEvalTmp = new ReponseEvaluationDTO();
+			reponseEvalTmp.setIdFicheEvaluation(this.convention.getFicheEvaluation().getIdFicheEvaluation());
+			reponseEvalTmp.setIdConvention(this.convention.getIdConvention());
+			try{
+				getFicheEvaluationDomainService().addReponseEvaluation(reponseEvalTmp);
+			} catch (DataAddException ae) {
+				logger.error("DataAddException", ae.fillInStackTrace());
+				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+			} catch (WebServiceDataBaseException we) {
+				logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+				addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
+			}
+			this.convention.setReponseEvaluation(reponseEvalTmp);
+		}
+
+		this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
+
+		// Assignation des questions supplementaires de la partie 1 Etudiant
+		this.setQuestionsSupplementairesEtudiant1(getFicheEvaluationDomainService()
+				.getQuestionsSupplementairesFromIdPlacement(this.convention.getFicheEvaluation().getIdFicheEvaluation(), 1));
+		// S'il y en a, recuperation/initialisation des reponses correspondantes
+		if(this.questionsSupplementairesEtudiant1 != null && !this.questionsSupplementairesEtudiant1.isEmpty()){
+			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEtudiant1){
+				ReponseSupplementaireDTO reponse = recupReponseSup(question);
+				question.setReponseSupplementaire(reponse);
+			}
+		}
+		// Assignation des questions supplementaires de la partie 2 Etudiant
+		this.setQuestionsSupplementairesEtudiant2(getFicheEvaluationDomainService()
+				.getQuestionsSupplementairesFromIdPlacement(this.convention.getFicheEvaluation().getIdFicheEvaluation(), 2));
+		if(this.questionsSupplementairesEtudiant2 != null && !this.questionsSupplementairesEtudiant2.isEmpty()){
+			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEtudiant2){
+				ReponseSupplementaireDTO reponse = recupReponseSup(question);
+				question.setReponseSupplementaire(reponse);
+			}
+		}
+		// Assignation des questions supplementaires de la partie 3 Etudiant
+		this.setQuestionsSupplementairesEtudiant3(getFicheEvaluationDomainService()
+				.getQuestionsSupplementairesFromIdPlacement(this.convention.getFicheEvaluation().getIdFicheEvaluation(), 3));
+		if(this.questionsSupplementairesEtudiant3 != null && !this.questionsSupplementairesEtudiant3.isEmpty()){
+			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEtudiant3){
+				ReponseSupplementaireDTO reponse = recupReponseSup(question);
+				question.setReponseSupplementaire(reponse);
+			}
+		}
+
+		try{
+			if (this.reponsesSupplementaires != null && !this.reponsesSupplementaires.isEmpty()){
+				getFicheEvaluationDomainService().addReponsesSupplementaires(reponsesSupplementaires);
+			}
+		} catch (DataAddException ae) {
+			logger.error("DataAddException", ae.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+		} catch (WebServiceDataBaseException we) {
+			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
+		}
+
+		return "conventionEtape13FicheEvaluationEtudiant";
+	}	
+
+	/**
+	 * Remplissage de la reponse par l'etudiant
+	 */
+	public void updateReponseEtudiant(){
+		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+		if(reponseEvalTmp != null){
+			try{
+				if (selOrigineStage != null) {
+					reponseEvalTmp.setReponseEtuI5(selOrigineStage.getId());
+				}
+
+				getFicheEvaluationDomainService().updateReponseEvaluationEtudiant(reponseEvalTmp);
+
+				this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
+
+				if(this.questionsSupplementairesEtudiant1 != null){
+					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEtudiant1){
+						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+						if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
+							this.reponsesSupplementaires.add(reponse);
+						}
+					}
+				}
+				if(this.questionsSupplementairesEtudiant2 != null){
+					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEtudiant2){
+						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+						if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
+							this.reponsesSupplementaires.add(reponse);
+						}
+					}
+				}
+				if(this.questionsSupplementairesEtudiant3 != null){
+					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEtudiant3){
+						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+						if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
+							this.reponsesSupplementaires.add(reponse);
+						}
+					}
+				}
+
+				if (reponsesSupplementaires != null && !reponsesSupplementaires.isEmpty()){
+					getFicheEvaluationDomainService().updateReponsesSupplementaires(reponsesSupplementaires);
+				}
+
+				addInfoMessage("formFicheEtudiant", "CONVENTION.ETAPE13.CREATION");
+				if(logger.isInfoEnabled()){
+					logger.info(getSessionController().getCurrentLogin()+" met a jour sa reponse a la fiche n°"+reponseEvalTmp.getIdFicheEvaluation()
+							+" pour la convention n°"+reponseEvalTmp.getIdConvention());
+				}
+			} catch (DataUpdateException d){
+				logger.error("DataUpdateException",d.fillInStackTrace());
+				addErrorMessage("formFicheEtudiant","CONVENTION.ETAPE13.ERREUR_AJOUT");
+			} catch (WebServiceDataBaseException w){
+				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				addErrorMessage("formFicheEtudiant", "CONVENTION.ETAPE13.ERREUR_WS");
+			}
+		}
+	}
+	/**
+	 * @return String
+	 */
+	public String validateFicheEtudiant(){
+		this.convention.getReponseEvaluation().setValidationEtudiant(true);
+		this.updateReponseEtudiant();
+		return "conventionEtape13FicheEvaluation";
+	}
+
+	/**
+	 * Generation du pdf pour l'impression de la fiche d'evaluation de l'etudiant
+	 */
+	public void editPdfFicheEtudiant(){
+		try	{
+			ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+			String nomDocxsl = "";
+			String fileNameXml = "";
+			String fileNameXmlfin = ".xml";
+			String idReponse = reponseEvalTmp.getIdConvention().toString()+"_"+reponseEvalTmp.getIdFicheEvaluation().toString();
+			nomDocxsl = "ficheEtudiant" + ".xsl";
+			fileNameXml = "ficheEtudiant_" + idReponse;
+			// appel castor pour fichier xml a partir de objet java convention
+			castorService.objectToFileXml(reponseEvalTmp, fileNameXml + fileNameXmlfin);
+			//fusion du xsl et xml en pdf
+			String fileNamePdf = fileNameXml + ".pdf";
+			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
+					castorService.getXslXmlPath(),
+					fileNamePdf, nomDocxsl);
+		} catch (ExportException e) {
+			logger.error("editPdfFicheEtudiant ", e.fillInStackTrace());
+		}
+	}
+	/**
+	 * Generation et envoie du lien vers sa fiche non casifiee au tuteur professionnel de l'etudiant
+	 */
+	public void envoiMailFicheEntreprise(){
+		//envoi d'un mail au tuteur pro contenant un lien permettant l'acces a la page de saisie de la reponse entreprise (via idFiche du centre + idConvention)
+	}
+
+	/**
+	 * @return the tuteurCurrentConvention
+	 */
+	public boolean isTuteurCurrentConvention(){
+		boolean b = false;
+		if (getSessionController().getCurrentAuthEnseignant() != null 
+			&& this.convention.getEnseignant() != null
+			&& getSessionController().getCurrentAuthEnseignant().getUidEnseignant()
+				.equalsIgnoreCase(this.convention.getEnseignant().getUidEnseignant())){
+			b=true;
+		}
+		return b;
+	}
+	
+	/**
+	 * Acces a la partie Enseignant de la fiche d'evaluation
+	 */
+	public String goToFicheEnseignant(){
+		this.togglePanelActiveItem = "enseignantTogglePanel1";
+		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+		if (reponseEvalTmp == null){
+			reponseEvalTmp = new ReponseEvaluationDTO();
+			reponseEvalTmp.setIdConvention(this.convention.getIdConvention());
+			reponseEvalTmp.setIdFicheEvaluation(this.convention.getFicheEvaluation().getIdFicheEvaluation());
+			try{
+				getFicheEvaluationDomainService().addReponseEvaluation(reponseEvalTmp);
+			} catch (DataAddException ae) {
+				logger.error("DataAddException", ae.fillInStackTrace());
+				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+			} catch (WebServiceDataBaseException we) {
+				logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+				addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
+			}
+			this.convention.setReponseEvaluation(reponseEvalTmp);
+		}
+
+		this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
+
+		// Assignation des questions supplementaires de la partie 1 Enseignant
+		this.setQuestionsSupplementairesEnseignant1(getFicheEvaluationDomainService()
+				.getQuestionsSupplementairesFromIdPlacement(this.convention.getFicheEvaluation().getIdFicheEvaluation(), 4));
+		// S'il y en a, recuperation/initialisation des reponses correspondantes
+		if(this.questionsSupplementairesEnseignant1 != null && !this.questionsSupplementairesEnseignant1.isEmpty()){
+			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEnseignant1){
+				ReponseSupplementaireDTO reponse = recupReponseSup(question);
+				question.setReponseSupplementaire(reponse);
+			}
+		}
+		// Assignation des questions supplementaires de la partie 2 Enseignant
+		this.setQuestionsSupplementairesEnseignant2(getFicheEvaluationDomainService()
+				.getQuestionsSupplementairesFromIdPlacement(this.convention.getFicheEvaluation().getIdFicheEvaluation(), 5));
+		if(this.questionsSupplementairesEnseignant2 != null && !this.questionsSupplementairesEnseignant2.isEmpty()){
+			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEnseignant2){
+				ReponseSupplementaireDTO reponse = recupReponseSup(question);
+				question.setReponseSupplementaire(reponse);
+			}
+		}
+
+		try{
+			if (this.reponsesSupplementaires != null && !this.reponsesSupplementaires.isEmpty()){
+				getFicheEvaluationDomainService().addReponsesSupplementaires(reponsesSupplementaires);
+			}
+		} catch (DataAddException ae) {
+			logger.error("DataAddException", ae.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+		} catch (WebServiceDataBaseException we) {
+			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
+		}
+
+		getSessionController().setFicheEvaluationCurrentPage("_conventionEtape13FicheEvaluationEnseignant");
+		return "conventionEtape13FicheEvaluationEnseignant";
+	}
+	/**
+	 * Remplissage de sa reponse par l'enseignant
+	 */
+	public void updateReponseEnseignant(){
+		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+		if(reponseEvalTmp != null){
+			try{
+				getFicheEvaluationDomainService().updateReponseEvaluationEnseignant(reponseEvalTmp);
+
+				this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
+
+				if(this.questionsSupplementairesEnseignant1 != null){
+					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEnseignant1){
+						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+						if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
+							this.reponsesSupplementaires.add(reponse);
+						}
+					}
+				}
+				if(this.questionsSupplementairesEnseignant2 != null){
+					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEnseignant2){
+						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+						if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
+							this.reponsesSupplementaires.add(reponse);
+						}
+					}
+				}
+
+				if (reponsesSupplementaires != null && !reponsesSupplementaires.isEmpty()){
+					getFicheEvaluationDomainService().updateReponsesSupplementaires(reponsesSupplementaires);
+				}
+
+				addInfoMessage("formFicheEnseignant", "CONVENTION.ETAPE13.CREATION");
+				if(logger.isInfoEnabled()){
+					logger.info(getSessionController().getCurrentLogin()+" met a jour sa reponse a la fiche n°"+reponseEvalTmp.getIdFicheEvaluation()
+							+" pour la convention n°"+reponseEvalTmp.getIdConvention());
+				}
+			} catch (DataUpdateException d){
+				logger.error("DataUpdateException",d.fillInStackTrace());
+				addErrorMessage("formFicheEnseignant","CONVENTION.ETAPE13.ERREUR_AJOUT");
+			} catch (WebServiceDataBaseException w){
+				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				addErrorMessage("formFicheEnseignant", "CONVENTION.ETAPE13.ERREUR_WS");
+			}
+		}
+	}
+	/**
+	 * @return String
+	 */
+	public String validateFicheEnseignant(){
+		this.convention.getReponseEvaluation().setValidationEnseignant(true);
+		this.updateReponseEnseignant();
+		return "conventionEtape13FicheEvaluation";
+	}
+
+	/**
+	 * Generation du pdf pour l'impression de la fiche Enseignant
+	 */
+	public void editPdfFicheEnseignant(){
+		try	{
+			ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+			String nomDocxsl = "";
+			String fileNameXml = "";
+			String fileNameXmlfin = ".xml";
+			String idReponse = reponseEvalTmp.getIdConvention().toString()+"_"+reponseEvalTmp.getIdFicheEvaluation().toString();
+			nomDocxsl = "ficheEnseignant" + ".xsl";
+			fileNameXml = "ficheEnseignant_" + idReponse;
+			// appel castor pour fichier xml a partir de objet java convention
+			castorService.objectToFileXml(reponseEvalTmp, fileNameXml + fileNameXmlfin);
+			//fusion du xsl et xml en pdf
+			String fileNamePdf = fileNameXml + ".pdf";
+			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
+					castorService.getXslXmlPath(),
+					fileNamePdf, nomDocxsl);
+		} catch (ExportException e) {
+			logger.error("editPdfFicheEnseignant ", e.fillInStackTrace());
+		}
+	}
+	/**
+	 * Acces a la partie Entreprise de la fiche d'evaluation
+	 */
+	public String goToFicheEntreprise(){
+		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+		if (reponseEvalTmp == null){
+			reponseEvalTmp = new ReponseEvaluationDTO();
+			reponseEvalTmp.setIdConvention(this.convention.getIdConvention());
+			reponseEvalTmp.setIdFicheEvaluation(this.convention.getFicheEvaluation().getIdFicheEvaluation());
+			try{
+				getFicheEvaluationDomainService().addReponseEvaluation(reponseEvalTmp);
+			} catch (DataAddException ae) {
+				logger.error("DataAddException", ae.fillInStackTrace());
+				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+			} catch (WebServiceDataBaseException we) {
+				logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+				addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
+			}
+			this.convention.setReponseEvaluation(reponseEvalTmp);
+		}
+
+		this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
+
+		// Assignation des questions supplementaires de la partie Entreprise
+		this.setQuestionsSupplementairesEntreprise(getFicheEvaluationDomainService()
+				.getQuestionsSupplementairesFromIdPlacement(this.convention.getFicheEvaluation().getIdFicheEvaluation(), 6));
+		// S'il y en a, recuperation/initialisation des reponses correspondantes
+		if(this.questionsSupplementairesEntreprise!= null && !this.questionsSupplementairesEntreprise.isEmpty()){
+			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise){
+				ReponseSupplementaireDTO reponse = recupReponseSup(question);
+				question.setReponseSupplementaire(reponse);
+			}
+		}
+
+		try{
+			if (this.reponsesSupplementaires != null && !this.reponsesSupplementaires.isEmpty()){
+				getFicheEvaluationDomainService().addReponsesSupplementaires(reponsesSupplementaires);
+			}
+		} catch (DataAddException ae) {
+			logger.error("DataAddException", ae.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+		} catch (WebServiceDataBaseException we) {
+			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
+		}
+
+		getSessionController().setFicheEvaluationCurrentPage("_conventionEtape13FicheEvaluationEntreprise");
+		return "conventionEtape13FicheEvaluationEntreprise";
+	}
+	/**
+	 * Remplissage de la reponse par l'entreprise
+	 */
+	public String updateReponseEntreprise(){
+		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+		if(reponseEvalTmp != null){
+			try{
+				reponseEvalTmp.setValidationEntreprise(true);
+
+				getFicheEvaluationDomainService().updateReponseEvaluationEntreprise(reponseEvalTmp);
+
+				this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
+
+				if(this.questionsSupplementairesEntreprise != null){
+					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise){
+						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+						if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
+							this.reponsesSupplementaires.add(reponse);
+						}
+					}
+				}
+
+				if (reponsesSupplementaires != null && !reponsesSupplementaires.isEmpty()){
+					getFicheEvaluationDomainService().updateReponsesSupplementaires(reponsesSupplementaires);
+				}
+
+				addInfoMessage("formFicheEntreprise", "CONVENTION.ETAPE13.CREATION");
+				if(logger.isInfoEnabled()){
+					logger.info(getSessionController().getCurrentLogin()+" met a jour sa reponse a la fiche n°"+reponseEvalTmp.getIdFicheEvaluation()
+							+" pour la convention n°"+reponseEvalTmp.getIdConvention());
+				}
+			} catch (DataUpdateException d){
+				logger.error("DataUpdateException",d.fillInStackTrace());
+				addErrorMessage("formFicheEntreprise","CONVENTION.ETAPE13.ERREUR_AJOUT");
+			} catch (WebServiceDataBaseException w){
+				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+				addErrorMessage("formFicheEntreprise", "CONVENTION.ETAPE13.ERREUR_WS");
+			}
+		}
+		return "conventionEtape13FicheEvaluation";
+	}
+	/**
+	 * Generation du pdf pour l'impression de la fiche entreprise
+	 */
+	public void editPdfFicheEntreprise(){
+		try	{
+			ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+			String nomDocxsl = "";
+			String fileNameXml = "";
+			String fileNameXmlfin = ".xml";
+			String idReponse = reponseEvalTmp.getIdConvention().toString()+"_"+reponseEvalTmp.getIdFicheEvaluation().toString();
+			nomDocxsl = "ficheEntreprise" + ".xsl";
+			fileNameXml = "ficheEntreprise_" + idReponse;
+			// appel castor pour fichier xml a partir de objet java convention
+			castorService.objectToFileXml(reponseEvalTmp, fileNameXml + fileNameXmlfin);
+			//fusion du xsl et xml en pdf
+			String fileNamePdf = fileNameXml + ".pdf";
+			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
+					castorService.getXslXmlPath(),
+					fileNamePdf, nomDocxsl);
+		} catch (ExportException e) {
+			logger.error("editPdfFicheEntreprise ", e.fillInStackTrace());
+		}
+	}
+
+	/**
+	 * @param question
+	 * @return ReponseSupplementaireDTO
+	 */
+	private ReponseSupplementaireDTO recupReponseSup(QuestionSupplementaireDTO question){
+		ReponseSupplementaireDTO reponse = getFicheEvaluationDomainService()
+				.getReponseSupplementaire(question.getIdQuestionSupplementaire(), this.convention.getIdConvention());
+		// Si on ne trouve rien existant en base, on l'initialise avec les ids disponibles
+		if (reponse.getIdQuestionSupplementaire() == null){
+			reponse.setIdQuestionSupplementaire(question.getIdQuestionSupplementaire());
+			reponse.setIdConvention(this.convention.getIdConvention());
+			this.reponsesSupplementaires.add(reponse);
+		}
+		return reponse;
+	}
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/
@@ -5013,5 +5541,130 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void setEstVerifiee(String estVerifiee) {
 		this.estVerifiee = estVerifiee;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public boolean isSurchargeTuteur(){
+		return this.surchargeTuteur;
+	}
+
+	/**
+	 * @return the questionsSupplementairesEtudiant1
+	 */
+	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEtudiant1() {
+		return questionsSupplementairesEtudiant1;
+	}
+
+	/**
+	 * @param questionsSupplementairesEtudiant1 the questionsSupplementairesEtudiant1 to set
+	 */
+	public void setQuestionsSupplementairesEtudiant1(
+			List<QuestionSupplementaireDTO> questionsSupplementairesEtudiant1) {
+		this.questionsSupplementairesEtudiant1 = questionsSupplementairesEtudiant1;
+	}
+
+	/**
+	 * @return the questionsSupplementairesEtudiant2
+	 */
+	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEtudiant2() {
+		return questionsSupplementairesEtudiant2;
+	}
+
+	/**
+	 * @param questionsSupplementairesEtudiant2 the questionsSupplementairesEtudiant2 to set
+	 */
+	public void setQuestionsSupplementairesEtudiant2(
+			List<QuestionSupplementaireDTO> questionsSupplementairesEtudiant2) {
+		this.questionsSupplementairesEtudiant2 = questionsSupplementairesEtudiant2;
+	}
+
+	/**
+	 * @return the questionsSupplementairesEtudiant3
+	 */
+	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEtudiant3() {
+		return questionsSupplementairesEtudiant3;
+	}
+
+	/**
+	 * @param questionsSupplementairesEtudiant3 the questionsSupplementairesEtudiant3 to set
+	 */
+	public void setQuestionsSupplementairesEtudiant3(
+			List<QuestionSupplementaireDTO> questionsSupplementairesEtudiant3) {
+		this.questionsSupplementairesEtudiant3 = questionsSupplementairesEtudiant3;
+	}
+
+	/**
+	 * @return the questionsSupplementairesEnseignant1
+	 */
+	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEnseignant1() {
+		return questionsSupplementairesEnseignant1;
+	}
+
+	/**
+	 * @param questionsSupplementairesEnseignant1 the questionsSupplementairesEnseignant1 to set
+	 */
+	public void setQuestionsSupplementairesEnseignant1(
+			List<QuestionSupplementaireDTO> questionsSupplementairesEnseignant1) {
+		this.questionsSupplementairesEnseignant1 = questionsSupplementairesEnseignant1;
+	}
+
+	/**
+	 * @return the questionsSupplementairesEnseignant2
+	 */
+	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEnseignant2() {
+		return questionsSupplementairesEnseignant2;
+	}
+
+	/**
+	 * @param questionsSupplementairesEnseignant2 the questionsSupplementairesEnseignant2 to set
+	 */
+	public void setQuestionsSupplementairesEnseignant2(
+			List<QuestionSupplementaireDTO> questionsSupplementairesEnseignant2) {
+		this.questionsSupplementairesEnseignant2 = questionsSupplementairesEnseignant2;
+	}
+
+	/**
+	 * @return the questionsSupplementairesEntreprise
+	 */
+	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEntreprise() {
+		return questionsSupplementairesEntreprise;
+	}
+
+	/**
+	 * @param questionsSupplementairesEntreprise the questionsSupplementairesEntreprise to set
+	 */
+	public void setQuestionsSupplementairesEntreprise(
+			List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise) {
+		this.questionsSupplementairesEntreprise = questionsSupplementairesEntreprise;
+	}
+
+	/**
+	 * @return the reponsesSupplementaires
+	 */
+	public List<ReponseSupplementaireDTO> getReponsesSupplementaires() {
+		return reponsesSupplementaires;
+	}
+
+	/**
+	 * @param reponsesSupplementaires the reponsesSupplementaires to set
+	 */
+	public void setReponsesSupplementaires(List<ReponseSupplementaireDTO> reponsesSupplementaires) {
+		this.reponsesSupplementaires = reponsesSupplementaires;
+	}
+
+	/**
+	 * @return the togglePanelActiveItem
+	 */
+	public String getTogglePanelActiveItem() {
+		return togglePanelActiveItem;
+	}
+
+	/**
+	 * @param togglePanelActiveItem the togglePanelActiveItem to set
+	 */
+	public void setTogglePanelActiveItem(String togglePanelActiveItem) {
+		this.togglePanelActiveItem = togglePanelActiveItem;
 	}
 }

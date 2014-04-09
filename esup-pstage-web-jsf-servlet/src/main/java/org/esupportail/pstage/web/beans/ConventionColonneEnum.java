@@ -211,7 +211,17 @@ public enum ConventionColonneEnum {
     /**
      * col41 , Element pédagogique - LIBELLE
      */
-    col41("EXPORTCONVENTION.LIBELLEELP", "libelleElp");
+    col41("EXPORTCONVENTION.LIBELLEELP", "libelleElp"),
+    
+    /**
+     * col42 , code sexe etudiant
+     */
+    col42("EXPORTCONVENTION.CODESEXEETUDIANT", "etudiant.codeSexe"),
+    
+    /**
+     * col43 , avantages nature
+     */
+    col43("EXPORTCONVENTION.AVANTAGESNATURE", "avantagesNature");
 	
 	/*
 	 ******************* PROPERTIES ******************* */

@@ -19,9 +19,9 @@
 			<h:form id="formModifCentre">
 				<a4j:queue ignoreDupResponses="true" />
 				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1" align="center">
+					rowClasses="paginatorData-text" style="margin-left:100px;">
 					<h:outputText value="#{msgs['CENTRE.AJOUT_CENTRE.ACCUEIL']}" />
-					<t:htmlTag value="div" style="height: 15px;" />
+					<t:htmlTag value="div" style="height: 10px;" />
 					<h:outputLabel value="#{msgs['CENTRE.NOM']} *" for="nomCentre" />
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="2">
@@ -345,9 +345,9 @@
 						</h:selectOneRadio>
 					</h:panelGrid>
 					
-					<t:htmlTag value="div" style="height: 20px;" />
 					<t:htmlTag value="center">
 						<h:commandButton action="#{centreController.modifierCentre}"
+							style="font-size:16px; border-color:green;"
 							value="#{msgs['FORM.MODIFIER']}" />
 					</t:htmlTag>
 

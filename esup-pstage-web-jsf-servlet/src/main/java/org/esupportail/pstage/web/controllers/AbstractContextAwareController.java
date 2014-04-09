@@ -13,6 +13,7 @@ import org.esupportail.pstage.domain.ConventionDomainService;
 import org.esupportail.pstage.domain.CritereGestionDomainService;
 import org.esupportail.pstage.domain.EnseignantDomainService;
 import org.esupportail.pstage.domain.EtudiantDomainService;
+import org.esupportail.pstage.domain.FicheEvaluationDomainService;
 import org.esupportail.pstage.domain.NomenclatureDomainService;
 import org.esupportail.pstage.domain.OffreDomainService;
 import org.esupportail.pstage.domain.PersonnelCentreGestionDomainService;
@@ -99,6 +100,10 @@ public abstract class AbstractContextAwareController extends AbstractDomainAware
 	 */
 	private AvenantDomainService avenantDomainService;
 	/**
+	 * AvenantDomainService.
+	 */
+	private FicheEvaluationDomainService ficheEvaluationDomainService;
+	/**
 	 * BeanUtils .
 	 */
 	private BeanUtils beanUtils;
@@ -182,6 +187,8 @@ public abstract class AbstractContextAwareController extends AbstractDomainAware
 		Assert.notNull(this.avenantDomainService, "property avenantDomainService of class "
 				+ this.getClass().getName() + " can not be null");
 		Assert.notNull(this.etudiantDomainService, "property enseignantDomainService of class "
+				+ this.getClass().getName() + " can not be null");
+		Assert.notNull(this.ficheEvaluationDomainService, "property ficheEvaluationDomainService of class "
 				+ this.getClass().getName() + " can not be null");
 	}
 
@@ -546,6 +553,21 @@ public abstract class AbstractContextAwareController extends AbstractDomainAware
 	 */
 	public CentreController getCentreController() {
 		return centreController;
+	}
+
+	/**
+	 * @return the ficheEvaluationDomainService
+	 */
+	public FicheEvaluationDomainService getFicheEvaluationDomainService() {
+		return ficheEvaluationDomainService;
+	}
+
+	/**
+	 * @param ficheEvaluationDomainService the ficheEvaluationDomainService to set
+	 */
+	public void setFicheEvaluationDomainService(
+			FicheEvaluationDomainService ficheEvaluationDomainService) {
+		this.ficheEvaluationDomainService = ficheEvaluationDomainService;
 	}
 
 	

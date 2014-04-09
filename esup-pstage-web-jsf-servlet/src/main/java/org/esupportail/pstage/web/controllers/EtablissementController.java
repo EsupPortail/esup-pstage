@@ -807,8 +807,12 @@ public class EtablissementController extends AbstractContextAwareController {
 	public String modifierEtablissement() {
 		String retour = null;
 		boolean nafActiviteOK = false;
+		
+		// Recuperation de la structure telle qu'elle etait avant modification (pour affichage dans le mail)
+		StructureDTO structurePreModif = getStructureDomainService().getStructureFromId(this.formStructure.getIdStructure());
+		
 		this.formStructure.setNafN5(this.formStructureTmpNafN5);
-
+		
 		if ((this.formStructure.getNafN5() != null
 				&& this.formStructure.getNafN5().getCode() != null
 				&& StringUtils.hasText(this.formStructure.getNafN5().getCode())
@@ -930,8 +934,10 @@ public class EtablissementController extends AbstractContextAwareController {
 									infoPersonne),
 								getString("MAIL.ADMIN.ETAB.MESSAGEMODIF",
 									getSessionController().getApplicationNameEntreprise(),
-									this.formStructure.printAdresse(),
-									infoPersonne),
+									this.formStructure.getIdStructure(),
+									infoPersonne,
+									structurePreModif.toString(),
+									this.formStructure.toString()),
 									"");
 					}
 				} else {
@@ -2496,15 +2502,12 @@ public class EtablissementController extends AbstractContextAwareController {
 	public boolean isCurrentCentresGestionContainsCentreContact() {
 		currentCentresGestionContainsCentreContact = false;
 		if (getSessionController().getCurrentIdsCentresGestion() != null
-				&& !getSessionController().getCurrentIdsCentresGestion()
-				.isEmpty()
-				&& ((ArrayList<Integer>) getSessionController()
-						.getCurrentIdsCentresGestion())
+				&& !getSessionController().getCurrentIdsCentresGestion().isEmpty()
+				&& ((ArrayList<Integer>) getSessionController().getCurrentIdsCentresGestion())
 						.contains(this.formContact.getIdCentreGestion())) {
 			CentreGestionDTO cgEntr = getCentreGestionDomainService()
 					.getCentreEntreprise();
-			if (cgEntr != null
-					&& cgEntr.getIdCentreGestion() != this.formContact
+			if (cgEntr != null && cgEntr.getIdCentreGestion() != this.formContact
 					.getIdCentreGestion())
 				currentCentresGestionContainsCentreContact = true;
 		}

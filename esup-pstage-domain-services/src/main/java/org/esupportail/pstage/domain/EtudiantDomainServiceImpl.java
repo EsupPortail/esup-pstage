@@ -80,7 +80,7 @@ public class EtudiantDomainServiceImpl implements EtudiantDomainService {
 	 * @see org.esupportail.pstagedata.domain.EtudiantDomainService#updateEtudiant(org.esupportail.pstagedata.domain.dto.EtudiantDTO)
 	 */
 	public boolean updateEtudiant(EtudiantDTO etudiant)
-	throws DataUpdateException, WebServiceDataBaseException {
+		throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateEtudiant(etudiant);
 	}
 

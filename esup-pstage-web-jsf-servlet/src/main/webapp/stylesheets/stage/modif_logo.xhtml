@@ -13,8 +13,8 @@
 				<h:outputText
 					value="#{msgs['CENTRE.LOGO.HEAD']} #{centreController.centre.nomCentre}" />
 			</f:facet>
-			<t:htmlTag value="center">
-				<ui:include src="./_menu_centre.xhtml" />
+			<ui:include src="./_menu_centre.xhtml" />
+			<t:div style="margin-left:100px; width:500px;">
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1">
 					<h:outputText value="#{msgs['CENTRE.LOGO.AVERTISSEMENT_1']}" />
@@ -28,17 +28,18 @@
 				<a4j:outputPanel id="opUploadImage">
 					<h:form>
 						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text"
+							rowClasses="paginatorData-text" align="center"
 							rendered="#{centreController.centre.idFichier le 0}">
 							<a4j:commandButton id="add"
+								style="font-size:16px; font-weight:bold; border-color:green;"
 								action="#{centreController.avantAjoutLogo}"
 								oncomplete="#{rich:component('addLogo')}.show()"
 								value="#{msgs['CENTRE.LOGO.ADD']}" />
 						</h:panelGrid>
 
 						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text"
-							rendered="#{centreController.centre.idFichier>0}">
+							rowClasses="paginatorData-text" align="center"
+							rendered="#{centreController.centre.idFichier gt 0}">
 							<h:outputText value="#{msgs['CENTRE.LOGO.IMAGEUPLOADE']}" />
 							<t:htmlTag value="div" style="height: 15px;" />
 							<t:htmlTag value="center">
@@ -60,7 +61,7 @@
 						</h:panelGrid>
 					</h:form>
 				</a4j:outputPanel>
-			</t:htmlTag>
+			</t:div>
 		</rich:panel>
 		<ui:include src="./_panel_logo.xhtml" />
 		<ui:include src="./_panel_suppressionLogo.xhtml" />

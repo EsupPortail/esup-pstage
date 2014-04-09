@@ -49,8 +49,8 @@
 							src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
 						<rich:dataTable id="rechercheStructureDataTable"
 							var="varRechercheStructure"
-							rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
-							value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
+							rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}"
+							value="#{rechercheController.rechercheStructurePaginator.liste}"
 							rows="20">
 							<f:facet name="header">
 								<ui:include src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
@@ -75,7 +75,7 @@
 							<f:facet name="footer">
 								<rich:dataScroller for="rechercheStructureDataTable"
 									maxPages="20" page="1"
-									renderIfSinglePage="false" id="listeScroller"/>
+									renderIfSinglePage="false"/>
 							</f:facet>
 						</rich:dataTable>
 					</t:div>

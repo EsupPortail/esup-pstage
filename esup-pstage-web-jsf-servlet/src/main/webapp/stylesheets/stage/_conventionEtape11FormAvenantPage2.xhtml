@@ -10,29 +10,16 @@
 	
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="2"
-		style="font-size:16px;"
-		rendered="#{!avenantController.avenant.rupture
-		and !avenantController.avenant.modificationSujet
-		and !avenantController.avenant.modificationPeriode
-		and !avenantController.avenant.modificationMontantGratification
-		and !avenantController.avenant.modificationLieu
-		and !avenantController.avenant.modificationSalarie
-		and !avenantController.avenant.modificationEnseignant}">
+		style="font-size:16px;">
 		<h:outputLabel for="motif1"
-			value="#{msgs['CONVENTION.ETAPE11.MOTIF']} :" />
+			value="#{msgs['CONVENTION.ETAPE11.TITRE']} :" />
 		<h:outputText id="motif1"
-			value="#{avenantController.avenant.motifAvenant}" />
+			value="#{avenantController.avenant.titreAvenant}" />
 	</h:panelGrid>
 	
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="3"
-		rendered="#{avenantController.avenant.rupture
-		|| avenantController.avenant.modificationSujet
-		|| avenantController.avenant.modificationPeriode
-		|| avenantController.avenant.modificationMontantGratification
-		|| avenantController.avenant.modificationLieu
-		|| avenantController.avenant.modificationSalarie
-		|| avenantController.avenant.modificationEnseignant}">
+		rendered="#{avenantController.avenant.rupture}">
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="1">
 			<h:outputLabel for="motif2"
@@ -301,6 +288,18 @@
 					<h:outputText style="color:green;"
 						value="#{avenantController.avenant.enseignant.prenom} #{avenantController.avenant.enseignant.nom}" />
 				</h:panelGrid>
+			</h:panelGrid>
+		</t:div>
+		
+		<t:div rendered="#{avenantController.modificationTexteLibre}">
+			<t:htmlTag value="div" style="height: 10px;" />
+			<h:outputLabel for="modifTexteLibre"
+				value="#{msgs['CONVENTION.ETAPE11.MODIF_TEXTELIBRE']}" />
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" id="modifTexteLibre" columns="2">
+				<t:htmlTag value="div" style="width: 10px;" />
+				<h:outputText style="color:green;"
+					value="#{avenantController.avenant.motifAvenant}" />
 			</h:panelGrid>
 		</t:div>
 	</t:div>

@@ -86,17 +86,17 @@
 		<param-value>true</param-value>
 	</context-param>
 
-<!-- 	<context-param> -->
-<!-- 		<param-name>org.apache.myfaces.ERROR_HANDLING</param-name> -->
-<!-- 		<param-value>true</param-value> -->
-<!-- 	</context-param> -->
-<!-- 	<context-param> -->
-<!-- 		<param-name>org.apache.myfaces.ERROR_HANDLER -->
-<!-- 		</param-name> -->
-<!-- 		<param-value> -->
-<!-- 			org.esupportail.commons.services.exceptionHandling.ExceptionHandler -->
-<!-- 		</param-value> -->
-<!-- 	</context-param> -->
+	<!-- <context-param> -->
+	<!-- <param-name>org.apache.myfaces.ERROR_HANDLING</param-name> -->
+	<!-- <param-value>true</param-value> -->
+	<!-- </context-param> -->
+	<!-- <context-param> -->
+	<!-- <param-name>org.apache.myfaces.ERROR_HANDLER -->
+	<!-- </param-name> -->
+	<!-- <param-value> -->
+	<!-- org.esupportail.commons.services.exceptionHandling.ExceptionHandler -->
+	<!-- </param-value> -->
+	<!-- </context-param> -->
 
 	<listener>
 		<listener-class>
@@ -116,14 +116,14 @@
 		</listener-class>
 	</listener>
 
+	<!-- <context-param> -->
+	<!-- <param-name>javax.faces.PROJECT_STAGE</param-name> -->
+	<!-- <param-value>Production</param-value> -->
+	<!-- </context-param> -->
 	<context-param>
-	<param-name>javax.faces.PROJECT_STAGE</param-name>
-	<param-value>Production</param-value>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
 	</context-param>
-<!-- 	<context-param> -->
-<!-- 		<param-name>javax.faces.PROJECT_STAGE</param-name> -->
-<!-- 		<param-value>Development</param-value> -->
-<!-- 	</context-param> -->
 
 	<context-param>
 		<param-name>org.fckfaces.CUSTOM_CONFIGURATIONS_PATH
@@ -263,7 +263,7 @@
 		<param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
 		<param-value>false</param-value>
 	</context-param>
-	
+
 	<welcome-file-list>
 		<welcome-file>stylesheets/welcome.xhtml</welcome-file>
 		<welcome-file>stylesheets/stage/welcome.xhtml</welcome-file>

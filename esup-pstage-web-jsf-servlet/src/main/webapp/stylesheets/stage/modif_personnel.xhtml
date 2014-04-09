@@ -18,7 +18,7 @@
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form id="formModifPersonnel">
 				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1" align="center">
+					rowClasses="paginatorData-text" style="margin-left:100px; width:500px;">
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="3">
 						<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}"
@@ -120,6 +120,7 @@
 
 					<t:htmlTag value="center">
 						<h:commandButton action="#{centreController.modifierPersonnel}"
+							style="font-size:16px; font-weight:bold; border-color:green;"
 							value="#{msgs['FORM.MODIFIER']}" />
 						<h:outputText id="erreurModifPersonnel" value="" />
 						<rich:message for="erreurModifPersonnel">

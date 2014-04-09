@@ -439,6 +439,8 @@ public class ExportController extends AbstractContextAwareController {
 				return convention.getTelPortableEtudiant();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.MAILPERSOETUDIANT")){
 				return convention.getCourrielPersoEtudiant();
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CODESEXEETUDIANT")){
+				return convention.getEtudiant().getCodeSexe();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CODEUFR")){
 				return convention.getUfr().getCode();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.LIBELLEUFR")){
@@ -511,6 +513,8 @@ public class ExportController extends AbstractContextAwareController {
 				return convention.getCommentaireStage();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.COMMENTAIREDUREETRAVAIL")){
 				return convention.getCommentaireDureeTravail();
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.AVANTAGESNATURE")){
+				return convention.getAvantagesNature();
 			} else {
 				if (logger.isDebugEnabled())
 					logger.debug("methode recupValueStage(...) : NameProperty " + nameProperty +" inconnue.");

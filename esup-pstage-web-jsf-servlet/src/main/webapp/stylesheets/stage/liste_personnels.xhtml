@@ -21,10 +21,9 @@
 				align="center">
 				<h:outputText value="#{msgs['CENTRE.PERSONNEL.LISTE.VIDE']}" />
 			</h:panelGrid>
-			<h:form id="formListePersonnel">
-				<a4j:outputPanel>
-					<h:panelGrid columns="1" align="center"
-						rendered="#{!centreController.listePersonnelVide}">
+			<h:form id="formListePersonnel"
+				style="margin-left:100px; width:600px;">
+					<h:panelGrid rendered="#{!centreController.listePersonnelVide}">
 						<rich:dataTable align="center" width="483"
 							style="border-right:1px solid #C0C0C0;" id="listePersonnels"
 							rows="20" columnClasses="col"
@@ -79,11 +78,9 @@
 									<h:outputText value="#{msgs['CENTRE.PERSONNEL.ALERTES_MAIL']}" />
 								</f:facet>
 								<t:htmlTag value="center">
-									<h:outputText
-										rendered="#{personnel.alertesMail}"
+									<h:outputText rendered="#{personnel.alertesMail}"
 										value="#{msgs['FORM.OUI']}" />
-									<h:outputText
-										rendered="#{!personnel.alertesMail}"
+									<h:outputText rendered="#{!personnel.alertesMail}"
 										value="#{msgs['FORM.NON']}" />
 								</t:htmlTag>
 							</rich:column>
@@ -123,28 +120,21 @@
 						</rich:dataTable>
 					</h:panelGrid>
 
-					<t:htmlTag value="div" style="height: 10px;" />
+					<t:htmlTag value="div" style="height:20px;" />
 
-					<h:panelGrid columns="3" align="center"
-						rendered="#{welcomeController.superAdmin
-									|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}">
-						<h:outputLabel for="add"
-							value="#{msgs['CENTRE.PERSONNEL.RATTACHER']}" />
-						<a4j:commandLink id="add" status="statusAjout"
-							action="#{centreController.goToRattachPersonnelRecherche}">
-							<h:graphicImage alt="#{msgs['FORM.RATTACHER']}"
-								value="../../media/images/new.png" style="border:0" />
-							<rich:tooltip value="#{msgs['FORM.RATTACHER']}" />
-						</a4j:commandLink>
-					</h:panelGrid>
 					<t:htmlTag value="center">
+						<a4j:commandButton id="add" status="statusAjout"
+							value="#{msgs['CENTRE.PERSONNEL.RATTACHER']}"
+							action="#{centreController.goToRattachPersonnelRecherche}"
+							style="font-size:16px; font-weight:bold; border-color:green;"
+							rendered="#{welcomeController.superAdmin
+								|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}" />
 						<a4j:status name="statusAjout">
 							<f:facet name="start">
 								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 							</f:facet>
 						</a4j:status>
 					</t:htmlTag>
-				</a4j:outputPanel>
 				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>
 		</rich:panel>
@@ -159,6 +149,5 @@
 					|| welcomeController.personnel) and centreController.centre == null}">
 			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
 		</t:div>
-
 	</ui:define>
 </ui:composition>

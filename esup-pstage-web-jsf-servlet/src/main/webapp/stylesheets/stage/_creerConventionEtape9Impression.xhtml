@@ -12,18 +12,12 @@
 			<h:outputText value="#{msgs['CONVENTION.ETAPE9.IMPRESSION']}" />
 		</f:facet>
 		<t:htmlTag value="div" style="height: 20px;" />
-		<h:outputText value="" />
-		<rich:message>
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
 		<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.INFO']}" />
-
+		<t:htmlTag value="div" style="height: 20px;" />
+		<rich:messages />
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="2" cellpadding="2"
 			cellspacing="2" alternateColors="true">
-			<t:htmlTag value="div" style="height: 20px;" />
-			<rich:messages showDetail="true">
-			</rich:messages>
 			<h:outputLabel for="numeroconvention"
 				value="#{msgs['CONVENTION.NUMEROCONVENTION']}" />
 			<h:outputText id="numeroconvention"
