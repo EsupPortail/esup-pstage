@@ -693,7 +693,7 @@
 			<h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
 				escape="false" rendered="#{conventionController.conventionValide}" />
 			<rich:tooltip rendered="#{conventionController.conventionValide
-				|| conventionController.nbAvenant> 0}" 	value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}" />
+				|| conventionController.nbAvenant gt 0}" 	value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}" />
 		</a4j:commandLink>
 		<t:aliasBean alias="#{objet}"
 			value="#{conventionController.convention}">
@@ -714,7 +714,6 @@
 			rowClasses="paginatorData-text" columns="3">
 			<a4j:commandButton value="#{msgs['FORM.OUI']}"
 				oncomplete="#{rich:component('supprConvention')}.hide();"
-				
 				action="#{conventionController.goToSuppConvention}">
 			</a4j:commandButton>
 			<t:htmlTag value="div" style="width: 150px;" />

@@ -139,7 +139,7 @@ public class BlowfishUtils {
 	}
 
 	/**
-	* Encode la chaine passï¿½ en paramï¿½tre avec Blowfish
+	* Encode la chaine passée en parametre avec Blowfish
 	* @param chaine
 	* @return la chaine cryptï¿½e en BigInteger
 	*/

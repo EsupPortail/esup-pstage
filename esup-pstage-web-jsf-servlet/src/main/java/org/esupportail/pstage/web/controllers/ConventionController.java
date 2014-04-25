@@ -437,12 +437,17 @@ public class ConventionController extends AbstractContextAwareController {
 	 * return String
 	 */
 	private String togglePanelActiveItem;
-	
+
 	/**
 	 * return true si la personne connectee est tuteur de la convention en cours de consultation
 	 */
 	@SuppressWarnings("unused")
 	private boolean tuteurCurrentConvention;
+
+	/**
+	 * 
+	 */
+	private String codeAccesFiche;
 
 	/**
 	 * Bean constructor.
@@ -4124,7 +4129,6 @@ public class ConventionController extends AbstractContextAwareController {
 	/* ***************************************************************
 	 * Ajouts 2.2.1 Fiche Evaluation
 	 ****************************************************************/
-	//TODO
 	/**
 	 * Acces a la partie Etudiant de la fiche d'evaluation
 	 */
@@ -4266,15 +4270,24 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void editPdfFicheEtudiant(){
 		try	{
-			ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+			ConventionDTO conventionTmp = this.convention;
+			// Recuperation des questions/reponses supplementaires
+			List<QuestionSupplementaireDTO> list = getFicheEvaluationDomainService()
+					.getQuestionsSupplementaires(this.convention.getFicheEvaluation().getIdFicheEvaluation());
+			for (QuestionSupplementaireDTO question : list){
+				question.setReponseSupplementaire(getFicheEvaluationDomainService().getReponseSupplementaire(
+						question.getIdQuestionSupplementaire(), this.convention.getIdConvention()));
+			}
+			conventionTmp.setQuestionsSupplementaires(list);
+
 			String nomDocxsl = "";
 			String fileNameXml = "";
 			String fileNameXmlfin = ".xml";
-			String idReponse = reponseEvalTmp.getIdConvention().toString()+"_"+reponseEvalTmp.getIdFicheEvaluation().toString();
+			String idReponse = conventionTmp.getIdConvention().toString();
 			nomDocxsl = "ficheEtudiant" + ".xsl";
 			fileNameXml = "ficheEtudiant_" + idReponse;
 			// appel castor pour fichier xml a partir de objet java convention
-			castorService.objectToFileXml(reponseEvalTmp, fileNameXml + fileNameXmlfin);
+			castorService.objectToFileXml(conventionTmp, fileNameXml + fileNameXmlfin);
 			//fusion du xsl et xml en pdf
 			String fileNamePdf = fileNameXml + ".pdf";
 			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
@@ -4284,12 +4297,6 @@ public class ConventionController extends AbstractContextAwareController {
 			logger.error("editPdfFicheEtudiant ", e.fillInStackTrace());
 		}
 	}
-	/**
-	 * Generation et envoie du lien vers sa fiche non casifiee au tuteur professionnel de l'etudiant
-	 */
-	public void envoiMailFicheEntreprise(){
-		//envoi d'un mail au tuteur pro contenant un lien permettant l'acces a la page de saisie de la reponse entreprise (via idFiche du centre + idConvention)
-	}
 
 	/**
 	 * @return the tuteurCurrentConvention
@@ -4297,14 +4304,14 @@ public class ConventionController extends AbstractContextAwareController {
 	public boolean isTuteurCurrentConvention(){
 		boolean b = false;
 		if (getSessionController().getCurrentAuthEnseignant() != null 
-			&& this.convention.getEnseignant() != null
-			&& getSessionController().getCurrentAuthEnseignant().getUidEnseignant()
+				&& this.convention.getEnseignant() != null
+				&& getSessionController().getCurrentAuthEnseignant().getUidEnseignant()
 				.equalsIgnoreCase(this.convention.getEnseignant().getUidEnseignant())){
 			b=true;
 		}
 		return b;
 	}
-	
+
 	/**
 	 * Acces a la partie Enseignant de la fiche d'evaluation
 	 */
@@ -4418,21 +4425,29 @@ public class ConventionController extends AbstractContextAwareController {
 		this.updateReponseEnseignant();
 		return "conventionEtape13FicheEvaluation";
 	}
-
 	/**
 	 * Generation du pdf pour l'impression de la fiche Enseignant
 	 */
 	public void editPdfFicheEnseignant(){
 		try	{
-			ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+			ConventionDTO conventionTmp = this.convention;
+			// Recuperation des questions/reponses supplementaires
+			List<QuestionSupplementaireDTO> list = getFicheEvaluationDomainService()
+					.getQuestionsSupplementaires(this.convention.getFicheEvaluation().getIdFicheEvaluation());
+			for (QuestionSupplementaireDTO question : list){
+				question.setReponseSupplementaire(getFicheEvaluationDomainService().getReponseSupplementaire(
+						question.getIdQuestionSupplementaire(), this.convention.getIdConvention()));
+			}
+			conventionTmp.setQuestionsSupplementaires(list);
+
 			String nomDocxsl = "";
 			String fileNameXml = "";
 			String fileNameXmlfin = ".xml";
-			String idReponse = reponseEvalTmp.getIdConvention().toString()+"_"+reponseEvalTmp.getIdFicheEvaluation().toString();
+			String idReponse = conventionTmp.getIdConvention().toString();
 			nomDocxsl = "ficheEnseignant" + ".xsl";
 			fileNameXml = "ficheEnseignant_" + idReponse;
 			// appel castor pour fichier xml a partir de objet java convention
-			castorService.objectToFileXml(reponseEvalTmp, fileNameXml + fileNameXmlfin);
+			castorService.objectToFileXml(conventionTmp, fileNameXml + fileNameXmlfin);
 			//fusion du xsl et xml en pdf
 			String fileNamePdf = fileNameXml + ".pdf";
 			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
@@ -4442,10 +4457,65 @@ public class ConventionController extends AbstractContextAwareController {
 			logger.error("editPdfFicheEnseignant ", e.fillInStackTrace());
 		}
 	}
+
 	/**
-	 * Acces a la partie Entreprise de la fiche d'evaluation
+	 * Generation et envoie du lien vers sa fiche au tuteur pédagogique de l'etudiant
+	 */
+	//	public void envoiMailEnseignant(){
+	//		//envoi d'un mail au tuteur enseignant contenant un lien permettant l'acces a 
+	//		//la page de saisie de la reponse enseignant (via idFiche du centre + idConvention)
+	//		try{
+	//			String adresseTuteurPedago = this.convention.getEnseignant().getMail();
+	//			if (adresseTuteurPedago != null && adresseTuteurPedago != ""){
+	//				String lien = this.getSessionController().getBaseUrl()+"/stylesheets/stage/conventionEtape13FicheEvaluation.xhtml";
+	//				String libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
+	//				getSmtpService().send(new InternetAddress(adresseTuteurPedago),
+	//						getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
+	//						getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",libelleEtu,
+	//								lien,
+	//								getSessionController().getApplicationNamePStage()),
+	//						"");
+	//				addInfoMessage("formAccueilFiche:fieldsetEnseignant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPedago);
+	//			} else {
+	//				addErrorMessage("formAccueilFiche:fieldsetEnseignant", "MAIL.VALIDATION");
+	//			}
+	//		} catch (AddressException e) {
+	//			if (logger.isDebugEnabled()){
+	//				e.printStackTrace();
+	//			}
+	//			addErrorMessage("formAccueilFiche:fieldsetEnseignant", "MAIL.VALIDATION");
+	//		}
+	//	}
+
+	/**
+	 * Acces a la partie Entreprise de la fiche d'evaluation par le super admin
 	 */
 	public String goToFicheEntreprise(){
+
+		this.accesPartieEntreprise();
+
+		return "conventionEtape13FicheEvaluationEntreprise";
+	}
+
+	//TODO
+	/**
+	 * Acces a la partie Entreprise de la fiche d'evaluation par le tuteur pro (acces via lien)
+	 */
+	public String goToFicheEntrepriseTuteurPro(){
+
+		String mdpDecode = getBlowfishUtils().decode(this.codeAccesFiche);
+
+		// recuperation de la reponse depuis le mot de passe decode
+		ReponseEvaluationDTO reponseTmp = getFicheEvaluationDomainService().getReponseEvaluationFromCode(mdpDecode);
+		// recuperation de la convention via la reponse
+		this.convention = getConventionDomainService().getConventionFromId(reponseTmp.getIdConvention());
+
+		this.accesPartieEntreprise();
+
+		return "goToFicheEntrepriseTuteurPro";
+	}
+
+	private void accesPartieEntreprise(){
 		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
 		if (reponseEvalTmp == null){
 			reponseEvalTmp = new ReponseEvaluationDTO();
@@ -4489,63 +4559,96 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 
 		getSessionController().setFicheEvaluationCurrentPage("_conventionEtape13FicheEvaluationEntreprise");
-		return "conventionEtape13FicheEvaluationEntreprise";
 	}
+
 	/**
-	 * Remplissage de la reponse par l'entreprise
+	 * Remplissage de la fiche entreprise par le superadmin
 	 */
 	public String updateReponseEntreprise(){
 		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+
 		if(reponseEvalTmp != null){
-			try{
-				reponseEvalTmp.setValidationEntreprise(true);
+			this.commonUpdateReponseEntreprise(reponseEvalTmp);
 
-				getFicheEvaluationDomainService().updateReponseEvaluationEntreprise(reponseEvalTmp);
-
-				this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
-
-				if(this.questionsSupplementairesEntreprise != null){
-					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise){
-						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
-						if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
-							this.reponsesSupplementaires.add(reponse);
-						}
-					}
-				}
-
-				if (reponsesSupplementaires != null && !reponsesSupplementaires.isEmpty()){
-					getFicheEvaluationDomainService().updateReponsesSupplementaires(reponsesSupplementaires);
-				}
-
-				addInfoMessage("formFicheEntreprise", "CONVENTION.ETAPE13.CREATION");
-				if(logger.isInfoEnabled()){
-					logger.info(getSessionController().getCurrentLogin()+" met a jour sa reponse a la fiche n°"+reponseEvalTmp.getIdFicheEvaluation()
-							+" pour la convention n°"+reponseEvalTmp.getIdConvention());
-				}
-			} catch (DataUpdateException d){
-				logger.error("DataUpdateException",d.fillInStackTrace());
-				addErrorMessage("formFicheEntreprise","CONVENTION.ETAPE13.ERREUR_AJOUT");
-			} catch (WebServiceDataBaseException w){
-				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-				addErrorMessage("formFicheEntreprise", "CONVENTION.ETAPE13.ERREUR_WS");
+			addInfoMessage("formFicheEntreprise", "CONVENTION.ETAPE13.CREATION");
+			if(logger.isInfoEnabled()){
+				logger.info(getSessionController().getCurrentLogin()+" met a jour sa reponse a la fiche n°"+reponseEvalTmp.getIdFicheEvaluation()
+						+" pour la convention n°"+reponseEvalTmp.getIdConvention());
 			}
 		}
+
 		return "conventionEtape13FicheEvaluation";
 	}
+	/**
+	 * Remplissage de la fiche entreprise par le tuteur pro via le lien
+	 */
+	public void updateReponseEntrepriseTuteurPro(){
+		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+
+		if(reponseEvalTmp != null){
+			this.commonUpdateReponseEntreprise(reponseEvalTmp);
+
+			addInfoMessage("formFicheEntreprise", "CONVENTION.ETAPE13.CREATION");
+			if(logger.isInfoEnabled()){
+				logger.info("Le tuteur professionnel a mis a jour sa reponse a la fiche n°"+reponseEvalTmp.getIdFicheEvaluation()
+						+" pour la convention n°"+reponseEvalTmp.getIdConvention());
+			}
+		}
+	}
+
+	private void commonUpdateReponseEntreprise(ReponseEvaluationDTO reponseEvalTmp){
+		try{
+			reponseEvalTmp.setValidationEntreprise(true);
+
+			getFicheEvaluationDomainService().updateReponseEvaluationEntreprise(reponseEvalTmp);
+
+			this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
+
+			if(this.questionsSupplementairesEntreprise != null){
+				for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise){
+					ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+					if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
+						this.reponsesSupplementaires.add(reponse);
+					}
+				}
+			}
+
+			if (reponsesSupplementaires != null && !reponsesSupplementaires.isEmpty()){
+				getFicheEvaluationDomainService().updateReponsesSupplementaires(reponsesSupplementaires);
+			}
+
+		} catch (DataUpdateException d){
+			logger.error("DataUpdateException",d.fillInStackTrace());
+			addErrorMessage("formFicheEntreprise","CONVENTION.ETAPE13.ERREUR_AJOUT");
+		} catch (WebServiceDataBaseException w){
+			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+			addErrorMessage("formFicheEntreprise", "CONVENTION.ETAPE13.ERREUR_WS");
+		}
+	}
+
 	/**
 	 * Generation du pdf pour l'impression de la fiche entreprise
 	 */
 	public void editPdfFicheEntreprise(){
 		try	{
-			ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
+			ConventionDTO conventionTmp = this.convention;
+			// Recuperation des questions/reponses supplementaires
+			List<QuestionSupplementaireDTO> list = getFicheEvaluationDomainService()
+					.getQuestionsSupplementaires(this.convention.getFicheEvaluation().getIdFicheEvaluation());
+			for (QuestionSupplementaireDTO question : list){
+				question.setReponseSupplementaire(getFicheEvaluationDomainService().getReponseSupplementaire(
+						question.getIdQuestionSupplementaire(), this.convention.getIdConvention()));
+			}
+			conventionTmp.setQuestionsSupplementaires(list);
+
 			String nomDocxsl = "";
 			String fileNameXml = "";
 			String fileNameXmlfin = ".xml";
-			String idReponse = reponseEvalTmp.getIdConvention().toString()+"_"+reponseEvalTmp.getIdFicheEvaluation().toString();
+			String idReponse = conventionTmp.getIdConvention().toString();
 			nomDocxsl = "ficheEntreprise" + ".xsl";
 			fileNameXml = "ficheEntreprise_" + idReponse;
 			// appel castor pour fichier xml a partir de objet java convention
-			castorService.objectToFileXml(reponseEvalTmp, fileNameXml + fileNameXmlfin);
+			castorService.objectToFileXml(conventionTmp, fileNameXml + fileNameXmlfin);
 			//fusion du xsl et xml en pdf
 			String fileNamePdf = fileNameXml + ".pdf";
 			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
@@ -4553,6 +4656,54 @@ public class ConventionController extends AbstractContextAwareController {
 					fileNamePdf, nomDocxsl);
 		} catch (ExportException e) {
 			logger.error("editPdfFicheEntreprise ", e.fillInStackTrace());
+		}
+	}
+
+	/**
+	 * Generation et envoie du lien vers sa fiche non casifiee au tuteur professionnel de l'etudiant
+	 */
+	public void envoiMailEntreprise(){
+		String codeAcces = "";
+		if (this.convention.getReponseEvaluation() != null 
+				&& this.convention.getReponseEvaluation().getCodeAcces() != null
+				&& !this.convention.getReponseEvaluation().getCodeAcces().isEmpty()){
+			codeAcces = this.convention.getReponseEvaluation().getCodeAcces();
+		} else {
+			// generation du code d'acces a la fiche
+			codeAcces = Utils.encodeMD5("random" + Math.random()*10000).substring(0,8);
+			// stockage dans la table ReponseEvaluation du code d'acces a la fiche pour le tuteur pro
+			getFicheEvaluationDomainService().setCodeAcces(this.convention.getFicheEvaluation().getIdFicheEvaluation(), this.convention.getIdConvention(),codeAcces);
+		}
+
+		// chiffrage du code via blowfish
+		String mdpEncode = getBlowfishUtils().encode(codeAcces);
+
+		String url = getSessionController().getBaseUrl()+"/stylesheets/evaluationStage/index.xhtml"+"?id="+mdpEncode;
+
+		try{
+			String adresseTuteurPro = this.convention.getContact().getMail();
+			if (adresseTuteurPro != null && adresseTuteurPro != ""){
+				String libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
+				getSmtpService().send(new InternetAddress(adresseTuteurPro),
+						getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
+						getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENTREPRISE",libelleEtu,
+								this.convention.getIdConvention(),
+								url,
+								getSessionController().getApplicationNamePStage()),
+						"");
+				// On indique en base que le mail a ete envoye
+				this.convention.getReponseEvaluation().setEnvoiMailTuteurPro(true);
+				this.convention.getReponseEvaluation().setDateEnvoiMailTuteurPro(new Date());
+				getFicheEvaluationDomainService().setEnvoiMailEntreprise(this.convention.getFicheEvaluation().getIdFicheEvaluation(), this.convention.getIdConvention());
+				addInfoMessage("formAccueilFiche:panelMailTuteurPro","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPro);
+			} else {
+				addErrorMessage("formAccueilFiche:panelMailTuteurPro", "MAIL.VALIDATION");
+			}
+		} catch (AddressException e) {
+			if (logger.isDebugEnabled()){
+				e.printStackTrace();
+			}
+			addErrorMessage("formAccueilFiche:panelMailTuteurPro", "MAIL.VALIDATION");
 		}
 	}
 
@@ -4571,6 +4722,7 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		return reponse;
 	}
+
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/
@@ -5666,5 +5818,19 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void setTogglePanelActiveItem(String togglePanelActiveItem) {
 		this.togglePanelActiveItem = togglePanelActiveItem;
+	}
+
+	/**
+	 * @return the codeAccesFiche
+	 */
+	public String getCodeAccesFiche() {
+		return codeAccesFiche;
+	}
+
+	/**
+	 * @param codeAccesFiche the codeAccesFiche to set
+	 */
+	public void setCodeAccesFiche(String codeAccesFiche) {
+		this.codeAccesFiche = codeAccesFiche;
 	}
 }

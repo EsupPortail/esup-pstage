@@ -517,6 +517,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * SUPPRESSION QUESTION FICHE EVALUATION 
 	 */
 	private String suppressionQuestionEvalCurrentPage = "_questionEval_deleteEtape1";
+	/**
+	 * EVALUATION STAGE ENTREPRISE (acces exterieur via lien)
+	 */
+	private String evaluationStageTuteurProCurrentPage = "_evaluationStageTuteurPro_Accueil";
 	
 	/**
 	 * Constructor.
@@ -2356,6 +2360,21 @@ public class SessionController extends AbstractDomainAwareBean {
 	public void setSuppressionQuestionEvalCurrentPage(
 			String suppressionQuestionEvalCurrentPage) {
 		this.suppressionQuestionEvalCurrentPage = suppressionQuestionEvalCurrentPage;
+	}
+
+	/**
+	 * @return the evaluationStageTuteurProCurrentPage
+	 */
+	public String getEvaluationStageTuteurProCurrentPage() {
+		return evaluationStageTuteurProCurrentPage;
+	}
+
+	/**
+	 * @param evaluationStageTuteurProCurrentPage the evaluationStageTuteurProCurrentPage to set
+	 */
+	public void setEvaluationStageTuteurProCurrentPage(
+			String evaluationStageTuteurProCurrentPage) {
+		this.evaluationStageTuteurProCurrentPage = evaluationStageTuteurProCurrentPage;
 	}
 
 }

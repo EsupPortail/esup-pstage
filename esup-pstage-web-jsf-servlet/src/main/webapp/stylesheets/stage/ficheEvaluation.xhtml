@@ -44,13 +44,22 @@
 										value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE.INFO']}" />
 								</h:outputText>
 							</h:panelGrid>
-
 							<h:panelGrid columns="2" style="font-weight:bold;" align="center"
 								rendered="#{centreController.ficheEvaluation.validationEtudiant}">
 								<h:graphicImage value="../../media/images/tick.png"
 									alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
 								<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
 							</h:panelGrid>
+							<t:htmlTag value="div" style="height:5px;" />
+							<t:htmlTag value="center">
+								<h:commandLink id="extractionEtudiant"
+									rendered="#{centreController.ficheEvaluation.validationEtudiant}"
+									action="#{centreController.exportFichesEtudiant}">
+									<h:graphicImage alt="Excel"
+										value="../../../media/images/excelSmall.png" style="border:0" />
+									<rich:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.EXPORT']}" />
+								</h:commandLink>
+							</t:htmlTag>
 						</h:panelGrid>
 
 						<h:panelGrid columns="3">
@@ -85,6 +94,16 @@
 									alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
 								<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
 							</h:panelGrid>
+							<t:htmlTag value="div" style="height:5px;" />
+							<t:htmlTag value="center">
+								<h:commandLink id="extractionEnseignant"
+									rendered="#{centreController.ficheEvaluation.validationEtudiant}"
+									action="#{centreController.exportFichesEnseignant}">
+									<h:graphicImage alt="Excel"
+										value="../../../media/images/excelSmall.png" style="border:0" />
+									<rich:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.EXPORT']}" />
+								</h:commandLink>
+							</t:htmlTag>
 						</h:panelGrid>
 
 						<h:panelGrid columns="3">
@@ -119,6 +138,16 @@
 									alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
 								<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
 							</h:panelGrid>
+							<t:htmlTag value="div" style="height:5px;" />
+							<t:htmlTag value="center">
+								<h:commandLink id="extractionEntreprise"
+									rendered="#{centreController.ficheEvaluation.validationEtudiant}"
+									action="#{centreController.exportFichesEntreprise}">
+									<h:graphicImage alt="Excel"
+										value="../../../media/images/excelSmall.png" style="border:0" />
+									<rich:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.EXPORT']}" />
+								</h:commandLink>
+							</t:htmlTag>
 						</h:panelGrid>
 					</h:panelGrid>
 				</fieldset>

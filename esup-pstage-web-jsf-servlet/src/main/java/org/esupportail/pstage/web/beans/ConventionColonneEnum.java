@@ -221,7 +221,27 @@ public enum ConventionColonneEnum {
     /**
      * col43 , avantages nature
      */
-    col43("EXPORTCONVENTION.AVANTAGESNATURE", "avantagesNature");
+    col43("EXPORTCONVENTION.AVANTAGESNATURE", "avantagesNature"),
+    
+    /**
+     * col44 , adresse etudiant
+     */
+    col44("EXPORTCONVENTION.ADRESSETU", "adresseEtudiant"),
+    
+    /**
+     * col45 , code postal etudiant
+     */
+    col45("EXPORTCONVENTION.CODEPOSTALETU", "codePostalEtudiant"),
+    
+    /**
+     * col46 , pays etudiant
+     */
+    col46("EXPORTCONVENTION.PAYSETU", "paysEtudiant"),
+    
+    /**
+     * col47 , ville etudiant
+     */
+    col47("EXPORTCONVENTION.VILLEETU", "villeEtudiant");
 	
 	/*
 	 ******************* PROPERTIES ******************* */

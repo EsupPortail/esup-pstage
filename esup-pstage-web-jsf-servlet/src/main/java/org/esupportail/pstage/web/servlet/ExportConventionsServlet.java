@@ -41,7 +41,7 @@ public class ExportConventionsServlet extends HttpServlet{
 
 			resp.setContentType("application/vnd.ms-excel");
 
-			resp.setHeader("Content-disposition","attachment; filename=extraction_conventions.xls");
+			resp.setHeader("Content-disposition","attachment; filename=extraction_pstage.xls");
 
 			resp.setContentLength(baosXLS.size());
 

@@ -44,7 +44,8 @@
 									and conventionController.convention.reponseEvaluation.validationEtudiant}">
 									<h:graphicImage value="../../media/images/tick.png"
 										alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
-									<h:outputText value="#{msgs['CONVENTION.ETAPE13.FICHE_VALIDE']}" />
+									<h:outputText
+										value="#{msgs['CONVENTION.ETAPE13.FICHE_VALIDE']}" />
 								</h:panelGrid>
 								<h:panelGrid columns="2" style="padding:10px;"
 									rendered="#{empty conventionController.convention.reponseEvaluation
@@ -63,12 +64,11 @@
 								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
 									action="#{conventionController.editPdfFicheEtudiant}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEtudiant}" />
-								
 							</t:htmlTag>
 						</h:panelGrid>
 						<t:htmlTag value="div" style="height:5px;" />
 						<t:htmlTag value="center">
-							<t:htmlTag value="div" style="height: 2px; width:500px;"
+							<t:htmlTag value="div" style="height:2px; width:500px;"
 								styleClass="spacer" />
 						</t:htmlTag>
 						<t:htmlTag value="div" style="height:5px;" />
@@ -99,7 +99,8 @@
 									and conventionController.convention.reponseEvaluation.validationEnseignant}">
 									<h:graphicImage value="../../media/images/tick.png"
 										alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
-									<h:outputText value="#{msgs['CONVENTION.ETAPE13.FICHE_VALIDE']}" />
+									<h:outputText
+										value="#{msgs['CONVENTION.ETAPE13.FICHE_VALIDE']}" />
 								</h:panelGrid>
 								<h:panelGrid columns="2" style="padding:10px;"
 									rendered="#{empty conventionController.convention.reponseEvaluation
@@ -108,7 +109,7 @@
 										alt="#{msgs['GENERAL.WARNING']}"
 										title="#{msgs['GENERAL.WARNING']}" />
 									<h:outputText
-										value="#{msgs['CONVENTION.ETAPE13.FICHE_INVALIDE']}" />
+										value="#{msgs['CONVENTION.ETAPE13.FICHE_INVALIDE_ENSEIGNANT']}" />
 								</h:panelGrid>
 								<h:commandButton
 									rendered="#{welcomeController.superAdmin || conventionController.tuteurCurrentConvention}"
@@ -118,14 +119,20 @@
 								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
 									action="#{conventionController.editPdfFicheEnseignant}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEnseignant}" />
-<!-- 								<t:htmlTag value="div" style="height:10px;" /> -->
-<!-- 								<h:panelGrid columns="2" style="padding:5px;"> -->
-<!-- 									<h:graphicImage value="../../media/images/information.png" /> -->
-<!-- 									<h:outputText value="Cliquez sur le bouton ci-dessous afin d'envoyer un mail a votre tuteur contenant un lien lui permettant de remplir sa fiche"/> -->
-<!-- 								</h:panelGrid> -->
-<!-- 								<a4j:commandButton value="#{msgs['FORM.ENVOYER']}" -->
-<!-- 									action="#{conventionController.envoiMailEnseignant}" -->
-<!-- 									rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" /> -->
+								<t:htmlTag value="div" style="height:10px;" />
+
+								<!-- 								<t:fieldset id="fieldsetEnseignant" style="width:400px;" -->
+								<!-- 									rendered="#{welcomeController.superAdmin || welcomeController.etudiant}"> -->
+								<!-- 									<h:panelGrid columns="2" style="padding:5px;"> -->
+								<!-- 										<h:graphicImage value="../../media/images/information.png" /> -->
+								<!-- 										<h:outputText -->
+								<!-- 											value="Cliquez sur le bouton ci-dessous afin d'envoyer un mail pour avertir le tuteur pedagogique qu'il peut remplir sa fiche" /> -->
+								<!-- 									</h:panelGrid> -->
+								<!-- 									<a4j:commandButton value="#{msgs['FORM.ENVOYER']}" -->
+								<!-- 										action="#{conventionController.envoiMailEnseignant}" -->
+								<!-- 										render="msgMailEnseignant" /> -->
+								<!-- 								</t:fieldset> -->
+								<!-- 								<rich:message for="fieldsetEnseignant" id="msgMailEnseignant" /> -->
 							</t:htmlTag>
 						</h:panelGrid>
 
@@ -163,7 +170,8 @@
 								and conventionController.convention.reponseEvaluation.validationEntreprise}">
 									<h:graphicImage value="../../media/images/tick.png"
 										alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
-									<h:outputText value="#{msgs['CONVENTION.ETAPE13.FICHE_VALIDE']}" />
+									<h:outputText
+										value="#{msgs['CONVENTION.ETAPE13.FICHE_VALIDE']}" />
 								</h:panelGrid>
 								<h:panelGrid columns="2" style="padding:10px;"
 									rendered="#{empty conventionController.convention.reponseEvaluation
@@ -181,6 +189,47 @@
 								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
 									action="#{conventionController.editPdfFicheEntreprise}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" />
+								<t:htmlTag value="div" style="height:10px;" />
+
+								<a4j:outputPanel id="panelMailTuteurPro">
+									<t:fieldset style="width:400px;"
+										rendered="#{(welcomeController.superAdmin || welcomeController.etudiant) and not empty conventionController.convention.contact.mail}">
+										<h:panelGrid columns="2" style="padding:5px;"
+											rendered="#{!conventionController.convention.reponseEvaluation.envoiMailTuteurPro}">
+											<h:graphicImage value="../../media/images/information.png" />
+											<h:outputFormat escape="false"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.INFO']}">
+												<f:param
+													value="#{conventionController.convention.contact.mail}" />
+											</h:outputFormat>
+										</h:panelGrid>
+										<h:panelGrid columns="3" style="padding:5px;"
+											rendered="#{conventionController.convention.reponseEvaluation.envoiMailTuteurPro}">
+											<h:graphicImage value="../../media/images/tick.png" />
+											<h:outputFormat escape="false" style="padding:5px;"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.ENVOIOK']}" />
+											<h:outputText
+												value="#{conventionController.convention.reponseEvaluation.dateEnvoiMailTuteurPro}">
+												<f:convertDateTime pattern="dd MMM yyyy hh:mm"
+													timeZone="CET" />
+											</h:outputText>
+										</h:panelGrid>
+
+										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
+											action="#{conventionController.envoiMailEntreprise}"
+											rendered="#{!conventionController.convention.reponseEvaluation.envoiMailTuteurPro}"
+											render="panelMailTuteurPro" />
+										<h:panelGrid align="center">
+											<rich:message for="panelMailTuteurPro" />
+										</h:panelGrid>
+									</t:fieldset>
+								</a4j:outputPanel>
+								<h:panelGrid columns="2" style="padding:5px;"
+									rendered="#{empty conventionController.convention.contact.mail}">
+									<h:graphicImage value="../../media/images/warning_30px.png" />
+									<h:outputText escape="false"
+										value="#{msgs['CONVENTION.ETAPE13.MAIL.VIDE']}" />
+								</h:panelGrid>
 							</t:htmlTag>
 						</h:panelGrid>
 					</t:div>

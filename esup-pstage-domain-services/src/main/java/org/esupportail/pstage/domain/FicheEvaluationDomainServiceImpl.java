@@ -51,7 +51,7 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	}
 
 	/* ***************************************************************
-	 * FICHE
+	 * FICHE EVALUATION
 	 ****************************************************************/
 	/**
 	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#getFicheEvaluationFromIdCentre()
@@ -94,7 +94,7 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	}
 	
 	/* ***************************************************************
-	 * REPONSE
+	 * REPONSE EVALUATION
 	 ****************************************************************/
 	/**
 	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#getReponseEvaluationFromIdCentre()
@@ -102,7 +102,18 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	public ReponseEvaluationDTO getReponseEvaluation(int idFicheEvaluation, int idConvention) {
 		return this.remoteServices.getReponseEvaluation(idFicheEvaluation, idConvention);
 	}
-
+	/**
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#getReponseEvaluationFromCode(java.lang.String)
+	 */
+	public ReponseEvaluationDTO getReponseEvaluationFromCode(String codeAcces) {
+		return this.remoteServices.getReponseEvaluationFromCode(codeAcces);
+	}
+	/**
+	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#getReponsesEvaluation(int)
+	 */
+	public List<ReponseEvaluationDTO> getReponsesEvaluation(int idFicheEvaluation) {
+		return this.remoteServices.getReponsesEvaluation(idFicheEvaluation);
+	}
 	/**
 	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#addReponseEvaluation(org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO)
 	 */
@@ -135,6 +146,15 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 		return this.remoteServices.deleteReponseEvaluation(idFicheEvaluation, idConvention);
 	}
 
+	public boolean setCodeAcces(int idFicheEvaluation, int idConvention, String codeAcces) throws DataUpdateException,
+			WebServiceDataBaseException {
+		return remoteServices.setCodeAcces(idFicheEvaluation,idConvention, codeAcces);
+	}
+
+	public boolean setEnvoiMailEntreprise(int idFicheEvaluation, int idConvention) throws DataUpdateException,
+			WebServiceDataBaseException {
+		return remoteServices.setEnvoiMailEntreprise(idFicheEvaluation,idConvention);
+	}
 	/* ***************************************************************
 	 * Question Supplementaire
 	 ****************************************************************/

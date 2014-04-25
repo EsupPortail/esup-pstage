@@ -2510,6 +2510,16 @@
 			<to-view-id>/stylesheets/stage/ficheEvaluation_entreprise.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>goToAccueilFicheEntrepriseTuteurPro</from-outcome>
+			<to-view-id>/stylesheets/evaluationStage/index.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>goToFicheEntrepriseTuteurPro</from-outcome>
+			<to-view-id>/stylesheets/evaluationStage/ficheEvaluationTuteurPro.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
 	</navigation-rule>
 	
 	<!--

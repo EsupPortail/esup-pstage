@@ -78,6 +78,14 @@ public interface FicheEvaluationDomainService extends Serializable {
 	 */
 	public ReponseEvaluationDTO getReponseEvaluation(int idFicheEvaluation, int idConvention);
 	/**
+	 * @return ReponseEvaluationDTO
+	 */
+	public ReponseEvaluationDTO getReponseEvaluationFromCode(String codeAcces);
+	/**
+	 * @return List<ReponseEvaluationDTO>
+	 */
+	public List<ReponseEvaluationDTO> getReponsesEvaluation(int idFicheEvaluation);
+	/**
 	 * @param fe
 	 * @return int
 	 * @throws DataAddException 
@@ -113,7 +121,19 @@ public interface FicheEvaluationDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException 
 	 */
 	public boolean deleteReponseEvaluation(int idFicheEvaluation, int idConvention) throws DataDeleteException, WebServiceDataBaseException;
-
+	/**
+	 * @param codeAcces
+	 * @return boolean
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
+	 */
+	public boolean setCodeAcces(int idFicheEvaluation, int idConvention, String codeAcces) throws DataUpdateException, WebServiceDataBaseException;
+	/**
+	 * @return boolean
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
+	 */
+	public boolean setEnvoiMailEntreprise(int idFicheEvaluation, int idConvention) throws DataUpdateException, WebServiceDataBaseException;
 	/* ***************************************************************
 	 * Question Supplementaire
 	 ****************************************************************/

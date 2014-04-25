@@ -441,6 +441,14 @@ public class ExportController extends AbstractContextAwareController {
 				return convention.getCourrielPersoEtudiant();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CODESEXEETUDIANT")){
 				return convention.getEtudiant().getCodeSexe();
+			}  else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.ADRESSETU")){
+				return convention.getAdresseEtudiant();
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CODEPOSTALETU")){
+				return convention.getCodePostalEtudiant();
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.PAYSETU")){
+				return convention.getPaysEtudiant();
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.VILLEETU")){
+				return convention.getVilleEtudiant();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.CODEUFR")){
 				return convention.getUfr().getCode();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.LIBELLEUFR")){

@@ -41,13 +41,13 @@
 								style="width:750px; padding:10px; margin-left:20px; padding-top:0px;">
 								<t:htmlTag value="center">
 									<h:outputText style="margin-left:20px; font-weight:bold;"
-										value="Questions/Reponses" />
+										value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE1']}" />
 								</t:htmlTag>
 								<h:panelGrid columns="2">
 									<h:graphicImage id="infoActivation1" alt="information"
 										value="../../media/images/information.png" style="border:0">
 										<rich:tooltip
-											value="Utiliser ou non la question correspondante dans votre fiche d'evaluation." />
+											value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
 									</h:graphicImage>
 									<h:outputText style="font-weight:bold;" value="Activation" />
 								</h:panelGrid>
@@ -310,13 +310,13 @@
 
 								<t:htmlTag value="center">
 									<h:outputText style="margin-left:20px; font-weight:bold;"
-										value="Questions/Reponses" />
+										value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE1']}" />
 								</t:htmlTag>
 								<h:panelGrid columns="2">
 									<h:graphicImage id="infoActivation2" alt="information"
 										value="../../media/images/information.png" style="border:0">
 										<rich:tooltip
-											value="Utiliser ou non la question correspondante dans votre fiche d'evaluation." />
+											value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
 									</h:graphicImage>
 									<h:outputText style="font-weight:bold;" value="Activation" />
 								</h:panelGrid>
@@ -516,13 +516,13 @@
 								style="width:750px; padding:10px; margin-left:20px; padding-top:0px;">
 								<t:htmlTag value="center">
 									<h:outputText style="margin-left:20px; font-weight:bold;"
-										value="Questions/Reponses" />
+										value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE1']}" />
 								</t:htmlTag>
 								<h:panelGrid columns="2">
 									<h:graphicImage id="infoActivation3" alt="information"
 										value="../../media/images/information.png" style="border:0">
 										<rich:tooltip
-											value="Utiliser ou non la question correspondante dans votre fiche d'evaluation." />
+											value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
 									</h:graphicImage>
 									<h:outputText style="font-weight:bold;" value="Activation" />
 								</h:panelGrid>
@@ -536,7 +536,9 @@
 								<h:panelGrid>
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1']}" />
+										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1']} (recuperation du sujet depuis la convention)" />
+									<h:outputText style="font-weight:bold;"
+										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1bis']}" />
 									<h:outputText style="margin-left:10px;"
 										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
 								</h:panelGrid>
@@ -563,20 +565,20 @@
 										itemLabel="#{msgs['FORM.NON']}" />
 								</h:selectOneRadio>
 
-								<h:panelGrid>
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;" escape="false"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3']}" />
-									<h:outputText style="margin-left:10px;"
-										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
-								</h:panelGrid>
-								<h:selectOneRadio
-									value="#{centreController.ficheEvaluation.questionEtuIII3}">
-									<f:selectItem itemValue="#{true}"
-										itemLabel="#{msgs['FORM.OUI']}" />
-									<f:selectItem itemValue="#{false}"
-										itemLabel="#{msgs['FORM.NON']}" />
-								</h:selectOneRadio>
+<!-- 								<h:panelGrid> -->
+<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
+<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
+<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3']}" /> -->
+<!-- 									<h:outputText style="margin-left:10px;" -->
+<!-- 										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" /> -->
+<!-- 								</h:panelGrid> -->
+<!-- 								<h:selectOneRadio -->
+<!-- 									value="#{centreController.ficheEvaluation.questionEtuIII3}"> -->
+<!-- 									<f:selectItem itemValue="#{true}" -->
+<!-- 										itemLabel="#{msgs['FORM.OUI']}" /> -->
+<!-- 									<f:selectItem itemValue="#{false}" -->
+<!-- 										itemLabel="#{msgs['FORM.NON']}" /> -->
+<!-- 								</h:selectOneRadio> -->
 
 								<h:panelGrid>
 									<t:htmlTag value="div" style="height:10px;" />
@@ -763,20 +765,20 @@
 										itemLabel="#{msgs['FORM.NON']}" />
 								</h:selectOneRadio>
 
-								<h:panelGrid>
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;" escape="false"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13']}" />
-									<h:outputText style="margin-left:10px;"
-										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
-								</h:panelGrid>
-								<h:selectOneRadio
-									value="#{centreController.ficheEvaluation.questionEtuIII13}">
-									<f:selectItem itemValue="#{true}"
-										itemLabel="#{msgs['FORM.OUI']}" />
-									<f:selectItem itemValue="#{false}"
-										itemLabel="#{msgs['FORM.NON']}" />
-								</h:selectOneRadio>
+<!-- 								<h:panelGrid> -->
+<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
+<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
+<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13']}" /> -->
+<!-- 									<h:outputText style="margin-left:10px;" -->
+<!-- 										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" /> -->
+<!-- 								</h:panelGrid> -->
+<!-- 								<h:selectOneRadio -->
+<!-- 									value="#{centreController.ficheEvaluation.questionEtuIII13}"> -->
+<!-- 									<f:selectItem itemValue="#{true}" -->
+<!-- 										itemLabel="#{msgs['FORM.OUI']}" /> -->
+<!-- 									<f:selectItem itemValue="#{false}" -->
+<!-- 										itemLabel="#{msgs['FORM.NON']}" /> -->
+<!-- 								</h:selectOneRadio> -->
 
 								<h:panelGrid>
 									<t:htmlTag value="div" style="height:10px;" />
