@@ -55,6 +55,7 @@ import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
 import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
 import org.esupportail.pstagedata.domain.dto.EtapeDTO;
 import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
+import org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO;
 import org.esupportail.pstagedata.domain.dto.IndemnisationDTO;
 import org.esupportail.pstagedata.domain.dto.LangueConventionDTO;
 import org.esupportail.pstagedata.domain.dto.ModeValidationStageDTO;
@@ -4497,7 +4498,6 @@ public class ConventionController extends AbstractContextAwareController {
 		return "conventionEtape13FicheEvaluationEntreprise";
 	}
 
-	//TODO
 	/**
 	 * Acces a la partie Entreprise de la fiche d'evaluation par le tuteur pro (acces via lien)
 	 */
@@ -4596,6 +4596,10 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 	}
 
+	/**
+	 * update de la reponse entreprise via l'appli (sans accès via lien)
+	 * @param reponseEvalTmp
+	 */
 	private void commonUpdateReponseEntreprise(ReponseEvaluationDTO reponseEvalTmp){
 		try{
 			reponseEvalTmp.setValidationEntreprise(true);
@@ -4721,6 +4725,45 @@ public class ConventionController extends AbstractContextAwareController {
 			this.reponsesSupplementaires.add(reponse);
 		}
 		return reponse;
+	}
+
+	//TODO
+	/**
+	 * Vers moteur de recherche de fiches d'evaluation.
+	 * @return String
+	 */
+	public String goToRechercheEvalEtu() {
+		String ret = "resultatsRechercheEvaluation";
+		this.conventionCree = false;
+		this.resultatsRechercheConvention = new ArrayList<ConventionDTO>();
+		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
+			this.resultatsRechercheConvention = getConventionDomainService().getConventionsEtudiant(this.getSessionController().getCurrentAuthEtudiant().getIdentEtudiant(),getSessionController().getCodeUniversite());
+			if (this.resultatsRechercheConvention != null){
+				for (ConventionDTO convention : this.resultatsRechercheConvention){
+					FicheEvaluationDTO fiche = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(convention.getIdCentreGestion());
+					if (fiche != null){
+						convention.setFicheEvaluation(fiche);
+						int idFicheEvaluation = fiche.getIdFicheEvaluation();
+						convention.setReponseEvaluation(getFicheEvaluationDomainService().getReponseEvaluation(idFicheEvaluation, convention.getIdConvention()));
+					}
+				}
+			}
+		}
+		if (!checkListeResultats()) {
+			this.rechercheConventionPaginator.reset();
+		}
+		return ret;
+	}
+
+	/**
+	 * @return String
+	 */
+	public String goToEvalConvention(){
+		String retour = this.goToRecapConvention();
+		if (retour != null){
+			retour = "conventionEtape13FicheEvaluation";
+		}
+		return retour;
 	}
 
 	/* ***************************************************************

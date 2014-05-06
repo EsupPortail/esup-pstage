@@ -2520,6 +2520,16 @@
 			<to-view-id>/stylesheets/evaluationStage/ficheEvaluationTuteurPro.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>rechercheEvaluation</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheEvaluation.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>resultatsRechercheEvaluation</from-outcome>
+			<to-view-id>/stylesheets/stage/rechercheEvaluationResultats.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
 	</navigation-rule>
 	
 	<!--

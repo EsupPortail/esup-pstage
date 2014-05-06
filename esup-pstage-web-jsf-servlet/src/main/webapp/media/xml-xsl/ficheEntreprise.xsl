@@ -68,7 +68,7 @@
 		<fo:block text-align="center">
 			<fo:inline hyphenate="false" language="fr" country="FR"
 				font-weight="bold" font-size="18pt">
-				Evaluation du stage par le tuteur
+				Appréciation du stage par le tuteur
 				professionnel
 			</fo:inline>
 		</fo:block>

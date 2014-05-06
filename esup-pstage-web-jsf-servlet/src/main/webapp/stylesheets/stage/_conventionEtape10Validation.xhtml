@@ -111,7 +111,10 @@
 				rowClasses="paginatorData-text"
 				rendered="#{welcomeController.superAdmin 
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
+			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+			|| (not empty sessionController.currentAuthEnseignant
+			and not empty conventionController.convention.enseignant
+			and sessionController.currentAuthEnseignant.uidEnseignant == conventionController.convention.enseignant.uidEnseignant)}">
 				<a4j:commandButton execute="@this"
 					oncomplete="#{rich:component('demandeConfirmVerifConvention')}.show()"
 					value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIFIER']}"

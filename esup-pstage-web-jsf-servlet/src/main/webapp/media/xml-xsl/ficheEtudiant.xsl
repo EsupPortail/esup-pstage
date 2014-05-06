@@ -163,9 +163,9 @@
 		<xsl:if test="fiche-evaluation/@question-etu-i4 = 'true'">
 			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
 				country="FR" font-size="12pt" font-weight="bold">
-				- Quel procédé de
+				- Quel(s) procédé(s) de
 				démarchage avez-vous
-				utilisé ?
+				utilisé(s) ?
 			</fo:block>
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
@@ -211,7 +211,7 @@
 				<fo:inline hyphenate="false" language="fr" country="FR"
 					font-size="11pt" margin-left="2.2cm">
 					<xsl:value-of select="origine-stage/libelle" />
-					(remonté des informations de la convention)
+					(récupération des informations depuis la convention)
 				</fo:inline>
 			</fo:block>
 		</xsl:if>
@@ -455,10 +455,10 @@
 		<xsl:if test="fiche-evaluation/@question-etu-iI4 = 'true'">
 			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
 				country="FR" font-size="12pt" font-weight="bold">
-				- Est-ce que les
-				conditions matérielles vous
+				- Les conditions
+				matérielles vous
 				ont permis d'atteindre les objectifs de
-				votre stage ?
+				votre stage :
 			</fo:block>
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
@@ -598,8 +598,8 @@
 			</fo:block>
 			<fo:block hyphenate="false" language="fr" country="FR"
 				font-size="12pt" font-weight="bold" margin-left="2.2cm">
-				Avez-vous du le
-				changer ?
+				L'avez-vous modifié
+				?
 			</fo:block>
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
@@ -727,7 +727,7 @@
 		<xsl:if test="fiche-evaluation/@question-etu-iII7 = 'true'">
 			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
 				country="FR" font-size="12pt" font-weight="bold">
-				- Ce stage vous parait
+				- Ce stage vous paraît
 				déterminant à cette
 				étape de votre formation
 			</fo:block>
@@ -826,7 +826,7 @@
 				country="FR" font-size="12pt" font-weight="bold">
 				- Avez-vous rencontré des
 				difficultés à
-				percevoir la gratification ?
+				percevoir votre gratification ?
 			</fo:block>
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
@@ -887,8 +887,7 @@
 			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
 				country="FR" font-size="12pt" font-weight="bold">
 				- Indiquez votre
-				appréciation générale de ce
-				stage :
+				appréciation générale sur le stage :
 			</fo:block>
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">

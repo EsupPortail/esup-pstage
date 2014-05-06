@@ -747,12 +747,12 @@
 									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII1}">
 									<t:htmlTag value="div" style="height:10px;" />
-									<h:panelGrid columns="2"
+									<h:panelGrid columns="1"
 										rowClasses="paginatorData-text"
 										columnClasses="paginatorData-text">
 										<h:outputText style="font-weight:bold;"
 											value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1']}" />
-										<h:outputText value="#{conventionController.convention.sujetStage}" />
+										<h:outputText style="margin-left:10px;" value="#{conventionController.convention.sujetStage}" />
 									</h:panelGrid>
 									<h:outputText style="font-weight:bold;"
 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1bis']}" />
@@ -769,16 +769,18 @@
 									<rich:message for="reponseIII1">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 									</rich:message>
-									<t:htmlTag value="div"
-										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII1}">
-										<h:inputTextarea id="reponseIII1bis"
+										<h:panelGrid
+											rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII1}">
+										<h:outputText style="font-weight:bold;"
+											value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.1']}"/>
+										<h:inputTextarea id="reponseIII1bis" style="margin-left:10px;"
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII1bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<rich:message for="reponseIII1bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 										</rich:message>
-									</t:htmlTag>
+										</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantIII2" style="margin-left:10px;"

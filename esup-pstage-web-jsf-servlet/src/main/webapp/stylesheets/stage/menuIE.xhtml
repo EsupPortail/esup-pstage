@@ -184,13 +184,24 @@
 						<t:htmlTag value="div" style="height: 5px;" />
 					</h:commandLink>
 					
-					<t:htmlTag value="div" style="height: 5px;" />
+					<t:htmlTag value="div" style="height: 5px;"
+						rendered="#{welcomeController.superAdmin}" />
 					<h:commandLink action="#{nomenclatureController.goToGestionNomenclatures}"
 						rendered="#{welcomeController.superAdmin}">
 						<h:graphicImage alt="#{msgs['MENU.GESTIONNOMENCLATURES.GESTION']})"
 							title="#{msgs['MENU.GESTIONNOMENCLATURES']})"
 							value="../../media/images/list.png" style="border:0" />
 						<h:outputText value=" #{msgs['MENU.GESTIONNOMENCLATURES.GESTION']}" />
+					</h:commandLink>
+					
+					<t:htmlTag value="div" style="height: 5px;"
+						rendered="#{sessionController.utilisationStage and welcomeController.etudiant}"/>
+					<h:commandLink action="#{conventionController.goToRechercheEvalEtu}"
+						rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
+						<h:graphicImage alt="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
+							title="#{msgs['MENUSTAGE.EVALUATION.GESTEVAL']}"
+							value="/media/images/list.png" style="border:0" />
+						<h:outputText value=" #{msgs['MENUSTAGE.EVALUATION.VISUALISER']}" />
 					</h:commandLink>
 				</h:panelGrid>
 			</h:form>

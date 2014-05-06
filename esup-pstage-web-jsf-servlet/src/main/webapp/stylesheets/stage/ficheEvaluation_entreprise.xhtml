@@ -519,13 +519,13 @@
 								columnClasses="paginatorData-text">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold; font-size:16px;"
-										value="Liste des questions supplementaires ajoutees" />
+										value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
 								</t:htmlTag>
 								<h:panelGrid columns="2">
 									<h:graphicImage alt="infoEdit"
 										value="../../media/images/information.png" />
 									<h:outputText
-										value="Les questions supplementaires seront affichees au-dessus de la question 'Observations ?' (si elle est activee)" />
+										value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.INFO_ENTREPRISE']}" />
 								</h:panelGrid>
 								<rich:list var="questionSup" style="margin:0px;"
 									value="#{centreController.listeQuestionsSupplementairesEntreprise}">
@@ -536,7 +536,7 @@
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
-									value="Ajouter une question a la fiche"
+									value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
 									action="#{centreController.avantAjoutQuestionEntreprise}"
 									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
 									render="editQuestionEvalPanel">

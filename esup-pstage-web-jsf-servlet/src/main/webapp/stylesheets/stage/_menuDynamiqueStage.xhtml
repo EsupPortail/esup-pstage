@@ -83,8 +83,7 @@
 				<t:htmlTag value="ul">
 					<t:htmlTag value="li">
 						<h:commandLink
-							action="#{conventionController.goToRechercheConventionEtu}"
-							rendered="#{welcomeController.etudiant}">
+							action="#{conventionController.goToRechercheConventionEtu}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
 								title="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
 								value="/media/images/list.png" style="border:0" />
@@ -215,6 +214,39 @@
 								target="#{etablissementController.listeServices}" />
 							<f:setPropertyActionListener value="#{null}"
 								target="#{etablissementController.listeContacts}" />
+						</h:commandLink>
+					</t:htmlTag>
+				</t:htmlTag>
+			</t:htmlTag>
+			<t:htmlTag value="li" rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
+				<h:commandLink action="menuIE">
+					<h:outputText value="#{msgs['MENUSTAGE.EVALUATION']}"
+						styleClass="menuTitre" />
+				</h:commandLink>
+				<t:htmlTag value="ul">
+					<t:htmlTag value="li">
+						<h:commandLink action="#{conventionController.goToRechercheEvalEtu}">
+							<h:graphicImage alt="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
+								title="#{msgs['MENUSTAGE.EVALUATION.GESTEVAL']}"
+								value="/media/images/list.png" style="border:0" />
+							<h:outputText value=" #{msgs['MENUSTAGE.EVALUATION.VISUALISER']}" />
+						</h:commandLink>
+					</t:htmlTag>
+				</t:htmlTag>
+			</t:htmlTag>
+			<t:htmlTag value="li" 
+				rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant)}">
+				<h:commandLink action="menuIE">
+					<h:outputText value="#{msgs['MENUSTAGE.EVALUATION']}"
+						styleClass="menuTitre" />
+				</h:commandLink>
+				<t:htmlTag value="ul">
+					<t:htmlTag value="li">
+						<h:commandLink action="#{conventionController.goToRechercheEvalEtu}">
+							<h:graphicImage alt="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
+								title="#{msgs['MENUSTAGE.EVALUATION.GESTEVAL']}"
+								value="/media/images/list.png" style="border:0" />
+							<h:outputText value=" #{msgs['MENUSTAGE.EVALUATION.VISUALISER']}" />
 						</h:commandLink>
 					</t:htmlTag>
 				</t:htmlTag>

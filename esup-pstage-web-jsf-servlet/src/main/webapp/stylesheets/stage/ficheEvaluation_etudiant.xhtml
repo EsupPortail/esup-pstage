@@ -276,7 +276,7 @@
 								rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant1}">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold; font-size:16px;"
-										value="Liste des questions ajoutees a cette section" />
+										value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
 								</t:htmlTag>
 								<rich:list var="questionSup" style="margin-left:10px;"
 									value="#{centreController.listeQuestionsSupplementairesEtudiant1}">
@@ -288,7 +288,7 @@
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
-									value="Ajouter une question a cette section"
+									value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
 									action="#{centreController.avantAjoutQuestionEtudiant1}"
 									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
 									render="editQuestionEvalPanel">
@@ -484,7 +484,7 @@
 								rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant2}">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold; font-size:16px;"
-										value="Liste des questions supplementaires ajoutees" />
+										value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
 								</t:htmlTag>
 								<rich:list var="questionSup" style="margin-left:10px;"
 									value="#{centreController.listeQuestionsSupplementairesEtudiant2}">
@@ -496,7 +496,7 @@
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
-									value="Ajouter une question a cette section"
+									value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
 									action="#{centreController.avantAjoutQuestionEtudiant2}"
 									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
 									render="editQuestionEvalPanel">
@@ -536,7 +536,7 @@
 								<h:panelGrid>
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1']} (recuperation du sujet depuis la convention)" />
+										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1']}" />
 									<h:outputText style="font-weight:bold;"
 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1bis']}" />
 									<h:outputText style="margin-left:10px;"
@@ -866,7 +866,7 @@
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
-									value="Ajouter une question a cette section"
+									value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
 									action="#{centreController.avantAjoutQuestionEtudiant3}"
 									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
 									render="editQuestionEvalPanel">

@@ -16,7 +16,7 @@
 			<h:form id="formAccueilFiche">
 				<fieldset style="width: 600px;">
 					<t:div
-						rendered="#{welcomeController.superAdmin || welcomeController.etudiant || conventionController.tuteurCurrentConvention}">
+						rendered="#{welcomeController.superAdmin || welcomeController.etudiant}">
 						<h:panelGrid columns="2" style="padding:10px;"
 							rendered="#{empty conventionController.convention.ficheEvaluation 
 						|| !conventionController.convention.ficheEvaluation.validationEtudiant}">
@@ -66,6 +66,9 @@
 									rendered="#{conventionController.convention.reponseEvaluation.validationEtudiant}" />
 							</t:htmlTag>
 						</h:panelGrid>
+					</t:div>
+					<t:div
+						rendered="#{welcomeController.superAdmin || conventionController.tuteurCurrentConvention}">
 						<t:htmlTag value="div" style="height:5px;" />
 						<t:htmlTag value="center">
 							<t:htmlTag value="div" style="height:2px; width:500px;"
@@ -109,7 +112,7 @@
 										alt="#{msgs['GENERAL.WARNING']}"
 										title="#{msgs['GENERAL.WARNING']}" />
 									<h:outputText
-										value="#{msgs['CONVENTION.ETAPE13.FICHE_INVALIDE_ENSEIGNANT']}" />
+										value="#{msgs['CONVENTION.ETAPE13.FICHE_INVALIDE']}" />
 								</h:panelGrid>
 								<h:commandButton
 									rendered="#{welcomeController.superAdmin || conventionController.tuteurCurrentConvention}"
@@ -120,22 +123,10 @@
 									action="#{conventionController.editPdfFicheEnseignant}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEnseignant}" />
 								<t:htmlTag value="div" style="height:10px;" />
-
-								<!-- 								<t:fieldset id="fieldsetEnseignant" style="width:400px;" -->
-								<!-- 									rendered="#{welcomeController.superAdmin || welcomeController.etudiant}"> -->
-								<!-- 									<h:panelGrid columns="2" style="padding:5px;"> -->
-								<!-- 										<h:graphicImage value="../../media/images/information.png" /> -->
-								<!-- 										<h:outputText -->
-								<!-- 											value="Cliquez sur le bouton ci-dessous afin d'envoyer un mail pour avertir le tuteur pedagogique qu'il peut remplir sa fiche" /> -->
-								<!-- 									</h:panelGrid> -->
-								<!-- 									<a4j:commandButton value="#{msgs['FORM.ENVOYER']}" -->
-								<!-- 										action="#{conventionController.envoiMailEnseignant}" -->
-								<!-- 										render="msgMailEnseignant" /> -->
-								<!-- 								</t:fieldset> -->
-								<!-- 								<rich:message for="fieldsetEnseignant" id="msgMailEnseignant" /> -->
 							</t:htmlTag>
 						</h:panelGrid>
-
+					</t:div>
+					<t:div rendered="#{welcomeController.superAdmin}">
 						<t:htmlTag value="div" style="height:5px;" />
 						<t:htmlTag value="center">
 							<t:htmlTag value="div" style="height:2px; width:500px;"
