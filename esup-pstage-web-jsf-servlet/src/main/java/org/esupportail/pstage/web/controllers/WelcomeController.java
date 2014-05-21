@@ -600,14 +600,20 @@ public class WelcomeController extends AbstractContextAwareController {
 
 					if (liste != null && !liste.isEmpty()){
 						Map<Integer,DroitAdministrationDTO> droitsAccesMap = new HashMap<Integer,DroitAdministrationDTO>();
+						// Nouvelle map specifique au droit d'acces aux fiches d'evaluation
+						Map<Integer,Boolean> droitsEvaluationMap = new HashMap<Integer,Boolean>();
 
 						for(PersonnelCentreGestionDTO personnel : liste){
-
+							// remplissage de la map des droits d'acces
 							DroitAdministrationDTO droitAcces = getNomenclatureDomainService().getDroitAdministrationFromId(personnel.getIdDroitAdmin());
 							if(!droitsAccesMap.containsKey(personnel.getIdCentreGestion()))droitsAccesMap.put(personnel.getIdCentreGestion(),droitAcces);
+							
+							// remplissage de la map des droits pour les fiches d'evaluation
+							if(personnel.isDroitEvaluation())droitsEvaluationMap.put(personnel.getIdCentreGestion(), true);
 						}
 
 						getSessionController().setDroitsAccesMap(droitsAccesMap);
+						getSessionController().setDroitsEvaluationMap(droitsEvaluationMap);
 
 						if (logger.isDebugEnabled()){
 							logger.debug("WelcomeController :: droitsAccesMap = "+ droitsAccesMap );
@@ -805,9 +811,14 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * @return CentreGestionDTO
 	 */
 	public CentreGestionDTO recupCentre(String code, String codeVers){
-
+		String codeTmp;
+		if (codeVers != null && !codeVers.isEmpty()){
+			codeTmp = code+";"+codeVers;
+		} else {
+			codeTmp = code;
+		}
 		// S'il n'y en a pas, recherche avec le code version etape
-		CentreGestionDTO centre = getCentreGestionDomainService().getCentreFromCritere(code+";"+codeVers, getSessionController().getCodeUniversite());
+		CentreGestionDTO centre = getCentreGestionDomainService().getCentreFromCritere(codeTmp, getSessionController().getCodeUniversite());
 
 		// S'il n'y en a pas, rattachement au centre etablissement
 		if (centre == null) {
@@ -855,7 +866,7 @@ public class WelcomeController extends AbstractContextAwareController {
 
 	/**
 	 * Espace stage seulement
-	 * @return true if the current user is an Personnel
+	 * @return true if the current user is a Personnel
 	 */
 	public boolean isPersonnel(){
 		boolean isPersonnel=false;
@@ -869,8 +880,22 @@ public class WelcomeController extends AbstractContextAwareController {
 			}
 		}
 		return isPersonnel;
-	} 
-
+	}
+	
+	/**
+	 * Espace stage seulement
+	 * @return true si l'utilisateur est un personnel et peut acceder aux fiches d'evaluation
+	 */
+	public boolean isDroitEvaluation(){
+		boolean isDroitEval=false;
+		connectStage();
+		if(this.getSessionController().getCurrentAuthPersonnel()!=null
+		&& this.getSessionController().getCurrentAuthPersonnel().isDroitEvaluation()){
+			isDroitEval=true;
+		}
+		return isDroitEval;
+	}
+	
 	/**
 	 * Espace stage seulement
 	 * @return true if the current user is an Etudiant

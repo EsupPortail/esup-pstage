@@ -78,10 +78,6 @@ public interface FicheEvaluationDomainService extends Serializable {
 	 */
 	public ReponseEvaluationDTO getReponseEvaluation(int idFicheEvaluation, int idConvention);
 	/**
-	 * @return ReponseEvaluationDTO
-	 */
-	public ReponseEvaluationDTO getReponseEvaluationFromCode(String codeAcces);
-	/**
 	 * @return List<ReponseEvaluationDTO>
 	 */
 	public List<ReponseEvaluationDTO> getReponsesEvaluation(int idFicheEvaluation);
@@ -122,18 +118,41 @@ public interface FicheEvaluationDomainService extends Serializable {
 	 */
 	public boolean deleteReponseEvaluation(int idFicheEvaluation, int idConvention) throws DataDeleteException, WebServiceDataBaseException;
 	/**
-	 * @param codeAcces
 	 * @return boolean
 	 * @throws DataUpdateException 
 	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean setCodeAcces(int idFicheEvaluation, int idConvention, String codeAcces) throws DataUpdateException, WebServiceDataBaseException;
+	public boolean setImpressionEtudiant(int idFicheEvaluation, int idConvention) throws DataUpdateException, WebServiceDataBaseException;
 	/**
 	 * @return boolean
 	 * @throws DataUpdateException 
 	 * @throws WebServiceDataBaseException 
 	 */
-	public boolean setEnvoiMailEntreprise(int idFicheEvaluation, int idConvention) throws DataUpdateException, WebServiceDataBaseException;
+	public boolean setImpressionEnseignant(int idFicheEvaluation, int idConvention) throws DataUpdateException, WebServiceDataBaseException;
+	/**
+	 * @return boolean
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
+	 */
+	public boolean setImpressionEntreprise(int idFicheEvaluation, int idConvention) throws DataUpdateException, WebServiceDataBaseException;
+	/**
+	 * @return boolean
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
+	 */
+	public boolean setEnvoiMailEtudiant(int idConvention) throws DataUpdateException, WebServiceDataBaseException;
+	/**
+	 * @return boolean
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
+	 */
+	public boolean setEnvoiMailEnseignant(int idConvention) throws DataUpdateException, WebServiceDataBaseException;
+	/**
+	 * @return boolean
+	 * @throws DataUpdateException 
+	 * @throws WebServiceDataBaseException 
+	 */
+	public boolean setEnvoiMailEntreprise(int idConvention) throws DataUpdateException, WebServiceDataBaseException;
 	/* ***************************************************************
 	 * Question Supplementaire
 	 ****************************************************************/

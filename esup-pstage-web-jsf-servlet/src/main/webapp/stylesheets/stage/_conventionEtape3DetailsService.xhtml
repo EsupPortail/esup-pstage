@@ -84,7 +84,8 @@
 					<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
 				</a4j:commandLink>
 
-				<a4j:commandLink execute="@this" id="selectionService"
+				<a4j:commandButton execute="@this" id="selectionService"
+					value="#{msgs['FORM.SELECTIONNER']}" style="color:green;"
 					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}"
 					oncomplete="#{rich:component('demandeConfirmModifService')}.show()"
 					render="opActionsService">
@@ -94,10 +95,8 @@
 					<f:setPropertyActionListener
 						value="#{etablissementController.serviceSel}"
 						target="#{conventionController.convention.service}" />
-					<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
-						value="../../media/images/tick.png" style="border:0" />
 					<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
-				</a4j:commandLink>
+				</a4j:commandButton>
 			</rich:column>
 		</rich:dataTable>
 

@@ -9,8 +9,8 @@
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<rich:panel id="panelFicheEvaluation"
-			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
-					|| welcomeController.personnel) and centreController.centre != null and not empty centreController.ficheEvaluation}">
+			rendered="#{(welcomeController.superAdmin || sessionController.droitsEvaluationMap[centreController.centre.idCentreGestion])
+			and centreController.centre != null and not empty centreController.ficheEvaluation}">
 			<f:facet name="header">
 				<h:outputFormat value="#{msgs['CENTRE.FICHE_EVALUATION.HEAD']}">
 					<f:param value="#{centreController.centre.nomCentre}" />
@@ -155,13 +155,11 @@
 			<t:htmlTag value="div" style="height: 20px;" />
 		</rich:panel>
 		<t:div
-			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
-					|| welcomeController.personnel)}">
+			rendered="#{!(welcomeController.superAdmin || welcomeController.droitEvaluation)}">
 			<ui:include src="./_redirection_droitsInsuffisants.xhtml" />
 		</t:div>
 		<t:div
-			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
-					|| welcomeController.personnel)
+			rendered="#{(welcomeController.superAdmin || welcomeController.droitEvaluation)
 					and (centreController.centre == null || empty centreController.ficheEvaluation)}">
 			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
 		</t:div>

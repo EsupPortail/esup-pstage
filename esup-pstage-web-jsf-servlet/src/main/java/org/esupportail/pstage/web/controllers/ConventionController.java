@@ -407,6 +407,11 @@ public class ConventionController extends AbstractContextAwareController {
 	private int ongletCourant = 1;
 
 	/**
+	 * Liste selectItem des elements pedagogiques
+	 */
+	private List<SelectItem> listeELPEtapesSelectItems;
+
+	/**
 	 * Affichage ou non de l'alerte de surcharge du tuteur
 	 */
 	private boolean surchargeTuteur;
@@ -415,11 +420,6 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Ajouts 2.2.1 Fiche Evaluation
 	 ****************************************************************/
 	/**
-	 * Liste selectItem des elements pedagogiques
-	 */
-	private List<SelectItem> listeELPEtapesSelectItems;
-
-	/**
 	 * Listes contenant les questions supplementaires pour chaque fiche d'evaluation
 	 */
 	private List<QuestionSupplementaireDTO> questionsSupplementairesEtudiant1;
@@ -427,7 +427,9 @@ public class ConventionController extends AbstractContextAwareController {
 	private List<QuestionSupplementaireDTO> questionsSupplementairesEtudiant3;
 	private List<QuestionSupplementaireDTO> questionsSupplementairesEnseignant1;
 	private List<QuestionSupplementaireDTO> questionsSupplementairesEnseignant2;
-	private List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise;
+	private List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise1;
+	private List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise2;
+	private List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise3;
 
 	/**
 	 * Listes contenant les reponses supplementaires a add/update
@@ -446,10 +448,30 @@ public class ConventionController extends AbstractContextAwareController {
 	private boolean tuteurCurrentConvention;
 
 	/**
-	 * 
+	 * code permettant au tuteur pro d'acceder a sa fiche depuis le lien envoye en mail
 	 */
 	private String codeAccesFiche;
 
+	/**
+	 * id du centre de gestion choisi pour la recherche de fiche d'evaluation
+	 */
+	private Integer rechEvalIdCentre;
+
+	/**
+	 * liste des centres gestion dans lesquels le gestionnaire connecte a les droits d'evaluation
+	 */
+	private List<SelectItem> listeItemsCurrentCentresGestionEval;
+	/**
+	 * Liste des etapes presentees au gestionnaires lors de la recherche de fiche d'evaluation
+	 */
+	private List<SelectItem> rechEvalListeEtapes;
+
+	/**
+	 * true lorsque l'on consulte une convention via la recherche d'evaluation
+	 */
+	private boolean retourEvaluation = false;
+
+	//TODO
 	/**
 	 * Bean constructor.
 	 */
@@ -685,6 +707,7 @@ public class ConventionController extends AbstractContextAwareController {
 		if (ctrlInfosOK) {
 			// recuperation du centre gérant l'etape/ufr selectionnée
 			CentreGestionDTO centreGestionRattachement = new CentreGestionDTO();
+			String codeEtapeTmp;
 			if (getSessionController().getCritereGestion() != null) {
 				// centre gestion UFR
 				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
@@ -692,12 +715,22 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 				// centre gestion Etape
 				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
-					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape()+";"+this.etudiantRef.getTheCodeVersionEtape(), getSessionController().getCodeUniversite());
+					if (this.etudiantRef.getTheCodeVersionEtape() != null && !this.etudiantRef.getTheCodeVersionEtape().isEmpty()){
+						codeEtapeTmp = this.etudiantRef.getTheCodeEtape()+";"+this.etudiantRef.getTheCodeVersionEtape();
+					} else {
+						codeEtapeTmp = this.etudiantRef.getTheCodeEtape();
+					}
+					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(codeEtapeTmp, getSessionController().getCodeUniversite());
 				}
 				// centre gestion Mixte
 				if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
+					if (this.etudiantRef.getTheCodeVersionEtape() != null && !this.etudiantRef.getTheCodeVersionEtape().isEmpty()){
+						codeEtapeTmp = this.etudiantRef.getTheCodeEtape()+";"+this.etudiantRef.getTheCodeVersionEtape();
+					} else {
+						codeEtapeTmp = this.etudiantRef.getTheCodeEtape();
+					}
 					// recherche cg gérant l'etape
-					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getTheCodeEtape()+";"+this.etudiantRef.getTheCodeVersionEtape(), getSessionController().getCodeUniversite());
+					centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(codeEtapeTmp, getSessionController().getCodeUniversite());
 					// si non trouvé, recherche centre gérant l'Ufr
 					if (centreGestionRattachement == null) {
 						centreGestionRattachement = getCentreGestionDomainService().getCentreFromCritere(this.etudiantRef.getThecodeUFR(), getSessionController().getCodeUniversite());
@@ -2559,9 +2592,13 @@ public class ConventionController extends AbstractContextAwareController {
 		CentreGestionDTO centreTmp;
 		// On parcours l'ensemble des etapes avec inscription admin de l'etudiant
 		for (EtapeInscription etp : listEtapes){
-			code = etp.getCodeEtp();
 			// On regarde s'il existe un centre associe au code etape
-			centreTmp = getCentreGestionDomainService().getCentreFromCritere(code+";"+etp.getCodVrsVet(), getSessionController().getCodeUniversite());
+			if (etp.getCodVrsVet()!= null && !etp.getCodVrsVet().isEmpty()){
+				code = etp.getCodeEtp()+";"+etp.getCodVrsVet();
+			} else {
+				code = etp.getCodeEtp();
+			}
+			centreTmp = getCentreGestionDomainService().getCentreFromCritere(code, getSessionController().getCodeUniversite());
 			if (centreTmp == null){
 				// S'il n'y en a pas, on vérifie une derniere fois a partir du code ufr
 				this.etudiantRef = this.resultatEtudiantRef;
@@ -2630,9 +2667,11 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 			List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
-			for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
-				if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-					listFiltree.add(etapeAcontroler);
+			if (this.resultatEtudiantRef.getListeEtapeInscriptions() != null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()){
+				for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
+					if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+						listFiltree.add(etapeAcontroler);
+					}
 				}
 			}
 
@@ -3373,9 +3412,11 @@ public class ConventionController extends AbstractContextAwareController {
 		boolean isSupUneEtape = false;
 		if (this.resultatEtudiantRef != null) {
 			List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
-			for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
-				if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-					listFiltree.add(etapeAcontroler);
+			if (this.resultatEtudiantRef.getListeEtapeInscriptions() != null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()){
+				for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
+					if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+						listFiltree.add(etapeAcontroler);
+					}
 				}
 			}
 			if (listFiltree != null) {
@@ -4271,7 +4312,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void editPdfFicheEtudiant(){
 		try	{
-			ConventionDTO conventionTmp = this.convention;
+			if (this.convention.getReponseEvaluation() == null){
+				this.convention = getConventionDomainService().getConventionFromId(this.convention.getIdConvention());
+			}
 			// Recuperation des questions/reponses supplementaires
 			List<QuestionSupplementaireDTO> list = getFicheEvaluationDomainService()
 					.getQuestionsSupplementaires(this.convention.getFicheEvaluation().getIdFicheEvaluation());
@@ -4279,23 +4322,67 @@ public class ConventionController extends AbstractContextAwareController {
 				question.setReponseSupplementaire(getFicheEvaluationDomainService().getReponseSupplementaire(
 						question.getIdQuestionSupplementaire(), this.convention.getIdConvention()));
 			}
-			conventionTmp.setQuestionsSupplementaires(list);
+			this.convention.setQuestionsSupplementaires(list);
 
 			String nomDocxsl = "";
 			String fileNameXml = "";
 			String fileNameXmlfin = ".xml";
-			String idReponse = conventionTmp.getIdConvention().toString();
+			String idReponse = this.convention.getIdConvention().toString();
 			nomDocxsl = "ficheEtudiant" + ".xsl";
 			fileNameXml = "ficheEtudiant_" + idReponse;
 			// appel castor pour fichier xml a partir de objet java convention
-			castorService.objectToFileXml(conventionTmp, fileNameXml + fileNameXmlfin);
+			castorService.objectToFileXml(this.convention, fileNameXml + fileNameXmlfin);
 			//fusion du xsl et xml en pdf
 			String fileNamePdf = fileNameXml + ".pdf";
 			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
 					castorService.getXslXmlPath(),
 					fileNamePdf, nomDocxsl);
+			// Si c'est un superAdmin ou un gestionnaire qui imprime, on indique en base que la fiche a ete imprimee
+			if (getSessionController().isSuperAdminPageAuthorized()
+					|| (getSessionController().getDroitsEvaluationMap() != null
+					&& !getSessionController().getDroitsEvaluationMap().isEmpty())){
+				this.convention.getReponseEvaluation().setImpressionEtudiant(true);
+				getFicheEvaluationDomainService().setImpressionEtudiant(this.convention.getFicheEvaluation().getIdFicheEvaluation(), this.convention.getIdConvention());
+			}
 		} catch (ExportException e) {
 			logger.error("editPdfFicheEtudiant ", e.fillInStackTrace());
+		}
+	}
+
+	/**
+	 * Envoi d'un mail avertissant l'etudiant qu'il peut aller remplir sa fiche
+	 */
+	public void envoiMailEtudiant(){
+		String adresseEtudiant = "";
+		String nomEtu = "";
+		if (this.convention.getEtudiant() != null){
+			adresseEtudiant = this.convention.getEtudiant().getMail();
+			nomEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
+		}
+		try{
+			String contenu = "";
+			if (this.typeMailEval == 1){
+				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ETUDIANT",this.convention.getIdConvention(),
+						getSessionController().getApplicationNamePStage());
+			} else if (this.typeMailEval == 2){
+				contenu = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT",this.convention.getIdConvention(),
+						getSessionController().getApplicationNamePStage());
+			}
+
+			getSmtpService().send(new InternetAddress(adresseEtudiant),
+					getSessionController().getApplicationNamePStage()+" - Evaluation de votre stage pour la convention n°"+this.convention.getIdConvention(),
+					contenu,
+					"");
+			// On indique en base que le mail a ete envoye
+			this.convention.setEnvoiMailEtudiant(true);
+			this.convention.setDateEnvoiMailEtudiant(new Date());
+			getFicheEvaluationDomainService().setEnvoiMailEtudiant(this.convention.getIdConvention());
+			addInfoMessage("formAccueilFiche:panelMailEtudiant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseEtudiant);
+		} catch (AddressException e) {
+			if (logger.isDebugEnabled()){
+				e.printStackTrace();
+			}
+			addErrorMessage("formAccueilFiche:panelMailEtudiant", "CONVENTION.ETAPE13.MAIL.ERREUR_ETUDIANT",adresseEtudiant,nomEtu);
 		}
 	}
 
@@ -4431,7 +4518,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void editPdfFicheEnseignant(){
 		try	{
-			ConventionDTO conventionTmp = this.convention;
+			if (this.convention.getReponseEvaluation() == null){
+				this.convention = getConventionDomainService().getConventionFromId(this.convention.getIdConvention());
+			}
 			// Recuperation des questions/reponses supplementaires
 			List<QuestionSupplementaireDTO> list = getFicheEvaluationDomainService()
 					.getQuestionsSupplementaires(this.convention.getFicheEvaluation().getIdFicheEvaluation());
@@ -4439,21 +4528,29 @@ public class ConventionController extends AbstractContextAwareController {
 				question.setReponseSupplementaire(getFicheEvaluationDomainService().getReponseSupplementaire(
 						question.getIdQuestionSupplementaire(), this.convention.getIdConvention()));
 			}
-			conventionTmp.setQuestionsSupplementaires(list);
+			this.convention.setQuestionsSupplementaires(list);
 
 			String nomDocxsl = "";
 			String fileNameXml = "";
 			String fileNameXmlfin = ".xml";
-			String idReponse = conventionTmp.getIdConvention().toString();
+			String idReponse = this.convention.getIdConvention().toString();
 			nomDocxsl = "ficheEnseignant" + ".xsl";
 			fileNameXml = "ficheEnseignant_" + idReponse;
 			// appel castor pour fichier xml a partir de objet java convention
-			castorService.objectToFileXml(conventionTmp, fileNameXml + fileNameXmlfin);
+			castorService.objectToFileXml(this.convention, fileNameXml + fileNameXmlfin);
 			//fusion du xsl et xml en pdf
 			String fileNamePdf = fileNameXml + ".pdf";
 			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
 					castorService.getXslXmlPath(),
 					fileNamePdf, nomDocxsl);
+
+			// Si c'est un superAdmin ou un gestionnaire qui imprime, on indique en base que la fiche a ete imprimee
+			if (getSessionController().isSuperAdminPageAuthorized()
+					|| (getSessionController().getDroitsEvaluationMap() != null
+					&& !getSessionController().getDroitsEvaluationMap().isEmpty())){
+				this.convention.getReponseEvaluation().setImpressionEnseignant(true);
+				getFicheEvaluationDomainService().setImpressionEnseignant(this.convention.getFicheEvaluation().getIdFicheEvaluation(), this.convention.getIdConvention());
+			}
 		} catch (ExportException e) {
 			logger.error("editPdfFicheEnseignant ", e.fillInStackTrace());
 		}
@@ -4462,32 +4559,39 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * Generation et envoie du lien vers sa fiche au tuteur pédagogique de l'etudiant
 	 */
-	//	public void envoiMailEnseignant(){
-	//		//envoi d'un mail au tuteur enseignant contenant un lien permettant l'acces a 
-	//		//la page de saisie de la reponse enseignant (via idFiche du centre + idConvention)
-	//		try{
-	//			String adresseTuteurPedago = this.convention.getEnseignant().getMail();
-	//			if (adresseTuteurPedago != null && adresseTuteurPedago != ""){
-	//				String lien = this.getSessionController().getBaseUrl()+"/stylesheets/stage/conventionEtape13FicheEvaluation.xhtml";
-	//				String libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
-	//				getSmtpService().send(new InternetAddress(adresseTuteurPedago),
-	//						getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
-	//						getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",libelleEtu,
-	//								lien,
-	//								getSessionController().getApplicationNamePStage()),
-	//						"");
-	//				addInfoMessage("formAccueilFiche:fieldsetEnseignant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPedago);
-	//			} else {
-	//				addErrorMessage("formAccueilFiche:fieldsetEnseignant", "MAIL.VALIDATION");
-	//			}
-	//		} catch (AddressException e) {
-	//			if (logger.isDebugEnabled()){
-	//				e.printStackTrace();
-	//			}
-	//			addErrorMessage("formAccueilFiche:fieldsetEnseignant", "MAIL.VALIDATION");
-	//		}
-	//	}
-
+	public void envoiMailEnseignant(){
+		String adresseTuteurPedago = "";
+		String nomTuteur = "";
+		String libelleEtu = "";
+		if (this.convention.getEnseignant() != null){
+			adresseTuteurPedago = this.convention.getEnseignant().getMail();
+			nomTuteur = this.convention.getEnseignant().getPrenom() + " " + this.convention.getEnseignant().getNom();
+		}
+		if (this.convention.getEtudiant() != null){
+			libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
+		}
+		try {
+			
+			System.out.println("test 4 : "+adresseTuteurPedago);
+			getSmtpService().send(new InternetAddress(adresseTuteurPedago),
+					getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
+					getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",libelleEtu,
+							getSessionController().getApplicationNamePStage()),
+					"");
+			System.out.println("test 5 : ");
+			// On indique en base que le mail a ete envoye
+			this.convention.setEnvoiMailTuteurPedago(true);
+			this.convention.setDateEnvoiMailTuteurPedago(new Date());
+			getFicheEvaluationDomainService().setEnvoiMailEnseignant(this.convention.getIdConvention());
+			addInfoMessage("formAccueilFiche:panelMailTuteurEnseignant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPedago);
+		} catch (AddressException e) {
+			if (logger.isDebugEnabled()){
+				e.printStackTrace();
+			}
+			addErrorMessage("formAccueilFiche:panelMailEnseignant", "CONVENTION.ETAPE13.MAIL.ERREUR_ENSEIGNANT",adresseTuteurPedago,nomTuteur);
+		}
+	}	
+	
 	/**
 	 * Acces a la partie Entreprise de la fiche d'evaluation par le super admin
 	 */
@@ -4503,12 +4607,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public String goToFicheEntrepriseTuteurPro(){
 
-		String mdpDecode = getBlowfishUtils().decode(this.codeAccesFiche);
-
-		// recuperation de la reponse depuis le mot de passe decode
-		ReponseEvaluationDTO reponseTmp = getFicheEvaluationDomainService().getReponseEvaluationFromCode(mdpDecode);
-		// recuperation de la convention via la reponse
-		this.convention = getConventionDomainService().getConventionFromId(reponseTmp.getIdConvention());
+		int idDecode = Utils.convertStringToInt(getBlowfishUtils().decode(this.codeAccesFiche));
+		// recuperation de la convention via l'id
+		this.convention = getConventionDomainService().getConventionFromId(idDecode);
 
 		this.accesPartieEntreprise();
 
@@ -4516,6 +4617,7 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	private void accesPartieEntreprise(){
+		this.togglePanelActiveItem = "entrepriseTogglePanel1";
 		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
 		if (reponseEvalTmp == null){
 			reponseEvalTmp = new ReponseEvaluationDTO();
@@ -4535,12 +4637,32 @@ public class ConventionController extends AbstractContextAwareController {
 
 		this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
 
-		// Assignation des questions supplementaires de la partie Entreprise
-		this.setQuestionsSupplementairesEntreprise(getFicheEvaluationDomainService()
+		// Assignation des questions supplementaires de la partie 1 Entreprise
+		this.setQuestionsSupplementairesEntreprise1(getFicheEvaluationDomainService()
 				.getQuestionsSupplementairesFromIdPlacement(this.convention.getFicheEvaluation().getIdFicheEvaluation(), 6));
 		// S'il y en a, recuperation/initialisation des reponses correspondantes
-		if(this.questionsSupplementairesEntreprise!= null && !this.questionsSupplementairesEntreprise.isEmpty()){
-			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise){
+		if(this.questionsSupplementairesEntreprise1!= null && !this.questionsSupplementairesEntreprise1.isEmpty()){
+			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise1){
+				ReponseSupplementaireDTO reponse = recupReponseSup(question);
+				question.setReponseSupplementaire(reponse);
+			}
+		}
+		// Assignation des questions supplementaires de la partie 2 Entreprise
+		this.setQuestionsSupplementairesEntreprise2(getFicheEvaluationDomainService()
+				.getQuestionsSupplementairesFromIdPlacement(this.convention.getFicheEvaluation().getIdFicheEvaluation(), 7));
+		// S'il y en a, recuperation/initialisation des reponses correspondantes
+		if(this.questionsSupplementairesEntreprise2!= null && !this.questionsSupplementairesEntreprise2.isEmpty()){
+			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise2){
+				ReponseSupplementaireDTO reponse = recupReponseSup(question);
+				question.setReponseSupplementaire(reponse);
+			}
+		}
+		// Assignation des questions supplementaires de la partie 3 Entreprise
+		this.setQuestionsSupplementairesEntreprise3(getFicheEvaluationDomainService()
+				.getQuestionsSupplementairesFromIdPlacement(this.convention.getFicheEvaluation().getIdFicheEvaluation(), 8));
+		// S'il y en a, recuperation/initialisation des reponses correspondantes
+		if(this.questionsSupplementairesEntreprise3!= null && !this.questionsSupplementairesEntreprise3.isEmpty()){
+			for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise3){
 				ReponseSupplementaireDTO reponse = recupReponseSup(question);
 				question.setReponseSupplementaire(reponse);
 			}
@@ -4564,7 +4686,7 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * Remplissage de la fiche entreprise par le superadmin
 	 */
-	public String updateReponseEntreprise(){
+	public void updateReponseEntreprise(){
 		ReponseEvaluationDTO reponseEvalTmp = this.convention.getReponseEvaluation();
 
 		if(reponseEvalTmp != null){
@@ -4576,8 +4698,6 @@ public class ConventionController extends AbstractContextAwareController {
 						+" pour la convention n°"+reponseEvalTmp.getIdConvention());
 			}
 		}
-
-		return "conventionEtape13FicheEvaluation";
 	}
 	/**
 	 * Remplissage de la fiche entreprise par le tuteur pro via le lien
@@ -4602,14 +4722,28 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	private void commonUpdateReponseEntreprise(ReponseEvaluationDTO reponseEvalTmp){
 		try{
-			reponseEvalTmp.setValidationEntreprise(true);
-
 			getFicheEvaluationDomainService().updateReponseEvaluationEntreprise(reponseEvalTmp);
 
 			this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
 
-			if(this.questionsSupplementairesEntreprise != null){
-				for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise){
+			if(this.questionsSupplementairesEntreprise1 != null){
+				for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise1){
+					ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+					if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
+						this.reponsesSupplementaires.add(reponse);
+					}
+				}
+			}
+			if(this.questionsSupplementairesEntreprise2 != null){
+				for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise2){
+					ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+					if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
+						this.reponsesSupplementaires.add(reponse);
+					}
+				}
+			}
+			if(this.questionsSupplementairesEntreprise3 != null){
+				for (QuestionSupplementaireDTO question : this.questionsSupplementairesEntreprise3){
 					ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
 					if (reponse != null && reponse.getIdQuestionSupplementaire() != null){
 						this.reponsesSupplementaires.add(reponse);
@@ -4631,17 +4765,38 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
+	 * @return String
+	 */
+	public String validateFicheEntreprise(){
+		this.convention.getReponseEvaluation().setValidationEntreprise(true);
+		this.updateReponseEntreprise();
+		return "conventionEtape13FicheEvaluation";
+	}
+	/**
+	 * @return String
+	 */
+	public void validateFicheEntrepriseTuteurPro(){
+		this.convention.getReponseEvaluation().setValidationEntreprise(true);
+		this.updateReponseEntrepriseTuteurPro();
+	}
+
+	/**
 	 * Generation du pdf pour l'impression de la fiche entreprise
 	 */
 	public void editPdfFicheEntreprise(){
 		try	{
-			ConventionDTO conventionTmp = this.convention;
+			ConventionDTO conventionTmp;
+			if (this.convention.getReponseEvaluation() == null){
+				conventionTmp = this.convention = getConventionDomainService().getConventionFromId(this.convention.getIdConvention());
+			} else {
+				conventionTmp = this.convention;
+			}
 			// Recuperation des questions/reponses supplementaires
 			List<QuestionSupplementaireDTO> list = getFicheEvaluationDomainService()
-					.getQuestionsSupplementaires(this.convention.getFicheEvaluation().getIdFicheEvaluation());
+					.getQuestionsSupplementaires(conventionTmp.getFicheEvaluation().getIdFicheEvaluation());
 			for (QuestionSupplementaireDTO question : list){
 				question.setReponseSupplementaire(getFicheEvaluationDomainService().getReponseSupplementaire(
-						question.getIdQuestionSupplementaire(), this.convention.getIdConvention()));
+						question.getIdQuestionSupplementaire(), conventionTmp.getIdConvention()));
 			}
 			conventionTmp.setQuestionsSupplementaires(list);
 
@@ -4658,6 +4813,13 @@ public class ConventionController extends AbstractContextAwareController {
 			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin, FacesContext.getCurrentInstance(),
 					castorService.getXslXmlPath(),
 					fileNamePdf, nomDocxsl);
+			// Si c'est un superAdmin ou un gestionnaire qui imprime, on indique en base que la fiche a ete imprimee
+			if (getSessionController().isSuperAdminPageAuthorized()
+					|| (getSessionController().getDroitsEvaluationMap() != null
+					&& !getSessionController().getDroitsEvaluationMap().isEmpty())){
+				conventionTmp.getReponseEvaluation().setImpressionEntreprise(true);
+				getFicheEvaluationDomainService().setImpressionEntreprise(conventionTmp.getFicheEvaluation().getIdFicheEvaluation(), conventionTmp.getIdConvention());
+			}
 		} catch (ExportException e) {
 			logger.error("editPdfFicheEntreprise ", e.fillInStackTrace());
 		}
@@ -4667,47 +4829,45 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Generation et envoie du lien vers sa fiche non casifiee au tuteur professionnel de l'etudiant
 	 */
 	public void envoiMailEntreprise(){
-		String codeAcces = "";
-		if (this.convention.getReponseEvaluation() != null 
-				&& this.convention.getReponseEvaluation().getCodeAcces() != null
-				&& !this.convention.getReponseEvaluation().getCodeAcces().isEmpty()){
-			codeAcces = this.convention.getReponseEvaluation().getCodeAcces();
-		} else {
-			// generation du code d'acces a la fiche
-			codeAcces = Utils.encodeMD5("random" + Math.random()*10000).substring(0,8);
-			// stockage dans la table ReponseEvaluation du code d'acces a la fiche pour le tuteur pro
-			getFicheEvaluationDomainService().setCodeAcces(this.convention.getFicheEvaluation().getIdFicheEvaluation(), this.convention.getIdConvention(),codeAcces);
+
+		// chiffrage de l'id de la convention via blowfish
+		String idEncode = getBlowfishUtils().encode(""+this.convention.getIdConvention());
+
+		String url = getSessionController().getBaseUrl()+"/stylesheets/evaluationStage/index.xhtml"+"?id="+idEncode;
+
+		String adresseTuteurPro = "";
+		String nomTuteurPro ="";
+		if (this.convention.getContact() != null){
+			adresseTuteurPro = this.convention.getContact().getMail();
+			nomTuteurPro = this.convention.getContact().getPrenom() + " " + this.convention.getContact().getNom();
 		}
 
-		// chiffrage du code via blowfish
-		String mdpEncode = getBlowfishUtils().encode(codeAcces);
-
-		String url = getSessionController().getBaseUrl()+"/stylesheets/evaluationStage/index.xhtml"+"?id="+mdpEncode;
-
 		try{
-			String adresseTuteurPro = this.convention.getContact().getMail();
-			if (adresseTuteurPro != null && adresseTuteurPro != ""){
-				String libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
-				getSmtpService().send(new InternetAddress(adresseTuteurPro),
-						getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
-						getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENTREPRISE",libelleEtu,
-								this.convention.getIdConvention(),
-								url,
-								getSessionController().getApplicationNamePStage()),
-						"");
-				// On indique en base que le mail a ete envoye
-				this.convention.getReponseEvaluation().setEnvoiMailTuteurPro(true);
-				this.convention.getReponseEvaluation().setDateEnvoiMailTuteurPro(new Date());
-				getFicheEvaluationDomainService().setEnvoiMailEntreprise(this.convention.getFicheEvaluation().getIdFicheEvaluation(), this.convention.getIdConvention());
-				addInfoMessage("formAccueilFiche:panelMailTuteurPro","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPro);
-			} else {
-				addErrorMessage("formAccueilFiche:panelMailTuteurPro", "MAIL.VALIDATION");
+			String libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
+			String contenu = "";
+			if (this.typeMailEval == 1){
+				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENTREPRISE",libelleEtu,
+						url,
+						getSessionController().getApplicationNamePStage());
+			} else if (this.typeMailEval == 2){
+				contenu = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENTREPRISE",libelleEtu,
+						url,
+						getSessionController().getApplicationNamePStage());
 			}
+			getSmtpService().send(new InternetAddress(adresseTuteurPro),
+					getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
+					contenu,
+					"");
+			// On indique en base que le mail a ete envoye
+			this.convention.setEnvoiMailTuteurPro(true);
+			this.convention.setDateEnvoiMailTuteurPro(new Date());
+			getFicheEvaluationDomainService().setEnvoiMailEntreprise(this.convention.getIdConvention());
+			addInfoMessage("formAccueilFiche:panelMailTuteurPro","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPro);
 		} catch (AddressException e) {
 			if (logger.isDebugEnabled()){
 				e.printStackTrace();
 			}
-			addErrorMessage("formAccueilFiche:panelMailTuteurPro", "MAIL.VALIDATION");
+			addErrorMessage("formAccueilFiche:panelMailEntreprise", "CONVENTION.ETAPE13.MAIL.ERREUR_ENTREPRISE",adresseTuteurPro,nomTuteurPro);
 		}
 	}
 
@@ -4727,18 +4887,86 @@ public class ConventionController extends AbstractContextAwareController {
 		return reponse;
 	}
 
-	//TODO
 	/**
-	 * Vers moteur de recherche de fiches d'evaluation.
+	 * Recherche de fiches d'evaluation du tuteur pedago connecte.
+	 * @return String
+	 */
+	public String goToRechercheEval() {
+
+		this.critereRechercheConvention=new CritereRechercheConventionDTO();
+
+		Map<Integer,Boolean> map = getSessionController().getDroitsEvaluationMap();
+		this.listeItemsCurrentCentresGestionEval = new ArrayList<SelectItem>();
+		if (map != null && !map.isEmpty()){
+			for(Iterator<Integer> iter = map.keySet().iterator(); iter.hasNext(); ){
+				CentreGestionDTO cg = getCentreGestionDomainService().getCentreGestion(iter.next());
+				this.listeItemsCurrentCentresGestionEval.add(new SelectItem(cg.getIdCentreGestion(), cg.getNomCentre()));
+			}
+		}
+
+		if (this.rechEvalIdCentre == null && this.listeItemsCurrentCentresGestionEval != null
+				&& !this.listeItemsCurrentCentresGestionEval.isEmpty()){
+			this.rechEvalIdCentre = (Integer)this.listeItemsCurrentCentresGestionEval.get(0).getValue();
+		}
+
+		return "rechercheEvaluation";
+	}
+
+	/**
+	 * @return String
+	 */
+	public String rechercherEvaluation(){
+		String ret = "resultatsRechercheEvaluation";
+		this.conventionCree = false;
+		// Mise a null de tous les criteres inutiles pour la recherche de fiche
+		this.critereRechercheConvention.setNomEnseignant(null);
+		this.critereRechercheConvention.setPrenomEnseignant(null);
+		this.critereRechercheConvention.setTypeStructure(null);
+		this.critereRechercheConvention.setStatutJuridique(null);
+		this.critereRechercheConvention.setEstValidee(null);
+		this.critereRechercheConvention.setEstVerifiee(null);
+
+		// On ne recherche que pour le centre selectionne dans le menu deroulant
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(this.rechEvalIdCentre);
+		this.critereRechercheConvention.setIdsCentreGestion(list);
+
+		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.NB_RECHERCHE_MAXI));
+
+		this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
+
+		if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()){
+			for (ConventionDTO convention : this.resultatsRechercheConvention){
+				FicheEvaluationDTO fiche = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(convention.getIdCentreGestion());
+				if (fiche != null){
+					convention.setFicheEvaluation(fiche);
+					int idFicheEvaluation = fiche.getIdFicheEvaluation();
+					convention.setReponseEvaluation(getFicheEvaluationDomainService().getReponseEvaluation(idFicheEvaluation, convention.getIdConvention()));
+				}
+			}
+			reloadRechercheConventionPaginator();
+		} else {
+			ret=null;
+			this.resultatsRechercheConvention = null;
+			addInfoMessage("formRechEval", "RECHERCHEEVALUATION.AUCUNRESULTAT");
+			this.rechercheConventionPaginator.reset();
+		}
+
+		return ret;
+	}
+
+	/**
+	 * Recherche de fiches d'evaluation de l'etudiant connecte.
 	 * @return String
 	 */
 	public String goToRechercheEvalEtu() {
 		String ret = "resultatsRechercheEvaluation";
+
 		this.conventionCree = false;
 		this.resultatsRechercheConvention = new ArrayList<ConventionDTO>();
 		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
 			this.resultatsRechercheConvention = getConventionDomainService().getConventionsEtudiant(this.getSessionController().getCurrentAuthEtudiant().getIdentEtudiant(),getSessionController().getCodeUniversite());
-			if (this.resultatsRechercheConvention != null){
+			if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()){
 				for (ConventionDTO convention : this.resultatsRechercheConvention){
 					FicheEvaluationDTO fiche = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(convention.getIdCentreGestion());
 					if (fiche != null){
@@ -4747,11 +4975,58 @@ public class ConventionController extends AbstractContextAwareController {
 						convention.setReponseEvaluation(getFicheEvaluationDomainService().getReponseEvaluation(idFicheEvaluation, convention.getIdConvention()));
 					}
 				}
+				reloadRechercheConventionPaginator();
+			} else {
+				this.resultatsRechercheConvention = null;
+				addInfoMessage("formRechEval", "RECHERCHEEVALUATION.AUCUNRESULTAT");
+				this.rechercheConventionPaginator.reset();
 			}
 		}
-		if (!checkListeResultats()) {
-			this.rechercheConventionPaginator.reset();
+
+		return ret;
+	}
+
+	/**
+	 * Recherche de fiches d'evaluation du tuteur pedago connecte.
+	 * @return String
+	 */
+	public String goToRechercheEvalEns() {
+		String ret = "resultatsRechercheEvaluation";
+
+		this.conventionCree = false;
+		this.rechercheConventionPaginator = new RechercheConventionPaginator();
+		this.resultatsRechercheConvention = new ArrayList<ConventionDTO>();
+		if (this.getSessionController().getCurrentAuthEnseignant() != null) {
+			if (this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant() != null) {
+				EnseignantDTO tmpEns = getEnseignantDomainService().getEnseignantFromUid(this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant(),
+						getSessionController().getCodeUniversite());
+				if (tmpEns != null){
+					this.resultatsRechercheConvention = getConventionDomainService().getConventionsByEnseignant(tmpEns.getId(),getBeanUtils().getAnneeUniversitaireCourante(new Date()));
+					if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()) {
+						for (ConventionDTO conventionTmp : this.resultatsRechercheConvention){
+							FicheEvaluationDTO fiche = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(conventionTmp.getIdCentreGestion());
+							if (fiche != null){
+								convention.setFicheEvaluation(fiche);
+								int idFicheEvaluation = fiche.getIdFicheEvaluation();
+								convention.setReponseEvaluation(getFicheEvaluationDomainService().getReponseEvaluation(idFicheEvaluation, conventionTmp.getIdConvention()));
+							}
+						}
+						//						for (ConventionDTO convention : resultatsRechercheConvention){
+						//							convention.setCentreGestion(getCentreGestionDomainService().getCentreGestion(convention.getIdCentreGestion()));
+						//						}
+						//renseignement de la liste de resultats en vue d'export
+						//						this.exportController.setResultatsRechercheConvention(resultatsRechercheConvention);
+						reloadRechercheConventionPaginator();
+					} else {
+						this.resultatsRechercheConvention = null;
+						addInfoMessage("formRechEval", "RECHERCHEEVALUATION.AUCUNRESULTAT");
+						this.rechercheConventionPaginator.reset();
+					}
+				}
+
+			}
 		}
+
 		return ret;
 	}
 
@@ -4764,6 +5039,144 @@ public class ConventionController extends AbstractContextAwareController {
 			retour = "conventionEtape13FicheEvaluation";
 		}
 		return retour;
+	}
+
+	/**
+	 * id du type de destinataire pour l'envoi de mail en masse
+	 * 1:etudiant 2:tuteur pedago 3:tuteur pro
+	 */
+	private int typeDestMailEval;
+
+	/**
+	 * id du type de mail pour l'envoi de masse
+	 * 1:1er envoi 2:Rappel
+	 */
+	private int typeMailEval;
+
+	/**
+	 * Contenu du mail pour l'envoi de masse en fonction des types choisis
+	 */
+	private String contenuMailEval;
+
+	/**
+	 * @return the contenuMailEval
+	 */
+	public String getContenuMailEval() {
+		if (this.typeMailEval == 1){
+			// 1er envoi
+			switch (this.typeDestMailEval) {
+			case 1:
+				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ETUDIANT",
+						"<i>idConvention</i>",getSessionController().getApplicationNamePStage());
+				break;
+			case 2:
+				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",
+						"<i>Nom prenom</i>",getSessionController().getApplicationNamePStage());
+				break;
+			case 3:
+				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENTREPRISE",
+						"<i>Nom prenom</i>","<i>idConvention</i>","***",getSessionController().getApplicationNamePStage());
+				break;
+			default:
+				break;
+			}
+		} else if (this.typeMailEval == 2){
+			// Rappel
+			switch (this.typeDestMailEval) {
+			case 1:
+				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT","<i>idConvention</i>");
+				break;
+			case 3:
+				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENTREPRISE",
+						"<i>Nom prenom</i>","<i>idConvention</i>","***",getSessionController().getApplicationNamePStage());
+				break;
+			default:
+				break;
+			}
+		}
+		return contenuMailEval;
+	}
+
+	//TODO Envoi de mails en masse
+	/**
+	 * Methode d'envoi des mail en masse pour les fiches d'evaluation
+	 */
+	public void envoiMailEvalEnMasse(){
+
+		switch (this.typeDestMailEval) {
+		case 1:
+			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
+				this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
+				if (this.convention.getIdEtudiant() > 0) {
+					EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
+					if (etudiantTmp != null) {
+						this.convention.setEtudiant(etudiantTmp);
+					}
+				}
+				this.envoiMailEtudiant();
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			break;
+		case 2:
+			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
+				this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
+				if (conventionTmp.getIdEnseignant() > 0 ) {
+					EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
+					if (enseignantTmp != null) {
+						this.convention.setEnseignant(enseignantTmp);
+					}
+				}
+				if (this.convention.getIdEtudiant() > 0) {
+					EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
+					if (etudiantTmp != null) {
+						this.convention.setEtudiant(etudiantTmp);
+					}
+				}
+				this.envoiMailEnseignant();
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			break;
+		case 3:
+			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
+				this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
+				if (conventionTmp.getIdContact() > 0) {
+					ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(conventionTmp.getIdContact());
+					if (contactTmp != null) {
+						this.convention.setContact(contactTmp);
+						this.etablissementController.reloadContacts();
+						this.etablissementController.setIdContactSel(contactTmp.getId());
+					}
+				}
+				this.envoiMailEntreprise();
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} 
+			}
+			break;
+		default:
+			break;
+		}
+		addInfoMessage("formEnvoiMailEval","CONVENTION.ETAPE13.MAIL.ENVOIMASSE_REUSSI");
+
+		getSessionController().setEnvoiMailEvalCurrentPage("_envoiMailEval_etape2");
+	}
+
+	/**
+	 * 
+	 */
+	public void avantEnvoiMailEval(){
+		this.typeMailEval = 1;
+		this.typeDestMailEval = 1;
 	}
 
 	/* ***************************************************************
@@ -5820,20 +6233,6 @@ public class ConventionController extends AbstractContextAwareController {
 		this.questionsSupplementairesEnseignant2 = questionsSupplementairesEnseignant2;
 	}
 
-	/**
-	 * @return the questionsSupplementairesEntreprise
-	 */
-	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEntreprise() {
-		return questionsSupplementairesEntreprise;
-	}
-
-	/**
-	 * @param questionsSupplementairesEntreprise the questionsSupplementairesEntreprise to set
-	 */
-	public void setQuestionsSupplementairesEntreprise(
-			List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise) {
-		this.questionsSupplementairesEntreprise = questionsSupplementairesEntreprise;
-	}
 
 	/**
 	 * @return the reponsesSupplementaires
@@ -5876,4 +6275,154 @@ public class ConventionController extends AbstractContextAwareController {
 	public void setCodeAccesFiche(String codeAccesFiche) {
 		this.codeAccesFiche = codeAccesFiche;
 	}
+
+	/**
+	 * @return the questionsSupplementairesEntreprise1
+	 */
+	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEntreprise1() {
+		return questionsSupplementairesEntreprise1;
+	}
+
+	/**
+	 * @param questionsSupplementairesEntreprise1 the questionsSupplementairesEntreprise1 to set
+	 */
+	public void setQuestionsSupplementairesEntreprise1(
+			List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise1) {
+		this.questionsSupplementairesEntreprise1 = questionsSupplementairesEntreprise1;
+	}
+
+	/**
+	 * @return the questionsSupplementairesEntreprise2
+	 */
+	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEntreprise2() {
+		return questionsSupplementairesEntreprise2;
+	}
+
+	/**
+	 * @param questionsSupplementairesEntreprise2 the questionsSupplementairesEntreprise2 to set
+	 */
+	public void setQuestionsSupplementairesEntreprise2(
+			List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise2) {
+		this.questionsSupplementairesEntreprise2 = questionsSupplementairesEntreprise2;
+	}
+
+	/**
+	 * @return the questionsSupplementairesEntreprise3
+	 */
+	public List<QuestionSupplementaireDTO> getQuestionsSupplementairesEntreprise3() {
+		return questionsSupplementairesEntreprise3;
+	}
+
+	/**
+	 * @param questionsSupplementairesEntreprise3 the questionsSupplementairesEntreprise3 to set
+	 */
+	public void setQuestionsSupplementairesEntreprise3(
+			List<QuestionSupplementaireDTO> questionsSupplementairesEntreprise3) {
+		this.questionsSupplementairesEntreprise3 = questionsSupplementairesEntreprise3;
+	}
+
+	/**
+	 * @return the listeItemsCurrentCentresGestionEval
+	 */
+	public List<SelectItem> getListeItemsCurrentCentresGestionEval() {
+		return listeItemsCurrentCentresGestionEval;
+	}
+
+	/**
+	 * @param listeItemsCurrentCentresGestionEval the listeItemsCurrentCentresGestionEval to set
+	 */
+	public void setListeItemsCurrentCentresGestionEval(
+			List<SelectItem> listeItemsCurrentCentresGestionEval) {
+		this.listeItemsCurrentCentresGestionEval = listeItemsCurrentCentresGestionEval;
+	}
+
+	/**
+	 * @return the rechEvalIdCentre
+	 */
+	public Integer getRechEvalIdCentre() {
+		return rechEvalIdCentre;
+	}
+
+	/**
+	 * @param rechEvalIdCentre the rechEvalIdCentre to set
+	 */
+	public void setRechEvalIdCentre(Integer rechEvalIdCentre) {
+		this.rechEvalIdCentre = rechEvalIdCentre;
+	}
+
+	/**
+	 * @return the rechEvalListeEtapes
+	 */
+	public List<SelectItem> getRechEvalListeEtapes() {
+		this.rechEvalListeEtapes = new ArrayList<SelectItem>();
+		if(rechEvalIdCentre != null && rechEvalIdCentre > 0){
+			List<Integer> list = new ArrayList<Integer>();
+			list.add(this.rechEvalIdCentre);
+			List<EtapeDTO> listeEtapes = getConventionDomainService().getEtapesFromIdsCentreGestion(list, getSessionController().getCodeUniversite());
+			if (listeEtapes != null && !listeEtapes.isEmpty()){
+				for (EtapeDTO etape : listeEtapes){
+					this.rechEvalListeEtapes.add(new SelectItem(etape.getCode(),
+							etape.getCode()+";"+etape.getCodeVersionEtape()+" - " +etape.getLibelle()));
+				}
+			}
+		}
+		return rechEvalListeEtapes;
+	}
+
+	/**
+	 * @param rechEvalListeEtapes the rechEvalListeEtapes to set
+	 */
+	public void setRechEvalListeEtapes(List<SelectItem> rechEvalListeEtapes) {
+		this.rechEvalListeEtapes = rechEvalListeEtapes;
+	}
+
+	/**
+	 * @return the retourEvaluation
+	 */
+	public boolean isRetourEvaluation() {
+		return retourEvaluation;
+	}
+
+	/**
+	 * @param retourEvaluation the retourEvaluation to set
+	 */
+	public void setRetourEvaluation(boolean retourEvaluation) {
+		this.retourEvaluation = retourEvaluation;
+	}
+
+	/**
+	 * @return the typeDestMailEval
+	 */
+	public int getTypeDestMailEval() {
+		return typeDestMailEval;
+	}
+
+	/**
+	 * @param typeDestMailEval the typeDestMailEval to set
+	 */
+	public void setTypeDestMailEval(int typeDestMailEval) {
+		this.typeDestMailEval = typeDestMailEval;
+	}
+
+	/**
+	 * @return the typeMailEval
+	 */
+	public int getTypeMailEval() {
+		return typeMailEval;
+	}
+
+	/**
+	 * @param typeMailEval the typeMailEval to set
+	 */
+	public void setTypeMailEval(int typeMailEval) {
+		this.typeMailEval = typeMailEval;
+	}
+
+	/**
+	 * @param contenuMailEval the contenuMailEval to set
+	 */
+	public void setContenuMailEval(String contenuMailEval) {
+		this.contenuMailEval = contenuMailEval;
+	}
+
 }

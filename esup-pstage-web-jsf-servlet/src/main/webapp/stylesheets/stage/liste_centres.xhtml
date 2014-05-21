@@ -22,24 +22,26 @@
 				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.VIDE']}" />
 			</h:panelGrid>
 			<h:form id="formListeCentre">
+				<h:outputStylesheet>
+			        .active-row {
+			        	background-color: #FFEBDA !important;
+			        }
+				</h:outputStylesheet>
 				<h:panelGrid columns="1"
 					rendered="#{not empty centreController.centresGestion}">
 					<t:htmlTag value="div" style="height: 15px;" />
 					<rich:dataTable align="center" id="listeCentres" rows="15"
-						style="border-right:1px solid #C0C0C0;"
-						value="#{centreController.centresGestion}" var="centre">
-
+						value="#{centreController.centresGestion}" var="centre"
+						styleClass="stable">
 						<rich:column
 							sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}">
 							<f:facet name="header">
-								<h:panelGrid columns="1">
-									<h:graphicImage id="appartenanceHead"
-										alt="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE']}"
-										value="../../media/images/user_gray.png" style="border:0">
-										<rich:tooltip
-											value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
-									</h:graphicImage>
-								</h:panelGrid>
+								<h:graphicImage id="appartenanceHead"
+									alt="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE']}"
+									value="../../media/images/user_gray.png" style="border:0">
+									<rich:tooltip
+										value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
+								</h:graphicImage>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:graphicImage id="appartenance1" alt="#{msgs['FORM.OUI']}"
@@ -69,12 +71,10 @@
 
 						<rich:column sortBy="#{centre.nomCentre}">
 							<f:facet name="header">
-								<h:panelGrid columns="1" align="center">
-									<t:htmlTag value="center">
-										<h:outputText style="font-weight:bold;"
-											value="#{msgs['CENTRE.LISTE_CENTRE.NOM']}" />
-									</t:htmlTag>
-								</h:panelGrid>
+								<t:htmlTag value="center">
+									<h:outputText style="font-weight:bold;"
+										value="#{msgs['CENTRE.LISTE_CENTRE.NOM']}" />
+								</t:htmlTag>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:outputText value="#{centre.nomCentre}" />
@@ -83,12 +83,10 @@
 
 						<rich:column sortBy="#{centre.niveauCentre.libelle}">
 							<f:facet name="header">
-								<h:panelGrid columns="1" align="center">
-									<t:htmlTag value="center">
-										<h:outputText style="font-weight:bold;"
-											value="#{msgs['CENTRE.LISTE_CENTRE.CRITERE']}" />
-									</t:htmlTag>
-								</h:panelGrid>
+								<t:htmlTag value="center">
+									<h:outputText style="font-weight:bold;"
+										value="#{msgs['CENTRE.LISTE_CENTRE.CRITERE']}" />
+								</t:htmlTag>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:outputText value="#{centre.niveauCentre.libelle}" />
@@ -97,12 +95,10 @@
 
 						<rich:column sortBy="#{centre.presenceTuteurPro}">
 							<f:facet name="header">
-								<h:panelGrid columns="1" align="center">
-									<t:htmlTag value="center">
-										<h:outputText style="font-weight:bold;"
-											value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_PRO']}" />
-									</t:htmlTag>
-								</h:panelGrid>
+								<t:htmlTag value="center">
+									<h:outputText style="font-weight:bold;"
+										value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_PRO']}" />
+								</t:htmlTag>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:outputText rendered="#{centre.presenceTuteurPro}"
@@ -114,12 +110,10 @@
 
 						<rich:column sortBy="#{centre.presenceTuteurEns}">
 							<f:facet name="header">
-								<h:panelGrid columns="1" align="center">
-									<t:htmlTag value="center">
-										<h:outputText style="font-weight:bold;"
-											value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_ENS']}" />
-									</t:htmlTag>
-								</h:panelGrid>
+								<t:htmlTag value="center">
+									<h:outputText style="font-weight:bold;"
+										value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_ENS']}" />
+								</t:htmlTag>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:outputText rendered="#{centre.presenceTuteurEns}"
@@ -131,12 +125,10 @@
 
 						<rich:column sortBy="#{centre.saisieTuteurProParEtudiant}">
 							<f:facet name="header">
-								<h:panelGrid columns="1" align="center">
-									<t:htmlTag value="center">
-										<h:outputText style="font-weight:bold;"
-											value="#{msgs['CENTRE.LISTE_CENTRE.SAISIE_TUTEUR_PRO']}" />
-									</t:htmlTag>
-								</h:panelGrid>
+								<t:htmlTag value="center">
+									<h:outputText style="font-weight:bold;"
+										value="#{msgs['CENTRE.LISTE_CENTRE.SAISIE_TUTEUR_PRO']}" />
+								</t:htmlTag>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:outputText rendered="#{centre.saisieTuteurProParEtudiant}"
@@ -148,12 +140,10 @@
 
 						<rich:column sortBy="#{centre.choixAnneeAvantDebutAnnee}">
 							<f:facet name="header">
-								<h:panelGrid columns="1" align="center">
-									<t:htmlTag value="center">
-										<h:outputText style="font-weight:bold;"
-											value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" />
-									</t:htmlTag>
-								</h:panelGrid>
+								<t:htmlTag value="center">
+									<h:outputText style="font-weight:bold;"
+										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" />
+								</t:htmlTag>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:outputText
@@ -173,12 +163,10 @@
 
 						<rich:column sortBy="#{centre.confidentialite.libelle}">
 							<f:facet name="header">
-								<h:panelGrid columns="1" align="center">
-									<t:htmlTag value="center">
-										<h:outputText style="font-weight:bold;"
-											value="#{msgs['CENTRE.LISTE_CENTRE.CONFIDENTIALITE']}" />
-									</t:htmlTag>
-								</h:panelGrid>
+								<t:htmlTag value="center">
+									<h:outputText style="font-weight:bold;"
+										value="#{msgs['CENTRE.LISTE_CENTRE.CONFIDENTIALITE']}" />
+								</t:htmlTag>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:outputText value="#{centre.confidentialite.libelle}" />
@@ -223,6 +211,10 @@
 								renderIfSinglePage="false" />
 						</f:facet>
 					</rich:dataTable>
+					<rich:jQuery selector=".stable tr" event="mouseover"
+						query="jQuery(this).addClass('active-row')" />
+					<rich:jQuery selector=".stable tr" event="mouseout"
+						query="jQuery(this).removeClass('active-row')" />
 				</h:panelGrid>
 
 				<t:htmlTag value="div" style="height: 10px;" />

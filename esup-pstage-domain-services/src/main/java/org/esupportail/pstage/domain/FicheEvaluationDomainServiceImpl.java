@@ -25,7 +25,7 @@ import org.esupportail.pstagedata.remote.RemoteServices;
  *
  */
 public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainService {
-	
+
 	/**
 	 * 
 	 */
@@ -60,7 +60,7 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 		FicheEvaluationDTO fiche = this.remoteServices.getFicheEvaluationFromIdCentre(idCentreGestion);
 		return fiche;
 	}
-	
+
 	/**
 	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#addFicheEvaluation(org.esupportail.pstagedata.domain.dto.FicheEvaluationDTO)
 	 */
@@ -85,14 +85,14 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	public boolean updateFicheEvaluationEnseignant(FicheEvaluationDTO f) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateFicheEvaluationEnseignant(f);
 	}
-	
+
 	/**
 	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#deleteFicheEvaluation(int)
 	 */
 	public boolean deleteFicheEvaluation(int idFicheEvaluation) throws DataDeleteException,WebServiceDataBaseException{
 		return this.remoteServices.deleteFicheEvaluation(idFicheEvaluation);
 	}
-	
+
 	/* ***************************************************************
 	 * REPONSE EVALUATION
 	 ****************************************************************/
@@ -101,12 +101,6 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	 */
 	public ReponseEvaluationDTO getReponseEvaluation(int idFicheEvaluation, int idConvention) {
 		return this.remoteServices.getReponseEvaluation(idFicheEvaluation, idConvention);
-	}
-	/**
-	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#getReponseEvaluationFromCode(java.lang.String)
-	 */
-	public ReponseEvaluationDTO getReponseEvaluationFromCode(String codeAcces) {
-		return this.remoteServices.getReponseEvaluationFromCode(codeAcces);
 	}
 	/**
 	 * @see org.esupportail.pstage.domain.FicheEvaluationDomainService#getReponsesEvaluation(int)
@@ -138,7 +132,7 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	public boolean updateReponseEvaluationEnseignant(ReponseEvaluationDTO f) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.updateReponseEvaluationEnseignant(f);
 	}
-	
+
 	/**
 	 * @see org.esupportail.pstagedata.domain.FicheEvaluationDomainService#deleteReponseEvaluation(int)
 	 */
@@ -146,14 +140,32 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 		return this.remoteServices.deleteReponseEvaluation(idFicheEvaluation, idConvention);
 	}
 
-	public boolean setCodeAcces(int idFicheEvaluation, int idConvention, String codeAcces) throws DataUpdateException,
-			WebServiceDataBaseException {
-		return remoteServices.setCodeAcces(idFicheEvaluation,idConvention, codeAcces);
+	public boolean setImpressionEtudiant(int idFicheEvaluation, int idConvention) throws DataUpdateException,
+	WebServiceDataBaseException {
+		return remoteServices.setImpressionEtudiant(idFicheEvaluation,idConvention);
+	}
+	public boolean setImpressionEnseignant(int idFicheEvaluation, int idConvention) throws DataUpdateException,
+	WebServiceDataBaseException {
+		return remoteServices.setImpressionEnseignant(idFicheEvaluation,idConvention);
+	}
+	public boolean setImpressionEntreprise(int idFicheEvaluation, int idConvention) throws DataUpdateException,
+	WebServiceDataBaseException {
+		return remoteServices.setImpressionEntreprise(idFicheEvaluation,idConvention);
 	}
 
-	public boolean setEnvoiMailEntreprise(int idFicheEvaluation, int idConvention) throws DataUpdateException,
-			WebServiceDataBaseException {
-		return remoteServices.setEnvoiMailEntreprise(idFicheEvaluation,idConvention);
+	public boolean setEnvoiMailEtudiant(int idConvention) throws DataUpdateException,
+	WebServiceDataBaseException {
+		return remoteServices.setEnvoiMailEtudiant(idConvention);
+	}
+
+	public boolean setEnvoiMailEnseignant(int idConvention) throws DataUpdateException,
+	WebServiceDataBaseException {
+		return remoteServices.setEnvoiMailEnseignant(idConvention);
+	}
+
+	public boolean setEnvoiMailEntreprise(int idConvention) throws DataUpdateException,
+	WebServiceDataBaseException {
+		return remoteServices.setEnvoiMailEntreprise(idConvention);
 	}
 	/* ***************************************************************
 	 * Question Supplementaire
@@ -188,7 +200,7 @@ public class FicheEvaluationDomainServiceImpl implements FicheEvaluationDomainSe
 	public boolean deleteQuestionSupplementaire(int idQuestionSupplementaire) throws DataDeleteException,WebServiceDataBaseException {
 		return this.remoteServices.deleteQuestionSupplementaire(idQuestionSupplementaire);
 	}
-	
+
 	/* ***************************************************************
 	 * Reponse Supplementaire
 	 ****************************************************************/

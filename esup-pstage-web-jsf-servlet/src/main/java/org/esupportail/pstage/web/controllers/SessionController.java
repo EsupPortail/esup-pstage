@@ -362,6 +362,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private boolean courrierRemerciement;
 	
+	/**
+	 * Map contenant les droits d'acces aux fiches d'evaluation du personnel en fonction de l'id d'un centre
+	 */
+	private Map<Integer, Boolean> droitsEvaluationMap = new HashMap<Integer,Boolean>();
+	
 	/* ***************************************************************
 	 * Variables de navigation
 	 ****************************************************************/
@@ -521,6 +526,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * EVALUATION STAGE ENTREPRISE (acces exterieur via lien)
 	 */
 	private String evaluationStageTuteurProCurrentPage = "_evaluationStageTuteurPro_Accueil";
+	/**
+	 * PANEL ENVOI MAIL EVAL
+	 */
+	private String envoiMailEvalCurrentPage = "_envoiMailEval_etape1";
 	
 	/**
 	 * Constructor.
@@ -787,7 +796,7 @@ public class SessionController extends AbstractDomainAwareBean {
 		return isAuthorized;
 	}
 
-
+	
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/
@@ -2375,6 +2384,34 @@ public class SessionController extends AbstractDomainAwareBean {
 	public void setEvaluationStageTuteurProCurrentPage(
 			String evaluationStageTuteurProCurrentPage) {
 		this.evaluationStageTuteurProCurrentPage = evaluationStageTuteurProCurrentPage;
+	}
+
+	/**
+	 * @return the droitsEvaluationMap
+	 */
+	public Map<Integer, Boolean> getDroitsEvaluationMap() {
+		return droitsEvaluationMap;
+	}
+
+	/**
+	 * @param droitsEvaluationMap the droitsEvaluationMap to set
+	 */
+	public void setDroitsEvaluationMap(Map<Integer, Boolean> droitsEvaluationMap) {
+		this.droitsEvaluationMap = droitsEvaluationMap;
+	}
+
+	/**
+	 * @return the envoiMailEvalCurrentPage
+	 */
+	public String getEnvoiMailEvalCurrentPage() {
+		return envoiMailEvalCurrentPage;
+	}
+
+	/**
+	 * @param envoiMailEvalCurrentPage the envoiMailEvalCurrentPage to set
+	 */
+	public void setEnvoiMailEvalCurrentPage(String envoiMailEvalCurrentPage) {
+		this.envoiMailEvalCurrentPage = envoiMailEvalCurrentPage;
 	}
 
 }

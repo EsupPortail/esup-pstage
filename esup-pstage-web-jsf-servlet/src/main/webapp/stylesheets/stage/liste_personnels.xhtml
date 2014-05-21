@@ -84,6 +84,17 @@
 										value="#{msgs['FORM.NON']}" />
 								</t:htmlTag>
 							</rich:column>
+							<rich:column sortBy="#{personnel.droitEvaluation}">
+								<f:facet name="header">
+									<h:outputText value="#{msgs['CENTRE.PERSONNEL.DROIT_EVALUATION']}" />
+								</f:facet>
+								<t:htmlTag value="center">
+									<h:outputText rendered="#{personnel.droitEvaluation}"
+										value="#{msgs['FORM.OUI']}" />
+									<h:outputText rendered="#{!personnel.droitEvaluation}"
+										value="#{msgs['FORM.NON']}" />
+								</t:htmlTag>
+							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText style="width:50px; display:block;"

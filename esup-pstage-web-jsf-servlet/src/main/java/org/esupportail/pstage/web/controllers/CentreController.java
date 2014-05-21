@@ -267,9 +267,17 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEnseignant2;
 	/**
-	 * Liste Questions supplementaires de la fiche Entreprise
+	 * Liste Questions supplementaires de la fiche Entreprise 1
 	 */
-	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise;
+	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise1;
+	/**
+	 * Liste Questions supplementaires de la fiche Entreprise 2
+	 */
+	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise2;
+	/**
+	 * Liste Questions supplementaires de la fiche Entreprise 3
+	 */
+	private List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise3;
 
 	/**
 	 * Bean constructor.
@@ -1526,6 +1534,16 @@ public class CentreController extends AbstractContextAwareController {
 					droitsAccesMap.put(this.centre.getIdCentreGestion(), this.personnel.getDroitAdmin());
 					getSessionController().setDroitsAccesMap(droitsAccesMap);
 				}
+				// Nouveaux droits d'acces aux fiches d'evaluation
+				Map<Integer, Boolean> droitsEvaluationMap = getSessionController().getDroitsEvaluationMap();
+				if(this.personnel.isDroitEvaluation()){
+					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+					droitsEvaluationMap.put(this.centre.getIdCentreGestion(), true);
+				} else {
+					// Si le droit evaluation est mis a false, retrait de la clef
+					if (droitsEvaluationMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationMap.remove(this.personnel.getIdCentreGestion());
+				}
+				getSessionController().setDroitsEvaluationMap(droitsEvaluationMap);
 			}
 			if(logger.isDebugEnabled()){
 				logger.debug("idPersonnelCentreGestion : " + idPersonnelCentreGestion);
@@ -1605,6 +1623,16 @@ public class CentreController extends AbstractContextAwareController {
 				droitsAccesMap.put(this.personnel.getIdCentreGestion(), this.personnel.getDroitAdmin());
 				getSessionController().setDroitsAccesMap(droitsAccesMap);
 			}
+			// Nouveaux droits d'acces aux fiches d'evaluation
+			Map<Integer, Boolean> droitsEvaluationMap = getSessionController().getDroitsEvaluationMap();
+			if(this.personnel.isDroitEvaluation()){
+				// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+				droitsEvaluationMap.put(this.centre.getIdCentreGestion(), true);
+			} else {
+				// Si le droit evaluation est mis a false, retrait de la clef
+				if (droitsEvaluationMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationMap.remove(this.personnel.getIdCentreGestion());
+			}
+			getSessionController().setDroitsEvaluationMap(droitsEvaluationMap);
 		} catch (DataUpdateException d){
 			logger.error("DataUpdateException",d.fillInStackTrace());
 			addErrorMessage("formModifPersonnel:erreurModifPersonnel","CENTRE.PERSONNEL.MODIF.ERREUR");
@@ -1655,13 +1683,22 @@ public class CentreController extends AbstractContextAwareController {
 							});
 						}
 					}
-					//Maj droit
+					//Maj droits
 					Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
 					if(droitsAccesMap!=null &&
 							!droitsAccesMap.isEmpty() && 
 							droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
 						droitsAccesMap.remove(this.personnel.getIdCentreGestion());
 						getSessionController().setDroitsAccesMap(droitsAccesMap);
+					}
+					if (this.personnel.isDroitEvaluation()){
+						Map<Integer, Boolean> droitsEvaluationMap = getSessionController().getDroitsEvaluationMap();
+						if(droitsEvaluationMap!=null &&
+								!droitsEvaluationMap.isEmpty() && 
+								droitsEvaluationMap.containsKey(this.centre.getIdCentreGestion())){
+							droitsEvaluationMap.remove(this.personnel.getIdCentreGestion());
+							getSessionController().setDroitsEvaluationMap(droitsEvaluationMap);
+						}
 					}
 				}
 			} catch (DataDeleteException e) {
@@ -1861,6 +1898,7 @@ public class CentreController extends AbstractContextAwareController {
 	/* ****************************************************************************
 	 * Fiche d'evaluation
 	 *****************************************************************************/
+	
 	/**
 	 * @return String
 	 */
@@ -1966,10 +2004,20 @@ public class CentreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToFicheEntreprise(){
-		this.listeQuestionsSupplementairesEntreprise = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),6);
-		if(this.listeQuestionsSupplementairesEntreprise == null){
-			this.listeQuestionsSupplementairesEntreprise = new ArrayList<QuestionSupplementaireDTO>();
+
+		this.listeQuestionsSupplementairesEntreprise1 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),6);
+		if(this.listeQuestionsSupplementairesEntreprise1 == null){
+			this.listeQuestionsSupplementairesEntreprise1 = new ArrayList<QuestionSupplementaireDTO>();
 		}
+		this.listeQuestionsSupplementairesEntreprise2 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),7);
+		if(this.listeQuestionsSupplementairesEntreprise2 == null){
+			this.listeQuestionsSupplementairesEntreprise2 = new ArrayList<QuestionSupplementaireDTO>();
+		}
+		this.listeQuestionsSupplementairesEntreprise3 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),8);
+		if(this.listeQuestionsSupplementairesEntreprise3 == null){
+			this.listeQuestionsSupplementairesEntreprise3 = new ArrayList<QuestionSupplementaireDTO>();
+		}
+		
 		return "goToFicheEntreprise";
 	}
 
@@ -2028,11 +2076,25 @@ public class CentreController extends AbstractContextAwareController {
 		this.questionSupplementaire.setIdPlacement(5);
 	}
 	/**
-	 * initialisation question supplementaire entreprise
+	 * initialisation question supplementaire entreprise I
 	 */
-	public void avantAjoutQuestionEntreprise(){
+	public void avantAjoutQuestionEntreprise1(){
 		this.questionSupplementaire = new QuestionSupplementaireDTO();
 		this.questionSupplementaire.setIdPlacement(6);
+	}
+	/**
+	 * initialisation question supplementaire entreprise II
+	 */
+	public void avantAjoutQuestionEntreprise2(){
+		this.questionSupplementaire = new QuestionSupplementaireDTO();
+		this.questionSupplementaire.setIdPlacement(7);
+	}
+	/**
+	 * initialisation question supplementaire entreprise III
+	 */
+	public void avantAjoutQuestionEntreprise3(){
+		this.questionSupplementaire = new QuestionSupplementaireDTO();
+		this.questionSupplementaire.setIdPlacement(8);
 	}
 
 	/**
@@ -2066,7 +2128,13 @@ public class CentreController extends AbstractContextAwareController {
 					this.listeQuestionsSupplementairesEnseignant2.add(this.questionSupplementaire);
 					break;
 				case 6 :
-					this.listeQuestionsSupplementairesEntreprise.add(this.questionSupplementaire);
+					this.listeQuestionsSupplementairesEntreprise1.add(this.questionSupplementaire);
+					break;
+				case 7 :
+					this.listeQuestionsSupplementairesEntreprise2.add(this.questionSupplementaire);
+					break;
+				case 8 :
+					this.listeQuestionsSupplementairesEntreprise3.add(this.questionSupplementaire);
 					break;
 				default:
 					break;
@@ -2136,7 +2204,13 @@ public class CentreController extends AbstractContextAwareController {
 					this.listeQuestionsSupplementairesEnseignant2.remove(this.questionSupplementaire);
 					break;
 				case 6 :
-					this.listeQuestionsSupplementairesEntreprise.remove(this.questionSupplementaire);
+					this.listeQuestionsSupplementairesEntreprise1.remove(this.questionSupplementaire);
+					break;
+				case 7 :
+					this.listeQuestionsSupplementairesEntreprise2.remove(this.questionSupplementaire);
+					break;
+				case 8 :
+					this.listeQuestionsSupplementairesEntreprise3.remove(this.questionSupplementaire);
 					break;
 				default:
 					break;
@@ -2915,19 +2989,6 @@ public class CentreController extends AbstractContextAwareController {
 		this.questionSupplementaire = questionSupplementaire;
 	}
 	/**
-	 * @return the listeQuestionsSupplementairesEntreprise
-	 */
-	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEntreprise() {
-		return listeQuestionsSupplementairesEntreprise;
-	}
-	/**
-	 * @param listeQuestionsSupplementairesEntreprise the listeQuestionsSupplementairesEntreprise to set
-	 */
-	public void setListeQuestionsSupplementairesEntreprise(
-			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise) {
-		this.listeQuestionsSupplementairesEntreprise = listeQuestionsSupplementairesEntreprise;
-	}
-	/**
 	 * @return the listeQuestionsSupplementairesEtudiant1
 	 */
 	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEtudiant1() {
@@ -2991,5 +3052,44 @@ public class CentreController extends AbstractContextAwareController {
 	public void setListeQuestionsSupplementairesEnseignant2(
 			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEnseignant2) {
 		this.listeQuestionsSupplementairesEnseignant2 = listeQuestionsSupplementairesEnseignant2;
+	}
+	/**
+	 * @return the listeQuestionsSupplementairesEntreprise1
+	 */
+	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEntreprise1() {
+		return listeQuestionsSupplementairesEntreprise1;
+	}
+	/**
+	 * @param listeQuestionsSupplementairesEntreprise1 the listeQuestionsSupplementairesEntreprise1 to set
+	 */
+	public void setListeQuestionsSupplementairesEntreprise1(
+			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise1) {
+		this.listeQuestionsSupplementairesEntreprise1 = listeQuestionsSupplementairesEntreprise1;
+	}
+	/**
+	 * @return the listeQuestionsSupplementairesEntreprise2
+	 */
+	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEntreprise2() {
+		return listeQuestionsSupplementairesEntreprise2;
+	}
+	/**
+	 * @param listeQuestionsSupplementairesEntreprise2 the listeQuestionsSupplementairesEntreprise2 to set
+	 */
+	public void setListeQuestionsSupplementairesEntreprise2(
+			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise2) {
+		this.listeQuestionsSupplementairesEntreprise2 = listeQuestionsSupplementairesEntreprise2;
+	}
+	/**
+	 * @return the listeQuestionsSupplementairesEntreprise3
+	 */
+	public List<QuestionSupplementaireDTO> getListeQuestionsSupplementairesEntreprise3() {
+		return listeQuestionsSupplementairesEntreprise3;
+	}
+	/**
+	 * @param listeQuestionsSupplementairesEntreprise3 the listeQuestionsSupplementairesEntreprise3 to set
+	 */
+	public void setListeQuestionsSupplementairesEntreprise3(
+			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise3) {
+		this.listeQuestionsSupplementairesEntreprise3 = listeQuestionsSupplementairesEntreprise3;
 	}
 }

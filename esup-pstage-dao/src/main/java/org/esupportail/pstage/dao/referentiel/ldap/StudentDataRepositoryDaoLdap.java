@@ -16,6 +16,7 @@ import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
 import org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao;
 import org.esupportail.pstage.domain.beans.AdministrationApogee;
+import org.esupportail.pstage.domain.beans.EtapeInscription;
 import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.LdapAttributes;
 import org.esupportail.pstage.domain.beans.LdapGroupeAttributs;
@@ -129,18 +130,26 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		Map<String, String> mapSteps =null;
 		Map<String, String> etapesRef = getEtapesRef(null);
 		String studentStep =ldapAttributes.getLdapStudentStep();
+		List<EtapeInscription> listEtapes = new ArrayList<EtapeInscription>();
 		if(StringUtils.hasText(ldapUser.getAttribute(studentStep))){
 			mapSteps = new LinkedHashMap<String, String>();
 			for(String uneEtape : ldapUser.getAttributes().get(studentStep) ){
 				mapSteps.put(uneEtape, etapesRef.get(uneEtape));
 				etudiantRef.setTheCodeEtape(uneEtape);
 				etudiantRef.setTheEtape(etapesRef.get(uneEtape));
+				
+				EtapeInscription etpins = new EtapeInscription();
+				etpins.setCodeEtp(uneEtape);
+				etpins.setLibWebVet(etapesRef.get(uneEtape));
+				etpins.setTypeIns(DonneesStatic.TYPE_INS_ADMIN);
+				listEtapes.add(etpins);
 				if (logger.isDebugEnabled()){
 					logger.debug("Code Etape etudiant = " + uneEtape);
 					logger.debug("Libelle Etape etudiant = " + etapesRef.get(uneEtape));
 				}
 			}
 			etudiantRef.setSteps(mapSteps);
+			etudiantRef.setListeEtapeInscriptions(listEtapes);
 		}
 
 		// on ajoute chaque ufr d'inscription dans la map, mais sans libelle pour le moment
@@ -159,7 +168,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 					logger.debug("Libelle UFR etudiant = " + ufrRef.get(uneAffectation));
 				}
 			}
-			etudiantRef.setSteps(mapEtudes);
+			etudiantRef.setStudys(mapEtudes);
 		}
 
 		AdministrationApogee adminApogee = new AdministrationApogee();
