@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="../_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['RECHERCHEEVALUATION.TITRE']}" />
+			</f:facet>
+			<h:form id="formRechEvaluation">
+				<h:outputStylesheet>
+					.rf-edt-hdr-c {
+					 	border-right:none !important;
+					    border-bottom:none !important;
+					}
+					.rf-edt-c {
+					    height: 100% !important;
+					    border-right:none !important;
+					    border-bottom:none !important;
+					}
+					.rf-edt-cnt td {
+					    border-bottom: 1px solid #9FC0E9;
+					    border-right: 1px solid #9FC0E9;
+					}
+					.rf-edt-c-cnt {
+					    white-space: normal !important;
+					}
+				</h:outputStylesheet>
+				<t:div
+					rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
+					<t:htmlTag value="br" />
+					<t:htmlTag value="div" style="height: 5px;" />
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="2">
+						<h:graphicImage alt="#{msgs['RECHERCHEEVALUATION.AUCUNRESULTAT']}"
+							value="../../media/images/script.png" style="border:0" />
+						<h:outputText value="#{msgs['RECHERCHEEVALUATION.AUCUNRESULTAT']}"
+							escape="false" />
+					</h:panelGrid>
+				</t:div>
+				<t:div
+					rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
+					<t:htmlTag value="div" style="height:10px;" />
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="2">
+						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
+							value="../../media/images/script.png" style="border:0"
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
+						and conventionController.rechercheConventionPaginator.totalItemsCount gt 200}" />
+						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
+						and conventionController.rechercheConventionPaginator.totalItemsCount gt 200}"
+							escape="false">
+							<f:param
+								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
+						</h:outputFormat>
+						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
+							value="../../media/images/script.png" style="border:0"
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 200}" />
+						<h:outputFormat
+							value="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 200}"
+							escape="false">
+							<f:param
+								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
+						</h:outputFormat>
+					</h:panelGrid>
+					<t:htmlTag value="div" style="height:10px;" />
+
+					<rich:extendedDataTable id="rechercheEvaluationDataTable"
+						selectionMode="none"
+						onrowmouseover="this.style.backgroundColor='#FFEBDA'"
+						onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						value="#{conventionController.rechercheConventionPaginator.liste}"
+						var="convention" rows="20">
+						<f:facet name="footer">
+							<rich:dataScroller align="center"
+								for="rechercheEvaluationDataTable" page="1" id="listeScroller"
+								renderIfSinglePage="false" />
+						</f:facet>
+						<rich:column sortBy="#{convention.idConvention}">
+							<f:facet name="header">
+								<h:outputText style="color:white;"
+									value="#{msgs['RECHERCHEEVALUATION.NUMCONVENTION']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{convention.idConvention}" />
+							</t:htmlTag>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
+							</f:facet>
+							<h:outputText value="#{convention.etudiant.prenom}"
+								style="display:block;"
+								rendered="#{not empty convention.etudiant}" />
+							<h:outputText value="#{convention.etudiant.nom}"
+								style="display:block;"
+								rendered="#{not empty convention.etudiant}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAB']}" />
+							</f:facet>
+							<h:outputText value="#{convention.structure.raisonSociale}"
+								title="#{convention.structure.raisonSociale}"
+								rendered="#{not empty convention.structure}">
+								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE']}" />
+							</f:facet>
+							<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']} " />
+							<h:outputText value="#{convention.dateDebutStage}"
+								rendered="#{not empty convention.dateDebutStage}">
+								<f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
+							</h:outputText>
+							<h:outputText value=" #{msgs['RECHERCHECONVENTION.PERIODE.AU']} " />
+							<h:outputText value="#{convention.dateFinStage}"
+								rendered="#{not empty convention.dateFinStage}">
+								<f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
+							</h:outputText>
+						</rich:column>
+						<rich:column title="#{convention.ufr.libelle}">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['RECHERCHECONVENTION.UFR']}" />
+							</f:facet>
+							<h:outputText value="#{convention.ufr.libelle}"
+								rendered="#{not empty convention.ufr}">
+								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPE']}" />
+							</f:facet>
+							<h:outputText value="#{convention.etape.libelle}"
+								title="#{convention.etape.libelle}"
+								rendered="#{not empty convention.etape}">
+								<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['RECHERCHECONVENTION.ANNEEUNIV']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{convention.annee}"
+									rendered="#{not empty convention.annee}" />
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.HEADER']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.ENVOIMAIL.NON']}"
+									style="color:red; display:block;"
+									rendered="#{!convention.envoiMailEtudiant 
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}" />
+								<h:outputFormat
+									value="- #{msgs['RECHERCHEEVALUATION.ENVOIMAIL.OUI']}"
+									style="color:green; display:block;"
+									rendered="#{convention.envoiMailEtudiant
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}">
+									<f:param value="#{convention.dateEnvoiMailEtudiant}" />
+								</h:outputFormat>
+
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.NON_SAISIE']}"
+									style="color:red; display:block;"
+									rendered="#{empty convention.reponseEvaluation || convention.reponseEvaluation.validationEtudiant == false}" />
+								<h:outputText value="- #{msgs['RECHERCHEEVALUATION.SAISIE']}"
+									style="color:green; display:block;"
+									rendered="#{not empty convention.reponseEvaluation and convention.reponseEvaluation.validationEtudiant == true}" />
+
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.IMPRESSION.NON']}"
+									style="color:red; display:block;"
+									rendered="#{not empty convention.reponseEvaluation and convention.reponseEvaluation.validationEtudiant == true
+									and !convention.reponseEvaluation.impressionEtudiant
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}" />
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.IMPRESSION.OUI']}"
+									style="color:green; display:block;"
+									rendered="#{not empty convention.reponseEvaluation and convention.reponseEvaluation.validationEtudiant == true
+									and convention.reponseEvaluation.impressionEtudiant
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}" />
+
+								<a4j:commandLink id="imprEvalEtu" style="padding:10px;"
+									action="#{conventionController.editPdfFicheEtudiant}"
+									render="formRechEvaluation"
+									rendered="#{not empty convention.reponseEvaluation
+									and (welcomeController.superAdmin || welcomeController.etudiant
+									|| not empty sessionController.droitsEvaluationMap) 
+									and convention.reponseEvaluation.validationEtudiant == true}">
+									<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+										value="../../media/images/printer.png" style="border:0" />
+									<f:setPropertyActionListener value="#{convention}"
+										target="#{conventionController.convention}" />
+									<rich:tooltip value="#{msgs['FORM.IMPRIMER']}" />
+								</a4j:commandLink>
+							</t:htmlTag>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.HEADER']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.ENVOIMAIL.NON']}"
+									style="color:red; display:block;"
+									rendered="#{!convention.envoiMailTuteurPedago
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}" />
+								<h:outputFormat
+									value="- #{msgs['RECHERCHEEVALUATION.ENVOIMAIL.OUI']}"
+									style="color:green; display:block;"
+									rendered="#{convention.envoiMailTuteurPedago
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}">
+									<f:param value="#{convention.dateEnvoiMailTuteurPedago}" />
+								</h:outputFormat>
+
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.NON_SAISIE']}"
+									style="color:red; display:block;"
+									rendered="#{empty convention.reponseEvaluation || convention.reponseEvaluation.validationEnseignant == false}" />
+								<h:outputText value="- #{msgs['RECHERCHEEVALUATION.SAISIE']}"
+									style="color:green; display:block;"
+									rendered="#{not empty convention.reponseEvaluation and convention.reponseEvaluation.validationEnseignant == true}" />
+
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.IMPRESSION.NON']}"
+									style="color:red; display:block;"
+									rendered="#{not empty convention.reponseEvaluation and convention.reponseEvaluation.validationEnseignant == true
+									and !convention.reponseEvaluation.impressionEnseignant
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}" />
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.IMPRESSION.OUI']}"
+									style="color:green; display:block;"
+									rendered="#{not empty convention.reponseEvaluation and convention.reponseEvaluation.validationEnseignant == true
+									and convention.reponseEvaluation.impressionEnseignant
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}" />
+
+								<h:commandLink id="imprEvalEns" style="padding:10px;"
+									action="#{conventionController.editPdfFicheEnseignant}"
+									rendered="#{not empty convention.reponseEvaluation
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)
+									and convention.reponseEvaluation.validationEnseignant == true}">
+									<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+										value="../../media/images/printer.png" style="border:0" />
+									<f:setPropertyActionListener value="#{convention}"
+										target="#{conventionController.convention}" />
+									<rich:tooltip value="#{msgs['FORM.IMPRIMER']}" />
+								</h:commandLink>
+							</t:htmlTag>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.HEADER']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputFormat
+									value="- #{msgs['RECHERCHEEVALUATION.ENVOIMAIL.OUI']}"
+									style="color:green; display:block;"
+									rendered="#{convention.envoiMailTuteurPro
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}">
+									<f:param value="#{convention.dateEnvoiMailTuteurPro}" />
+								</h:outputFormat>
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.ENVOIMAIL.NON']}"
+									style="color:red; display:block;"
+									rendered="#{!convention.envoiMailTuteurPro
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}" />
+
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.NON_SAISIE']}"
+									style="color:red; display:block;"
+									rendered="#{empty convention.reponseEvaluation || convention.reponseEvaluation.validationEntreprise == false}" />
+								<h:outputText value="- #{msgs['RECHERCHEEVALUATION.SAISIE']}"
+									style="color:green; display:block;"
+									rendered="#{not empty convention.reponseEvaluation and convention.reponseEvaluation.validationEntreprise == true}" />
+
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.IMPRESSION.OUI']}"
+									style="color:green; display:block;"
+									rendered="#{not empty convention.reponseEvaluation and convention.reponseEvaluation.validationEntreprise == true
+									and convention.reponseEvaluation.impressionEntreprise
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}" />
+								<h:outputText
+									value="- #{msgs['RECHERCHEEVALUATION.IMPRESSION.NON']}"
+									style="color:red; display:block;"
+									rendered="#{not empty convention.reponseEvaluation and convention.reponseEvaluation.validationEntreprise == true
+									and !convention.reponseEvaluation.impressionEntreprise
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)}" />
+
+								<h:commandLink id="imprEvalEnt" style="padding:10px;"
+									action="#{conventionController.editPdfFicheEntreprise}"
+									rendered="#{not empty convention.reponseEvaluation
+									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap)
+									and convention.reponseEvaluation.validationEntreprise == true}">
+									<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+										value="../../media/images/printer.png" style="border:0" />
+									<f:setPropertyActionListener value="#{convention}"
+										target="#{conventionController.convention}" />
+									<rich:tooltip value="#{msgs['FORM.IMPRIMER']}" />
+								</h:commandLink>
+							</t:htmlTag>
+						</rich:column>
+
+						<rich:column>
+							<t:htmlTag value="center">
+								<h:commandLink id="accesEval"
+									action="#{conventionController.goToEvalConvention}">
+									<h:graphicImage
+										alt="#{msgs['RECHERCHEEVALUATION.BOUTON_ACCES']}"
+										value="../../media/images/arrow_right.png" style="border:0" />
+									<f:setPropertyActionListener value="#{convention}"
+										target="#{conventionController.currentConvention}" />
+									<f:setPropertyActionListener value="#{true}"
+										target="#{conventionController.retourEvaluation}" />
+									<rich:tooltip
+										value="#{msgs['RECHERCHEEVALUATION.BOUTON_ACCES']}" />
+								</h:commandLink>
+							</t:htmlTag>
+						</rich:column>
+					</rich:extendedDataTable>
+				</t:div>
+				<t:htmlTag value="div" style="height:30px;" />
+				<t:htmlTag value="center"
+					rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap}">
+					<a4j:commandButton execute="@this"
+						style="font-size:16px; font-weight:bold; border-color:green;"
+						value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL']}"
+						action="#{conventionController.avantEnvoiMailEval}"
+						oncomplete="#{rich:component('envoiMailEvalPanel')}.show()"
+						render="envoiMailEvalPanel">
+						<f:setPropertyActionListener
+							value="_envoiMailEval_etape1" 
+							target="#{sessionController.envoiMailEvalCurrentPage}"/>
+					</a4j:commandButton>
+				</t:htmlTag>
+				<t:htmlTag value="div" style="height: 30px;" />
+				<h:commandButton value="#{msgs['GENERAL.RETOUR']}"
+					action="rechercheEvaluation"
+					rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap}" />
+				<t:htmlTag value="div" style="height: 30px;" />
+			</h:form>
+			<ui:include src="/stylesheets/stage/_panel_envoiMailEval.xhtml" />
+		</rich:panel>
+	</ui:define>
+</ui:composition>

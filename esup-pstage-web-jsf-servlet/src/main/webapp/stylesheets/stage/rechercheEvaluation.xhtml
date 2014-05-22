@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="../_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['RECHERCHEEVALUATION.TITRE']}" />
+			</f:facet>
+			<h:form id="formRechEval">
+				<h:panelGrid style="width:auto;">
+
+					<t:htmlTag value="div" style="height:10px;" />
+
+					<t:htmlTag value="fieldset">
+						<t:htmlTag value="legend">
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="2">
+								<h:outputLabel
+									value="#{msgs['RECHERCHEEVALUATION.CENTREGESTION']}"
+									for="centreGestion" />
+								<h:selectOneMenu id="centreGestion"
+									value="#{conventionController.rechEvalIdCentre}"
+									required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}"
+									style="width:300px;">
+									<f:selectItems
+										value="#{conventionController.listeItemsCurrentCentresGestionEval}" />
+									<a4j:ajax event="valueChange" render="panelCodesEtapes"
+										execute="@this" status="statusRecherche" />
+								</h:selectOneMenu>
+							</h:panelGrid>
+							<rich:message for="centreGestion">
+								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							</rich:message>
+						</t:htmlTag>
+						<h:panelGrid>
+							<t:htmlTag value="div" style="height:10px;" />
+							<h:panelGrid columns="3">
+								<h:graphicImage id="infoChoixMultiple" alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"
+									value="../../media/images/information.png" style="border:0">
+									<rich:tooltip
+										value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
+								</h:graphicImage>
+								<h:outputText style="font-weight:bold; padding:5px;"
+									value="Choisissez une ou plusieurs etapes de ce centre de gestion : " />
+								<rich:message for="codesEtapes">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</rich:message>
+							</h:panelGrid>
+							<t:htmlTag value="div" style="height:5px;" />
+							<a4j:outputPanel id="panelCodesEtapes">
+								<h:selectManyListbox id="codesEtapes"
+									style="width:550px; padding:10px;"
+									value="#{conventionController.critereRechercheConvention.idsEtapes}"
+									requiredMessage="#{requiredMessageController.champObligatoire}"
+									required="true">
+									<f:selectItems
+										value="#{conventionController.rechEvalListeEtapes}" />
+								</h:selectManyListbox>
+							</a4j:outputPanel>
+						</h:panelGrid>
+					</t:htmlTag>
+					<t:htmlTag value="div" style="height: 10px;" />
+					<h:panelGrid columnClasses="paginatorData-text" align="center"
+						rowClasses="paginatorData-text" columns="3" style="padding:10px;">
+						<h:panelGrid>
+							<h:panelGrid columns="2">
+								<h:outputLabel
+									rendered="#{not empty nomenclatureController.anneesConvention}"
+									value="#{msgs['RECHERCHECONVENTION.ANNEEU']} : " for="anU" />
+								<h:selectOneMenu id="anU" required="true"
+									rendered="#{not empty nomenclatureController.anneesConvention}"
+									value="#{conventionController.critereRechercheConvention.anneeUniversitaire}"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<f:selectItem itemValue="" />
+									<f:selectItems
+										value="#{nomenclatureController.anneesConvention}" />
+								</h:selectOneMenu>
+							</h:panelGrid>
+							<rich:message for="anU">
+								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							</rich:message>
+						</h:panelGrid>
+						<a4j:commandButton value="#{msgs['FORM.RECHERCHER']}"
+							action="#{conventionController.rechercherEvaluation}"
+							status="statusRecherche" />
+						<a4j:status name="statusRecherche">
+							<f:facet name="start">
+								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+							</f:facet>
+						</a4j:status>
+					</h:panelGrid>
+				</h:panelGrid>
+			</h:form>
+			<rich:message for="formRechEval" style="color:red;font-weight:bold;">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</rich:panel>
+	</ui:define>
+</ui:composition>
