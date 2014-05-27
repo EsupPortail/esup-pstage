@@ -234,7 +234,10 @@
 				<!-- affichage etudiant -->
 				<t:htmlTag value="ul">
 					<t:htmlTag value="li"
-						rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap}">
+						rendered="#{welcomeController.superAdmin 
+						|| not empty sessionController.droitsEvaluationEtudiantMap
+						|| not empty sessionController.droitsEvaluationEnseignantMap
+						|| not empty sessionController.droitsEvaluationEntrepriseMap}">
 						<h:commandLink
 							action="#{conventionController.goToRechercheEval}">
 							<h:graphicImage alt="#{msgs['RECHERCHEEVALUATION.TITRE']}"

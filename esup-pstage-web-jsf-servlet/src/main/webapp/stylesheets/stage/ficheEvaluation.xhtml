@@ -9,8 +9,11 @@
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<rich:panel id="panelFicheEvaluation"
-			rendered="#{(welcomeController.superAdmin || sessionController.droitsEvaluationMap[centreController.centre.idCentreGestion])
-			and centreController.centre != null and not empty centreController.ficheEvaluation}">
+			rendered="#{centreController.centre != null and not empty centreController.ficheEvaluation
+			and (welcomeController.superAdmin 
+			|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]
+			|| sessionController.droitsEvaluationEnseignantMap[centreController.centre.idCentreGestion]
+			|| sessionController.droitsEvaluationEntrepriseMap[centreController.centre.idCentreGestion])}">
 			<f:facet name="header">
 				<h:outputFormat value="#{msgs['CENTRE.FICHE_EVALUATION.HEAD']}">
 					<f:param value="#{centreController.centre.nomCentre}" />
@@ -26,7 +29,8 @@
 							value="#{msgs['CENTRE.FICHE_EVALUATION.EDIT']}" />
 					</legend>
 					<h:panelGrid id="gridFiches" columns="5">
-						<h:panelGrid>
+						<h:panelGrid rendered="#{welcomeController.superAdmin 
+							|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]}">
 							<h:commandButton id="ficheEtudiant"
 								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT']}"
 								action="#{centreController.goToFicheEtudiant}" />
@@ -50,26 +54,18 @@
 									alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
 								<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
 							</h:panelGrid>
-							<t:htmlTag value="div" style="height:5px;" />
-							<t:htmlTag value="center">
-								<h:commandLink id="extractionEtudiant"
-									rendered="#{centreController.ficheEvaluation.validationEtudiant}"
-									action="#{centreController.exportFichesEtudiant}">
-									<h:graphicImage alt="Excel"
-										value="../../media/images/excelSmall.png" style="border:0" />
-									<rich:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.EXPORT']}" />
-								</h:commandLink>
-							</t:htmlTag>
 						</h:panelGrid>
 
-						<h:panelGrid columns="3">
+						<h:panelGrid columns="3" rendered="#{welcomeController.superAdmin 
+							|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]}">
 							<t:htmlTag value="div" style="width:25px;" />
 							<t:htmlTag value="div"
 								style="width:2px; height:40px; background-color: #{a4jSkin.panelBorderColor};" />
 							<t:htmlTag value="div" style="width:25px;" />
 						</h:panelGrid>
 
-						<h:panelGrid>
+						<h:panelGrid rendered="#{welcomeController.superAdmin 
+							|| sessionController.droitsEvaluationEnseignantMap[centreController.centre.idCentreGestion]}">
 							<h:commandButton id="ficheTuteur"
 								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT']}"
 								action="#{centreController.goToFicheEnseignant}" />
@@ -94,26 +90,20 @@
 									alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
 								<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
 							</h:panelGrid>
-							<t:htmlTag value="div" style="height:5px;" />
-							<t:htmlTag value="center">
-								<h:commandLink id="extractionEnseignant"
-									rendered="#{centreController.ficheEvaluation.validationEtudiant}"
-									action="#{centreController.exportFichesEnseignant}">
-									<h:graphicImage alt="Excel"
-										value="../../media/images/excelSmall.png" style="border:0" />
-									<rich:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.EXPORT']}" />
-								</h:commandLink>
-							</t:htmlTag>
 						</h:panelGrid>
 
-						<h:panelGrid columns="3">
+						<h:panelGrid columns="3" rendered="#{welcomeController.superAdmin 
+							|| (sessionController.droitsEvaluationEnseignantMap[centreController.centre.idCentreGestion]
+							|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]
+							and sessionController.droitsEvaluationEntrepriseMap[centreController.centre.idCentreGestion])}">
 							<t:htmlTag value="div" style="width:25px;" />
 							<t:htmlTag value="div"
 								style="width: 2px; height: 40px; background-color: #{a4jSkin.panelBorderColor};" />
 							<t:htmlTag value="div" style="width:25px;" />
 						</h:panelGrid>
 
-						<h:panelGrid>
+						<h:panelGrid rendered="#{welcomeController.superAdmin 
+							|| sessionController.droitsEvaluationEntrepriseMap[centreController.centre.idCentreGestion]}">
 							<h:commandButton id="ficheEntreprise"
 								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE']}"
 								action="#{centreController.goToFicheEntreprise}" />
@@ -138,16 +128,6 @@
 									alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
 								<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
 							</h:panelGrid>
-							<t:htmlTag value="div" style="height:5px;" />
-							<t:htmlTag value="center">
-								<h:commandLink id="extractionEntreprise"
-									rendered="#{centreController.ficheEvaluation.validationEtudiant}"
-									action="#{centreController.exportFichesEntreprise}">
-									<h:graphicImage alt="Excel"
-										value="../../media/images/excelSmall.png" style="border:0" />
-									<rich:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.EXPORT']}" />
-								</h:commandLink>
-							</t:htmlTag>
 						</h:panelGrid>
 					</h:panelGrid>
 				</fieldset>
@@ -155,11 +135,17 @@
 			<t:htmlTag value="div" style="height: 20px;" />
 		</rich:panel>
 		<t:div
-			rendered="#{!(welcomeController.superAdmin || welcomeController.droitEvaluation)}">
+			rendered="#{!(welcomeController.superAdmin
+			|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]
+			|| sessionController.droitsEvaluationEnseignantMap[centreController.centre.idCentreGestion]
+			|| sessionController.droitsEvaluationEntrepriseMap[centreController.centre.idCentreGestion])}">
 			<ui:include src="./_redirection_droitsInsuffisants.xhtml" />
 		</t:div>
 		<t:div
-			rendered="#{(welcomeController.superAdmin || welcomeController.droitEvaluation)
+			rendered="#{(welcomeController.superAdmin
+			|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]
+			|| sessionController.droitsEvaluationEnseignantMap[centreController.centre.idCentreGestion]
+			|| sessionController.droitsEvaluationEntrepriseMap[centreController.centre.idCentreGestion])
 					and (centreController.centre == null || empty centreController.ficheEvaluation)}">
 			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
 		</t:div>

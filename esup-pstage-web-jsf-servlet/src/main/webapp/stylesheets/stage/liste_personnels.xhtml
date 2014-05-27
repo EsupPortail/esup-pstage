@@ -28,7 +28,7 @@
 							style="border-right:1px solid #C0C0C0;" id="listePersonnels"
 							rows="20" columnClasses="col"
 							value="#{centreController.personnels}" var="personnel">
-							<rich:column sortBy="#{personnel.civilite.libelle}">
+							<rich:column>
 								<f:facet name="header">
 									<h:outputText style="width:50px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.CIVILITE']}" />
@@ -37,7 +37,7 @@
 									<h:outputText value="#{personnel.civilite.libelle}" />
 								</t:htmlTag>
 							</rich:column>
-							<rich:column sortBy="#{personnel.nom}">
+							<rich:column>
 								<f:facet name="header">
 									<h:outputText style="width:100px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
@@ -46,7 +46,7 @@
 									<h:outputText value="#{personnel.nom}" />
 								</t:htmlTag>
 							</rich:column>
-							<rich:column sortBy="#{personnel.prenom}">
+							<rich:column>
 								<f:facet name="header">
 									<h:outputText style="width:100px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
@@ -55,7 +55,7 @@
 									<h:outputText value="#{personnel.prenom}" />
 								</t:htmlTag>
 							</rich:column>
-							<rich:column sortBy="#{personnel.affectation.libelle}">
+							<rich:column>
 								<f:facet name="header">
 									<h:outputText style="width:150px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
@@ -64,7 +64,7 @@
 									<h:outputText value="#{personnel.affectation.libelle}" />
 								</t:htmlTag>
 							</rich:column>
-							<rich:column sortBy="#{personnel.droitAdmin.libelle}">
+							<rich:column>
 								<f:facet name="header">
 									<h:outputText style="width:75px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT']}" />
@@ -73,7 +73,7 @@
 									<h:outputText value="#{personnel.droitAdmin.libelle}" />
 								</t:htmlTag>
 							</rich:column>
-							<rich:column sortBy="#{personnel.alertesMail}">
+							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="#{msgs['CENTRE.PERSONNEL.ALERTES_MAIL']}" />
 								</f:facet>
@@ -84,16 +84,22 @@
 										value="#{msgs['FORM.NON']}" />
 								</t:htmlTag>
 							</rich:column>
-							<rich:column sortBy="#{personnel.droitEvaluation}">
+							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="#{msgs['CENTRE.PERSONNEL.DROIT_EVALUATION']}" />
 								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText rendered="#{personnel.droitEvaluation}"
-										value="#{msgs['FORM.OUI']}" />
-									<h:outputText rendered="#{!personnel.droitEvaluation}"
-										value="#{msgs['FORM.NON']}" />
-								</t:htmlTag>
+								<h:panelGrid align="center">
+									<h:outputText rendered="#{personnel.droitEvaluationEtudiant}"
+										value="Etudiants" />
+									<h:outputText rendered="#{personnel.droitEvaluationEnseignant}"
+										value="Enseignants" />
+									<h:outputText rendered="#{personnel.droitEvaluationEntreprise}"
+										value="Entreprises" />
+									<h:outputText rendered="#{!personnel.droitEvaluationEtudiant
+										and !personnel.droitEvaluationEnseignant
+										and !personnel.droitEvaluationEntreprise}"
+										value="Aucuns" />
+								</h:panelGrid>
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">

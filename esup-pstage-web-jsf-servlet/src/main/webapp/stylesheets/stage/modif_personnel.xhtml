@@ -119,10 +119,32 @@
 					<h:panelGrid columns="2" columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text">
 						<h:outputLabel
-							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION']}"
-							for="droitEvaluation" />
-						<h:selectOneRadio id="droitEvaluation"
-							value="#{centreController.personnel.droitEvaluation}">
+							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ETUDIANT']}"
+							for="droitEvaluationEtudiant" />
+						<h:selectOneRadio id="droitEvaluationEtudiant"
+							value="#{centreController.personnel.droitEvaluationEtudiant}">
+							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+						</h:selectOneRadio>
+					</h:panelGrid>
+					<h:panelGrid columns="2" columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text">
+						<h:outputLabel
+							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENSEIGNANT']}"
+							for="droitEvaluationEnseignant" />
+						<h:selectOneRadio id="droitEvaluationEnseignant"
+							value="#{centreController.personnel.droitEvaluationEnseignant}">
+							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+						</h:selectOneRadio>
+					</h:panelGrid>
+					<h:panelGrid columns="2" columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text">
+						<h:outputLabel
+							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENTREPRISE']}"
+							for="droitEvaluationEntreprise" />
+						<h:selectOneRadio id="droitEvaluationEntreprise"
+							value="#{centreController.personnel.droitEvaluationEntreprise}">
 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>

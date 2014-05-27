@@ -4,6 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -24,6 +25,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.esupportail.commons.annotations.cache.SessionCache;
 import org.esupportail.pstage.domain.beans.AdministrationApogee;
 import org.esupportail.pstage.domain.beans.ElementPedagogique;
@@ -41,6 +45,7 @@ import org.esupportail.pstage.web.beans.SequenceEtapeEnum;
 import org.esupportail.pstage.web.beans.SequenceEtapeEnumSel;
 import org.esupportail.pstage.web.comparator.ComparatorSelectItem;
 import org.esupportail.pstage.web.paginators.RechercheConventionPaginator;
+import org.esupportail.pstage.web.servlet.ExportConventionsServlet;
 import org.esupportail.pstage.web.utils.PDFUtils;
 import org.esupportail.pstagedata.domain.dto.AffectationDTO;
 import org.esupportail.pstagedata.domain.dto.AssuranceDTO;
@@ -4339,8 +4344,8 @@ public class ConventionController extends AbstractContextAwareController {
 					fileNamePdf, nomDocxsl);
 			// Si c'est un superAdmin ou un gestionnaire qui imprime, on indique en base que la fiche a ete imprimee
 			if (getSessionController().isSuperAdminPageAuthorized()
-					|| (getSessionController().getDroitsEvaluationMap() != null
-					&& !getSessionController().getDroitsEvaluationMap().isEmpty())){
+					|| (getSessionController().getDroitsEvaluationEtudiantMap() != null
+					&& !getSessionController().getDroitsEvaluationEtudiantMap().isEmpty())){
 				this.convention.getReponseEvaluation().setImpressionEtudiant(true);
 				getFicheEvaluationDomainService().setImpressionEtudiant(this.convention.getFicheEvaluation().getIdFicheEvaluation(), this.convention.getIdConvention());
 			}
@@ -4358,6 +4363,9 @@ public class ConventionController extends AbstractContextAwareController {
 		if (this.convention.getEtudiant() != null){
 			adresseEtudiant = this.convention.getEtudiant().getMail();
 			nomEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
+		} else {
+			addErrorMessage("formAccueilFiche:panelMailEtudiant", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ETUDIANT",this.convention.getIdConvention());
+			return;
 		}
 		try{
 			String contenu = "";
@@ -4373,11 +4381,14 @@ public class ConventionController extends AbstractContextAwareController {
 					getSessionController().getApplicationNamePStage()+" - Evaluation de votre stage pour la convention n°"+this.convention.getIdConvention(),
 					contenu,
 					"");
-			// On indique en base que le mail a ete envoye
+			// On indique en base et pour l'affichage que le mail a ete envoye
 			this.convention.setEnvoiMailEtudiant(true);
 			this.convention.setDateEnvoiMailEtudiant(new Date());
 			getFicheEvaluationDomainService().setEnvoiMailEtudiant(this.convention.getIdConvention());
-			addInfoMessage("formAccueilFiche:panelMailEtudiant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseEtudiant);
+			resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setEnvoiMailEtudiant(true);
+			resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setDateEnvoiMailEtudiant(new Date());
+			addInfoMessage("formAccueilFiche:panelMailEtudiant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseEtudiant,this.convention.getIdConvention());
+			this.reloadRechercheConventionPaginator();
 		} catch (AddressException e) {
 			if (logger.isDebugEnabled()){
 				e.printStackTrace();
@@ -4546,8 +4557,8 @@ public class ConventionController extends AbstractContextAwareController {
 
 			// Si c'est un superAdmin ou un gestionnaire qui imprime, on indique en base que la fiche a ete imprimee
 			if (getSessionController().isSuperAdminPageAuthorized()
-					|| (getSessionController().getDroitsEvaluationMap() != null
-					&& !getSessionController().getDroitsEvaluationMap().isEmpty())){
+					|| (getSessionController().getDroitsEvaluationEnseignantMap() != null
+					&& !getSessionController().getDroitsEvaluationEnseignantMap().isEmpty())){
 				this.convention.getReponseEvaluation().setImpressionEnseignant(true);
 				getFicheEvaluationDomainService().setImpressionEnseignant(this.convention.getFicheEvaluation().getIdFicheEvaluation(), this.convention.getIdConvention());
 			}
@@ -4566,24 +4577,28 @@ public class ConventionController extends AbstractContextAwareController {
 		if (this.convention.getEnseignant() != null){
 			adresseTuteurPedago = this.convention.getEnseignant().getMail();
 			nomTuteur = this.convention.getEnseignant().getPrenom() + " " + this.convention.getEnseignant().getNom();
+		} else {
+			addErrorMessage("formAccueilFiche:panelMailEnseignant", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ENSEIGNANT",this.convention.getIdConvention());
+			return;
 		}
 		if (this.convention.getEtudiant() != null){
 			libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
+		} else {
+			addErrorMessage("formAccueilFiche:panelMailEnseignant", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ETUDIANT",this.convention.getIdConvention());
 		}
 		try {
-			
-			System.out.println("test 4 : "+adresseTuteurPedago);
 			getSmtpService().send(new InternetAddress(adresseTuteurPedago),
 					getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
 					getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",libelleEtu,
 							getSessionController().getApplicationNamePStage()),
 					"");
-			System.out.println("test 5 : ");
 			// On indique en base que le mail a ete envoye
 			this.convention.setEnvoiMailTuteurPedago(true);
 			this.convention.setDateEnvoiMailTuteurPedago(new Date());
 			getFicheEvaluationDomainService().setEnvoiMailEnseignant(this.convention.getIdConvention());
-			addInfoMessage("formAccueilFiche:panelMailTuteurEnseignant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPedago);
+			this.resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setEnvoiMailTuteurPedago(true);
+			this.resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setDateEnvoiMailTuteurPedago(new Date());
+			addInfoMessage("formAccueilFiche:panelMailTuteurEnseignant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPedago,this.convention.getIdConvention());
 		} catch (AddressException e) {
 			if (logger.isDebugEnabled()){
 				e.printStackTrace();
@@ -4591,7 +4606,7 @@ public class ConventionController extends AbstractContextAwareController {
 			addErrorMessage("formAccueilFiche:panelMailEnseignant", "CONVENTION.ETAPE13.MAIL.ERREUR_ENSEIGNANT",adresseTuteurPedago,nomTuteur);
 		}
 	}	
-	
+
 	/**
 	 * Acces a la partie Entreprise de la fiche d'evaluation par le super admin
 	 */
@@ -4775,9 +4790,10 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public void validateFicheEntrepriseTuteurPro(){
+	public String validateFicheEntrepriseTuteurPro(){
 		this.convention.getReponseEvaluation().setValidationEntreprise(true);
 		this.updateReponseEntrepriseTuteurPro();
+		return "goToFicheEntrepriseTuteurPro";
 	}
 
 	/**
@@ -4815,8 +4831,8 @@ public class ConventionController extends AbstractContextAwareController {
 					fileNamePdf, nomDocxsl);
 			// Si c'est un superAdmin ou un gestionnaire qui imprime, on indique en base que la fiche a ete imprimee
 			if (getSessionController().isSuperAdminPageAuthorized()
-					|| (getSessionController().getDroitsEvaluationMap() != null
-					&& !getSessionController().getDroitsEvaluationMap().isEmpty())){
+					|| (getSessionController().getDroitsEvaluationEnseignantMap() != null
+					&& !getSessionController().getDroitsEvaluationEnseignantMap().isEmpty())){
 				conventionTmp.getReponseEvaluation().setImpressionEntreprise(true);
 				getFicheEvaluationDomainService().setImpressionEntreprise(conventionTmp.getFicheEvaluation().getIdFicheEvaluation(), conventionTmp.getIdConvention());
 			}
@@ -4840,6 +4856,9 @@ public class ConventionController extends AbstractContextAwareController {
 		if (this.convention.getContact() != null){
 			adresseTuteurPro = this.convention.getContact().getMail();
 			nomTuteurPro = this.convention.getContact().getPrenom() + " " + this.convention.getContact().getNom();
+		} else {
+			addErrorMessage("formAccueilFiche:panelMailEntreprise", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ENTREPRISE",this.convention.getIdConvention());
+			return;
 		}
 
 		try{
@@ -4862,7 +4881,9 @@ public class ConventionController extends AbstractContextAwareController {
 			this.convention.setEnvoiMailTuteurPro(true);
 			this.convention.setDateEnvoiMailTuteurPro(new Date());
 			getFicheEvaluationDomainService().setEnvoiMailEntreprise(this.convention.getIdConvention());
-			addInfoMessage("formAccueilFiche:panelMailTuteurPro","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPro);
+			this.resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setEnvoiMailTuteurPro(true);
+			this.resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setDateEnvoiMailTuteurPro(new Date());
+			addInfoMessage("formAccueilFiche:panelMailTuteurPro","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPro,this.convention.getIdConvention());
 		} catch (AddressException e) {
 			if (logger.isDebugEnabled()){
 				e.printStackTrace();
@@ -4888,19 +4909,37 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Recherche de fiches d'evaluation du tuteur pedago connecte.
 	 * @return String
 	 */
 	public String goToRechercheEval() {
 
 		this.critereRechercheConvention=new CritereRechercheConventionDTO();
 
-		Map<Integer,Boolean> map = getSessionController().getDroitsEvaluationMap();
 		this.listeItemsCurrentCentresGestionEval = new ArrayList<SelectItem>();
-		if (map != null && !map.isEmpty()){
-			for(Iterator<Integer> iter = map.keySet().iterator(); iter.hasNext(); ){
-				CentreGestionDTO cg = getCentreGestionDomainService().getCentreGestion(iter.next());
-				this.listeItemsCurrentCentresGestionEval.add(new SelectItem(cg.getIdCentreGestion(), cg.getNomCentre()));
+		if (getSessionController().isSuperAdminPageAuthorized()){
+			for (CentreGestionDTO centre : getCentreGestionDomainService().getCentreGestionList(getSessionController().getCodeUniversite())){
+				this.listeItemsCurrentCentresGestionEval.add(new SelectItem(centre.getIdCentreGestion(), centre.getNomCentre()));
+			}
+		} else {
+			Map<Integer,Boolean> mapEtu = getSessionController().getDroitsEvaluationEtudiantMap();
+			Map<Integer,Boolean> mapEns = getSessionController().getDroitsEvaluationEnseignantMap();
+			Map<Integer,Boolean> mapEnt = getSessionController().getDroitsEvaluationEntrepriseMap();
+
+			Map<Integer,Boolean> map = new HashMap<Integer, Boolean>();
+			if (mapEtu != null && !mapEtu.isEmpty()){
+				map.putAll(mapEtu);
+			}
+			if (mapEns != null && !mapEns.isEmpty()){
+				map.putAll(mapEns);
+			}
+			if (mapEnt != null && !mapEnt.isEmpty()){
+				map.putAll(mapEnt);
+			}
+			if (map != null && !map.isEmpty()){
+				for(Iterator<Integer> iter = map.keySet().iterator(); iter.hasNext(); ){
+					CentreGestionDTO cg = getCentreGestionDomainService().getCentreGestion(iter.next());
+					this.listeItemsCurrentCentresGestionEval.add(new SelectItem(cg.getIdCentreGestion(), cg.getNomCentre()));
+				}
 			}
 		}
 
@@ -4935,10 +4974,16 @@ public class ConventionController extends AbstractContextAwareController {
 
 		this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
 
-		if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()){
-			for (ConventionDTO convention : this.resultatsRechercheConvention){
-				FicheEvaluationDTO fiche = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(convention.getIdCentreGestion());
-				if (fiche != null){
+		FicheEvaluationDTO fiche = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
+
+		// instanciation de l'objet convention juste pour y stocker la fiche d'evaluation afin de l'utiliser dans la page de resultats
+		this.convention = new ConventionDTO();
+		this.convention.setFicheEvaluation(fiche);
+
+		if (this.resultatsRechercheConvention != null 
+				&& !this.resultatsRechercheConvention.isEmpty()){
+			if (fiche != null){
+				for (ConventionDTO convention : this.resultatsRechercheConvention){
 					convention.setFicheEvaluation(fiche);
 					int idFicheEvaluation = fiche.getIdFicheEvaluation();
 					convention.setReponseEvaluation(getFicheEvaluationDomainService().getReponseEvaluation(idFicheEvaluation, convention.getIdConvention()));
@@ -4961,8 +5006,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public String goToRechercheEvalEtu() {
 		String ret = "resultatsRechercheEvaluation";
-
+		this.rechEvalIdCentre = null;
 		this.conventionCree = false;
+		this.convention = new ConventionDTO();
 		this.resultatsRechercheConvention = new ArrayList<ConventionDTO>();
 		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
 			this.resultatsRechercheConvention = getConventionDomainService().getConventionsEtudiant(this.getSessionController().getCurrentAuthEtudiant().getIdentEtudiant(),getSessionController().getCodeUniversite());
@@ -4993,7 +5039,9 @@ public class ConventionController extends AbstractContextAwareController {
 	public String goToRechercheEvalEns() {
 		String ret = "resultatsRechercheEvaluation";
 
+		this.rechEvalIdCentre = null;
 		this.conventionCree = false;
+		this.convention = new ConventionDTO();
 		this.rechercheConventionPaginator = new RechercheConventionPaginator();
 		this.resultatsRechercheConvention = new ArrayList<ConventionDTO>();
 		if (this.getSessionController().getCurrentAuthEnseignant() != null) {
@@ -5002,20 +5050,16 @@ public class ConventionController extends AbstractContextAwareController {
 						getSessionController().getCodeUniversite());
 				if (tmpEns != null){
 					this.resultatsRechercheConvention = getConventionDomainService().getConventionsByEnseignant(tmpEns.getId(),getBeanUtils().getAnneeUniversitaireCourante(new Date()));
+
 					if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()) {
 						for (ConventionDTO conventionTmp : this.resultatsRechercheConvention){
 							FicheEvaluationDTO fiche = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(conventionTmp.getIdCentreGestion());
 							if (fiche != null){
-								convention.setFicheEvaluation(fiche);
+								conventionTmp.setFicheEvaluation(fiche);
 								int idFicheEvaluation = fiche.getIdFicheEvaluation();
-								convention.setReponseEvaluation(getFicheEvaluationDomainService().getReponseEvaluation(idFicheEvaluation, conventionTmp.getIdConvention()));
+								conventionTmp.setReponseEvaluation(getFicheEvaluationDomainService().getReponseEvaluation(idFicheEvaluation, conventionTmp.getIdConvention()));
 							}
 						}
-						//						for (ConventionDTO convention : resultatsRechercheConvention){
-						//							convention.setCentreGestion(getCentreGestionDomainService().getCentreGestion(convention.getIdCentreGestion()));
-						//						}
-						//renseignement de la liste de resultats en vue d'export
-						//						this.exportController.setResultatsRechercheConvention(resultatsRechercheConvention);
 						reloadRechercheConventionPaginator();
 					} else {
 						this.resultatsRechercheConvention = null;
@@ -5107,60 +5151,73 @@ public class ConventionController extends AbstractContextAwareController {
 		case 1:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
 				this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
-				if (this.convention.getIdEtudiant() > 0) {
-					EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
-					if (etudiantTmp != null) {
-						this.convention.setEtudiant(etudiantTmp);
+				if ((this.convention.getReponseEvaluation() == null || !this.convention.getReponseEvaluation().isValidationEtudiant())
+						&& ((!this.convention.isEnvoiMailEtudiant() && this.typeMailEval == 1)
+								|| (this.convention.isEnvoiMailEtudiant() && this.typeMailEval == 2))){
+					if (this.convention.getIdEtudiant() > 0) {
+						EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
+						if (etudiantTmp != null) {
+							this.convention.setEtudiant(etudiantTmp);
+						}
 					}
-				}
-				this.envoiMailEtudiant();
-				try {
-					Thread.sleep(300);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					this.envoiMailEtudiant();
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			break;
 		case 2:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
 				this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
-				if (conventionTmp.getIdEnseignant() > 0 ) {
-					EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
-					if (enseignantTmp != null) {
-						this.convention.setEnseignant(enseignantTmp);
+				if ((this.convention.getReponseEvaluation() == null || !this.convention.getReponseEvaluation().isValidationEnseignant())
+						&& ((!this.convention.isEnvoiMailTuteurPedago()&& this.typeMailEval == 1)
+								|| (this.convention.isEnvoiMailTuteurPedago() && this.typeMailEval == 2))){
+					if (this.convention.getIdEnseignant() > 0 ) {
+						EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
+						if (enseignantTmp != null) {
+							this.convention.setEnseignant(enseignantTmp);
+						}
 					}
-				}
-				if (this.convention.getIdEtudiant() > 0) {
-					EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
-					if (etudiantTmp != null) {
-						this.convention.setEtudiant(etudiantTmp);
+					if (this.convention.getIdEtudiant() > 0) {
+						EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
+						if (etudiantTmp != null) {
+							this.convention.setEtudiant(etudiantTmp);
+						}
 					}
-				}
-				this.envoiMailEnseignant();
-				try {
-					Thread.sleep(300);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					this.envoiMailEnseignant();
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			break;
 		case 3:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
 				this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
-				if (conventionTmp.getIdContact() > 0) {
-					ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(conventionTmp.getIdContact());
-					if (contactTmp != null) {
-						this.convention.setContact(contactTmp);
-						this.etablissementController.reloadContacts();
-						this.etablissementController.setIdContactSel(contactTmp.getId());
+				// On verifie que la fiche n'est pas deja saisie et qu'on envoie un 1er mail ou un mail de rappel
+				if ((this.convention.getReponseEvaluation() == null || !this.convention.getReponseEvaluation().isValidationEntreprise())
+						&& ((!this.convention.isEnvoiMailTuteurPro() && this.typeMailEval == 1)
+								|| (this.convention.isEnvoiMailTuteurPro() && this.typeMailEval == 2))){
+					if (this.convention.getIdContact() > 0) {
+						ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(this.convention.getIdContact());
+						if (contactTmp != null) {
+							this.convention.setContact(contactTmp);
+							this.etablissementController.reloadContacts();
+							this.etablissementController.setIdContactSel(contactTmp.getId());
+						}
+					}
+					this.envoiMailEntreprise();
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
 				}
-				this.envoiMailEntreprise();
-				try {
-					Thread.sleep(300);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} 
 			}
 			break;
 		default:
@@ -5177,6 +5234,513 @@ public class ConventionController extends AbstractContextAwareController {
 	public void avantEnvoiMailEval(){
 		this.typeMailEval = 1;
 		this.typeDestMailEval = 1;
+	}
+
+	/**
+	 * return
+	 */
+	public void exportFichesEtudiant() {
+		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
+		if (this.rechercheConventionPaginator.getListe()!= null){
+			listeExportEval = this.rechercheConventionPaginator.getListe();
+		}
+		if (listeExportEval != null && !listeExportEval.isEmpty()){
+			HSSFWorkbook classeur = new HSSFWorkbook();
+			HSSFSheet sheet = classeur.createSheet("exportFichesEtudiant");
+
+			HSSFRow row = sheet.createRow(0);
+
+			List<String> header = new ArrayList<String>();
+			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
+
+			header.add("id Fiche Evaluation");
+			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
+			// Ajout des questions en fonction de leur utilisation ou non par le centre
+			if (ficheEvaluation.isQuestionEtuI1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.1"));
+			if (ficheEvaluation.isQuestionEtuI2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.2"));
+			if (ficheEvaluation.isQuestionEtuI3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.3"));
+			if (ficheEvaluation.isQuestionEtuI4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.4"));
+			if (ficheEvaluation.isQuestionEtuI5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.5"));
+			if (ficheEvaluation.isQuestionEtuI6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.6"));
+			if (ficheEvaluation.isQuestionEtuI7()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.7"));
+			if (ficheEvaluation.isQuestionEtuI8()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.8"));
+
+			if (ficheEvaluation.isQuestionEtuII1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.1"));
+			if (ficheEvaluation.isQuestionEtuII2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.2"));
+			if (ficheEvaluation.isQuestionEtuII3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.3"));
+			if (ficheEvaluation.isQuestionEtuII4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.4"));
+			if (ficheEvaluation.isQuestionEtuII5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.5"));
+			if (ficheEvaluation.isQuestionEtuII6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.6"));
+
+			if (ficheEvaluation.isQuestionEtuIII1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1"));
+			if (ficheEvaluation.isQuestionEtuIII2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.2"));
+			if (ficheEvaluation.isQuestionEtuIII3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3"));
+			if (ficheEvaluation.isQuestionEtuIII4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.4"));
+			if (ficheEvaluation.isQuestionEtuIII5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.5"));
+			if (ficheEvaluation.isQuestionEtuIII6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.6"));
+			if (ficheEvaluation.isQuestionEtuIII7()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.7"));
+			if (ficheEvaluation.isQuestionEtuIII8()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.8"));
+			if (ficheEvaluation.isQuestionEtuIII9()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.9"));
+			if (ficheEvaluation.isQuestionEtuIII10()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.10"));
+			if (ficheEvaluation.isQuestionEtuIII11()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.11"));
+			if (ficheEvaluation.isQuestionEtuIII12()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.12"));
+			if (ficheEvaluation.isQuestionEtuIII13()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13"));
+			if (ficheEvaluation.isQuestionEtuIII14()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.14"));
+			if (ficheEvaluation.isQuestionEtuIII15()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.15"));
+			if (ficheEvaluation.isQuestionEtuIII16()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.16"));
+
+			// Creation des cellules Header
+			for(int i=0;i<header.size();i++){
+				row.createCell(i).setCellValue(header.get(i));
+			}
+
+			ReponseEvaluationDTO reponseTmp;
+			// Remplissage avec les reponses
+			for (int i=0;i<listeExportEval.size();i++) {
+				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
+
+				if (reponseTmp != null &&  reponseTmp.isValidationEtudiant()){
+					row = sheet.createRow(i+1);
+					int cpt=0;
+					String reponse = "";
+
+					row.createCell(cpt).setCellValue(ficheEvaluation.getIdFicheEvaluation());
+					cpt++;
+
+					row.createCell(cpt).setCellValue(listeExportEval.get(i).getIdConvention());
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEtuI1()){
+						reponse = "";
+						switch (reponseTmp.getReponseEtuI1()) {
+						case 1 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.1");
+							break;
+						case 2 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.2");
+							break;
+						case 3 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.3");
+							break;
+						default:
+							break;
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI2()){
+						reponse = "";
+						switch (reponseTmp.getReponseEtuI2()) {
+						case 1 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.1");
+							break;
+						case 2 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.2");
+							break;
+						case 3 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.3");
+							break;
+						case 4 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.4");
+							break;
+						case 5 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.5");
+							break;
+						default:
+							break;
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI3()){
+						reponse = "";
+						switch (reponseTmp.getReponseEtuI3()) {
+						case 1 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.1");
+							break;
+						case 2 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.2");
+							break;
+						case 3 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.3");
+							break;
+						case 4 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.4");
+							break;
+						default:
+							break;
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI4()){
+						reponse = "";
+						if (reponseTmp.isReponseEtuI4a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
+						if (reponseTmp.isReponseEtuI4b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
+						if (reponseTmp.isReponseEtuI4c()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.COURRIER"));
+						if (reponseTmp.isReponseEtuI4d()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.PROSPECTION"));
+						if (reponse == ""){
+							reponse = "NÉANT";
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI5()){
+						reponse = "";
+						if (reponseTmp.getReponseEtuI5() > 0)
+							reponse = getNomenclatureDomainService().getOrigineStageDTOFromId(reponseTmp.getReponseEtuI5()).getLibelle();
+						if (reponse == null){
+							reponse = "";
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI6()){
+						reponse = "";
+						switch (reponseTmp.getReponseEtuI6()) {
+						case 1 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.1");
+							break;
+						case 2 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.2");
+							break;
+						case 3 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.3");
+							break;
+						case 4 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.4");
+							break;
+						default:
+							break;
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI7()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuI7()); cpt++;
+					if (ficheEvaluation.isQuestionEtuI8()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuI8()); cpt++;
+
+					if (ficheEvaluation.isQuestionEtuII1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII1())); cpt++;
+					if (ficheEvaluation.isQuestionEtuII2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII2())); cpt++;
+					if (ficheEvaluation.isQuestionEtuII3()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII3())); cpt++;
+					if (ficheEvaluation.isQuestionEtuII4()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII4())); cpt++;
+					if (ficheEvaluation.isQuestionEtuII5()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuII5()); cpt++;
+					if (ficheEvaluation.isQuestionEtuII6()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuII6()); cpt++;
+
+					if (ficheEvaluation.isQuestionEtuIII1()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII1()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII2()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII2()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII3()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII3()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII4()){
+						reponse = "";
+						switch (reponseTmp.getReponseEtuIII4()) {
+						case 1 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.1");
+							break;
+						case 2 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.2");
+							break;
+						case 3 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.3");
+							break;
+						case 4 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.4");
+							break;
+						case 5 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.5");
+							break;
+						case 6 :
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.6");
+							break;
+						default:
+							break;
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII5()){
+						reponse="";
+						if (reponseTmp.isReponseEtuIII5a()) reponse+=getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.1");
+						if (reponseTmp.isReponseEtuIII5a()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.2"));
+						if (reponseTmp.isReponseEtuIII5a()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.3"));
+						if (reponse == ""){
+							reponse = "NÉANT";
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII6()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII6())); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII7()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII7())); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII8()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII8()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII9()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII9()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII10()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII10()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII11()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII11()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII12()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII12()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII13()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII13()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII14()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII14()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII15()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII15())); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII16())  row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuIII16()));
+
+				}
+			}
+
+			try {
+				ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
+
+				classeur.write(baosXLS);
+
+				ExportConventionsServlet edit = new ExportConventionsServlet();
+				edit.doGet(baosXLS);
+			} catch (Exception e){
+				logger.error("exportFichesEtudiant() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * return
+	 */
+	public void exportFichesEnseignant() {
+		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
+		if (this.rechercheConventionPaginator.getListe()!= null){
+			listeExportEval = this.rechercheConventionPaginator.getListe();
+		}
+		if (listeExportEval != null && !listeExportEval.isEmpty()){
+			HSSFWorkbook classeur = new HSSFWorkbook();
+			HSSFSheet sheet = classeur.createSheet("exportFichesEtudiant");
+
+			HSSFRow row = sheet.createRow(0);
+
+			List<String> header = new ArrayList<String>();
+
+			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
+
+			header.add("id Fiche Evaluation");
+			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
+
+			// Ajout des questions en fonction de leur utilisation ou non par le centre
+			if (ficheEvaluation.isQuestionEnsI1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.1"));
+			if (ficheEvaluation.isQuestionEnsI2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.2"));
+			if (ficheEvaluation.isQuestionEnsI3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.3"));
+
+			if (ficheEvaluation.isQuestionEnsII1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.1"));
+			if (ficheEvaluation.isQuestionEnsII2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.2"));
+			if (ficheEvaluation.isQuestionEnsII3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.3"));
+			if (ficheEvaluation.isQuestionEnsII4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.4"));
+			if (ficheEvaluation.isQuestionEnsII5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.5"));
+			if (ficheEvaluation.isQuestionEnsII6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.6"));
+			if (ficheEvaluation.isQuestionEnsII7()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.7"));
+			if (ficheEvaluation.isQuestionEnsII8()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.8"));
+			if (ficheEvaluation.isQuestionEnsII9()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.9"));
+			if (ficheEvaluation.isQuestionEnsII10()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.10"));
+			if (ficheEvaluation.isQuestionEnsII11()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.11"));
+
+			// Creation des cellules Header
+			for(int i=0;i<header.size();i++){
+				row.createCell(i).setCellValue(header.get(i));
+			}
+
+			ReponseEvaluationDTO reponseTmp;
+			// Remplissage avec les reponses
+			for (int i=0;i<listeExportEval.size();i++) {
+				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
+
+				if (reponseTmp != null && reponseTmp.isValidationEnseignant()){
+					row = sheet.createRow(i+1);
+					int cpt=0;
+					String reponse = "";
+
+
+					row.createCell(cpt).setCellValue(ficheEvaluation.getIdFicheEvaluation());
+					cpt++;
+
+					row.createCell(cpt).setCellValue(listeExportEval.get(i).getIdConvention());
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEnsI1()){
+						reponse = "";
+						if (reponseTmp.isReponseEnsI1a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE");
+						if (reponseTmp.isReponseEnsI1b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
+						if (reponseTmp.isReponseEnsI1c()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
+
+						if (reponse == ""){
+							reponse = "NÉANT";
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEnsI2()){
+						reponse = "";
+						if (reponseTmp.isReponseEnsI2a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE");
+						if (reponseTmp.isReponseEnsI2b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
+						if (reponseTmp.isReponseEnsI2c()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
+
+						if (reponse == ""){
+							reponse = "NÉANT";
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEnsI3()) row.createCell(cpt).setCellValue(reponseTmp.getReponseEnsI3()); cpt++;
+
+					if (ficheEvaluation.isQuestionEnsII1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII1())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII2())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII3()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII3())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII4()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII4())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII5()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII5())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII6()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII6())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII7()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII7())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII8()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII8())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII9()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII9())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII10()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII10())); cpt++;
+					if (ficheEvaluation.isQuestionEnsII11()) row.createCell(cpt).setCellValue(reponseTmp.getReponseEnsII11());
+				}
+			}
+			try {
+				ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
+
+				classeur.write(baosXLS);
+
+				ExportConventionsServlet edit = new ExportConventionsServlet();
+				edit.doGet(baosXLS);
+			} catch (Exception e){
+				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * return
+	 */
+	public void exportFichesEntreprise() {
+		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
+		if (this.rechercheConventionPaginator.getListe()!= null){
+			listeExportEval = this.rechercheConventionPaginator.getListe();
+		}
+		if (listeExportEval != null && !listeExportEval.isEmpty()){
+			HSSFWorkbook classeur = new HSSFWorkbook();
+			HSSFSheet sheet = classeur.createSheet("exportFichesEtudiant");
+
+			HSSFRow row = sheet.createRow(0);
+
+			List<String> header = new ArrayList<String>();
+			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
+
+			header.add("id Fiche Evaluation");
+			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
+
+			// Ajout des questions en fonction de leur utilisation ou non par le centre
+			if (ficheEvaluation.isQuestionEnt1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.1"));
+			if (ficheEvaluation.isQuestionEnt2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.2"));
+			if (ficheEvaluation.isQuestionEnt3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.3"));
+			if (ficheEvaluation.isQuestionEnt4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.4"));
+			if (ficheEvaluation.isQuestionEnt5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.5"));
+			if (ficheEvaluation.isQuestionEnt6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.6"));
+			if (ficheEvaluation.isQuestionEnt7()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.7"));
+			if (ficheEvaluation.isQuestionEnt8()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.8"));
+			if (ficheEvaluation.isQuestionEnt9()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.9"));
+			//			if (ficheEvaluation.isQuestionEnt10()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.10"));
+			if (ficheEvaluation.isQuestionEnt11()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.11"));
+			if (ficheEvaluation.isQuestionEnt12()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.12"));
+			if (ficheEvaluation.isQuestionEnt13()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.13"));
+			if (ficheEvaluation.isQuestionEnt14()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.14"));
+			if (ficheEvaluation.isQuestionEnt15()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.15"));
+			if (ficheEvaluation.isQuestionEnt16()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.16"));
+			if (ficheEvaluation.isQuestionEnt17()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.17"));
+			if (ficheEvaluation.isQuestionEnt18()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.18"));
+			if (ficheEvaluation.isQuestionEnt19()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.19"));
+
+			// Creation des cellules Header
+			for(int i=0;i<header.size();i++){
+				row.createCell(i).setCellValue(header.get(i));
+			}
+
+			ReponseEvaluationDTO reponseTmp;
+			// Remplissage avec les reponses
+			for (int i=0;i<listeExportEval.size();i++) {
+				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
+
+				if (reponseTmp != null && reponseTmp.isValidationEntreprise()){
+					row = sheet.createRow(i+1);
+					int cpt=0;
+
+					row.createCell(cpt).setCellValue(ficheEvaluation.getIdFicheEvaluation());
+					cpt++;
+
+					row.createCell(cpt).setCellValue(listeExportEval.get(i).getIdConvention());
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEnt1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt1())); cpt++;
+					if (ficheEvaluation.isQuestionEnt2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt2())); cpt++;
+					if (ficheEvaluation.isQuestionEnt3()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt3())); cpt++;
+					if (ficheEvaluation.isQuestionEnt4()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt4())); cpt++;
+					if (ficheEvaluation.isQuestionEnt5()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt5())); cpt++;
+					if (ficheEvaluation.isQuestionEnt6()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt6())); cpt++;
+					if (ficheEvaluation.isQuestionEnt7()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt7())); cpt++;
+					if (ficheEvaluation.isQuestionEnt8()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt8())); cpt++;
+					if (ficheEvaluation.isQuestionEnt9()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt9())); cpt++;
+					//				if (ficheEvaluation.isQuestionEnt10()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt10())); cpt++;
+					if (ficheEvaluation.isQuestionEnt11()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt11())); cpt++;
+					if (ficheEvaluation.isQuestionEnt12()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt12())); cpt++;
+					if (ficheEvaluation.isQuestionEnt13()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt13())); cpt++;
+					if (ficheEvaluation.isQuestionEnt14()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt14())); cpt++;
+					if (ficheEvaluation.isQuestionEnt15()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt15())); cpt++;
+					if (ficheEvaluation.isQuestionEnt16()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt16())); cpt++;
+					if (ficheEvaluation.isQuestionEnt17()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt17())); cpt++;
+					if (ficheEvaluation.isQuestionEnt18()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEnt18()); cpt++;
+					if (ficheEvaluation.isQuestionEnt19()) row.createCell(cpt).setCellValue(reponseTmp.getReponseEnt19());
+				}
+			}
+			try {
+				ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
+
+				classeur.write(baosXLS);
+
+				ExportConventionsServlet edit = new ExportConventionsServlet();
+				edit.doGet(baosXLS);
+			} catch (Exception e){
+				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * @param idNotation
+	 * @return
+	 */
+	private String recupLibelleNotation(int idNotation){
+		switch (idNotation) {
+		case 1:
+			return getString("CENTRE.FICHE_EVALUATION.NOTATION.1");
+		case 2:
+			return getString("CENTRE.FICHE_EVALUATION.NOTATION.2");
+		case 3:
+			return getString("CENTRE.FICHE_EVALUATION.NOTATION.3");
+		case 4:
+			return getString("CENTRE.FICHE_EVALUATION.NOTATION.4");
+		case 5:
+			return getString("CENTRE.FICHE_EVALUATION.NOTATION.5");
+		default:
+			return null;
+		}
+	}
+	/**
+	 * @param idAvis
+	 * @return
+	 */
+	private String recupLibelleAvis(int idAvis){
+		switch (idAvis) {
+		case 1:
+			return getString("CENTRE.FICHE_EVALUATION.AVIS.1");
+		case 2:
+			return getString("CENTRE.FICHE_EVALUATION.AVIS.2");
+		case 3:
+			return getString("CENTRE.FICHE_EVALUATION.AVIS.3");
+		case 4:
+			return getString("CENTRE.FICHE_EVALUATION.AVIS.4");
+		case 5:
+			return getString("CENTRE.FICHE_EVALUATION.AVIS.5");
+		default:
+			return null;
+		}
 	}
 
 	/* ***************************************************************

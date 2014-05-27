@@ -18,11 +18,12 @@
 					}
 				</h:outputStylesheet>
 				<rich:togglePanel switchType="ajax"
-					activeItem="#{conventionController.togglePanelActiveItem}">
+					activeItem="#{conventionController.togglePanelActiveItem}"
+					rendered="#{!conventionController.convention.reponseEvaluation.validationEntreprise}">
 					<rich:togglePanelItem id="entrepriseTogglePanel1"
 						name="entrepriseTogglePanel1">
-						<h:panelGrid style="padding:10px;" width="700"
-							border="1" align="center">
+						<h:panelGrid style="padding:10px;" width="700" border="1"
+							align="center">
 							<f:facet name="header">
 								<h:outputText style="font-weight:bold; font-size:20px;"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_1']}" />
@@ -653,8 +654,8 @@
 					</rich:togglePanelItem>
 					<rich:togglePanelItem id="entrepriseTogglePanel3"
 						name="entrepriseTogglePanel3">
-						<h:panelGrid style="padding:10px; width:700px;"
-							border="1" align="center">
+						<h:panelGrid style="padding:10px; width:700px;" border="1"
+							align="center">
 							<f:facet name="header">
 								<h:outputText
 									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_3']}"
@@ -882,7 +883,7 @@
 									</a4j:commandButton>
 									<t:htmlTag value="div" style="width:10px;" />
 									<a4j:commandButton value="#{msgs['FORM.TERMINER']}"
-										action="#{conventionController.validateFicheEntrepriseTuteurPro}"
+										oncomplete="#{rich:component('panelValidEval')}.show()"
 										style="font-size:16px; border-color:green;" />
 								</h:panelGrid>
 								<t:htmlTag value="div" style="height:5px;" />
@@ -894,17 +895,45 @@
 					</rich:togglePanelItem>
 				</rich:togglePanel>
 				<t:htmlTag value="div" style="height: 20px;" />
-				<h:panelGrid align="center" style="padding:10px;">
+				<h:panelGrid style="margin-left:30px;"
+					rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" >
+					<h:outputText value="#{msgs['CONVENTION.ETAPE13.VALIDATION_ENTREPRISE']}"/>
+					<t:htmlTag value="div" style="height: 20px;" />
 					<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
 						action="#{conventionController.editPdfFicheEntreprise}"
-						style="font-size:16px; border-color:blue;"
-						rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" />
+						style="font-size:16px; border-color:blue;"/>
 				</h:panelGrid>
-
 				<t:htmlTag value="div" style="height: 20px;" />
-				<h:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
+				<h:commandButton value="#{msgs['GENERAL.RETOUR']}"
 					action="goToAccueilFicheEntrepriseTuteurPro" immediate="true" />
 			</h:form>
+			<rich:popupPanel id="panelValidEval" autosized="true" width="400">
+				<f:facet name="header">
+					<h:outputText value="Confirmer la validation" />
+				</f:facet>
+				<fieldset>
+					<legend>
+						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+							value="../../media/images/warning_20px.png" />
+					</legend>
+					<h:panelGrid>
+						<t:htmlTag value="center">
+							<h:outputText value="#{msgs['CONVENTION.ETAPE13.WARN_VALIDATION_ENTREPRISE']}" />
+						</t:htmlTag>
+						<t:htmlTag value="div" style="height:5px;" />
+					</h:panelGrid>
+				</fieldset>
+				<h:form>
+					<t:htmlTag value="div" style="height: 20px;" />
+					<h:panelGrid align="center" columns="3">
+						<h:commandButton value="#{msgs['FORM.OUI']}"
+							action="#{conventionController.validateFicheEntrepriseTuteurPro}"/>
+						<t:htmlTag value="div" style="width: 30px;" />
+						<h:commandButton value="#{msgs['FORM.NON']}"
+							onclick="#{rich:component('panelValidEval')}.hide();return false;" />
+					</h:panelGrid>
+				</h:form>
+			</rich:popupPanel>
 		</rich:panel>
 	</ui:define>
 </ui:composition>

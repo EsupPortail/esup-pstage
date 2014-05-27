@@ -343,6 +343,14 @@
 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
+						
+						<h:outputLabel value="#{msgs['CENTRE.VISIBILITE_EVAL_TUTEURPRO']} *"
+							for="visibiliteEvalPro" />
+						<h:selectOneRadio id="visibiliteEvalPro"
+							value="#{centreController.centre.visibiliteEvalPro}">
+							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+						</h:selectOneRadio>
 					</h:panelGrid>
 					
 					<t:htmlTag value="center">

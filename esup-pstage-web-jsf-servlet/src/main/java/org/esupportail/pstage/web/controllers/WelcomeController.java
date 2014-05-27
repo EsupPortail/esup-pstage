@@ -600,24 +600,37 @@ public class WelcomeController extends AbstractContextAwareController {
 
 					if (liste != null && !liste.isEmpty()){
 						Map<Integer,DroitAdministrationDTO> droitsAccesMap = new HashMap<Integer,DroitAdministrationDTO>();
-						// Nouvelle map specifique au droit d'acces aux fiches d'evaluation
-						Map<Integer,Boolean> droitsEvaluationMap = new HashMap<Integer,Boolean>();
+						// Nouvelles maps specifiques aux droits d'acces aux fiches d'evaluation
+						Map<Integer,Boolean> droitsEvaluationEtudiantMap = new HashMap<Integer,Boolean>();
+						Map<Integer,Boolean> droitsEvaluationEnseignantMap = new HashMap<Integer,Boolean>();
+						Map<Integer,Boolean> droitsEvaluationEntrepriseMap = new HashMap<Integer,Boolean>();
 
 						for(PersonnelCentreGestionDTO personnel : liste){
 							// remplissage de la map des droits d'acces
 							DroitAdministrationDTO droitAcces = getNomenclatureDomainService().getDroitAdministrationFromId(personnel.getIdDroitAdmin());
 							if(!droitsAccesMap.containsKey(personnel.getIdCentreGestion()))droitsAccesMap.put(personnel.getIdCentreGestion(),droitAcces);
 							
-							// remplissage de la map des droits pour les fiches d'evaluation
-							if(personnel.isDroitEvaluation())droitsEvaluationMap.put(personnel.getIdCentreGestion(), true);
+							// remplissage des maps des droits pour les fiches d'evaluation
+							if(personnel.isDroitEvaluationEtudiant())droitsEvaluationEtudiantMap.put(personnel.getIdCentreGestion(), true);
+							if(personnel.isDroitEvaluationEnseignant())droitsEvaluationEnseignantMap.put(personnel.getIdCentreGestion(), true);
+							if(personnel.isDroitEvaluationEntreprise())droitsEvaluationEntrepriseMap.put(personnel.getIdCentreGestion(), true);
 						}
 
 						getSessionController().setDroitsAccesMap(droitsAccesMap);
-						getSessionController().setDroitsEvaluationMap(droitsEvaluationMap);
+						getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
+						getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
+						getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 
-						if (logger.isDebugEnabled()){
+//						if (logger.isDebugEnabled()){
+						logger.info("WelcomeController :: droitsAccesMap = "+ droitsAccesMap );
+						logger.info("WelcomeController :: droitsEvaluationEtudiantMap = "+ droitsEvaluationEtudiantMap );
+						logger.info("WelcomeController :: droitsEvaluationEnseignantMap = "+ droitsEvaluationEnseignantMap );
+						logger.info("WelcomeController :: droitsEvaluationEntrepriseMap = "+ droitsEvaluationEntrepriseMap );
 							logger.debug("WelcomeController :: droitsAccesMap = "+ droitsAccesMap );
-						}
+							logger.debug("WelcomeController :: droitsEvaluationEtudiantMap = "+ droitsEvaluationEtudiantMap );
+							logger.debug("WelcomeController :: droitsEvaluationEnseignantMap = "+ droitsEvaluationEnseignantMap );
+							logger.debug("WelcomeController :: droitsEvaluationEntrepriseMap = "+ droitsEvaluationEntrepriseMap );
+//						}
 					}
 
 					getSessionController().setCurrentCentresGestion(getCentreGestionDomainService().getCentreFromUid(getSessionController().getCurrentStageCasUser().getId(),getSessionController().getCodeUniversite()));
@@ -880,20 +893,6 @@ public class WelcomeController extends AbstractContextAwareController {
 			}
 		}
 		return isPersonnel;
-	}
-	
-	/**
-	 * Espace stage seulement
-	 * @return true si l'utilisateur est un personnel et peut acceder aux fiches d'evaluation
-	 */
-	public boolean isDroitEvaluation(){
-		boolean isDroitEval=false;
-		connectStage();
-		if(this.getSessionController().getCurrentAuthPersonnel()!=null
-		&& this.getSessionController().getCurrentAuthPersonnel().isDroitEvaluation()){
-			isDroitEval=true;
-		}
-		return isDroitEval;
 	}
 	
 	/**

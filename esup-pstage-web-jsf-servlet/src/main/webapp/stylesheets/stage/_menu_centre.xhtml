@@ -46,7 +46,10 @@
 				</rich:toolbarGroup>
 				<rich:toolbarGroup
 					rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise
-					and (welcomeController.superAdmin or sessionController.droitsEvaluationMap[centreController.centre.idCentreGestion])}">
+					and (welcomeController.superAdmin 
+					|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]
+					|| sessionController.droitsEvaluationEnseignantMap[centreController.centre.idCentreGestion]
+					|| sessionController.droitsEvaluationEntrepriseMap[centreController.centre.idCentreGestion])}">
 					<h:commandLink action="#{centreController.goToFicheEvaluation}">
 						<h:outputText value="#{msgs['CENTRE.MENU.FICHE_EVALUATION']}"
 							style="color:white;" />

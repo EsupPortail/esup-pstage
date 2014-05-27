@@ -103,14 +103,38 @@
 					</h:panelGrid>
 					
 					<h:panelGrid columns="2">
-						<h:outputLabel for="droitEvaluation"
-							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION']}" />
-						<h:panelGrid id="droitEvaluation" align="center">
+						<h:outputLabel for="droitEvaluationEtudiant"
+							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ETUDIANT']}" />
+						<h:panelGrid id="droitEvaluationEtudiant" align="center">
 							<h:outputText
-								rendered="#{centreController.personnel.droitEvaluation}"
+								rendered="#{centreController.personnel.droitEvaluationEtudiant}"
 								value="#{msgs['FORM.OUI']}" />
 							<h:outputText
-								rendered="#{!centreController.personnel.droitEvaluation}"
+								rendered="#{!centreController.personnel.droitEvaluationEtudiant}"
+								value="#{msgs['FORM.NON']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<h:outputLabel for="droitEvaluationEnseignant"
+							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENSEIGNANT']}" />
+						<h:panelGrid id="droitEvaluationEnseignant" align="center">
+							<h:outputText
+								rendered="#{centreController.personnel.droitEvaluationEnseignant}"
+								value="#{msgs['FORM.OUI']}" />
+							<h:outputText
+								rendered="#{!centreController.personnel.droitEvaluationEnseignant}"
+								value="#{msgs['FORM.NON']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<h:outputLabel for="droitEvaluationEntreprise"
+							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENTREPRISE']}" />
+						<h:panelGrid id="droitEvaluationEntreprise" align="center">
+							<h:outputText
+								rendered="#{centreController.personnel.droitEvaluationEntreprise}"
+								value="#{msgs['FORM.OUI']}" />
+							<h:outputText
+								rendered="#{!centreController.personnel.droitEvaluationEntreprise}"
 								value="#{msgs['FORM.NON']}" />
 						</h:panelGrid>
 					</h:panelGrid>

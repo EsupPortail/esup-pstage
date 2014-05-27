@@ -256,7 +256,7 @@
 						<h:outputLabel value="Validation Pedagogique"
 							for="validationPedagogique"
 							rendered="#{sessionController.validationPedagogique}" />
-						<h:panelGrid id="validationPedagogique" columns="1"
+						<h:panelGrid id="validationPedagogique"
 							columnClasses="paginatorData-text"
 							rowClasses="paginatorData-text"
 							rendered="#{sessionController.validationPedagogique}">
@@ -265,6 +265,19 @@
 								value="#{msgs['FORM.OUI']}" />
 							<h:outputText
 								rendered="#{!centreController.centre.validationPedagogique}"
+								value="#{msgs['FORM.NON']}" />
+						</h:panelGrid>
+						
+						<h:outputLabel value="#{msgs['CENTRE.VISIBILITE_EVAL_TUTEURPRO']}"
+							for="visibiliteEvalPro" />
+						<h:panelGrid id="visibiliteEvalPro"
+							columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text">
+							<h:outputText
+								rendered="#{centreController.centre.visibiliteEvalPro}"
+								value="#{msgs['FORM.OUI']}" />
+							<h:outputText
+								rendered="#{!centreController.centre.visibiliteEvalPro}"
 								value="#{msgs['FORM.NON']}" />
 						</h:panelGrid>
 					</h:panelGrid>

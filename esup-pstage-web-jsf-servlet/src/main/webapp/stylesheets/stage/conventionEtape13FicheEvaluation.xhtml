@@ -17,7 +17,7 @@
 				<fieldset style="width: 600px;">
 					<t:div
 						rendered="#{welcomeController.etudiant || welcomeController.superAdmin 
-						|| (not empty sessionController.droitsEvaluationMap and sessionController.droitsEvaluationMap[conventionController.convention.idCentreGestion])}">
+						|| sessionController.droitsEvaluationEtudiantMap[conventionController.convention.idCentreGestion]}">
 						<h:panelGrid columns="2" style="padding:10px;"
 							rendered="#{empty conventionController.convention.ficheEvaluation 
 						|| !conventionController.convention.ficheEvaluation.validationEtudiant}">
@@ -67,7 +67,7 @@
 								<t:htmlTag value="div" style="height:10px;" />
 
 								<a4j:outputPanel id="panelMailEtudiant"
-									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap}">
+									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEtudiantMap}">
 									<t:fieldset style="width:400px;"
 										rendered="#{not empty conventionController.convention.etudiant.mail}">
 										<h:panelGrid columns="2" style="padding:5px;"
@@ -90,19 +90,24 @@
 													timeZone="CET" />
 											</h:outputText>
 										</h:panelGrid>
-										
+
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
 											action="#{conventionController.envoiMailEtudiant}"
-											rendered="#{!conventionController.convention.envoiMailEtudiant}"
+											rendered="#{!conventionController.convention.envoiMailEtudiant
+											and !conventionController.convention.reponseEvaluation.validationEtudiant}"
 											render="panelMailEtudiant">
-											<f:setPropertyActionListener target="#{conventionController.typeMailEval}" value="1" />
+											<f:setPropertyActionListener
+												target="#{conventionController.typeMailEval}" value="1" />
 										</a4j:commandButton>
-											
-										<a4j:commandButton value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
+
+										<a4j:commandButton
+											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
 											action="#{conventionController.envoiMailEtudiant}"
-											rendered="#{conventionController.convention.envoiMailEtudiant}"
+											rendered="#{conventionController.convention.envoiMailEtudiant
+											and !conventionController.convention.reponseEvaluation.validationEtudiant}"
 											render="panelMailEtudiant">
-											<f:setPropertyActionListener target="#{conventionController.typeMailEval}" value="2" />
+											<f:setPropertyActionListener
+												target="#{conventionController.typeMailEval}" value="2" />
 										</a4j:commandButton>
 										<h:panelGrid align="center">
 											<rich:message for="panelMailEtudiant" />
@@ -119,7 +124,9 @@
 						</h:panelGrid>
 					</t:div>
 					<t:div
-						rendered="#{welcomeController.superAdmin || (not empty sessionController.droitsEvaluationMap and sessionController.droitsEvaluationMap[conventionController.convention.idCentreGestion]) || conventionController.tuteurCurrentConvention}">
+						rendered="#{welcomeController.superAdmin 
+						|| sessionController.droitsEvaluationEnseignantMap[conventionController.convention.idCentreGestion] 
+						|| conventionController.tuteurCurrentConvention}">
 						<t:htmlTag value="div" style="height:5px;" />
 						<t:htmlTag value="center">
 							<t:htmlTag value="div" style="height:2px; width:500px;"
@@ -175,7 +182,7 @@
 								<t:htmlTag value="div" style="height:10px;" />
 
 								<a4j:outputPanel id="panelMailEnseignant"
-									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap}">
+									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEnseignantMap}">
 									<t:fieldset style="width:400px;"
 										rendered="#{not empty conventionController.convention.enseignant.mail}">
 										<h:panelGrid columns="2" style="padding:5px;"
@@ -201,17 +208,13 @@
 
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
 											action="#{conventionController.envoiMailEnseignant}"
-											rendered="#{!conventionController.convention.envoiMailTuteurPedago}"
+											rendered="#{!conventionController.convention.envoiMailTuteurPedago
+											and !conventionController.convention.reponseEvaluation.validationEnseignant}"
 											render="panelMailEnseignant">
-											<f:setPropertyActionListener target="#{conventionController.typeMailEval}" value="1" />
+											<f:setPropertyActionListener
+												target="#{conventionController.typeMailEval}" value="1" />
 										</a4j:commandButton>
-											
-<!-- 										<a4j:commandButton value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}" -->
-<!-- 											action="#{conventionController.envoiMailEnseignant}" -->
-<!-- 											rendered="#{conventionController.convention.envoiMailTuteurPedago}" -->
-<!-- 											render="panelMailEnseignant"> -->
-<!-- 											<f:setPropertyActionListener target="#{conventionController.typeMailEval}" value="2" /> -->
-<!-- 										</a4j:commandButton> -->
+
 										<h:panelGrid align="center">
 											<rich:message for="panelMailEnseignant" />
 										</h:panelGrid>
@@ -227,7 +230,8 @@
 						</h:panelGrid>
 					</t:div>
 					<t:div
-						rendered="#{welcomeController.superAdmin || (not empty sessionController.droitsEvaluationMap and sessionController.droitsEvaluationMap[conventionController.convention.idCentreGestion])}">
+						rendered="#{welcomeController.superAdmin || sessionController.droitsEvaluationEntrepriseMap[conventionController.convention.idCentreGestion]
+						|| (welcomeController.etudiant and conventionController.convention.centreGestion.visibiliteEvalPro)}">
 						<t:htmlTag value="div" style="height:5px;" />
 						<t:htmlTag value="center">
 							<t:htmlTag value="div" style="height:2px; width:500px;"
@@ -275,15 +279,17 @@
 								</h:panelGrid>
 								<h:commandButton
 									value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
+									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap}"
 									action="#{conventionController.goToFicheEntreprise}" />
-								<t:htmlTag value="div" style="width:10px; display:inline;" />
+								<t:htmlTag value="div" style="width:10px; display:inline;" 
+									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap}"/>
 								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
 									action="#{conventionController.editPdfFicheEntreprise}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" />
 								<t:htmlTag value="div" style="height:10px;" />
 
 								<a4j:outputPanel id="panelMailTuteurPro"
-									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationMap}">
+									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap}">
 									<t:fieldset style="width:400px;"
 										rendered="#{not empty conventionController.convention.contact.mail}">
 										<h:panelGrid columns="2" style="padding:5px;"
@@ -309,16 +315,21 @@
 
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
 											action="#{conventionController.envoiMailEntreprise}"
-											rendered="#{!conventionController.convention.envoiMailTuteurPro}"
+											rendered="#{!conventionController.convention.envoiMailTuteurPro
+											and !conventionController.convention.reponseEvaluation.validationEntreprise}"
 											render="panelMailTuteurPro">
-											<f:setPropertyActionListener target="#{conventionController.typeMailEval}" value="1" />
+											<f:setPropertyActionListener
+												target="#{conventionController.typeMailEval}" value="1" />
 										</a4j:commandButton>
-											
-										<a4j:commandButton value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
+
+										<a4j:commandButton
+											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
 											action="#{conventionController.envoiMailEntreprise}"
-											rendered="#{conventionController.convention.envoiMailTuteurPro}"
+											rendered="#{conventionController.convention.envoiMailTuteurPro
+											and !conventionController.convention.reponseEvaluation.validationEntreprise}"
 											render="panelMailTuteurPro">
-											<f:setPropertyActionListener target="#{conventionController.typeMailEval}" value="2" />
+											<f:setPropertyActionListener
+												target="#{conventionController.typeMailEval}" value="2" />
 										</a4j:commandButton>
 										<h:panelGrid align="center">
 											<rich:message for="panelMailTuteurPro" />

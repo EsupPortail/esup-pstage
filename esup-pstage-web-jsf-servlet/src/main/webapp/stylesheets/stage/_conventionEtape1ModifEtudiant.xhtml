@@ -101,9 +101,10 @@
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 
-					<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']}"
+					<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']} *"
 						for="mailperso" />
 					<h:inputText id="mailperso"
+						required="true"
 						value="#{conventionController.convention.courrielPersoEtudiant}"
 						size="50" />
 					<rich:message for="mailperso">

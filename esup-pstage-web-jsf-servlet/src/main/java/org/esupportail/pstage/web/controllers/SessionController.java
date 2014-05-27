@@ -365,7 +365,9 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * Map contenant les droits d'acces aux fiches d'evaluation du personnel en fonction de l'id d'un centre
 	 */
-	private Map<Integer, Boolean> droitsEvaluationMap = new HashMap<Integer,Boolean>();
+	private Map<Integer, Boolean> droitsEvaluationEtudiantMap = new HashMap<Integer,Boolean>();
+	private Map<Integer, Boolean> droitsEvaluationEnseignantMap = new HashMap<Integer,Boolean>();
+	private Map<Integer, Boolean> droitsEvaluationEntrepriseMap = new HashMap<Integer,Boolean>();
 	
 	/* ***************************************************************
 	 * Variables de navigation
@@ -2387,20 +2389,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	}
 
 	/**
-	 * @return the droitsEvaluationMap
-	 */
-	public Map<Integer, Boolean> getDroitsEvaluationMap() {
-		return droitsEvaluationMap;
-	}
-
-	/**
-	 * @param droitsEvaluationMap the droitsEvaluationMap to set
-	 */
-	public void setDroitsEvaluationMap(Map<Integer, Boolean> droitsEvaluationMap) {
-		this.droitsEvaluationMap = droitsEvaluationMap;
-	}
-
-	/**
 	 * @return the envoiMailEvalCurrentPage
 	 */
 	public String getEnvoiMailEvalCurrentPage() {
@@ -2412,6 +2400,51 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setEnvoiMailEvalCurrentPage(String envoiMailEvalCurrentPage) {
 		this.envoiMailEvalCurrentPage = envoiMailEvalCurrentPage;
+	}
+
+	/**
+	 * @return the droitsEvaluationEtudiantMap
+	 */
+	public Map<Integer, Boolean> getDroitsEvaluationEtudiantMap() {
+		return droitsEvaluationEtudiantMap;
+	}
+
+	/**
+	 * @param droitsEvaluationEtudiantMap the droitsEvaluationEtudiantMap to set
+	 */
+	public void setDroitsEvaluationEtudiantMap(
+			Map<Integer, Boolean> droitsEvaluationEtudiantMap) {
+		this.droitsEvaluationEtudiantMap = droitsEvaluationEtudiantMap;
+	}
+
+	/**
+	 * @return the droitsEvaluationEnseignantMap
+	 */
+	public Map<Integer, Boolean> getDroitsEvaluationEnseignantMap() {
+		return droitsEvaluationEnseignantMap;
+	}
+
+	/**
+	 * @param droitsEvaluationEnseignantMap the droitsEvaluationEnseignantMap to set
+	 */
+	public void setDroitsEvaluationEnseignantMap(
+			Map<Integer, Boolean> droitsEvaluationEnseignantMap) {
+		this.droitsEvaluationEnseignantMap = droitsEvaluationEnseignantMap;
+	}
+
+	/**
+	 * @return the droitsEvaluationEntrepriseMap
+	 */
+	public Map<Integer, Boolean> getDroitsEvaluationEntrepriseMap() {
+		return droitsEvaluationEntrepriseMap;
+	}
+
+	/**
+	 * @param droitsEvaluationEntrepriseMap the droitsEvaluationEntrepriseMap to set
+	 */
+	public void setDroitsEvaluationEntrepriseMap(
+			Map<Integer, Boolean> droitsEvaluationEntrepriseMap) {
+		this.droitsEvaluationEntrepriseMap = droitsEvaluationEntrepriseMap;
 	}
 
 }

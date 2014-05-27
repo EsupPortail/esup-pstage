@@ -4,7 +4,6 @@
  */
 package org.esupportail.pstage.web.controllers;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,15 +17,11 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.esupportail.pstage.exceptions.CommunicationApogeeException;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.beans.ImageUploadBean;
 import org.esupportail.pstage.web.comparator.ComparatorSelectItem;
-import org.esupportail.pstage.web.servlet.ExportConventionsServlet;
 import org.esupportail.pstagedata.domain.beans.CritereGestion;
 import org.esupportail.pstagedata.domain.dto.AffectationDTO;
 import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
@@ -39,7 +34,6 @@ import org.esupportail.pstagedata.domain.dto.FichierDTO;
 import org.esupportail.pstagedata.domain.dto.NiveauCentreDTO;
 import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.QuestionSupplementaireDTO;
-import org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO;
 import org.esupportail.pstagedata.exceptions.AffectationAlreadyExistingForCodeException;
 import org.esupportail.pstagedata.exceptions.CentreEntrepriseDejaExistantException;
 import org.esupportail.pstagedata.exceptions.CentreEtablissementDejaExistantException;
@@ -1397,7 +1391,7 @@ public class CentreController extends AbstractContextAwareController {
 					tmp.setCodeAffectation(a.getCode());
 				}
 
-				if ((tmp.getAffectation().getLibelle() == null)){
+				if (tmp.getAffectation().getLibelle() == null){
 					// Si seul le libelle est vide on utilise le code pour le retrouver
 					if (map != null && map.get(codeAffectation) != null) {
 						libelleAffectation = map.get(codeAffectation);
@@ -1423,7 +1417,6 @@ public class CentreController extends AbstractContextAwareController {
 
 		return null;
 	}
-
 
 	/**
 	 * @return a String
@@ -1535,15 +1528,36 @@ public class CentreController extends AbstractContextAwareController {
 					getSessionController().setDroitsAccesMap(droitsAccesMap);
 				}
 				// Nouveaux droits d'acces aux fiches d'evaluation
-				Map<Integer, Boolean> droitsEvaluationMap = getSessionController().getDroitsEvaluationMap();
-				if(this.personnel.isDroitEvaluation()){
+				Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
+				if(this.personnel.isDroitEvaluationEtudiant()){
 					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
-					droitsEvaluationMap.put(this.centre.getIdCentreGestion(), true);
+					droitsEvaluationEtudiantMap.put(this.centre.getIdCentreGestion(), true);
 				} else {
 					// Si le droit evaluation est mis a false, retrait de la clef
-					if (droitsEvaluationMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationMap.remove(this.personnel.getIdCentreGestion());
+					if (droitsEvaluationEtudiantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
 				}
-				getSessionController().setDroitsEvaluationMap(droitsEvaluationMap);
+				getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
+
+				Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
+				if(this.personnel.isDroitEvaluationEnseignant()){
+					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+					droitsEvaluationEnseignantMap.put(this.centre.getIdCentreGestion(), true);
+				} else {
+					// Si le droit evaluation est mis a false, retrait de la clef
+					if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
+				}
+				getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
+				
+
+				Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
+				if(this.personnel.isDroitEvaluationEntreprise()){
+					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+					droitsEvaluationEntrepriseMap.put(this.centre.getIdCentreGestion(), true);
+				} else {
+					// Si le droit evaluation est mis a false, retrait de la clef
+					if (droitsEvaluationEntrepriseMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
+				}
+				getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 			}
 			if(logger.isDebugEnabled()){
 				logger.debug("idPersonnelCentreGestion : " + idPersonnelCentreGestion);
@@ -1623,16 +1637,38 @@ public class CentreController extends AbstractContextAwareController {
 				droitsAccesMap.put(this.personnel.getIdCentreGestion(), this.personnel.getDroitAdmin());
 				getSessionController().setDroitsAccesMap(droitsAccesMap);
 			}
+
 			// Nouveaux droits d'acces aux fiches d'evaluation
-			Map<Integer, Boolean> droitsEvaluationMap = getSessionController().getDroitsEvaluationMap();
-			if(this.personnel.isDroitEvaluation()){
+			Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
+			if(this.personnel.isDroitEvaluationEtudiant()){
 				// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
-				droitsEvaluationMap.put(this.centre.getIdCentreGestion(), true);
+				droitsEvaluationEtudiantMap.put(this.centre.getIdCentreGestion(), true);
 			} else {
 				// Si le droit evaluation est mis a false, retrait de la clef
-				if (droitsEvaluationMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationMap.remove(this.personnel.getIdCentreGestion());
+				if (droitsEvaluationEtudiantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
 			}
-			getSessionController().setDroitsEvaluationMap(droitsEvaluationMap);
+			getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
+
+			Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
+			if(this.personnel.isDroitEvaluationEnseignant()){
+				// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+				droitsEvaluationEnseignantMap.put(this.centre.getIdCentreGestion(), true);
+			} else {
+				// Si le droit evaluation est mis a false, retrait de la clef
+				if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
+			}
+			getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
+			
+
+			Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
+			if(this.personnel.isDroitEvaluationEntreprise()){
+				// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+				droitsEvaluationEntrepriseMap.put(this.centre.getIdCentreGestion(), true);
+			} else {
+				// Si le droit evaluation est mis a false, retrait de la clef
+				if (droitsEvaluationEntrepriseMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
+			}
+			getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 		} catch (DataUpdateException d){
 			logger.error("DataUpdateException",d.fillInStackTrace());
 			addErrorMessage("formModifPersonnel:erreurModifPersonnel","CENTRE.PERSONNEL.MODIF.ERREUR");
@@ -1691,13 +1727,32 @@ public class CentreController extends AbstractContextAwareController {
 						droitsAccesMap.remove(this.personnel.getIdCentreGestion());
 						getSessionController().setDroitsAccesMap(droitsAccesMap);
 					}
-					if (this.personnel.isDroitEvaluation()){
-						Map<Integer, Boolean> droitsEvaluationMap = getSessionController().getDroitsEvaluationMap();
-						if(droitsEvaluationMap!=null &&
-								!droitsEvaluationMap.isEmpty() && 
-								droitsEvaluationMap.containsKey(this.centre.getIdCentreGestion())){
-							droitsEvaluationMap.remove(this.personnel.getIdCentreGestion());
-							getSessionController().setDroitsEvaluationMap(droitsEvaluationMap);
+					
+					if (this.personnel.isDroitEvaluationEtudiant()){
+						Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
+						if(droitsEvaluationEtudiantMap!=null &&
+								!droitsEvaluationEtudiantMap.isEmpty() && 
+								droitsEvaluationEtudiantMap.containsKey(this.centre.getIdCentreGestion())){
+							droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
+							getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
+						}
+					}
+					if (this.personnel.isDroitEvaluationEnseignant()){
+						Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
+						if(droitsEvaluationEnseignantMap!=null &&
+								!droitsEvaluationEnseignantMap.isEmpty() && 
+								droitsEvaluationEnseignantMap.containsKey(this.centre.getIdCentreGestion())){
+							droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
+							getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
+						}
+					}
+					if (this.personnel.isDroitEvaluationEntreprise()){
+						Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
+						if(droitsEvaluationEntrepriseMap!=null &&
+								!droitsEvaluationEntrepriseMap.isEmpty() && 
+								droitsEvaluationEntrepriseMap.containsKey(this.centre.getIdCentreGestion())){
+							droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
+							getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEntrepriseMap);
 						}
 					}
 				}
@@ -2233,464 +2288,6 @@ public class CentreController extends AbstractContextAwareController {
 		}
 	}
 
-	/**
-	 * return
-	 */
-	public void exportFichesEtudiant() {
-		List<ReponseEvaluationDTO> reponses = getFicheEvaluationDomainService().getReponsesEvaluation(this.ficheEvaluation.getIdFicheEvaluation());
-
-		if (reponses != null && !reponses.isEmpty()){
-			HSSFWorkbook classeur = new HSSFWorkbook();
-			HSSFSheet sheet = classeur.createSheet("exportFichesEtudiant");
-
-			HSSFRow row = sheet.createRow(0);
-
-			List<String> header = new ArrayList<String>();
-
-			// Ajout des questions en fonction de leur utilisation ou non par le centre
-			if (this.ficheEvaluation.isQuestionEtuI1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.1"));
-			if (this.ficheEvaluation.isQuestionEtuI2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.2"));
-			if (this.ficheEvaluation.isQuestionEtuI3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.3"));
-			if (this.ficheEvaluation.isQuestionEtuI4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.4"));
-			if (this.ficheEvaluation.isQuestionEtuI5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.5"));
-			if (this.ficheEvaluation.isQuestionEtuI6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.6"));
-			if (this.ficheEvaluation.isQuestionEtuI7()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.7"));
-			if (this.ficheEvaluation.isQuestionEtuI8()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.8"));
-
-			if (this.ficheEvaluation.isQuestionEtuII1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.1"));
-			if (this.ficheEvaluation.isQuestionEtuII2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.2"));
-			if (this.ficheEvaluation.isQuestionEtuII3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.3"));
-			if (this.ficheEvaluation.isQuestionEtuII4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.4"));
-			if (this.ficheEvaluation.isQuestionEtuII5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.5"));
-			if (this.ficheEvaluation.isQuestionEtuII6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.6"));
-
-			if (this.ficheEvaluation.isQuestionEtuIII1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1"));
-			if (this.ficheEvaluation.isQuestionEtuIII2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.2"));
-			if (this.ficheEvaluation.isQuestionEtuIII3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3"));
-			if (this.ficheEvaluation.isQuestionEtuIII4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.4"));
-			if (this.ficheEvaluation.isQuestionEtuIII5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.5"));
-			if (this.ficheEvaluation.isQuestionEtuIII6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.6"));
-			if (this.ficheEvaluation.isQuestionEtuIII7()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.7"));
-			if (this.ficheEvaluation.isQuestionEtuIII8()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.8"));
-			if (this.ficheEvaluation.isQuestionEtuIII9()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.9"));
-			if (this.ficheEvaluation.isQuestionEtuIII10()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.10"));
-			if (this.ficheEvaluation.isQuestionEtuIII11()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.11"));
-			if (this.ficheEvaluation.isQuestionEtuIII12()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.12"));
-			if (this.ficheEvaluation.isQuestionEtuIII13()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13"));
-			if (this.ficheEvaluation.isQuestionEtuIII14()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.14"));
-			if (this.ficheEvaluation.isQuestionEtuIII15()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.15"));
-			if (this.ficheEvaluation.isQuestionEtuIII16()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.16"));
-
-			// Creation des cellules Header
-			for(int i=0;i<header.size();i++){
-				row.createCell(i).setCellValue(header.get(i));
-			}
-
-			ReponseEvaluationDTO reponseTmp;
-			// Remplissage avec les reponses
-			for (int i=0;i<reponses.size();i++) {
-				reponseTmp = reponses.get(i);
-
-				row = sheet.createRow(i+1);
-				int cpt=0;
-				String reponse = "";
-				
-				if (this.ficheEvaluation.isQuestionEtuI1()){
-					reponse = "";
-					switch (reponseTmp.getReponseEtuI1()) {
-					case 1 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.1");
-						break;
-					case 2 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.2");
-						break;
-					case 3 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.3");
-						break;
-					default:
-						break;
-					}
-					row.createCell(cpt).setCellValue(reponse);
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEtuI2()){
-					reponse = "";
-					switch (reponseTmp.getReponseEtuI2()) {
-					case 1 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.1");
-						break;
-					case 2 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.2");
-						break;
-					case 3 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.3");
-						break;
-					case 4 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.4");
-						break;
-					case 5 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.5");
-						break;
-					default:
-						break;
-					}
-					row.createCell(cpt).setCellValue(reponse);
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEtuI3()){
-					reponse = "";
-					switch (reponseTmp.getReponseEtuI3()) {
-					case 1 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.1");
-						break;
-					case 2 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.2");
-						break;
-					case 3 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.3");
-						break;
-					case 4 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.4");
-						break;
-					default:
-						break;
-					}
-					row.createCell(cpt).setCellValue(reponse);
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEtuI4()){
-					reponse = "";
-					if (reponseTmp.isReponseEtuI4a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
-					if (reponseTmp.isReponseEtuI4b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
-					if (reponseTmp.isReponseEtuI4c()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.COURRIER"));
-					if (reponseTmp.isReponseEtuI4d()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.PROSPECTION"));
-					if (reponse == ""){
-						reponse = "NÉANT";
-					}
-					row.createCell(cpt).setCellValue(reponse);
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEtuI5()){
-					row.createCell(cpt).setCellValue(getNomenclatureDomainService().getOrigineStageDTOFromId(reponseTmp.getReponseEtuI5()).getLibelle());
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEtuI6()){
-					reponse = "";
-					switch (reponseTmp.getReponseEtuI6()) {
-					case 1 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.1");
-						break;
-					case 2 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.2");
-						break;
-					case 3 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.3");
-						break;
-					case 4 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.4");
-						break;
-					default:
-						break;
-					}
-					row.createCell(cpt).setCellValue(reponse);
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEtuI7()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuI7()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuI8()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuI8()); cpt++;
-
-				if (this.ficheEvaluation.isQuestionEtuII1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII1())); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuII2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII2())); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuII3()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII3())); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuII4()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII4())); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuII5()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuII5()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuII6()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuII6()); cpt++;
-
-				if (this.ficheEvaluation.isQuestionEtuIII1()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII1()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII2()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII2()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII3()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII3()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII4()){
-					reponse = "";
-					switch (reponseTmp.getReponseEtuIII4()) {
-					case 1 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.1");
-						break;
-					case 2 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.2");
-						break;
-					case 3 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.3");
-						break;
-					case 4 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.4");
-						break;
-					case 5 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.5");
-						break;
-					case 6 :
-						reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.6");
-						break;
-					default:
-						break;
-					}
-					row.createCell(cpt).setCellValue(reponse);
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEtuIII5()){
-					reponse="";
-					if (reponseTmp.isReponseEtuIII5a()) reponse+=getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.1");
-					if (reponseTmp.isReponseEtuIII5a()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.2"));
-					if (reponseTmp.isReponseEtuIII5a()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.3"));
-					if (reponse == ""){
-						reponse = "NÉANT";
-					}
-					row.createCell(cpt).setCellValue(reponse);
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEtuIII6()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII6())); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII7()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII7())); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII8()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII8()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII9()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII9()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII10()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII10()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII11()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII11()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII12()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII12()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII13()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII13()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII14()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII14()); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII15()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII15())); cpt++;
-				if (this.ficheEvaluation.isQuestionEtuIII16())  row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuIII16()));
-
-				try {
-					ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
-
-					classeur.write(baosXLS);
-
-					ExportConventionsServlet edit = new ExportConventionsServlet();
-					edit.doGet(baosXLS);
-				} catch (Exception e){
-					logger.error("exportFichesEtudiant() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
-				}
-			}
-		}
-	}
-
-	/**
-	 * return
-	 */
-	public void exportFichesEnseignant() {
-		List<ReponseEvaluationDTO> reponses = getFicheEvaluationDomainService().getReponsesEvaluation(this.ficheEvaluation.getIdFicheEvaluation());
-
-		if (reponses != null && !reponses.isEmpty()){
-			HSSFWorkbook classeur = new HSSFWorkbook();
-			HSSFSheet sheet = classeur.createSheet("exportFichesEtudiant");
-
-			HSSFRow row = sheet.createRow(0);
-
-			List<String> header = new ArrayList<String>();
-
-			// Ajout des questions en fonction de leur utilisation ou non par le centre
-			if (this.ficheEvaluation.isQuestionEnsI1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.1"));
-			if (this.ficheEvaluation.isQuestionEnsI2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.2"));
-			if (this.ficheEvaluation.isQuestionEnsI3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.3"));
-
-			if (this.ficheEvaluation.isQuestionEnsII1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.1"));
-			if (this.ficheEvaluation.isQuestionEnsII2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.2"));
-			if (this.ficheEvaluation.isQuestionEnsII3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.3"));
-			if (this.ficheEvaluation.isQuestionEnsII4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.4"));
-			if (this.ficheEvaluation.isQuestionEnsII5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.5"));
-			if (this.ficheEvaluation.isQuestionEnsII6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.6"));
-			if (this.ficheEvaluation.isQuestionEnsII7()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.7"));
-			if (this.ficheEvaluation.isQuestionEnsII8()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.8"));
-			if (this.ficheEvaluation.isQuestionEnsII9()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.9"));
-			if (this.ficheEvaluation.isQuestionEnsII10()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.10"));
-			if (this.ficheEvaluation.isQuestionEnsII11()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.11"));
-
-			// Creation des cellules Header
-			for(int i=0;i<header.size();i++){
-				row.createCell(i).setCellValue(header.get(i));
-			}
-
-			ReponseEvaluationDTO reponseTmp;
-			// Remplissage avec les reponses
-			for (int i=0;i<reponses.size();i++) {
-				reponseTmp = reponses.get(i);
-
-				row = sheet.createRow(i+1);
-				int cpt=0;
-				String reponse = "";
-
-				if (this.ficheEvaluation.isQuestionEnsI1()){
-					reponse = "";
-					if (reponseTmp.isReponseEnsI1a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE");
-					if (reponseTmp.isReponseEnsI1b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
-					if (reponseTmp.isReponseEnsI1c()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
-					
-					if (reponse == ""){
-						reponse = "NÉANT";
-					}
-					row.createCell(cpt).setCellValue(reponse);
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEnsI2()){
-					reponse = "";
-					if (reponseTmp.isReponseEnsI2a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE");
-					if (reponseTmp.isReponseEnsI2b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
-					if (reponseTmp.isReponseEnsI2c()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
-
-					if (reponse == ""){
-						reponse = "NÉANT";
-					}
-					row.createCell(cpt).setCellValue(reponse);
-					cpt++;
-				}
-				if (this.ficheEvaluation.isQuestionEnsI3()) row.createCell(cpt).setCellValue(reponseTmp.getReponseEnsI3()); cpt++;
-
-				if (this.ficheEvaluation.isQuestionEnsII1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII1())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII2())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII3()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII3())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII4()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII4())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII5()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII5())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII6()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII6())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII7()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII7())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII8()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII8())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII9()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII9())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII10()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnsII10())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnsII11()) row.createCell(cpt).setCellValue(reponseTmp.getReponseEnsII11());
-
-				try {
-					ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
-
-					classeur.write(baosXLS);
-
-					ExportConventionsServlet edit = new ExportConventionsServlet();
-					edit.doGet(baosXLS);
-				} catch (Exception e){
-					logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
-				}
-			}
-		}
-	}
-
-	/**
-	 * return
-	 */
-	public void exportFichesEntreprise() {
-		List<ReponseEvaluationDTO> reponses = getFicheEvaluationDomainService().getReponsesEvaluation(this.ficheEvaluation.getIdFicheEvaluation());
-
-		if (reponses != null && !reponses.isEmpty()){
-			HSSFWorkbook classeur = new HSSFWorkbook();
-			HSSFSheet sheet = classeur.createSheet("exportFichesEtudiant");
-
-			HSSFRow row = sheet.createRow(0);
-
-			List<String> header = new ArrayList<String>();
-
-			// Ajout des questions en fonction de leur utilisation ou non par le centre
-			if (this.ficheEvaluation.isQuestionEnt1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.1"));
-			if (this.ficheEvaluation.isQuestionEnt2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.2"));
-			if (this.ficheEvaluation.isQuestionEnt3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.3"));
-			if (this.ficheEvaluation.isQuestionEnt4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.4"));
-			if (this.ficheEvaluation.isQuestionEnt5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.5"));
-			if (this.ficheEvaluation.isQuestionEnt6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.6"));
-			if (this.ficheEvaluation.isQuestionEnt7()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.7"));
-			if (this.ficheEvaluation.isQuestionEnt8()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.8"));
-			if (this.ficheEvaluation.isQuestionEnt9()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.9"));
-//			if (this.ficheEvaluation.isQuestionEnt10()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.10"));
-			if (this.ficheEvaluation.isQuestionEnt11()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.11"));
-			if (this.ficheEvaluation.isQuestionEnt12()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.12"));
-			if (this.ficheEvaluation.isQuestionEnt13()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.13"));
-			if (this.ficheEvaluation.isQuestionEnt14()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.14"));
-			if (this.ficheEvaluation.isQuestionEnt15()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.15"));
-			if (this.ficheEvaluation.isQuestionEnt16()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.16"));
-			if (this.ficheEvaluation.isQuestionEnt17()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.17"));
-			if (this.ficheEvaluation.isQuestionEnt18()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.18"));
-			if (this.ficheEvaluation.isQuestionEnt19()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.19"));
-
-			// Creation des cellules Header
-			for(int i=0;i<header.size();i++){
-				row.createCell(i).setCellValue(header.get(i));
-			}
-
-			ReponseEvaluationDTO reponseTmp;
-			// Remplissage avec les reponses
-			for (int i=0;i<reponses.size();i++) {
-				reponseTmp = reponses.get(i);
-
-				row = sheet.createRow(i+1);
-				int cpt=0;
-
-				if (this.ficheEvaluation.isQuestionEnt1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt1())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt2())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt3()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt3())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt4()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt4())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt5()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt5())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt6()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt6())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt7()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt7())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt8()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt8())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt9()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt9())); cpt++;
-//				if (this.ficheEvaluation.isQuestionEnt10()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt10())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt11()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt11())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt12()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt12())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt13()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt13())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt14()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt14())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt15()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt15())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt16()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt16())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt17()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt17())); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt18()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEnt18()); cpt++;
-				if (this.ficheEvaluation.isQuestionEnt19()) row.createCell(cpt).setCellValue(reponseTmp.getReponseEnt19());
-
-				try {
-					ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
-
-					classeur.write(baosXLS);
-
-					ExportConventionsServlet edit = new ExportConventionsServlet();
-					edit.doGet(baosXLS);
-				} catch (Exception e){
-					logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
-				}
-			}
-		}
-	}
-
-	/**
-	 * @param idNotation
-	 * @return
-	 */
-	private String recupLibelleNotation(int idNotation){
-		switch (idNotation) {
-		case 1:
-			return getString("CENTRE.FICHE_EVALUATION.NOTATION.1");
-		case 2:
-			return getString("CENTRE.FICHE_EVALUATION.NOTATION.2");
-		case 3:
-			return getString("CENTRE.FICHE_EVALUATION.NOTATION.3");
-		case 4:
-			return getString("CENTRE.FICHE_EVALUATION.NOTATION.4");
-		case 5:
-			return getString("CENTRE.FICHE_EVALUATION.NOTATION.5");
-		default:
-			return null;
-		}
-	}
-	/**
-	 * @param idAvis
-	 * @return
-	 */
-	private String recupLibelleAvis(int idAvis){
-		switch (idAvis) {
-		case 1:
-			return getString("CENTRE.FICHE_EVALUATION.AVIS.1");
-		case 2:
-			return getString("CENTRE.FICHE_EVALUATION.AVIS.2");
-		case 3:
-			return getString("CENTRE.FICHE_EVALUATION.AVIS.3");
-		case 4:
-			return getString("CENTRE.FICHE_EVALUATION.AVIS.4");
-		case 5:
-			return getString("CENTRE.FICHE_EVALUATION.AVIS.5");
-		default:
-			return null;
-		}
-	}
 	/* ***************************************************************
 	 * Getters / Setters
 	 *****************************************************************/

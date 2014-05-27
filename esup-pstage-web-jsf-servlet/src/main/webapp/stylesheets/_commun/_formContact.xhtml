@@ -100,10 +100,10 @@
 				<h:inputText id="faxC" size="20" maxlength="20"
 					value="#{etablissementController.formContact.fax}" />
 				
-				<h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} " />
+				<h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
 				<h:inputText id="mailC"
 					value="#{etablissementController.formContact.mail}" size="50"
-					maxlength="50"
+					maxlength="50" required="true"
 					validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 					<f:validator binding="#{mailValidator}" />
 					<a4j:ajax event="blur"/>
