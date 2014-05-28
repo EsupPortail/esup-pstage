@@ -226,7 +226,13 @@
 
 			<!-- Menu evaluation -->
 			<t:htmlTag value="li"
-				rendered="#{sessionController.utilisationStage}">
+				rendered="#{sessionController.utilisationStage
+				and (welcomeController.superAdmin 
+						|| not empty sessionController.droitsEvaluationEtudiantMap
+						|| not empty sessionController.droitsEvaluationEnseignantMap
+						|| not empty sessionController.droitsEvaluationEntrepriseMap
+						|| welcomeController.enseignantTuteur
+						|| welcomeController.etudiant)}">
 				<h:commandLink action="menuIE">
 					<h:outputText value="#{msgs['MENUSTAGE.EVALUATION']}"
 						styleClass="menuTitre" />

@@ -14,7 +14,18 @@
 				</h:outputFormat>
 			</f:facet>
 			<h:form id="formAccueilFiche">
-				<fieldset style="width: 600px;">
+				<t:fieldset style="width: 400px;"
+					rendered="#{!conventionController.convention.validationConvention}">
+					<h:panelGrid style="padding:20px;" columns="2">
+						<h:graphicImage style="padding:5px;" value="../../media/images/warn.png"
+							alt="#{msgs['GENERAL.WARNING']}"
+							title="#{msgs['GENERAL.WARNING']}" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CONVENTION.ETAPE13.INVALIDE']}" />
+					</h:panelGrid>
+				</t:fieldset>
+				<t:fieldset style="width: 600px;"
+					rendered="#{conventionController.convention.validationConvention}">
 					<t:div
 						rendered="#{welcomeController.etudiant || welcomeController.superAdmin 
 						|| sessionController.droitsEvaluationEtudiantMap[conventionController.convention.idCentreGestion]}">
@@ -214,7 +225,16 @@
 											<f:setPropertyActionListener
 												target="#{conventionController.typeMailEval}" value="1" />
 										</a4j:commandButton>
-
+										<a4j:commandButton
+											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
+											action="#{conventionController.envoiMailEnseignant}"
+											rendered="#{conventionController.convention.envoiMailEnseignant
+											and !conventionController.convention.reponseEvaluation.validationEnseignant}"
+											render="panelMailEnseignant">
+											<f:setPropertyActionListener
+												target="#{conventionController.typeMailEval}" value="2" />
+										</a4j:commandButton>
+										
 										<h:panelGrid align="center">
 											<rich:message for="panelMailEnseignant" />
 										</h:panelGrid>
@@ -281,8 +301,8 @@
 									value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
 									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap}"
 									action="#{conventionController.goToFicheEntreprise}" />
-								<t:htmlTag value="div" style="width:10px; display:inline;" 
-									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap}"/>
+								<t:htmlTag value="div" style="width:10px; display:inline;"
+									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap}" />
 								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
 									action="#{conventionController.editPdfFicheEntreprise}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" />
@@ -345,7 +365,7 @@
 							</t:htmlTag>
 						</h:panelGrid>
 					</t:div>
-				</fieldset>
+				</t:fieldset>
 				<t:htmlTag value="div" style="height: 50px;" />
 				<h:commandButton
 					value="#{msgs['RECHERCHEOFFRE.RETOURAUXRESULTATS']}"

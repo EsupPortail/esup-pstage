@@ -4587,10 +4587,18 @@ public class ConventionController extends AbstractContextAwareController {
 			addErrorMessage("formAccueilFiche:panelMailEnseignant", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ETUDIANT",this.convention.getIdConvention());
 		}
 		try {
+			String contenu = "";
+			if (this.typeMailEval == 1){
+				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",libelleEtu,
+						getSessionController().getApplicationNamePStage());
+			} else if (this.typeMailEval == 2){
+				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",libelleEtu,
+						getSessionController().getApplicationNamePStage());
+			}
+			
 			getSmtpService().send(new InternetAddress(adresseTuteurPedago),
 					getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
-					getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",libelleEtu,
-							getSessionController().getApplicationNamePStage()),
+					contenu,
 					"");
 			// On indique en base que le mail a ete envoye
 			this.convention.setEnvoiMailTuteurPedago(true);
@@ -4861,8 +4869,15 @@ public class ConventionController extends AbstractContextAwareController {
 			return;
 		}
 
+		String libelleEtu = "";
+		if (this.convention.getEtudiant() != null){
+			libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
+		} else {
+			addErrorMessage("formAccueilFiche:panelMailEntreprise", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ETUDIANT",this.convention.getIdConvention());
+			return;
+		}
+		
 		try{
-			String libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
 			String contenu = "";
 			if (this.typeMailEval == 1){
 				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENTREPRISE",libelleEtu,
@@ -4962,7 +4977,7 @@ public class ConventionController extends AbstractContextAwareController {
 		this.critereRechercheConvention.setPrenomEnseignant(null);
 		this.critereRechercheConvention.setTypeStructure(null);
 		this.critereRechercheConvention.setStatutJuridique(null);
-		this.critereRechercheConvention.setEstValidee(null);
+		this.critereRechercheConvention.setEstValidee(true);
 		this.critereRechercheConvention.setEstVerifiee(null);
 
 		// On ne recherche que pour le centre selectionne dans le menu deroulant
@@ -5070,7 +5085,6 @@ public class ConventionController extends AbstractContextAwareController {
 
 			}
 		}
-
 		return ret;
 	}
 
@@ -5150,72 +5164,83 @@ public class ConventionController extends AbstractContextAwareController {
 		switch (this.typeDestMailEval) {
 		case 1:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
-				this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
-				if ((this.convention.getReponseEvaluation() == null || !this.convention.getReponseEvaluation().isValidationEtudiant())
-						&& ((!this.convention.isEnvoiMailEtudiant() && this.typeMailEval == 1)
-								|| (this.convention.isEnvoiMailEtudiant() && this.typeMailEval == 2))){
-					if (this.convention.getIdEtudiant() > 0) {
-						EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
-						if (etudiantTmp != null) {
-							this.convention.setEtudiant(etudiantTmp);
+				if (conventionTmp.isValidationConvention() && conventionTmp.getFicheEvaluation().isValidationEtudiant()){
+					this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
+					if ((this.convention.getReponseEvaluation() == null || !this.convention.getReponseEvaluation().isValidationEtudiant())
+							&& ((!this.convention.isEnvoiMailEtudiant() && this.typeMailEval == 1)
+									|| (this.convention.isEnvoiMailEtudiant() && this.typeMailEval == 2))){
+						if (this.convention.getIdEtudiant() > 0) {
+							EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
+							if (etudiantTmp != null) {
+								this.convention.setEtudiant(etudiantTmp);
+							}
 						}
-					}
-					this.envoiMailEtudiant();
-					try {
-						Thread.sleep(300);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+						this.envoiMailEtudiant();
+						try {
+							Thread.sleep(300);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
 			break;
 		case 2:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
-				this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
-				if ((this.convention.getReponseEvaluation() == null || !this.convention.getReponseEvaluation().isValidationEnseignant())
-						&& ((!this.convention.isEnvoiMailTuteurPedago()&& this.typeMailEval == 1)
-								|| (this.convention.isEnvoiMailTuteurPedago() && this.typeMailEval == 2))){
-					if (this.convention.getIdEnseignant() > 0 ) {
-						EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
-						if (enseignantTmp != null) {
-							this.convention.setEnseignant(enseignantTmp);
+				if (conventionTmp.isValidationConvention() && conventionTmp.getFicheEvaluation().isValidationEnseignant()){
+					this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
+					if ((this.convention.getReponseEvaluation() == null || !this.convention.getReponseEvaluation().isValidationEnseignant())
+							&& ((!this.convention.isEnvoiMailTuteurPedago()&& this.typeMailEval == 1)
+									|| (this.convention.isEnvoiMailTuteurPedago() && this.typeMailEval == 2))){
+						if (this.convention.getIdEnseignant() > 0 ) {
+							EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
+							if (enseignantTmp != null) {
+								this.convention.setEnseignant(enseignantTmp);
+							}
 						}
-					}
-					if (this.convention.getIdEtudiant() > 0) {
-						EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
-						if (etudiantTmp != null) {
-							this.convention.setEtudiant(etudiantTmp);
+						if (this.convention.getIdEtudiant() > 0) {
+							EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
+							if (etudiantTmp != null) {
+								this.convention.setEtudiant(etudiantTmp);
+							}
 						}
-					}
-					this.envoiMailEnseignant();
-					try {
-						Thread.sleep(300);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+						this.envoiMailEnseignant();
+						try {
+							Thread.sleep(300);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
 			break;
 		case 3:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
-				this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
-				// On verifie que la fiche n'est pas deja saisie et qu'on envoie un 1er mail ou un mail de rappel
-				if ((this.convention.getReponseEvaluation() == null || !this.convention.getReponseEvaluation().isValidationEntreprise())
-						&& ((!this.convention.isEnvoiMailTuteurPro() && this.typeMailEval == 1)
-								|| (this.convention.isEnvoiMailTuteurPro() && this.typeMailEval == 2))){
-					if (this.convention.getIdContact() > 0) {
-						ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(this.convention.getIdContact());
-						if (contactTmp != null) {
-							this.convention.setContact(contactTmp);
-							this.etablissementController.reloadContacts();
-							this.etablissementController.setIdContactSel(contactTmp.getId());
+				System.out.println("tmp " + conventionTmp.getFicheEvaluation());
+				if (conventionTmp.isValidationConvention() && conventionTmp.getFicheEvaluation().isValidationEntreprise()){
+					this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
+					// On verifie que la fiche n'est pas deja saisie et qu'on envoie un 1er mail ou un mail de rappel
+					if ((this.convention.getReponseEvaluation() == null || !this.convention.getReponseEvaluation().isValidationEntreprise())
+							&& ((!this.convention.isEnvoiMailTuteurPro() && this.typeMailEval == 1)
+									|| (this.convention.isEnvoiMailTuteurPro() && this.typeMailEval == 2))){
+						if (this.convention.getIdContact() > 0) {
+							ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(this.convention.getIdContact());
+							if (contactTmp != null) {
+								this.convention.setContact(contactTmp);
+							}
 						}
-					}
-					this.envoiMailEntreprise();
-					try {
-						Thread.sleep(300);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+						if (this.convention.getIdEtudiant() > 0) {
+							EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
+							if (etudiantTmp != null) {
+								this.convention.setEtudiant(etudiantTmp);
+							}
+						}
+						this.envoiMailEntreprise();
+						try {
+							Thread.sleep(300);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
