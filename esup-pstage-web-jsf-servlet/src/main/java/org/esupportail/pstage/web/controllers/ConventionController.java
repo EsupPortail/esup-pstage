@@ -2407,6 +2407,36 @@ public class ConventionController extends AbstractContextAwareController {
 						this.convention.setSignataire(signataireTmp);
 					}
 				}
+				
+
+				// Ajout de la vérification de modification de tuteur pro ou pedago via avenant et remplacement le cas échéant
+				System.out.println("TESSTESTEST recap : " + this.currentConvention.getNbAvenant());
+				if (this.currentConvention.getNbAvenant()>0){
+					List<AvenantDTO> listeAvenants = getAvenantDomainService().getAvenant(conventionTmp.getIdConvention());
+					for (AvenantDTO avenant : listeAvenants){
+						if (avenant.isModificationEnseignant()){
+							EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(avenant.getIdEnseignant());
+							if (enseignantTmp != null) {
+								if (StringUtils.hasText(enseignantTmp.getCodeAffectation())) {
+									AffectationDTO affecDTO = rechAffec(enseignantTmp.getCodeAffectation());
+									if (affecDTO != null) {
+										enseignantTmp.setAffectation(affecDTO);
+									}
+								}
+								enseignantTmp.setCivilite(getNomenclatureDomainService().getCiviliteFromId(enseignantTmp.getIdCivilite()));
+								this.convention.setEnseignant(enseignantTmp);
+							}
+						}
+						if (avenant.isModificationSalarie()){
+							ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(avenant.getIdContact());
+							if (contactTmp != null) {
+								this.convention.setContact(contactTmp);
+								this.etablissementController.reloadContacts();
+								this.etablissementController.setIdContactSel(contactTmp.getId());
+							}
+						}
+					}
+				}
 			}
 			sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape13;
 			retour = "conventionEtape8Recap";
@@ -2479,6 +2509,7 @@ public class ConventionController extends AbstractContextAwareController {
 						getSessionController().setCentreGestionRattachement(centreGestionTmp);
 					}
 				}
+
 				if (conventionTmp.getIdEnseignant() > 0 ) {
 					EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(conventionTmp.getIdEnseignant());
 					if (enseignantTmp != null) {
@@ -2524,6 +2555,34 @@ public class ConventionController extends AbstractContextAwareController {
 					ContactDTO signataireTmp = this.getStructureDomainService().getContactFromId(conventionTmp.getIdSignataire());
 					if (signataireTmp != null) {
 						this.convention.setSignataire(signataireTmp);
+					}
+				}
+				
+				// Ajout de la vérification de modification de tuteur pro ou pedago via avenant et remplacement le cas échéant
+				if (this.currentConvention.getNbAvenant()>0){
+					List<AvenantDTO> listeAvenants = getAvenantDomainService().getAvenant(conventionTmp.getIdConvention());
+					for (AvenantDTO avenant : listeAvenants){
+						if (avenant.isModificationEnseignant()){
+							EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(avenant.getIdEnseignant());
+							if (enseignantTmp != null) {
+								if (StringUtils.hasText(enseignantTmp.getCodeAffectation())) {
+									AffectationDTO affecDTO = rechAffec(enseignantTmp.getCodeAffectation());
+									if (affecDTO != null) {
+										enseignantTmp.setAffectation(affecDTO);
+									}
+								}
+								enseignantTmp.setCivilite(getNomenclatureDomainService().getCiviliteFromId(enseignantTmp.getIdCivilite()));
+								this.convention.setEnseignant(enseignantTmp);
+							}
+						}
+						if (avenant.isModificationSalarie()){
+							ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(avenant.getIdContact());
+							if (contactTmp != null) {
+								this.convention.setContact(contactTmp);
+								this.etablissementController.reloadContacts();
+								this.etablissementController.setIdContactSel(contactTmp.getId());
+							}
+						}
 					}
 				}
 			}
@@ -4360,25 +4419,29 @@ public class ConventionController extends AbstractContextAwareController {
 	public void envoiMailEtudiant(){
 		String adresseEtudiant = "";
 		String nomEtu = "";
-		if (this.convention.getEtudiant() != null){
-			adresseEtudiant = this.convention.getEtudiant().getMail();
+		if (this.convention.getEtudiant() != null && this.convention.getEtudiant().getMail() != null 
+				&& !this.convention.getEtudiant().getMail().isEmpty()){
 			nomEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
+			adresseEtudiant = this.convention.getEtudiant().getMail();
 		} else {
 			addErrorMessage("formAccueilFiche:panelMailEtudiant", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ETUDIANT",this.convention.getIdConvention());
 			return;
 		}
 		try{
 			String contenu = "";
+			String sujet = "";
 			if (this.typeMailEval == 1){
+				sujet = getSessionController().getApplicationNamePStage()+" - Evaluation de votre stage pour la convention n°"+this.convention.getIdConvention();
 				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ETUDIANT",this.convention.getIdConvention(),
 						getSessionController().getApplicationNamePStage());
 			} else if (this.typeMailEval == 2){
+				sujet = getSessionController().getApplicationNamePStage()+" - Rappel concernant l'évaluation de votre stage pour la convention n°"+this.convention.getIdConvention();
 				contenu = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT",this.convention.getIdConvention(),
 						getSessionController().getApplicationNamePStage());
 			}
 
 			getSmtpService().send(new InternetAddress(adresseEtudiant),
-					getSessionController().getApplicationNamePStage()+" - Evaluation de votre stage pour la convention n°"+this.convention.getIdConvention(),
+					sujet,
 					contenu,
 					"");
 			// On indique en base et pour l'affichage que le mail a ete envoye
@@ -4393,7 +4456,7 @@ public class ConventionController extends AbstractContextAwareController {
 			if (logger.isDebugEnabled()){
 				e.printStackTrace();
 			}
-			addErrorMessage("formAccueilFiche:panelMailEtudiant", "CONVENTION.ETAPE13.MAIL.ERREUR_ETUDIANT",adresseEtudiant,nomEtu);
+			addErrorMessage("formAccueilFiche:panelMailEtudiant", "CONVENTION.ETAPE13.MAIL.ERREUR_ETUDIANT",adresseEtudiant,nomEtu,this.convention.getIdConvention());
 		}
 	}
 
@@ -4574,30 +4637,36 @@ public class ConventionController extends AbstractContextAwareController {
 		String adresseTuteurPedago = "";
 		String nomTuteur = "";
 		String libelleEtu = "";
-		if (this.convention.getEnseignant() != null){
-			adresseTuteurPedago = this.convention.getEnseignant().getMail();
+		if (this.convention.getEnseignant() != null && this.convention.getEnseignant().getMail()!=null
+				&& !this.convention.getEnseignant().getMail().isEmpty()){
 			nomTuteur = this.convention.getEnseignant().getPrenom() + " " + this.convention.getEnseignant().getNom();
+			adresseTuteurPedago = this.convention.getEnseignant().getMail();
 		} else {
 			addErrorMessage("formAccueilFiche:panelMailEnseignant", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ENSEIGNANT",this.convention.getIdConvention());
 			return;
 		}
+
 		if (this.convention.getEtudiant() != null){
 			libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
-		} else {
-			addErrorMessage("formAccueilFiche:panelMailEnseignant", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ETUDIANT",this.convention.getIdConvention());
 		}
+
 		try {
 			String contenu = "";
+			String sujet = "";
 			if (this.typeMailEval == 1){
+				sujet=getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu;
 				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",libelleEtu,
+						this.convention.getIdConvention(),
 						getSessionController().getApplicationNamePStage());
 			} else if (this.typeMailEval == 2){
-				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",libelleEtu,
+				sujet=getSessionController().getApplicationNamePStage()+" - Rappel concernant l'évaluation du stage de "+libelleEtu;
+				contenu = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENSEIGNANT",libelleEtu,
+						this.convention.getIdConvention(),
 						getSessionController().getApplicationNamePStage());
 			}
-			
+
 			getSmtpService().send(new InternetAddress(adresseTuteurPedago),
-					getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
+					sujet,
 					contenu,
 					"");
 			// On indique en base que le mail a ete envoye
@@ -4606,12 +4675,13 @@ public class ConventionController extends AbstractContextAwareController {
 			getFicheEvaluationDomainService().setEnvoiMailEnseignant(this.convention.getIdConvention());
 			this.resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setEnvoiMailTuteurPedago(true);
 			this.resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setDateEnvoiMailTuteurPedago(new Date());
-			addInfoMessage("formAccueilFiche:panelMailTuteurEnseignant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPedago,this.convention.getIdConvention());
+			addInfoMessage("formAccueilFiche:panelMailEnseignant","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPedago,this.convention.getIdConvention());
+			this.reloadRechercheConventionPaginator();
 		} catch (AddressException e) {
 			if (logger.isDebugEnabled()){
 				e.printStackTrace();
 			}
-			addErrorMessage("formAccueilFiche:panelMailEnseignant", "CONVENTION.ETAPE13.MAIL.ERREUR_ENSEIGNANT",adresseTuteurPedago,nomTuteur);
+			addErrorMessage("formAccueilFiche:panelMailEnseignant", "CONVENTION.ETAPE13.MAIL.ERREUR_ENSEIGNANT",adresseTuteurPedago,nomTuteur,this.convention.getIdConvention());
 		}
 	}	
 
@@ -4861,9 +4931,10 @@ public class ConventionController extends AbstractContextAwareController {
 
 		String adresseTuteurPro = "";
 		String nomTuteurPro ="";
-		if (this.convention.getContact() != null){
-			adresseTuteurPro = this.convention.getContact().getMail();
+		if (this.convention.getContact() != null && this.convention.getContact().getMail() != null
+				&& !this.convention.getContact().getMail().isEmpty()){
 			nomTuteurPro = this.convention.getContact().getPrenom() + " " + this.convention.getContact().getNom();
+			adresseTuteurPro = this.convention.getContact().getMail();
 		} else {
 			addErrorMessage("formAccueilFiche:panelMailEntreprise", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ENTREPRISE",this.convention.getIdConvention());
 			return;
@@ -4872,24 +4943,24 @@ public class ConventionController extends AbstractContextAwareController {
 		String libelleEtu = "";
 		if (this.convention.getEtudiant() != null){
 			libelleEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
-		} else {
-			addErrorMessage("formAccueilFiche:panelMailEntreprise", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ETUDIANT",this.convention.getIdConvention());
-			return;
 		}
-		
+
 		try{
 			String contenu = "";
+			String sujet = "";
 			if (this.typeMailEval == 1){
+				sujet = getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu;
 				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENTREPRISE",libelleEtu,
 						url,
 						getSessionController().getApplicationNamePStage());
 			} else if (this.typeMailEval == 2){
+				sujet = getSessionController().getApplicationNamePStage()+" - Rappel concernant l'évaluation du stage de "+libelleEtu;
 				contenu = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENTREPRISE",libelleEtu,
 						url,
 						getSessionController().getApplicationNamePStage());
 			}
 			getSmtpService().send(new InternetAddress(adresseTuteurPro),
-					getSessionController().getApplicationNamePStage()+" - Evaluation du stage de "+libelleEtu,
+					sujet,
 					contenu,
 					"");
 			// On indique en base que le mail a ete envoye
@@ -4899,11 +4970,18 @@ public class ConventionController extends AbstractContextAwareController {
 			this.resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setEnvoiMailTuteurPro(true);
 			this.resultatsRechercheConvention.get(resultatsRechercheConvention.indexOf(this.convention)).setDateEnvoiMailTuteurPro(new Date());
 			addInfoMessage("formAccueilFiche:panelMailTuteurPro","CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",adresseTuteurPro,this.convention.getIdConvention());
+			this.reloadRechercheConventionPaginator();
+			// Si l'entreprise avait validé sa fiche et a fait la demande de pouvoir la remodifier, l'envoi du rappel l'invalide automatiquement
+			if (this.convention.getReponseEvaluation() != null && this.convention.getReponseEvaluation().isValidationEntreprise()){
+				System.out.println("reponse : " + this.convention.getReponseEvaluation());
+				this.convention.getReponseEvaluation().setValidationEntreprise(false);
+				getFicheEvaluationDomainService().updateReponseEvaluationEntreprise(this.convention.getReponseEvaluation());
+			}
 		} catch (AddressException e) {
 			if (logger.isDebugEnabled()){
 				e.printStackTrace();
 			}
-			addErrorMessage("formAccueilFiche:panelMailEntreprise", "CONVENTION.ETAPE13.MAIL.ERREUR_ENTREPRISE",adresseTuteurPro,nomTuteurPro);
+			addErrorMessage("formAccueilFiche:panelMailEntreprise", "CONVENTION.ETAPE13.MAIL.ERREUR_ENTREPRISE",adresseTuteurPro,nomTuteurPro,this.convention.getIdConvention());
 		}
 	}
 
@@ -5216,7 +5294,6 @@ public class ConventionController extends AbstractContextAwareController {
 			break;
 		case 3:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator.getListe()){
-				System.out.println("tmp " + conventionTmp.getFicheEvaluation());
 				if (conventionTmp.isValidationConvention() && conventionTmp.getFicheEvaluation().isValidationEntreprise()){
 					this.convention = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
 					// On verifie que la fiche n'est pas deja saisie et qu'on envoie un 1er mail ou un mail de rappel
@@ -5262,6 +5339,49 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
+	 * Envoi d'un mail de demande de debloquage de la saisie pour le tuteur pro
+	 */
+	public void envoiDemandeInvalidation(){
+		String nomContact = "";
+		String nomEtu = "";
+
+		if (this.convention.getIdEtudiant() > 0) {
+			EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
+			if (etudiantTmp != null) {
+				nomEtu = etudiantTmp.getPrenom()+" "+etudiantTmp.getNom();
+			} else {
+				addErrorMessage(null, "CONVENTION.ETAPE13.MAIL.INEXISTANT_ETUDIANT",this.convention.getIdConvention());
+				return;
+			}
+		}
+
+		if (this.convention.getIdContact() > 0) {
+			ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(this.convention.getIdContact());
+			if (contactTmp != null) {
+				nomContact = contactTmp.getPrenom()+" "+contactTmp.getNom();
+			} else {
+				addErrorMessage(null, "CONVENTION.ETAPE13.MAIL.INEXISTANT_ENTREPRISE",this.convention.getIdConvention());
+				return;
+			}
+		}
+
+		String sujet = getSessionController().getApplicationNamePStage()+" - Evaluation de votre stage pour la convention n°"+this.convention.getIdConvention();
+		String contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_DEMANDE_INVALIDATION",
+				nomContact,
+				nomEtu,
+				this.convention.getIdConvention(),
+				getSessionController().getApplicationNamePStage());
+
+		getSmtpService().send(getSessionController().getMailingListPStageIA(),
+				sujet,
+				contenu,
+				"");
+
+		addInfoMessage(null,"CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",getSessionController().getMailingListPStageIA(),this.convention.getIdConvention());
+
+	}
+
+	/**
 	 * return
 	 */
 	public void exportFichesEtudiant() {
@@ -5278,7 +5398,6 @@ public class ConventionController extends AbstractContextAwareController {
 			List<String> header = new ArrayList<String>();
 			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
 
-			header.add("id Fiche Evaluation");
 			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
 			// Ajout des questions en fonction de leur utilisation ou non par le centre
 			if (ficheEvaluation.isQuestionEtuI1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.1"));
@@ -5328,9 +5447,6 @@ public class ConventionController extends AbstractContextAwareController {
 					row = sheet.createRow(i+1);
 					int cpt=0;
 					String reponse = "";
-
-					row.createCell(cpt).setCellValue(ficheEvaluation.getIdFicheEvaluation());
-					cpt++;
 
 					row.createCell(cpt).setCellValue(listeExportEval.get(i).getIdConvention());
 					cpt++;
@@ -5538,7 +5654,6 @@ public class ConventionController extends AbstractContextAwareController {
 
 			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
 
-			header.add("id Fiche Evaluation");
 			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
 
 			// Ajout des questions en fonction de leur utilisation ou non par le centre
@@ -5572,10 +5687,6 @@ public class ConventionController extends AbstractContextAwareController {
 					row = sheet.createRow(i+1);
 					int cpt=0;
 					String reponse = "";
-
-
-					row.createCell(cpt).setCellValue(ficheEvaluation.getIdFicheEvaluation());
-					cpt++;
 
 					row.createCell(cpt).setCellValue(listeExportEval.get(i).getIdConvention());
 					cpt++;
@@ -5649,7 +5760,6 @@ public class ConventionController extends AbstractContextAwareController {
 			List<String> header = new ArrayList<String>();
 			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
 
-			header.add("id Fiche Evaluation");
 			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
 
 			// Ajout des questions en fonction de leur utilisation ou non par le centre
@@ -5686,9 +5796,6 @@ public class ConventionController extends AbstractContextAwareController {
 				if (reponseTmp != null && reponseTmp.isValidationEntreprise()){
 					row = sheet.createRow(i+1);
 					int cpt=0;
-
-					row.createCell(cpt).setCellValue(ficheEvaluation.getIdFicheEvaluation());
-					cpt++;
 
 					row.createCell(cpt).setCellValue(listeExportEval.get(i).getIdConvention());
 					cpt++;

@@ -403,9 +403,9 @@
 					<h:panelGrid columns="3" align="center">
 						<t:htmlTag value="center"
 							rendered="#{welcomeController.superAdmin
-							|| not empty sessionController.droitsEvaluationEtudiantMap
+							|| ((not empty sessionController.droitsEvaluationEtudiantMap
 							|| not empty sessionController.droitsEvaluationEnseignantMap
-							|| not empty sessionController.droitsEvaluationEntrepriseMap}">
+							|| not empty sessionController.droitsEvaluationEntrepriseMap) and (welcomeController.writer || welcomeController.admin))}">
 							<a4j:commandButton execute="@this"
 								style="font-size:16px; font-weight:bold; border-color:green;"
 								value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL']}"
@@ -416,7 +416,6 @@
 									target="#{sessionController.envoiMailEvalCurrentPage}" />
 							</a4j:commandButton>
 						</t:htmlTag>
-
 						
 						<h:panelGrid columns="3"
 							rendered="#{not empty conventionController.rechEvalIdCentre
@@ -443,7 +442,7 @@
 							<legend>
 								<h:panelGrid columns="2">
 									<h:graphicImage id="exportExcel" alt="Excel"
-										value="../../../media/images/excelSmall.png" style="border:0" />
+										value="../../media/images/excelSmall.png" style="border:0" />
 									<h:outputLabel style="padding:5px;" value="Export Excel"
 										for="exportExcel" />
 								</h:panelGrid>

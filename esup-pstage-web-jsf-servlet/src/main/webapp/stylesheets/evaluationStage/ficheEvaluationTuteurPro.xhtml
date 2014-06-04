@@ -894,16 +894,29 @@
 						</h:panelGrid>
 					</rich:togglePanelItem>
 				</rich:togglePanel>
-				<t:htmlTag value="div" style="height: 20px;" />
+				<t:htmlTag value="div" style="height:20px;" />
 				<h:panelGrid style="margin-left:30px;"
-					rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" >
-					<h:outputText value="#{msgs['CONVENTION.ETAPE13.VALIDATION_ENTREPRISE']}"/>
-					<t:htmlTag value="div" style="height: 20px;" />
+					rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}">
+					<h:outputText
+						value="#{msgs['CONVENTION.ETAPE13.VALIDATION_ENTREPRISE']}" />
+					<t:htmlTag value="div" style="height:5px;" />
 					<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
 						action="#{conventionController.editPdfFicheEntreprise}"
-						style="font-size:16px; border-color:blue;"/>
+						style="font-size:16px; border-color:blue;" />
+					<t:htmlTag value="div" style="height:20px;" />
+					<t:fieldset>
+						<h:outputText escape="false"
+							value="#{msgs['CONVENTION.ETAPE13.MAIL.DEMANDE_INVALIDATION']}" />
+						<t:htmlTag value="div" style="height:5px;" />
+						<t:htmlTag value="center">
+							<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
+								oncomplete="#{rich:component('panelConfirmEnvoi')}.show()" />
+						</t:htmlTag>
+						<t:htmlTag value="div" style="height:5px;" />
+						<rich:messages />
+					</t:fieldset>
 				</h:panelGrid>
-				<t:htmlTag value="div" style="height: 20px;" />
+				<t:htmlTag value="div" style="height:20px;" />
 				<h:commandButton value="#{msgs['GENERAL.RETOUR']}"
 					action="goToAccueilFicheEntrepriseTuteurPro" immediate="true" />
 			</h:form>
@@ -918,7 +931,8 @@
 					</legend>
 					<h:panelGrid>
 						<t:htmlTag value="center">
-							<h:outputText value="#{msgs['CONVENTION.ETAPE13.WARN_VALIDATION_ENTREPRISE']}" />
+							<h:outputText escape="false"
+								value="#{msgs['CONVENTION.ETAPE13.WARN_VALIDATION_ENTREPRISE']}" />
 						</t:htmlTag>
 						<t:htmlTag value="div" style="height:5px;" />
 					</h:panelGrid>
@@ -927,10 +941,30 @@
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:panelGrid align="center" columns="3">
 						<h:commandButton value="#{msgs['FORM.OUI']}"
-							action="#{conventionController.validateFicheEntrepriseTuteurPro}"/>
+							action="#{conventionController.validateFicheEntrepriseTuteurPro}" />
 						<t:htmlTag value="div" style="width: 30px;" />
 						<h:commandButton value="#{msgs['FORM.NON']}"
 							onclick="#{rich:component('panelValidEval')}.hide();return false;" />
+					</h:panelGrid>
+				</h:form>
+			</rich:popupPanel>
+			<rich:popupPanel id="panelConfirmEnvoi" autosized="true" width="400">
+				<f:facet name="header">
+					<h:outputText
+						value="Confirmation d'envoi de demande de saisie" />
+				</f:facet>
+				<t:htmlTag value="center">
+					<h:outputText value="Confirmer l'envoi ?" />
+				</t:htmlTag>
+				<t:htmlTag value="div" style="height:5px;" />
+				<h:form>
+					<t:htmlTag value="div" style="height: 20px;" />
+					<h:panelGrid align="center" columns="3">
+						<h:commandButton value="#{msgs['FORM.OUI']}"
+							action="#{conventionController.envoiDemandeInvalidation}" />
+						<t:htmlTag value="div" style="width: 30px;" />
+						<h:commandButton value="#{msgs['FORM.NON']}"
+							onclick="#{rich:component('panelConfirmEnvoi')}.hide();return false;" />
 					</h:panelGrid>
 				</h:form>
 			</rich:popupPanel>

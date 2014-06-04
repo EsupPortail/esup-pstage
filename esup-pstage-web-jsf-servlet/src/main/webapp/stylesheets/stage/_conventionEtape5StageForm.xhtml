@@ -387,10 +387,11 @@
 		</legend>
 		<h:panelGrid id="fieldMisc" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="3">
-			<h:outputText value="#{msgs['CONVENTION.ORIGINESTAGE.COMMENT']}" />
+			<h:outputText value="#{msgs['CONVENTION.ORIGINESTAGE.COMMENT']} #{msgs['CONVENTION.ETOILE']}" />
 			<h:selectOneMenu id="origineStage"
 				value="#{conventionController.selOrigineStage}"
-				converter="#{origineStageConverter}">
+				converter="#{origineStageConverter}"
+				required="true" requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:selectItem itemValue="" />
 				<f:selectItems value="#{nomenclatureController.origineStages}" />
 			</h:selectOneMenu>

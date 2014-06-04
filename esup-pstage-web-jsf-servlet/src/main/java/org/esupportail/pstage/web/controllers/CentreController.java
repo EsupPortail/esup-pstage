@@ -1968,7 +1968,8 @@ public class CentreController extends AbstractContextAwareController {
 			try{
 				int idFicheEvaluation = getFicheEvaluationDomainService().addFicheEvaluation(this.ficheEvaluation);
 				if (idFicheEvaluation > 0){
-					this.ficheEvaluation.setIdFicheEvaluation(idFicheEvaluation);
+					// On recupere apres insertion afin que tous les champs soient mis a default true
+					this.ficheEvaluation = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.centre.getIdCentreGestion());
 				}
 			} catch (DataAddException d){
 				logger.error("DataAddException",d.fillInStackTrace());

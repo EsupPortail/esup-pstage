@@ -621,16 +621,16 @@ public class WelcomeController extends AbstractContextAwareController {
 						getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
 						getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 
-//						if (logger.isDebugEnabled()){
-						logger.info("WelcomeController :: droitsAccesMap = "+ droitsAccesMap );
-						logger.info("WelcomeController :: droitsEvaluationEtudiantMap = "+ droitsEvaluationEtudiantMap );
-						logger.info("WelcomeController :: droitsEvaluationEnseignantMap = "+ droitsEvaluationEnseignantMap );
-						logger.info("WelcomeController :: droitsEvaluationEntrepriseMap = "+ droitsEvaluationEntrepriseMap );
+						if (logger.isDebugEnabled()){
+//						logger.info("WelcomeController :: droitsAccesMap = "+ droitsAccesMap );
+//						logger.info("WelcomeController :: droitsEvaluationEtudiantMap = "+ droitsEvaluationEtudiantMap );
+//						logger.info("WelcomeController :: droitsEvaluationEnseignantMap = "+ droitsEvaluationEnseignantMap );
+//						logger.info("WelcomeController :: droitsEvaluationEntrepriseMap = "+ droitsEvaluationEntrepriseMap );
 							logger.debug("WelcomeController :: droitsAccesMap = "+ droitsAccesMap );
 							logger.debug("WelcomeController :: droitsEvaluationEtudiantMap = "+ droitsEvaluationEtudiantMap );
 							logger.debug("WelcomeController :: droitsEvaluationEnseignantMap = "+ droitsEvaluationEnseignantMap );
 							logger.debug("WelcomeController :: droitsEvaluationEntrepriseMap = "+ droitsEvaluationEntrepriseMap );
-//						}
+						}
 					}
 
 					getSessionController().setCurrentCentresGestion(getCentreGestionDomainService().getCentreFromUid(getSessionController().getCurrentStageCasUser().getId(),getSessionController().getCodeUniversite()));

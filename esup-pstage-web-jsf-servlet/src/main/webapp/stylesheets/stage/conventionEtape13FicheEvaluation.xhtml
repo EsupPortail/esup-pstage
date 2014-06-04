@@ -14,7 +14,7 @@
 				</h:outputFormat>
 			</f:facet>
 			<h:form id="formAccueilFiche">
-				<t:fieldset style="width: 400px;"
+				<t:fieldset style="width:400px;"
 					rendered="#{!conventionController.convention.validationConvention}">
 					<h:panelGrid style="padding:20px;" columns="2">
 						<h:graphicImage style="padding:5px;" value="../../media/images/warn.png"
@@ -24,7 +24,7 @@
 							value="#{msgs['CONVENTION.ETAPE13.INVALIDE']}" />
 					</h:panelGrid>
 				</t:fieldset>
-				<t:fieldset style="width: 600px;"
+				<t:fieldset style="width:600px;"
 					rendered="#{conventionController.convention.validationConvention}">
 					<t:div
 						rendered="#{welcomeController.etudiant || welcomeController.superAdmin 
@@ -78,7 +78,11 @@
 								<t:htmlTag value="div" style="height:10px;" />
 
 								<a4j:outputPanel id="panelMailEtudiant"
-									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEtudiantMap}">
+									rendered="#{(welcomeController.superAdmin
+									|| (not empty sessionController.droitsEvaluationEtudiantMap
+										and (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+										|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin)))
+									and !conventionController.convention.reponseEvaluation.validationEtudiant}">
 									<t:fieldset style="width:400px;"
 										rendered="#{not empty conventionController.convention.etudiant.mail}">
 										<h:panelGrid columns="2" style="padding:5px;"
@@ -101,25 +105,44 @@
 													timeZone="CET" />
 											</h:outputText>
 										</h:panelGrid>
-
+											
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
 											action="#{conventionController.envoiMailEtudiant}"
-											rendered="#{!conventionController.convention.envoiMailEtudiant
-											and !conventionController.convention.reponseEvaluation.validationEtudiant}"
+											rendered="#{!conventionController.convention.envoiMailEtudiant}"
 											render="panelMailEtudiant">
 											<f:setPropertyActionListener
 												target="#{conventionController.typeMailEval}" value="1" />
 										</a4j:commandButton>
-
+										<h:panelGrid style="font-style:italic; padding:5px;"
+											rendered="#{!conventionController.convention.envoiMailEtudiant}">
+											<h:outputText style="text-decoration:underline;" value="Squelette du mail : "/>
+											<h:outputFormat style="width:400px;"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.CONTENU_ETUDIANT']}"
+												escape="false" disabled="true">
+												<f:param value="#{conventionController.convention.idConvention}" />
+												<f:param value="#{sessionController.applicationNamePStage}" />
+											</h:outputFormat>
+										</h:panelGrid>
+										
 										<a4j:commandButton
 											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
 											action="#{conventionController.envoiMailEtudiant}"
-											rendered="#{conventionController.convention.envoiMailEtudiant
-											and !conventionController.convention.reponseEvaluation.validationEtudiant}"
+											rendered="#{conventionController.convention.envoiMailEtudiant}"
 											render="panelMailEtudiant">
 											<f:setPropertyActionListener
 												target="#{conventionController.typeMailEval}" value="2" />
 										</a4j:commandButton>
+										<h:panelGrid style="font-style:italic; padding:5px;"
+											rendered="#{conventionController.convention.envoiMailEtudiant}">
+											<h:outputText style="text-decoration:underline;" value="Squelette du mail : "/>
+											<h:outputFormat style="width:400px;"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT']}"
+												escape="false" disabled="true">
+												<f:param value="#{conventionController.convention.idConvention}" />
+												<f:param value="#{sessionController.applicationNamePStage}" />
+											</h:outputFormat>
+										</h:panelGrid>
+										
 										<h:panelGrid align="center">
 											<rich:message for="panelMailEtudiant" />
 										</h:panelGrid>
@@ -193,9 +216,11 @@
 								<t:htmlTag value="div" style="height:10px;" />
 
 								<a4j:outputPanel id="panelMailEnseignant"
-									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEnseignantMap}">
+									rendered="#{(welcomeController.superAdmin || not empty sessionController.droitsEvaluationEnseignantMap)
+										and !conventionController.convention.reponseEvaluation.validationEnseignant}">
 									<t:fieldset style="width:400px;"
 										rendered="#{not empty conventionController.convention.enseignant.mail}">
+										
 										<h:panelGrid columns="2" style="padding:5px;"
 											rendered="#{!conventionController.convention.envoiMailTuteurPedago}">
 											<h:graphicImage value="../../media/images/information.png" />
@@ -216,24 +241,45 @@
 													timeZone="CET" />
 											</h:outputText>
 										</h:panelGrid>
-
+										
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
 											action="#{conventionController.envoiMailEnseignant}"
-											rendered="#{!conventionController.convention.envoiMailTuteurPedago
-											and !conventionController.convention.reponseEvaluation.validationEnseignant}"
+											rendered="#{!conventionController.convention.envoiMailTuteurPedago}"
 											render="panelMailEnseignant">
 											<f:setPropertyActionListener
 												target="#{conventionController.typeMailEval}" value="1" />
 										</a4j:commandButton>
+										<h:panelGrid style="font-style:italic; padding:5px;"
+											rendered="#{!conventionController.convention.envoiMailTuteurPedago}">
+											<h:outputText style="text-decoration:underline;" value="Squelette du mail : "/>
+											<h:outputFormat style="width:400px;"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT']}"
+												escape="false" disabled="true">
+												<f:param value="#{conventionController.convention.etudiant.prenom} #{conventionController.convention.etudiant.nom}" />
+												<f:param value="#{conventionController.convention.idConvention}" />
+												<f:param value="#{sessionController.applicationNamePStage}" />
+											</h:outputFormat>
+										</h:panelGrid>
+										
 										<a4j:commandButton
 											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
 											action="#{conventionController.envoiMailEnseignant}"
-											rendered="#{conventionController.convention.envoiMailEnseignant
-											and !conventionController.convention.reponseEvaluation.validationEnseignant}"
+											rendered="#{conventionController.convention.envoiMailTuteurPedago}"
 											render="panelMailEnseignant">
 											<f:setPropertyActionListener
 												target="#{conventionController.typeMailEval}" value="2" />
 										</a4j:commandButton>
+										<h:panelGrid style="font-style:italic; padding:5px;"
+											rendered="#{conventionController.convention.envoiMailTuteurPedago}">
+											<h:outputText style="text-decoration:underline;" value="Squelette du mail : "/>
+											<h:outputFormat style="width:400px;"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENSEIGNANT']}"
+												escape="false" disabled="true">
+												<f:param value="#{conventionController.convention.etudiant.prenom} #{conventionController.convention.etudiant.nom}" />
+												<f:param value="#{conventionController.convention.idConvention}" />
+												<f:param value="#{sessionController.applicationNamePStage}" />
+											</h:outputFormat>
+										</h:panelGrid>
 										
 										<h:panelGrid align="center">
 											<rich:message for="panelMailEnseignant" />
@@ -335,23 +381,46 @@
 
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
 											action="#{conventionController.envoiMailEntreprise}"
-											rendered="#{!conventionController.convention.envoiMailTuteurPro
-											and !conventionController.convention.reponseEvaluation.validationEntreprise}"
+											rendered="#{!conventionController.convention.envoiMailTuteurPro}"
 											render="panelMailTuteurPro">
 											<f:setPropertyActionListener
 												target="#{conventionController.typeMailEval}" value="1" />
 										</a4j:commandButton>
+										
+										<h:panelGrid style="font-style:italic; padding:5px;" 
+											rendered="#{!conventionController.convention.envoiMailTuteurPro}">
+											<h:outputText style="text-decoration:underline;" value="Squelette du mail : "/>
+											<h:outputFormat style="width:400px;"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENTREPRISE']}"
+												escape="false" disabled="true">
+												<f:param value="#{conventionController.convention.etudiant.prenom} #{conventionController.convention.etudiant.nom}" />
+												<f:param value="xxxx" />
+												<f:param value="#{sessionController.applicationNamePStage}" />
+											</h:outputFormat>
+										</h:panelGrid>
 
 										<a4j:commandButton
 											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
 											action="#{conventionController.envoiMailEntreprise}"
-											rendered="#{conventionController.convention.envoiMailTuteurPro
-											and !conventionController.convention.reponseEvaluation.validationEntreprise}"
+											rendered="#{conventionController.convention.envoiMailTuteurPro}"
 											render="panelMailTuteurPro">
 											<f:setPropertyActionListener
 												target="#{conventionController.typeMailEval}" value="2" />
 										</a4j:commandButton>
-										<h:panelGrid align="center">
+										
+										<h:panelGrid style="font-style:italic; padding:5px;" 
+											rendered="#{conventionController.convention.envoiMailTuteurPro}">
+											<h:outputText style="text-decoration:underline;" value="Squelette du mail : "/>
+											<h:outputFormat style="width:400px;"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENTREPRISE']}"
+												escape="false" disabled="true">
+												<f:param value="#{conventionController.convention.etudiant.prenom} #{conventionController.convention.etudiant.nom}" />
+												<f:param value="xxxx" />
+												<f:param value="#{sessionController.applicationNamePStage}" />
+											</h:outputFormat>
+										</h:panelGrid>
+										
+										<h:panelGrid align="center" style="padding:5px;">
 											<rich:message for="panelMailTuteurPro" />
 										</h:panelGrid>
 									</t:fieldset>
