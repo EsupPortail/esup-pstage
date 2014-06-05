@@ -189,8 +189,7 @@
 			<fo:block padding-top="0.3cm">
 				<fo:inline padding-top="0.3cm" hyphenate="false" language="fr"
 					country="FR" font-size="12pt" font-weight="bold">
-					- L'étudiant a-t-il
-					manifesté un intérêt sur l'établissement, les services et les
+					- Intérêt pour l'établissement, les services et les
 					métiers ?
 				</fo:inline>
 				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
@@ -652,7 +651,7 @@
 			font-size="14pt" font-weight="bold">
 			III.
 			<fo:inline text-decoration="underline">
-				Conclusions sur le stage
+				Appréciation générale du stage
 			</fo:inline>
 		</fo:block>
 

@@ -54,6 +54,7 @@ import org.esupportail.pstagedata.domain.dto.CaisseRegimeDTO;
 import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.ContactDTO;
 import org.esupportail.pstagedata.domain.dto.ConventionDTO;
+import org.esupportail.pstagedata.domain.dto.CritereGestionDTO;
 import org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO;
 import org.esupportail.pstagedata.domain.dto.CritereRechercheOffreDTO;
 import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
@@ -2407,7 +2408,7 @@ public class ConventionController extends AbstractContextAwareController {
 						this.convention.setSignataire(signataireTmp);
 					}
 				}
-				
+
 
 				// Ajout de la vérification de modification de tuteur pro ou pedago via avenant et remplacement le cas échéant
 				System.out.println("TESSTESTEST recap : " + this.currentConvention.getNbAvenant());
@@ -2557,7 +2558,7 @@ public class ConventionController extends AbstractContextAwareController {
 						this.convention.setSignataire(signataireTmp);
 					}
 				}
-				
+
 				// Ajout de la vérification de modification de tuteur pro ou pedago via avenant et remplacement le cas échéant
 				if (this.currentConvention.getNbAvenant()>0){
 					List<AvenantDTO> listeAvenants = getAvenantDomainService().getAvenant(conventionTmp.getIdConvention());
@@ -5045,6 +5046,54 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
+	 * Renvoie true si le centre sur lequel la recherche d'evaluation est faite est de type ETAPE
+	 * et remet à zero la liste d'idsUfrs du critere de recherche de convention
+	 */
+	public boolean isEtape(){
+		CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
+		if (centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_ETAPE)){
+			if (this.critereRechercheConvention != null){
+				this.critereRechercheConvention.setIdsUfrs(new ArrayList<String>());
+			}
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * Renvoie true si le centre sur lequel la recherche d'evaluation est faite est de type UFR
+	 * et remet à zero la liste d'idsEtapes du critere de recherche de convention
+	 */
+	public boolean isUfr(){
+		CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
+		if (centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_UFR)){
+			if (this.critereRechercheConvention != null){
+				this.critereRechercheConvention.setIdsEtapes(new ArrayList<String>());
+			}
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * Renvoie true si le centre sur lequel la recherche d'evaluation est faite est de type Etablissement
+	 * et remet à zero la liste d'idsEtapes et idsUfr du critere de recherche de convention pour y mettre 
+	 * son id de centre de gestion afin de recup les conventions orphelines
+	 */
+	public boolean isEtablissement(){
+		CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
+		if (centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_ETAB)){
+			if (this.critereRechercheConvention != null){
+				List<Integer> list = new ArrayList<Integer>();
+				list.add(this.rechEvalIdCentre);
+				this.critereRechercheConvention.setIdsEtapes(new ArrayList<String>());
+				this.critereRechercheConvention.setIdsUfrs(new ArrayList<String>());
+				this.critereRechercheConvention.setIdsCentreGestion(list);
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * @return String
 	 */
 	public String rechercherEvaluation(){
@@ -7045,18 +7094,15 @@ public class ConventionController extends AbstractContextAwareController {
 	public void setRechEvalIdCentre(Integer rechEvalIdCentre) {
 		this.rechEvalIdCentre = rechEvalIdCentre;
 	}
-
 	/**
 	 * @return the rechEvalListeEtapes
 	 */
 	public List<SelectItem> getRechEvalListeEtapes() {
 		this.rechEvalListeEtapes = new ArrayList<SelectItem>();
 		if(rechEvalIdCentre != null && rechEvalIdCentre > 0){
-			List<Integer> list = new ArrayList<Integer>();
-			list.add(this.rechEvalIdCentre);
-			List<EtapeDTO> listeEtapes = getConventionDomainService().getEtapesFromIdsCentreGestion(list, getSessionController().getCodeUniversite());
+			List<CritereGestionDTO> listeEtapes = getCritereGestionDomainService().getCritereGestionFromIdCentre(this.rechEvalIdCentre);
 			if (listeEtapes != null && !listeEtapes.isEmpty()){
-				for (EtapeDTO etape : listeEtapes){
+				for (CritereGestionDTO etape : listeEtapes){
 					this.rechEvalListeEtapes.add(new SelectItem(etape.getCode(),
 							etape.getCode()+";"+etape.getCodeVersionEtape()+" - " +etape.getLibelle()));
 				}

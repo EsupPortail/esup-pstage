@@ -41,28 +41,43 @@
 						</t:htmlTag>
 						<h:panelGrid>
 							<t:htmlTag value="div" style="height:10px;" />
-							<h:panelGrid columns="3">
-								<h:graphicImage id="infoChoixMultiple" alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"
-									value="../../media/images/information.png" style="border:0">
-									<rich:tooltip
-										value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
-								</h:graphicImage>
-								<h:outputText style="font-weight:bold; padding:5px;"
-									value="Choisissez une ou plusieurs etapes de ce centre de gestion : " />
-								<rich:message for="codesEtapes">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
-							</h:panelGrid>
-							<t:htmlTag value="div" style="height:5px;" />
 							<a4j:outputPanel id="panelCodesEtapes">
+								<h:panelGrid columns="3"
+									rendered="#{!conventionController.etablissement}">
+									<h:graphicImage id="infoChoixMultiple"
+										alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"
+										value="../../media/images/information.png" style="border:0">
+										<rich:tooltip
+											value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
+									</h:graphicImage>
+									<h:outputText style="font-weight:bold; padding:5px;"
+										value="Choisissez une ou plusieurs etapes de ce centre de gestion : " />
+									<rich:message for="codesEtapes">
+										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									</rich:message>
+								</h:panelGrid>
+								<t:htmlTag value="div" style="height:5px;" />
 								<h:selectManyListbox id="codesEtapes"
 									style="width:550px; padding:10px;"
 									value="#{conventionController.critereRechercheConvention.idsEtapes}"
+									rendered="#{conventionController.etape}"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									required="true">
 									<f:selectItems
 										value="#{conventionController.rechEvalListeEtapes}" />
 								</h:selectManyListbox>
+								<h:selectManyListbox id="codesUfr"
+									style="width:550px; padding:10px;"
+									value="#{conventionController.critereRechercheConvention.idsUfrs}"
+									rendered="#{conventionController.ufr}"
+									requiredMessage="#{requiredMessageController.champObligatoire}"
+									required="true">
+									<f:selectItems
+										value="#{conventionController.rechEvalListeEtapes}" />
+								</h:selectManyListbox>
+								<h:outputText
+									value="#{msgs['RECHERCHEEVALUATION.ISETABLISSEMENT']}"
+									escape="false" rendered="#{conventionController.etablissement}" />
 							</a4j:outputPanel>
 						</h:panelGrid>
 					</t:htmlTag>

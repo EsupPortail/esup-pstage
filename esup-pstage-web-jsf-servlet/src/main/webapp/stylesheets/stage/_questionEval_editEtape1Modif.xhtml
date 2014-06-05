@@ -9,7 +9,7 @@
 	<t:panelGrid columns="2" columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text">
 		<h:outputLabel for="libelleQuestionModif"
-			value="Libelle de la question : " />
+			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LIBELLE']}" />
 		<h:inputTextarea id="libelleQuestionModif" required="true"
 			style="width:200px; height:50px; resize:none;"
 			value="#{centreController.questionSupplementaire.question}" />
@@ -18,7 +18,7 @@
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
 		<h:outputLabel for="typeQuestionModif"
-			value="Type de la reponse demandee : " />
+			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE']}" />
 		<h:selectOneMenu id="typeQuestionModif" required="true"
 			value="#{centreController.questionSupplementaire.typeQuestion}">
 			<f:selectItem itemValue="TXT"

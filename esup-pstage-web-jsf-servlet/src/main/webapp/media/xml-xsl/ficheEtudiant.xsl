@@ -170,7 +170,7 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4a = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4a = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -178,7 +178,7 @@
 				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4b = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4b = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -186,7 +186,7 @@
 				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4c = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4c = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -194,7 +194,7 @@
 				Courrier&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4d = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i4d = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -668,7 +668,7 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5a = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5a = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -676,7 +676,7 @@
 				Compétences techniques&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5c = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5c = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -686,7 +686,7 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5b = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII5b = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -729,7 +729,7 @@
 				country="FR" font-size="12pt" font-weight="bold">
 				- Ce stage vous paraît
 				déterminant à cette
-				étape de votre formation
+				étape de votre formation ?
 			</fo:block>
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">

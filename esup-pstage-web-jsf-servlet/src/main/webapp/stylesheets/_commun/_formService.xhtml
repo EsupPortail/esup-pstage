@@ -16,7 +16,6 @@
 			converter="#{upperCaseConverter}"
 			requiredMessage="#{requiredMessageController.champObligatoire}"
 			style="text-transform:uppercase;">
-			<a4j:ajax event="blur" />
 		</h:inputText>
 		<rich:message for="nomService">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -39,7 +38,6 @@
 						value="#{etablissementController.formService.voie}" size="50"
 						maxlength="200" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<a4j:ajax event="blur" />
 					</h:inputText>
 					<rich:message for="voie">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -50,7 +48,6 @@
 						value="#{etablissementController.formService.batimentResidence}"
 						size="50" maxlength="50" style="text-transform:uppercase;"
 						converter="#{upperCaseConverter}">
-						<a4j:ajax event="blur" />
 					</h:inputText>
 				</h:panelGrid>
 				<h:panelGrid columnClasses="paginatorData-text"
@@ -82,7 +79,6 @@
 								requiredMessage="#{requiredMessageController.champObligatoire}"
 								required="#{!sessionController.recupererCommunesDepuisApogee and 
 								(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)}">
-								<a4j:ajax event="blur" />
 							</h:inputText>
 							<rich:message for="codePostal">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -123,7 +119,6 @@
 								maxlength="200" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}"
 								converter="#{sansAccentEnMAJConverter}">
-								<a4j:ajax event="blur" />
 							</h:inputText>
 							<rich:message for="commune">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />

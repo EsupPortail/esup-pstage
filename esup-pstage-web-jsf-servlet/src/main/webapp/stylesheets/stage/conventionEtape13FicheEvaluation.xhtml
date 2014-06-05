@@ -79,9 +79,7 @@
 
 								<a4j:outputPanel id="panelMailEtudiant"
 									rendered="#{(welcomeController.superAdmin
-									|| (not empty sessionController.droitsEvaluationEtudiantMap
-										and (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-										|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin)))
+									|| not empty sessionController.droitsEvaluationEtudiantMap)
 									and !conventionController.convention.reponseEvaluation.validationEtudiant}">
 									<t:fieldset style="width:400px;"
 										rendered="#{not empty conventionController.convention.etudiant.mail}">
@@ -391,7 +389,7 @@
 											rendered="#{!conventionController.convention.envoiMailTuteurPro}">
 											<h:outputText style="text-decoration:underline;" value="Squelette du mail : "/>
 											<h:outputFormat style="width:400px;"
-												value="#{msgs['CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENTREPRISE']}"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.CONTENU_ENTREPRISE']}"
 												escape="false" disabled="true">
 												<f:param value="#{conventionController.convention.etudiant.prenom} #{conventionController.convention.etudiant.nom}" />
 												<f:param value="xxxx" />

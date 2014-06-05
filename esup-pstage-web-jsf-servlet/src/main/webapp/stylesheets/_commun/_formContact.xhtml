@@ -24,7 +24,7 @@
 						<f:selectItem itemValue="" />
 						<f:selectItems
 							value="#{offreController.listeItemsCurrentCentresGestion}" />
-						<a4j:ajax event="blur"/>
+						<a4j:ajax event="valueChange"/>
 					</h:selectOneMenu>
 					<rich:message for="centreGestion">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -40,7 +40,7 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.civilites}" />
-						<a4j:ajax event="blur" />
+						<a4j:ajax event="valueChange" />
 					</h:selectOneMenu>
 					<t:panelGroup colspan="2">
 						<rich:message for="civilite">
@@ -54,7 +54,6 @@
 					maxlength="50" required="true"
 					converter="#{upperCaseConverter}"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="nom">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -65,7 +64,6 @@
 					maxlength="50" required="true"
 					converter="#{premiereLettreMAJConverter}"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="prenom">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -106,7 +104,6 @@
 					maxlength="50" required="true"
 					validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 					<f:validator binding="#{mailValidator}" />
-					<a4j:ajax event="blur"/>
 				</h:inputText>
 				<rich:message for="mailC">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />

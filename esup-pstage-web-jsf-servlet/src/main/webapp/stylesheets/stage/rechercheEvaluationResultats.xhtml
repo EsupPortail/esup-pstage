@@ -403,9 +403,9 @@
 					<h:panelGrid columns="3" align="center">
 						<t:htmlTag value="center"
 							rendered="#{welcomeController.superAdmin
-							|| ((not empty sessionController.droitsEvaluationEtudiantMap
+							|| (not empty sessionController.droitsEvaluationEtudiantMap
 							|| not empty sessionController.droitsEvaluationEnseignantMap
-							|| not empty sessionController.droitsEvaluationEntrepriseMap) and (welcomeController.writer || welcomeController.admin))}">
+							|| not empty sessionController.droitsEvaluationEntrepriseMap)}">
 							<a4j:commandButton execute="@this"
 								style="font-size:16px; font-weight:bold; border-color:green;"
 								value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL']}"
@@ -420,11 +420,9 @@
 						<h:panelGrid columns="3"
 							rendered="#{not empty conventionController.rechEvalIdCentre
 						and (welcomeController.superAdmin
-						|| ((sessionController.droitsEvaluationEtudiantMap[conventionController.rechEvalIdCentre]
+						|| (sessionController.droitsEvaluationEtudiantMap[conventionController.rechEvalIdCentre]
 						|| not empty sessionController.droitsEvaluationEnseignantMap[conventionController.rechEvalIdCentre]
-						|| not empty sessionController.droitsEvaluationEntrepriseMap[conventionController.rechEvalIdCentre])
-						and (sessionController.droitsAccesMap[conventionController.rechEvalIdCentre] == beanUtils.droitEcriture
-						|| sessionController.droitsAccesMap[conventionController.rechEvalIdCentre] == beanUtils.droitAdmin)))}">
+						|| not empty sessionController.droitsEvaluationEntrepriseMap[conventionController.rechEvalIdCentre]))}">
 							<t:htmlTag value="div" style="width:25px;" />
 							<t:htmlTag value="div"
 								style="width:2px; height:100px; background-color: #{a4jSkin.panelBorderColor};" />
@@ -434,11 +432,9 @@
 						<t:fieldset style="width:300px;"
 							rendered="#{not empty conventionController.rechEvalIdCentre
 						and (welcomeController.superAdmin
-						|| ((sessionController.droitsEvaluationEtudiantMap[conventionController.rechEvalIdCentre]
+						|| (sessionController.droitsEvaluationEtudiantMap[conventionController.rechEvalIdCentre]
 						|| not empty sessionController.droitsEvaluationEnseignantMap[conventionController.rechEvalIdCentre]
-						|| not empty sessionController.droitsEvaluationEntrepriseMap[conventionController.rechEvalIdCentre])
-						and (sessionController.droitsAccesMap[conventionController.rechEvalIdCentre] == beanUtils.droitEcriture
-						|| sessionController.droitsAccesMap[conventionController.rechEvalIdCentre] == beanUtils.droitAdmin)))}">
+						|| not empty sessionController.droitsEvaluationEntrepriseMap[conventionController.rechEvalIdCentre]))}">
 							<legend>
 								<h:panelGrid columns="2">
 									<h:graphicImage id="exportExcel" alt="Excel"

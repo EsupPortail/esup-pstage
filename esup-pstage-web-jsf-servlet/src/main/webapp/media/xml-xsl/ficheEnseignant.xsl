@@ -101,7 +101,7 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1a = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1a = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -109,7 +109,7 @@
 				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1b = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1b = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -117,7 +117,7 @@
 				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1c = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1c = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -134,7 +134,7 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2a = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2a = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -142,7 +142,7 @@
 				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2b = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2b = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
@@ -150,22 +150,12 @@
 				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2c = 'true'">
-					<fo:character character="&#x2784;" font-family="ZapfDingbats" />
+					<fo:character character="&#x2612;" font-family="Symbol" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2c = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
 				</xsl:if>
 				Rencontre
-			</fo:block>
-		</xsl:if>
-		<xsl:if test="fiche-evaluation/@question-ens-i3 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Commentaire(s) ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:value-of select="reponse-evaluation/reponse-ens-i3" />
 			</fo:block>
 		</xsl:if>
 		<xsl:for-each select="questions-supplementaires">
@@ -213,6 +203,16 @@
 				</fo:block>
 			</xsl:if>
 		</xsl:for-each>
+		<xsl:if test="fiche-evaluation/@question-ens-i3 = 'true'">
+			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
+				country="FR" font-size="12pt" font-weight="bold">
+				- Commentaire(s) :
+			</fo:block>
+			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
+				country="FR" font-size="11pt" margin-left="2.2cm">
+				<xsl:value-of select="reponse-evaluation/reponse-ens-i3" />
+			</fo:block>
+		</xsl:if>
 		<fo:block padding-top="0.5cm" language="fr" country="FR"
 			font-size="14pt" font-weight="bold">
 			II.
@@ -221,263 +221,274 @@
 			</fo:inline>
 		</fo:block>
 		<xsl:if test="fiche-evaluation/@question-ens-iI1 = 'true'">
-			<fo:block padding-top="0.5cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Impression générale et
-				présentation de l'étudiant ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 5">
-					Insuffisant
-				</xsl:if>
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Impression générale et
+					présentation de l'étudiant :
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI1 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-ens-iI2 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Aptitude à cerner et
-				situer le projet ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 5">
-					Insuffisant
-				</xsl:if>
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Aptitude à cerner et
+					situer le projet :
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI2 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-ens-iI3 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Aptitude à appliquer ses
-				connaissances ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 5">
-					Insuffisant
-				</xsl:if>
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Aptitude à appliquer
+					ses
+					connaissances :
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI3 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-ens-iI4 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Maîtrise du sujet,
-				argumentation, analyse ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 5">
-					Insuffisant
-				</xsl:if>
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Maîtrise du sujet,
+					argumentation, analyse :
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI4 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-ens-iI5 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Mise en évidence des
-				éléments importants de l'étude ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 5">
-					Insuffisant
-				</xsl:if>
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Mise en évidence des
+					éléments importants de l'étude :
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI5 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-ens-iI6 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Utilisation des moyens
-				de communication ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 5">
-					Insuffisant
-				</xsl:if>
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Utilisation des moyens
+					de communication :
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI6 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-ens-iI7 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Qualité de l'expression
-				orale ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 5">
-					Insuffisant
-				</xsl:if>
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Qualité de l'expression
+					orale :
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI7 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-ens-iI8 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Capacité à intéresser
-				l'auditoire ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 5">
-					Insuffisant
-				</xsl:if>
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Capacité à intéresser
+					l'auditoire :
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI8 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-ens-iI9 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Pertinence des réponses
-				?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 5">
-					Insuffisant
-				</xsl:if>
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Pertinence des réponses
+					:
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI9 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-ens-iI10 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Respect du temps alloué
-				?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 1">
-					Excellent
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 2">
-					Très Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 3">
-					Bien
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 4">
-					Satisfaisant
-				</xsl:if>
-				<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 5">
-					Insuffisant
-				</xsl:if>
-			</fo:block>
-		</xsl:if>
-		<xsl:if test="fiche-evaluation/@question-ens-iI11 = 'true'">
-			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
-				country="FR" font-size="12pt" font-weight="bold">
-				- Commentaire(s) ?
-			</fo:block>
-			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
-				country="FR" font-size="11pt" margin-left="2.2cm">
-				<xsl:value-of select="reponse-evaluation/reponse-ens-iI11" />
+			<fo:block padding-top="0.3cm">
+				<fo:inline padding-top="1cm" hyphenate="false" language="fr"
+					country="FR" font-size="12pt" font-weight="bold">
+					- Respect du temps alloué
+					:
+				</fo:inline>
+				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
+					country="FR" font-size="11pt" margin-left="2.2cm">
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 1">
+						Excellent
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 2">
+						Très Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 3">
+						Bien
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 4">
+						Satisfaisant
+					</xsl:if>
+					<xsl:if test="reponse-evaluation/@reponse-ens-iI10 = 5">
+						Insuffisant
+					</xsl:if>
+				</fo:inline>
 			</fo:block>
 		</xsl:if>
 		<xsl:for-each select="questions-supplementaires">
@@ -525,6 +536,16 @@
 				</fo:block>
 			</xsl:if>
 		</xsl:for-each>
+		<xsl:if test="fiche-evaluation/@question-ens-iI11 = 'true'">
+			<fo:block padding-top="0.3cm" hyphenate="false" language="fr"
+				country="FR" font-size="12pt" font-weight="bold">
+				- Commentaire(s) :
+			</fo:block>
+			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
+				country="FR" font-size="11pt" margin-left="2.2cm">
+				<xsl:value-of select="reponse-evaluation/reponse-ens-iI11" />
+			</fo:block>
+		</xsl:if>
 		<fo:block id="theEnd" />
 	</xsl:template>
 
