@@ -5256,11 +5256,11 @@ public class ConventionController extends AbstractContextAwareController {
 				break;
 			case 2:
 				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",
-						"<i>Nom prenom</i>",getSessionController().getApplicationNamePStage());
+						"<i>Nom prenom</i>","<i>idConvention</i>",getSessionController().getApplicationNamePStage());
 				break;
 			case 3:
 				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENTREPRISE",
-						"<i>Nom prenom</i>","<i>idConvention</i>","***",getSessionController().getApplicationNamePStage());
+						"<i>Nom prenom</i>","***",getSessionController().getApplicationNamePStage());
 				break;
 			default:
 				break;
@@ -5269,11 +5269,15 @@ public class ConventionController extends AbstractContextAwareController {
 			// Rappel
 			switch (this.typeDestMailEval) {
 			case 1:
-				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT","<i>idConvention</i>");
+				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT","<i>idConvention</i>",getSessionController().getApplicationNamePStage());
+				break;
+			case 2:
+				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENSEIGNANT",
+						"<i>Nom prenom</i>","<i>idConvention</i>",getSessionController().getApplicationNamePStage());
 				break;
 			case 3:
 				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENTREPRISE",
-						"<i>Nom prenom</i>","<i>idConvention</i>","***",getSessionController().getApplicationNamePStage());
+						"<i>Nom prenom</i>","***",getSessionController().getApplicationNamePStage());
 				break;
 			default:
 				break;
