@@ -591,7 +591,7 @@
 								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
 							Pour le motif suivant : 
 								<fo:inline font-weight="bold">
-									<xsl:value-of select="motif-avenant" />
+									<xsl:value-of select="titre-avenant" />
 								</fo:inline>
 							</fo:block>							
 							<fo:block line-height="110%" padding-top="2pt" 

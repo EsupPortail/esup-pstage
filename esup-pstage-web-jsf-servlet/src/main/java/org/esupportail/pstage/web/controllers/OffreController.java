@@ -896,8 +896,8 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtabCentre(){
 		String ret=null;
-		getSessionController().setModificationEtabOffreCurrentPage("modificationCentreEtabOffre");
-		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre");
+		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape01Centre");
+		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre04");
 		return ret;
 	}
 
@@ -906,7 +906,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtabCentre04(){
 		String ret=null;
-		getSessionController().setModificationEtabOffreCurrentPage("modificationCentreEtabOffre04");
+		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
 		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre04");
 		return ret;
 	}
@@ -916,7 +916,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtabCentre1(){
 		String ret=null;
-		getSessionController().setModificationEtabOffreCurrentPage("modificationCentreEtabOffre1");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape1");
 		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre1");
 		return ret;
 	}
@@ -926,7 +926,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtabCentre3(){
 		String ret=null;
-		getSessionController().setModificationOffre3CurrentPage("modificationCentreEtabOffre3");
+		getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape3");
 		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre3");
 		return ret;
 	}
@@ -936,7 +936,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtabCentre3C(){
 		String ret=null;
-		getSessionController().setModificationEtabOffreCurrentPage("modificationCentreEtabOffre3C");
+		getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape3Contacts");
 		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre3C");
 		return ret;
 	}
@@ -1047,7 +1047,8 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToModificationOffreDetailsEtab(){
-		String ret="_modificationOffreEtape04DetailsEtab";
+		String ret="modificationEtabOffre";
+		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
 		this.formOffre.setCentreGestion(getCentreGestionDomainService().getCentreGestion(this.formOffre.getIdCentreGestion()));
 		getSessionController().setCentreGestionRattachement(this.formOffre.getCentreGestion());
 		return ret;
@@ -1175,10 +1176,12 @@ public class OffreController extends AbstractContextAwareController {
 			//			ret="_modificationOffreEtape3";
 			getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3");
 			getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape3");
+			getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape3");
 			getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape3");
 		}else{
 			//			ret="_modificationOffreEtape3Contacts";
 			getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3Contacts");
+			getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape3");
 			getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape3Contacts");
 			getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape3Contacts");
 		}
@@ -1322,6 +1325,7 @@ public class OffreController extends AbstractContextAwareController {
 				break;
 			}
 		}else{
+
 			this.formOffre.setFichier(null);
 			this.formOffre.setIdFichier(0);
 			this.formOffre.setLienAttache(null);
@@ -1343,7 +1347,11 @@ public class OffreController extends AbstractContextAwareController {
 			if(this.formOffre.getContactCand()!=null){
 				try{
 					this.formOffre.setIdContactCand(this.formOffre.getContactCand().getId());
-					if(this.formOffre.getContactInfo()!=null)this.formOffre.setIdContactInfo(this.formOffre.getContactInfo().getId());
+					if(this.formOffre.getContactInfo()!=null){
+						this.formOffre.setIdContactInfo(this.formOffre.getContactInfo().getId());
+					} else {
+						this.formOffre.setIdContactInfo(0);
+					}
 					this.formOffre.setFichier(null);
 					this.formOffre.setIdFichier(0);
 					if(getOffreDomainService().updateOffre(this.formOffre)){
@@ -1356,7 +1364,7 @@ public class OffreController extends AbstractContextAwareController {
 						if(this.resultatsRechercheOffre!=null && ((ArrayList<OffreDTO>)this.resultatsRechercheOffre).contains(this.formOffre)){
 							this.resultatsRechercheOffre.set(this.resultatsRechercheOffre.indexOf(this.formOffre), this.formOffre);
 							checkListeResultats();						
-						}						
+						}
 						//Suppression de l'ancien fichier
 						if(this.currentOffre.isAvecFichier() && 
 								this.currentOffre.getIdFichier()>0){
@@ -1535,11 +1543,11 @@ public class OffreController extends AbstractContextAwareController {
 				getOffreDomainService().updateOffrePourvue(this.currentOffre.getIdOffre(), false);
 
 				if (getSessionController().isModerationActive() && getSessionController().isAvertissementEntrepriseDiffusion()){
-					
+
 					String text=getString("ALERTES_MAIL.AVERTISSEMENT_ENTREPRISE_DIFFUSION",this.currentOffre.getIdOffre());
-					
+
 					String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_ENTREPRISE_DIFFUSION.SUJET",this.currentOffre.getIdOffre());
-					
+
 					if (this.currentOffre.getContactCand().getMail() != null && !this.currentOffre.getContactCand().getMail().isEmpty()){
 						getSmtpService().send(new InternetAddress(this.currentOffre.getContactCand().getMail()),
 								sujet,text,text);
@@ -1979,8 +1987,9 @@ public class OffreController extends AbstractContextAwareController {
 	 * Transfert d'une offre au centre entreprise avec contacts
 	 * @return String
 	 */
-	public String transfererOffre(){
-		String ret = "_transfertOffreEtape2Confirmation";
+	public void transfererOffre(){
+		//		String ret = "_transfertOffreEtape2Confirmation";
+		getSessionController().setTransfertOffreCurrentPage("_transfertOffreEtape2Confirmation");
 		if(this.currentOffre!=null){
 			try{
 				CentreGestionDTO cgEntr = getCentreGestionDomainService().getCentreEntreprise();
@@ -2013,7 +2022,7 @@ public class OffreController extends AbstractContextAwareController {
 				addErrorMessage(null, "OFFRE.GESTION.TRANSFERT.ERREUR");
 			}
 		}
-		return ret;
+		//		return ret;
 	}
 
 	/**

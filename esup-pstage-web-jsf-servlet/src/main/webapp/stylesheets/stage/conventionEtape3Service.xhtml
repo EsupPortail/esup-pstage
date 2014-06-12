@@ -15,14 +15,15 @@
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE3.SERVICE.INFO']}" />
-					</f:facet>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-						<ui:include src="/stylesheets/stage/_conventionEtape3DetailsService.xhtml" />
-					</h:panelGrid>
-				<a4j:log/>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['CONVENTION.ETAPE3.SERVICE.INFO']}" />
+				</f:facet>
+				<t:htmlTag value="div" style="height: 20px;" />
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
+					<ui:include
+						src="/stylesheets/stage/_conventionEtape3DetailsService.xhtml" />
+				</h:panelGrid>
 			</h:form>
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />
 			<ui:include src="../_commun/_panelModifService.xhtml" />

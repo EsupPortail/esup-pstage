@@ -2288,6 +2288,11 @@
 			<to-view-id>/stylesheets/stage/rechercheOffreResultats.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>modificationEtabOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/modificationEtabOffre.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<display-name>modificationEtabOffre</display-name>

@@ -13,22 +13,13 @@
 				<h:outputText value="#{msgs['OFFRE.MODIFICATION']}" />
 			</f:facet>
 			<h:form id="formModificationOffre">
-				<rich:message for="formModificationOffre">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<ui:include id="include"
-					src="/stylesheets/_commun/_modificationOffreEtape3.xhtml" />
+				<ui:include src="/stylesheets/_commun/#{sessionController.modificationOffre3CurrentPage}.xhtml" />
 				<h:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
 					action="#{offreController.retourTo}"
 					alt="#{msgs['FORM.ANNULERETRETOUR']}"
 					title="#{msgs['FORM.ANNULERETRETOUR']}" immediate="true"
-					style="float:right;">
-				</h:commandButton>
+					style="float:right;"/>
 			</h:form>
-			<rich:message for="formCreationOffre">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-			<rich:editor rendered="false" />
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />
 			<ui:include src="../_commun/_panelModifService.xhtml" />
 			<ui:include src="../_commun/_panelSupprService.xhtml" />

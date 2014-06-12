@@ -12,8 +12,7 @@
 			<h:outputText value="#{msgs['OFFRE.GESTION.TRANSFERT']}" />
 		</f:facet>
 		<h:form id="formTransfertOffre">
-			<ui:include id="include"
-				src="/stylesheets/_commun/_transfertOffreEtape1.xhtml" />
+			<ui:include src="/stylesheets/_commun/#{sessionController.transfertOffreCurrentPage}.xhtml" />
 		</h:form>
 	</rich:popupPanel>
 </ui:composition>

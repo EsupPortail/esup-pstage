@@ -202,12 +202,12 @@
 		</h:panelGrid>
 		<h:outputLabel value="#{msgs['OFFRE.DESCRIPTION']} *"
 			for="description" />
-		<rich:editor id="description"
-			value="#{offreController.formOffre.description}" width="400"
-			height="200" required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}">
+		<h:inputTextarea id="description" style="width:300px; height:150px;"
+			value="#{offreController.formOffre.description}" required="true"
+			requiredMessage="#{requiredMessageController.champObligatoire}"
+			resizeable="false">
 			<a4j:ajax event="blur" />
-		</rich:editor>
+		</h:inputTextarea>
 		<rich:message for="description">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
@@ -382,9 +382,8 @@
 					</rich:message>
 					<h:outputLabel value="#{msgs['OFFRE.COMPSOUHAITEES']}"
 						for="compSouhaitees" />
-					<rich:editor id="compSouhaitees"
-						value="#{offreController.formOffre.competences}" width="300"
-						height="200" />
+					<h:inputTextarea id="compSouhaitees" style="width:300px; height:200px;"
+						value="#{offreController.formOffre.competences}" />
 					<rich:message for="compSouhaitees">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
@@ -491,9 +490,8 @@
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
 				<h:outputLabel value="#{msgs['OFFRE.COMOBS']}" for="comobs" />
-				<rich:editor id="comobs"
-					value="#{offreController.formOffre.observations}" width="300"
-					height="200" />
+				<h:inputTextarea id="comobs" style="height:200px; width:300px;"
+					value="#{offreController.formOffre.observations}"/>
 				<rich:message for="comobs">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>

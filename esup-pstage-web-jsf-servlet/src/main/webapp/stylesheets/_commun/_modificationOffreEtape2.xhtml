@@ -23,10 +23,9 @@
 				target="#{sessionController.modificationEtabOffreCurrentPage}" />
 		</a4j:commandButton>
 		<t:htmlTag value="div" style="width: 20px;" />
-		<a4j:commandButton value="#{msgs['FORM.NEXT']}"
+		<h:commandButton value="#{msgs['FORM.NEXT']}"
 			action="#{offreController.goToModificationOffreEtape3}"
-			alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"
-			render="opFCE, formModificationOffre" />
+			alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"/>
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height: 10px;" />
 	<a4j:outputPanel id="opFCE">

@@ -290,7 +290,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	public void devaliderStructure(){
 		getSessionController().setValidationStructureCurrentPage("_validStructureEtape2");
-		
+
 		if(getStructureDomainService().updateStructureStopValidation(this.formStructure.getIdStructure(),getSessionController().getCurrentLogin())){
 			this.currentStruct.setEstValidee(false);
 			addInfoMessage(null, "STRUCTURE.MODERATION.DEVALIDATION.CONFIRMATION");
@@ -547,9 +547,15 @@ public class EtablissementController extends AbstractContextAwareController {
 					.getCurrentLogin());
 			structureTmp.setLoginInfosAJour(getSessionController()
 					.getCurrentLogin());
+
 			try {
 				structureTmp.setIdStructure(this.getStructureDomainService()
 						.addStructure(structureTmp));
+				// ajout de la validation si la personne ajoutant n'est pas un etudiant (Pas de estValidee dans la methode add)
+				if (getSessionController().getCurrentAuthEtudiant() == null){
+					getStructureDomainService().updateStructureValidation(structureTmp.getIdStructure(), getSessionController().getCurrentLogin());
+				}
+				
 				if (logger.isInfoEnabled()) {
 					logger.info("Ajout structure : " + structureTmp);
 				}
@@ -648,7 +654,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Liste dynamique mise � jour en fonction du type de structure
+	 * Liste dynamique mise à jour en fonction du type de structure
 	 * 
 	 * @return List<SelectItem>
 	 */
@@ -807,12 +813,12 @@ public class EtablissementController extends AbstractContextAwareController {
 	public String modifierEtablissement() {
 		String retour = null;
 		boolean nafActiviteOK = false;
-		
+
 		// Recuperation de la structure telle qu'elle etait avant modification (pour affichage dans le mail)
 		StructureDTO structurePreModif = getStructureDomainService().getStructureFromId(this.formStructure.getIdStructure());
-		
+
 		this.formStructure.setNafN5(this.formStructureTmpNafN5);
-		
+
 		if ((this.formStructure.getNafN5() != null
 				&& this.formStructure.getNafN5().getCode() != null
 				&& StringUtils.hasText(this.formStructure.getNafN5().getCode())
@@ -856,7 +862,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			structureTmp.setIdEffectif(this.formStructure.getEffectif().getId());
 			structureTmp.setIdPays(this.formStructure.getPays().getId());
 			if (this.statutsJuridiquesListening != null
-			&& this.formStructure.getStatutJuridique() != null)
+					&& this.formStructure.getStatutJuridique() != null)
 				structureTmp.setIdStatutJuridique(this.formStructure.getStatutJuridique().getId());
 			else
 				structureTmp.setIdStatutJuridique(0);
@@ -871,7 +877,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 			if (getSessionController().getCurrentAuthEtudiant() != null && structureTmp.isEstValidee()){
 				getStructureDomainService().updateStructureStopValidation(structureTmp.getIdStructure(), getSessionController().getCurrentLogin());
-				this.formStructure.setEstValidee(true);
+				this.formStructure.setEstValidee(false);
 			}
 			try {
 				if (this.getStructureDomainService().updateStructure(structureTmp)) {
@@ -879,7 +885,7 @@ public class EtablissementController extends AbstractContextAwareController {
 						logger.info("Modif structure : " + structureTmp);
 					}
 					addInfoMessage("formAffEtab", "STRUCTURE.MODIF.CONFIRMATION");
-					
+
 					// Maj recherche
 					if (this.rechercheController.getListeResultatsRechercheStructure() != null
 							&& !this.rechercheController.getListeResultatsRechercheStructure().isEmpty()) {
@@ -909,7 +915,7 @@ public class EtablissementController extends AbstractContextAwareController {
 						// Envoi mail sur la mailing list entreprise
 						String infoPersonne = "";
 						if (getSessionController().isAdminPageAuthorized()
-						&& getSessionController().getCurrentAuthAdminStructure() != null) {
+								&& getSessionController().getCurrentAuthAdminStructure() != null) {
 							infoPersonne += getSessionController().getCurrentAuthAdminStructure().getNom()
 									+ " "
 									+ getSessionController().getCurrentAuthAdminStructure().getPrenom()
@@ -929,16 +935,16 @@ public class EtablissementController extends AbstractContextAwareController {
 						}
 						getSmtpService().send(getSessionController().getMailingListEntrIA(),
 								getString("MAIL.ADMIN.ETAB.SUJETMODIF",
-									getSessionController().getApplicationNameEntreprise(),
-									this.formStructure.printAdresse(),
-									infoPersonne),
-								getString("MAIL.ADMIN.ETAB.MESSAGEMODIF",
-									getSessionController().getApplicationNameEntreprise(),
-									this.formStructure.getIdStructure(),
-									infoPersonne,
-									structurePreModif.toString(),
-									this.formStructure.toString()),
-									"");
+										getSessionController().getApplicationNameEntreprise(),
+										this.formStructure.printAdresse(),
+										infoPersonne),
+										getString("MAIL.ADMIN.ETAB.MESSAGEMODIF",
+												getSessionController().getApplicationNameEntreprise(),
+												this.formStructure.getIdStructure(),
+												infoPersonne,
+												structurePreModif.toString(),
+												this.formStructure.toString()),
+								"");
 					}
 				} else {
 					addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
@@ -2504,7 +2510,7 @@ public class EtablissementController extends AbstractContextAwareController {
 		if (getSessionController().getCurrentIdsCentresGestion() != null
 				&& !getSessionController().getCurrentIdsCentresGestion().isEmpty()
 				&& ((ArrayList<Integer>) getSessionController().getCurrentIdsCentresGestion())
-						.contains(this.formContact.getIdCentreGestion())) {
+				.contains(this.formContact.getIdCentreGestion())) {
 			CentreGestionDTO cgEntr = getCentreGestionDomainService()
 					.getCentreEntreprise();
 			if (cgEntr != null && cgEntr.getIdCentreGestion() != this.formContact

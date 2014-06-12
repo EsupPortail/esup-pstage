@@ -532,6 +532,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * PANEL ENVOI MAIL EVAL
 	 */
 	private String envoiMailEvalCurrentPage = "_envoiMailEval_etape1";
+	/**
+	 * PANEL TRANSFERT OFFRE
+	 */
+	private String transfertOffreCurrentPage = "_transfertOffreEtape1";
 	
 	/**
 	 * Constructor.
@@ -2445,6 +2449,20 @@ public class SessionController extends AbstractDomainAwareBean {
 	public void setDroitsEvaluationEntrepriseMap(
 			Map<Integer, Boolean> droitsEvaluationEntrepriseMap) {
 		this.droitsEvaluationEntrepriseMap = droitsEvaluationEntrepriseMap;
+	}
+
+	/**
+	 * @return the transfertOffreCurrentPage
+	 */
+	public String getTransfertOffreCurrentPage() {
+		return transfertOffreCurrentPage;
+	}
+
+	/**
+	 * @param transfertOffreCurrentPage the transfertOffreCurrentPage to set
+	 */
+	public void setTransfertOffreCurrentPage(String transfertOffreCurrentPage) {
+		this.transfertOffreCurrentPage = transfertOffreCurrentPage;
 	}
 
 }
