@@ -431,10 +431,15 @@ StudentDataRepositoryDao {
 			// Recuperation des infos de l'etudiant dans Apogee
 			InfoAdmEtuDTO infosAdmEtu = etudiantMetierService.recupererInfosAdmEtu(etudiant.getCodEtu().toString());
 
-			// Recuperation des infos de l'etudiant dans Apogee
-			CoordonneesDTO coordonnees = etudiantMetierService.recupererAdressesEtudiant(
+			// Recuperation des coordonnees de l'etudiant
+			CoordonneesDTO coordonnees = new CoordonneesDTO();		
+			try{
+				coordonnees = etudiantMetierService.recupererAdressesEtudiant(
 					etudiant.getCodEtu().toString(), null, this.temoinRecupAnnu);
-
+			} catch (WebBaseException wb) {
+				coordonnees = etudiantMetierService.recupererAdressesEtudiant(
+						etudiant.getCodEtu().toString(), getYear(), this.temoinRecupAnnu);
+			}
 			// cod_ind = (BigDecimal)listeInd.get(0).get("COD_IND"); 
 			// code_etu = (BigDecimal)listeInd.get(0).get("COD_ETU");
 			cod_ind = etudiant.getCodInd();

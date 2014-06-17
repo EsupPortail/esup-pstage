@@ -2411,7 +2411,6 @@ public class ConventionController extends AbstractContextAwareController {
 
 
 				// Ajout de la vérification de modification de tuteur pro ou pedago via avenant et remplacement le cas échéant
-				System.out.println("TESSTESTEST recap : " + this.currentConvention.getNbAvenant());
 				if (this.currentConvention.getNbAvenant()>0){
 					List<AvenantDTO> listeAvenants = getAvenantDomainService().getAvenant(conventionTmp.getIdConvention());
 					for (AvenantDTO avenant : listeAvenants){
@@ -4420,10 +4419,15 @@ public class ConventionController extends AbstractContextAwareController {
 	public void envoiMailEtudiant(){
 		String adresseEtudiant = "";
 		String nomEtu = "";
-		if (this.convention.getEtudiant() != null && this.convention.getEtudiant().getMail() != null 
-				&& !this.convention.getEtudiant().getMail().isEmpty()){
+		if (this.convention.getEtudiant() != null){
 			nomEtu = this.convention.getEtudiant().getPrenom()+" "+this.convention.getEtudiant().getNom();
-			adresseEtudiant = this.convention.getEtudiant().getMail();
+			if (this.convention.getCourrielPersoEtudiant() != null 
+					&& !this.convention.getCourrielPersoEtudiant().isEmpty()){
+				adresseEtudiant = this.convention.getCourrielPersoEtudiant();
+			} else if (this.convention.getEtudiant().getMail() != null 
+					&& !this.convention.getEtudiant().getMail().isEmpty()) {
+				adresseEtudiant = this.convention.getEtudiant().getMail();
+			}
 		} else {
 			addErrorMessage("formAccueilFiche:panelMailEtudiant", "CONVENTION.ETAPE13.MAIL.INEXISTANT_ETUDIANT",this.convention.getIdConvention());
 			return;

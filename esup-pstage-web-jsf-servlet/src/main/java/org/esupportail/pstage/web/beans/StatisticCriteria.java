@@ -78,6 +78,7 @@ public class StatisticCriteria implements Serializable {
 		 secondLevelStatCriteriaForConvention.put("SIZE","Taille de l'\u00E9tablissement d'accueil");
 		 secondLevelStatCriteriaForConvention.put("DEPGEO","D\u00E9partement g\u00E9ograhique du lieu de stage");
 		 secondLevelStatCriteriaForConvention.put("PAYS","Pays du lieu de stage");
+		 secondLevelStatCriteriaForConvention.put("DUREE","Dur\u00E9e du stage");
 			
 		 
 		 firstLevelStatCriteriaForOffer = new LinkedHashMap<String,String>();

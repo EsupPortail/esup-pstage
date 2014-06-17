@@ -203,7 +203,6 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 	public String ValueToKeyForCritere (LinkedHashMap<String,String> map, String critere ) {
 		String cle="";
 		String valeur="";
-
 		for(Entry<String, String> entry : map.entrySet()) {
 			cle = entry.getKey();
 			valeur = entry.getValue();
@@ -227,12 +226,15 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 	public String gotoResultatStagesStats () throws StatistiquesException{
 
 		map= new LinkedHashMap<String,List<StatisticItemDTO>>();
-
 		String etab = "CDG";
 
 		// récupère les différentes années
 		years = statistiquesDomainService.getAnneesConventions(idCentreGestion, etab);
 
+		
+		if (critereUnLib == null) critereUnLib = "";
+		if (critereDeuxLib == null) critereDeuxLib = "";
+		
 		critereUnCle = ValueToKeyForCritere(firstStatsCriteriumList,critereUnLib);
 		critereDeuxCle = ValueToKeyForCritere(secondStatsCriteriumList,critereDeuxLib);
 

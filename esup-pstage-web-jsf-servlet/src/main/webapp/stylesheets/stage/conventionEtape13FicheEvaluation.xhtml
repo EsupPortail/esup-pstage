@@ -82,12 +82,21 @@
 									|| not empty sessionController.droitsEvaluationEtudiantMap)
 									and !conventionController.convention.reponseEvaluation.validationEtudiant}">
 									<t:fieldset style="width:400px;"
-										rendered="#{not empty conventionController.convention.etudiant.mail}">
+										rendered="#{not empty conventionController.convention.etudiant.mail
+										|| not empty conventionController.convention.courrielPersoEtudiant}">
 										<h:panelGrid columns="2" style="padding:5px;"
 											rendered="#{!conventionController.convention.envoiMailEtudiant}">
 											<h:graphicImage value="../../media/images/information.png" />
 											<h:outputFormat escape="false"
-												value="#{msgs['CONVENTION.ETAPE13.MAIL.INFO_ETUDIANT']}">
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.INFO_ETUDIANT']}"
+												rendered="#{not empty conventionController.convention.courrielPersoEtudiant}">
+												<f:param
+													value="#{conventionController.convention.courrielPersoEtudiant}" />
+											</h:outputFormat>
+											<h:outputFormat escape="false"
+												value="#{msgs['CONVENTION.ETAPE13.MAIL.INFO_ETUDIANT']}"
+												rendered="#{empty conventionController.convention.courrielPersoEtudiant
+												and not empty conventionController.convention.etudiant.mail}">
 												<f:param
 													value="#{conventionController.convention.etudiant.mail}" />
 											</h:outputFormat>
@@ -146,7 +155,8 @@
 										</h:panelGrid>
 									</t:fieldset>
 									<h:panelGrid columns="2" style="padding:5px;"
-										rendered="#{empty conventionController.convention.etudiant.mail}">
+										rendered="#{empty conventionController.convention.etudiant.mail
+										and empty conventionController.convention.courrielPersoEtudiant}">
 										<h:graphicImage value="../../media/images/warning_30px.png" />
 										<h:outputText escape="false"
 											value="#{msgs['CONVENTION.ETAPE13.MAIL.ETUDIANT_VIDE']}" />

@@ -235,6 +235,9 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 
 		String etat = "SansETAT";
 
+		if (critereUnLib == null) critereUnLib = "";
+		if (critereDeuxLib == null) critereDeuxLib = "";
+		
 		// récupère les différentes années
 		years = statistiquesDomainService.getAnneesOffres(idCentreGestion, etat);
 
@@ -339,7 +342,6 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 							statsItemList = statistiquesDomainService.getNumberOfOffersByPublication(idCentreGestion, uneAnnee, etat);
 							message = getString("OFFRES.STATS.PUB.SEUL");
 						}
-
 					}
 
 					//Complete le message par validation ou publication
