@@ -7,6 +7,9 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="../_definedStageTemplate.xhtml">
+	<f:metadata>
+		<f:viewParam name="id" value="#{conventionController.numOffreConvention}" />
+	</f:metadata>
 	<ui:define name="content">
 		<ui:include src="_roadmap.xhtml" />
 		<rich:panel>
@@ -26,7 +29,7 @@
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="#{msgs['CONVENTION.CONSIGNES2']}" escape="false" />
 					<t:htmlTag value="div" style="height: 20px;" />
-					<h:panelGrid columns="1">
+					<h:panelGrid>
 						<t:htmlTag value="div" style="height: 20px;" />
 						<h:commandButton
 							action="#{conventionController.goToCreerConventionRechEtu}"

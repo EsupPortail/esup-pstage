@@ -2745,6 +2745,11 @@
 			<to-view-id>/stylesheets/stage/rechercheConventionResultats.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>formulaireCompletion</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionFormulaireCompletion.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
 
 		<!--
 			*********************************************************************
