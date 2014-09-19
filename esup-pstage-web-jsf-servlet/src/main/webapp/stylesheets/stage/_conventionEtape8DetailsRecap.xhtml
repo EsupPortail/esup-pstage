@@ -298,6 +298,17 @@
 		</rich:columnGroup>
 		<rich:columnGroup>
 			<rich:column>
+				<h:outputLabel for="competences1"
+					value="#{msgs['CONVENTION.COMPETENCES']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="competences1"
+					value="#{conventionController.convention.competences}"
+					escape="false" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
 				<h:outputLabel for="details1" value="#{msgs['CONVENTION.DETAILS']}" />
 			</rich:column>
 			<rich:column>
@@ -376,16 +387,16 @@
 				</h:outputText>
 			</rich:column>
 		</rich:columnGroup>
-		<rich:columnGroup>
-			<rich:column>
-				<h:outputLabel for="dureeStage1"
-					value="#{msgs['CONVENTION.DUREESTAGE.INFO']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText id="dureeStage1"
-					value="#{conventionController.convention.dureeStage}" />
-			</rich:column>
-		</rich:columnGroup>
+<!-- 		<rich:columnGroup> -->
+<!-- 			<rich:column> -->
+<!-- 				<h:outputLabel for="dureeStage1" -->
+<!-- 					value="#{msgs['CONVENTION.DUREESTAGE.INFO']}" /> -->
+<!-- 			</rich:column> -->
+<!-- 			<rich:column> -->
+<!-- 				<h:outputText id="dureeStage1" -->
+<!-- 					value="#{conventionController.convention.dureeStage}" /> -->
+<!-- 			</rich:column> -->
+<!-- 		</rich:columnGroup> -->
 		<rich:columnGroup rendered="#{ not emptyconventionController.convention.dureeExceptionnelle}">
 			<rich:column>
 				<h:outputLabel for="dureeExceptionnelle1"
@@ -452,6 +463,16 @@
 		</rich:columnGroup>
 		<rich:columnGroup>
 			<rich:column>
+				<h:outputLabel for="nbconges1"
+					value="#{msgs['CONVENTION.NBCONGES']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="nbconges1"
+					value="#{conventionController.convention.nbConges}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
 				<h:outputLabel for="indemnisation1"
 					value="#{msgs['CONVENTION.INDEMNISATION']}" />
 			</rich:column>
@@ -460,7 +481,8 @@
 					value="#{conventionController.convention.indemnisation.libelle}" />
 			</rich:column>
 		</rich:columnGroup>
-		<rich:columnGroup>
+		<rich:columnGroup
+			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}">
 			<rich:column>
 				<h:outputLabel for="montantGratification1"
 					value="#{msgs['CONVENTION.MTGRATIFICATION']}" />
@@ -470,7 +492,8 @@
 					value="#{conventionController.convention.montantGratification} - #{conventionController.convention.uniteGratification.libelle}" />
 			</rich:column>
 		</rich:columnGroup>
-		<rich:columnGroup>
+		<rich:columnGroup
+			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}">
 			<rich:column>
 				<h:outputLabel for="modeVersGratification1"
 					value="#{msgs['CONVENTION.MODEVERSGRAT']}" />

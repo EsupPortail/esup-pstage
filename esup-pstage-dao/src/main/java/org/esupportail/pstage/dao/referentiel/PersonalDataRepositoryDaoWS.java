@@ -26,6 +26,7 @@ import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.filter.Filter;
 import org.springframework.ldap.filter.OrFilter;
 import org.springframework.ldap.filter.WhitespaceWildcardsFilter;
+import org.springframework.ldap.filter.NotFilter;
 import org.springframework.util.StringUtils;
 
 
@@ -128,18 +129,18 @@ PersonalDataRepositoryDao {
 			OrFilter filtreOu = new OrFilter();
 			while (st.hasMoreTokens()){
 				//on met chaque code dep dans la liste
-				filtreOu.or(new EqualsFilter(ldapAttributes.getLdapMemberType(),st.nextToken()));
+				filtreOu.or(new EqualsFilter(ldapAttributes.getLdapAffiliation(),st.nextToken()));
 			}
 			filter.and(filtreOu);
 		}
 		else {
-			filter.and(new EqualsFilter(ldapAttributes.getLdapMemberType(),ldapAttributes.getLdapFacultytAffiliation()));
+			filter.and(new EqualsFilter(ldapAttributes.getLdapAffiliation(),ldapAttributes.getLdapFacultytAffiliation()));
 		}
 		filter.and(new EqualsFilter(ldapAttributes.getLdapUid(),id));
 		String encode = filter.encode();       
 		encode = encode.substring(1, encode.length()-1);
 		if (logger.isInfoEnabled()){
-			logger.info(" le filtre ldap " + encode);
+			logger.info(" le filtre ldap dans getEnseignantRef " + encode);
 		}
 
 		try {
@@ -182,7 +183,7 @@ PersonalDataRepositoryDao {
 		firstName=firstName==null?"":firstName;
 		codeAffectation=codeAffectation==null?"":codeAffectation;
 		List<EnseignantDTO> teachers=new ArrayList<EnseignantDTO>();
-		
+
 		if(!sameCodeComposanteLdapApogee){
 			codeAffectation=getCodeLdapComposante(codeAffectation);
 		}
@@ -195,12 +196,12 @@ PersonalDataRepositoryDao {
 			OrFilter filtreOu = new OrFilter();
 			while (st.hasMoreTokens()){
 				//on met chaque code dep dans la liste
-				filtreOu.or(new EqualsFilter(ldapAttributes.getLdapMemberType(),st.nextToken()));
+				filtreOu.or(new EqualsFilter(ldapAttributes.getLdapAffiliation(),st.nextToken()));
 			}
 			filter.and(filtreOu);
 		}
 		else{
-			filter.and(new EqualsFilter(ldapAttributes.getLdapMemberType(),ldapAttributes.getLdapFacultytAffiliation()));
+			filter.and(new EqualsFilter(ldapAttributes.getLdapAffiliation(),ldapAttributes.getLdapFacultytAffiliation()));
 		}
 		if (name!=null && !name.equals("")){
 			filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(),name));
@@ -210,13 +211,80 @@ PersonalDataRepositoryDao {
 			filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapFirstName(),firstName));
 		}
 		if (codeAffectation!=null && !codeAffectation.equals("")){
-            filter.and(new EqualsFilter(ldapAttributes.getLdapMemberAffectation(),codeAffectation));
-        } 
+			filter.and(new EqualsFilter(ldapAttributes.getLdapMemberAffectation(),codeAffectation));
+		} 
+		//Il y des enseignants #type de personnel appartenant a ldap.faculty.affiliation mais ne pouvant etre tuteur de stage 
+		//#(ex. : lecteur, moniteur) : les valeurs sont separes par une virgule ",", on les traites avant
 
-		String encode = filter.encode();       
+		String ldapFacultyNonTuteur = ldapAttributes.getLdapFacultyNonTuteur();
+		String memberTypes = ldapAttributes.getLdapMemberType();
+		if(StringUtils.hasText(ldapFacultyNonTuteur)){
+			//On a plusieurs attributs d'enseingants  qui bien que etant faculty, ne peuvent etre tuteurs de stage
+			//dans ce cas on construit le filtre sur chaqu'un des attributs
+			StringTokenizer valeursNonTuteurs = new StringTokenizer(ldapFacultyNonTuteur,",");
+			while(valeursNonTuteurs.hasMoreTokens()) {
+				//TODO cas ou la chaine contient un accent , filtre encode mal 
+				String uneValeurNonTuteur = valeursNonTuteurs.nextToken();
+				StringTokenizer stmt = new StringTokenizer(memberTypes,",");
+				while (stmt.hasMoreTokens()){
+					//on met chaque code dep dans la liste
+					filter.and(new NotFilter(new EqualsFilter(stmt.nextToken(), uneValeurNonTuteur)));
+				}
+			}
+		}
+		String encode ;
+		//Il y a des personnels non enseignants n'appartenant pas à ldap.faculty.affiliation mais pouvant être tuteur de stage 
+		// uid dont les valeurs sont séparées par une virgule ",", on les traites avant
+		String ldapEmployeeTuteur = ldapAttributes.getLdapEmployeeTuteur();
+		if(logger.isInfoEnabled()){
+			logger.info(" ldapEmployeeTuteur " + ldapEmployeeTuteur);
+		}
+
+		//on ne cree ce filtre que si une valeur est définie pour ldap.employee.tutor
+		if(StringUtils.hasText(ldapEmployeeTuteur)){
+
+			AndFilter filterEmployeeTutor = new AndFilter();
+			if (name!=null && !name.equals("")){
+				filterEmployeeTutor.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(),name));
+			}
+
+			if (firstName!=null && !firstName.equals("")){
+				filterEmployeeTutor.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapFirstName(),firstName));
+			}
+			if (codeAffectation!=null && !codeAffectation.equals("")){
+				filterEmployeeTutor.and(new EqualsFilter(ldapAttributes.getLdapMemberAffectation(),codeAffectation));
+			}
+
+			StringTokenizer affiliationEmployeeValues= new StringTokenizer(ldapAttributes.getLdapEmployeeAffiliation(),",");
+			OrFilter filtreOuE = new OrFilter();
+			while( affiliationEmployeeValues.hasMoreTokens()){
+				filtreOuE.or(new EqualsFilter(ldapAttributes.getLdapAffiliation(),affiliationEmployeeValues.nextToken()));
+			}
+			filterEmployeeTutor.and(filtreOuE);
+			StringTokenizer valeursTuteurs = new StringTokenizer(ldapEmployeeTuteur, ",");
+			//On a plusieurs uid de personnels  qui ne sont pas recupérés dans faculty mais qui peuvent etre tuteurs de stage
+			//dans ce cas on construit le filtre sur chaqu'un des uid
+			OrFilter filtreOuT = new OrFilter();
+
+			while(valeursTuteurs.hasMoreTokens()) {
+				//TODO cas ou la chaine contient un accent , filtre encode mal 
+				filtreOuT.or(new EqualsFilter(ldapAttributes.getLdapUid(),valeursTuteurs.nextToken()));
+			}
+			filterEmployeeTutor.and(filtreOuT);
+			// on ajoute ce filtre
+			AndFilter tempFilter= filter;
+			OrFilter finalFilter = new OrFilter() ;
+			finalFilter.or(tempFilter);
+			finalFilter.or(filterEmployeeTutor);
+			encode = finalFilter.encode();
+		}
+		else {
+			encode = filter.encode();
+
+		}
 		encode = encode.substring(1, encode.length()-1);
 		if(logger.isInfoEnabled()){
-			logger.info(" le filtre ldap " + encode);
+			logger.info(" le filtre ldap dans getEnseignantsByName" + encode);
 		}
 
 		try {
@@ -269,9 +337,9 @@ PersonalDataRepositoryDao {
 				} else {
 					enseignantUser.setIdCivilite(DonneesStatic.ID_CIVILITE_VIDE);
 				}
-				
-				if (ldapuser.getAttribute(ldapAttributes.getLdapMemberType())!=null){
-					enseignantUser.setTypePersonne(ldapuser.getAttribute(ldapAttributes.getLdapMemberType()));
+
+				if (ldapuser.getAttribute(ldapAttributes.getLdapAffiliation())!=null){
+					enseignantUser.setTypePersonne(ldapuser.getAttribute(ldapAttributes.getLdapAffiliation()));
 				}
 				if (ldapuser.getAttribute(ldapAttributes.getLdapMemberPhone())!=null){
 					enseignantUser.setTel(ldapuser.getAttribute(ldapAttributes.getLdapMemberPhone()));
@@ -308,11 +376,11 @@ PersonalDataRepositoryDao {
 		// Creation de l'objet affectation pour l'affichage dans le resultat de la recherche
 		AffectationDTO a = new AffectationDTO();
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()) != null 
-			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
+				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
 			a.setLibelle(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()));
 		}
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()) != null
-			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
+				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
 			if(!sameCodeComposanteLdapApogee){
 				enseignant.setCodeAffectation(getCodeApogeeComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
 			}else{
@@ -321,7 +389,7 @@ PersonalDataRepositoryDao {
 			a.setCode(enseignant.getCodeAffectation());
 		}
 		enseignant.setAffectation(a);
-		
+
 		String civilite = ldapUser.getAttribute(ldapAttributes.getLdapMemberCivility());
 		if (civilite != null){
 			if (civilite.equalsIgnoreCase(DonneesStatic.CIVILITE_MR_LDAP)){
@@ -336,7 +404,7 @@ PersonalDataRepositoryDao {
 		} else {
 			enseignant.setIdCivilite(DonneesStatic.ID_CIVILITE_VIDE);
 		}
-		
+
 		String tel = ldapUser.getAttribute(ldapAttributes.getLdapMemberPhone());
 		if(StringUtils.hasText(tel)){
 			enseignant.setTel(tel);
@@ -417,11 +485,11 @@ PersonalDataRepositoryDao {
 		//Creation de l'objet affectation pour l'affichage dans le resultat de la recherche
 		AffectationDTO a = new AffectationDTO();
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()) != null 
-			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
+				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()).isEmpty())){
 			a.setLibelle(ldapUser.getAttribute(ldapAttributes.getLdapMemberLibelleAffectation()));
 		}
 		if (ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()) != null
-			&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
+				&& !(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation()).isEmpty())){
 			if(!sameCodeComposanteLdapApogee){
 				personnelCentreGestion.setCodeAffectation(getCodeApogeeComposante(ldapUser.getAttribute(ldapAttributes.getLdapMemberAffectation())));
 			}else{
@@ -431,7 +499,7 @@ PersonalDataRepositoryDao {
 		}
 		personnelCentreGestion.setAffectation(a);
 
-		
+
 		String civilite = ldapUser.getAttribute(ldapAttributes.getLdapMemberCivility());
 		if (civilite != null){
 			if (civilite.equalsIgnoreCase(DonneesStatic.CIVILITE_MR_LDAP)){

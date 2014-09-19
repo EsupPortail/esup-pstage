@@ -83,6 +83,18 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
+			<h:outputText value="#{msgs['CONVENTION.COMPETENCES']}" />
+			<h:inputTextarea id="competences"
+				value="#{conventionController.convention.competences}" />
+			<rich:message for="competences">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+
+
+			<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
+
 			<h:outputText value="#{msgs['CONVENTION.DETAILS']}" />
 			<h:inputTextarea id="details"
 				value="#{conventionController.convention.details}" />
@@ -99,7 +111,7 @@
 			<h:outputLabel for="fieldDates"
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.DATES']}" />
 		</legend>
-		
+
 		<a4j:outputPanel id="choixAnneeUniv">
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="2"
@@ -112,9 +124,9 @@
 				</h:selectOneMenu>
 			</h:panelGrid>
 		</a4j:outputPanel>
-		
+
 		<rich:message for="choixAnneeUniv" />
-			
+
 		<h:panelGrid id="fieldDates" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="3">
 			<h:outputText
@@ -198,15 +210,13 @@
 
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="3">
-			<h:panelGrid>
-				<h:outputText value="#{msgs['CONVENTION.DUREEEXCEPT']}" />
-				<h:outputText style="font-style:italic;"
-					value="#{msgs['CONVENTION.DUREEEXCEPT.COMPLEMENT']}" />
-			</h:panelGrid>
+			<h:outputText
+				value="#{msgs['CONVENTION.DUREEEXCEPT']} #{msgs['CONVENTION.ETOILE']}" />
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="5">
 				<h:inputText id="dureeExceptionnelle"
-					value="#{conventionController.convention.dureeExceptionnelle}">
+					value="#{conventionController.convention.dureeExceptionnelle}"
+					required="true">
 					<f:validateLength maximum="4" />
 					<f:validateLongRange minimum="1" maximum="9999" />
 				</h:inputText>
@@ -216,7 +226,7 @@
 				<h:outputText value="#{msgs['CONVENTION.EN']}" />
 				<h:selectOneMenu id="uniteDureeExceptionnelle"
 					value="#{conventionController.selUniteDureeExceptionnelle}"
-					converter="#{uniteDureeConverter}">
+					converter="#{uniteDureeConverter}" required="true">
 					<f:selectItem itemValue="" />
 					<f:selectItems value="#{nomenclatureController.unitesDurees}" />
 				</h:selectOneMenu>
@@ -261,17 +271,6 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
-			<h:outputText value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL']}" />
-			<h:inputTextarea id="commentaireDureeTravail"
-				value="#{conventionController.convention.commentaireDureeTravail}" />
-			<rich:message for="commentaireDureeTravail">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-
 			<h:panelGrid>
 				<h:outputText
 					value="#{msgs['CONVENTION.NBHEURESHEBDO']} #{msgs['CONVENTION.ETOILE']}" />
@@ -288,12 +287,46 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
+			<h:panelGrid columns="2" columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text">
+				<h:graphicImage id="imgInfo"
+					alt="#{msgs['INFOSBULLES.COMMENTDUREETRAVAIL']}"
+					value="../../media/images/information.png" style="border:0">
+					<rich:tooltip value="#{msgs['INFOSBULLES.COMMENTDUREETRAVAIL']}" />
+				</h:graphicImage>
+				<h:outputText value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL']}" />
+			</h:panelGrid>
+			<h:inputTextarea id="commentaireDureeTravail"
+				value="#{conventionController.convention.commentaireDureeTravail}" />
+			<rich:message for="commentaireDureeTravail">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+
+			<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
+
 			<h:outputText value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" />
 			<h:inputText id="quotiteTravail"
 				value="#{conventionController.convention.quotiteTravail}" />
 			<rich:message for="quotiteTravail">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
+
+			<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
+			<t:htmlTag value="div" style="height: 5px;" />
+
+			<h:panelGrid>
+				<h:outputText value="#{msgs['CONVENTION.NBCONGES']}" />
+				<h:outputText style="font-style:italic;" value="#{msgs['INFOSBULLES.NBCONGES']}" />
+			</h:panelGrid>
+			<h:inputText id="nbConges"
+				value="#{conventionController.convention.nbConges}" />
+			<rich:message for="nbConges">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+
 		</h:panelGrid>
 	</fieldset>
 
@@ -304,27 +337,27 @@
 			<h:outputLabel for="fieldGratification"
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.GRATIFICATION']}" />
 		</legend>
-		<h:panelGrid id="fieldGratification" columns="3" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<h:outputText
-				value="#{msgs['CONVENTION.INDEMNISATION']} #{msgs['CONVENTION.ETOILE']}"
-				for="indemnisation" />
+		<h:panelGrid id="fieldGratification" columns="3"
+			columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 			<h:panelGrid columns="2">
 				<h:graphicImage id="infoGratification"
 					alt="#{msgs['INFOSBULLES.GRATIFICATION']}"
 					value="../../media/images/information.png" style="border:0">
 					<rich:tooltip value="#{msgs['INFOSBULLES.GRATIFICATION']}" />
 				</h:graphicImage>
-				<h:selectOneMenu id="indemnisation" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}"
-					value="#{conventionController.selIndemnisation}"
-					converter="#{indemnisationConverter}">
-					<a4j:ajax event="valueChange"
-						render="opMessageMontantGratificationOblig" execute="@this" />
-					<f:selectItem itemValue="" />
-					<f:selectItems value="#{nomenclatureController.indemnisations}" />
-				</h:selectOneMenu>
+				<h:outputText
+					value="#{msgs['CONVENTION.INDEMNISATION']} #{msgs['CONVENTION.ETOILE']}"
+					for="indemnisation" />
 			</h:panelGrid>
+			<h:selectOneMenu id="indemnisation" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				value="#{conventionController.selIndemnisation}"
+				converter="#{indemnisationConverter}">
+				<a4j:ajax event="valueChange"
+					render="opMessageMontantGratificationOblig" execute="@this" />
+				<f:selectItem itemValue="" />
+				<f:selectItems value="#{nomenclatureController.indemnisations}" />
+			</h:selectOneMenu>
 			<rich:message for="indemnisation">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
@@ -387,11 +420,12 @@
 		</legend>
 		<h:panelGrid id="fieldMisc" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="3">
-			<h:outputText value="#{msgs['CONVENTION.ORIGINESTAGE.COMMENT']} #{msgs['CONVENTION.ETOILE']}" />
+			<h:outputText
+				value="#{msgs['CONVENTION.ORIGINESTAGE.COMMENT']} #{msgs['CONVENTION.ETOILE']}" />
 			<h:selectOneMenu id="origineStage"
 				value="#{conventionController.selOrigineStage}"
-				converter="#{origineStageConverter}"
-				required="true" requiredMessage="#{requiredMessageController.champObligatoire}">
+				converter="#{origineStageConverter}" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:selectItem itemValue="" />
 				<f:selectItems value="#{nomenclatureController.origineStages}" />
 			</h:selectOneMenu>
@@ -455,7 +489,8 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
-			<h:outputText value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" rendered="#{empty conventionController.convention.centreGestion.modeValidationStage}" />
+			<h:outputText value="#{msgs['CONVENTION.MODEVALIDSTAGE']}"
+				rendered="#{empty conventionController.convention.centreGestion.modeValidationStage}" />
 			<h:selectOneMenu id="modeValidationStage"
 				rendered="#{empty conventionController.convention.centreGestion.modeValidationStage}"
 				requiredMessage="#{requiredMessageController.champObligatoire}"
@@ -464,7 +499,8 @@
 				<f:selectItems
 					value="#{nomenclatureController.modeValidationStages}" />
 			</h:selectOneMenu>
-			<rich:message for="modeValidationStage" rendered="#{empty conventionController.convention.centreGestion.modeValidationStage}">
+			<rich:message for="modeValidationStage"
+				rendered="#{empty conventionController.convention.centreGestion.modeValidationStage}">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 

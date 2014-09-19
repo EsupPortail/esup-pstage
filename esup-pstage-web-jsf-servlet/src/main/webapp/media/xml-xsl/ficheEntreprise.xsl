@@ -665,19 +665,19 @@
 				<fo:inline padding-top="0.2cm" hyphenate="false" language="fr"
 					country="FR" font-size="11pt" margin-left="2.2cm">
 					<xsl:if test="reponse-evaluation/@reponse-ent16 = 1">
-						Excellent
+						Tout à fait d'accord
 					</xsl:if>
 					<xsl:if test="reponse-evaluation/@reponse-ent16 = 2">
-						Très Bien
+						Plutôt d'accord
 					</xsl:if>
 					<xsl:if test="reponse-evaluation/@reponse-ent16 = 3">
-						Bien
+						Sans avis
 					</xsl:if>
 					<xsl:if test="reponse-evaluation/@reponse-ent16 = 4">
-						Satisfaisant
+						Plutôt pas d'accord
 					</xsl:if>
 					<xsl:if test="reponse-evaluation/@reponse-ent16 = 5">
-						Insuffisant
+						Pas du tout d'accord
 					</xsl:if>
 				</fo:inline>
 			</fo:block>

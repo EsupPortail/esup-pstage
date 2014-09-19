@@ -43,7 +43,14 @@
 						</h:panelGrid>
 						<t:htmlTag value="div" style="height: 10px;" />
 						<h:outputText escape="false"
+							rendered="#{!sessionController.validationPedagogique}"
 							value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO']}">
+							<h:graphicImage alt="avertissement"
+								value="../../media/images/information.png" style="border:0" />
+						</h:outputText>
+						<h:outputText escape="false"
+							rendered="#{sessionController.validationPedagogique}"
+							value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO_PEDAGO']}">
 							<h:graphicImage alt="avertissement"
 								value="../../media/images/information.png" style="border:0" />
 						</h:outputText>

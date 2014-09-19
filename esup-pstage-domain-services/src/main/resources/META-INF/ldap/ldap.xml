@@ -40,6 +40,7 @@
 
 		<property name="ldapStudentStep" value="${ldap.student.step}"/>
 		<property name="ldapFacultyNonTuteur" value="${ldap.faculty.nonTutor}"/>
+		<property name="ldapEmployeeTuteur" value="${ldap.employee.tutor}"/>
 	</bean>
 
 	<bean id="ldapUserService"

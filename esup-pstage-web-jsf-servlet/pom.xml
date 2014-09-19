@@ -11,7 +11,7 @@
 	<packaging>war</packaging>
 	<description>couche vue-controller</description>
 	<properties>
-		<org.richfaces.bom.version>4.3.4.Final</org.richfaces.bom.version>
+		<org.richfaces.bom.version>4.3.7.Final</org.richfaces.bom.version>
 	</properties>
 	<build>
 		<defaultGoal>install</defaultGoal>
@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>3.1.2.RELEASE</version>
+			<version>3.2.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.esupportail</groupId>

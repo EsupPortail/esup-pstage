@@ -447,7 +447,9 @@ public class CentreController extends AbstractContextAwareController {
 		try{
 			// Ajout Centre
 			int idCentreGestion = getCentreGestionDomainService().addCentreGestion(centre);
-
+			
+			centre.setIdCentreGestion(idCentreGestion);
+			this.centresGestion.add(centre);
 			if(logger.isDebugEnabled()){
 				logger.debug("idCentreGestion : " + idCentreGestion);
 			}
@@ -528,6 +530,7 @@ public class CentreController extends AbstractContextAwareController {
 		if (centre.getNomViseur() == "" && centre.getPrenomViseur() == ""){
 			centre.setNomViseur(null);
 			centre.setPrenomViseur(null);
+			centre.setQualiteViseur(null);
 		}
 
 		try {
@@ -545,7 +548,7 @@ public class CentreController extends AbstractContextAwareController {
 		try{
 			// Modification du Centre
 			getCentreGestionDomainService().updateCentreGestion(centre);
-
+			
 		} catch (DataUpdateException d){
 			logger.error("DataUpdateException",d.fillInStackTrace());
 			addErrorMessage("formModifCentre:erreurModifCentre","CENTRE.AJOUT_CENTRE.ERREUR");
@@ -695,6 +698,8 @@ public class CentreController extends AbstractContextAwareController {
 					}
 				}
 				getCentreGestionDomainService().deleteCentreGestion(this.centre.getIdCentreGestion());
+
+				this.centresGestion.remove(centre);
 			} catch (CentreReferenceException e){
 				logger.error("CentreReferenceException ",e.fillInStackTrace());
 				addErrorMessage("formSupprCentre:erreurListeCentre","CENTRE.SUPPRESSION.ERREUR.REFERENCE",e.getMessage());

@@ -12,10 +12,10 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class LdapAttributes implements InitializingBean {
 
-	
+
 	/*
 	 ******************* PROPERTIES ******************* */
-	
+
 	/**
 	 * ldapBase
 	 */
@@ -48,7 +48,7 @@ public class LdapAttributes implements InitializingBean {
 	 * ldapMemberAffectation
 	 */
 	private String ldapMemberAffectation;
-	
+
 	/**
 	 * ldapMemberLibelleAffectation
 	 */
@@ -117,25 +117,42 @@ public class LdapAttributes implements InitializingBean {
 	 * ldapAffiliation
 	 */
 	private String ldapAffiliation;
-	
+
 	/**
 	 * code etape d'inscription d'un etudiant
 	 */
 
 	private String ldapStudentStep;
-	
+
 	/**
 	 * 
 	 */
 	private String ldapDisplayname;
-	
+
 	/**
 	 * attributs , memberType d'un enseignant  ne pouvant etre tuteur 
 	 */
 	private String ldapFacultyNonTuteur;
+
+	/**
+	 * uids  des employes  pouvant etre tuteur 
+	 */
+	private String ldapEmployeeTuteur;
 	/*
 	 ******************* INIT ************************* */
-	
+	/**
+	 * @return the ldapEmployeeTuteur
+	 */
+	public String getLdapEmployeeTuteur() {
+		return ldapEmployeeTuteur;
+	}
+
+	/**
+	 * @param ldapEmployeeTuteur the ldapEmployeeTuteur to set
+	 */
+	public void setLdapEmployeeTuteur(String ldapEmployeeTuteur) {
+		this.ldapEmployeeTuteur = ldapEmployeeTuteur;
+	}
 	/**
 	 * @return the ldapFacultyNonTuteur
 	 */
@@ -189,7 +206,7 @@ public class LdapAttributes implements InitializingBean {
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
 	 */
 	public void afterPropertiesSet() throws Exception {
-		
+
 		Assert.notNull(this.ldapUid, 
 				"property ldapUid of class " + this.getClass().getName() 
 				+ " can not be null");
@@ -225,13 +242,13 @@ public class LdapAttributes implements InitializingBean {
 				+ " can not be null");
 
 	}
-	
+
 	/*
 	 ******************* METHODS ********************** */
 
 	/*
 	 ******************* ACCESSORS ******************** */
-	
+
 	/**
 	 * @return the ldapUid
 	 */
@@ -288,7 +305,7 @@ public class LdapAttributes implements InitializingBean {
 		this.ldapFirstName = ldapFirstName;
 	}
 
-	
+
 	/**
 	 * @return the ldapMail
 	 */
@@ -582,7 +599,7 @@ public class LdapAttributes implements InitializingBean {
 	public void setLdapMemberLibelleAffectation(String ldapMemberLibelleAffectation) {
 		this.ldapMemberLibelleAffectation = ldapMemberLibelleAffectation;
 	}
-	
+
 
 
 }

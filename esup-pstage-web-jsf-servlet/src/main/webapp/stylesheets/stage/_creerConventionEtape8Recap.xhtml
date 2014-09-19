@@ -6,20 +6,22 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+	<rich:panel
+		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE8.RECAP']}" />
 		</f:facet>
-		
+
 		<t:htmlTag value="div" style="height: 10px;" />
-		
+
 		<h:outputText value="#{msgs['CONVENTION.ETAPE8.DEMANDE']}" />
-		
+
 		<t:htmlTag value="div" style="height: 10px;" />
-		
+
 		<rich:messages />
-		
-		<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+
+		<h:panelGrid columns="2" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
 			<h:outputLabel for="numeroetudiant1"
 				value="#{msgs['CONVENTION.NUMETUDIANT']}" />
 			<h:outputText id="numeroetudiant1"
@@ -85,6 +87,13 @@
 			<h:outputText id="fonctionsEtTaches1"
 				value="#{conventionController.convention.fonctionsEtTaches}"
 				escape="false" />
+
+			<h:outputLabel for="competences1"
+				value="#{msgs['CONVENTION.COMPETENCES']}" />
+			<h:outputText id="competences1"
+				value="#{conventionController.convention.competences}"
+				escape="false" />
+
 			<h:outputLabel for="details1" value="#{msgs['CONVENTION.DETAILS']}" />
 			<h:outputText id="details1"
 				value="#{conventionController.convention.details}" escape="false" />
@@ -158,18 +167,31 @@
 				value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" />
 			<h:outputText id="quotiteTravail1"
 				value="#{conventionController.convention.quotiteTravail}" />
+
+			<h:outputLabel for="nbconges1" value="#{msgs['CONVENTION.NBCONGES']}" />
+			<h:outputText id="nbconges1"
+				value="#{conventionController.convention.nbConges}" />
+
 			<h:outputLabel for="indemnisation1"
 				value="#{msgs['CONVENTION.INDEMNISATION']}" />
 			<h:outputText id="indemnisation1"
 				value="#{conventionController.convention.indemnisation.libelle}" />
+
+			<!-- modif affichage montant gratification -->
 			<h:outputLabel for="montantGratification1"
-				value="#{msgs['CONVENTION.MTGRATIFICATION']}" />
+				value="#{msgs['CONVENTION.MTGRATIFICATION']}"
+				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
 			<h:outputText id="montantGratification1"
-				value="#{conventionController.convention.montantGratification} - #{conventionController.convention.uniteGratification.libelle}" />
+				value="#{conventionController.convention.montantGratification} - #{conventionController.convention.uniteGratification.libelle}"
+				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
 			<h:outputLabel for="modeVersGratification1"
-				value="#{msgs['CONVENTION.MODEVERSGRAT']}" />
+				value="#{msgs['CONVENTION.MODEVERSGRAT']}"
+				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
 			<h:outputText id="modeVersGratification1"
-				value="#{conventionController.convention.modeVersGratification.libelle}" />
+				value="#{conventionController.convention.modeVersGratification.libelle}"
+				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
+			<!-- ##################################### -->
+
 			<h:outputLabel for="origineStage1"
 				value="#{msgs['CONVENTION.ORIGINESTAGE']}" />
 			<h:outputText id="origineStage1"

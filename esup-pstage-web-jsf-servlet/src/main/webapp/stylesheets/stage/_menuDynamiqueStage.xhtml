@@ -52,9 +52,9 @@
 							<h:outputText value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
 						</h:commandLink>
 					</t:htmlTag>
-					<t:htmlTag value="li">
-						<h:commandLink action="#{conventionController.goToValiderEnMasse}"
-							rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
+					<t:htmlTag value="li"
+						rendered="#{(welcomeController.superAdmin || welcomeController.writer || welcomeController.admin) and !welcomeController.enseignantTuteur}">
+						<h:commandLink action="#{conventionController.goToValiderEnMasse}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
 								title="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
 								value="/media/images/tick.png" style="border:0" />

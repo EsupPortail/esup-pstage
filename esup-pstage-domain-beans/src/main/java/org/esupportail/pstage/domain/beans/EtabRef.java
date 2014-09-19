@@ -11,7 +11,6 @@ public class EtabRef {
 	 */
 	public EtabRef() {
 		super();
-
 	}
 
 	/**

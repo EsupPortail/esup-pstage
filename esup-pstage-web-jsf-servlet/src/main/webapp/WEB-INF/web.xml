@@ -265,8 +265,6 @@
 	</context-param>
 
 	<welcome-file-list>
-		<welcome-file>stylesheets/welcome.xhtml</welcome-file>
-		<welcome-file>stylesheets/stage/welcome.xhtml</welcome-file>
-		<welcome-file>stylesheets/depot/welcome.xhtml</welcome-file>
+		<welcome-file>welcome.xhtml</welcome-file>
 	</welcome-file-list>
 </web-app>

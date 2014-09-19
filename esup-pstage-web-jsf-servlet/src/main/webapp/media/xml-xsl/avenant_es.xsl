@@ -542,7 +542,7 @@
 								<xsl:value-of select="concat($prenom1, substring($prenom2,2))"/>	
 								<xsl:text> </xsl:text>
 							</fo:inline> 
-							los estudiantes (e) de  Rennes 1 :
+							estudiante en :
 							</fo:block>
 							<fo:block line-height="110%" 
 							hyphenate="false" language="fr" country="FR" font-size="10.5pt"

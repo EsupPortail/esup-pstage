@@ -49,9 +49,8 @@ import org.esupportail.pstage.domain.beans.LdapAttributes;
 import org.esupportail.pstage.exceptions.AdministrationApogeeException;
 import org.esupportail.pstage.exceptions.CommunicationApogeeException;
 import org.esupportail.pstage.utils.DonneesStatic;
+import org.esupportail.pstage.utils.Utils;
 import org.springframework.util.StringUtils;
-
-
 
 /**
  * Acces donnees etudiant
@@ -435,7 +434,7 @@ StudentDataRepositoryDao {
 			CoordonneesDTO coordonnees = new CoordonneesDTO();		
 			try{
 				coordonnees = etudiantMetierService.recupererAdressesEtudiant(
-					etudiant.getCodEtu().toString(), null, this.temoinRecupAnnu);
+						etudiant.getCodEtu().toString(), null, this.temoinRecupAnnu);
 			} catch (WebBaseException wb) {
 				coordonnees = etudiantMetierService.recupererAdressesEtudiant(
 						etudiant.getCodEtu().toString(), getYear(), this.temoinRecupAnnu);
@@ -570,8 +569,84 @@ StudentDataRepositoryDao {
 				if (logger.isDebugEnabled()) {
 					logger.debug("StudentDataRepositoryDaoWS:: getStudentByNum.  serviceAdministratif.recupererIAAnnuelles_v2 = ");
 				}
-				InsAdmAnuDTO2[] tabinsAdmAnu = serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), getYear(), "E");
-				for (InsAdmAnuDTO2 insAdmAnu : tabinsAdmAnu) {
+				InsAdmAnuDTO2[] tabInsAdmAnu;
+				InsAdmAnuDTO2[] tmpAnu;
+				boolean isInscriptionCouranteAnu = true;
+				boolean isInscriptionSuivanteAnu = true;
+
+				//InsAdmAnuDTO2[] tabinsAdmAnu = serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), getYear(), "E");
+				try {
+					tabInsAdmAnu = serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), getYear(), "E");
+				} catch (WebBaseException e) {
+					logger.error("WebBaseException recupererIAAnnuelles_v2 annee courante = " + e );
+					isInscriptionCouranteAnu = false;
+					tabInsAdmAnu = new InsAdmAnuDTO2[0];
+					if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
+						logger.error("etudiant non trouve pour l'annee courante= " + etudiant.getCodEtu().toString() );
+					}
+					if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
+						logger.error("pas d'inscription pedagogique pour l'etudiant cette annee = " + etudiant.getCodEtu().toString());
+					}
+					if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
+						logger.error(e + " : " + etudiant.getCodEtu().toString() );
+						logger.error(e.getLastErrorMsg() + " : " + etudiant.getCodEtu().toString() );
+					}
+				} catch (Exception e) {
+					logger.error("Exception getStudent annee courante = " + e);
+					throw new CommunicationApogeeException(e);
+				}
+
+				String anneeSuivante = String.valueOf((Utils.convertStringToInt(getYear())+1));
+
+				try {
+					tmpAnu = serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeSuivante, "E");
+				} catch (WebBaseException e) {
+					logger.error("WebBaseException getStudentIAIP annee suivante = " + e );
+					isInscriptionSuivanteAnu = false;
+					tmpAnu = new InsAdmAnuDTO2[0];
+					if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
+						logger.error("etudiant non trouve pour l'annee suivante= " + etudiant.getCodEtu().toString() );
+					}
+					if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
+						logger.error("pas d'inscription pedagogique pour l'etudiant l'annee prochaine  = " + etudiant.getCodEtu().toString() );
+
+					}
+					if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
+						logger.error(e + " : " + etudiant.getCodEtu().toString() );
+						logger.error(e.getLastErrorMsg() + " : " + etudiant.getCodEtu().toString() );
+					}
+				} catch (Exception e) {
+					logger.error("Exception getStudentIAIP annee suivante = " + e);
+					throw new CommunicationApogeeException(e);
+				}
+
+				if (!isInscriptionCouranteAnu && !isInscriptionSuivanteAnu){
+					throw new AdministrationApogeeException("Pas d'inscription pour l'annee courante ou suivante. Voir les logs precedents pour plus de details.",
+							new WebBaseException());
+				}
+				/* ***************************************************************
+				 * Ajout pour récupérer les étapes de l'année suivante
+				 ****************************************************************/
+				if (tmpAnu.length!=0){
+					int t = tabInsAdmAnu.length;
+					int finalSizeAnu = (t+tmpAnu.length);
+					InsAdmAnuDTO2[] finalTab = new InsAdmAnuDTO2[finalSizeAnu];
+
+					int i=0;
+					int k=0;
+					while (i<t ){
+						finalTab[i] = tabInsAdmAnu[i];
+						i++;
+					}
+					while( i<finalSizeAnu && k<tmpAnu.length){
+						finalTab[i] = tmpAnu[k];
+						i++;
+						k++;
+					}
+					tabInsAdmAnu = finalTab;
+				}
+
+				for (InsAdmAnuDTO2 insAdmAnu : tabInsAdmAnu) {
 					if (logger.isDebugEnabled()) {
 						logger.debug("StudentDataRepositoryDaoWS:: getStudentByNum.  insAdmAnu.getTemoinAffiliationSS()= "+insAdmAnu.getTemoinAffiliationSS());
 					}
@@ -813,8 +888,83 @@ StudentDataRepositoryDao {
 			// recuperer les Inscriptions Administratives de l'etudiant
 			// dont inscription admin annuelle est en cours (E), inscription admin etape est en cours (E), pour annee
 
-			InsAdmEtpDTO2[] tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, getYear(),"E", "E");
+			//inscriptions courante et suivante
+			InsAdmEtpDTO2[] tabInsAdmEtp;
+			InsAdmEtpDTO2[] tmp;
+			boolean isInscriptionCourante = true;
+			boolean isInscriptionSuivante = true;
+			try {
+				tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, getYear(), "E", "E");
+			} catch (WebBaseException e) {
+				logger.error("WebBaseException getStudentIAIP annee courante = " + e );
+				isInscriptionCourante = false;
+				tabInsAdmEtp = new InsAdmEtpDTO2[0];
+				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
+					logger.error("etudiant non trouve pour l'annee courante= " + cod );
+				}
+				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
+					logger.error("pas d'inscription pedagogique pour l'etudiant cette annee = " + cod );
+				}
+				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
+					logger.error(e + " : " + cod );
+					logger.error(e.getLastErrorMsg() + " : " + cod );
+				}
+			} catch (Exception e) {
+				logger.error("Exception getStudentIAIP annee courante = " + e);
+				throw new CommunicationApogeeException(e);
+			}
+			String anneeSuivante = String.valueOf((Utils.convertStringToInt(getYear())+1));
 
+			try {
+				tmp = serviceAdministratif.recupererIAEtapes_v2(cod, anneeSuivante,"E", "E");
+			} catch (WebBaseException e) {
+				logger.error("WebBaseException getStudentIAIP annee suivante = " + e );
+				isInscriptionSuivante = false;
+				tmp = new InsAdmEtpDTO2[0];
+				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
+					logger.error("etudiant non trouve pour l'annee suivante= " + cod );
+				}
+				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
+					logger.error("pas d'inscription pedagogique pour l'etudiant l'annee prochaine  = " + cod );
+
+				}
+				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
+					logger.error(e + " : " + cod );
+					logger.error(e.getLastErrorMsg() + " : " + cod );
+				}
+			} catch (Exception e) {
+				logger.error("Exception getStudentIAIP annee suivante = " + e);
+				throw new CommunicationApogeeException(e);
+			}
+			if (!isInscriptionCourante && !isInscriptionSuivante){
+				throw new AdministrationApogeeException("Pas d'inscription pour l'annee courante ou suivante. Voir les logs precedents pour plus de details.",
+						new WebBaseException());
+			}
+
+			/* ***************************************************************
+			 * Ajout pour récupérer les étapes de l'année suivante
+			 ****************************************************************/
+			if (tmp.length!=0){
+				int t = tabInsAdmEtp.length;
+				int finalSize = (t+tmp.length);
+				InsAdmEtpDTO2[] finalTab = new InsAdmEtpDTO2[finalSize];
+
+				int i=0;
+				int k=0;
+				while (i<t ){
+					finalTab[i] = tabInsAdmEtp[i];
+					i++;
+				}
+				while( i<finalSize && k<tmp.length){
+					finalTab[i] = tmp[k];
+					i++;
+					k++;
+				}
+
+				tabInsAdmEtp = finalTab;
+			}
+
+			/* ****************************************************************/
 			LinkedHashMap<String,String> lEtape = new LinkedHashMap<String, String>();
 			LinkedHashMap<String,String> lEtapeVet = new LinkedHashMap<String, String>();
 			LinkedHashMap<String,String> lEtapeVetPedago = new LinkedHashMap<String, String>();
@@ -895,7 +1045,7 @@ StudentDataRepositoryDao {
 
 					}
 					listeEtapeInscriptions.add(etpins);
-					
+
 					if (logger.isDebugEnabled()){
 						logger.debug("StudentDataRepositoryDaoWS:: cod = "+cod);
 						logger.debug("StudentDataRepositoryDaoWS:: getYear() = "+getYear());
@@ -910,44 +1060,114 @@ StudentDataRepositoryDao {
 				logger.debug("servicePedagogique.recupererContratPedagogiqueResultatVdiVet");
 
 			}
-			ContratPedagogiqueResultatVdiVetDTO[]  tabcontratPedagoResultatVdiVet = 
-					servicePedagogique.recupererContratPedagogiqueResultatVdiVet(cod, getYear(), DonneesStatic.ws_sourceRes_Apogee, "", "", "");
-			if(tabcontratPedagoResultatVdiVet!=null){
-				for (ContratPedagogiqueResultatVdiVetDTO contratPedagoResVdiVet : tabcontratPedagoResultatVdiVet) {
+			try{
+				ContratPedagogiqueResultatVdiVetDTO[]  tabcontratPedagoResultatVdiVet = 
+						servicePedagogique.recupererContratPedagogiqueResultatVdiVet(cod, getYear(), DonneesStatic.ws_sourceRes_Apogee, "", "", "");
+				if(tabcontratPedagoResultatVdiVet!=null){
+					for (ContratPedagogiqueResultatVdiVetDTO contratPedagoResVdiVet : tabcontratPedagoResultatVdiVet) {
 
-					EtapeResVdiVetDTO[]  tabEtapeResVdiVet = contratPedagoResVdiVet.getEtapes();
-					for (EtapeResVdiVetDTO etapeResVdiVet : tabEtapeResVdiVet) {
-						if (etapeResVdiVet.getEtape() != null) {
-							if (logger.isDebugEnabled()){
-								logger.debug("StudentDataRepositoryDaoWS:: etapeResVdiVet.getEtape().getCodEtp() = "+etapeResVdiVet.getEtape().getCodEtp());
-								logger.debug("StudentDataRepositoryDaoWS:: etapeResVdiVet.getEtape().getCodVrsVet() = "+etapeResVdiVet.getEtape().getCodVrsVet());
-								logger.debug("StudentDataRepositoryDaoWS:: etapeResVdiVet.getEtape().etapeResVdiVet.getCodEtaIae() = "+etapeResVdiVet.getCodEtaIae());
-							}
-							// prendre les IP en cours "E"
-							if (etapeResVdiVet.getCodEtaIae() != null) {
-								if (etapeResVdiVet.getCodEtaIae().equals("E")) {
-									// liste etape
-									Object idl=etapeResVdiVet.getEtape().getCodEtp();
-									String lib=etapeResVdiVet.getEtape().getLibWebVet();
-									lEtape.put(idl+"",lib);
-									// liste etape-versionEtape
-									String vet=etapeResVdiVet.getEtape().getCodVrsVet().toString();
-									lEtapeVet.put(idl+"",vet);
-									// liste etape-versionEtape pedagogique
-									lEtapeVetPedago.put(idl+"",vet);
-									// renseignement de la liste des etapes- version etapes - inscriptions
-									EtapeInscription etpins = new EtapeInscription();
-									etpins.setCodeEtp(etapeResVdiVet.getEtape().getCodEtp());
-									etpins.setCodVrsVet(etapeResVdiVet.getEtape().getCodVrsVet().toString());
-									etpins.setLibWebVet(etapeResVdiVet.getEtape().getLibWebVet());
-									etpins.setTypeIns(DonneesStatic.TYPE_INS_PEDAGO);
-									listeEtapeInscriptions.add(etpins);
+						EtapeResVdiVetDTO[]  tabEtapeResVdiVet = contratPedagoResVdiVet.getEtapes();
+						for (EtapeResVdiVetDTO etapeResVdiVet : tabEtapeResVdiVet) {
+							if (etapeResVdiVet.getEtape() != null) {
+								if (logger.isDebugEnabled()){
+									logger.debug("StudentDataRepositoryDaoWS:: etapeResVdiVet.getEtape().getCodEtp() = "+etapeResVdiVet.getEtape().getCodEtp());
+									logger.debug("StudentDataRepositoryDaoWS:: etapeResVdiVet.getEtape().getCodVrsVet() = "+etapeResVdiVet.getEtape().getCodVrsVet());
+									logger.debug("StudentDataRepositoryDaoWS:: etapeResVdiVet.getEtape().etapeResVdiVet.getCodEtaIae() = "+etapeResVdiVet.getCodEtaIae());
+								}
+								// prendre les IP en cours "E"
+								if (etapeResVdiVet.getCodEtaIae() != null) {
+									if (etapeResVdiVet.getCodEtaIae().equals("E")) {
+										// liste etape
+										Object idl=etapeResVdiVet.getEtape().getCodEtp();
+										String lib=etapeResVdiVet.getEtape().getLibWebVet();
+										lEtape.put(idl+"",lib);
+										// liste etape-versionEtape
+										String vet=etapeResVdiVet.getEtape().getCodVrsVet().toString();
+										lEtapeVet.put(idl+"",vet);
+										// liste etape-versionEtape pedagogique
+										lEtapeVetPedago.put(idl+"",vet);
+										// renseignement de la liste des etapes- version etapes - inscriptions
+										EtapeInscription etpins = new EtapeInscription();
+										etpins.setCodeEtp(etapeResVdiVet.getEtape().getCodEtp());
+										etpins.setCodVrsVet(etapeResVdiVet.getEtape().getCodVrsVet().toString());
+										etpins.setLibWebVet(etapeResVdiVet.getEtape().getLibWebVet());
+										etpins.setTypeIns(DonneesStatic.TYPE_INS_PEDAGO);
+										listeEtapeInscriptions.add(etpins);
+									}
 								}
 							}
 						}
 					}
 				}
+			} catch (WebBaseException e) {
+				logger.error("WebBaseException getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee courante = " + e);
+				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
+					logger.error("etudiant non trouve = " + cod);
+				}
+				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
+					logger.error("pas d'inscription pedagogique pour etudiant  = " + cod);
+				}
+				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
+					logger.error(e + " : " + cod);
+				}
+			} catch (Exception e) {
+				logger.error("Exception getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee courante = " + e);
 			}
+
+			try{
+				ContratPedagogiqueResultatVdiVetDTO[] tabcontratPedagoResultatVdiVetSuivante = servicePedagogique.recupererContratPedagogiqueResultatVdiVet(cod, anneeSuivante, DonneesStatic.ws_sourceRes_Apogee, "", "", "");
+				if (tabcontratPedagoResultatVdiVetSuivante != null) {
+					for (ContratPedagogiqueResultatVdiVetDTO contratPedagoResVdiVet : tabcontratPedagoResultatVdiVetSuivante) {
+
+						EtapeResVdiVetDTO[] tabEtapeResVdiVet = contratPedagoResVdiVet.getEtapes();
+						for (EtapeResVdiVetDTO etapeResVdiVet : tabEtapeResVdiVet) {
+							if (etapeResVdiVet.getEtape() != null) {
+								if (logger.isDebugEnabled()) {
+									logger.debug("StudentDataRepositoryDaoWS:: etapeResVdiVet.getEtape().getCodEtp() = " + etapeResVdiVet.getEtape().getCodEtp());
+									logger.debug("StudentDataRepositoryDaoWS:: etapeResVdiVet.getEtape().getCodVrsVet() = " + etapeResVdiVet.getEtape().getCodVrsVet());
+									logger.debug("StudentDataRepositoryDaoWS:: etapeResVdiVet.getEtape().etapeResVdiVet.getCodEtaIae() = " + etapeResVdiVet.getCodEtaIae());
+								}
+								// prendre les IP en cours "E"
+								if (etapeResVdiVet.getCodEtaIae() != null) {
+									if (etapeResVdiVet.getCodEtaIae().equals("E")) {
+										// liste etape
+										Object idl = etapeResVdiVet.getEtape().getCodEtp();
+										String lib = etapeResVdiVet.getEtape().getLibWebVet();
+										lEtape.put(idl + "", lib);
+										// liste etape-versionEtape
+										String vet = etapeResVdiVet.getEtape().getCodVrsVet().toString();
+										lEtapeVet.put(idl + "", vet);
+										// liste etape-versionEtape pedagogique
+										lEtapeVetPedago.put(idl + "", vet);
+										// renseignement de la liste des etapes- version etapes - inscriptions
+										EtapeInscription etpins = new EtapeInscription();
+										etpins.setCodeEtp(etapeResVdiVet.getEtape().getCodEtp());
+										etpins.setCodVrsVet(etapeResVdiVet.getEtape().getCodVrsVet().toString());
+										etpins.setLibWebVet(etapeResVdiVet.getEtape().getLibWebVet());
+										etpins.setTypeIns(DonneesStatic.TYPE_INS_PEDAGO);
+
+										listeEtapeInscriptions.add(etpins);
+									}
+								}
+							}
+						}
+					}
+				}
+			} catch (WebBaseException e) {
+				logger.error("WebBaseException getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee suivante = " + e);
+				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
+					logger.error("etudiant non trouve = " + cod);
+				}
+				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
+					logger.error("pas d'inscription pedagogique pour etudiant  = " + cod);
+				}
+				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
+					logger.error(e + " : " + cod);
+				}
+			} catch (Exception e) {
+				logger.error("Exception getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee suivante = " + e);
+			}
+			
 			apogeeMap.setStudentSteps(lEtape);
 			apogeeMap.setStudentsEtapesVets(lEtapeVet);
 			apogeeMap.setStudentsEtapesVetsPedago(lEtapeVetPedago);
@@ -1122,7 +1342,7 @@ StudentDataRepositoryDao {
 
 	/**
 	 * @param codEtu
-	 * @return le codInd pour le codEtu pass� en param�tre
+	 * @return le codInd pour le codEtu passé en paramètre
 	 */
 	public String getStudentCodInd(final String codEtu) {
 		String codInd = codEtu;
@@ -1171,9 +1391,87 @@ StudentDataRepositoryDao {
 			// recuperer les Inscriptions Administratives de l'etudiant
 			// dont inscription admin annuelle est en cours (E), inscription admin a etape est en cours (E), pour annee
 			//InsAdmEtpDTO[] tabInsAdmEtp = serviceAdministratif.recupererIAEtapes(cod, getYear(),"E", "E");
-			InsAdmEtpDTO2[] tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, getYear(),"E", "E");
+			InsAdmEtpDTO2[] tabInsAdmEtp;
+			InsAdmEtpDTO2[] tmp;
+			boolean isInscriptionCourante = true;
+			boolean isInscriptionSuivante = true;
 
+			try {
+				tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, getYear(),"E", "E");
+			} catch (WebBaseException e) {
+				logger.error("WebBaseException getStudentComposantes annee courante = " + e );
+				isInscriptionCourante = false;
+				tabInsAdmEtp = new InsAdmEtpDTO2[0];
+				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
+					logger.error("etudiant non trouve pour l'annee courante= " + cod );
+				}
+				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
+					logger.error("pas d'inscription pedagogique pour l'etudiant cette annee = " + cod );
+				}
+				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
+					logger.error(e + " : " + cod );
+					logger.error(e.getLastErrorMsg() + " : " + cod );
+				}
+			} catch (Exception e) {
+				logger.error("Exception getStudentComposantes annee courante = " + e);
+				throw new CommunicationApogeeException(e);
+			}
+
+			String anneeSuivante = String.valueOf((Utils.convertStringToInt(getYear())+1));
+
+			try {
+				tmp = serviceAdministratif.recupererIAEtapes_v2(cod, anneeSuivante,"E", "E");
+			} catch (WebBaseException e) {
+				logger.error("WebBaseException getStudentComposantes annee suivante = " + e );
+				isInscriptionSuivante = false;
+				tmp = new InsAdmEtpDTO2[0];
+				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
+					logger.error("etudiant non trouve pour l'annee suivante= " + cod );
+				}
+				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
+					logger.error("pas d'inscription pedagogique pour l'etudiant l'annee prochaine  = " + cod );
+
+				}
+				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
+					logger.error(e + " : " + cod );
+					logger.error(e.getLastErrorMsg() + " : " + cod );
+				}
+			} catch (Exception e) {
+				logger.error("Exception getStudentComposantes annee suivante = " + e);
+				throw new CommunicationApogeeException(e);
+			}
+
+			if (!isInscriptionCourante && !isInscriptionSuivante){
+				throw new AdministrationApogeeException("Pas d'inscription pour l'annee courante ou suivante. Voir les logs precedents pour plus de details.",
+						new WebBaseException());
+			}
+			/* ***************************************************************
+			 * Ajout pour récupérer les étapes de l'année suivante
+			 ****************************************************************/
+			if (tmp.length!=0){
+				int t = tabInsAdmEtp.length;
+				int finalSize = (t+tmp.length);
+				InsAdmEtpDTO2[] finalTab = new InsAdmEtpDTO2[finalSize];
+
+				int i=0;
+				int j=0;
+				int k=0;
+				while (i<finalSize){
+					if (j<t){
+						finalTab[i] = tabInsAdmEtp[j];
+						i++;
+						j++;
+					}
+					if (k<tmp.length){
+						finalTab[i] = tmp[k];
+						i++;
+						k++;
+					}
+				}
+				tabInsAdmEtp = finalTab;
+			}
 			LinkedHashMap<String,String> l = new LinkedHashMap<String, String>();
+
 
 			// recuperer les Inscriptions Administratives de l'etudiant, inscription payee, test sur le codeInscriptionPayee
 			for (InsAdmEtpDTO2 insAdmEtp : tabInsAdmEtp) {

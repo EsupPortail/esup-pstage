@@ -336,15 +336,14 @@
 
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="3"
-				rendered="#{!avenantController.avenant.validationAvenant}">
+				rendered="#{!avenantController.avenant.validationAvenant and (welcomeController.superAdmin
+					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}">
 				<a4j:commandButton id="modif" execute="@this"
 					action="#{avenantController.goToModifAvenantPage1}"
 					value="#{msgs['FORM.MODIFIER']}" />
 				<t:htmlTag value="div" style="width: 20px;" />
 				<a4j:commandButton id="valid" execute="@this"
-					rendered="#{welcomeController.superAdmin
-					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}"
 					oncomplete="#{rich:component('validAvenant')}.show()"
 					value="#{msgs['FORM.VALIDER']}" />
 			</h:panelGrid>
@@ -358,22 +357,26 @@
 
 			<t:htmlTag value="div" style="width: 20px;" />
 
-			<a4j:commandButton id="print" execute="@this"
-				rendered="#{conventionController.convention.codeLangueConvention == 'fr'}"
-				action="#{avenantController.editPdfAvenant}"
-				value="#{msgs['CONVENTION.ETAPE11.IMPRIMER']}" />
-
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3"
-				rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
-				<a4j:commandButton id="printFr" execute="@this"
-					action="#{avenantController.editPdfAvenantFr}"
-					value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_FR']}" />
-				<t:htmlTag value="div" style="width: 20px;" />
-				<a4j:commandButton id="printAutre" execute="@this"
+			<t:div rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+				|| (welcomeController.etudiant and avenantController.avenant.validationAvenant)}">
+				<a4j:commandButton id="print" execute="@this"
+					rendered="#{conventionController.convention.codeLangueConvention == 'fr'}"
 					action="#{avenantController.editPdfAvenant}"
-					value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_AUTRE']} #{conventionController.convention.langueConvention.libelle}" />
-			</h:panelGrid>
+					value="#{msgs['CONVENTION.ETAPE11.IMPRIMER']}" />
+	
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="3"
+					rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
+					<a4j:commandButton id="printFr" execute="@this"
+						action="#{avenantController.editPdfAvenantFr}"
+						value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_FR']}" />
+					<t:htmlTag value="div" style="width: 20px;" />
+					<a4j:commandButton id="printAutre" execute="@this"
+						action="#{avenantController.editPdfAvenant}"
+						value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_AUTRE']} #{conventionController.convention.langueConvention.libelle}" />
+				</h:panelGrid>
+			</t:div>
 		</h:panelGrid>
 
 		<t:htmlTag value="div" style="height: 10px;" />

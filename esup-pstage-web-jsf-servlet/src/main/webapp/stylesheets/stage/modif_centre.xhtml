@@ -185,7 +185,7 @@
 
 						<t:div id="panelViseur">
 							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="1">
+								rowClasses="paginatorData-text">
 								<h:outputLabel for="searchViseur"
 									value="#{msgs['CENTRE.VISEUR.CHOISIR']}" />
 								<h:panelGrid columnClasses="paginatorData-text"
@@ -214,6 +214,14 @@
 											target="#{centreController.centre.prenomViseur}" />
 									</a4j:commandLink>
 								</h:panelGrid>
+							</h:panelGrid>
+							<h:panelGrid columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columns="2"
+								rendered="#{not empty centreController.centre.nomViseur}">
+								<h:outputLabel for="qualiteViseur"
+									value="#{msgs['CENTRE.QUALITE_VISEUR']} " />
+								<h:inputText id="qualiteViseur" value="#{centreController.centre.qualiteViseur}"
+									size="50" maxlength="100" />
 							</h:panelGrid>
 						</t:div>
 

@@ -10,10 +10,7 @@
 	<ui:define name="content">
 		<rich:panel id="panelFicheEvaluation"
 			rendered="#{centreController.centre != null and not empty centreController.ficheEvaluation
-			and (welcomeController.superAdmin 
-			|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]
-			|| sessionController.droitsEvaluationEnseignantMap[centreController.centre.idCentreGestion]
-			|| sessionController.droitsEvaluationEntrepriseMap[centreController.centre.idCentreGestion])}">
+			and welcomeController.superAdmin}">
 			<f:facet name="header">
 				<h:outputFormat value="#{msgs['CENTRE.FICHE_EVALUATION.HEAD']}">
 					<f:param value="#{centreController.centre.nomCentre}" />
@@ -23,11 +20,19 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 
 			<h:form id="formFicheEvaluation">
+				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" align="center">
+					<h:graphicImage id="warn" alt="#{msgs['GENERAL.WARNING']}"
+						title="#{msgs['GENERAL.WARNING']}"
+						value="../../media/images/warning_20px.png" style="border:0" />
+					<h:outputLabel for="warn"
+						value="#{msgs['CENTRE.FICHE_EVALUATION.ALERTE']}" />
+				</h:panelGrid>
 				<fieldset style="width: 30%; margin-left: 100px;">
 					<legend>
 						<h:outputLabel for="gridFiches"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.EDIT']}" />
 					</legend>
+					
 					<h:panelGrid id="gridFiches" columns="5">
 						<h:panelGrid rendered="#{welcomeController.superAdmin 
 							|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]}">

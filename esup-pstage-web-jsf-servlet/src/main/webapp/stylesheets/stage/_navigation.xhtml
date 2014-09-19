@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 	<t:htmlTag value="ul" styleClass="app-pagebar">
 		<t:htmlTag value="li" styleClass="app-pagebar-item">
@@ -12,8 +13,8 @@
 				accesskey="#{msgs['NAVIGATION.ACCESSKEY.WELCOME']}" />
 		</t:htmlTag>
 		<t:htmlTag value="li" styleClass="app-pagebar-item">
-			<h:commandButton id="faq" value="#{msgs['NAVIGATION.TEXT.HELP']}"
-				onclick="openPage('#{sessionController.baseUrl }/stylesheets/stage/help/faq.html','#{msgs['APPLICATION.BIG_TITLE']}','')" />
+			<a4j:commandButton id="faq" value="#{msgs['NAVIGATION.TEXT.HELP']}"
+				onclick="openPage('#{sessionController.baseUrl}/stylesheets/stage/help/faq.html','#{msgs['APPLICATION.BIG_TITLE']}','')" />
 		</t:htmlTag>
 		<t:htmlTag value="li" styleClass="app-pagebar-item">
 			<h:commandButton id="sigPB"

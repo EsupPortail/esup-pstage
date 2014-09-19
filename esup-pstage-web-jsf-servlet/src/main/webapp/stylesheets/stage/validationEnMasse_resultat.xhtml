@@ -30,13 +30,6 @@
 				<h:panelGrid columns="1" align="center"
 					rendered="#{not empty conventionController.rechercheConventionPaginator.visibleItems}">
 					<t:htmlTag value="div" style="height: 5px;" />
-					<h:panelGrid columns="2"
-						rendered="#{welcomeController.enseignantTuteur}">
-						<h:graphicImage alt="info" value="../../media/images/information.png"
-							style="border:0" />
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR']}"
-							escape="false" />
-					</h:panelGrid>
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
 					<h:panelGrid columns="2">
