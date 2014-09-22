@@ -104,10 +104,11 @@
 		<fo:block line-height="100%" hyphenate="false" language="fr"
 			country="FR" font-size="9pt" font-family="Times New Roman,serif"
 			padding-top="1.60cm">
-			Annexes : fiches évalutation / 
+			Annexes : fiches évalutation /
 			<fo:inline text-decoration="underline">
 				Attestation de stage
-			</fo:inline>, autres
+			</fo:inline>
+			, autres
 		</fo:block>
 	</xsl:template>
 
@@ -293,27 +294,41 @@
 										<xsl:value-of
 											select="translate(centre-gestion/nom-viseur,$lowers,$uppers)" />
 									</fo:inline>
+									<xsl:choose>
+										<xsl:when test="centre-gestion/qualite-viseur">
+											<fo:block line-height="130%" hyphenate="false"
+												language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+												padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+												padding-bottom="0.035cm">
+												<fo:inline font-weight="bold">
+													Qualité du représentant :
+												</fo:inline>
+												<xsl:value-of select="centre-gestion/qualite-viseur" />
+											</fo:block>
+										</xsl:when>
+										<xsl:otherwise>
+										</xsl:otherwise>
+									</xsl:choose>
 								</xsl:when>
 								<xsl:otherwise>
 									<fo:inline>
 										<xsl:value-of select="nom-signataire-composante" />
 									</fo:inline>
-									<fo:block line-height="130%" hyphenate="false"
-										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-										padding-bottom="0.035cm">
-										Qualité du représentant :
-										<fo:inline>
-											<xsl:choose>
-												<xsl:when test="qualite-signataire">
-													<xsl:value-of select="qualite-signataire" />
-												</xsl:when>
-												<xsl:otherwise>
-													.....................................
-												</xsl:otherwise>
-											</xsl:choose>
-										</fo:inline>
-									</fo:block>
+									<xsl:choose>
+										<xsl:when test="qualite-signataire">
+											<fo:block line-height="130%" hyphenate="false"
+												language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+												padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+												padding-bottom="0.035cm">
+												<fo:inline font-weight="bold">
+													Qualité du représentant :
+												</fo:inline>
+												<xsl:value-of select="qualite-signataire" />
+											</fo:block>
+										</xsl:when>
+										<xsl:otherwise>
+										</xsl:otherwise>
+									</xsl:choose>
 								</xsl:otherwise>
 							</xsl:choose>
 						</fo:block>
@@ -1397,7 +1412,8 @@
 								text-align="justify">
 								<fo:inline font-size="10pt" font-weight="bold">6.1
 									Gratification inférieure ou égale à 12.5% du plafond horaire
-									de la sécurité sociale :
+									de
+									la sécurité sociale :
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
