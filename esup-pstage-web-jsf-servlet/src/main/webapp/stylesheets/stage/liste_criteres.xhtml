@@ -90,6 +90,11 @@
 							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 						</f:facet>
 					</a4j:status>
+					<h:panelGrid id="erreurListeCritere">
+						<rich:message for="erreurListeCritere">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+					</h:panelGrid>
 				</t:htmlTag>
 				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>

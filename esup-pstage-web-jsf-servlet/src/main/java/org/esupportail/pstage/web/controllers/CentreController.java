@@ -783,11 +783,11 @@ public class CentreController extends AbstractContextAwareController {
 				this.toutLesCriteres = getPersonalComponentRepositoryDomain().getComposantesRef(codeUniversite);
 			} catch (CommunicationApogeeException cae){
 				logger.error(cae.fillInStackTrace());
-				addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
+				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
 				return null;
 			} catch (Exception e){
 				logger.error(e.fillInStackTrace());
-				addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR");
+				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR");
 				return null;
 			}
 
@@ -837,11 +837,11 @@ public class CentreController extends AbstractContextAwareController {
 				this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
 			} catch (CommunicationApogeeException cae){
 				logger.error(cae.fillInStackTrace());
-				addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
+				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
 				return null;
 			}catch (Exception e){
 				logger.error(e.fillInStackTrace());
-				addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR");
+				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR");
 				return null;
 			}
 
@@ -909,7 +909,7 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	public String ajouterCriteres(){
 		if(logger.isDebugEnabled()){
-			logger.debug("public String goToAjoutCritere() ");
+			logger.debug("public String ajouterCriteres() ");
 		}
 		List<CritereGestionDTO> liste = new ArrayList<CritereGestionDTO>();
 		CritereGestion tmp = new CritereGestion();

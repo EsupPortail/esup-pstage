@@ -3159,6 +3159,21 @@ public class ConventionController extends AbstractContextAwareController {
 		conventionTmp.setDateModif(new Date());
 		try {
 			if (this.getConventionDomainService().updateConvention(conventionTmp)) {
+				// Envoi de mail - Verification de la propriete et de l'activation ou non de la validation pedagogique (pas d'envoi si ce n'est pas le cas)
+				if (getSessionController().isAvertissementEtudiantConvention() && (getSessionController().isValidationPedagogique()
+						&& this.convention.getCentreGestion().isValidationPedagogique())){
+					String text=getString("ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION",
+							this.convention.getIdConvention(),
+							getSessionController().getCurrentUser().getDisplayName());
+					String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION.SUJET",
+							this.convention.getIdConvention());
+					String mail = this.convention.getEtudiant().getMail();
+					if (this.convention.getCourrielPersoEtudiant() != null && !this.convention.getCourrielPersoEtudiant().isEmpty()){
+						mail = this.convention.getCourrielPersoEtudiant();
+					}
+					getSmtpService().send(new InternetAddress(mail),
+							sujet,text,text);
+				}
 				retour = SequenceEtapeEnumSel.etape10.actionEtape();
 				addInfoMessage("formSelConvention:erreurConventionVerification", "CONVENTION.VALIDER.CONFIRMATION", this.convention.getIdConvention());
 			}
@@ -3168,6 +3183,9 @@ public class ConventionController extends AbstractContextAwareController {
 		} catch (WebServiceDataBaseException we) {
 			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
 			addErrorMessage("formSelConvention:erreurConventionVerification", "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
+		} catch (AddressException ade){
+			logger.error("AddressException ", ade.fillInStackTrace());
+			addErrorMessage("formSelConvention:erreurConventionValidation", "GENERAL.ERREUR_MAIL", ade.getMessage());
 		}
 		return retour;
 	}
@@ -3207,13 +3225,19 @@ public class ConventionController extends AbstractContextAwareController {
 		conventionTmp.setDateValidation(new Date());
 		try {
 			if (this.getConventionDomainService().updateConvention(conventionTmp)) {
-				if (getSessionController().isAvertissementEtudiantConvention()){
+				// Envoi de mail - Verification de la propriete et de l'activation ou non de la validation pedagogique (pas d'envoi si c'est le cas)
+				if (getSessionController().isAvertissementEtudiantConvention() && (!getSessionController().isValidationPedagogique() 
+						|| (getSessionController().isValidationPedagogique() && !this.convention.getCentreGestion().isValidationPedagogique()))){
 					String text=getString("ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION",
 							this.convention.getIdConvention(),
 							getSessionController().getCurrentUser().getDisplayName());
 					String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION.SUJET",
 							this.convention.getIdConvention());
-					getSmtpService().send(new InternetAddress(this.convention.getEtudiant().getMail()),
+					String mail = this.convention.getEtudiant().getMail();
+					if (this.convention.getCourrielPersoEtudiant() != null && !this.convention.getCourrielPersoEtudiant().isEmpty()){
+						mail = this.convention.getCourrielPersoEtudiant();
+					}
+					getSmtpService().send(new InternetAddress(mail),
 							sujet,text,text);
 				}
 				retour = SequenceEtapeEnumSel.etape10.actionEtape();
