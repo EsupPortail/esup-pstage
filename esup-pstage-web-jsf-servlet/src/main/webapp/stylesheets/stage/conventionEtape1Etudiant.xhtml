@@ -28,7 +28,10 @@
 							value="#{msgs['FORM.MODIFIER']}"
 							action="#{conventionController.goToConventionModifEtudiant}"
 							alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-							rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide}"/>
+							rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
+							and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"/>
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>

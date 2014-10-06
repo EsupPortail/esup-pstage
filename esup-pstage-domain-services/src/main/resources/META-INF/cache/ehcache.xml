@@ -4,7 +4,7 @@
     	The configuration file for EhCache.
     -->
 
-    <diskStore path="/tmp/cache/esup-pstage/"/>
+    <diskStore path="/tmp/cache-esup-pstage/"/>
     
     <!-- 
     	Note: EhCache is disabled by default in hibernate.cfg.xml.

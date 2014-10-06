@@ -53,7 +53,15 @@
 
 						<a4j:commandButton execute="@this" render="selectServiceContact"
 							oncomplete="#{rich:component('selectServiceContact')}.show()"
-							rendered="#{!conventionController.conventionValide}"
+							rendered="#{not empty conventionController.convention.contact and !conventionController.conventionValide
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized 
+								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise 
+								and ((empty conventionController.convention.contact.loginModif and
+								conventionController.convention.contact.loginCreation==sessionController.currentLogin)
+								|| (conventionController.convention.contact.loginModif==sessionController.currentLogin)))))))}"
 							value="#{msgs['CONVENTION.ETAPE4.MODIF.CONTACT']}">
 							<f:setPropertyActionListener value="#{0}"
 								target="#{etablissementController.idContactSel}" />
@@ -74,7 +82,6 @@
 							<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 							<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 								oncomplete="#{rich:component('selectServiceContact')}.hide();"
-								
 								action="#{conventionController.goToConventionModifContact}">
 								<f:setPropertyActionListener
 									value="#{etablissementController.serviceSel}"

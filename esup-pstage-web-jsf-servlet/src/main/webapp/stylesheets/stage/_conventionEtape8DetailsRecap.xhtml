@@ -701,7 +701,10 @@
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height: 20px;" />
 	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" align="right">
+		rowClasses="paginatorData-text" align="right"
+		rendered="#{welcomeController.superAdmin 
+			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
 		<a4j:commandLink execute="@this" id="suppr"
 			oncomplete="#{rich:component('supprConvention')}.show()"
 			disabled="#{conventionController.conventionValide}">

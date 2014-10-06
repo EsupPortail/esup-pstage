@@ -28,7 +28,7 @@
 							<ui:include src="../_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
 							<rich:column>
 								<h:outputLink id="recap"
-									value="#{sessionController.baseUrl}/stylesheets/recherche/?args=idOffre=#{offre.idOffre}">
+									value="#{sessionController.baseUrl}/stylesheets/recherche/detailOffre.xhtml?args=idOffre=#{offre.idOffre}">
 									<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
 										title="#{msgs['OFFRE.GESTION.DETAILS']}"
 										value="../../media/images/document.png" style="border:0" />

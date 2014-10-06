@@ -13,7 +13,10 @@
 		escape="false" />
 
 	<a4j:outputPanel id="opService"
-		rendered="#{!conventionController.conventionValide}">
+		rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
+		and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}">
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="2">
 			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
@@ -30,11 +33,9 @@
 			</h:selectOneMenu>
 		</h:panelGrid>
 		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3"
-			rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}">
+			rowClasses="paginatorData-text" columns="3">
 			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
 			<a4j:commandLink execute="@this" id="ajout"
-				rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}"
 				oncomplete="#{rich:component('ajoutService')}.show()"
 				action="#{etablissementController.ajoutService}"
 				render="ajoutService">
@@ -86,7 +87,15 @@
 
 				<a4j:commandButton execute="@this" id="selectionService"
 					value="#{msgs['FORM.SELECTIONNER']}" style="color:green;"
-					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide}"
+					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
+						and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+						|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+						(!sessionController.autoriserEtudiantAModifierEntreprise 
+						and ((empty etablissementController.serviceSel.loginModif and
+						etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
+						|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
 					oncomplete="#{rich:component('demandeConfirmModifService')}.show()"
 					render="opActionsService">
 					<f:setPropertyActionListener

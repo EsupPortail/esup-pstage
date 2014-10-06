@@ -56,8 +56,15 @@
 				oncomplete="#{rich:component('demandeConfirmModifEtab')}.show()"
 				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
 				alt="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
-				rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide}">
-			</a4j:commandButton>
+				rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
+			and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+			|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+			(!sessionController.autoriserEtudiantAModifierEntreprise 
+			and ((empty conventionController.convention.structure.loginModif and
+			conventionController.convention.structure.loginCreation==sessionController.currentLogin)
+			|| (conventionController.convention.structure.loginModif==sessionController.currentLogin)))))))}" />
 			
 			<rich:popupPanel id="demandeConfirmModifEtab" autosized="true" styleClass="panel">
 				<f:facet name="header">
