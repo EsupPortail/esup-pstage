@@ -2276,7 +2276,23 @@ public class OffreController extends AbstractContextAwareController {
 		}
 		return ret;
 	}
+	
+	/**
+	 * @return String
+	 */
+	public String goToRecapitulatifOffrePublic(){
+		String ret=null;
+		if(this.currentOffre!=null){
+			this.currentOffre=getOffreDomainService().getOffreFromId(this.currentOffre.getIdOffre());
+			this.currentOffre.setStructure(getStructureDomainService().getStructureFromId(this.currentOffre.getIdStructure()));
+			this.etablissementController.loadContactsServices();
+			this.currentOffre.setOffresDiffusion(getOffreDomainService().getOffreDiffusionFromIdOffre(this.currentOffre.getIdOffre()));
+			ret="recapitulatifOffreEtab";
+		}
+		return ret;
+	}
 
+	
 	/**
 	 * @param idOffre
 	 * @return String
