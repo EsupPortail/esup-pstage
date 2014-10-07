@@ -2441,46 +2441,6 @@
 								stagiaire
 							</fo:block>
 							<xsl:choose>
-								<xsl:when test="contact/nom">
-									<fo:block line-height="110%" padding-top="2pt"
-										hyphenate="false" language="fr" country="FR" font-size="10pt"
-										font-family="Times New Roman,serif" font-weight="bold">
-										<xsl:call-template name="start_upper">
-											<xsl:with-param name="prenom">
-												<xsl:value-of select="contact/prenom" />
-											</xsl:with-param>
-										</xsl:call-template>
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="translate(contact/nom,$lowers,$uppers)" />
-									</fo:block>
-									<fo:block line-height="110%" hyphenate="false"
-										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-										<fo:leader />
-									</fo:block>
-								</xsl:when>
-								<xsl:otherwise>
-									<fo:block line-height="110%" padding-top="2pt"
-										hyphenate="false" language="fr" country="FR" font-size="10pt"
-										font-family="Times New Roman,serif">
-										Nom et signature
-									</fo:block>
-									<fo:block line-height="110%" hyphenate="false"
-										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-										......................................................
-									</fo:block>
-								</xsl:otherwise>
-							</xsl:choose>
-						</fo:table-cell>
-						<fo:table-cell>
-							<!-- Tuteur pro -->
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif"
-								text-decoration="underline" font-weight="bold">
-								Le tuteur de stage de
-								l'organisme d'accueil
-							</fo:block>
-							<xsl:choose>
 								<xsl:when test="enseignant/nom">
 									<fo:block line-height="110%" padding-top="2pt"
 										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -2503,6 +2463,47 @@
 									<fo:block line-height="110%" padding-top="2pt"
 										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 										font-size="10pt" font-family="Times New Roman,serif">
+										Nom et signature
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										......................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
+						</fo:table-cell>
+						<fo:table-cell>
+							<!-- Tuteur pro -->
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif"
+								text-decoration="underline" font-weight="bold">
+								Le tuteur de stage de
+								l'organisme d'accueil
+							</fo:block>
+							
+							<xsl:choose>
+								<xsl:when test="contact/nom">
+									<fo:block line-height="110%" padding-top="2pt"
+										hyphenate="false" language="fr" country="FR" font-size="10pt"
+										font-family="Times New Roman,serif" font-weight="bold">
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="contact/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="translate(contact/nom,$lowers,$uppers)" />
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" padding-top="2pt"
+										hyphenate="false" language="fr" country="FR" font-size="10pt"
+										font-family="Times New Roman,serif">
 										Nom et signature
 									</fo:block>
 									<fo:block line-height="110%" hyphenate="false"
