@@ -330,7 +330,7 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresFromVerification(boolean)
 	 */
-	public List<StructureDTO> getStructuresFromVerification(boolean estValidee){
+	public List<StructureDTO> getStructuresFromVerification(int estValidee){
 		List<StructureDTO> ls = this.remoteServices.getStructuresFromVerification(estValidee);
 		setObjects(ls);
 		return ls;

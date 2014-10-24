@@ -193,7 +193,7 @@ public class RechercheController extends AbstractContextAwareController {
 		
 		this.listeResultatsRechercheStructure=new ArrayList<StructureDTO>();
 
-		this.listeResultatsRechercheStructure = getStructureDomainService().getStructuresFromVerification(false);
+		this.listeResultatsRechercheStructure = getStructureDomainService().getStructuresFromVerification(0);
 
 		checkListeResultats();
 		

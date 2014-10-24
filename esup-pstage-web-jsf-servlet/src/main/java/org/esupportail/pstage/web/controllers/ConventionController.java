@@ -615,7 +615,6 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ChoixEtapeEtudiant");
 
-		System.out.println("numOffreConvention : " + this.numOffreConvention);
 		//TODO
 		if (this.numOffreConvention != null && !this.numOffreConvention.isEmpty()){
 			// Ajout pour l'interaction Pstage/plateforme IP
@@ -664,42 +663,31 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Etape intermediaire suite au formulaire de completion pour appli d'offres Tierce
 	 */
 	public String goToCreerConventionRechEtuFromFormCompletion(){
-		System.out.println("TEST GOGO");
-		System.out.println("structure : " + etablissementController.getFormStructure());
 		
 		// recuperation des objets insérés pour les updater
 		OffreDTO offreTmp = getOffreDomainService().getOffreFromId(Utils.convertStringToInt(this.numOffreConvention));
-		System.out.println("offre : " + offreTmp);
 		ContactDTO contactTmp = getStructureDomainService().getContactFromId(offreTmp.getIdContactCand());
-		System.out.println("contact : " + contactTmp);
 		ServiceDTO serviceTmp = getStructureDomainService().getServiceFromId(contactTmp.getIdService());
-		System.out.println("service : " + serviceTmp);
 		StructureDTO structureTmp = getStructureDomainService().getStructureFromId(offreTmp.getIdStructure());
-		System.out.println("structure : " + structureTmp);
 
 		// update de la structure avec les infos saisies dans le formulaire
 		structureTmp.setIdPays(etablissementController.getFormServiceTmpPays().getId());
 		structureTmp.setIdEffectif(etablissementController.getFormStructure().getEffectif().getId());
 		structureTmp.setTypeStructure(etablissementController.getFormStructureTmpTypeStructure());
-		System.out.println("structure idEffectif : " + structureTmp.getIdEffectif());
 		this.getStructureDomainService().updateStructure(structureTmp);
 
-		System.out.println("blebleble 1");
 		// update du service avec l'idPays de sa structure
 		serviceTmp.setIdPays(structureTmp.getIdPays());
 		this.getStructureDomainService().updateService(serviceTmp);
 
-		System.out.println("blebleble 2");
 		// update du contact avec l'idCg récupérée
 		contactTmp.setIdCentreGestion(getCentreGestionDomainService().getCentreEntreprise().getIdCentreGestion());
 		this.getStructureDomainService().updateContact(contactTmp);
 
-		System.out.println("blebleble 3");
 		// update de l'offre avec l'année univ'
 		offreTmp.setAnneeUniversitaire(getBeanUtils().getAnneeUniversitaireCourante(new Date()));
 		this.getOffreDomainService().updateOffre(offreTmp);
 		
-		System.out.println("blebleble 4");
 		
 		return "creerConventionEtape1Etudiant";
 	}

@@ -339,7 +339,11 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 				c.setUfr(getUfrFromId(c.getCodeUFR(), c.getCodeUniversiteUFR()));
 			}
 			if(c.getCodeEtape()!=null){
-				c.setEtape(getEtapeFromId(c.getCodeEtape(), c.getCodeUniversiteEtape()));
+				if (c.getCodeVersionEtape()!=null && !c.getCodeVersionEtape().isEmpty()){
+					c.setEtape(getEtapeFromId(c.getCodeEtape()+";"+c.getCodeVersionEtape(), c.getCodeUniversiteEtape()));
+				} else {
+					c.setEtape(getEtapeFromId(c.getCodeEtape(), c.getCodeUniversiteEtape()));
+				}
 			}
 			if(c.getIdCentreGestion()!=null && c.getIdCentreGestion() > 0){
 				c.setFicheEvaluation(this.ficheEvaluationDomainService.getFicheEvaluationFromIdCentre(c.getIdCentreGestion()));

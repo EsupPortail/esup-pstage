@@ -64,30 +64,31 @@
 			</t:div>
 			<a4j:commandLink execute="@this" id="validerStructure"
 				oncomplete="#{rich:component('validerStructurePanel')}.show()"
-				rendered="#{!varRechercheStructure.estValidee and empty varRechercheStructure.accordPartenariat}"
+				rendered="#{empty varRechercheStructure.accordPartenariat}"
 				action="#{etablissementController.avantValidation}"
 				render="validerStructurePanel">
-				<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
+				<h:graphicImage alt="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
 					value="../../media/images/tick.png" style="border:0" />
 				<f:setPropertyActionListener value="#{varRechercheStructure}"
 					target="#{etablissementController.currentStruct}" />
 				<f:setPropertyActionListener value="_validStructureEtape1"
 					target="#{sessionController.validationStructureCurrentPage}" />
-				<rich:tooltip value="#{msgs['FORM.VALIDER']}" />
+				<rich:tooltip value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
 			</a4j:commandLink>
-			<a4j:commandLink execute="@this" id="devaliderStructure"
-				oncomplete="#{rich:component('validerStructurePanel')}.show()"
-				rendered="#{varRechercheStructure.estValidee and empty varRechercheStructure.accordPartenariat}"
-				action="#{etablissementController.avantValidation}"
-				render="validerStructurePanel">
-				<h:graphicImage alt="#{msgs['FORM.DEVALIDER']}"
-					value="../../media/images/cross.png" style="border:0" />
-				<f:setPropertyActionListener value="#{varRechercheStructure}"
-					target="#{etablissementController.currentStruct}" />
-				<f:setPropertyActionListener value="_validStructureEtape1"
-					target="#{sessionController.validationStructureCurrentPage}" />
-				<rich:tooltip value="#{msgs['FORM.DEVALIDER']}" />
-			</a4j:commandLink>
+<!-- 			<a4j:commandLink execute="@this" id="devaliderStructure" -->
+<!-- 				oncomplete="#{rich:component('validerStructurePanel')}.show()" -->
+<!-- 				rendered="#{(varRechercheStructure.estValidee == 1 || varRechercheStructure.estValidee == 2) -->
+<!-- 				and empty varRechercheStructure.accordPartenariat}" -->
+<!-- 				action="#{etablissementController.avantValidation}" -->
+<!-- 				render="validerStructurePanel"> -->
+<!-- 				<h:graphicImage alt="#{msgs['FORM.DEVALIDER']}" -->
+<!-- 					value="../../media/images/cross.png" style="border:0" /> -->
+<!-- 				<f:setPropertyActionListener value="#{varRechercheStructure}" -->
+<!-- 					target="#{etablissementController.currentStruct}" /> -->
+<!-- 				<f:setPropertyActionListener value="_validStructureEtape1" -->
+<!-- 					target="#{sessionController.validationStructureCurrentPage}" /> -->
+<!-- 				<rich:tooltip value="#{msgs['FORM.DEVALIDER']}" /> -->
+<!-- 			</a4j:commandLink> -->
 		</t:div>
 	</rich:column>
 </ui:composition>

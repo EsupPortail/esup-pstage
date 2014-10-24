@@ -276,7 +276,7 @@ public class EtablissementController extends AbstractContextAwareController {
 		getSessionController().setValidationStructureCurrentPage("_validStructureEtape2");
 
 		if (getStructureDomainService().updateStructureValidation(this.formStructure.getIdStructure(),getSessionController().getCurrentLogin())){
-			this.currentStruct.setEstValidee(true);
+			this.currentStruct.setEstValidee(1);
 			if (this.rechercheController.isToVerificationStructures())
 				this.rechercheController.getListeResultatsRechercheStructure().remove(this.currentStruct);
 			addInfoMessage(null, "STRUCTURE.MODERATION.CONFIRMATION");
@@ -292,7 +292,7 @@ public class EtablissementController extends AbstractContextAwareController {
 		getSessionController().setValidationStructureCurrentPage("_validStructureEtape2");
 
 		if(getStructureDomainService().updateStructureStopValidation(this.formStructure.getIdStructure(),getSessionController().getCurrentLogin())){
-			this.currentStruct.setEstValidee(false);
+			this.currentStruct.setEstValidee(2);
 			addInfoMessage(null, "STRUCTURE.MODERATION.DEVALIDATION.CONFIRMATION");
 		} else {
 			addErrorMessage(null, "STRUCTURE.MODERATION.ERREUR");
@@ -875,9 +875,10 @@ public class EtablissementController extends AbstractContextAwareController {
 			structureTmp.setLoginModif(getSessionController().getCurrentLogin());
 			structureTmp.setLoginInfosAJour(getSessionController().getCurrentLogin());
 
-			if (getSessionController().getCurrentAuthEtudiant() != null && structureTmp.isEstValidee()){
+			if (getSessionController().getCurrentAuthEtudiant() != null
+				&& (structureTmp.getEstValidee() == 1 || structureTmp.getEstValidee() == 2)){
 				getStructureDomainService().updateStructureStopValidation(structureTmp.getIdStructure(), getSessionController().getCurrentLogin());
-				this.formStructure.setEstValidee(false);
+				this.formStructure.setEstValidee(0);
 			}
 			try {
 				if (this.getStructureDomainService().updateStructure(structureTmp)) {
@@ -1811,7 +1812,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String creerCompte() {
-		String ret = "_creationCompteContactEtape2Confirmation";
+		String ret = "gestionContacts";
 		if (this.formContact != null) {
 			try {
 				InternetAddress ia = new InternetAddress(
@@ -1901,7 +1902,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String supprimerCompte() {
-		String ret = "_supprCompteContactEtape2Confirmation";
+		String ret = "gestionContacts";
 		if (this.formContact != null) {
 			try {
 				this.formContact.setLogin(null);
@@ -1952,7 +1953,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String resetMdp() {
-		String ret = "_resetMdpContactEtape2Confirmation";
+		String ret = "gestionContacts";
 		if (this.formContact != null) {
 			try {
 				this.formContact.setDateModif(new Date());

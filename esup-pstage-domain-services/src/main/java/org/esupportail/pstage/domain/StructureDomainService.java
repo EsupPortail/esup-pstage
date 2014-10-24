@@ -226,7 +226,7 @@ public interface StructureDomainService extends Serializable {
 	 * @param estValidee
 	 * @return List<StructureDTO>
 	 */
-	public List<StructureDTO> getStructuresFromVerification(boolean estValidee);
+	public List<StructureDTO> getStructuresFromVerification(int estValidee);
 	
 	/**
 	 * @param id

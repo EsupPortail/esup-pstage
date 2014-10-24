@@ -568,11 +568,11 @@ public class AccordController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String validerDemandeCompte(){
+	public void validerDemandeCompte(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String validerDemandeCompte()");
 		}
-		String retour = null;
+//		String retour = null;
 		//Mail == Confirmation
 		boolean mailConfirmationOK=false;
 		if(this.contactDemandeCompte!=null &&
@@ -582,28 +582,29 @@ public class AccordController extends AbstractContextAwareController {
 			mailConfirmationOK=true;
 		}
 		if(mailConfirmationOK){
-			retour="_accordEtape5Confirmation";
-			addInfoMessage(null, "ACCORD.DEMANDEENVOYE");
+//			retour="_accordEtape5Confirmation";
+			getSessionController().setCreationAccordCurrentPage("_accordEtape5Confirmation");
+			addInfoMessage("formAccord", "ACCORD.DEMANDEENVOYE");
 			if(StringUtils.hasText(getSessionController().getMailingListEntr())){
 				
-				String urlAuth = "";
-				if (getSessionController().getAdminAuthentication().equals("shibb")){
-					urlAuth = "/stylesheets/shibb/auth.xhtml?id=";
-				} else {
-					urlAuth = "/stylesheets/cas/auth.xhtml?id=";
-				}
+//				String urlAuth = "";
+//				if (getSessionController().getAdminAuthentication().equals("shibb")){
+//					urlAuth = "/stylesheets/shibb/auth.xhtml?id=";
+//				} else {
+//					urlAuth = "/stylesheets/cas/auth.xhtml?id=";
+//				}
 				
 				getSmtpService().send(getSessionController().getMailingListEntrIA(), 
 					getString("MAIL.ADMIN.ACCORD.SUJETDEMANDECOMPTE", getSessionController().getApplicationNameEntreprise(), this.contactDemandeCompte.print(), this.accord.getStructure().printAdresse()),
-					getString("MAIL.ADMIN.ACCORD.MESSAGEDEMANDECOMPTE", getSessionController().getApplicationNameEntreprise(), this.contactDemandeCompte.print(), this.accord.getStructure().printAdresse(),
-						this.getSessionController().getBaseUrl() + urlAuth + this.accord.getStructure().getIdStructure()),"");
+					getString("MAIL.ADMIN.ACCORD.MESSAGEDEMANDECOMPTE", getSessionController().getApplicationNameEntreprise(), this.contactDemandeCompte.print(), 
+						this.accord.getStructure().printAdresse()),"");
 			}
 		}else{
 			//Mail != Confirmation
 			if(!mailConfirmationOK)
 				addErrorMessage("formAccord:mailConfirmation", "CONTACT.MAIL_CONFIRMATION.VALIDATION");
 		}
-		return retour;
+//		return retour;
 	}
 
 	/**

@@ -10,17 +10,24 @@
 		<t:htmlTag value="center">
 			<h:outputText id="verification1" alt="#{msgs['FORM.OUI']}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
-				rendered="#{varRechercheStructure.estValidee}"
+				rendered="#{varRechercheStructure.estValidee == 1}"
 				style="border:0; color:green;" escape="false">
 				<rich:tooltip
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
 			</h:outputText>
 			<h:outputText id="verification2" alt="#{msgs['FORM.NON']}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
-				rendered="#{!varRechercheStructure.estValidee}"
+				rendered="#{varRechercheStructure.estValidee == 2}"
 				style="border:0; color:red;" escape="false">
 				<rich:tooltip
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
+			</h:outputText>
+			<h:outputText id="verification3" alt="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
+				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
+				rendered="#{varRechercheStructure.estValidee == 0}"
+				style="border:0; color:grey;" escape="false">
+				<rich:tooltip
+					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
 			</h:outputText>
 		</t:htmlTag>
 	</rich:column>

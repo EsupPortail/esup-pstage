@@ -13,7 +13,7 @@
 				</f:facet>
 				<h:form id="formAccord"
 					rendered="#{not empty accordController.preAccord}">
-					<ui:include id="include" src="/stylesheets/depot/#{sessionController.creationAccordCurrentPage}.xhtml" />
+					<ui:include src="/stylesheets/depot/#{sessionController.creationAccordCurrentPage}.xhtml" />
 				</h:form>
 			</rich:panel>
 			<ui:include src="_panelNousContacter.xhtml" />
