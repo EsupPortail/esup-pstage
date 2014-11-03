@@ -32,8 +32,8 @@ import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
 import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 
 /**
@@ -411,62 +411,62 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * Connexion via Shibboleth (auth/shibb/index.faces)
 	 * @return boolean
 	 */
-	public String connectShibb(){
-		String ret="accueilEntr";
-		getSessionController().setCurrentAuthAdminStructure(null);
-		getSessionController().setCurrentAuthContact(null);
-		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
-		getSessionController().setCurrentAuthEtudiant(null);
-		getSessionController().setCurrentAuthEnseignant(null);
-		getSessionController().setCurrentAuthPersonnel(null);
-		getSessionController().setCurrentCentresGestion(null);
-		getSessionController().setCurrentStageCasUser(null);
-		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if(auth!=null){
-			for(String admin : getSessionController().getSuperAdminTab()){
-				if(admin.equals(auth.getName())){
-					getSessionController().setCurrentAuthAdminStructure(new AdminStructureDTO());
-					getSessionController().getCurrentAuthAdminStructure().setNom(auth.getName());
-					getSessionController().getCurrentAuthAdminStructure().setPrenom("SuperAdmin");
-					getSessionController().getCurrentAuthAdminStructure().setEppn(auth.getName());
-					getSessionController().getCurrentAuthAdminStructure().setLogin(auth.getName());
-					if(logger.isInfoEnabled()){
-						logger.info("Connection of super admin via Shibb : "+getSessionController().getCurrentAuthAdminStructure());
-					}
-					List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
-					l.add(getCentreGestionDomainService().getCentreEntreprise());
-					getSessionController().setCurrentCentresGestion(l);
-					ret="rechercheEtablissement";
-				}
-			}
-			//Si aucun super admin ne correspond, recherche dans la base
-			if(getSessionController().getCurrentAuthAdminStructure()==null){
-				AdminStructureDTO tmp = getAdminDomainService().getAdminStructureFromEppn(auth.getName());
-				if(tmp!=null){
-					if(logger.isInfoEnabled()){
-						logger.info("Connection of admin via Shibb : "+tmp);
-					}
-					getSessionController().setCurrentAuthAdminStructure(tmp);
-					List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
-					l.add(getCentreGestionDomainService().getCentreEntreprise());
-					getSessionController().setCurrentCentresGestion(l);
-					ret="rechercheEtablissement";
-				}else{
-					if(logger.isInfoEnabled()){
-						logger.info("User not authorized via Shibb : "+auth.getName());
-					}
-					//addErrorMessage("connexion", "GENERAL.NOTAUTHORIZED");
-					getSessionController().setNotAdminEntrepriseViaCasShibb(true);
-				}
-			}
-
-			// methode redirigeant l'utilisateur vers la page des contacts s'il passe par le lien du mail de demande de compte
-			ret = this.goToContactsLienDirect(ret);
-
-		}
-		return ret;
-	}
+//	public String connectShibb(){
+//		String ret="accueilEntr";
+//		getSessionController().setCurrentAuthAdminStructure(null);
+//		getSessionController().setCurrentAuthContact(null);
+//		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
+//		getSessionController().setCurrentAuthEtudiant(null);
+//		getSessionController().setCurrentAuthEnseignant(null);
+//		getSessionController().setCurrentAuthPersonnel(null);
+//		getSessionController().setCurrentCentresGestion(null);
+//		getSessionController().setCurrentStageCasUser(null);
+//		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		if(auth!=null){
+//			for(String admin : getSessionController().getSuperAdminTab()){
+//				if(admin.equals(auth.getName())){
+//					getSessionController().setCurrentAuthAdminStructure(new AdminStructureDTO());
+//					getSessionController().getCurrentAuthAdminStructure().setNom(auth.getName());
+//					getSessionController().getCurrentAuthAdminStructure().setPrenom("SuperAdmin");
+//					getSessionController().getCurrentAuthAdminStructure().setEppn(auth.getName());
+//					getSessionController().getCurrentAuthAdminStructure().setLogin(auth.getName());
+//					if(logger.isInfoEnabled()){
+//						logger.info("Connection of super admin via Shibb : "+getSessionController().getCurrentAuthAdminStructure());
+//					}
+//					List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
+//					l.add(getCentreGestionDomainService().getCentreEntreprise());
+//					getSessionController().setCurrentCentresGestion(l);
+//					ret="rechercheEtablissement";
+//				}
+//			}
+//			//Si aucun super admin ne correspond, recherche dans la base
+//			if(getSessionController().getCurrentAuthAdminStructure()==null){
+//				AdminStructureDTO tmp = getAdminDomainService().getAdminStructureFromEppn(auth.getName());
+//				if(tmp!=null){
+//					if(logger.isInfoEnabled()){
+//						logger.info("Connection of admin via Shibb : "+tmp);
+//					}
+//					getSessionController().setCurrentAuthAdminStructure(tmp);
+//					List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
+//					l.add(getCentreGestionDomainService().getCentreEntreprise());
+//					getSessionController().setCurrentCentresGestion(l);
+//					ret="rechercheEtablissement";
+//				}else{
+//					if(logger.isInfoEnabled()){
+//						logger.info("User not authorized via Shibb : "+auth.getName());
+//					}
+//					//addErrorMessage("connexion", "GENERAL.NOTAUTHORIZED");
+//					getSessionController().setNotAdminEntrepriseViaCasShibb(true);
+//				}
+//			}
+//
+//			// methode redirigeant l'utilisateur vers la page des contacts s'il passe par le lien du mail de demande de compte
+//			ret = this.goToContactsLienDirect(ret);
+//
+//		}
+//		return ret;
+//	}
 
 	/**
 	 * Connexion via Cas (auth/cas/index.faces)

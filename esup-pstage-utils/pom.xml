@@ -18,10 +18,27 @@
 		</repository>
 	</repositories>
 	<dependencies>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jasig.cas.client</groupId> -->
+<!-- 			<artifactId>cas-client-core</artifactId> -->
+<!-- 			<version>3.3.3</version> -->
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.opensaml</groupId> -->
+<!-- 					<artifactId>opensaml</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.esupportail</groupId>
 			<artifactId>esup-commons2-exceptionHandling</artifactId>
 			<version>${esupcommons.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jasig.cas.client</groupId>
+					<artifactId>cas-client-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.myfaces.core</groupId>

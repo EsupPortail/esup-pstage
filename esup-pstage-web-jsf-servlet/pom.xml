@@ -32,10 +32,27 @@
 		</plugins>
 	</build>
 	<dependencies>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jasig.cas.client</groupId> -->
+<!-- 			<artifactId>cas-client-core</artifactId> -->
+<!-- 			<version>3.3.3</version> -->
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.opensaml</groupId> -->
+<!-- 					<artifactId>opensaml</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.esupportail</groupId>
 			<artifactId>esup-pstage-domain-services</artifactId>
 			<version>2.2.2-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.opensaml</groupId>
+					<artifactId>opensaml</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.richfaces.ui</groupId>
@@ -51,11 +68,6 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>3.1.2.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.esupportail</groupId>

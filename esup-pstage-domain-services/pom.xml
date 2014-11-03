@@ -11,6 +11,17 @@
 	<description>Domain Interface and Impl</description>
 	<dependencies>
 		<dependency>
+			<groupId>org.jasig.cas.client</groupId>
+			<artifactId>cas-client-core</artifactId>
+			<version>3.3.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.opensaml</groupId>
+					<artifactId>opensaml</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
 			<groupId>org.esupportail</groupId>
 			<artifactId>esup-pstage-domain-beans</artifactId>
 			<version>2.2.2-SNAPSHOT</version>
@@ -21,6 +32,12 @@
 			<artifactId>esup-commons2-auth</artifactId>
 			<version>${esupcommons.version}</version>
 			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jasig.cas.client</groupId>
+					<artifactId>cas-client-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.esupportail</groupId>

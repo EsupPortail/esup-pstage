@@ -50,10 +50,10 @@
 				<xsl:when test="document('config.xml')/config/triptik">
 					<xsl:call-template name="triptik" />
 				</xsl:when>
+				<xsl:otherwise>
+					<fo:block id="theEnd" />
+				</xsl:otherwise>
 			</xsl:choose>
-			<xsl:otherwise>
-				<fo:block id="theEnd" />
-			</xsl:otherwise>
 		</fo:block>
 	</xsl:template>
 

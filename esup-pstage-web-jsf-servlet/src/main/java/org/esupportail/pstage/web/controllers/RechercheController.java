@@ -226,6 +226,7 @@ public class RechercheController extends AbstractContextAwareController {
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
 		}
+		this.listeResultatsRechercheStructure = new ArrayList<StructureDTO>();
 		reloadRechercheStructurePaginator();
 		return "rechercheEtablissementStage";
 	}
