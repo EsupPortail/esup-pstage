@@ -431,4 +431,11 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 		return this.remoteServices.getCodeUFRFromCodeEtapeFromCodUniv(codeEtape, codeUniversite);
 	}
 
+	/**
+	 * @see org.esupportail.pstage.domain.ConventionDomainService#updateConventionSetCodeVersionEtape(java.lang.String, java.lang.String)
+	 */
+	public boolean updateConventionSetCodeVersionEtape(String codeEtape, String codeVersionEtape) {
+		return this.remoteServices.updateConventionSetCodeVersionEtape(codeEtape, codeVersionEtape);
+	}
+
 }

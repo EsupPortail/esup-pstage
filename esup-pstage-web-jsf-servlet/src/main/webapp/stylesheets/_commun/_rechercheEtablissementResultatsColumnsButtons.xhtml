@@ -64,7 +64,7 @@
 			</t:div>
 			<a4j:commandLink execute="@this" id="validerStructure"
 				oncomplete="#{rich:component('validerStructurePanel')}.show()"
-				rendered="#{empty varRechercheStructure.accordPartenariat}"
+				rendered="#{empty varRechercheStructure.accordPartenariat and sessionController.moderationStructures}"
 				action="#{etablissementController.avantValidation}"
 				render="validerStructurePanel">
 				<h:graphicImage alt="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"

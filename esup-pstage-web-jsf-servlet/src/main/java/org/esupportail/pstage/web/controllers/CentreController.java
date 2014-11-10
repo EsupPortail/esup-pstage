@@ -22,7 +22,6 @@ import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.beans.ImageUploadBean;
 import org.esupportail.pstage.web.comparator.ComparatorSelectItem;
-import org.esupportail.pstagedata.domain.beans.CritereGestion;
 import org.esupportail.pstagedata.domain.dto.AffectationDTO;
 import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.CentreGestionSuperviseurDTO;
@@ -871,10 +870,10 @@ public class CentreController extends AbstractContextAwareController {
 					// si le code n'est pas saisi et qu'il est un combine code/codeVersion
 					if(!codesSaisis.contains(codeEtp) && codeEtp.contains(";")){
 						// on en extrait juste sa partie codeEtape et on verifie qu'elle n'est pas non plus rattachee avant d'ajouter le code
-						String[] tabCodes2 = codeEtp.split(";");
-						if(!codesSaisis.contains(tabCodes2[0])){
-							criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
-						}
+//						if(!codesSaisis.contains(tabCodes2[0])){
+//							criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
+//						}
+						criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
 					}
 				}
 			} else {
@@ -912,7 +911,7 @@ public class CentreController extends AbstractContextAwareController {
 			logger.debug("public String ajouterCriteres() ");
 		}
 		List<CritereGestionDTO> liste = new ArrayList<CritereGestionDTO>();
-		CritereGestion tmp = new CritereGestion();
+		CritereGestionDTO tmp = new CritereGestionDTO();
 		String code;
 
 		if (this.listeCriteresChoisis == null || this.listeCriteresChoisis.isEmpty()){
@@ -940,9 +939,27 @@ public class CentreController extends AbstractContextAwareController {
 					this.listeCriteres.remove(j);
 				}
 			}
-			liste.add(new CritereGestionDTO(tmp));
+			
+			liste.add(tmp);
+
+			if (tmp.getCodeVersionEtape() != ""){
+				CritereGestionDTO critereSansVet = getCritereGestionDomainService().getCritereGestionSansVetFromCodeEtape(tmp.getCode());
+				if (critereSansVet != null){
+					// Il existe un critere avec le codeEtape et sans codeVersion d'etape
+					if (critereSansVet.getLibelle().equalsIgnoreCase(tmp.getLibelle())){
+						// S'il a le meme libelle que le critere en cours d'ajout, on update toutes les conventions concernees pour leur donner le codeVersionEtape qui va bien
+						getConventionDomainService().updateConventionSetCodeVersionEtape(tmp.getCode(), tmp.getCodeVersionEtape());
+						// Puis on supprime l'ancien critere qui ne sera plus utilisé
+						this.critere = new CritereGestionDTO();
+						this.critere.setCode(tmp.getCode());
+						this.critere.setCodeVersionEtape("");
+						this.repercutionCriteres();
+					}
+				}
+			}
 		}
 		try {
+			// Mise à jour des ids de centre de gestion des conventions concernées par rapport au nouveau rattachement de leur codeEtape/versionEtape
 			if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_UFR)){
 				for(CritereGestionDTO crit : liste){
 					getCritereGestionDomainService().addCritere(crit);
@@ -1003,7 +1020,8 @@ public class CentreController extends AbstractContextAwareController {
 			}
 			if (this.toutLesCriteres != null 
 					&& !this.toutLesCriteres.isEmpty()
-					&& !this.toutLesCriteres.containsKey(this.critere.getCode())){
+					&& !this.toutLesCriteres.containsValue(this.critere.getLibelle())
+					&& !this.toutLesCriteres.containsKey(this.critere.getCode()+";"+this.critere.getCodeVersionEtape())){
 				return true;
 			}
 		}
@@ -1029,6 +1047,15 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	public void repercutionCriteres(){
 		try {
+			String codeEtape;
+			// On associe son codeVersionEtape si le critere en dispose
+			if (this.critere.getCodeVersionEtape() != null && !this.critere.getCodeVersionEtape().isEmpty()){
+				// On combine les codes pour simuler 2 parametres dans un seul, ceci afin de ne pas avoir
+				// a modifier toutes les methodes suite a l'ajout du codeVersionEtape
+				codeEtape = this.critere.getCode()+";"+this.critere.getCodeVersionEtape();
+			} else {
+				codeEtape = this.critere.getCode();
+			}
 			if (this.centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_UFR)){
 				// Si le centre est une UFR
 				// Partout ou le code critere est trouvé dans les conventions, on remet l'id du centre Etablissement
@@ -1042,20 +1069,26 @@ public class CentreController extends AbstractContextAwareController {
 					// On recupere le code UFR correspondant au codeEtape du critere en cours de suppression
 					String codeUfr = getConventionDomainService().getCodeUFRFromCodeEtape(this.critere.getCode(), getSessionController().getCodeUniversite());
 					if(StringUtils.hasText(codeUfr)){
+						boolean ufrFound = false;
 						for (CritereGestionDTO crit : list){
 							// Si l'on trouve le code UFR dans la liste des criteres deja rattachés, alors on assigne le centre auquel est rattaché ce code a tout les centres touchés par la suppression
 							if (crit.getCode().equalsIgnoreCase(codeUfr)){
-								getConventionDomainService().updateCentreConventionByEtape(this.critere.getCode(),crit.getIdCentreGestion(),getSessionController().getCodeUniversite());
+								getConventionDomainService().updateCentreConventionByEtape(codeEtape,crit.getIdCentreGestion(),getSessionController().getCodeUniversite());
+								ufrFound = true;
 								break;
 							}
+						}
+						if (!ufrFound){
+							// Sinon, de meme que pour les ufr, on remplace l'idCentreGestion du centre auquel était rattaché le critere par celui de l'Etablissement
+							getConventionDomainService().updateCentreConventionByEtape(codeEtape, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
 						}
 					}
 				} else {
 					// Sinon, de meme que pour les ufr, on remplace l'idCentreGestion du centre auquel était rattaché le critere par celui de l'Etablissement
-					getConventionDomainService().updateCentreConventionByEtape(this.critere.getCode(), getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
+					getConventionDomainService().updateCentreConventionByEtape(codeEtape, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
 				}
 			}
-			getCritereGestionDomainService().deleteCritere(this.critere.getCode());
+			getCritereGestionDomainService().deleteCritere(codeEtape);
 			if (this.listeCriteres != null && !this.listeCriteres.isEmpty()){
 				this.listeCriteres.add(new SelectItem(this.critere.getCode(),(this.critere.getCode() +" - "+this.critere.getLibelle())));
 				Collections.sort(this.listeCriteres, new ComparatorSelectItem());

@@ -188,4 +188,11 @@ public interface ConventionDomainService extends Serializable {
 	 * @return String
 	 */
 	public String getCodeUFRFromCodeEtape(String codeEtape, String codeUniversite);
+	
+	/**
+	 * @param codeEtape 
+	 * @param codeVersionEtape
+	 * @return broolean
+	 */
+	public boolean updateConventionSetCodeVersionEtape(String codeEtape, String codeVersionEtape);
 }

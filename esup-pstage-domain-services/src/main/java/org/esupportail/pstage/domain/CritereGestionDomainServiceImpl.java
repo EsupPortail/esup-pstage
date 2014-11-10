@@ -61,4 +61,10 @@ public class CritereGestionDomainServiceImpl implements CritereGestionDomainServ
 	public boolean deleteCritere(String codeCritere) throws DataDeleteException,WebServiceDataBaseException{
 		return this.remoteServices.deleteCritere(codeCritere);
 	}
+	/**
+	 * @see org.esupportail.pstage.domain.CritereGestionDomainService#getCritereGestionSansVetFromCodeEtape(String)
+	 */
+	public CritereGestionDTO getCritereGestionSansVetFromCodeEtape(String codeEtape) {
+		return this.remoteServices.getCritereGestionSansVetFromCodeEtape(codeEtape);
+	}
 }

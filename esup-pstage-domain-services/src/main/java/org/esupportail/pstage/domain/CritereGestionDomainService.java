@@ -29,6 +29,11 @@ public interface CritereGestionDomainService extends Serializable {
 	 */
 	public List<CritereGestionDTO> getCritereGestionFromIdCentre(int idCentreGestion);
 	/**
+	 * @param codeEtape
+	 * @return CritereGestionDTO
+	 */
+	public CritereGestionDTO getCritereGestionSansVetFromCodeEtape(String codeEtape);
+	/**
 	 * @param idCentreGestion
 	 * @return int
 	 */
