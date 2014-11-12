@@ -114,9 +114,9 @@
 								<ui:include
 									src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
 								<rich:dataTable id="rechercheStructureDataTable"
-									var="varRechercheStructure"
-									rendered="#{not empty rechercheController.rechercheStructurePaginator.visibleItems}"
-									value="#{rechercheController.rechercheStructurePaginator.visibleItems}"
+									var="varRechercheStructure" rows="10"
+									rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}"
+									value="#{rechercheController.rechercheStructurePaginator.liste}"
 									width="600">
 									<f:facet name="header">
 										<ui:include
@@ -189,8 +189,9 @@
 										</h:panelGrid>
 									</rich:column>
 									<f:facet name="footer">
-										<rich:dataScroller for="rechercheStructureDataTable"
-											maxPages="20" renderIfSinglePage="false" id="listeScroller" />
+										<rich:dataScroller align="center" for="rechercheStructureDataTable"
+											maxPages="20" page="1" id="listeStructScroller"
+											renderIfSinglePage="false" />
 									</f:facet>
 								</rich:dataTable>
 							</t:div>
