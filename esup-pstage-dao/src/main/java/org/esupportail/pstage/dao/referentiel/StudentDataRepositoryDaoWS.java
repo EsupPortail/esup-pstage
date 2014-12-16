@@ -578,18 +578,18 @@ StudentDataRepositoryDao {
 				try {
 					tabInsAdmAnu = serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), getYear(), "E");
 				} catch (WebBaseException e) {
-					logger.error("WebBaseException recupererIAAnnuelles_v2 annee courante = " + e );
+					logger.warn("WebBaseException recupererIAAnnuelles_v2 annee courante = " + e );
 					isInscriptionCouranteAnu = false;
 					tabInsAdmAnu = new InsAdmAnuDTO2[0];
 					if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-						logger.error("etudiant non trouve pour l'annee courante= " + etudiant.getCodEtu().toString() );
+						logger.warn("etudiant non trouve pour l'annee courante= " + etudiant.getCodEtu().toString() );
 					}
 					if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-						logger.error("pas d'inscription pedagogique pour l'etudiant cette annee = " + etudiant.getCodEtu().toString());
+						logger.warn("pas d'inscription pedagogique pour l'etudiant cette annee = " + etudiant.getCodEtu().toString());
 					}
 					if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-						logger.error(e + " : " + etudiant.getCodEtu().toString() );
-						logger.error(e.getLastErrorMsg() + " : " + etudiant.getCodEtu().toString() );
+						logger.warn(e + " : " + etudiant.getCodEtu().toString() );
+						logger.warn(e.getLastErrorMsg() + " : " + etudiant.getCodEtu().toString() );
 					}
 				} catch (Exception e) {
 					logger.error("Exception getStudent annee courante = " + e);
@@ -601,19 +601,19 @@ StudentDataRepositoryDao {
 				try {
 					tmpAnu = serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeSuivante, "E");
 				} catch (WebBaseException e) {
-					logger.error("WebBaseException getStudentIAIP annee suivante = " + e );
+					logger.warn("WebBaseException getStudentIAIP annee suivante = " + e );
 					isInscriptionSuivanteAnu = false;
 					tmpAnu = new InsAdmAnuDTO2[0];
 					if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-						logger.error("etudiant non trouve pour l'annee suivante= " + etudiant.getCodEtu().toString() );
+						logger.warn("etudiant non trouve pour l'annee suivante= " + etudiant.getCodEtu().toString() );
 					}
 					if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-						logger.error("pas d'inscription pedagogique pour l'etudiant l'annee prochaine  = " + etudiant.getCodEtu().toString() );
+						logger.warn("pas d'inscription pedagogique pour l'etudiant l'annee prochaine  = " + etudiant.getCodEtu().toString() );
 
 					}
 					if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-						logger.error(e + " : " + etudiant.getCodEtu().toString() );
-						logger.error(e.getLastErrorMsg() + " : " + etudiant.getCodEtu().toString() );
+						logger.warn(e + " : " + etudiant.getCodEtu().toString() );
+						logger.warn(e.getLastErrorMsg() + " : " + etudiant.getCodEtu().toString() );
 					}
 				} catch (Exception e) {
 					logger.error("Exception getStudentIAIP annee suivante = " + e);
@@ -662,13 +662,13 @@ StudentDataRepositoryDao {
 
 				}
 			} catch (WebBaseException e) {
-				logger.error("WebBaseException getStudentApogee = " + e );
+				logger.warn("WebBaseException getStudentApogee = " + e );
 				if (e.toString().equals("technical.security.invaliduser.user")) {
-					logger.error("etudiant non trouve IAA = " + id );
+					logger.warn("etudiant non trouve IAA = " + id );
 
 				} 
 				if (e.toString().equals("technical.data.nullretrieve.findIAA")) {
-					logger.error("pas IAA pour etudiant= " + id );
+					logger.warn("pas IAA pour etudiant= " + id );
 
 				} 
 			}
@@ -707,14 +707,14 @@ StudentDataRepositoryDao {
 			return studentApogee;
 
 		} catch (WebBaseException e) {
-			logger.error("WebBaseException getStudentApogee = " + e );
+			logger.warn("WebBaseException getStudentApogee = " + e );
 			if (e.toString().equals("technical.data.nullretrieve.etudiant")) {
 				logger.error("etudiant non trouve = " + id );
 			}
 			return null;
 		} catch (AdministrationApogeeException e) {
-			logger.error("AdministrationApogeeException getStudentApogee = " + e);
-			logger.error("AdministrationApogeeException getStudentApogee = e.getCause()" + e.getCause());
+			logger.warn("AdministrationApogeeException getStudentApogee = " + e);
+			logger.warn("AdministrationApogeeException getStudentApogee e.getCause()" + e.getCause());
 			if (e.toString().equals("technical.data.nullretrieve.etudiant")) {
 				logger.error("etudiant non trouve = " + id );
 				return null;
@@ -896,18 +896,18 @@ StudentDataRepositoryDao {
 			try {
 				tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, getYear(), "E", "E");
 			} catch (WebBaseException e) {
-				logger.error("WebBaseException getStudentIAIP annee courante = " + e );
+				logger.warn("WebBaseException getStudentIAIP annee courante = " + e );
 				isInscriptionCourante = false;
 				tabInsAdmEtp = new InsAdmEtpDTO2[0];
 				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-					logger.error("etudiant non trouve pour l'annee courante= " + cod );
+					logger.warn("etudiant non trouve pour l'annee courante= " + cod );
 				}
 				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-					logger.error("pas d'inscription pedagogique pour l'etudiant cette annee = " + cod );
+					logger.warn("pas d'inscription pedagogique pour l'etudiant cette annee = " + cod );
 				}
 				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-					logger.error(e + " : " + cod );
-					logger.error(e.getLastErrorMsg() + " : " + cod );
+					logger.warn(e + " : " + cod );
+					logger.warn(e.getLastErrorMsg() + " : " + cod );
 				}
 			} catch (Exception e) {
 				logger.error("Exception getStudentIAIP annee courante = " + e);
@@ -918,19 +918,19 @@ StudentDataRepositoryDao {
 			try {
 				tmp = serviceAdministratif.recupererIAEtapes_v2(cod, anneeSuivante,"E", "E");
 			} catch (WebBaseException e) {
-				logger.error("WebBaseException getStudentIAIP annee suivante = " + e );
+				logger.warn("WebBaseException getStudentIAIP annee suivante = " + e );
 				isInscriptionSuivante = false;
 				tmp = new InsAdmEtpDTO2[0];
 				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-					logger.error("etudiant non trouve pour l'annee suivante= " + cod );
+					logger.warn("etudiant non trouve pour l'annee suivante= " + cod );
 				}
 				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-					logger.error("pas d'inscription pedagogique pour l'etudiant l'annee prochaine  = " + cod );
+					logger.warn("pas d'inscription pedagogique pour l'etudiant l'annee prochaine  = " + cod );
 
 				}
 				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-					logger.error(e + " : " + cod );
-					logger.error(e.getLastErrorMsg() + " : " + cod );
+					logger.warn(e + " : " + cod );
+					logger.warn(e.getLastErrorMsg() + " : " + cod );
 				}
 			} catch (Exception e) {
 				logger.error("Exception getStudentIAIP annee suivante = " + e);
@@ -1035,9 +1035,9 @@ StudentDataRepositoryDao {
 								}
 							}
 						} catch (WebBaseException e) {
-							logger.error("WebBaseException getStudentIAIP recupererSE_v2 = " + e );
+							logger.warn("WebBaseException getStudentIAIP recupererSE_v2 = " + e );
 							if (e.toString().equals("technical.data.nullretrieve.recupererse")) {
-								logger.error("aucune donnee en sortie = " + cod + "diplome/vers = " + codeDiplome + versDiplome);
+								logger.warn("aucune donnee en sortie = " + cod + "diplome/vers = " + codeDiplome + versDiplome);
 								continue;
 							}
 							continue;
@@ -1100,15 +1100,15 @@ StudentDataRepositoryDao {
 					}
 				}
 			} catch (WebBaseException e) {
-				logger.error("WebBaseException getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee courante = " + e);
+				logger.warn("WebBaseException getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee courante = " + e);
 				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-					logger.error("etudiant non trouve = " + cod);
+					logger.warn("etudiant non trouve = " + cod);
 				}
 				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-					logger.error("pas d'inscription pedagogique pour etudiant  = " + cod);
+					logger.warn("pas d'inscription pedagogique pour etudiant  = " + cod);
 				}
 				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-					logger.error(e + " : " + cod);
+					logger.warn(e + " : " + cod);
 				}
 			} catch (Exception e) {
 				logger.error("Exception getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee courante = " + e);
@@ -1154,15 +1154,15 @@ StudentDataRepositoryDao {
 					}
 				}
 			} catch (WebBaseException e) {
-				logger.error("WebBaseException getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee suivante = " + e);
+				logger.warn("WebBaseException getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee suivante = " + e);
 				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-					logger.error("etudiant non trouve = " + cod);
+					logger.warn("etudiant non trouve = " + cod);
 				}
 				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-					logger.error("pas d'inscription pedagogique pour etudiant  = " + cod);
+					logger.warn("pas d'inscription pedagogique pour etudiant  = " + cod);
 				}
 				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-					logger.error(e + " : " + cod);
+					logger.warn(e + " : " + cod);
 				}
 			} catch (Exception e) {
 				logger.error("Exception getStudentIAIP - recupererContratPedagogiqueResultatVdiVet annee suivante = " + e);
@@ -1174,13 +1174,13 @@ StudentDataRepositoryDao {
 			apogeeMap.setListeEtapeInscriptions(listeEtapeInscriptions);
 			return apogeeMap;
 		} catch (WebBaseException e) {
-			logger.error("WebBaseException getStudentIAIP = " + e );
+			logger.warn("WebBaseException getStudentIAIP = " + e );
 
 			if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-				logger.error("etudiant non trouve = " + cod );
+				logger.warn("etudiant non trouve = " + cod );
 			}
 			if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-				logger.error("pas d'inscription pedagogique pour etudiant  = " + cod );
+				logger.warn("pas d'inscription pedagogique pour etudiant  = " + cod );
 
 			}
 			if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
@@ -1285,7 +1285,7 @@ StudentDataRepositoryDao {
 							}
 						}
 					} catch (WebBaseException e) {
-						logger.error("WebBaseException getStudentELPV2 = " + e );
+						logger.warn("WebBaseException getStudentELPV2 = " + e );
 						if (e.toString().equals("technical.data.nullretrieve.recupererse")) {
 							logger.error("aucune donnee en sortie = " + cod + " etape/vet = " + etape + vetEtape);
 							continue;
@@ -1326,13 +1326,13 @@ StudentDataRepositoryDao {
 					null, codInd, null, null, null, null, null, null, null, this.temoinRecupAnnu);
 			codEtu = etudiant.getCodEtu().toString();
 		} catch (WebBaseException e) {
-			logger.error("WebBaseException in getStudentByNum = " + e );
+			logger.warn("WebBaseException in getStudentByNum = " + e );
 			if (e.toString().equals("technical.security.invaliduser.user")) {
-				logger.error("etudiant non trouve IAA = " + codInd );
+				logger.warn("etudiant non trouve IAA = " + codInd );
 
 			} 
 			if (e.toString().equals("technical.data.nullretrieve.findIAA")) {
-				logger.error("pas IAA pour etudiant= " + codInd );
+				logger.warn("pas IAA pour etudiant= " + codInd );
 
 			} 
 		}
@@ -1359,13 +1359,13 @@ StudentDataRepositoryDao {
 					codEtu, null, null, null, null, null, null, null, null, this.temoinRecupAnnu);
 			codInd = etudiant.getCodInd().toString();
 		} catch (WebBaseException e) {
-			logger.error("WebBaseException in getStudentByNum = " + e );
+			logger.warn("WebBaseException in getStudentByNum = " + e );
 			if (e.toString().equals("technical.security.invaliduser.user")) {
-				logger.error("etudiant non trouve IAA = " + codEtu );
+				logger.warn("etudiant non trouve IAA = " + codEtu );
 
 			} 
 			if (e.toString().equals("technical.data.nullretrieve.findIAA")) {
-				logger.error("pas IAA pour etudiant= " + codEtu );
+				logger.warn("pas IAA pour etudiant= " + codEtu );
 
 			} 
 		}
@@ -1399,18 +1399,18 @@ StudentDataRepositoryDao {
 			try {
 				tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, getYear(),"E", "E");
 			} catch (WebBaseException e) {
-				logger.error("WebBaseException getStudentComposantes annee courante = " + e );
+				logger.warn("WebBaseException getStudentComposantes annee courante = " + e );
 				isInscriptionCourante = false;
 				tabInsAdmEtp = new InsAdmEtpDTO2[0];
 				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-					logger.error("etudiant non trouve pour l'annee courante= " + cod );
+					logger.warn("etudiant non trouve pour l'annee courante= " + cod );
 				}
 				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-					logger.error("pas d'inscription pedagogique pour l'etudiant cette annee = " + cod );
+					logger.warn("pas d'inscription pedagogique pour l'etudiant cette annee = " + cod );
 				}
 				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-					logger.error(e + " : " + cod );
-					logger.error(e.getLastErrorMsg() + " : " + cod );
+					logger.warn(e + " : " + cod );
+					logger.warn(e.getLastErrorMsg() + " : " + cod );
 				}
 			} catch (Exception e) {
 				logger.error("Exception getStudentComposantes annee courante = " + e);
@@ -1422,19 +1422,19 @@ StudentDataRepositoryDao {
 			try {
 				tmp = serviceAdministratif.recupererIAEtapes_v2(cod, anneeSuivante,"E", "E");
 			} catch (WebBaseException e) {
-				logger.error("WebBaseException getStudentComposantes annee suivante = " + e );
+				logger.warn("WebBaseException getStudentComposantes annee suivante = " + e );
 				isInscriptionSuivante = false;
 				tmp = new InsAdmEtpDTO2[0];
 				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-					logger.error("etudiant non trouve pour l'annee suivante= " + cod );
+					logger.warn("etudiant non trouve pour l'annee suivante= " + cod );
 				}
 				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-					logger.error("pas d'inscription pedagogique pour l'etudiant l'annee prochaine  = " + cod );
+					logger.warn("pas d'inscription pedagogique pour l'etudiant l'annee prochaine  = " + cod );
 
 				}
 				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-					logger.error(e + " : " + cod );
-					logger.error(e.getLastErrorMsg() + " : " + cod );
+					logger.warn(e + " : " + cod );
+					logger.warn(e.getLastErrorMsg() + " : " + cod );
 				}
 			} catch (Exception e) {
 				logger.error("Exception getStudentComposantes annee suivante = " + e);

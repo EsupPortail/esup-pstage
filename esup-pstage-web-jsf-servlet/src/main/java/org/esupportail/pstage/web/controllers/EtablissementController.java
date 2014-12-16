@@ -359,10 +359,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	public void reloadServices() {
 		if (getSessionController().getCurrentManageStructure() != null) {
-			this.listeServices = getStructureDomainService()
-					.getServicesFromIdStructure(
-							getSessionController().getCurrentManageStructure()
-							.getIdStructure());
+			this.listeServices = getStructureDomainService().getServicesFromIdStructure(getSessionController().getCurrentManageStructure().getIdStructure());
 			if (this.listeServices != null) {
 				Collections.sort(this.listeServices,
 						new Comparator<ServiceDTO>() {
@@ -386,7 +383,7 @@ public class EtablissementController extends AbstractContextAwareController {
 		if (getSessionController().getCurrentManageStructure() != null) {
 			reloadServices();
 			if (this.listeServices != null && !this.listeServices.isEmpty()) {
-				// s�lection du 1er service par d�faut
+				// selection du 1er service par defaut
 				this.serviceSel = this.listeServices.get(0);
 				this.idServiceSel = this.serviceSel.getIdService();
 				reloadContacts();

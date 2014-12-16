@@ -6,18 +6,12 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1" id="formAjoutEtab">
+	<h:panelGrid>
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
 			</f:facet>
 			<t:htmlTag value="div" style="height: 20px;" />
-			<h:outputText value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
-
-			<t:htmlTag value="div" style="height: 20px;" />
-			<rich:message for="formAjoutEtab">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
 
 			<ui:include src="../_commun/_etablissementForm.xhtml" />
 
@@ -32,6 +26,8 @@
 					render="formConvention"
 					action="#{conventionController.ajouterEtablissement}" />
 			</h:panelGrid>
+			
+			<t:htmlTag value="div" style="height:10px;" />
 		</rich:panel>
 	</h:panelGrid>
 </ui:composition>

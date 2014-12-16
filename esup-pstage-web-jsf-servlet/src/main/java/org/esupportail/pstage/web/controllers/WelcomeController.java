@@ -656,7 +656,7 @@ public class WelcomeController extends AbstractContextAwareController {
 								getSessionController().getCurrentStageCasUser().getId());
 
 						if (p != null){
-							if(!(p.getUidPersonnel().isEmpty())){
+							if(p.getUidPersonnel() != null && !p.getUidPersonnel().isEmpty()){
 								getSessionController().setCurrentAuthPersonnel(p);
 
 							}else{
@@ -676,7 +676,7 @@ public class WelcomeController extends AbstractContextAwareController {
 								getSessionController().getCurrentStageCasUser().getId());
 
 						if(en!=null){
-							if(!(en.getUidEnseignant().isEmpty())){
+							if(en.getUidEnseignant() != null && !en.getUidEnseignant().isEmpty()){
 								getSessionController().setCurrentAuthEnseignant(en);
 
 							}else{
@@ -776,7 +776,7 @@ public class WelcomeController extends AbstractContextAwareController {
 					}
 
 					if (e != null) {
-						if(!(e.getIdentEtudiant().isEmpty())){
+						if(e.getIdentEtudiant() != null && !e.getIdentEtudiant().isEmpty()){
 							getSessionController().setCurrentAuthEtudiant(e);
 						}else{
 							//Si aucun étudiant trouvé, création de l'objet EtudiantDTO manuellement à partir des infos de getSessionController().getCurrentStageCasUser()

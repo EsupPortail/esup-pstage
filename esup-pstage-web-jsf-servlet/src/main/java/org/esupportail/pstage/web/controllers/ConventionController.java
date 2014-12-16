@@ -6025,6 +6025,79 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 	}
 
+	
+/*	public void avantUpdateStep(){
+		this.resultatEtudiantRef=getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(), this.convention.getEtudiant().getIdentEtudiant());
+		if (this.resultatEtudiantRef != null) {
+			this.etudiantRef = this.resultatEtudiantRef;
+			if (this.resultatEtudiantRef.getListeEtapeInscriptions()!= null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()) {
+				List<EtapeInscription> list = this.resultatEtudiantRef.getListeEtapeInscriptions();
+				this.listeEtapesEtudiant = new ArrayList<SelectItem>();
+				for (EtapeInscription etp : list){
+					if (etp.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
+						this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp()+";"+etp.getCodVrsVet(), etp.getLibWebVet()));
+					}
+				}
+			}
+		}
+		
+		if (listeEtapesEtudiant == null || listeEtapesEtudiant.isEmpty()) {
+			addErrorMessage(null, "RECHERCHEETU.PAS.IA");
+		}
+	}
+	
+	public void updateStep(){
+		if(logger.isDebugEnabled()){
+			logger.debug("public String ajouterCommentaireStage()");
+		}
+		try {
+			if (this.selectedCodeEtape != null){
+				this.convention.setLoginModif(getSessionController().getCurrentLogin());
+				this.convention.setDateValidation(new Date());
+
+				String[] tabCodes = selectedCodeEtape.split(";");
+				
+				EtapeInscription ufrEtape = rechUfrEtape(tabCodes[0]);
+				this.convention.setCodeEtape(tabCodes[0]);
+				this.convention.getEtape().setCode(tabCodes[0]);
+				this.convention.getEtape().setCodeVersionEtape(tabCodes[1]);
+				for (SelectItem item : this.listeEtapesEtudiant){
+					if (item.getValue().equals(selectedCodeEtape)){
+						this.convention.getEtape().setLibelle(item.getLabel());
+						break;
+					}
+				}
+				this.convention.getEtape().setCodeUniversite(getSessionController().getCodeUniversite());
+				
+				try {
+					int idEtape = this.getConventionDomainService().addEtape(this.convention.getEtape());
+					if (logger.isInfoEnabled()){
+						logger.info("Ajout etape : " + this.convention.getEtape()+", id etape ajout : " + idEtape);
+					}
+				} catch (EtapeAlreadyExistingForCodeException ee) {
+					if (logger.isInfoEnabled()) {
+						logger.info("Etape deja existante code " + this.convention.getEtape());
+					}
+				}
+				
+				if (ufrEtape != null) {
+					this.convention.getUfr().setCode(ufrEtape.getCodeComposante());
+					this.convention.getUfr().setLibelle(ufrEtape.getLibComposante());
+					this.convention.setCodeUFR(ufrEtape.getCodeComposante());
+				}
+				this.getConventionDomainService().updateConvention(this.convention);
+			}
+		} catch (DataUpdateException ae) {
+			logger.error("DataUpdateException", ae.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+		} catch (WebServiceDataBaseException we) {
+			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
+		} catch (Exception e) {
+			logger.error("Exception ", e.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", e.getMessage());
+		}
+	}*/
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/

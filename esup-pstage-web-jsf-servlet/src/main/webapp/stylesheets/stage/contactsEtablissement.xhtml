@@ -35,8 +35,6 @@
 								valueChangeListener="#{etablissementController.valueIdServiceChanged}"
 								rendered="#{not empty etablissementController.listeServices}">
 								<f:selectItems value="#{etablissementController.servicesItems}" />
-								<a4j:ajax event="blur"
-									render="opContactsDataTable, opActionsService" />
 								<a4j:ajax event="valueChange"
 									render="opContactsDataTable, opActionsService" />
 							</h:selectOneMenu>

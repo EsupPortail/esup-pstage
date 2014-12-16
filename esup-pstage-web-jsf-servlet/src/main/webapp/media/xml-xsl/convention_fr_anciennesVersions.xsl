@@ -1023,7 +1023,15 @@
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:value-of select="competences" />
+								.......................................................................................................
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								.......................................................................................................
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								.......................................................................................................
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -1974,7 +1982,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								<xsl:value-of select="nb-conges" />
+								............................................................................................
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -2844,17 +2852,6 @@
 										<xsl:value-of
 											select="concat(substring(./date-fin-stage,9,2),'/',substring(./date-fin-stage,6,2), '/',substring(./date-fin-stage,1,4))" />
 									</fo:inline>
-									<xsl:if test="@interruption-stage = 'true'">
-										<xsl:text> </xsl:text>
-										avec interruption du
-										<xsl:value-of
-											select="concat(substring(./date-debut-interruption,9,2),'/',substring(./date-debut-interruption,6,2), '/',substring(./date-debut-interruption,1,4))" />
-										<xsl:text> </xsl:text>
-										au
-										<xsl:text> </xsl:text>
-										<xsl:value-of
-											select="concat(substring(./date-fin-interruption,9,2),'/',substring(./date-fin-interruption,6,2), '/',substring(./date-fin-interruption,1,4))" />
-									</xsl:if>
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>

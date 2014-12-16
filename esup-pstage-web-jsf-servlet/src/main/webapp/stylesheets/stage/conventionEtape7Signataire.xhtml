@@ -57,8 +57,7 @@
 						</a4j:commandButton>
 						<a4j:commandButton execute="@this"
 							oncomplete="#{rich:component('selectServiceSignataire')}.show()"
-							rendered="#{(not empty conventionController.convention.signataire and !conventionController.conventionValide)
-									and (sessionController.adminPageAuthorized 
+							rendered="#{!conventionController.conventionValide and (sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
 								and empty conventionController.convention.signataire.login and empty conventionController.convention.signataire.mdp)

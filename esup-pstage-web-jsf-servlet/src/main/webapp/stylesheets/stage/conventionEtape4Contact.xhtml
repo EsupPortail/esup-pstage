@@ -33,7 +33,7 @@
 						<a4j:commandButton execute="@this"
 							oncomplete="#{rich:component('modifContact')}.show()"
 							render="modifContact" value="#{msgs['FORM.MODIFIER']}"
-							rendered="#{not empty conventionController.convention.contact and !conventionController.conventionValide
+							rendered="#{!conventionController.conventionValide
 								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized 
 								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)

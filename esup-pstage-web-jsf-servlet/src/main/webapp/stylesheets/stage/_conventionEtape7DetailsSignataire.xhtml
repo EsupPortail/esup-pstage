@@ -7,7 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1"
-		rendered="#{not empty conventionController.convention.signataire and conventionController.convention.signataire.id > 0}">
+		rendered="#{not empty conventionController.convention.signataire and conventionController.convention.signataire.id gt 0}">
 		<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
 			escape="false" />
 		<t:htmlTag value="div" style="width: 50px;" />

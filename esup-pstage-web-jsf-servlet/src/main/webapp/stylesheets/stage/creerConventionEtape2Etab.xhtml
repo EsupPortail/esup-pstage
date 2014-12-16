@@ -13,9 +13,17 @@
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
 			</f:facet>
-			<h:form id="formConvention">
-				<ui:include src="/stylesheets/stage/#{sessionController.creationConventionEtape2CurrentPage}.xhtml" />
-			</h:form>
+			<h:panelGrid id="formAjoutEtab">
+				<h:form id="formConvention">
+					<ui:include
+						src="/stylesheets/stage/#{sessionController.creationConventionEtape2CurrentPage}.xhtml" />
+				</h:form>
+				<t:htmlTag value="div" style="height: 10px;" />
+				<rich:message for="formAjoutEtab">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+				<t:htmlTag value="div" style="height: 10px;" />
+			</h:panelGrid>
 		</rich:panel>
 	</ui:define>
 </ui:composition>
