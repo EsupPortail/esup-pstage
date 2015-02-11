@@ -294,7 +294,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	private String urlAssistance;
 
 	/**
-	 * vrai si Enseignant Tuteur
+	 * vrai si Enseignant Référent
 	 */
 	private boolean enseignantTuteur=false;
 
@@ -536,6 +536,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * PANEL TRANSFERT OFFRE
 	 */
 	private String transfertOffreCurrentPage = "_transfertOffreEtape1";
+	/**
+	 * PANEL RESET MDP CONTACT
+	 */
+	private String resetMdpContactCurrentPage = "_resetMdpContactEtape1";
 	
 	/**
 	 * Constructor.
@@ -2463,6 +2467,20 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setTransfertOffreCurrentPage(String transfertOffreCurrentPage) {
 		this.transfertOffreCurrentPage = transfertOffreCurrentPage;
+	}
+
+	/**
+	 * @return the resetMdpContactCurrentPage
+	 */
+	public String getResetMdpContactCurrentPage() {
+		return resetMdpContactCurrentPage;
+	}
+
+	/**
+	 * @param resetMdpContactCurrentPage the resetMdpContactCurrentPage to set
+	 */
+	public void setResetMdpContactCurrentPage(String resetMdpContactCurrentPage) {
+		this.resetMdpContactCurrentPage = resetMdpContactCurrentPage;
 	}
 
 }

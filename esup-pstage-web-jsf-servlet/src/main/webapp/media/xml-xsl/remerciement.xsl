@@ -25,7 +25,7 @@
 						</fo:external-graphic>
 					</fo:block>
 					<fo:block margin-right="2.5cm" margin-left="2.5cm"
-						margin-bottom="1.09cm" padding-top="1cm">
+						margin-bottom="1.09cm" padding-top="0.4cm">
 						<xsl:apply-templates select="convention-dTO" />
 					</fo:block>
 				</fo:flow>
@@ -57,31 +57,27 @@
 	<!-- entete logo/ annee universitaire -->
 	<xsl:template name="entete">
 		<fo:table table-layout="fixed" width="100%">
-			<fo:table-column column-width="proportional-column-width(0.5)" />
+			<fo:table-column column-width="14cm" />
 			<fo:table-body>
 				<fo:table-row>
 					<fo:table-cell>
-						<fo:block font-family="Times New Roman,serif">
-							<fo:leader />
-						</fo:block>
-						<fo:block font-family="Times New Roman,serif">
-							<xsl:value-of
-								select="translate(etudiant/prenom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-							<xsl:text> </xsl:text>
-							<xsl:value-of
-								select="translate(etudiant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-						</fo:block>
-						<fo:block font-family="Times New Roman,serif">
-							<xsl:value-of select="adresse-etudiant" />
-						</fo:block>
-						<fo:block font-family="Times New Roman,serif">
-							<xsl:value-of select="code-postal-etudiant" />
-							<xsl:text> </xsl:text>
-							<xsl:value-of select="ville-etudiant" />
-						</fo:block>
-						<fo:block font-family="Times New Roman,serif">
-							<xsl:value-of select="pays-etudiant" />
-						</fo:block>
+							<fo:block font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block font-family="Times New Roman,serif" width="2cm">
+								<xsl:value-of select="centre-gestion/nom-centre" />
+							</fo:block>
+							<fo:block font-family="Times New Roman,serif">
+								<xsl:value-of select="centre-gestion/batiment-residence" />
+							</fo:block>
+							<fo:block font-family="Times New Roman,serif">
+								<xsl:value-of select="centre-gestion/voie" />
+							</fo:block>
+							<fo:block font-family="Times New Roman,serif">
+								<xsl:value-of select="centre-gestion/code-postal" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="centre-gestion/commune" />
+							</fo:block>
 					</fo:table-cell>
 				</fo:table-row>
 			</fo:table-body>
@@ -136,15 +132,16 @@
 		<fo:block padding-top="1cm" font-family="Times New Roman,serif">
 			<fo:leader />
 		</fo:block>
-		
-		<fo:block >
+
+		<fo:block>
 			Corps du texte
 		</fo:block>
 		<fo:block font-family="Times New Roman,serif">
 			<fo:leader />
 		</fo:block>
-		<fo:block >
-			Veuillez agréer, Madame, Monsieur, l'expression de mes salutations distinguées.
+		<fo:block>
+			Veuillez agréer, Madame, Monsieur, l'expression de mes
+			salutations distinguées.
 		</fo:block>
 		<fo:block padding-top="1cm" font-family="Times New Roman,serif">
 			<fo:leader />
@@ -152,7 +149,7 @@
 		<fo:block text-align="right" margin-right="5cm">
 			Signature
 		</fo:block>
-		
+
 	</xsl:template>
 
 </xsl:stylesheet>

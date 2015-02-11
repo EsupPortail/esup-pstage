@@ -43,14 +43,16 @@
 		<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.INSTRUCTION']}"
 			rendered="#{!conventionController.cgUrlInstruction}" />
 
-		<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.URL']}"
-			rendered="#{conventionController.cgUrlInstruction}">
-			<h:outputLink
-				value="#{conventionController.convention.centreGestion.urlPageInstruction}">
+		<h:panelGrid columns="2">
+			<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.URL']}"
+				rendered="#{conventionController.cgUrlInstruction}" />
+			<h:outputLink id="urlPageInstruction" target="_blank"
+				value="#{conventionController.convention.centreGestion.urlPageInstruction}"
+				rendered="#{conventionController.cgUrlInstruction}">
 				<h:outputText
 					value="#{conventionController.convention.centreGestion.urlPageInstruction}" />
 			</h:outputLink>
-		</h:outputLabel>
+		</h:panelGrid>
 		<t:htmlTag value="div" style="height: 20px;" />
 	</h:panelGrid>
 	<t:div
@@ -59,12 +61,14 @@
 		and (!sessionController.validationPedagogique || (sessionController.validationPedagogique and !conventionController.convention.centreGestion.validationPedagogique)
 		|| (sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique 
 		and conventionController.convention.validationPedagogique)))}">
-		<t:div rendered="#{conventionController.convention.codeLangueConvention == 'fr'}">
+		<t:div
+			rendered="#{conventionController.convention.codeLangueConvention == 'fr'}">
 			<a4j:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
 				action="#{conventionController.editPdfConvention}"
 				rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}" />
 		</t:div>
-		<t:div rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
+		<t:div
+			rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="3"
 				rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}">

@@ -360,6 +360,8 @@
 													and not empty contact.mdp}"
 													oncomplete="#{rich:component('resetMdpContact')}.show()"
 													render="resetMdpContact">
+													<f:setPropertyActionListener value="_resetMdpContactEtape1"
+														target="#{sessionController.resetMdpContactCurrentPage}" />
 													<f:setPropertyActionListener value="#{contact}"
 														target="#{etablissementController.formContact}" />
 													<h:graphicImage

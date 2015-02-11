@@ -4,11 +4,11 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
-
-	<ui:include src="../_commun/_confirmationMessages.xhtml" />
-
-	<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		action="_resetMdpContactEtape1"
-		onclick="#{rich:component('resetMdpContact')}.hide();" />
-
+	
+	<h:panelGrid align="center">
+		<ui:include src="../_commun/_confirmationMessages.xhtml" />
+		<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
+			render="opContactsDataTable"
+			onclick="#{rich:component('resetMdpContact')}.hide();" />
+	</h:panelGrid>
 </ui:composition>

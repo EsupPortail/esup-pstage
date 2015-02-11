@@ -48,8 +48,7 @@
 
 
 					<h:commandLink action="#{conventionController.goToValiderEnMasse}"
-						rendered="#{sessionController.utilisationStage and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)
-						and !welcomeController.enseignantTuteur}">
+						rendered="#{sessionController.utilisationStage and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}">
 						<h:graphicImage alt="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
 							title="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
 							value="../../media/images/tick.png" style="border:0" />

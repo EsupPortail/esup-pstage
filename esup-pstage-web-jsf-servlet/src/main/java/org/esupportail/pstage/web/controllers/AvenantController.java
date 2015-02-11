@@ -420,7 +420,7 @@ public class AvenantController extends AbstractContextAwareController {
 				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT.SUJET",
 						this.avenant.getIdConvention());
 				
-				// Envoi d'une alerte à l'enseignant tuteur
+				// Envoi d'une alerte à l'enseignant référent
 //				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
 //					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
 				
@@ -520,7 +520,7 @@ public class AvenantController extends AbstractContextAwareController {
 				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT.SUJET",
 						this.avenant.getIdConvention());
 				
-				// Envoi d'une alerte à l'enseignant tuteur
+				// Envoi d'une alerte à l'enseignant référent
 //				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
 //					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
 				

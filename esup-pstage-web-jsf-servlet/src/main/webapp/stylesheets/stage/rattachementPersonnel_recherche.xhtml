@@ -59,28 +59,28 @@
 								</h:inputText>
 							</h:panelGrid>
 						</h:panelGrid>
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1" align="center"
-							rendered="#{!centreController.listeAffectationVide}">
-							<t:htmlTag value="div" style="height: 10px;" />
-							<t:htmlTag value="center">
-								<h:outputLabel for="affectation"
-									value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
-							</t:htmlTag>
-							<h:selectOneMenu id="affectation"
-								value="#{centreController.codeAffectationPersonnel}">
-								<f:selectItem itemValue="" />
-								<f:selectItems value="#{conventionController.listeAffectation}" />
-								<a4j:ajax execute="@this" event="change"
-									render="erreurRecherche" />
-							</h:selectOneMenu>
-						</h:panelGrid>
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1" align="center"
-							rendered="#{centreController.listeAffectationVide}">
-							<t:htmlTag value="div" style="height: 5px;" />
-							<h:outputText value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE_VIDE']}" />
-						</h:panelGrid>
+<!-- 						<h:panelGrid columnClasses="paginatorData-text" -->
+<!-- 							rowClasses="paginatorData-text" columns="1" align="center" -->
+<!-- 							rendered="#{!centreController.listeAffectationVide}"> -->
+<!-- 							<t:htmlTag value="div" style="height: 10px;" /> -->
+<!-- 							<t:htmlTag value="center"> -->
+<!-- 								<h:outputLabel for="affectation" -->
+<!-- 									value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" /> -->
+<!-- 							</t:htmlTag> -->
+<!-- 							<h:selectOneMenu id="affectation" -->
+<!-- 								value="#{centreController.codeAffectationPersonnel}"> -->
+<!-- 								<f:selectItem itemValue="" /> -->
+<!-- 								<f:selectItems value="#{conventionController.listeAffectation}" /> -->
+<!-- 								<a4j:ajax execute="@this" event="change" -->
+<!-- 									render="erreurRecherche" /> -->
+<!-- 							</h:selectOneMenu> -->
+<!-- 						</h:panelGrid> -->
+<!-- 						<h:panelGrid columnClasses="paginatorData-text" -->
+<!-- 							rowClasses="paginatorData-text" columns="1" align="center" -->
+<!-- 							rendered="#{centreController.listeAffectationVide}"> -->
+<!-- 							<t:htmlTag value="div" style="height: 5px;" /> -->
+<!-- 							<h:outputText value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE_VIDE']}" /> -->
+<!-- 						</h:panelGrid> -->
 
 						<t:htmlTag value="div" style="height: 20px;" />
 
@@ -91,7 +91,7 @@
 						</t:htmlTag>
 					</h:panelGrid>
 				</a4j:region>
-				<t:htmlTag value="center">
+				<h:panelGrid align="center">
 					<a4j:status for="rech">
 						<f:facet name="start">
 							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
@@ -101,7 +101,7 @@
 					<rich:message for="erreurRecherche">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-				</t:htmlTag>
+				</h:panelGrid>
 			</h:form>
 		</rich:panel>
 		<t:div

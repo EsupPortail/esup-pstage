@@ -18,7 +18,7 @@
 			</f:facet>
 			<h:form id="formResultConventions">
 				<h:panelGrid columns="1" align="center"
-					rendered="#{empty conventionController.rechercheConventionPaginator.visibleItems}">
+					rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
 					<t:htmlTag value="br" />
 					<h:panelGrid columns="2">
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
@@ -28,7 +28,7 @@
 					</h:panelGrid>
 				</h:panelGrid>
 				<h:panelGrid columns="1" align="center"
-					rendered="#{not empty conventionController.rechercheConventionPaginator.visibleItems}">
+					rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
 					<t:htmlTag value="div" style="height: 5px;" />
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
@@ -57,8 +57,8 @@
 					</h:panelGrid>
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
-					<rich:dataTable id="resultatConventionsDataTable" var="convention"
-						value="#{conventionController.rechercheConventionPaginator.visibleItems}">
+					<rich:dataTable id="resultatConventionsDataTable" var="convention" rows="20"
+						value="#{conventionController.rechercheConventionPaginator.liste}">
 						<rich:column sortBy="#{convention.idConvention}">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.ID']}" />

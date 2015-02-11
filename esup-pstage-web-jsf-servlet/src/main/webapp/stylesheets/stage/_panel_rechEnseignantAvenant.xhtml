@@ -36,19 +36,19 @@
 							<f:converter binding="#{sansAccentEnMAJConverter}" />
 						</h:inputText>
 
-						<t:htmlTag value="div" style="height: 5px;" />
-						<t:htmlTag value="div" style="height: 5px;" />
+<!-- 						<t:htmlTag value="div" style="height: 5px;" /> -->
+<!-- 						<t:htmlTag value="div" style="height: 5px;" /> -->
 
-						<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}"
-							for="codeAffectation" />
-						<h:selectOneMenu id="codeAffectation"
-							rendered="#{not empty conventionController.listeAffectation}"
-							value="#{conventionController.selCodeAffectationEnseignant}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{conventionController.listeAffectation}" />
-						</h:selectOneMenu>
-						<h:outputText rendered="#{empty conventionController.listeAffectation}"
-							value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE_VIDE']}" />
+<!-- 						<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}" -->
+<!-- 							for="codeAffectation" /> -->
+<!-- 						<h:selectOneMenu id="codeAffectation" -->
+<!-- 							rendered="#{not empty conventionController.listeAffectation}" -->
+<!-- 							value="#{conventionController.selCodeAffectationEnseignant}"> -->
+<!-- 							<f:selectItem itemValue="" /> -->
+<!-- 							<f:selectItems value="#{conventionController.listeAffectation}" /> -->
+<!-- 						</h:selectOneMenu> -->
+<!-- 						<h:outputText rendered="#{empty conventionController.listeAffectation}" -->
+<!-- 							value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE_VIDE']}" /> -->
 
 					</h:panelGrid>
 					<br />

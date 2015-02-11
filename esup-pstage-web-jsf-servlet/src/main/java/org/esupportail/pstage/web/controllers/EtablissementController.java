@@ -637,6 +637,9 @@ public class EtablissementController extends AbstractContextAwareController {
 						"STRUCTURE.NUM_SIRET.VALIDATION");
 				retour = null;
 			}
+		} else {
+			addErrorMessage("formAjoutEtab",
+					"STRUCTURE.ERREURAJOUT.NAF");
 		}
 		return retour;
 	}
@@ -1949,8 +1952,9 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * 
 	 * @return String
 	 */
-	public String resetMdp() {
-		String ret = "gestionContacts";
+	public void resetMdp() {
+//		String ret = "gestionContacts";
+		getSessionController().setResetMdpContactCurrentPage("_resetMdpContactEtape2Confirmation");
 		if (this.formContact != null) {
 			try {
 				this.formContact.setDateModif(new Date());
@@ -2026,7 +2030,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT");
 			}
 		}
-		return ret;
+//		return ret;
 	}
 
 	/* ***************************************************************

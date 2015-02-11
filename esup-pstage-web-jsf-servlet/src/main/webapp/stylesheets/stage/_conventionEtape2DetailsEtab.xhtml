@@ -65,8 +65,50 @@
 			and ((empty conventionController.convention.structure.loginModif and
 			conventionController.convention.structure.loginCreation==sessionController.currentLogin)
 			|| (conventionController.convention.structure.loginModif==sessionController.currentLogin)))))))}" />
-			
-			<rich:popupPanel id="demandeConfirmModifEtab" autosized="true" styleClass="panel">
+
+			<h:panelGrid columns="2">
+				<h:outputText value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.ETAT']}" />
+				<h:outputText id="verification1" alt="#{msgs['FORM.OUI']}"
+					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
+					rendered="#{conventionController.convention.structure.estValidee == 1}"
+					style="border:0; color:green;" escape="false">
+					<rich:tooltip
+						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
+				</h:outputText>
+				<h:outputText id="verification2" alt="#{msgs['FORM.NON']}"
+					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
+					rendered="#{conventionController.convention.structure.estValidee == 2}"
+					style="border:0; color:red;" escape="false">
+					<rich:tooltip
+						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
+				</h:outputText>
+				<h:outputText id="verification3"
+					alt="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
+					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
+					rendered="#{conventionController.convention.structure.estValidee == 0}"
+					style="border:0; color:grey;" escape="false">
+					<rich:tooltip
+						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
+				</h:outputText>
+			</h:panelGrid>
+			<a4j:commandButton execute="@this" id="validerStructure"
+				oncomplete="#{rich:component('validerStructurePanel')}.show()"
+				rendered="#{sessionController.moderationStructures
+					and (sessionController.adminPageAuthorized || welcomeController.superAdmin 
+					|| welcomeController.admin || welcomeController.writer)}"
+				action="#{etablissementController.avantValidation}"
+				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
+				render="validerStructurePanel">
+				<f:setPropertyActionListener value="#{conventionController.convention.structure}"
+					target="#{etablissementController.currentStruct}" />
+				<f:setPropertyActionListener value="_validStructureEtape1"
+					target="#{sessionController.validationStructureCurrentPage}" />
+				<rich:tooltip
+					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
+			</a4j:commandButton>
+
+			<rich:popupPanel id="demandeConfirmModifEtab" autosized="true"
+				styleClass="panel">
 				<f:facet name="header">
 					<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.DEMANDE']}" />
 				</f:facet>
@@ -80,14 +122,14 @@
 							escape="false" />
 					</h:column>
 				</h:panelGrid>
-				
+
 				<a4j:commandButton value="#{msgs['FORM.OUI']}"
 					onclick="#{rich:component('demandeConfirmModifEtab')}.hide();"
 					action="#{conventionController.goToConventionRechEtab}">
 				</a4j:commandButton>
-				
+
 				<t:htmlTag value="div" style="width: 150px; display: inline;" />
-				
+
 				<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
 					onclick="#{rich:component('demandeConfirmModifEtab')}.hide();return false;" />
 			</rich:popupPanel>

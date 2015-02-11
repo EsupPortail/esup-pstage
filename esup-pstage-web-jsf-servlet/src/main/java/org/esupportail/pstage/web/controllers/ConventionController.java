@@ -216,6 +216,10 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	private UniteGratificationDTO selUniteGratification;
 	/**
+	 * UniteGratification choisi.
+	 */
+	private UniteDureeDTO selUniteDureeGratification;
+	/**
 	 * ModeVersGratification selectionne.
 	 */
 	private ModeVersGratificationDTO selModeVersGratification;
@@ -515,6 +519,7 @@ public class ConventionController extends AbstractContextAwareController {
 		selTempsTravail = null;
 		selIndemnisation = null;
 		selUniteGratification = null;
+		selUniteDureeGratification = null;
 		selModeVersGratification = null;
 		selNatureTravail = null;
 		selModeValidationStage = null;
@@ -1629,30 +1634,34 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 		// unite de la duree exceptionnelle obligatoire, si saisie duree exceptionnelle 
-		if (StringUtils.hasText(this.convention.getDureeExceptionnelle())) {
-			if (selUniteDureeExceptionnelle ==  null) {
-				addErrorMessage(nomForm+":uniteDureeExceptionnelle", "CONVENTION.CREERCONVENTION.UNITEDUREEEXCEPTIONNELLE.OBLIGATOIRE");
-				ctrlInfosOK = false;
-			}
-		}
-		// Mode de versement et montant de la gratification obligatoire, si indemnisation
+//		if (StringUtils.hasText(this.convention.getDureeExceptionnelle())) {
+//			if (selUniteDureeExceptionnelle ==  null) {
+//				addErrorMessage(nomForm+":uniteDureeExceptionnelle", "CONVENTION.CREERCONVENTION.UNITEDUREEEXCEPTIONNELLE.OBLIGATOIRE");
+//				ctrlInfosOK = false;
+//			}
+//		}
+		// Montant de la gratification obligatoire, si indemnisation
 		if (selIndemnisation != null) {
 			if (selIndemnisation.getLibelle().equalsIgnoreCase(DonneesStatic.OUI)) {
 				// unite du montant obligatoire, si montant 
 				if (StringUtils.hasText(this.convention.getMontantGratification())) {
-					if (selUniteGratification == null) {
+					if (selUniteDureeGratification == null) {
+						addErrorMessage(nomForm + ":montantGratification", "CONVENTION.CREERCONVENTION.UNITEDUREEGRATIFICATION.OBLIGATOIRE");
+						ctrlInfosOK = false;
+					} else if (selUniteGratification == null) {
+						// unite duree gratif obligatoire
 						addErrorMessage(nomForm + ":montantGratification", "CONVENTION.CREERCONVENTION.UNITEGRATIFICATION.OBLIGATOIRE");
 						ctrlInfosOK = false;
 					}
 				}
-				if (selModeVersGratification == null) {
-					addErrorMessage(nomForm+":modeVersGratification", "CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
-					ctrlInfosOK = false;
-				}
-				if (selModeVersGratification != null && selModeVersGratification.getLibelle().equals("")) {
-					addErrorMessage(nomForm+":modeVersGratification", "CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
-					ctrlInfosOK = false;
-				}
+//				if (selModeVersGratification == null) {
+//					addErrorMessage(nomForm+":modeVersGratification", "CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
+//					ctrlInfosOK = false;
+//				}
+//				if (selModeVersGratification != null && selModeVersGratification.getLibelle().equals("")) {
+//					addErrorMessage(nomForm+":modeVersGratification", "CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
+//					ctrlInfosOK = false;
+//				}
 			} else {
 				this.convention.setMontantGratification("");
 			}
@@ -1677,6 +1686,10 @@ public class ConventionController extends AbstractContextAwareController {
 		convention.setUniteGratification(selUniteGratification);
 		if (selUniteGratification != null) {
 			convention.setIdUniteGratification(selUniteGratification.getId());
+		}
+		if (selUniteDureeGratification != null) {
+			convention.setUniteDureeGratification(selUniteDureeGratification);
+			convention.setIdUniteDureeGratification(selUniteDureeGratification.getId());
 		}
 		convention.setModeVersGratification(selModeVersGratification);
 		if (selModeVersGratification != null) {
@@ -1730,7 +1743,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return A String
 	 */
 	public String goToCreerConventionEtape5Stage() {
-		this.convention.setNbHeuresHebdo("35.00");
+//		this.convention.setNbHeuresHebdo("35.00");
 		this.convention.setQuotiteTravail(100);
 		this.ctrlInfosStageOK = false;
 		getSessionController().setCreationConventionEtape5CurrentPage("_creerConventionEtape5Stage");
@@ -2115,10 +2128,17 @@ public class ConventionController extends AbstractContextAwareController {
 							idConvention,
 							getSessionController().getCurrentUser().getDisplayName(),
 							this.convention.getIdCentreGestion());
+					
+					String libelleEtape = "";
+					if (conventionTmp.getEtape() != null
+							&& !conventionTmp.getEtape().getLibelle().isEmpty()){
+						libelleEtape = conventionTmp.getEtape().getLibelle();
+					}
 					String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_CONVENTION.SUJET",
+							libelleEtape,
 							idConvention);
 
-					// Envoi d'une alerte à l'enseignant tuteur
+					// Envoi d'une alerte à l'enseignant référent
 					//					if (this.convention.getEnseignant().getMail() != null && !this.convention.getEnseignant().getMail().isEmpty())
 					//						getSmtpService().send(new InternetAddress(this.convention.getEnseignant().getMail()),sujet,text,text);
 
@@ -2394,6 +2414,9 @@ public class ConventionController extends AbstractContextAwareController {
 				if (conventionTmp.getUniteDuree() != null) {
 					setSelUniteDureeExceptionnelle(conventionTmp.getUniteDuree());
 				}
+				if (conventionTmp.getUniteDureeGratification() != null) {
+					setSelUniteDureeGratification(conventionTmp.getUniteDureeGratification());
+				}
 
 				setSelNatureTravail(conventionTmp.getNatureTravail());			
 				setSelModeValidationStage(conventionTmp.getModeValidationStage());
@@ -2541,6 +2564,9 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 				if (conventionTmp.getUniteDuree() != null) {
 					setSelUniteDureeExceptionnelle(conventionTmp.getUniteDuree());
+				}
+				if (conventionTmp.getUniteDureeGratification() != null) {
+					setSelUniteDureeGratification(conventionTmp.getUniteDureeGratification());
 				}
 
 				setSelNatureTravail(conventionTmp.getNatureTravail());			
@@ -3092,7 +3118,7 @@ public class ConventionController extends AbstractContextAwareController {
 		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 		try {
 			if (this.getConventionDomainService().updateConvention(conventionTmp)) {
-				this.alerteMailModifConvention(" le tuteur pédagogique ");
+				this.alerteMailModifConvention(" l'enseignant référent ");
 				retour = SequenceEtapeEnumSel.etape6.actionEtape();
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
 			} 
@@ -3853,7 +3879,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 		//this.critereRechercheConvention.setLimit(true);
 		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.NB_RECHERCHE_MAXI));
-		// si enseignant tuteur, recherche des conventions pour les enseignants tuteur
+		// si enseignant référent, recherche des conventions pour les enseignants tuteur
 		if (getSessionController().isEnseignantTuteur()) {
 			if (this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant() != null) {
 				EnseignantDTO tmpEns = getEnseignantDomainService().getEnseignantFromUid(this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant(),
@@ -4253,16 +4279,23 @@ public class ConventionController extends AbstractContextAwareController {
 
 	public void alerteMailModifConvention(String modif){
 		try {
-			// Si c'est un étudiant qui crée la convention et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
+			// Si c'est un étudiant qui modifie la convention et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
 			if (getSessionController().getCurrentAuthEtudiant() != null && getSessionController().isAvertissementPersonnelModifConvention()){
 				String text=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_MODIF_CONVENTION",
 						getSessionController().getCurrentUser().getDisplayName(),
 						modif,
 						this.convention.getIdConvention());
+				
+				String libelleEtape = "";
+				if (this.convention.getEtape() != null
+						&& !this.convention.getEtape().getLibelle().isEmpty()){
+					libelleEtape = this.convention.getEtape().getLibelle();
+				}
 				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_MODIF_CONVENTION.SUJET",
+						libelleEtape,
 						this.convention.getIdConvention());
 
-				// Envoi d'une alerte à l'enseignant tuteur s'il est renseigné dans la convention
+				// Envoi d'une alerte à l'enseignant référent s'il est renseigné dans la convention
 				//				EnseignantDTO tmp = getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
 				//				if (tmp !=null && tmp.getId() != 0 && tmp.getMail() != null && !tmp.getMail().isEmpty())
 				//					getSmtpService().send(new InternetAddress(tmp.getMail()),sujet,text,text);
@@ -7344,6 +7377,14 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void setContenuMailEval(String contenuMailEval) {
 		this.contenuMailEval = contenuMailEval;
+	}
+
+	public UniteDureeDTO getSelUniteDureeGratification() {
+		return selUniteDureeGratification;
+	}
+
+	public void setSelUniteDureeGratification(UniteDureeDTO selUniteDureeGratification) {
+		this.selUniteDureeGratification = selUniteDureeGratification;
 	}
 
 }

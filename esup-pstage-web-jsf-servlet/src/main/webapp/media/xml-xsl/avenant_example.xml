@@ -139,7 +139,7 @@
             <tem-en-serv>O</tem-en-serv>
         </theme>
         <mode-validation-stage id="1">
-            <libelle>Appréciation de l'enseignant tuteur</libelle>
+            <libelle>Appréciation de l'enseignant référent</libelle>
             <tem-en-serv>O</tem-en-serv>
         </mode-validation-stage>
         <nb-jours-hebdo>5</nb-jours-hebdo>

@@ -144,104 +144,109 @@ public enum ConventionColonneEnum {
 	col27("EXPORTCONVENTION.UNITEGRATIFICATION", "uniteGratification.libelle"),
 	
 	/**
-	 * col28 , Convention Validee.
+	 * col28 , Unite Duree Gratification.
 	 */
-	col28("EXPORTCONVENTION.VALIDEE", "validationConventionExport"),
+	col28("EXPORTCONVENTION.UNITEDUREEGRATIFICATION", "uniteDureeGratification.libelle"),
 	
 	/**
-	 * col29 , Nom enseignant.
+	 * col29 , Convention Validee.
 	 */
-	col29("EXPORTCONVENTION.NOM.ENSEIGNANT", "enseignant.nom"),
+	col29("EXPORTCONVENTION.VALIDEE", "validationConventionExport"),
 	
 	/**
-	 * col30 , Prenom enseignant.
+	 * col30 , Nom enseignant.
 	 */
-	col30("EXPORTCONVENTION.PRENOM.ENSEIGNANT", "enseignant.prenom"),
+	col30("EXPORTCONVENTION.NOM.ENSEIGNANT", "enseignant.nom"),
 	
 	/**
-	 * col31 , Mail enseignant.
+	 * col31 , Prenom enseignant.
 	 */
-	col31("EXPORTCONVENTION.MAIL.ENSEIGNANT", "enseignant.mail"),
+	col31("EXPORTCONVENTION.PRENOM.ENSEIGNANT", "enseignant.prenom"),
 	
 	/**
-	 * col32 , Nom signataire.
+	 * col32 , Mail enseignant.
 	 */
-	col32("EXPORTCONVENTION.NOM.SIGNATAIRE", "signataire.nom"),
+	col32("EXPORTCONVENTION.MAIL.ENSEIGNANT", "enseignant.mail"),
 	
 	/**
-	 * col33 , Prenom signataire.
+	 * col33 , Nom signataire.
 	 */
-	col33("EXPORTCONVENTION.PRENOM.SIGNATAIRE", "signataire.prenom"),
+	col33("EXPORTCONVENTION.NOM.SIGNATAIRE", "signataire.nom"),
 	
 	/**
-	 * col34 , Mail signataire.
+	 * col34 , Prenom signataire.
 	 */
-	col34("EXPORTCONVENTION.MAIL.SIGNATAIRE", "signataire.mail"),
+	col34("EXPORTCONVENTION.PRENOM.SIGNATAIRE", "signataire.prenom"),
 	
 	/**
-	 * col35 , Fonction signataire.
+	 * col35 , Mail signataire.
 	 */
-	col35("EXPORTCONVENTION.FONCTION.SIGNATAIRE", "signataire.fonction"),
+	col35("EXPORTCONVENTION.MAIL.SIGNATAIRE", "signataire.mail"),
 	
 	/**
-	 * col36 , Annee Universitaire.
+	 * col36 , Fonction signataire.
 	 */
-	col36("EXPORTCONVENTION.ANNEEUNIV", "annee"),
+	col36("EXPORTCONVENTION.FONCTION.SIGNATAIRE", "signataire.fonction"),
 	
 	/**
-	 * col37 , type de convention.
+	 * col37 , Annee Universitaire.
 	 */
-	col37("EXPORTCONVENTION.TYPECONVENTION", "typeConvention.libelle"),
+	col37("EXPORTCONVENTION.ANNEEUNIV", "annee"),
 	
 	/**
-	 * col38 , commentaire stage.
+	 * col38 , type de convention.
 	 */
-	col38("EXPORTCONVENTION.COMMENTAIRESTAGE", "commentaireStage"),
+	col38("EXPORTCONVENTION.TYPECONVENTION", "typeConvention.libelle"),
 	
 	/**
 	 * col39 , commentaire stage.
 	 */
-	col39("EXPORTCONVENTION.COMMENTAIREDUREETRAVAIL", "commentaireDureeTravail"),
+	col39("EXPORTCONVENTION.COMMENTAIRESTAGE", "commentaireStage"),
+	
+	/**
+	 * col40 , commentaire stage.
+	 */
+	col40("EXPORTCONVENTION.COMMENTAIREDUREETRAVAIL", "commentaireDureeTravail"),
 	
     /**
-     * col40 , Element pédagogique - CODE
+     * col41 , Element pédagogique - CODE
      */
-    col40("EXPORTCONVENTION.CODEELP", "codeElp"),
+    col41("EXPORTCONVENTION.CODEELP", "codeElp"),
     
     /**
-     * col41 , Element pédagogique - LIBELLE
+     * col42 , Element pédagogique - LIBELLE
      */
-    col41("EXPORTCONVENTION.LIBELLEELP", "libelleElp"),
+    col42("EXPORTCONVENTION.LIBELLEELP", "libelleElp"),
     
     /**
-     * col42 , code sexe etudiant
+     * col43 , code sexe etudiant
      */
-    col42("EXPORTCONVENTION.CODESEXEETUDIANT", "etudiant.codeSexe"),
+    col43("EXPORTCONVENTION.CODESEXEETUDIANT", "etudiant.codeSexe"),
     
     /**
-     * col43 , avantages nature
+     * col44 , avantages nature
      */
-    col43("EXPORTCONVENTION.AVANTAGESNATURE", "avantagesNature"),
+    col44("EXPORTCONVENTION.AVANTAGESNATURE", "avantagesNature"),
     
     /**
-     * col44 , adresse etudiant
+     * col45 , adresse etudiant
      */
-    col44("EXPORTCONVENTION.ADRESSETU", "adresseEtudiant"),
+    col45("EXPORTCONVENTION.ADRESSETU", "adresseEtudiant"),
     
     /**
-     * col45 , code postal etudiant
+     * col46 , code postal etudiant
      */
-    col45("EXPORTCONVENTION.CODEPOSTALETU", "codePostalEtudiant"),
+    col46("EXPORTCONVENTION.CODEPOSTALETU", "codePostalEtudiant"),
     
     /**
-     * col46 , pays etudiant
+     * col47 , pays etudiant
      */
-    col46("EXPORTCONVENTION.PAYSETU", "paysEtudiant"),
+    col47("EXPORTCONVENTION.PAYSETU", "paysEtudiant"),
     
     /**
-     * col47 , ville etudiant
+     * col48 , ville etudiant
      */
-    col47("EXPORTCONVENTION.VILLEETU", "villeEtudiant");
+    col48("EXPORTCONVENTION.VILLEETU", "villeEtudiant");
 	
 	/*
 	 ******************* PROPERTIES ******************* */

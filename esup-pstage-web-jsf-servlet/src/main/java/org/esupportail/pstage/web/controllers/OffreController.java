@@ -2653,6 +2653,7 @@ public class OffreController extends AbstractContextAwareController {
 		return this.rechercherOffre();
 	}
 
+	
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/

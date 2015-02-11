@@ -494,7 +494,7 @@
 							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
-							et sous la responsabilité de l'enseignant tuteur :
+							et sous la responsabilité de l'enseignant référent :
 							<xsl:if test="@modification-enseignant = 'true'">
 								<fo:inline font-weight="bold">
 									<xsl:value-of
@@ -775,7 +775,7 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								L'enseignant tuteur initialement prévu
+								L'enseignant référent initialement prévu
 								<xsl:text> </xsl:text>
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="convention/enseignant/civilite/libelle" />

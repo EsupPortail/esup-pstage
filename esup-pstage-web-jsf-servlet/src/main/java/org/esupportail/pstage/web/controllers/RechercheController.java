@@ -79,7 +79,7 @@ public class RechercheController extends AbstractContextAwareController {
 	/**
 	 * Raison Sociale
 	 */
-	private String rechRaisonSociale="%";
+	private String rechRaisonSociale;
 	/* ** 
 	 * Champs onglet 3 : Activité (+dep)
 	 */	
@@ -161,12 +161,12 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	@SuppressWarnings("unused")
 	private int resultatRechercheSize;
-	
+
 	/**
 	 * Indique si la liste de resultats d'établissement est celle de la page de verification
 	 */
 	private boolean toVerificationStructures = false;
-	
+
 	/**
 	 * Bean constructor.
 	 */
@@ -181,32 +181,32 @@ public class RechercheController extends AbstractContextAwareController {
 	 * @return A String
 	 */
 	public String goToEtablissementsAVerifier(){
-		
+
 		this.afficherBoutonAjoutEtab=false;
 		this.toVerificationStructures=true;
-		
+
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
 		}
 		resetResultats();
 		reloadRechercheStructurePaginator();
-		
+
 		this.listeResultatsRechercheStructure=new ArrayList<StructureDTO>();
 
 		this.listeResultatsRechercheStructure = getStructureDomainService().getStructuresFromVerification(0);
 
 		checkListeResultats();
-		
+
 		return "rechercheEtablissementStage";
 	}
-	
+
 	/**
 	 * @return int
 	 */
 	public int getResultatRechercheSize(){
 		return this.listeResultatsRechercheStructure.size();
 	}
-	
+
 	/**
 	 * @return A String
 	 */
@@ -222,7 +222,7 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	public String goToRechercheEtablissementStage(){
 		this.toVerificationStructures = false;
-		
+
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
 		}
@@ -239,7 +239,7 @@ public class RechercheController extends AbstractContextAwareController {
 		}
 		return "affichageRechercheEtablissement";
 	}
-	
+
 	/* *********************************************
 	 * Changement d'onglets
 	 **********************************************/
@@ -308,7 +308,7 @@ public class RechercheController extends AbstractContextAwareController {
 		this.ongletCourant=6;
 		return null;
 	}
-	
+
 	/**
 	 * Met à 7 la valeur d' "ongletCourant" pour afficher l'onglet 7:Adresse
 	 * @return String
@@ -369,18 +369,19 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	public String rechercheRaisonSociale(){
 		afficherBoutonAjoutEtab=true;
-		if(StringUtils.hasText(this.rechRaisonSociale)){
-			this.resultatRechercheStructure=null;
-			if(StringUtils.hasText(this.rechDepartement)){
-				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtDepartement(this.rechRaisonSociale, this.rechDepartement);
-			}else{
-				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSociale(this.rechRaisonSociale);
-			}
-			checkListeResultats();
-		}else{
-			resetResultats();
-		}
 		
+		if(!StringUtils.hasText(this.rechRaisonSociale)){
+			this.rechRaisonSociale = "%";
+		}
+		this.resultatRechercheStructure=null;
+
+		if(StringUtils.hasText(this.rechDepartement)){
+			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtDepartement(this.rechRaisonSociale, this.rechDepartement);
+		} else {
+			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSociale(this.rechRaisonSociale);
+		}
+		checkListeResultats();
+
 		return null;
 	}
 
@@ -439,7 +440,7 @@ public class RechercheController extends AbstractContextAwareController {
 		}
 		return null;
 	}
-	
+
 	/* *********************************************
 	 * Recherches pour l'onglet 7
 	 **********************************************/
@@ -452,10 +453,10 @@ public class RechercheController extends AbstractContextAwareController {
 		afficherBoutonAjoutEtab=true;
 		if(this.critereRechercheStructureAdresse!=null &&
 				(StringUtils.hasText(this.critereRechercheStructureAdresse.getRechVoie())
-				|| StringUtils.hasText(this.critereRechercheStructureAdresse.getRechBatimentResidence())
-				|| StringUtils.hasText(this.critereRechercheStructureAdresse.getRechVille())
-				|| StringUtils.hasText(this.critereRechercheStructureAdresse.getCodePostal())
-				|| (this.critereRechercheStructureAdresse.getRechPays()!=null && this.critereRechercheStructureAdresse.getRechPays().getId()>0))){
+						|| StringUtils.hasText(this.critereRechercheStructureAdresse.getRechBatimentResidence())
+						|| StringUtils.hasText(this.critereRechercheStructureAdresse.getRechVille())
+						|| StringUtils.hasText(this.critereRechercheStructureAdresse.getCodePostal())
+						|| (this.critereRechercheStructureAdresse.getRechPays()!=null && this.critereRechercheStructureAdresse.getRechPays().getId()>0))){
 			this.resultatRechercheStructure=null;
 			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromAdresse(this.critereRechercheStructureAdresse);
 			checkListeResultats();
@@ -464,7 +465,7 @@ public class RechercheController extends AbstractContextAwareController {
 		}
 		return null;
 	}
-	
+
 	/* *********************************************
 	 * Recherches pour l'onglet 5
 	 **********************************************/
@@ -507,20 +508,20 @@ public class RechercheController extends AbstractContextAwareController {
 		//Structures avec accord à valider
 		case 0:
 			this.listeResultatsRechercheStructure=getStructureDomainService()
-				.getStructuresAvecAccordAValiderFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
-				checkListeResultats();			
+			.getStructuresAvecAccordAValiderFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
+			checkListeResultats();			
 			break;
 			//Structures avec accord validé
 		case 1:
-				this.listeResultatsRechercheStructure=getStructureDomainService()
-				.getStructuresAvecAccordValidesFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
-				checkListeResultats();
+			this.listeResultatsRechercheStructure=getStructureDomainService()
+			.getStructuresAvecAccordValidesFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
+			checkListeResultats();
 			break;
 			//Structures sans accord
 		case 2:
 			if(StringUtils.hasText(this.rechRaisonSociale)){
 				this.listeResultatsRechercheStructure=getStructureDomainService()
-				.getStructuresSansAccordFromRaisonSociale(this.rechRaisonSociale);
+						.getStructuresSansAccordFromRaisonSociale(this.rechRaisonSociale);
 				checkListeResultats();
 			}
 			break;
@@ -539,7 +540,7 @@ public class RechercheController extends AbstractContextAwareController {
 		this.rechercheStructurePaginator.setListe(this.listeResultatsRechercheStructure);
 		this.rechercheStructurePaginator.forceReload();
 	}
-	
+
 	/**
 	 * Contrôle la liste des résultats
 	 * Si un seul résultat, transfert du résultat vers "this.resultatRechercheStructure" 
@@ -552,7 +553,7 @@ public class RechercheController extends AbstractContextAwareController {
 			reloadRechercheStructurePaginator();
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -576,7 +577,7 @@ public class RechercheController extends AbstractContextAwareController {
 	public void reset() {
 		super.reset();
 	}
-	
+
 	/**
 	 * @return String
 	 */
@@ -586,7 +587,7 @@ public class RechercheController extends AbstractContextAwareController {
 		this.rechTypeAccord=0;
 		this.rechRaisonSociale="%";
 		this.listeResultatsRechercheStructure=getStructureDomainService()
-		.getStructuresAvecAccordAValiderFromRaisonSociale(this.rechRaisonSociale, null, null);
+				.getStructuresAvecAccordAValiderFromRaisonSociale(this.rechRaisonSociale, null, null);
 		checkListeResultats();
 		return ret;
 	}	

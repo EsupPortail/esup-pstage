@@ -64,24 +64,45 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
 		</f:facet>
+		<!-- pour les offres encore diffusees (vert)-->
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
-			rendered="#{offre.estDiffusee and !offre.estSupprimee}"
+			rendered="#{offre.estDiffusee and !offre.estSupprimee
+			and currentDate le offre.dateFinDiffusion}"
 			style="color:green;" />
+		<!-- pour les offres diffusees mais terminees (rouge)-->
+		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
+			rendered="#{offre.estDiffusee and !offre.estSupprimee
+			and currentDate gt offre.dateFinDiffusion}"
+			style="color:red;" />
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
 			rendered="#{!offre.estDiffusee and !offre.estSupprimee}"
 			style="color:orange;" />
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTSUPPRIMEE']}"
 			rendered="#{(offre.estDiffusee and offre.estSupprimee)||(!offre.estDiffusee and offre.estSupprimee)}"
 			style="color:purple;font-weight:bold;" />
+			
 		<t:htmlTag value="br" />
+		
+		<!-- pour les offres encore diffusees (vert)-->
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
-			rendered="#{offre.estDiffusee and !offre.estSupprimee}"
-			style="color:green;">
+			rendered="#{offre.estDiffusee and !offre.estSupprimee
+			and currentDate le offre.dateFinDiffusion}"
+			style="color:green;"/>
+		<h:outputText value="#{offre.dateFinDiffusion}"
+			rendered="#{offre.estDiffusee and !offre.estSupprimee
+			and currentDate le offre.dateFinDiffusion}"
+			style="color:green;font-weight:bold;">
 			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
 		</h:outputText>
+		<!-- pour les offres diffusees mais terminees (rouge)-->
+		<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
+			rendered="#{offre.estDiffusee and !offre.estSupprimee
+			and currentDate gt offre.dateFinDiffusion}"
+			style="color:red;"/>
 		<h:outputText value="#{offre.dateFinDiffusion}"
-			rendered="#{offre.estDiffusee and !offre.estSupprimee}"
-			style="color:green;font-weight:bold;">
+			rendered="#{offre.estDiffusee and !offre.estSupprimee
+			and currentDate gt offre.dateFinDiffusion}"
+			style="color:red;font-weight:bold;">
 			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
 		</h:outputText>
 	</rich:column>

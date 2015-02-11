@@ -106,17 +106,17 @@
 			padding-top="1.60cm">
 			Fiches à annexer à la conventions :
 			<fo:inline text-decoration="underline">
-				Attestation de stage
+				1) Attestation de stage
 			</fo:inline>
 			/
 			<fo:inline text-decoration="underline">
-				Fiche de stage à l'étranger
+				2) Fiche de stage à l'étranger
 				(pour informations sécurité sociale voir site cleiss.fr, pour fiche
 				pays voir site diplomatie.gouv.fr)
 			</fo:inline>
 			/
 			<fo:inline text-decoration="underline">
-				Autres annexes (le cas échéant)
+				3) Autres annexes (le cas échéant)
 			</fo:inline>
 		</fo:block>
 	</xsl:template>
@@ -198,22 +198,12 @@
 							font-family="Times New Roman,serif" text-align="center">
 							<fo:inline font-weight="bold">
 								Convention de stage
-								<xsl:value-of select="type-convention/libelle" />
 								<xsl:text> </xsl:text>
 								n°
 								<xsl:value-of select="id-convention" />
 							</fo:inline>
 						</fo:block>
 						<fo:block line-height="200%" hyphenate="false" language="fr"
-							country="FR" font-size="8pt" font-family="Times New Roman,serif">
-							<fo:leader />
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							text-align="center">
-							<fo:inline font-weight="bold">ENTRE</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
 							country="FR" font-size="8pt" font-family="Times New Roman,serif">
 							<fo:leader />
 						</fo:block>
@@ -225,6 +215,17 @@
 	<!-- partie Infos Etudiant - Stage -->
 	<xsl:template name="infosEtuStage">
 
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="7.5pt" font-family="Times New Roman,serif"
+			padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+			padding-bottom="0.3cm" font-style="italic">
+			Nota : pour faciliter la
+			lecture du
+			document, les mots "stagiaire", "enseignant référent",
+			"tuteur de
+			stage", "représentant légal", et "étudiant" sont utilisés
+			au masculin.
+		</fo:block>
 		<fo:table table-layout="fixed" width="100%">
 			<fo:table-column column-width="proportional-column-width(1)" />
 			<fo:table-column column-width="proportional-column-width(1)" />
@@ -279,6 +280,20 @@
 								</xsl:otherwise>
 							</xsl:choose>
 						</fo:block>
+						<xsl:choose>
+							<xsl:when test="document('config.xml')/config/telUniversite">
+								<fo:block line-height="130%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm">
+									<fo:inline font-weight="bold">
+										Tél :
+									</fo:inline>
+									<xsl:value-of select="document('config.xml')/config/telUniversite" />
+								</fo:block>
+							</xsl:when>
+							<xsl:otherwise>
+							</xsl:otherwise>
+						</xsl:choose>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
@@ -346,7 +361,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Composante/UFR/.. :
+								Composante/UFR :
 							</fo:inline>
 							<xsl:value-of select="centre-gestion/nom-centre" />
 						</fo:block>
@@ -355,7 +370,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm">
 							<fo:inline font-weight="bold">
 								Adresse (si différente de celle
-								de l'université) :
+								de l'établissement) :
 							</fo:inline>
 							<xsl:value-of select="centre-gestion/batiment-residence" />
 							<xsl:text> </xsl:text>
@@ -374,10 +389,6 @@
 							</fo:inline>
 							<xsl:value-of select="centre-gestion/telephone" />
 							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-							<fo:inline font-weight="bold">
-								Fax :
-							</fo:inline>
-							<xsl:value-of select="centre-gestion/fax" />
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -438,32 +449,6 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Tél :
-							</fo:inline>
-							<xsl:value-of select="structure/telephone" />
-							<xsl:if test="structure/fax != ''">
-								&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-								<fo:inline font-weight="bold">
-									Fax :
-								</fo:inline>
-								<xsl:value-of select="structure/fax" />
-							</xsl:if>
-						</fo:block>
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-							country="FR" font-size="9pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								Mél :
-							</fo:inline>
-							<xsl:value-of select="structure/mail" />
-						</fo:block>
-
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-							country="FR" font-size="9pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
 								Représenté par (nom du
 								signataire de la convention) :
 							</fo:inline>
@@ -506,6 +491,31 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<xsl:value-of select="service/nom" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Tél :
+							</fo:inline>
+							<xsl:value-of select="structure/telephone" />
+							<!-- <xsl:if test="structure/fax != ''"> -->
+							<!-- &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; -->
+							<!-- <fo:inline font-weight="bold"> -->
+							<!-- Fax : -->
+							<!-- </fo:inline> -->
+							<!-- <xsl:value-of select="structure/fax" /> -->
+							<!-- </xsl:if> -->
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Mél :
+							</fo:inline>
+							<xsl:value-of select="structure/mail" />
 						</fo:block>
 						<xsl:if test="service/voie != structure/voie">
 							<fo:block line-height="130%" hyphenate="false" language="fr"
@@ -550,7 +560,7 @@
 							padding-bottom="0.035cm" text-align="center">
 							<fo:inline font-weight="bold">
 								3 -
-								<fo:inline text-decoration="underline">LE/LA STAGIAIRE
+								<fo:inline text-decoration="underline">LE STAGIAIRE
 								</fo:inline>
 							</fo:inline>
 						</fo:block>
@@ -618,7 +628,7 @@
 							<xsl:value-of select="etudiant/mail" />
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
-							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							country="FR" font-size="8.5pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
@@ -714,26 +724,50 @@
 								Représentant une durée totale de
 								:
 							</fo:inline>
-							<xsl:choose>
-								<xsl:when test="duree-exceptionnelle">
-									<xsl:if test="duree-exceptionnelle != ''">
-										<xsl:value-of select="duree-exceptionnelle" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="unite-duree/libelle" />
-									</xsl:if>
-									<xsl:if test="duree-exceptionnelle = ''">
-										<xsl:value-of select="duree-stage" />
-										<xsl:text> </xsl:text>
-										semaines
-									</xsl:if>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:value-of select="duree-stage" />
-									<xsl:text> </xsl:text>
-									semaines
-								</xsl:otherwise>
-							</xsl:choose>
+							<fo:inline>
+								<xsl:value-of select="duree-stage" />
+								<xsl:text> </xsl:text>
+								semaines
+							</fo:inline>
 						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Et correspondant à
+							</fo:inline>
+							<fo:inline>
+								<xsl:value-of select="duree-exceptionnelle" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="unite-duree/libelle" />
+							</fo:inline>
+							<fo:inline font-weight="bold">
+								de présence effective dans
+								l'organisme d'accueil.
+							</fo:inline>
+						</fo:block>
+
+						<xsl:choose>
+							<xsl:when test="temps-travail/code-ctrl">
+								<xsl:if test="temps-travail/code-ctrl != 'TCOMP'">
+									<fo:block line-height="130%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										padding-bottom="0.035cm">
+										<fo:inline font-weight="bold">
+											Répartition si présence
+											discontinue :
+										</fo:inline>
+										<xsl:value-of select="nb-heures-hebdo" />
+										<xsl:text> </xsl:text>
+										<fo:inline font-weight="bold">
+											heures par semaine.
+										</fo:inline>
+									</fo:block>
+								</xsl:if>
+							</xsl:when>
+						</xsl:choose>
 
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -932,7 +966,7 @@
 
 		<fo:block line-height="110%" hyphenate="false" language="fr"
 			country="FR" font-size="8pt" font-family="Times New Roman,serif"
-			padding-top="170pt" text-align="center">
+			padding-top="100pt" text-align="center">
 			Convention imprimée le :
 			<xsl:value-of
 				select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
@@ -959,7 +993,7 @@
 								La présente convention règle les rapports de l'organisme
 								d'accueil avec
 								l'établissement
-								d'enseignement et le/la stagiaire.
+								d'enseignement et le stagiaire.
 							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -978,16 +1012,20 @@
 								Le stage correspond à une période temporaire
 								de mise en situation
 								en milieu professionnel au cours de laquelle
-								l'étudiant acquiert
+								l'étudiant
+								acquiert
 								des compétences professionnelles
-								et met en oeuvre les acquis
+								et met en oeuvre les
+								acquis
 								de sa
 								formation en vue de
 								l'obtention d'un diplôme ou d'une
 								certification et de favoriser son insertion professionnelle.
-								Le/la stagiaire se voit confier une ou des missions
+								Le
+								stagiaire se voit confier une ou des missions
 								conformes au
-								projet pédagogique défini par son établissement
+								projet
+								pédagogique défini par son établissement
 								d'enseignement
 								et
 								approuvées par l'organisme d'accueil.
@@ -1047,9 +1085,10 @@
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								La durée hebdomadaire de présence du (de la) stagiaire
+								La durée hebdomadaire de présence du stagiaire
 								dans
-								l'organisme d'accueil sera de
+								l'organisme
+								d'accueil sera de
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="nb-heures-hebdo" />
 								</fo:inline>
@@ -1067,9 +1106,10 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Si le/la
-								stagiaire doit être présent(e) dans l'organisme
-								d'accueil la nuit, le
+								Si le stagiaire doit être présent dans l'organisme
+								d'accueil
+								la
+								nuit, le
 								dimanche ou un jour férié, préciser
 								les cas
 								particuliers :
@@ -1084,18 +1124,21 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">Article 4 - Statut du stagiaire - Accueil
+								font-weight="bold">Article 4 - Accueil
 								et
-								encadrement
+								encadrement du stagiaire
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Le/la stagiaire conserve son statut antérieur. Il/elle est
-								suivi(e) par l'enseignant
-								référent désigné dans la présente
-								convention ainsi que par le service de l'établissement
-								en charge
+								Le stagiaire est suivi par l'enseignant
+								référent désigné dans
+								la
+								présente
+								convention ainsi que par le service de
+								l'établissement
+								en
+								charge
 								des stages.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
@@ -1103,17 +1146,15 @@
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Le tuteur de stage désigné par l'organisme d'accueil
 								dans la
-								présente convention est chargé d'assurer le suivi du/de
-								la
-								stagiaire et d'optimiser les conditions de réalisation du
+								présente convention est chargé d'assurer le suivi du stagiaire
+								et d'optimiser les conditions de réalisation du
 								stage
 								conformément aux stipulations pédagogiques définies.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Le/la
-								stagiaire est autorisé(e) à revenir dans son établissement
+								Le stagiaire est autorisé à revenir dans son établissement
 								d'enseignement
 								pendant la durée du stage pour y suivre des cours
 								demandés explicitement par le programme, ou pour participer à
@@ -1129,9 +1170,10 @@
 								Toute difficulté survenue dans la
 								réalisation et le déroulement
 								du stage, qu'elle soit
-								constaté par
-								le/la stagiaire ou par le
-								tuteur de stage, doit
+								constatée par
+								le stagiaire ou par le
+								tuteur
+								de stage, doit
 								être portée à la
 								connaissance de
 								l'enseignant-référent et de
@@ -1209,13 +1251,14 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								La gratification est
-								due au
-								stagiaire sans préjudice
+								due sans préjudice
 								du remboursement des frais engagés
 								par
-								le/la stagiaire pour
+								le
+								stagiaire pour
 								effectuer son stage et des avantages
-								offerts, le cas échéant,
+								offerts, le
+								cas échéant,
 								pour la restauration, l'hébergement, et
 								le transport.
 							</fo:block>
@@ -1239,16 +1282,17 @@
 								En cas de suspension
 								ou de résiliation de la présente
 								convention, le montant de la
-								gratification due au/à la stagiaire
+								gratification due au stagiaire
 								est proratisé en fonction de
-								la durée du stage effectué.
+								la
+								durée du stage effectué.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								La durée donnant droit
 								à gratification s'apprécie compte tenu de la présente convention
 								et de ses avenants éventuels, ainsi que du nombre de jours de
-								présence effective du/de la stagiaire dans l'organisme.
+								présence effective du stagiaire dans l'organisme.
 							</fo:block>
 							<xsl:variable name="indemnisation" select="id-indemnisation" />
 
@@ -1306,7 +1350,7 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								Le/la stagiaire
+								Le stagiaire
 								bénéficie des protections et droits mentionnés aux articles
 								L.1121-1, L.1152-1 et L.1153-1 du code du travail, dans les
 								mêmes conditions que les salariés.
@@ -1314,41 +1358,38 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								Le/la stagiaire a
+								Le stagiaire a
 								accès au restaurant d'entreprise ou aux titres-restaurants
 								prévus à l'article L.3262-1 du code du travail, dans les mêmes
-								conditions que les salariés de l'organisme d'accueil. Il/elle
+								conditions que les salariés de l'organisme d'accueil. Il
 								bénéficie également de la prise en charge des frais de transport
 								prévue à l'article L.3261-2 du même code.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								Les stagiaires
-								accèdent aux activités sociales et culturelles mentionnées à
+								Le stagiaire
+								accède aux activités sociales et culturelles mentionnées à
 								l'article L.2323-83 du code du travail dans les mêmes conditions
 								que les salariés.
 							</fo:block>
-							<xsl:if test="structure/@id-type-structure = 3">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									<fo:inline text-decoration="underline">
-										AUTRES AVANTAGES ACCORDÉS
-									</fo:inline>
-									:
-									<fo:inline font-weight="bold">
-										<xsl:value-of select="avantages-nature" />
-									</fo:inline>
-								</fo:block>
-							</xsl:if>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
+							<!-- <xsl:if test="structure/@id-type-structure = 3"> -->
+							<!-- <fo:block line-height="110%" hyphenate="false" -->
+							<!-- language="fr" country="FR" font-size="9pt" font-family="Times 
+								New Roman,serif" -->
+							<!-- text-align="justify"> -->
+							<!-- <fo:inline text-decoration="underline"> -->
+							<!-- AUTRES AVANTAGES ACCORDÉS -->
+							<!-- </fo:inline> -->
+							<!-- : -->
+							<!-- <fo:inline font-weight="bold"> -->
+							<!-- <xsl:value-of select="avantages-nature" /> -->
+							<!-- </fo:inline> -->
+							<!-- </fo:block> -->
+							<!-- </xsl:if> -->
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
+								text-align="justify" padding-top="4pt">
 								<fo:inline font-weight="bold">Article 5ter - Accès aux droits
 									des agents - Avantages
 								</fo:inline>
@@ -1359,8 +1400,8 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Les trajets effectués par les
-								stagiaires d'un organisme de droit
+								Les trajets effectués par le
+								stagiaire d'un organisme de droit
 								public entre leur domicile et
 								leur lieu de stage sont pris en
 								charge dans les
@@ -1380,36 +1421,41 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Le/la stagiaire accueilli(e)
-								dans un organisme de droit public et
-								qui effectue une mission
-								dans ce cadre bénéficie des dispositions
-								du décret n°2006-781 du
-								3 juillet 2006 fixant les conditions et
-								les modalités de
-								règlement des frais occasionnés par déplacements
-								temporaires des
-								personnels civils de l'Etat.
+								Le stagiaire accueilli dans un organisme de droit public et qui
+								effectue une mission dans ce cadre bénéficie de la prise en
+								charge de ses frais de déplacement temporaire selon la
+								réglementation en vigueur.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								padding-bottom="5pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Est considéré comme sa résidence administrative le lieu du stage
 								indiqué dans la présente convention.
 							</fo:block>
-							<xsl:if test="structure/@id-type-structure != 3">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									<fo:inline text-decoration="underline">
-										AUTRES AVANTAGES ACCORDÉS
-									</fo:inline>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								<fo:inline text-decoration="underline">
+									AUTRES AVANTAGES ACCORDÉS
+								</fo:inline>
+								<fo:inline font-style="italic" font-weight="bold">
+									(associés à l'article 5bis ou
+									5ter selon le statut publique ou
+									privé de l'organisme d'accueil)
 									:
-									<fo:inline font-weight="bold">
-										<xsl:value-of select="avantages-nature" />
-									</fo:inline>
-								</fo:block>
-							</xsl:if>
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="avantages-nature" />
+								</fo:inline>
+							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -1423,19 +1469,24 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Pendant la durée du stage, le stagiaire reste
-								affilié(e) à son régime de sécurité sociale antérieur. Les
-								stages effectués à l'étranger doivent avoir été signalés
-								préalablement au départ du/de la stagiaire et avoir reçu
-								l'agrément de la Sécurité Sociale, le cas échéant.
+								Pendant la durée du stage, le stagiaire reste affilié
+								à son régime de Sécurité sociale antérieur. Les stages effectués
+								à l'étranger sont signalés préalablement au départ du stagiaire
+								à la Sécurité sociale lorsque celle-ci le demande.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Pour les stages à l'étranger, les dispositions
-								suivantes sont applicables sous réserve de conformité avec la
-								législation du pays d'accueil et de celle régissant le type
-								d'organisme d'accueil :
+								Pour les stages à
+								l'étranger, les dispositions
+								suivantes sont
+								applicables sous
+								réserve de conformité avec la
+								législation du
+								pays d'accueil et de
+								celle régissant le type
+								d'organisme
+								d'accueil.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -1445,7 +1496,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								<fo:inline font-size="10pt" font-weight="bold">6.1
-									Gratification inférieure ou égale à 13,75% du plafond horaire
+									Gratification d'un montant maximum de 13,75% du plafond horaire
 									de la sécurité sociale :
 								</fo:inline>
 							</fo:block>
@@ -1458,28 +1509,25 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								L'étudiant(e) bénéficie de la législation sur les
-								accidents de travail au
-								titre de l'article L.412-8 2° du code de
-								la sécurité sociale,
-								régime étudiant.
+								Le stagiaire bénéficie de la législation sur les
+								accidents de travail au titre du régime étudiant de l'article
+								L.412-8 2° du code de la sécurité sociale.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								En cas d'accident survenant à l'étudiant(e), soit au cours
+								En cas d'accident survenant au stagiaire soit au cours
 								d'activités dans l'organisme, soit au cours du trajet, soit sur
 								les lieux rendus utiles pour les besoins du stage et pour les
-								étudiant(e)s en médecine, en chirurgie dentaire ou en pharmacie
-								qui n'ont pas un statut hospitalier effectué dans les conditions
-								prévues au b du 2e de l'article L.418-2,
+								étudiants en médecine, en chirurgie dentaire ou en pharmacie qui
+								n'ont pas un statut hospitalier pendant le stage effectué dans
+								les conditions prévues au b du 2e de l'article L.418-2,
 								<fo:inline text-decoration="underline">
 									l'organisme d'accueil
-									envoie la déclaration à la Caisse
-									Primaire d'Assurance Maladie
+									envoie la déclaration à la Caisse Primaire d'Assurance Maladie
 								</fo:inline>
-								(voir adresse en page 1) en mentionnant l'établissement
-								d'enseignement comme employeur, avec
+								ou la caisse compétente (voir adresse en page 1) en mentionnant
+								l'établissement d'enseignement comme employeur, avec
 								<fo:inline text-decoration="underline">
 									copie à l'établissement
 									d'enseignement.
@@ -1527,7 +1575,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								L'étudiant(e) bénéficie de la couverture légale en
+								L'étudiant bénéficie de la couverture légale en
 								application des
 								dispositions des articles L.411-1 et suivants du
 								code de la
@@ -1536,7 +1584,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								En cas d'accident survenant au/à la stagiaire soit au
+								En cas d'accident survenant au stagiaire soit au
 								cours des activités dans l'organisme, soit au cours du trajet,
 								soit sur des lieux rendus utiles pour les besoins de son stage,
 								l'organisme d'accueil effectue toutes les démarches nécessaires
@@ -1554,8 +1602,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
 								6.3 - Protection
-								Maladie du/de
-								la
+								Maladie du
 								stagiaire à l'étranger :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1564,7 +1611,7 @@
 								1)
 								<fo:inline text-decoration="underline">Protection
 									issue du régime
-									étudiant(e) français :
+									étudiant français :
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1576,7 +1623,7 @@
 								Norvège, de l'Islande, du Liechtenstein ou de la Suisse, ou
 								encore de tout autre Etat (dans ce dernier cas, cette
 								disposition n'est pas applicable pour un stage au Danemark,
-								Norvège, Islande, Liechtenstein ou Suisse), l'étudiant(e) doit
+								Norvège, Islande, Liechtenstein ou Suisse), l'étudiant doit
 								demander la Carte Européenne d'Assurance Maladie (CEAM).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1584,9 +1631,9 @@
 								font-family="Times New Roman,serif" space-before="0cm"
 								space-after="0cm" font-weight="normal" text-align="justify">
 								- pour les
-								stages effectués au Québec par les étudiant(e)s de
+								stages effectués au Québec par les étudiants de
 								nationalité
-								française, l'étudiant(e) doit demander le formulaire
+								française, l'étudiant doit demander le formulaire
 								SE401Q (104
 								pour les stages en entreprises, 106 pour les stages
 								en
@@ -1597,17 +1644,20 @@
 								font-family="Times New Roman,serif" space-before="0cm"
 								space-after="0cm" font-weight="normal" text-align="justify">
 								- dans tous
-								les autres cas les étudiant(e)s qui engagent des frais de santé
-								peuvent être remboursé(e)s auprès de la mutuelle qui leur tient
+								les autres cas les étudiants qui engagent des frais de santé
+								peuvent être remboursés auprès de la mutuelle qui leur tient
 								lieu de Caisse de Sécurité Sociale étudiante, au retour et sur
 								présentation des justificatifs : le remboursement s'effectue
 								alors sur la base des tarifs de soins français. Des écarts
 								importants peuvent exister entre les frais engagés et les tarifs
 								français base du remboursement. Il est donc fortement conseillé
-								aux étudiant(e)s de souscrire une assurance Maladie
-								complémentaire spécifique, valable pour le pays et la durée du
-								stage, auprès de l'organisme d'assurance de son choix (mutuelle
-								étudiante, mutuelle des parents, compagnie privée ad hoc...) ou,
+								aux étudiants de souscrire une assurance Maladie
+								complémentaire
+								spécifique, valable pour le pays et la durée du
+								stage, auprès de
+								l'organisme d'assurance de son choix (mutuelle
+								étudiante,
+								mutuelle des parents, compagnie privée ad hoc...) ou,
 								éventuellement et après vérification de l'étendue des garanties
 								proposées, auprès de l'organisme d'accueil si celui-ci fournit
 								au stagiaire une couverture Maladie en vertu du droit local
@@ -1666,7 +1716,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								<fo:inline font-weight="bold">6.4 Protection
+								<fo:inline font-weight="bold">6.4 - Protection
 									Accident du
 									Travail du stagiaire à l'étranger
 								</fo:inline>
@@ -1704,7 +1754,8 @@
 								horaire de la sécurité sociale
 								(cf point 5), et sous réserve de
 								l'accord de la Caisse Primaire
-								d'Assurance Maladie ;
+								d'Assurance Maladie sur la demande
+								de maintien de droit ;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1782,7 +1833,7 @@
 								- dans le
 								cadre d'une mission confiée par l'organisme
 								d'accueil du
-								stagiaire et obligatoirement par ordre de mission.
+								stagiaire et obligatoirement par ordre de mission,
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1809,7 +1860,7 @@
 									des conditions prévues au point 6.4-1/
 								</fo:inline>
 								n'est pas
-								remplie, l'organisme d'accueil s'engage à couvrir le/la
+								remplie, l'organisme d'accueil s'engage à couvrir le
 								stagiaire contre le risque d'accident de travail, de trajet et
 								les maladies professionnelles et à en assurer toutes les
 								déclarations nécessaires.
@@ -1825,17 +1876,20 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								- si l'étudiant(e) est victime d'un accident de
-								travail durant
+								- si l'étudiant est victime d'un accident de
+								travail
+								durant
 								le stage, l'organisme d'accueil doit
-								impérativement signaler
+								impérativement
+								signaler
 								immédiatement cet accident à
-								l'établissement d'enseignement ;
+								l'établissement
+								d'enseignement ;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt">
-								- si l'étudiant(e) remplit des
+								- si l'étudiant remplit des
 								missions limitées
 								en-dehors de l'organisme d'accueil ou en-dehors
 								du pays du
@@ -1854,20 +1908,21 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
 								Article 7 - Responsabilité et
-								assurances
+								assurance
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								L'organisme
-								d'accueil et le(la) stagiaire déclarent
-								être garantis au titre
+								d'accueil et le stagiaire déclarent
+								être
+								garantis au titre
 								de la responsabilité civile.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Pour les stages à l'étranger ou en outre mer, le(la)
+								Pour les stages à l'étranger ou outre mer, le
 								stagiaire s'engage à souscrire un contrat d'assistance
 								(rapatriement sanitaire, assistance juridique...) et un contrat
 								d'assurance individuel accident.
@@ -1876,19 +1931,18 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								Lorsque l'organisme d'accueil met un véhicule à la
-								disposition du(de la ) stagiaire, il lui incombe de vérifier
+								disposition du stagiaire, il lui incombe de vérifier
 								préalablement que la police d'assurance du véhicule couvre son
-								utilisation par un(e) étudiant(e).
+								utilisation par un étudiant.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								space-before="0cm" space-after="0cm" font-weight="normal"
 								text-align="justify">
-								Lorsque dans le cadre de son stage, l'étudiant(e)
+								Lorsque dans le cadre de son stage, l'étudiant
 								utilise son propre véhicule ou un véhicule prêté par un tiers,
-								il(elle) déclare expressément à l'assureur dudit véhicule cette
-								utilisation qu'il(qu'elle) est amené à faire et le cas échéant
-								s'acquitte de la prime afférente.
+								il déclare expressément à l'assureur dudit véhicule et, le cas
+								échéant, s'acquitte de la prime y afférente.
 							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1906,23 +1960,29 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Le/la stagiaire
-								est soumis(e) à la discipline et aux
-								clauses du règlement
+								Le stagiaire
+								est soumis à la discipline et aux
+								clauses
+								du règlement
 								intérieur qui lui sont applicables et qui
-								sont portées à sa
+								sont
+								portées à sa
 								connaissance avant le début du stage, notamment
-								en ce qui
+								en ce
+								qui
 								concerne les horaires et les règles d'hygiène et de
-								sécurité en
+								sécurité
+								en
 								vigueur dans l'organisme d'accueil.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								Toute sanction disciplinaire ne peut être décidée que
-								par l'établissement. Dans ce cas l'organisme d'accueil informe
-								l'enseignant référent et l'établissement des manquements et lui
+								par l'établissement d'enseignement. Dans ce cas, l'organisme
+								d'accueil informe
+								l'enseignant référent et l'établissement des
+								manquements et
 								fournit éventuellement les éléments constitutifs.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1945,15 +2005,17 @@
 								En France (sauf
 								en cas de règles particulières applicables dans certaines
 								collectivités d'outre-mer françaises ou dans les organismes de
-								droit public), en organisme de droit
-								privé, en cas de grossesse,
-								de paternité ou d'adoption, le/la
+								droit public), en cas de grossesse,
+								de paternité ou d'adoption,
+								le
 								stagiaire bénéficie de congés
-								et d'autorisations d'absence d'une
+								et
+								d'autorisations d'absence d'une
 								durée équivalente à celle
-								prévues pour les salariés dans les
-								organismes de droit privé aux
-								articles L.1225-16 à L.1225-28,
+								prévues
+								pour les salariés aux
+								articles
+								L.1225-16 à L.1225-28,
 								L.1225-35, L.1225-37, L.1225-46
 								du code du
 								travail.
@@ -2030,57 +2092,24 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								En cas d'accord
-								des parties à la convention, un
-								report
-								de la fin du stage est
-								possible afin de permettre la
-								réalisation
-								de la durée totale du
-								stage prévue initialement. Ce
-								report fera
-								l'objet d'un avenant à
-								la convention de stage.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
 								Un avenant à la
-								convention pourra éventuellement être
+								convention pourra être
 								établi en cas de
 								prolongation du stage sur demande conjointe de
 								l'organisme
-								d'accueil et du(de la) stagiaire, dans le respect de
+								d'accueil et du stagiaire, dans le respect de
 								la durée
 								maximale du stage fixée par la loi (6 mois).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								En cas de
-								volonté
-								d'une des trois parties (organisme
-								d'accueil,
-								établissement,
-								étudiant(e)) d'interrompre
-								définitivement le
-								stage,
-								celle-ci devra
-								immédiatement en informer
-								les deux autres
-								parties
-								par écrit. Les
-								raisons invoquées seront
-								examinées en
-								étroite
-								concertation. La
-								décision définitive
-								d'interruption du
-								stage ne
-								sera
-								prise qu'à
-								l'issue de cette phase de
-								concertation.
+								En cas de volonté d'une des trois parties (organisme
+								d'accueil, stagiaire, établissement d'enseignement) d'arrêter le
+								stage, celle-ci doit immédiatement en informer les deux autres
+								parties par écrit. Les raisons invoquées seront examinées en
+								étroite concertation. La décision définitive d'arrêt du stage ne
+								sera prise qu'à l'issue de cette phase de concertation.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2091,23 +2120,30 @@
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify"
 								font-weight="bold">
-								Article 10 - Droit de réserve et confidentialité
+								Article 10 - Devoir de réserve et confidentialité
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Le droit de
-								réserve est de rigueur absolue et apprécié
+								Le devoir de
+								réserve est de rigueur absolue et
+								apprécié
 								par l'organisme
-								d'accueil compte-tenu de ses spécificités. Les
-								stagiaires
-								prennent donc l'engagement de n'utiliser en aucun cas
+								d'accueil compte-tenu de ses
+								spécificités. Le
+								stagiaire
+								prend donc l'engagement de n'utiliser
+								en aucun cas
 								les
-								informations recueillies ou obtenues par eux pour en faire
-								publication, communication à des tiers sans accord préalable de
-								l'organisme d'accueil, y compris le rapport de stage. Cet
-								engagement vaut non seulement pour la durée du stage mais
-								également après son expiration. Le(la) stagiaire s'engage à ne
+								informations recueillies ou obtenues par eux pour
+								en faire
+								publication, communication à des tiers sans accord
+								préalable de
+								l'organisme d'accueil, y compris le rapport de
+								stage. Cet
+								engagement vaut non seulement pour la durée du stage
+								mais
+								également après son expiration. Le stagiaire s'engage à ne
 								conserver, emporter, ou prendre copie d'aucun document ou
 								logiciel, de quelque nature que ce soit, appartenant à
 								l'organisme d'accueil, sauf accord de ce dernier.
@@ -2144,11 +2180,12 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								Conformément au code de la propriété intellectuelle,
-								dans le cas où les activités du(de la) stagiaire donnent lieu à
-								la création d'une oeuvre protégée par le droit d'auteur ou la
+								dans le cas où les activités du stagiaire donnent lieu à
+								la
+								création d'une oeuvre protégée par le droit d'auteur ou la
 								propriété industrielle (y compris un logiciel), si l'organisme
-								d'accueil souhaite l'utiliser et que le(la) stagiaire en est
-								d'accord, un contrat devra être signé entre le(la) stagiaire
+								d'accueil souhaite l'utiliser et que le stagiaire en est
+								d'accord, un contrat devra être signé entre le stagiaire
 								(auteur) et l'organisme d'accueil.
 							</fo:block>
 						</fo:table-cell>
@@ -2165,9 +2202,11 @@
 								Le contrat devra alors notamment préciser l'étendue
 								des droits cédés, l'éventuelle exclusivité, la destination, les
 								supports utilisés et la durée de la cession, ainsi que, le cas
-								échéant, le montant de la rémunération due au(à la) stagiaire au
-								titre de la cession. Cette clause s'applique quel que soit le
-								statut de l'organisme d'accueil.
+								échéant, le montant de la rémunération due au stagiaire au
+								titre
+								de la cession. Cette clause s'applique quel que soit le
+								statut de
+								l'organisme d'accueil.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2187,12 +2226,15 @@
 								<fo:inline text-decoration="underline">Attestation de stage
 								</fo:inline>
 								: à l'issue du stage, l'organisme d'accueil délivre une
-								attestation dont le modèle figure en annexe mentionnant au
+								attestation dont le modèle figure en annexe, mentionnant au
 								minimum la durée effective du stage et, le cas échéant, le
-								montant de la gratification perçue. Le(la) stagiaire devra
-								produire cette attestation à l'appui de sa demande éventuelle
-								d'ouverture de droits au régime général d'assurance vieillesse
-								prévue à l'art. L.351-17 du code de la sécurité sociale ;
+								montant de la gratification perçue. Le stagiaire devra
+								produire
+								cette attestation à l'appui de sa demande éventuelle
+								d'ouverture
+								de droits au régime général d'assurance vieillesse
+								prévue à
+								l'art. L.351-17 du code de la sécurité sociale ;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2202,11 +2244,19 @@
 								</fo:inline>
 								: à l'issue du stage, les parties à la présente convention sont
 								invitées à formuler une appréciation sur la qualité du stage.
-								Le(la) stagiaire transmet au service compétent de
-								l'établissement d'enseignement un document dans lequel il(elle)
-								évalue la qualité de l'accueil dont il(elle) a bénéficié au sein
-								de l'organisme d'accueil. Ce document n'est pas pris en compte
-								dans son évaluation ou dans l'obtention du diplôme ou de la
+								Le
+								stagiaire transmet au service compétent de
+								l'établissement
+								d'enseignement un document dans lequel il
+								évalue la qualité
+								de
+								l'accueil dont il a bénéficié au sein
+								de l'organisme
+								d'accueil. Ce
+								document n'est pas pris en compte
+								dans son
+								évaluation ou dans
+								l'obtention du diplôme ou de la
 								certification.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -2214,10 +2264,11 @@
 								text-align="justify" padding-top="2pt">
 								3)
 								<fo:inline text-decoration="underline">Évaluation de l'activité
-									du/de la stagiaire
+									du
+									stagiaire
 								</fo:inline>
 								: à l'issue du stage, l'organisme d'accueil renseigne une fiche
-								d'évaluation de l'activité du(de la) stagiaire qu'il retourne à
+								d'évaluation de l'activité du stagiaire qu'il retourne à
 								l'enseignant référent (ou préciser si fiche
 								annexe ou modalités
 								d'évaluation préalablement définis en
@@ -2231,7 +2282,7 @@
 								<fo:inline text-decoration="underline">Modalités d'évaluation
 									pédagogiques
 								</fo:inline>
-								: le(la) stagiaire devra (préciser la nature du
+								: le stagiaire devra (préciser la nature du
 								travail à
 								fournir,
 								rapport, etc..- éventuellement en joignant
@@ -2266,7 +2317,11 @@
 								prétendre à une quelconque prise en charge ou indemnisation de
 								la part de l'établissement d'enseignement.
 							</fo:block>
-
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-style="italic">
+								<fo:leader />
+							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify"
@@ -2583,6 +2638,12 @@
 					ATTESTATION DE STAGE
 				</fo:inline>
 			</fo:block>
+			<fo:block text-align="center" padding-top="5pt">
+				<fo:inline hyphenate="false" language="fr" country="FR"
+					font-weight="bold" font-size="16pt" font-style="italic">
+					à remettre au stagiaire à l'issue du stage
+				</fo:inline>
+			</fo:block>
 			<fo:block padding-top="60pt">
 				<fo:table border="0.018cm solid #000000" padding="3pt"
 					width="100%" table-layout="fixed">
@@ -2650,7 +2711,7 @@
 								padding-top="0.2cm">
 								<fo:block font-size="9pt" font-weight="bold"
 									text-decoration="underline">
-									LE/LA STAGIAIRE
+									LE STAGIAIRE
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
 									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
@@ -2766,7 +2827,7 @@
 									<fo:inline font-weight="bold">
 										ETUDIANT EN (intitulé de la
 										formation ou du cursus de
-										l'enseignement supérieur suivi) :
+										l'enseignement supérieur suivi par le ou la stagiaire) :
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
@@ -2842,16 +2903,22 @@
 									</fo:inline>
 									du
 									<fo:inline>
-										<xsl:value-of
-											select="concat(substring(./date-debut-stage,9,2),'/',substring(./date-debut-stage,6,2), '/',substring(./date-debut-stage,1,4))" />
+										......................................
 									</fo:inline>
 									<xsl:text> </xsl:text>
 									au
 									<xsl:text> </xsl:text>
 									<fo:inline>
-										<xsl:value-of
-											select="concat(substring(./date-fin-stage,9,2),'/',substring(./date-fin-stage,6,2), '/',substring(./date-fin-stage,1,4))" />
+										......................................
 									</fo:inline>
+									<xsl:if test="@interruption-stage = 'true'">
+										<xsl:text> </xsl:text>
+										avec interruption du ......................................
+										<xsl:text> </xsl:text>
+										au
+										<xsl:text> </xsl:text>
+										......................................
+									</xsl:if>
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
@@ -2866,31 +2933,7 @@
 										de
 									</fo:inline>
 									<fo:inline>
-										<xsl:choose>
-											<xsl:when test="duree-exceptionnelle">
-												<xsl:if test="duree-exceptionnelle != ''">
-													<fo:inline>
-														<xsl:value-of select="duree-exceptionnelle" />
-														<xsl:text> </xsl:text>
-														<xsl:value-of select="unite-duree/libelle" />
-													</fo:inline>
-												</xsl:if>
-												<xsl:if test="duree-exceptionnelle = ''">
-													<fo:inline>
-														<xsl:value-of select="duree-stage" />
-													</fo:inline>
-													<xsl:text> </xsl:text>
-													semaines
-												</xsl:if>
-											</xsl:when>
-											<xsl:otherwise>
-												<fo:inline>
-													<xsl:value-of select="duree-stage" />
-												</fo:inline>
-												<xsl:text> </xsl:text>
-												semaines
-											</xsl:otherwise>
-										</xsl:choose>
+										..................... (Nombre de mois / Nombre de semaines) (rayer la mention inutile)
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
@@ -2902,24 +2945,14 @@
 									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 									padding-bottom="0.035cm" margin-left="0.5cm">
 									La durée totale du stage
-									est appréciée en tenant
-									compte de la présence effective du
-									stagiaire
-									dans l'organisme, sous réserve des droits à congés et
-									autorisations
-									d'absence prévus à l'article L. 124-13
-									du code de
-									l'éducation (art. L. 124-18 du code de l'éducation).
-									Chaque
-									période au moins égale à 22 jours de
-									présence consécutifs ou non
-									est considérée comme équivalente à un mois
-									de stage et chaque
-									période au moins égale à 7 heures de présence
-									consécutives ou
-									non
-									est considérée comme équivalente à un jour
-									de stage.
+									est appréciée en tenant compte de la présence effective du
+									stagiaire dans l'organisme, sous réserve des droits à congés et
+									autorisations d'absence prévus à l'article L.124-13 du code de
+									l'éducation (art. L.124-18 du code de l'éducation). Chaque
+									période au moins égale à 7 heures de présence consécutives ou
+									non est considérée comme équivalente à un jour de stage et
+									chaque période au moins égale à 22 jours de présence
+									consécutifs ou non est considérée comme équivalente à un mois.
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
 									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
@@ -2945,13 +2978,13 @@
 									font-size="9pt" font-family="Times New Roman,serif"
 									padding-top="0.2cm">
 									<fo:inline>
-										Le/la stagiaire a perçu une gratification de stage pour un
+										Le stagiaire a perçu une gratification de stage pour un
 										montant total de
 										<xsl:variable name="nb-montant-gratification"
 											select="montant-gratification" />
 										<xsl:choose>
 											<xsl:when test='$nb-montant-gratification=""'>
-												...................................................
+												.................................. &#8364; 
 											</xsl:when>
 											<xsl:otherwise>
 												<fo:inline font-weight="bold">
@@ -3004,7 +3037,7 @@
 									</fo:inline>
 									La
 									<fo:inline font-weight="bold">demande est à faire par
-										l'étudiant(e) dans les deux années
+										l'étudiant dans les deux années
 									</fo:inline>
 									suivant la fin du stage et sur
 									<fo:inline font-weight="bold">présentation obligatoire de
@@ -3019,10 +3052,11 @@
 									à verser et sur la procédure à suivre
 									sont à demander
 									auprès de
-									la caisse primaire d'assurance sociale
+									la sécurité sociale
 									(code de la
 									sécurité
-									sociale art. L.351-17 - code de l'éducation
+									sociale art.
+									L.351-17 - code de l'éducation
 									art.D.124-9).
 								</fo:block>
 							</fo:table-cell>

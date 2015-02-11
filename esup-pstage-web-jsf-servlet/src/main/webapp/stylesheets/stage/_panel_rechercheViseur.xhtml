@@ -37,20 +37,20 @@
 								<f:converter binding="#{premiereLettreMAJConverter}" />
 							</h:inputText>
 
-							<t:htmlTag value="div" style="height: 5px;" />
-							<t:htmlTag value="div" style="height: 5px;" />
+<!-- 							<t:htmlTag value="div" style="height: 5px;" /> -->
+<!-- 							<t:htmlTag value="div" style="height: 5px;" /> -->
 
-							<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}"
-								for="codeAffectation" />
-							<h:selectOneMenu id="codeAffectation"
-								rendered="#{not empty conventionController.listeAffectation}"
-								value="#{centreController.codeAffectationPersonnel}">
-								<f:selectItem itemValue="" />
-								<f:selectItems value="#{conventionController.listeAffectation}" />
-							</h:selectOneMenu>
-							<h:outputText
-								rendered="#{empty conventionController.listeAffectation}"
-								value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE_VIDE']}" />
+<!-- 							<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}" -->
+<!-- 								for="codeAffectation" /> -->
+<!-- 							<h:selectOneMenu id="codeAffectation" -->
+<!-- 								rendered="#{not empty conventionController.listeAffectation}" -->
+<!-- 								value="#{centreController.codeAffectationPersonnel}"> -->
+<!-- 								<f:selectItem itemValue="" /> -->
+<!-- 								<f:selectItems value="#{conventionController.listeAffectation}" /> -->
+<!-- 							</h:selectOneMenu> -->
+<!-- 							<h:outputText -->
+<!-- 								rendered="#{empty conventionController.listeAffectation}" -->
+<!-- 								value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE_VIDE']}" /> -->
 						</h:panelGrid>
 						<h:panelGrid columns="1" align="center"
 							columnClasses="paginatorData-text"

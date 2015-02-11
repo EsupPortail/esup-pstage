@@ -19,14 +19,12 @@
 		<message-bundle>properties/i18n/bundles/Messages</message-bundle>
 
 	</application>
-
-<!-- 	<lifecycle> -->
-<!-- 		<phase-listener>org.esupportail.commons.jsf.DeepLinkingPhaseListener</phase-listener> -->
-<!-- 		<phase-listener>org.esupportail.commons.jsf.ResourceBundlePhaseListener</phase-listener> -->
-<!-- 	</lifecycle> -->
 	
-	<!-- <factory> -->
-	<!-- <exception-handler-factory>org.esupportail.commons.exceptions.ExceptionHandlerFactory</exception-handler-factory> -->
-	<!-- </factory> -->
+	<!-- ajout pour gerer les dates de fin de diffusion d'offre -->
+	<managed-bean>
+	    <managed-bean-name>currentDate</managed-bean-name>
+	    <managed-bean-class>java.util.Date</managed-bean-class>
+	    <managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 
 </faces-config>

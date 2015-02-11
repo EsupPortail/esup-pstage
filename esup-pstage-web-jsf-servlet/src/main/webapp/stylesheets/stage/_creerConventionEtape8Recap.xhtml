@@ -144,7 +144,9 @@
 				<h:outputText id="dureeExceptionnelle1"
 					value="#{conventionController.convention.dureeExceptionnelle}" />
 				<h:outputText
-					value="#{conventionController.convention.uniteDuree.libelle}" />
+					value="heure(s)" />
+<!-- 				<h:outputText -->
+<!-- 					value="#{conventionController.convention.uniteDuree.libelle}" /> -->
 			</h:panelGrid>
 			<h:outputLabel for="nbJoursHebdo1"
 				value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
@@ -182,14 +184,14 @@
 				value="#{msgs['CONVENTION.MTGRATIFICATION']}"
 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
 			<h:outputText id="montantGratification1"
-				value="#{conventionController.convention.montantGratification} - #{conventionController.convention.uniteGratification.libelle}"
+				value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}"
 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
-			<h:outputLabel for="modeVersGratification1"
-				value="#{msgs['CONVENTION.MODEVERSGRAT']}"
-				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
-			<h:outputText id="modeVersGratification1"
-				value="#{conventionController.convention.modeVersGratification.libelle}"
-				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
+<!-- 			<h:outputLabel for="modeVersGratification1" -->
+<!-- 				value="#{msgs['CONVENTION.MODEVERSGRAT']}" -->
+<!-- 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" /> -->
+<!-- 			<h:outputText id="modeVersGratification1" -->
+<!-- 				value="#{conventionController.convention.modeVersGratification.libelle}" -->
+<!-- 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" /> -->
 			<!-- ##################################### -->
 
 			<h:outputLabel for="origineStage1"

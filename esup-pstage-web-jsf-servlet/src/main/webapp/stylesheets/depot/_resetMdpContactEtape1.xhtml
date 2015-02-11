@@ -5,7 +5,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 	<h:column>
-		<h:panelGrid columns="1">
+		<h:panelGrid>
 			<h:outputText
 				value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP.QUESTION']}"
 				escape="false" />
@@ -16,11 +16,11 @@
 		<h:panelGrid columns="3">
 			<a4j:commandButton action="#{etablissementController.resetMdp}"
 				value="#{msgs['FORM.RESET']}"
-				render="opContactsDataTable" />
+				render="formResetMdp" />
 			<t:htmlTag value="div" style="width:150px;" />
 			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
 				onclick="#{rich:component('resetMdpContact')}.hide();"
-				immediate="true" />
+				immediate="true"/>
 		</h:panelGrid>
 	</h:column>
 </ui:composition>

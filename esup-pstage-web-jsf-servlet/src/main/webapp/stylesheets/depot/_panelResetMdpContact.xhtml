@@ -9,9 +9,11 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.RESETMDP']}" />
 		</f:facet>
-		<h:form id="formResetMdpContact">
-			<ui:include id="include"
-				src="/stylesheets/depot/_resetMdpContactEtape1.xhtml" />
-		</h:form>
+		<a4j:outputPanel ajaxRendered="true">
+			<h:form id="formResetMdp">
+				<ui:include
+					src="/stylesheets/depot/#{sessionController.resetMdpContactCurrentPage}.xhtml" />
+			</h:form>
+		</a4j:outputPanel>
 	</rich:popupPanel>
 </ui:composition>

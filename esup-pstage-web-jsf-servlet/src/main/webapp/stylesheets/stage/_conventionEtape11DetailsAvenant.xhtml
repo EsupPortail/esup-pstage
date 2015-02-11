@@ -10,7 +10,13 @@
 		rowClasses="paginatorData-text"
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<t:htmlTag value="div" style="height:10px;" />
-
+		<h:panelGrid style="font-size:18px;" columns="2" rendered="#{not empty avenantController.avenant.titreAvenant}">
+			<h:outputLabel for="titreAvenant"
+				value="#{msgs['CONVENTION.ETAPE11.TITRE']} :" />
+			<h:outputText id="titreAvenant"
+				value="#{avenantController.avenant.titreAvenant}" />
+		</h:panelGrid>
+		
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="2" style="font-size:16px;"
 			rendered="#{!avenantController.avenant.rupture

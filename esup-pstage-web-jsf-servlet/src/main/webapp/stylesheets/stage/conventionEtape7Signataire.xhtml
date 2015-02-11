@@ -57,20 +57,10 @@
 						</a4j:commandButton>
 						<a4j:commandButton execute="@this"
 							oncomplete="#{rich:component('selectServiceSignataire')}.show()"
-							rendered="#{!conventionController.conventionValide and (sessionController.adminPageAuthorized 
-								or ((welcomeController.superAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-								and empty conventionController.convention.signataire.login and empty conventionController.convention.signataire.mdp)
-								or (sessionController.pageAuthorized and empty conventionController.convention.signataire.login and empty conventionController.convention.signataire.mdp)
-								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.convention.signataire.id))
-								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized 
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								and ((empty conventionController.convention.signataire.loginModif and
-								conventionController.convention.signataire.loginCreation==sessionController.currentLogin)
-								|| (conventionController.convention.signataire.loginModif==sessionController.currentLogin)))))))}"
+							rendered="#{!conventionController.conventionValide 
+								 and (welcomeController.superAdmin || welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
 							value="#{msgs['CONVENTION.ETAPE7.MODIF.SIGNATAIRE']}">
 							<f:setPropertyActionListener value="#{0}"
 								target="#{etablissementController.idContactSel}" />

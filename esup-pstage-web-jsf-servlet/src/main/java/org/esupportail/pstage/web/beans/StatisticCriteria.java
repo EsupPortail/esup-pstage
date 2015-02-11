@@ -71,7 +71,7 @@ public class StatisticCriteria implements Serializable {
 		 secondLevelStatCriteriaForConvention.put("TEMPS","Temps de travail");
 		 secondLevelStatCriteriaForConvention.put("NB","Nombre de jours de travail hebdomadaires");
 		 secondLevelStatCriteriaForConvention.put("ORI","Origine du stage");	
-		 secondLevelStatCriteriaForConvention.put("ENS","Enseignant tuteur");
+		 secondLevelStatCriteriaForConvention.put("ENS","Enseignant r\u00E9f\u00E9rent");
 		 secondLevelStatCriteriaForConvention.put("ENT","Etablissement d'accueil");
 		 secondLevelStatCriteriaForConvention.put("DOM","Domaine d'activit\u00E9 de l'\u00E9tablissement d'accueil");
 		 secondLevelStatCriteriaForConvention.put("JUR","Statut juridique de l'\u00E9tablissement d'accueil");

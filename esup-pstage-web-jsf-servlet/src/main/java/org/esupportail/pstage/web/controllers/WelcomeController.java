@@ -588,6 +588,7 @@ public class WelcomeController extends AbstractContextAwareController {
 			String userAffiliation = null;
 			if(StringUtils.hasText(getSessionController().getCurrentStageCasUser().getId())){
 				ldapUser = ldapUserService.getLdapUser(getSessionController().getCurrentStageCasUser().getId());
+				
 				userAffiliation = ldapUser.getAttribute(this.affiliation);
 				if(StringUtils.hasText(userAffiliation) && (employee.contains(userAffiliation) || faculty.contains(userAffiliation))){
 					// Gestion de ses droits pour chaque centre de l'université de l'individu connecté
@@ -862,7 +863,7 @@ public class WelcomeController extends AbstractContextAwareController {
 
 	/**
 	 * Espace stage seulement
-	 * @return true if the current user is an Enseignant Tuteur
+	 * @return true if the current user is an Enseignant Référent
 	 */
 	public boolean isEnseignantTuteur(){
 		boolean isEnseignantTuteur=false;

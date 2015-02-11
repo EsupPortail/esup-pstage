@@ -200,7 +200,7 @@ public class ExportController extends AbstractContextAwareController {
 		if (logger.isInfoEnabled()) {
 			logger.info("ExportController:: Appel getConventionsFromCriteresExport debut ");
 		}
-		// si enseignant tuteur, recherche des conventions pour les enseignants tuteur
+		// si enseignant référent, recherche des conventions pour les enseignants tuteur
 		if (getSessionController().isEnseignantTuteur()) {
 			if (this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant() != null) {
 				EnseignantDTO tmpEns = getEnseignantDomainService().getEnseignantFromUid(this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant(),
@@ -487,6 +487,8 @@ public class ExportController extends AbstractContextAwareController {
 				return convention.getDureeExceptionnelle();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.UNITEDUREEEXCEP")){
 				return convention.getUniteDuree().getLibelle();
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.UNITEDUREEGRATIF")){
+				return convention.getUniteDureeGratification().getLibelle();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NBJOURS")){
 				return convention.getNbJoursHebdo();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.GRATIFICATION")){

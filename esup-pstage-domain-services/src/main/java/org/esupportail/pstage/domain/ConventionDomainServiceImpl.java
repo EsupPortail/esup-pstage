@@ -299,6 +299,9 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 			if (c.getIdUniteDureeExceptionnelle() != null && c.getIdUniteDureeExceptionnelle() > 0){
 				c.setUniteDuree(this.nomenclatureDomainService.getUniteDureeFromId(c.getIdUniteDureeExceptionnelle()));
 			}
+			if (c.getIdUniteDureeGratification() != null && c.getIdUniteDureeGratification() > 0){
+				c.setUniteDureeGratification(this.nomenclatureDomainService.getUniteDureeFromId(c.getIdUniteDureeGratification()));
+			}
 			if (c.getIdTempsTravail() != null && c.getIdTempsTravail() > 0){
 				c.setTempsTravail(this.nomenclatureDomainService.getTempsTravailFromId(c.getIdTempsTravail()));
 			}

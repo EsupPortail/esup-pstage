@@ -6,94 +6,100 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-		<rich:panel
-			style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
-			</f:facet>
-			<h:outputText value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
+	<rich:panel
+		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
+		</f:facet>
+		<h:outputText value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
+
+		<t:htmlTag value="div" style="height: 20px;" />
+
+		<fieldset>
+			<ui:include
+				src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
+			<t:htmlTag value="center">
+				<t:htmlTag value="div" style="height: 10px;" />
+				<t:htmlTag value="div"
+					style="width: 50%; lineType:beveled; height: 4px;"
+					styleClass="spacer" />
+				<t:htmlTag value="div" style="height: 10px;" />
+			</t:htmlTag>
+			<ui:include
+				src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
+		</fieldset>
+		<h:panelGrid id="formResultatsRechEtab">
+			<t:div
+				rendered="#{not empty rechercheController.ongletCourant 
+					and rechercheController.ongletCourant!=6}">
+				<h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}"
+					escape="false"
+					rendered="#{rechercheController.afficherBoutonAjoutEtab}" />
+				<h:commandLink id="ajoutEtab"
+					action="#{conventionController.goToCreerConventionEtape2CreaEtab}"
+					rendered="#{rechercheController.afficherBoutonAjoutEtab}">
+					<h:graphicImage alt="#{msgs['FORM.CREER']}"
+						value="../../media/images/new.png" style="border:0" />
+					<rich:tooltip value="#{msgs['FORM.CREER']}" />
+				</h:commandLink>
+			</t:div>
 
 			<t:htmlTag value="div" style="height: 20px;" />
-
-			<t:div>
-				<ui:include
-					src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
-				<ui:include
-					src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
-			</t:div>
-			<h:panelGrid columns="1" id="formResultatsRechEtab">
+			<rich:message for="formResultatsRechEtab">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+			<a4j:outputPanel id="opRechercheStructureDataTable">
 				<t:div
-					rendered="#{not empty rechercheController.ongletCourant 
-					and rechercheController.ongletCourant!=6}">
-					<h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}"
-						escape="false"
-						rendered="#{rechercheController.afficherBoutonAjoutEtab}" />
-					<h:commandLink id="ajoutEtab"
-						action="#{conventionController.goToCreerConventionEtape2CreaEtab}"
-						rendered="#{rechercheController.afficherBoutonAjoutEtab}">
-						<h:graphicImage alt="#{msgs['FORM.CREER']}"
-							value="../../media/images/new.png" style="border:0" />
-						<rich:tooltip value="#{msgs['FORM.CREER']}" />
-					</h:commandLink>
-				</t:div>
-
-				<t:htmlTag value="div" style="height: 20px;" />
-				<rich:message for="formResultatsRechEtab">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<a4j:outputPanel id="opRechercheStructureDataTable">
-					<t:div
-						rendered="#{not empty rechercheController.listeResultatsRechercheStructure
+					rendered="#{not empty rechercheController.listeResultatsRechercheStructure
 					and not empty rechercheController.rechercheStructurePaginator}">
-						<ui:include
-							src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
-						<rich:dataTable id="rechercheStructureDataTable"
-							var="varRechercheStructure"
-							rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}"
-							value="#{rechercheController.rechercheStructurePaginator.liste}"
-							rows="20">
-							<f:facet name="header">
-								<ui:include src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
-							</f:facet>
+					<ui:include
+						src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
+					<rich:dataTable id="rechercheStructureDataTable"
+						var="varRechercheStructure"
+						rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}"
+						value="#{rechercheController.rechercheStructurePaginator.liste}"
+						rows="20">
+						<f:facet name="header">
 							<ui:include
-								src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-							<rich:column>
-								<a4j:commandButton id="selectionEtab"
-									value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-									alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-									title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-									action="#{conventionController.goToCreerConventionEtape2DetailsEtab}"
-									image="../../media/images/zoom.png"
-									render="formConvention">
-									<f:setPropertyActionListener value="#{varRechercheStructure}"
-										target="#{rechercheController.resultatRechercheStructure}" />
-									<f:setPropertyActionListener value="_creerConventionEtape2Etab"
-										target="#{conventionController.retourAction}" />
-									<rich:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
-								</a4j:commandButton>
-							</rich:column>
-							<f:facet name="footer">
-								<rich:dataScroller for="rechercheStructureDataTable"
-									maxPages="20" page="1"
-									renderIfSinglePage="false"/>
-							</f:facet>
-						</rich:dataTable>
-					</t:div>
-				</a4j:outputPanel>
-			</h:panelGrid>
-		</rich:panel>
-		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-			immediate="true"
-			rendered="#{sessionController.utilisationEntreprise}"
-			action="creerConventionEtape1Etudiant">
-			<f:setPropertyActionListener value="_creerConventionEtape1DemandeLienOffre"
-				target="#{sessionController.creationConventionEtape1CurrentPage}" />
-		</h:commandButton>
-		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-			immediate="true"
-			rendered="#{!sessionController.utilisationEntreprise}"
-			action="creerConventionEtape1Etudiant">
-			<f:setPropertyActionListener value="_creerConventionEtape1ConfirmInfosEtu"
-				target="#{sessionController.creationConventionEtape1CurrentPage}" />
-		</h:commandButton>
+								src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
+						</f:facet>
+						<ui:include
+							src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+						<rich:column>
+							<a4j:commandButton id="selectionEtab"
+								value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+								alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+								title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+								action="#{conventionController.goToCreerConventionEtape2DetailsEtab}"
+								image="../../media/images/zoom.png" render="formConvention">
+								<f:setPropertyActionListener value="#{varRechercheStructure}"
+									target="#{rechercheController.resultatRechercheStructure}" />
+								<f:setPropertyActionListener value="_creerConventionEtape2Etab"
+									target="#{conventionController.retourAction}" />
+								<rich:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+							</a4j:commandButton>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:dataScroller for="rechercheStructureDataTable"
+								maxPages="20" page="1" renderIfSinglePage="false" />
+						</f:facet>
+					</rich:dataTable>
+				</t:div>
+			</a4j:outputPanel>
+		</h:panelGrid>
+	</rich:panel>
+	<h:commandButton value="#{msgs['FORM.PREVIOUS']}" immediate="true"
+		rendered="#{sessionController.utilisationEntreprise}"
+		action="creerConventionEtape1Etudiant">
+		<f:setPropertyActionListener
+			value="_creerConventionEtape1DemandeLienOffre"
+			target="#{sessionController.creationConventionEtape1CurrentPage}" />
+	</h:commandButton>
+	<h:commandButton value="#{msgs['FORM.PREVIOUS']}" immediate="true"
+		rendered="#{!sessionController.utilisationEntreprise}"
+		action="creerConventionEtape1Etudiant">
+		<f:setPropertyActionListener
+			value="_creerConventionEtape1ConfirmInfosEtu"
+			target="#{sessionController.creationConventionEtape1CurrentPage}" />
+	</h:commandButton>
 </ui:composition>

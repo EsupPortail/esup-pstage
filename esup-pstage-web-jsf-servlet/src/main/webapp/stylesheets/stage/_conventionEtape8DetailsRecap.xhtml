@@ -46,7 +46,7 @@
 		and conventionController.convention.validationConvention}">
 		<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
 			value="../../media/images/printer.png" style="border:0" />
-		<t:htmlTag value="div" style="display: inline; margin: 4px;" />
+		<t:htmlTag value="div" style="display:inline; margin:4px;" />
 		<h:outputText
 			value="#{msgs['CONVENTION.IMPRESSION.REMERCIEMENT.DEMANDE']}"
 			escape="false" />
@@ -424,7 +424,9 @@
 					<h:outputText id="dureeExceptionnelle1"
 						value="#{conventionController.convention.dureeExceptionnelle}" />
 					<h:outputText
-						value="#{conventionController.convention.uniteDuree.libelle}" />
+						value="heure(s)" />
+<!-- 					<h:outputText -->
+<!-- 						value="#{conventionController.convention.uniteDuree.libelle}" /> -->
 				</h:panelGrid>
 			</rich:column>
 		</rich:columnGroup>
@@ -507,20 +509,20 @@
 			</rich:column>
 			<rich:column>
 				<h:outputText id="montantGratification1"
-					value="#{conventionController.convention.montantGratification} - #{conventionController.convention.uniteGratification.libelle}" />
+					value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}" />
 			</rich:column>
 		</rich:columnGroup>
-		<rich:columnGroup
-			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}">
-			<rich:column>
-				<h:outputLabel for="modeVersGratification1"
-					value="#{msgs['CONVENTION.MODEVERSGRAT']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText id="modeVersGratification1"
-					value="#{conventionController.convention.modeVersGratification.libelle}" />
-			</rich:column>
-		</rich:columnGroup>
+<!-- 		<rich:columnGroup -->
+<!-- 			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}"> -->
+<!-- 			<rich:column> -->
+<!-- 				<h:outputLabel for="modeVersGratification1" -->
+<!-- 					value="#{msgs['CONVENTION.MODEVERSGRAT']}" /> -->
+<!-- 			</rich:column> -->
+<!-- 			<rich:column> -->
+<!-- 				<h:outputText id="modeVersGratification1" -->
+<!-- 					value="#{conventionController.convention.modeVersGratification.libelle}" /> -->
+<!-- 			</rich:column> -->
+<!-- 		</rich:columnGroup> -->
 		<rich:columnGroup>
 			<rich:column>
 				<h:outputLabel for="origineStage1"
