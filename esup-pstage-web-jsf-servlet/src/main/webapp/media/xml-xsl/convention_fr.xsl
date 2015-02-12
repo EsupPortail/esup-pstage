@@ -722,45 +722,97 @@
 									select="concat(substring(./date-fin-interruption,9,2),'/',substring(./date-fin-interruption,6,2), '/',substring(./date-fin-interruption,1,4))" />
 							</xsl:if>
 						</fo:block>
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-							country="FR" font-size="9pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								Correspondant à
-							</fo:inline>
-							<fo:inline>
-								<xsl:value-of select="duree-exceptionnelle" />
-								<xsl:text> heures </xsl:text>
-							</fo:inline>
-							<fo:inline font-weight="bold">
-								de présence effective dans
-								l'organisme d'accueil
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-							country="FR" font-size="9pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								et représentant une durée totale
-								de
-							</fo:inline>
-							<fo:inline>
-								<xsl:variable name="nbHeures" select="duree-exceptionnelle" />
-								<xsl:variable name="nbJours" select="floor($nbHeures div 7)" />
-								<xsl:variable name="nbHeuresRestantes" select="$nbHeures mod 7" />
-								<xsl:variable name="nbMois" select="floor($nbJours div 22)" />
-								<xsl:variable name="nbJoursRestants" select="$nbJours mod 22" />
 
-								<xsl:value-of select="$nbMois" />
-								<xsl:text> mois </xsl:text>
-								<xsl:value-of select="$nbJoursRestants" />
-								<xsl:text> jour(s) et </xsl:text>
-								<xsl:value-of select="$nbHeuresRestantes" />
-								<xsl:text> heure(s) </xsl:text>
-							</fo:inline>
-						</fo:block>
+						<xsl:choose>
+							<xsl:when test="duree-exceptionnelle and duree-exceptionnelle != ''">
+								<xsl:choose>
+									<xsl:when
+										test="id-unite-duree-exceptionnelle and id-unite-duree-exceptionnelle != 0">
+										<fo:block line-height="110%" hyphenate="false"
+											language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											padding-bottom="0.035cm">
+											<fo:inline font-weight="bold">
+												Représentant une durée totale de 
+											</fo:inline>
+											<xsl:value-of select="duree-exceptionnelle" />
+											<xsl:text> </xsl:text>
+											<xsl:if test="id-unite-duree-exceptionnelle = '1'">
+												heure(s)
+											</xsl:if>
+											<xsl:if test="id-unite-duree-exceptionnelle = '2'">
+												jour(s)
+											</xsl:if>
+											<xsl:if test="id-unite-duree-exceptionnelle = '3'">
+												semaine(s)
+											</xsl:if>
+											<xsl:if test="id-unite-duree-exceptionnelle = '4'">
+												mois
+											</xsl:if>
+											<xsl:if test="id-unite-duree-exceptionnelle = '5'">
+												année(s)
+											</xsl:if>
+										</fo:block>
+									</xsl:when>
+									<xsl:otherwise>
+										<fo:block line-height="130%" hyphenate="false"
+											language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											padding-bottom="0.035cm">
+											<fo:inline font-weight="bold">
+												Correspondant à
+											</fo:inline>
+											<fo:inline>
+												<xsl:value-of select="duree-exceptionnelle" />
+												<xsl:text> heures </xsl:text>
+											</fo:inline>
+											<fo:inline font-weight="bold">
+												de présence effective dans
+												l'organisme d'accueil
+											</fo:inline>
+										</fo:block>
+										<fo:block line-height="130%" hyphenate="false"
+											language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											padding-bottom="0.035cm">
+											<fo:inline font-weight="bold">
+												et représentant une durée
+												totale
+												de
+											</fo:inline>
+											<fo:inline>
+												<xsl:variable name="nbHeures" select="duree-exceptionnelle" />
+												<xsl:variable name="nbJours" select="floor($nbHeures div 7)" />
+												<xsl:variable name="nbHeuresRestantes" select="$nbHeures mod 7" />
+												<xsl:variable name="nbMois" select="floor($nbJours div 22)" />
+												<xsl:variable name="nbJoursRestants" select="$nbJours mod 22" />
+
+												<xsl:value-of select="$nbMois" />
+												<xsl:text> mois </xsl:text>
+												<xsl:value-of select="$nbJoursRestants" />
+												<xsl:text> jour(s) et </xsl:text>
+												<xsl:value-of select="$nbHeuresRestantes" />
+												<xsl:text> heure(s) </xsl:text>
+											</fo:inline>
+										</fo:block>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise>
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold">
+										Représentant une durée totale
+										de
+									</fo:inline>
+									<xsl:value-of select="duree-stage" />
+									<xsl:text> </xsl:text>
+									semaines
+								</fo:block>
+							</xsl:otherwise>
+						</xsl:choose>
 
 						<xsl:choose>
 							<xsl:when test="temps-travail/code-ctrl">
@@ -1327,9 +1379,10 @@
 												euros
 												<xsl:text> </xsl:text>
 												<xsl:value-of select="unite-gratification/libelle" />
-												par 
+												par
 												<xsl:text> </xsl:text>
-												<xsl:value-of select="unite-duree-gratification/libelle" />.
+												<xsl:value-of select="unite-duree-gratification/libelle" />
+												.
 											</xsl:otherwise>
 										</xsl:choose>
 									</fo:block>

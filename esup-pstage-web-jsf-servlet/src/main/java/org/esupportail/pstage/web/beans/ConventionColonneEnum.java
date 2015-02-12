@@ -146,7 +146,7 @@ public enum ConventionColonneEnum {
 	/**
 	 * col28 , Unite Duree Gratification.
 	 */
-	col28("EXPORTCONVENTION.UNITEDUREEGRATIFICATION", "uniteDureeGratification.libelle"),
+	col28("EXPORTCONVENTION.UNITEDUREEGRATIF", "uniteDureeGratification.libelle"),
 	
 	/**
 	 * col29 , Convention Validee.

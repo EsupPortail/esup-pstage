@@ -144,9 +144,21 @@
 				<h:outputText id="dureeExceptionnelle1"
 					value="#{conventionController.convention.dureeExceptionnelle}" />
 				<h:outputText
+					rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}"
 					value="heure(s)" />
-<!-- 				<h:outputText -->
-<!-- 					value="#{conventionController.convention.uniteDuree.libelle}" /> -->
+				<h:panelGrid
+					rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle}">
+					<h:outputText value="heure(s)"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
+					<h:outputText value="jour(s)"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
+					<h:outputText value="semaine(s)"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 3}" />
+					<h:outputText value="mois"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 4}" />
+					<h:outputText value="annee(s)"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 5}" />
+				</h:panelGrid>
 			</h:panelGrid>
 			<h:outputLabel for="nbJoursHebdo1"
 				value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
@@ -186,12 +198,12 @@
 			<h:outputText id="montantGratification1"
 				value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}"
 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
-<!-- 			<h:outputLabel for="modeVersGratification1" -->
-<!-- 				value="#{msgs['CONVENTION.MODEVERSGRAT']}" -->
-<!-- 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" /> -->
-<!-- 			<h:outputText id="modeVersGratification1" -->
-<!-- 				value="#{conventionController.convention.modeVersGratification.libelle}" -->
-<!-- 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" /> -->
+			<!-- 			<h:outputLabel for="modeVersGratification1" -->
+			<!-- 				value="#{msgs['CONVENTION.MODEVERSGRAT']}" -->
+			<!-- 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" /> -->
+			<!-- 			<h:outputText id="modeVersGratification1" -->
+			<!-- 				value="#{conventionController.convention.modeVersGratification.libelle}" -->
+			<!-- 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" /> -->
 			<!-- ##################################### -->
 
 			<h:outputLabel for="origineStage1"

@@ -343,7 +343,6 @@ public class ExportController extends AbstractContextAwareController {
 			ConventionDTO conventionTmp;
 			for (int i=0;i<conventions.size();i++) {
 				conventionTmp = conventions.get(i);
-				
 				// Prise en compte des gratification 'Non' et 'Ne sait pas'
 				if (conventionTmp.getIdIndemnisation()!= null){
 					if (conventionTmp.getIdIndemnisation()==3){

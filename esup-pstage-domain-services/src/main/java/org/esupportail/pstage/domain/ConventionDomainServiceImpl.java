@@ -369,6 +369,9 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 			if (c.getIdUniteGratification() != null) {
 				c.setUniteGratification(this.nomenclatureDomainService.getUniteGratificationDTOFromId(c.getIdUniteGratification()));
 			}
+			if (c.getIdUniteDureeGratification() != null && c.getIdUniteDureeGratification() > 0){
+				c.setUniteDureeGratification(this.nomenclatureDomainService.getUniteDureeFromId(c.getIdUniteDureeGratification()));
+			}
 			if (c.getStructure() != null) {
 				if (c.getStructure().getIdTypeStructure() > 0 ) {
 					c.getStructure().setTypeStructure(this.nomenclatureDomainService.getTypeStructureFromId(c.getStructure().getIdTypeStructure()));

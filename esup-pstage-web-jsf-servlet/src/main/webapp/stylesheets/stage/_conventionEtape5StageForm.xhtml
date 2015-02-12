@@ -208,19 +208,9 @@
 
 		<t:htmlTag value="div" style="height: 10px;" />
 
-
-		<!-- 			<h:outputText value="#{msgs['CONVENTION.EN']}" /> -->
-		<!-- 			<h:selectOneMenu id="uniteDureeExceptionnelle" -->
-		<!-- 				value="#{conventionController.selUniteDureeExceptionnelle}" -->
-		<!-- 				converter="#{uniteDureeConverter}" required="true"> -->
-		<!-- 				<f:selectItem itemValue="" /> -->
-		<!-- 				<f:selectItems value="#{nomenclatureController.unitesDurees}" /> -->
-		<!-- 			</h:selectOneMenu> -->
-		<!-- 			<rich:message for="uniteDureeExceptionnelle"> -->
-		<!-- 				<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-		<!-- 			</rich:message> -->
 		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3">
+			rowClasses="paginatorData-text" columns="3"
+			rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}">
 			<h:panelGrid columns="2" columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text">
 				<h:graphicImage id="imgInfoDuree"
@@ -240,10 +230,51 @@
 			<rich:message for="dureeExceptionnelle">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
+		</h:panelGrid>
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="4"
+			rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle and conventionController.convention.idUniteDureeExceptionnelle != 0}">
+			<h:panelGrid columns="2" columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text">
+				<h:graphicImage id="imgInfoDureeOld"
+					alt="#{msgs['INFOSBULLES.DUREE_EXCEPT']}"
+					value="../../media/images/information.png" style="border:0">
+					<rich:tooltip value="#{msgs['INFOSBULLES.DUREE_EXCEPT']}" />
+				</h:graphicImage>
+				<h:outputText escape="false"
+					value="#{msgs['CONVENTION.DUREEEXCEPT.ANCIEN']} #{msgs['CONVENTION.ETOILE']}" />
+			</h:panelGrid>
+			<h:panelGrid>
+				<h:inputText id="dureeExceptionnelleOld" size="3"
+					value="#{conventionController.convention.dureeExceptionnelle}"
+					required="true">
+					<f:validateLength maximum="4" />
+					<f:validateLongRange minimum="1" maximum="9999" />
+				</h:inputText>
+				<rich:message for="dureeExceptionnelleOld">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+			</h:panelGrid>
+			<h:outputText value="#{msgs['CONVENTION.EN']}" />
+			<h:panelGrid>
+				<h:panelGrid rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle}">
+					<h:outputText value="heure(s)"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
+					<h:outputText value="jour(s)"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
+					<h:outputText value="semaine(s)"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 3}" />
+					<h:outputText value="mois"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 4}" />
+					<h:outputText value="annee(s)"
+						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 5}" />
+				</h:panelGrid>
+			</h:panelGrid>
+		</h:panelGrid>
 
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="3">
 
 			<h:outputText
 				value="#{msgs['CONVENTION.NBJOURSHEBDO']} #{msgs['CONVENTION.ETOILE']}" />
@@ -283,7 +314,10 @@
 					value="#{msgs['CONVENTION.NBHEURESHEBDO.COMPLEMENT']}" />
 			</h:panelGrid>
 			<h:inputText id="nbHeuresHebdo"
-				value="#{conventionController.convention.nbHeuresHebdo}" />
+				value="#{conventionController.convention.nbHeuresHebdo}"
+				validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
+				<f:validator binding="#{mtGratificationValidator}" />
+			</h:inputText>
 			<rich:message for="nbHeuresHebdo">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
@@ -383,20 +417,20 @@
 							<f:validator binding="#{mtGratificationValidator}" />
 							<a4j:ajax event="blur" />
 						</h:inputText>
-						
-<!-- 						<h:selectOneMenu id="monnaieGratification" -->
-<!-- 							requiredMessage="#{requiredMessageController.champObligatoire}" -->
-<!-- 							value="#{conventionController.selMonnaieGratification}"> -->
-<!-- 							<a4j:ajax event="valueChange" -->
-<!-- 								render="opMonnaieGratification" /> -->
-<!-- 							<f:selectItems value="euros" /> -->
-<!-- 							<f:selectItems value="autre" /> -->
-<!-- 						</h:selectOneMenu> -->
-<!-- 						<a4j:outputPanel id="opMonnaieGratification"> -->
-<!-- 							<h:inputText id="montantGratification" size="5" -->
-<!-- 								rendered="#{conventionController.selMonnaieGratification=='autre'}" -->
-<!-- 								value="#{conventionController.convention.monnaieGratification}"/> -->
-<!-- 						</a4j:outputPanel> -->
+
+						<!-- 						<h:selectOneMenu id="monnaieGratification" -->
+						<!-- 							requiredMessage="#{requiredMessageController.champObligatoire}" -->
+						<!-- 							value="#{conventionController.selMonnaieGratification}"> -->
+						<!-- 							<a4j:ajax event="valueChange" -->
+						<!-- 								render="opMonnaieGratification" /> -->
+						<!-- 							<f:selectItems value="euros" /> -->
+						<!-- 							<f:selectItems value="autre" /> -->
+						<!-- 						</h:selectOneMenu> -->
+						<!-- 						<a4j:outputPanel id="opMonnaieGratification"> -->
+						<!-- 							<h:inputText id="montantGratification" size="5" -->
+						<!-- 								rendered="#{conventionController.selMonnaieGratification=='autre'}" -->
+						<!-- 								value="#{conventionController.convention.monnaieGratification}"/> -->
+						<!-- 						</a4j:outputPanel> -->
 						<h:outputText value=" par " />
 						<h:panelGrid columnClasses="paginatorData-text"
 							rowClasses="paginatorData-text">
