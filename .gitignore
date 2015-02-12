@@ -7,3 +7,4 @@ target/
 config.properties
 configUrlServices.properties
 convention_fr_artois.xsl
+log4j.properties
