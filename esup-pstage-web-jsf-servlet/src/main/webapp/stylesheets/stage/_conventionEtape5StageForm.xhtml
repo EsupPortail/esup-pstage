@@ -234,16 +234,8 @@
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="4"
 			rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle and conventionController.convention.idUniteDureeExceptionnelle != 0}">
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
-				<h:graphicImage id="imgInfoDureeOld"
-					alt="#{msgs['INFOSBULLES.DUREE_EXCEPT']}"
-					value="../../media/images/information.png" style="border:0">
-					<rich:tooltip value="#{msgs['INFOSBULLES.DUREE_EXCEPT']}" />
-				</h:graphicImage>
-				<h:outputText escape="false"
-					value="#{msgs['CONVENTION.DUREEEXCEPT.ANCIEN']} #{msgs['CONVENTION.ETOILE']}" />
-			</h:panelGrid>
+			<h:outputText escape="false"
+				value="#{msgs['CONVENTION.DUREEEXCEPT.ANCIEN']} #{msgs['CONVENTION.ETOILE']}" />
 			<h:panelGrid>
 				<h:inputText id="dureeExceptionnelleOld" size="3"
 					value="#{conventionController.convention.dureeExceptionnelle}"
