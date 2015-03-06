@@ -1654,14 +1654,14 @@ public class ConventionController extends AbstractContextAwareController {
 						ctrlInfosOK = false;
 					}
 				}
-//				if (selModeVersGratification == null) {
-//					addErrorMessage(nomForm+":modeVersGratification", "CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
-//					ctrlInfosOK = false;
-//				}
-//				if (selModeVersGratification != null && selModeVersGratification.getLibelle().equals("")) {
-//					addErrorMessage(nomForm+":modeVersGratification", "CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
-//					ctrlInfosOK = false;
-//				}
+				if (selModeVersGratification == null) {
+					addErrorMessage(nomForm+":modeVersGratification", "CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
+					ctrlInfosOK = false;
+				}
+				if (selModeVersGratification != null && selModeVersGratification.getLibelle().equals("")) {
+					addErrorMessage(nomForm+":modeVersGratification", "CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
+					ctrlInfosOK = false;
+				}
 			} else {
 				this.convention.setMontantGratification("");
 			}

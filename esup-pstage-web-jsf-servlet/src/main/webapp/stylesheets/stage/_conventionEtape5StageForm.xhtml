@@ -73,6 +73,7 @@
 				value="#{conventionController.convention.fonctionsEtTaches}"
 				required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:validateLength maximum="140" />
 				<a4j:ajax event="blur" />
 			</h:inputTextarea>
 			<rich:message for="fonctionsEtTaches">
@@ -83,9 +84,15 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
-			<h:outputText value="#{msgs['CONVENTION.COMPETENCES']}" />
+			<h:outputText
+				value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
 			<h:inputTextarea id="competences"
-				value="#{conventionController.convention.competences}" />
+				value="#{conventionController.convention.competences}"
+				required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:validateLength maximum="140" />
+				<a4j:ajax event="blur" />
+			</h:inputTextarea>
 			<rich:message for="competences">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
@@ -249,7 +256,17 @@
 			</h:panelGrid>
 			<h:outputText value="#{msgs['CONVENTION.EN']}" />
 			<h:panelGrid>
-				<h:panelGrid rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle}">
+				<!-- 				<h:selectOneMenu -->
+				<!-- 					requiredMessage="#{requiredMessageController.champObligatoire}" -->
+				<!-- 					value="#{conventionController.convention.idUniteDureeExceptionnelle}"> -->
+				<!-- 					<f:selectItem value="1" label="heure(s)" /> -->
+				<!-- 					<f:selectItem value="2" label="jour(s)" /> -->
+				<!-- 					<f:selectItem value="3" label="semaine(s)" /> -->
+				<!-- 					<f:selectItem value="4" label="mois" /> -->
+				<!-- 					<f:selectItem value="5" label="annee(s)" /> -->
+				<!-- 				</h:selectOneMenu> -->
+				<h:panelGrid
+					rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle}">
 					<h:outputText value="heure(s)"
 						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
 					<h:outputText value="jour(s)"
@@ -450,16 +467,16 @@
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 
-					<!-- 					<h:outputText value="#{msgs['CONVENTION.MODEVERSGRAT']}" /> -->
-					<!-- 					<h:selectOneMenu id="modeVersGratification" -->
-					<!-- 						value="#{conventionController.selModeVersGratification}" -->
-					<!-- 						converter="#{modeVersGratificationConverter}"> -->
-					<!-- 						<f:selectItems -->
-					<!-- 							value="#{nomenclatureController.modeVersGratifications}" /> -->
-					<!-- 					</h:selectOneMenu> -->
-					<!-- 					<rich:message for="modeVersGratification"> -->
-					<!-- 						<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-					<!-- 					</rich:message> -->
+					<h:outputText value="#{msgs['CONVENTION.MODEVERSGRAT']}" />
+					<h:selectOneMenu id="modeVersGratification"
+						value="#{conventionController.selModeVersGratification}"
+						converter="#{modeVersGratificationConverter}">
+						<f:selectItems
+							value="#{nomenclatureController.modeVersGratifications}" />
+					</h:selectOneMenu>
+					<rich:message for="modeVersGratification">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
 				</h:panelGrid>
 			</h:panelGrid>
 		</a4j:outputPanel>

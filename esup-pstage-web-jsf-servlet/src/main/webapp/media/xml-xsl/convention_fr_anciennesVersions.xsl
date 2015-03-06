@@ -104,19 +104,20 @@
 		<fo:block line-height="100%" hyphenate="false" language="fr"
 			country="FR" font-size="9pt" font-family="Times New Roman,serif"
 			padding-top="1.60cm">
-			Fiches à annexer à la conventions :
+			Fiches à annexer à la convention :
 			<fo:inline text-decoration="underline">
 				1) Attestation de stage
 			</fo:inline>
 			/
 			<fo:inline text-decoration="underline">
 				2) Fiche de stage à l'étranger
-				(pour informations sécurité sociale voir site cleiss.fr, pour fiche
+				(pour informations sécurité sociale voir site cleiss.fr - pour fiche
 				pays voir site diplomatie.gouv.fr)
 			</fo:inline>
 			/
 			<fo:inline text-decoration="underline">
-				3) Autres annexes (le cas échéant)
+				3) Autres annexes (le cas
+				échéant)
 			</fo:inline>
 		</fo:block>
 	</xsl:template>
@@ -201,6 +202,8 @@
 								<xsl:text> </xsl:text>
 								n°
 								<xsl:value-of select="id-convention" />
+								<xsl:text> </xsl:text>
+								entre
 							</fo:inline>
 						</fo:block>
 						<fo:block line-height="200%" hyphenate="false" language="fr"
@@ -394,7 +397,7 @@
 							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm">
 							<fo:inline font-weight="bold">
-								Mail :
+								Mél :
 							</fo:inline>
 							<xsl:value-of select="centre-gestion/mail" />
 						</fo:block>
@@ -594,7 +597,7 @@
 								select="concat(substring(./etudiant/date-nais,9,2),'/',substring(./etudiant/date-nais,6,2), '/',substring(./etudiant/date-nais,1,4))" />
 							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 							<fo:inline font-weight="bold">
-								Numero d'étudiant
+								Numéro d'étudiant :
 							</fo:inline>
 							<xsl:value-of select="etudiant/num-etudiant" />
 						</fo:block>
@@ -732,7 +735,8 @@
 											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 											padding-bottom="0.035cm">
 											<fo:inline font-weight="bold">
-												Représentant une durée totale de 
+												Représentant une durée
+												totale de
 											</fo:inline>
 											<xsl:value-of select="duree-exceptionnelle" />
 											<xsl:text> </xsl:text>
@@ -827,7 +831,7 @@
 										<xsl:value-of select="nb-heures-hebdo" />
 										<xsl:text> </xsl:text>
 										<fo:inline font-weight="bold">
-											heures par semaine.
+											heures par semaine
 										</fo:inline>
 									</fo:block>
 								</xsl:if>
@@ -1002,8 +1006,8 @@
 						padding-top="0.2cm" padding-bottom="0.035cm" border="0.018cm solid #000000">
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-size="9pt" font-family="Times New Roman,serif">
-							Caisse primaire
-							d'assurances maladie à contacter en cas
+							Caisse Primaire
+							d'Assurance Maladie à contacter en cas
 							d'accident (lieu de
 							domicile de l'étudiant sauf exception) :
 						</fo:block>
@@ -1080,7 +1084,7 @@
 								l'étudiant
 								acquiert
 								des compétences professionnelles
-								et met en oeuvre les
+								et met en &#339;uvre les
 								acquis
 								de sa
 								formation en vue de
@@ -1114,15 +1118,18 @@
 								</fo:inline>
 								:
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
+							<fo:block line-height="110%" hyphenate="true" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:value-of select="fonctions-et-taches" />
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif"
-								text-decoration="underline">
-								Compétences à acquérir ou à développer :
+								font-size="10pt" font-family="Times New Roman,serif">
+								<fo:inline text-decoration="underline">
+									Compétences à acquérir ou à
+									développer
+								</fo:inline>
+								:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -1161,7 +1168,7 @@
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="temps-travail/libelle" />
 								</fo:inline>
-								.
+								<xsl:text>.</xsl:text>
 								<!-- (quotité : -->
 								<!-- <fo:inline font-weight="bold"> -->
 								<!-- <xsl:value-of select="quotite-travail" /> -->
@@ -1256,17 +1263,27 @@
 								</fo:inline>
 								(visites, rendez-vous téléphoniques, etc..)
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="mode-encadre-suivi" />
-								</fo:inline>
-							</fo:block>
+							<xsl:choose>
+								<xsl:when test="mode-encadre-suivi and mode-encadre-suivi != ''">
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:inline font-weight="bold">
+											<xsl:value-of select="mode-encadre-suivi" />
+										</fo:inline>
+									</fo:block>
 
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										.......................................................................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								keep-with-next="always" text-align="justify" font-weight="bold">Article
@@ -1287,7 +1304,8 @@
 								publique.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
 								Le
 								montant horaire de
 								la
@@ -1296,36 +1314,46 @@
 								du plafond horaire de la
 								sécurité sociale défini
 								en application
-								de l'article L.241-3 du
+								de
+								l'article L.241-3 du
 								code de la sécurité sociale. Une
-								convention de branche ou un
+								convention
+								de branche ou un
 								accord professionnel peut définir
 								un
-								montant supérieur à ce taux.
+								montant
+								supérieur à ce taux.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
 								La gratification due
-								par un organisme de droit public ne
+								par un organisme de droit public
+								ne
 								peut être
 								cumulée avec une
 								rémunération
-								versée par ce même organisme au cours de
+								versée par ce même
+								organisme au cours de
 								la période
 								concernée.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
 								La gratification est
 								due sans préjudice
-								du remboursement des frais engagés
+								du
+								remboursement des frais engagés
 								par
 								le
 								stagiaire pour
-								effectuer son stage et des avantages
+								effectuer son
+								stage et des avantages
 								offerts, le
 								cas échéant,
-								pour la restauration, l'hébergement, et
+								pour la
+								restauration, l'hébergement, et
 								le transport.
 							</fo:block>
 						</fo:table-cell>
@@ -1334,7 +1362,7 @@
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								<fo:inline font-weight="bold">
-									(article 5 suite)
+									(Article 5 suite)
 								</fo:inline>
 								L'organisme peut
 								décider de verser une
@@ -1344,21 +1372,27 @@
 								égale à deux mois.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
 								En cas de suspension
 								ou de résiliation de la présente
 								convention, le montant de la
 								gratification due au stagiaire
-								est proratisé en fonction de
+								est
+								proratisé en fonction de
 								la
 								durée du stage effectué.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
 								La durée donnant droit
-								à gratification s'apprécie compte tenu de la présente convention
-								et de ses avenants éventuels, ainsi que du nombre de jours de
-								présence effective du stagiaire dans l'organisme.
+								à gratification s'apprécie
+								compte tenu de la présente convention
+								et de ses avenants
+								éventuels, ainsi que du nombre de jours de
+								présence effective du
+								stagiaire dans l'organisme.
 							</fo:block>
 							<xsl:variable name="indemnisation" select="id-indemnisation" />
 
@@ -1386,18 +1420,23 @@
 												euros
 												<xsl:text> </xsl:text>
 												<xsl:value-of select="unite-gratification/libelle" />
-												par mois
+												par mois.
 											</xsl:otherwise>
 										</xsl:choose>
 									</fo:block>
-									<!-- <fo:block line-height="130%" hyphenate="false" -->
-									<!-- language="fr" country="FR" font-size="10pt" font-family="Times 
-										New Roman,serif"> -->
-									<!-- Modalités de versement de la gratification : -->
-									<!-- <fo:inline font-weight="bold"> -->
-									<!-- <xsl:value-of select="mode-vers-gratification/libelle" /> -->
-									<!-- </fo:inline> -->
-									<!-- </fo:block> -->
+									<xsl:if test="mode-vers-gratification/libelle and mode-vers-gratification/libelle != ''">
+										<fo:block line-height="130%" hyphenate="false"
+											language="fr" country="FR" font-size="10pt"
+											font-family="Times New Roman,serif">
+											<fo:inline text-decoration="underline">
+												Modalités de versement de la gratification
+											</fo:inline>
+											:
+											<fo:inline font-weight="bold">
+												<xsl:value-of select="mode-vers-gratification/libelle" />
+											</fo:inline>
+										</fo:block>
+									</xsl:if>
 								</xsl:otherwise>
 							</xsl:choose>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1406,13 +1445,21 @@
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								font-weight="bold">
+								Article 5 bis - Accès aux
+								droits des salariés -
+								Avantages
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								hyphenate="false" language="fr" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								<fo:inline font-weight="bold">Article 5 bis - Accès aux
-									droits des salariés - Avantages
-								</fo:inline>
-								(Organisme de droit privé en France sauf en cas de règles
-								particulières applicables dans certaines collectivités
-								d'outre-mer françaises) :
+								(Organisme de
+								droit privé en France sauf en cas de règles
+								particulières
+								applicables dans certaines collectivités
+								d'outre-mer françaises)
+								:
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
@@ -1454,14 +1501,21 @@
 							<!-- </fo:inline> -->
 							<!-- </fo:block> -->
 							<!-- </xsl:if> -->
+							<fo:block line-height="110%" padding-top="2pt"
+								hyphenate="false" language="fr" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								font-weight="bold">
+								Article 5ter - Accès aux droits
+								des agents -
+								Avantages
+							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="4pt">
-								<fo:inline font-weight="bold">Article 5ter - Accès aux droits
-									des agents - Avantages
-								</fo:inline>
-								(Organisme de droit public en France sauf en cas de règles
-								particulières applicables dans certaines collectivités
+								(Organisme de droit public en
+								France sauf en cas de règles
+								particulières applicables dans
+								certaines collectivités
 								d'outre-mer françaises) :
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
@@ -1469,8 +1523,8 @@
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Les trajets effectués par le
 								stagiaire d'un organisme de droit
-								public entre leur domicile et
-								leur lieu de stage sont pris en
+								public entre son domicile et
+								son lieu de stage sont pris en
 								charge dans les
 								conditions fixées par le décret
 								n°2010-676 du 21
@@ -1510,9 +1564,11 @@
 									AUTRES AVANTAGES ACCORDÉS
 								</fo:inline>
 								<fo:inline font-style="italic" font-weight="bold">
-									(associés à l'article 5bis ou
+									(associés à
+									l'article 5bis ou
 									5ter selon le statut publique ou
-									privé de l'organisme d'accueil)
+									privé de
+									l'organisme d'accueil)
 									:
 								</fo:inline>
 							</fo:block>
@@ -1561,11 +1617,10 @@
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								<fo:inline font-size="10pt" font-weight="bold">6.1
-									Gratification d'un montant maximum de 13,75% du plafond horaire
-									de la sécurité sociale :
-								</fo:inline>
+								font-weight="bold">
+								6.1 - Gratification d'un montant maximum de 13,75%
+								du plafond horaire
+								de la Sécurité sociale :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1578,7 +1633,7 @@
 								text-align="justify">
 								Le stagiaire bénéficie de la législation sur les
 								accidents de travail au titre du régime étudiant de l'article
-								L.412-8 2° du code de la sécurité sociale.
+								L.412-8 2° du code de la Sécurité sociale.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1627,17 +1682,17 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								<fo:inline font-size="10pt" font-weight="bold">6.2
-									Gratification supérieure
+								<fo:inline font-size="10pt" font-weight="bold">6.2 -
+									Gratification supérieure à 13,75 % du plafond horaire de la
+									Sécurité sociale :
 								</fo:inline>
-								à 13,75 % du plafond horaire de la sécurité sociale :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								Les cotisations sociales sont calculées sur le
 								différentiel entre le montant de la gratification et 13,75 % du
-								plafond horaire de la Sécurité Sociale.
+								plafond horaire de la Sécurité sociale.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1646,7 +1701,7 @@
 								application des
 								dispositions des articles L.411-1 et suivants du
 								code de la
-								Sécurité Sociale.
+								Sécurité sociale.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1669,7 +1724,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
 								6.3 - Protection
-								Maladie du
+								maladie du
 								stagiaire à l'étranger :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1678,7 +1733,7 @@
 								1)
 								<fo:inline text-decoration="underline">Protection
 									issue du régime
-									étudiant français :
+									étudiant français
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1704,7 +1759,7 @@
 								SE401Q (104
 								pour les stages en entreprises, 106 pour les stages
 								en
-								université) ;
+								universités) ;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
@@ -1713,12 +1768,12 @@
 								- dans tous
 								les autres cas les étudiants qui engagent des frais de santé
 								peuvent être remboursés auprès de la mutuelle qui leur tient
-								lieu de Caisse de Sécurité Sociale étudiante, au retour et sur
+								lieu de Caisse de Sécurité Sociale Étudiante, au retour et sur
 								présentation des justificatifs : le remboursement s'effectue
 								alors sur la base des tarifs de soins français. Des écarts
 								importants peuvent exister entre les frais engagés et les tarifs
-								français base du remboursement. Il est donc fortement conseillé
-								aux étudiants de souscrire une assurance Maladie
+								français, base du remboursement. Il est donc fortement conseillé
+								aux étudiants de souscrire une assurance maladie
 								complémentaire
 								spécifique, valable pour le pays et la durée du
 								stage, auprès de
@@ -1727,7 +1782,7 @@
 								mutuelle des parents, compagnie privée ad hoc...) ou,
 								éventuellement et après vérification de l'étendue des garanties
 								proposées, auprès de l'organisme d'accueil si celui-ci fournit
-								au stagiaire une couverture Maladie en vertu du droit local
+								au stagiaire une couverture maladie en vertu du droit local
 								(voir 2e ci-dessous).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1817,7 +1872,7 @@
 								accident de travail dans le
 								pays d'accueil ; une indemnité ou
 								gratification est admise dans
-								la limite de 13,75 % du plafond
+								la limite de 13,75% du plafond
 								horaire de la sécurité sociale
 								(cf point 5), et sous réserve de
 								l'accord de la Caisse Primaire
@@ -1868,15 +1923,16 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt" padding-bottom="2pt"
 								font-weight="bold">
-								(article 6.4 suite)
+								(Article 6.4 suite)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								3)
 								<fo:inline text-decoration="underline">La couverture concerne les
-									accidents survenus :
+									accidents survenus
 								</fo:inline>
+								:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1924,7 +1980,7 @@
 								<fo:inline text-decoration="underline"> Pour le cas où
 									l'une
 									seule
-									des conditions prévues au point 6.4-1/
+									des conditions prévues au point 6.4-1)
 								</fo:inline>
 								n'est pas
 								remplie, l'organisme d'accueil s'engage à couvrir le
@@ -1936,9 +1992,11 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="1pt" padding-bottom="1pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								<fo:inline text-decoration="underline">5) Dans tous les
-									cas :
+								5)
+								<fo:inline text-decoration="underline">Dans tous les
+									cas
 								</fo:inline>
+								:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -1958,7 +2016,7 @@
 								text-align="justify" padding-top="2pt">
 								- si l'étudiant remplit des
 								missions limitées
-								en-dehors de l'organisme d'accueil ou en-dehors
+								en dehors de l'organisme d'accueil ou en dehors
 								du pays du
 								stage, l'organisme d'accueil doit prendre toutes les
 								dispositions nécessaires pour lui fournir les assurances
@@ -1989,7 +2047,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Pour les stages à l'étranger ou outre mer, le
+								Pour les stages à l'étranger ou outre-mer, le
 								stagiaire s'engage à souscrire un contrat d'assistance
 								(rapatriement sanitaire, assistance juridique...) et un contrat
 								d'assurance individuel accident.
@@ -2088,7 +2146,7 @@
 								travail.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="9pt"
+								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
 								Pour les stages
 								dont la durée est supérieure à deux
@@ -2098,7 +2156,7 @@
 								sont possibles.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								<fo:inline text-decoration="underline">
 									NOMBRE
@@ -2143,7 +2201,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
-								(article 9 suite)
+								(Article 9 suite)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2166,7 +2224,8 @@
 								l'organisme
 								d'accueil et du stagiaire, dans le respect de
 								la durée
-								maximale du stage fixée par la loi (6 mois).
+								maximale du
+								stage fixée par la loi (6 mois).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2249,7 +2308,7 @@
 								Conformément au code de la propriété intellectuelle,
 								dans le cas où les activités du stagiaire donnent lieu à
 								la
-								création d'une oeuvre protégée par le droit d'auteur ou la
+								création d'une &#339;uvre protégée par le droit d'auteur ou la
 								propriété industrielle (y compris un logiciel), si l'organisme
 								d'accueil souhaite l'utiliser et que le stagiaire en est
 								d'accord, un contrat devra être signé entre le stagiaire
@@ -2261,7 +2320,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt" padding-bottom="2pt"
 								font-weight="bold">
-								(article 11 suite)
+								(Article 11 suite)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2301,7 +2360,7 @@
 								d'ouverture
 								de droits au régime général d'assurance vieillesse
 								prévue à
-								l'art. L.351-17 du code de la sécurité sociale ;
+								l'art. L.351-17 du code de la sécurité sociale.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2351,8 +2410,8 @@
 								</fo:inline>
 								: le stagiaire devra (préciser la nature du
 								travail à
-								fournir,
-								rapport, etc..- éventuellement en joignant
+								fournir -
+								rapport, etc.. - éventuellement en joignant
 								une annexe)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -2361,8 +2420,9 @@
 								<xsl:variable name="nb-credit" select="credit-eCTS" />
 								<fo:inline text-decoration="underline">NOMBRE D'ECTS (le
 									cas
-									échéant) :
+									échéant)
 								</fo:inline>
+								:
 								<xsl:choose>
 									<xsl:when test='$nb-credit=0.00'>
 
@@ -2391,19 +2451,23 @@
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Article 13 - Droit applicable - Tribunaux compétents
+								font-family="Times New Roman,serif" font-weight="bold">
+								Article 13 -
+								Droit applicable - Tribunaux compétents
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
 								La présente convention
-								est régie exclusivement par le droit français.
+								est régie exclusivement par le
+								droit français.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
 								Tout litige non résolu
-								par voie amiable sera soumis à la compétence de la juridiction
+								par voie amiable sera soumis à
+								la compétence de la juridiction
 								française compétente.
 							</fo:block>
 
@@ -2511,7 +2575,7 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif"
 								text-decoration="underline" font-weight="bold">
-								POUR l'ORGANISME
+								POUR L'ORGANISME
 								D'ACCUEIL
 							</fo:block>
 							<xsl:choose>
@@ -2708,7 +2772,8 @@
 			<fo:block text-align="center" padding-top="5pt">
 				<fo:inline hyphenate="false" language="fr" country="FR"
 					font-weight="bold" font-size="16pt" font-style="italic">
-					à remettre au stagiaire à l'issue du stage
+					à remettre au
+					stagiaire à l'issue du stage
 				</fo:inline>
 			</fo:block>
 			<fo:block padding-top="60pt">
@@ -2877,7 +2942,7 @@
 										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 										padding-bottom="0.035cm">
 										<fo:inline font-weight="bold">
-											Mail :
+											Mél :
 										</fo:inline>
 										<xsl:value-of select="etudiant/mail" />
 									</fo:inline>
@@ -2892,9 +2957,10 @@
 									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 									padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
-										ETUDIANT EN (intitulé de la
+										ÉTUDIANT EN (intitulé de la
 										formation ou du cursus de
-										l'enseignement supérieur suivi par le ou la stagiaire) :
+										l'enseignement supérieur suivi par le
+										ou la stagiaire) :
 									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
@@ -2953,7 +3019,7 @@
 									margin-left="0.5cm" padding-top="0.3cm">
 									<fo:inline font-size="9pt" font-weight="bold"
 										text-decoration="underline">
-										DUREE DU STAGE
+										DURÉE DU STAGE
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
@@ -3000,7 +3066,8 @@
 										de
 									</fo:inline>
 									<fo:inline>
-										..................... (Nombre de mois / Nombre de semaines) (rayer la mention inutile)
+										..................... (Nombre de mois / Nombre de
+										semaines) (rayer la mention inutile)
 									</fo:inline>
 								</fo:block>
 							</fo:table-cell>
@@ -3010,16 +3077,25 @@
 								<fo:block line-height="110%" hyphenate="false"
 									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
 									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" margin-left="0.5cm">
-									La durée totale du stage
-									est appréciée en tenant compte de la présence effective du
-									stagiaire dans l'organisme, sous réserve des droits à congés et
-									autorisations d'absence prévus à l'article L.124-13 du code de
-									l'éducation (art. L.124-18 du code de l'éducation). Chaque
-									période au moins égale à 7 heures de présence consécutives ou
-									non est considérée comme équivalente à un jour de stage et
-									chaque période au moins égale à 22 jours de présence
-									consécutifs ou non est considérée comme équivalente à un mois.
+									padding-bottom="0.035cm" margin-left="0.5cm" text-align="justify">
+									La
+									durée totale du stage
+									est appréciée en tenant compte de la
+									présence effective du
+									stagiaire dans l'organisme, sous réserve
+									des droits à congés et
+									autorisations d'absence prévus à
+									l'article L.124-13 du code de
+									l'éducation (art. L.124-18 du code
+									de l'éducation). Chaque
+									période au moins égale à 7 heures de
+									présence consécutives ou
+									non est considérée comme équivalente à
+									un jour de stage et
+									chaque période au moins égale à 22 jours de
+									présence
+									consécutifs ou non est considérée comme équivalente à
+									un mois.
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
 									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
@@ -3092,7 +3168,7 @@
 								<fo:block line-height="110%" hyphenate="false"
 									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
 									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic">
+									padding-bottom="0.035cm" font-style="italic" text-align="justify">
 									<fo:inline font-weight="bold">
 										L'attestation de stage
 									</fo:inline>
@@ -3101,7 +3177,7 @@
 									retraite. La législation sur les retraites (loi n°2014-40 du 20
 									Janvier 2014) ouvre aux étudiants
 									<fo:inline font-weight="bold">
-										dont le stage a été gratifié
+										dont le stage a été gratifié,
 									</fo:inline>
 									la possibilité de faire valider celui-ci dans la
 									<fo:inline font-weight="bold">limite de deux trimestres,
@@ -3126,7 +3202,7 @@
 									à verser et sur la procédure à suivre
 									sont à demander
 									auprès de
-									la sécurité sociale
+									la Sécurité sociale
 									(code de la
 									sécurité
 									sociale art.

@@ -1425,9 +1425,21 @@
 								</fo:inline>
 								:
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="true" language="fr"
+							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:value-of select="competences" />
+								.......................................................................................................
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								.......................................................................................................
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								.......................................................................................................
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -1835,10 +1847,7 @@
 												euros
 												<xsl:text> </xsl:text>
 												<xsl:value-of select="unite-gratification/libelle" />
-												por
-												<xsl:text> </xsl:text>
-												<xsl:value-of select="unite-duree-gratification/libelle" />
-												.
+												al mes.
 											</xsl:otherwise>
 										</xsl:choose>
 									</fo:block>
@@ -3300,7 +3309,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								<xsl:value-of select="nb-conges" />
+								............................................................................................
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
