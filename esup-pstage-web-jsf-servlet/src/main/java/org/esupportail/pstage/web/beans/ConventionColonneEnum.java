@@ -246,7 +246,12 @@ public enum ConventionColonneEnum {
     /**
      * col48 , ville etudiant
      */
-    col48("EXPORTCONVENTION.VILLEETU", "villeEtudiant");
+    col48("EXPORTCONVENTION.VILLEETU", "villeEtudiant"),
+    
+    /**
+     * col49 , mail etudiant
+     */
+    col49("EXPORTCONVENTION.MAILUNIVETU", "etudiant.mail");
 	
 	/*
 	 ******************* PROPERTIES ******************* */

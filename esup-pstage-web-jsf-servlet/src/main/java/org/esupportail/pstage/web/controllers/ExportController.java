@@ -524,6 +524,8 @@ public class ExportController extends AbstractContextAwareController {
 				return convention.getCommentaireDureeTravail();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.AVANTAGESNATURE")){
 				return convention.getAvantagesNature();
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.MAILUNIVETU")){
+				return convention.getEtudiant().getMail();
 			} else {
 				if (logger.isDebugEnabled())
 					logger.debug("methode recupValueStage(...) : NameProperty " + nameProperty +" inconnue.");

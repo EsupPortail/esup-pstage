@@ -1,52 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<xsl:stylesheet version="1.0"
+<xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
-	xmlns:java="http://xml.apache.org/xalan/java" exclude-result-prefixes="java">
-
-
-	<xsl:template match="/">
-		<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"
-			xmlns:fox="http://xml.apache.org/fo/extensions">
-			<fo:layout-master-set>
-
-				<fo:simple-page-master master-name="all"
-					border="" page-height="29.699cm" page-width="20.999cm"
-					margin-right="1cm" margin-left="1.3cm" margin-bottom="1.09cm"
-					margin-top="0.794cm">
-					<fo:region-body margin-bottom="0cm" />
-					<fo:region-after display-align="after"
-						space-before="0cm" extent="0.55cm" />
-				</fo:simple-page-master>
-			</fo:layout-master-set>
-
-			<fo:page-sequence master-reference="all">
-				<fo:static-content flow-name="xsl-region-after">
-					<fo:block line-height="110%" hyphenate="false" language="fr"
-						country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-						text-align="end">
-						<fo:inline font-size="11.5pt">
-							<fo:page-number />
-							/
-							<fo:page-number-citation ref-id="theEnd" />
-						</fo:inline>
-					</fo:block>
-				</fo:static-content>
-				<fo:static-content flow-name="xsl-footnote-separator">
-					<fo:block>
-						<fo:leader rule-thickness="0.5pt" rule-style="solid"
-							leader-length="100%" leader-pattern="rule" />
-					</fo:block>
-				</fo:static-content>
-				<fo:flow flow-name="xsl-region-body">
-					<fo:block>
-						<xsl:apply-templates select="convention-dTO" />
-					</fo:block>
-
-				</fo:flow>
-			</fo:page-sequence>
-
-		</fo:root>
-	</xsl:template>
+	xmlns:java="http://xml.apache.org/xalan/java" xmlns:str="http://exslt.org/strings"
+	exclude-result-prefixes="java">
 
 	<!-- definition du noeud convention -->
 	<xsl:template match="convention-dTO">
@@ -82,65 +38,146 @@
 		<fo:block padding-top="8pt">
 			<xsl:call-template name="ArticlesPage4" />
 		</fo:block>
+		<fo:block break-after="page" />
 		<fo:block padding-top="8pt">
-			<xsl:call-template name="AnnexeArticlesPage4" />
+			<xsl:call-template name="ArticlesPage5" />
+		</fo:block>
+		<fo:block break-after="page" />
+		<fo:block padding-top="8pt">
+			<xsl:call-template name="ArticlesPage6" />
+		</fo:block>
+		<fo:block padding-top="8pt">
+			<xsl:call-template name="AnnexeArticlesPage6" />
 		</fo:block>
 		<fo:block break-after="page" />
 		<fo:block>
-			<xsl:call-template name="Charte" />
+			<xsl:call-template name="Attestation" />
 		</fo:block>
 		<fo:block>
 			<xsl:choose>
 				<xsl:when test="document('config.xml')/config/triptik">
 					<xsl:call-template name="triptik" />
 				</xsl:when>
+				<xsl:otherwise>
+					<fo:block id="theEnd" />
+				</xsl:otherwise>
 			</xsl:choose>
 		</fo:block>
-
 	</xsl:template>
+
+	<xsl:template match="/">
+		<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"
+			xmlns:fox="http://xml.apache.org/fo/extensions">
+			<fo:layout-master-set>
+				<fo:simple-page-master master-name="all"
+					border="" page-height="29.699cm" page-width="20.999cm"
+					margin-right="1cm" margin-left="0.9cm" margin-bottom="0.4cm"
+					margin-top="0.794cm">
+					<fo:region-body margin-bottom="0cm" />
+					<fo:region-after display-align="after"
+						space-before="0cm" extent="0.55cm" />
+				</fo:simple-page-master>
+			</fo:layout-master-set>
+
+			<fo:page-sequence master-reference="all">
+				<fo:static-content flow-name="xsl-region-after">
+					<fo:block line-height="110%" hyphenate="false" language="fr"
+						country="FR" font-size="9pt" font-family="Times New Roman,serif"
+						text-align="end">
+						<fo:inline>
+							<fo:page-number />
+							/
+							<fo:page-number-citation ref-id="theEnd" />
+						</fo:inline>
+					</fo:block>
+				</fo:static-content>
+				<fo:static-content flow-name="xsl-footnote-separator">
+					<fo:block>
+						<fo:leader rule-thickness="0.5pt" rule-style="solid"
+							leader-length="100%" leader-pattern="rule" />
+					</fo:block>
+				</fo:static-content>
+				<fo:flow flow-name="xsl-region-body">
+					<fo:block>
+						<xsl:apply-templates select="convention-dTO" />
+					</fo:block>
+				</fo:flow>
+			</fo:page-sequence>
+		</fo:root>
+	</xsl:template>
+
 	<xsl:include href="triptik.xsl" />
 
-
-	<xsl:template name="AnnexeArticlesPage4">
-		<fo:block width="100%">
-			<fo:table table-layout="fixed" width="100%" border="0.018cm solid #000000">
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-body>
-					<fo:table-row text-align="left">
-						<fo:table-cell number-columns-spanned="2"
-							padding-top="1pt" padding-bottom="1pt" padding-left="5pt"
-							padding-right="5pt">
-							<fo:block line-height="100%" hyphenate="false" language="fr"
-								country="FR" font-size="8pt" font-family="Times New Roman,serif"
-								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-								padding-bottom="0.035cm">
-								<fo:inline font-size="9pt" font-weight="bold"
-									text-decoration="underline">
-									Appendix 1 :
-								</fo:inline>
-								<fo:inline font-size="9pt">
-									internship charter /
-								</fo:inline>
-								<fo:inline font-size="9pt" font-weight="bold"
-									text-decoration="underline">
-									Appendix 2 :
-								</fo:inline>
-								<fo:inline font-size="9pt">
-									evaluation forms /
-								</fo:inline>
-								<fo:inline font-size="9pt" font-weight="bold"
-									text-decoration="underline">
-									Appendix 3:
-								</fo:inline>
-								<fo:inline font-size="9pt">
-									to be provided by the student:
-									certificate of civil liability
-								</fo:inline>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
+	<xsl:template name="AnnexeArticlesPage6">
+		<fo:block line-height="100%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif"
+			padding-top="0.2cm" font-style="italic" text-decoration="underline"
+			font-weight="bold">
+			Forms to
+			be attached to this agreement:
+		</fo:block>
+		<fo:block line-height="100%" hyphenate="false" language="fr"
+			country="FR" font-size="8pt" font-family="Times New Roman,serif"
+			font-style="italic">
+			(Fiches à annexer à la conventions)
+		</fo:block>
+		<fo:block line-height="100%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif"
+			padding-top="0.2cm" font-style="italic">
+			<fo:inline font-weight="bold">
+				1) Internship certificate
+			</fo:inline>
+			<fo:inline font-weight="bold" font-size="8pt">
+				(following page)
+			</fo:inline>
+		</fo:block>
+		<fo:block line-height="100%" hyphenate="false" language="fr"
+			country="FR" font-size="8pt" font-family="Times New Roman,serif"
+			font-style="italic">
+			(Attestation de stage (page suivante))
+		</fo:block>
+		<fo:block line-height="100%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif"
+			padding-top="0.2cm" font-style="italic">
+			<fo:inline font-weight="bold">
+				2) Foreign internship form
+			</fo:inline>
+			<fo:inline font-weight="bold" font-size="8pt">
+				(for
+				information
+				regarding social security, see the website cleiss.fr;
+				for
+				country-specific documentation see the website
+				diplomatie.gouv.fr)
+			</fo:inline>
+		</fo:block>
+		<fo:block line-height="100%" hyphenate="false" language="fr"
+			country="FR" font-size="8pt" font-family="Times New Roman,serif"
+			font-style="italic">
+			(Fiche de stage à l'étranger
+			(pour
+			informations sécurité
+			sociale voir site
+			cleiss.fr, pour fiche
+			pays
+			voir site
+			diplomatie.gouv.fr))
+		</fo:block>
+		<fo:block line-height="100%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif"
+			padding-top="0.2cm" font-style="italic">
+			<fo:inline font-weight="bold">
+				3) Other appendices
+			</fo:inline>
+			<fo:inline font-weight="bold" font-size="8pt">
+				(if any)
+			</fo:inline>
+		</fo:block>
+		<fo:block line-height="100%" hyphenate="false" language="fr"
+			country="FR" font-size="8pt" font-family="Times New Roman,serif"
+			font-style="italic">
+			(Autres annexes (le cas
+			échéant))
 		</fo:block>
 	</xsl:template>
 
@@ -148,7 +185,8 @@
 	<xsl:template name="entete">
 		<fo:block line-height="110%" hyphenate="false" language="fr"
 			country="FR" font-size="11pt" font-family="Times New Roman,serif"
-			margin-left="0cm" margin-right="0cm" text-indent="0cm" font-weight="bold">
+			margin-left="0cm" margin-right="0cm" text-indent="0cm" font-weight="bold"
+			padding-top="0.5cm">
 			<fo:table table-layout="fixed" width="100%">
 				<fo:table-column column-width="proportional-column-width(0.50)" />
 				<fo:table-column column-width="proportional-column-width(0.50)" />
@@ -186,17 +224,16 @@
 								</xsl:choose>
 							</fo:block>
 						</fo:table-cell>
-						<fo:table-cell width="3cm">
-							<fo:block width="3.493cm" line-height="110%" language="fr"
-								country="FR" font-size="12pt">
-								Academic year
-								<xsl:value-of select="annee" />
-							</fo:block>
-						</fo:table-cell>
+						<!-- <fo:table-cell width="3cm"> -->
+						<!-- <fo:block width="3.493cm" line-height="110%" language="fr" -->
+						<!-- country="FR" font-size="12pt" text-align="right"> -->
+						<!-- Année universitaire -->
+						<!-- <xsl:value-of select="annee" /> -->
+						<!-- </fo:block> -->
+						<!-- </fo:table-cell> -->
 					</fo:table-row>
 				</fo:table-body>
 			</fo:table>
-
 		</fo:block>
 	</xsl:template>
 
@@ -212,26 +249,25 @@
 			<fo:table-body>
 				<fo:table-row>
 					<fo:table-cell>
-						<fo:block line-height="110%" padding-top="5pt" hyphenate="false"
-							language="fr" country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							text-align="center">
+						<fo:block line-height="110%" padding-top="10pt"
+							hyphenate="false" language="fr" country="FR" font-size="14pt"
+							font-family="Times New Roman,serif" text-align="center">
 							<fo:inline font-weight="bold">
-								INTERNSHIP CONTRACT
-								<xsl:value-of select="type-convention/libelle" />
+								Internship agreement
 								<xsl:text> </xsl:text>
 								n°
-								<xsl:text> </xsl:text>
 								<xsl:value-of select="id-convention" />
+								between
 							</fo:inline>
 						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
+						<fo:block line-height="100%" hyphenate="false" language="fr"
+							country="FR" font-size="10pt" font-family="Times New Roman,serif"
+							text-align="center" font-style="italic">
+							(Convention de stage entre)
+						</fo:block>
+						<fo:block line-height="200%" hyphenate="false" language="fr"
 							country="FR" font-size="8pt" font-family="Times New Roman,serif">
 							<fo:leader />
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							text-align="center">
-							<fo:inline font-weight="bold">BETWEEN</fo:inline>
 						</fo:block>
 					</fo:table-cell>
 				</fo:table-row>
@@ -241,811 +277,1038 @@
 	<!-- partie Infos Etudiant - Stage -->
 	<xsl:template name="infosEtuStage">
 
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="7.5pt" font-family="Times New Roman,serif"
+			padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+			font-style="italic">
+			NB : for the sake of simplicity,
+			the persons referred to in
+			this document are designated "he".
+		</fo:block>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="6.5pt" font-family="Times New Roman,serif"
+			padding-left="0.141cm" padding-right="0.141cm" font-style="italic"
+			padding-bottom="0.3cm">
+			(Nota : pour faciliter la lecture
+			du document, les mots
+			"stagiaire", "enseignant référent", "tuteur de
+			stage", "représentant
+			légal", "étudiant" sont utilisés
+			au masculin)
+		</fo:block>
 		<fo:table table-layout="fixed" width="100%">
-			<fo:table-column column-width="proportional-column-width(0.5)" />
-			<fo:table-column column-width="proportional-column-width(0.5)" />
+			<fo:table-column column-width="proportional-column-width(1)" />
 			<fo:table-column column-width="proportional-column-width(1)" />
 
 			<fo:table-body>
 				<fo:table-row margin-top="20px" text-align="left">
 					<!-- partie Etablissement Superieur - Stage -->
-					<fo:table-cell number-columns-spanned="3"
-						padding-top="3pt" padding-bottom="3pt" padding-left="5pt"
-						padding-right="5pt">
+					<fo:table-cell border="0.018cm solid #000000"
+						padding-left="0.1cm" padding-right="0.4cm" padding-top="0.2cm"
+						padding-bottom="0.2cm">
 						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0cm"
+							padding-bottom="0.035cm" text-align="center">
 							<fo:inline font-weight="bold">
-								The higher education institution
-								:
+								1 -
+								<fo:inline text-decoration="underline">THE EDUCATIONAL or TRAINING
+									INSTITUTION
+								</fo:inline>
 							</fo:inline>
 						</fo:block>
 
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Name of institution :
-							<fo:inline font-weight="bold">
-								<xsl:choose>
-									<xsl:when test="nom-etab-ref">
-										<xsl:value-of select="nom-etab-ref" />
-									</xsl:when>
-									<xsl:otherwise>
-										<xsl:value-of select="document('config.xml')/config/nomUniversite" />
-									</xsl:otherwise>
-								</xsl:choose>
-							</fo:inline>
+						<fo:block line-height="100%" hyphenate="false" language="fr"
+							country="FR" font-size="6.5pt" font-family="Times New Roman,serif"
+							text-align="center" font-style="italic">
+							(L'ETABLISSEMENT D'ENSEIGNEMENT OU
+							DE FORMATION))
 						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Address :
-							<fo:inline font-weight="bold">
-								<xsl:choose>
-									<xsl:when test="adresse-etab-ref">
-										<xsl:value-of select="adresse-etab-ref" />
-									</xsl:when>
-									<xsl:otherwise>
-										<xsl:value-of
-											select="document('config.xml')/config/adresseUniversite" />
-									</xsl:otherwise>
-								</xsl:choose>
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Represented by :
-							<fo:inline font-weight="bold">
-								<xsl:choose>
-									<xsl:when test="nom-signataire-composante">
-										<xsl:value-of select="nom-signataire-composante" />
-									</xsl:when>
-									<xsl:otherwise>
 
-									</xsl:otherwise>
-								</xsl:choose>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Name
 							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Nom)
+							</fo:inline>
+							<fo:inline font-weight="bold"> :
+							</fo:inline>
+							<xsl:choose>
+								<xsl:when test="nom-etab-ref">
+									<xsl:value-of select="nom-etab-ref" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="document('config.xml')/config/nomUniversite" />
+								</xsl:otherwise>
+							</xsl:choose>
 						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
+
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
-							Job title :
 							<fo:inline font-weight="bold">
+								Address
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Adresse)
+							</fo:inline>
+							<fo:inline font-weight="bold"> :
+							</fo:inline>
+							<xsl:choose>
+								<xsl:when test="adresse-etab-ref">
+									<xsl:value-of select="adresse-etab-ref" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="document('config.xml')/config/adresseUniversite" />
+								</xsl:otherwise>
+							</xsl:choose>
+						</fo:block>
+						<xsl:choose>
+							<xsl:when test="document('config.xml')/config/telUniversite">
+								<fo:block line-height="130%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm">
+									<fo:inline font-weight="bold">
+										Phone :
+									</fo:inline>
+									<xsl:value-of select="document('config.xml')/config/telUniversite" />
+								</fo:block>
+							</xsl:when>
+							<xsl:otherwise>
+							</xsl:otherwise>
+						</xsl:choose>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Represented by
+								(agreement-signing party)
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Représenté
+								par (signataire de la convention))
+							</fo:inline>
+							<fo:inline font-weight="bold"> :
+							</fo:inline>
+							<fo:inline>
 								<xsl:choose>
-									<xsl:when test="qualite-signataire">
-										<xsl:value-of select="qualite-signataire" />
+									<xsl:when test="centre-gestion/nom-viseur">
+										<fo:inline>
+											<xsl:call-template name="start_upper">
+												<xsl:with-param name="prenom">
+													<xsl:value-of select="centre-gestion/prenom-viseur" />
+												</xsl:with-param>
+											</xsl:call-template>
+											<xsl:text> </xsl:text>
+											<xsl:value-of
+												select="translate(centre-gestion/nom-viseur,$lowers,$uppers)" />
+										</fo:inline>
+										<xsl:choose>
+											<xsl:when test="centre-gestion/qualite-viseur">
+												<fo:block line-height="130%" hyphenate="false"
+													language="fr" country="FR" font-size="9pt"
+													font-family="Times New Roman,serif" padding-left="0.141cm"
+													padding-right="0.141cm" padding-top="0.035cm"
+													padding-bottom="0.035cm">
+													<fo:inline font-weight="bold">
+														Capacity of the
+														representative
+													</fo:inline>
+													<fo:inline font-style="italic" font-size="8pt">(Qualité
+														du représentant)
+													</fo:inline>
+													<fo:inline font-weight="bold"> :
+													</fo:inline>
+													<xsl:value-of select="centre-gestion/qualite-viseur" />
+												</fo:block>
+											</xsl:when>
+											<xsl:otherwise>
+											</xsl:otherwise>
+										</xsl:choose>
 									</xsl:when>
 									<xsl:otherwise>
-										.....................................
+										<fo:inline>
+											<xsl:value-of select="nom-signataire-composante" />
+										</fo:inline>
+										<xsl:choose>
+											<xsl:when test="qualite-signataire">
+												<fo:block line-height="130%" hyphenate="false"
+													language="fr" country="FR" font-size="9pt"
+													font-family="Times New Roman,serif" padding-left="0.141cm"
+													padding-right="0.141cm" padding-top="0.035cm"
+													padding-bottom="0.035cm">
+													<fo:inline font-weight="bold">
+														Capacity of the
+														representative
+													</fo:inline>
+													<fo:inline font-style="italic" font-size="8pt">(Qualité
+														du représentant)
+													</fo:inline>
+													<fo:inline font-weight="bold"> :
+													</fo:inline>
+													<xsl:value-of select="qualite-signataire" />
+												</fo:block>
+											</xsl:when>
+											<xsl:otherwise>
+											</xsl:otherwise>
+										</xsl:choose>
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:inline>
 						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
-							Department/Faculty
-							<xsl:text> </xsl:text>
 							<fo:inline font-weight="bold">
-								<xsl:value-of select="centre-gestion/nom-centre" />
+								Department/UFR
 							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Composante/UFR)
+							</fo:inline>
+							<fo:inline font-weight="bold"> :
+							</fo:inline>
+							<xsl:value-of select="centre-gestion/nom-centre" />
 						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm">
-							Address: (if different from address of institution)
 							<fo:inline font-weight="bold">
-								<xsl:value-of select="centre-gestion/batiment-residence" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="centre-gestion/voie" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="centre-gestion/code-postal" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="centre-gestion/commune" />
+								Address (if different from that
+								of the institution)
 							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Adresse (si
+								différente de celle
+								de l'établissement))
+							</fo:inline>
+							<fo:inline font-weight="bold"> :
+							</fo:inline>
+
+							<xsl:value-of select="centre-gestion/batiment-residence" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="centre-gestion/voie" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="centre-gestion/code-postal" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="centre-gestion/commune" />
 						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
+
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm">
-							Tel :
+							<fo:inline font-weight="bold">
+								Phone :
+							</fo:inline>
 							<xsl:value-of select="centre-gestion/telephone" />
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm">
-							Fax :
-							<xsl:value-of select="centre-gestion/fax" />
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm">
-							E-mail :
+							&#160;
+							<fo:inline font-weight="bold">
+								email :
+							</fo:inline>
 							<xsl:value-of select="centre-gestion/mail" />
 						</fo:block>
 					</fo:table-cell>
-				</fo:table-row>
-				<!-- partie Entreprise ou organisme accueil -->
-				<fo:table-row text-align="left">
-					<fo:table-cell number-columns-spanned="3"
-						padding-top="5pt" padding-bottom="5pt" padding-left="5pt"
-						padding-right="5pt">
+
+					<!-- partie Entreprise ou organisme accueil -->
+					<fo:table-cell border="0.018cm solid #000000"
+						border-left="none" padding-left="0.1cm" padding-right="0.4cm"
+						padding-top="0.2cm" padding-bottom="0.2cm">
 
 						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0cm"
+							padding-bottom="0.035cm" text-align="center">
 							<fo:inline font-weight="bold">
-								The host organisation :
+								2 -
+								<fo:inline text-decoration="underline">
+									HOST ORGANIZATION
+								</fo:inline>
 							</fo:inline>
 						</fo:block>
 
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Name :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="structure/raison-sociale" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Address :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="structure/batiment-residence" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="structure/voie" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="structure/code-postal" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="structure/commune" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="structure/pays/libelle" />
-							</fo:inline>
+						<fo:block line-height="100%" hyphenate="false" language="fr"
+							country="FR" font-size="6.5pt" font-family="Times New Roman,serif"
+							text-align="center" font-style="italic">
+							(L'ORGANISME D'ACCUEIL)
 						</fo:block>
 
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
 							padding-bottom="0.035cm">
-							Tel :
-							<xsl:value-of select="structure/telephone" />
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Fax :
-							<xsl:value-of select="structure/fax" />
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							E-mail :
-							<xsl:value-of select="structure/mail" />
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-					<fo:table-cell number-columns-spanned="3"
-						padding-left="5pt" padding-right="5pt">
-
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Represented by : (name of person signing contract) :
 							<fo:inline font-weight="bold">
+								Name
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Nom)
+							</fo:inline>
+							<fo:inline font-weight="bold"> :
+							</fo:inline>
+							<xsl:value-of select="structure/raison-sociale" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Address
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Adresse)
+							</fo:inline>
+							<fo:inline font-weight="bold"> :
+							</fo:inline>
+
+							<xsl:value-of select="structure/batiment-residence" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="structure/voie" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="structure/code-postal" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="structure/commune" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="structure/pays/libelle" />
+						</fo:block>
+
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Represented by
+								(agreement-signing party)
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Représenté
+								par (signataire de la convention))
+							</fo:inline>
+							<fo:inline> :
+							</fo:inline>
+							<fo:inline>
 								<xsl:value-of select="signataire/civilite/libelle" />
 								<xsl:text> </xsl:text>
-								<xsl:value-of
-									select="translate(signataire/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÃ€ÃÃ‚ÃƒÃ„Ã…Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃÃŽÃÃÃ‘Ã’Ã“Ã”Ã•Ã–Ã˜Ã™ÃšÃ›ÃœÃÃžÃŸÃ€ÃÃ‚ÃƒÃ„Ã…Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃÃŽÃÃÃ‘Ã’Ã“Ã”Ã•Ã–Ã˜Ã™ÃšÃ›ÃœÃÃžÃŸ')" />
+								<xsl:value-of select="translate(signataire/nom,$lowers,$uppers)" />
 								<xsl:text> </xsl:text>
-								<xsl:variable name="prenom1"
-									select="translate(substring(./signataire/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(signataire/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Job title :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="signataire/fonction" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Name of department where internship will take place :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="service/nom" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Place of internship (if different from host organisation) :
 
-							<xsl:if test="service/voie != structure/voie">
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="signataire/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
+							</fo:inline>
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Capacity of the representative
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Qualité du
+								représentant)
+							</fo:inline>
+							<fo:inline> :
+							</fo:inline>
+							<xsl:value-of select="signataire/fonction" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Department in which the
+								internship will be conducted
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Service dans
+								lequel le stage
+								sera effectué)
+							</fo:inline>
+							<fo:inline> :
+							</fo:inline>
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<xsl:value-of select="service/nom" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Phone :
+							</fo:inline>
+							<xsl:value-of select="structure/telephone" />
+							&#160;
+							<fo:inline font-weight="bold">
+								email :
+							</fo:inline>
+							<xsl:value-of select="structure/mail" />
+						</fo:block>
+						<xsl:if test="service/voie != structure/voie">
+							<fo:block line-height="130%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+								padding-bottom="0.035cm">
 								<fo:inline font-weight="bold">
-									<xsl:value-of select="service/batiment-residence" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="service/voie" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="service/code-postal" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="service/commune" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="service/pays/libelle" />
+									Location of internship (if
+									different from that of the
+									organization)
 								</fo:inline>
-							</xsl:if>
-
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<!-- partie Etudiant -->
-				<fo:table-row text-align="left">
-					<fo:table-cell number-columns-spanned="3"
-						padding-top="5pt" padding-bottom="5pt" padding-left="5pt"
-						padding-right="5pt">
-
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								And the intern student :
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Surname :
-							<fo:inline font-weight="bold">
-								<xsl:value-of
-									select="translate(etudiant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							First name :
-							<fo:inline font-weight="bold">
-								<xsl:variable name="prenom1"
-									select="translate(substring(./etudiant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(etudiant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Gender :
-							<xsl:text> </xsl:text>
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="etudiant/code-sexe" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Date of birth :
-							<xsl:text> </xsl:text>
-							<fo:inline font-weight="bold">
-								<xsl:value-of
-									select="concat(substring(./etudiant/date-nais,9,2),'/',substring(./etudiant/date-nais,6,2), '/',substring(./etudiant/date-nais,1,4))" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row margin-top="20px" text-align="left">
-					<fo:table-cell number-columns-spanned="3"
-						padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Address :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="adresse-etudiant" />
+								<fo:inline font-style="italic" font-size="8pt"> (Lieu du
+									stage (si différent de
+									l'adresse de l'organisme))
+								</fo:inline>
+								<fo:inline font-weight="bold"> :
+								</fo:inline>
+								<xsl:value-of select="service/batiment-residence" />
 								<xsl:text> </xsl:text>
-								<xsl:value-of select="code-postal-etudiant" />
+								<xsl:value-of select="service/voie" />
 								<xsl:text> </xsl:text>
-								<xsl:value-of select="ville-etudiant" />
+								<xsl:value-of select="service/code-postal" />
 								<xsl:text> </xsl:text>
-								<xsl:value-of select="pays-etudiant" />
-							</fo:inline>
-						</fo:block>
-
+								<xsl:value-of select="service/commune" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="service/pays/libelle" />
+							</fo:block>
+						</xsl:if>
 					</fo:table-cell>
 				</fo:table-row>
-				<fo:table-row text-align="left">
-
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Tel :
-							<xsl:text> </xsl:text>
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="tel-etudiant" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-					<!--<fo:table-cell padding-left="5pt" padding-right="5pt"> <fo:block 
-						line-height="110%" hyphenate="false" language="fr" country="FR" font-size="11.5pt" 
-						font-family="Times New Roman,serif" padding-left="0.141cm" padding-right="0.141cm" 
-						padding-top="0.035cm" padding-bottom="0.035cm"> portable : <fo:inline font-weight="bold"> 
-						<xsl:value-of select="tel-portable-etudiant" /> </fo:inline> </fo:block> 
-						</fo:table-cell> -->
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							E-mail :
-							<xsl:text> </xsl:text>
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="etudiant/mail" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-
-				<fo:table-row margin-top="20px" text-align="left">
-					<fo:table-cell number-columns-spanned="3"
-						padding-top="5pt" padding-bottom="5pt" padding-left="5pt"
-						padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Title of course taken at the higher education
-							institution :
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="etape/libelle" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-
 			</fo:table-body>
 		</fo:table>
-		<fo:table table-layout="fixed" width="100%" border="0.018cm solid #000000">
-			<fo:table-column column-width="proportional-column-width(1)" />
-			<fo:table-column column-width="proportional-column-width(1)" />
-
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif">
+			<fo:leader />
+		</fo:block>
+		<!-- partie Etudiant -->
+		<fo:table table-layout="fixed" width="100%">
+			<fo:table-column />
 			<fo:table-body>
-
-				<!-- partie sujet stage -->
-				<fo:table-row text-align="left">
-					<fo:table-cell number-columns-spanned="2"
-						padding-top="5pt" padding-bottom="5pt" padding-left="5pt"
-						padding-right="5pt">
+				<fo:table-row>
+					<fo:table-cell border="0.018cm solid #000000"
+						padding-left="0.1cm" padding-right="0.4cm" padding-top="0.2cm"
+						padding-bottom="0.2cm">
 						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
+							country="FR" font-family="Times New Roman,serif" padding-left="0.141cm"
+							padding-right="0.141cm" padding-top="0cm" padding-bottom="0.035cm"
+							text-align="center">
+							<fo:inline font-weight="bold">
+								3 -
+								<fo:inline text-decoration="underline" font-size="9pt">THE
+									INTERN
+								</fo:inline>
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="6.5pt">(LE
+								STAGIAIRE)
+							</fo:inline>
+						</fo:block>
+
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Last Name
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Nom)
+							</fo:inline>
+							<fo:inline font-weight="bold"> :
+							</fo:inline>
+							<xsl:value-of select="translate(etudiant/nom,$lowers,$uppers)" />
+							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+							<fo:inline font-weight="bold">
+								First name
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Prénom)
+							</fo:inline>
+							<fo:inline> :
+							</fo:inline>
+
+							<xsl:call-template name="start_upper">
+								<xsl:with-param name="prenom">
+									<xsl:value-of select="etudiant/prenom" />
+								</xsl:with-param>
+							</xsl:call-template>
+							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+							<fo:inline font-weight="bold">
+								Sex :
+							</fo:inline>
+							<xsl:value-of select="etudiant/code-sexe" />
+							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+							<fo:inline font-weight="bold">
+								Date of Birth
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Né le)
+							</fo:inline>
+							<fo:inline> :
+							</fo:inline>
+							<xsl:value-of
+								select="concat(substring(./etudiant/date-nais,9,2),'/',substring(./etudiant/date-nais,6,2), '/',substring(./etudiant/date-nais,1,4))" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
-							SUBJECT OF INTERNSHIP :
-							<fo:inline font-size="11.5pt" font-weight="bold">
-								<xsl:if test="tem-conf-sujet-teme != 'O'">
-									<xsl:value-of select="sujet-stage" />
-								</xsl:if>
-								<xsl:if test="tem-conf-sujet-teme = 'O'">
-									Confidential
-								</xsl:if>
+							<fo:inline font-weight="bold">
+								Student ID
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Numéro
+								d'étudiant)
+							</fo:inline>
+							<fo:inline> :
+							</fo:inline>
+							<xsl:value-of select="etudiant/num-etudiant" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Address
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Adresse)
+							</fo:inline>
+							<fo:inline> :
+							</fo:inline>
+							<xsl:value-of select="adresse-etudiant" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="code-postal-etudiant" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="ville-etudiant" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="pays-etudiant" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Phone :
+							</fo:inline>
+							<xsl:value-of select="tel-etudiant" />
+							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+							<fo:inline font-weight="bold">
+								Portable :
+							</fo:inline>
+							<xsl:value-of select="tel-portable-etudiant" />
+							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+							<fo:inline font-weight="bold">
+								email :
+							</fo:inline>
+							<xsl:value-of select="etudiant/mail" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="8pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm" text-align="justify" font-weight="bold">
+							TITLE
+							OF INTERNSHIP OR TRAINING COURSE TAKEN AT THE INSTITUTION OF
+							HIGHER EDUCATION, AND HOUR VOLUME (ANNUAL OR HALF-YEARLY) :
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="7pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm" text-align="justify" font-style="italic">
+							(INTITULÉ DE LA FORMATION OU DU
+							CURSUS SUIVI DANS
+							L'ÉTABLISSEMENT
+							D'ENSEIGNEMENT SUPÉRIEUR ET
+							VOLUME HORAIRE (ANNUEL OU SEMESTRIEL))
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<xsl:value-of select="etape/libelle" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Hour volume of internship
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">
+								(Nombre
+								d'heures de formation)
+							</fo:inline>
+							<fo:inline font-weight="bold">
+								:
+							</fo:inline>
+							<fo:inline>
+								............................
 							</fo:inline>
 						</fo:block>
 					</fo:table-cell>
 				</fo:table-row>
-				<fo:table-row text-align="left">
-					<fo:table-cell number-columns-spanned="2"
-						padding-top="5pt" padding-bottom="5pt" padding-left="5pt"
-						padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+			</fo:table-body>
+		</fo:table>
+		<fo:block line-height="200%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif">
+			<fo:leader />
+		</fo:block>
+		<!-- partie Sujet/Duree -->
+		<fo:table table-layout="fixed" width="100%" border="0.018cm solid #000000">
+			<fo:table-column />
+			<fo:table-body>
+				<fo:table-row>
+					<fo:table-cell padding-top="5pt" padding-bottom="5pt"
+						padding-left="5pt" padding-right="5pt">
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
 							padding-bottom="0.035cm">
-							DATES OF INTERNSHIP : From
-							<fo:inline font-weight="bold">
+							<fo:inline font-weight="bold" text-decoration="underline"
+								font-size="9pt">
+								SUBJECT OF INTERNSHIP
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="7pt">(SUJET DE
+								STAGE)
+							</fo:inline>
+							<fo:inline font-weight="bold"> :
+							</fo:inline>
 
-								<xsl:value-of
-									select="concat(substring(./date-debut-stage,9,2),'/',substring(./date-debut-stage,6,2), '/',substring(./date-debut-stage,1,4))" />
-							</fo:inline>
-							<xsl:text> </xsl:text>
-							to
-							<xsl:text> </xsl:text>
-							<fo:inline font-weight="bold">
-								<xsl:value-of
-									select="concat(substring(./date-fin-stage,9,2),'/',substring(./date-fin-stage,6,2), '/',substring(./date-fin-stage,1,4))" />
-							</fo:inline>
-							<xsl:if test="@interruption-stage = 'true'">
-								<xsl:text> </xsl:text>
-								with interruption from :
-								<fo:inline font-weight="bold">
-									<xsl:value-of
-										select="concat(substring(./date-debut-interruption,9,2),'/',substring(./date-debut-interruption,6,2), '/',substring(./date-debut-interruption,1,4))" />
-								</fo:inline>
-								<xsl:text> </xsl:text>
-								to
-								<xsl:text> </xsl:text>
-								<fo:inline font-weight="bold">
-									<xsl:value-of
-										select="concat(substring(./date-fin-interruption,9,2),'/',substring(./date-fin-interruption,6,2), '/',substring(./date-fin-interruption,1,4))" />
-								</fo:inline>
+							<xsl:if test="tem-conf-sujet-teme != 'O'">
+								<xsl:value-of select="sujet-stage" />
+							</xsl:if>
+							<xsl:if test="tem-conf-sujet-teme = 'O'">
+								Confidential
 							</xsl:if>
 						</fo:block>
-					</fo:table-cell>
-
-				</fo:table-row>
-				<fo:table-row text-align="left">
-					<fo:table-cell number-columns-spanned="2"
-						padding-top="3pt" padding-bottom="3pt" padding-left="5pt"
-						padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.5cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
-							DURATION OF INTERNSHIP :
-							<xsl:choose>
-								<xsl:when test="duree-exceptionnelle">
-									<xsl:if test="duree-exceptionnelle != ''">
-										<fo:inline font-weight="bold">
+							<fo:inline font-weight="bold">
+								Dates :
+							</fo:inline>
+							<xsl:text> </xsl:text>
+							<fo:inline font-weight="bold">
+								From
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Du)
+							</fo:inline>
+
+							<xsl:text> </xsl:text>
+							<xsl:value-of
+								select="concat(substring(./date-debut-stage,9,2),'/',substring(./date-debut-stage,6,2), '/',substring(./date-debut-stage,1,4))" />
+							<xsl:text> </xsl:text>
+							<fo:inline font-weight="bold">
+								To
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Au)
+							</fo:inline>
+							<xsl:text> </xsl:text>
+							<xsl:value-of
+								select="concat(substring(./date-fin-stage,9,2),'/',substring(./date-fin-stage,6,2), '/',substring(./date-fin-stage,1,4))" />
+
+							<xsl:if test="@interruption-stage = 'true'">
+								<xsl:text> </xsl:text>
+								<fo:inline font-weight="bold" font-size="11pt">
+									with
+									interruption from
+								</fo:inline>
+								<fo:inline font-style="italic" font-size="8pt">(avec
+									interruption du)
+								</fo:inline>
+								<xsl:value-of
+									select="concat(substring(./date-debut-interruption,9,2),'/',substring(./date-debut-interruption,6,2), '/',substring(./date-debut-interruption,1,4))" />
+								<fo:inline font-weight="bold" font-size="11pt">
+									to
+								</fo:inline>
+								<fo:inline font-style="italic" font-size="8pt">(au)
+								</fo:inline>
+								<xsl:value-of
+									select="concat(substring(./date-fin-interruption,9,2),'/',substring(./date-fin-interruption,6,2), '/',substring(./date-fin-interruption,1,4))" />
+							</xsl:if>
+						</fo:block>
+
+						<xsl:choose>
+							<xsl:when test="duree-exceptionnelle and duree-exceptionnelle != ''">
+								<xsl:choose>
+									<xsl:when
+										test="id-unite-duree-exceptionnelle and id-unite-duree-exceptionnelle != 0">
+										<fo:block line-height="110%" hyphenate="false"
+											language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											padding-bottom="0.035cm">
+											<fo:inline font-weight="bold">
+												Representing a total
+												duration of :
+											</fo:inline>
 											<xsl:value-of select="duree-exceptionnelle" />
 											<xsl:text> </xsl:text>
-											<xsl:value-of select="unite-duree/libelle" />
-										</fo:inline>
-									</xsl:if>
-									<xsl:if test="duree-exceptionnelle = ''">
-										<fo:inline font-weight="bold">
-											<xsl:value-of select="duree-stage" />
-										</fo:inline>
-										<xsl:text> </xsl:text>
-										weeks
-									</xsl:if>
-								</xsl:when>
-								<xsl:otherwise>
+											<xsl:if test="id-unite-duree-exceptionnelle = '1'">
+												hour(s)
+											</xsl:if>
+											<xsl:if test="id-unite-duree-exceptionnelle = '2'">
+												day(s)
+											</xsl:if>
+											<xsl:if test="id-unite-duree-exceptionnelle = '3'">
+												week(s)
+											</xsl:if>
+											<xsl:if test="id-unite-duree-exceptionnelle = '4'">
+												month(s)
+											</xsl:if>
+											<xsl:if test="id-unite-duree-exceptionnelle = '5'">
+												year(s)
+											</xsl:if>
+										</fo:block>
+									</xsl:when>
+									<xsl:otherwise>
+										<fo:block line-height="130%" hyphenate="false"
+											language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											padding-bottom="0.035cm">
+											<fo:inline font-weight="bold">
+												Corresponding to
+											</fo:inline>
+											<xsl:value-of select="duree-exceptionnelle" />
+											<xsl:text> hours </xsl:text>
+											<fo:inline font-weight="bold">
+												of attendance at the host
+												organization
+											</fo:inline>
+										</fo:block>
+										<fo:block line-height="130%" hyphenate="false"
+											language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											padding-bottom="0.035cm" font-style="italic">
+											(correspondant
+											à ...
+											heures de
+											présence effective dans
+											l'organisme d'accueil)
+										</fo:block>
+										<fo:block line-height="130%" hyphenate="false"
+											language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+											padding-bottom="0.035cm">
+											<fo:inline font-weight="bold">
+												and corresponding to
+											</fo:inline>
+											<fo:inline font-style="italic" font-size="8pt">(et
+												correspondant à)
+											</fo:inline>
+											<xsl:variable name="nbHeures" select="duree-exceptionnelle" />
+											<xsl:variable name="nbJours" select="floor($nbHeures div 7)" />
+											<xsl:variable name="nbHeuresRestantes" select="$nbHeures mod 7" />
+											<xsl:variable name="nbMois" select="floor($nbJours div 22)" />
+											<xsl:variable name="nbJoursRestants" select="$nbJours mod 22" />
+
+											<xsl:value-of select="$nbMois" />
+											<xsl:text> month(s) </xsl:text>
+											<xsl:value-of select="$nbJoursRestants" />
+											<xsl:text> day(s) and </xsl:text>
+											<xsl:value-of select="$nbHeuresRestantes" />
+											<xsl:text> hour(s) </xsl:text>
+											<fo:inline font-style="italic" font-size="8pt">
+												(... mois
+												... jours ... semaines)
+											</fo:inline>
+										</fo:block>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise>
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
-										<xsl:value-of select="duree-stage" />
+										Representing a total duration
+										of :
 									</fo:inline>
+									<xsl:value-of select="duree-stage" />
 									<xsl:text> </xsl:text>
 									weeks
-								</xsl:otherwise>
+									<fo:inline font-style="italic" font-size="8pt">(Représentant
+										une durée totale de ... semaines)
+									</fo:inline>
+								</fo:block>
+							</xsl:otherwise>
+						</xsl:choose>
+
+						<xsl:choose>
+							<xsl:when test="temps-travail/code-ctrl">
+								<xsl:if test="temps-travail/code-ctrl != 'TCOMP'">
+									<fo:block line-height="130%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										padding-bottom="0.035cm">
+										<fo:inline font-weight="bold">
+											Distribution, in case of
+											discontinuous attendance
+										</fo:inline>
+										<fo:inline font-style="italic" font-size="8pt">(Répartition
+											si présence
+											discontinue)
+										</fo:inline>
+										<fo:inline font-weight="bold">
+											:
+										</fo:inline>
+										<xsl:value-of select="nb-heures-hebdo" />
+										<xsl:text> </xsl:text>
+										<fo:inline font-weight="bold">
+											hours per week.
+										</fo:inline>
+										<fo:inline font-style="italic" font-size="8pt">
+											(heures par
+											semaine).
+										</fo:inline>
+									</fo:block>
+								</xsl:if>
+							</xsl:when>
+						</xsl:choose>
+
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Comments
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Commentaire)
+							</fo:inline>
+							<fo:inline font-weight="bold">
+								:
+							</fo:inline>
+							<xsl:choose>
+								<xsl:when test="commentaire-duree-travail">
+									<xsl:if test="commentaire-duree-travail != ''">
+										<fo:inline>
+											<xsl:value-of select="commentaire-duree-travail" />
+										</fo:inline>
+									</xsl:if>
+								</xsl:when>
 							</xsl:choose>
 						</fo:block>
 					</fo:table-cell>
 				</fo:table-row>
-
 			</fo:table-body>
 		</fo:table>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif">
+			<fo:leader />
+		</fo:block>
+		<!-- Partie Encadrement -->
 		<fo:table table-layout="fixed" width="100%">
 			<fo:table-column column-width="proportional-column-width(1)" />
 			<fo:table-column column-width="proportional-column-width(1)" />
-
 			<fo:table-body>
-
-				<!-- partie Encadrement -->
-				<fo:table-row text-align="left">
-					<fo:table-cell number-columns-spanned="2"
-						padding-top="5pt" padding-bottom="5pt" padding-left="5pt"
-						padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
+				<fo:table-row>
+					<fo:table-cell border="0.018cm solid #000000"
+						padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
+						padding-bottom="0.035cm">
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm" font-weight="bold" text-align="center"
+							text-decoration="underline">
+							SUPERVISION OF INTERN BY THE EDUCATIONAL
+							INSTITUTION
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-family="Times New Roman,serif" padding-left="0.141cm"
+							padding-right="0.141cm" padding-top="0.035cm" padding-bottom="0.035cm"
+							text-align="center" font-style="italic" font-size="7pt">
+							(ENCADREMENT DU
+							STAGIAIRE PAR L'ETABLISSEMENT
+							D'ENSEIGNEMENT)
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Supervision of intern provided
-								by :
+								First and Last name of academic
+								advisor
 							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Nom et
+								prénom
+								de
+								l'enseignant référent)
+							</fo:inline>
+							<fo:inline font-weight="bold">
+								:
+							</fo:inline>
+							<fo:inline>
+								<xsl:value-of select="translate(enseignant/nom,$lowers,$uppers)" />
+								<xsl:text> </xsl:text>
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="enseignant/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
+							</fo:inline>
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Position (or discipline)
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Fonction (ou
+								discipline))
+							</fo:inline>
+							<fo:inline font-weight="bold">
+								:
+							</fo:inline>
+							<xsl:value-of select="enseignant/type-personne" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Phone :
+							</fo:inline>
+							<xsl:value-of select="enseignant/tel" />
+							&#160;
+							<fo:inline font-weight="bold">
+								email :
+							</fo:inline>
+							<xsl:value-of select="enseignant/mail" />
+						</fo:block>
+					</fo:table-cell>
+					<fo:table-cell border="0.018cm solid #000000"
+						border-left="none" padding-left="0.141cm" padding-right="0.141cm"
+						padding-top="0.2cm" padding-bottom="0.035cm">
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm" font-weight="bold" text-align="center"
+							text-decoration="underline">
+							SUPERVISION OF INTERN BY THE HOST ORGANIZATION
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-family="Times New Roman,serif" padding-left="0.141cm"
+							padding-right="0.141cm" padding-top="0.035cm" padding-bottom="0.035cm"
+							text-align="center" font-style="italic" font-size="7pt">
+							(ENCADREMENT DU
+							STAGIAIRE PAR L'ORGANISME D'ACCUEIL)
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Full name of training supervisor
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Nom et
+								prénom
+								du tuteur de stage)
+							</fo:inline>
+							<fo:inline font-weight="bold">
+								:
+							</fo:inline>
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<xsl:value-of select="translate(contact/nom,$lowers,$uppers)" />
+							<xsl:text> </xsl:text>
+							<xsl:call-template name="start_upper">
+								<xsl:with-param name="prenom">
+									<xsl:value-of select="contact/prenom" />
+								</xsl:with-param>
+							</xsl:call-template>
+						</fo:block>
+
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Position
+							</fo:inline>
+							<fo:inline font-style="italic" font-size="8pt">(Fonction)
+							</fo:inline>
+							<fo:inline font-weight="bold">
+								:
+							</fo:inline>
+							<xsl:value-of select="contact/fonction" />
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Phone :
+							</fo:inline>
+							<xsl:value-of select="contact/tel" />
+							&#160;
+							<fo:inline font-weight="bold">
+								email :
+							</fo:inline>
+							<xsl:value-of select="contact/mail" />
 						</fo:block>
 					</fo:table-cell>
 				</fo:table-row>
-				<fo:table-row text-align="left">
-
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							On behalf of the higher education institution :
-						</fo:block>
-
-
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							On behalf of the host organisation :
-						</fo:block>
-
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Surname :
-							<fo:inline font-weight="bold">
-								<xsl:value-of
-									select="translate(enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Surname :
-							<fo:inline font-weight="bold">
-								<xsl:value-of
-									select="translate(contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							First name :
-							<fo:inline font-weight="bold">
-								<xsl:variable name="prenom1"
-									select="translate(substring(./enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							First name :
-							<fo:inline font-weight="bold">
-								<xsl:variable name="prenom1"
-									select="translate(substring(./contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Job title :
-							<fo:inline font-weight="bold">
-								<xsl:if test="enseignant/type-personne = 'ENS'">
-									teacher
-								</xsl:if>
-								<xsl:if test="enseignant/type-personne  != 'ENS'">
-									personal
-								</xsl:if>
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Job title :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="contact/fonction" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Tel :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="enseignant/tel" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Tel :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="contact/tel" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-				<fo:table-row text-align="left">
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							E-mail :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="enseignant/mail" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-					<fo:table-cell padding-left="5pt" padding-right="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							E-mail :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="contact/mail" />
-							</fo:inline>
-						</fo:block>
-					</fo:table-cell>
-				</fo:table-row>
-
-
 			</fo:table-body>
 		</fo:table>
 	</xsl:template>
 	<xsl:template name="CPAM">
-		<fo:block line-height="110%" hyphenate="false" language="fr"
-			country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-			margin-left="0cm" margin-right="0cm" text-indent="0cm">
-			<fo:table table-layout="fixed" width="100%">
-				<fo:table-column column-width="proportional-column-width(1)" />
-
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell padding-top="2pt" padding-bottom="2pt">
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="11.5pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="11.5pt" font-family="Times New Roman,serif">
-								Healthcare insurance office to be contacted in the event of an
-								accident (place of residence of student unless otherwise
-								indicated) :
-								<fo:inline font-weight="bold">
-									<xsl:choose>
-										<xsl:when test="libelle-cPAM">
-											<xsl:value-of select="libelle-cPAM" />
-										</xsl:when>
-										<xsl:otherwise>
-
-										</xsl:otherwise>
-									</xsl:choose>
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="8pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="8pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="11.5pt" font-family="Times New Roman,serif">
-								_____________________________________________
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="8pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="8pt" font-family="Times New Roman,serif">
-								<fo:inline font-size="5pt" vertical-align="super">1
-								</fo:inline>
-								<fo:inline font-size="8pt"> Article L612-9 of the Education
-									Code: "The duration of any internship(s) undertaken by a single
-									intern in any one organisation must not exceed six months per
-									academic year," subject to certain exceptions.
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="8pt" font-family="Times New Roman,serif"
-								font-weight="bold" font-style="italic">
-								<fo:inline font-size="5pt" vertical-align="super">2
-								</fo:inline>
-								<fo:inline font-size="8pt"> Note to reader : Text in italics
-									and bold type applies to internships in administration and
-									public institutions of government.
-								</fo:inline>
-							</fo:block>
-							<!--<fo:block line-height="110%" hyphenate="false" language="fr" country="FR" 
-								font-size="8pt" font-family="Times New Roman,serif" padding-top="5pt"> convention 
-								imprimÃ©e le : <xsl:value-of select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy 
-								kk:mm:ss'), java:java.util.Date.new())" /> Exemplaire destinÃ© Ã  : organisme 
-								d'accueil / Ã©tablissement d'origine / Ã©tudiant. </fo:block> -->
-
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-
+		<fo:block line-height="200%" hyphenate="false" language="fr"
+			country="FR" font-size="8pt" font-family="Times New Roman,serif">
+			<fo:leader />
 		</fo:block>
+		<fo:table table-layout="fixed" width="100%">
+			<fo:table-column column-width="proportional-column-width(1)" />
+			<fo:table-body>
+				<fo:table-row>
+					<fo:table-cell padding-left="0.141cm" padding-right="0.141cm"
+						padding-top="0.2cm" padding-bottom="0.035cm" border="0.018cm solid #000000">
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif">
+							Primary health insurance
+							agency to contact
+							in case of accident (corresponds to intern's
+							place of residence, unless otherwise specified)
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="8pt" font-family="Times New Roman,serif"
+							font-style="italic">
+							(Caisse Primaire
+							d'Assurance Maladie à contacter en cas
+							d'accident (lieu de
+							domicile de l'étudiant sauf exception)) :
+						</fo:block>
+						<fo:block line-height="130%" hyphenate="false" language="fr"
+							country="FR" font-size="9pt" font-family="Times New Roman,serif">
+							<fo:inline font-weight="bold">
+								<xsl:choose>
+									<xsl:when test="libelle-cPAM">
+										<xsl:value-of select="libelle-cPAM" />
+									</xsl:when>
+									<xsl:otherwise>
 
+									</xsl:otherwise>
+								</xsl:choose>
+							</fo:inline>
+						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="8pt" font-family="Times New Roman,serif">
+							<fo:leader />
+						</fo:block>
+					</fo:table-cell>
+				</fo:table-row>
+			</fo:table-body>
+		</fo:table>
+
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="8pt" font-family="Times New Roman,serif"
+			padding-top="20pt" text-align="center">
+			Date of printing :
+			<xsl:value-of
+				select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
+		</fo:block>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="7pt" font-family="Times New Roman,serif"
+			text-align="center" font-style="italic">
+			(Convention imprimée le : ...)
+		</fo:block>
 	</xsl:template>
 	<xsl:template name="ArticlesPage2">
 		<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1060,14 +1323,31 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">Article 1: Purpose of the contract
+								font-weight="bold">Article 1 - Purpose of the Agreement
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								The present contract governs the relationship between the host
-								organisation (company, public agency, association...), the
-								higher education institution and the intern.
+								This Agreement governs the host organization's
+								relationship with
+								the educational institution
+								and the intern.
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								background-color="#E6E6E6" padding-bottom="2pt" hyphenate="false"
+								language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" font-style="italic">Article 1 -
+								Objet de la convention
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								background-color="#E6E6E6" padding-bottom="1pt" hyphenate="false"
+								language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-style="italic">
+								La présente convention règle les
+								rapports de l'organisme
+								d'accueil avec
+								l'établissement
+								d'enseignement et le stagiaire.
 							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1077,86 +1357,232 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">Article 2: Objective of the internship</fo:block>
-
+								font-weight="bold">
+								Article 2 - Objective of the internship
+							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								The internship offers the opportunity to spend a fixed period of
-								time in a working environment, during which time students can
-								develop their professional skills and apply the theoretical
-								knowledge gained in the course of their training, with a view to
-								obtaining a degree or other certification. Interns will be
-								entrusted with one or more responsibilities which correspond to
-								the educational objectives of their academic institutions, and
-								which meet with the approval of the host organisation.
+								The internship is a temporary period of work
+								in a professional
+								environment, where the studen
+								t will acquire
+								professional skills
+								and put into
+								practice the knowledge gained from his education
+								in
+								view of earning a
+								diploma or certificate, and
+								facilitating his
+								professional integration. The
+								intern will be given one or more
+								tasks, in
+								conformance with the educational plan established
+								by the
+								educational institution and approved by
+								the host organization.
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								The objectives of the internship programme are determined by the
-								HE institution and the host organisation in accordance with the
-								general nature of the course curriculum.
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								The educational institution and the host organization
+								will establish the schedule based on the general
+								training program
+								being offered
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								Duties to be carried out :
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="fonctions-et-taches" />
+								<fo:inline text-decoration="underline">ACTIVITIES ASSIGNED
 								</fo:inline>
+								:
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="true" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="fonctions-et-taches" />
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<fo:inline text-decoration="underline"> SKILLS TO BE ACQUIRED OR
+									DEVELOPED
+								</fo:inline>
+								:
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="true" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								padding-bottom="4pt">
+								<xsl:value-of select="competences" />
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								font-weight="bold" background-color="#E6E6E6" font-style="italic">
+								Article 2 - Objectif du
+								stage
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								Le stage correspond à une
+								période temporaire
+								de
+								mise en situation
+								en milieu professionnel au
+								cours de laquelle
+								l'étudiant
+								acquiert
+								des compétences
+								professionnelles
+								et met en
+								&#339;uvre les
+								acquis
+								de sa
+								formation en
+								vue de
+								l'obtention d'un
+								diplôme ou d'une
+								certification et de
+								favoriser son insertion
+								professionnelle.
+								Le
+								stagiaire se voit
+								confier une ou des missions
+								conformes au
+								projet
+								pédagogique défini
+								par son établissement
+								d'enseignement
+								et
+								approuvées par l'organisme
+								d'accueil.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Le
+								programme est établi
+								par l'établissement
+								d'enseignement
+								et
+								l'organisme
+								d'accueil en
+								fonction du programme
+								général de la
+								formation
+								dispensée.
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif"
+								background-color="#E6E6E6" font-style="italic">
+								<fo:inline text-decoration="underline">ACTIVITÉS CONFIÉES
+								</fo:inline>
+								: ...
+							</fo:block>
+							<fo:block line-height="110%" padding-bottom="2pt"
+								hyphenate="false" language="fr" country="FR" font-size="9pt"
+								font-family="Times New Roman,serif" background-color="#E6E6E6"
+								font-style="italic">
+								<fo:inline text-decoration="underline">
+									Compétences à acquérir ou à
+									développer
+								</fo:inline>
+								: ...
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								<fo:inline font-weight="bold">Article 3</fo:inline>
-								<fo:inline font-weight="bold">: Practical terms of internship
-								</fo:inline>
-							</fo:block>
 
+							<fo:block line-height="110%" padding-bottom="2pt"
+								hyphenate="false" language="fr" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								font-weight="bold">
+								Article 3 - Terms of internship
+							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								The maximum weekly amount of time the intern will be present at
-								the company is
+								The weekly duration of the intern's presence
+								at the host
+								organization will be
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="nb-heures-hebdo" />
 								</fo:inline>
-								hours.
-							</fo:block>
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								The internship is
+								hours, on a
 								<fo:inline font-weight="bold">
-									<xsl:value-of select="temps-travail/libelle" />
+									<xsl:choose>
+										<xsl:when
+											test="temps-travail/code-ctrl='TCOMP' or temps-travail/code-ctrl='TPART'">
+											<xsl:if test="temps-travail/code-ctrl='TCOMP'">
+												Full time basis.
+											</xsl:if>
+											<xsl:if test="temps-travail/code-ctrl='TPART'">
+												Part-time basis.
+											</xsl:if>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="temps-travail/libelle" />
+											<xsl:text>.</xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
 								</fo:inline>
-								(please specify the percentage :
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="quotite-travail" />
-									%)
-								</fo:inline>
-
-								<!--<xsl:choose> <xsl:when test="commentaire-duree-travail"> <xsl:if 
-									test="commentaire-duree-travail != ''"> (commentaire sur le temps de travail 
-									: <fo:inline font-weight="bold"> <xsl:value-of select="commentaire-duree-travail" 
-									/> ) </fo:inline> </xsl:if> </xsl:when> </xsl:choose> -->
+								.
+								<!-- (quotité : -->
+								<!-- <fo:inline font-weight="bold"> -->
+								<!-- <xsl:value-of select="quotite-travail" /> -->
+								<!-- %). -->
+								<!-- </fo:inline> -->
 							</fo:block>
-
 							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								padding-bottom="4pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								If the intern must be present at the host organisation at night,
-								on a Sunday or on a bank holiday, the organisation must indicate
-								these special cases here :
+								If the intern's presence at the host
+								organization is to be
+								required at night,
+								or on Sunday or during a public holiday,
+								specify the specific cases :
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="travail-nuit-ferie" />
 								</fo:inline>
 							</fo:block>
+							<fo:block line-height="110%" padding-bottom="2pt"
+								hyphenate="false" language="fr" country="FR" font-size="9pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								font-weight="bold" background-color="#E6E6E6" font-style="italic">
+								Article 3 - Modalités du stage
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								La durée hebdomadaire de
+								présence du stagiaire
+								dans
+								l'organisme
+								d'accueil sera de ... heures
+								sur la base d'un temps complet/
+								temps partiel (rayer la mention
+								inutile).
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								hyphenate="false" language="fr" country="FR" font-size="9pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								Si le stagiaire doit être
+								présent dans l'organisme
+								d'accueil
+								la
+								nuit, le
+								dimanche ou un jour
+								férié, préciser
+								les cas
+								particuliers :
+								............
+							</fo:block>
+
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
@@ -1164,40 +1590,108 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">Article 4: Status of intern - Reception and
-								monitoring
+								font-weight="bold">Article 4 - Intern hosting and supervision
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								The student will retain his/her previous status throughout the
-								duration of the internship in the host organisation and will
-								receive regular monitoring from the HE institution. The host
-								organisation will designate a
-								<fo:inline font-style="italic">host organisation tutor
-								</fo:inline>
-								who will be responsible for mentoring the student and optimising
-								the conditions for carrying out the internship.
-								Throughout the
-								duration of the internship, the student may return to the
-								HE
-								institution for any lessons they are explicitly required to
-								take
-								as part of the course or to attend meetings, provided the
-								host
-								organisation is informed of the dates by the HE institution
-								and
-								the student receives authorisation to travel, if applicable.
+								The intern will be supervised
+								by his academic advisor, as
+								designated in this agreement,
+								as well as by the institution's
+								internship program office.
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
+								The internship supervisor appointed by the host organization
+								in
+								this Agreement shall be responsible for supervising the intern
+								and ensuring optimal conditions for the execution of the
+								internship
+								in accordance with the specified educational
+								requirements.
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
+								The intern shall be permitted to return to his educational
+								institution during
+								the internship period in order to take the
+								courses specifically required by the
+								program, or to attend
+								meetings; the institution shall notify the host
+								organization
+								of
+								the corresponding dates.
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold">
+								(Article 4 continued)
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt">
+								The host
+								organization may permit the intern to travel.
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
+								Any difficulties encountered in the execution and progress of
+								the internship,
+								whether observed by the intern or by the
+								internship supervisor, must be
+								brought to
+								the attention of the
+								academic advisor and the educational
+								institution so that the
+								issue can be resolved as quickly as possible
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Terms of monitoring :
+								padding-bottom="4pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify">
+								<fo:inline text-decoration="underline">
+									SUPERVISORY PROCEDURES
+								</fo:inline>
+								(visits, scheduled telephone calls, etc.) :
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-encadre-suivi" />
 								</fo:inline>
 							</fo:block>
-
+							<fo:block line-height="100%" padding-top="2pt"
+								hyphenate="false" language="fr" country="FR" font-size="9pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								font-weight="bold" background-color="#E6E6E6" font-style="italic">Article
+								4 - Accueil
+								et
+								encadrement du stagiaire
+							</fo:block>
+							<fo:block line-height="100%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								Le stagiaire est suivi par
+								l'enseignant référent désigné dans la présente convention ainsi
+								que par le service de l'établissement en charge des stages.
+							</fo:block>
+							<fo:block line-height="100%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								Le tuteur de stage désigné
+								par l'organisme d'accueil dans la
+								présente convention est chargé
+								d'assurer le suivi du stagiaire
+								et d'optimiser les conditions de
+								réalisation du stage
+								conformément aux stipulations pédagogiques
+								définies.
+							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -1206,254 +1700,323 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								keep-with-next="always" text-align="justify" font-weight="bold">Article
-								5: Remuneration - Benefits in kind - Reimbursement of expenses
-							</fo:block>
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								The intern must receive remuneration if the length of the
-								internship is longer than two months (consecutive or
-								non-consecutive) and the internship takes place on French
-								territory, notwithstanding special rules which apply in certain
-								overseas territories, or the conditions set out in Article
-								L4381-1 of the French Public Health Code.
+								5 - Stipend - Benefits
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-								font-style="italic" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold">
-								When the length of the
-								internship is longer than two consecutive months and equal to at
-								least 40 working days, and the internship takes place in
-								administration or an administrative public institution of
-								government on French territory, the intern must receive
-								remuneration.
-							</fo:block>
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Remuneration is fixed by a sector-specific or professional
-								agreement, or failing this, at 12.5% of the hourly social
-								security limit defined in accordance with article L 241-3 of the
-								Social Security Code.
-							</fo:block>
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-								font-style="italic" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold">
-								For internships in
-								administration or an administrative public institution of
-								government, remuneration must be equal to the hourly limit
-								outlined above.
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell>
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								When the duration of the internship is less than or equal to two
-								months and takes place in a public or private enterprise or an
-								association on French territory, the student may receive
-								remuneration.
+								In France, whenever an internship is to have a duration greater
+								than
+								two months, whether they run consecutively or not, a stipend
+								must
+								be paid,
+								except as provided under special regulations
+								applicable
+								for certain French
+								overseas collectivities or for
+								internships covered by article L4381-1 of
+								the Public Health Code.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Amount of remuneration (if different to legal amount) :
-								<xsl:variable name="nb-montant-gratification"
-									select="montant-gratification" />
-								<xsl:choose>
-									<xsl:when test='$nb-montant-gratification=""'>
+								The amount of the
+								hourly stipend shall be 13.75%
+								of the hourly ceiling for social
+								security established
+								pursuant to
+								article L.241-3 of the Social
+								Security Code.
+								A sector-specific convention or labor agreement
+								may set
+								an amount
+								greater than that rate.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								Stipends payable by an
+								organization under public law may
+								not be combined with any
+								remuneration to be paid by the
+								same organization during the
+								relevant period.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								Stipends are payable
+								without prejudice to any
+								reimbursement of expenses incurred by
+								the intern
+								for purposes of his
+								internship, or any benefits
+								offered
+								for meals, accommodations and transportation.
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
+								The organization may decide to pay a stipend
+								for internships with
+								a duration of two months
+								or less.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								In case of a
+								suspension or termination of this
+								agreement, the amount of the
+								stipend due to the
+								intern shall be prorated based on the duration
+								of the internship conducted.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								Internship durations
+								qualifying for the payment of a
+								stipend are determined in
+								consideration of this
+								agreement and any
+								amendments thereto, as
+								well as
+								the number of days of the intern's
+								physical
+								presence within
+								the organization.
+							</fo:block>
+							<xsl:variable name="indemnisation" select="id-indemnisation" />
+							<xsl:choose>
+								<xsl:when test='$indemnisation!=1'>
 
-									</xsl:when>
-									<xsl:otherwise>
-										<fo:inline font-weight="bold">
-											<xsl:value-of select="montant-gratification" />
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="130%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
+										<fo:inline text-decoration="underline">THE AMOUNT OF THE STIPEND
 										</fo:inline>
-										euros
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="unite-gratification/libelle" />
-										per month
-									</xsl:otherwise>
-								</xsl:choose>
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Method of payment of remuneration :
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="mode-vers-gratification/libelle" />
+										is set at
+										<xsl:variable name="nb-montant-gratification"
+											select="montant-gratification" />
+										<xsl:choose>
+											<xsl:when test='$nb-montant-gratification=""'>
+
+											</xsl:when>
+											<xsl:otherwise>
+												<fo:inline font-weight="bold">
+													<xsl:value-of select="montant-gratification" />
+												</fo:inline>
+												euros
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="unite-gratification/libelle" />
+												per
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="unite-duree-gratification/libelle" />
+												.
+											</xsl:otherwise>
+										</xsl:choose>
+									</fo:block>
+									<xsl:if
+										test="mode-vers-gratification/libelle and mode-vers-gratification/libelle != ''">
+										<fo:block line-height="110%" hyphenate="false"
+											language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+											<fo:inline text-decoration="underline">
+												Method of payment
+											</fo:inline>
+											:
+											<xsl:value-of select="mode-vers-gratification/libelle" />
+										</fo:block>
+									</xsl:if>
+								</xsl:otherwise>
+							</xsl:choose>
+							<fo:block line-height="130%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif">
+								<fo:inline text-decoration="underline">
+									OTHER BENEFITS GRANTED
 								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								If an intern receives benefits in kind (for example, free
-								meals), the amount representing the value of these benefits will
-								be added to the monthly amount of remuneration before comparison
-								with 12.5% of the hourly social security limit for a legal
-								duration of weekly work equal to 35 hours.
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Accommodation and travel costs incurred by the student at the
-								request of the organisation in addition to any training expenses
-								required to carry out the internship will be covered by the
-								organisation in accordance with the terms in force within the
-								organisation.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								List of benefits provided :
+								:
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="avantages-nature" />
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								Interns can access social and cultural activities
-								listed in article L2323-83 of the Employment Code under the same
-								conditions as salaried employees.
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								keep-with-next="always" text-align="justify" font-weight="bold"
+								background-color="#E6E6E6" font-style="italic">Article
+								5 - Gratification -
+								Avantages
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-style="italic" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold">
-								When the internship takes place
-								in administration or in an administrative public institution of
-								government, the student's assignment expenses will be covered
-								under the 2006-781 decree, with the place where the internship
-								takes place as the place of work for administrative purposes.
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								En France, lorsque la
+								durée du stage est supérieure à deux mois
+								consécutifs
+								ou non,
+								celui-ci fait obligatoirement l'objet d'une
+								gratification, sauf
+								en cas de règles particulières applicables
+								dans certaines
+								collectivités d'outre-mer françaises et pour les
+								stages relevant
+								de l'article
+								L4381-1 du code de la santé
+								publique.
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-style="italic" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold">
-								For internships in
-								administration or administrative public institutions of
-								government: travel expenses for travel between the place of
-								residence and the place of work will be covered in accordance
-								with the conditions outlined in decree 2010-676:
-								...............(please indicate yes or no)
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Le
+								montant horaire de
+								la
+								gratification
+								est fixé à 13,75%
+								du plafond
+								horaire de la
+								sécurité sociale défini
+								en application
+								de
+								l'article
+								L.241-3 du
+								code de la sécurité sociale. Une
+								convention
+								de branche
+								ou un
+								accord professionnel peut définir
+								un
+								montant
+								supérieur à ce
+								taux.
 							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								La
+								gratification due
+								par un organisme de droit public
+								ne
+								peut être
+								cumulée avec une
+								rémunération
+								versée par ce même
+								organisme au cours
+								de
+								la période
+								concernée.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								La
+								gratification est
+								due sans préjudice
+								du
+								remboursement des frais
+								engagés
+								par
+								le
+								stagiaire pour
+								effectuer son
+								stage et des avantages
+								offerts, le
+								cas échéant,
+								pour la
+								restauration, l'hébergement, et
+								le
+								transport.
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								L'organisme peut
+								décider de
+								verser une
+								gratification pour les
+								stages dont la durée
+								est
+								inférieure ou
+								égale à deux mois.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								En
+								cas de suspension
+								ou de résiliation de la présente
+								convention, le
+								montant de la
+								gratification due au stagiaire
+								est
+								proratisé en
+								fonction de
+								la
+								durée du stage effectué.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								La
+								durée donnant droit
+								à gratification s'apprécie
+								compte tenu de la
+								présente convention
+								et de ses avenants
+								éventuels, ainsi que du
+								nombre de jours de
+								présence effective du
+								stagiaire dans
+								l'organisme.
+							</fo:block>
+							<xsl:choose>
+								<xsl:when test='$indemnisation!=1'>
 
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold">Article 6: Social security
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								The student remains affiliated with his/her prior
-								social security system throughout the duration of the internship
-								and will retain student status. In the case of internships
-								undertaken abroad, social security must be informed and
-								verification must be received from them prior to the departure
-								of the student.
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="130%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										background-color="#E6E6E6" font-style="italic">
+										<fo:inline text-decoration="underline">LE MONTANT DE LA
+											GRATIFICATION
+										</fo:inline>
+										est fixé à
+										<xsl:variable name="nb-montant-gratification"
+											select="montant-gratification" />
+										<xsl:choose>
+											<xsl:when test='$nb-montant-gratification=""'>
 
-							</fo:block>
+											</xsl:when>
+											<xsl:otherwise>
+												... euros
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="unite-gratification/libelle" />
+												par
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="unite-duree-gratification/libelle" />
+												<xsl:text>.</xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								The following clauses are applicable subject to
-								compliance with the legislation of the host country and
-								legislation governing the type of host organisation :
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								<fo:inline font-size="10pt" font-weight="bold">6.1
-									Remuneration less than or equal to
+								country="FR" font-size="9pt" background-color="#E6E6E6"
+								font-style="italic" font-family="Times New Roman,serif">
+								<fo:inline text-decoration="underline">
+									Mode de versement de la
+									gratification
 								</fo:inline>
-								12.5% of the hourly social security limit multiplied by the
-								number of hours of internship completed within the month in
-								question:
+								: ...
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								In accordance with the legislation in force, in this
-								situation, the remuneration received for the internship is not
-								subject to social security contributions. The student continues
-								to benefit from the legislation relating to accidents in the
-								workplace under article L 412-8-2 of the Social Security Code,
-								student scheme.
-
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								In the event of the student being involved in an accident,
-								regardless of whether this takes place whilst undertaking work
-								in the organisation, during travel or on any premises pertaining
-								to fulfilling the requirements of the internship,
-								<fo:inline font-size="10pt" font-style="italic">
-									and for
-									students of medicine, dentistry or pharmacy who do not hold a
-									medical position, in relation to medical internships carried
-									out under the conditions outlined in section b) of 2o of
-									article L 412-8,
+							<fo:block line-height="130%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								background-color="#E6E6E6" font-style="italic">
+								<fo:inline text-decoration="underline">AUTRES AVANTAGES ACCORDES
 								</fo:inline>
-								<fo:inline font-size="10pt" font-weight="bold">
-									the host
-									organisation shall send a declaration to the
-								</fo:inline>
-								"Caisse Primaire d'assurance maladie" (healthcare insurance
-								office) (see address on the first page), specifying the
-								institution as the employer,
-								<fo:inline font-size="10pt" font-weight="bold">
-									and must send
-									a copy to the institution.
-								</fo:inline>
+								: .........
 							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								<fo:inline font-size="10pt" font-weight="bold">6.2
-									Remuneration greater
-								</fo:inline>
-								than 12.5% of the hourly social security limit multiplied by the
-								number of hours of internship completed within the month in
-								question :
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								Social security contributions are calculated on the
-								difference between the amount of remuneration and 12.5% of the
-								hourly social security limit for a legal duration of weekly work
-								equal to 35 hours.
-							</fo:block>
-							<!--<fo:block line-height="110%" padding-top="2pt" padding-bottom="2pt" 
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times 
-								New Roman,serif" text-align="justify"> L'Ã©tudiant(e) bÃ©nÃ©ficie de la couverture 
-								lÃ©gale en application des dispositions des articles L 411-1 et suivants 
-								du code de la SÃ©curitÃ© Sociale. En cas d'accident survenant Ã  l'Ã©tudiant(e), 
-								soit au cours </fo:block> -->
-
 						</fo:table-cell>
 					</fo:table-row>
 				</fo:table-body>
@@ -1473,427 +2036,524 @@
 				<fo:table-body>
 					<fo:table-row>
 						<fo:table-cell padding-right="10pt">
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold">Article 6 - Social Welfare
+								Coverage Framework
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								For the duration of his internship, the intern shall
+								remain covered
+								under his previous former social welfare
+								protection framework.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								Internships conducted abroad shall be reported to the
+								Social Security
+								administration when required, prior to the
+								intern's departure.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-bottom="4pt">
+								For internships conducted
+								abroad, the following
+								provisions shall
+								apply, subject to their
+								conformance with the
+								legislation in effect
+								in the host country and
+								the laws governing
+								the host organization.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
+								font-style="italic">Article 6 - Régime de
+								protection sociale
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Pendant la durée du stage, le stagiaire reste affilié
+								à son
+								régime de Sécurité sociale antérieur. Les stages effectués
+								à
+								l'étranger sont signalés préalablement au départ du stagiaire
+								à
+								la Sécurité sociale lorsque celle-ci le demande.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Pour
+								les stages à
+								l'étranger, les dispositions
+								suivantes sont
+								applicables sous
+								réserve de conformité avec la
+								législation du
+								pays
+								d'accueil et de
+								celle régissant le type
+								d'organisme
+								d'accueil.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								<fo:inline font-size="10pt" font-weight="bold">6.1
+									Maximum
+									stipend of 13.75% of the hourly ceiling for social security:
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								The stipend is not subject to payroll tax.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								The intern shall have the benefit of the legislation
+								on workplace
+								accidents, under the students' framework set forth
+								in article
+								L.412-8 no. 2 of the Social Security code.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								If accidents impacting the intern occur, either during his
+								activities
+								within the organization, or during his commute, or on
+								premises used for
+								the purposes of the internship, and also for
+								students of medicine,
+								dental
+								surgery, or pharmacy without
+								hospital-staff status, engaged in an
+								internship
+								conducted under
+								the conditions provided in item b of the 2nd section of
+								Article
+								L.418-2,
+								<fo:inline text-decoration="underline">
+									the host organization shall
+									send a statement to the Primary
+									Health Insurance Agency
+								</fo:inline>
+								or appropriate agency (see address on page 1), indicating the
+								educational institution as the employer, and
+								<fo:inline text-decoration="underline">
+									shall send a copy to the
+									educational institution as well.
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								font-weight="bold" background-color="#E6E6E6" font-style="italic">
+								6.1 -
+								Gratification d'un
+								montant maximum de 13,75%
+								du plafond horaire
+								de
+								la Sécurité
+								sociale :
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								La
+								gratification n'est pas soumise à cotisation
+								sociale.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Le
+								stagiaire bénéficie de la législation sur les
+								accidents de
+								travail au titre du régime étudiant de l'article
+								L.412-8 2° du
+								code de la Sécurité sociale.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								En cas d'accident survenant au stagiaire soit au cours
+								d'activités dans l'organisme, soit au cours du trajet, soit sur
+								les lieux rendus utiles pour les besoins du stage et pour les
+								étudiants en médecine, en chirurgie dentaire ou en pharmacie qui
+								n'ont pas un statut hospitalier pendant le stage effectué dans
+								les conditions prévues au b du 2e de l'article L.418-2,
+								<fo:inline text-decoration="underline">
+									l'organisme d'accueil
+									envoie la déclaration à la Caisse Primaire d'Assurance Maladie
+								</fo:inline>
+								ou la caisse compétente (voir adresse en page 1) en mentionnant
+								l'établissement d'enseignement comme employeur, avec
+								<fo:inline text-decoration="underline">
+									copie à l'établissement
+									d'enseignement.
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="1pt" padding-bottom="1pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">The student
-								benefits from legal cover in accordance with the clauses of
-								article L 411-1 and onwards of the Social Security Code. In the
-								event of the student being involved in an accident, regardless
-								of whether this takes place whilst undertaking work in the
-								organisation, during travel or on any premises pertaining to
-								fulfilling the requirements of the internship, the host
-								organisation will take all necessary steps required by the
-								"Caisse Primaire d'Assurance Maladie" and inform the HE
-								institution as soon as possible.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" space-before="0cm"
-								space-after="0cm" font-weight="normal" text-align="justify">
-								<fo:leader />
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								<fo:inline font-size="10pt" font-weight="bold">6.2
+									Stipend
+									greater than
+								</fo:inline>
+								13.75% of the hourly ceiling for social security:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								<fo:inline font-size="10pt" font-weight="bold">6.3 Health
-									protection for interns abroad :
-								</fo:inline>
+								Payroll taxes are calculated based on the difference
+								between the amount of the stipend and 13.75% of the
+								hourly
+								ceiling for social security.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								1) Protection
-								under the French student scheme :
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" space-before="0cm"
-								space-after="0cm" font-weight="normal" text-align="justify">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="1pt" padding-bottom="1pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								- For internships in the European Economic Area (EEA) undertaken
-								by students who are nationals of member states of the European
-								Union, the student must obtain a European Health Insurance Card
-								<fo:inline font-size="10pt" text-decoration="underline">(EHIC).
-								</fo:inline>
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								The student shall have the benefit of legal coverage
+								under the provisions of L.411-1 et seq. of the social
+								security
+								code. If accidents impacting the intern occur,
+								either during his
+								activities within the organization,
+								or during his commute, or on
+								premises used for the
+								purposes of the
+								internship, the host
+								organization shall handle the necessary
+								formalities with the
+								Primary Health Insurance
+								Agency and shall
+								inform the institution
+								as soon as possible.
 							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" space-before="0cm"
-								space-after="0cm" font-weight="normal" text-align="justify">
-								<fo:leader />
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic"
+								font-weight="bold">
+								6.2 -
+								Gratification supérieure à
+								13,75 % du plafond
+								horaire de la
+								Sécurité sociale :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="1pt" padding-bottom="1pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								- For internships carried out in Quebec by students who are
-								French nationals, the student must obtain a
-								<fo:inline font-size="10pt" text-decoration="underline">SE401Q
-								</fo:inline>
-								form (104
-								for internships in companies, 106 for internships in
-								universities).
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Les
+								cotisations sociales sont calculées sur le
+								différentiel entre le
+								montant de la gratification et 13,75 % du
+								plafond horaire de la
+								Sécurité sociale.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" space-before="0cm"
-								space-after="0cm" font-weight="normal" text-align="justify">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif"
-								space-before="0cm" space-after="0cm" font-weight="normal"
-								text-align="justify">
-								<fo:inline font-size="10pt" text-decoration="underline">- In all
-									other cases:
-								</fo:inline>
-								<!-- Les Ã©tudiant(e)s qui engagent des frais de santÃ© Ã  l'Ã©tranger 
-									peuvent Ãªtre remboursÃ©(e)s auprÃ¨s de la mutuelle qui leur tient lieu de 
-									Caisse de SÃ©curitÃ© Sociale Ã©tudiante, au retour, et sur prÃ©sentation 
-									des justificatifs : le remboursement s'effectue alors sur la base des tarifs 
-									de soins franÃ§ais, des Ã©carts importants peuvent exister. -->
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								Students who incur health costs abroad can be
-								reimbursed by the organisation which serves as "Caisse de
-								Sécurité Sociale" for students, on their return to France and
-								on
-								the presentation of documentary evidence: the reimbursement
-								is
-								granted on the basis of French healthcare costs, meaning
-								major
-								differences may exist.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" space-before="0cm"
-								space-after="0cm" font-weight="normal" text-align="justify">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif"
-								space-before="0cm" space-after="0cm" font-weight="normal"
-								text-align="justify">
-								° It is therefore strongly recommended that the
-								student takes out additional private health insurance which is
-								valid in the country where the internship takes place and for
-								the duration of the internship, with the host organisation of
-								his/her choice (student insurance company, insurance company of
-								parents, private company on a one-off basis...).
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								space-before="0cm" space-after="0cm" font-weight="bold"
-								text-align="justify">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif"
-								space-before="0cm" space-after="0cm" font-weight="normal"
-								text-align="justify">
-								°
-								<fo:inline font-size="10pt" text-decoration="underline">
-									Exception
-								</fo:inline>
-								: if the host organisation provides the student with health
-								insurance pursuant to the clauses outlined in local law (see
-								section 2) below), the student can choose to benefit from this
-								local health insurance cover. Before making a decision, the
-								student should verify the specific details of cover provided.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" space-before="0cm"
-								space-after="0cm" font-weight="normal" text-align="justify">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								<fo:inline font-size="10pt">2) Protection from the host
-									organisation:
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								<fo:inline font-size="10pt">By ticking the appropriate box,
-									the host organisation indicates hereunder if it will provide
-									the intern with health insurance pursuant to local law :
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								space-before="0cm" space-after="0cm" font-weight="bold"
-								text-align="justify">
-								<fo:leader />
-							</fo:block>
-							<fo:block>
-								<fo:external-graphic src="url('square.JPG')" />
-								<fo:inline font-size="10pt" font-weight="bold">YES
-								</fo:inline>
-								(this is in addition to the rights of the student under the
-								French student insurance scheme, which continues when the
-								student is abroad)
-							</fo:block>
-							<fo:block>
-								<fo:external-graphic src="url('square.JPG')" />
-								<fo:inline font-size="10pt" font-weight="bold">NO
-								</fo:inline>
-								(protection follows exclusively from the rights of the student
-								under the French student scheme, which continues when the
-								student is abroad)
-							</fo:block>
-							<fo:block>
-								If neither of these options is ticked, section 1) of
-								article 6.3 will apply.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								space-before="0cm" space-after="0cm" font-weight="bold"
-								text-align="justify">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								<fo:inline font-size="10pt" font-weight="bold">6.4
-									Occupational accident insurance for interns abroad :
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								1) In order to benefit from French legislation in
-								relation to occupational accident cover, the present internship
-								must :
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								° Be no longer than 12 months, including any
-								extensions
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								° Not give rise to any remuneration likely to grant
-								rights to occupational accident insurance in the foreign country
-								(an allowance or remuneration is accepted up to 12.5% of the
-								hourly social security limit for a legal duration of weekly work
-								equal to 35 hours subject to the consent of the "Caisse Primaire
-								d'Assurance Maladie").
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								° Take place exclusively in the company party to
-								the
-								present contract.
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								L'étudiant bénéficie de la couverture légale en
+								application des
+								dispositions des articles L.411-1 et suivants du
+								code de la
+								Sécurité sociale. En cas d'accident survenant au stagiaire soit
+								au
+								cours des activités dans l'organisme, soit au cours du trajet,
+								soit sur des lieux rendus utiles pour les besoins de son stage,
+								l'organisme d'accueil effectue toutes les démarches nécessaires
+								auprès de la Caisse Primaire d'Assurance Maladie et informe
+								l'établissement dans les meilleurs délais.
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								° Take place exclusively in the foreign country
-								stated.
+								text-align="justify" font-weight="bold">
+								6.3 - Health Insurance for
+								interns working abroad
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify">
+								1)
+								<fo:inline text-decoration="underline">
+									Coverage originating in the
+									French students' coverage framework
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="1pt" padding-bottom="1pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify">
+								- for internships
+								within the European Economic Area (EEA) conducted
+								by nationals of
+								a State of the European Union or of Norway, Iceland,
+								Liechtenstein or Switzerland, or of any another State (in the
+								latter case this provision shall
+								not apply for internships in
+								Denmark,
+								Norway, Iceland, Liechtenstein or Switzerland), students
+								must apply for a European Health Insurance Card (EHIC).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" space-before="0cm"
 								space-after="0cm" font-weight="normal" text-align="justify">
-								<fo:leader />
+								- for
+								internships conducted in Quebec by students of French
+								nationality, students must request form SE401Q (104 for
+								internships at companies, and 106 for university internships);
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								When these
-								conditions are not fulfilled, the host organisation agrees to
-								pay contributions for the protection of the intern and to make
-								the necessary declarations in the event of an accident in the
-								workplace.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								2) The
-								declaration of occupational accidents is the responsibility of
-								the HE institution who must be informed by the host organisation
-								in writing within 48 hours.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								3) The student is
-								covered for accidents occurring:
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								° Within the confines of the location of the
-								internship and the hours of the internship.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								° On the daily journey between the place of
-								internship and the place of residence abroad.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								° On the journey between the place of residence of
-								the intern on French territory and the place of residence abroad
-								(at the beginning or the end of the internship).
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								° In the course of any assignment commissioned by
+								font-family="Times New Roman,serif" space-before="0cm"
+								space-after="0cm" font-weight="normal" text-align="justify">
+								- In all other
+								cases, students who incur medical expenses may
+								be reimbursed by
+								the mutual insurance company serving as their
+								student Social
+								Security Agency, upon their return and upon
+								presentation of
+								receipts: reimbursement shall then be provided
+								carried out on the
+								basis of French healthcare rates. Significant
+								differences may
+								exist between the costs incurred and the French
+								rates serving as
+								the basis for reimbursement. It is strongly
+								advised that students
+								to take out specific additional health
+								insurance coverage valid
+								for the country in question and for
+								the duration of their
+								internships, the course, from the insurance
+								company of their
+								choice (students' mutual insurance, parents'
+								mutual
+								insurance, ad
+								hoc private company, etc.), or, possibly,
+								after checking
 								the
-								host organisation and where the activity is a necessary part
-								of
-								the given assignment.
+								extent of the guarantees proposed, from the
+								host organization
+								if
+								it provides health coverage to interns under local law
+								(see item
+								2 below).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								4) In the event
-								that any condition outlined in point 6.4 1) is not met, in
-								accordance with the present contract, the host organisation
-								agrees to provide cover for the intern against the risk of a
-								workplace or travel accident and against occupational diseases
-								and to provide any declarations required.
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="1pt" padding-bottom="1pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								5) In all cases,
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								° If a student suffers an accident in the workplace during the
-								internship, it is imperative that the host organisation informs
-								the HE institution of the accident
-								<fo:inline font-size="10pt" text-decoration="underline">immediately.
+								2)
+								<fo:inline text-decoration="underline">
+									Social welfare protection
+									from the host organization
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								° If a student completes limited tasks outside of
-								the
-								host organisation or outside the country where the
-								internship
-								takes place, the host organisation must make all the
-								necessary
-								arrangements to provide the student with appropriate
-								insurance.
+								By checking the appropriate box below, the host
+								organization
+								indicates whether it provides health insurance
+								coverage to
+								the intern under local law:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Article 7 : Civil liability and insurance
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								The host
-								organisation and the student declare that they have civil
-								liability coverage.
+								padding-top="0.2cm">
+								<fo:external-graphic src="url('square.JPG')" />
+								<fo:inline font-weight="bold"> YES
+								</fo:inline>
+								: This coverage is in addition to the maintenance
+								abroad of
+								rights granted under French law
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								Regardless of the nature of the internship and the
-								destination country, the intern agrees to obtain cover for
-								him/herself by way of a general insurance policy (medical
-								repatriation, legal assistance, etc) and a personal accident
-								insurance policy.
+								padding-top="0.2cm">
+								<fo:external-graphic src="url('square.JPG')" />
+								<fo:inline font-weight="bold"> NO
+								</fo:inline>
+								: coverage is thus exclusively provided from the
+								maintenance
+								abroad of the rights granted under
+								the French student coverage
+								framework).
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								If the host organisation provides the intern with a
-								vehicle, it is the responsibility of the host organisation to
-								confirm beforehand that the vehicle insurance policy covers use
-								of the vehicle by a student.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif"
 								space-before="0cm" space-after="0cm" font-weight="normal"
 								text-align="justify">
-								<fo:inline font-size="10pt">
-									When the student uses his/her own
-									vehicle or a vehicle loaned by a third party within the
-									framework of the internship, the student expressly agrees to
-									declare this use to the insurer of the said vehicle, and if
-									required, to pay the relevant premium.
+								If neither box is checked, item 6.3-1 shall apply.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
+								font-style="italic">
+								6.3 - Protection
+								maladie du
+								stagiaire à l'étranger
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="9pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								1)
+								<fo:inline text-decoration="underline">Protection
+									issue du régime
+									étudiant français
 								</fo:inline>
 							</fo:block>
-
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								<fo:leader />
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								-
+								pour les stages
+								au sein
+								de l'Espace Economique Européen (EEE)
+								effectués par des
+								ressortissants d'un Etat de l'Union Européenne,
+								ou de la
+								Norvège, de l'Islande, du Liechtenstein ou de la Suisse,
+								ou
+								encore de tout autre Etat (dans ce dernier cas, cette
+								disposition n'est pas applicable pour un stage au Danemark,
+								Norvège, Islande, Liechtenstein ou Suisse), l'étudiant doit
+								demander la Carte Européenne d'Assurance Maladie (CEAM).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Article 8 : Conduct
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								space-before="0cm" space-after="0cm" font-weight="normal"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								-
+								pour les
+								stages effectués
+								au Québec par les étudiants de
+								nationalité
+								française, l'étudiant
+								doit demander le formulaire
+								SE401Q (104
+								pour les stages en
+								entreprises, 106 pour les stages
+								en
+								universités) ;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								Throughout the
-								internship, the student is subject to the conduct and internal
-								regulations of the organisation, specifically, in relation to
-								hours of work, and hygiene and safety regulations in force
-								within the host organisation.
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								space-before="0cm" space-after="0cm" font-weight="normal"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								-
+								dans tous
+								les autres cas
+								les étudiants qui engagent des frais de
+								santé
+								peuvent être
+								remboursés auprès de la mutuelle qui leur tient
+								lieu de Caisse de
+								Sécurité Sociale Étudiante, au retour et sur
+								présentation des
+								justificatifs : le remboursement s'effectue
+								alors sur la base des
+								tarifs de soins français. Des écarts
+								importants peuvent exister
+								entre les frais engagés et les tarifs
+								français, base du
+								remboursement. Il est donc fortement conseillé
+								aux étudiants de
+								souscrire une assurance maladie
+								complémentaire
+								spécifique, valable
+								pour le pays et la durée du
+								stage, auprès de
+								l'organisme
+								d'assurance de son choix (mutuelle
+								étudiante,
+								mutuelle
+								des
+								parents, compagnie privée ad hoc...) ou,
+								éventuellement et
+								après
+								vérification de l'étendue des garanties
+								proposées, auprès de
+								l'organisme d'accueil si celui-ci fournit
+								au stagiaire une
+								couverture maladie en vertu du droit local
+								(voir 2e ci-dessous).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								Disciplinary procedures may only be determined by the
-								HE institution. In the event of a breach of discipline, the host
-								organisation should inform the HE institution of the breach(es)
-								and provide the constitutive elements.
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								2)
+								<fo:inline text-decoration="underline">
+									Protection sociale issue de
+									l'organisme d'accueil
+								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								In the event of a particularly serious breach of
-								discipline, the host organisation reserves the right to
-								terminate the internship while respecting the clauses fixed in
-								article 9 of the present contract.
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								En
+								cochant la case appropriée, l'organisme d'accueil
+								indique
+								ci-après s'il fournit une protection Maladie au
+								stagiaire, en
+								vertu du droit local :
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								background-color="#E6E6E6" font-style="italic">
+								-
+								<fo:inline font-weight="bold"> OUI
+								</fo:inline>
+								: cette protection s'ajoute au maintien, à l'étranger, des
+								droits
+								issus du droit français.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								background-color="#E6E6E6" font-style="italic">
+								-
+								<fo:inline font-weight="bold"> NON
+								</fo:inline>
+								: la protection découle alors exclusivement du maintien, à
+								l'étranger, des droits issus du régime français étudiant.
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								hyphenate="false" language="fr" country="FR" font-size="9pt"
+								font-family="Times New Roman,serif" space-before="0cm"
+								space-after="0cm" font-weight="normal" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								Si
+								aucune case n'est
+								cochée, le 6.3-1 s'applique.
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
 				</fo:table-body>
 			</fo:table>
-
 		</fo:block>
 	</xsl:template>
 	<!-- quatrieme page -->
@@ -1909,230 +2569,1230 @@
 					<fo:table-row>
 						<fo:table-cell padding-right="10pt">
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Article 9 : Leave of absence and curtailment of
-								internship
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								Any difficulties
-								which occur during the course of the internship shall be brought
-								to the attention of all parties concerned in order to resolve
-								the issue as soon as possible.
-
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="11.5pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Temporary curtailment :
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								During the course of
-								the internship, the intern can take annual leave subject to
-								approval from the host organisation and with respect of the
-								duration of the internship.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								For any other
-								temporary curtailment of the internship (illness, maternity,
-								unauthorised absence...), the host organisation should inform
-								the HE institution representative in writing.
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-style="italic">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Definitive curtailment :
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								<fo:inline font-size="10pt" font-weight="bold">
-									In the event
-									that one of the three parties (host organisation, HE
-									institution, student) wishes to permanently curtail the
-									internship,
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								<fo:inline font-weight="bold">6.4 -
+									Workplace Accident
+									Coverage for interns abroad
 								</fo:inline>
-								the party in question shall inform the other parties in writing
-								immediately. The reasons outlined will be considered together. A
-								definitive decision to curtail the internship will only be made
-								after this dialogue phase.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-style="italic">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Article 10 : Duty of circumspection and
-								nondisclosure
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								The duty of
-								circumspection is absolute. In this respect, intern students
-								agree that in no circumstances will they use information they
-								have gathered or obtained, including the internship report, for
-								the purpose of publication or communication with third parties,
-								without prior consent from the host organisation. In addition to
-								the duration of the internship, this continues to apply after
-								the internship has ended. The student agrees not to keep, take
-								or make a copy of any document or software belonging to the host
-								organisation, regardless of its nature, without consent from the
-								host organisation.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								1)
+								<fo:inline text-decoration="underline">In order to benefit from
+									French legislation
+								</fo:inline>
+								providing coverage for workplace accidents, this internship
+								must:
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								- have a duration not exceeding six months, including
+								any extensions;
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt">
+								- not include any remuneration
+								that may tend to qualify for rights
+								to workplace accident
+								protection in the host country;
+								compensations
+								or stipends are
+								acceptable, up to the limit of
+								13.75% of the hourly
+								ceiling for
+								social security (see point 5),
+								and subject to approval
+								by the
+								Primary Health Insurance Agency of
+								a request for the
+								maintenance
+								of such rights;
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt">
+								- take place exclusively within
+								the organization signing this agreement;
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt">
+								- take place exclusively in the
+								abovementioned foreign host country.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" space-before="0cm"
+								space-after="0cm" font-weight="normal" text-align="justify">
+								When these
+								conditions are not met, the host organization
+								undertakes to
+								contribute to the intern's welfare protection
+								and make the
+								necessary declarations in case of workplace
+								accidents.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								2)
+								<fo:inline text-decoration="underline">
+									The workplace accident
+									statement
+								</fo:inline>
+								is the responsibility of the educational
+								institution, which must
+								be informed of
+								such events in writing within 48 hours
+								by the host
+								organization.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								3)
+								<fo:inline text-decoration="underline">The coverage concerns
+									accidents occurring:
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								- within
+								the internship location and during internship working hours,
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								- on the
+								normal commute to and from the intern's residence in
+								the foreign
+								nation and the internship location,
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								- as part
+								of an assignment provided by the
+								intern's host organization upon
+								formal
+								assignment mandate,
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								- during
+								the first trip from his domicile
+								to his place of residence during
+								the
+								internship (travel on the internship
+								start date),
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								- during
+								the final return trip from his
+								residence during the internship to
+								his
+								personal domicile.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify">
+								4)
+								<fo:inline text-decoration="underline"> In the event
+									that one of
+									the conditions set forth
+									in section 6.4-1 /
+								</fo:inline>
+								is not satisfied, the host organization commits
+								to cover the
+								intern for the risks of workplace
+								accidents, travel accidents,
+								and occupational
+								disease, and provide all the necessary
+								statements of coverage.
+							</fo:block>
+
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="1pt" padding-bottom="1pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify">
+								<fo:inline text-decoration="underline">5) In all cases:
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								- if the student is the victim of a workplace
+								accident
+								during his internship, the host organization must
+								immediately notify the educational institution of
+								the accident;
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="4pt">
+								- if the
+								student performs
+								limited assignments outside
+								of the host
+								organization or outside
+								of the internship
+								country, the host
+								organization must take all
+								necessary steps to provide
+								him with the
+								appropriate insurance.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								<fo:inline font-weight="bold">6.4 - Protection
+									Accident du
+									Travail du stagiaire à l'étranger
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt"
+								background-color="#E6E6E6" font-style="italic">
+								1)
+								<fo:inline text-decoration="underline">Pour pouvoir
+									bénéficier de
+									la législation française
+								</fo:inline>
+								sur la
+								couverture accident
+								de travail, le présent stage doit :
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								-
+								être d'une
+								durée au plus égale à 6 mois,
+								prolongations
+								incluses ;
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								- ne
+								donner lieu à aucune
+								rémunération susceptible
+								d'ouvrir des droits
+								à une protection
+								accident de travail dans le
+								pays d'accueil ; une
+								indemnité ou
+								gratification est admise dans
+								la limite de 13,75% du
+								plafond
+								horaire de la sécurité sociale
+								(cf
+								point 5), et sous
+								réserve de
+								l'accord de la Caisse Primaire
+								d'Assurance Maladie sur
+								la demande
+								de maintien de droit ;
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								- se
+								dérouler exclusivement
+								dans l'organisme
+								signataire de la présente
+								convention ;
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								- se
+								dérouler exclusivement
+								dans le pays d'accueil
+								étranger cité.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								space-before="0cm" space-after="0cm" font-weight="normal"
-								text-align="justify">
-								<fo:inline font-size="10pt">
-									Note: Within the framework of
-									nondisclosure of information contained within the report, the
-									host organisation can request a restriction on the distribution
-									of the report and even the withdrawal of certain elements of
-									highly confidential information.
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Lorsque ces
+								conditions ne
+								sont pas remplies, l'organisme d'accueil
+								s'engage à
+								cotiser pour
+								la protection du stagiaire et à faire
+								les
+								déclarations nécessaires
+								en cas d'accident de travail.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" background-color="#E6E6E6"
+								font-style="italic">
+								2)
+								<fo:inline text-decoration="underline">
+									La déclaration
+									des accidents
+									de travail
 								</fo:inline>
+								incombe à l'établissement d'enseignement qui doit en être
+								informé par l'organisme d'accueil par écrit dans un délai de 48
+								heures.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								space-before="0cm" space-after="0cm" font-weight="normal"
-								text-align="justify">
-								<fo:inline font-size="10pt">
-									Those who have knowledge of the
-									information contained within the report are restricted by
-									professional confidentiality not to use or disclose any
-									information contained therein.
+								padding-top="2pt" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								3)
+								<fo:inline text-decoration="underline">La couverture concerne les
+									accidents survenus
 								</fo:inline>
+								:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								-
+								dans
+								l'enceinte du lieu
+								du stage et aux heures du
+								stage,
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								- sur
+								le
+								trajet
+								aller-retour habituel entre la
+								résidence du stagiaire sur
+								le
+								territoire étranger et le lieu du
+								stage,
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								-
+								dans le
+								cadre d'une
+								mission confiée par l'organisme
+								d'accueil du
+								stagiaire et
+								obligatoirement par ordre de mission,
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								-
+								lors du
+								premier trajet
+								pour se rendre depuis son domicile sur le
+								lieu de
+								sa résidence
+								durant le stage (déplacement à la date du
+								début du
+								stage),
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								-
+								lors du
+								dernier trajet de
+								retour depuis sa résidence durant le
+								stage à
+								son domicile
+								personnel.
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
 								font-style="italic">
-								<fo:leader />
+								(article 6.4 suite)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Article 11 : Intellectual property
+								country="FR" font-size="9pt" padding-top="2pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								4)
+								<fo:inline text-decoration="underline"> Pour le cas où
+									l'une
+									seule
+									des conditions prévues au point 6.4-1)
+								</fo:inline>
+								n'est pas
+								remplie, l'organisme d'accueil s'engage à couvrir le
+								stagiaire contre le risque d'accident de travail, de trajet et
+								les maladies professionnelles et à en assurer toutes les
+								déclarations nécessaires.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								5)
+								<fo:inline text-decoration="underline">Dans tous les
+									cas
+								</fo:inline>
+								:
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								- si
+								l'étudiant est victime d'un accident de
+								travail
+								durant
+								le stage,
+								l'organisme d'accueil doit
+								impérativement
+								signaler
+								immédiatement
+								cet accident à
+								l'établissement
+								d'enseignement ;
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								- si
+								l'étudiant remplit des
+								missions limitées
+								en dehors
+								de l'organisme
+								d'accueil ou en dehors
+								du pays du
+								stage,
+								l'organisme d'accueil doit
+								prendre toutes les
+								dispositions
+								nécessaires pour lui fournir les
+								assurances
+								appropriées.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								In accordance with the Intellectual Property Code, if
-								the work undertaken by the intern results in the creation of a
-								piece of work protected by copyright or industrial property
-								(including software), and if the host organisation wishes to use
-								the work and the student consents to this, a contract should be
-								drawn up and signed by the intern (author) and the host
-								organisation.
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								The contract should notably include the extent of
-								transferred rights, the conditions of exclusivity, the
-								destination of the work, the resources used and the duration of
-								the transfer of rights as well as the total remuneration owed to
-								the student in relation to the transfer of rights, if
-								applicable.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold" font-style="italic">
-								This clause
-								also applies in the case of internships carried out in public
-								institutions.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-style="italic">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								Article 12 : Recruitment
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify">
-								In the event that
-								a work contract is signed by the host organisation and comes
-								into effect before the end date of the internship, the present
-								contract will become null and void; the HE institution is no
-								longer responsible for the student. It is imperative that the HE
-								institution is informed of the work contract before it is
-								signed.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="justify"
-								font-style="italic">
 								<fo:leader />
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
-								Article 13 : End of internship
+								Article 7 - Liability and
+								Insurance
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								The host organization and the intern
+								declare that they
+								possess civil
+								liability coverage.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								For internships abroad or in overseas territories,
+								the intern agrees to take out a travel assistance
+								insurance
+								contract (repatriation for health reasons,
+								legal assistance,
+								etc.) and an individual accident
+								insurance policy.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								When the host organization makes a vehicle available
+								to the intern, it is its responsibility to check
+								beforehand that
+								the car's insurance policy
+								includes coverage for its use by a
+								student.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								space-before="0cm" space-after="0cm" font-weight="normal"
+								text-align="justify" padding-bottom="4pt">
+								When the student is to use
+								his own vehicle or a
+								vehicle
+								loaned by a third party for purposes
+								of his internship,
+								he shall expressly inform the insurer of the
+								vehicle
+								and, where
+								applicable, pay the corresponding premium.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
+								font-style="italic">
+								Article 7 - Responsabilité et
+								assurance
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								L'organisme
+								d'accueil et le stagiaire déclarent
+								être
+								garantis au
+								titre
+								de la responsabilité civile.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Pour
+								les stages à l'étranger ou outre-mer, le
+								stagiaire s'engage à
+								souscrire un contrat d'assistance
+								(rapatriement sanitaire,
+								assistance juridique...) et un contrat
+								d'assurance individuel
+								accident.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Lorsque l'organisme d'accueil met un véhicule à la
+								disposition du
+								stagiaire, il lui incombe de vérifier
+								préalablement que la police
+								d'assurance du véhicule couvre son
+								utilisation par un étudiant.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								space-before="0cm" space-after="0cm" font-weight="normal"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Lorsque dans le cadre de son stage, l'étudiant
+								utilise son propre
+								véhicule ou un véhicule prêté par un tiers,
+								il déclare
+								expressément à l'assureur dudit véhicule et, le cas
+								échéant,
+								s'acquitte de la prime y afférente.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								<fo:leader />
+							</fo:block>
+
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-bottom="2pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								font-weight="bold">
+								Article 8 - Discipline
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								The intern shall be subject to the applicable
+								internal disciplinary
+								and regulatory terms, of which he shall be
+								made aware prior to the
+								start of the internship, particularly in
+								regard to schedules and to
+								the health and safety regulations in
+								effect at the host
+								organization.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								Disciplinary sanctions may only be imposed by
+								decision of
+								the educational institution. In such case, the host
+								organization shall inform the academic advisor and
+								the
+								institution of the
+								non-compliance and shall
+								provide any supporting
+								evidence.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-bottom="4pt">
+								In case of a particularly
+								serious breach of
+								discipline,
+								the host organization reserves the
+								right to terminate
+								the internship, while respecting the
+								provisions set
+								forth in
+								article 9 of this agreement.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
+								font-style="italic">
+								Article 8 - Discipline
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Le
+								stagiaire
+								est soumis à la discipline et aux
+								clauses
+								du règlement
+								intérieur qui lui sont applicables et qui
+								sont
+								portées à sa
+								connaissance avant le début du stage, notamment
+								en ce
+								qui
+								concerne
+								les horaires et les règles d'hygiène et de
+								sécurité
+								en
+								vigueur dans
+								l'organisme d'accueil.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Toute sanction disciplinaire ne peut être décidée que
+								par
+								l'établissement d'enseignement. Dans ce cas, l'organisme
+								d'accueil informe
+								l'enseignant référent et l'établissement des
+								manquements et
+								fournit éventuellement les éléments constitutifs.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								En
+								cas de manquement particulièrement grave à la
+								discipline,
+								l'organisme d'accueil se réserve le droit de mettre
+								fin au stage
+								tout en respectant les dispositions fixées à
+								l'article 9 de la
+								présente convention.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								font-weight="bold">
+								Article 9 - Leave - Internship Interruption
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								In France (except
+								as provided under special
+								regulations
+								applicable for certain
+								French overseas
+								collectivities
+								or for organizations under public
+								law),
+								in case of pregnancy,
+								paternity or
+								adoption, the intern shall
+								be granted time off and
+								leaves of absence for a period
+								equivalent
+								to that granted to
+								employees under
+								articles L.1225-16
+								to
+								L.1225-28,
+								L.1225-35,
+								L.1225-37,
+								and L.1225-46
+								the labor code.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify">
+								Time off or
+								leaves of absence are
+								possible for internships
+								lasting more than 2
+								months but
+								less than 6 months.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								<fo:inline text-decoration="underline">
+									NUMBER OF DAYS OF
+									AUTHORIZED LEAVE
+								</fo:inline>
+								/ or terms of time off and leaves of absence during the
+								internship :
+							</fo:block>
+							<xsl:choose>
+								<xsl:when test="nb-conges and nb-conges != ''">
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:inline font-weight="bold">
+											<xsl:value-of select="nb-conges" />
+										</fo:inline>
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										.......................................................................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>
+		</fo:block>
+	</xsl:template>
+
+	<!-- cinquieme page -->
+	<xsl:template name="ArticlesPage5">
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="10pt" font-family="Times New Roman,serif"
+			margin-left="0cm" margin-right="0cm" text-indent="0cm">
+			<fo:table table-layout="fixed" width="100%">
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell padding-right="10pt">
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" font-weight="bold">
+								(article 9
+								continued)
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								The host organization
+								shall notify the educational
+								institution of any other temporary
+								interruption of the internship (illness,
+								unjustified absence,
+								etc.) by mail.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								padding-top="2pt">
+								Notice of any interruption of the internship shall
+								be provided to the other parties
+								to the agreement and the
+								academic advisor. A validation
+								procedure
+								shall be implemented by
+								the educational institution as needed. A postponement
+								of the
+								internship end date is possible,
+								if approved by the parties
+								to the
+								agreement, so as to
+								permit the full duration of the
+								internship
+								as
+								originally planned. This postponement will be the
+								subject of an
+								amendment to the
+								internship agreement.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								If a joint request is made by the host organization
+								and the intern to extend
+								the duration of the internship up to the
+								maximum
+								duration prescribed by law
+								(6 months), an amendment may be
+								made to
+								the agreement.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" padding-bottom="4pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify">
+								If any of the
+								three parties (host organization,
+								intern, educational
+								institution)
+								wish to put an end to the
+								internship, such party
+								must
+								immediately inform the other
+								two
+								parties in writing. The reasons
+								given will be
+								examined in close
+								consultation.
+								The definitive
+								decision to terminate the internship
+								shall be made at
+								the end of
+								this consultation phase.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
+								font-style="italic">
+								Article 9 - Congés -
+								Interruption du stage
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								En
+								France (sauf
+								en cas de règles particulières applicables dans
+								certaines
+								collectivités d'outre-mer françaises ou dans les
+								organismes de
+								droit public), en cas de grossesse,
+								de paternité ou
+								d'adoption,
+								le
+								stagiaire bénéficie de congés
+								et
+								d'autorisations
+								d'absence d'une
+								durée équivalente à celle
+								prévues
+								pour les salariés
+								aux
+								articles
+								L.1225-16 à L.1225-28,
+								L.1225-35, L.1225-37, L.1225-46
+								du code du
+								travail.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-bottom="2pt" country="FR" font-size="9pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								Pour les stages
+								dont la
+								durée est supérieure à deux
+								mois et dans la limite de la
+								durée
+								maximale de 6 mois, des
+								congés ou autorisations d'absence
+								sont
+								possibles.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								<fo:inline text-decoration="underline">
+									NOMBRE
+									DE JOURS DE CONGES
+									AUTORISES
+								</fo:inline>
+								/ ou modalités des congés et autorisations d'absence durant le
+								stage : ...
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								background-color="#E6E6E6" font-style="italic">
+								Pour toute autre
+								interruption temporaire du stage (maladie, absence
+								injustifiée...)
+								l'organisme d'accueil avertit l'établissement
+								d'enseignement par
+								courrier.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								background-color="#E6E6E6" font-style="italic">
+								Toute interruption du
+								stage, est signalée aux autres
+								parties à la convention et à
+								l'enseignant référent. Une modalité
+								de validation est mise en
+								place le cas échéant par
+								l'établissement. En cas d'accord des
+								parties à la convention, un
+								report de la fin du stage est
+								possible afin de permettre la
+								réalisation de la durée totale du
+								stage prévue initialement. Ce
+								report fera l'objet d'un avenant à
+								la convention de stage.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Un
+								avenant à la
+								convention pourra être
+								établi en cas de
+								prolongation
+								du stage sur demande conjointe de
+								l'organisme
+								d'accueil et du
+								stagiaire, dans le respect de
+								la durée
+								maximale du
+								stage fixée par
+								la loi (6 mois).
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								En
+								cas de volonté d'une des trois parties (organisme
+								d'accueil,
+								stagiaire, établissement d'enseignement) d'arrêter le
+								stage,
+								celle-ci doit immédiatement en informer les deux autres
+								parties
+								par écrit. Les raisons invoquées seront examinées en
+								étroite
+								concertation. La décision définitive d'arrêt du stage ne
+								sera
+								prise qu'à l'issue de cette phase de concertation.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-style="italic">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold">
+								Article 10 - Duty of discretion
+								and confidentiality
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								The duty of confidentiality must at all times be
+								observed,
+								with its specific aspects taken
+								into account by the host
+								organization. The intern commits
+								to refrain
+								from using the
+								information
+								collected or obtained by him, under any
+								circumstances,
+								for purposes of publication or
+								disclosure to third
+								parties without
+								prior consent
+								of the host organization,
+								including
+								in the internship report. This commitment
+								applies not only to the
+								internship period but shall extend after its conclusion
+								as well.
+								The intern commits
+								to not retain, remove, or copy any
+								documents or
+								software
+								of any kind belonging to the
+								host organization, except
+								upon prior approval
+								from the latter.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								space-before="0cm" space-after="0cm" font-weight="normal"
+								text-align="justify">
+								For purposes of preserving the confidentiality of
+								the
+								information contained in
+								the internship report, the host
+								organization may
+								request a restriction on the
+								distribution of the
+								report, or the removal of
+								certain confidential information.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								space-before="0cm" space-after="0cm" font-weight="normal"
+								text-align="justify" padding-bottom="2pt">
+								Persons with a need to know
+								shall be constrained by
+								commitments to professional secrecy to
+								refrain from any use or
+								disclosure of the information
+								in the
+								report.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
+								font-style="italic">
+								Article 10 - Devoir de réserve
+								et confidentialité
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Le
+								devoir de
+								réserve est de rigueur absolue et
+								apprécié
+								par
+								l'organisme
+								d'accueil compte-tenu de ses
+								spécificités. Le
+								stagiaire
+								prend donc l'engagement de n'utiliser
+								en aucun cas
+								les
+								informations recueillies ou obtenues par eux pour
+								en faire
+								publication, communication à des tiers sans accord
+								préalable de
+								l'organisme d'accueil, y compris le rapport de
+								stage.
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								space-before="0cm" space-after="0cm" font-weight="normal"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								<fo:inline font-weight="bold">(Article 10 suite)</fo:inline>
+								Cet engagement vaut non seulement pour la durée du stage
+								mais
+								également après son expiration. Le stagiaire s'engage à ne
+								conserver, emporter, ou prendre copie d'aucun document ou
+								logiciel, de quelque nature que ce soit, appartenant à
+								l'organisme d'accueil, sauf accord de ce dernier.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								space-before="0cm" space-after="0cm" font-weight="normal"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Dans
+								le cadre de la confidentialité des informations
+								contenues dans le
+								rapport de stage, l'organisme d'accueil peut
+								demander une
+								restriction de la diffusion du rapport, voire le
+								retrait de
+								certains éléments confidentiels.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								space-before="0cm" space-after="0cm" font-weight="normal"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Les
+								personnes amenées à en connaître sont contraintes
+								par le secret
+								professionnel à n'utiliser ni ne divulguer les
+								informations du
+								rapport.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-style="italic">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								padding-top="4pt" padding-bottom="2pt" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-align="justify"
+								font-weight="bold">
+								Article 11 - Intellectual Property
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
+								In accordance with the code of intellectual property,
+								if the intern's activities result
+								in the creation of a work
+								protected by copyright or
+								industrial property (including
+								software),
+								and the host organization wishes
+								to make use of such
+								work with the intern's approval,
+								a contract must be signed
+								between
+								the intern (the author)
+								and the host organization.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-bottom="4pt">
+								The contract must
+								specifically include the extent of
+								the rights
+								to be transferred,
+								any possible
+								exclusivity
+								requirements, the
+								intended use, the media
+								used,
+								and the duration
+								of the transfer
+								of rights, as well as, if
+								applicable, the amount
+								of
+								compensation due to the
+								intern for the
+								transfer. This clause
+								shall apply
+								regardless of the host
+								organization's business
+								structure.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
+								font-style="italic">
+								Article 11 - Propriété intellectuelle
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Conformément au code de la propriété intellectuelle,
+								dans le cas
+								où les activités du stagiaire donnent lieu à
+								la
+								création d'une
+								&#339;uvre protégée par le droit d'auteur ou la
+								propriété
+								industrielle (y compris un logiciel), si l'organisme
+								d'accueil
+								souhaite l'utiliser et que le stagiaire en est
+								d'accord, un
+								contrat devra être signé entre le stagiaire
+								(auteur) et
+								l'organisme d'accueil.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Le
+								contrat devra alors notamment préciser l'étendue
+								des droits
+								cédés, l'éventuelle exclusivité, la destination, les
+								supports
+								utilisés et la durée de la cession, ainsi que, le cas
+								échéant, le
+								montant de la rémunération due au stagiaire au
+								titre
+								de la
+								cession. Cette clause s'applique quel que soit le
+								statut de
+								l'organisme d'accueil.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-style="italic">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold">
+								Article 12 - End of internship
 								- Report - Evaluation
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								At the end of the
-								internship, the host organisation will provide the intern with
-								an internship certificate and will complete an evaluation form
-								in relation to the performance of the intern (see appendix)
-								which should be returned to the HE institution.
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								At the end of the internship, the student shall: (specify the
-								nature of work to be provided by an attachment in the appendix,
-								if necessary)
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="nature-travail/libelle" />
+								1)
+								<fo:inline text-decoration="underline">Internship certificate
 								</fo:inline>
+								: at the end of the internship, the host organization shall
+								issue a certificate, a template for
+								which is included as an
+								appendix hereto, indicating as a
+								minimum the effective duration
+								of
+								the internship, and, if applicable, the amount of the stipend
+								paid. The intern will need to produce
+								this certificate as
+								supporting documentation in applying for
+								benefits under the
+								general retirement
+								insurance framework, as provided under article
+								L.351-17
+								of the social security code;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								State the terms of validation of the internship, if required:
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="mode-validation-stage/libelle" />
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								2)
+								<fo:inline text-decoration="underline">Internship Quality
 								</fo:inline>
+								: Once the internship has ended, the parties to this agreement
+								are invited to submit an assessment
+								of the quality of the
+								internship. The intern will send a
+								document to the appropriate
+								department
+								of the educational institution in
+								which he will
+								evaluate
+								the quality of the reception he was
+								given by the host
+								organization.
+								This document will not be
+								taken into consideration
+								in his
+								evaluation, or in awarding his diploma or certificate.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								3)
+								<fo:inline text-decoration="underline"> Evaluation of the intern's
+									activity
+								</fo:inline>
+								: Once the internship has ended, the host organization shall
+								fill
+								out an assessment form on the
+								intern's activity, which it
+								will return to the academic advisor
+								(or
+								specify form attached or
+								assessment
+								procedures previously
+								established in cooperation with
+								the
+								academic advisor).
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt" padding-bottom="2pt">
+								4)
+								<fo:inline text-decoration="underline">Educational Assessment
+									Procedures
+								</fo:inline>
+								: The intern shall (specify the nature of the work
+								to be provided
+								- report, etc.
+								- possibly by including an attachment)
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								padding-top="2pt" padding-bottom="2pt">
 								<xsl:variable name="nb-credit" select="credit-eCTS" />
-								Number of ECTS credits :
+								<fo:inline text-decoration="underline">NUMBER OF ECTS (if
+									applicable):
+								</fo:inline>
 								<xsl:choose>
 									<xsl:when test='$nb-credit=0.00'>
 
@@ -2145,861 +3805,1348 @@
 								</xsl:choose>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Quality evaluation of
-								the internship: At the end of the internship, the three parties
-								involved are invited to formulate an appraisal of the quality of
-								the internship.
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-top="2pt">
+								5) Neither the academic
+								supervisor from the host organization,
+								nor any member of the host
+								organization
+								invited to visit the educational institution for
+								purposes of
+								the preparation, conduct and validation
+								of the
+								internship, may
+								assert any claim for reimbursement or
+								compensation from the
+								educational institution.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								The host organisation
-								tutor or any other member of the host organisation required to
-								visit the HE institution as part of the preparation,
-								implementation or validation of the internship may not claim
-								reimbursement or compensation from the HE institution.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								An addendum to the
-								contract may be drawn up in the event of an extension of the
-								internship at the request of the host organisation and the
-								student. The date of the end of the internship may not take
-								place after the 30th September of the year in question, under
-								any circumstances.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								The successive hosting
-								of interns undertaking internships in a certain post under
-								internship contracts is only possible after a waiting period
-								equal to a third of the duration of the previous internship.
-								This clause is not applicable when the previous internship was
-								curtailed by the student before the end of the contract.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-style="italic">
 								<fo:leader />
 							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
+								font-style="italic">
+								Article 12 - Fin de stage -
+								Rapport - Evaluation
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								1)
+								<fo:inline text-decoration="underline">Attestation de stage
+								</fo:inline>
+								: à l'issue du stage, l'organisme d'accueil délivre une
+								attestation dont le modèle figure en annexe, mentionnant au
+								minimum la durée effective du stage et, le cas échéant, le
+								montant de la gratification perçue. Le stagiaire devra
+								produire
+								cette attestation à l'appui de sa demande éventuelle
+								d'ouverture
+								de droits au régime général d'assurance vieillesse
+								prévue à
+								l'art. L.351-17 du code de la sécurité sociale.
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>
+		</fo:block>
+	</xsl:template>
+
+	<!-- sixieme page -->
+	<xsl:template name="ArticlesPage6">
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="10pt" font-family="Times New Roman,serif"
+			margin-left="0cm" margin-right="0cm" text-indent="0cm">
+			<fo:table table-layout="fixed" width="100%">
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell padding-right="10pt">
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold" background-color="#E6E6E6"
+								font-style="italic">
+								(Article 12 suite)
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								2)
+								<fo:inline text-decoration="underline">Qualité du stage
+								</fo:inline>
+								: à l'issue du stage, les parties à la présente convention sont
+								invitées à formuler une appréciation sur la qualité du stage.
+								Le
+								stagiaire transmet au service compétent de
+								l'établissement
+								d'enseignement un document dans lequel il
+								évalue la qualité
+								de
+								l'accueil dont il a bénéficié au sein
+								de l'organisme
+								d'accueil. Ce
+								document n'est pas pris en compte
+								dans son
+								évaluation ou dans
+								l'obtention du diplôme ou de la
+								certification.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								3)
+								<fo:inline text-decoration="underline">Évaluation de l'activité
+									du
+									stagiaire
+								</fo:inline>
+								: à l'issue du stage, l'organisme d'accueil renseigne une fiche
+								d'évaluation de l'activité du stagiaire qu'il retourne à
+								l'enseignant référent (ou préciser si fiche
+								annexe ou modalités
+								d'évaluation préalablement définis en
+								accord avec l'enseignant
+								référent).
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								4)
+								<fo:inline text-decoration="underline">Modalités d'évaluation
+									pédagogiques
+								</fo:inline>
+								: le stagiaire devra (préciser la nature du
+								travail à
+								fournir -
+								rapport, etc.. - éventuellement en joignant
+								une annexe)
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								background-color="#E6E6E6" font-style="italic">
+								<xsl:variable name="nb-credit" select="credit-eCTS" />
+								<fo:inline text-decoration="underline">NOMBRE D'ECTS (le
+									cas
+									échéant)
+								</fo:inline>
+								: ...
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								5) Le
+								tuteur de l'organisme
+								d'accueil ou tout membre
+								de l'organisme
+								d'accueil appelé à se
+								rendre dans l'établissement
+								d'enseignement
+								dans le cadre de la
+								préparation, du déroulement et
+								de la
+								validation du stage ne peut
+								prétendre à une quelconque
+								prise en
+								charge ou indemnisation de
+								la part de l'établissement
+								d'enseignement.
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify"
 								font-weight="bold">
-								Article 14 : Applicable law - Courts of competent
-								jurisdiction
+								Article 13 - Applicable law - Competent courts
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								The present contract
-								is governed exclusively by French law. Any dispute which cannot
-								be settled out of court will be submitted to the competent
-								French jurisdiction.
+								This agreement shall
+								be governed exclusively by French law.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
+								Any disputes that
+								cannot be amicably
+								resolved shall be subject to the jurisdiction
+								of the
+								competent French courts.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
+								padding-top="2pt" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								font-weight="bold" background-color="#E6E6E6" font-style="italic">
+								Article 13 -
+								Droit applicable - Tribunaux compétents
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								At
-								....................................... on
-								.......................................
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								La
+								présente convention
+								est régie exclusivement par le
+								droit français.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								On behalf of the higher education
-								institution
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:choose>
-									<xsl:when test="nom-signataire-composante">
-									</xsl:when>
-									<xsl:otherwise>
-										(name and signature of representative)
-									</xsl:otherwise>
-								</xsl:choose>
-							</fo:block>
-
-							<!-- <fo:block line-height="110%" padding-top="2pt" padding-bottom="2pt" 
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times 
-								New Roman,serif"> <xsl:choose> <xsl:when test="centre-gestion/nom-viseur"> 
-								Par dÃ©lÃ©gation, <fo:inline font-weight="bold"> <xsl:variable name="prenom1" 
-								select="translate(substring(./centre-gestion/prenom-viseur,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" 
-								/> <xsl:variable name="prenom2" select="translate(centre-gestion/prenom-viseur,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" 
-								/> <xsl:value-of select="concat($prenom1, substring($prenom2,2))" /> <xsl:text> 
-								</xsl:text> <xsl:value-of select="translate(centre-gestion/nom-viseur,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" 
-								/> </fo:inline> </xsl:when> <xsl:otherwise> <fo:inline font-weight="bold"> 
-								<xsl:value-of select="nom-signataire-composante" /> </fo:inline> </xsl:otherwise> 
-								</xsl:choose> </fo:block> <fo:block line-height="110%" padding-top="5pt" 
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times 
-								New Roman,serif" text-align="center"> __________ </fo:block> <fo:block line-height="110%" 
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times 
-								New Roman,serif"> <fo:leader /> </fo:block> -->
-
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								On behalf of the host organisation
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:choose>
-									<xsl:when test="signataire/nom">
-									</xsl:when>
-									<xsl:otherwise>
-										(name and signature of representative)
-									</xsl:otherwise>
-								</xsl:choose>
-							</fo:block>
-
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline font-weight="bold">
-									<xsl:variable name="prenom1"
-										select="translate(substring(./signataire/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(signataire/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of
-										select="translate(signataire/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" padding-top="5pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="center">
-								__________
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								On behalf of the student
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:choose>
-									<xsl:when test="etudiant/nom">
-									</xsl:when>
-									<xsl:otherwise>
-										(name and signature)
-									</xsl:otherwise>
-								</xsl:choose>
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline font-weight="bold">
-									<xsl:variable name="prenom1"
-										select="translate(substring(./etudiant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(etudiant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of
-										select="translate(etudiant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" padding-top="5pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="center">
-								__________
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline text-decoration="underline">SIGNATURES OF TUTORS:
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								Host organisation tutor
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:choose>
-									<xsl:when test="contact/nom">
-									</xsl:when>
-									<xsl:otherwise>
-										(name and signature of representative)
-									</xsl:otherwise>
-								</xsl:choose>
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline font-weight="bold">
-									<xsl:variable name="prenom1"
-										select="translate(substring(./contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of
-										select="translate(contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" padding-top="5pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="center">
-								__________
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								Higher education institution tutor
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:choose>
-									<xsl:when test="enseignant/nom">
-									</xsl:when>
-									<xsl:otherwise>
-										(name and signature of representative)
-									</xsl:otherwise>
-								</xsl:choose>
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline font-weight="bold">
-									<xsl:variable name="prenom1"
-										select="translate(substring(./enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of
-										select="translate(enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								</fo:inline>
+								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								text-align="justify" background-color="#E6E6E6" font-style="italic">
+								Tout
+								litige non résolu
+								par voie amiable sera soumis à
+								la compétence de
+								la juridiction
+								française compétente.
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
 				</fo:table-body>
 			</fo:table>
-			<!--<fo:block line-height="110%" hyphenate="false" language="fr" country="FR" 
-				font-size="10pt" font-family="Times New Roman,serif"> <fo:leader /> </fo:block> -->
-		</fo:block>
 
-	</xsl:template>
-	<xsl:template name="Charte">
-		<fo:block line-height="110%" hyphenate="false" language="fr"
-			country="FR" font-size="10pt" font-family="Times New Roman,serif"
-			text-align="justify">
-
+			<fo:block line-height="110%" hyphenate="false" language="fr"
+				country="FR" font-size="10pt" font-family="Times New Roman,serif">
+				<fo:leader />
+			</fo:block>
+			<fo:block line-height="110%" hyphenate="false" language="fr"
+				country="FR" font-size="10pt" font-family="Times New Roman,serif">
+				<fo:leader />
+			</fo:block>
+			<fo:block line-height="110%" hyphenate="false" language="fr"
+				country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
+				text-align="center">
+				____________________________________________________________
+			</fo:block>
+			<fo:block line-height="200%" hyphenate="false" language="fr"
+				country="FR" font-size="10pt" font-family="Times New Roman,serif">
+				<fo:leader />
+			</fo:block>
+			<fo:block line-height="110%" hyphenate="false" language="fr"
+				country="FR" font-size="10pt" font-family="Times New Roman,serif">
+				<fo:leader />
+			</fo:block>
+			<fo:block line-height="110%" hyphenate="false" language="fr"
+				country="FR" font-size="10pt" font-family="Times New Roman,serif">
+				<fo:leader />
+			</fo:block>
+			<fo:block line-height="110%" hyphenate="false" language="fr"
+				country="FR" font-size="10pt" font-family="Times New Roman,serif">
+				<fo:inline font-weight="bold">
+					MADE IN
+				</fo:inline>
+				<fo:inline font-style="italic" font-size="8pt">(FAIT À)
+				</fo:inline>
+				<fo:inline>
+					.....................................................
+				</fo:inline>
+				<fo:inline font-weight="bold">
+					THIS DAY THE
+				</fo:inline>
+				<fo:inline font-style="italic" font-size="8pt">(LE)
+				</fo:inline>
+				<fo:inline>
+					.....................................................
+				</fo:inline>
+			</fo:block>
+			<fo:block line-height="110%" hyphenate="false" language="fr"
+				country="FR" font-size="10pt" font-family="Times New Roman,serif">
+				<fo:leader />
+			</fo:block>
+			<fo:block line-height="150%" hyphenate="false" language="fr"
+				country="FR" font-size="10pt" font-family="Times New Roman,serif">
+				<fo:leader />
+			</fo:block>
 			<fo:table table-layout="fixed" width="100%">
 				<fo:table-column column-width="proportional-column-width(1)" />
-
+				<fo:table-column column-width="proportional-column-width(1)" />
 				<fo:table-body>
 					<fo:table-row>
 						<fo:table-cell>
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="5pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="center">
-								<fo:inline font-weight="bold">STUDENT WORK PLACEMENT CHARTER
-								</fo:inline>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif"
+								font-weight="bold" text-decoration="underline">
+								FOR THE EDUCATIONAL
+								INSTITUTION
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								text-align="left" font-style="italic">
-								The Minister for Employment, Social
-								Cohesion and Housing
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								text-align="left" font-style="italic">
-								The Minster for Higher Education
-								and Research
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								text-align="left" font-style="italic">
-								The Minister for Employment, Labour
-								and Professional integration of young people
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								text-align="left" font-style="italic">
-								The Minister for Higher Education
-								and Research
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="7pt" font-family="Times New Roman,serif" font-style="italic">
+								(POUR L'ÉTABLISSEMENT D'ENSEIGNEMENT)
 							</fo:block>
 
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif">
+							<!-- Representant etablissement -->
+							<xsl:choose>
+								<xsl:when
+									test="nom-signataire-composante or centre-gestion/nom-viseur">
+									<xsl:choose>
+										<xsl:when test="centre-gestion/nom-viseur">
+											<fo:block line-height="110%" padding-top="2pt"
+												padding-bottom="2pt" hyphenate="false" language="fr"
+												country="FR" font-size="10pt" font-family="Times New Roman,serif">
+												Signatory for the management centre, by delegation,
+												<fo:inline font-weight="bold">
+													<xsl:call-template name="start_upper">
+														<xsl:with-param name="prenom">
+															<xsl:value-of select="centre-gestion/prenom-viseur" />
+														</xsl:with-param>
+													</xsl:call-template>
+													<xsl:text> </xsl:text>
+													<xsl:value-of
+														select="translate(centre-gestion/nom-viseur,$lowers,$uppers)" />
+												</fo:inline>
+											</fo:block>
+											<fo:block line-height="110%" padding-top="2pt"
+												padding-bottom="2pt" hyphenate="false" language="fr"
+												country="FR" font-size="9pt" font-family="Times New Roman,serif"
+												font-style="italic">
+												(Viseur du centre, par délégation,)
+											</fo:block>
+										</xsl:when>
+										<xsl:otherwise>
+											<fo:block line-height="110%" padding-top="2pt"
+												padding-bottom="2pt" hyphenate="false" language="fr"
+												country="FR" font-size="10pt" font-family="Times New Roman,serif"
+												font-weight="bold">
+												<xsl:value-of select="nom-signataire-composante" />
+											</fo:block>
+										</xsl:otherwise>
+									</xsl:choose>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" padding-top="2pt"
+										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+										font-size="10pt" font-family="Times New Roman,serif">
+										Name and signature of the
+										representative of the institution
+									</fo:block>
+									<fo:block line-height="110%" padding-top="2pt"
+										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+										font-size="7pt" font-family="Times New Roman,serif"
+										font-style="italic">
+										(Nom et signature du représentant
+										de
+										l'établissement)
+									</fo:block>
+									<fo:block line-height="110%" padding-top="8pt"
+										hyphenate="false" language="fr" country="FR" font-size="10pt"
+										font-family="Times New Roman,serif">
+										......................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
+							<fo:block line-height="600%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif"
+								font-weight="bold" text-decoration="underline">
+								FOR THE HOST ORGANIZATION
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="7pt" font-family="Times New Roman,serif" font-style="italic">
+								(POUR L'ORGANISME D'ACCUEIL)
+							</fo:block>
+							<xsl:choose>
+								<xsl:when test="signataire/nom">
+									<fo:block line-height="110%" padding-top="2pt"
+										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+										font-size="10pt" font-family="Times New Roman,serif"
+										font-weight="bold">
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="signataire/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="translate(signataire/nom,$lowers,$uppers)" />
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" padding-top="2pt"
+										hyphenate="false" language="fr" country="FR" font-size="10pt"
+										font-family="Times New Roman,serif">
+										Name and signature of the representative of the
+										host
+									</fo:block>
+									<fo:block line-height="110%" padding-top="2pt"
+										hyphenate="false" language="fr" country="FR" font-size="7pt"
+										font-family="Times New Roman,serif" font-style="italic">
+										(Nom et
+										signature du représentant de l'organisme
+										d'accueil)
+									</fo:block>
+									<fo:block line-height="110%" padding-top="8pt"
+										hyphenate="false" language="fr" country="FR" font-size="10pt"
+										font-family="Times New Roman,serif">
+										......................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell>
+							<!-- Stagiaire -->
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif"
+								text-decoration="underline" font-weight="bold">
+								INTERN (AND LEGAL
+								REPRESENTATIVE IF ANY)
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="7pt" font-family="Times New Roman,serif" font-style="italic">
+								(STAGIAIRE (ET SON REPRESENTANT LEGAL LE CAS ECHEANT))
+							</fo:block>
+							<xsl:choose>
+								<xsl:when test="etudiant/nom">
+									<fo:block line-height="110%" padding-top="2pt"
+										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+										font-size="10pt" font-family="Times New Roman,serif"
+										font-weight="bold">
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="etudiant/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="translate(etudiant/nom,$lowers,$uppers)" />
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" padding-top="2pt"
+										hyphenate="false" language="fr" country="FR" font-size="10pt"
+										font-family="Times New Roman,serif">
+										Name and signature
+									</fo:block>
+									<fo:block line-height="110%" padding-top="2pt"
+										hyphenate="false" language="fr" country="FR" font-size="7pt"
+										font-family="Times New Roman,serif" font-style="italic">
+										(Nom et
+										signature)
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										......................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
+							<fo:block line-height="600%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
+							<!-- Tuteur pro -->
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif"
+								text-decoration="underline" font-weight="bold">
+								The internship
+								supervisor for the host organization
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="7pt" font-family="Times New Roman,serif" font-style="italic">
+								(LE TUTEUR DE STAGE DE
+								L'ORGANISME D'ACCUEIL)
+							</fo:block>
+							<xsl:choose>
+								<xsl:when test="contact/nom">
+									<fo:block line-height="110%" padding-top="2pt"
+										hyphenate="false" language="fr" country="FR" font-size="10pt"
+										font-family="Times New Roman,serif" font-weight="bold">
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="contact/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="translate(contact/nom,$lowers,$uppers)" />
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" padding-top="2pt"
+										hyphenate="false" language="fr" country="FR" font-size="10pt"
+										font-family="Times New Roman,serif">
+										Name and signature
+									</fo:block>
+									<fo:block line-height="110%" padding-top="2pt"
+										hyphenate="false" language="fr" country="FR" font-size="7pt"
+										font-family="Times New Roman,serif" font-style="italic">
+										(Nom et
+										signature)
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										......................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell>
+							<!-- Tuteur pedago -->
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif"
+								text-decoration="underline" font-weight="bold">
+								The intern's academic
+								advisor
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="7pt" font-family="Times New Roman,serif" font-style="italic">
+								(L'ENSEIGNANT REFERENT DU STAGIAIRE)
+							</fo:block>
+							<xsl:choose>
+								<xsl:when test="enseignant/nom">
+									<fo:block line-height="110%" padding-top="2pt"
+										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+										font-size="10pt" font-family="Times New Roman,serif"
+										font-weight="bold">
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="enseignant/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="translate(enseignant/nom,$lowers,$uppers)" />
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:leader />
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" padding-top="2pt"
+										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+										font-size="10pt" font-family="Times New Roman,serif">
+										Name and signature
+									</fo:block>
+									<fo:block line-height="110%" padding-top="2pt"
+										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+										font-size="7pt" font-family="Times New Roman,serif"
+										font-style="italic">
+										(Nom et signature)
+									</fo:block>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										......................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
+							<fo:block line-height="600%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
 				</fo:table-body>
 			</fo:table>
-			<fo:block line-height="110%" hyphenate="false" language="fr"
-				country="FR" font-size="10pt" font-family="Times New Roman,serif"
-				margin-left="0cm" margin-right="0cm" text-indent="0cm">
-				<fo:table table-layout="fixed" width="100%">
-					<fo:table-column column-width="proportional-column-width(1)" />
+		</fo:block>
+	</xsl:template>
+
+	<xsl:template name="Attestation">
+		<fo:block margin-right="1.5cm" margin-left="1.5cm"
+			margin-bottom="1.09cm" font-family="Times New Roman,serif"
+			padding-top="1cm">
+			<fo:block text-align="center">
+				<fo:inline hyphenate="false" language="fr" country="FR"
+					font-weight="bold" font-size="18pt">
+					INTERNSHIP CERTIFICATE
+				</fo:inline>
+			</fo:block>
+			<fo:block text-align="center">
+				<fo:inline hyphenate="false" language="fr" country="FR"
+					font-size="10pt" font-style="italic">
+					(ATTESTATION DE STAGE )
+				</fo:inline>
+			</fo:block>
+			<fo:block text-align="center" padding-top="5pt">
+				<fo:inline hyphenate="false" language="fr" country="FR"
+					font-weight="bold" font-size="16pt" font-style="italic">
+					to be issued to the
+					intern upon the conclusion of the internship
+				</fo:inline>
+			</fo:block>
+			<fo:block text-align="center">
+				<fo:inline hyphenate="false" language="fr" country="FR"
+					font-size="10pt" font-style="italic">
+					(à remettre au
+					stagiaire à l'issue du
+					stage)
+				</fo:inline>
+			</fo:block>
+			<fo:block padding-top="10pt">
+				<fo:table border="0.018cm solid #000000" padding="3pt"
+					width="100%" table-layout="fixed">
 					<fo:table-column column-width="proportional-column-width(1)" />
 					<fo:table-body>
 						<fo:table-row>
-							<fo:table-cell padding-right="10pt">
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">I - INTRODUCTION
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									Today, the development of work placements is crucial
-									to the professional
-									orientation and integration of young people.
-									Work placements enable
-									theoretical
-									knowledge to be used in a
-									professional setting and give students
-									experience of the
-									business
-									world and work. From this point of view, it is vital to
-									underscore
-									the pedagogical aim of work placements,
-									which means
-									that work placements cannot take place without reference
-									to the
-									relevant course.
-									On no account may work placements be considered
-									as employment.
-									The aim of this charter,
-									which has been drafted by
-									government departments, representatives
-									from companies,
-									representatives of higher
-									education establishments and student
-									representatives, is therefore to
-									stabilise the way work
-									placements
-									are carried out, whilst enabling them to be developed
-									in a way
-									that is of benefit both to young people and
-									to
-									businesses.
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">II - SCOPE AND DEFINITION
-								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">1 - Scope of the charter
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The charter applies to all work placements of
-									students in companies,
-									without prejudice to the particular rules
-									applicable to regulated
-									professions.
-								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">2 - The work placement
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The work placement forms part of a pedagogical
-									project and is meaningful only with respect to this project.
-									It
-									follows that the work placement:
-									- enables knowledge to be put
-									into practice in a professional setting;
-									- facilitates movement
-									from the world of higher education to the business world.
-									On no
-									account may work placements be considered as employment.
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">III - PROCEDURES GOVERNING
-									WORK PLACEMENTS
-								</fo:block>
-
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">1 - Formalising planned work
-									placements
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									Work placements are envisaged in liaison between a
-									member of teaching staff
-									from the establishment, a
-									representative of the company and the
-									student.
-									The planned work
-									placement is formalised in the
-									agreement signed by the
-									educational establishment,
-									the company
-									and the student.
-								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">2 - The agreement
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The agreement specifies the commitments and
-									responsibilities of
-									the educational establishment, the company
-									and the student.
-									The mandatory sections are specified in an
-									appendix to the
-									charter.
-								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">3 - Duration of the work
-									placement
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The duration of the work placement is specified
-									during the initial
-									contacts between the educational
-									establishment and the company.
-									The student is kept informed of
-									this.
-									The duration of the work placement is explicitly specified
-									in the
-									work placement agreement.
-								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">4 - Supervisors
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									All work placements come under dual supervision :
-									-
-									by a member of the establishment's teaching staff;
-									- by a
-									representative of the company.
-									The member of teaching staff and
-									the company representative work in cooperation,
-									are informed and
-									inform each other of the progress of the work placement and any
-									difficulties which may occur.
-									The supervisor from the
-									educational establishment guarantees the coherence of the aims
-									of the work placement
-									and those of the training course, in line
-									with the principles of
-									this charter.
-									Their respective
-									institutions recognise the necessary investment,
-									notably in
-									terms of time,
-									required for supervisory duties.
-								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt"
-									font-family="Times New Roman,serif" text-align="justify"
-									font-weight="bold">5 - Assessment
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-style="italic" font-weight="bold">a -
-									Assessment of the student
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The student's work is assessed by both the work
-									placement supervisors.
-									Each educational establishment decides on
-									the value they place on work
-									placements planned as part of the
-									academic course.
-									The exact methods of
-									assessment are specified in
-									the agreement.
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The assessment is filled in on an "assessment sheet"
-									which,
-									together with the agreement,
-									forms the "work placement
-									file".
-									This work placement file is kept by the educational
-									establishment.
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-style="italic" font-weight="bold">b -
-									Assessment of the work placement
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The signatories of the agreement are invited to give
-									their assessment of
-									the quality of the work placement.
+							<fo:table-cell border="1" margin-left="0.2cm"
+								padding-top="0.2cm">
+								<fo:block>
+									<fo:inline font-weight="bold" text-decoration="underline"
+										font-size="9pt">
+										THE HOST ORGANIZATION
+									</fo:inline>
+									<fo:inline font-size="8pt" font-style="italic">
+										(ORGANISME
+										D'ACCUEIL)
+									</fo:inline>
 								</fo:block>
 								<fo:block line-height="110%" hyphenate="false"
 									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
 									<fo:leader />
 								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">IV - COMMITMENTS OF THE
-									PARTIES
-								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">1 - Commitment of the student
-									with respect to the company
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The student undertakes to :
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- fulfil their mission and be available for the
-									tasks entrusted to them;
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- observe the company rules, its codes and culture;
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- observe the non-disclosure requirements
-									established by the company;
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- write, where required, the report or dissertation for the set
-									deadline:
-									this document must be presented to the company
-									managers before
-									being
-									presented for academic purposes
-									<fo:inline font-style="italic">
-										(where the content makes this
-										necessary, the dissertation may,
-										at the request of the company,
-										remain confidential).
+								<fo:block line-height="150%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold">
+										Name or company name
+									</fo:inline>
+									<fo:inline font-size="8pt" font-style="italic">
+										(Nom ou
+										dénomination sociale)
+									</fo:inline>
+									<fo:inline font-weight="bold">
+										:
+									</fo:inline>
+									<fo:inline>
+										<xsl:value-of select="structure/raison-sociale" />
 									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">2 - Commitment of the company
-									with respect to the student
+								<fo:block line-height="150%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold">Address
+									</fo:inline>
+									<fo:inline font-size="8pt" font-style="italic">(Adresse)
+									</fo:inline>
+									<fo:inline font-weight="bold"> :
+									</fo:inline>
+									<fo:inline>
+										<xsl:value-of select="structure/batiment-residence" />
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="structure/voie" />
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="structure/code-postal" />
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="structure/commune" />
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="structure/pays/libelle" />
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The company undertakes to :
+
+								<fo:block line-height="150%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold">Phone : </fo:inline>
+									<xsl:value-of select="structure/telephone" />
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- offer a work placement in line with the
-									pedagogical project defined by the educational establishment;
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:block padding="0.3cm">
+					<fo:inline font-size="9pt" font-weight="bold">
+						Hereby certifies
+						that
+					</fo:inline>
+					<fo:inline font-style="italic" font-size="8pt">
+						(Certifie que)
+					</fo:inline>
+				</fo:block>
+				<fo:table border="0.018cm solid #000000" padding="3pt"
+					width="100%" table-layout="fixed">
+					<fo:table-column column-width="proportional-column-width(1)" />
+					<fo:table-body>
+						<fo:table-row>
+							<fo:table-cell border="1" margin-left="0.2cm"
+								padding-top="0.2cm">
+								<fo:block font-size="9pt">
+									<fo:inline font-weight="bold" font-size="9pt"
+										text-decoration="underline">
+										THE INTERN
+									</fo:inline>
+									<fo:inline font-size="8pt" font-style="italic">
+										(LE
+										STAGIAIRE)
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- welcome the student and provide them with the
-									resources for them to be successful in their mission;
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
+									<fo:leader />
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- appoint a work placement supervisor or supervisory
-									team with the task of
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold">
+										Last name
+									</fo:inline>
+									<fo:inline font-style="italic" font-size="8pt">
+										(Nom)
+									</fo:inline>
+									<fo:inline>
+										:
+									</fo:inline>
+									<fo:inline>
+										<xsl:value-of select="translate(etudiant/nom,$lowers,$uppers)" />
+									</fo:inline>
+									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
+									<fo:inline font-weight="bold">
+										First name
+									</fo:inline>
+									<fo:inline font-style="italic" font-size="8pt">
+										(Prénom)
+									</fo:inline>
+									<fo:inline>
+										:
+									</fo:inline>
+									<fo:inline>
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="etudiant/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
+									</fo:inline>
+									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
+									<fo:inline font-weight="bold">
+										Sex :
+									</fo:inline>
+									<fo:inline>
+										<xsl:value-of select="etudiant/code-sexe" />
+									</fo:inline>
+
+									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
+									<fo:inline font-weight="bold">
+										Date of Birth
+									</fo:inline>
+									<fo:inline font-style="italic" font-size="8pt">
+										(Né le)
+									</fo:inline>
+									<fo:inline>
+										:
+									</fo:inline>
+									<fo:inline>
+										<xsl:value-of
+											select="concat(substring(./etudiant/date-nais,9,2),'/',substring(./etudiant/date-nais,6,2), '/',substring(./etudiant/date-nais,1,4))" />
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									* guiding and advising the student;
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell border="1" margin-left="0.2cm"
+								padding-top="0.2cm">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold">
+										Address
+									</fo:inline>
+									<fo:inline font-style="italic" font-size="8pt">
+										(Adresse)
+									</fo:inline>
+									<fo:inline>
+										:
+									</fo:inline>
+									<fo:inline>
+										<xsl:value-of select="adresse-etudiant" />
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="code-postal-etudiant" />
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="ville-etudiant" />
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="pays-etudiant" />
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									* informing them of the rules, codes and culture of
-									the company;
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell border="1" margin-left="0.2cm"
+								padding-top="0.2cm">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										padding-bottom="0.035cm">
+										<fo:inline font-weight="bold">
+											Phone :
+										</fo:inline>
+										<xsl:value-of select="tel-etudiant" />
+									</fo:inline>
+									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
+									<fo:inline line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										padding-bottom="0.035cm">
+										<fo:inline font-weight="bold">
+											Portable :
+										</fo:inline>
+										<xsl:value-of select="tel-portable-etudiant" />
+									</fo:inline>
+									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
+									<fo:inline line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										padding-bottom="0.035cm">
+										<fo:inline font-weight="bold">
+											email :
+										</fo:inline>
+										<xsl:value-of select="etudiant/mail" />
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									* enable their integration into the company and
-									provide access to necessary information;
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell border="1" margin-left="0.2cm"
+								padding-top="0.2cm">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold" font-size="11pt">
+										A
+										STUDENT OF
+									</fo:inline>
+									<fo:inline>
+										(title of the training course or higher education
+										curriculum being followed by the intern) :
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									* help them to gain the necessary skills;
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-style="italic" font-size="8pt">
+										(ETUDIANT
+										EN(intitulé de la formation ou du cursus de
+										l'enseignement
+										supérieur suivi par le ou la stagiaire ))
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									* monitor their work regularly;
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<xsl:value-of select="etape/libelle" />
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									* assess the quality of the work done;
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell border="1" margin-left="0.2cm"
+								padding-top="0.2cm">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold" font-size="11pt">
+										AT
+									</fo:inline>
+									<fo:inline>
+										(name of the higher education institution or
+										training organization)
+									</fo:inline>
+									<fo:inline font-style="italic" font-size="8pt">
+										(AU
+										SEIN DE
+										(nom de
+										l'établissement d'enseignement supérieur ou
+										de
+										l'organisme de
+										formation))
+									</fo:inline>
+									<fo:inline>
+										:
+									</fo:inline>
+									<xsl:choose>
+										<xsl:when test="nom-etab-ref">
+											<xsl:value-of select="nom-etab-ref" />
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="document('config.xml')/config/nomUniversite" />
+										</xsl:otherwise>
+									</xsl:choose>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									* advise them with respect to their professional
-									project;
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:block padding="0.3cm" margin-left="0.5cm">
+					<fo:inline font-weight="bold" font-size="11pt">
+						has completed an
+						internship as part of his/her studies
+					</fo:inline>
+					<fo:inline font-style="italic" font-size="8pt">
+						(a
+						effectué un
+						stage prévu dans le cadre de ses études)
+					</fo:inline>
+				</fo:block>
+				<fo:table table-layout="fixed" width="100%"
+					border="0.018cm solid #000000">
+					<fo:table-column column-width="proportional-column-width(1)" />
+					<fo:table-body>
+						<fo:table-row>
+							<fo:table-cell>
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									margin-left="0.5cm" padding-top="0.3cm">
+									<fo:inline font-size="9pt" font-weight="bold"
+										text-decoration="underline">
+										INTERNSHIP DURATION
+									</fo:inline>
+									<fo:inline font-size="8pt" font-style="italic">
+										(DUREE DU
+										STAGE)
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- write a work placement certificate describing the missions
-									performed which can be enclosed with
-									<fo:inline font-style="italic"> the student's CV </fo:inline>
-									in the future.
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell padding-top="0.2cm">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold">
+										Internship start and end dates
+									</fo:inline>
+									<fo:inline font-style="italic" font-size="8pt">
+										(Dates de
+										début et de fin
+										du stage)
+									</fo:inline>
+									<fo:inline font-weight="bold">
+										:
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">3 - Commitment of the higher
-									education establishment with respect to the student
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold">
+										From
+									</fo:inline>
+									<fo:inline font-style="italic" font-size="8pt">
+										(Du)
+									</fo:inline>
+									<fo:inline>
+										......................................
+									</fo:inline>
+									<xsl:text> </xsl:text>
+									<fo:inline font-weight="bold">
+										To
+									</fo:inline>
+									<fo:inline font-style="italic" font-size="8pt">
+										(Au)
+									</fo:inline>
+									<xsl:text> </xsl:text>
+									<fo:inline>
+										......................................
+									</fo:inline>
+									<xsl:if test="@interruption-stage = 'true'">
+										<xsl:text> </xsl:text>
+										<fo:inline font-weight="bold" font-size="11pt">
+											with
+											interruption from
+										</fo:inline>
+										<fo:inline font-style="italic" font-size="8pt">(avec
+											interruption du)
+										</fo:inline>
+										<xsl:text> </xsl:text>
+										......................................
+										<fo:inline font-weight="bold" font-size="11pt">
+											to
+										</fo:inline>
+										<fo:inline font-style="italic" font-size="8pt">(au)
+										</fo:inline>
+										<xsl:text> </xsl:text>
+										......................................
+									</xsl:if>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The educational establishment undertakes to :
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell padding-top="0.2cm">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold">
+										Representing a total duration
+										of
+									</fo:inline>
+									<fo:inline>
+										..................... (Number of months / Number of
+										Weeks) (cross out any inappropriate item)
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- define the objective of the work placement and
-									ensure that the proposed work placement meets these objectives;
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm" font-style="italic">
+									(Représentant une durée
+									totale de ...
+									Nombre de Mois
+									/ Nombre de Semaines (rayer la
+									mention
+									inutile))
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- help the student look for a work placement;
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell padding-top="0.2cm">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm" margin-left="0.5cm" text-align="justify">
+									The
+									total duration of the internship is assessed in consideration
+									of the actual presence of the student
+									within the organization,
+									subject any authorized time off and
+									leaves of absence granted,
+									as provided
+									under article L.124-13 of the education code (art.
+									L.124-18 of
+									the education code). Each period of
+									at least 7 hours
+									of presence, whether consecutive or otherwise,
+									is
+									considered
+									equivalent to one day of
+									internship work, and each period equal
+									to at least 22 days of presence,
+									consecutive or otherwise, is
+									considered
+									equivalent to one month.
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- prepare the student for the work placement;
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									margin-left="0.5cm" text-align="justify" font-style="italic"
+									background-color="#E6E6E6">
+									(La durée totale du stage
+									est appréciée en
+									tenant compte de la
+									présence effective du
+									stagiaire dans
+									l'organisme, sous réserve
+									des droits à congés et
+									autorisations
+									d'absence prévus à
+									l'article L.124-13 du code de
+									l'éducation
+									(art. L.124-18 du code
+									de l'éducation). Chaque
+									période au moins
+									égale à 7 heures de
+									présence consécutives ou
+									non est considérée
+									comme équivalente à
+									un jour de stage et
+									chaque période au moins
+									égale à 22 jours de
+									présence
+									consécutifs
+									ou non est considérée
+									comme équivalente à
+									un mois.)
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- supervise the student throughout their work
-									placement, by appointing a member of teaching staff
-									who will
-									ensure that the work placement runs smoothly; provide the
-									latter with the tools necessary
-									for the student to appraise the
-									quality of the work placement;
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row>
+							<fo:table-cell padding-top="0.2cm" border-top="0.018cm solid #000000">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
+									<fo:leader />
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									- for higher education courses for which it is a
-									requirement, guide and advise them in writing
-									their work
-									placement report or dissertation and organise its
-									presentation,
-									including allowing a representative
-									of the company to be
-									present.
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									margin-left="0.5cm">
+									<fo:inline font-weight="bold" text-decoration="underline">
+										TOTAL
+										AMOUNT OF STIPEND PAID TO THE INTERN :
+									</fo:inline>
+									<fo:inline font-size="8pt">
+										(MONTANT DE LA GRATIFICATION
+										VERSÉE AU STAGIAIRE)
+									</fo:inline>
 								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								<!-- <fo:block line-height="110%" language="fr" country="FR" -->
+								<!-- font-size="9pt" font-family="Times New Roman,serif" -->
+								<!-- padding-top="0.2cm"> -->
+								<!-- <fo:inline> -->
+								<!-- Le stagiaire a perçu une gratification de stage pour un -->
+								<!-- montant total de -->
+								<!-- <xsl:variable name="nb-montant-gratification" -->
+								<!-- select="montant-gratification" /> -->
+								<!-- <xsl:choose> -->
+								<!-- <xsl:when test='$nb-montant-gratification=""'> -->
+								<!-- .................................. &#8364; -->
+								<!-- </xsl:when> -->
+								<!-- <xsl:otherwise> -->
+								<!-- <fo:inline font-weight="bold"> -->
+								<!-- <xsl:value-of select="montant-gratification" /> -->
+								<!-- </fo:inline> -->
+								<!-- euros -->
+								<!-- <xsl:text> </xsl:text> -->
+								<!-- <xsl:value-of select="unite-gratification/libelle" /> -->
+								<!-- par mois -->
+								<!-- </xsl:otherwise> -->
+								<!-- </xsl:choose> -->
+								<!-- </fo:inline> -->
+								<!-- </fo:block> -->
+								<fo:block line-height="110%" language="fr" country="FR"
 									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">4 - Commitment of the company
-									and the educational establishment
+									padding-top="0.2cm">
+									The intern has received an internship stipend
+									<fo:inline font-weight="bold"> totaling
+									</fo:inline>
+									..................................
+									&#8364;
 								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The company and higher education establishment
-									undertake to exchange the necessary information before,
-									during
-									and after the work placement. They will also observe their
-									respective rules with respect
-									to non-disclosure and professional
-									practice.
+								<fo:block line-height="110%" language="fr" country="FR"
+									font-size="8pt" font-family="Times New Roman,serif" font-style="italic">
+									(Le stagiaire a perçu une
+									gratification de stage
+									pour un
+									montant
+									total de)
 								</fo:block>
-								<fo:block line-height="110%" padding-top="2pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify" font-weight="bold">5 - Commitment of the student
-									with respect to the educational establishments
-								</fo:block>
-								<fo:block line-height="110%" padding-top="1pt"
-									padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									text-align="justify">
-									The student undertakes to give an appraisal of the
-									quality of their
-									work placement to their educational
-									establishment.
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
+									<fo:leader />
 								</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
 					</fo:table-body>
 				</fo:table>
 
+
+				<fo:table table-layout="fixed" width="100%" margin-left="0cm"
+					padding-top="0.5cm">
+					<fo:table-column column-width="proportional-column-width(1)" />
+					<fo:table-column column-width="proportional-column-width(1)" />
+					<fo:table-body>
+						<fo:table-row>
+							<fo:table-cell>
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm" font-style="italic" text-align="justify">
+									<fo:inline font-weight="bold">
+										The course certificate
+									</fo:inline>
+									is an indispensable element, for consideration, subject to
+									the
+									payment of a fee, of the internship
+									work in determining
+									retirement benefits. Retirement pensions
+									legislation (Law No.
+									2014-40 of January 20, 2014)
+									grants students
+									<fo:inline font-weight="bold">
+										whose internship work is
+										allocated a stipend
+									</fo:inline>
+									the possibility of having such work validated
+									<fo:inline font-weight="bold">within two calendar quarters,
+									</fo:inline>
+									subject to the
+									<fo:inline font-weight="bold">payment of a fee.
+									</fo:inline>
+									The
+									<fo:inline font-weight="bold">The application is to be made
+										by the student within the two years
+									</fo:inline>
+									of the end of the internship, and
+									<fo:inline font-weight="bold">requires the presentation of
+										the internship certificate
+									</fo:inline>
+									indicating the total duration of the internship
+									and the total
+									amount of the
+									stipends paid. Specific information
+									regarding
+									the
+									fee to be paid and the
+									procedure to follow may be requested from
+									the
+									Social Security administration
+									(Social Security Code, art.
+									L.351-17 -
+									Education Code, art. D.124-9).
+								</fo:block>
+
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+									padding-bottom="0.035cm" font-style="italic" text-align="justify"
+									background-color="#E6E6E6">
+									(L'attestation de stage est indispensable pour
+									pouvoir, sous
+									réserve du versement d'une
+									cotisation, faire
+									prendre en compte
+									le stage dans les droits à
+									retraite. La
+									législation sur les
+									retraites (loi n°2014-40 du 20
+									Janvier 2014)
+									ouvre aux étudiants
+									dont le stage a été gratifié, la possibilité
+									de faire valider
+									celui-ci dans la limite de deux trimestres,
+									sous réserve du
+									versement d'une cotisation. La demande est à
+									faire par
+									l'étudiant dans les deux années
+									suivant la fin du stage
+									et sur
+									présentation obligatoire de l'attestation de stage
+									mentionnant
+									la durée totale du stage et le montant total de la
+									gratification perçue. Les informations
+									précises sur la
+									cotisation à verser et sur la procédure à suivre
+									sont à demander
+									auprès de la Sécurité sociale (code de la sécurité sociale art.
+									L.351-17 - code de
+									l'éducation art.D.124-9).)
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell>
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold" font-size="11pt">
+										MADE IN
+									</fo:inline>
+									<fo:inline font-size="8pt">
+										(Fait à)
+										...................................................................
+									</fo:inline>
+								</fo:block>
+
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
+									padding-bottom="0.035cm">
+									<fo:inline font-weight="bold" font-size="11pt">
+										THIS DAY THE
+									</fo:inline>
+									<fo:inline font-size="8pt">
+										(Le)
+										.........................................................
+									</fo:inline>
+								</fo:block>
+
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.3cm"
+									padding-bottom="0.035cm">
+									Name, position and signature of the
+									representative of the host organization
+								</fo:block>
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
+									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
+									padding-bottom="0.035cm" font-style="italic">
+									(Nom, fonction et signature
+									du représentant de
+									l'organisme
+									d'accueil)
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
 			</fo:block>
 		</fo:block>
-		<fo:block id="theEnd" />
 	</xsl:template>
 
+	<!-- mises en majuscules -->
+	<xsl:variable name='lowers'
+		select='"abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"' />
+	<xsl:variable name='uppers'
+		select='"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß"' />
+	<!-- majuscule pour 1er lettre de chaque terme (cas prenom composés) -->
+	<xsl:template name="start_upper">
+		<xsl:param name="prenom" />
+		<xsl:variable name="temp-prenom">
+			<xsl:call-template name="start_upper_bar">
+				<xsl:with-param name="prenom">
+					<xsl:value-of select="$prenom" />
+				</xsl:with-param>
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:variable name="clean-temp-prenom">
+			<xsl:choose>
+				<xsl:when
+					test="substring($temp-prenom, string-length($temp-prenom),  string-length($temp-prenom) +1  ) = '-'">
+					<xsl:value-of
+						select='substring($temp-prenom,1, string-length($temp-prenom)-1 )' />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select='$temp-prenom' />
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:for-each select='str:split($clean-temp-prenom, " ")'>
+			<xsl:value-of
+				select='concat(
+          translate(substring(., 1, 1), $lowers, $uppers),
+          substring(., 2),
+          " "
+         )' />
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="start_upper_bar">
+		<xsl:param name="prenom" />
+		<xsl:for-each select='str:split($prenom, "-")'>
+			<xsl:value-of
+				select='concat(
+          translate(substring(., 1, 1), $lowers, $uppers),
+          translate(substring(., 2),$uppers,$lowers),
+          "-"
+         )' />
+		</xsl:for-each>
+	</xsl:template>
 </xsl:stylesheet>
