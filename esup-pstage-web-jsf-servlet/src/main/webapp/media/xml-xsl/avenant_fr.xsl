@@ -848,7 +848,10 @@
 									euros
 									<xsl:text> </xsl:text>
 									<xsl:value-of select="unite-gratification/libelle" />
-									par mois
+									par
+									<xsl:text> </xsl:text>
+									<xsl:value-of select="unite-duree-gratification/libelle" />
+									<xsl:text>.</xsl:text>
 								</fo:inline>
 							</fo:block>
 						</xsl:if>

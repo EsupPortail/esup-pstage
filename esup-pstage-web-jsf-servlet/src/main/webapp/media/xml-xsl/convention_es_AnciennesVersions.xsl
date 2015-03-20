@@ -3833,12 +3833,11 @@
 								text-align="justify">
 								4)
 								<fo:inline text-decoration="underline">Modalidades de evaluación
-									pedagógica
+									pedagógica : 
 								</fo:inline>
-								el estudiante deberá (precisar la naturaleza del
-								trabajo que deba
-								presentar
-								-informe, etc. - y en su caso adjuntar un anexo)
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="mode-validation-stage/libelle" />
+								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -3953,11 +3952,10 @@
 								<fo:inline text-decoration="underline">Modalités d'évaluation
 									pédagogiques
 								</fo:inline>
-								: le stagiaire devra (préciser la nature du
-								travail à
-								fournir -
-								rapport, etc.. - éventuellement en joignant
-								une annexe)
+								: 
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="mode-validation-stage/libelle" />
+								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"

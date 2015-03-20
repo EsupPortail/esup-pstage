@@ -3781,10 +3781,10 @@
 								<fo:inline text-decoration="underline">Educational Assessment
 									Procedures
 								</fo:inline>
-								: The intern shall (specify the nature of the work
-								to be provided
-								- report, etc.
-								- possibly by including an attachment)
+								: 
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="mode-validation-stage/libelle" />
+								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -3919,11 +3919,10 @@
 								<fo:inline text-decoration="underline">Modalités d'évaluation
 									pédagogiques
 								</fo:inline>
-								: le stagiaire devra (préciser la nature du
-								travail à
-								fournir -
-								rapport, etc.. - éventuellement en joignant
-								une annexe)
+								: 
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="mode-validation-stage/libelle" />
+								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"

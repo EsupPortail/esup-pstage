@@ -2883,6 +2883,7 @@ public class ConventionController extends AbstractContextAwareController {
 				numEtuNomPrenomOK = false;
 			}
 		}
+		
 		if (numEtuNomPrenomOK) {
 			// recherche par numero etudiant
 			if (StringUtils.hasText(this.rechIdentEtudiant)) {
@@ -4347,6 +4348,7 @@ public class ConventionController extends AbstractContextAwareController {
 		this.surchargeTuteur = false;
 		Integer limiteSurcharge = getSessionController().getSurchargeTuteur();
 		if (limiteSurcharge != null){
+			//getBeanUtils().getAnneeUniversitaireCourante()
 			Integer nbConventions= getEnseignantDomainService().getNombreConventionByEnseignant(this.convention.getEnseignant().getUidEnseignant(), getSessionController().getCodeUniversite());
 			if(nbConventions > limiteSurcharge){
 				this.surchargeTuteur = true;

@@ -7,7 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height: 15px;" />
-	
+
 	<h:outputLabel for="titre"
 		value="#{msgs['CONVENTION.ETAPE11.TITRE']} *" />
 	<h:panelGrid columnClasses="paginatorData-text"
@@ -15,7 +15,7 @@
 		<h:inputText id="titre" required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}"
 			value="#{avenantController.avenant.titreAvenant}">
-			<a4j:ajax event="blur" render="msgTitre"/>
+			<a4j:ajax event="blur" render="msgTitre" />
 		</h:inputText>
 		<rich:message id="msgTitre" for="titre" />
 	</h:panelGrid>
@@ -257,12 +257,13 @@
 							<h:outputText
 								value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
 							<h:outputText
-								value="#{conventionController.convention.montantGratification} #{conventionController.convention.uniteGratification.libelle}" />
+								value="#{conventionController.convention.montantGratification} #{conventionController.convention.uniteGratification.libelle} par #{conventionController.convention.uniteDureeGratification.libelle}" />
 							<h:outputText
 								value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
+
 							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="3">
-								<h:inputText id="gratification" size="7" required="true"
+								rowClasses="paginatorData-text" columns="5">
+								<h:inputText id="gratification" size="4" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									validatorMessage="#{requiredMessageController.mtGratificationNonValide}"
 									value="#{avenantController.avenant.montantGratification}">
@@ -275,6 +276,16 @@
 									<f:selectItems
 										value="#{nomenclatureController.uniteGratifications}" />
 								</h:selectOneMenu>
+								<h:outputText value=" par " />
+								<h:panelGrid columnClasses="paginatorData-text"
+									rowClasses="paginatorData-text">
+									<h:selectOneMenu id="uniteDureeGratification"
+										value="#{avenantController.avenant.uniteDureeGratification}"
+										converter="#{uniteDureeConverter}">
+										<f:selectItem itemValue="" />
+										<f:selectItems value="#{nomenclatureController.unitesDurees}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
 								<rich:message for="gratification">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 								</rich:message>
@@ -658,9 +669,9 @@
 					</h:panelGrid>
 				</t:div>
 			</t:div>
-			
+
 			<t:htmlTag value="div" style="height:5px;" />
-			
+
 			<!-- Autre modification -->
 			<t:div id="divTexteLibre">
 				<h:panelGrid columnClasses="paginatorData-text"
@@ -675,13 +686,12 @@
 						<a4j:ajax execute="@this" event="click" render="divTexteLibre" />
 					</h:selectOneRadio>
 				</h:panelGrid>
-				<t:div
-					rendered="#{avenantController.modificationTexteLibre}">
+				<t:div rendered="#{avenantController.modificationTexteLibre}">
 					<h:outputText value="" id="erreurTexteLibre" />
 					<rich:message for="erreurTexteLibre">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					
+
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="2">
 						<t:htmlTag value="div" style="width:10px;" />
@@ -693,7 +703,7 @@
 								<h:inputTextarea style="width:200px;" id="motif" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									value="#{avenantController.avenant.motifAvenant}">
-									<a4j:ajax event="blur" render="msgMotif"/>
+									<a4j:ajax event="blur" render="msgMotif" />
 								</h:inputTextarea>
 								<rich:message id="msgMotif" for="motif" />
 							</h:panelGrid>

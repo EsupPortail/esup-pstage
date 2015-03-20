@@ -146,6 +146,8 @@ public class AvenantDomainServiceImpl implements AvenantDomainService{
 				a.setUniteGratification(nomenclatureDomainService.getUniteGratificationDTOFromId(a.getIdUniteGratification()));
 			if (a.getIdConvention() != null && a.getIdConvention() > 0 )
 				a.setConvention(remoteServices.getConventionFromId(a.getIdConvention()));
+			if (a.getIdUniteDureeGratification()!= null && a.getIdUniteDureeGratification() > 0 )
+				a.setUniteDureeGratification(nomenclatureDomainService.getUniteDureeFromId(a.getIdUniteDureeGratification()));
 		}
 	}
 }

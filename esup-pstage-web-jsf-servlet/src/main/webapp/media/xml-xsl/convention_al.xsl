@@ -3520,8 +3520,10 @@
 								<fo:inline text-decoration="underline">Modalitäten der
 									pädagogischen Bewertung
 								</fo:inline>
-								: Der Praktikant muss : (Art der zu leistenden Arbeit - Bericht
-								usw.- eventuell mit einer Anlage versehen)
+								: 
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="mode-validation-stage/libelle" />
+								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -3649,11 +3651,10 @@
 								<fo:inline text-decoration="underline">Modalités d'évaluation
 									pédagogiques
 								</fo:inline>
-								: le stagiaire devra (préciser la nature du
-								travail à
-								fournir -
-								rapport, etc.. - éventuellement en joignant
-								une annexe)
+								: 
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="mode-validation-stage/libelle" />
+								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"

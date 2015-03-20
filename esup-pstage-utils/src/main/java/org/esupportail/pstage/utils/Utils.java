@@ -30,7 +30,7 @@ public class Utils {
 	/**
 	 * Regex d'une adresse mail
 	 */
-	public static final String REGEX_MAIL = "^(\\w([-]?[.]?[\\w]*\\w)*@(\\w[-\\w]*\\w\\.)+[a-zA-Z]{2,9})$";
+	public static final String REGEX_MAIL = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
 
 	/**
 	 * Regex d'un site internet

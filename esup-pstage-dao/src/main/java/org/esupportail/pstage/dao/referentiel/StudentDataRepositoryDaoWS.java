@@ -343,7 +343,13 @@ StudentDataRepositoryDao {
 			AdministrationApogee adminApogee = new AdministrationApogee();
 			adminApogee.setStatusApogee(true);
 			adminApogee.setRaison("");
-			studentApogee = getStudentApogee(universityCode, codEtu);
+			
+			try {
+				studentApogee = getStudentApogee(universityCode, codEtu);
+			} catch (Exception e){
+				logger.error("Exception sur getStudentApogee(?,?) dans getEtudiantsRefByName() : " + e);
+			}
+			
 			if (studentApogee != null) {
 				if (studentApogee.getAdministrationApogee() != null) {
 					adminApogee = studentApogee.getAdministrationApogee();

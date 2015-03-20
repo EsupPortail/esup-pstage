@@ -6,6 +6,8 @@
 	<adresseUniversite>Adresse de l'université</adresseUniversite>
 	<!-- Nom de l'université -->
 	<nomUniversite>Nom de l'université</nomUniversite>
+	<!-- Numero de telephone de l'université -->
+	<telUniversite></telUniversite>
 	<!-- Logo de l'université : /!\ Doit se situer dans le sous-dossier images /!\ -->
 	<logoUniversite>square.jpg</logoUniversite>
 	<!-- Répertoire de stockage des logos des centres de gestion avec / , renseigne au moment du deploy-->

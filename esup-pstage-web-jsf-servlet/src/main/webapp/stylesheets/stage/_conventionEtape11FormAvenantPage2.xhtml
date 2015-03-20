@@ -212,12 +212,12 @@
 					<h:outputText style="color:red;"
 						value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
 					<h:outputText style="color:red;"
-						value="#{conventionController.convention.montantGratification} #{conventionController.convention.uniteGratification.libelle}" />
+						value="#{conventionController.convention.montantGratification} #{conventionController.convention.uniteGratification.libelle} par #{conventionController.convention.uniteDureeGratification.libelle}" />
 
 					<h:outputText style="color:green;"
 						value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
 					<h:outputText style="color:green;"
-						value="#{avenantController.avenant.montantGratification} #{avenantController.avenant.uniteGratification.libelle}" />
+						value="#{avenantController.avenant.montantGratification} #{avenantController.avenant.uniteGratification.libelle} par #{avenantController.avenant.uniteDureeGratification.libelle}" />
 				</h:panelGrid>
 			</h:panelGrid>
 		</t:div>

@@ -260,7 +260,7 @@ public class AvenantController extends AbstractContextAwareController {
 		}
 		if (this.avenant.getMotifAvenant() != null && !this.avenant.getMotifAvenant().isEmpty()){
 			this.modificationTexteLibre = true;
-		}	
+		}
 		return "conventionEtape11ModifAvenantPage1";
 	}
 	
@@ -401,6 +401,7 @@ public class AvenantController extends AbstractContextAwareController {
 		}
 		if (this.avenant.isModificationMontantGratification()){
 			avenant.setIdUniteGratification(this.avenant.getUniteGratification().getId());
+			avenant.setIdUniteDureeGratification(this.avenant.getUniteDureeGratification().getId());
 		}
 		
 		avenant.setLoginCreation(getSessionController().getCurrentLogin());
@@ -412,7 +413,7 @@ public class AvenantController extends AbstractContextAwareController {
 			int idAvenant = getAvenantDomainService().addAvenant(this.avenant);
 			
 			// Si c'est un étudiant qui crée l'avenant et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
-			if (getSessionController().getCurrentAuthEtudiant() != null && getSessionController().isAvertissementPersonnelCreaConvention()){
+			if (getSessionController().getCurrentAuthEtudiant() != null && getSessionController().isAvertissementPersonnelCreaAvenant()){
 				String text=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT",
 						idAvenant,
 						this.avenant.getIdConvention(),
@@ -421,8 +422,8 @@ public class AvenantController extends AbstractContextAwareController {
 						this.avenant.getIdConvention());
 				
 				// Envoi d'une alerte à l'enseignant référent
-//				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
-//					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
+				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
+					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
 				
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
@@ -503,6 +504,7 @@ public class AvenantController extends AbstractContextAwareController {
 
 		if (this.avenant.isModificationMontantGratification()){
 			avenant.setIdUniteGratification(this.avenant.getUniteGratification().getId());
+			avenant.setIdUniteDureeGratification(this.avenant.getUniteDureeGratification().getId());
 		}
 		
 		avenant.setLoginModif(getSessionController().getCurrentLogin());
@@ -512,7 +514,7 @@ public class AvenantController extends AbstractContextAwareController {
 			getAvenantDomainService().updateAvenant(this.avenant);
 
 			// Si c'est un étudiant qui modifie l'avenant et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
-			if (getSessionController().getCurrentAuthEtudiant() != null && getSessionController().isAvertissementPersonnelCreaConvention()){
+			if (getSessionController().getCurrentAuthEtudiant() != null && getSessionController().isAvertissementPersonnelModifAvenant()){
 				String text=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT",
 						this.avenant.getIdAvenant(),
 						this.avenant.getIdConvention(),

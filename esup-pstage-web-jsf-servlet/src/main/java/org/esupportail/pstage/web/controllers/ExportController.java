@@ -253,15 +253,15 @@ public class ExportController extends AbstractContextAwareController {
 			if (logger.isInfoEnabled()) {
 				logger.info("ExportController:: Appel getConventionFromExport debut ");
 			}
-//			if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()) {
-//				List<ConventionDTO> lConventionExport = new ArrayList<ConventionDTO>();
-//				for (ConventionDTO c : resultatsRechercheConvention) {
-//					c = getConventionDomainService().getConventionFromExport(c.getIdConvention());
-//					lConventionExport.add(c);
-//				}
-//				this.resultatsRechercheConvention = lConventionExport;
-//				ret = "exportConvention";
-//			}
+			//			if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()) {
+			//				List<ConventionDTO> lConventionExport = new ArrayList<ConventionDTO>();
+			//				for (ConventionDTO c : resultatsRechercheConvention) {
+			//					c = getConventionDomainService().getConventionFromExport(c.getIdConvention());
+			//					lConventionExport.add(c);
+			//				}
+			//				this.resultatsRechercheConvention = lConventionExport;
+			//				ret = "exportConvention";
+			//			}
 			if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()) {
 				List<ConventionDTO> lConventionExport = new ArrayList<ConventionDTO>();
 				List<Integer> idsConventionsExport = new ArrayList<Integer>();
@@ -378,6 +378,8 @@ public class ExportController extends AbstractContextAwareController {
 							if (avenant.isModificationMontantGratification()){
 								conventionTmp.setMontantGratification(avenant.getMontantGratification());
 								conventionTmp.setUniteGratification(avenant.getUniteGratification());
+								// Ajout 2.2.3 UniteDureeGratification
+								conventionTmp.setUniteDureeGratification(avenant.getUniteDureeGratification());
 							}
 							if (avenant.isModificationLieu()){
 								conventionTmp.setIdService(avenant.getIdService());
@@ -485,7 +487,30 @@ public class ExportController extends AbstractContextAwareController {
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DUREEEXCEPTION")){
 				return convention.getDureeExceptionnelle();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.UNITEDUREEEXCEP")){
-				return convention.getUniteDuree().getLibelle();
+				
+				if (convention.getDureeExceptionnelle() != null && !convention.getDureeExceptionnelle().isEmpty()){
+					if (convention.getIdUniteDureeExceptionnelle() != 0){
+						switch (convention.getIdUniteDureeExceptionnelle()) {
+						case 1:
+							return "heure(s)";
+						case 2:
+							return "jour(s)";
+						case 3:
+							return "semaine(s)";
+						case 4:
+							return "mois";
+						case 5:
+							return "annee(s)";
+						default:
+							return "";
+						}
+					} else {
+						return "heures";
+					}
+				} else {
+					return "";
+				}
+				
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.UNITEDUREEGRATIF")){
 				return convention.getUniteDureeGratification().getLibelle();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NBJOURS")){
