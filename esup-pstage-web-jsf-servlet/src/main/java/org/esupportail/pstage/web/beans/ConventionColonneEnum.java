@@ -251,7 +251,13 @@ public enum ConventionColonneEnum {
     /**
      * col49 , mail etudiant
      */
-    col49("EXPORTCONVENTION.MAILUNIVETU", "etudiant.mail");
+    col49("EXPORTCONVENTION.MAILUNIVETU", "etudiant.mail"),
+	
+	/**
+	 *   Convention Pedagogique Validee
+	 */
+	col50("EXPORTCONVENTION.VALIDEE.PEDAGOGIQUEMENT","validationPedagogiqueExport");
+	
 	
 	/*
 	 ******************* PROPERTIES ******************* */

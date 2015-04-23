@@ -30,6 +30,7 @@
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="2">
 
+	<!-- Ce passage-ci : j'aimerai pouvoir le tester pour un contact vide-->
 						<a4j:commandButton execute="@this"
 							oncomplete="#{rich:component('modifContact')}.show()"
 							render="modifContact" value="#{msgs['FORM.MODIFIER']}"

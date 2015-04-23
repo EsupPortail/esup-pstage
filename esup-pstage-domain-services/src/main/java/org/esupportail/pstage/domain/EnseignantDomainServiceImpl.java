@@ -82,7 +82,12 @@ public class EnseignantDomainServiceImpl implements EnseignantDomainService {
 	 */
 	public int getNombreConventionByEnseignant(String uidEnseignant, String codeUniversite){
 		return this.remoteServices.getNombreConventionByEnseignantFromCodUniv(uidEnseignant, codeUniversite);
-	}
+	}	
+
+	public int getNombreConventionByEnseignantByAnnee(String uidEnseignant, String codeUniversite, String annee){
+		return this.remoteServices.getNombreConventionByEnseignantByAnneeFromCodUniv(uidEnseignant, codeUniversite, annee);
+	}	
+	
 	
 	/**
 	 * @see org.esupportail.pstage.domain.EnseignantDomainService#addEnseignant(org.esupportail.pstagedata.domain.dto.EnseignantDTO)

@@ -69,6 +69,7 @@ import org.esupportail.pstagedata.domain.dto.ModeVersGratificationDTO;
 import org.esupportail.pstagedata.domain.dto.NatureTravailDTO;
 import org.esupportail.pstagedata.domain.dto.OffreDTO;
 import org.esupportail.pstagedata.domain.dto.OrigineStageDTO;
+import org.esupportail.pstagedata.domain.dto.PaysDTO;
 import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.QuestionSupplementaireDTO;
 import org.esupportail.pstagedata.domain.dto.ReponseEvaluationDTO;
@@ -308,7 +309,9 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * critereRechercheConvention.
 	 */
-	private CritereRechercheConventionDTO critereRechercheConvention = new CritereRechercheConventionDTO();
+//	private CritereRechercheConventionDTO critereRechercheConvention = new CritereRechercheConventionDTO();
+	private CritereRechercheConventionDTO critereRechercheConvention = initCritereRechercheConvention();
+
 	/**
 	 * Liste des types structure et statuts pour la recherche.
 	 */
@@ -425,6 +428,15 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Affichage ou non de l'alerte de surcharge du tuteur
 	 */
 	private boolean surchargeTuteur;
+	
+	/**
+	 * 1 = Oui.
+	 * 2 = Non
+	 * null = Les 2
+	 */
+	private Boolean estEtrangere = false;
+	
+
 
 	/* ***************************************************************
 	 * Ajouts 2.2.1 Fiche Evaluation
@@ -1791,6 +1803,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * 
 	 */
 	public void goToCreerConventionEtape6Enseignant() {
+		System.out.println("===> goToCreerConventionEtape6Enseignant <===");
 		sequenceEtapeEnum = SequenceEtapeEnum.etape6;
 		this.convention.setEnseignant(this.resultatEnseignant);
 		checkSurchargeTuteur();
@@ -3782,7 +3795,8 @@ public class ConventionController extends AbstractContextAwareController {
 	public String goToRechercheConvention() {
 		String ret = "rechercheConvention";
 		this.conventionCree = false;
-		this.critereRechercheConvention=new CritereRechercheConventionDTO();
+//		this.critereRechercheConvention=new CritereRechercheConventionDTO();
+		this.critereRechercheConvention= initCritereRechercheConvention();
 		return ret;
 	}
 	/**
@@ -3878,6 +3892,9 @@ public class ConventionController extends AbstractContextAwareController {
 		else if(this.estVerifiee.equals("1")) this.critereRechercheConvention.setEstVerifiee(true);
 		else if(this.estVerifiee.equals("2")) this.critereRechercheConvention.setEstVerifiee(false);
 
+		if (this.estEtrangere) this.critereRechercheConvention.setEstEtrangere(true);
+		else this.critereRechercheConvention.setEstEtrangere(false);
+		
 		//this.critereRechercheConvention.setLimit(true);
 		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.NB_RECHERCHE_MAXI));
 		// si enseignant référent, recherche des conventions pour les enseignants tuteur
@@ -3935,7 +3952,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Reset des criteres de recherche d'offres.
 	 */
 	public void resetRechercheConvention() {
-		critereRechercheConvention = new CritereRechercheConventionDTO();
+//		critereRechercheConvention = new CritereRechercheConventionDTO();
+		critereRechercheConvention = initCritereRechercheConvention();
+		
 		this.critereRechercheConvention.setIdsCentreGestion(getSessionController().getCurrentIdsCentresGestion());
 		this.rechTypeOuStatut = null;
 	}
@@ -4114,7 +4133,8 @@ public class ConventionController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToValiderEnMasse()");
 		}
-		this.critereRechercheConvention=new CritereRechercheConventionDTO();
+//		this.critereRechercheConvention=new CritereRechercheConventionDTO();
+		this.critereRechercheConvention = initCritereRechercheConvention();
 		this.ongletTuteur();
 		return "rechercheMasseConvention";
 	}
@@ -4175,21 +4195,24 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Recherche de conventions en masse par tuteur pedagogique
 	 */
 	public void ongletTuteur(){
-		this.critereRechercheConvention = new CritereRechercheConventionDTO();
+//		this.critereRechercheConvention = new CritereRechercheConventionDTO();
+		this.critereRechercheConvention = initCritereRechercheConvention();
 		this.ongletCourant = 1;
 	}
 	/**
 	 * Recherche de conventions en masse par Ufr
 	 */
 	public void ongletUfr(){
-		this.critereRechercheConvention = new CritereRechercheConventionDTO();
+//		this.critereRechercheConvention = new CritereRechercheConventionDTO();
+		this.critereRechercheConvention = initCritereRechercheConvention();
 		this.ongletCourant = 2;
 	}
 	/**
 	 * Recherche de conventions en masse par Etape
 	 */
 	public void ongletEtape(){
-		this.critereRechercheConvention = new CritereRechercheConventionDTO();
+//		this.critereRechercheConvention = new CritereRechercheConventionDTO();
+		this.critereRechercheConvention = initCritereRechercheConvention();
 		this.ongletCourant = 3;
 	}
 
@@ -4345,11 +4368,13 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Verification du nombre de conventions assignees au tuteur
 	 */
 	public void checkSurchargeTuteur(){
+		System.out.println("      ==> checkSurchargeTuteur");
 		this.surchargeTuteur = false;
 		Integer limiteSurcharge = getSessionController().getSurchargeTuteur();
 		if (limiteSurcharge != null){
 			//getBeanUtils().getAnneeUniversitaireCourante()
-			Integer nbConventions= getEnseignantDomainService().getNombreConventionByEnseignant(this.convention.getEnseignant().getUidEnseignant(), getSessionController().getCodeUniversite());
+			Integer nbConventions= getEnseignantDomainService().getNombreConventionByEnseignantByAnnee(this.convention.getEnseignant().getUidEnseignant(), getSessionController().getCodeUniversite(), getBeanUtils().getAnneeUniversitaireCourante(new Date()));
+			System.out.println("nbConventions : "+nbConventions+"     limiteSurcharge : "+limiteSurcharge);
 			if(nbConventions > limiteSurcharge){
 				this.surchargeTuteur = true;
 			}
@@ -5137,7 +5162,8 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public String goToRechercheEval() {
 
-		this.critereRechercheConvention=new CritereRechercheConventionDTO();
+//		this.critereRechercheConvention=new CritereRechercheConventionDTO();
+		this.critereRechercheConvention = initCritereRechercheConvention();
 
 		this.listeItemsCurrentCentresGestionEval = new ArrayList<SelectItem>();
 		if (getSessionController().isSuperAdminPageAuthorized()){
@@ -7387,6 +7413,43 @@ public class ConventionController extends AbstractContextAwareController {
 
 	public void setSelUniteDureeGratification(UniteDureeDTO selUniteDureeGratification) {
 		this.selUniteDureeGratification = selUniteDureeGratification;
+	}
+
+/**
+ * 
+ * @return estEtrangere
+ */
+	public Boolean getEstEtrangere() {
+		return estEtrangere;
+	}
+
+	/**
+	 * 
+	 * @param choixPays the choixPays to set
+	 */
+	public void setEstEtrangere(Boolean estEtrangere) {
+		this.estEtrangere=estEtrangere;
+	}
+	
+	/**
+	 * initCritereRechercheConvention
+	 * @return CritereRechercheConventionDTO
+	 */
+	public CritereRechercheConventionDTO initCritereRechercheConvention(){
+		CritereRechercheConventionDTO c = null;
+		if(getBeanUtils()!=null){
+			c=new CritereRechercheConventionDTO();
+			c.setPays(getBeanUtils().getFrance());
+		}else{
+			c=new CritereRechercheConventionDTO();
+			PaysDTO p = new PaysDTO();
+			p.setLibelle("FRANCE");
+			p.setCog(DonneesStatic.FRANCE_COG);
+			p.setCrpay(DonneesStatic.FRANCE_TERRITOIRE_CRPAY);
+			c.setPays(p);
+		}
+		System.out.println("");
+		return c;
 	}
 
 }

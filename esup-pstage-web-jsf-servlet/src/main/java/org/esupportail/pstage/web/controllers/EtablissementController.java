@@ -24,6 +24,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.log4j.Logger;
+import org.esupportail.pstage.domain.DomainService;
 import org.esupportail.pstage.utils.GenTicketStage;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
@@ -984,35 +985,37 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * 
 	 * @return a String
 	 */
-	public String supprimerEtablissement() {
+	public void supprimerEtablissement() {
+		
+		System.out.println(" utilisateur courant : " +this.getCurrentUser().getId());
+		
 		if (this.formStructure != null
 				&& this.formStructure.getIdStructure() > 0) {
 			try {
-				Boolean delete = getStructureDomainService().deleteStructure(
-						this.formStructure.getIdStructure());
+				Boolean delete = getStructureDomainService().deleteStructure(this.formStructure.getIdStructure(),this.getCurrentUser().getId()); 
+				
+				
 				if (delete) {
+					System.out.println("Ma Structure supprimee :  "+this.getStructureDomainService().getStructureFromId(this.formStructure.getIdStructure()));				
 					addInfoMessage(null, "STRUCTURE.SUPPRESSION.CONFIRMATION",
 							this.formStructure.getRaisonSociale());
-					if (this.rechercheController
-							.getListeResultatsRechercheStructure() != null
-							&& !this.rechercheController
-							.getListeResultatsRechercheStructure()
-							.isEmpty()) {
-						this.rechercheController
-						.getListeResultatsRechercheStructure().remove(
-								this.formStructure);
-						this.rechercheController
-						.setResultatRechercheStructure(null);
+					if (this.rechercheController.getListeResultatsRechercheStructure() != null
+							&& !this.rechercheController.getListeResultatsRechercheStructure().isEmpty()) {
+					
+						this.rechercheController.getListeResultatsRechercheStructure().remove(this.formStructure);
+						this.rechercheController.setResultatRechercheStructure(null);
+						
 					} else {
 						this.rechercheController
 						.setListeResultatsRechercheStructure(null);
-						this.rechercheController
-						.setResultatRechercheStructure(null);
+						this.rechercheController.setResultatRechercheStructure(null);
 					}
+					
 				} else {
 					addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",
 							this.formStructure.getRaisonSociale());
 				}
+				
 				getSessionController().setCurrentManageStructure(null);
 				getSessionController().setMenuGestionEtab(false);
 				this.listeServices = null;
@@ -1087,7 +1090,8 @@ public class EtablissementController extends AbstractContextAwareController {
 			}
 		}
 		this.formStructure = null;
-		return "_supprStructureEtape2Confirmation";
+		this.getSessionController().setSuppressionStructureCurrentPage("_supprStructureEtape2Confirmation");
+//		return "_supprStructureEtape2Confirmation";
 	}
 
 	/**

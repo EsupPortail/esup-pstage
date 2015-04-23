@@ -14,9 +14,11 @@ import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.paginators.RechercheStructurePaginator;
 import org.esupportail.pstagedata.domain.dto.CritereRechercheStructureAdresseDTO;
 import org.esupportail.pstagedata.domain.dto.NafN1DTO;
+import org.esupportail.pstagedata.domain.dto.PaysDTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
 import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
 import org.springframework.util.StringUtils;
+import org.esupportail.pstage.utils.DonneesStatic;
 
 
 /**
@@ -44,6 +46,8 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Résultats d'une recherche (si plusieurs)
 	 */
 	private List<StructureDTO> listeResultatsRechercheStructure=null;
+	
+
 	/**
 	 * Résultat d'une recherche (si unique)
 	 */
@@ -106,9 +110,11 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Champs onglet 7 : Adresse
 	 */	
 	/**
-	 * Critéres de recherche par adresse
+	 * Criteres de recherche par adresse
 	 */
 	private CritereRechercheStructureAdresseDTO critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
+	
+	
 	/* *********************************************
 	 * FIN Variables des onglets communs
 	 **********************************************/
@@ -380,6 +386,7 @@ public class RechercheController extends AbstractContextAwareController {
 		} else {
 			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSociale(this.rechRaisonSociale);
 		}
+		
 		checkListeResultats();
 
 		return null;
@@ -509,7 +516,7 @@ public class RechercheController extends AbstractContextAwareController {
 		case 0:
 			this.listeResultatsRechercheStructure=getStructureDomainService()
 			.getStructuresAvecAccordAValiderFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
-			checkListeResultats();			
+			checkListeResultats();
 			break;
 			//Structures avec accord validé
 		case 1:
@@ -552,6 +559,7 @@ public class RechercheController extends AbstractContextAwareController {
 		}else if(this.listeResultatsRechercheStructure!=null){
 			reloadRechercheStructurePaginator();
 		}
+
 	}
 
 	/**
@@ -905,5 +913,10 @@ public class RechercheController extends AbstractContextAwareController {
 	public void setToVerificationStructures(boolean toVerificationStructures) {
 		this.toVerificationStructures = toVerificationStructures;
 	}
+
+
+	
+
+	
 
 }

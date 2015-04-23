@@ -3781,7 +3781,19 @@
 								<fo:inline text-decoration="underline">Educational Assessment
 									Procedures
 								</fo:inline>
-								: 
+								:
+								The intern shall (
+								<fo:inline font-style="italic" font-size="10pt">
+									specify the nature
+									of the work
+									to be provided - report,
+									etc.
+									- possibly by
+									including an attachment
+								</fo:inline>
+								<fo:inline>
+									) : 
+								</fo:inline>
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>
@@ -3919,7 +3931,7 @@
 								<fo:inline text-decoration="underline">Modalités d'évaluation
 									pédagogiques
 								</fo:inline>
-								: 
+								:
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>

@@ -6,20 +6,22 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" align="center"
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" align="center"
 		rendered="#{avenantController.listeAvenantVide and !welcomeController.etudiant}"
 		columns="1">
 		<h:outputText value="#{msgs['CONVENTION.ETAPE11.VIDE']}" />
 	</h:panelGrid>
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1"
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="1"
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;"
 		rendered="#{!avenantController.listeAvenantVide and conventionController.convention.validationConvention}">
 		<a4j:outputPanel>
 			<t:htmlTag value="div" style="height: 15px;" />
-			<rich:dataTable id="listeAvenant" rows="5"
-				columnClasses="col" value="#{avenantController.listeAvenants}"
-				style="border-right:1px solid #C0C0C0; margin: 0 auto;" var="avenant"
-				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			<rich:dataTable id="listeAvenant" rows="5" columnClasses="col"
+				value="#{avenantController.listeAvenants}"
+				style="border-right:1px solid #C0C0C0; margin: 0 auto;"
+				var="avenant" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
 
 				<rich:column sortBy="#{avenant.idAvenant}">
@@ -48,9 +50,17 @@
 							value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
 					</f:facet>
 					<t:htmlTag value="center">
-						<h:outputText rendered="#{avenant.rupture}"
-							value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}" />
-						<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" rendered="#{!avenant.rupture}">
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="3"
+							rendered="#{avenant.rupture}">
+							<h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE']} :" />
+							<h:outputText value="#{avenant.dateRupture}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+							</h:outputText>
+						</h:panelGrid>
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="1"
+							rendered="#{!avenant.rupture}">
 							<h:outputText rendered="#{avenant.modificationSujet}"
 								value="#{msgs['CONVENTION.ETAPE11.SUJET']}" />
 							<h:outputText rendered="#{avenant.modificationPeriode}"
@@ -61,7 +71,8 @@
 								value="#{msgs['CONVENTION.ETAPE11.SALARIE']}" />
 							<h:outputText rendered="#{avenant.modificationEnseignant}"
 								value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT']}" />
-							<h:outputText rendered="#{avenant.modificationMontantGratification}"
+							<h:outputText
+								rendered="#{avenant.modificationMontantGratification}"
 								value="#{msgs['CONVENTION.ETAPE11.MONTANT_GRATIFICATION']}" />
 							<h:outputText rendered="#{not empty avenant.motifAvenant}"
 								value="#{avenant.motifAvenant}" />
@@ -118,7 +129,8 @@
 			</rich:dataTable>
 
 			<t:htmlTag value="div" style="height: 10px;" />
-			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" align="center">
+			<h:panelGrid columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text" columns="2" align="center">
 				<h:graphicImage id="warn" alt="#{msgs['GENERAL.WARNING']}"
 					title="#{msgs['GENERAL.WARNING']}"
 					value="../../media/images/warning_20px.png" style="border:0" />
@@ -129,12 +141,14 @@
 
 		<t:htmlTag value="div" style="height: 5px;" />
 	</h:panelGrid>
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" align="center"
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="1" align="center"
 		rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
 			and conventionController.convention.validationConvention}">
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" align="center">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2" align="center">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE11.CREATION']}"
 				escape="false" />
 			<h:commandLink id="add"
@@ -145,7 +159,8 @@
 			</h:commandLink>
 		</h:panelGrid>
 	</h:panelGrid>
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" align="center"
+	<h:panelGrid columnClasses="paginatorData-text"
+		rowClasses="paginatorData-text" columns="2" align="center"
 		rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)

@@ -572,12 +572,18 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	}
 
 	/**
-	 * @see org.esupportail.pstage.domain.StructureDomainService#deleteStructure(int)
+	 * @see org.esupportail.pstage.domain.StructureDomainService#deleteStructureBase(int)
 	 */
-	public boolean deleteStructure(int idStructure) throws DataDeleteException,WebServiceDataBaseException, StructureDeleteException{
-		return this.remoteServices.deleteStructure(idStructure);
+	public boolean deleteStructureBase(int idStructure) throws DataDeleteException,WebServiceDataBaseException, StructureDeleteException{
+		return this.remoteServices.deleteStructureBase(idStructure);
 	}
 
+	/**
+	 * @see org.esupportail.pstage.domain.StructureDomainService#deleteStructureBase(int)
+	 */
+	public boolean deleteStructure(int idStructure, String loginCurrentUser) throws DataUpdateException,WebServiceDataBaseException{
+		return this.remoteServices.deleteStructure(idStructure, loginCurrentUser);
+	}
 
 	/* ****************************************************************************
 	 * TICKET STRUCTURE
