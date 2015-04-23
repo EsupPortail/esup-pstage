@@ -1599,7 +1599,10 @@
 								dem Tutor
 								des Praktikums
 								festgestellt wird, muss dem
-								Referenzen
+								Referenzen 	der
+								Hochschuleinrichtung
+								mitgeteilt und
+								schnellstmöglich
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell>
@@ -1611,11 +1614,7 @@
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								der
-								Hochschuleinrichtung
-								mitgeteilt und
-								schnellstmöglich gelöst
-								werden.
+								gelöst werden.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -1699,6 +1698,33 @@
 								portée à la connaissance de l'enseignement-référent et de
 								l'établissement d'enseignement afin d'être résolue au plus vite.
 							</fo:block>
+							<fo:block line-height="100%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify" background-color="#E6E6E6" font-style="italic">
+								<fo:inline text-decoration="underline">
+									MODALITES D'ENCADREMENT
+								</fo:inline>
+								(visites, rendez-vous téléphoniques, etc)
+							</fo:block>
+							<xsl:choose>
+								<xsl:when test="mode-encadre-suivi and mode-encadre-suivi != ''">
+									<fo:block line-height="100%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-bottom="2pt"  background-color="#E6E6E6" font-style="italic">
+										<fo:inline font-weight="bold">
+											<xsl:value-of select="mode-encadre-suivi" />
+										</fo:inline>
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="100%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-bottom="2pt"  background-color="#E6E6E6" font-style="italic">
+										.......................................................................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
+							
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
