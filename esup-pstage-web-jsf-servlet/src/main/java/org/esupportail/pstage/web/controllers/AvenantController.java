@@ -83,17 +83,17 @@ public class AvenantController extends AbstractContextAwareController {
 	 * Service to generate Xml.
 	 */
 	private CastorService castorService;
-	
+
 	/**
 	 * true si l'on choisi d'associer un texte libre a l'avenant
 	 */
 	private boolean modificationTexteLibre;
-	
+
 	/**
 	 * editAvFR.
 	 */
 	private boolean editAvFR = false;
-	
+
 	/**
 	 * Bean constructor.
 	 */
@@ -226,6 +226,28 @@ public class AvenantController extends AbstractContextAwareController {
 				}
 			}
 		}
+		else{
+			// cas où il y a rupture, rentrer seulement la date de rupture
+
+			java.util.Date dateDebutStage=conventionController.getConvention().getDateDebutStage();
+			java.util.Date dateFinStage = conventionController.getConvention().getDateFinStage();
+			java.util.Date dateRupture = this.avenant.getDateRupture();
+			if (dateRupture != null){
+				if (dateRupture.before(dateDebutStage) 
+						|| dateRupture.after(dateFinStage)){
+					// Si la date de debut d'interruption est inferieure a la date de debut du stage, ou superieure aux dates de fin d'interruption ou de stage
+					// ou si la date de fin d'interruption est superieure a la date de fin de stage, ou inferieure aux dates de debut d'interruption ou de stage
+					addErrorMessage("formCreaAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
+					return null;
+				}
+			}
+			else {
+				addErrorMessage("formCreaAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
+				return null;
+			}
+		}
+		
+		// fin conditions, affiche page
 		return "conventionEtape11CreaAvenantPage2";
 	}
 
@@ -263,7 +285,7 @@ public class AvenantController extends AbstractContextAwareController {
 		}
 		return "conventionEtape11ModifAvenantPage1";
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -275,7 +297,7 @@ public class AvenantController extends AbstractContextAwareController {
 		conventionController.setListeEnseignant(new ArrayList<EnseignantDTO>());
 		conventionController.setListeResultatsRechercheEnseignant(new ArrayList<EnseignantDTO>());
 	}
-	
+
 	/**
 	 * @return String
 	 */
@@ -289,7 +311,7 @@ public class AvenantController extends AbstractContextAwareController {
 				java.util.Date dateFinStage = this.avenant.getDateFinStage();
 				java.util.Date dateDebutInterruption = this.avenant.getDateDebutInterruption();
 				java.util.Date dateFinInterruption = this.avenant.getDateFinInterruption();
-				
+
 				if (dateFinStage != null && dateDebutStage != null){
 					if (dateFinStage.before(dateDebutStage)){
 						// Si la date de fin du stage est inferieure la date de debut
@@ -365,7 +387,7 @@ public class AvenantController extends AbstractContextAwareController {
 			logger.debug("public String creerAvenant()");
 			logger.debug("Propriétés de l'avenant ajouté : "+ this.avenant);
 		}
-		
+
 		if (this.avenant.isModificationEnseignant()){
 			// S'il ya modification de l'enseignant, on crée le nouveau s'il n'existe pas deja
 			EnseignantDTO enseignantTmp = this.avenant.getEnseignant();
@@ -403,30 +425,31 @@ public class AvenantController extends AbstractContextAwareController {
 			avenant.setIdUniteGratification(this.avenant.getUniteGratification().getId());
 			avenant.setIdUniteDureeGratification(this.avenant.getUniteDureeGratification().getId());
 		}
-		
-		avenant.setLoginCreation(getSessionController().getCurrentLogin());
 
+		avenant.setLoginCreation(getSessionController().getCurrentLogin());
 		avenant.setIdConvention(conventionController.getConvention().getIdConvention());
 
 		try{
 			// Ajout Avenant
 			int idAvenant = getAvenantDomainService().addAvenant(this.avenant);
-			
+
 			// Si c'est un étudiant qui crée l'avenant et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
 			if (getSessionController().getCurrentAuthEtudiant() != null && getSessionController().isAvertissementPersonnelCreaAvenant()){
+			
 				String text=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT",
 						idAvenant,
 						this.avenant.getIdConvention(),
 						getSessionController().getCurrentUser().getDisplayName());
+				
 				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT.SUJET",
 						this.avenant.getIdConvention());
 				
 				// Envoi d'une alerte à l'enseignant référent
-				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
-					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
+				if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
+					getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
 				
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
-				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
+					List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
 
 				if (listePersonnels != null){
 					for (PersonnelCentreGestionDTO personnel : listePersonnels){
@@ -438,7 +461,7 @@ public class AvenantController extends AbstractContextAwareController {
 					}
 				}
 			}
-			
+
 			if(logger.isDebugEnabled()){
 				logger.debug("idAvenant : " + idAvenant);
 			}
@@ -454,7 +477,6 @@ public class AvenantController extends AbstractContextAwareController {
 			logger.error("AddressException", ade.fillInStackTrace());
 			addErrorMessage("formCreaAvenantPage2:erreurAjoutAvenant", "GENERAL.ERREUR_MAIL");
 		}
-
 		this.avenant = new AvenantDTO();
 
 		return "conventionEtape11ListeAvenant";
@@ -506,25 +528,25 @@ public class AvenantController extends AbstractContextAwareController {
 			avenant.setIdUniteGratification(this.avenant.getUniteGratification().getId());
 			avenant.setIdUniteDureeGratification(this.avenant.getUniteDureeGratification().getId());
 		}
-		
+
 		avenant.setLoginModif(getSessionController().getCurrentLogin());
-		
+
 		try{
 			// Modification de l'avenant
 			getAvenantDomainService().updateAvenant(this.avenant);
 
 			// Si c'est un étudiant qui modifie l'avenant et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
 			if (getSessionController().getCurrentAuthEtudiant() != null && getSessionController().isAvertissementPersonnelModifAvenant()){
-				String text=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT",
+				String text=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_MODIF_AVENANT",
 						this.avenant.getIdAvenant(),
 						this.avenant.getIdConvention(),
 						getSessionController().getCurrentUser().getDisplayName());
-				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT.SUJET",
+				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_MODIF_AVENANT.SUJET",
 						this.avenant.getIdConvention());
-				
+
 				// Envoi d'une alerte à l'enseignant référent
-//				if (this.avenant.getConvention().getEnseignant().getMail() != null && !this.avenant.getConvention().getEnseignant().getMail().isEmpty())
-//					getSmtpService().send(new InternetAddress(this.avenant.getConvention().getEnseignant().getMail()),sujet,text,text);
+//				if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
+//					getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
 				
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
@@ -539,7 +561,7 @@ public class AvenantController extends AbstractContextAwareController {
 					}
 				}
 			}
-			
+
 		} catch (DataUpdateException d){
 			logger.error("DataUpdateException",d.fillInStackTrace());
 			addErrorMessage("formModifAvenantPage1:erreurModifAvenant","CONVENTION.ETAPE11.ERREUR_MODIF");
@@ -646,7 +668,7 @@ public class AvenantController extends AbstractContextAwareController {
 		}
 		return "conventionEtape11DetailsAvenant";
 	}
-	
+
 	/**
 	 * @return String
 	 */
@@ -705,12 +727,12 @@ public class AvenantController extends AbstractContextAwareController {
 		}
 		return retour;
 	}
-	
+
 	public void updateLieu(){
 		etablissementController.setServiceSel(conventionController.getConvention().getService());
 		etablissementController.setContactSel(conventionController.getConvention().getContact());
 	}
-	
+
 	public void updateContact(){
 		etablissementController.setContactSel(conventionController.getConvention().getContact());
 	}
@@ -761,7 +783,7 @@ public class AvenantController extends AbstractContextAwareController {
 
 		return l;
 	}
-	
+
 	/**
 	 * @return String
 	 */
@@ -771,7 +793,7 @@ public class AvenantController extends AbstractContextAwareController {
 		getEtablissementController().setFormContact(contactTmp);
 		return null;
 	}
-	
+
 	/**
 	 * @param avenant the avenant to set
 	 */
@@ -857,6 +879,6 @@ public class AvenantController extends AbstractContextAwareController {
 	public void setModificationTexteLibre(boolean modificationTexteLibre) {
 		this.modificationTexteLibre = modificationTexteLibre;
 	}
-	
-	
+
+
 }

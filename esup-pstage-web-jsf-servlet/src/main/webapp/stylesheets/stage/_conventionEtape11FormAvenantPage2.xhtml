@@ -7,7 +7,8 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height:10px;" />
-	
+
+	<!-- 	Titre de l'avenant -->
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="2"
 		style="font-size:16px;">
@@ -16,7 +17,8 @@
 		<h:outputText id="motif1"
 			value="#{avenantController.avenant.titreAvenant}" />
 	</h:panelGrid>
-	
+
+	<!-- Motif de la modification -->
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="3"
 		rendered="#{avenantController.avenant.rupture}">
@@ -28,6 +30,7 @@
 				value="#{avenantController.avenant.motifAvenant}" />
 		</h:panelGrid>
 
+		<!-- barre grise  -->
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="3">
 			<t:htmlTag value="div" style="width: 50px;" />
@@ -36,6 +39,7 @@
 			<t:htmlTag value="div" style="width: 50px;" />
 		</h:panelGrid>
 
+		<!-- Type de la modification si rupture-->
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="1"
 			rendered="#{avenantController.avenant.rupture}">
@@ -43,6 +47,8 @@
 			<h:outputText id="type1"
 				value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}" />
 		</h:panelGrid>
+
+		<!-- Type de la modification si pas de rupture-->
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="1"
 			rendered="#{!avenantController.avenant.rupture}">
@@ -302,6 +308,22 @@
 					value="#{avenantController.avenant.motifAvenant}" />
 			</h:panelGrid>
 		</t:div>
+	</t:div>
+
+	<t:div rendered="#{avenantController.avenant.rupture}">
+		<t:htmlTag value="div" style="height: 10px;" />
+		<h:outputLabel for="dateRupture"
+			value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}" />
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" id="dateRupture" columns="3">
+			<t:htmlTag value="div" style="width: 10px;" />
+			<h:outputText style="color:green;"
+				value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']} " />
+			<h:outputText style="color:green;"
+				value="#{avenantController.avenant.dateRupture}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+			</h:outputText>
+		</h:panelGrid>
 	</t:div>
 
 	<h:panelGrid columnClasses="paginatorData-text"

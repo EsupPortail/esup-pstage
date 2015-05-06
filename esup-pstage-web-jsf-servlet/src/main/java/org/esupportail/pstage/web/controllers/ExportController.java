@@ -525,6 +525,12 @@ public class ExportController extends AbstractContextAwareController {
 				} else {
 					return "Non";
 				}
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.VALIDEE.PEDAGOGIQUEMENT")){
+				if (convention.getValidationPedagogiqueExport()){
+					return "Oui";
+				} else {
+					return "Non";
+				}
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.NOM.ENSEIGNANT")){
 				return convention.getEnseignant().getNom();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.PRENOM.ENSEIGNANT")){

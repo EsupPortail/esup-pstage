@@ -211,10 +211,14 @@
 								renderIfSinglePage="false" />
 						</f:facet>
 					</rich:dataTable>
-					<rich:jQuery selector=".stable tr" event="mouseover"
-						query="jQuery(this).addClass('active-row')" />
-					<rich:jQuery selector=".stable tr" event="mouseout"
-						query="jQuery(this).removeClass('active-row')" />
+<!-- 					<rich:jQuery selector=".stable tr" event="mouseover" -->
+<!-- 						query="jQuery(this).addClass('active-row')" /> -->
+<!-- 					<rich:jQuery selector=".stable tr" event="mouseout" -->
+<!-- 						query="jQuery(this).removeClass('active-row')" /> -->
+					<rich:jQuery selector=".stable tr"
+						query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
+					<rich:jQuery selector=".stable tr"
+						query="live('mouseout', function(){jQuery(this).removeClass('active-row')})" />
 				</h:panelGrid>
 
 				<t:htmlTag value="div" style="height: 10px;" />

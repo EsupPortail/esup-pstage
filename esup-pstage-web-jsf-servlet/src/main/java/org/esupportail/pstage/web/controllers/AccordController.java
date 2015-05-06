@@ -479,7 +479,7 @@ public class AccordController extends AbstractContextAwareController {
 					if(logger.isInfoEnabled()){
 						logger.info("Suppression Structure : " +structureTmp);
 					}
-					this.getStructureDomainService().deleteStructure(structureTmp.getIdStructure());
+					this.getStructureDomainService().deleteStructureBase(structureTmp.getIdStructure());
 				}
 			}catch (WebServiceDataBaseException w){
 				try {
@@ -502,7 +502,7 @@ public class AccordController extends AbstractContextAwareController {
 						if(logger.isInfoEnabled()){
 							logger.info("Suppression Structure : " +structureTmp);
 						}
-						this.getStructureDomainService().deleteStructure(structureTmp.getIdStructure());
+						this.getStructureDomainService().deleteStructureBase(structureTmp.getIdStructure());
 					}
 				} catch (WebServiceDataBaseException wb) {
 					addErrorMessage(null, "ACCORD.ERREUR");

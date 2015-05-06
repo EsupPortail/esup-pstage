@@ -48,9 +48,17 @@
 							value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
 					</f:facet>
 					<t:htmlTag value="center">
-						<h:outputText rendered="#{avenant.rupture}"
-							value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}" />
-						<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" rendered="#{!avenant.rupture}">
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="3"
+							rendered="#{avenant.rupture}">
+							<h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE']} :" />
+							<h:outputText value="#{avenant.dateRupture}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+							</h:outputText>
+						</h:panelGrid>
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="1"
+							rendered="#{!avenant.rupture}">
 							<h:outputText rendered="#{avenant.modificationSujet}"
 								value="#{msgs['CONVENTION.ETAPE11.SUJET']}" />
 							<h:outputText rendered="#{avenant.modificationPeriode}"

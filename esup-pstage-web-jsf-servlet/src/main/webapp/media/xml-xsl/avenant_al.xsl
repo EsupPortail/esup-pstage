@@ -602,7 +602,11 @@
 							<fo:block line-height="110%" padding-top="2pt" padding-bottom="2pt" 
 								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:if test="@rupture = 'true'"> 
-								Aus dem Praktikum
+								Aus dem Praktikum :
+								<fo:inline font-weight="bold">
+									<xsl:value-of
+										select="concat(substring(./date-rupture,9,2),'/',substring(./date-rupture,6,2), '/',substring(./date-rupture,1,4))" />
+								</fo:inline>
 								</xsl:if>
 							</fo:block>
 							

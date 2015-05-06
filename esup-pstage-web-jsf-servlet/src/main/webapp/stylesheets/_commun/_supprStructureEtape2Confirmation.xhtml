@@ -9,6 +9,5 @@
 	<ui:include src="_confirmationMessages.xhtml" />
 
 	<a4j:commandButton execute="@this" value="#{msgs['GENERAL.CLOSE']}"
-		action="_supprStructureEtape1"
-		onclick="#{rich:component('supprimerStructurePanel')}.hide();" />
+		onclick="#{rich:component('supprimerStructurePanel')}.hide();return false;" />
 </ui:composition>

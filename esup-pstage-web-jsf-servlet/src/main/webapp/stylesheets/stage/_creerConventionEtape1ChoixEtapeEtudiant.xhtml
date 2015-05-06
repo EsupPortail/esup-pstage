@@ -12,16 +12,20 @@
 				<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT']}" />
 			</f:facet>
 			<t:htmlTag value="div" style="height:10px;" />
-			
-			<h:panelGrid columns="2" rendered="#{conventionController.conventionExistante}">
+
+			<h:panelGrid columns="2"
+				rendered="#{conventionController.conventionExistante}">
 				<h:graphicImage value="../../media/images/warn.png"
-					alt="#{msgs['GENERAL.WARNING']}"
-					title="#{msgs['GENERAL.WARNING']}" />
-				<h:outputText value="#{msgs['CONVENTION.ETAPE1.AVERTISSEMENT.ETUDIANT.CONVENTION_EXISTANTE']}" rendered="#{welcomeController.etudiant}"/>
-				<h:outputText value="#{msgs['CONVENTION.ETAPE1.AVERTISSEMENT.PERSONNEL.CONVENTION_EXISTANTE']}" rendered="#{!welcomeController.etudiant}"/>
+					alt="#{msgs['GENERAL.WARNING']}" title="#{msgs['GENERAL.WARNING']}" />
+				<h:outputText
+					value="#{msgs['CONVENTION.ETAPE1.AVERTISSEMENT.ETUDIANT.CONVENTION_EXISTANTE']}"
+					rendered="#{welcomeController.etudiant}" />
+				<h:outputText
+					value="#{msgs['CONVENTION.ETAPE1.AVERTISSEMENT.PERSONNEL.CONVENTION_EXISTANTE']}"
+					rendered="#{!welcomeController.etudiant}" />
 			</h:panelGrid>
 			<t:htmlTag value="div" style="height: 10px;" />
-		
+
 			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
 
@@ -39,78 +43,112 @@
 				<h:outputText id="prenom"
 					value="#{conventionController.etudiantRef.prenom}" />
 			</h:panelGrid>
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text"
-				rendered="#{!conventionController.etudiantSupUneEtape}">
-				<h:outputLabel for="etape" value="#{msgs['CONVENTION.VOTREETAPE']}" />
-				<h:outputText id="etape"
-					value="#{conventionController.etudiantRef.theCodeEtape} - #{conventionController.etudiantRef.theEtape}" />
-				<h:outputLabel for="ufr" value="#{msgs['CONVENTION.VOTREUFR']}" />
-				<h:outputText id="ufr"
-					value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
-			</h:panelGrid>
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text"
-				rendered="#{conventionController.etudiantSupUneEtape}">
-				<h:outputLabel for="etapes" value="#{msgs['CONVENTION.VOTREETAPE']}" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2" id="etapes">
-					<h:selectOneMenu id="choixEtape"
-						value="#{conventionController.selectedCodeEtape}" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<f:selectItem itemValue="" />
-						<f:selectItems value="#{conventionController.listeEtapesEtudiant}" />
-						<a4j:ajax event="valueChange"
-							listener="#{conventionController.rechargeUfr}"
-							render="ufrs,elementPedago,panelElp" />
-					</h:selectOneMenu>
-					<rich:message for="choixEtape">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+			
+			<t:div rendered="#{!conventionController.etudiantSupUneEtape}">
+				<h:panelGrid columns="2" columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
+					<h:outputLabel for="ufr" value="#{msgs['CONVENTION.VOTREUFR']}" />
+					<h:outputText id="ufr"
+						value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
+					<h:outputLabel for="etape" value="#{msgs['CONVENTION.VOTREETAPE']}" />
+					<h:outputText id="etape"
+						value="#{conventionController.etudiantRef.theCodeEtape} - #{conventionController.etudiantRef.theEtape}" />
 				</h:panelGrid>
-			</h:panelGrid>
-			<h:panelGrid columns="1" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text"
-				rendered="#{conventionController.etudiantSupUneEtape}">
-				<a4j:outputPanel id="ufrs">
-					<h:outputLabel for="ufr" value="#{msgs['CONVENTION.VOTREUFR']}"
-						rendered="#{conventionController.choixEtape}" />
-					<h:outputText
-						value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}"
-						rendered="#{conventionController.choixEtape}" />
-				</a4j:outputPanel>
-				<a4j:outputPanel id="elementPedago">
-					<h:outputLabel for="elementPedago"
-						value="#{msgs['CONVENTION.ELP']}"
-						rendered="#{conventionController.etudiantUnElp}" />
-					<h:outputText
-						value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)"
-						rendered="#{conventionController.etudiantUnElp}" />
-				</a4j:outputPanel>
-				<a4j:outputPanel id="panelElp">
+				<h:panelGrid columns="2" style="padding:5px;"
+					rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">
+					<h:outputLabel for="elp1" value="#{msgs['CONVENTION.ELP']}" />
 					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="3"
-						rendered="#{conventionController.etudiantSupUnElp}">
-						<h:outputLabel for="choixElp" value="#{msgs['CONVENTION.ELP']}" />
-						<h:selectOneMenu id="choixElp"
+						rowClasses="paginatorData-text">
+						<h:selectOneMenu id="choixElp1"
 							value="#{conventionController.selectedCodeElp}" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:selectItem itemValue="" />
 							<f:selectItems
 								value="#{conventionController.listeELPEtapesSelectItems}" />
-							<a4j:ajax event="valueChange" render="elementPedago"
+							<a4j:ajax event="valueChange"
 								listener="#{conventionController.rechargeElp}" />
 						</h:selectOneMenu>
-						<rich:message for="choixElp">
+						<h:outputText id="elp1"
+							value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)"
+							/>
+					</h:panelGrid>
+				</h:panelGrid>
+				<rich:message for="choixElp1">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</rich:message>
+			</t:div>
+
+			<t:div rendered="#{conventionController.etudiantSupUneEtape}">
+				<a4j:outputPanel id="ufrs">
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="2"
+						rendered="#{conventionController.choixEtape}">
+						<h:outputLabel for="ufr" value="#{msgs['CONVENTION.VOTREUFR']}" />
+						<h:outputText
+							value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
+					</h:panelGrid>
+				</a4j:outputPanel>
+				<h:panelGrid columns="2" columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
+					<h:outputLabel for="etapes"
+						value="#{msgs['CONVENTION.VOTREETAPE']}" />
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="2" id="etapes">
+						<h:selectOneMenu id="choixEtape"
+							value="#{conventionController.selectedCodeEtape}" required="true"
+							requiredMessage="#{requiredMessageController.champObligatoire}">
+							<f:selectItem itemValue="" />
+							<f:selectItems
+								value="#{conventionController.listeEtapesEtudiant}" />
+							<a4j:ajax event="valueChange"
+								listener="#{conventionController.rechargeUfr}"
+								render="ufrs,elementPedago,panelElp" />
+						</h:selectOneMenu>
+						<rich:message for="choixEtape">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+					</h:panelGrid>
+				</h:panelGrid>
+				<a4j:outputPanel id="elementPedago">
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="2"
+						rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">
+						<h:outputLabel for="elementPedago"
+							value="#{msgs['CONVENTION.ELP']}" />
+						<h:outputText
+							value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
+					</h:panelGrid>
+				</a4j:outputPanel>
+				<a4j:outputPanel id="panelElp">
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="3"
+						rendered="#{conventionController.etudiantSupUnElp}">
+						<h:outputLabel for="choixElp2" value="#{msgs['CONVENTION.ELP']}" />
+						<h:selectOneMenu id="choixElp2"
+							value="#{conventionController.selectedCodeElp}" required="true"
+							requiredMessage="#{requiredMessageController.champObligatoire}">
+							<f:selectItem itemValue="" />
+							<f:selectItems
+								value="#{conventionController.listeELPEtapesSelectItems}" />
+							<a4j:ajax event="valueChange"
+								listener="#{conventionController.rechargeElp}" />
+						</h:selectOneMenu>
+						<rich:message for="choixElp2">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 						</rich:message>
 					</h:panelGrid>
 				</a4j:outputPanel>
-			</h:panelGrid>
+			</t:div>
 			<rich:message for="etape">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
-
+			
+			<h:panelGrid columns="2" rendered="#{conventionController.blocageCreationEtpOrpheline}">
+				<h:graphicImage value="../../media/images/cancel.png"
+					alt="#{msgs['GENERAL.WARNING']}" title="#{msgs['GENERAL.WARNING']}" />
+				<h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.NONRATTACHE']}" style="color:red;"/>
+			</h:panelGrid>
+			
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="1">
 				<t:htmlTag value="div" style="height:20px;" />
@@ -225,16 +263,20 @@
 				<a4j:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}"
 					immediate="true" render="formConvention"
 					rendered="#{welcomeController.personnel}">
-					<f:setPropertyActionListener value="_creerConventionEtape1RechercheEtudiant" target="#{sessionController.creationConventionEtape1CurrentPage}" />
+					<f:setPropertyActionListener
+						value="_creerConventionEtape1RechercheEtudiant"
+						target="#{sessionController.creationConventionEtape1CurrentPage}" />
 				</a4j:commandButton>
 				<a4j:commandButton value="#{msgs['CONVENTION.REVENIR.LISTE.ETU']}"
 					immediate="true" render="formConvention"
 					rendered="#{conventionController.etudiantTrouves}">
-					<f:setPropertyActionListener value="_creerConventionEtape1ListeEtudiant" target="#{sessionController.creationConventionEtape1CurrentPage}" />
+					<f:setPropertyActionListener
+						value="_creerConventionEtape1ListeEtudiant"
+						target="#{sessionController.creationConventionEtape1CurrentPage}" />
 				</a4j:commandButton>
 				<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
 					render="formConvention"
-					action="#{conventionController.goToCreerConventionCtrlInfosEtu}"/>
+					action="#{conventionController.goToCreerConventionCtrlInfosEtu}" />
 			</h:panelGrid>
 		</rich:panel>
 	</a4j:outputPanel>

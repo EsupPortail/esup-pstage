@@ -2152,7 +2152,7 @@
 								conducted under
 								the conditions provided in item b of the 2nd section of
 								Article
-								L.418-2,
+								L.412-8,
 								<fo:inline text-decoration="underline">
 									the host organization shall
 									send a statement to the Primary
@@ -2201,7 +2201,7 @@
 								les lieux rendus utiles pour les besoins du stage et pour les
 								étudiants en médecine, en chirurgie dentaire ou en pharmacie qui
 								n'ont pas un statut hospitalier pendant le stage effectué dans
-								les conditions prévues au b du 2e de l'article L.418-2,
+								les conditions prévues au b du 2e de l'article L.412-8,
 								<fo:inline text-decoration="underline">
 									l'organisme d'accueil
 									envoie la déclaration à la Caisse Primaire d'Assurance Maladie
@@ -3777,7 +3777,19 @@
 								<fo:inline text-decoration="underline">Educational Assessment
 									Procedures
 								</fo:inline>
-								: 
+								:
+								The intern shall (
+								<fo:inline font-style="italic" font-size="10pt">
+									specify the nature
+									of the work
+									to be provided - report,
+									etc.
+									- possibly by
+									including an attachment
+								</fo:inline>
+								<fo:inline>
+									) : 
+								</fo:inline>
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>

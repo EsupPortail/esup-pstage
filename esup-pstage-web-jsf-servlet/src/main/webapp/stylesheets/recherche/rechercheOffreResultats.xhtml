@@ -16,10 +16,7 @@
 						<ui:include src="../_commun/_rechercheOffreNbResultats.xhtml" />
 						<rich:dataTable id="rechercheOffreDataTable"
 							value="#{offreController.rechercheOffrePaginator.visibleItems}"
-							var="offre" columnClasses="center" rowKeyVar="rowOffre"
-							onRowMouseOver="this.style.backgroundColor='#F1F1F1';this.style.cursor='pointer';"
-							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-							onRowClick="location.href='#{sessionController.baseUrl}/stylesheets/recherche/?args=idOffre=#{offre.idOffre}'">
+							var="offre" columnClasses="center">
 							<f:facet name="footer">
 								<rich:dataScroller align="center" for="rechercheOffreDataTable"
 									maxPages="20" page="1" id="listeOffreScroller"

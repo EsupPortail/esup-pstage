@@ -1581,19 +1581,9 @@
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Der Praktikant darf während der Dauer des Praktikums an die
 								Bildungseinrichtung zurückkehren, um an vom Programm
-								ausdrücklich vorgesehenen Kursen und Versammlungen teilzunehmen,
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold">
-								(Artikel 4 Fortsetzung)
-							</fo:block>
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								deren Daten dem Leiter der Empfangseinrichtung von der
+								ausdrücklich vorgesehenen Kursen und Versammlungen
+								teilzunehmen,deren Daten dem Leiter der Empfangseinrichtung von
+								der
 								Einrichtung mitgeteilt werden. Die Empfangseinrichtung kann
 								Reisen des Praktikanten erlauben.
 							</fo:block>
@@ -1609,12 +1599,22 @@
 								dem Tutor
 								des Praktikums
 								festgestellt wird, muss dem
-								Referenzen
-								der
+								Referenzen 	der
 								Hochschuleinrichtung
 								mitgeteilt und
-								schnellstmöglich gelöst
-								werden.
+								schnellstmöglich
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold">
+								(Artikel 4 Fortsetzung)
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
+								gelöst werden.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -1671,6 +1671,60 @@
 								conformément aux stipulations pédagogiques
 								définies.
 							</fo:block>
+							<fo:block line-height="100%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								Le stagiaire est autorisé
+								à revenir dans son établissement d'enseignement pendant la durée
+								du stage pour y suivre des cours demandés explicitement par le
+								programme, ou pour participer à des réunions ; les dates portées
+								à la connaissance de l'organisme d'accueil par l'établissement.
+							</fo:block>
+							<fo:block line-height="100%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								L'organisme d'accueil peut
+								autoriser le stagiaire à se déplacer.
+							</fo:block>
+							<fo:block line-height="100%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
+								Toute difficulté survenue
+								dans la réalisation et le déroulement du stage, qu'elle soit
+								constatée par le stagiaire ou par le tuteur de stage, doit être
+								portée à la connaissance de l'enseignement-référent et de
+								l'établissement d'enseignement afin d'être résolue au plus vite.
+							</fo:block>
+							<fo:block line-height="100%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify" background-color="#E6E6E6" font-style="italic">
+								<fo:inline text-decoration="underline">
+									MODALITES D'ENCADREMENT
+								</fo:inline>
+								(visites, rendez-vous téléphoniques, etc)
+							</fo:block>
+							<xsl:choose>
+								<xsl:when test="mode-encadre-suivi and mode-encadre-suivi != ''">
+									<fo:block line-height="100%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-bottom="2pt"  background-color="#E6E6E6" font-style="italic">
+										<fo:inline font-weight="bold">
+											<xsl:value-of select="mode-encadre-suivi" />
+										</fo:inline>
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="100%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-bottom="2pt"  background-color="#E6E6E6" font-style="italic">
+										.......................................................................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
+							
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
@@ -1791,8 +1845,9 @@
 									<xsl:value-of select="avantages-nature" />
 								</fo:inline>
 							</fo:block>
+
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif"
+								padding-top="2pt" country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								keep-with-next="always" text-align="justify" font-weight="bold"
 								background-color="#E6E6E6" font-style="italic">Article
 								5 - Gratification -
@@ -2088,7 +2143,7 @@
 								Anforderungen des Praktikums nützlich gewordenen Ort, oder für
 								die Studenten der Medizin, der Zahnchirurgie oder Pharmazeutik
 								ohne Krankenhausstatus während des Praktikums, das unter den
-								Bedingungen des Abschnitts 2b des Artikels L.418-2 durchgeführt
+								Bedingungen des Abschnitts 2b des Artikels L.412-8 durchgeführt
 								wird, einen Unfall erleidet,
 								<fo:inline text-decoration="underline">schickt die
 									Empfangseinrichtung die Erklärung an die kompetente
@@ -2136,7 +2191,7 @@
 								les lieux rendus utiles pour les besoins du stage et pour les
 								étudiants en médecine, en chirurgie dentaire ou en pharmacie qui
 								n'ont pas un statut hospitalier pendant le stage effectué dans
-								les conditions prévues au b du 2e de l'article L.418-2,
+								les conditions prévues au b du 2e de l'article L.412-8,
 								<fo:inline text-decoration="underline">
 									l'organisme d'accueil
 									envoie la déclaration à la Caisse Primaire d'Assurance Maladie
@@ -2885,7 +2940,7 @@
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" padding-bottom="4pt">
+								text-align="justify">
 								Bei allen Praktika im
 								Ausland oder in Übersee
 								verpflichtet sich der Praktikant zum
@@ -2894,6 +2949,22 @@
 								Rücktransport,
 								Rechtshilfe...) sowie einer individuellen
 								Unfallversicherung.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" >
+								Wenn die Empfangseinrichtung
+								dem Praktikanten ein Fahrzeug zur Verfügung stellt, muss sie
+								vorher sicherstellen, dass die Versicherungspolice eine Nutzung
+								durch den Studenten abdeckt.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" padding-bottom="4pt">
+								Wenn der Student im Rahmen
+								des Praktikums sein eigenes oder ein von einem Dritten
+								geliehenes Fahrzeug benutzt, muss er dem Versicherer diese
+								Nutzung mitteilen und die eventuell anfallende Prämie bezahlen.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -3059,6 +3130,24 @@
 								die Angestellten gemäß der Artikel L.1225-16 à L.1225-28,
 								L.1225-35, L.1225-37, L.1225-46 des Arbeitsgesetzbuchs.
 							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>
+		</fo:block>
+	</xsl:template>
+
+	<!-- cinquieme page -->
+	<xsl:template name="ArticlesPage5">
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="10pt" font-family="Times New Roman,serif"
+			margin-left="0cm" margin-right="0cm" text-indent="0cm">
+			<fo:table table-layout="fixed" width="100%">
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell padding-right="10pt">
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
@@ -3079,50 +3168,36 @@
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify">
+								text-align="justify" padding-top="2pt" padding-bottom="3pt">
 								<xsl:value-of select="nb-conges" />
 							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-		</fo:block>
-	</xsl:template>
-
-	<!-- cinquieme page -->
-	<xsl:template name="ArticlesPage5">
-		<fo:block line-height="110%" hyphenate="false" language="fr"
-			country="FR" font-size="10pt" font-family="Times New Roman,serif"
-			margin-left="0cm" margin-right="0cm" text-indent="0cm">
-			<fo:table table-layout="fixed" width="100%">
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell padding-right="10pt">
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								(Artikel 9 Fortsetzung)
-							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify">
 								Die
-								Empfangseinrichtung wird jede andere zeitweilige Unterbrechung
-								des Praktikums (Krankheit, ungerechtfertigtes Fehlen...) der
+								Empfangseinrichtung wird jede andere zeitweilige
+								Unterbrechung
+								des Praktikums (Krankheit, ungerechtfertigtes
+								Fehlen...) der
 								Hochschule schriftlich melden.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								padding-top="2pt">
-								Jede Unterbrechung des Praktikums muss den anderen
-								Parteien der Vereinbarung und dem Lehrer-Referenten mitgeteilt
-								werden. Gegebenenfalls führt die Einrichtung
-								Validierungsmodalitäten ein. Bei Einverständnis aller Parteien
-								kann eine Verschiebung des Praktikums erwogen werden, um die
-								gesamte ursprünglich vorgesehene Praktikumsdauer zu erreichen.
-								Diese Verschiebung wird Gegenstand eines Nachtrags zu dieser
+								padding-top="2pt" text-align="justify">
+								Jede Unterbrechung des Praktikums
+								muss den anderen
+								Parteien der Vereinbarung und dem
+								Lehrer-Referenten mitgeteilt
+								werden. Gegebenenfalls führt die
+								Einrichtung
+								Validierungsmodalitäten ein. Bei Einverständnis aller
+								Parteien
+								kann eine Verschiebung des Praktikums erwogen werden, um
+								die
+								gesamte ursprünglich vorgesehene Praktikumsdauer zu
+								erreichen.
+								Diese Verschiebung wird Gegenstand eines Nachtrags zu
+								dieser
 								Vereinbarung.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -3309,8 +3384,10 @@
 								veröffentlicht oder dass einige sehr vertrauliche Elemente
 								komplett entfernt werden.
 							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								space-before="0cm" space-after="0cm" font-weight="normal"
 								text-align="justify" padding-bottom="4pt">
 								Die Personen, die mit dem
@@ -3320,12 +3397,11 @@
 								enthaltenen Informationen weder zu nutzen noch
 								zu verbreiten.
 							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell>
+
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold" background-color="#E6E6E6"
-								font-style="italic">
+								font-style="italic" padding-top="2pt" padding-bottom="2pt">
 								Article 10 - Devoir de réserve
 								et confidentialité
 							</fo:block>
@@ -3520,7 +3596,7 @@
 								<fo:inline text-decoration="underline">Modalitäten der
 									pädagogischen Bewertung
 								</fo:inline>
-								: 
+								:
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>
@@ -3651,7 +3727,7 @@
 								<fo:inline text-decoration="underline">Modalités d'évaluation
 									pédagogiques
 								</fo:inline>
-								: 
+								:
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>

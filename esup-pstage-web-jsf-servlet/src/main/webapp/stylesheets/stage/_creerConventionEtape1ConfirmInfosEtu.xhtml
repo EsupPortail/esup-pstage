@@ -31,14 +31,15 @@
 			<h:outputLabel for="prenom1" value="#{msgs['CONVENTION.PRENOM']}" />
 			<h:outputText id="prenom1"
 				value="#{conventionController.etudiantRef.prenom}" />
-			<h:outputLabel for="etape1" value="#{msgs['CONVENTION.VOTREETAPE']}" />
-			<h:outputText id="etape1"
-				value="#{conventionController.etudiantRef.theCodeEtape}- #{conventionController.etudiantRef.theEtape}" />
 			<h:outputLabel for="ufr1" value="#{msgs['CONVENTION.VOTREUFR']}" />
 			<h:outputText id="ufr1"
 				value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
-			<h:outputLabel for="elp1" value="#{msgs['CONVENTION.ELP']}" />
-			<h:outputText id="elp1"
+			<h:outputLabel for="etape1" value="#{msgs['CONVENTION.VOTREETAPE']}" />
+			<h:outputText id="etape1"
+				value="#{conventionController.etudiantRef.theCodeEtape}- #{conventionController.etudiantRef.theEtape}" />
+			<h:outputLabel for="elp1" rendered="#{not empty conventionController.etudiantRef.theCodeElp}"
+				value="#{msgs['CONVENTION.ELP']}" />
+			<h:outputText id="elp1" rendered="#{not empty conventionController.etudiantRef.theCodeElp}"
 				value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
 			<h:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']}"
 				for="mainAddress1" />

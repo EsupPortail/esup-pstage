@@ -251,6 +251,40 @@
 							value="#{conventionController.critereRechercheConvention.numeroSiret}"
 							size="20" maxlength="14" />
 					</h:panelGrid>
+
+					<h:panelGrid columns="2"
+						rendered="#{conventionController.rechercheAvancee}"
+						for="conventionEtrangereOuChoixPays">
+						<h:selectOneRadio id="conventionEtrangereOuChoixPays"
+							value="#{conventionController.estEtrangere}">
+							<f:selectItem
+								itemLabel="#{msgs['RECHERCHECONVENTION.CHOIX.PAYS']}"
+								itemValue="false" />
+							<a4j:ajax event="valueChange" render="choixPaysPanel" />
+							<f:selectItem
+								itemLabel="#{msgs['RECHERCHECONVENTION.ETRANGERE']}"
+								itemValue="true" />
+						</h:selectOneRadio>
+						<t:htmlTag value="div" style="width:20px;" />
+						<a4j:outputPanel id="choixPaysPanel">
+							<h:panelGrid columns="2"
+								rendered="#{!conventionController.estEtrangere}">
+								<h:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']}"
+									for="pays" rendered="#{conventionController.rechercheAvancee}" />
+								<h:selectOneMenu id="pays"
+									value="#{conventionController.critereRechercheConvention.pays}"
+									converter="#{paysConverter}"
+									rendered="#{conventionController.rechercheAvancee}"
+									styleClass="paysInput">
+										<f:selectItem itemValue=" " />
+									<f:selectItems value="#{nomenclatureController.pays}" />
+								</h:selectOneMenu>
+							</h:panelGrid>
+						</a4j:outputPanel>
+					</h:panelGrid>
+
+					<t:htmlTag value="div" style="height: 5px;"
+						rendered="#{conventionController.rechercheAvancee}" />
 					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.COMMUNE']}"
 						for="commune" rendered="#{conventionController.rechercheAvancee}" />
 					<h:inputText id="commune"
@@ -264,16 +298,10 @@
 						value="#{conventionController.critereRechercheConvention.codePostal}"
 						size="10" maxlength="10"
 						rendered="#{conventionController.rechercheAvancee}" />
-					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']}"
-						for="pays" rendered="#{conventionController.rechercheAvancee}" />
-					<h:selectOneMenu id="pays"
-						value="#{conventionController.critereRechercheConvention.pays}"
-						converter="#{paysConverter}"
-						rendered="#{conventionController.rechercheAvancee}"
-						styleClass="paysInput">
-						<f:selectItem itemValue="" />
-						<f:selectItems value="#{nomenclatureController.pays}" />
-					</h:selectOneMenu>
+
+
+					<t:htmlTag value="div" style="height: 5px;"
+						rendered="#{conventionController.rechercheAvancee}" />
 					<h:outputLabel
 						value="#{msgs['RECHERCHECONVENTION.TYPESTATUTSTRUCTURE']}"
 						for="typeStatut"

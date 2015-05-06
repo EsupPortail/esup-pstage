@@ -47,7 +47,16 @@ public interface EnseignantDomainService extends Serializable {
 	 * @return int
 	 */
 	public int getNombreConventionByEnseignant(String uidEnseignant, String codeUniversite);
-	
+	/**
+	 * 
+	 * @param uidEnseignant
+	 * @param codeUniversite
+	 * @param annee
+	 * @return
+	 */
+	public int getNombreConventionByEnseignantByAnnee(String uidEnseignant, String codeUniversite, String annee);
+
+
 	/**
 	 * @param enseignant
 	 * @return int

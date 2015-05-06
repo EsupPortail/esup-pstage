@@ -73,17 +73,19 @@
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant==3}">
 
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2">
-			<t:panelGroup colspan="2">
 				<h:outputText
 					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.ACTIVITE']}"
 					escape="false" />
-			</t:panelGroup>
+
+			
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2">
+			
+			
 			<h:outputLabel for="rechTypeStructure"
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.TYPESTRUCTURE']}" />
 			<h:selectOneMenu id="rechTypeStructure"
-				value="#{rechercheController.rechTypeEtablissement}"
+				value="#{rechercheController.rechTypeEtablissement}" 
 				converter="#{typeStructureConverter}">
 				<f:selectItems value="#{nomenclatureController.typesStructure}" />
 			</h:selectOneMenu>

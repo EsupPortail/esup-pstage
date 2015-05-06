@@ -74,15 +74,20 @@
 				</rich:dataTable>
 				<rich:dataScroller for="rechercheStructureDataTable" maxPages="20"
 					renderIfSinglePage="false" />
-				<rich:jQuery selector=".stable tr" event="mouseover"
-					query="jQuery(this).addClass('active-row')" />
-				<rich:jQuery selector=".stable tr" event="mouseout"
-					query="jQuery(this).removeClass('active-row')" />
+				<!-- 				<rich:jQuery selector=".stable tr" event="mouseover" -->
+				<!-- 					query="jQuery(this).addClass('active-row')" /> -->
+				<!-- 				<rich:jQuery selector=".stable tr" event="mouseout" -->
+				<!-- 					query="jQuery(this).removeClass('active-row')" /> -->
+				<rich:jQuery selector=".stable tr"
+					query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
+				<rich:jQuery selector=".stable tr"
+					query="live('mouseout', function(){jQuery(this).removeClass('active-row')})" />
 			</t:div>
 		</a4j:outputPanel>
 		<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
 			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-			immediate="true" rendered="#{offreController.typeAjoutModifOffre gt 2}"
+			immediate="true"
+			rendered="#{offreController.typeAjoutModifOffre gt 2}"
 			render="formCreationOffre">
 			<f:setPropertyActionListener value="_creationOffreEtape01Centre"
 				target="#{sessionController.creationOffreStageCurrentPage}" />

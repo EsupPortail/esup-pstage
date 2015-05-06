@@ -1261,9 +1261,11 @@ StudentDataRepositoryDao {
 											if (logger.isDebugEnabled()) {
 												logger.debug("elementPedagogique[l].getCodElp() = " + elementPedagogique[l].getCodElp());
 												logger.debug("elementPedagogique[l].getCredits() = " + elementPedagogique[l].getCredits());
+												logger.debug("elementPedagogique[l].getTemStage() = " + elementPedagogique[l].getTemStage());
+												logger.debug("elementPedagogique[l].getTemSusp() = " + elementPedagogique[l].getTemSusp());
 											}
 											//remplissage de la table des elements pedagogiques, si elp de type stage
-											if (elementPedagogique[l].getTemStage().equals("O") ) {
+											if (elementPedagogique[l].getTemStage().equals("O") && !elementPedagogique[l].getTemSusp().equals("O")) {
 												elementPedagogique[l].getCodElp();
 												elementPedagogique[l].getCredits();
 												elementPedagogique[l].getTemStage();

@@ -1636,7 +1636,7 @@
 								les lieux rendus utiles pour les besoins du stage et pour les
 								étudiants en médecine, en chirurgie dentaire ou en pharmacie qui
 								n'ont pas un statut hospitalier pendant le stage effectué dans
-								les conditions prévues au b du 2e de l'article L.418-2,
+								les conditions prévues au b du 2e de l'article L.412-8,
 								<fo:inline text-decoration="underline">
 									l'organisme d'accueil
 									envoie la déclaration à la Caisse Primaire d'Assurance Maladie
