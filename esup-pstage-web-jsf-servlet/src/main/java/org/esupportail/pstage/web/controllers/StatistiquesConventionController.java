@@ -264,7 +264,6 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 		if(years != null){
 			//boucle sur les differentes années universitaires
 			for (String uneAnnee:years){
-
 				//Critere 1 = vide
 				if(critereUnCle.equals("")){
 
@@ -338,7 +337,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 				//Critere 1 = UFR
 				if(critereUnCle.equals("UFR")){
-
+					
 					//Appel de la fonction selon le critere 2
 					if (critereDeuxCle.equals("")){
 						statsItemList = statistiquesDomainService.getNumberOfConventionsByStudy(idCentreGestion, uneAnnee, etab);
@@ -405,7 +404,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 				//Critere 1 = DEP
 				if(critereUnCle.equals("DEP")){
-
+					
 					//Appel de la fonction selon le critere 2
 					if (critereDeuxCle.equals("")){
 						statsItemList = statistiquesDomainService.getNumberOfConventionsByDepartment(idCentreGestion, uneAnnee, etab);
@@ -472,7 +471,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 				//Critere 1 = ETAPE
 				if(critereUnCle.equals("ETAPE")){
-
+					
 					//Appel de la fonction selon le critere 2
 					if (critereDeuxCle.equals("")){
 						statsItemList = statistiquesDomainService.getNumberOfConventionsByStep(idCentreGestion, uneAnnee, etab);

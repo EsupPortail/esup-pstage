@@ -46,6 +46,8 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Résultats d'une recherche (si plusieurs)
 	 */
 	private List<StructureDTO> listeResultatsRechercheStructure=null;
+	
+
 	/**
 	 * Résultat d'une recherche (si unique)
 	 */
@@ -911,5 +913,10 @@ public class RechercheController extends AbstractContextAwareController {
 	public void setToVerificationStructures(boolean toVerificationStructures) {
 		this.toVerificationStructures = toVerificationStructures;
 	}
+
+
+	
+
+	
 
 }

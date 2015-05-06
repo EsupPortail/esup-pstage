@@ -55,7 +55,7 @@
 				</h:panelGrid>
 				<a4j:outputPanel id="opRechercheStructureDataTable">
 					<t:div
-						rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
+						rendered="#{not empty rechercheController.listeResultatsRechercheStructure}"> <!-- rendered="#{not empty rechercheController.listeResultatsRechercheStructure}"> -->
 						<ui:include
 							src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
 						<rich:dataTable id="rechercheStructureDataTable"

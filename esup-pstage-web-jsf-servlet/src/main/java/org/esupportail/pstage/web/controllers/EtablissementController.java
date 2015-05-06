@@ -993,22 +993,18 @@ public class EtablissementController extends AbstractContextAwareController {
 				if (delete) {
 					addInfoMessage(null, "STRUCTURE.SUPPRESSION.CONFIRMATION",
 							this.formStructure.getRaisonSociale());
-					if (this.rechercheController
-							.getListeResultatsRechercheStructure() != null
-							&& !this.rechercheController
-							.getListeResultatsRechercheStructure()
-							.isEmpty()) {
-						this.rechercheController
-						.getListeResultatsRechercheStructure().remove(
-								this.formStructure);
-						this.rechercheController
-						.setResultatRechercheStructure(null);
+					if (this.rechercheController.getListeResultatsRechercheStructure() != null
+							&& !this.rechercheController.getListeResultatsRechercheStructure().isEmpty()) {
+					
+						this.rechercheController.getListeResultatsRechercheStructure().remove(this.formStructure);
+						this.rechercheController.setResultatRechercheStructure(null);
+						
 					} else {
 						this.rechercheController
 						.setListeResultatsRechercheStructure(null);
-						this.rechercheController
-						.setResultatRechercheStructure(null);
+						this.rechercheController.setResultatRechercheStructure(null);
 					}
+					
 				} else {
 					addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",
 							this.formStructure.getRaisonSociale());

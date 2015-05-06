@@ -32,13 +32,19 @@
 			<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 			<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 			<a4j:ajax execute="@this" event="click" render="modificationsAvenant" />
+			<!-- Après choix oui ou non, execute 'modificationsAvenant', il choisira le block 1 ou 2 selon le choix-->
 		</h:selectOneRadio>
 	</h:panelGrid>
 
+
 	<a4j:outputPanel id="modificationsAvenant">
+
+		<!-- Block 1: Cas où Rupture non -->
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text"
 			rendered="#{!avenantController.avenant.rupture}">
+
+
 			<!-- Sujet du stage -->
 			<t:div id="divSujet">
 				<h:panelGrid columnClasses="paginatorData-text"
@@ -80,8 +86,12 @@
 				</t:div>
 			</t:div>
 
+
+
 			<!-- Periode de stage -->
 			<t:div id="divPeriode">
+
+				<!-- Ecrire : Modification de la période de stage : O oui O non -->
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="2">
 					<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.MODIF_PERIODE']}"
@@ -102,6 +112,7 @@
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 
+					<!-- periode de stage intial : du   au   -->
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="2">
 						<t:htmlTag value="div" style="width: 10px;" />
@@ -125,6 +136,7 @@
 								</h:panelGrid>
 							</h:panelGrid>
 
+							<!-- Bloc periode stage, nouvelle date debut et fin stage-->
 							<h:panelGrid columnClasses="paginatorData-text"
 								rowClasses="paginatorData-text" columns="3">
 								<h:outputText
@@ -153,6 +165,7 @@
 								</rich:message>
 							</h:panelGrid>
 
+							<!-- interruption stage (y/n)  -->
 							<t:div id="divInterruption">
 								<h:panelGrid columnClasses="paginatorData-text"
 									rowClasses="paginatorData-text" columns="2">
@@ -712,7 +725,56 @@
 				</t:div>
 			</t:div>
 		</h:panelGrid>
+
+
+		<!-- Block 2 :Cas où Rupture oui -->
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text"
+			rendered="#{avenantController.avenant.rupture}">
+
+			<t:div id="divDateRupture">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="3">
+
+
+					<h:outputText value="#{msgs['CONVENTION.ETAPE11.PERIODE']}" />
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="4">
+						<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
+						<h:outputText
+							value="#{conventionController.convention.dateDebutStage}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</h:outputText>
+						<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
+						<h:outputText
+							value="#{conventionController.convention.dateFinStage}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+						</h:outputText>
+					</h:panelGrid>
+				</h:panelGrid>
+
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="3">
+					<h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']}" />
+					<rich:calendar id="dateRupture"
+						value="#{avenantController.avenant.dateRupture}"
+						locale="#{sessionController.locale}" popup="true"
+						datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
+						cellHeight="22px" style="width:200px" required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}" />
+					<h:outputText id="erreurDateRupture" value="" />
+					<rich:message for="erreurDateRupture">
+						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					</rich:message>
+				</h:panelGrid>
+
+			</t:div>
+		</h:panelGrid>
+
 	</a4j:outputPanel>
+
+
+	<!--  	barre grise fin block   -->
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" columns="1" align="center">
 		<t:htmlTag value="div" style="height: 20px;" />
@@ -720,5 +782,7 @@
 			style="width: 400px; background-color: #{a4jSkin.panelBorderColor}; height:3px;" />
 		<t:htmlTag value="div" style="height: 20px;" />
 	</h:panelGrid>
+
+
 
 </ui:composition>

@@ -10,13 +10,14 @@
 		rowClasses="paginatorData-text"
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<t:htmlTag value="div" style="height:10px;" />
-		<h:panelGrid style="font-size:18px;" columns="2" rendered="#{not empty avenantController.avenant.titreAvenant}">
+		<h:panelGrid style="font-size:18px;" columns="2"
+			rendered="#{not empty avenantController.avenant.titreAvenant}">
 			<h:outputLabel for="titreAvenant"
 				value="#{msgs['CONVENTION.ETAPE11.TITRE']} :" />
 			<h:outputText id="titreAvenant"
 				value="#{avenantController.avenant.titreAvenant}" />
 		</h:panelGrid>
-		
+
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="2" style="font-size:16px;"
 			rendered="#{!avenantController.avenant.rupture
@@ -31,7 +32,7 @@
 			<h:outputText id="motif1"
 				value="#{avenantController.avenant.motifAvenant}" />
 		</h:panelGrid>
-		
+
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="3"
 			rendered="#{avenantController.avenant.rupture
@@ -63,8 +64,9 @@
 				<h:outputLabel for="type1"
 					value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
 				<h:outputText id="type1"
-					value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}" />
+					value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}" />				
 			</h:panelGrid>
+
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="1"
 				rendered="#{!avenantController.avenant.rupture}">
@@ -379,14 +381,15 @@
 
 			<t:htmlTag value="div" style="width: 20px;" />
 
-			<t:div rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+			<t:div
+				rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
 				|| (welcomeController.etudiant and avenantController.avenant.validationAvenant)}">
 				<a4j:commandButton id="print" execute="@this"
 					rendered="#{conventionController.convention.codeLangueConvention == 'fr'}"
 					action="#{avenantController.editPdfAvenant}"
 					value="#{msgs['CONVENTION.ETAPE11.IMPRIMER']}" />
-	
+
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="3"
 					rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">

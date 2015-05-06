@@ -445,8 +445,8 @@ public class AvenantController extends AbstractContextAwareController {
 						this.avenant.getIdConvention());
 				
 				// Envoi d'une alerte à l'enseignant référent
-				if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
-					getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
+//				if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
+//					getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
 				
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 					List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());

@@ -81,7 +81,8 @@
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.langueConventions}" />
 					</h:selectOneMenu>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+					<h:panelGrid columns="2" columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text"
 						rendered="#{conventionController.rechercheAvancee}">
 						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
 							rendered="#{conventionController.rechercheAvancee}" for="validee" />
@@ -95,7 +96,8 @@
 								itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUIETNON']}" />
 						</h:selectOneRadio>
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+					<h:panelGrid columns="2" columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text"
 						rendered="#{conventionController.rechercheAvancee and sessionController.validationPedagogique}">
 						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VERIFIEE']}"
 							rendered="#{conventionController.rechercheAvancee}" for="validee" />
@@ -332,46 +334,48 @@
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.nafN1}" />
 					</h:selectOneMenu>
+
+					<t:htmlTag value="div" style="height: 20px;" />
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="8">
+						<a4j:commandButton
+							value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
+							action="#{conventionController.rechercherConvention}"
+							status="statusRecherche">
+							<f:setPropertyActionListener value="resultatsRechercheConvention"
+								target="#{conventionController.retourAction}" />
+						</a4j:commandButton>
+						<t:htmlTag value="div" style="width: 100px;" />
+						<h:commandButton
+							value="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}"
+							action="#{conventionController.rechercheSimpleAvancee}"
+							rendered="#{conventionController.rechercheAvancee}" />
+						<h:commandButton
+							value="#{msgs['RECHERCHECONVENTION.RECHERCHEAVANCEE']}"
+							action="#{conventionController.rechercheSimpleAvancee}"
+							rendered="#{!conventionController.rechercheAvancee}" />
+						<t:htmlTag value="div" style="width: 20px;" />
+						<h:commandButton value="#{msgs['RECHERCHECONVENTION.REINIT']}"
+							action="#{conventionController.resetRechercheConvention}" />
+						<t:htmlTag value="div" style="width: 20px;" />
+						<a4j:commandButton status="statusRecherche"
+							value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
+							action="#{exportController.rechercherConvention}">
+							<f:setPropertyActionListener
+								value="#{conventionController.critereRechercheConvention}"
+								target="#{exportController.critereRechercheConvention}" />
+							<f:setPropertyActionListener
+								value="#{conventionController.estValidee}"
+								target="#{exportController.estValidee}" />
+						</a4j:commandButton>
+					</h:panelGrid>
+					<a4j:status name="statusRecherche">
+						<f:facet name="start">
+							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+						</f:facet>
+					</a4j:status>
+
 				</h:panelGrid>
-				<t:htmlTag value="div" style="height: 20px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="8">
-					<a4j:commandButton
-						value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
-						action="#{conventionController.rechercherConvention}"
-						status="statusRecherche">
-						<f:setPropertyActionListener value="resultatsRechercheConvention"
-							target="#{conventionController.retourAction}" />
-					</a4j:commandButton>
-					<t:htmlTag value="div" style="width: 100px;" />
-					<h:commandButton
-						value="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}"
-						action="#{conventionController.rechercheSimpleAvancee}"
-						rendered="#{conventionController.rechercheAvancee}" />
-					<h:commandButton
-						value="#{msgs['RECHERCHECONVENTION.RECHERCHEAVANCEE']}"
-						action="#{conventionController.rechercheSimpleAvancee}"
-						rendered="#{!conventionController.rechercheAvancee}" />
-					<t:htmlTag value="div" style="width: 20px;" />
-					<h:commandButton value="#{msgs['RECHERCHECONVENTION.REINIT']}"
-						action="#{conventionController.resetRechercheConvention}" />
-					<t:htmlTag value="div" style="width: 20px;" />
-					<a4j:commandButton status="statusRecherche"
-						value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
-						action="#{exportController.rechercherConvention}">
-						<f:setPropertyActionListener
-							value="#{conventionController.critereRechercheConvention}"
-							target="#{exportController.critereRechercheConvention}" />
-						<f:setPropertyActionListener
-							value="#{conventionController.estValidee}"
-							target="#{exportController.estValidee}" />
-					</a4j:commandButton>
-				</h:panelGrid>
-				<a4j:status name="statusRecherche">
-					<f:facet name="start">
-						<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-					</f:facet>
-				</a4j:status>
 			</h:form>
 			<rich:message for="formRechConvention"
 				style="color:red;font-weight:bold;">
