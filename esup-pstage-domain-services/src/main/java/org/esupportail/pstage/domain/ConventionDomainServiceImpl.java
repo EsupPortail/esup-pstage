@@ -90,7 +90,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	public void setRemoteServices(RemoteServices remoteServices) {
 		this.remoteServices = remoteServices;
 	}
-	
+
 	/**
 	 * ficheEvaluationDomainService
 	 */
@@ -125,7 +125,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#deleteConvention(int)
 	 */
 	public boolean deleteConvention(int idConvention)
-	throws DataDeleteException, WebServiceDataBaseException {
+			throws DataDeleteException, WebServiceDataBaseException {
 
 		return this.remoteServices.deleteConvention(idConvention);
 	}
@@ -155,21 +155,21 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#updateConvention(org.esupportail.pstagedata.domain.dto.ConventionDTO)
 	 */
 	public boolean updateConvention(ConventionDTO convention)
-	throws DataUpdateException, WebServiceDataBaseException {
+			throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateConvention(convention);
 	}
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#updateCentreConventionByUfr(java.lang.String, int, java.lang.String)
 	 */
 	public boolean updateCentreConventionByUfr(String code, int idCentreGestion, String codeUniversite)
-	throws DataUpdateException, WebServiceDataBaseException {
+			throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateCentreConventionByUfrCodUniv(code, idCentreGestion, codeUniversite);
 	}
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#updateCentreConventionByEtape(java.lang.String, int, java.lang.String)
 	 */
 	public boolean updateCentreConventionByEtape(String code, int idCentreGestion, String codeUniversite)
-	throws DataUpdateException, WebServiceDataBaseException {
+			throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateCentreConventionByEtapeCodUniv(code, idCentreGestion, codeUniversite);
 	}
 	/**
@@ -182,9 +182,9 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#getConventionsFromCriteres(CritereRechercheConventionDTO)
 	 */
 	public List<ConventionDTO> getConventionsFromCriteres(CritereRechercheConventionDTO critereRechercheConvention){
-		return this.remoteServices.getConventionsFromCriteres(critereRechercheConvention);
+		return (List<ConventionDTO>) this.remoteServices.getConventionsFromCriteres(critereRechercheConvention);
 	}
-	
+
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#getConventionsFromCriteresByEnseignantTuteur(int, org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO)
 	 */
@@ -210,11 +210,11 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	/**
 	 * @see org.esupportail.pstage.domain.ConventionDomainService#getConventionFromExport(java.util.List)
 	 */
-//	public ConventionDTO getConventionFromExport(int id) {
-//		ConventionDTO c = this.remoteServices.getConventionFromExport(id);
-//		setObjectsExport(c);
-//		return c;
-//	}
+	//	public ConventionDTO getConventionFromExport(int id) {
+	//		ConventionDTO c = this.remoteServices.getConventionFromExport(id);
+	//		setObjectsExport(c);
+	//		return c;
+	//	}
 	public List<ConventionDTO> getConventionsFromExport(List<Integer> idsConventionsExport) {
 		List<ConventionDTO> lc = this.remoteServices.getConventionsFromExport(idsConventionsExport);
 		if(lc!=null){
@@ -356,7 +356,7 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 			}
 		}
 	}
-	
+
 	/**
 	 * Rempli les divers objets (TypeConvention, ...) depuis les listes en caches
 	 * @param c

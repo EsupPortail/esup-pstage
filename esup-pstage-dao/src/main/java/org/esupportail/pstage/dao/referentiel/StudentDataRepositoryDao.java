@@ -15,20 +15,20 @@ public interface StudentDataRepositoryDao extends Serializable{
  * @param id
  * @return EtudiantRef
  */
-public EtudiantRef getEtudiantRef(String universityCode, String id);
+public EtudiantRef getEtudiantRef(String universityCode, String id, boolean demandeInscrAdmAnneePrec);
 /**
  * @param universityCode
  * @param id
  * @return EtudiantRef
  */
-public EtudiantRef getEtudiantRefByNum(String universityCode, String id);
+public EtudiantRef getEtudiantRefByNum(String universityCode, String id, boolean demandeInscrAdmAnneePrec);
 /**
  * @param universityCode
  * @param name
  * @param firstName
  * @return List<EtudiantRef>
  */
-public List<EtudiantRef> getEtudiantsRefByName(String universityCode, String name, String firstName);
+public List<EtudiantRef> getEtudiantsRefByName(String universityCode, String name, String firstName, boolean demandeInscrAdmAnneePrec);
 
 
 }

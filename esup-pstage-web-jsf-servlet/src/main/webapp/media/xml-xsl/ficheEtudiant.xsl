@@ -264,6 +264,7 @@
 					</xsl:if>
 					<xsl:if test="reponse-evaluation/@reponse-etu-i7bis1 = 5">
 						Autre :
+						<xsl:value-of select="reponse-evaluation/reponse-etu-i7bis1b" />
 					</xsl:if>
 					<xsl:if test="reponse-evaluation/@reponse-etu-i7bis1 = 3">
 						<fo:block padding-top="0.1cm" hyphenate="false" language="fr"
@@ -282,9 +283,9 @@
 							</xsl:if>
 						</fo:block>
 					</xsl:if>
-					<xsl:if test="reponse-evaluation/@reponse-etu-i7bis1 = 5">
-						<xsl:value-of select="reponse-evaluation/reponseEtuI7bis1b" />
-					</xsl:if>
+					
+					
+					
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i7 = 'false'">
 					Non -

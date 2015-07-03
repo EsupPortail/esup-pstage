@@ -325,7 +325,7 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	/* ****************************************************************************
 	 * STRUCTURE
 	 *****************************************************************************/
-	
+
 	// Ajout moderation Entreprise
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresFromVerification(boolean)
@@ -335,7 +335,7 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 		setObjects(ls);
 		return ls;
 	}
-	
+
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructureFromId(int)
 	 */
@@ -583,6 +583,10 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	 */
 	public boolean deleteStructure(int idStructure, String loginCurrentUser) throws DataUpdateException,WebServiceDataBaseException{
 		return this.remoteServices.deleteStructure(idStructure, loginCurrentUser);
+	}
+
+	public List<String> getRaisonsSociales(String raisonSociale){		
+		return (List<String>) this.remoteServices.getRaisonsSociales(raisonSociale);
 	}
 
 	/* ****************************************************************************

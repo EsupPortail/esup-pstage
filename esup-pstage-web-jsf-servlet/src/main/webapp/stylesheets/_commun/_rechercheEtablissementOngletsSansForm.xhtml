@@ -50,10 +50,21 @@
 
 			<h:panelGrid columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text" columns="1">
-				<h:inputText id="rechRaisonSociale" size="50" maxlength="100"
-					value="#{rechercheController.rechRaisonSociale}"
-					style="text-transform:uppercase;"
-					converter="#{sansAccentEnMAJConverter}" />
+<!-- 				<h:inputText id="rechRaisonSociale" size="50" maxlength="100" -->
+<!-- 					value="#{rechercheController.rechRaisonSociale}" -->
+<!-- 					style="text-transform:uppercase;" -->
+<!-- 					converter="#{sansAccentEnMAJConverter}" /> -->
+				
+					<rich:autocomplete id="rechRaisonSociale"
+						value="#{rechercheController.rechRaisonSociale}" size="50"
+						maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
+						autofill="false"
+						autocompleteMethod="#{rechercheController.getRaisonsSociales}"
+						converter="#{sansAccentEnMAJConverter}" inputClass="ac"
+						styleClass="ac" popupClass="acPopup"
+						style="text-transform:uppercase; font-size : 10px" attached="false" />
+					
+					
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="2">
 					<h:outputLabel for="rechDepartement2"

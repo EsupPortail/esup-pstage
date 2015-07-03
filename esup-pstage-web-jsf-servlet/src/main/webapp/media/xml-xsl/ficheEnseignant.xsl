@@ -106,7 +106,7 @@
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1a = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
 				</xsl:if>
-				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1b = 'true'">
 					<fo:character character="&#x2612;" font-family="Symbol" />
@@ -114,7 +114,7 @@
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1b = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
 				</xsl:if>
-				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i1c = 'true'">
 					<fo:character character="&#x2612;" font-family="Symbol" />
@@ -139,7 +139,7 @@
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2a = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
 				</xsl:if>
-				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2b = 'true'">
 					<fo:character character="&#x2612;" font-family="Symbol" />
@@ -147,7 +147,7 @@
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2b = 'false'">
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
 				</xsl:if>
-				Mail&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+				Téléphone&#x00A0;&#x00A0;&#x00A0;&#x00A0;
 
 				<xsl:if test="reponse-evaluation/@reponse-ens-i2c = 'true'">
 					<fo:character character="&#x2612;" font-family="Symbol" />

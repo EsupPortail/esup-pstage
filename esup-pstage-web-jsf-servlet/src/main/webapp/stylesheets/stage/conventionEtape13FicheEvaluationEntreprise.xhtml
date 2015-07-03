@@ -697,7 +697,7 @@
 									</h:panelGrid>
 								</h:panelGrid>
 
-								<h:panelGrid style="margin-left:10px;"
+								<h:panelGrid id="questionEnt17" style="margin-left:10px;"
 									rowClasses="paginatorData-text"
 									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEnt17}">
@@ -717,6 +717,7 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+										<a4j:ajax execute="@this" event="click" render="questionEnt17" />
 									</h:selectOneRadio>
 									<rich:message for="reponse17">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -727,7 +728,7 @@
 										<h:outputText style="font-style:italic;"
 											value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.RAISONS']}" />
 										<h:inputTextarea id="reponseIII17bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt17}"
+											value="#{conventionController.convention.reponseEvaluation.reponseEnt17bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<rich:message for="reponseIII17bis">
@@ -846,7 +847,7 @@
 								</rich:message>
 								<h:panelGrid value="div"
 									rendered="#{!conventionController.convention.reponseEvaluation.reponseEnt18}">
-									<h:outputText value="Pour quelle(s) raison(s) ?" />
+									<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.RAISONS']}" />
 									<h:inputTextarea id="reponse18bis"
 										value="#{conventionController.convention.reponseEvaluation.reponseEnt18bis}"
 										required="true"

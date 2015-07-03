@@ -91,7 +91,7 @@ public interface StructureDomainService extends Serializable {
 	 * @return ContactDTO
 	 */
 	public ContactDTO getContactFromId(int id);
-	
+
 	/**
 	 * @param idService
 	 * @param idsCentresGestion
@@ -99,7 +99,7 @@ public interface StructureDomainService extends Serializable {
 	 * @return List<ContactDTO>
 	 */
 	public List<ContactDTO> getContactsFromIdService(int idService, List<Integer> idsCentresGestion, String codeUniversite);
-	
+
 	/**
 	 * @param login
 	 * @return ContactDTO
@@ -118,7 +118,7 @@ public interface StructureDomainService extends Serializable {
 	 * @return int
 	 */
 	public int getNombreContactByCentreGestion(int idCentreGestion);
-	
+
 	/**
 	 * @param c
 	 * @return int
@@ -127,7 +127,7 @@ public interface StructureDomainService extends Serializable {
 	 * @throws MailAlreadyUsedForStructureException 
 	 */
 	public int addContact(ContactDTO c) throws DataAddException, WebServiceDataBaseException, MailAlreadyUsedForStructureException;
-	
+
 	/**
 	 * @param c
 	 * @return boolean
@@ -152,7 +152,7 @@ public interface StructureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException 
 	 */
 	public boolean updateContactInfosAJour(int idContact, String loginInfosAJour) throws DataUpdateException, WebServiceDataBaseException;
-	
+
 	/**
 	 * @param idContact 
 	 * @param Date
@@ -161,7 +161,7 @@ public interface StructureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException 
 	 */
 	public boolean updateContactDerniereConnexion(int idContact, Date avantDerniereConnexion) throws DataUpdateException, WebServiceDataBaseException;
-	
+
 	/**
 	 * @param idContact 
 	 * @return boolean
@@ -227,7 +227,7 @@ public interface StructureDomainService extends Serializable {
 	 * @return List<StructureDTO>
 	 */
 	public List<StructureDTO> getStructuresFromVerification(int estValidee);
-	
+
 	/**
 	 * @param id
 	 * @return StructureDTO
@@ -387,7 +387,7 @@ public interface StructureDomainService extends Serializable {
 	 * @throws StructureDeleteException
 	 */
 	public boolean deleteStructure(int idStructure, String loginCurrentUser) throws DataUpdateException, WebServiceDataBaseException;
-	
+
 	/* ****************************************************************************
 	 * TICKET STRUCTURE
 	 *****************************************************************************/
@@ -397,7 +397,7 @@ public interface StructureDomainService extends Serializable {
 	 */
 	public boolean getTicketStructureValide(TicketStructureDTO ticketStructure);
 
-	
+
 	/**
 	 * @param ticketStructure
 	 * @return int
@@ -405,7 +405,7 @@ public interface StructureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public int addTicketStructure(TicketStructureDTO ticketStructure) throws DataAddException, WebServiceDataBaseException;
-	
+
 	/**
 	 * @param ticket
 	 * @return boolean
@@ -413,4 +413,11 @@ public interface StructureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteTicketStructure(String ticket) throws DataDeleteException, WebServiceDataBaseException;
+
+	/**
+	 * 
+	 * @return List<String>
+	 */
+	public List<String> getRaisonsSociales(String raisonSociale);
+
 }

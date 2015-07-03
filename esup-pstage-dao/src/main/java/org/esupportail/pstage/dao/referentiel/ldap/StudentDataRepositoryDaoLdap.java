@@ -51,7 +51,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	 * Etudiant par son identifiant ldap
 	 */
 	@Override
-	public EtudiantRef getEtudiantRef(String universityCode, String id) {
+	public EtudiantRef getEtudiantRef(String universityCode, String id, boolean demandeInscrAdmAnneePrec) {
 
 		EtudiantRef etudiantRef = retrieveStudent(id,new  EqualsFilter(ldapAttributes.getLdapUid(), id) );
 		etudiantRef.setCodeUniversite(universityCode);
@@ -182,7 +182,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	 * Etudiant par son numero etudiant
 	 */
 	@Override
-	public EtudiantRef getEtudiantRefByNum(String universityCode, String id) {
+	public EtudiantRef getEtudiantRefByNum(String universityCode, String id, boolean demandeInscrAdmAnneePrec) {
 		EtudiantRef etudiantRefByNum = retrieveStudent(id,new EqualsFilter(ldapAttributes.getLdapStudentId(), id ));
 		etudiantRefByNum.setCodeUniversite(universityCode);
 
@@ -191,7 +191,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 
 	@Override
 	public List<EtudiantRef> getEtudiantsRefByName(String universityCode,
-			String name, String firstName) {
+			String name, String firstName, boolean demandeInscrAdmAnneePrec) {
 		AndFilter filter = new AndFilter();
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(), name));
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapFirstName(), firstName));

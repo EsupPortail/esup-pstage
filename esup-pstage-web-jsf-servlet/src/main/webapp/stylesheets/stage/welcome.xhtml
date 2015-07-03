@@ -9,7 +9,10 @@
 		<h:panelGrid columns="1">
 			<t:div styleClass="sections">
 				<t:htmlTag value="br" />
-					<p> <h:outputText escape="false" value="#{msgs['GENERAL.ACCUEIL.STAGE.WELCOME']}"/> </p>
+				<p>
+					<h:outputText escape="false"
+						value="#{msgs['GENERAL.ACCUEIL.STAGE.WELCOME']}" />
+				</p>
 				<t:htmlTag value="br" />
 			</t:div>
 			<h:form id="disconnectEntr"
@@ -27,7 +30,9 @@
 			</script>
 			<h:outputText value="#{msgs['MESSAGE_CNIL_STAGE']}" escape="false"
 				rendered="#{not empty msgs['MESSAGE_CNIL_STAGE']}" />
-		</h:panelGrid>
+
+		</h:panelGrid>		
+
 	</ui:define>
 </ui:composition>
 

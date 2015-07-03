@@ -132,7 +132,7 @@
 				<rich:panel
 					rendered="#{not empty conventionController.convention.etudiant}">
 					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.CHOIX.CPAM']}" />
+						<h:outputText value="#{msgs['CONVENTION.CHOIX.CPAM']} *" />
 					</f:facet>
 					<h:selectOneRadio id="caisses" layout="pageDirection"
 						value="#{conventionController.selCaisseRegime}"

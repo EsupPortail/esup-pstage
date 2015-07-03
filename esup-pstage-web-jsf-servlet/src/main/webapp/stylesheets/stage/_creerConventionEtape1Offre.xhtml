@@ -17,7 +17,7 @@
 				<h:panelGrid columns="3">
 					<h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.OFFRE']}" />
 					<h:inputText id="idOffre" size="10"
-						value="#{conventionController.numOffreConvention}" required="true"
+						value="#{conventionController.numOffreConvention}"
 						requiredMessage="#{requiredMessageController.champObligatoire}"
 						validatorMessage="#{requiredMessageController.superieurA0}">
 						<f:validator binding="#{entierValidator}" />
@@ -58,12 +58,13 @@
 			</h:panelGrid>
 			<h:panelGrid columns="1">
 				<h:outputText value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.TITRE']}" />
-
 				<rich:autocomplete mode="ajax" minChars="5" status="status1"
+					value="#{conventionController.numOffreConvention}"
 					autocompleteMethod="#{conventionController.suggestOffre}"
-					autofill="false" layout="table" fetchValue="#{rechOffre.intitule}"
+					autofill="false" layout="div" fetchValue="#{rechOffre.idOffre}"
 					suggestionAction="#{conventionController.suggestOffre}"
-					var="rechOffre">
+					var="rechOffre" style="font-size : 10px" inputClass="ac" styleClass="ac" popupClass="acPopup">
+
 					<rich:column>
 						<h:outputText value="#{rechOffre.idOffre} : "
 							style="font-weight: bold" />
@@ -90,7 +91,6 @@
 				</rich:autocomplete>
 				<h:outputText value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.MINIMUM']}"
 					style="font-size:10px;" />
-
 				<a4j:status name="status1">
 					<f:facet name="start">
 						<ui:include src="../_commun/_veuillezPatienter.xhtml" />
