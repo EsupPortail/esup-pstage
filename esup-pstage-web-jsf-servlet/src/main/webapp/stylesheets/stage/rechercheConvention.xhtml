@@ -15,6 +15,11 @@
 			<h:form id="formRechConvention">
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="1" style="width:auto;">
+
+					<ui:include src="/stylesheets/stage/_panel_limites_resultats.xhtml" />
+					
+					<t:htmlTag value="div" style="height:10px;" />
+					
 					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.NUMCONVENTION']}"
 						for="numConvention" />
 					<h:inputText id="numConvention"
@@ -278,7 +283,7 @@
 									converter="#{paysConverter}"
 									rendered="#{conventionController.rechercheAvancee}"
 									styleClass="paysInput">
-										<f:selectItem itemValue=" " />
+									<f:selectItem itemValue=" " />
 									<f:selectItems value="#{nomenclatureController.pays}" />
 								</h:selectOneMenu>
 							</h:panelGrid>

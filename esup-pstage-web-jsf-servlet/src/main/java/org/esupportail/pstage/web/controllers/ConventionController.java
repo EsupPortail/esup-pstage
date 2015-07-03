@@ -29,6 +29,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.esupportail.commons.annotations.cache.SessionCache;
 import org.esupportail.pstage.domain.beans.AdministrationApogee;
+import org.esupportail.pstage.domain.beans.ApogeeMap;
 import org.esupportail.pstage.domain.beans.ElementPedagogique;
 import org.esupportail.pstage.domain.beans.EtabRef;
 import org.esupportail.pstage.domain.beans.EtapeInscription;
@@ -303,6 +304,11 @@ public class ConventionController extends AbstractContextAwareController {
 	 * nomEdition.
 	 */
 	private String nomEdition;
+
+	/**
+	 * annee universitaire au titre de laquelle sera effectuee la convention
+	 */
+	private String selectedAnneeUniv;
 
 	//Recherche
 	/**
@@ -580,7 +586,6 @@ public class ConventionController extends AbstractContextAwareController {
 		this.convention.setEnseignant(new EnseignantDTO());
 		sequenceEtapeEnum = null;
 
-		//		getSessionController().setCreationConventionCurrentPage("creerConventionConsignes");
 		return "creerConvention";
 	}
 
@@ -600,10 +605,9 @@ public class ConventionController extends AbstractContextAwareController {
 		this.convention.setEnseignant(new EnseignantDTO());
 		sequenceEtapeEnum = null;
 
-		//		getSessionController().setCreationConventionCurrentPage("creerConventionConsignes");
 		if (getSessionController().getCurrentStageCasUser() != null) {
 			if (logger.isInfoEnabled()) {
-				logger.info("ConventionController:: goToCreerConvention : user connecte : " 
+				logger.info("goToCreerConvention : user connecte : " 
 						+ getSessionController().getCurrentStageCasUser().getId());
 			}
 		}
@@ -627,9 +631,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return A String
 	 */
 	public String goToCreerConventionEtu() {
-		//		String retour = null;
 		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
-			//			retour = rechercheInfosEtudiant(this.getSessionController().getCurrentAuthEtudiant().getIdentEtudiant());
 			rechercheInfosEtudiant(this.getSessionController().getCurrentAuthEtudiant().getIdentEtudiant());
 		}
 		getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ChoixEtapeEtudiant");
@@ -724,8 +726,12 @@ public class ConventionController extends AbstractContextAwareController {
 		this.selCaisseRegime = null;
 		this.selAssurance = null;
 		this.etudiantRef = new EtudiantRef();
+		this.selectedAnneeUniv = "";
+		this.choixEtape = false;
+		this.blocageCreationEtpOrpheline = false;
+
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController:: goToChoixEtapeEtudiant ");
+			logger.debug("goToChoixEtapeEtudiant()");
 		}
 		sequenceEtapeEnum = SequenceEtapeEnum.etape1;
 
@@ -733,69 +739,83 @@ public class ConventionController extends AbstractContextAwareController {
 
 		this.checkConventionExistante();
 
-		if (!getSessionController().isAutoriserConventionsOrphelines()){
-			this.retirerEtapesOrphelines();
-		}
-
-		if (this.resultatEtudiantRef.getStudys().size() == 1) {
-			String clef = null;
-			String valeur = null;
-			Iterator<String> i = this.resultatEtudiantRef.getStudys().keySet().iterator();
-			while (i.hasNext())	{
-				clef = i.next();
-				valeur = this.resultatEtudiantRef.getStudys().get(clef);
-				this.etudiantRef.setThecodeUFR(clef);
-				if (!StringUtils.hasText(valeur)) {
-					AffectationDTO affecEtudiant = rechAffec(clef);
-					if (affecEtudiant != null) {
-						this.etudiantRef.setTheUfr(affecEtudiant.getLibelle());
-					}
-				} else {
-					this.etudiantRef.setTheUfr(valeur);
-				}
-
-			}
-		}
-
-		// Gestion du cas ou, apres verification du type d'inscription, il n'y a plus qu'une seule etape
-		List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
-		for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
-			if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-				listFiltree.add(etapeAcontroler);
-			}
-		}
-		if (listFiltree.size() == 1) {
-			//String valeur = null;
-			for (EtapeInscription etp : listFiltree){
-				this.etudiantRef.setTheCodeEtape(etp.getCodeEtp());
-				this.etudiantRef.setTheCodeVersionEtape(etp.getCodVrsVet());
-				this.etudiantRef.setTheEtape(etp.getLibWebVet());
-				// recherche des elements pedagogiques
-				this.listeELPEtapes = rechElpEtape(etp.getCodeEtp());
-				if (this.listeELPEtapes != null) {
-					if (this.listeELPEtapes.size() == 1) {
-						this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
-						this.etudiantRef.setTheLibElp(this.listeELPEtapes.get(0).getLibElp());
-						this.etudiantRef.setTheCreditECTS(this.listeELPEtapes.get(0).getNbrCrdElp());
-					}
-				}
-			}
-		}
-
-		// Renseignement de la liste des select items
-		this.listeEtapesEtudiant = new ArrayList<SelectItem>();
-		if (this.resultatEtudiantRef.getListeEtapeInscriptions()!= null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()) {
-			List<EtapeInscription> list = this.resultatEtudiantRef.getListeEtapeInscriptions();
-			for (EtapeInscription etp : list){
-				if (etp.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-					this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp()+";"+etp.getCodVrsVet(), etp.getLibWebVet()));
-				}
-			}
-		}
-
 		getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ChoixEtapeEtudiant");
 
-		//		return "creerConventionEtape1Etudiant";
+	}
+
+	/**
+	 * Charge les etapes, elp, etc.. de l'etudiant une fois l'annee scolaire choisie
+	 */
+	public void loadInfosEtu(){
+		this.choixEtape = false;
+		if (this.selectedAnneeUniv != null && ! this.selectedAnneeUniv.isEmpty()){
+			ApogeeMap apogeeMap = getStudentDataRepositoryDomain().getEtapesByEtudiantAndAnnee(this.etudiantRef.getNumEtudiant(),this.selectedAnneeUniv);
+
+			// recuperation de la liste des composantes
+			this.etudiantRef.setStudys(apogeeMap.getStudentStudys());
+			// recuperation de la liste des etapes
+			this.etudiantRef.setSteps(apogeeMap.getStudentSteps());
+			// recuperation Map des elements pedagogiques
+			this.etudiantRef.setElementPedagogiques(apogeeMap.getElementPedagogiques());
+			// recuperation liste des ElPs
+			this.etudiantRef.setListeELPs(apogeeMap.getListeELPs());
+			// recuperation liste des etapes inscriptions
+			this.etudiantRef.setListeEtapeInscriptions(apogeeMap.getListeEtapeInscriptions());
+
+			if (!getSessionController().isAutoriserConventionsOrphelines()){
+				this.retirerEtapesOrphelines();
+			}
+
+			// Cas ou l'on n'a qu'une seule composante
+			if (this.etudiantRef.getStudys().size() == 1) {
+				String clef = null;
+				String valeur = null;
+				Iterator<String> i = this.etudiantRef.getStudys().keySet().iterator();
+				while (i.hasNext())	{
+					clef = i.next();
+					valeur = this.etudiantRef.getStudys().get(clef);
+					this.etudiantRef.setThecodeUFR(clef);
+					if (!StringUtils.hasText(valeur)) {
+						AffectationDTO affecEtudiant = rechAffec(clef);
+						if (affecEtudiant != null) {
+							this.etudiantRef.setTheUfr(affecEtudiant.getLibelle());
+						}
+					} else {
+						this.etudiantRef.setTheUfr(valeur);
+					}
+
+				}
+			}
+			if (this.etudiantRef.getListeEtapeInscriptions() != null && !this.etudiantRef.getListeEtapeInscriptions().isEmpty()) {
+				// Cas ou l'on n'a qu'une seule etape
+				if (this.etudiantRef.getListeEtapeInscriptions().size() == 1) {
+					//String valeur = null;
+					for (EtapeInscription etp : this.etudiantRef.getListeEtapeInscriptions()){
+						this.etudiantRef.setTheCodeEtape(etp.getCodeEtp());
+						this.etudiantRef.setTheCodeVersionEtape(etp.getCodVrsVet());
+						this.etudiantRef.setTheEtape(etp.getLibWebVet());
+						// recherche des elements pedagogiques
+						this.listeELPEtapes = rechElpEtape(etp.getCodeEtp());
+						if (this.listeELPEtapes != null) {
+							if (this.listeELPEtapes.size() == 1) {
+								this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
+								this.etudiantRef.setTheLibElp(this.listeELPEtapes.get(0).getLibElp());
+								this.etudiantRef.setTheCreditECTS(this.listeELPEtapes.get(0).getNbrCrdElp());
+								this.selectedCodeElp = this.listeELPEtapes.get(0).getCodElp();
+							}
+						}
+					}
+				} else {
+					// Remplissage de la liste des select items
+					this.listeEtapesEtudiant = new ArrayList<SelectItem>();
+					for (EtapeInscription etp : this.etudiantRef.getListeEtapeInscriptions()){
+						this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp()+";"+etp.getCodVrsVet(), etp.getLibWebVet()));
+					}
+				}
+			}
+		} else {
+			addErrorMessage("formConvention:choixAnneeUniv", "FORM.CHAMP_OBLIGATOIRE");
+		}
 	}
 
 	/**
@@ -1120,7 +1140,7 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 				if (offre.getIdStructure() > 0) {
 					if (logger.isDebugEnabled()) {
-						logger.debug("ConventionController:: rechercheNumOffre ");
+						logger.debug("rechercheNumOffre ");
 						logger.debug("offre.getIdStructure() " + offre.getIdStructure());
 					}
 					StructureDTO structureTmp = getStructureDomainService().getStructureFromId(offre.getIdStructure());
@@ -1191,18 +1211,13 @@ public class ConventionController extends AbstractContextAwareController {
 		if (this.etudiantRef.getLibelleCPAM() != null) {
 			this.convention.setLibelleCPAM(this.etudiantRef.getLibelleCPAM());
 		}
-		if (this.etudiantRef.getListeEtapeInscriptions() != null) {
-			if (!this.etudiantRef.getListeEtapeInscriptions().isEmpty()) {
-				for (Iterator<EtapeInscription> iter = 
-						this.etudiantRef.getListeEtapeInscriptions().iterator(); iter.hasNext();) {
-					EtapeInscription etpins = iter.next();
-					if (this.etudiantRef.getTheCodeEtape().equals(etpins.getCodeEtp())) {
-						if (etpins.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-							this.convention.setCodeCursusLMD(etpins.getCodCursusLmd());
-							this.convention.setCodeFinalite(etpins.getCodFinalite());
-							this.convention.setLibelleFinalite(etpins.getLibFinalite());
-						}
-					}
+		if (this.etudiantRef.getListeEtapeInscriptions() != null && !this.etudiantRef.getListeEtapeInscriptions().isEmpty()) {
+			for (Iterator<EtapeInscription> iter = this.etudiantRef.getListeEtapeInscriptions().iterator(); iter.hasNext();) {
+				EtapeInscription etpins = iter.next();
+				if (this.etudiantRef.getTheCodeEtape().equals(etpins.getCodeEtp())) {
+					this.convention.setCodeCursusLMD(etpins.getCodCursusLmd());
+					this.convention.setCodeFinalite(etpins.getCodFinalite());
+					this.convention.setLibelleFinalite(etpins.getLibFinalite());
 				}
 			}
 		}
@@ -1300,8 +1315,7 @@ public class ConventionController extends AbstractContextAwareController {
 			if (this.getConventionDomainService().updateConvention(conventionTmp)) {
 				retour = SequenceEtapeEnumSel.etape2.actionEtape();
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
-			} 
-
+			}
 		} catch (DataUpdateException ae) {
 			logger.error("DataUpdateException", ae.fillInStackTrace());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
@@ -1829,7 +1843,7 @@ public class ConventionController extends AbstractContextAwareController {
 		this.ctrlInfosStageOK = false;
 		getSessionController().setCreationConventionEtape5CurrentPage("_creerConventionEtape5Stage");
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController:: goToCreerConventionEtape5Stage ");
+			logger.debug("goToCreerConventionEtape5Stage ");
 			if (this.convention.getContact() != null) {
 				logger.debug("this.convention.getContact() " + this.convention.getContact().getId());
 			}
@@ -1916,7 +1930,7 @@ public class ConventionController extends AbstractContextAwareController {
 	public String goToCreerConventionEtape8Recap() {
 		sequenceEtapeEnum = SequenceEtapeEnum.etape8;
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController:: goToCreerConventionEtape8Recap "); 
+			logger.debug("goToCreerConventionEtape8Recap "); 
 			if (this.signataireSel != null) { 
 				logger.debug("this.signataireSel " + this.signataireSel.toString());
 			}
@@ -1985,7 +1999,7 @@ public class ConventionController extends AbstractContextAwareController {
 		EtudiantDTO etudiantTmp = this.convention.getEtudiant();
 		etudiantTmp.setLoginCreation(getSessionController().getCurrentLogin());
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController:: goToAjouterConvention "); 
+			logger.debug("goToAjouterConvention "); 
 			if (this.convention.getEtudiant() != null) { 
 				logger.debug("this.convention.getEtudiant() " 
 						+ this.convention.getEtudiant().getIdentEtudiant());
@@ -2059,7 +2073,7 @@ public class ConventionController extends AbstractContextAwareController {
 		// creation enseignant
 		EnseignantDTO enseignantTmp = this.convention.getEnseignant();
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController:: goToAjouterConvention "); 
+			logger.debug("goToAjouterConvention "); 
 			if (this.convention.getEnseignant() != null) { 
 				logger.debug("this.convention.getEnseignant() " + this.convention.getEnseignant().getUidEnseignant());
 			}
@@ -2112,16 +2126,16 @@ public class ConventionController extends AbstractContextAwareController {
 		int semCalStage = 0;
 		// calcul avec interruption
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController:: Utils.CalculDureeSemaine conventionTmp.getDateDebutStage()= "
+			logger.debug("Utils.CalculDureeSemaine conventionTmp.getDateDebutStage()= "
 					+ conventionTmp.getDateDebutStage());
-			logger.debug("ConventionController:: Utils.CalculDureeSemaine conventionTmp.getDateFinStage()= " 
+			logger.debug("Utils.CalculDureeSemaine conventionTmp.getDateFinStage()= " 
 					+ conventionTmp.getDateFinStage());
 		}
 		if (conventionTmp.isInterruptionStage()) {
 			if (logger.isDebugEnabled()) {
-				logger.debug("ConventionController:: Utils.CalculDureeSemaine conventionTmp.getDateDebutInterruption()= " 
+				logger.debug("Utils.CalculDureeSemaine conventionTmp.getDateDebutInterruption()= " 
 						+ conventionTmp.getDateDebutInterruption());
-				logger.debug("ConventionController:: Utils.CalculDureeSemaine conventionTmp.getDateFinInterruption()= "
+				logger.debug("Utils.CalculDureeSemaine conventionTmp.getDateFinInterruption()= "
 						+ conventionTmp.getDateFinInterruption());
 			}
 			semCalStage = Utils.CalculDureeSemaine(conventionTmp.getDateDebutStage(),
@@ -2137,7 +2151,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 		convention.setDureeStage(semCalStage);
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController:: conventionTmp " + conventionTmp.toString()); 
+			logger.debug("conventionTmp " + conventionTmp.toString()); 
 
 		}
 		if (selAnneeUniversitaire != null) {
@@ -2296,7 +2310,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 			convention.setDureeStage(semCalStage);
 			if (logger.isDebugEnabled()) {
-				logger.debug("ConventionController:: conventionTmp " + conventionTmp.toString()); 
+				logger.debug("conventionTmp " + conventionTmp.toString()); 
 
 			}
 
@@ -2580,32 +2594,32 @@ public class ConventionController extends AbstractContextAwareController {
 
 
 				// Ajout de la vérification de modification de tuteur pro ou pedago via avenant et remplacement le cas échéant
-				if (this.currentConvention.getNbAvenant()>0){
-					List<AvenantDTO> listeAvenants = getAvenantDomainService().getAvenant(conventionTmp.getIdConvention());
-					for (AvenantDTO avenant : listeAvenants){
-						if (avenant.isModificationEnseignant()){
-							EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(avenant.getIdEnseignant());
-							if (enseignantTmp != null) {
-								if (StringUtils.hasText(enseignantTmp.getCodeAffectation())) {
-									AffectationDTO affecDTO = rechAffec(enseignantTmp.getCodeAffectation());
-									if (affecDTO != null) {
-										enseignantTmp.setAffectation(affecDTO);
-									}
-								}
-								enseignantTmp.setCivilite(getNomenclatureDomainService().getCiviliteFromId(enseignantTmp.getIdCivilite()));
-								this.convention.setEnseignant(enseignantTmp);
-							}
-						}
-						if (avenant.isModificationSalarie()){
-							ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(avenant.getIdContact());
-							if (contactTmp != null) {
-								this.convention.setContact(contactTmp);
-								this.etablissementController.reloadContacts();
-								this.etablissementController.setIdContactSel(contactTmp.getId());
-							}
-						}
-					}
-				}
+				//				if (this.currentConvention.getNbAvenant()>0){
+				//					List<AvenantDTO> listeAvenants = getAvenantDomainService().getAvenant(conventionTmp.getIdConvention());
+				//					for (AvenantDTO avenant : listeAvenants){
+				//						if (avenant.isModificationEnseignant()){
+				//							EnseignantDTO enseignantTmp = this.getEnseignantDomainService().getEnseignantFromId(avenant.getIdEnseignant());
+				//							if (enseignantTmp != null) {
+				//								if (StringUtils.hasText(enseignantTmp.getCodeAffectation())) {
+				//									AffectationDTO affecDTO = rechAffec(enseignantTmp.getCodeAffectation());
+				//									if (affecDTO != null) {
+				//										enseignantTmp.setAffectation(affecDTO);
+				//									}
+				//								}
+				//								enseignantTmp.setCivilite(getNomenclatureDomainService().getCiviliteFromId(enseignantTmp.getIdCivilite()));
+				//								this.convention.setEnseignant(enseignantTmp);
+				//							}
+				//						}
+				//						if (avenant.isModificationSalarie()){
+				//							ContactDTO contactTmp = this.getStructureDomainService().getContactFromId(avenant.getIdContact());
+				//							if (contactTmp != null) {
+				//								this.convention.setContact(contactTmp);
+				//								this.etablissementController.reloadContacts();
+				//								this.etablissementController.setIdContactSel(contactTmp.getId());
+				//							}
+				//						}
+				//					}
+				//				}
 			}
 			sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape13;
 			retour = "conventionEtape8Recap";
@@ -2789,18 +2803,17 @@ public class ConventionController extends AbstractContextAwareController {
 	public void rechercheInfosEtudiant(final String idEtudiant) {
 		this.ctrlInfosEtuOK = false;
 		this.ctrlInfosStageOK = false;
-		//		String retour = null;
+
 		this.listeResultatsRechercheEtudiant = null;
 		this.resultatEtudiantRef=getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(), idEtudiant);
 		if (resultatEtudiantRef != null) {
 			if (!resultatEtudiantRef.getAdministrationApogee().isStatusApogee() && !resultatEtudiantRef.getAdministrationApogee().getRaison().isEmpty()) {
 				if (logger.isDebugEnabled()) {
-					logger.debug("ConventionController:: etudiant en erreur Administratif " 
+					logger.debug("etudiant en erreur administrative " 
 							+ resultatEtudiantRef.getAdministrationApogee().getRaison());
 					addErrorMessage("formConvention:identEtudiant", "RECHERCHEETU.PAS.IA");
 					resultatEtudiantRef = null;
 					listeResultatsRechercheEtudiant = null;
-					//					return retour;
 				}
 			}
 		}
@@ -2808,7 +2821,6 @@ public class ConventionController extends AbstractContextAwareController {
 			addErrorMessage("formConvention:identEtudiant", "RECHERCHEETU.INVALIDE");
 		}
 		recupInfosEtudiantRef();
-		//		return retour;
 	}
 
 	/**
@@ -2816,12 +2828,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void retirerEtapesOrphelines(){
 		this.blocageCreationEtpOrpheline = false;
-		List<EtapeInscription> listEtapes = new ArrayList<EtapeInscription>();
-		for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
-			if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-				listEtapes.add(etapeAcontroler);
-			}
-		}
+		List<EtapeInscription> listEtapes = this.etudiantRef.getListeEtapeInscriptions();
 
 		List<String> list = new ArrayList<String>();
 		String code;
@@ -2837,12 +2844,9 @@ public class ConventionController extends AbstractContextAwareController {
 			centreTmp = getCentreGestionDomainService().getCentreFromCritere(code, getSessionController().getCodeUniversite());
 			if (centreTmp == null){
 				// S'il n'y en a pas, on vérifie une derniere fois a partir du code ufr
-				this.etudiantRef = this.resultatEtudiantRef;
 				EtapeInscription ufrEtape = rechUfrEtape(code);
-				logger.info("ufrEtape : " + ufrEtape);
 				if (ufrEtape != null){
 					centreTmp = getCentreGestionDomainService().getCentreFromCritere(ufrEtape.getCodeComposante(), getSessionController().getCodeUniversite());
-					logger.info("centreTmp 2 : " + centreTmp);
 					if (centreTmp == null){
 						list.add(code);
 					}
@@ -2875,21 +2879,14 @@ public class ConventionController extends AbstractContextAwareController {
 		listEtapes = listEtpFiltree;
 
 		if (listEtapes.size() == 1){
-			this.resultatEtudiantRef.setListeEtapeInscriptions(listEtapes);
-			this.etudiantRef = this.resultatEtudiantRef;
+			this.etudiantRef.setListeEtapeInscriptions(listEtapes);
 			Map<String,String> mapTmp = new HashMap<String,String>();
 			mapTmp.put(listEtapes.get(0).getCodeComposante(), listEtapes.get(0).getLibComposante());
-			this.resultatEtudiantRef.setStudys(mapTmp);
-
+			this.etudiantRef.setStudys(mapTmp);
 		} else if (listEtapes.isEmpty()){
 			this.blocageCreationEtpOrpheline = true;
-			//			if (this.isEtudiantSupUneEtape()){
-			//				addErrorMessage("formConvention:choixEtape", "CONVENTION.CREERCONVENTION.ETAPES.NONRATTACHE");
-			//			} else {
-			//				addErrorMessage("formConvention:etape", "CONVENTION.CREERCONVENTION.ETAPE.NONRATTACHE");
-			//			}
 		} else {
-			this.resultatEtudiantRef.setListeEtapeInscriptions(listEtapes);
+			this.etudiantRef.setListeEtapeInscriptions(listEtapes);
 		}
 	}
 
@@ -2897,73 +2894,24 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void recupInfosEtudiantRef() {
-		//		String retour = null;
 		if (this.resultatEtudiantRef != null) {
 			this.etudiantRef = new EtudiantRef();
 
-			if (!getSessionController().isAutoriserConventionsOrphelines()){
-				this.retirerEtapesOrphelines();
-			}
-
 			this.setEtudiantRef(this.resultatEtudiantRef);
 
-			if (this.resultatEtudiantRef.getStudys().size() == 1) {
-				String clef = null;
-				String valeur = null;
-				Iterator<String> i = this.resultatEtudiantRef.getStudys().keySet().iterator();
-				while (i.hasNext())	{
-					clef = i.next();
-					valeur = this.resultatEtudiantRef.getStudys().get(clef);
-					this.etudiantRef.setThecodeUFR(clef);
-					if (!StringUtils.hasText(valeur)) {
-						AffectationDTO affecEtudiant = rechAffec(clef);
-						if (affecEtudiant != null) {
-							this.etudiantRef.setTheUfr(affecEtudiant.getLibelle());
-						}
-					} else {
-						this.etudiantRef.setTheUfr(valeur);
-					}
-				}
-			}
-
-			List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
-			if (this.resultatEtudiantRef.getListeEtapeInscriptions() != null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()){
-				for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
-					if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-						listFiltree.add(etapeAcontroler);
-					}
-				}
-			}
-
-			if (listFiltree.size() == 1) {
-				//String valeur = null;
-				for (EtapeInscription etp : listFiltree){
-					this.etudiantRef.setTheCodeEtape(etp.getCodeEtp());
-					this.etudiantRef.setTheCodeVersionEtape(etp.getCodVrsVet());
-					this.etudiantRef.setTheEtape(etp.getLibWebVet());
-					// recherche des elements pedagogiques
-					this.listeELPEtapes = rechElpEtape(etp.getCodeEtp());
-					if (this.listeELPEtapes != null) {
-						if (this.listeELPEtapes.size() == 1) {
-							this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
-							this.etudiantRef.setTheLibElp(this.listeELPEtapes.get(0).getLibElp());
-							this.etudiantRef.setTheCreditECTS(this.listeELPEtapes.get(0).getNbrCrdElp());
-						}
-					}
-				}
-			}
 			goToChoixEtapeEtudiant();
 		}
-		//		return retour;
 	}
 
 	/**
 	 * 
 	 */
 	public String rechercheEtudiant() {
+
 		boolean numEtuNomPrenomOK = true;
 		this.ctrlInfosEtuOK = false;
 		this.ctrlInfosStageOK = false;
+
 		//		String retour = null;
 		//		getSessionController().setCreationConventionCurrentPage("creerConventionRechercheEtudiant");
 		if ((!StringUtils.hasText(this.rechIdentEtudiant)) && (! StringUtils.hasText(this.rechNomEtudiant)) && (! StringUtils.hasText(this.rechPrenomEtudiant))) {
@@ -2998,7 +2946,7 @@ public class ConventionController extends AbstractContextAwareController {
 					if (resultatEtudiantRef.getAdministrationApogee() != null){
 						if (!resultatEtudiantRef.getAdministrationApogee().isStatusApogee() && !resultatEtudiantRef.getAdministrationApogee().getRaison().isEmpty()) {
 							if (logger.isDebugEnabled()) {
-								logger.debug("ConventionController:: etudiant en erreur administrative " + resultatEtudiantRef.getAdministrationApogee().getRaison());
+								logger.debug("etudiant en erreur administrative " + resultatEtudiantRef.getAdministrationApogee().getRaison());
 							}
 							addErrorMessage("formConvention:identEtudiant", "RECHERCHEETU.PAS.IA");
 							resultatEtudiantRef = null;
@@ -3022,7 +2970,7 @@ public class ConventionController extends AbstractContextAwareController {
 						if (etudiantRefTmp.getAdministrationApogee() != null ){
 							if (!etudiantRefTmp.getAdministrationApogee().isStatusApogee() && !etudiantRefTmp.getAdministrationApogee().getRaison().isEmpty()) {
 								if (logger.isDebugEnabled()) {
-									logger.debug("ConventionController:: etudiant en erreur  " + etudiantRefTmp.getAdministrationApogee().getRaison());
+									logger.debug("etudiant en erreur  " + etudiantRefTmp.getAdministrationApogee().getRaison());
 								}
 								addErrorMessage("formConvention:nom", "RECHERCHEETU.PAS.IA");
 								resultatEtudiantRef = null;
@@ -3030,7 +2978,7 @@ public class ConventionController extends AbstractContextAwareController {
 							}
 						} else {
 							if (logger.isDebugEnabled()) {
-								logger.debug("ConventionController:: etudiantRefTmp.getAdministrationApogee() = null -> configuration tout Ldap");
+								logger.debug("etudiantRefTmp.getAdministrationApogee() = null -> configuration tout Ldap");
 							}
 							AdministrationApogee adminApogee = new AdministrationApogee();
 							adminApogee.setStatusApogee(true);
@@ -3044,13 +2992,10 @@ public class ConventionController extends AbstractContextAwareController {
 					this.resultatEtudiantRef = null;
 				}
 			}
-
 			if (this.resultatEtudiantRef != null) {
-				//				retour = goToChoixEtapeEtudiant();
 				goToChoixEtapeEtudiant();
 			}
 			if (this.listeResultatsRechercheEtudiant != null) {
-				//				retour = "creerConventionEtape1ListeEtudiant";
 				getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ListeEtudiant");
 				return "creerConventionEtape1Etudiant";
 			}
@@ -3123,7 +3068,7 @@ public class ConventionController extends AbstractContextAwareController {
 		// creation enseignant
 		EnseignantDTO enseignantTmp = this.convention.getEnseignant();
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController:: goToEnseignantValid "); 
+			logger.debug("goToEnseignantValid "); 
 			if (this.convention.getEnseignant() != null) { 
 				logger.debug("this.convention.getEnseignant() " + this.convention.getEnseignant().getUidEnseignant());
 			}
@@ -3201,7 +3146,7 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		if (NomPrenomEnseigOK) {
 			if (logger.isDebugEnabled()) {
-				logger.debug("ConventionController:: rechercheEnseignant ");
+				logger.debug("rechercheEnseignant ");
 				if (StringUtils.hasText(selCodeAffectationEnseignant)) {
 					logger.debug("selCodeAffectationEnseignant " + selCodeAffectationEnseignant);
 				}
@@ -3432,18 +3377,22 @@ public class ConventionController extends AbstractContextAwareController {
 					this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
 					this.etudiantRef.setTheLibElp(this.listeELPEtapes.get(0).getLibElp());
 					this.etudiantRef.setTheCreditECTS(this.listeELPEtapes.get(0).getNbrCrdElp());
+					this.selectedCodeElp = this.listeELPEtapes.get(0).getCodElp();
 				}
 			}
+		} else {
+			this.choixEtape = false;
+			addErrorMessage("formConvention:choixEtape", "FORM.CHAMP_OBLIGATOIRE");
 		}
 	}
 	/**
-	 * @param e
+	 * 
 	 */
 	public void rechargeElp() {
 		if (this.selectedCodeElp != null) {
 			if (this.etudiantRef.getListeELPs() != null && !this.etudiantRef.getListeELPs().isEmpty()) {
-				List<ElementPedagogique> listeELPs = new ArrayList<ElementPedagogique>();
-				listeELPs = this.etudiantRef.getListeELPs();
+
+				List<ElementPedagogique> listeELPs = this.etudiantRef.getListeELPs();
 
 				for (Iterator<ElementPedagogique> itelp = listeELPs.iterator(); itelp.hasNext();) {
 					ElementPedagogique elpedago = itelp.next();
@@ -3476,10 +3425,8 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 
 				if (codeEtape.equals(code)) {
-					if (etpins.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-						if (etpins.getCodeComposante()!=null && !etpins.getCodeComposante().isEmpty()) {
-							ufrEtape = etpins;
-						}
+					if (etpins.getCodeComposante()!=null && !etpins.getCodeComposante().isEmpty()) {
+						ufrEtape = etpins;
 					}
 				}
 
@@ -3495,16 +3442,14 @@ public class ConventionController extends AbstractContextAwareController {
 		List<ElementPedagogique> lELPEtapes = new ArrayList<ElementPedagogique>();
 		boolean trouveElp = false;
 		// test si ELP existante pour cette etape
-		if (this.etudiantRef.getListeELPs() != null ) {
-			if (!this.etudiantRef.getListeELPs().isEmpty()) {
-				List<ElementPedagogique> listeELPs = new ArrayList<ElementPedagogique>();
-				listeELPs = this.etudiantRef.getListeELPs();
-				for (Iterator<ElementPedagogique> itelp = listeELPs.iterator(); itelp.hasNext();) {
-					ElementPedagogique elpedago = itelp.next();
-					if (elpedago.getCodEtp().equals(codeEtape)) {
-						lELPEtapes.add(elpedago);
-						trouveElp = true;
-					}
+		if (this.etudiantRef.getListeELPs() != null && !this.etudiantRef.getListeELPs().isEmpty()) {
+			List<ElementPedagogique> listeELPs = new ArrayList<ElementPedagogique>();
+			listeELPs = this.etudiantRef.getListeELPs();
+			for (Iterator<ElementPedagogique> itelp = listeELPs.iterator(); itelp.hasNext();) {
+				ElementPedagogique elpedago = itelp.next();
+				if (elpedago.getCodEtp().equals(codeEtape)) {
+					lELPEtapes.add(elpedago);
+					trouveElp = true;
 				}
 			}
 		}
@@ -3656,9 +3601,7 @@ public class ConventionController extends AbstractContextAwareController {
 			List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
 			if (this.resultatEtudiantRef.getListeEtapeInscriptions() != null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()){
 				for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
-					if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-						listFiltree.add(etapeAcontroler);
-					}
+					listFiltree.add(etapeAcontroler);
 				}
 			}
 			if (listFiltree != null) {
@@ -3678,9 +3621,7 @@ public class ConventionController extends AbstractContextAwareController {
 		if (this.resultatEtudiantRef != null) {
 			List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
 			for (EtapeInscription etapeAcontroler : this.resultatEtudiantRef.getListeEtapeInscriptions()){
-				if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-					listFiltree.add(etapeAcontroler);
-				}
+				listFiltree.add(etapeAcontroler);
 			}
 			if (listFiltree != null) {
 				if (listFiltree.size() == 1) {
@@ -3808,10 +3749,15 @@ public class ConventionController extends AbstractContextAwareController {
 	public List<SelectItem> getNbJoursHebdoItems() {
 		List<SelectItem> l = new ArrayList<SelectItem>();
 		l.add(new SelectItem(JoursHebdo.jours5.getValeur(), JoursHebdo.jours5.getLibelle()));
+		l.add(new SelectItem(JoursHebdo.jours4_5.getValeur(), JoursHebdo.jours4_5.getLibelle()));
 		l.add(new SelectItem(JoursHebdo.jours4.getValeur(), JoursHebdo.jours4.getLibelle()));
+		l.add(new SelectItem(JoursHebdo.jours3_5.getValeur(), JoursHebdo.jours3_5.getLibelle()));
 		l.add(new SelectItem(JoursHebdo.jours3.getValeur(), JoursHebdo.jours3.getLibelle()));
+		l.add(new SelectItem(JoursHebdo.jours2_5.getValeur(), JoursHebdo.jours2_5.getLibelle()));
 		l.add(new SelectItem(JoursHebdo.jours2.getValeur(), JoursHebdo.jours2.getLibelle()));
+		l.add(new SelectItem(JoursHebdo.jours1_5.getValeur(), JoursHebdo.jours1_5.getLibelle()));
 		l.add(new SelectItem(JoursHebdo.jours1.getValeur(), JoursHebdo.jours1.getLibelle()));
+		l.add(new SelectItem(JoursHebdo.jours0_5.getValeur(), JoursHebdo.jours0_5.getLibelle()));
 		return l;
 	}
 	/**
@@ -3945,7 +3891,8 @@ public class ConventionController extends AbstractContextAwareController {
 		else this.critereRechercheConvention.setEstEtrangere(false);
 
 		//this.critereRechercheConvention.setLimit(true);
-		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.NB_RECHERCHE_MAXI));
+		//		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
+		this.critereRechercheConvention.setNbRechercheMaxi(this.critereRechercheConvention.getNbRechercheMaxi());
 		// si enseignant référent, recherche des conventions pour les enseignants tuteur
 		if (getSessionController().isEnseignantTuteur()) {
 			if (this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant() != null) {
@@ -4056,7 +4003,7 @@ public class ConventionController extends AbstractContextAwareController {
 		//la date de debut de stage peut etre calculee automatiquement
 		if (debutStage.before(debutAnnee)) {
 			if (logger.isDebugEnabled()) {
-				logger.debug("ConventionController:: AnneeUniversitaire  debut stage avant debut annee universitaire");
+				logger.debug("AnneeUniversitaire  debut stage avant debut annee universitaire");
 			}
 			// si le debut du stage a lieu avant date debut d'une nouvelle annee
 			// universitaire
@@ -4067,7 +4014,7 @@ public class ConventionController extends AbstractContextAwareController {
 				// apres ou meme jour
 				// annee universitaire = annee debut/ annee debut+1
 				if (logger.isDebugEnabled()){
-					logger.debug("ConventionController:: AnneeUniversitaire  debut stage apres fin annee universitaire");
+					logger.debug("AnneeUniversitaire  debut stage apres fin annee universitaire");
 				}
 				anneeUniversitaire = (year + "/" + (year + 1));
 			} 
@@ -4076,7 +4023,7 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 		if (logger.isDebugEnabled()) {
-			logger.debug("ConventionController:: AnneeUniversitaire : " + anneeUniversitaire);
+			logger.debug("AnneeUniversitaire : " + anneeUniversitaire);
 		}
 		return anneeUniversitaire;
 	}
@@ -4098,10 +4045,10 @@ public class ConventionController extends AbstractContextAwareController {
 				// s'il s'agit du meme jour)
 				debutAnnee.clear(Calendar.MILLISECOND);
 				if (logger.isDebugEnabled()){
-					logger.debug("ConventionController:: debut annee universitaire = " + debutAnnee.getTime());
-					logger.debug("ConventionController:: debut debut stage = " + debutStage.getTime());
-					logger.debug("ConventionController:: getChoixAnneeAvantDebutAnnee() = " + this.convention.getCentreGestion().getChoixAnneeAvantDebutAnnee());
-					logger.debug("ConventionController:: getChoixAnneeApresDebutAnnee() = " + this.convention.getCentreGestion().getChoixAnneeApresDebutAnnee());
+					logger.debug("debut annee universitaire = " + debutAnnee.getTime());
+					logger.debug("debut debut stage = " + debutStage.getTime());
+					logger.debug("getChoixAnneeAvantDebutAnnee() = " + this.convention.getCentreGestion().getChoixAnneeAvantDebutAnnee());
+					logger.debug("getChoixAnneeApresDebutAnnee() = " + this.convention.getCentreGestion().getChoixAnneeApresDebutAnnee());
 				}
 				//si debut stage dans le mois precedent la date de dubut d'annee et si choice.year=true dans le fichier de config
 				Calendar debutAnneeMinusAMonth = (Calendar) debutAnnee.clone();
@@ -4110,8 +4057,8 @@ public class ConventionController extends AbstractContextAwareController {
 				Calendar debutAnneePlusAMonth = (Calendar) debutAnnee.clone();
 				debutAnneePlusAMonth.add(Calendar.MONTH, 1);
 				if (logger.isDebugEnabled()){
-					logger.debug("ConventionController:: debutAnneeMinusAMonth = " + debutAnneeMinusAMonth.getTime());
-					logger.debug("ConventionController:: debutAnneePlusAMonth = " + debutAnneePlusAMonth.getTime());
+					logger.debug("debutAnneeMinusAMonth = " + debutAnneeMinusAMonth.getTime());
+					logger.debug("debutAnneePlusAMonth = " + debutAnneePlusAMonth.getTime());
 				}
 				//si debut stage dans le mois precedent la date de debut d'annee 
 				//et si ChoixAnneeAvantDebutAnnee=true dans le centre de gestion
@@ -4119,7 +4066,7 @@ public class ConventionController extends AbstractContextAwareController {
 				if (debutStage.before(debutAnnee) && debutStage.after(debutAnneeMinusAMonth) 
 						&& this.convention.getCentreGestion().getChoixAnneeAvantDebutAnnee() ){
 					if (logger.isDebugEnabled()){
-						logger.debug("ConventionController:: on doit choisir l'annee universitaire ChoixAnneeAvantDebutAnnee");
+						logger.debug("on doit choisir l'annee universitaire ChoixAnneeAvantDebutAnnee");
 					}
 					isChoixAnneeUniv = true;
 				}
@@ -4130,7 +4077,7 @@ public class ConventionController extends AbstractContextAwareController {
 					if (debutStage.after(debutAnnee) && debutStage.before(debutAnneePlusAMonth) 
 							&& this.convention.getCentreGestion().getChoixAnneeApresDebutAnnee() ){
 						if (logger.isDebugEnabled()){
-							logger.debug("ConventionController:: on doit choisir l'annee universitaire ChoixAnneeApresDebutAnnee");
+							logger.debug("on doit choisir l'annee universitaire ChoixAnneeApresDebutAnnee");
 						}
 						isChoixAnneeUniv = true;	
 					}
@@ -4183,8 +4130,9 @@ public class ConventionController extends AbstractContextAwareController {
 			logger.debug("public String goToValiderEnMasse()");
 		}
 		//		this.critereRechercheConvention=new CritereRechercheConventionDTO();
-		this.critereRechercheConvention = initCritereRechercheConvention();
+		//		this.critereRechercheConvention = initCritereRechercheConvention();
 		this.ongletTuteur();
+		this.critereRechercheConvention.setNbExportMaxi("");
 		return "rechercheMasseConvention";
 	}
 
@@ -4281,7 +4229,8 @@ public class ConventionController extends AbstractContextAwareController {
 		this.critereRechercheConvention.setTypeStructure(null);
 		this.critereRechercheConvention.setStatutJuridique(null);
 		//this.critereRechercheConvention.setLimit(true);
-		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.NB_RECHERCHE_MAXI));
+		//		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
+		this.critereRechercheConvention.setNbRechercheMaxi(this.critereRechercheConvention.getNbRechercheMaxi());
 
 		if (getSessionController().isValidationPedagogique()){
 			// Listes des ids des centres de gestion avec ou sans validation pédagogique
@@ -4417,11 +4366,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Verification du nombre de conventions assignees au tuteur
 	 */
 	public void checkSurchargeTuteur(){
-		System.out.println("      ==> checkSurchargeTuteur");
 		this.surchargeTuteur = false;
 		Integer limiteSurcharge = getSessionController().getSurchargeTuteur();
 		if (limiteSurcharge != null){
-			//getBeanUtils().getAnneeUniversitaireCourante()
 			Integer nbConventions= getEnseignantDomainService().getNombreConventionByEnseignantByAnnee(this.convention.getEnseignant().getUidEnseignant(), getSessionController().getCodeUniversite(), getBeanUtils().getAnneeUniversitaireCourante(new Date()));
 			if(nbConventions > limiteSurcharge){
 				this.surchargeTuteur = true;
@@ -4635,11 +4582,11 @@ public class ConventionController extends AbstractContextAwareController {
 			String sujet = "";
 			if (this.typeMailEval == 1){
 				sujet = getSessionController().getApplicationNamePStage()+" - Evaluation de votre stage pour la convention n°"+this.convention.getIdConvention();
-				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ETUDIANT",this.convention.getIdConvention(),
+				contenu = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ETUDIANT",this.convention.getStructure().getRaisonSociale(),
 						getSessionController().getApplicationNamePStage());
 			} else if (this.typeMailEval == 2){
 				sujet = getSessionController().getApplicationNamePStage()+" - Rappel concernant l'évaluation de votre stage pour la convention n°"+this.convention.getIdConvention();
-				contenu = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT",this.convention.getIdConvention(),
+				contenu = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT",this.convention.getStructure().getRaisonSociale(),
 						getSessionController().getApplicationNamePStage());
 			}
 
@@ -5212,6 +5159,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 		//		this.critereRechercheConvention=new CritereRechercheConventionDTO();
 		this.critereRechercheConvention = initCritereRechercheConvention();
+		this.critereRechercheConvention.setNbExportMaxi("");
 
 		this.listeItemsCurrentCentresGestionEval = new ArrayList<SelectItem>();
 		if (getSessionController().isSuperAdminPageAuthorized()){
@@ -5257,12 +5205,14 @@ public class ConventionController extends AbstractContextAwareController {
 	 * et remet à zero la liste d'idsUfrs du critere de recherche de convention
 	 */
 	public boolean isEtape(){
-		CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
-		if (centre !=null && centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_ETAPE)){
-			if (this.critereRechercheConvention != null){
-				this.critereRechercheConvention.setIdsUfrs(new ArrayList<String>());
+		if (this.rechEvalIdCentre != null && this.rechEvalIdCentre != 0){
+			CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
+			if (centre !=null && centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_ETAPE)){
+				if (this.critereRechercheConvention != null){
+					this.critereRechercheConvention.setIdsUfrs(new ArrayList<String>());
+				}
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
@@ -5271,12 +5221,14 @@ public class ConventionController extends AbstractContextAwareController {
 	 * et remet à zero la liste d'idsEtapes du critere de recherche de convention
 	 */
 	public boolean isUfr(){
-		CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
-		if (centre !=null && centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_UFR)){
-			if (this.critereRechercheConvention != null){
-				this.critereRechercheConvention.setIdsEtapes(new ArrayList<String>());
+		if (this.rechEvalIdCentre != null && this.rechEvalIdCentre != 0){
+			CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
+			if (centre !=null && centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_UFR)){
+				if (this.critereRechercheConvention != null){
+					this.critereRechercheConvention.setIdsEtapes(new ArrayList<String>());
+				}
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
@@ -5286,16 +5238,18 @@ public class ConventionController extends AbstractContextAwareController {
 	 * son id de centre de gestion afin de recup les conventions orphelines
 	 */
 	public boolean isEtablissement(){
-		CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
-		if (centre !=null && centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_ETAB)){
-			if (this.critereRechercheConvention != null){
-				List<Integer> list = new ArrayList<Integer>();
-				list.add(this.rechEvalIdCentre);
-				this.critereRechercheConvention.setIdsEtapes(new ArrayList<String>());
-				this.critereRechercheConvention.setIdsUfrs(new ArrayList<String>());
-				this.critereRechercheConvention.setIdsCentreGestion(list);
+		if (this.rechEvalIdCentre != null && this.rechEvalIdCentre != 0){
+			CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
+			if (centre !=null && centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_ETAB)){
+				if (this.critereRechercheConvention != null){
+					List<Integer> list = new ArrayList<Integer>();
+					list.add(this.rechEvalIdCentre);
+					this.critereRechercheConvention.setIdsEtapes(new ArrayList<String>());
+					this.critereRechercheConvention.setIdsUfrs(new ArrayList<String>());
+					this.critereRechercheConvention.setIdsCentreGestion(list);
+				}
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
@@ -5319,7 +5273,8 @@ public class ConventionController extends AbstractContextAwareController {
 		list.add(this.rechEvalIdCentre);
 		this.critereRechercheConvention.setIdsCentreGestion(list);
 
-		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.NB_RECHERCHE_MAXI));
+		//		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
+		this.critereRechercheConvention.setNbRechercheMaxi(this.critereRechercheConvention.getNbRechercheMaxi());
 
 		this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
 
@@ -5459,7 +5414,7 @@ public class ConventionController extends AbstractContextAwareController {
 			switch (this.typeDestMailEval) {
 			case 1:
 				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ETUDIANT",
-						"<i>idConvention</i>",getSessionController().getApplicationNamePStage());
+						"<i>raison sociale de l'organisme d'accueil</i>",getSessionController().getApplicationNamePStage());
 				break;
 			case 2:
 				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.CONTENU_ENSEIGNANT",
@@ -5476,7 +5431,7 @@ public class ConventionController extends AbstractContextAwareController {
 			// Rappel
 			switch (this.typeDestMailEval) {
 			case 1:
-				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT","<i>idConvention</i>",getSessionController().getApplicationNamePStage());
+				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ETUDIANT","<i>raison sociale de l'organisme d'accueil</i>",getSessionController().getApplicationNamePStage());
 				break;
 			case 2:
 				this.contenuMailEval = getString("CONVENTION.ETAPE13.MAIL.RAPPEL.CONTENU_ENSEIGNANT",
@@ -5510,6 +5465,12 @@ public class ConventionController extends AbstractContextAwareController {
 							EtudiantDTO etudiantTmp  = this.getEtudiantDomainService().getEtudiantFromId(this.convention.getIdEtudiant());
 							if (etudiantTmp != null) {
 								this.convention.setEtudiant(etudiantTmp);
+							}
+						}
+						if (this.convention.getIdStructure() > 0) {
+							StructureDTO structureTmp  = this.getStructureDomainService().getStructureFromId(this.convention.getIdStructure());
+							if (structureTmp != null) {
+								this.convention.setStructure(structureTmp);
 							}
 						}
 						this.envoiMailEtudiant();
@@ -5822,7 +5783,7 @@ public class ConventionController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuII1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII1())); cpt++;
 					if (ficheEvaluation.isQuestionEtuII2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII2())); cpt++;
 					if (ficheEvaluation.isQuestionEtuII3()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII3())); cpt++;
-					if (ficheEvaluation.isQuestionEtuII4()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII4())); cpt++;
+					if (ficheEvaluation.isQuestionEtuII4()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuII4())); cpt++;
 					if (ficheEvaluation.isQuestionEtuII5()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuII5()); cpt++;
 					if (ficheEvaluation.isQuestionEtuII6()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuII6()); cpt++;
 
@@ -6135,78 +6096,76 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 
-	public void avantUpdateStep(){
-		this.resultatEtudiantRef=getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(), this.convention.getEtudiant().getIdentEtudiant());
-		if (this.resultatEtudiantRef != null) {
-			this.etudiantRef = this.resultatEtudiantRef;
-			if (this.resultatEtudiantRef.getListeEtapeInscriptions()!= null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()) {
-				List<EtapeInscription> list = this.resultatEtudiantRef.getListeEtapeInscriptions();
-				this.listeEtapesEtudiant = new ArrayList<SelectItem>();
-				for (EtapeInscription etp : list){
-					if (etp.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-						this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp()+";"+etp.getCodVrsVet(), etp.getLibWebVet()));
-					}
-				}
-			}
-		}
-
-		if (listeEtapesEtudiant == null || listeEtapesEtudiant.isEmpty()) {
-			addErrorMessage(null, "RECHERCHEETU.PAS.IA");
-		}
-	}
-
-	public void updateStep(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String ajouterCommentaireStage()");
-		}
-		try {
-			if (this.selectedCodeEtape != null){
-				this.convention.setLoginModif(getSessionController().getCurrentLogin());
-				this.convention.setDateValidation(new Date());
-
-				String[] tabCodes = selectedCodeEtape.split(";");
-
-				EtapeInscription ufrEtape = rechUfrEtape(tabCodes[0]);
-				this.convention.setCodeEtape(tabCodes[0]);
-				this.convention.getEtape().setCode(tabCodes[0]);
-				this.convention.getEtape().setCodeVersionEtape(tabCodes[1]);
-				for (SelectItem item : this.listeEtapesEtudiant){
-					if (item.getValue().equals(selectedCodeEtape)){
-						this.convention.getEtape().setLibelle(item.getLabel());
-						break;
-					}
-				}
-				this.convention.getEtape().setCodeUniversite(getSessionController().getCodeUniversite());
-
-				try {
-					int idEtape = this.getConventionDomainService().addEtape(this.convention.getEtape());
-					if (logger.isInfoEnabled()){
-						logger.info("Ajout etape : " + this.convention.getEtape()+", id etape ajout : " + idEtape);
-					}
-				} catch (EtapeAlreadyExistingForCodeException ee) {
-					if (logger.isInfoEnabled()) {
-						logger.info("Etape deja existante code " + this.convention.getEtape());
-					}
-				}
-
-				if (ufrEtape != null) {
-					this.convention.getUfr().setCode(ufrEtape.getCodeComposante());
-					this.convention.getUfr().setLibelle(ufrEtape.getLibComposante());
-					this.convention.setCodeUFR(ufrEtape.getCodeComposante());
-				}
-				this.getConventionDomainService().updateConvention(this.convention);
-			}
-		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
-			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
-		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
-			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
-		} catch (Exception e) {
-			logger.error("Exception ", e.fillInStackTrace());
-			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", e.getMessage());
-		}
-	}
+	//	public void avantUpdateStep(){
+	//		this.resultatEtudiantRef=getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(), this.convention.getEtudiant().getIdentEtudiant());
+	//		if (this.resultatEtudiantRef != null) {
+	//			this.etudiantRef = this.resultatEtudiantRef;
+	//			if (this.resultatEtudiantRef.getListeEtapeInscriptions()!= null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()) {
+	//				List<EtapeInscription> list = this.resultatEtudiantRef.getListeEtapeInscriptions();
+	//				this.listeEtapesEtudiant = new ArrayList<SelectItem>();
+	//				for (EtapeInscription etp : list){
+	//					this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp()+";"+etp.getCodVrsVet(), etp.getLibWebVet()));
+	//				}
+	//			}
+	//		}
+	//
+	//		if (listeEtapesEtudiant == null || listeEtapesEtudiant.isEmpty()) {
+	//			addErrorMessage(null, "RECHERCHEETU.PAS.IA");
+	//		}
+	//	}
+	//
+	//	public void updateStep(){
+	//		if(logger.isDebugEnabled()){
+	//			logger.debug("public String ajouterCommentaireStage()");
+	//		}
+	//		try {
+	//			if (this.selectedCodeEtape != null){
+	//				this.convention.setLoginModif(getSessionController().getCurrentLogin());
+	//				this.convention.setDateValidation(new Date());
+	//
+	//				String[] tabCodes = selectedCodeEtape.split(";");
+	//
+	//				EtapeInscription ufrEtape = rechUfrEtape(tabCodes[0]);
+	//				this.convention.setCodeEtape(tabCodes[0]);
+	//				this.convention.getEtape().setCode(tabCodes[0]);
+	//				this.convention.getEtape().setCodeVersionEtape(tabCodes[1]);
+	//				for (SelectItem item : this.listeEtapesEtudiant){
+	//					if (item.getValue().equals(selectedCodeEtape)){
+	//						this.convention.getEtape().setLibelle(item.getLabel());
+	//						break;
+	//					}
+	//				}
+	//				this.convention.getEtape().setCodeUniversite(getSessionController().getCodeUniversite());
+	//
+	//				try {
+	//					int idEtape = this.getConventionDomainService().addEtape(this.convention.getEtape());
+	//					if (logger.isInfoEnabled()){
+	//						logger.info("Ajout etape : " + this.convention.getEtape()+", id etape ajout : " + idEtape);
+	//					}
+	//				} catch (EtapeAlreadyExistingForCodeException ee) {
+	//					if (logger.isInfoEnabled()) {
+	//						logger.info("Etape deja existante code " + this.convention.getEtape());
+	//					}
+	//				}
+	//
+	//				if (ufrEtape != null) {
+	//					this.convention.getUfr().setCode(ufrEtape.getCodeComposante());
+	//					this.convention.getUfr().setLibelle(ufrEtape.getLibComposante());
+	//					this.convention.setCodeUFR(ufrEtape.getCodeComposante());
+	//				}
+	//				this.getConventionDomainService().updateConvention(this.convention);
+	//			}
+	//		} catch (DataUpdateException ae) {
+	//			logger.error("DataUpdateException", ae.fillInStackTrace());
+	//			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
+	//		} catch (WebServiceDataBaseException we) {
+	//			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+	//			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
+	//		} catch (Exception e) {
+	//			logger.error("Exception ", e.fillInStackTrace());
+	//			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", e.getMessage());
+	//		}
+	//	}
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/
@@ -7503,7 +7462,30 @@ public class ConventionController extends AbstractContextAwareController {
 			p.setCrpay(DonneesStatic.FRANCE_TERRITOIRE_CRPAY);
 			c.setPays(p);
 		}
+		c.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
+		c.setNbExportMaxi(Integer.toString(DonneesStatic.nb_response_export_maxi));
 		return c;
 	}
 
+	public String getSelectedAnneeUniv() {
+		return selectedAnneeUniv;
+	}
+
+	public void setSelectedAnneeUniv(String selectedAnneeUniv) {
+		this.selectedAnneeUniv = selectedAnneeUniv;
+	}
+
+	/**
+	 * @return the listeAnneesUniv
+	 */
+	public List<SelectItem> getListeAnneesUniv() {
+		List<SelectItem> listeAnneesUniv = new ArrayList<SelectItem>();
+		if(this.resultatEtudiantRef.getListeAnneesUniv() != null && !this.resultatEtudiantRef.getListeAnneesUniv().isEmpty()){
+			for (String annee : this.resultatEtudiantRef.getListeAnneesUniv()){
+				int anneeInt = Integer.parseInt(annee);
+				listeAnneesUniv.add(new SelectItem(anneeInt,anneeInt+"/"+(anneeInt+1)));
+			}
+		}
+		return listeAnneesUniv;
+	}
 }

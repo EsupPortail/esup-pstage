@@ -3,7 +3,9 @@ package org.esupportail.pstage.domain.referentiel;
 import java.util.List;
 
 import org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao;
+import org.esupportail.pstage.domain.beans.ApogeeMap;
 import org.esupportail.pstage.domain.beans.EtudiantRef;
+import org.esupportail.pstage.utils.Configuration;
 
 /**
  * 
@@ -54,6 +56,12 @@ public void setStudentDataRepositoryDao(
 	}
 
 
+	/**
+	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtapesByEtudiantAndAnnee(java.lang.String, java.lang.String)
+	 */
+	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire){
+		throw new UnsupportedOperationException(Configuration.getString("method.nom.implementee"));
+	}
 
 
 }

@@ -121,12 +121,12 @@ public enum ConventionColonneEnum {
 	/**
 	 * col23 , Duree.
 	 */
-	col23("EXPORTCONVENTION.DUREEEXCEPTION", "dureeExceptionnelle"),
+//	col23("EXPORTCONVENTION.DUREEEXCEPTION", "dureeExceptionnelle"),
 	
 	/**
 	 * col24 , Duree.
 	 */
-	col24("EXPORTCONVENTION.UNITEDUREEEXCEP", "uniteDuree.libelle"),
+//	col24("EXPORTCONVENTION.UNITEDUREEEXCEP", "uniteDuree.libelle"),
 	
 	/**
 	 * col25 , nb jours travail.
@@ -256,7 +256,22 @@ public enum ConventionColonneEnum {
 	/**
 	 *   Convention Pedagogique Validee
 	 */
-	col50("EXPORTCONVENTION.VALIDEE.PEDAGOGIQUEMENT","validationPedagogiqueExport");
+	col50("EXPORTCONVENTION.VALIDEE.PEDAGOGIQUEMENT","validationPedagogiqueExport"),
+	
+	/**
+	 *   Nombre d'avenants rattaches
+	 */
+	col51("EXPORTCONVENTION.AVENANT","nbAvenant"),
+	
+	/**
+	 *   Date de creation de la convention
+	 */
+	col52("EXPORTCONVENTION.DATECREATION","dateCreation"),
+	
+	/**
+	 *   Date de modification de la convention
+	 */
+	col53("EXPORTCONVENTION.DATEMODIF","dateModif");
 	
 	
 	/*

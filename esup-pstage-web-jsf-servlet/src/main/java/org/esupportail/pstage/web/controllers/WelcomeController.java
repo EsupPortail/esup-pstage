@@ -18,10 +18,8 @@ import javax.mail.internet.InternetAddress;
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
-import org.esupportail.pstage.domain.beans.EtapeInscription;
 import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.NousContacter;
-import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
 import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
@@ -32,9 +30,9 @@ import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
 import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.springframework.util.StringUtils;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -411,62 +409,62 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * Connexion via Shibboleth (auth/shibb/index.faces)
 	 * @return boolean
 	 */
-//	public String connectShibb(){
-//		String ret="accueilEntr";
-//		getSessionController().setCurrentAuthAdminStructure(null);
-//		getSessionController().setCurrentAuthContact(null);
-//		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
-//		getSessionController().setCurrentAuthEtudiant(null);
-//		getSessionController().setCurrentAuthEnseignant(null);
-//		getSessionController().setCurrentAuthPersonnel(null);
-//		getSessionController().setCurrentCentresGestion(null);
-//		getSessionController().setCurrentStageCasUser(null);
-//		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		if(auth!=null){
-//			for(String admin : getSessionController().getSuperAdminTab()){
-//				if(admin.equals(auth.getName())){
-//					getSessionController().setCurrentAuthAdminStructure(new AdminStructureDTO());
-//					getSessionController().getCurrentAuthAdminStructure().setNom(auth.getName());
-//					getSessionController().getCurrentAuthAdminStructure().setPrenom("SuperAdmin");
-//					getSessionController().getCurrentAuthAdminStructure().setEppn(auth.getName());
-//					getSessionController().getCurrentAuthAdminStructure().setLogin(auth.getName());
-//					if(logger.isInfoEnabled()){
-//						logger.info("Connection of super admin via Shibb : "+getSessionController().getCurrentAuthAdminStructure());
-//					}
-//					List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
-//					l.add(getCentreGestionDomainService().getCentreEntreprise());
-//					getSessionController().setCurrentCentresGestion(l);
-//					ret="rechercheEtablissement";
-//				}
-//			}
-//			//Si aucun super admin ne correspond, recherche dans la base
-//			if(getSessionController().getCurrentAuthAdminStructure()==null){
-//				AdminStructureDTO tmp = getAdminDomainService().getAdminStructureFromEppn(auth.getName());
-//				if(tmp!=null){
-//					if(logger.isInfoEnabled()){
-//						logger.info("Connection of admin via Shibb : "+tmp);
-//					}
-//					getSessionController().setCurrentAuthAdminStructure(tmp);
-//					List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
-//					l.add(getCentreGestionDomainService().getCentreEntreprise());
-//					getSessionController().setCurrentCentresGestion(l);
-//					ret="rechercheEtablissement";
-//				}else{
-//					if(logger.isInfoEnabled()){
-//						logger.info("User not authorized via Shibb : "+auth.getName());
-//					}
-//					//addErrorMessage("connexion", "GENERAL.NOTAUTHORIZED");
-//					getSessionController().setNotAdminEntrepriseViaCasShibb(true);
-//				}
-//			}
-//
-//			// methode redirigeant l'utilisateur vers la page des contacts s'il passe par le lien du mail de demande de compte
-//			ret = this.goToContactsLienDirect(ret);
-//
-//		}
-//		return ret;
-//	}
+	//	public String connectShibb(){
+	//		String ret="accueilEntr";
+	//		getSessionController().setCurrentAuthAdminStructure(null);
+	//		getSessionController().setCurrentAuthContact(null);
+	//		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
+	//		getSessionController().setCurrentAuthEtudiant(null);
+	//		getSessionController().setCurrentAuthEnseignant(null);
+	//		getSessionController().setCurrentAuthPersonnel(null);
+	//		getSessionController().setCurrentCentresGestion(null);
+	//		getSessionController().setCurrentStageCasUser(null);
+	//		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
+	//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	//		if(auth!=null){
+	//			for(String admin : getSessionController().getSuperAdminTab()){
+	//				if(admin.equals(auth.getName())){
+	//					getSessionController().setCurrentAuthAdminStructure(new AdminStructureDTO());
+	//					getSessionController().getCurrentAuthAdminStructure().setNom(auth.getName());
+	//					getSessionController().getCurrentAuthAdminStructure().setPrenom("SuperAdmin");
+	//					getSessionController().getCurrentAuthAdminStructure().setEppn(auth.getName());
+	//					getSessionController().getCurrentAuthAdminStructure().setLogin(auth.getName());
+	//					if(logger.isInfoEnabled()){
+	//						logger.info("Connection of super admin via Shibb : "+getSessionController().getCurrentAuthAdminStructure());
+	//					}
+	//					List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
+	//					l.add(getCentreGestionDomainService().getCentreEntreprise());
+	//					getSessionController().setCurrentCentresGestion(l);
+	//					ret="rechercheEtablissement";
+	//				}
+	//			}
+	//			//Si aucun super admin ne correspond, recherche dans la base
+	//			if(getSessionController().getCurrentAuthAdminStructure()==null){
+	//				AdminStructureDTO tmp = getAdminDomainService().getAdminStructureFromEppn(auth.getName());
+	//				if(tmp!=null){
+	//					if(logger.isInfoEnabled()){
+	//						logger.info("Connection of admin via Shibb : "+tmp);
+	//					}
+	//					getSessionController().setCurrentAuthAdminStructure(tmp);
+	//					List<CentreGestionDTO> l = new ArrayList<CentreGestionDTO>();
+	//					l.add(getCentreGestionDomainService().getCentreEntreprise());
+	//					getSessionController().setCurrentCentresGestion(l);
+	//					ret="rechercheEtablissement";
+	//				}else{
+	//					if(logger.isInfoEnabled()){
+	//						logger.info("User not authorized via Shibb : "+auth.getName());
+	//					}
+	//					//addErrorMessage("connexion", "GENERAL.NOTAUTHORIZED");
+	//					getSessionController().setNotAdminEntrepriseViaCasShibb(true);
+	//				}
+	//			}
+	//
+	//			// methode redirigeant l'utilisateur vers la page des contacts s'il passe par le lien du mail de demande de compte
+	//			ret = this.goToContactsLienDirect(ret);
+	//
+	//		}
+	//		return ret;
+	//	}
 
 	/**
 	 * Connexion via Cas (auth/cas/index.faces)
@@ -588,7 +586,7 @@ public class WelcomeController extends AbstractContextAwareController {
 			String userAffiliation = null;
 			if(StringUtils.hasText(getSessionController().getCurrentStageCasUser().getId())){
 				ldapUser = ldapUserService.getLdapUser(getSessionController().getCurrentStageCasUser().getId());
-				
+
 				userAffiliation = ldapUser.getAttribute(this.affiliation);
 				if(StringUtils.hasText(userAffiliation) && (employee.contains(userAffiliation) || faculty.contains(userAffiliation))){
 					// Gestion de ses droits pour chaque centre de l'université de l'individu connecté
@@ -610,7 +608,7 @@ public class WelcomeController extends AbstractContextAwareController {
 							// remplissage de la map des droits d'acces
 							DroitAdministrationDTO droitAcces = getNomenclatureDomainService().getDroitAdministrationFromId(personnel.getIdDroitAdmin());
 							if(!droitsAccesMap.containsKey(personnel.getIdCentreGestion()))droitsAccesMap.put(personnel.getIdCentreGestion(),droitAcces);
-							
+
 							// remplissage des maps des droits pour les fiches d'evaluation
 							if(personnel.isDroitEvaluationEtudiant())droitsEvaluationEtudiantMap.put(personnel.getIdCentreGestion(), true);
 							if(personnel.isDroitEvaluationEnseignant())droitsEvaluationEnseignantMap.put(personnel.getIdCentreGestion(), true);
@@ -623,14 +621,14 @@ public class WelcomeController extends AbstractContextAwareController {
 						getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 
 						if (logger.isDebugEnabled()){
-//						logger.info("WelcomeController :: droitsAccesMap = "+ droitsAccesMap );
-//						logger.info("WelcomeController :: droitsEvaluationEtudiantMap = "+ droitsEvaluationEtudiantMap );
-//						logger.info("WelcomeController :: droitsEvaluationEnseignantMap = "+ droitsEvaluationEnseignantMap );
-//						logger.info("WelcomeController :: droitsEvaluationEntrepriseMap = "+ droitsEvaluationEntrepriseMap );
-							logger.debug("WelcomeController :: droitsAccesMap = "+ droitsAccesMap );
-							logger.debug("WelcomeController :: droitsEvaluationEtudiantMap = "+ droitsEvaluationEtudiantMap );
-							logger.debug("WelcomeController :: droitsEvaluationEnseignantMap = "+ droitsEvaluationEnseignantMap );
-							logger.debug("WelcomeController :: droitsEvaluationEntrepriseMap = "+ droitsEvaluationEntrepriseMap );
+							//						logger.info("droitsAccesMap = "+ droitsAccesMap );
+							//						logger.info("droitsEvaluationEtudiantMap = "+ droitsEvaluationEtudiantMap );
+							//						logger.info("droitsEvaluationEnseignantMap = "+ droitsEvaluationEnseignantMap );
+							//						logger.info("droitsEvaluationEntrepriseMap = "+ droitsEvaluationEntrepriseMap );
+							logger.debug("droitsAccesMap = "+ droitsAccesMap );
+							logger.debug("droitsEvaluationEtudiantMap = "+ droitsEvaluationEtudiantMap );
+							logger.debug("droitsEvaluationEnseignantMap = "+ droitsEvaluationEnseignantMap );
+							logger.debug("droitsEvaluationEntrepriseMap = "+ droitsEvaluationEntrepriseMap );
 						}
 					}
 
@@ -693,100 +691,23 @@ public class WelcomeController extends AbstractContextAwareController {
 					//Sinon, si c'est un étudiant
 					EtudiantRef e = getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(),
 							getSessionController().getCurrentStageCasUser().getId());
-					CentreGestionDTO tmp = new CentreGestionDTO();
-					CentreGestionDTO cgEtab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
+
 					if (e != null){
-
-						List<EtapeInscription> listFiltree = new ArrayList<EtapeInscription>();
-						if (e.getListeEtapeInscriptions() != null && !e.getListeEtapeInscriptions().isEmpty()){
-							for (EtapeInscription etapeAcontroler : e.getListeEtapeInscriptions()){
-								if (etapeAcontroler.getTypeIns().equals(DonneesStatic.TYPE_INS_ADMIN)) {
-									listFiltree.add(etapeAcontroler);
-								}
-							}
+						// Si la liste des annees d'inscription est vide, aucune inscription admin pour l'etudiant, il ne peut donc creer de convention
+						if (e.getListeAnneesUniv() == null || e.getListeAnneesUniv().isEmpty()){
+							this.creationConventionAutorisee=false;
 						}
+						
+						// On 'sauvegarde' l'etudiant dans la variable currentAuthEtudiant
+						getSessionController().setCurrentAuthEtudiant(e);
 
-						if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
-							// On recupere la liste des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
-							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
-							if(e.getStudysKey() != null && !e.getStudysKey().isEmpty()) {
-								for(String code : e.getStudysKey()){
-									tmp = recupCentre(code);
-									if (tmp != null
-											&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
-										getSessionController().getCurrentCentresGestion().add(tmp);
-									}
-								}
-							} else {
-								// par default, on met le centre etablissement
-								getSessionController().getCurrentCentresGestion().add(cgEtab);
-							}
-						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
-							// On recupere la liste des etapes de l'etudiant et on vérifie si elles sont gerees par un centre
-							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
-							if(listFiltree != null && !listFiltree.isEmpty()) {
-								for(EtapeInscription etp : listFiltree){
-									tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
-									if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
-										getSessionController().getCurrentCentresGestion().add(tmp);
-									}
-								}
-							} else {
-								// par default, on met le centre etablissement
-								getSessionController().getCurrentCentresGestion().add(cgEtab);
-							}
-
-						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
-							// On recupere les listes des etapes et des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
-							if(listFiltree != null && !listFiltree.isEmpty()) {
-								for(EtapeInscription etp : listFiltree){
-									tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
-									if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
-										getSessionController().getCurrentCentresGestion().add(tmp);
-									}
-								}
-							}
-							if(e.getStudysKey() != null) {
-								for(String code : e.getStudysKey()){
-									tmp = recupCentre(code);
-									if (tmp != null
-											&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
-										getSessionController().getCurrentCentresGestion().add(tmp);
-									}
-								}
-							}
-							if (e.getStudysKey().isEmpty() && listFiltree.isEmpty()) {
-								// par default, on met le centre etablissement
-								getSessionController().getCurrentCentresGestion().add(cgEtab);
-							}
-						} else {
-							// par default, on met le centre etablissement
-							getSessionController().getCurrentCentresGestion().add(cgEtab);
-						}
-						if(!getSessionController().isAutoriserConventionsOrphelines()){
-							if(getSessionController().getCurrentCentresGestion()!=null
-									&& getSessionController().getCurrentCentresGestion().size()==1
-									&& getSessionController().getCurrentCentresGestion().contains(cgEtab)){
-								this.creationConventionAutorisee=false;
-							}else{
-								this.creationConventionAutorisee=true;
-							}
-						}else{
-							this.creationConventionAutorisee=true;
-						}
+					} else {
+						//Si aucun étudiant trouvé, création de l'objet EtudiantDTO manuellement à partir des infos de getSessionController().getCurrentStageCasUser()
+						EtudiantDTO tmpE = new EtudiantDTO();
+						tmpE.setIdentEtudiant(getSessionController().getCurrentStageCasUser().getId());
+						getSessionController().setCurrentAuthEtudiant(tmpE);
 					}
 
-					if (e != null) {
-						if(e.getIdentEtudiant() != null && !e.getIdentEtudiant().isEmpty()){
-							getSessionController().setCurrentAuthEtudiant(e);
-						}else{
-							//Si aucun étudiant trouvé, création de l'objet EtudiantDTO manuellement à partir des infos de getSessionController().getCurrentStageCasUser()
-							EtudiantDTO tmpE = new EtudiantDTO();
-							tmpE.setIdentEtudiant(getSessionController().getCurrentStageCasUser().getId());
-
-							getSessionController().setCurrentAuthEtudiant(tmpE);
-						}
-					}
 				}
 			}
 		}
@@ -895,7 +816,7 @@ public class WelcomeController extends AbstractContextAwareController {
 		}
 		return isPersonnel;
 	}
-	
+
 	/**
 	 * Espace stage seulement
 	 * @return true if the current user is an Etudiant

@@ -17,13 +17,6 @@
 			</fo:layout-master-set>
 			<fo:page-sequence master-reference="all">
 				<fo:flow flow-name="xsl-region-body">
-					<fo:block margin-left="0.8cm" padding-top="0.8cm">
-						<fo:external-graphic>
-							<xsl:attribute name="src">
-								<xsl:value-of select="document('config.xml')/config/logoUniversite" />
-							</xsl:attribute>
-						</fo:external-graphic>
-					</fo:block>
 					<fo:block margin-right="2.5cm" margin-left="2.5cm"
 						margin-bottom="1.09cm" padding-top="0.4cm">
 						<xsl:apply-templates select="convention-dTO" />
@@ -54,30 +47,62 @@
 		</fo:block>
 	</xsl:template>
 
-	<!-- entete logo/ annee universitaire -->
 	<xsl:template name="entete">
+		<fo:block margin-left="0.8cm" padding-top="0.8cm">
+			<fo:external-graphic>
+				<xsl:attribute name="src">
+					<xsl:value-of select="document('config.xml')/config/logoUniversite" />
+				</xsl:attribute>
+				<xsl:attribute name="width">
+					<xsl:value-of select="document('config.xml')/config/largeurLogoUniversite" />
+				</xsl:attribute>
+				<xsl:attribute name="height">
+					<xsl:value-of select="document('config.xml')/config/hauteurLogoUniversite" />
+				</xsl:attribute>
+			</fo:external-graphic>
+			<fo:inline>
+				<xsl:choose>
+					<xsl:when test="centre-gestion/fichier/nom-fichier">
+						<xsl:variable name="cheminLogo"
+							select="document('config.xml')/config/uploadFiles.logosCentre.path" />
+						<xsl:variable name="logo"
+							select="centre-gestion/fichier/nom-fichier" />
+						<fo:external-graphic height="1cm">
+							<xsl:attribute name="src">
+							<xsl:value-of select="$cheminLogo" /><xsl:value-of
+								select="centre-gestion/fichier/@id-fichier" />_<xsl:value-of
+								select="$logo" />
+						</xsl:attribute>
+						</fo:external-graphic>
+					</xsl:when>
+					<xsl:otherwise>
+			
+					</xsl:otherwise>
+				</xsl:choose>
+			</fo:inline>
+		</fo:block>
 		<fo:table table-layout="fixed" width="100%">
 			<fo:table-column column-width="14cm" />
 			<fo:table-body>
 				<fo:table-row>
 					<fo:table-cell>
-							<fo:block font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block font-family="Times New Roman,serif" width="2cm">
-								<xsl:value-of select="centre-gestion/nom-centre" />
-							</fo:block>
-							<fo:block font-family="Times New Roman,serif">
-								<xsl:value-of select="centre-gestion/batiment-residence" />
-							</fo:block>
-							<fo:block font-family="Times New Roman,serif">
-								<xsl:value-of select="centre-gestion/voie" />
-							</fo:block>
-							<fo:block font-family="Times New Roman,serif">
-								<xsl:value-of select="centre-gestion/code-postal" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="centre-gestion/commune" />
-							</fo:block>
+						<fo:block font-family="Times New Roman,serif">
+							<fo:leader />
+						</fo:block>
+						<fo:block font-family="Times New Roman,serif" width="2cm">
+							<xsl:value-of select="centre-gestion/nom-centre" />
+						</fo:block>
+						<fo:block font-family="Times New Roman,serif">
+							<xsl:value-of select="centre-gestion/batiment-residence" />
+						</fo:block>
+						<fo:block font-family="Times New Roman,serif">
+							<xsl:value-of select="centre-gestion/voie" />
+						</fo:block>
+						<fo:block font-family="Times New Roman,serif">
+							<xsl:value-of select="centre-gestion/code-postal" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="centre-gestion/commune" />
+						</fo:block>
 					</fo:table-cell>
 				</fo:table-row>
 			</fo:table-body>

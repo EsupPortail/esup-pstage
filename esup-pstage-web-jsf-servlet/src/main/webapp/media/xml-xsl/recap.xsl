@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
-	xmlns:java="http://xml.apache.org/xalan/java" exclude-result-prefixes = "java">
-	
-	
+	xmlns:java="http://xml.apache.org/xalan/java" exclude-result-prefixes="java">
+
+
 	<xsl:template match="/">
 		<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"
 			xmlns:fox="http://xml.apache.org/fo/extensions">
 			<fo:layout-master-set>
-				
+
 				<fo:simple-page-master master-name="all"
 					border="" page-height="29.699cm" page-width="20.999cm"
 					margin-right="1cm" margin-left="1.3cm" margin-bottom="1.09cm"
 					margin-top="0.794cm">
 					<fo:region-body margin-bottom="0cm" />
-					<fo:region-after display-align="after" 
+					<fo:region-after display-align="after"
 						space-before="0cm" extent="0.55cm" />
 				</fo:simple-page-master>
 			</fo:layout-master-set>
@@ -25,8 +25,8 @@
 						text-align="end">
 						<fo:inline font-size="11.5pt">
 							<fo:page-number />
-				/
-				<fo:page-number-citation ref-id="theEnd" />
+							/
+							<fo:page-number-citation ref-id="theEnd" />
 						</fo:inline>
 					</fo:block>
 				</fo:static-content>
@@ -63,51 +63,54 @@
 		<fo:block padding-top="15pt">
 			<xsl:call-template name="infosRecap" />
 		</fo:block>
-		
+
 	</xsl:template>
-	
+
 	<!-- entete logo/ annee universitaire -->
 	<xsl:template name="entete">
 		<fo:block line-height="110%" hyphenate="false" language="fr"
 			country="FR" font-size="11pt" font-family="Times New Roman,serif"
-			margin-left="0cm" margin-right="0cm" text-indent="0cm"
-			font-weight="bold">
+			margin-left="0cm" margin-right="0cm" text-indent="0cm" font-weight="bold">
 			<fo:table table-layout="fixed" width="100%">
 				<fo:table-column column-width="proportional-column-width(0.50)" />
 				<fo:table-column column-width="proportional-column-width(0.50)" />
 				<fo:table-column column-width="proportional-column-width(1)" />
 				<fo:table-body>
-					<fo:table-row >
-						<fo:table-cell >
+					<fo:table-row>
+						<fo:table-cell>
 							<fo:block>
-								<fo:external-graphic width="3cm"  height="1cm">
-									<xsl:attribute name="src" >
-										<xsl:value-of select="document('config.xml')/config/logoUniversite"/>
+								<fo:external-graphic width="3cm" height="1cm">
+									<xsl:attribute name="src">
+										<xsl:value-of select="document('config.xml')/config/logoUniversite" />
 									</xsl:attribute>
 								</fo:external-graphic>
 							</fo:block>
 						</fo:table-cell>
-						<fo:table-cell >
+						<fo:table-cell>
 							<fo:block>
 								<xsl:choose>
 									<xsl:when test="centre-gestion/fichier/nom-fichier">
-										<xsl:variable name="cheminLogo" select="document('config.xml')/config/uploadFiles.logosCentre.path" />
-										<xsl:variable name="logo" select="centre-gestion/fichier/nom-fichier" />
-											<fo:external-graphic height="1cm">
-											<xsl:attribute name="src" >
-												<xsl:value-of select="$cheminLogo"/><xsl:value-of select="centre-gestion/fichier/@id-fichier"/>_<xsl:value-of select="$logo"/>
+										<xsl:variable name="cheminLogo"
+											select="document('config.xml')/config/uploadFiles.logosCentre.path" />
+										<xsl:variable name="logo"
+											select="centre-gestion/fichier/nom-fichier" />
+										<fo:external-graphic height="1cm">
+											<xsl:attribute name="src">
+												<xsl:value-of select="$cheminLogo" /><xsl:value-of
+												select="centre-gestion/fichier/@id-fichier" />_<xsl:value-of
+												select="$logo" />
 											</xsl:attribute>
-											</fo:external-graphic>
+										</fo:external-graphic>
 									</xsl:when>
 									<xsl:otherwise>
-									
+
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell width="3cm">
-							<fo:block  width="3.493cm"
-								line-height="110%" language="fr" country="FR" font-size="12pt">
+							<fo:block width="3.493cm" line-height="110%" language="fr"
+								country="FR" font-size="12pt">
 								Année universitaire
 								<xsl:value-of select="annee" />
 							</fo:block>
@@ -125,633 +128,858 @@
 			<fo:table table-layout="fixed" width="100%" border="2px solid #e6e6e6">
 				<fo:table-column column-width="proportional-column-width(0.60)" />
 				<fo:table-column column-width="proportional-column-width(1)" />
-				
+
 				<fo:table-body padding-left="5pt">
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif" font-weight="bold">
-								N° convention : 
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif"
+								font-weight="bold">
+								N° convention :
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif" font-weight="bold">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif"
+								font-weight="bold">
 								<xsl:value-of select="id-convention" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Etudiant 
+
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Etudiant
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="etudiant/prenom" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="etudiant/nom" />
-									<xsl:text> </xsl:text>
-									(N° Etudiant :
-									<xsl:value-of select="etudiant/num-etudiant" />)
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="etudiant/prenom" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="etudiant/nom" />
+								<xsl:text> </xsl:text>
+								(N° Etudiant :
+								<xsl:value-of select="etudiant/num-etudiant" />
+								)
 							</fo:block>
-							<fo:block line-height="110%"  
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									UFR -
-									<xsl:value-of select="ufr/code" /> - <xsl:value-of select="ufr/libelle" />
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								UFR -
+								<xsl:value-of select="ufr/code" />
+								-
+								<xsl:value-of select="ufr/libelle" />
 							</fo:block>
-							<fo:block line-height="110%"  
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									ETAPE -
-									<xsl:value-of select="etape/code" /> - <xsl:value-of select="etape/libelle" />
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								ETAPE -
+								<xsl:value-of select="etape/code" />
+								-
+								<xsl:value-of select="etape/libelle" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Type de stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="type-convention/libelle" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="type-convention/libelle" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Thématique du stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="theme/libelle" />
-									
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Sujet du stage
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="sujet-stage" />
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Fonctions et tâches
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="fonctions-et-taches" />
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Détails du projet
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="details" />
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Période de stage
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									Du 
-									<xsl:value-of select="concat(substring(./date-debut-stage,9,2),'/',substring(./date-debut-stage,6,2), '/',substring(./date-debut-stage,1,4))"/> 
-									<xsl:text> </xsl:text> Au <xsl:text> </xsl:text>
-										<xsl:value-of select="concat(substring(./date-fin-stage,9,2),'/',substring(./date-fin-stage,6,2), '/',substring(./date-fin-stage,1,4))"/> 
-						</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Interruption du stage
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:if test="interruption-stage = 'true'"> 
-								 		<xsl:text> </xsl:text>
-								 		avec interruption du : 
-											<xsl:value-of select="concat(substring(./date-debut-interruption,9,2),'/',substring(./date-debut-interruption,6,2), '/',substring(./date-debut-interruption,1,4))"/> 
-										<xsl:text> </xsl:text> au <xsl:text> </xsl:text>
-											<xsl:value-of select="concat(substring(./date-fin-interruption,9,2),'/',substring(./date-fin-interruption,6,2), '/',substring(./date-fin-interruption,1,4))"/> 
-									 </xsl:if>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Durée de travail
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									
-									<xsl:value-of select="temps-travail/libelle" /> <xsl:text> sur </xsl:text> <xsl:value-of select="nb-jours-hebdo" /> <xsl:text> jour(s)/semaine </xsl:text>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="theme/libelle" />
 
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Commentaires sur le temps de travail
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Sujet du stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="commentaire-duree-travail" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="sujet-stage" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Langue d'impression de la convention
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Fonctions et tâches
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="langue-convention/libelle" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="true" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="fonctions-et-taches" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Compétences à acquérir ou à
+								développer
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell text-align="left" padding-left="5pt">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="true" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="competences" />
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Détails du projet
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell text-align="left" padding-left="5pt">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="details" />
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Période de stage
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell text-align="left" padding-left="5pt">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Du
+								<xsl:value-of
+									select="concat(substring(./date-debut-stage,9,2),'/',substring(./date-debut-stage,6,2), '/',substring(./date-debut-stage,1,4))" />
+								<xsl:text> </xsl:text>
+								Au
+								<xsl:text> </xsl:text>
+								<xsl:value-of
+									select="concat(substring(./date-fin-stage,9,2),'/',substring(./date-fin-stage,6,2), '/',substring(./date-fin-stage,1,4))" />
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Interruption du stage
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell text-align="left" padding-left="5pt">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:if test="@interruption-stage = 'true'">
+									<xsl:text> </xsl:text>
+									avec interruption du :
+									<xsl:value-of
+										select="concat(substring(./date-debut-interruption,9,2),'/',substring(./date-debut-interruption,6,2), '/',substring(./date-debut-interruption,1,4))" />
+									<xsl:text> </xsl:text>
+									au
+									<xsl:text> </xsl:text>
+									<xsl:value-of
+										select="concat(substring(./date-fin-interruption,9,2),'/',substring(./date-fin-interruption,6,2), '/',substring(./date-fin-interruption,1,4))" />
+								</xsl:if>
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Durée de travail
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell text-align="left" padding-left="5pt">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+
+								<xsl:value-of select="temps-travail/libelle" />
+								<xsl:text> sur </xsl:text>
+								<xsl:value-of select="nb-jours-hebdo" />
+								<xsl:text> jour(s)/semaine </xsl:text>
+
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Commentaires sur le temps de
+								travail
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell text-align="left" padding-left="5pt">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="commentaire-duree-travail" />
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Langue d'impression de la
+								convention
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell text-align="left" padding-left="5pt">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="langue-convention/libelle" />
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Gratification au cours du stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:variable name="nb-montant-gratification" select="montant-gratification" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:variable name="nb-montant-gratification"
+									select="montant-gratification" />
 								<xsl:choose>
 									<xsl:when test='$nb-montant-gratification=""'>
- 
-       							    </xsl:when>
+
+									</xsl:when>
 									<xsl:otherwise>
-												<xsl:value-of select="montant-gratification" /> 
-												euros <xsl:text> </xsl:text> <xsl:value-of select="unite-gratification/libelle" /> par mois
+										<xsl:value-of select="montant-gratification" />
+										euros
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="unite-gratification/libelle" />
+										par mois
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Origine du stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="origine-stage/libelle" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="origine-stage/libelle" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Confidentialité du sujet/theme du stage
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Confidentialité du sujet/theme du
+								stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:if test="tem-conf-sujet-teme != 'O'"> 
-										non
-									 </xsl:if> 
-									 <xsl:if test="tem-conf-sujet-teme = 'O'"> 
-								 		oui
-									 </xsl:if> 
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:if test="tem-conf-sujet-teme != 'O'">
+									non
+								</xsl:if>
+								<xsl:if test="tem-conf-sujet-teme = 'O'">
+									oui
+								</xsl:if>
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Nombres d'heures Hebdomadaires 
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Nombres d'heures Hebdomadaires
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="nb-heures-hebdo" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="nb-heures-hebdo" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								pourcentage de quotité travaillée 
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								pourcentage de quotité travaillée
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="quotite-travail" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="quotite-travail" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Modalité de Suivi du stagiaire par l'etablissement 
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Modalité de Suivi du stagiaire par
+								l'etablissement
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="mode-encadre-suivi" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="mode-encadre-suivi" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Modalité de versement de la gratification 
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Modalité de versement de la
+								gratification
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="mode-vers-gratification/libelle" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="mode-vers-gratification/libelle" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Listes des avantages en nature 
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Liste des avantages en nature
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="avantages-nature" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="avantages-nature" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Nature du travail à fournir suite au Stage
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Nature du travail à fournir suite
+								au stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="nature-travail/libelle" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="nature-travail/libelle" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								modalité de Validation du Stage
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Modalité de Validation du Stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="mode-validation-stage/libelle" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="mode-validation-stage/libelle" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Conditions particulières de travail
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="travail-nuit-ferie" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="travail-nuit-ferie" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Durée du Stage (en semaines)
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Durée du Stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="duree-stage" /> 
-							</fo:block>
+							<xsl:choose>
+								<xsl:when test="duree-exceptionnelle and duree-exceptionnelle != ''">
+									<xsl:choose>
+										<xsl:when
+											test="id-unite-duree-exceptionnelle and id-unite-duree-exceptionnelle != 0">
+											<fo:block line-height="110%" hyphenate="false"
+												language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+												padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+												padding-bottom="0.035cm">
+												<xsl:value-of select="duree-exceptionnelle" />
+												<xsl:text> </xsl:text>
+												<xsl:if test="id-unite-duree-exceptionnelle = '1'">
+													heure(s)
+												</xsl:if>
+												<xsl:if test="id-unite-duree-exceptionnelle = '2'">
+													jour(s)
+												</xsl:if>
+												<xsl:if test="id-unite-duree-exceptionnelle = '3'">
+													semaine(s)
+												</xsl:if>
+												<xsl:if test="id-unite-duree-exceptionnelle = '4'">
+													mois
+												</xsl:if>
+												<xsl:if test="id-unite-duree-exceptionnelle = '5'">
+													année(s)
+												</xsl:if>
+											</fo:block>
+										</xsl:when>
+										<xsl:otherwise>
+											<fo:block line-height="130%" hyphenate="false"
+												language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+												padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+												padding-bottom="0.035cm">
+												<fo:inline>
+													<xsl:value-of select="duree-exceptionnelle" />
+													<xsl:text> heures de présence effective dans
+													l'organisme d'accueil</xsl:text>
+												</fo:inline>
+
+											</fo:block>
+											<fo:block line-height="130%" hyphenate="false"
+												language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+												padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+												padding-bottom="0.035cm">
+												(représentant une durée
+												totale
+												de
+												<fo:inline>
+													<xsl:variable name="nbHeures" select="duree-exceptionnelle" />
+													<xsl:variable name="nbJours" select="floor($nbHeures div 7)" />
+													<xsl:variable name="nbHeuresRestantes" select="$nbHeures mod 7" />
+													<xsl:variable name="nbMois" select="floor($nbJours div 22)" />
+													<xsl:variable name="nbJoursRestants" select="$nbJours mod 22" />
+
+													<xsl:value-of select="$nbMois" />
+													<xsl:text> mois </xsl:text>
+													<xsl:value-of select="$nbJoursRestants" />
+													<xsl:text> jour(s) et </xsl:text>
+													<xsl:value-of select="$nbHeuresRestantes" />
+													<xsl:text> heure(s) </xsl:text>
+												</fo:inline>
+												)
+											</fo:block>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+										padding-bottom="0.035cm">
+										<xsl:value-of select="duree-stage" />
+										<xsl:text> </xsl:text>
+										semaines
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Durée Effective du Stage (cas plusieurs interruptions)
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="duree-exceptionnelle" /> <xsl:text> </xsl:text>   <xsl:value-of select="unite-duree/libelle" />
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Responsable pédagogique
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="enseignant/prenom" />
-									<xsl:text> </xsl:text> 
-									<xsl:value-of select="enseignant/nom" /> 
-									(<xsl:value-of select="enseignant/affectation/libelle" /> )
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="enseignant/prenom" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="enseignant/nom" />
+								<xsl:if test="enseignant/affectation/libelle != ''">
+									(
+									<xsl:value-of select="enseignant/affectation/libelle" />
+									)
+								</xsl:if>
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Etablissement d'accueil
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="structure/raison-sociale" /> 
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="structure/raison-sociale" />
 							</fo:block>
 
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-										<xsl:value-of select="structure/batiment-residence" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="structure/voie" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="structure/code-postal" />  
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="structure/commune" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="structure/pays/libelle" /> 
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="structure/batiment-residence" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="structure/voie" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="structure/code-postal" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="structure/commune" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="structure/pays/libelle" />
 							</fo:block>
-							
+
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Lieu de stage 
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Lieu de stage
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="service/nom" />
- 						  </fo:block>
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-											<xsl:value-of select="service/batiment-residence" />
-											<xsl:text> </xsl:text>
-											<xsl:value-of select="service/voie" />
-											<xsl:text> </xsl:text>
-											<xsl:value-of select="service/code-postal" />  
-											<xsl:text> </xsl:text>
-											<xsl:value-of select="service/commune" />
-											<xsl:text> </xsl:text>
-											<xsl:value-of select="service/pays/libelle" /> 
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="service/nom" />
 							</fo:block>
-							
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="service/batiment-residence" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="service/voie" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="service/code-postal" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="service/commune" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="service/pays/libelle" />
+							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Tuteur professionnel
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="contact/prenom" />
-									<xsl:text> </xsl:text> 
-									<xsl:value-of select="contact/nom" /> 
-									<xsl:text> </xsl:text> 
-									(<xsl:value-of select="contact/fonction" /> )
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="contact/prenom" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="contact/nom" />
+								<xsl:text> </xsl:text>
+								(
+								<xsl:value-of select="contact/fonction" />
+								)
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Signataire
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="signataire/prenom" /> 
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="signataire/nom" /> 
-									<xsl:text> </xsl:text> 
-									(<xsl:value-of select="signataire/fonction" />)
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="signataire/prenom" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="signataire/nom" />
+								<xsl:text> </xsl:text>
+								(
+								<xsl:value-of select="signataire/fonction" />
+								)
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Adresse de l'étudiant
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="adresse-etudiant" />
-											<xsl:text> </xsl:text>
-											<xsl:value-of select="code-postal-etudiant" />  
-											<xsl:text> </xsl:text>
-											<xsl:value-of select="ville-etudiant" /> 
-											<xsl:text> </xsl:text>
-											<xsl:value-of select="pays-etudiant" /> 
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="adresse-etudiant" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="code-postal-etudiant" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="ville-etudiant" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="pays-etudiant" />
 							</fo:block>
-							
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Téléphone de l'étudiant
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="tel-etudiant" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="tel-etudiant" />
 							</fo:block>
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="tel-portable-etudiant" /> 
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="tel-portable-etudiant" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Courriel de l'étudiant
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="etudiant/mail" />		
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="etudiant/mail" />
 							</fo:block>
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="courriel-perso-etudiant" /> 
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="courriel-perso-etudiant" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Affiliation à la Sécurité Sociale
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="assurance/libelle" />		
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="assurance/libelle" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Caisse d'Assurance Maladie
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								Caisse d'assurance maladie
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:choose>
-											<xsl:when test="libelle-cPAM">
-												<xsl:value-of select="libelle-cPAM" />
-											</xsl:when>
-											<xsl:otherwise>
-												 
-											</xsl:otherwise>
-									</xsl:choose> 	
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:choose>
+									<xsl:when test="libelle-cPAM">
+										<xsl:value-of select="libelle-cPAM" />
+									</xsl:when>
+									<xsl:otherwise>
+
+									</xsl:otherwise>
+								</xsl:choose>
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								ELP - nbreCredits
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								ELP - Crédits ECTS
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:value-of select="code-elp" />  -  <xsl:value-of select="credit-eCTS" />
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:value-of select="code-elp" />
+								-
+								<xsl:value-of select="credit-eCTS" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row >
-						<fo:table-cell  background-color="#e6e6e6" text-align="left">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Convention validée
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%"  padding-top="2pt" padding-bottom="2pt"
-									hyphenate="false" language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
-									<xsl:if test="validation-convention = 'true'"> 
-								 		<xsl:text> </xsl:text>
-								 		oui 
-								 	</xsl:if>
-								 	<xsl:if test="validation-convention = 'false'"> 
-								 		<xsl:text> </xsl:text>
-								 		non
-								 	</xsl:if>
-									
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:if test="@validation-convention = 'true'">
+									<xsl:text> </xsl:text>
+									oui
+								</xsl:if>
+								<xsl:if test="@validation-convention = 'false'">
+									<xsl:text> </xsl:text>
+									non
+								</xsl:if>
+
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
@@ -759,13 +987,16 @@
 				</fo:table-body>
 			</fo:table>
 		</fo:block>
-		<fo:block line-height="110%"  
-				hyphenate="false" language="fr" country="FR" font-size="11.5pt" font-family="Times New Roman,serif">
-				<fo:leader/>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="11.5pt" font-family="Times New Roman,serif">
+			<fo:leader />
 		</fo:block>
-		<fo:block line-height="110%"  
-			hyphenate="false" language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif" padding-top="5pt">
-			récapitulatif imprimé le : <xsl:value-of select = "java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())"/> 
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="8pt" font-family="Times New Roman,serif"
+			padding-top="5pt">
+			récapitulatif imprimé le :
+			<xsl:value-of
+				select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
 		</fo:block>
 		<fo:block id="theEnd" />
 	</xsl:template>

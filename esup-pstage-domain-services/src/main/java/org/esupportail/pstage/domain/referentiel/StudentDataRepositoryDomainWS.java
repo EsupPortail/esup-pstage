@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDaoWS;
+import org.esupportail.pstage.domain.beans.ApogeeMap;
 import org.esupportail.pstage.domain.beans.EtudiantRef;
 
 /**
@@ -32,16 +33,12 @@ public class StudentDataRepositoryDomainWS implements
 	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRef(java.lang.String, java.lang.String)
 	 */
 	public EtudiantRef getEtudiantRef(String universityCode, String id) {
-		if(logger.isInfoEnabled()){
-			logger.info(" Appel de StudentDataRepositoryWS.getStudent(String universityCode, String id) : " + universityCode +  "id : " + id);
-		}
-		
-		EtudiantRef etudiantRef = studentDataRepositoryDaoWS.getEtudiantRef(universityCode, id);
-		
 		if(logger.isDebugEnabled()){
-			logger.debug(" StudentDataRepositoryWS etudiantRef  ==> " + etudiantRef.toString());
+			logger.debug("getStudent("+universityCode+", "+id+");");
 		}
-		return etudiantRef;
+		
+		return studentDataRepositoryDaoWS.getEtudiantRef(universityCode, id);
+		
 	}
 
 	
@@ -49,19 +46,12 @@ public class StudentDataRepositoryDomainWS implements
 	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String)
 	 */
 	public EtudiantRef getEtudiantRefByNum(String universityCode, String id) {
-		if(logger.isInfoEnabled()){
-			logger.info(" Appel de StudentDataRepositoryWS.getStudentByNum(String universityCode, String id) : " + universityCode +  "id : " + id);
+		if(logger.isDebugEnabled()){
+			logger.debug("getStudentByNum("+universityCode+","+id+");");
 		}
 
-		EtudiantRef etudiantRef = studentDataRepositoryDaoWS.getEtudiantRefByNum(universityCode, id);
+		return studentDataRepositoryDaoWS.getEtudiantRefByNum(universityCode, id);
 		
-		if(logger.isDebugEnabled()){
-			if (etudiantRef !=null) {
-				logger.debug(" StudentDataRepositoryWS etudiantRef  ==> " + etudiantRef.toString());
-			}
-			
-		}
-		return etudiantRef;
 	}
 
 
@@ -69,16 +59,24 @@ public class StudentDataRepositoryDomainWS implements
 	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantsRefByName(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public List<EtudiantRef> getEtudiantsRefByName(String universityCode,String name, String firstName) {
-		if(logger.isInfoEnabled()){
-			logger.info(" Appel de StudentDataRepositoryWS.getStudentsByName(universityCode, name,firstName) : " + universityCode +  "name : " + name + " firstName : " + firstName);
+		if(logger.isDebugEnabled()){
+			logger.debug("getStudentsByName("+universityCode+", "+name+", "+firstName+");");
 		}
 		
-		List<EtudiantRef> lEtudiantRef = studentDataRepositoryDaoWS.getEtudiantsRefByName(universityCode, name, firstName);
+		return studentDataRepositoryDaoWS.getEtudiantsRefByName(universityCode, name, firstName);
+
+	}
+	
+	/**
+	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtapesByEtudiantAndAnnee(java.lang.String, java.lang.String)
+	 */
+	public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire){
 		if(logger.isDebugEnabled()){
-			
-			logger.debug(" StudentDataRepositoryWS lEtudiantRef  ==> " + lEtudiantRef.size());
+			logger.debug("getEtapesByEtudiantAndAnnee(" + cod +  ", " + anneeScolaire+")");
 		}
-		return lEtudiantRef;
+		
+		return studentDataRepositoryDaoWS.getEtapesByEtudiantAndAnnee(cod, anneeScolaire);
+
 	}
 
 
@@ -97,11 +95,5 @@ public class StudentDataRepositoryDomainWS implements
 			StudentDataRepositoryDaoWS studentDataRepositoryDaoWS) {
 		this.studentDataRepositoryDaoWS = studentDataRepositoryDaoWS;
 	}
-
-
-
-	
-
-
 
 }

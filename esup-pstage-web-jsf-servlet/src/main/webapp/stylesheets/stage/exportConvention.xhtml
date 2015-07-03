@@ -13,47 +13,46 @@
 				<h:outputText value="#{msgs['EXPORTCONVENTION.TITRE']}" />
 			</f:facet>
 			<h:form id="formRechConvention">
-					<h:panelGrid columns="1" style="width:auto;">
-						<h:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES']}"
-							for="numConvention" />
-						<t:htmlTag value="div" style="height: 5px;" />
-						<h:outputLabel for="formRechConvention"
-							value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
-						<rich:pickList listHeight="250" listWidth="250"
-							addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-							addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-							removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
-							removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
-							value="#{exportController.conventionColonnesChoisies}">
-							<f:selectItems value="#{exportController.conventionColonnes}" />
-						</rich:pickList>
+				<h:panelGrid style="width:auto;">
+					<h:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES']}"
+						for="formRechConvention" />
+					<t:htmlTag value="div" style="height:5px;" />
+					<h:outputLabel for="formRechConvention"
+						value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
+					<rich:pickList listHeight="250" listWidth="250"
+						addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
+						addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
+						removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
+						removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
+						value="#{exportController.conventionColonnesChoisies}">
+						<f:selectItems value="#{exportController.conventionColonnes}" />
+					</rich:pickList>
 
-						<t:htmlTag value="div" style="height: 10px;" />
+					<t:htmlTag value="div" style="height:10px;" />
 
-						<h:outputLabel for="formRechConvention"
-							value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
-						<rich:pickList listHeight="250" listWidth="250" 
-							addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-							addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-							removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
-							removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
-							value="#{exportController.conventionEntrepriseColonnesChoisies}">
-							<f:selectItems
-								value="#{exportController.conventionEntrepriseColonnes}" />
-						</rich:pickList>
+					<h:outputLabel for="formRechConvention"
+						value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
+					<rich:pickList listHeight="250" listWidth="250"
+						addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
+						addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
+						removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
+						removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
+						value="#{exportController.conventionEntrepriseColonnesChoisies}">
+						<f:selectItems
+							value="#{exportController.conventionEntrepriseColonnes}" />
+					</rich:pickList>
 
-						<t:htmlTag value="div" style="height: 20px;" />
-						<h:panelGrid columns="3">
-							<h:commandButton id="back"
-								value="#{msgs['FORM.ANNULERETRETOUR']}"
-								action="#{conventionController.goToRechercheConvention}"
-								immediate="true" />
-							<t:htmlTag value="div" style="width: 150px; display:inline;" />
-							<h:commandButton
-								value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
-								action="#{exportController.goToExportConvention}" />
-						</h:panelGrid>
+					<t:htmlTag value="div" style="height:20px;" />
+					<h:panelGrid columns="3">
+						<h:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
+							action="#{conventionController.goToRechercheConvention}"
+							immediate="true" />
+						<t:htmlTag value="div" style="width:150px; display:inline;" />
+						<h:commandButton
+							value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
+							action="#{exportController.goToExportConvention}" />
 					</h:panelGrid>
+				</h:panelGrid>
 			</h:form>
 			<rich:message for="formRechConvention" showDetail="true">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />

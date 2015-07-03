@@ -145,7 +145,7 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	/* **
 	 * Objets
 	 */
-	
+	private List<String> listeAnneesUniv;
 
 
 	
@@ -575,6 +575,16 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	 */
 	public void setTheCodeVersionEtape(String theCodeVersionEtape) {
 		this.theCodeVersionEtape = theCodeVersionEtape;
+	}
+
+
+	public List<String> getListeAnneesUniv() {
+		return listeAnneesUniv;
+	}
+
+
+	public void setListeAnneesUniv(List<String> listeAnneesUniv) {
+		this.listeAnneesUniv = listeAnneesUniv;
 	}
 
 

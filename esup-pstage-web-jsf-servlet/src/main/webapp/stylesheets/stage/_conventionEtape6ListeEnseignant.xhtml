@@ -38,13 +38,11 @@
 						page="1" id="listeEnseignantScroller" renderIfSinglePage="false" />
 				</f:facet>
 			</rich:dataTable>
-			<h:panelGrid columns="1">
-				<a4j:commandButton
-					action="#{conventionController.goToConventionModifEnseignant}"
-					value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
-					immediate="true">
-				</a4j:commandButton>
-			</h:panelGrid>
+			<a4j:commandButton
+				action="#{conventionController.goToConventionModifEnseignant}"
+				value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
+				immediate="true">
+			</a4j:commandButton>
 		</rich:panel>
 	</h:panelGrid>
 </ui:composition>

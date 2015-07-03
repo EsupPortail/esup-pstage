@@ -31,6 +31,11 @@ public class ApogeeMap {
 	private LinkedHashMap<String, String> StudentsEtapesVetsPedago;
 	
 	/**
+	 * liste des composantes etudiant
+	 */
+	private LinkedHashMap <String,String> StudentStudys;
+	
+	/**
 	 * map des elements pedagogiques.
 	 */
 	private LinkedHashMap <String,ElementPedagogique> elementPedagogiques;	
@@ -58,6 +63,7 @@ public class ApogeeMap {
 		elementPedagogiques = new LinkedHashMap<String, ElementPedagogique>();
 		listeELPs = new ArrayList<ElementPedagogique>();
 		listeEtapeInscriptions = new ArrayList<EtapeInscription>();
+		setStudentStudys(new LinkedHashMap<String, String>());
 	}
 	/**
 	 * @return the studentSteps
@@ -134,6 +140,18 @@ public class ApogeeMap {
 	public void setListeEtapeInscriptions(
 			List<EtapeInscription> listeEtapeInscriptions) {
 		this.listeEtapeInscriptions = listeEtapeInscriptions;
+	}
+	/**
+	 * @return
+	 */
+	public LinkedHashMap <String,String> getStudentStudys() {
+		return StudentStudys;
+	}
+	/**
+	 * @param studentStudys
+	 */
+	public void setStudentStudys(LinkedHashMap <String,String> studentStudys) {
+		StudentStudys = studentStudys;
 	}
 	
 	

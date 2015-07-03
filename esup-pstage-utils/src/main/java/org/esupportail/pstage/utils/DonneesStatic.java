@@ -82,40 +82,7 @@ public class DonneesStatic {
 	 * id de la civilite Vide dans la base
 	 */
 	public static final int ID_CIVILITE_VIDE = 4;
-	
-	/**
-	 * type de User member, aucun droit acces CG
-	 */
-	public static String userTypeMember = "member";
-	
-	/**
-	 * @return String
-	 */
-	public String getUserTypeMember(){
-		return userTypeMember;
-	}
-	
-	/**
-	 * type de User writer (droit ecriture)
-	 */
-	public static final String userTypeWriter = "writer";
-	
-	/**
-	 * type de User reader (droit lecture)
-	 */
-	public static final String userTypeReader = "reader";
 
-	/**
-	 * type de User Student
-	 */
-	public static String userTypeStudent = "student";
-	
-	/**
-	 * @return String
-	 */
-	public String getUserTypeStudent() {
-		return userTypeStudent;
-	}
 	
 	/*
 	 * Contrôles Données Apogée
@@ -158,7 +125,6 @@ public class DonneesStatic {
 	 * code language "fr".
 	 */
 	public static final String LANG_FR = "fr";
-	
 	/**
 	 * code language etranger.
 	 */
@@ -320,14 +286,14 @@ public class DonneesStatic {
 	public static final String ASS_CODE_CTRL_ETRANGER = "ASSETRANGER";
 	
 	/**
-	 * nombre de reponse maxi pour export.
+	 * nombre de reponse maxi pour export
 	 */
-	public static final int NB_RESPONSE_EXPORT_MAXI = 3500;
+	public static int nb_response_export_maxi;
 	
 	/**
 	 * nbRechercheMaxi
 	 */
-	public static final int NB_RECHERCHE_MAXI = 200;
+	public static int nb_recherche_maxi;
 	
 	/**
 	 * constructeur de donnees statiques.
@@ -336,5 +302,21 @@ public class DonneesStatic {
 		// pour donnee static
 		
 	}
-	
+
+	public int getNb_response_export_maxi() {
+		return nb_response_export_maxi;
+	}
+
+	public void setNb_response_export_maxi(int nb_response_export_maxi) {
+		DonneesStatic.nb_response_export_maxi = nb_response_export_maxi;
+	}
+
+	public int getNb_recherche_maxi() {
+		return nb_recherche_maxi;
+	}
+
+	public void setNb_recherche_maxi(int nb_recherche_maxi) {
+		DonneesStatic.nb_recherche_maxi = nb_recherche_maxi;
+	}
+
 }

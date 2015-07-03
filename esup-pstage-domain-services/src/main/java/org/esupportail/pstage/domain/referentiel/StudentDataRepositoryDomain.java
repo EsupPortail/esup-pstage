@@ -3,6 +3,7 @@ package org.esupportail.pstage.domain.referentiel;
 import java.io.Serializable;
 import java.util.List;
 
+import org.esupportail.pstage.domain.beans.ApogeeMap;
 import org.esupportail.pstage.domain.beans.EtudiantRef;
 
 /**
@@ -30,5 +31,11 @@ public EtudiantRef getEtudiantRefByNum(String universityCode, String id);
  */
 public List<EtudiantRef> getEtudiantsRefByName(String universityCode, String name, String firstName);
 
+/**
+ * @param cod
+ * @param anneeScolaire
+ * @return ApogeeMap
+ */
+public ApogeeMap getEtapesByEtudiantAndAnnee(String cod, String anneeScolaire);
 
 }

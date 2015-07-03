@@ -24,7 +24,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.log4j.Logger;
-import org.esupportail.pstage.domain.DomainService;
 import org.esupportail.pstage.utils.GenTicketStage;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;

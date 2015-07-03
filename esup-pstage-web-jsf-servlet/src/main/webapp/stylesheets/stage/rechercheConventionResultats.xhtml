@@ -54,20 +54,20 @@
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
 							value="../../media/images/script.png" style="border:0"
 							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
-						and conventionController.rechercheConventionPaginator.totalItemsCount gt 200}" />
+						and conventionController.rechercheConventionPaginator.totalItemsCount gt conventionController.critereRechercheConvention.nbRechercheMaxi}" />
 						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
 							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
-						and conventionController.rechercheConventionPaginator.totalItemsCount gt 200}"
+						and conventionController.rechercheConventionPaginator.totalItemsCount gt conventionController.critereRechercheConvention.nbRechercheMaxi}"
 							escape="false">
 							<f:param
 								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
 						</h:outputFormat>
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
 							value="../../media/images/script.png" style="border:0"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 200}" />
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge conventionController.critereRechercheConvention.nbRechercheMaxi}" />
 						<h:outputFormat
 							value="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 200}"
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge conventionController.critereRechercheConvention.nbRechercheMaxi}"
 							escape="false">
 							<f:param
 								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />

@@ -338,14 +338,14 @@
 		<t:htmlTag value="div" style="height: 20px;" />
 
 		<t:div>
-			<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.IMPRESSION']}"
+			<h:outputLabel for="urlPageInstruction" value="#{msgs['CONVENTION.ETAPE11.IMPRESSION']}"
 				rendered="#{!conventionController.cgUrlInstruction}" />
 
-			<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.URL']}"
+			<h:outputLabel for="urlPageInstruction" value="#{msgs['CONVENTION.IMPRESSION.URL']}"
 				rendered="#{conventionController.cgUrlInstruction}">
 				<h:outputLink
 					value="#{conventionController.convention.centreGestion.urlPageInstruction}">
-					<h:outputText
+					<h:outputText id="urlPageInstruction"
 						value="#{conventionController.convention.centreGestion.urlPageInstruction}" />
 				</h:outputLink>
 			</h:outputLabel>

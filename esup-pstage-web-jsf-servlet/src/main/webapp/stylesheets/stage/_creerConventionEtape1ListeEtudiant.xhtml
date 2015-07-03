@@ -14,12 +14,8 @@
 
 		<t:htmlTag value="div" style="height: 10px;" />
 
-		<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
-
-		<t:htmlTag value="div" style="height: 10px;" />
-
-		<h:panelGrid align="center"
-			columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+		<h:panelGrid align="center" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
 			<rich:dataTable id="listeEtu" rows="15" var="etudiantRef"
 				value="#{conventionController.listeResultatsRechercheEtudiant}">
 				<rich:column>
@@ -27,14 +23,9 @@
 						<h:outputText styleClass="headerText"
 							value="#{msgs['CONVENTION.NUMETUDIANT']}" />
 					</f:facet>
-					<h:outputText value="#{etudiantRef.numEtudiant}" />
-				</rich:column>
-				<rich:column>
-					<f:facet name="header">
-						<h:outputText styleClass="headerText"
-							value="#{msgs['CONVENTION.NOM']}" />
-					</f:facet>
-					<h:outputText value="#{etudiantRef.nom}  #{etudiantRef.nomMarital}" />
+					<t:htmlTag value="center">
+						<h:outputText value="#{etudiantRef.numEtudiant}" />
+					</t:htmlTag>
 				</rich:column>
 				<rich:column>
 					<f:facet name="header">
@@ -46,33 +37,43 @@
 				<rich:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerText"
-							value="#{msgs['CONVENTION.VOTREETAPE']}" />
+							value="#{msgs['CONVENTION.NOM']}" />
 					</f:facet>
-					<rich:list var="key" value="#{etudiantRef.stepsKey}">
-						<h:outputText value="#{key} : #{etudiantRef.steps[key]}  " />
-					</rich:list>
+					<h:outputText value="#{etudiantRef.nom}  #{etudiantRef.nomMarital}" />
 				</rich:column>
+				<!-- 				<rich:column> -->
+				<!-- 					<f:facet name="header"> -->
+				<!-- 						<h:outputText styleClass="headerText" -->
+				<!-- 							value="#{msgs['CONVENTION.VOTREETAPE']}" /> -->
+				<!-- 					</f:facet> -->
+				<!-- 					<rich:list var="key" value="#{etudiantRef.stepsKey}"> -->
+				<!-- 						<h:outputText value="#{key} : #{etudiantRef.steps[key]}  " /> -->
+				<!-- 					</rich:list> -->
+				<!-- 				</rich:column> -->
+				<!-- 				<rich:column> -->
+				<!-- 					<f:facet name="header"> -->
+				<!-- 						<h:outputText styleClass="headerText" -->
+				<!-- 							value="#{msgs['CONVENTION.VOTREUFR']}" /> -->
+				<!-- 					</f:facet> -->
+				<!-- 					<rich:list var="keyU" value="#{etudiantRef.studysKey }"> -->
+				<!-- 						<h:outputText value="#{keyU} : #{etudiantRef.studys[keyU]}  " /> -->
+				<!-- 					</rich:list> -->
+				<!-- 				</rich:column> -->
 				<rich:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerText"
-							value="#{msgs['CONVENTION.VOTREUFR']}" />
+							value="#{msgs['FORM.SELECTIONNER']}" />
 					</f:facet>
-					<rich:list var="keyU" value="#{etudiantRef.studysKey }">
-						<h:outputText value="#{keyU} : #{etudiantRef.studys[keyU]}  " />
-					</rich:list>
-				</rich:column>
-				<rich:column>
-					<f:facet name="header">
-						<h:outputText styleClass="headerText" value="#{msgs['FORM.VOIR']}" />
-					</f:facet>
-					<h:commandLink id="voir"
-						action="#{conventionController.recupInfosEtudiantRef}">
-						<f:setPropertyActionListener value="#{etudiantRef}"
-							target="#{conventionController.resultatEtudiantRef}" />
-						<h:graphicImage alt="#{msgs['FORM.VOIR']}"
-							value="../../media/images/zoom.png" style="border:0" />
-						<rich:tooltip value="#{msgs['FORM.VOIR']}" />
-					</h:commandLink>
+					<t:htmlTag value="center">
+						<h:commandLink id="voir"
+							action="#{conventionController.recupInfosEtudiantRef}">
+							<f:setPropertyActionListener value="#{etudiantRef}"
+								target="#{conventionController.resultatEtudiantRef}" />
+							<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
+								value="../../media/images/tick.png" style="border:0" />
+							<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
+						</h:commandLink>
+					</t:htmlTag>
 				</rich:column>
 
 				<f:facet name="footer">

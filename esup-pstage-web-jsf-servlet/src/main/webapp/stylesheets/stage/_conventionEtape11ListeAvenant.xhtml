@@ -51,7 +51,7 @@
 					</f:facet>
 					<t:htmlTag value="center">
 						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="3"
+							rowClasses="paginatorData-text" columns="2"
 							rendered="#{avenant.rupture}">
 							<h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE']} :" />
 							<h:outputText value="#{avenant.dateRupture}">
@@ -59,7 +59,7 @@
 							</h:outputText>
 						</h:panelGrid>
 						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
+							rowClasses="paginatorData-text"
 							rendered="#{!avenant.rupture}">
 							<h:outputText rendered="#{avenant.modificationSujet}"
 								value="#{msgs['CONVENTION.ETAPE11.SUJET']}" />
@@ -74,8 +74,8 @@
 							<h:outputText
 								rendered="#{avenant.modificationMontantGratification}"
 								value="#{msgs['CONVENTION.ETAPE11.MONTANT_GRATIFICATION']}" />
-							<h:outputText rendered="#{not empty avenant.motifAvenant}"
-								value="#{avenant.motifAvenant}" />
+							<h:outputText escape="false" rendered="#{not empty avenant.motifAvenant}"
+								value="- Autre (texte libre)" />
 						</h:panelGrid>
 					</t:htmlTag>
 				</rich:column>

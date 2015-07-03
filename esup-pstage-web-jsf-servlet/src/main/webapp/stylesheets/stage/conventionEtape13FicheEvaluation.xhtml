@@ -126,7 +126,7 @@
 											<h:outputFormat style="width:400px;"
 												value="#{msgs['CONVENTION.ETAPE13.MAIL.CONTENU_ETUDIANT']}"
 												escape="false" disabled="true">
-												<f:param value="#{conventionController.convention.idConvention}" />
+												<f:param value="#{conventionController.convention.structure.raisonSociale}" />
 												<f:param value="#{sessionController.applicationNamePStage}" />
 											</h:outputFormat>
 										</h:panelGrid>

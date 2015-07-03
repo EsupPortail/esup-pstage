@@ -40,7 +40,7 @@ public enum SequenceEtapeEnumSel {
 	/**
 	 * etape6, Responsable Pédagogique
 	 */
-	etape6(6, "Resp. Pedagogique","conventionEtape6Enseignant"),
+	etape6(6, "Enseignant Referent","conventionEtape6Enseignant"),
 	
 	/**
 	 * etape7, Signataire

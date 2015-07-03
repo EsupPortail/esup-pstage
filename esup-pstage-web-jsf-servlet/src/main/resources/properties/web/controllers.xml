@@ -15,7 +15,10 @@
 		<property name="startYearMonth" value="${start.year.month}" />
 	</bean>
 
-	<bean id="donneesStatic" class="org.esupportail.pstage.utils.DonneesStatic" />
+	<bean id="donneesStatic" class="org.esupportail.pstage.utils.DonneesStatic">
+		<property name="nb_response_export_maxi" value="${nb_response_export_maxi}" />
+		<property name="nb_recherche_maxi" value="${nb_recherche_maxi}" />
+	</bean>
 
 	<bean id="blowfishUtils" class="org.esupportail.pstage.utils.BlowfishUtils">
 		<property name="blowfishKey" value="${blowfishKey}" />

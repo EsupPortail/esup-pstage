@@ -67,12 +67,12 @@
 		<!-- pour les offres encore diffusees (vert)-->
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
 			rendered="#{offre.estDiffusee and !offre.estSupprimee
-			and currentDate le offre.dateFinDiffusion}"
+			and currentDateBean le offre.dateFinDiffusion}"
 			style="color:green;" />
 		<!-- pour les offres diffusees mais terminees (rouge)-->
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
 			rendered="#{offre.estDiffusee and !offre.estSupprimee
-			and currentDate gt offre.dateFinDiffusion}"
+			and currentDateBean gt offre.dateFinDiffusion}"
 			style="color:red;" />
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
 			rendered="#{!offre.estDiffusee and !offre.estSupprimee}"
@@ -86,22 +86,22 @@
 		<!-- pour les offres encore diffusees (vert)-->
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
 			rendered="#{offre.estDiffusee and !offre.estSupprimee
-			and currentDate le offre.dateFinDiffusion}"
+			and currentDateBean le offre.dateFinDiffusion}"
 			style="color:green;"/>
 		<h:outputText value="#{offre.dateFinDiffusion}"
 			rendered="#{offre.estDiffusee and !offre.estSupprimee
-			and currentDate le offre.dateFinDiffusion}"
+			and currentDateBean le offre.dateFinDiffusion}"
 			style="color:green;font-weight:bold;">
 			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
 		</h:outputText>
 		<!-- pour les offres diffusees mais terminees (rouge)-->
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
 			rendered="#{offre.estDiffusee and !offre.estSupprimee
-			and currentDate gt offre.dateFinDiffusion}"
+			and currentDateBean gt offre.dateFinDiffusion}"
 			style="color:red;"/>
 		<h:outputText value="#{offre.dateFinDiffusion}"
 			rendered="#{offre.estDiffusee and !offre.estSupprimee
-			and currentDate gt offre.dateFinDiffusion}"
+			and currentDateBean gt offre.dateFinDiffusion}"
 			style="color:red;font-weight:bold;">
 			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
 		</h:outputText>

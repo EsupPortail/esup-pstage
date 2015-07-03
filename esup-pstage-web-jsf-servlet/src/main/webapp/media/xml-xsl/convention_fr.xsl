@@ -136,9 +136,15 @@
 					<fo:table-row>
 						<fo:table-cell>
 							<fo:block>
-								<fo:external-graphic width="3cm" height="1cm">
+								<fo:external-graphic>
 									<xsl:attribute name="src">
 										<xsl:value-of select="document('config.xml')/config/logoUniversite" />
+									</xsl:attribute>
+									<xsl:attribute name="width">
+										<xsl:value-of select="document('config.xml')/config/largeurLogoUniversite" />
+									</xsl:attribute>
+									<xsl:attribute name="height">
+										<xsl:value-of select="document('config.xml')/config/hauteurLogoUniversite" />
 									</xsl:attribute>
 								</fo:external-graphic>
 							</fo:block>
@@ -902,15 +908,15 @@
 								</xsl:call-template>
 							</fo:inline>
 						</fo:block>
-						<fo:block line-height="130%" hyphenate="false" language="fr"
-							country="FR" font-size="9pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								Fonction (ou discipline) :
-							</fo:inline>
-							<xsl:value-of select="enseignant/type-personne" />
-						</fo:block>
+<!-- 						<fo:block line-height="130%" hyphenate="false" language="fr" -->
+<!-- 							country="FR" font-size="9pt" font-family="Times New Roman,serif" -->
+<!-- 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm" -->
+<!-- 							padding-bottom="0.035cm"> -->
+<!-- 							<fo:inline font-weight="bold"> -->
+<!-- 								Fonction (ou discipline) : -->
+<!-- 							</fo:inline> -->
+<!-- 							<xsl:value-of select="enseignant/type-personne" /> -->
+<!-- 						</fo:block> -->
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"

@@ -6,25 +6,26 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
+	<t:htmlTag value="div" style="height: 20px;" />
 	<h:outputText value="#{msgs['CONTACT.GESTION.MODIF.QUESTION']}"
 		escape="false" />
-	<t:htmlTag value="div" style="height: 10px;" />
-	
-	<rich:dataTable value="#{etablissementController.formContact}">
-		<ui:include src="../_commun/_contactColumns.xhtml" />
-	</rich:dataTable>
+	<t:htmlTag value="div" style="height: 20px;" />
+	<t:htmlTag value="center">
+		<rich:dataTable value="#{etablissementController.formContact}">
+			<ui:include src="../_commun/_contactColumns.xhtml" />
+		</rich:dataTable>
+	</t:htmlTag>
+	<t:htmlTag value="div" style="height: 20px;" />
 
-	<t:htmlTag value="div" style="height: 10px;" />
-
-	<h:panelGrid columns="3">
+	<h:panelGrid columns="3" align="center">
 		<a4j:commandButton value="#{msgs['FORM.OUI']}" execute="@this"
 			render="formModifContact">
-			<f:setPropertyActionListener value="_modifContactEtape1" target="#{sessionController.modifContactCurrentPage}" />
+			<f:setPropertyActionListener value="_modifContactEtape1"
+				target="#{sessionController.modifContactCurrentPage}" />
 		</a4j:commandButton>
 		<t:htmlTag value="div" style="width:50px;" />
-		<a4j:commandButton value="#{msgs['FORM.NON']}"
-			execute="@this"
-			onclick="#{rich:component('modifContact')}.hide();"/>
+		<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
+			onclick="#{rich:component('modifContact')}.hide();" />
 	</h:panelGrid>
 
 </ui:composition>

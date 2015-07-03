@@ -69,20 +69,14 @@
 			</h:panelGrid>
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height: 40px;" />
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="2">
 			<h:commandButton
 				value="#{msgs['FORM.PREVIOUS']}"
 				action="#{conventionController.goToCreerConventionConsignes}"
 				immediate="true" />
 				
-			<a4j:commandButton value="#{msgs['FORM.RECHERCHER']}"
-				status="statusRechEtu" action="#{conventionController.rechercheEtudiant}"
-				render="formConvention"/>
-			<a4j:status name="statusRechEtu">
-				<f:facet name="start">
-					<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-				</f:facet>
-			</a4j:status>
+			<h:commandButton value="#{msgs['FORM.RECHERCHER']}"
+				action="#{conventionController.rechercheEtudiant}" />
 		</h:panelGrid>
 	</rich:panel>
 </ui:composition>

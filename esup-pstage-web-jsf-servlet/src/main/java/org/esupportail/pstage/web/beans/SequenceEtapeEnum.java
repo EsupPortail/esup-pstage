@@ -20,7 +20,7 @@ public enum SequenceEtapeEnum {
 	/**
 	 * etape 2, Etablissement d'Accueil
 	 */
-	etape2(2, "Etab. d'Accueil", "creerConventionEtape2Etab"),
+	etape2(2, "Etab. d'accueil", "creerConventionEtape2Etab"),
 	
 	/**
 	 * etape 3,Service d'accueil
@@ -40,7 +40,7 @@ public enum SequenceEtapeEnum {
 	/**
 	 * etape6, Responsable Pédagogique
 	 */
-	etape6(6, "Resp. Pedagogique","creerConventionEtape6Enseignant"),
+	etape6(6, "Enseignant Referent","creerConventionEtape6Enseignant"),
 	
 	/**
 	 * etape7, Signataire

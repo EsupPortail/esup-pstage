@@ -9,6 +9,12 @@
 	<telUniversite></telUniversite>
 	<!-- Logo de l'université : /!\ Doit se situer dans le sous-dossier images /!\ -->
 	<logoUniversite>logo-header.png</logoUniversite>
+	<hauteurLogoUniversite>1cm</hauteurLogoUniversite>
+	<largeurLogoUniversite>3cm</largeurLogoUniversite>
+	
+	<hauteurLogoCentre>1cm</hauteurLogoCentre>
+	<largeurLogoCentre>3cm</largeurLogoCentre>
+	
 	<!-- Logo supplémentaire si besoin /!\ Doit se situer dans le sous-dossier images /!\ -->
 	<logoFacultatif>logoPres.jpg</logoFacultatif>
 	<!-- Répertoire de stockage des logos des centres de gestion avec / , renseigne au moment du deploy-->

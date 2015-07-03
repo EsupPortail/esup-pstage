@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.esupportail</groupId>
     <artifactId>esup-pstage</artifactId>
-    <version>2.2.3-SNAPSHOT</version>
+    <version>2.2.4-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <description>An Blank Application to start your project</description>
+    <description>A Blank Application to start your project</description>
     <repositories>
         <repository>
             <id>esup-snapshots</id>

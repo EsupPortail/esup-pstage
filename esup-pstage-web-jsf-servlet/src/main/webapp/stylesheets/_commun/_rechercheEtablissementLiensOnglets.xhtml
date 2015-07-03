@@ -7,13 +7,13 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:outputText style="font-weight:bold;" value="#{msgs['RECHERCHEETABLISSEMENT.CHOIX']}" />
-	<t:htmlTag value="br" />
-	<h:commandButton action="#{rechercheController.goToOngletSiret}"
-		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1']}" immediate="true"/>
-	<t:htmlTag value="div" style="margin: 10px; display:inline;" />
+	<t:htmlTag value="div" style="height:10px;"/>
 	<h:commandButton
 		action="#{rechercheController.goToOngletRaisonSociale}"
 		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2']}" immediate="true"/>
+	<t:htmlTag value="div" style="margin: 10px; display:inline;" />
+	<h:commandButton action="#{rechercheController.goToOngletSiret}"
+		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1']}" immediate="true"/>
 	<t:htmlTag value="div" style="margin: 10px; display:inline;" />
 	<h:commandButton action="#{rechercheController.goToOngletActivite}"
 		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3']}" immediate="true"/>
