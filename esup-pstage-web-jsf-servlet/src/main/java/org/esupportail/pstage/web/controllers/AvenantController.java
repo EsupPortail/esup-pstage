@@ -5,6 +5,7 @@
 package org.esupportail.pstage.web.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -391,9 +392,28 @@ public class AvenantController extends AbstractContextAwareController {
 			if(this.isModificationTexteLibre()){
 				if (this.avenant.getMotifAvenant() == null){
 					// Si l'enseignant n'a pas été renseigné, on envoie l'erreur correspondante
-					addErrorMessage("formCreaAvenantPage1:erreurTexteLibre","CONVENTION.ETAPE11.ERREUR_TEXTELIBRE");
+					addErrorMessage("formModifAvenantPage1:erreurTexteLibre","CONVENTION.ETAPE11.ERREUR_TEXTELIBRE");
 					return null;
 				}
+			}
+		} else {
+			// cas où il y a rupture, rentrer seulement la date de rupture
+
+			Date dateDebutStage=conventionController.getConvention().getDateDebutStage();
+			Date dateFinStage = conventionController.getConvention().getDateFinStage();
+			Date dateRupture = this.avenant.getDateRupture();
+			if (dateRupture != null){
+				if (dateRupture.before(dateDebutStage) 
+						|| dateRupture.after(dateFinStage)){
+					// Si la date de debut d'interruption est inferieure a la date de debut du stage, ou superieure aux dates de fin d'interruption ou de stage
+					// ou si la date de fin d'interruption est superieure a la date de fin de stage, ou inferieure aux dates de debut d'interruption ou de stage
+					addErrorMessage("formModifAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
+					return null;
+				}
+			}
+			else {
+				addErrorMessage("formModifAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
+				return null;
 			}
 		}
 		return "conventionEtape11ModifAvenantPage2";

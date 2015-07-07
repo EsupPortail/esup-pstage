@@ -332,6 +332,11 @@
 					value="#{avenantController.avenant.dateRupture}">
 					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
 				</h:outputText>
+				<t:htmlTag value="div" style="width: 10px;" />
+				<!-- ajout  de commentaireRupture -->
+				<h:outputText style="color:green;" value="#{msgs['CONVENTION.ETAPE11.RUPTURE.COMMENTAIRE']} " />
+				<h:outputText style="color:green;"
+					value="#{avenantController.avenant.commentaireRupture}" />
 			</h:panelGrid>
 		</t:div>
 

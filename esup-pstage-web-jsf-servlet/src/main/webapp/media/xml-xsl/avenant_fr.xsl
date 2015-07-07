@@ -664,6 +664,15 @@
 								<xsl:value-of
 									select="concat(substring(./date-rupture,9,2),'/',substring(./date-rupture,6,2), '/',substring(./date-rupture,1,4))" />
 							</fo:block>
+							<fo:block hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:if test="commentaire-rupture!=''">
+									Commentaire : 
+									<fo:inline font-weight="bold">
+										<xsl:value-of select="commentaire-rupture" />
+									</fo:inline>
+								</xsl:if>
+							</fo:block>	
 						</xsl:if>
 
 						<xsl:if test="@modification-periode = 'true'">

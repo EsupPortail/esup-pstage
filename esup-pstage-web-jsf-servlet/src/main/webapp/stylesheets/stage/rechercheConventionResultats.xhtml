@@ -38,15 +38,16 @@
 						<h:outputText value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR']}"
 							escape="false" />
 					</h:panelGrid>
-					
+
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="2"
 						rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique}">
 						<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
 							value="../../media/images/tick.png" style="border:0" />
-						<h:outputText value=" = #{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}" />
+						<h:outputText
+							value=" = #{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}" />
 					</h:panelGrid>
-					
+
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
 					<h:panelGrid columnClasses="paginatorData-text"
@@ -75,7 +76,8 @@
 					</h:panelGrid>
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
-					<rich:extendedDataTable id="rechercheConventionDataTable" selectionMode="none"
+					<rich:extendedDataTable id="rechercheConventionDataTable"
+						selectionMode="none"
 						value="#{conventionController.rechercheConventionPaginator.liste}"
 						var="convention" columnClasses="center" rows="20"
 						style="width:100%;"
@@ -197,7 +199,7 @@
 										target="#{conventionController.currentConvention}" />
 									<rich:tooltip value="#{msgs['FORM.VALIDER']}" />
 								</h:commandLink>
-								
+
 								<h:commandLink id="recap"
 									action="#{conventionController.goToRecapConvention}">
 									<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.DETAILS']}"
@@ -210,25 +212,43 @@
 						</rich:column>
 					</rich:extendedDataTable>
 				</t:div>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="4">
+				<t:div>
 					<t:htmlTag value="div" style="height: 20px;" />
-					<h:commandButton
-						value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
-						action="#{conventionController.goToRechercheConvention}"
-						rendered="#{!welcomeController.etudiant}" />
-					<t:htmlTag value="div" style="height: 50px;" />
-					<h:commandButton value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
-						action="#{exportController.goToChoixExportConventionTuteur}"
-						rendered="#{welcomeController.enseignantTuteur}">
-						<f:setPropertyActionListener
-							value="#{conventionController.resultatsRechercheConvention}"
-							target="#{exportController.resultatsRechercheConvention}" />
-					</h:commandButton>
-				</h:panelGrid>
+					<h:panelGrid columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text" columns="6">
+						<t:div>
+							<h:commandButton
+								value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
+								action="#{conventionController.goToRechercheConvention}"
+								rendered="#{!welcomeController.etudiant}" />
+						</t:div>
+						<t:htmlTag value="div" style="height: 50px;" />
+						<t:div>
+							<a4j:commandButton status="statusPatientez"
+								value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
+								action="#{exportController.goToChoixExportConventionTuteur}"
+								rendered="#{welcomeController.enseignantTuteur}">
+								<f:setPropertyActionListener
+									value="#{conventionController.resultatsRechercheConvention}"
+									target="#{exportController.resultatsRechercheConvention}" />
+							</a4j:commandButton>
+						</t:div>
+						<t:div>
+							<a4j:commandButton status="statusPatientez"
+								value="#{msgs['CONVENTION.IMPRESSION.CONVENTIONS']}"
+								action="#{conventionController.editPdfConventionsEnMasseZip}"
+								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer|| welcomeController.reader || welcomeController.enseignant}" />
+						</t:div>
+						<a4j:status name="statusPatientez">
+							<f:facet name="start">
+								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+							</f:facet>
+						</a4j:status>
+					</h:panelGrid>
+				</t:div>
 				<h:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
 					action="#{conventionController.goToRechercheConvention}"
-					immediate="true" rendered="#{!welcomeController.etudiant}"/>
+					immediate="true" rendered="#{!welcomeController.etudiant}" />
 			</h:form>
 		</rich:panel>
 	</ui:define>

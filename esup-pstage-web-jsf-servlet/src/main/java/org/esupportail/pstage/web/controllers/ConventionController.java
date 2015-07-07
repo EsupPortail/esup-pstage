@@ -5,6 +5,8 @@
 package org.esupportail.pstage.web.controllers;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -16,6 +18,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -445,6 +448,11 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Blocage dès la premiere etape de creation de convention lorsque toutes les etapes sont orphelines
 	 */
 	private boolean blocageCreationEtpOrpheline = false;
+
+	/**
+	 * Liste des conventions selectionnees pour la validation en masse
+	 */
+	private List<ConventionDTO> listeConventionsSelectionnees=new ArrayList<ConventionDTO>();
 
 	/* ***************************************************************
 	 * Ajouts 2.2.1 Fiche Evaluation
@@ -1105,6 +1113,8 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public String rechercheNumOffre() {
 
+		//if (this.offreMotCle)
+
 		boolean ctrlOK = true;
 		String retour = null;
 		String description = "";
@@ -1119,6 +1129,7 @@ public class ConventionController extends AbstractContextAwareController {
 			addErrorMessage("formConvention:idOffre", "CONVENTION.ETAPE1.RECHERCHENUMOFFRE.NUMERIQUE");
 			ctrlOK = false;
 		}
+
 		if (ctrlOK) {
 			OffreDTO offre = getOffreDomainService().getOffreFromId(numOffre);
 			if (offre != null) {
@@ -1140,7 +1151,7 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 				if (offre.getIdStructure() > 0) {
 					if (logger.isDebugEnabled()) {
-						logger.debug("rechercheNumOffre ");
+						logger.debug("ConventionController:: rechercheNumOffre ");
 						logger.debug("offre.getIdStructure() " + offre.getIdStructure());
 					}
 					StructureDTO structureTmp = getStructureDomainService().getStructureFromId(offre.getIdStructure());
@@ -1158,6 +1169,7 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		return retour;
 	}
+
 	/**
 	 * 
 	 */
@@ -2415,6 +2427,317 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		return retour;
 	}
+
+	/**
+	 * Create generate PDF files in a simple directory
+	 * @return string
+	 */
+	public String editPdfConventionsEnMasse() {		
+		String retour = null;
+
+		/**
+		 **  Methodes de creation des documents PDF selon l'edition demandee
+		 **/
+		//StringBuffer sbFilename = new StringBuffer();
+		String nomDocxsl = "";
+		String fileNameXml = "";
+		String fileNameXmlfin = ".xml";
+		//String xslXmlPath = castorService.getXslXmlPath();
+		String language = "fr";			
+		String idConvention;
+		EtudiantDTO etudiant;
+
+		try	{
+			List<ConventionDTO> liste=getResultatsRechercheConvention();
+			int i=0;
+
+			for (ConventionDTO c : liste){
+
+				if (i<2){
+					i++;					
+					idConvention=c.getIdConvention().toString();
+					etudiant = c.getEtudiant();
+					fileNameXml = "convention_" + idConvention;
+
+					if (c.getCodeLangueConvention() != null) {
+						language = c.getCodeLangueConvention();
+					}
+					if (this.editConvFR) {
+						language = "fr";
+					}
+					nomDocxsl = "convention" + "_" + language + ".xsl";
+					if (etudiant != null) {
+						fileNameXml = fileNameXml + ("_" + etudiant.getPrenom() + "_" + etudiant.getNom());
+					}
+
+					// Retrait des eventuels caracteres de controle empechant la generation XML
+					if (c.getSujetStage() != null && !c.getSujetStage().isEmpty())
+						c.setSujetStage(c.getSujetStage().replaceAll("[\\x00-\\x1F]",""));
+					if (c.getCommentaireDureeTravail() != null && !c.getCommentaireDureeTravail().isEmpty())
+						c.setCommentaireDureeTravail(c.getCommentaireDureeTravail().replaceAll("[\\x00-\\x1F]",""));
+					if (c.getCommentaireStage() != null && !c.getCommentaireStage().isEmpty())
+						c.setCommentaireStage(c.getCommentaireStage().replaceAll("[\\x00-\\x1F]",""));
+					if (c.getFonctionsEtTaches() != null && !c.getFonctionsEtTaches().isEmpty())
+						c.setFonctionsEtTaches(c.getFonctionsEtTaches().replaceAll("[\\x00-\\x1F]",""));
+					if (c.getDetails() != null && !c.getDetails().isEmpty())
+						c.setDetails(c.getDetails().replaceAll("[\\x00-\\x1F]",""));
+					if (c.getModeEncadreSuivi() != null && !c.getModeEncadreSuivi().isEmpty())
+						c.setModeEncadreSuivi(c.getModeEncadreSuivi().replaceAll("[\\x00-\\x1F]",""));
+					if (c.getAvantagesNature() != null && !c.getAvantagesNature().isEmpty())
+						c.setAvantagesNature(c.getAvantagesNature().replaceAll("[\\x00-\\x1F]",""));
+					if (c.getTravailNuitFerie() != null && !c.getTravailNuitFerie().isEmpty())
+						c.setTravailNuitFerie(c.getTravailNuitFerie().replaceAll("[\\x00-\\x1F]",""));
+
+					// appel castor pour fichier xml a partir de Convention
+					castorService.objectToFileXml(c, fileNameXml + fileNameXmlfin);
+					//fusion du xsl et xml en pdf
+					String fileNamePdf = fileNameXml + ".pdf";
+
+
+					//					Affichage console
+					//					System.out.println(i + " : " + c);
+					//					System.out.println("   ==> idConvention : "+idConvention);
+					//					System.out.println("   ==> etudiant : "+etudiant);	
+					//					System.out.println("   ==> nomDocxsl : "+nomDocxsl);
+					//					System.out.println("   ==> fileNameXml : "+fileNameXml);
+					//					System.out.println("   ==> castorService.getXslXmlPath() = "+castorService.getXslXmlPath());
+					//					System.out.println("   ==> fileNamePdf : "+fileNamePdf);
+
+					/*
+					 * Enregistrement des pdf dans un dossier simple 
+					 */
+					PDFUtils.exportPDFinDirectory(fileNameXml + fileNameXmlfin,  
+							castorService.getXslXmlPath(),
+							fileNamePdf, nomDocxsl);  
+
+					addInfoMessage(null, "CONVENTION.IMPRESSION.CONFIRMATION");
+					this.editConvFR = false;				
+				}
+				else{
+					break;
+				}
+			}
+		}
+		catch(ExportException e) {
+			logger.error("ExportException ", e.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR", e.getMessage());
+		}
+		return retour;
+	}
+
+	/**
+	 * Create generate PDF files in a zip directory
+	 * @return string
+	 */
+	public String editPdfConventionsEnMasseZip() {		
+		String retour = null;
+		/**
+		 **  Methodes de creation des documents PDF selon l'edition demandee
+		 **/
+		//StringBuffer sbFilename = new StringBuffer();
+		List<ConventionDTO> liste=getResultatsRechercheConvention();
+
+		String nomDocxsl = "";
+		String fileNameXml = "";
+		String fileNameXmlfin = ".xml";
+		String fileNameXMLfinal;
+		//String xslXmlPath = castorService.getXslXmlPath();
+		String language = "fr";			
+		String idConvention;
+		EtudiantDTO etudiant;
+		String currentLogin = getSessionController().getCurrentLogin();
+		String[] parts=currentLogin.split(Pattern.quote("."));  
+		String id_user=parts[0]+"_"+parts[1];
+
+
+		Date date=new Date();
+		String ZipFolderName ="Impression_En_Masse/";
+		String ZipName="Impression_En_Masse_"+id_user+"_"+date.getTime()+".zip";
+
+		List<String> fileNameXMLfinalList = new ArrayList<String>();
+		List<String> fileNamePdfList = new ArrayList<String>();
+		List<String> nomDocxslList = new ArrayList<String>();
+
+		try	{
+
+			/*
+			 * Etape 1 : Ménage dans le dossier regroupant tous les fichiers zip
+			 */
+			this.deleteZipFolder(date,castorService.getXslXmlPath(), ZipFolderName);
+
+			/*
+			 *  Etape 2 : Parcours des conventions trouvees et recuperation des attributs string dans des listes
+			 */
+			for (ConventionDTO c:liste){				
+				idConvention=c.getIdConvention().toString();
+				etudiant = c.getEtudiant();
+				fileNameXml = "convention_" + idConvention;			
+
+				if (c.getCodeLangueConvention() != null) {
+					language = c.getCodeLangueConvention();
+				}
+				if (this.editConvFR) {
+					language = "fr";
+				}
+				nomDocxsl = "convention" + "_" + language + ".xsl";
+				if (etudiant != null) {
+					fileNameXml = fileNameXml + ("_" + etudiant.getPrenom() + "_" + etudiant.getNom());
+				}
+				// Retrait des eventuels caracteres de controle empechant la generation XML
+				if (c.getSujetStage() != null && !c.getSujetStage().isEmpty())
+					c.setSujetStage(c.getSujetStage().replaceAll("[\\x00-\\x1F]",""));
+				if (c.getCommentaireDureeTravail() != null && !c.getCommentaireDureeTravail().isEmpty())
+					c.setCommentaireDureeTravail(c.getCommentaireDureeTravail().replaceAll("[\\x00-\\x1F]",""));
+				if (c.getCommentaireStage() != null && !c.getCommentaireStage().isEmpty())
+					c.setCommentaireStage(c.getCommentaireStage().replaceAll("[\\x00-\\x1F]",""));
+				if (c.getFonctionsEtTaches() != null && !c.getFonctionsEtTaches().isEmpty())
+					c.setFonctionsEtTaches(c.getFonctionsEtTaches().replaceAll("[\\x00-\\x1F]",""));
+				if (c.getDetails() != null && !c.getDetails().isEmpty())
+					c.setDetails(c.getDetails().replaceAll("[\\x00-\\x1F]",""));
+				if (c.getModeEncadreSuivi() != null && !c.getModeEncadreSuivi().isEmpty())
+					c.setModeEncadreSuivi(c.getModeEncadreSuivi().replaceAll("[\\x00-\\x1F]",""));
+				if (c.getAvantagesNature() != null && !c.getAvantagesNature().isEmpty())
+					c.setAvantagesNature(c.getAvantagesNature().replaceAll("[\\x00-\\x1F]",""));
+				if (c.getTravailNuitFerie() != null && !c.getTravailNuitFerie().isEmpty())
+					c.setTravailNuitFerie(c.getTravailNuitFerie().replaceAll("[\\x00-\\x1F]",""));
+
+				// appel castor pour fichier xml a partir de Convention
+				castorService.objectToFileXml(c, fileNameXml + fileNameXmlfin);
+				//fusion du xsl et xml en pdf
+				String fileNamePdf = fileNameXml + ".pdf";
+				fileNameXMLfinal=fileNameXml + fileNameXmlfin;
+
+				/**
+				 * Remplissage listes des attributs
+				 */
+				fileNameXMLfinalList.add(fileNameXMLfinal);
+				fileNamePdfList.add(fileNamePdf);
+				nomDocxslList.add(nomDocxsl);
+
+				addInfoMessage(null, "CONVENTION.IMPRESSION.CONFIRMATION");
+				this.editConvFR = false;				
+			}//end for
+
+			/*
+			 *  Etape 3 : Appel de la fonction de transformation des fichier en Pdf, stockage dans le dossier zip puis telechargement 
+			 */
+			PDFUtils.setPDFfilesInZip(fileNameXMLfinalList, ZipName, ZipFolderName, castorService.getXslXmlPath(), fileNamePdfList, nomDocxslList, FacesContext.getCurrentInstance());
+
+
+		}catch(ExportException e) {
+			logger.error("ExportException ", e.fillInStackTrace());
+			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR", e.getMessage());
+		} 
+		catch(IOException e){
+			logger.error(e.getMessage(), e);
+		}
+		return retour;
+	}
+
+
+	public void deleteZipFolder(Date date,String currentPath, String zipFolder){
+		logger.info("Preparation du dossier "+ currentPath+zipFolder);
+		Long Date_de_connexion=date.getTime();
+		File dir=new File(currentPath+zipFolder);
+
+		if (dir.exists()){
+			if (!EmptyDirectory(dir)){
+				logger.info("Directory exists and isn't empty ! ");
+
+
+				File []liste=dir.listFiles();
+				String name;
+				String nombre_date;
+				Long nombre_date_a_comparer;
+				int nbr_heure=1; // nombre d'heure délais de sauvegarde des fichiers zip
+				Long difference;
+				Long diff_dates;
+
+				String[] parts1;
+				String[] parts2;
+				List<File> fichier_a_supp= new ArrayList<File>();
+
+				logger.info("Le dossier "+dir + " contient "+liste.length+ " fichiers. ");
+				for (File l: liste){
+
+					try{
+						name=l.getName();					
+						parts1 = name.split("_");
+
+						// exemple : Impression_En_Masse_14326425434
+						//// String part1 = parts1[0]  --> Impression
+						//// String part2 = parts1[1]  --> En
+						//// String part3 = parts1[2]  --> Masse
+						//// String part4 = parts1[3]  --> par
+						//// String part5 = parts1[4]  --> prenom
+						//// String part6 = parts1[5]  --> nom
+						//// String part7 = parts1[6]  --> 14326425434.zip
+
+						nombre_date=parts1[6]; // 14326425434.zip
+
+						parts2=nombre_date.split(Pattern.quote("."));  
+						//// String part1 = parts2[0]  --> 14326425434
+						//// String part2 = parts2[1]  --> zip
+
+						// On recupere la partie '14326425434' c'est a dire le string nombre que l'on convertira en long			
+						nombre_date=parts2[0];
+						nombre_date_a_comparer=Long.parseLong(nombre_date);
+
+						// reprendre ici, faire un test si la durée entre 'nombre_date_recente' et 'nombre_date_a_comparer' est supérieur à 1h (e.g.)
+						//si oui, deleter les fichiers correspondant
+						diff_dates=Date_de_connexion - nombre_date_a_comparer;	
+
+						//rq : 1h=3600s  et 1000ms=1s  donc 1h = 3 600 000 ms 						
+						difference=diff_dates-nbr_heure*3600000;						
+
+						if (difference>=0){
+							fichier_a_supp.add(l);							
+						}				
+
+					}catch(Exception e){
+						logger.error(" impossible de spliter le string par '_' et puis par '.' ! ");
+					}					
+				}			
+
+				if (fichier_a_supp.isEmpty()){
+					logger.info("Pas de vieux fichiers à supprimer. ");
+				}else{					
+
+					// Nous avons donc une liste de nom de fichier à supprimer				
+					for (File f:fichier_a_supp){
+						logger.info("    Suppression du fichier  '"+f.getName()  + "' ");
+						try{
+							f.delete();
+						}catch(Exception e){
+							logger.error("impossible d'effacer le fichier "+f.getName() + " !");
+						}					
+					}
+				}				
+			}else {
+				logger.info("Directory exists but is empty !");
+			}
+		}
+		else{
+			logger.info("Directory doesn't exist ! ");
+		}
+
+	}
+
+	public boolean EmptyDirectory(File folder){
+		File []liste ;
+		boolean resultat=false;
+		if(folder.isDirectory())
+		{
+			liste=folder.listFiles();
+			if(liste!=null && liste.length==0)
+			{
+				resultat= true; 
+			}
+
+		}
+		return resultat; 
+	}
+
 
 	/**
 	 * @return String
@@ -4144,11 +4467,16 @@ public class ConventionController extends AbstractContextAwareController {
 			logger.debug("public String validerEnMasse()");
 		}
 		try {
+
 			ConventionDTO conventionTmp = new ConventionDTO();
-			for (int i=0;i<this.rechercheConventionPaginator.getVisibleItems().size();i++){
-				conventionTmp = this.rechercheConventionPaginator.getVisibleItems().get(i);
+
+			for (int i=0;i<this.rechercheConventionPaginator.getListe().size();i++){
+
+				conventionTmp=this.rechercheConventionPaginator.getListe().get(i);
+
 				if (conventionTmp.isSelected()){
-					conventionTmp = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
+
+					conventionTmp = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());						
 					conventionTmp.setValidationConvention(true);
 					conventionTmp.setLoginValidation(getSessionController().getCurrentLogin());
 					conventionTmp.setDateValidation(new Date());
@@ -4166,26 +4494,32 @@ public class ConventionController extends AbstractContextAwareController {
 									sujet,text,text);
 						}
 					}
-					this.rechercheConventionPaginator.getVisibleItems().remove(i);
+					this.rechercheConventionPaginator.getListe().remove(i);
 					i--;
 				}
+
 			}
-		} catch (DataUpdateException ae) {
+		} 
+		catch (DataUpdateException ae) {
 			logger.error("DataUpdateException", ae.fillInStackTrace());
 			addErrorMessage("formResultConventions:messageResultat", "CONVENTION.CREERCONVENTION.ERREURAJOUT");
-		} catch (WebServiceDataBaseException we) {
+		} 
+		catch (WebServiceDataBaseException we) {
 			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
 			addErrorMessage("formResultConventions:messageResultat", "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
-		} catch (AddressException ade){
+		} 
+		catch (AddressException ade){
 			logger.error("AddressException", ade.fillInStackTrace());
 			addErrorMessage(null, "GENERAL.ERREUR_MAIL");
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			logger.error("Exception ", e.fillInStackTrace());
 			addErrorMessage("formResultConventions:messageResultat", "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", e.getMessage());
 		}
 		addInfoMessage("formResultConventions:messageResultat", "CONVENTION.VALIDATION_EN_MASSE.CONFIRMATION");
 		this.reloadRechercheConventionPaginator();
 		return null;
+
 	}
 
 	/**
@@ -4229,8 +4563,10 @@ public class ConventionController extends AbstractContextAwareController {
 		this.critereRechercheConvention.setTypeStructure(null);
 		this.critereRechercheConvention.setStatutJuridique(null);
 		//this.critereRechercheConvention.setLimit(true);
-		//		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
-		this.critereRechercheConvention.setNbRechercheMaxi(this.critereRechercheConvention.getNbRechercheMaxi());
+		this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
+
+		if (this.estEtrangere) this.critereRechercheConvention.setEstEtrangere(true);
+		else this.critereRechercheConvention.setEstEtrangere(false);
 
 		if (getSessionController().isValidationPedagogique()){
 			// Listes des ids des centres de gestion avec ou sans validation pédagogique
@@ -5605,6 +5941,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * return
 	 */
 	public void exportFichesEtudiant() {
+
 		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
 		if (this.rechercheConventionPaginator.getListe()!= null){
 			listeExportEval = this.rechercheConventionPaginator.getListe();
@@ -5619,6 +5956,11 @@ public class ConventionController extends AbstractContextAwareController {
 			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
 
 			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
+
+			//ajout colonne nom et prénom
+			header.add(getString("CONVENTION.NOM"));
+			header.add(getString("CONVENTION.PRENOM"));
+
 			// Ajout des questions en fonction de leur utilisation ou non par le centre
 			if (ficheEvaluation.isQuestionEtuI1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.1"));
 			if (ficheEvaluation.isQuestionEtuI2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.2"));
@@ -5636,9 +5978,12 @@ public class ConventionController extends AbstractContextAwareController {
 			if (ficheEvaluation.isQuestionEtuII5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.5"));
 			if (ficheEvaluation.isQuestionEtuII6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.6"));
 
-			if (ficheEvaluation.isQuestionEtuIII1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1"));
+			if (ficheEvaluation.isQuestionEtuIII1()) {
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1_1"));			
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1bis"));
+			}
 			if (ficheEvaluation.isQuestionEtuIII2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.2"));
-			if (ficheEvaluation.isQuestionEtuIII3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3"));
+			//if (ficheEvaluation.isQuestionEtuIII3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3"));
 			if (ficheEvaluation.isQuestionEtuIII4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.4"));
 			if (ficheEvaluation.isQuestionEtuIII5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.5"));
 			if (ficheEvaluation.isQuestionEtuIII6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.6"));
@@ -5648,7 +5993,7 @@ public class ConventionController extends AbstractContextAwareController {
 			if (ficheEvaluation.isQuestionEtuIII10()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.10"));
 			if (ficheEvaluation.isQuestionEtuIII11()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.11"));
 			if (ficheEvaluation.isQuestionEtuIII12()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.12"));
-			if (ficheEvaluation.isQuestionEtuIII13()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13"));
+			//if (ficheEvaluation.isQuestionEtuIII13()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13"));
 			if (ficheEvaluation.isQuestionEtuIII14()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.14"));
 			if (ficheEvaluation.isQuestionEtuIII15()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.15"));
 			if (ficheEvaluation.isQuestionEtuIII16()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.16"));
@@ -5659,6 +6004,7 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 			ReponseEvaluationDTO reponseTmp;
+			ConventionDTO convention=new ConventionDTO();
 			// Remplissage avec les reponses
 			for (int i=0;i<listeExportEval.size();i++) {
 				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
@@ -5668,7 +6014,22 @@ public class ConventionController extends AbstractContextAwareController {
 					int cpt=0;
 					String reponse = "";
 
+					// num convention
 					row.createCell(cpt).setCellValue(listeExportEval.get(i).getIdConvention());
+					cpt++;
+
+					convention=listeExportEval.get(i);					
+					convention=getConventionDomainService().getConventionFromId(convention.getIdConvention());
+
+					// renseignement etudiant
+					convention.setEtudiant(getEtudiantDomainService().getEtudiantFromId(convention.getIdEtudiant()));
+
+					//nom
+					row.createCell(cpt).setCellValue(convention.getEtudiant().getNom());
+					cpt++;
+
+					//prenom
+					row.createCell(cpt).setCellValue(convention.getEtudiant().getPrenom());
 					cpt++;
 
 					if (ficheEvaluation.isQuestionEtuI1()){
@@ -5777,19 +6138,133 @@ public class ConventionController extends AbstractContextAwareController {
 						row.createCell(cpt).setCellValue(reponse);
 						cpt++;
 					}
-					if (ficheEvaluation.isQuestionEtuI7()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuI7()); cpt++;
-					if (ficheEvaluation.isQuestionEtuI8()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuI8()); cpt++;
+					if (ficheEvaluation.isQuestionEtuI7()){
+						reponse = "";						
+						// Cas NON
+						if (!reponseTmp.isReponseEtuI7()) {							
+							switch (reponseTmp.getReponseEtuI7bis2()) {
+							case 1 :
+								reponse = (" FAUX - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.1"));
+								break;
+							case 2 :
+								reponse = (" FAUX - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.2"));
+								break;
+							}
+						}
+						// Cas OUI
+						if (reponseTmp.isReponseEtuI7()) {
+							switch (reponseTmp.getReponseEtuI7bis1()) {
+							case 1 :
+								reponse =(" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.1"));
+								break;
+							case 2 :
+								reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.2"));
+								break;
+							case 3 :
+								reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.3")+" - Utilisation des ressources : "+ reponseTmp.isReponseEtuI7bis1a());
+								break;
+							case 4 :
+								reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.4"));
+								break;
+							case 5 :
+								reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.5") + " : "+reponseTmp.getReponseEtuI7bis1b());
+								break;
+							default:
+								break;
+							}
+						}
+						if (reponse == ""){
+							reponse = "NÉANT";
+						}
+						row.createCell(cpt).setCellValue(reponse);
+						cpt++;
+					}
 
-					if (ficheEvaluation.isQuestionEtuII1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII1())); cpt++;
-					if (ficheEvaluation.isQuestionEtuII2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII2())); cpt++;
-					if (ficheEvaluation.isQuestionEtuII3()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII3())); cpt++;
+
+					if (ficheEvaluation.isQuestionEtuI8()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuI8()); cpt++;
+					if (ficheEvaluation.isQuestionEtuII1()){
+						if (reponseTmp.getReponseEtuII1()==4 || reponseTmp.getReponseEtuII1()==5)
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII1())+" : "+reponseTmp.getReponseEtuII1bis());
+						else
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII1())); 
+						cpt++;
+					}										
+					if (ficheEvaluation.isQuestionEtuII2()){
+						if (reponseTmp.getReponseEtuII2()==4 || reponseTmp.getReponseEtuII2()==5)
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII2())+" : "+reponseTmp.getReponseEtuII2bis());
+						else
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII2())); 
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuII3()){
+						if (reponseTmp.getReponseEtuII3()==4 || reponseTmp.getReponseEtuII3()==5)
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII3())+" : "+reponseTmp.getReponseEtuII3bis());
+						else
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuII3())); 
+						cpt++;							
+					}
 					if (ficheEvaluation.isQuestionEtuII4()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuII4())); cpt++;
-					if (ficheEvaluation.isQuestionEtuII5()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuII5()); cpt++;
+					//if (ficheEvaluation.isQuestionEtuII5()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuII5()); cpt++;
+
+					if (ficheEvaluation.isQuestionEtuII5()){
+						reponse = "";		
+						//cas NON
+						if (!reponseTmp.isReponseEtuII5()){
+							row.createCell(cpt).setCellValue("Non");
+							cpt++;
+						}
+						//cas OUI
+						if (reponseTmp.isReponseEtuII5()){
+							switch (reponseTmp.getReponseEtuII5a()){
+							case 1 :
+								if (reponseTmp.isReponseEtuII5b()){
+									reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.1")+" - Avec autonomie : VRAI");
+								}else{
+									reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.1")+" - Avec autonomie : FAUX");
+								}
+								break;
+							case 2 :
+								if (reponseTmp.isReponseEtuII5b()){
+									reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.2")+" - Avec autonomie : VRAI");
+								}else{
+									reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.2")+" - Avec autonomie : FAUX");
+								}
+								break;
+							case 3 :
+								if (reponseTmp.isReponseEtuII5b()){
+									reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3")+" - Avec autonomie : VRAI");
+								}else{
+									reponse = (" VRAI - "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3")+" - Avec autonomie : FAUX");
+								}
+								break;
+							}
+							row.createCell(cpt).setCellValue(reponse);
+							cpt++;
+						}
+					}
 					if (ficheEvaluation.isQuestionEtuII6()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuII6()); cpt++;
 
-					if (ficheEvaluation.isQuestionEtuIII1()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII1()); cpt++;
-					if (ficheEvaluation.isQuestionEtuIII2()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII2()); cpt++;
-					if (ficheEvaluation.isQuestionEtuIII3()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII3()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII1()){
+						row.createCell(cpt).setCellValue(convention.getSujetStage()); cpt++;
+						if (reponseTmp.isReponseEtuIII1())
+							row.createCell(cpt).setCellValue("VRAI, pour le sujet suivant : "+reponseTmp.getReponseEtuIII1bis()); 
+						else
+							row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII1());
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII2()){
+						if (!reponseTmp.isReponseEtuIII2())
+							row.createCell(cpt).setCellValue("FAUX : "+reponseTmp.getReponseEtuIII2bis()); 
+						else
+							row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII2()); 
+						cpt++;
+					}
+					//if (ficheEvaluation.isQuestionEtuIII3()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII3()); cpt++;
+
+
+					///// reprendre ici, reste la partie III ou les coms ne sont pas mis 
+
+
 					if (ficheEvaluation.isQuestionEtuIII4()){
 						reponse = "";
 						switch (reponseTmp.getReponseEtuIII4()) {
@@ -5820,25 +6295,60 @@ public class ConventionController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII5()){
 						reponse="";
 						if (reponseTmp.isReponseEtuIII5a()) reponse+=getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.1");
-						if (reponseTmp.isReponseEtuIII5a()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.2"));
-						if (reponseTmp.isReponseEtuIII5a()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.3"));
+						if (reponseTmp.isReponseEtuIII5b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.2")+" : "+reponseTmp.getReponseEtuIII5bis());
+						if (reponseTmp.isReponseEtuIII5c()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.3"));
 						if (reponse == ""){
 							reponse = "NÉANT";
 						}
 						row.createCell(cpt).setCellValue(reponse);
 						cpt++;
 					}
-					if (ficheEvaluation.isQuestionEtuIII6()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII6())); cpt++;
-					if (ficheEvaluation.isQuestionEtuIII7()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII7())); cpt++;
-					if (ficheEvaluation.isQuestionEtuIII8()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII8()); cpt++;
-					if (ficheEvaluation.isQuestionEtuIII9()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII9()); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII6()){
+						if(reponseTmp.getReponseEtuIII6()==4 || reponseTmp.getReponseEtuIII6()==5)
+							row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII6())+" : "+reponseTmp.getReponseEtuIII6bis()); 
+						else
+							row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII6())); 
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII7()){
+						if(reponseTmp.getReponseEtuIII7()==4 || reponseTmp.getReponseEtuIII7()==5)
+							row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII7())+" : "+reponseTmp.getReponseEtuIII7bis()); 
+						else
+							row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII7())); 
+						cpt++;					
+					}
+					if (ficheEvaluation.isQuestionEtuIII8()){
+						if (reponseTmp.isReponseEtuIII8())
+							row.createCell(cpt).setCellValue("VRAI : "+reponseTmp.getReponseEtuIII8bis());
+						else
+							row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII8());
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII9()){
+						if (!reponseTmp.isReponseEtuIII9())
+							row.createCell(cpt).setCellValue("FAUX : "+reponseTmp.getReponseEtuIII9bis()); 
+						else
+							row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII9()); 
+						cpt++;
+					}
 					if (ficheEvaluation.isQuestionEtuIII10()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII10()); cpt++;
 					if (ficheEvaluation.isQuestionEtuIII11()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII11()); cpt++;
 					if (ficheEvaluation.isQuestionEtuIII12()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII12()); cpt++;
-					if (ficheEvaluation.isQuestionEtuIII13()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII13()); cpt++;
+					//if (ficheEvaluation.isQuestionEtuIII13()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII13()); cpt++;
 					if (ficheEvaluation.isQuestionEtuIII14()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII14()); cpt++;
-					if (ficheEvaluation.isQuestionEtuIII15()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII15())); cpt++;
-					if (ficheEvaluation.isQuestionEtuIII16())  row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuIII16()));
+					if (ficheEvaluation.isQuestionEtuIII15()){
+						if(reponseTmp.getReponseEtuIII15()==4 || reponseTmp.getReponseEtuIII15()==5)
+							row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII15())+" : "+reponseTmp.getReponseEtuIII15bis());
+						else
+							row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEtuIII15())); 
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII16()){
+						if(reponseTmp.getReponseEtuIII16()==4 || reponseTmp.getReponseEtuIII16()==5)
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuIII16())+" : "+reponseTmp.getReponseEtuIII16bis());
+						else
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEtuIII16()));
+					}
 
 				}
 			}
@@ -5876,6 +6386,10 @@ public class ConventionController extends AbstractContextAwareController {
 
 			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
 
+			//ajout des noms prenoms
+			header.add(getString("CONVENTION.NOM"));
+			header.add(getString("CONVENTION.PRENOM"));
+
 			// Ajout des questions en fonction de leur utilisation ou non par le centre
 			if (ficheEvaluation.isQuestionEnsI1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.1"));
 			if (ficheEvaluation.isQuestionEnsI2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.2"));
@@ -5899,6 +6413,7 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 			ReponseEvaluationDTO reponseTmp;
+			ConventionDTO convention=new ConventionDTO();
 			// Remplissage avec les reponses
 			for (int i=0;i<listeExportEval.size();i++) {
 				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
@@ -5908,13 +6423,29 @@ public class ConventionController extends AbstractContextAwareController {
 					int cpt=0;
 					String reponse = "";
 
+					// num convention
 					row.createCell(cpt).setCellValue(listeExportEval.get(i).getIdConvention());
+					cpt++;
+
+					convention=listeExportEval.get(i);
+
+					convention=getConventionDomainService().getConventionFromId(convention.getIdConvention());
+
+					// renseignement etudiant
+					convention.setEtudiant(getEtudiantDomainService().getEtudiantFromId(convention.getIdEtudiant()));
+
+					//nom
+					row.createCell(cpt).setCellValue(convention.getEtudiant().getNom());
+					cpt++;
+
+					//prenom
+					row.createCell(cpt).setCellValue(convention.getEtudiant().getPrenom());
 					cpt++;
 
 					if (ficheEvaluation.isQuestionEnsI1()){
 						reponse = "";
-						if (reponseTmp.isReponseEnsI1a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE");
-						if (reponseTmp.isReponseEnsI1b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
+						if (reponseTmp.isReponseEnsI1a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
+						if (reponseTmp.isReponseEnsI1b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
 						if (reponseTmp.isReponseEnsI1c()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
 
 						if (reponse == ""){
@@ -5925,8 +6456,8 @@ public class ConventionController extends AbstractContextAwareController {
 					}
 					if (ficheEvaluation.isQuestionEnsI2()){
 						reponse = "";
-						if (reponseTmp.isReponseEnsI2a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE");
-						if (reponseTmp.isReponseEnsI2b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL"));
+						if (reponseTmp.isReponseEnsI2a()) reponse+=getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
+						if (reponseTmp.isReponseEnsI2b()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
 						if (reponseTmp.isReponseEnsI2c()) reponse+=(" "+getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
 
 						if (reponse == ""){
@@ -5982,26 +6513,32 @@ public class ConventionController extends AbstractContextAwareController {
 
 			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
 
+			//ajout des noms prenoms
+			header.add(getString("CONVENTION.NOM"));
+			header.add(getString("CONVENTION.PRENOM"));
+
 			// Ajout des questions en fonction de leur utilisation ou non par le centre
 			if (ficheEvaluation.isQuestionEnt1()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.1"));
 			if (ficheEvaluation.isQuestionEnt2()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.2"));
-			if (ficheEvaluation.isQuestionEnt3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.3"));
-			if (ficheEvaluation.isQuestionEnt4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.4"));
+			if (ficheEvaluation.isQuestionEnt3()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.3"));			
 			if (ficheEvaluation.isQuestionEnt5()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.5"));
+			if (ficheEvaluation.isQuestionEnt9()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.9"));
+			if (ficheEvaluation.isQuestionEnt11()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.11"));
+			if (ficheEvaluation.isQuestionEnt12()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.12"));
+			if (ficheEvaluation.isQuestionEnt13()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.13"));			
+			if (ficheEvaluation.isQuestionEnt14()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.14"));
+
+			if (ficheEvaluation.isQuestionEnt4()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.4"));			
 			if (ficheEvaluation.isQuestionEnt6()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.6"));
 			if (ficheEvaluation.isQuestionEnt7()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.7"));
 			if (ficheEvaluation.isQuestionEnt8()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.8"));
-			if (ficheEvaluation.isQuestionEnt9()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.9"));
-			//			if (ficheEvaluation.isQuestionEnt10()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.10"));
-			if (ficheEvaluation.isQuestionEnt11()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.11"));
-			if (ficheEvaluation.isQuestionEnt12()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.12"));
-			if (ficheEvaluation.isQuestionEnt13()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.13"));
-			if (ficheEvaluation.isQuestionEnt14()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.14"));
 			if (ficheEvaluation.isQuestionEnt15()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.15"));
+
 			if (ficheEvaluation.isQuestionEnt16()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.16"));
 			if (ficheEvaluation.isQuestionEnt17()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.17"));
-			if (ficheEvaluation.isQuestionEnt18()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.18"));
 			if (ficheEvaluation.isQuestionEnt19()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.19"));
+			if (ficheEvaluation.isQuestionEnt10()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.10"));
+			if (ficheEvaluation.isQuestionEnt18()) header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.18"));
 
 			// Creation des cellules Header
 			for(int i=0;i<header.size();i++){
@@ -6009,6 +6546,7 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 			ReponseEvaluationDTO reponseTmp;
+			ConventionDTO convention=new ConventionDTO();
 			// Remplissage avec les reponses
 			for (int i=0;i<listeExportEval.size();i++) {
 				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
@@ -6017,28 +6555,58 @@ public class ConventionController extends AbstractContextAwareController {
 					row = sheet.createRow(i+1);
 					int cpt=0;
 
+					// num convention
 					row.createCell(cpt).setCellValue(listeExportEval.get(i).getIdConvention());
 					cpt++;
 
-					if (ficheEvaluation.isQuestionEnt1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt1())); cpt++;
-					if (ficheEvaluation.isQuestionEnt2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt2())); cpt++;
+					convention=listeExportEval.get(i);					
+					convention=getConventionDomainService().getConventionFromId(convention.getIdConvention());
+
+					// renseignement etudiant
+					convention.setEtudiant(getEtudiantDomainService().getEtudiantFromId(convention.getIdEtudiant()));
+
+					//nom
+					row.createCell(cpt).setCellValue(convention.getEtudiant().getNom());
+					cpt++;
+
+					//prenom
+					row.createCell(cpt).setCellValue(convention.getEtudiant().getPrenom());
+					cpt++;
+
+
+					if (ficheEvaluation.isQuestionEnt1()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt1())+" : "+reponseTmp.getReponseEnt1bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt2()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt2())+" : "+reponseTmp.getReponseEnt2bis()); cpt++;
 					if (ficheEvaluation.isQuestionEnt3()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt3())); cpt++;
-					if (ficheEvaluation.isQuestionEnt4()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt4())); cpt++;
-					if (ficheEvaluation.isQuestionEnt5()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt5())); cpt++;
-					if (ficheEvaluation.isQuestionEnt6()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt6())); cpt++;
-					if (ficheEvaluation.isQuestionEnt7()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt7())); cpt++;
-					if (ficheEvaluation.isQuestionEnt8()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt8())); cpt++;
-					if (ficheEvaluation.isQuestionEnt9()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt9())); cpt++;
-					//				if (ficheEvaluation.isQuestionEnt10()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt10())); cpt++;
-					if (ficheEvaluation.isQuestionEnt11()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt11())); cpt++;
-					if (ficheEvaluation.isQuestionEnt12()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt12())); cpt++;
-					if (ficheEvaluation.isQuestionEnt13()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt13())); cpt++;
-					if (ficheEvaluation.isQuestionEnt14()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt14())); cpt++;
-					if (ficheEvaluation.isQuestionEnt15()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt15())); cpt++;
-					if (ficheEvaluation.isQuestionEnt16()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt16())); cpt++;
-					if (ficheEvaluation.isQuestionEnt17()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt17())); cpt++;
-					if (ficheEvaluation.isQuestionEnt18()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEnt18()); cpt++;
-					if (ficheEvaluation.isQuestionEnt19()) row.createCell(cpt).setCellValue(reponseTmp.getReponseEnt19());
+					if (ficheEvaluation.isQuestionEnt5()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt5())+" : "+reponseTmp.getReponseEnt5bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt9()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt9())+" : "+reponseTmp.getReponseEnt9bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt11()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt11())+" : "+reponseTmp.getReponseEnt11bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt12()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt12())+" : "+reponseTmp.getReponseEnt12bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt13()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt13())+" : "+reponseTmp.getReponseEnt13bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt14()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt14())+" : "+reponseTmp.getReponseEnt14bis()); cpt++;
+
+					if (ficheEvaluation.isQuestionEnt4()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt4())+" : "+reponseTmp.getReponseEnt4bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt6()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt6())+" : "+reponseTmp.getReponseEnt6bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt7()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt7())+" : "+reponseTmp.getReponseEnt7bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt8()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt8())+" : "+reponseTmp.getReponseEnt8bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt15()) row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt15())+" : "+reponseTmp.getReponseEnt15bis()); cpt++;
+
+					if (ficheEvaluation.isQuestionEnt16()) row.createCell(cpt).setCellValue(this.recupLibelleAvis(reponseTmp.getReponseEnt16())+" : "+reponseTmp.getReponseEnt16bis()); cpt++;
+					if (ficheEvaluation.isQuestionEnt17()) {
+						if (reponseTmp.getReponseEnt17()==4 || reponseTmp.getReponseEnt17()==5)
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt17())+" : "+reponseTmp.getReponseEnt17bis());
+						else
+							row.createCell(cpt).setCellValue(this.recupLibelleNotation(reponseTmp.getReponseEnt17()));
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEnt19()) row.createCell(cpt).setCellValue(reponseTmp.getReponseEnt19());cpt++;
+					if (ficheEvaluation.isQuestionEnt10()) row.createCell(cpt).setCellValue(reponseTmp.isReponseEnt10()); cpt++;
+					if (ficheEvaluation.isQuestionEnt18()) {
+						if (!reponseTmp.isReponseEnt18())
+							row.createCell(cpt).setCellValue(" FAUX : "+reponseTmp.getReponseEnt18bis()); 
+						else
+							row.createCell(cpt).setCellValue(reponseTmp.isReponseEnt18()); 
+						cpt++;
+					}
 				}
 			}
 			try {
@@ -6096,76 +6664,6 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 
-	//	public void avantUpdateStep(){
-	//		this.resultatEtudiantRef=getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(), this.convention.getEtudiant().getIdentEtudiant());
-	//		if (this.resultatEtudiantRef != null) {
-	//			this.etudiantRef = this.resultatEtudiantRef;
-	//			if (this.resultatEtudiantRef.getListeEtapeInscriptions()!= null && !this.resultatEtudiantRef.getListeEtapeInscriptions().isEmpty()) {
-	//				List<EtapeInscription> list = this.resultatEtudiantRef.getListeEtapeInscriptions();
-	//				this.listeEtapesEtudiant = new ArrayList<SelectItem>();
-	//				for (EtapeInscription etp : list){
-	//					this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp()+";"+etp.getCodVrsVet(), etp.getLibWebVet()));
-	//				}
-	//			}
-	//		}
-	//
-	//		if (listeEtapesEtudiant == null || listeEtapesEtudiant.isEmpty()) {
-	//			addErrorMessage(null, "RECHERCHEETU.PAS.IA");
-	//		}
-	//	}
-	//
-	//	public void updateStep(){
-	//		if(logger.isDebugEnabled()){
-	//			logger.debug("public String ajouterCommentaireStage()");
-	//		}
-	//		try {
-	//			if (this.selectedCodeEtape != null){
-	//				this.convention.setLoginModif(getSessionController().getCurrentLogin());
-	//				this.convention.setDateValidation(new Date());
-	//
-	//				String[] tabCodes = selectedCodeEtape.split(";");
-	//
-	//				EtapeInscription ufrEtape = rechUfrEtape(tabCodes[0]);
-	//				this.convention.setCodeEtape(tabCodes[0]);
-	//				this.convention.getEtape().setCode(tabCodes[0]);
-	//				this.convention.getEtape().setCodeVersionEtape(tabCodes[1]);
-	//				for (SelectItem item : this.listeEtapesEtudiant){
-	//					if (item.getValue().equals(selectedCodeEtape)){
-	//						this.convention.getEtape().setLibelle(item.getLabel());
-	//						break;
-	//					}
-	//				}
-	//				this.convention.getEtape().setCodeUniversite(getSessionController().getCodeUniversite());
-	//
-	//				try {
-	//					int idEtape = this.getConventionDomainService().addEtape(this.convention.getEtape());
-	//					if (logger.isInfoEnabled()){
-	//						logger.info("Ajout etape : " + this.convention.getEtape()+", id etape ajout : " + idEtape);
-	//					}
-	//				} catch (EtapeAlreadyExistingForCodeException ee) {
-	//					if (logger.isInfoEnabled()) {
-	//						logger.info("Etape deja existante code " + this.convention.getEtape());
-	//					}
-	//				}
-	//
-	//				if (ufrEtape != null) {
-	//					this.convention.getUfr().setCode(ufrEtape.getCodeComposante());
-	//					this.convention.getUfr().setLibelle(ufrEtape.getLibComposante());
-	//					this.convention.setCodeUFR(ufrEtape.getCodeComposante());
-	//				}
-	//				this.getConventionDomainService().updateConvention(this.convention);
-	//			}
-	//		} catch (DataUpdateException ae) {
-	//			logger.error("DataUpdateException", ae.fillInStackTrace());
-	//			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
-	//		} catch (WebServiceDataBaseException we) {
-	//			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
-	//			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", we.getMessage());
-	//		} catch (Exception e) {
-	//			logger.error("Exception ", e.fillInStackTrace());
-	//			addErrorMessage(null, "CONVENTION.CREERCONVENTION.CONVENTION.ERREUR", e.getMessage());
-	//		}
-	//	}
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/
@@ -7487,5 +7985,35 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		}
 		return listeAnneesUniv;
+	}
+	public List<ConventionDTO> getListeConventionsSelectionnees() {
+		return listeConventionsSelectionnees;
+	}
+
+	public void setListeConventionsSelectionnees(
+			List<ConventionDTO> listeConventionsSelectionneesf) {
+		listeConventionsSelectionnees = listeConventionsSelectionneesf;
+	}
+
+	public void remplirListeConventionsSelectionnees(){
+		if ( (!listeConventionsSelectionnees.isEmpty()) || (listeConventionsSelectionnees!=null)){
+			listeConventionsSelectionnees=new ArrayList<ConventionDTO>();
+		}
+		for (ConventionDTO c: this.rechercheConventionPaginator.getListe()){
+			if (c.isSelected()){
+				c = getConventionDomainService().getConventionFromId(c.getIdConvention());
+				c.setEtudiant(getEtudiantDomainService().getEtudiantFromId(c.getIdEtudiant()));
+				listeConventionsSelectionnees.add(c);
+			}
+		}
+
+	}
+
+	public int getSizeListeConventionsSelectionnes(){
+		int nbr=0;
+		if (this.listeConventionsSelectionnees!=null && !this.listeConventionsSelectionnees.isEmpty()){
+			nbr=this.getListeConventionsSelectionnees().size();	
+		}
+		return nbr;
 	}
 }

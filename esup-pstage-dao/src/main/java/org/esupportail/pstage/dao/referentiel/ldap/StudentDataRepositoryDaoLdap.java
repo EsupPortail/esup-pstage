@@ -42,16 +42,16 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	private LdapGroupService ldapGroupServiceSpecial;
 
 
-//	@Override
-//	public void afterPropertiesSet() throws Exception {
-//		Assert.notNull(this.ldapUserService, "La propriété ldapUserService de la classe " +this.getClass().getSimpleName()+ " ne doit pas être null.");
-//	}
+	//	@Override
+	//	public void afterPropertiesSet() throws Exception {
+	//		Assert.notNull(this.ldapUserService, "La propriété ldapUserService de la classe " +this.getClass().getSimpleName()+ " ne doit pas être null.");
+	//	}
 
 	/**
 	 * Etudiant par son identifiant ldap
 	 */
 	@Override
-	public EtudiantRef getEtudiantRef(String universityCode, String id, boolean demandeInscrAdmAnneePrec) {
+	public EtudiantRef getEtudiantRef(String universityCode, String id) {
 
 		EtudiantRef etudiantRef = retrieveStudent(id,new  EqualsFilter(ldapAttributes.getLdapUid(), id) );
 		etudiantRef.setCodeUniversite(universityCode);
@@ -137,7 +137,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 				mapSteps.put(uneEtape, etapesRef.get(uneEtape));
 				etudiantRef.setTheCodeEtape(uneEtape);
 				etudiantRef.setTheEtape(etapesRef.get(uneEtape));
-				
+
 				EtapeInscription etpins = new EtapeInscription();
 				etpins.setCodeEtp(uneEtape);
 				etpins.setLibWebVet(etapesRef.get(uneEtape));
@@ -182,7 +182,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	 * Etudiant par son numero etudiant
 	 */
 	@Override
-	public EtudiantRef getEtudiantRefByNum(String universityCode, String id, boolean demandeInscrAdmAnneePrec) {
+	public EtudiantRef getEtudiantRefByNum(String universityCode, String id) {
 		EtudiantRef etudiantRefByNum = retrieveStudent(id,new EqualsFilter(ldapAttributes.getLdapStudentId(), id ));
 		etudiantRefByNum.setCodeUniversite(universityCode);
 
@@ -191,7 +191,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 
 	@Override
 	public List<EtudiantRef> getEtudiantsRefByName(String universityCode,
-			String name, String firstName, boolean demandeInscrAdmAnneePrec) {
+			String name, String firstName) {
 		AndFilter filter = new AndFilter();
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapName(), name));
 		filter.and(new WhitespaceWildcardsFilter(ldapAttributes.getLdapFirstName(), firstName));
