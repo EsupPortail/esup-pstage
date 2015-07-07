@@ -693,7 +693,9 @@
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
 				</xsl:if>
 				Nouvelles méthodologies :
-				<xsl:value-of select="reponse-evaluation/reponse-etu-iII5bis" />
+					<xsl:if test="reponse-evaluation/@reponse-etu-iII5b = 'true'">
+						<xsl:value-of select="reponse-evaluation/reponse-etu-iII5bis" />
+					</xsl:if>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-etu-iII6 = 'true'">

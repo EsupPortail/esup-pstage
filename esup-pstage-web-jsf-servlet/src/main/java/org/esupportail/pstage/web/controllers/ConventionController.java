@@ -4859,6 +4859,17 @@ public class ConventionController extends AbstractContextAwareController {
 			if (this.convention.getReponseEvaluation() == null){
 				this.convention = getConventionDomainService().getConventionFromId(this.convention.getIdConvention());
 			}
+			
+			if (this.convention.getSujetStage() == null){
+				String sujetDeStage=getConventionDomainService().getConventionFromId(this.convention.getIdConvention()).getSujetStage();
+				this.convention.setSujetStage(sujetDeStage);
+			}
+			
+			if (this.convention.getOrigineStage()==null){
+				OrigineStageDTO origine=getConventionDomainService().getConventionFromId(this.convention.getIdConvention()).getOrigineStage();
+				this.convention.setOrigineStage(origine);
+			}
+			
 			// Recuperation des questions/reponses supplementaires
 			List<QuestionSupplementaireDTO> list = getFicheEvaluationDomainService()
 					.getQuestionsSupplementaires(this.convention.getFicheEvaluation().getIdFicheEvaluation());
