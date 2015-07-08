@@ -30,7 +30,7 @@ public class ExportConventionsServlet extends HttpServlet{
 	 * @param req HTTP request object 
 	 * @param resp HTTP response object
 	 */
-	public String doGet(ByteArrayOutputStream baosXLS) throws javax.servlet.ServletException, java.io.IOException {
+	public String doGet(ByteArrayOutputStream baosXLS, String XlsFileName) throws javax.servlet.ServletException, java.io.IOException {
 
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		HttpServletResponse resp = (HttpServletResponse) externalContext.getResponse();
@@ -41,7 +41,8 @@ public class ExportConventionsServlet extends HttpServlet{
 
 			resp.setContentType("application/vnd.ms-excel");
 
-			resp.setHeader("Content-disposition","attachment; filename=extraction_pstage.xls");
+//			resp.setHeader("Content-disposition","attachment; filename=extraction_pstage.xls");
+			resp.setHeader("Content-disposition","attachment; filename="+XlsFileName);
 
 			resp.setContentLength(baosXLS.size());
 

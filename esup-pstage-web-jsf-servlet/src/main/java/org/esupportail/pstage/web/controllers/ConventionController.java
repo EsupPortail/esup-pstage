@@ -6374,7 +6374,12 @@ public class ConventionController extends AbstractContextAwareController {
 				classeur.write(baosXLS);
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
-				edit.doGet(baosXLS);
+							
+				String XlsFileName="extraction_pstage_etudiant_"+this.critereRechercheConvention.getAnneeUniversitaire()+".xls";
+				
+				
+				edit.doGet(baosXLS, XlsFileName);
+				
 			} catch (Exception e){
 				logger.error("exportFichesEtudiant() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
 			}
@@ -6502,7 +6507,11 @@ public class ConventionController extends AbstractContextAwareController {
 				classeur.write(baosXLS);
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
-				edit.doGet(baosXLS);
+				
+				String XlsFileName="extraction_pstage_enseignant_"+this.critereRechercheConvention.getAnneeUniversitaire()+".xls";
+				
+				edit.doGet(baosXLS, XlsFileName);
+				
 			} catch (Exception e){
 				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
 			}
@@ -6630,7 +6639,11 @@ public class ConventionController extends AbstractContextAwareController {
 				classeur.write(baosXLS);
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
-				edit.doGet(baosXLS);
+				
+				String XlsFileName="extraction_pstage_entreprise_"+this.critereRechercheConvention.getAnneeUniversitaire()+".xls";
+				
+				edit.doGet(baosXLS, XlsFileName);
+				
 			} catch (Exception e){
 				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : " + e.getMessage());
 			}

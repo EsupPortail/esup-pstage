@@ -584,7 +584,11 @@ public class ExportController extends AbstractContextAwareController {
 				classeur.write(baosXLS);
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
-				edit.doGet(baosXLS);
+				
+				String XlsFileName ="extraction_pstage";
+				
+				edit.doGet(baosXLS,XlsFileName);
+				
 			} catch (Exception e) {
 				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : "
 						+ e.getMessage());
