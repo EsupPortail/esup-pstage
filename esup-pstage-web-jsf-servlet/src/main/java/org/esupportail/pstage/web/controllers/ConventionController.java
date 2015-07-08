@@ -4071,6 +4071,8 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public List<SelectItem> getNbJoursHebdoItems() {
 		List<SelectItem> l = new ArrayList<SelectItem>();
+		l.add(new SelectItem(JoursHebdo.jours6.getValeur(), JoursHebdo.jours6.getLibelle()));
+		l.add(new SelectItem(JoursHebdo.jours5_5.getValeur(), JoursHebdo.jours5_5.getLibelle()));
 		l.add(new SelectItem(JoursHebdo.jours5.getValeur(), JoursHebdo.jours5.getLibelle()));
 		l.add(new SelectItem(JoursHebdo.jours4_5.getValeur(), JoursHebdo.jours4_5.getLibelle()));
 		l.add(new SelectItem(JoursHebdo.jours4.getValeur(), JoursHebdo.jours4.getLibelle()));
