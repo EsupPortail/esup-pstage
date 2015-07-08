@@ -4870,6 +4870,8 @@ public class ConventionController extends AbstractContextAwareController {
 				this.convention.setOrigineStage(origine);
 			}
 			
+			
+			
 			// Recuperation des questions/reponses supplementaires
 			List<QuestionSupplementaireDTO> list = getFicheEvaluationDomainService()
 					.getQuestionsSupplementaires(this.convention.getFicheEvaluation().getIdFicheEvaluation());

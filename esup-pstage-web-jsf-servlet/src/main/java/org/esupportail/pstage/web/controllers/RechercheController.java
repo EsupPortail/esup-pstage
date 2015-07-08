@@ -912,7 +912,9 @@ public class RechercheController extends AbstractContextAwareController {
 		this.toVerificationStructures = toVerificationStructures;
 	}
 
-
+	public List<String> getRaisonsSociales(String raisonSociale){
+		return (List<String>) getStructureDomainService().getRaisonsSociales(raisonSociale);
+	}
 	
 
 	

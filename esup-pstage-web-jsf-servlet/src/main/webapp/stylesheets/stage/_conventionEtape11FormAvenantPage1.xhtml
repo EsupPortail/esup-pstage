@@ -767,20 +767,21 @@
 						datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
 						cellHeight="22px" style="width:200px" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}" />
-					<h:outputText id="erreurDateRupture" value="" />
-					<rich:message for="erreurDateRupture">
+<!-- 					<h:outputText id="erreurDateRupture" value="" /> -->
+					<rich:message for="dateRupture">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 				</h:panelGrid>
 
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="2">
-					<h:outputText
+					<h:outputText for="commentaireRupture"
 						value="#{msgs['CONVENTION.ETAPE11.RUPTURE.COMMENTAIRE']}" />
 					<h:inputTextarea style="width:200px;" id="commentaireRupture"
 						value="#{avenantController.avenant.commentaireRupture}">
-						<a4j:ajax event="blur" render="msgMotif" />
+						<a4j:ajax event="blur" render="msgComRupture" />
 					</h:inputTextarea>
+					<rich:message id="msgComRupture" for="commentaireRupture" />
 				</h:panelGrid>
 			</t:div>
 		</h:panelGrid>
