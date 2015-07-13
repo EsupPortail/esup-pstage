@@ -913,7 +913,12 @@ public class RechercheController extends AbstractContextAwareController {
 	}
 
 	public List<String> getRaisonsSociales(String raisonSociale){
-		return (List<String>) getStructureDomainService().getRaisonsSociales(raisonSociale);
+		List<String> listStructures = (List<String>) getStructureDomainService().getRaisonsSociales(raisonSociale);
+		if (listStructures != null && !listStructures.isEmpty()){
+			return (List<String>) listStructures;
+		} else {
+			return new ArrayList<String>();
+		}
 	}
 	
 

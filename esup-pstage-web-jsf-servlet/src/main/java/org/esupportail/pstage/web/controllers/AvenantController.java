@@ -437,7 +437,7 @@ public class AvenantController extends AbstractContextAwareController {
 			enseignantTmp.setCodeUniversiteAffectation(getSessionController().getCodeUniversite());
 			if (logger.isDebugEnabled()) {
 				logger.debug("AvenantController:: goToAjouterConvention "); 
-				if (enseignantTmp != null) { 
+				if (enseignantTmp != null) {
 					logger.debug("this.avenant.getEnseignant() " + enseignantTmp.getUidEnseignant());
 				}
 			}
@@ -466,7 +466,7 @@ public class AvenantController extends AbstractContextAwareController {
 			avenant.setIdUniteGratification(this.avenant.getUniteGratification().getId());
 			avenant.setIdUniteDureeGratification(this.avenant.getUniteDureeGratification().getId());
 		}
-		
+
 		// Si c'est un gestionnaire qui crée, on valide automatiquement l'avenant
 		if (getSessionController().getCurrentAuthEtudiant() == null) {
 			avenant.setValidationAvenant(true);
@@ -490,10 +490,11 @@ public class AvenantController extends AbstractContextAwareController {
 				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT.SUJET",
 						this.avenant.getIdConvention());
 
-				// Envoi d'une alerte à l'enseignant référent
-				//				if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
-				//					getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
-
+				// Envoi d'une alerte à l'enseignant référent si telle est la configuration
+				if (getSessionController().isAvertissementTuteurPedago()){
+					if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
+						getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
+				}
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
 
@@ -590,10 +591,11 @@ public class AvenantController extends AbstractContextAwareController {
 				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_MODIF_AVENANT.SUJET",
 						this.avenant.getIdConvention());
 
-				// Envoi d'une alerte à l'enseignant référent
-				//				if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
-				//					getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
-
+				// Envoi d'une alerte à l'enseignant référent si telle est la configuration
+				if (getSessionController().isAvertissementTuteurPedago()){
+					if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
+						getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
+				}
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
 

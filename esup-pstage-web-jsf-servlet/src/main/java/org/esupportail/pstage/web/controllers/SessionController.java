@@ -318,6 +318,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	private Integer surchargeTuteur;
 
 	/**
+	 * Envoi d'un mail aux enseignants référents en même temps qu'aux gestionnaires
+	 */
+	private boolean avertissementTuteurPedago;
+	/**
 	 * Envoi d'un mail aux étudiants à la validation de leur convention
 	 */
 	private boolean avertissementEtudiantConvention;
@@ -2482,6 +2486,14 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setResetMdpContactCurrentPage(String resetMdpContactCurrentPage) {
 		this.resetMdpContactCurrentPage = resetMdpContactCurrentPage;
+	}
+
+	public boolean isAvertissementTuteurPedago() {
+		return avertissementTuteurPedago;
+	}
+
+	public void setAvertissementTuteurPedago(boolean avertissementTuteurPedago) {
+		this.avertissementTuteurPedago = avertissementTuteurPedago;
 	}
 
 }

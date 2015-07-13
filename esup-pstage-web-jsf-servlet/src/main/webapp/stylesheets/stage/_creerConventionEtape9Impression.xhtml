@@ -12,7 +12,7 @@
 			<h:outputText value="#{msgs['CONVENTION.ETAPE9.IMPRESSION']}" />
 		</f:facet>
 		<t:htmlTag value="div" style="height: 20px;" />
-		<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.INFO']}" />
+		<h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.IMPRESSION.INFO']}" />
 		<t:htmlTag value="div" style="height: 20px;" />
 		<rich:messages />
 		<h:panelGrid columnClasses="paginatorData-text"
@@ -32,7 +32,7 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 			<h:outputLabel for="langue" value="#{msgs['CONVENTION.LANGUE']}" />
-			<h:outputText
+			<h:outputText id="langue"
 				value="#{conventionController.convention.langueConvention.libelle}" />
 
 			<t:htmlTag value="div" style="height: 5px;" />
@@ -40,11 +40,11 @@
 
 		</h:panelGrid>
 
-		<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.INSTRUCTION']}"
+		<h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.IMPRESSION.INSTRUCTION']}"
 			rendered="#{!conventionController.cgUrlInstruction}" />
 
 		<h:panelGrid columns="2">
-			<h:outputLabel value="#{msgs['CONVENTION.IMPRESSION.URL']}"
+			<h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.IMPRESSION.URL']}"
 				rendered="#{conventionController.cgUrlInstruction}" />
 			<h:outputLink id="urlPageInstruction" target="_blank"
 				value="#{conventionController.convention.centreGestion.urlPageInstruction}"

@@ -15,8 +15,8 @@
 
 		<h:panelGrid columns="1" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text">
-			<h:outputText
-				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']}" />
+			<h:outputText style="font-weight:bold;"
+				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']} : " />
 			<ui:include
 				src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
 		</h:panelGrid>
@@ -24,7 +24,7 @@
 			<h:commandButton value="#{msgs['FORM.CANCEL']}"
 				action="#{conventionController.goToCreerConventionEtape5StageR}" />
 			<t:htmlTag value="div" style="width:100px;" />
-			<h:commandButton value="#{msgs['FORM.VALIDER']}"
+			<h:commandButton value="#{msgs['FORM.VALIDER']}" style="border:solid 1px;"
 				action="#{conventionController.goToCreerConventionEtape6RespPedago}" />
 		</h:panelGrid>
 	</rich:panel>

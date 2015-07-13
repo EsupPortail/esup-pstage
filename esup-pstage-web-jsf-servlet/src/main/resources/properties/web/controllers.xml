@@ -154,6 +154,8 @@
 		<property name="urlAssistance" value="${assistance.url}" />
 		<property name="moderationActive" value="${moderationActive}" />
 		<property name="validationPedagogique" value="${validationPedagogique}" />
+		<property name="avertissementTuteurPedago"
+			value="${alerteMail.avertissementTuteurPedago}" />
 		<property name="avertissementEtudiantConvention"
 			value="${alerteMail.avertissementEtudiantConvention}" />
 		<property name="avertissementEtudiantAvenant" value="${alerteMail.avertissementEtudiantAvenant}" />

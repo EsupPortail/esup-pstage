@@ -361,7 +361,7 @@
 							<xsl:text> </xsl:text>
 							<xsl:text> </xsl:text>
 							<fo:inline font-weight="bold">
-								fax :
+								Fax :
 							</fo:inline>
 							<xsl:value-of select="convention/structure/fax" />
 							<xsl:text> </xsl:text>
@@ -578,7 +578,7 @@
 							<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
 							<xsl:text> </xsl:text>
 							<fo:inline font-weight="bold">
-								étudiant(e) en 
+								étudiant(e) en
 							</fo:inline>
 							<xsl:value-of select="convention/etape/libelle" />
 						</fo:block>
@@ -640,8 +640,8 @@
 				<fo:table-row text-align="left">
 					<fo:table-cell border="0.018cm solid #000000"
 						padding="5pt">
-						<fo:block line-height="110%" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10pt" font-family="Times New Roman,serif">
 							<fo:inline font-weight="bold">
 								Titre :
 							</fo:inline>
@@ -667,12 +667,12 @@
 							<fo:block hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:if test="commentaire-rupture!=''">
-									Commentaire : 
+									Commentaire :
 									<fo:inline font-weight="bold">
 										<xsl:value-of select="commentaire-rupture" />
 									</fo:inline>
 								</xsl:if>
-							</fo:block>	
+							</fo:block>
 						</xsl:if>
 
 						<xsl:if test="@modification-periode = 'true'">

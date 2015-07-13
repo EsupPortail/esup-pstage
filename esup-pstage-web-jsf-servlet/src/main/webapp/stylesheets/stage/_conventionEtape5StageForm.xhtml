@@ -84,8 +84,16 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
-			<h:outputText
-				value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
+			<h:panelGrid columns="2" columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text">
+				<h:graphicImage id="imgInfoComp"
+					alt="#{msgs['INFOSBULLES.COMPETENCES']}"
+					value="../../media/images/information.png" style="border:0">
+					<rich:tooltip value="#{msgs['INFOSBULLES.COMPETENCES']}" />
+				</h:graphicImage>
+				<h:outputText
+					value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
+			</h:panelGrid>
 			<h:inputTextarea id="competences"
 				value="#{conventionController.convention.competences}"
 				required="true"
@@ -119,20 +127,20 @@
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.DATES']}" />
 		</legend>
 
-		<a4j:outputPanel id="choixAnneeUniv">
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="2"
-				rendered="#{conventionController.choixAnneeUniv}">
-				<h:outputText value="#{msgs['CONVENTION.ANNEEUNIV']}" />
-				<h:selectOneMenu id="anU"
-					value="#{conventionController.selAnneeUniversitaire}">
-					<f:selectItems
-						value="#{conventionController.listeAnneeUnivConvention}" />
-				</h:selectOneMenu>
-			</h:panelGrid>
-		</a4j:outputPanel>
+		<!-- 		<a4j:outputPanel id="choixAnneeUniv"> -->
+		<!-- 			<h:panelGrid columnClasses="paginatorData-text" -->
+		<!-- 				rowClasses="paginatorData-text" columns="2" -->
+		<!-- 				rendered="#{conventionController.choixAnneeUniv}"> -->
+		<!-- 				<h:outputText value="#{msgs['CONVENTION.ANNEEUNIV']}" /> -->
+		<!-- 				<h:selectOneMenu id="anU" -->
+		<!-- 					value="#{conventionController.selAnneeUniversitaire}"> -->
+		<!-- 					<f:selectItems -->
+		<!-- 						value="#{conventionController.listeAnneeUnivConvention}" /> -->
+		<!-- 				</h:selectOneMenu> -->
+		<!-- 			</h:panelGrid> -->
+		<!-- 		</a4j:outputPanel> -->
 
-		<rich:message for="choixAnneeUniv" />
+		<!-- 		<rich:message for="choixAnneeUniv" /> -->
 
 		<h:panelGrid id="fieldDates" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="3">
@@ -144,7 +152,6 @@
 				datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
 				cellHeight="22px" style="width:200px" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<a4j:ajax event="change" render="choixAnneeUniv" />
 			</rich:calendar>
 			<rich:message for="dateDebutStage">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -162,7 +169,6 @@
 				datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
 				cellHeight="22px" style="width:200px" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<a4j:ajax event="change" render="choixAnneeUniv" />
 			</rich:calendar>
 			<rich:message for="dateFinStage">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />

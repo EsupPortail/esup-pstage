@@ -6,20 +6,19 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
+	<h:panelGrid>
 		<h:outputText value=" " id="formModifStage" />
 		<rich:message for="formModifStage">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
 		<t:div rendered="#{not empty conventionController.convention}">
 			<ui:include src="/stylesheets/stage/_conventionEtape5StageForm.xhtml" />
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="2">
 				<a4j:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
 					action="#{conventionController.modifierStageDetail}"
 					alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
 					rendered="#{not empty conventionController.convention}"
-					render="opFCE">
-				</a4j:commandButton>
+					render="opFCE"/>
 				<a4j:outputPanel id="opFCE">
 					<h:panelGrid columns="3"
 						rendered="#{facesContext.maximumSeverity != null}">

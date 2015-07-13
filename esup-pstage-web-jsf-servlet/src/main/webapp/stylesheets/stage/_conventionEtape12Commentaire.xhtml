@@ -7,7 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height: 20px;" />
-	<h:outputLabel value="Commentaire sur le stage : " />
+	<h:outputLabel for="divCommentaire" value="Commentaire sur le stage : " />
 	<t:div
 		rendered="#{welcomeController.etudiant || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitLecture}">
 		<h:outputText
@@ -17,7 +17,7 @@
 			rendered="#{not empty conventionController.convention.commentaireStage}"
 			value="#{conventionController.convention.commentaireStage}" />
 	</t:div>
-	<t:div
+	<t:div id="divCommentaire"
 		rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
 		<h:panelGrid  columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" style="margin-left:30;"
 			rendered="#{conventionController.convention.validationConvention}">
