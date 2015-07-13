@@ -449,6 +449,11 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	private List<ConventionDTO> listeConventionsSelectionnees=new ArrayList<ConventionDTO>();
 
+	/**
+	 * Recherche d'offre en rapport avec la convention par numero (par champs autocomplete dans le cas contraire)
+	 */
+	private boolean rechOffreByNum=true;
+
 	/* ***************************************************************
 	 * Ajouts 2.2.1 Fiche Evaluation
 	 ****************************************************************/
@@ -7973,5 +7978,13 @@ public class ConventionController extends AbstractContextAwareController {
 			nbr=this.getListeConventionsSelectionnees().size();	
 		}
 		return nbr;
+	}
+
+	public boolean isRechOffreByNum() {
+		return rechOffreByNum;
+	}
+
+	public void setRechOffreByNum(boolean rechOffreByNum) {
+		this.rechOffreByNum = rechOffreByNum;
 	}
 }

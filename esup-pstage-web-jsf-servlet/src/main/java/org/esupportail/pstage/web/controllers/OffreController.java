@@ -1548,7 +1548,7 @@ public class OffreController extends AbstractContextAwareController {
 
 					String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_ENTREPRISE_DIFFUSION.SUJET",this.currentOffre.getIdOffre());
 
-					if (this.currentOffre.getContactCand().getMail() != null && !this.currentOffre.getContactCand().getMail().isEmpty()){
+					if (this.currentOffre.getContactCand()!= null && this.currentOffre.getContactCand().getMail() != null && !this.currentOffre.getContactCand().getMail().isEmpty()){
 						getSmtpService().send(new InternetAddress(this.currentOffre.getContactCand().getMail()),
 								sujet,text,text);
 					} else {

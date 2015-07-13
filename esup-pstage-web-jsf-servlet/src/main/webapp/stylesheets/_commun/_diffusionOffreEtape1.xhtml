@@ -6,8 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:column>
-		<h:panelGrid columns="1">
+		<h:panelGrid>
 			<h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION']}"
 				escape="false" />
 			<rich:dataTable value="#{offreController.currentOffre}">
@@ -96,5 +95,4 @@
 				onclick="#{rich:component('diffusionOffre')}.hide();"
 				immediate="true" />
 		</h:panelGrid>
-	</h:column>
 </ui:composition>
