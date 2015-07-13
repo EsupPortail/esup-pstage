@@ -7909,6 +7909,7 @@ public class ConventionController extends AbstractContextAwareController {
 		if(getBeanUtils()!=null){
 			c=new CritereRechercheConventionDTO();
 			c.setPays(getBeanUtils().getFrance());
+			c.setAnneeUniversitaire(getBeanUtils().getAnneeUniversitaireCourante(new Date()));
 		}else{
 			c=new CritereRechercheConventionDTO();
 			PaysDTO p = new PaysDTO();
