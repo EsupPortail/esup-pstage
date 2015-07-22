@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<xsl:stylesheet version="1.0"
+<xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
-	xmlns:java="http://xml.apache.org/xalan/java" exclude-result-prefixes="java">
+	xmlns:java="http://xml.apache.org/xalan/java" xmlns:str="http://exslt.org/strings"
+	exclude-result-prefixes="java">
 
 
 	<xsl:template match="/">
@@ -383,13 +384,13 @@
 							<xsl:value-of select="convention/signataire/civilite/libelle" />
 							<xsl:text> </xsl:text>
 							<xsl:value-of
-								select="translate(convention/signataire/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+								select="translate(convention/signataire/nom,$lowers,$uppers)" />
 							<xsl:text> </xsl:text>
-							<xsl:variable name="prenom1"
-								select="translate(substring(./convention/signataire/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-							<xsl:variable name="prenom2"
-								select="translate(convention/signataire/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-							<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+							<xsl:call-template name="start_upper">
+								<xsl:with-param name="prenom">
+									<xsl:value-of select="convention/signataire/prenom" />
+								</xsl:with-param>
+							</xsl:call-template>
 						</fo:block>
 						<fo:block line-height="110%" hyphenate="false" language="fr"
 							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
@@ -411,25 +412,25 @@
 								<xsl:value-of select="contact/civilite/libelle" />
 								<xsl:text> </xsl:text>
 								<xsl:value-of
-									select="translate(contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+									select="translate(contact/nom,$lowers,$uppers)" />
 								<xsl:text> </xsl:text>
-								<xsl:variable name="prenom1"
-									select="translate(substring(./contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="contact/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
 							</xsl:if>
 							<xsl:if test="@modification-salarie = 'false'">
 								<xsl:value-of select="convention/contact/civilite/libelle" />
 								<xsl:text> </xsl:text>
 								<xsl:value-of
-									select="translate(convention/contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+									select="translate(convention/contact/nom,$lowers,$uppers)" />
 								<xsl:text> </xsl:text>
-								<xsl:variable name="prenom1"
-									select="translate(substring(./convention/contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(convention/contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="convention/contact/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
 							</xsl:if>
 						</fo:block>
 						<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -499,23 +500,23 @@
 							</fo:inline>
 							<xsl:if test="@modification-enseignant = 'true'">
 								<xsl:value-of
-									select="translate(enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+									select="translate(enseignant/nom,$lowers,$uppers)" />
 								<xsl:text> </xsl:text>
-								<xsl:variable name="prenom1"
-									select="translate(substring(./enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="enseignant/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
 							</xsl:if>
 							<xsl:if test="@modification-enseignant = 'false'">
 								<xsl:value-of
-									select="translate(convention/enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+									select="translate(convention/enseignant/nom,$lowers,$uppers)" />
 								<xsl:text> </xsl:text>
-								<xsl:variable name="prenom1"
-									select="translate(substring(./convention/enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(convention/enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="convention/enseignant/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
 							</xsl:if>
 						</fo:block>
 						<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -569,14 +570,13 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<xsl:value-of
-								select="translate(convention/etudiant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+								select="translate(convention/etudiant/nom,$lowers,$uppers)" />
 							<xsl:text> </xsl:text>
-							<xsl:variable name="prenom1"
-								select="translate(substring(./convention/etudiant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-							<xsl:variable name="prenom2"
-								select="translate(convention/etudiant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-							<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-							<xsl:text> </xsl:text>
+							<xsl:call-template name="start_upper">
+								<xsl:with-param name="prenom">
+									<xsl:value-of select="convention/etudiant/prenom" />
+								</xsl:with-param>
+							</xsl:call-template>
 							<fo:inline font-weight="bold">
 								étudiant(e) en
 							</fo:inline>
@@ -776,13 +776,13 @@
 									<xsl:value-of select="convention/contact/civilite/libelle" />
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(convention/contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(convention/contact/nom,$lowers,$uppers)" />
 									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="convention/contact/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 								</fo:inline>
 								<xsl:text> </xsl:text>
 								sera remplacé par :
@@ -790,13 +790,13 @@
 									<xsl:value-of select="contact/civilite/libelle" />
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(contact/nom,$lowers,$uppers)" />
 									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="contact/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 								</fo:inline>
 							</fo:block>
 						</xsl:if>
@@ -811,13 +811,13 @@
 									<xsl:value-of select="convention/enseignant/civilite/libelle" />
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(convention/enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(convention/enseignant/nom,$lowers,$uppers)" />
 									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="convention/enseignant/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 								</fo:inline>
 								<xsl:text> </xsl:text>
 								sera remplacé par :
@@ -825,13 +825,13 @@
 									<xsl:value-of select="enseignant/civilite/libelle" />
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(enseignant/nom,$lowers,$uppers)" />
 									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="enseignant/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 								</fo:inline>
 							</fo:block>
 						</xsl:if>
@@ -949,14 +949,14 @@
 									<xsl:when test="convention/centre-gestion/nom-viseur">
 										Par délégation,
 										<fo:inline font-weight="bold">
-											<xsl:variable name="prenom1"
-												select="translate(substring(./convention/centre-gestion/prenom-viseur,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-											<xsl:variable name="prenom2"
-												select="translate(convention/centre-gestion/prenom-viseur,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-											<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+											<xsl:call-template name="start_upper">
+												<xsl:with-param name="prenom">
+													<xsl:value-of select="convention/centre-gestion/prenom-viseur" />
+												</xsl:with-param>
+											</xsl:call-template>
 											<xsl:text> </xsl:text>
 											<xsl:value-of
-												select="translate(convention/centre-gestion/nom-viseur,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+												select="translate(convention/centre-gestion/nom-viseur,$lowers,$uppers)" />
 										</fo:inline>
 									</xsl:when>
 									<xsl:otherwise>
@@ -998,14 +998,14 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
 								<fo:inline font-weight="bold">
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/signataire/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/signataire/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="convention/signataire/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(convention/signataire/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(convention/signataire/nom,$lowers,$uppers)" />
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1035,14 +1035,14 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:inline font-weight="bold">
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/etudiant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/etudiant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="convention/etudiant/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(convention/etudiant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(convention/etudiant/nom,$lowers,$uppers)" />
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1087,26 +1087,26 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:if test="@modification-salarie = 'true'">
 									<fo:inline font-weight="bold">
-										<xsl:variable name="prenom1"
-											select="translate(substring(./contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-										<xsl:variable name="prenom2"
-											select="translate(contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-										<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="contact/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
 										<xsl:text> </xsl:text>
 										<xsl:value-of
-											select="translate(contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+											select="translate(contact/nom,$lowers,$uppers)" />
 									</fo:inline>
 								</xsl:if>
 								<xsl:if test="@modification-salarie = 'false'">
 									<fo:inline font-weight="bold">
-										<xsl:variable name="prenom1"
-											select="translate(substring(./convention/contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-										<xsl:variable name="prenom2"
-											select="translate(convention/contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-										<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="convention/contact/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
 										<xsl:text> </xsl:text>
 										<xsl:value-of
-											select="translate(convention/contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+											select="translate(convention/contact/nom,$lowers,$uppers)" />
 									</fo:inline>
 								</xsl:if>
 							</fo:block>
@@ -1155,26 +1155,26 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:if test="@modification-enseignant = 'true'">
 									<fo:inline font-weight="bold">
-										<xsl:variable name="prenom1"
-											select="translate(substring(./enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-										<xsl:variable name="prenom2"
-											select="translate(enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-										<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="enseignant/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
 										<xsl:text> </xsl:text>
 										<xsl:value-of
-											select="translate(enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+											select="translate(enseignant/nom,$lowers,$uppers)" />
 									</fo:inline>
 								</xsl:if>
 								<xsl:if test="@modification-enseignant = 'false'">
 									<fo:inline font-weight="bold">
-										<xsl:variable name="prenom1"
-											select="translate(substring(./convention/enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-										<xsl:variable name="prenom2"
-											select="translate(convention/enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-										<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="convention/enseignant/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
 										<xsl:text> </xsl:text>
 										<xsl:value-of
-											select="translate(convention/enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+											select="translate(convention/enseignant/nom,$lowers,$uppers)" />
 									</fo:inline>
 								</xsl:if>
 							</fo:block>
@@ -1205,6 +1205,54 @@
 
 		</fo:block>
 		<fo:block id="theEnd" />
+	</xsl:template>
+
+	<!-- mises en majuscules -->
+	<xsl:variable name='lowers'
+		select='"abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"' />
+	<xsl:variable name='uppers'
+		select='"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß"' />
+	<!-- majuscule pour 1er lettre de chaque terme (cas prenom composés) -->
+	<xsl:template name="start_upper">
+		<xsl:param name="prenom" />
+		<xsl:variable name="temp-prenom">
+			<xsl:call-template name="start_upper_bar">
+				<xsl:with-param name="prenom">
+					<xsl:value-of select="$prenom" />
+				</xsl:with-param>
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:variable name="clean-temp-prenom">
+			<xsl:choose>
+				<xsl:when
+					test="substring($temp-prenom, string-length($temp-prenom),  string-length($temp-prenom) +1  ) = '-'">
+					<xsl:value-of
+						select='substring($temp-prenom,1, string-length($temp-prenom)-1 )' />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select='$temp-prenom' />
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:for-each select='str:split($clean-temp-prenom, " ")'>
+			<xsl:value-of
+				select='concat(
+          translate(substring(., 1, 1), $lowers, $uppers),
+          substring(., 2),
+          " "
+         )' />
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="start_upper_bar">
+		<xsl:param name="prenom" />
+		<xsl:for-each select='str:split($prenom, "-")'>
+			<xsl:value-of
+				select='concat(
+          translate(substring(., 1, 1), $lowers, $uppers),
+          translate(substring(., 2),$uppers,$lowers),
+          "-"
+         )' />
+		</xsl:for-each>
 	</xsl:template>
 
 </xsl:stylesheet>

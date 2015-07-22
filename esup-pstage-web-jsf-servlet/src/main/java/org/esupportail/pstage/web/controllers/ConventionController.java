@@ -2545,8 +2545,13 @@ public class ConventionController extends AbstractContextAwareController {
 		String language = "fr";
 		EtudiantDTO etudiant;
 		String currentLogin = getSessionController().getCurrentLogin();
-		String[] parts=currentLogin.split(Pattern.quote(".")); 
-		String id_user=parts[0]+"_"+parts[1];
+		String[] parts=currentLogin.split(Pattern.quote("."));
+		String id_user;
+		if (parts.length>1){
+			id_user = parts[0]+"_"+parts[1];
+		} else {
+			id_user = parts[0];
+		}
 
 
 		Date date=new Date();
