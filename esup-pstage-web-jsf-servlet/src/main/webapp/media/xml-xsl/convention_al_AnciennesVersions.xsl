@@ -1758,7 +1758,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Der Stundenbetrag der Vergütung ist auf 13,75 % des
+								Der Stundenbetrag der Vergütung ist auf 15 % des
 								Basisstundenlohns der Sozialversicherung gemäß Artikel L.241-3
 								des Sozialgesetzbuchs festgelegt. In einem branchenspezifischen
 								Abkommen oder beruflichem Übereinkommen können höhere Beträge
@@ -1886,7 +1886,7 @@
 								montant horaire de
 								la
 								gratification
-								est fixé à 13,75%
+								est fixé à 15%
 								du plafond
 								horaire de la
 								sécurité sociale défini
@@ -2128,7 +2128,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								font-weight="bold">
-								6-1 Vergütung in Höhe eines Mindestbetrags von 13,75
+								6-1 Vergütung in Höhe eines Mindestbetrags von 15
 								% des Basisstundenlohns der Sozialversicherung:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -2168,7 +2168,7 @@
 								font-weight="bold" background-color="#E6E6E6" font-style="italic">
 								6.1 -
 								Gratification d'un
-								montant maximum de 13,75%
+								montant maximum de 15%
 								du plafond horaire
 								de
 								la Sécurité
@@ -2221,7 +2221,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								font-weight="bold">
 								6.2 -
-								Vergütung über 13,75 % des
+								Vergütung über 15 % des
 								Basisstundenlohns der
 								Sozialversicherung
 							</fo:block>
@@ -2229,7 +2229,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								Die Sozialabgaben werden auf dem Unterschied zwischen
-								dem Betrag der Vergütung und 13,75 % des Basisstundenlohns der
+								dem Betrag der Vergütung und 15 % des Basisstundenlohns der
 								Sozialversicherung berechnet.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -2259,7 +2259,7 @@
 								font-weight="bold">
 								6.2 -
 								Gratification supérieure à
-								13,75 % du plafond
+								15 % du plafond
 								horaire de la
 								Sécurité sociale :
 							</fo:block>
@@ -2269,7 +2269,7 @@
 								Les
 								cotisations sociales sont calculées sur le
 								différentiel entre le
-								montant de la gratification et 13,75 % du
+								montant de la gratification et 15 % du
 								plafond horaire de la
 								Sécurité sociale.
 							</fo:block>
@@ -2571,7 +2571,7 @@
 								text-align="justify" padding-top="1pt">
 								- Zu keiner Vergütung führen,
 								die im entsprechenden Ausland das Recht auf einen
-								Arbeitsunfallschutz eröffnen könnte (eine Vergütung von 13,75 %
+								Arbeitsunfallschutz eröffnen könnte (eine Vergütung von 15 %
 								des Basisstundenlohns der Sozialversicherung (siehe Punkt 5) für
 								eine gesetzliche Arbeitsdauer von 35 Wochenstunden wird
 								vorbehaltlich dem Einverständnis der Krankenkasse über den
@@ -2742,7 +2742,7 @@
 								pays d'accueil ; une
 								indemnité ou
 								gratification est admise dans
-								la limite de 13,75% du
+								la limite de 15% du
 								plafond
 								horaire de la sécurité sociale
 								(cf

@@ -1758,7 +1758,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								El importe horario de la gratificación está fijado en
-								un 13,75 %
+								un 15 %
 								de la base máxima horaria de la
 								Seguridad Social
 								definida en aplicación del artículo L 241-3
@@ -1906,7 +1906,7 @@
 								montant horaire de
 								la
 								gratification
-								est fixé à 13,75%
+								est fixé à 15%
 								du plafond
 								horaire de la
 								sécurité sociale défini
@@ -2132,7 +2132,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								<fo:inline font-size="10pt" font-weight="bold">6.1
-									Gratificación por un importe máximo del 13,75% de la base
+									Gratificación por un importe máximo del 15% de la base
 									máxima horaria de la Seguridad Social:
 								</fo:inline>
 							</fo:block>
@@ -2189,7 +2189,7 @@
 								font-weight="bold" background-color="#E6E6E6" font-style="italic">
 								6.1 -
 								Gratification d'un
-								montant maximum de 13,75%
+								montant maximum de 15%
 								du plafond horaire
 								de
 								la Sécurité
@@ -2242,14 +2242,14 @@
 								<fo:inline font-size="10pt" font-weight="bold">6.2
 									Gratificación superior
 								</fo:inline>
-								al 13,75 % de la base máxima horaria de la Seguridad Social:
+								al 15 % de la base máxima horaria de la Seguridad Social:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								Las cotizaciones sociales se calculan en base al
 								diferencial entre el importe
-								de la gratificación y el 13,75 % de
+								de la gratificación y el 15 % de
 								la base
 								máxima horaria de la
 								Seguridad Social. El estudiante se
@@ -2283,7 +2283,7 @@
 								font-weight="bold">
 								6.2 -
 								Gratification supérieure à
-								13,75 % du plafond
+								15 % du plafond
 								horaire de la
 								Sécurité sociale :
 							</fo:block>
@@ -2293,7 +2293,7 @@
 								Les
 								cotisations sociales sont calculées sur le
 								différentiel entre le
-								montant de la gratification et 13,75 % du
+								montant de la gratification et 15 % du
 								plafond horaire de la
 								Sécurité sociale.
 							</fo:block>
@@ -2640,7 +2640,7 @@
 								contra
 								accidentes laborales en el país de destino; se admite una
 								indemnización o gratificación de
-								un máximo de 13,75 % de la base
+								un máximo de 15 % de la base
 								máxima horaria de la Seguridad
 								Social (vid. punto 5), y bajo el
 								consentimiento de la Caja
@@ -2829,7 +2829,7 @@
 								pays d'accueil ; une
 								indemnité ou
 								gratification est admise dans
-								la limite de 13,75% du
+								la limite de 15% du
 								plafond
 								horaire de la sécurité sociale
 								(cf

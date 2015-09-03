@@ -1731,7 +1731,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								The amount of the
-								hourly stipend shall be 13.75%
+								hourly stipend shall be 15%
 								of the hourly ceiling for social
 								security established
 								pursuant to
@@ -1879,7 +1879,7 @@
 								montant horaire de
 								la
 								gratification
-								est fixé à 13,75%
+								est fixé à 15%
 								du plafond
 								horaire de la
 								sécurité sociale défini
@@ -2119,7 +2119,7 @@
 								text-align="justify">
 								<fo:inline font-size="10pt" font-weight="bold">6.1
 									Maximum
-									stipend of 13.75% of the hourly ceiling for social security:
+									stipend of 15% of the hourly ceiling for social security:
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -2170,7 +2170,7 @@
 								font-weight="bold" background-color="#E6E6E6" font-style="italic">
 								6.1 -
 								Gratification d'un
-								montant maximum de 13,75%
+								montant maximum de 15%
 								du plafond horaire
 								de
 								la Sécurité
@@ -2225,13 +2225,13 @@
 									Stipend
 									greater than
 								</fo:inline>
-								13.75% of the hourly ceiling for social security:
+								15% of the hourly ceiling for social security:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								Payroll taxes are calculated based on the difference
-								between the amount of the stipend and 13.75% of the
+								between the amount of the stipend and 15% of the
 								hourly
 								ceiling for social security.
 							</fo:block>
@@ -2262,7 +2262,7 @@
 								font-weight="bold">
 								6.2 -
 								Gratification supérieure à
-								13,75 % du plafond
+								15 % du plafond
 								horaire de la
 								Sécurité sociale :
 							</fo:block>
@@ -2272,7 +2272,7 @@
 								Les
 								cotisations sociales sont calculées sur le
 								différentiel entre le
-								montant de la gratification et 13,75 % du
+								montant de la gratification et 15 % du
 								plafond horaire de la
 								Sécurité sociale.
 							</fo:block>
@@ -2609,7 +2609,7 @@
 								compensations
 								or stipends are
 								acceptable, up to the limit of
-								13.75% of the hourly
+								15% of the hourly
 								ceiling for
 								social security (see point 5),
 								and subject to approval
@@ -2798,7 +2798,7 @@
 								pays d'accueil ; une
 								indemnité ou
 								gratification est admise dans
-								la limite de 13,75% du
+								la limite de 15% du
 								plafond
 								horaire de la sécurité sociale
 								(cf
