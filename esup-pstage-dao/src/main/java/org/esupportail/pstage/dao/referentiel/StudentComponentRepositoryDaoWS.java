@@ -153,7 +153,9 @@ StudentComponentRepositoryDao {
 		String lib = "";
 		try {
 			SECritereDTO2 param = new SECritereDTO2();
-			param.setCodAnu(getYear().toString());
+			
+			// Retrait du filtre sur l'annee pour permettre de rattacher les codes etape des annees autres que celle en cours
+//			param.setCodAnu(getYear().toString());
 			param.setTemOuvertRecrutement("O");
 			param.setCodEtp("tous");
 			param.setCodVrsVet("tous");

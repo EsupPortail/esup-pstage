@@ -970,7 +970,13 @@ public class ConventionController extends AbstractContextAwareController {
 			if (selCaisseRegime != null) {
 				this.etudiantRef.setTheCaisseRegime(selCaisseRegime);
 			}
-
+			// Ajout de l'annee choisie et non plus deduite de la date de debut de stage
+			if (selectedAnneeUniv!=null){
+				int anneeInt = Integer.parseInt(selectedAnneeUniv);
+				setSelectedAnneeUniv(anneeInt+"/"+ (anneeInt+1));
+				this.convention.setAnnee(selectedAnneeUniv);
+			}
+			
 			this.ctrlInfosEtuOK = true;
 			//			retour = "_creerConventionEtape1Etudiant";
 			getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ConfirmInfosEtu");
@@ -2262,15 +2268,16 @@ public class ConventionController extends AbstractContextAwareController {
 			logger.debug("conventionTmp " + conventionTmp.toString()); 
 
 		}
-		if (selAnneeUniversitaire != null) {
-			String selAnneeUniv = selAnneeUniversitaire.toString();
-			conventionTmp.setAnnee(selAnneeUniv);
-		} else {
-			String anneeUniversitaire = anneeUniv(conventionTmp.getDateDebutStage(),conventionTmp.getDateFinStage());
-			if (anneeUniversitaire != null) {
-				conventionTmp.setAnnee(anneeUniversitaire);
-			}
-		}
+		// Ancien fonctionnement de deduction de l'annee universitaire
+//		if (selAnneeUniversitaire != null) {
+//			String selAnneeUniv = selAnneeUniversitaire.toString();
+//			conventionTmp.setAnnee(selAnneeUniv);
+//		} else {
+//			String anneeUniversitaire = anneeUniv(conventionTmp.getDateDebutStage(),conventionTmp.getDateFinStage());
+//			if (anneeUniversitaire != null) {
+//				conventionTmp.setAnnee(anneeUniversitaire);
+//			}
+//		}
 
 		conventionTmp.setLoginCreation(getSessionController().getCurrentLogin());
 		EtabRef etabRef = getStudentComponentRepositoryDomain().getEtabRef(getSessionController().getCodeUniversite());
@@ -2422,16 +2429,16 @@ public class ConventionController extends AbstractContextAwareController {
 				logger.debug("conventionTmp " + conventionTmp.toString()); 
 
 			}
-
-			if (selAnneeUniversitaire != null) {
-				String selAnneeUniv = selAnneeUniversitaire.toString();
-				conventionTmp.setAnnee(selAnneeUniv);
-			} else {
-				String anneeUniversitaire = anneeUniv(conventionTmp.getDateDebutStage(),conventionTmp.getDateFinStage());
-				if (anneeUniversitaire != null) {
-					conventionTmp.setAnnee(anneeUniversitaire);
-				}
-			}
+			// Ancien fonctionnement de deduction de l'annee universitaire
+//			if (selAnneeUniversitaire != null) {
+//				String selAnneeUniv = selAnneeUniversitaire.toString();
+//				conventionTmp.setAnnee(selAnneeUniv);
+//			} else {
+//				String anneeUniversitaire = anneeUniv(conventionTmp.getDateDebutStage(),conventionTmp.getDateFinStage());
+//				if (anneeUniversitaire != null) {
+//					conventionTmp.setAnnee(anneeUniversitaire);
+//				}
+//			}
 			conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 			try {
 				if (this.getConventionDomainService().updateConvention(conventionTmp)) {

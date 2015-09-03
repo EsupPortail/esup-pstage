@@ -822,12 +822,16 @@ public class AvenantController extends AbstractContextAwareController {
 	 * @return the listeSalaries
 	 */
 	public List<ContactDTO> getListeSalaries() {
+		List<ContactDTO> l = new ArrayList<ContactDTO>();
 		List<Integer> idsCentreGestion = new ArrayList<Integer>();
+		
 		idsCentreGestion = getSessionController().getCurrentIdsCentresGestion();
-		if(!idsCentreGestion.contains(conventionController.getConvention().getIdCentreGestion())){
+		if(idsCentreGestion != null && !idsCentreGestion.contains(conventionController.getConvention().getIdCentreGestion())){
 			idsCentreGestion.add(conventionController.getConvention().getIdCentreGestion());
 		}
-		List<ContactDTO> l = getStructureDomainService().getContactsFromIdService(etablissementController.getServiceSel().getIdService(), idsCentreGestion, getSessionController().getCodeUniversite());
+		if (etablissementController.getServiceSel() != null){
+			l = getStructureDomainService().getContactsFromIdService(etablissementController.getServiceSel().getIdService(), idsCentreGestion, getSessionController().getCodeUniversite());
+		}
 
 		return l;
 	}
