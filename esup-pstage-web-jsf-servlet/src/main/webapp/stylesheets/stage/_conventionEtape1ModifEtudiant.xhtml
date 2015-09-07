@@ -151,7 +151,7 @@
 						rowClasses="paginatorData-text">
 						<h:outputText value="#{msgs['CONVENTION.ANNEE']}"
 							style="font-weight:bold;" />
-						<h:outputText value="#{conventionController.selectedAnneeUniv}" />
+						<h:outputText value="#{conventionController.convention.annee}" />
 					</h:panelGrid>
 
 					<h:panelGrid columns="2" columnClasses="paginatorData-text"
@@ -164,8 +164,20 @@
 							value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.NONRATTACHE']}"
 							style="color:red;" />
 					</h:panelGrid>
+
+					<h:panelGrid columns="2" columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text"
+						rendered="#{conventionController.blocageAucuneInscription}">
+						<h:graphicImage value="../../media/images/cancel.png"
+							alt="#{msgs['GENERAL.WARNING']}" title="#{msgs['GENERAL.WARNING']}" />
+						<h:outputText
+							value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.AUCUNE_INSCRIPTION_PAYEE']}"
+							style="color:red;" />
+					</h:panelGrid>
+			
 					<t:div
-						rendered="#{!conventionController.blocageCreationEtpOrpheline}">
+						rendered="#{!conventionController.blocageCreationEtpOrpheline
+						and !conventionController.blocageAucuneInscription}">
 
 						<t:htmlTag value="div" style="height: 10px;" />
 

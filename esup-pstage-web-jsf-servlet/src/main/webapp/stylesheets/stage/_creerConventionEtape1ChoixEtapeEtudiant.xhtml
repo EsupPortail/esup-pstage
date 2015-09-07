@@ -201,7 +201,19 @@
 					value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.NONRATTACHE']}"
 					style="color:red;" />
 			</h:panelGrid>
-			<t:div rendered="#{not empty conventionController.selectedAnneeUniv and !conventionController.blocageCreationEtpOrpheline}">
+			
+			<h:panelGrid columns="2" columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text"
+				rendered="#{not empty conventionController.selectedAnneeUniv and conventionController.blocageAucuneInscription}">
+				<h:graphicImage value="../../media/images/cancel.png"
+					alt="#{msgs['GENERAL.WARNING']}" title="#{msgs['GENERAL.WARNING']}" />
+				<h:outputText
+					value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.AUCUNE_INSCRIPTION_PAYEE']}"
+					style="color:red;" />
+			</h:panelGrid>
+			
+			<t:div rendered="#{not empty conventionController.selectedAnneeUniv and !conventionController.blocageCreationEtpOrpheline
+			and !conventionController.blocageAucuneInscription}">
 
 				<t:htmlTag value="div" style="height: 10px;" />
 

@@ -445,6 +445,11 @@ public class ConventionController extends AbstractContextAwareController {
 	private boolean blocageCreationEtpOrpheline = false;
 
 	/**
+	 * Blocage dès la premiere etape de creation de convention lorsqu'aucune inscription payee n'est trouvee
+	 */
+	private boolean blocageAucuneInscription = false;
+
+	/**
 	 * Liste des conventions selectionnees pour la validation en masse
 	 */
 	private List<ConventionDTO> listeConventionsSelectionnees=new ArrayList<ConventionDTO>();
@@ -756,6 +761,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void loadInfosEtu(){
 		this.choixEtape = false;
+		this.blocageAucuneInscription = false;
+		this.blocageCreationEtpOrpheline = false;
+		
 		if (this.selectedAnneeUniv != null && ! this.selectedAnneeUniv.isEmpty()){
 			ApogeeMap apogeeMap = getStudentDataRepositoryDomain().getEtapesByEtudiantAndAnnee(this.etudiantRef.getNumEtudiant(),this.selectedAnneeUniv);
 
@@ -773,52 +781,55 @@ public class ConventionController extends AbstractContextAwareController {
 			if (!getSessionController().isAutoriserConventionsOrphelines()){
 				this.retirerEtapesOrphelines();
 			}
-			
-			// Cas ou l'on n'a qu'une seule composante
-			if (this.etudiantRef.getStudys().size() == 1) {
-				String clef = null;
-				String valeur = null;
-				Iterator<String> i = this.etudiantRef.getStudys().keySet().iterator();
-				while (i.hasNext())	{
-					clef = i.next();
-					valeur = this.etudiantRef.getStudys().get(clef);
-					this.etudiantRef.setThecodeUFR(clef);
-					if (!StringUtils.hasText(valeur)) {
-						AffectationDTO affecEtudiant = rechAffec(clef);
-						if (affecEtudiant != null) {
-							this.etudiantRef.setTheUfr(affecEtudiant.getLibelle());
+			if (!blocageCreationEtpOrpheline){
+				// Cas ou l'on n'a qu'une seule composante
+				if (this.etudiantRef.getStudys().size() == 1) {
+					String clef = null;
+					String valeur = null;
+					Iterator<String> i = this.etudiantRef.getStudys().keySet().iterator();
+					while (i.hasNext())	{
+						clef = i.next();
+						valeur = this.etudiantRef.getStudys().get(clef);
+						this.etudiantRef.setThecodeUFR(clef);
+						if (!StringUtils.hasText(valeur)) {
+							AffectationDTO affecEtudiant = rechAffec(clef);
+							if (affecEtudiant != null) {
+								this.etudiantRef.setTheUfr(affecEtudiant.getLibelle());
+							}
+						} else {
+							this.etudiantRef.setTheUfr(valeur);
+						}
+
+					}
+				}
+				if (this.etudiantRef.getListeEtapeInscriptions() != null && !this.etudiantRef.getListeEtapeInscriptions().isEmpty()) {
+					// Cas ou l'on n'a qu'une seule etape
+					if (this.etudiantRef.getListeEtapeInscriptions().size() == 1) {
+						//String valeur = null;
+						for (EtapeInscription etp : this.etudiantRef.getListeEtapeInscriptions()){
+							this.etudiantRef.setTheCodeEtape(etp.getCodeEtp());
+							this.etudiantRef.setTheCodeVersionEtape(etp.getCodVrsVet());
+							this.etudiantRef.setTheEtape(etp.getLibWebVet());
+							// recherche des elements pedagogiques
+							this.listeELPEtapes = rechElpEtape(etp.getCodeEtp());
+							if (this.listeELPEtapes != null) {
+								if (this.listeELPEtapes.size() == 1) {
+									this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
+									this.etudiantRef.setTheLibElp(this.listeELPEtapes.get(0).getLibElp());
+									this.etudiantRef.setTheCreditECTS(this.listeELPEtapes.get(0).getNbrCrdElp());
+									this.selectedCodeElp = this.listeELPEtapes.get(0).getCodElp();
+								}
+							}
 						}
 					} else {
-						this.etudiantRef.setTheUfr(valeur);
-					}
-
-				}
-			}
-			if (this.etudiantRef.getListeEtapeInscriptions() != null && !this.etudiantRef.getListeEtapeInscriptions().isEmpty()) {
-				// Cas ou l'on n'a qu'une seule etape
-				if (this.etudiantRef.getListeEtapeInscriptions().size() == 1) {
-					//String valeur = null;
-					for (EtapeInscription etp : this.etudiantRef.getListeEtapeInscriptions()){
-						this.etudiantRef.setTheCodeEtape(etp.getCodeEtp());
-						this.etudiantRef.setTheCodeVersionEtape(etp.getCodVrsVet());
-						this.etudiantRef.setTheEtape(etp.getLibWebVet());
-						// recherche des elements pedagogiques
-						this.listeELPEtapes = rechElpEtape(etp.getCodeEtp());
-						if (this.listeELPEtapes != null) {
-							if (this.listeELPEtapes.size() == 1) {
-								this.etudiantRef.setTheCodeElp(this.listeELPEtapes.get(0).getCodElp());
-								this.etudiantRef.setTheLibElp(this.listeELPEtapes.get(0).getLibElp());
-								this.etudiantRef.setTheCreditECTS(this.listeELPEtapes.get(0).getNbrCrdElp());
-								this.selectedCodeElp = this.listeELPEtapes.get(0).getCodElp();
-							}
+						// Remplissage de la liste des select items
+						this.listeEtapesEtudiant = new ArrayList<SelectItem>();
+						for (EtapeInscription etp : this.etudiantRef.getListeEtapeInscriptions()){
+							this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp()+";"+etp.getCodVrsVet(), etp.getLibWebVet()));
 						}
 					}
 				} else {
-					// Remplissage de la liste des select items
-					this.listeEtapesEtudiant = new ArrayList<SelectItem>();
-					for (EtapeInscription etp : this.etudiantRef.getListeEtapeInscriptions()){
-						this.listeEtapesEtudiant.add(new SelectItem(etp.getCodeEtp()+";"+etp.getCodVrsVet(), etp.getLibWebVet()));
-					}
+					this.setBlocageAucuneInscription(true);
 				}
 			}
 		} else {
@@ -837,6 +848,11 @@ public class ConventionController extends AbstractContextAwareController {
 
 		// ctrl blocage si toutes les etapes sont orphelines
 		if (blocageCreationEtpOrpheline){
+			ctrlInfosOK = false;
+		}
+		
+		// ctrl blocage si on ne trouve aucune inscription payee
+		if (blocageAucuneInscription){
 			ctrlInfosOK = false;
 		}
 
@@ -883,6 +899,7 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 		}
+
 		if (ctrlInfosOK) {
 			// recuperation du centre gérant l'etape/ufr selectionnée
 			CentreGestionDTO centreGestionRattachement = new CentreGestionDTO();
@@ -973,10 +990,9 @@ public class ConventionController extends AbstractContextAwareController {
 			// Ajout de l'annee choisie et non plus deduite de la date de debut de stage
 			if (selectedAnneeUniv!=null){
 				int anneeInt = Integer.parseInt(selectedAnneeUniv);
-				setSelectedAnneeUniv(anneeInt+"/"+ (anneeInt+1));
-				this.convention.setAnnee(selectedAnneeUniv);
+				this.convention.setAnnee((anneeInt+"/"+ (anneeInt+1)));
 			}
-			
+
 			this.ctrlInfosEtuOK = true;
 			//			retour = "_creerConventionEtape1Etudiant";
 			getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ConfirmInfosEtu");
@@ -1067,7 +1083,7 @@ public class ConventionController extends AbstractContextAwareController {
 			ConventionDTO conventionTmp = this.convention;
 			conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 
-			//TODO Ajout possibilite de modif etape
+			// Ajout possibilite de modif etape
 			if (this.etudiantRef.getTheCodeEtape() != null && this.etudiantRef.getTheCodeEtape() != "") {
 				EtapeDTO etapeTmp = new EtapeDTO(); 
 				etapeTmp.setCode(this.etudiantRef.getTheCodeEtape());
@@ -2269,15 +2285,15 @@ public class ConventionController extends AbstractContextAwareController {
 
 		}
 		// Ancien fonctionnement de deduction de l'annee universitaire
-//		if (selAnneeUniversitaire != null) {
-//			String selAnneeUniv = selAnneeUniversitaire.toString();
-//			conventionTmp.setAnnee(selAnneeUniv);
-//		} else {
-//			String anneeUniversitaire = anneeUniv(conventionTmp.getDateDebutStage(),conventionTmp.getDateFinStage());
-//			if (anneeUniversitaire != null) {
-//				conventionTmp.setAnnee(anneeUniversitaire);
-//			}
-//		}
+		//		if (selAnneeUniversitaire != null) {
+		//			String selAnneeUniv = selAnneeUniversitaire.toString();
+		//			conventionTmp.setAnnee(selAnneeUniv);
+		//		} else {
+		//			String anneeUniversitaire = anneeUniv(conventionTmp.getDateDebutStage(),conventionTmp.getDateFinStage());
+		//			if (anneeUniversitaire != null) {
+		//				conventionTmp.setAnnee(anneeUniversitaire);
+		//			}
+		//		}
 
 		conventionTmp.setLoginCreation(getSessionController().getCurrentLogin());
 		EtabRef etabRef = getStudentComponentRepositoryDomain().getEtabRef(getSessionController().getCodeUniversite());
@@ -2430,15 +2446,15 @@ public class ConventionController extends AbstractContextAwareController {
 
 			}
 			// Ancien fonctionnement de deduction de l'annee universitaire
-//			if (selAnneeUniversitaire != null) {
-//				String selAnneeUniv = selAnneeUniversitaire.toString();
-//				conventionTmp.setAnnee(selAnneeUniv);
-//			} else {
-//				String anneeUniversitaire = anneeUniv(conventionTmp.getDateDebutStage(),conventionTmp.getDateFinStage());
-//				if (anneeUniversitaire != null) {
-//					conventionTmp.setAnnee(anneeUniversitaire);
-//				}
-//			}
+			//			if (selAnneeUniversitaire != null) {
+			//				String selAnneeUniv = selAnneeUniversitaire.toString();
+			//				conventionTmp.setAnnee(selAnneeUniv);
+			//			} else {
+			//				String anneeUniversitaire = anneeUniv(conventionTmp.getDateDebutStage(),conventionTmp.getDateFinStage());
+			//				if (anneeUniversitaire != null) {
+			//					conventionTmp.setAnnee(anneeUniversitaire);
+			//				}
+			//			}
 			conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 			try {
 				if (this.getConventionDomainService().updateConvention(conventionTmp)) {
@@ -4457,11 +4473,11 @@ public class ConventionController extends AbstractContextAwareController {
 		try {
 
 			for (ConventionDTO conventionTmp : this.listeConventionsSelectionnees){
-				
+
 				conventionTmp.setValidationConvention(true);
 				conventionTmp.setLoginValidation(getSessionController().getCurrentLogin());
 				conventionTmp.setDateValidation(new Date());
-				
+
 				if (!this.getConventionDomainService().updateConvention(conventionTmp)){
 					addErrorMessage(null,"CONVENTION.VALIDATION_EN_MASSE.ERREUR", conventionTmp.getIdConvention());
 					return null;
@@ -7998,5 +8014,13 @@ public class ConventionController extends AbstractContextAwareController {
 
 	public void setRechOffreByNum(boolean rechOffreByNum) {
 		this.rechOffreByNum = rechOffreByNum;
+	}
+
+	public boolean isBlocageAucuneInscription() {
+		return blocageAucuneInscription;
+	}
+
+	public void setBlocageAucuneInscription(boolean blocageAucuneInscription) {
+		this.blocageAucuneInscription = blocageAucuneInscription;
 	}
 }
