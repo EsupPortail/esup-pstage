@@ -174,7 +174,7 @@
 			</f:facet>
 			<h:panelGrid columns="3" columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text">
-				<h:selectOneMenu id="choixAnneeUniv"
+				<h:selectOneMenu id="choixAnneeUniv" required="true"
 					value="#{conventionController.selectedAnneeUniv}">
 					<f:selectItem itemValue="" />
 					<f:selectItems value="#{conventionController.listeAnneesUniv}" />
@@ -191,7 +191,7 @@
 					</f:facet>
 				</a4j:status>
 			</h:panelGrid>
-			
+
 			<h:panelGrid columns="2" columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text"
 				rendered="#{not empty conventionController.selectedAnneeUniv and conventionController.blocageCreationEtpOrpheline}">
@@ -201,7 +201,7 @@
 					value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.NONRATTACHE']}"
 					style="color:red;" />
 			</h:panelGrid>
-			
+
 			<h:panelGrid columns="2" columnClasses="paginatorData-text"
 				rowClasses="paginatorData-text"
 				rendered="#{not empty conventionController.selectedAnneeUniv and conventionController.blocageAucuneInscription}">
@@ -211,8 +211,9 @@
 					value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.AUCUNE_INSCRIPTION_PAYEE']}"
 					style="color:red;" />
 			</h:panelGrid>
-			
-			<t:div rendered="#{not empty conventionController.selectedAnneeUniv and !conventionController.blocageCreationEtpOrpheline
+
+			<t:div
+				rendered="#{not empty conventionController.selectedAnneeUniv and !conventionController.blocageCreationEtpOrpheline
 			and !conventionController.blocageAucuneInscription}">
 
 				<t:htmlTag value="div" style="height: 10px;" />
@@ -316,25 +317,27 @@
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 		</rich:panel>
-		<t:htmlTag value="div" style="height: 10px;" />
-		<t:htmlTag value="center">
-			<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
-				render="formConvention" style="font-size:14px; border:solid 1px;"
-				action="#{conventionController.goToCreerConventionCtrlInfosEtu}" />
-		</t:htmlTag>
-		<a4j:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}"
-			immediate="true" render="formConvention"
-			rendered="#{welcomeController.personnel}">
-			<f:setPropertyActionListener
-				value="_creerConventionEtape1RechercheEtudiant"
-				target="#{sessionController.creationConventionEtape1CurrentPage}" />
-		</a4j:commandButton>
-		<a4j:commandButton value="#{msgs['CONVENTION.REVENIR.LISTE.ETU']}"
-			immediate="true" render="formConvention"
-			rendered="#{conventionController.etudiantTrouves}">
-			<f:setPropertyActionListener
-				value="_creerConventionEtape1ListeEtudiant"
-				target="#{sessionController.creationConventionEtape1CurrentPage}" />
-		</a4j:commandButton>
+		<t:htmlTag value="div" style="height:20px;" />
+		<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
+			id="validerChoixEtape" render="formConvention"
+			style="font-size:14px; border:solid 1px; margin-left:200px;"
+			action="#{conventionController.goToCreerConventionCtrlInfosEtu}" />
+		<t:htmlTag value="div" style="height:30px;" />
+		<h:panelGrid>
+			<a4j:commandButton value="#{msgs['CONVENTION.REVENIR.LISTE.ETU']}"
+				immediate="true" render="formConvention"
+				rendered="#{conventionController.etudiantTrouves}">
+				<f:setPropertyActionListener
+					value="_creerConventionEtape1ListeEtudiant"
+					target="#{sessionController.creationConventionEtape1CurrentPage}" />
+			</a4j:commandButton>
+			<a4j:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}"
+				immediate="true" render="formConvention"
+				rendered="#{welcomeController.personnel}">
+				<f:setPropertyActionListener
+					value="_creerConventionEtape1RechercheEtudiant"
+					target="#{sessionController.creationConventionEtape1CurrentPage}" />
+			</a4j:commandButton>
+		</h:panelGrid>
 	</rich:panel>
 </ui:fragment>

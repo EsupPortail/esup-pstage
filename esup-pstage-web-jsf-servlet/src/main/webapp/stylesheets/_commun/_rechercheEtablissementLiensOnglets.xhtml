@@ -6,26 +6,43 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:outputText style="font-weight:bold;" value="#{msgs['RECHERCHEETABLISSEMENT.CHOIX']}" />
-	<t:htmlTag value="div" style="height:10px;"/>
+	<h:outputText style="font-weight:bold;"
+		value="#{msgs['RECHERCHEETABLISSEMENT.CHOIX']}" />
+	<t:htmlTag value="div" style="height:10px;" />
 	<h:commandButton
+		style="color: #{rechercheController.ongletCourant == '2' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '2' ? 'green' : 'black'};"
 		action="#{rechercheController.goToOngletRaisonSociale}"
-		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2']}" immediate="true"/>
+		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2']}" immediate="true" />
 	<t:htmlTag value="div" style="margin: 10px; display:inline;" />
-	<h:commandButton action="#{rechercheController.goToOngletSiret}"
-		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1']}" immediate="true"/>
+	<h:commandButton
+		style="color: #{rechercheController.ongletCourant == '1' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '1' ? 'green' : 'black'};"
+		action="#{rechercheController.goToOngletSiret}"
+		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1']}" immediate="true" />
 	<t:htmlTag value="div" style="margin: 10px; display:inline;" />
-	<h:commandButton action="#{rechercheController.goToOngletActivite}"
-		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3']}" immediate="true"/>
+	<h:commandButton
+		style="color: #{rechercheController.ongletCourant == '3' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '3' ? 'green' : 'black'};"
+		action="#{rechercheController.goToOngletActivite}"
+		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3']}" immediate="true" />
 	<t:htmlTag value="div" style="margin: 10px; display:inline;" />
-	<h:commandButton action="#{rechercheController.goToOngletTelFax}"
-		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4']}" immediate="true"/>
+	<h:commandButton
+		style="color: #{rechercheController.ongletCourant == '4' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '4' ? 'green' : 'black'};"
+		action="#{rechercheController.goToOngletTelFax}"
+		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4']}" immediate="true" />
 	<t:htmlTag value="div" style="margin: 10px; display:inline;" />
-	<h:commandButton action="#{rechercheController.goToOngletAdresse}"
-		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7']}" immediate="true"/>
+	<h:commandButton
+		style="color: #{rechercheController.ongletCourant == '7' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '7' ? 'green' : 'black'};"
+		action="#{rechercheController.goToOngletAdresse}"
+		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7']}" immediate="true" />
 	<t:htmlTag value="div" style="margin: 10px; display:inline;" />
-	<h:commandButton action="#{rechercheController.goToOngletService}"
+	<h:commandButton
+		style="color: #{rechercheController.ongletCourant == '5' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '5' ? 'green' : 'black'};"
+		action="#{rechercheController.goToOngletService}"
 		rendered="#{not welcomeController.etudiant}"
-		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5']}" immediate="true"/>
+		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5']}" immediate="true" />
 	<t:htmlTag value="div" style="margin: 10px; display:inline;" />
+	<h:commandButton
+		style="color:purple; border: solid 1px;"
+		action="#{rechercheController.rechercheTemoinFalse}"
+		rendered="#{welcomeController.superAdmin}"
+		value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET8']}" immediate="true" />
 </ui:composition>

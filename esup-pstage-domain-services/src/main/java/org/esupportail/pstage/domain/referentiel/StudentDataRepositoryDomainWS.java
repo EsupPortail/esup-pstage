@@ -43,14 +43,14 @@ public class StudentDataRepositoryDomainWS implements
 
 	
 	/**
-	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String)
+	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public EtudiantRef getEtudiantRefByNum(String universityCode, String id) {
+	public EtudiantRef getEtudiantRefByNum(String universityCode, String id, String annee) {
 		if(logger.isDebugEnabled()){
 			logger.debug("getStudentByNum("+universityCode+","+id+");");
 		}
 
-		return studentDataRepositoryDaoWS.getEtudiantRefByNum(universityCode, id);
+		return studentDataRepositoryDaoWS.getEtudiantRefByNum(universityCode, id, annee);
 		
 	}
 

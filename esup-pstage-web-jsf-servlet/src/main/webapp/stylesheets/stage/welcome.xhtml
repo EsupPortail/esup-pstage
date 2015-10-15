@@ -14,6 +14,24 @@
 						value="#{msgs['GENERAL.ACCUEIL.STAGE.WELCOME']}" />
 				</p>
 				<t:htmlTag value="br" />
+				
+				<t:htmlTag value="div" style="height:10px;"/>
+				<h:outputText value="Documents annexes : " style="font-weight:bold;"/>
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text"
+					style="margin-left:20px; padding-top:2px; font-weight:bold; text-decoration:underline;">
+					<h:outputLink
+						value="#{sessionController.mediaPath}/docs/2015-Notice_Convention_Stage-v1.1.pdf">
+						<h:graphicImage value="../../media/images/docs.gif"/>
+						Notice Convention de stage
+					</h:outputLink>
+					<t:htmlTag value="div" style="height:5px;"/>
+					<h:outputLink
+						value="#{sessionController.mediaPath}/docs/2015-Notice_Convention_Stage_BILINGUES-v1.1.zip">
+						<h:graphicImage value="../../media/images/docs.gif"/>
+						Notices bilingues Convention de stage (Anglais - Espagnol - Allemand)
+					</h:outputLink>
+				</h:panelGrid>
 			</t:div>
 			<h:form id="disconnectEntr"
 				rendered="#{sessionController.adminPageAuthorized}">

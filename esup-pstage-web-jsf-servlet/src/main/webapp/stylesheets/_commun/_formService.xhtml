@@ -12,8 +12,7 @@
 		<h:outputLabel for="nomService" value="#{msgs['SERVICE.NOM']} *" />
 		<h:inputText id="nomService"
 			value="#{etablissementController.formService.nom}" size="50"
-			maxlength="50" required="true"
-			converter="#{upperCaseConverter}"
+			maxlength="50" required="true" converter="#{upperCaseConverter}"
 			requiredMessage="#{requiredMessageController.champObligatoire}"
 			style="text-transform:uppercase;">
 		</h:inputText>
@@ -54,25 +53,23 @@
 					rowClasses="paginatorData-text" columns="3">
 					<t:htmlTag value="div" style="width: 25px;" />
 					<t:htmlTag value="div"
-						style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 124px" />
+						style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height:124px;" />
 					<t:htmlTag value="div" style="width: 25px;" />
 				</h:panelGrid>
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text">
 					<a4j:outputPanel id="opCodePostal">
 						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
+							rowClasses="paginatorData-text"
 							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 								(etablissementController.formServiceTmpPays!=beanUtils.france and etablissementController.formServiceTmpPays.cog!=beanUtils.cogFrance
 								and sessionController.recupererCommunesDepuisApogee)}">
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
-								<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
-									for="codePostal" />
-								<h:outputLabel value=" *" for="codePostal"
-									rendered="#{!sessionController.recupererCommunesDepuisApogee and 
-								(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)}" />
-							</h:panelGrid>
+							<h:outputLabel for="codePostal"
+								value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
+								rendered="#{!sessionController.recupererCommunesDepuisApogee and 
+									(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)}" />
+							<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
+								for="codePostal" />
 							<h:inputText id="codePostal"
 								value="#{etablissementController.formService.codePostal}"
 								size="20" maxlength="10"
@@ -85,11 +82,11 @@
 							</rich:message>
 						</h:panelGrid>
 						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
+							rowClasses="paginatorData-text"
 							rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
 							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="1">
+								rowClasses="paginatorData-text">
 								<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
 									for="dynaCodePostal" />
 								<h:inputText id="dynaCodePostal"
@@ -125,7 +122,7 @@
 							</rich:message>
 						</h:panelGrid>
 						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
+							rowClasses="paginatorData-text"
 							rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
 							<a4j:outputPanel id="opDynaCommune">

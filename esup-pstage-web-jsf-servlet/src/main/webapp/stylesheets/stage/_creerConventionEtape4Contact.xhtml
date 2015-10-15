@@ -6,31 +6,26 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1"
+	<h:panelGrid
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE4.CONTACT']}" />
 			</f:facet>
-			<h:panelGrid columns="1">
-				<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-					action="creerConventionEtape3Service"
-					alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-					immediate="true"/>
-				<t:htmlTag value="div" style="height: 20px;" />
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE4.CHOIXCONTACT.DEMANDE']}"
-					rendered="#{conventionController.saisieTuteurProParEtudiant}" />
+			<h:panelGrid >
+<!-- 				<h:outputText -->
+<!-- 					value="#{msgs['CONVENTION.ETAPE4.CHOIXCONTACT.DEMANDE']}" -->
+<!-- 					rendered="#{conventionController.saisieTuteurProParEtudiant}" /> -->
 
-				<t:htmlTag value="div" style="height: 20px;" />
+				<t:htmlTag value="div" style="height:10px;" />
 
 				<a4j:outputPanel id="opContactsDataTable"
 					rendered="#{conventionController.saisieTuteurProParEtudiant}">
 					<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
 						rendered="#{empty etablissementController.listeContacts}"
 						escape="false" />
-					<h:panelGrid columns="2">
-						<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
+					<h:panelGrid columns="2" style="margin-left:40px; font-weight:bold;">
+						<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']} "
 							escape="false"
 							rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}" />
@@ -49,6 +44,7 @@
 							<rich:tooltip value="#{msgs['FORM.CREER']}" />
 						</a4j:commandLink>
 					</h:panelGrid>
+					<t:htmlTag value="div" style="height:10px;" />
 					<rich:dataTable align="center" width="600" id="contactsDataTable"
 						rows="10" columnClasses="col" var="contact" rowKeyVar="rowContact"
 						value="#{etablissementController.listeContacts}"
@@ -230,6 +226,13 @@
 				</h:panelGrid>
 
 			</h:panelGrid>
+			
+			<t:htmlTag value="div" style="height:30px;" />
+			
+			<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				action="creerConventionEtape3Service"
+				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+				immediate="true"/>
 		</rich:panel>
 	</h:panelGrid>
 </ui:composition>

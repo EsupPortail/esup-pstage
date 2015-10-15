@@ -14,24 +14,20 @@
 				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columns="1">
+				<h:panelGrid>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE2.ETAB']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 10px;" />
 					<h:panelGrid columns="2" align="center">
-						<h:column>
-							<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-								title="#{msgs['GENERAL.WARNING']}"
-								value="../../media/images/warning_50px.png" style="border:0" />
-							<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.INFO']}"
-								escape="false" />
-						</h:column>
+						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+							title="#{msgs['GENERAL.WARNING']}"
+							value="../../media/images/warning_20px.png" style="border:0" />
+						<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.INFO']}"
+							escape="false" />
 					</h:panelGrid>
-					<h:outputText value="" />
-					<h:panelGrid columns="1">
-						<rich:messages showDetail="true">
-						</rich:messages>
+					<h:panelGrid>
+						<rich:messages showDetail="true" />
 						<ui:include
 							src="/stylesheets/stage/_conventionEtape2ModifEtab.xhtml" />
 					</h:panelGrid>

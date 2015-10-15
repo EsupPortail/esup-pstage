@@ -12,26 +12,28 @@
 			<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE']}" />
 		</f:facet>
 		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
-			<t:htmlTag value="div" style="height: 10px;" />
+			rowClasses="paginatorData-text">
+			<t:htmlTag value="div" style="height:10px;" />
 			<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.DEMANDE']}"
 				escape="false" />
 			<t:htmlTag value="div" style="height: 5px;" />
 			<h:panelGrid columns="3" align="center">
 				<h:commandButton value="#{msgs['FORM.OUI']}"
-					action="#{conventionController.goToCreerConventionEtape1Offre}" />
+					action="#{conventionController.goToCreerConventionEtape1Offre}"
+					style="font-size:14px; border:solid 1px;"/>
 				<t:htmlTag value="div" style="width: 100px;" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
-					action="#{conventionController.goToCreerConventionEtape2Etab}" />
+					action="#{conventionController.goToCreerConventionEtape2Etab}"
+					style="font-size:14px; border:solid 1px;" />
 			</h:panelGrid>
-			<t:htmlTag value="div" style="height:5px;" />
-			<h:panelGrid columns="2">
-				<h:graphicImage alt="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
-					title="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
-					value="../../media/images/information.png" style="border:0" />
-				<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}" />
-			</h:panelGrid>
-			<t:htmlTag value="div" style="height: 20px;" />
+<!-- 			<t:htmlTag value="div" style="height:10px;" /> -->
+<!-- 			<h:panelGrid columns="2"> -->
+<!-- 				<h:graphicImage alt="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}" -->
+<!-- 					title="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}" -->
+<!-- 					value="../../media/images/information.png" style="border:0" /> -->
+<!-- 				<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}" /> -->
+<!-- 			</h:panelGrid> -->
+			<t:htmlTag value="div" style="height:30px;" />
 			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
 				render="formConvention">
 				<f:setPropertyActionListener

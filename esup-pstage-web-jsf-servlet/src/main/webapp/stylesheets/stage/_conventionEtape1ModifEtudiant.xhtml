@@ -147,13 +147,32 @@
 						<h:outputText style="font-size:12px;"
 							value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
 					</f:facet>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
-						<h:outputText value="#{msgs['CONVENTION.ANNEE']}"
-							style="font-weight:bold;" />
-						<h:outputText value="#{conventionController.convention.annee}" />
-					</h:panelGrid>
+<!-- 					<h:panelGrid columns="2" columnClasses="paginatorData-text" -->
+<!-- 						rowClasses="paginatorData-text"> -->
+<!-- 						<h:outputText value="#{msgs['CONVENTION.ANNEE']}" -->
+<!-- 							style="font-weight:bold;" /> -->
+<!-- 						<h:outputText value="#{conventionController.convention.annee}" /> -->
+<!-- 					</h:panelGrid> -->
 
+					<h:panelGrid columns="3" columnClasses="paginatorData-text"
+						rowClasses="paginatorData-text">
+						<h:selectOneMenu id="choixAnneeUniv" required="true"
+							value="#{conventionController.selectedAnneeUniv}">
+							<f:selectItem itemValue="" />
+							<f:selectItems value="#{conventionController.listeAnneesUniv}" />
+							<a4j:ajax event="valueChange" status="statusLoadInfos"
+								listener="#{conventionController.loadInfosEtu}"
+								render="panelInscription" />
+						</h:selectOneMenu>
+						<rich:message for="choixAnneeUniv">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</rich:message>
+						<a4j:status name="statusLoadInfos">
+							<f:facet name="start">
+								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+							</f:facet>
+						</a4j:status>
+					</h:panelGrid>
 					<h:panelGrid columns="2" columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text"
 						rendered="#{conventionController.blocageCreationEtpOrpheline}">
@@ -190,7 +209,7 @@
 								<h:outputLabel for="etape"
 									value="#{msgs['CONVENTION.VOTREETAPE']}" />
 								<h:outputText id="etape"
-									value="#{conventionController.etudiantRef.theCodeEtape} - #{conventionController.etudiantRef.theEtape}" />
+									value="#{conventionController.etudiantRef.theCodeEtape} ; #{conventionController.etudiantRef.theCodeVersionEtape} - #{conventionController.etudiantRef.theEtape}" />
 							</h:panelGrid>
 							<h:panelGrid columns="2" style="padding:5px;"
 								rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">

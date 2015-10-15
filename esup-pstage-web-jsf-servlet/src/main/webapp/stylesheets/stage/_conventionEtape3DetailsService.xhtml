@@ -88,14 +88,9 @@
 				<a4j:commandButton execute="@this" id="selectionService"
 					value="#{msgs['FORM.SELECTIONNER']}" style="color:green;"
 					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
-						and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+						and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-						|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-						(!sessionController.autoriserEtudiantAModifierEntreprise 
-						and ((empty etablissementController.serviceSel.loginModif and
-						etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
-						|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
+						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
 					oncomplete="#{rich:component('demandeConfirmModifService')}.show()"
 					render="opActionsService">
 					<f:setPropertyActionListener

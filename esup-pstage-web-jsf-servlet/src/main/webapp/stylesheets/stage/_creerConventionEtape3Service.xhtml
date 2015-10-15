@@ -11,21 +11,10 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE3.SERVICE']}" />
 		</f:facet>
+<!-- 		<h:outputText -->
+<!-- 			value="#{msgs['CONVENTION.ETAPE3.CHOIXSERVICE.DEMANDE']}" /> -->
 
-		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-			action="creerConventionEtape2Etab" immediate="true">
-			<f:setPropertyActionListener
-				value="_creerConventionEtape2DetailsEtab"
-				target="#{sessionController.creationConventionEtape2CurrentPage}" />
-		</h:commandButton>
-
-		<t:htmlTag value="div" style="height: 40px;" />
-
-		<h:outputText
-			value="#{msgs['CONVENTION.ETAPE3.CHOIXSERVICE.DEMANDE']}" />
-
-		<t:htmlTag value="div" style="height: 20px;" />
+		<t:htmlTag value="div" style="height:10px;" />
 
 		<h:outputText
 			value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
@@ -35,7 +24,8 @@
 			escape="false" />
 
 		<a4j:outputPanel id="opService">
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="2" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
 				<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
 					escape="false"
 					rendered="#{not empty etablissementController.listeServices}" />
@@ -49,7 +39,8 @@
 						execute="@this" />
 				</h:selectOneMenu>
 			</h:panelGrid>
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="3" style="padding-top:10px; margin-left:40px;" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text">
 				<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
 				<a4j:commandLink execute="@this" id="ajout"
 					rendered="#{not empty etablissementController.idServiceSel}"
@@ -72,7 +63,8 @@
 				escape="false"
 				rendered="#{not empty etablissementController.serviceSel}" />
 			<rich:dataTable value="#{etablissementController.serviceSel}"
-				rendered="#{not empty etablissementController.serviceSel}">
+				rendered="#{not empty etablissementController.serviceSel}"
+				style="margin-top:10px;">
 				<ui:include src="../_commun/_serviceColumns.xhtml" />
 
 				<rich:column>
@@ -147,6 +139,14 @@
 				</f:facet>
 			</rich:dataTable>
 		</a4j:outputPanel>
-		<t:htmlTag value="div" style="height: 20px;" />
+		<t:htmlTag value="div" style="height:30px;" />
+
+		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+			action="creerConventionEtape2Etab" immediate="true">
+			<f:setPropertyActionListener
+				value="_creerConventionEtape2DetailsEtab"
+				target="#{sessionController.creationConventionEtape2CurrentPage}" />
+		</h:commandButton>
 	</rich:panel>
 </ui:composition>

@@ -6,27 +6,37 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="4" style="font-size:11px;"
-		rendered="#{not empty objet}">
-		<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.CREELE']}"
-			rendered="#{not empty objet.dateCreation}" />
-		<h:outputText value="#{objet.dateCreation}"
+	<t:div rendered="#{not empty objet}">
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="2" style="font-size:11px;"
 			rendered="#{not empty objet.dateCreation}">
-			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-		</h:outputText>
-		<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
-			rendered="#{not empty objet.dateCreation and not empty objet.loginCreation}" />
-		<h:outputText value="#{objet.loginCreation}"
-			rendered="#{not empty objet.dateCreation and not empty objet.loginCreation}" />
-		<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.MODIFIELE']}"
-			rendered="#{not empty objet.dateModif}" />
-		<h:outputText value="#{objet.dateModif}"
-			rendered="#{not empty objet.dateModif}">
-			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-		</h:outputText>
-		<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
-			rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
-		<h:outputText value="#{objet.loginModif}"
-			rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
-	</h:panelGrid>
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.CREELE']}"/>
+			<h:outputText value="#{objet.dateCreation}">
+				<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+			</h:outputText>
+		</h:panelGrid>
+		<h:panelGrid columns="2" style="margin-left:20px;">
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
+				rendered="#{not empty objet.loginCreation}"/>
+			<h:outputText escape="false" value="#{objet.loginCreation}"
+				rendered="#{not empty objet.loginCreation}"/>
+		</h:panelGrid>
+		<t:htmlTag value="div" style="height: 5px;" />
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" columns="4" style="font-size:11px;"
+			rendered="#{not empty objet}">
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.MODIFIELE']}"
+				rendered="#{not empty objet.dateModif}" />
+			<h:outputText value="#{objet.dateModif}"
+				rendered="#{not empty objet.dateModif}">
+				<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+			</h:outputText>
+		</h:panelGrid>
+		<h:panelGrid columns="2" style="margin-left:20px;">
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
+				rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
+			<h:outputText value="#{objet.loginModif}"
+				rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
+		</h:panelGrid>
+	</t:div>
 </ui:composition>

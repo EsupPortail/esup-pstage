@@ -13,6 +13,7 @@ import javax.faces.model.SelectItem;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.paginators.RechercheStructurePaginator;
 import org.esupportail.pstagedata.domain.dto.CritereRechercheStructureAdresseDTO;
+import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 import org.esupportail.pstagedata.domain.dto.NafN1DTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
 import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
@@ -240,6 +241,16 @@ public class RechercheController extends AbstractContextAwareController {
 	public String goToAffichageRechercheEtablissement(){
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
+		}
+		// obtention mail du LoginCreation si LoginCreation est un etudiant
+		if (this.resultatRechercheStructure != null){
+			EtudiantDTO etudiant = this.getEtudiantDomainService().getEtudiantFromUid(this.resultatRechercheStructure.getLoginCreation(), getSessionController().getCodeUniversite());
+			if (etudiant!=null){
+				// si la structure a ete creee par un etudiant, on ajoute son mail au login creation affiche
+				String loginCreationAndMail = this.resultatRechercheStructure.getLoginCreation();
+				loginCreationAndMail+=("<i>("+etudiant.getMail()+")</i>");
+				this.resultatRechercheStructure.setLoginCreation(loginCreationAndMail);
+			}
 		}
 		return "affichageRechercheEtablissement";
 	}
@@ -536,6 +547,24 @@ public class RechercheController extends AbstractContextAwareController {
 		return null;
 	}
 
+	/* *********************************************
+	 * Recherches des etablissements supprimés pour superadmin
+	 **********************************************/
+	/**
+	 * Recherche par temoin en service a false
+	 * @return String
+	 */
+	public String rechercheTemoinFalse(){
+
+		afficherBoutonAjoutEtab=false;
+		resetResultats();
+		this.ongletCourant=8;
+		this.resultatRechercheStructure=null;
+		this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresTemEnServFalse();
+		checkListeResultats();
+		
+		return null;
+	}
 
 	/**
 	 * Re-chargement du paginator 

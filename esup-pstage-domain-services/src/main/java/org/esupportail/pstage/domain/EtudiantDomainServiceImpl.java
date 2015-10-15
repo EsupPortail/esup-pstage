@@ -84,4 +84,10 @@ public class EtudiantDomainServiceImpl implements EtudiantDomainService {
 		return this.remoteServices.updateEtudiant(etudiant);
 	}
 
+	/**
+	 * @see org.esupportail.pstagedata.domain.EtudiantDomainService#getEtudiantFromUID(String)
+	 */
+	public EtudiantDTO getEtudiantFromUid(String uidEtudiant, String codeUniversite){
+		return this.remoteServices.getEtudiantFromUid(uidEtudiant, codeUniversite);
+	}
 }

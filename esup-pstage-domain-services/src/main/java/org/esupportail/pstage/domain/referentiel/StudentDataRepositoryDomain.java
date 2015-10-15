@@ -22,7 +22,7 @@ public EtudiantRef getEtudiantRef(String universityCode, String id);
  * @param id
  * @return EtudiantRef
  */
-public EtudiantRef getEtudiantRefByNum(String universityCode, String id);
+public EtudiantRef getEtudiantRefByNum(String universityCode, String id, String annee);
 /**
  * @param universityCode
  * @param name

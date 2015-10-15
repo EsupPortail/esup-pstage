@@ -40,10 +40,10 @@ public void setStudentDataRepositoryDao(
 
 	
 	/**
-	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String)
+	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public EtudiantRef getEtudiantRefByNum(String universityCode, String id) {
-		return studentDataRepositoryDao.getEtudiantRefByNum(universityCode,id);
+	public EtudiantRef getEtudiantRefByNum(String universityCode, String id,String annee) {
+		return studentDataRepositoryDao.getEtudiantRefByNum(universityCode,id,annee);
 	}
 
 

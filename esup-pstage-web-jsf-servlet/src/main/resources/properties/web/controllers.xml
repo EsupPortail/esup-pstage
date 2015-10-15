@@ -176,6 +176,16 @@
 		<property name="surchargeTuteur" value="${surchargeTuteur}" />
 		<property name="courrierRemerciement" value="${courrierRemerciement}" />
 		<property name="isEnt" value="${isEnt}" />
+		
+		<!-- props pour l'envoi de mail sans esupcommons -->
+        <property name="fromEmail" value="${smtp.fromEmail}" />
+        <property name="fromName" value="${smtp.fromName}" />
+		<property name="interceptAll" value="${smtp.interceptAll}" />
+		<property name="interceptMail" value="${smtp.interceptEmail}" /> 
+		<property name="interceptName" value="${smtp.interceptName}" /> 
+        <property name="smtpHost" value="${smtp.host}" />
+		<property name="smtpUser" value="${smtp.user}" />
+		<property name="smtpPassword" value="${smtp.password}" />
 	</bean>
 
 	<bean id="abstractContextAwareController" abstract="true"
@@ -230,6 +240,7 @@
 		parent="abstractContextAwareController" scope="session">
 		<description>A bean to manage the welcome page.</description>
 		<property name="etablissementController" ref="etablissementController" />
+		<property name="conventionController" ref="conventionController" />
 		<property name="offreController" ref="offreController" />
 		<property name="ldapUserService" ref="ldapUserService" />
 		<property name="affiliation" value="${ldap.affiliation}" />

@@ -57,4 +57,10 @@ public interface EtudiantDomainService extends Serializable {
 	 */
 	public boolean deleteEtudiant(int idEtudiant) throws DataDeleteException, WebServiceDataBaseException;
 
+	/**
+	 * @param uidEtudiant
+	 * @param codeUniversite
+	 * @return EtudiantDTO
+	 */
+	public EtudiantDTO getEtudiantFromUid(String uidEtudiant, String codeUniversite);
 }

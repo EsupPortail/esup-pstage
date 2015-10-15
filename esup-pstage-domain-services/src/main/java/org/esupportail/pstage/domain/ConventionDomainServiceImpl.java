@@ -444,4 +444,10 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 		return this.remoteServices.updateConventionSetCodeVersionEtape(codeEtape, codeVersionEtape);
 	}
 
+	/**
+	 * @see org.esupportail.pstage.domain.ConventionDomainService#getNbConventionsByAnneeAndEtu(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	public int getNbConventionsByAnneeAndEtu(String annee, String identEtudiant, String codeUniversite){
+		return this.remoteServices.getNbConventionsByAnneeAndEtu(annee, identEtudiant, codeUniversite);
+	}
 }

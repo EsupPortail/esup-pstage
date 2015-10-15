@@ -64,7 +64,7 @@
 				</a4j:outputPanel>
 			</h:panelGrid>
 		</t:panelGrid>
-		<h:panelGrid columns="3" columnClasses="paginatorData-text"
+		<h:panelGrid columns="2" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text"
 			rendered="#{empty offreController.centreGestionDepotAnonyme}">
 			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
@@ -89,6 +89,24 @@
 	<t:htmlTag value="div" style="height:5px;" />
 
 	<a4j:outputPanel id="opContactsDataTable" ajaxRendered="true">
+		<h:panelGrid columns="3" columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text"
+			rendered="#{not empty etablissementController.listeContacts}">
+			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
+				escape="false" />
+			<h:selectOneMenu id="sOMContact"
+				value="#{etablissementController.idContactSel}"
+				converter="#{intConverter}"
+				valueChangeListener="#{etablissementController.valueIdContactChanged}"
+				required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<f:selectItems value="#{etablissementController.contactsItems}" />
+				<a4j:ajax event="valueChange" render="opContact" execute="@this" />
+			</h:selectOneMenu>
+			<rich:message for="sOMContact">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</h:panelGrid>
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text">
 			<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
@@ -116,24 +134,6 @@
 					<rich:tooltip value="#{msgs['FORM.CREER']}" />
 				</a4j:commandLink>
 			</h:panelGrid>
-		</h:panelGrid>
-		<h:panelGrid columns="3" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text"
-			rendered="#{not empty etablissementController.listeContacts}">
-			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
-				escape="false" />
-			<h:selectOneMenu id="sOMContact"
-				value="#{etablissementController.idContactSel}"
-				converter="#{intConverter}"
-				valueChangeListener="#{etablissementController.valueIdContactChanged}"
-				required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<f:selectItems value="#{etablissementController.contactsItems}" />
-				<a4j:ajax event="valueChange" render="opContact" execute="@this" />
-			</h:selectOneMenu>
-			<rich:message for="sOMContact">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
 		</h:panelGrid>
 	</a4j:outputPanel>
 </ui:composition>

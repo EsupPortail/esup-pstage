@@ -922,6 +922,7 @@ public class CentreController extends AbstractContextAwareController {
 			return null;
 		}
 		for(int i=0;i < this.listeCriteresChoisis.size();i++){
+			tmp = new CritereGestionDTO();
 			code = (String)listeCriteresChoisis.get(i);
 			tmp.setLibelle(this.toutLesCriteres.get(code));
 			if (code.contains(";")){
@@ -1657,56 +1658,58 @@ public class CentreController extends AbstractContextAwareController {
 			logger.debug("public String modifierPersonnel() ");
 		}
 
-		personnel.setLoginModif(getSessionController().getCurrentLogin());
+		this.personnel.setLoginModif(getSessionController().getCurrentLogin());
 
 		// On défini l'idDroitAdministration à partir de l'objet DroitAdministration attaché au personnel
-		personnel.setIdDroitAdmin(personnel.getDroitAdmin().getId());
+		this.personnel.setIdDroitAdmin(this.personnel.getDroitAdmin().getId());
 
 		try{
 			// Modification du personnel
-			getPersonnelCentreGestionDomainService().updatePersonnelCentreGestion(personnel);
+			getPersonnelCentreGestionDomainService().updatePersonnelCentreGestion(this.personnel);
 
-			//Maj droit
-			Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
-			if (droitsAccesMap!=null 
-					&& !droitsAccesMap.isEmpty() 
-					&& droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
-				droitsAccesMap.remove(this.personnel.getIdCentreGestion());
-				droitsAccesMap.put(this.personnel.getIdCentreGestion(), this.personnel.getDroitAdmin());
-				getSessionController().setDroitsAccesMap(droitsAccesMap);
-			}
+			//Maj droits si l'on modifie la personne connectée
+			if(this.personnel.getUidPersonnel().equals(getSessionController().getCurrentLogin())){
+				Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
+				if (droitsAccesMap!=null 
+						&& !droitsAccesMap.isEmpty() 
+						&& droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
+					droitsAccesMap.remove(this.personnel.getIdCentreGestion());
+					droitsAccesMap.put(this.personnel.getIdCentreGestion(), this.personnel.getDroitAdmin());
+					getSessionController().setDroitsAccesMap(droitsAccesMap);
+				}
 
-			// Nouveaux droits d'acces aux fiches d'evaluation
-			Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
-			if(this.personnel.isDroitEvaluationEtudiant()){
-				// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
-				droitsEvaluationEtudiantMap.put(this.centre.getIdCentreGestion(), true);
-			} else {
-				// Si le droit evaluation est mis a false, retrait de la clef
-				if (droitsEvaluationEtudiantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
-			}
-			getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
+				// Nouveaux droits d'acces aux fiches d'evaluation
+				Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
+				if(this.personnel.isDroitEvaluationEtudiant()){
+					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+					droitsEvaluationEtudiantMap.put(this.centre.getIdCentreGestion(), true);
+				} else {
+					// Si le droit evaluation est mis a false, retrait de la clef
+					if (droitsEvaluationEtudiantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
+				}
+				getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
 
-			Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
-			if(this.personnel.isDroitEvaluationEnseignant()){
-				// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
-				droitsEvaluationEnseignantMap.put(this.centre.getIdCentreGestion(), true);
-			} else {
-				// Si le droit evaluation est mis a false, retrait de la clef
-				if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
-			}
-			getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
-			
+				Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
+				if(this.personnel.isDroitEvaluationEnseignant()){
+					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+					droitsEvaluationEnseignantMap.put(this.centre.getIdCentreGestion(), true);
+				} else {
+					// Si le droit evaluation est mis a false, retrait de la clef
+					if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
+				}
+				getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
+				
 
-			Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
-			if(this.personnel.isDroitEvaluationEntreprise()){
-				// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
-				droitsEvaluationEntrepriseMap.put(this.centre.getIdCentreGestion(), true);
-			} else {
-				// Si le droit evaluation est mis a false, retrait de la clef
-				if (droitsEvaluationEntrepriseMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
+				Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
+				if(this.personnel.isDroitEvaluationEntreprise()){
+					// Si l'on ajoute le meme personnel que l'user connecté, ajout dans sa map du droit d'evaluation
+					droitsEvaluationEntrepriseMap.put(this.centre.getIdCentreGestion(), true);
+				} else {
+					// Si le droit evaluation est mis a false, retrait de la clef
+					if (droitsEvaluationEntrepriseMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
+				}
+				getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 			}
-			getSessionController().setDroitsEvaluationEntrepriseMap(droitsEvaluationEntrepriseMap);
 		} catch (DataUpdateException d){
 			logger.error("DataUpdateException",d.fillInStackTrace());
 			addErrorMessage("formModifPersonnel:erreurModifPersonnel","CENTRE.PERSONNEL.MODIF.ERREUR");

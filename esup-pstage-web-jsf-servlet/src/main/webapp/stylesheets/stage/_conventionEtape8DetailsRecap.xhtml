@@ -425,7 +425,7 @@
 					rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle and conventionController.convention.idUniteDureeExceptionnelle != 0}">
 					<h:outputText
 						value="#{conventionController.convention.dureeExceptionnelle}" />
-					<h:outputText value="heeeeure(s)"
+					<h:outputText value="heure(s)"
 						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
 					<h:outputText value="jour(s)"
 						rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
@@ -733,6 +733,7 @@
 	<h:panelGrid columnClasses="paginatorData-text"
 		rowClasses="paginatorData-text" align="right"
 		rendered="#{welcomeController.superAdmin 
+			|| welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
 		<a4j:commandLink execute="@this" id="suppr"

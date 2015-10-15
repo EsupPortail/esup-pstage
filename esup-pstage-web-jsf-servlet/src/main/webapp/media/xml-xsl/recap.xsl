@@ -425,7 +425,10 @@
 										euros
 										<xsl:text> </xsl:text>
 										<xsl:value-of select="unite-gratification/libelle" />
-										par mois
+										par
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="unite-duree-gratification/libelle" />
+										<xsl:text>.</xsl:text>
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:block>
@@ -705,7 +708,7 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								Responsable pédagogique
+								Enseignant référent
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">

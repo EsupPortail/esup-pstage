@@ -7,7 +7,8 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<rich:column rendered="#{sessionController.moderationStructures}">
-		<t:htmlTag value="center">
+		<t:htmlTag value="center"
+			rendered="#{!(welcomeController.superAdmin and varRechercheStructure.temEnServStructure != 'O')}">
 			<h:outputText id="verification1" alt="#{msgs['FORM.OUI']}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
 				rendered="#{varRechercheStructure.estValidee == 1}"
@@ -29,6 +30,12 @@
 				<rich:tooltip
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
 			</h:outputText>
+		</t:htmlTag>
+		<t:htmlTag value="center"
+			rendered="#{welcomeController.superAdmin and varRechercheStructure.temEnServStructure != 'O'}">
+			<h:outputText id="deleted" alt="#{msgs['GENERAL.SUPPRIME']}"
+				value="#{msgs['GENERAL.SUPPRIME']}"
+				style="border:0; color:purple;" escape="false"/>
 		</t:htmlTag>
 	</rich:column>
 	<rich:column>

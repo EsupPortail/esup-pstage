@@ -1550,6 +1550,22 @@
 		</navigation-case>
 		
 	</navigation-rule>
+<!-- 	NEW -->
+	<navigation-rule>
+		<display-name>creerConventionEtape1Etudiant</display-name>
+		<from-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</from-view-id>
+		<!-- annuler -->
+		<navigation-case>
+			<from-outcome>creerConventionEtape1Etudiant</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</to-view-id>
+		</navigation-case>
+		<!-- envoyer -->
+		<navigation-case>
+			<from-outcome>creerConventionEtape2Etab</from-outcome>
+			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 	<!-- creation etape 1 - lien Offre  -->
 	<navigation-rule>
 		<display-name>creerConventionEtape1Offre</display-name>

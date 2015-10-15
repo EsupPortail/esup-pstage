@@ -127,21 +127,6 @@
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.DATES']}" />
 		</legend>
 
-		<!-- 		<a4j:outputPanel id="choixAnneeUniv"> -->
-		<!-- 			<h:panelGrid columnClasses="paginatorData-text" -->
-		<!-- 				rowClasses="paginatorData-text" columns="2" -->
-		<!-- 				rendered="#{conventionController.choixAnneeUniv}"> -->
-		<!-- 				<h:outputText value="#{msgs['CONVENTION.ANNEEUNIV']}" /> -->
-		<!-- 				<h:selectOneMenu id="anU" -->
-		<!-- 					value="#{conventionController.selAnneeUniversitaire}"> -->
-		<!-- 					<f:selectItems -->
-		<!-- 						value="#{conventionController.listeAnneeUnivConvention}" /> -->
-		<!-- 				</h:selectOneMenu> -->
-		<!-- 			</h:panelGrid> -->
-		<!-- 		</a4j:outputPanel> -->
-
-		<!-- 		<rich:message for="choixAnneeUniv" /> -->
-
 		<h:panelGrid id="fieldDates" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="3">
 			<h:outputText
@@ -239,11 +224,19 @@
 				required="true">
 				<f:validateLength maximum="4" />
 				<f:validateLongRange minimum="1" maximum="9999" />
+				<a4j:ajax event="blur" render="alerte6mois" execute="@this" />
 			</h:inputText>
 			<rich:message for="dureeExceptionnelle">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 		</h:panelGrid>
+		<a4j:outputPanel id="alerte6mois">
+			<h:panelGrid style="margin-left:20px;" columns="2" rendered="#{conventionController.dureeSuperieureA6mois}">
+				<h:graphicImage id="imgAlerte6mois" alt="imgAlerte6mois"
+					value="../../media/images/warning_20px.png" style="border:0"/>
+				<h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.DUREEMAX']}" />
+			</h:panelGrid>
+		</a4j:outputPanel>
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="4"
 			rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle and conventionController.convention.idUniteDureeExceptionnelle != 0}">

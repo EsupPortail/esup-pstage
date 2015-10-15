@@ -85,7 +85,8 @@
 						value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
 				</rich:column>
 			</rich:columnGroup>
-			<rich:columnGroup>
+			<rich:columnGroup
+				rendered="#{not empty conventionController.etudiantRef.theCodeElp}">
 				<rich:column>
 					<h:outputLabel for="elp" value="#{msgs['CONVENTION.ELP']}" />
 				</rich:column>
@@ -226,7 +227,8 @@
 						escape="false" />
 				</rich:column>
 			</rich:columnGroup>
-			<rich:columnGroup>
+			<rich:columnGroup
+				rendered="#{not empty conventionController.convention.details}">
 				<rich:column>
 					<h:outputLabel for="details1" value="#{msgs['CONVENTION.DETAILS']}" />
 				</rich:column>
@@ -277,14 +279,14 @@
 						value="#{msgs['CONVENTION.INTERRUPTION']}" />
 				</rich:column>
 				<rich:column>
-					<h:outputText id="interruptionStage2" value="#{msgs['FORM.OUI']}"/>
+					<h:outputText id="interruptionStage2" value="#{msgs['FORM.OUI']}" />
 				</rich:column>
 			</rich:columnGroup>
 			<rich:columnGroup
-						rendered="#{conventionController.convention.interruptionStage}" >
+				rendered="#{conventionController.convention.interruptionStage}">
 				<rich:column>
 					<h:outputLabel for="dateDebutInterruption1"
-						value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}"/>
+						value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}" />
 				</rich:column>
 				<rich:column>
 					<h:outputText id="dateDebutInterruption1"
@@ -294,7 +296,7 @@
 				</rich:column>
 			</rich:columnGroup>
 			<rich:columnGroup
-						rendered="#{conventionController.convention.interruptionStage}">
+				rendered="#{conventionController.convention.interruptionStage}">
 				<rich:column>
 					<h:outputLabel for="dateFinInterruption1"
 						value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}" />
@@ -307,7 +309,7 @@
 				</rich:column>
 			</rich:columnGroup>
 			<rich:columnGroup
-						rendered="#{not empty conventionController.convention.dureeExceptionnelle}">
+				rendered="#{not empty conventionController.convention.dureeExceptionnelle}">
 				<rich:column>
 					<h:outputLabel for="dureeExceptionnelle1"
 						value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
@@ -355,7 +357,8 @@
 						value="#{conventionController.convention.tempsTravail.libelle}" />
 				</rich:column>
 			</rich:columnGroup>
-			<rich:columnGroup>
+			<rich:columnGroup
+				rendered="#{not empty conventionController.convention.commentaireDureeTravail}">
 				<rich:column>
 					<h:outputLabel for="commentaireDureeTravail1"
 						value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.INFO']}" />
@@ -387,7 +390,8 @@
 				</rich:column>
 			</rich:columnGroup>
 
-			<rich:columnGroup>
+			<rich:columnGroup
+				rendered="#{not empty conventionController.convention.nbConges}">
 				<rich:column>
 					<h:outputLabel for="nbconges1"
 						value="#{msgs['CONVENTION.NBCONGES']}" />
@@ -418,7 +422,7 @@
 				</rich:column>
 				<rich:column>
 					<h:outputText id="montantGratification1"
-						value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}"/>
+						value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}" />
 					<!-- 			<h:outputLabel for="modeVersGratification1" -->
 					<!-- 				value="#{msgs['CONVENTION.MODEVERSGRAT']}" -->
 					<!-- 				rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" /> -->
@@ -449,7 +453,8 @@
 						value="#{conventionController.convention.temConfSujetTeme}" />
 				</rich:column>
 			</rich:columnGroup>
-			<rich:columnGroup>
+			<rich:columnGroup
+				rendered="#{not empty conventionController.convention.modeEncadreSuivi}">
 				<rich:column>
 					<h:outputLabel for="modeEncadreSuivi1"
 						value="#{msgs['CONVENTION.MODESUIVI.INFO']}" />
@@ -460,7 +465,8 @@
 						escape="false" />
 				</rich:column>
 			</rich:columnGroup>
-			<rich:columnGroup>
+			<rich:columnGroup
+				rendered="#{not empty conventionController.convention.avantagesNature}">
 				<rich:column>
 					<h:outputLabel for="avantagesNature1"
 						value="#{msgs['CONVENTION.AVANTAGESNATURE.INFO']}" />
@@ -491,7 +497,8 @@
 						value="#{conventionController.convention.modeValidationStage.libelle}" />
 				</rich:column>
 			</rich:columnGroup>
-			<rich:columnGroup>
+			<rich:columnGroup
+				rendered="#{not empty conventionController.convention.travailNuitFerie}">
 				<rich:column>
 					<h:outputLabel for="travailNuitFerie1"
 						value="#{msgs['CONVENTION.TRAVAILNUITFERIE.INFO']}" />
@@ -559,19 +566,20 @@
 				</rich:column>
 			</rich:columnGroup>
 		</rich:dataTable>
-		<rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
-		<rich:jQuery selector=".stable tr:even" query="addClass('even-row')" />
-		<rich:jQuery selector=".stable tr"
-			query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
-		<rich:jQuery selector=".stable tr"
-			query="live('mouseout', function(){jQuery(this).removeClass('active-row')})" />
-			<t:htmlTag value="div" style="height:10px;"/>
-		<h:panelGrid columns="3">
-			<h:commandButton value="#{msgs['FORM.CANCEL']}"
-				action="#{conventionController.goToCreerConventionEtape7Signataire}" />
-			<t:htmlTag value="div" style="width:20px;" />
-			<h:commandButton value="#{msgs['FORM.CREER']}" style="border:solid 1px;"
+		<t:htmlTag value="div" style="height:20px;" />
+		<t:htmlTag value="center">
+			<h:commandButton value="#{msgs['FORM.CREER']}"
+				style="font-size:14px; border:solid 1px;"
 				action="#{conventionController.goToAjouterConvention}" />
-		</h:panelGrid>
+		</t:htmlTag>
+		<t:htmlTag value="div" style="height:30px;" />
+		<h:commandButton value="#{msgs['FORM.CANCEL']}"
+			action="#{conventionController.goToCreerConventionEtape7Signataire}" />
 	</rich:panel>
+	<rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
+	<rich:jQuery selector=".stable tr:even" query="addClass('even-row')" />
+	<rich:jQuery selector=".stable tr"
+		query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
+	<rich:jQuery selector=".stable tr"
+		query="live('mouseout', function(){jQuery(this).removeClass('active-row')})" />
 </ui:composition>
