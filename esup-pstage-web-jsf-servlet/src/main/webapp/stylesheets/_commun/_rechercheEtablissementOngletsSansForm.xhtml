@@ -67,6 +67,7 @@
 					style="text-transform:uppercase; font-size : 10px" attached="false" />
 
 
+<<<<<<< HEAD
 				<a4j:outputPanel id="rechPaysDep">
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="2">
@@ -100,6 +101,20 @@
 					style="font-size:14px; border:solid 1px; margin-left:100px;"
 					action="#{rechercheController.rechercheRaisonSociale}"
 					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+=======
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" columns="2">
+					<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
+					<h:inputText id="rechDepartement2" size="2" maxlength="2"
+						value="#{rechercheController.rechDepartement}"
+						converter="#{sansAccentEnMAJConverter}" />
+				</h:panelGrid>
+			</h:panelGrid>
+			<h:commandButton
+				style="font-size:14px; border:solid 1px; margin-left:100px;"
+				action="#{rechercheController.rechercheRaisonSociale}"
+				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+>>>>>>> branch 'master' of https://github.com/EsupPortail/esup-pstage.git
 
 		</h:panelGrid>
 	</t:div>

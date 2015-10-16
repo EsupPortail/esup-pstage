@@ -259,19 +259,7 @@ public class RechercheController extends AbstractContextAwareController {
 	public String goToAffichageRechercheEtablissement(){
 
 		if(this.critereRechercheStructureAdresse==null){
-			System.out.println("this.critereRechercheStructureAdresse==null");
-			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
-		}
-
-		// obtention mail du LoginCreation si LoginCreation est un etudiant
-		if (this.resultatRechercheStructure != null){
-			EtudiantDTO etudiant = this.getEtudiantDomainService().getEtudiantFromUid(this.resultatRechercheStructure.getLoginCreation(), getSessionController().getCodeUniversite());
-			if (etudiant!=null){
-				// si la structure a ete creee par un etudiant, on ajoute son mail au login creation affiche
-				String loginCreationAndMail = this.resultatRechercheStructure.getLoginCreation();
-				loginCreationAndMail+=("<i>("+etudiant.getMail()+")</i>");
-				this.resultatRechercheStructure.setLoginCreation(loginCreationAndMail);
-			}
+			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
 		}
 		// obtention mail du LoginCreation si LoginCreation est un etudiant
 		if (this.resultatRechercheStructure != null){
