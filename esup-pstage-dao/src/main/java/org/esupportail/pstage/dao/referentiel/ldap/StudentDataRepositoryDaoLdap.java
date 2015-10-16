@@ -182,8 +182,8 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	 * Etudiant par son numero etudiant
 	 */
 	@Override
-	public EtudiantRef getEtudiantRefByNum(String universityCode, String id) {
-		EtudiantRef etudiantRefByNum = retrieveStudent(id,new EqualsFilter(ldapAttributes.getLdapStudentId(), id ));
+	public EtudiantRef getEtudiantRefByNum(String universityCode, String id, String annee) {
+		EtudiantRef etudiantRefByNum = retrieveStudent(id,new EqualsFilter(ldapAttributes.getLdapStudentId(), id));
 		etudiantRefByNum.setCodeUniversite(universityCode);
 
 		return etudiantRefByNum;

@@ -1364,6 +1364,7 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 		}
 		return t;
 	}
+	
 
 	/* ****************************************************************************
 	 * UNITE DUREE

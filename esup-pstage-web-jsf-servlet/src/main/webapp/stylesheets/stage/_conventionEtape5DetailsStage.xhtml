@@ -6,164 +6,352 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
+	<h:outputStylesheet>
+        .even-row {
+        background-color: #FCFFFE;
+        }
+ 
+        .odd-row {
+        background-color: #ECF3FE;
+        }
+ 
+        .active-row {
+        background-color: #FFEBDA !important;
+        }
+    </h:outputStylesheet>
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="2">
-		<h:outputLabel for="typeConvention1"
-			value="#{msgs['CONVENTION.TYPECONVENTION']}" />
-		<h:outputText id="typeConvention1"
-			value="#{conventionController.convention.typeConvention.libelle}" />
-		<h:outputLabel for="theme1" value="#{msgs['CONVENTION.THEME']}" />
-		<h:outputText id="theme1"
-			value="#{conventionController.convention.theme.libelle}" />
-		<h:outputLabel for="sujetStage1" value="#{msgs['CONVENTION.SUJET']}" />
-		<h:outputText id="sujetStage1"
-			value="#{conventionController.convention.sujetStage}" escape="false" />
-		<h:outputLabel for="fonctionsEtTaches1"
-			value="#{msgs['CONVENTION.FONCTION']}" />
-		<h:outputText id="fonctionsEtTaches1"
-			value="#{conventionController.convention.fonctionsEtTaches}"
-			escape="false" />
-		<h:outputLabel for="competences1"
-			value="#{msgs['CONVENTION.COMPETENCES']}" />
-		<h:outputText id="competences1"
-			value="#{conventionController.convention.competences}" escape="false" />
-		<h:outputLabel for="details1" value="#{msgs['CONVENTION.DETAILS']}" />
-		<h:outputText id="details1"
-			value="#{conventionController.convention.details}" escape="false" />
-		<h:outputLabel for="dateDebutStage1"
-			value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
-		<h:outputText id="dateDebutStage1"
-			value="#{conventionController.convention.dateDebutStage}">
-			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-		</h:outputText>
-		<h:outputLabel for="dateFinStage1"
-			value="#{msgs['CONVENTION.FINSTAGE']}" />
-		<h:outputText id="dateFinStage1"
-			value="#{conventionController.convention.dateFinStage}">
-			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-		</h:outputText>
-		<h:outputLabel for="interruptionStage1"
-			value="#{msgs['CONVENTION.INTERRUPTION']}"
-			rendered="#{conventionController.convention.interruptionStage == false}" />
-		<h:outputText id="interruptionStage1" value="#{msgs['FORM.NON']}"
-			rendered="#{conventionController.convention.interruptionStage == false}" />
-		<h:outputLabel for="interruptionStage2"
-			value="#{msgs['CONVENTION.INTERRUPTION']}"
-			rendered="#{conventionController.convention.interruptionStage == true}" />
-		<h:outputText id="interruptionStage2" value="#{msgs['FORM.OUI']}"
-			rendered="#{conventionController.convention.interruptionStage == true}" />
-		<h:outputLabel for="dateDebutInterruption1"
-			value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}"
-			rendered="#{conventionController.convention.interruptionStage }" />
-		<h:outputText id="dateDebutInterruption1"
-			value="#{conventionController.convention.dateDebutInterruption}"
-			rendered="#{conventionController.convention.interruptionStage }">
-			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-		</h:outputText>
-		<h:outputLabel for="dateFinInterruption1"
-			value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}"
-			rendered="#{conventionController.convention.interruptionStage }" />
-		<h:outputText id="dateFinInterruption1"
-			value="#{conventionController.convention.dateFinInterruption}"
-			rendered="#{conventionController.convention.interruptionStage }">
-			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-		</h:outputText>
-		<h:outputLabel for="dureeExceptionnelle1"
-			rendered="#{not empty conventionController.convention.dureeExceptionnelle}"
-			value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
-		<h:panelGrid columns="2"
+	<rich:dataTable id="table" var="convention"
+		value="#{conventionController.convention}"
+		rowClasses="odd-row, even-row" styleClass="stable"
+		style="width:750px;">
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="typeConvention1"
+					value="#{msgs['CONVENTION.TYPECONVENTION']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="typeConvention1"
+					value="#{conventionController.convention.typeConvention.libelle}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="theme1" value="#{msgs['CONVENTION.THEME']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="theme1"
+					value="#{conventionController.convention.theme.libelle}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="sujetStage1" value="#{msgs['CONVENTION.SUJET']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="sujetStage1"
+					value="#{conventionController.convention.sujetStage}"
+					escape="false" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="fonctionsEtTaches1"
+					value="#{msgs['CONVENTION.FONCTION']}" />
+			</rich:column>
+			<rich:column style="word-break:break-all; white-space:normal;">
+				<h:outputText id="fonctionsEtTaches1"
+					value="#{conventionController.convention.fonctionsEtTaches}"
+					escape="false" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="competences1"
+					value="#{msgs['CONVENTION.COMPETENCES']}" />
+			</rich:column>
+			<rich:column style="word-break:break-all; white-space:normal;">
+				<h:outputText id="competences1"
+					value="#{conventionController.convention.competences}"
+					escape="false" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="details1" value="#{msgs['CONVENTION.DETAILS']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="details1"
+					value="#{conventionController.convention.details}" escape="false" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="dateDebutStage1"
+					value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="dateDebutStage1"
+					value="#{conventionController.convention.dateDebutStage}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+				</h:outputText>
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="dateFinStage1"
+					value="#{msgs['CONVENTION.FINSTAGE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="dateFinStage1"
+					value="#{conventionController.convention.dateFinStage}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+				</h:outputText>
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup
+			rendered="#{conventionController.convention.interruptionStage == false}">
+			<rich:column>
+				<h:outputLabel for="interruptionStage1"
+					value="#{msgs['CONVENTION.INTERRUPTION']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="interruptionStage1" value="#{msgs['FORM.NON']}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup
+			rendered="#{conventionController.convention.interruptionStage == true}">
+			<rich:column>
+				<h:outputLabel for="interruptionStage2"
+					value="#{msgs['CONVENTION.INTERRUPTION']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="interruptionStage2" value="#{msgs['FORM.OUI']}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup
+			rendered="#{conventionController.convention.interruptionStage}">
+			<rich:column>
+				<h:outputLabel for="dateDebutInterruption1"
+					value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="dateDebutInterruption1"
+					value="#{conventionController.convention.dateDebutInterruption}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+				</h:outputText>
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup
+			rendered="#{conventionController.convention.interruptionStage}">
+			<rich:column>
+				<h:outputLabel for="dateFinInterruption1"
+					value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="dateFinInterruption1"
+					value="#{conventionController.convention.dateFinInterruption}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+				</h:outputText>
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup
 			rendered="#{not empty conventionController.convention.dureeExceptionnelle}">
-			<h:outputText id="dureeExceptionnelle1"
-				value="#{conventionController.convention.dureeExceptionnelle}" />
-			<h:outputText
-				rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}"
-				value="heure(s)" />
-			<h:panelGrid rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle}">
-				<h:outputText value="heure(s)"
-					rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
-				<h:outputText value="jour(s)"
-					rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
-				<h:outputText value="semaine(s)"
-					rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 3}" />
-				<h:outputText value="mois"
-					rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 4}" />
-				<h:outputText value="annee(s)"
-					rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 5}" />
-			</h:panelGrid>
-		</h:panelGrid>
-		<h:outputLabel for="nbJoursHebdo1"
-			value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
-		<h:outputText id="nbJoursHebdo1"
-			value="#{conventionController.convention.nbJoursHebdo}" />
-		<h:outputLabel for="tempsTravail1"
-			value="#{msgs['CONVENTION.TEMPSTRAVAIL']}" />
-		<h:outputText id="tempsTravail1"
-			value="#{conventionController.convention.tempsTravail.libelle}" />
-		<h:outputLabel for="commentaireDureeTravail1"
-			value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.INFO']}" />
-		<h:outputText id="commentaireDureeTravail1"
-			value="#{conventionController.convention.commentaireDureeTravail}"
-			escape="false" />
-		<h:outputLabel for="nbHeuresHebdo1"
-			value="#{msgs['CONVENTION.NBHEURESHEBDO.INFO']}" />
-		<h:outputText id="nbHeuresHebdo1"
-			value="#{conventionController.convention.nbHeuresHebdo}" />
-		<h:outputLabel for="quotiteTravail1"
-			value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" />
-		<h:outputText id="quotiteTravail1"
-			value="#{conventionController.convention.quotiteTravail}" />
+			<rich:column>
+				<h:outputLabel for="dureeExceptionnelle1"
+					value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
+			</rich:column>
+			<rich:column>
+				<h:panelGrid columns="2">
+					<h:outputText id="dureeExceptionnelle1"
+						value="#{conventionController.convention.dureeExceptionnelle}" />
+					<h:outputText
+						rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}"
+						value="heure(s)" />
+					<h:panelGrid
+						rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle}">
+						<h:outputText value="heure(s)"
+							rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
+						<h:outputText value="jour(s)"
+							rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
+						<h:outputText value="semaine(s)"
+							rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 3}" />
+						<h:outputText value="mois"
+							rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 4}" />
+						<h:outputText value="annee(s)"
+							rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 5}" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="nbJoursHebdo1"
+					value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="nbJoursHebdo1"
+					value="#{conventionController.convention.nbJoursHebdo}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="tempsTravail1"
+					value="#{msgs['CONVENTION.TEMPSTRAVAIL']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="tempsTravail1"
+					value="#{conventionController.convention.tempsTravail.libelle}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="commentaireDureeTravail1"
+					value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.INFO']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="commentaireDureeTravail1"
+					value="#{conventionController.convention.commentaireDureeTravail}"
+					escape="false" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="nbHeuresHebdo1"
+					value="#{msgs['CONVENTION.NBHEURESHEBDO.INFO']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="nbHeuresHebdo1"
+					value="#{conventionController.convention.nbHeuresHebdo}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="quotiteTravail1"
+					value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="quotiteTravail1"
+					value="#{conventionController.convention.quotiteTravail}" />
+			</rich:column>
+		</rich:columnGroup>
 
-		<h:outputLabel for="nbconges1" value="#{msgs['CONVENTION.NBCONGES']}" />
-		<h:outputText id="nbconges1"
-			value="#{conventionController.convention.nbConges}" />
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="nbconges1"
+					value="#{msgs['CONVENTION.NBCONGES']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="nbconges1"
+					value="#{conventionController.convention.nbConges}" />
+			</rich:column>
+		</rich:columnGroup>
 
-		<h:outputLabel for="indemnisation1"
-			value="#{msgs['CONVENTION.INDEMNISATION']}" />
-		<h:outputText id="indemnisation1"
-			value="#{conventionController.convention.indemnisation.libelle}" />
-		<h:outputLabel for="montantGratification1"
-			value="#{msgs['CONVENTION.MTGRATIFICATION']}"
-			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
-		<h:outputText id="montantGratification1"
-			value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}"
-			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" />
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="indemnisation1"
+					value="#{msgs['CONVENTION.INDEMNISATION']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="indemnisation1"
+					value="#{conventionController.convention.indemnisation.libelle}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup
+			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" >
+			<rich:column>
+				<h:outputLabel for="montantGratification1"
+					value="#{msgs['CONVENTION.MTGRATIFICATION']}"/>
+			</rich:column>
+			<rich:column>
+				<h:outputText id="montantGratification1"
+					value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}"
+					/>
+			</rich:column>
+		</rich:columnGroup>
 		<!-- 		<h:outputLabel for="modeVersGratification1" -->
 		<!-- 			value="#{msgs['CONVENTION.MODEVERSGRAT']}" -->
 		<!-- 			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" /> -->
 		<!-- 		<h:outputText id="modeVersGratification1" -->
 		<!-- 			value="#{conventionController.convention.modeVersGratification.libelle}" -->
 		<!-- 			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}" /> -->
-		<h:outputLabel for="origineStage1"
-			value="#{msgs['CONVENTION.ORIGINESTAGE']}" />
-		<h:outputText id="origineStage1"
-			value="#{conventionController.convention.origineStage.libelle}" />
-		<h:outputLabel for="temConfSujetTeme1"
-			value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
-		<h:outputText id="temConfSujetTeme1"
-			value="#{conventionController.convention.temConfSujetTeme}" />
-		<h:outputLabel for="modeEncadreSuivi1"
-			value="#{msgs['CONVENTION.MODESUIVI.INFO']}" />
-		<h:outputText id="modeEncadreSuivi1"
-			value="#{conventionController.convention.modeEncadreSuivi}"
-			escape="false" />
-		<h:outputLabel for="avantagesNature1"
-			value="#{msgs['CONVENTION.AVANTAGESNATURE.INFO']}" />
-		<h:outputText id="avantagesNature1"
-			value="#{conventionController.convention.avantagesNature}"
-			escape="false" />
-		<h:outputLabel for="natureTravail1"
-			value="#{msgs['CONVENTION.NATURETRAVAIL']}" />
-		<h:outputText id="natureTravail1"
-			value="#{conventionController.convention.natureTravail.libelle}" />
-		<h:outputLabel for="modeValidationStage1"
-			value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
-		<h:outputText id="modeValidationStage1"
-			value="#{conventionController.convention.modeValidationStage.libelle}" />
-		<h:outputLabel for="travailNuitFerie1"
-			value="#{msgs['CONVENTION.TRAVAILNUITFERIE.INFO']}" />
-		<h:outputText id="travailNuitFerie1"
-			value="#{conventionController.convention.travailNuitFerie}"
-			escape="false" />
-	</h:panelGrid>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="origineStage1"
+					value="#{msgs['CONVENTION.ORIGINESTAGE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="origineStage1"
+					value="#{conventionController.convention.origineStage.libelle}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="temConfSujetTeme1"
+					value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="temConfSujetTeme1"
+					value="#{conventionController.convention.temConfSujetTeme}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="modeEncadreSuivi1"
+					value="#{msgs['CONVENTION.MODESUIVI.INFO']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="modeEncadreSuivi1"
+					value="#{conventionController.convention.modeEncadreSuivi}"
+					escape="false" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="avantagesNature1"
+					value="#{msgs['CONVENTION.AVANTAGESNATURE.INFO']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="avantagesNature1"
+					value="#{conventionController.convention.avantagesNature}"
+					escape="false" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="natureTravail1"
+					value="#{msgs['CONVENTION.NATURETRAVAIL']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="natureTravail1"
+					value="#{conventionController.convention.natureTravail.libelle}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="modeValidationStage1"
+					value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="modeValidationStage1"
+					value="#{conventionController.convention.modeValidationStage.libelle}" />
+			</rich:column>
+		</rich:columnGroup>
+		<rich:columnGroup>
+			<rich:column>
+				<h:outputLabel for="travailNuitFerie1"
+					value="#{msgs['CONVENTION.TRAVAILNUITFERIE.INFO']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="travailNuitFerie1"
+					value="#{conventionController.convention.travailNuitFerie}"
+					escape="false" />
+			</rich:column>
+		</rich:columnGroup>
+	</rich:dataTable>
+	<rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
+	<rich:jQuery selector=".stable tr:even" query="addClass('even-row')" />
+	<rich:jQuery selector=".stable tr"
+		query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
+	<rich:jQuery selector=".stable tr"
+		query="live('mouseout', function(){jQuery(this).removeClass('active-row')})" />
 </ui:composition>

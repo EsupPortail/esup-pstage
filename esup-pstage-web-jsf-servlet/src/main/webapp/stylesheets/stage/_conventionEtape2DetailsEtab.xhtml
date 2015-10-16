@@ -57,17 +57,12 @@
 				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
 				alt="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
 				rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
-			and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-			|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-			(!sessionController.autoriserEtudiantAModifierEntreprise 
-			and ((empty conventionController.convention.structure.loginModif and
-			conventionController.convention.structure.loginCreation==sessionController.currentLogin)
-			|| (conventionController.convention.structure.loginModif==sessionController.currentLogin)))))))}" />
-
+                        and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
 			<h:panelGrid columns="2">
-				<h:outputText value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.ETAT']}" />
+				<h:outputText
+					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.ETAT']}" />
 				<h:outputText id="verification1" alt="#{msgs['FORM.OUI']}"
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
 					rendered="#{conventionController.convention.structure.estValidee == 1}"
@@ -99,7 +94,8 @@
 				action="#{etablissementController.avantValidation}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
 				render="validerStructurePanel">
-				<f:setPropertyActionListener value="#{conventionController.convention.structure}"
+				<f:setPropertyActionListener
+					value="#{conventionController.convention.structure}"
 					target="#{etablissementController.currentStruct}" />
 				<f:setPropertyActionListener value="_validStructureEtape1"
 					target="#{sessionController.validationStructureCurrentPage}" />
@@ -114,24 +110,24 @@
 				</f:facet>
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="2" align="center">
-					<h:column>
-						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-							title="#{msgs['GENERAL.WARNING']}"
-							value="../../media/images/warning_50px.png" style="border:0" />
-						<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.QUESTION']}"
-							escape="false" />
-					</h:column>
+					<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+						title="#{msgs['GENERAL.WARNING']}"
+						value="../../media/images/warning_20px.png" style="border:0" />
+					<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.QUESTION']}"
+						escape="false" />
 				</h:panelGrid>
-
-				<a4j:commandButton value="#{msgs['FORM.OUI']}"
-					onclick="#{rich:component('demandeConfirmModifEtab')}.hide();"
-					action="#{conventionController.goToConventionRechEtab}">
-				</a4j:commandButton>
-
-				<t:htmlTag value="div" style="width: 150px; display: inline;" />
-
-				<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
-					onclick="#{rich:component('demandeConfirmModifEtab')}.hide();return false;" />
+				<t:htmlTag value="div" style="height:20px;"/>
+				<h:panelGrid columns="3" columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text" align="center">
+					<a4j:commandButton value="#{msgs['FORM.OUI']}"
+						onclick="#{rich:component('demandeConfirmModifEtab')}.hide();"
+						action="#{conventionController.goToConventionRechEtab}"/>
+	
+					<t:htmlTag value="div" style="width:80px;" />
+	
+					<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
+						onclick="#{rich:component('demandeConfirmModifEtab')}.hide();return false;" />
+				</h:panelGrid>
 			</rich:popupPanel>
 		</h:panelGrid>
 

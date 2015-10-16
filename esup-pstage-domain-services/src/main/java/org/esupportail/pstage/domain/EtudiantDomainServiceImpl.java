@@ -83,5 +83,22 @@ public class EtudiantDomainServiceImpl implements EtudiantDomainService {
 		throws DataUpdateException, WebServiceDataBaseException {
 		return this.remoteServices.updateEtudiant(etudiant);
 	}
+	
+	
+	//////// Modification grenoble
+	/**
+	 * @see org.esupportail.pstagedata.domain.EtudiantDomainService#getEtudiantFromUID(String)
+	 */
+	public EtudiantDTO getEtudiantFromUID(String UID){
+		return this.remoteServices.getEtudiantFromUID(UID);
+	}
+	////////
+	
+	/**
+	 *  @see org.esupportail.pstagedata.domain.EtudiantDomainService#getEtudiantFromUid(String, String)
+	 */
+	public EtudiantDTO getEtudiantFromUid(String uidEtudiant, String codeUniversite){
+		return this.remoteServices.getEtudiantFromUid(uidEtudiant,codeUniversite);
+	}
 
 }

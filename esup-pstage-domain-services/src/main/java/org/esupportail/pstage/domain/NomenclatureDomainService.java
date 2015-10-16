@@ -726,6 +726,8 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @return TypeStructureDTO
 	 */
 	public TypeStructureDTO getTypeStructureFromId(int id);
+	
+	
 	/* ****************************************************************************
 	 * UNITE DUREE
 	 *****************************************************************************/

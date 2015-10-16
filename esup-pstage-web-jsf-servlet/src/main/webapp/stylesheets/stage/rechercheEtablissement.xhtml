@@ -55,7 +55,7 @@
 				</h:panelGrid>
 				<a4j:outputPanel id="opRechercheStructureDataTable">
 					<t:div
-						rendered="#{not empty rechercheController.listeResultatsRechercheStructure}"> <!-- rendered="#{not empty rechercheController.listeResultatsRechercheStructure}"> -->
+						rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
 						<ui:include
 							src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
 						<rich:dataTable id="rechercheStructureDataTable"
@@ -79,10 +79,6 @@
 						<rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
 						<rich:jQuery selector=".stable tr:even"
 							query="addClass('even-row')" />
-						<!-- 						<rich:jQuery selector=".stable tr" event="mouseover" -->
-						<!-- 							query="jQuery(this).addClass('active-row')" /> -->
-						<!-- 						<rich:jQuery selector=".stable tr" event="mouseout" -->
-						<!-- 							query="jQuery(this).removeClass('active-row')" /> -->
 						<rich:jQuery selector=".stable tr"
 							query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
 						<rich:jQuery selector=".stable tr"

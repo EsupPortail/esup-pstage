@@ -94,6 +94,12 @@ public class AvenantController extends AbstractContextAwareController {
 	 * editAvFR.
 	 */
 	private boolean editAvFR = false;
+	
+	/**
+	 * MonnaieGratification choisi.
+	 */
+	private String selMonnaieGratification;
+	
 
 	/**
 	 * Bean constructor.
@@ -437,7 +443,7 @@ public class AvenantController extends AbstractContextAwareController {
 			enseignantTmp.setCodeUniversiteAffectation(getSessionController().getCodeUniversite());
 			if (logger.isDebugEnabled()) {
 				logger.debug("AvenantController:: goToAjouterConvention "); 
-				if (enseignantTmp != null) { 
+				if (enseignantTmp != null) {
 					logger.debug("this.avenant.getEnseignant() " + enseignantTmp.getUidEnseignant());
 				}
 			}
@@ -466,7 +472,7 @@ public class AvenantController extends AbstractContextAwareController {
 			avenant.setIdUniteGratification(this.avenant.getUniteGratification().getId());
 			avenant.setIdUniteDureeGratification(this.avenant.getUniteDureeGratification().getId());
 		}
-		
+
 		// Si c'est un gestionnaire qui crée, on valide automatiquement l'avenant
 		if (getSessionController().getCurrentAuthEtudiant() == null) {
 			avenant.setValidationAvenant(true);
@@ -490,10 +496,11 @@ public class AvenantController extends AbstractContextAwareController {
 				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_CREA_AVENANT.SUJET",
 						this.avenant.getIdConvention());
 
-				// Envoi d'une alerte à l'enseignant référent
-				//				if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
-				//					getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
-
+				// Envoi d'une alerte à l'enseignant référent si telle est la configuration
+				if (getSessionController().isAvertissementTuteurPedago()){
+					if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
+						getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
+				}
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
 
@@ -590,10 +597,11 @@ public class AvenantController extends AbstractContextAwareController {
 				String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_MODIF_AVENANT.SUJET",
 						this.avenant.getIdConvention());
 
-				// Envoi d'une alerte à l'enseignant référent
-				//				if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
-				//					getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
-
+				// Envoi d'une alerte à l'enseignant référent si telle est la configuration
+				if (getSessionController().isAvertissementTuteurPedago()){
+					if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
+						getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
+				}
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
 
@@ -820,12 +828,16 @@ public class AvenantController extends AbstractContextAwareController {
 	 * @return the listeSalaries
 	 */
 	public List<ContactDTO> getListeSalaries() {
+		List<ContactDTO> l = new ArrayList<ContactDTO>();
 		List<Integer> idsCentreGestion = new ArrayList<Integer>();
+		
 		idsCentreGestion = getSessionController().getCurrentIdsCentresGestion();
-		if(!idsCentreGestion.contains(conventionController.getConvention().getIdCentreGestion())){
+		if(idsCentreGestion != null && !idsCentreGestion.contains(conventionController.getConvention().getIdCentreGestion())){
 			idsCentreGestion.add(conventionController.getConvention().getIdCentreGestion());
 		}
-		List<ContactDTO> l = getStructureDomainService().getContactsFromIdService(etablissementController.getServiceSel().getIdService(), idsCentreGestion, getSessionController().getCodeUniversite());
+		if (etablissementController.getServiceSel() != null){
+			l = getStructureDomainService().getContactsFromIdService(etablissementController.getServiceSel().getIdService(), idsCentreGestion, getSessionController().getCodeUniversite());
+		}
 
 		return l;
 	}
@@ -924,6 +936,14 @@ public class AvenantController extends AbstractContextAwareController {
 	 */
 	public void setModificationTexteLibre(boolean modificationTexteLibre) {
 		this.modificationTexteLibre = modificationTexteLibre;
+	}
+
+	public String getSelMonnaieGratification() {
+		return selMonnaieGratification;
+	}
+
+	public void setSelMonnaieGratification(String selMonnaieGratification) {
+		this.selMonnaieGratification = selMonnaieGratification;
 	}
 
 

@@ -301,13 +301,13 @@ public class ExportController extends AbstractContextAwareController {
 			}
 			// if (this.resultatsRechercheConvention.size() >
 			// DonneesStatic.nb_response_export_maxi) {
-			if (this.resultatsRechercheConvention.size() > Integer
-					.parseInt(this.critereRechercheConvention.getNbExportMaxi())) {
-				addInfoMessage("formRechConvention",
-						"RECHERCHECONVENTION.MAXRESULTATS",
-						this.resultatsRechercheConvention.size());
-				return ret;
-			}
+			//			if (this.resultatsRechercheConvention.size() > Integer
+			//					.parseInt(this.critereRechercheConvention.getNbExportMaxi())) {
+			//				addInfoMessage("formRechConvention",
+			//						"RECHERCHECONVENTION.MAXRESULTATS",
+			//						this.resultatsRechercheConvention.size());
+			//				return ret;
+			//			}
 			if (logger.isInfoEnabled()) {
 				logger.info("ExportController:: Appel getConventionFromExport debut ");
 			}
@@ -585,7 +585,7 @@ public class ExportController extends AbstractContextAwareController {
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
 				
-				String XlsFileName ="extraction_pstage";
+				String XlsFileName ="extraction_pstage.xls";
 				
 				edit.doGet(baosXLS,XlsFileName);
 				

@@ -3,6 +3,17 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
 	xmlns:java="http://xml.apache.org/xalan/java" exclude-result-prefixes="java">
 
+	<xsl:variable name='notation1' select='"Excellent"' />
+	<xsl:variable name='notation2' select='"Très Bien"' />
+	<xsl:variable name='notation3' select='"Bien"' />
+	<xsl:variable name='notation4' select='"Satisfaisant"' />
+	<xsl:variable name='notation5' select='"Insuffisant"' />
+	<xsl:variable name='avis1' select='"Tout à fait d&#039;accord"' />
+	<xsl:variable name='avis2' select='"Plutôt d&#039;accord"' />
+	<xsl:variable name='avis3' select='"Sans avis"' />
+	<xsl:variable name='avis4' select='"Plutôt pas d&#039;accord"' />
+	<xsl:variable name='avis5' select='"Pas du tout d&#039;accord"' />
+
 	<xsl:template match="/">
 
 		<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format"
@@ -283,9 +294,9 @@
 							</xsl:if>
 						</fo:block>
 					</xsl:if>
-					
-					
-					
+
+
+
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-i7 = 'false'">
 					Non -
@@ -339,19 +350,19 @@
 						</xsl:when>
 						<xsl:when test="type-question = 'INT'">
 							<xsl:if test="reponse-supplementaire/@reponse-int = 1">
-								Excellent
+								<xsl:value-of select="$notation1" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 2">
-								Très Bien
+								<xsl:value-of select="$notation2" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 3">
-								Bien
+								<xsl:value-of select="$notation3" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 4">
-								Satisfaisant
+								<xsl:value-of select="$notation4" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 5">
-								Insuffisant
+								<xsl:value-of select="$notation5" />
 							</xsl:if>
 						</xsl:when>
 						<xsl:otherwise>
@@ -378,20 +389,22 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI1 = 1">
-					Excellent
+					<xsl:value-of select="$notation1" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI1 = 2">
-					Très Bien
+					<xsl:value-of select="$notation2" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI1 = 3">
-					Bien
+					<xsl:value-of select="$notation3" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI1 = 4">
-					Satisfaisant :
+					<xsl:value-of select="$notation4" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iI1bis" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI1 = 5">
-					Insuffisant :
+					<xsl:value-of select="$notation5" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iI1bis" />
 				</xsl:if>
 			</fo:block>
@@ -406,20 +419,22 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI2 = 1">
-					Excellent
+					<xsl:value-of select="$notation1" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI2 = 2">
-					Très Bien
+					<xsl:value-of select="$notation2" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI2 = 3">
-					Bien
+					<xsl:value-of select="$notation3" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI2 = 4">
-					Satisfaisant :
+					<xsl:value-of select="$notation4" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iI2bis" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI2 = 5">
-					Insuffisant :
+					<xsl:value-of select="$notation5" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iI2bis" />
 				</xsl:if>
 			</fo:block>
@@ -435,20 +450,22 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI3 = 1">
-					Excellent
+					<xsl:value-of select="$notation1" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI3 = 2">
-					Très Bien
+					<xsl:value-of select="$notation2" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI3 = 3">
-					Bien
+					<xsl:value-of select="$notation3" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI3 = 4">
-					Satisfaisant :
+					<xsl:value-of select="$notation4" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iI3bis" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI3 = 5">
-					Insuffisant :
+					<xsl:value-of select="$notation5" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iI3bis" />
 				</xsl:if>
 			</fo:block>
@@ -464,19 +481,19 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI4 = 1">
-					Tout à fait d'accord
+					<xsl:value-of select="$avis1" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI4 = 2">
-					Plutôt d'accord
+					<xsl:value-of select="$avis2" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI4 = 3">
-					Sans avis
+					<xsl:value-of select="$avis3" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI4 = 4">
-					Plutôt pas d'accord
+					<xsl:value-of select="$avis4" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iI4 = 5">
-					Pas du tout d'accord
+					<xsl:value-of select="$avis5" />
 				</xsl:if>
 			</fo:block>
 		</xsl:if>
@@ -555,19 +572,19 @@
 						</xsl:when>
 						<xsl:when test="type-question = 'INT'">
 							<xsl:if test="reponse-supplementaire/@reponse-int = 1">
-								Excellent
+								<xsl:value-of select="$notation1" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 2">
-								Très Bien
+								<xsl:value-of select="$notation2" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 3">
-								Bien
+								<xsl:value-of select="$notation3" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 4">
-								Satisfaisant
+								<xsl:value-of select="$notation4" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 5">
-								Insuffisant
+								<xsl:value-of select="$notation5" />
 							</xsl:if>
 						</xsl:when>
 						<xsl:otherwise>
@@ -693,9 +710,9 @@
 					<fo:character character="&#xF8E7;" font-family="Symbol" />
 				</xsl:if>
 				Nouvelles méthodologies :
-					<xsl:if test="reponse-evaluation/@reponse-etu-iII5b = 'true'">
-						<xsl:value-of select="reponse-evaluation/reponse-etu-iII5bis" />
-					</xsl:if>
+				<xsl:if test="reponse-evaluation/@reponse-etu-iII5b = 'true'">
+					<xsl:value-of select="reponse-evaluation/reponse-etu-iII5bis" />
+				</xsl:if>
 			</fo:block>
 		</xsl:if>
 		<xsl:if test="fiche-evaluation/@question-etu-iII6 = 'true'">
@@ -709,20 +726,22 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII6 = 1">
-					Tout à fait d'accord
+					<xsl:value-of select="$avis1" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII6 = 2">
-					Plutôt d'accord
+					<xsl:value-of select="$avis2" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII6 = 3">
-					Sans avis
+					<xsl:value-of select="$avis3" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII6 = 4">
-					Plutôt pas d'accord :
+					<xsl:value-of select="$avis4" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iII6bis" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII6 = 5">
-					Pas du tout d'accord :
+					<xsl:value-of select="$avis5" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iII6bis" />
 				</xsl:if>
 			</fo:block>
@@ -737,20 +756,22 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII7 = 1">
-					Tout à fait d'accord
+					<xsl:value-of select="$avis1" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII7 = 2">
-					Plutôt d'accord
+					<xsl:value-of select="$avis2" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII7 = 3">
-					Sans avis
+					<xsl:value-of select="$avis3" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII7 = 4">
-					Plutôt pas d'accord :
+					<xsl:value-of select="$avis4" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iII7bis" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII7 = 5">
-					Pas du tout d'accord :
+					<xsl:value-of select="$avis5" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iII7bis" />
 				</xsl:if>
 			</fo:block>
@@ -868,20 +889,22 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII15 = 1">
-					Tout à fait d'accord
+					<xsl:value-of select="$avis1" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII15 = 2">
-					Plutôt d'accord
+					<xsl:value-of select="$avis2" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII15 = 3">
-					Sans avis
+					<xsl:value-of select="$avis3" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII15 = 4">
-					Plutôt pas d'accord :
+					<xsl:value-of select="$avis4" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iII15bis" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII15 = 5">
-					Pas du tout d'accord :
+					<xsl:value-of select="$avis5" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iII15bis" />
 				</xsl:if>
 			</fo:block>
@@ -895,20 +918,22 @@
 			<fo:block padding-top="0.2cm" hyphenate="false" language="fr"
 				country="FR" font-size="11pt" margin-left="2.2cm">
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII16 = 1">
-					Excellent
+					<xsl:value-of select="$notation1" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII16 = 2">
-					Très Bien
+					<xsl:value-of select="$notation2" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII16 = 3">
-					Bien
+					<xsl:value-of select="$notation3" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII16 = 4">
-					Satisfaisant :
+					<xsl:value-of select="$notation4" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iII16bis" />
 				</xsl:if>
 				<xsl:if test="reponse-evaluation/@reponse-etu-iII16 = 5">
-					Insuffisant :
+					<xsl:value-of select="$notation5" />
+					:
 					<xsl:value-of select="reponse-evaluation/reponse-etu-iII16bis" />
 				</xsl:if>
 			</fo:block>
@@ -936,19 +961,19 @@
 						</xsl:when>
 						<xsl:when test="type-question = 'INT'">
 							<xsl:if test="reponse-supplementaire/@reponse-int = 1">
-								Excellent
+								<xsl:value-of select="$notation1" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 2">
-								Très Bien
+								<xsl:value-of select="$notation2" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 3">
-								Bien
+								<xsl:value-of select="$notation3" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 4">
-								Satisfaisant
+								<xsl:value-of select="$notation4" />
 							</xsl:if>
 							<xsl:if test="reponse-supplementaire/@reponse-int = 5">
-								Insuffisant
+								<xsl:value-of select="$notation5" />
 							</xsl:if>
 						</xsl:when>
 						<xsl:otherwise>

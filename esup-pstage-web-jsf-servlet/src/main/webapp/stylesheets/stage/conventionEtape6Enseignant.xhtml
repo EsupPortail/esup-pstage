@@ -10,29 +10,26 @@
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText
-					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />  
+					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid columnClasses="paginatorData-text"
+					rowClasses="paginatorData-text">
 					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE6.ENSEIGNANT']}" /> 
+						<h:outputText value="#{msgs['CONVENTION.ETAPE6.ENSEIGNANT']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputText value="" />
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
-						<rich:messages />
-						<ui:include
-							src="/stylesheets/stage/_conventionEtape6DetailsEnseignant.xhtml" />
-					</h:panelGrid>
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
-						<h:commandButton id="modifEnseigant"
-							value="#{msgs['FORM.MODIFIER']}"
-							action="#{conventionController.goToConventionModifEnseignant}"
-							alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-							rendered="#{!conventionController.conventionValide and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+					<rich:messages />
+					<ui:include
+						src="/stylesheets/stage/_conventionEtape6DetailsEnseignant.xhtml" />
+					<h:commandButton id="modifEnseigant"
+						value="#{msgs['CONVENTION.ETAPE6.MODIF.ENSEIGNANT']}"
+						action="#{conventionController.goToConventionModifEnseignant}"
+						alt="#{msgs['CONVENTION.ETAPE6.MODIF.ENSEIGNANT']}"
+						title="#{msgs['FORM.MODIFIER']}"
+						rendered="#{!conventionController.conventionValide and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
-					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>
 		</rich:panel>

@@ -53,6 +53,10 @@
 		<fo:block>
 			<xsl:call-template name="Attestation" />
 		</fo:block>
+		<fo:block break-after="page" />
+		<fo:block>
+			<xsl:call-template name="FicheStageEtranger" />
+		</fo:block>
 		<fo:block>
 			<xsl:choose>
 				<xsl:when test="document('config.xml')/config/triptik">
@@ -221,13 +225,13 @@
 								</xsl:choose>
 							</fo:block>
 						</fo:table-cell>
-						<!-- <fo:table-cell width="3cm"> -->
-						<!-- <fo:block width="3.493cm" line-height="110%" language="fr" -->
-						<!-- country="FR" font-size="12pt" text-align="right"> -->
-						<!-- Année universitaire -->
-						<!-- <xsl:value-of select="annee" /> -->
-						<!-- </fo:block> -->
-						<!-- </fo:table-cell> -->
+						<fo:table-cell width="3cm">
+							<fo:block width="3.493cm" line-height="110%" language="fr"
+								country="FR" font-size="12pt" text-align="right">
+								Année universitaire
+								<xsl:value-of select="annee" />
+							</fo:block>
+						</fo:table-cell>
 					</fo:table-row>
 				</fo:table-body>
 			</fo:table>
@@ -1711,7 +1715,8 @@
 							</fo:block>
 							<fo:block line-height="100%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-								font-size="9pt" font-family="Times New Roman,serif" text-align="justify" background-color="#E6E6E6" font-style="italic">
+								font-size="9pt" font-family="Times New Roman,serif" text-align="justify"
+								background-color="#E6E6E6" font-style="italic">
 								<fo:inline text-decoration="underline">
 									MODALITES D'ENCADREMENT
 								</fo:inline>
@@ -1721,7 +1726,7 @@
 								<xsl:when test="mode-encadre-suivi and mode-encadre-suivi != ''">
 									<fo:block line-height="100%" hyphenate="false"
 										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-										padding-bottom="2pt"  background-color="#E6E6E6" font-style="italic">
+										padding-bottom="2pt" background-color="#E6E6E6" font-style="italic">
 										<fo:inline font-weight="bold">
 											<xsl:value-of select="mode-encadre-suivi" />
 										</fo:inline>
@@ -1730,12 +1735,12 @@
 								<xsl:otherwise>
 									<fo:block line-height="100%" hyphenate="false"
 										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-										padding-bottom="2pt"  background-color="#E6E6E6" font-style="italic">
+										padding-bottom="2pt" background-color="#E6E6E6" font-style="italic">
 										.......................................................................................................
 									</fo:block>
 								</xsl:otherwise>
 							</xsl:choose>
-							
+
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
@@ -1758,7 +1763,7 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Der Stundenbetrag der Vergütung ist auf 13,75 % des
+								Der Stundenbetrag der Vergütung ist auf 15 % des
 								Basisstundenlohns der Sozialversicherung gemäß Artikel L.241-3
 								des Sozialgesetzbuchs festgelegt. In einem branchenspezifischen
 								Abkommen oder beruflichem Übereinkommen können höhere Beträge
@@ -1886,7 +1891,7 @@
 								montant horaire de
 								la
 								gratification
-								est fixé à 13,75%
+								est fixé à 15%
 								du plafond
 								horaire de la
 								sécurité sociale défini
@@ -2128,8 +2133,9 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								font-weight="bold">
-								6-1 Vergütung in Höhe eines Mindestbetrags von 13,75
-								% des Basisstundenlohns der Sozialversicherung:
+								6-1 Vergütung in Höhe eines Mindestbetrags von 15
+								%
+								des Basisstundenlohns der Sozialversicherung:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2168,10 +2174,11 @@
 								font-weight="bold" background-color="#E6E6E6" font-style="italic">
 								6.1 -
 								Gratification d'un
-								montant maximum de 13,75%
+								montant maximum de 15%
 								du plafond horaire
 								de
-								la Sécurité
+								la
+								Sécurité
 								sociale :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -2221,7 +2228,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								font-weight="bold">
 								6.2 -
-								Vergütung über 13,75 % des
+								Vergütung über 15 % des
 								Basisstundenlohns der
 								Sozialversicherung
 							</fo:block>
@@ -2229,7 +2236,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								Die Sozialabgaben werden auf dem Unterschied zwischen
-								dem Betrag der Vergütung und 13,75 % des Basisstundenlohns der
+								dem Betrag der Vergütung und 15 % des Basisstundenlohns der
 								Sozialversicherung berechnet.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -2259,7 +2266,7 @@
 								font-weight="bold">
 								6.2 -
 								Gratification supérieure à
-								13,75 % du plafond
+								15 % du plafond
 								horaire de la
 								Sécurité sociale :
 							</fo:block>
@@ -2269,7 +2276,7 @@
 								Les
 								cotisations sociales sont calculées sur le
 								différentiel entre le
-								montant de la gratification et 13,75 % du
+								montant de la gratification et 15 % du
 								plafond horaire de la
 								Sécurité sociale.
 							</fo:block>
@@ -2571,8 +2578,9 @@
 								text-align="justify" padding-top="1pt">
 								- Zu keiner Vergütung führen,
 								die im entsprechenden Ausland das Recht auf einen
-								Arbeitsunfallschutz eröffnen könnte (eine Vergütung von 13,75 %
-								des Basisstundenlohns der Sozialversicherung (siehe Punkt 5) für
+								Arbeitsunfallschutz eröffnen könnte (eine Vergütung von 15 %
+								des
+								Basisstundenlohns der Sozialversicherung (siehe Punkt 5) für
 								eine gesetzliche Arbeitsdauer von 35 Wochenstunden wird
 								vorbehaltlich dem Einverständnis der Krankenkasse über den
 								Erhalt der Garantie akzeptiert).
@@ -2742,7 +2750,7 @@
 								pays d'accueil ; une
 								indemnité ou
 								gratification est admise dans
-								la limite de 13,75% du
+								la limite de 15% du
 								plafond
 								horaire de la sécurité sociale
 								(cf
@@ -2960,11 +2968,16 @@
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" >
+								text-align="justify">
 								Wenn die Empfangseinrichtung
-								dem Praktikanten ein Fahrzeug zur Verfügung stellt, muss sie
-								vorher sicherstellen, dass die Versicherungspolice eine Nutzung
-								durch den Studenten abdeckt.
+								dem
+								Praktikanten ein
+								Fahrzeug zur Verfügung stellt, muss sie
+								vorher
+								sicherstellen, dass
+								die Versicherungspolice eine Nutzung
+								durch
+								den Studenten abdeckt.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -3423,18 +3436,25 @@
 								prend donc l'engagement de n'utiliser
 								en aucun cas
 								les
-								informations recueillies ou obtenues par eux pour
+								informations recueillies ou obtenues pour
 								en faire
-								publication, communication à des tiers sans accord
+								publication,
+								communication à des tiers sans accord
 								préalable de
-								l'organisme d'accueil, y compris le rapport de
+								l'organisme
+								d'accueil, y compris le rapport de
 								stage. Cet
-								engagement vaut non seulement pour la durée du stage
+								engagement vaut non
+								seulement pour la durée du stage
 								mais
-								également après son expiration. Le stagiaire s'engage à ne
-								conserver, emporter, ou prendre copie d'aucun document ou
-								logiciel, de quelque nature que ce soit, appartenant à
-								l'organisme d'accueil, sauf accord de ce dernier.
+								également après son
+								expiration. Le stagiaire s'engage à ne
+								conserver, emporter, ou
+								prendre copie d'aucun document ou
+								logiciel, de quelque nature que
+								ce soit, appartenant à
+								l'organisme d'accueil, sauf accord de ce
+								dernier.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -3599,7 +3619,7 @@
 								<fo:inline text-decoration="underline">Modalitäten der
 									pädagogischen Bewertung
 								</fo:inline>
-								: 
+								:
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>
@@ -3730,7 +3750,7 @@
 								<fo:inline text-decoration="underline">Modalités d'évaluation
 									pédagogiques
 								</fo:inline>
-								: 
+								:
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>
@@ -4823,7 +4843,526 @@
 			</fo:block>
 		</fo:block>
 	</xsl:template>
+	<xsl:template name="FicheStageEtranger">
+		<fo:block text-align="center">
+			<fo:table border="0.06cm solid #37638B" width="100%"
+				table-layout="fixed" color="#37638B">
+				<fo:table-column column-width="proportional-column-width(0.05)" />
+				<fo:table-column column-width="proportional-column-width(0.55)" />
+				<fo:table-column column-width="proportional-column-width(0.40)" />
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell padding="0.1cm">
+							<fo:external-graphic src="url('img_annexe_fiche_etranger.jpg')"
+								height="1.25cm" scaling="non-uniform" />
+						</fo:table-cell>
+						<fo:table-cell border-right="0.06cm solid #37638B"
+							padding="0.1cm" text-align="left">
+							<fo:block font-size="11pt" font-weight="bold"
+								text-align="center">
+								Stage à l'étranger
+							</fo:block>
+							<fo:block font-size="8pt" font-style="italic"
+								padding-top="0.2cm">
+								Fiche à compléter par l'établissement d'enseignement
+								ou
+								organisme de formation
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell border="1" margin-left="0.2cm"
+							display-align="center" padding-top="0.2cm" text-align="left">
+							<fo:block font-size="8pt">
+								<fo:inline text-decoration="underline" font-weight="bold">
+									PAYS D'ACCUEIL
+								</fo:inline>
+								:
+								<fo:inline color="black">
+									<xsl:choose>
+										<xsl:when test="service/pays/libelle">
+											<xsl:value-of select="service/pays/libelle" />
+										</xsl:when>
+										<xsl:otherwise>
+											...................................................
+										</xsl:otherwise>
+									</xsl:choose>
+								</fo:inline>
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>
+		</fo:block>
+		<fo:block padding-top="5pt">
+			<fo:table border="0.018cm solid #000000" padding="3pt"
+				width="100%" table-layout="fixed">
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell border="1" margin-left="0.2cm"
+							padding-top="0.2cm">
+							<fo:block font-size="9pt" font-weight="bold"
+								text-decoration="underline">
+								CONDITIONS D'ENTRÉE ET DE SÉJOUR DANS LE PAYS
+								D'ACCUEIL
+							</fo:block>
+							<fo:block margin-left="1cm" line-height="130%"
+								hyphenate="false" language="fr" country="FR" font-size="8pt"
+								font-family="Times New Roman,serif" font-style="italic">
+								<fo:inline text-decoration="underline">
+									Préciser ici les
+									informations extraites de la
+								</fo:inline>
+								<fo:basic-link
+									external-destination="url('www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/')"
+									color="blue" text-decoration="underline">
+									Fiche-pays
+								</fo:basic-link>
+								<fo:inline vertical-align="super" font-size="60%">1
+								</fo:inline>
+								<fo:inline text-decoration="underline">
+									essentielles à connaître
+									par le stagiaire :
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="250%" hyphenate="false" language="fr"
+								country="FR" font-size="9pt" font-family="Times New Roman,serif">
+								.........................................................................................................................................................................................................................................
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>
+		</fo:block>
+		<fo:block padding-top="5pt">
+			<fo:table border="0.018cm solid #000000" padding="3pt"
+				width="100%" table-layout="fixed">
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell border="1" margin-left="0.2cm"
+							padding-top="0.2cm">
+							<fo:block font-size="10pt" font-weight="bold"
+								text-decoration="underline" color="red">
+								AVERTISSEMENT SUR LA SÉCURITÉ
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:external-graphic src="url('cross.jpg')"
+									width="0.3cm" height="0.3cm" />
+								<fo:inline font-weight="bold">Consultez la classification de
+									la zone
+								</fo:inline>
+								où doit se dérouler le stage envisagé sur le site du Ministère
+								des Affaires étrangères
+								et du Développement international,
+								rubrique
+								<fo:basic-link
+									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/')"
+									color="blue" text-decoration="underline">
+									Conseils aux voyageurs
+								</fo:basic-link>
+								<fo:inline vertical-align="super" font-size="60%">2
+								</fo:inline>
+								:
+							</fo:block>
+							<fo:block font-size="10pt" font-family="Times New Roman,serif">
+								- votre établissement d'enseignement
+								<fo:inline color="red">ne validera pas</fo:inline>
+								une convention de stage pour une zone qualifiée "
+								<fo:inline color="red">rouge</fo:inline>
+								" ;
+							</fo:block>
+							<fo:block font-size="10pt" font-family="Times New Roman,serif">
+								- votre établissement d'enseignement examinera la situation
+								avant une
+								<fo:inline color="red">éventuelle validation</fo:inline>
+								d'une convention de stage pour une zone qualifiée "
+								<fo:inline color="red">orange</fo:inline>
+								". Les projets de stage en zone
+								orange font toutefois l'objet
+								d'un
+								<fo:inline font-weight="bold">à priori négatif</fo:inline>
+								;
+							</fo:block>
 
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:external-graphic src="url('cross.jpg')"
+									width="0.3cm" height="0.3cm" />
+								<fo:inline font-weight="bold">En cas de basculement en zone
+									"rouge"
+								</fo:inline>
+								pendant votre séjour, il vous est demandé de
+								<fo:inline font-weight="bold">mettre fin immédiatement
+								</fo:inline>
+								au stage.
+							</fo:block>
+
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:external-graphic src="url('cross.jpg')"
+									width="0.3cm" height="0.3cm" />
+								<fo:inline font-weight="bold">Avant de partir,</fo:inline>
+								vous devez prendre connaissance des
+								<fo:basic-link
+									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/')"
+									color="blue" text-decoration="underline">
+									conseils aux voyageurs
+								</fo:basic-link>
+								<fo:inline vertical-align="super" font-size="60%">2
+								</fo:inline>
+								<fo:inline font-weight="bold"> accessibles via la </fo:inline>
+								<fo:basic-link
+									external-destination="url('www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/')"
+									color="blue" text-decoration="underline">
+									fiche-pays
+								</fo:basic-link>
+								<fo:inline vertical-align="super" font-size="60%">1
+								</fo:inline>
+							</fo:block>
+							<fo:block line-height="200%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								font-style="italic">
+								<fo:inline text-decoration="underline">
+									Mentionner ici le lien
+									direct vers la fiche-pays concernée
+								</fo:inline>
+								:
+								...............................................................................................................
+							</fo:block>
+
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:external-graphic src="url('cross.jpg')"
+									width="0.3cm" height="0.3cm" />
+								Il vous est demandé de
+								<fo:inline font-weight="bold">vous inscrire avant votre
+									départ
+								</fo:inline>
+								sur la
+								<fo:basic-link
+									external-destination="url('https://pastel.diplomatie.gouv.fr/fildariane/dyn/public/login.html')"
+									color="blue" text-decoration="underline">
+									base Ariane
+								</fo:basic-link>
+								<fo:inline vertical-align="super" font-size="60%">3
+								</fo:inline>
+								.
+								De cette manière, le Ministère des Affaires étrangères et du
+								développement international pourra vous joindre par mail ou sms
+								en cas d'incident sécuritaire.
+							</fo:block>
+
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:external-graphic src="url('cross.jpg')"
+									width="0.3cm" height="0.3cm" />
+								Si vous demeurez
+								<fo:inline font-weight="bold">plus de six mois</fo:inline>
+								dans le pays, en tenant compte de votre temps de présence
+								<fo:inline font-weight="bold">avant et après le stage,
+								</fo:inline>
+								vous devrez
+								<fo:inline font-weight="bold">vous inscrire au Registre des
+									Français
+								</fo:inline>
+								établis hors de France auprès des autorités consulaires
+								Françaises (Consulat général ou section consulaire de
+								l'ambassade
+								<fo:inline vertical-align="super" font-size="60%">5
+								</fo:inline>
+								).
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>
+		</fo:block>
+		<fo:block padding-top="5pt">
+			<fo:table border="0.018cm solid #000000" width="100%"
+				table-layout="fixed">
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell padding="0.2cm">
+							<fo:block font-size="9pt" font-weight="bold"
+								text-decoration="underline">
+								CONDITIONS PARTICULIERES DU STATUT DU STAGIAIRE
+								DANS LE PAYS
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="12pt" font-family="Times New Roman,serif"
+								padding-top="0.2cm">
+								<fo:external-graphic src="url('square.JPG')" />
+								Non
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="12pt" font-family="Times New Roman,serif"
+								padding-top="0.2cm">
+								<fo:external-graphic src="url('square.JPG')" />
+								Oui
+								:
+								<fo:inline font-size="9pt" font-style="italic"
+									text-decoration="underline">Mentionner
+									ici des particularités liées aux
+									stages dans le pays
+									(réglementation spécifique / droits
+									d'inscription
+									complémentaire / convention de partenariat /
+									accords cadre /
+									conditions particulières sur la gratification ou
+									non)
+								</fo:inline>
+								:
+								......................................................
+							</fo:block>
+							<fo:block line-height="200%" hyphenate="false" language="fr"
+								country="FR" font-family="Times New Roman,serif">
+								.............................................................................................................................................................................
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell padding="0.2cm" border-top="0.018cm solid #000000">
+							<fo:block font-size="9pt" font-weight="bold"
+								text-decoration="underline">
+								ASSURANCE COMPLEMENTAIRE
+							</fo:block>
+							<fo:block font-size="9pt" line-height="110%" hyphenate="false"
+								language="fr" country="FR" font-family="Times New Roman,serif"
+								padding-top="2pt">
+								Les régimes de protection sont
+								différents selon le
+								pays d'accueil (y compris en Europe) et les
+								modalités du stage
+								(gratification supérieure ou non
+								au plafond
+								légal Français)*. Pour
+								votre stage :
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								padding-top="0.2cm">
+								<fo:external-graphic src="url('square.JPG')" />
+								<fo:inline font-weight="bold">Vous bénéficiez d'un régime de
+									protection sociale local
+								</fo:inline>
+								<fo:wrapper font-family="ZapfDingbats">&#x2192; </fo:wrapper>
+								<fo:inline font-weight="bold">Votre
+									convention de stage doit
+									le
+									préciser.
+								</fo:inline>
+								Si vous estimez cette
+								protection insuffisante, vous pouvez
+								souscrire à l'assurance
+								maladie volontaire de la
+								<fo:basic-link external-destination="url('http://www.cfe.fr/')"
+									color="blue" text-decoration="underline">
+									Caisse des Français de l'Etranger
+									(CFE)
+								</fo:basic-link>
+								<fo:inline vertical-align="super" font-size="60%">4
+								</fo:inline>
+								ou à une assurance privée.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								padding-top="0.2cm">
+								<fo:external-graphic src="url('square.JPG')" />
+								<fo:inline font-weight="bold">Vous ne bénéficiez pas
+								</fo:inline>
+								d'un régime de protection sociale local.
+								<fo:inline font-weight="bold">Vous devez souscrire
+								</fo:inline>
+								à l'assurance maladie volontaire de la
+								<fo:basic-link external-destination="url('http://www.cfe.fr/')"
+									color="blue" text-decoration="underline">
+									Caisse des Français de l'Etranger
+									(CFE)
+								</fo:basic-link>
+								<fo:inline vertical-align="super" font-size="60%">4
+								</fo:inline>
+								ou à une assurance
+								privée.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								padding-top="0.2cm" padding-bottom="0.2cm">
+								<fo:inline font-weight="bold">Dans tous les cas, </fo:inline>
+								compte tenu du coût élevé des soins dans de nombreux États,
+								<fo:inline font-weight="bold">il est vivement conseillé de
+									souscrire
+								</fo:inline>
+								à l'assurance maladie volontaire de la
+								<fo:basic-link external-destination="url('http://www.cfe.fr/')"
+									color="blue" text-decoration="underline">
+									Caisse des Français de l'Etranger
+									(CFE)
+								</fo:basic-link>
+								<fo:inline vertical-align="super" font-size="60%">4
+								</fo:inline>
+								ou à une assurance
+								privée.
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								font-style="italic">
+								*L'établissement doit vérifier
+								les conditions de
+								protection sociale du pays d'accueil afin
+								d'informer
+								préalablement le stagiaire et, au besoin, faire les
+								démarches
+								nécessaires auprès de la CPAM notamment pour la
+								protection
+								accidents du travail : pour les étudiants voir
+								convention-type
+								de
+								stage articles 6 et 7 (cf. arrêté du 29
+								décembre 2014 relatif
+								aux
+								conventions de stage dans
+								l'enseignement supérieur). Pour
+								les
+								élèves en formation
+								professionnelle de niveaux V et IV voir
+								convention type
+								concernant les périodes de formation en milieu
+								professionnel à
+								l'étranger (cf. circulaire n°2003-203 du
+								17/11/2003 notamment
+								article 8).
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell padding="0.2cm" border-top="0.018cm solid #000000">
+							<fo:block font-size="9pt" font-weight="bold"
+								text-decoration="underline">
+								STAGIAIRE MINEUR
+							</fo:block>
+							<fo:block font-size="10pt" font-family="Times New Roman,serif">
+								-
+								<fo:inline font-weight="bold">Se référer à la convention-type
+								</fo:inline>
+								concernant les périodes de formation en milieu professionnel à
+								l'étranger des élèves en formation professionnelle de niveaux V
+								et IV (circulaire n°2003-203 du 17/11/2003 dont notamment
+								articles 4, 5 et 6).
+							</fo:block>
+							<fo:block font-size="10pt" font-family="Times New Roman,serif"
+								text-decoration="underline" font-style="italic">
+								éventuellement
+								indications particulières à mettre en exergue par
+								l'établissement
+							</fo:block>
+							<fo:block font-size="10pt" font-family="Times New Roman,serif"
+								padding-top="0.1cm">
+								-
+								<fo:inline font-weight="bold">Règlementation particulière
+									pour les mineurs dans le pays d'accueil :
+								</fo:inline>
+							</fo:block>
+							<fo:block margin-left="1.5cm" padding-top="0.1cm">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="12pt" font-family="Times New Roman,serif">
+									<fo:external-graphic src="url('square.JPG')" />
+									Non
+								</fo:block>
+								<fo:block line-height="110%" hyphenate="false"
+									padding-top="0.1cm" language="fr" country="FR" font-size="12pt"
+									font-family="Times New Roman,serif">
+									<fo:external-graphic src="url('square.JPG')" />
+									Oui :
+									<fo:inline font-style="italic">précisez les particularités
+									</fo:inline>
+									:
+									..............................................................................................
+								</fo:block>
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell font-size="9pt" padding="0.2cm"
+							border-top="0.018cm solid #000000">
+							<fo:block font-weight="bold" text-decoration="underline">
+								SITES DE
+								REFERENCE
+							</fo:block>
+							<fo:block padding-top="0.1cm">
+								<fo:inline vertical-align="super" font-size="60%">1
+								</fo:inline>
+								Fiches-pays :
+								<fo:basic-link
+									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/')"
+									color="blue" text-decoration="underline">
+									http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/
+								</fo:basic-link>
+							</fo:block>
+							<fo:block>
+								<fo:inline vertical-align="super" font-size="60%">2
+								</fo:inline>
+								Fiches Conseils aux voyageurs :
+								<fo:basic-link
+									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs')"
+									color="blue" text-decoration="underline">
+									http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs
+								</fo:basic-link>
+							</fo:block>
+							<fo:block>
+								<fo:inline vertical-align="super" font-size="60%">3
+								</fo:inline>
+								Base Ariane :
+								<fo:basic-link
+									external-destination="url('https://pastel.diplomatie.gouv.fr/fildariane/dyn/public/login.html')"
+									color="blue" text-decoration="underline">
+									https://pastel.diplomatie.gouv.fr/fildariane/dyn/public/login.html
+								</fo:basic-link>
+							</fo:block>
+							<fo:block>
+								<fo:inline vertical-align="super" font-size="60%">4
+								</fo:inline>
+								Caisse des Français de l'Etranger pour assurance complémentaire
+								:
+								<fo:basic-link external-destination="url('http://www.cfe.fr/')"
+									color="blue" text-decoration="underline">
+									http://www.cfe.fr/
+								</fo:basic-link>
+							</fo:block>
+							<fo:block>
+								<fo:inline vertical-align="super" font-size="60%">5
+								</fo:inline>
+								Sites internet des ambassades et consulat français indiqués dans
+								la Fiche-pays :
+								<fo:basic-link
+									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/')"
+									color="blue" text-decoration="underline">
+									http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/
+								</fo:basic-link>
+							</fo:block>
+							<fo:block>
+								Protection sociale à l'international :
+								<fo:basic-link external-destination="url('http://www.cleiss.fr/')"
+									color="blue" text-decoration="underline">
+									http://www.cleiss.fr/
+								</fo:basic-link>
+							</fo:block>
+							<fo:block>
+								Connaissance de l'enseignement supérieur (fiches de la base
+								"Curie") :
+								<fo:basic-link
+									external-destination="url('http://www.diplomatie.gouv.fr/fr/politique-etrangere-de-la-france/cooperation-educative/')"
+									color="blue" text-decoration="underline">
+									http://www.diplomatie.gouv.fr/fr/politique-etrangere-de-la-france/cooperation-educative/
+								</fo:basic-link>
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>
+		</fo:block>
+	</xsl:template>
 	<!-- mises en majuscules -->
 	<xsl:variable name='lowers'
 		select='"abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"' />

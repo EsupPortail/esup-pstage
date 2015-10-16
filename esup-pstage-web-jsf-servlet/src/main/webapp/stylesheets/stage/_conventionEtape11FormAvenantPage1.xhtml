@@ -270,7 +270,7 @@
 							<h:outputText
 								value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
 							<h:outputText
-								value="#{conventionController.convention.montantGratification} #{conventionController.convention.uniteGratification.libelle} par #{conventionController.convention.uniteDureeGratification.libelle}" />
+								value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} #{conventionController.convention.uniteGratification.libelle} par #{conventionController.convention.uniteDureeGratification.libelle}" />
 							<h:outputText
 								value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
 
@@ -283,6 +283,27 @@
 									<f:validator binding="#{mtGratificationValidator}" />
 									<a4j:ajax event="blur" />
 								</h:inputText>
+
+								<h:panelGrid columnClasses="paginatorData-text"
+									rowClasses="paginatorData-text">
+									<h:selectOneMenu value="#{avenantController.selMonnaieGratification}">
+										<a4j:ajax event="valueChange" render="newMonnaieGratification" />
+										<f:selectItem itemValue="euros" />
+										<f:selectItem itemValue="autre" />
+									</h:selectOneMenu>
+
+									<a4j:outputPanel id="newMonnaieGratification">
+										<h:outputText
+											rendered="#{avenantController.selMonnaieGratification=='autre'}"
+											value="Devise : " />
+										<h:inputText id="autreMonnaie" size="10"
+											rendered="#{avenantController.selMonnaieGratification=='autre'}"
+											value="#{avenantController.avenant.monnaieGratification}" />
+									</a4j:outputPanel>
+
+								</h:panelGrid>
+
+
 								<h:selectOneMenu id="uniteGratification"
 									value="#{avenantController.avenant.uniteGratification}"
 									converter="#{uniteGratificationConverter}">
@@ -733,12 +754,12 @@
 			rendered="#{avenantController.avenant.rupture}">
 
 			<t:div id="divDateRupture">
-			
+
 				<h:outputText id="erreurDateRupture" value="" />
 				<rich:message for="erreurDateRupture">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
-				
+
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" columns="3">
 
@@ -767,7 +788,7 @@
 						datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
 						cellHeight="22px" style="width:200px" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}" />
-<!-- 					<h:outputText id="erreurDateRupture" value="" /> -->
+					<!-- 					<h:outputText id="erreurDateRupture" value="" /> -->
 					<rich:message for="dateRupture">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>

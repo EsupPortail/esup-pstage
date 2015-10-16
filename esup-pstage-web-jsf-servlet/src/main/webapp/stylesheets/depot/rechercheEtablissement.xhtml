@@ -20,7 +20,9 @@
 					<h:form>
 						<ui:include
 							src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
-						<h:commandButton action="#{rechercheController.goToOngletAccord}"
+						<h:commandButton
+							style="color: #{rechercheController.ongletCourant == '3' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '3' ? 'green' : 'black'};"
+							action="#{rechercheController.goToOngletAccord}"
 							value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6']}"
 							immediate="true" />
 					</h:form>
@@ -28,7 +30,7 @@
 					<t:div
 						rendered="#{not empty rechercheController.ongletCourant 
 					and rechercheController.ongletCourant==6}">
-						<h:panelGrid columns="1" columnClasses="paginatorData-text"
+						<h:panelGrid columnClasses="paginatorData-text"
 							rowClasses="paginatorData-text">
 							<h:form id="formRechEtab6">
 								<t:panelGrid columns="2">
@@ -189,9 +191,9 @@
 										</h:panelGrid>
 									</rich:column>
 									<f:facet name="footer">
-										<rich:dataScroller align="center" for="rechercheStructureDataTable"
-											maxPages="20" page="1" id="listeStructScroller"
-											renderIfSinglePage="false" />
+										<rich:dataScroller align="center"
+											for="rechercheStructureDataTable" maxPages="20" page="1"
+											id="listeStructScroller" renderIfSinglePage="false" />
 									</f:facet>
 								</rich:dataTable>
 							</t:div>

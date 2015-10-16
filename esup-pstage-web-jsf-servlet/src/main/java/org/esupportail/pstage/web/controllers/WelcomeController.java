@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,10 @@ import javax.mail.internet.InternetAddress;
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
+import org.esupportail.pstage.domain.beans.EtapeInscription;
 import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.NousContacter;
+import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstagedata.domain.dto.AccordPartenariatDTO;
 import org.esupportail.pstagedata.domain.dto.AdminStructureDTO;
@@ -27,7 +30,6 @@ import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.ContactDTO;
 import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
 import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
-import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
 import org.springframework.util.StringUtils;
@@ -80,6 +82,10 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * OffreController
 	 */
 	private OffreController offreController;
+	/**
+	 * ConventionController
+	 */
+	private ConventionController conventionController;
 
 	/**
 	 * LdapUserService
@@ -132,7 +138,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	 */
 	@Override
 	public void reset() {
-		super.reset();		
+		super.reset();	
 	}
 
 	/**
@@ -688,22 +694,96 @@ public class WelcomeController extends AbstractContextAwareController {
 						}
 					} 
 				} else if (StringUtils.hasText(userAffiliation) && student.contains(userAffiliation)){
-					//Sinon, si c'est un étudiant
+					// Sinon, si c'est un étudiant
+					// Il existe forcement dans le Ldap donc on appel getEtudiantRef a partir de son uid
 					EtudiantRef e = getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(),
 							getSessionController().getCurrentStageCasUser().getId());
-
+					
 					if (e != null){
 						// Si la liste des annees d'inscription est vide, aucune inscription admin pour l'etudiant, il ne peut donc creer de convention
 						if (e.getListeAnneesUniv() == null || e.getListeAnneesUniv().isEmpty()){
 							this.creationConventionAutorisee=false;
+						} else {
+							// Recuperation et assignation au conventionController de l'annee universitaire en cours
+							String[] anneeUniv = getBeanUtils().getAnneeUniversitaireCourante(new Date()).split("/");
+							this.conventionController.setSelectedAnneeUniv(anneeUniv[0]);
+							// puis on recupere toutes les infos d'inscription ufr/etape/elp de l'etudiant pour l'annee prealablement recuperee
+							this.conventionController.setEtudiantRef(e);
+							this.conventionController.loadInfosEtu();
 						}
 						
+						/* 
+						 * Recherche des centres de gestion auquel l'etudiant est rattaché
+						 */
+						CentreGestionDTO tmp = new CentreGestionDTO();
+						CentreGestionDTO cgEtab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
+						
+						if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
+							// On recupere la liste des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
+							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
+							if(e.getStudysKey() != null && !e.getStudysKey().isEmpty()) {
+								for(String code : e.getStudysKey()){
+									tmp = recupCentre(code);
+									if (tmp != null
+											&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
+										getSessionController().getCurrentCentresGestion().add(tmp);
+									}
+								}
+							} else {
+								// par default, on met le centre etablissement
+								getSessionController().getCurrentCentresGestion().add(cgEtab);
+							}
+						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_ETAPE)) {
+							// On recupere la liste des etapes de l'etudiant et on vérifie si elles sont gerees par un centre
+							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
+							if(e.getListeEtapeInscriptions() != null && !e.getListeEtapeInscriptions().isEmpty()) {
+								for(EtapeInscription etp : e.getListeEtapeInscriptions()){
+									tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
+									if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
+										getSessionController().getCurrentCentresGestion().add(tmp);
+									}
+								}
+							} else {
+								// par default, on met le centre etablissement
+								getSessionController().getCurrentCentresGestion().add(cgEtab);
+							}
+
+						} else if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_MIXTE)) {
+							// On recupere les listes des etapes et des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
+							if(e.getListeEtapeInscriptions() != null && !e.getListeEtapeInscriptions().isEmpty()) {
+								for(EtapeInscription etp : e.getListeEtapeInscriptions()){
+									tmp = recupCentre(etp.getCodeEtp(),etp.getCodVrsVet());
+									if (tmp != null && !getSessionController().getCurrentCentresGestion().contains(tmp)){
+										getSessionController().getCurrentCentresGestion().add(tmp);
+									}
+								}
+							}
+							if(e.getStudysKey() != null) {
+								for(String code : e.getStudysKey()){
+									tmp = recupCentre(code);
+									if (tmp != null
+											&& !getSessionController().getCurrentCentresGestion().contains(tmp)){
+										getSessionController().getCurrentCentresGestion().add(tmp);
+									}
+								}
+							}
+							if (e.getStudysKey() != null 
+								&& e.getStudysKey().isEmpty() 
+								&& e.getListeEtapeInscriptions() != null 
+								&& e.getListeEtapeInscriptions().isEmpty()) {
+								// par default, on met le centre etablissement
+								getSessionController().getCurrentCentresGestion().add(cgEtab);
+							}
+						} else {
+							// par default, on met le centre etablissement
+							getSessionController().getCurrentCentresGestion().add(cgEtab);
+						}
 						// On 'sauvegarde' l'etudiant dans la variable currentAuthEtudiant
 						getSessionController().setCurrentAuthEtudiant(e);
 
 					} else {
 						//Si aucun étudiant trouvé, création de l'objet EtudiantDTO manuellement à partir des infos de getSessionController().getCurrentStageCasUser()
-						EtudiantDTO tmpE = new EtudiantDTO();
+						EtudiantRef tmpE = new EtudiantRef();
 						tmpE.setIdentEtudiant(getSessionController().getCurrentStageCasUser().getId());
 						getSessionController().setCurrentAuthEtudiant(tmpE);
 					}
@@ -1146,5 +1226,13 @@ public class WelcomeController extends AbstractContextAwareController {
 	 */
 	public String getIdLienDirect() {
 		return idLienDirect;
+	}
+
+	public ConventionController getConventionController() {
+		return conventionController;
+	}
+
+	public void setConventionController(ConventionController conventionController) {
+		this.conventionController = conventionController;
 	}
 }

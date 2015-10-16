@@ -30,7 +30,6 @@
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="2">
 
-	<!-- Ce passage-ci : j'aimerai pouvoir le tester pour un contact vide-->
 						<a4j:commandButton execute="@this"
 							oncomplete="#{rich:component('modifContact')}.show()"
 							render="modifContact" value="#{msgs['FORM.MODIFIER']}"
@@ -55,14 +54,9 @@
 						<a4j:commandButton execute="@this" render="selectServiceContact"
 							oncomplete="#{rich:component('selectServiceContact')}.show()"
 							rendered="#{!conventionController.conventionValide
-								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized 
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								and ((empty conventionController.convention.contact.loginModif and
-								conventionController.convention.contact.loginCreation==sessionController.currentLogin)
-								|| (conventionController.convention.contact.loginModif==sessionController.currentLogin)))))))}"
+		                        and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+		                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+		                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
 							value="#{msgs['CONVENTION.ETAPE4.MODIF.CONTACT']}">
 							<f:setPropertyActionListener value="#{0}"
 								target="#{etablissementController.idContactSel}" />

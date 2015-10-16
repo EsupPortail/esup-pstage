@@ -190,6 +190,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	@SuppressWarnings("unused")
 	private List<SelectItem> typesStructure;
+
 	/**
 	 * Nomenclature des unités de durée
 	 */
@@ -260,7 +261,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	@SuppressWarnings("unused")
 	private List<SelectItem> mois;
+	
 
+	
+	
 	/**
 	 * Bean constructor.
 	 */
@@ -1619,6 +1623,8 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 		return ls;
 	}
+	
+	
 	/**
 	 * @return List<SelectItem>
 	 */
@@ -1970,4 +1976,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	public void setModeValidationStage(ModeValidationStageDTO modeValidationStage) {
 		this.modeValidationStage = modeValidationStage;
 	}
+	
+	
+	
 }

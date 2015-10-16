@@ -165,13 +165,13 @@
 								</xsl:choose>
 							</fo:block>
 						</fo:table-cell>
-						<!-- <fo:table-cell width="3cm"> -->
-						<!-- <fo:block width="3.493cm" line-height="110%" language="fr" -->
-						<!-- country="FR" font-size="12pt" text-align="right"> -->
-						<!-- Année universitaire -->
-						<!-- <xsl:value-of select="annee" /> -->
-						<!-- </fo:block> -->
-						<!-- </fo:table-cell> -->
+						<fo:table-cell width="3cm">
+							<fo:block width="3.493cm" line-height="110%" language="fr"
+								country="FR" font-size="12pt" text-align="right">
+								Année universitaire
+								<xsl:value-of select="annee" />
+							</fo:block>
+						</fo:table-cell>
 					</fo:table-row>
 				</fo:table-body>
 			</fo:table>
@@ -1310,8 +1310,9 @@
 								montant horaire de
 								la
 								gratification
-								est fixé à 13,75%
-								du plafond horaire de la
+								est fixé à 15%
+								du
+								plafond horaire de la
 								sécurité sociale défini
 								en application
 								de
@@ -1424,12 +1425,13 @@
 											</xsl:otherwise>
 										</xsl:choose>
 									</fo:block>
-									<xsl:if test="mode-vers-gratification/libelle and mode-vers-gratification/libelle != ''">
+									<xsl:if
+										test="mode-vers-gratification/libelle and mode-vers-gratification/libelle != ''">
 										<fo:block line-height="130%" hyphenate="false"
-											language="fr" country="FR" font-size="10pt"
-											font-family="Times New Roman,serif">
+											language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
 											<fo:inline text-decoration="underline">
-												Modalités de versement de la gratification
+												Modalités de versement
+												de la gratification
 											</fo:inline>
 											:
 											<fo:inline font-weight="bold">
@@ -1566,7 +1568,7 @@
 								<fo:inline font-style="italic" font-weight="bold">
 									(associés à
 									l'article 5bis ou
-									5ter selon le statut publique ou
+									5ter selon le statut public ou
 									privé de
 									l'organisme d'accueil)
 									:
@@ -1618,8 +1620,9 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								font-weight="bold">
-								6.1 - Gratification d'un montant maximum de 13,75%
-								du plafond horaire
+								6.1 - Gratification d'un montant maximum de 15%
+								du
+								plafond horaire
 								de la Sécurité sociale :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1683,7 +1686,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								<fo:inline font-size="10pt" font-weight="bold">6.2 -
-									Gratification supérieure à 13,75 % du plafond horaire de la
+									Gratification supérieure à 15 % du plafond horaire de la
 									Sécurité sociale :
 								</fo:inline>
 							</fo:block>
@@ -1691,7 +1694,7 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								Les cotisations sociales sont calculées sur le
-								différentiel entre le montant de la gratification et 13,75 % du
+								différentiel entre le montant de la gratification et 15 % du
 								plafond horaire de la Sécurité sociale.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
@@ -1872,12 +1875,15 @@
 								accident de travail dans le
 								pays d'accueil ; une indemnité ou
 								gratification est admise dans
-								la limite de 13,75% du plafond
-								horaire de la sécurité sociale
+								la limite de 15% du plafond
+								horaire
+								de la sécurité sociale
 								(cf point 5), et sous réserve de
-								l'accord de la Caisse Primaire
+								l'accord
+								de la Caisse Primaire
 								d'Assurance Maladie sur la demande
-								de maintien de droit ;
+								de
+								maintien de droit ;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2261,7 +2267,7 @@
 								prend donc l'engagement de n'utiliser
 								en aucun cas
 								les
-								informations recueillies ou obtenues par eux pour
+								informations recueillies ou obtenues pour
 								en faire
 								publication, communication à des tiers sans accord
 								préalable de
@@ -2408,7 +2414,7 @@
 								<fo:inline text-decoration="underline">Modalités d'évaluation
 									pédagogiques
 								</fo:inline>
-								: 
+								:
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>

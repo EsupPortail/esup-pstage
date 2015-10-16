@@ -459,7 +459,9 @@
 								and (welcomeController.superAdmin || sessionController.droitsEvaluationEtudiantMap[conventionController.rechEvalIdCentre])}">
 									<h:commandButton id="extractionEtudiant"
 										value="#{msgs['RECHERCHEEVALUATION.EXPORT_ETUDIANT']}"
-										action="#{conventionController.exportFichesEtudiant}">
+										action="#{conventionController.exportFichesEtudiantRow}">
+<!-- 										action="#{conventionController.exportFichesEtudiantColumn}"> -->
+										
 										<rich:tooltip
 											value="#{msgs['RECHERCHEEVALUATION.EXPORT_ETUDIANT.TOOLTIP']}" />
 									</h:commandButton>
@@ -482,7 +484,8 @@
 									<h:commandButton id="extractionEnseignant"
 										value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENSEIGNANT']}"
 										style="display:inline;"
-										action="#{conventionController.exportFichesEnseignant}">
+										action="#{conventionController.exportFichesEnseignantColumn}">
+<!-- 										action="#{conventionController.exportFichesEnseignantRow}"> -->
 										<rich:tooltip
 											value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENSEIGNANT.TOOLTIP']}" />
 									</h:commandButton>
@@ -503,7 +506,8 @@
 									rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEntreprise
 								and (welcomeController.superAdmin || sessionController.droitsEvaluationEntrepriseMap[conventionController.rechEvalIdCentre])}"
 									value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENTREPRISE']}"
-									action="#{conventionController.exportFichesEntreprise}">
+									action="#{conventionController.exportFichesEntrepriseColumn}">
+<!-- 									action="#{conventionController.exportFichesEntrepriseRow}"> -->
 									<rich:tooltip
 										value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENTREPRISE.TOOLTIP']}" />
 								</h:commandButton>

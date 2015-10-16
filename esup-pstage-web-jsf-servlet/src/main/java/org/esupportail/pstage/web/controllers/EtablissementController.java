@@ -24,6 +24,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.log4j.Logger;
+import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.esupportail.pstage.utils.GenTicketStage;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
@@ -1202,22 +1203,14 @@ public class EtablissementController extends AbstractContextAwareController {
 			} else {
 				this.formService.setPays(this.formServiceTmpPays);
 				if (getBeanUtils().isFrance(this.formServiceTmpPays)
-						&& getSessionController()
-						.isRecupererCommunesDepuisApogee()) {
-					this.formService
-					.setCodePostal(this.formServiceTmpCodePostal);
-					this.formService
-					.setCodeCommune(this.formServiceTmpCommuneDTO
-							.getCodeCommune());
+						&& getSessionController().isRecupererCommunesDepuisApogee()) {
+					this.formService.setCodePostal(this.formServiceTmpCodePostal);
+					this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
 					// Récupération de la commune pour en avoir le libellé
 					this.formServiceTmpCommuneDTO = getGeographieRepositoryDomain()
-							.getCommuneFromDepartementEtCodeCommune(
-									this.formServiceTmpCodePostal,
-									"" + this.formService.getCodeCommune());
+							.getCommuneFromDepartementEtCodeCommune(this.formServiceTmpCodePostal,"" + this.formService.getCodeCommune());
 					if (this.formServiceTmpCommuneDTO != null) {
-						this.formService
-						.setCommune(this.formServiceTmpCommuneDTO
-								.getLibCommune());
+						this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());
 					}
 				}
 			}
@@ -1230,6 +1223,7 @@ public class EtablissementController extends AbstractContextAwareController {
 					.getCurrentLogin());
 			this.formService.setIdStructure(getSessionController()
 					.getCurrentManageStructure().getIdStructure());
+			
 			int i = getStructureDomainService().addService(this.formService);
 			this.formService.setIdService(i);
 			if (i > 0) {
@@ -1237,6 +1231,10 @@ public class EtablissementController extends AbstractContextAwareController {
 				reloadServices();
 				this.idServiceSel = i;
 				this.serviceSel = this.formService;
+				
+//				if (StringUtils.hasText(this.formService.getTelephone())){
+//					this.serviceSel.setTelephone(this.formService.getTelephone());
+//				}
 				reloadContacts();
 				if (logger.isInfoEnabled()) {
 					logger.info(getSessionController().getCurrentLogin()
@@ -2664,4 +2662,6 @@ public class EtablissementController extends AbstractContextAwareController {
 	public void setCurrentStruct(StructureDTO currentStruct) {
 		this.currentStruct = currentStruct;
 	}
+	
+		
 }

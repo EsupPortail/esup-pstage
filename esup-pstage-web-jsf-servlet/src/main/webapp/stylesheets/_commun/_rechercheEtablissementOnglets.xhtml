@@ -20,7 +20,8 @@
 					<h:inputText id="rechNumeroSiret" size="20" maxlength="14"
 						value="#{rechercheController.rechNumeroSiret}" />
 					<h:commandButton action="#{rechercheController.rechercheEtabSiret}"
-						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+						style="font-size:14px; border:solid 1px;" />
 				</h:panelGrid>
 			</h:form>
 			<h:outputText escape="false"
@@ -32,7 +33,8 @@
 						value="#{rechercheController.rechNumeroSiren}">
 					</h:inputText>
 					<h:commandButton action="#{rechercheController.rechercheEtabSiren}"
-						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+						style="font-size:14px; border:solid 1px;" />
 				</h:panelGrid>
 			</h:form>
 		</h:panelGrid>
@@ -48,7 +50,7 @@
 
 			<h:form>
 				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+					rowClasses="paginatorData-text" style="margin-left:40px;">
 					<!-- 										<h:inputText id="rechRaisonSociale" size="50" maxlength="150" -->
 					<!-- 											value="#{rechercheController.rechRaisonSociale}" -->
 					<!-- 											style="text-transform:uppercase;" -->
@@ -61,17 +63,19 @@
 						autocompleteMethod="#{rechercheController.getRaisonsSociales}"
 						converter="#{sansAccentEnMAJConverter}" inputClass="ac"
 						styleClass="ac" popupClass="acPopup"
-						style="text-transform:uppercase; font-size : 10px" attached="false" />
+						style="text-transform:uppercase; font-size : 10px"
+						attached="false" />
 
 					<h:panelGrid columnClasses="paginatorData-text"
 						rowClasses="paginatorData-text" columns="2">
-						<h:outputLabel for="rechDepartement"
+						<h:outputText
 							value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
 						<h:inputText id="rechDepartement" size="2" maxlength="2"
 							value="#{rechercheController.rechDepartement}"
 							converter="#{sansAccentEnMAJConverter}" />
 					</h:panelGrid>
 					<h:commandButton
+						style="font-size:14px; border:solid 1px; margin-left:100px;"
 						action="#{rechercheController.rechercheRaisonSociale}"
 						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
 				</h:panelGrid>
@@ -112,7 +116,8 @@
 					converter="#{sansAccentEnMAJConverter}" />
 			</t:panelGrid>
 			<h:commandButton action="#{rechercheController.rechercheActivite}"
-				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+				style="font-size:14px; border:solid 1px;" />
 		</h:form>
 	</t:div>
 	<t:div
@@ -132,7 +137,8 @@
 						value="#{rechercheController.rechTelephone}">
 					</h:inputText>
 					<h:commandButton action="#{rechercheController.rechercheTel}"
-						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+						style="font-size:14px; border:solid 1px;" />
 				</h:panelGrid>
 			</h:form>
 			<h:form>
@@ -144,7 +150,8 @@
 						value="#{rechercheController.rechFax}">
 					</h:inputText>
 					<h:commandButton action="#{rechercheController.rechercheFax}"
-						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+						value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+						style="font-size:14px; border:solid 1px;" />
 				</h:panelGrid>
 			</h:form>
 		</h:panelGrid>
@@ -196,7 +203,8 @@
 					</h:panelGrid>
 				</h:panelGrid>
 				<h:commandButton action="#{rechercheController.rechercheAdresse}"
-					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+					style="font-size:14px; border:solid 1px;" />
 			</h:form>
 		</h:panelGrid>
 	</t:div>
@@ -224,7 +232,8 @@
 						converter="#{sansAccentEnMAJConverter}" />
 				</h:panelGrid>
 				<h:commandButton action="#{rechercheController.rechercheService}"
-					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}" />
+					value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+					style="font-size:14px; border:solid 1px;" />
 			</h:form>
 		</h:panelGrid>
 	</t:div>

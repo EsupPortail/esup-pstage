@@ -31,9 +31,9 @@ public class StudentDataRepositoryDomainCustom implements
 
 	
 	/**
-	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String)
+	 * @see org.esupportail.pstage.domain.referentiel.StudentDataRepositoryDomain#getEtudiantRefByNum(java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public EtudiantRef getEtudiantRefByNum(String universityCode, String id) {
+	public EtudiantRef getEtudiantRefByNum(String universityCode, String id, String annee) {
 		throw new UnsupportedOperationException(Configuration.getString("method.nom.implementee"));
 	}
 

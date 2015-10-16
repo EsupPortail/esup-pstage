@@ -195,4 +195,12 @@ public interface ConventionDomainService extends Serializable {
 	 * @return broolean
 	 */
 	public boolean updateConventionSetCodeVersionEtape(String codeEtape, String codeVersionEtape);
+	
+	/**
+	 * @param annee
+	 * @param identEtudiant 
+	 * @param codeUniversite 
+	 * @return int
+	 */
+	public int getNbConventionsByAnneeAndEtu(String annee, String identEtudiant, String codeUniversite);
 }

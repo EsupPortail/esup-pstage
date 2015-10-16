@@ -21,6 +21,7 @@ import org.esupportail.commons.utils.Assert;
 import org.esupportail.commons.utils.ContextUtils;
 import org.esupportail.commons.utils.strings.StringUtils;
 import org.esupportail.commons.web.controllers.ExceptionController;
+import org.esupportail.pstage.domain.beans.EtudiantRef;
 import org.esupportail.pstage.domain.beans.NousContacter;
 import org.esupportail.pstage.domain.beans.User;
 import org.esupportail.pstage.services.authentication.Authenticator;
@@ -32,7 +33,6 @@ import org.esupportail.pstagedata.domain.dto.CentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.ContactDTO;
 import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
 import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
-import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
 /**
@@ -162,7 +162,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * Étudiant actuellement connecté
 	 */
-	private EtudiantDTO currentAuthEtudiant;
+	private EtudiantRef currentAuthEtudiant;
 	/**
 	 * Centre(s) de gestion au(x)quel(s) la personne actuellement connectée est rattachée 
 	 */
@@ -318,6 +318,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	private Integer surchargeTuteur;
 
 	/**
+	 * Envoi d'un mail aux enseignants référents en même temps qu'aux gestionnaires
+	 */
+	private boolean avertissementTuteurPedago;
+	/**
 	 * Envoi d'un mail aux étudiants à la validation de leur convention
 	 */
 	private boolean avertissementEtudiantConvention;
@@ -369,7 +373,18 @@ public class SessionController extends AbstractDomainAwareBean {
 	private Map<Integer, Boolean> droitsEvaluationEnseignantMap = new HashMap<Integer,Boolean>();
 	private Map<Integer, Boolean> droitsEvaluationEntrepriseMap = new HashMap<Integer,Boolean>();
 
-
+	/** 
+	 * props pour l'envoi de mail sans esupcommons 
+	 */
+	private String fromEmail;
+	private String fromName;
+	private boolean interceptAll;
+	private String interceptMail;
+	private String interceptName;
+	private String smtpHost;
+	private String smtpUser;
+	private String smtpPassword;
+	
 	/* ***************************************************************
 	 * Variables de navigation
 	 ****************************************************************/
@@ -1177,15 +1192,15 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * @return the currentAuthEtudiant
 	 */
-	public EtudiantDTO getCurrentAuthEtudiant() {
-		return currentAuthEtudiant;
-	}
+//	public EtudiantDTO getCurrentAuthEtudiant() {
+//		return currentAuthEtudiant;
+//	}
 	/**
 	 * @param currentAuthEtudiant the currentAuthEtudiant to set
 	 */
-	public void setCurrentAuthEtudiant(EtudiantDTO currentAuthEtudiant) {
-		this.currentAuthEtudiant = currentAuthEtudiant;
-	}
+//	public void setCurrentAuthEtudiant(EtudiantDTO currentAuthEtudiant) {
+//		this.currentAuthEtudiant = currentAuthEtudiant;
+//	}
 	/**
 	 * @return the currentCentresGestion
 	 */
@@ -2482,6 +2497,86 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setResetMdpContactCurrentPage(String resetMdpContactCurrentPage) {
 		this.resetMdpContactCurrentPage = resetMdpContactCurrentPage;
+	}
+
+	public boolean isAvertissementTuteurPedago() {
+		return avertissementTuteurPedago;
+	}
+
+	public void setAvertissementTuteurPedago(boolean avertissementTuteurPedago) {
+		this.avertissementTuteurPedago = avertissementTuteurPedago;
+	}
+
+	public String getFromEmail() {
+		return fromEmail;
+	}
+
+	public void setFromEmail(String fromEmail) {
+		this.fromEmail = fromEmail;
+	}
+
+	public String getFromName() {
+		return fromName;
+	}
+
+	public void setFromName(String fromName) {
+		this.fromName = fromName;
+	}
+
+	public boolean isInterceptAll() {
+		return interceptAll;
+	}
+
+	public void setInterceptAll(boolean interceptAll) {
+		this.interceptAll = interceptAll;
+	}
+
+	public String getInterceptMail() {
+		return interceptMail;
+	}
+
+	public void setInterceptMail(String interceptMail) {
+		this.interceptMail = interceptMail;
+	}
+
+	public String getInterceptName() {
+		return interceptName;
+	}
+
+	public void setInterceptName(String interceptName) {
+		this.interceptName = interceptName;
+	}
+
+	public String getSmtpHost() {
+		return smtpHost;
+	}
+
+	public void setSmtpHost(String smtpHost) {
+		this.smtpHost = smtpHost;
+	}
+
+	public String getSmtpUser() {
+		return smtpUser;
+	}
+
+	public void setSmtpUser(String smtpUser) {
+		this.smtpUser = smtpUser;
+	}
+
+	public String getSmtpPassword() {
+		return smtpPassword;
+	}
+
+	public void setSmtpPassword(String smtpPassword) {
+		this.smtpPassword = smtpPassword;
+	}
+
+	public EtudiantRef getCurrentAuthEtudiant() {
+		return currentAuthEtudiant;
+	}
+
+	public void setCurrentAuthEtudiant(EtudiantRef currentAuthEtudiant) {
+		this.currentAuthEtudiant = currentAuthEtudiant;
 	}
 
 }

@@ -422,10 +422,15 @@
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:value-of select="montant-gratification" />
-										euros
+										<!-- euros -->
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="monnaie-gratification" />
 										<xsl:text> </xsl:text>
 										<xsl:value-of select="unite-gratification/libelle" />
-										par mois
+										par
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="unite-duree-gratification/libelle" />
+										<xsl:text>.</xsl:text>
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:block>
@@ -705,7 +710,7 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								Responsable pédagogique
+								Enseignant référent
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
@@ -814,6 +819,42 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
+								Coordonnées tuteur professionnel
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell text-align="left" padding-left="5pt">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:if test="contact/mail and contact/mail != ''">
+									<xsl:text> Mail : </xsl:text>
+									<xsl:value-of select="contact/mail" />
+								</xsl:if>
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:if test="contact/tel and contact/tel != ''">
+									<xsl:text> tél : </xsl:text>
+									<xsl:value-of select="contact/tel" />   
+								</xsl:if>
+							</fo:block>
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+								<xsl:if test="contact/fax and contact/fax != ''">
+									<xsl:text> Fax : </xsl:text>
+									<xsl:value-of select="contact/fax" />
+								</xsl:if>
+							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+					<fo:table-row>
+						<fo:table-cell background-color="#e6e6e6"
+							text-align="left">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								Signataire
 							</fo:block>
 						</fo:table-cell>
@@ -867,11 +908,13 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
+								Tél : 
 								<xsl:value-of select="tel-etudiant" />
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
+								Port :
 								<xsl:value-of select="tel-portable-etudiant" />
 							</fo:block>
 						</fo:table-cell>

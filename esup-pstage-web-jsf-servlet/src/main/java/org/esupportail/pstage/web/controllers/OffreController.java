@@ -28,7 +28,6 @@ import javax.mail.internet.InternetAddress;
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.exceptions.ExportException;
 import org.esupportail.pstage.services.export.CastorService;
-import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.comparator.ComparatorSelectItem;
 import org.esupportail.pstage.web.paginators.RechercheOffrePaginator;
@@ -44,7 +43,6 @@ import org.esupportail.pstagedata.domain.dto.FichierDTO;
 import org.esupportail.pstagedata.domain.dto.ModeCandidatureDTO;
 import org.esupportail.pstagedata.domain.dto.OffreDTO;
 import org.esupportail.pstagedata.domain.dto.OffreDiffusionDTO;
-import org.esupportail.pstagedata.domain.dto.PaysDTO;
 import org.esupportail.pstagedata.domain.dto.TypeOffreDTO;
 import org.esupportail.pstagedata.exceptions.DataAddException;
 import org.esupportail.pstagedata.exceptions.DataDeleteException;
@@ -1548,7 +1546,7 @@ public class OffreController extends AbstractContextAwareController {
 
 					String sujet=getString("ALERTES_MAIL.AVERTISSEMENT_ENTREPRISE_DIFFUSION.SUJET",this.currentOffre.getIdOffre());
 
-					if (this.currentOffre.getContactCand().getMail() != null && !this.currentOffre.getContactCand().getMail().isEmpty()){
+					if (this.currentOffre.getContactCand()!= null && this.currentOffre.getContactCand().getMail() != null && !this.currentOffre.getContactCand().getMail().isEmpty()){
 						getSmtpService().send(new InternetAddress(this.currentOffre.getContactCand().getMail()),
 								sujet,text,text);
 					} else {
@@ -2061,14 +2059,16 @@ public class OffreController extends AbstractContextAwareController {
 		CritereRechercheOffreDTO c = null;
 		if(getBeanUtils()!=null){
 			c=new CritereRechercheOffreDTO();
-			c.setLieuPays(getBeanUtils().getFrance());
+//			c.setLieuPays(getBeanUtils().getFrance());
+			c.setLieuPays(null);
 		}else{
 			c=new CritereRechercheOffreDTO();
-			PaysDTO p = new PaysDTO();
-			p.setLibelle("FRANCE");
-			p.setCog(DonneesStatic.FRANCE_COG);
-			p.setCrpay(DonneesStatic.FRANCE_TERRITOIRE_CRPAY);
-			c.setLieuPays(p);
+//			PaysDTO p = new PaysDTO();
+//			p.setLibelle("FRANCE");
+//			p.setCog(DonneesStatic.FRANCE_COG);
+//			p.setCrpay(DonneesStatic.FRANCE_TERRITOIRE_CRPAY);
+//			c.setLieuPays(p);
+			c.setLieuPays(null);
 		}
 		return c;
 	}

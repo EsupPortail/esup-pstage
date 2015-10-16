@@ -45,6 +45,9 @@ public class CritereGestionDomainServiceImpl implements CritereGestionDomainServ
 	public List<CritereGestionDTO> getCritereGestionFromIdCentre(int idCentreGestion) {
 		return this.remoteServices.getCritereGestionFromIdCentre(idCentreGestion);
 	}
+	public List<CritereGestionDTO> getCritereGestionFromIdCentreAndAnnee(int idCentreGestion,String anneeUniv) {
+		return this.remoteServices.getCritereGestionFromIdCentreAndAnnee(idCentreGestion, anneeUniv);
+	}
 	public int getNombreCritereGestion(int idCentreGestion){
 		return this.remoteServices.getNombreCritereGestion(idCentreGestion);
 	}

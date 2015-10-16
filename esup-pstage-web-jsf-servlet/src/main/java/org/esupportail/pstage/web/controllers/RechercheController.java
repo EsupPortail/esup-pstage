@@ -8,14 +8,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.paginators.RechercheStructurePaginator;
+import org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO;
 import org.esupportail.pstagedata.domain.dto.CritereRechercheStructureAdresseDTO;
+import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 import org.esupportail.pstagedata.domain.dto.NafN1DTO;
+import org.esupportail.pstagedata.domain.dto.PaysDTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
 import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
+import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 import org.springframework.util.StringUtils;
 
 
@@ -44,8 +50,6 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Résultats d'une recherche (si plusieurs)
 	 */
 	private List<StructureDTO> listeResultatsRechercheStructure=null;
-	
-
 	/**
 	 * Résultat d'une recherche (si unique)
 	 */
@@ -64,6 +68,10 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Département
 	 */
 	private String rechDepartement;
+	/**
+	 * Pays
+	 */
+	private PaysDTO rechPays;
 	/* ** 
 	 * Champs onglet 1 : Siren/Siret
 	 */	
@@ -81,7 +89,7 @@ public class RechercheController extends AbstractContextAwareController {
 	/**
 	 * Raison Sociale
 	 */
-	private String rechRaisonSociale;
+	private String rechRaisonSociale="%";
 	/* ** 
 	 * Champs onglet 3 : Activité (+dep)
 	 */	
@@ -110,9 +118,17 @@ public class RechercheController extends AbstractContextAwareController {
 	/**
 	 * Criteres de recherche par adresse
 	 */
-	private CritereRechercheStructureAdresseDTO critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
-	
-	
+	//private CritereRechercheStructureAdresseDTO critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
+
+	private CritereRechercheStructureAdresseDTO critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();
+
+	private boolean france=false;
+
+	//	///////// modification pour grenoble
+	//	private String mailLoginCreation="";	
+	//	private String mailLoginModif="";
+	//	/////////
+
 	/* *********************************************
 	 * FIN Variables des onglets communs
 	 **********************************************/
@@ -177,6 +193,8 @@ public class RechercheController extends AbstractContextAwareController {
 	public RechercheController() {
 		super();
 	}
+	
+
 
 	/* ***************************************************************
 	 * Actions
@@ -190,7 +208,8 @@ public class RechercheController extends AbstractContextAwareController {
 		this.toVerificationStructures=true;
 
 		if(this.critereRechercheStructureAdresse==null){
-			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
+
+			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
 		}
 		resetResultats();
 		reloadRechercheStructurePaginator();
@@ -216,7 +235,7 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	public String goToRechercheEtablissement(){
 		if(this.critereRechercheStructureAdresse==null){
-			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
+			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
 		}
 		reloadRechercheStructurePaginator();
 		return "rechercheEtablissement";
@@ -228,7 +247,7 @@ public class RechercheController extends AbstractContextAwareController {
 		this.toVerificationStructures = false;
 
 		if(this.critereRechercheStructureAdresse==null){
-			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
+			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
 		}
 		this.listeResultatsRechercheStructure = new ArrayList<StructureDTO>();
 		reloadRechercheStructurePaginator();
@@ -238,8 +257,31 @@ public class RechercheController extends AbstractContextAwareController {
 	 * @return A String
 	 */
 	public String goToAffichageRechercheEtablissement(){
+
 		if(this.critereRechercheStructureAdresse==null){
-			this.critereRechercheStructureAdresse=new CritereRechercheStructureAdresseDTO();
+			System.out.println("this.critereRechercheStructureAdresse==null");
+			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
+		}
+
+		// obtention mail du LoginCreation si LoginCreation est un etudiant
+		if (this.resultatRechercheStructure != null){
+			EtudiantDTO etudiant = this.getEtudiantDomainService().getEtudiantFromUid(this.resultatRechercheStructure.getLoginCreation(), getSessionController().getCodeUniversite());
+			if (etudiant!=null){
+				// si la structure a ete creee par un etudiant, on ajoute son mail au login creation affiche
+				String loginCreationAndMail = this.resultatRechercheStructure.getLoginCreation();
+				loginCreationAndMail+=("<i>("+etudiant.getMail()+")</i>");
+				this.resultatRechercheStructure.setLoginCreation(loginCreationAndMail);
+			}
+		}
+		// obtention mail du LoginCreation si LoginCreation est un etudiant
+		if (this.resultatRechercheStructure != null){
+			EtudiantDTO etudiant = this.getEtudiantDomainService().getEtudiantFromUid(this.resultatRechercheStructure.getLoginCreation(), getSessionController().getCodeUniversite());
+			if (etudiant!=null){
+				// si la structure a ete creee par un etudiant, on ajoute son mail au login creation affiche
+				String loginCreationAndMail = this.resultatRechercheStructure.getLoginCreation();
+				loginCreationAndMail+=("<i>("+etudiant.getMail()+")</i>");
+				this.resultatRechercheStructure.setLoginCreation(loginCreationAndMail);
+			}
 		}
 		return "affichageRechercheEtablissement";
 	}
@@ -371,23 +413,33 @@ public class RechercheController extends AbstractContextAwareController {
 	 * département optionnel
 	 * @return String
 	 */
-	public String rechercheRaisonSociale(){
+	public String rechercheRaisonSociale(){		
+
 		afficherBoutonAjoutEtab=true;
-		
+
 		if(!StringUtils.hasText(this.rechRaisonSociale)){
 			this.rechRaisonSociale = "%";
 		}
 		this.resultatRechercheStructure=null;
 
-		if(StringUtils.hasText(this.rechDepartement)){
-			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtDepartement(this.rechRaisonSociale, this.rechDepartement);
-		} else {
+		if(this.getRechPays()!=null && this.getRechPays().getId()>0){
+			if(StringUtils.hasText(this.rechDepartement)){
+				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtDepartementFr(this.rechRaisonSociale, this.rechDepartement);
+			}
+			else{
+				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtPays(this.rechRaisonSociale, this.getRechPays().getCog());
+			}
+		}
+		else {
 			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSociale(this.rechRaisonSociale);
 		}
-		
+
 		checkListeResultats();
 
 		return null;
+
+
+
 	}
 
 	/* *********************************************
@@ -408,6 +460,7 @@ public class RechercheController extends AbstractContextAwareController {
 		}else{
 			resetResultats();
 		}
+		
 		return null;
 	}
 
@@ -536,6 +589,24 @@ public class RechercheController extends AbstractContextAwareController {
 		return null;
 	}
 
+	/* *********************************************
+	 * Recherches des etablissements supprimés pour superadmin
+	 **********************************************/
+	/**
+	 * Recherche par temoin en service a false
+	 * @return String
+	 */
+	public String rechercheTemoinFalse(){
+
+		afficherBoutonAjoutEtab=false;
+		resetResultats();
+		this.ongletCourant=8;
+		this.resultatRechercheStructure=null;
+		this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresTemEnServFalse();
+		checkListeResultats();
+		
+		return null;
+	}
 
 	/**
 	 * Re-chargement du paginator 
@@ -913,10 +984,60 @@ public class RechercheController extends AbstractContextAwareController {
 	}
 
 	public List<String> getRaisonsSociales(String raisonSociale){
-		return (List<String>) getStructureDomainService().getRaisonsSociales(raisonSociale);
+		List<String> listStructures = (List<String>) getStructureDomainService().getRaisonsSociales(raisonSociale);
+		if (listStructures != null && !listStructures.isEmpty()){
+			return (List<String>) listStructures;
+		} else {
+			return new ArrayList<String>();
+		}
 	}
-	
 
-	
+	public PaysDTO getRechPays() {
+		return rechPays;
+	}
+
+	public void setRechPays(PaysDTO rechPays) {
+		this.rechPays = rechPays;
+	}
+
+	public CritereRechercheStructureAdresseDTO initCritereRechercheStructureAdresse(){
+		CritereRechercheStructureAdresseDTO c =null;
+
+		if(getBeanUtils()!=null){
+			c=new CritereRechercheStructureAdresseDTO();
+			c.setRechPays(getBeanUtils().getFrance());
+		}else{
+			c=new CritereRechercheStructureAdresseDTO();
+			PaysDTO p = new PaysDTO();
+			p.setLibelle("FRANCE");
+			p.setCog(DonneesStatic.FRANCE_COG);
+			p.setCrpay(DonneesStatic.FRANCE_TERRITOIRE_CRPAY);
+			c.setRechPays(p);
+		}
+		return c;
+	}
+
+	/**
+	 * Mise à jour de la valeur du Pays en fonction du Pays sélectionné
+	 * @param event
+	 */
+	public void valuePaysChanged(ValueChangeEvent event){
+		this.setRechPays((PaysDTO) event.getNewValue());	
+		if (this.getRechPays()!=null && this.getRechPays().getId()==82)
+			this.setFrance(true);
+		else
+			this.setFrance(false);
+	}
+
+	public boolean isFrance() {
+		return france;
+	}
+
+	public void setFrance(boolean france) {
+		this.france = france;
+	}
+
+
+
 
 }

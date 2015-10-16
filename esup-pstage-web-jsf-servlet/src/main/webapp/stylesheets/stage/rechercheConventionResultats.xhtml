@@ -219,7 +219,7 @@
 						<t:div>
 							<h:commandButton
 								value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
-								action="#{conventionController.goToRechercheConvention}"
+								action="rechercheConvention"
 								rendered="#{!welcomeController.etudiant}" />
 						</t:div>
 						<t:htmlTag value="div" style="height: 50px;" />
@@ -247,7 +247,7 @@
 					</h:panelGrid>
 				</t:div>
 				<h:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
-					action="#{conventionController.goToRechercheConvention}"
+					action="rechercheConvention"
 					immediate="true" rendered="#{!welcomeController.etudiant}" />
 			</h:form>
 		</rich:panel>

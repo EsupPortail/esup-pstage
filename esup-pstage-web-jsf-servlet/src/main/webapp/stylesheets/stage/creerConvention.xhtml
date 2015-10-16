@@ -28,13 +28,11 @@
 					<h:outputText value="#{msgs['CONVENTION.CONSIGNES1']}" escape="false" />
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="#{msgs['CONVENTION.CONSIGNES2']}" escape="false" />
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:panelGrid>
-						<t:htmlTag value="div" style="height: 20px;" />
-						<h:commandButton
+					<t:htmlTag value="div" style="height:30px;" />
+						<h:commandButton style="font-size:14px; border:solid 1px; margin-left:40px;"
 							action="#{conventionController.goToCreerConventionRechEtu}"
 							value="#{msgs['FORM.NEXT']}" />
-					</h:panelGrid>
+					<t:htmlTag value="div" style="height:20px;" />
 				</rich:panel>
 			</h:form>
 		</rich:panel>

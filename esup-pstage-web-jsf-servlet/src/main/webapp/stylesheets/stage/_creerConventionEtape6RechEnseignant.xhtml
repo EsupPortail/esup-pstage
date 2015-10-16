@@ -9,23 +9,19 @@
 	<rich:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
-			<h:outputText value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
+			<h:outputText
+				value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
 		</f:facet>
-		<ui:include src="/stylesheets/stage/_conventionEtape6RechEnseignantForm.xhtml" />
-			
+		<ui:include
+			src="/stylesheets/stage/_conventionEtape6RechEnseignantForm.xhtml" />
+
 		<t:htmlTag value="div" style="height: 20px;" />
-		
+
 		<h:panelGrid columns="3">
-			<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-				action="creerConventionEtape5Stage">
-				<f:setPropertyActionListener value="false"
-					target="#{conventionController.ctrlInfosStageOK}" />
-				<f:setPropertyActionListener value="_creerConventionEtape5Stage"
-					target="#{sessionController.creationConventionEtape5CurrentPage}" />
-			</h:commandButton>
 			<t:htmlTag value="div" style="width: 30px;" />
 			<a4j:commandButton status="statusRechEns"
 				action="#{conventionController.rechercheEnseignantCrea}"
+				style="font-size:14px; border:solid 1px;" 
 				render="formConvention" value="#{msgs['FORM.RECHERCHER']}" />
 		</h:panelGrid>
 		<t:htmlTag value="center">
@@ -35,7 +31,7 @@
 				</f:facet>
 			</a4j:status>
 		</t:htmlTag>
-		
+
 		<t:htmlTag value="div" style="height: 20px;" />
 
 		<h:panelGrid
@@ -53,5 +49,15 @@
 					value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}" />
 			</a4j:commandLink>
 		</h:panelGrid>
+
+		<t:htmlTag value="div" style="height:30px;" />
+		
+		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+			action="creerConventionEtape5Stage">
+			<f:setPropertyActionListener value="false"
+				target="#{conventionController.ctrlInfosStageOK}" />
+			<f:setPropertyActionListener value="_creerConventionEtape5Stage"
+				target="#{sessionController.creationConventionEtape5CurrentPage}" />
+		</h:commandButton>
 	</rich:panel>
 </ui:composition>

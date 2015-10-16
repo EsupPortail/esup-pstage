@@ -8,6 +8,28 @@
 
 	<fieldset>
 		<legend>
+			<h:outputLabel for="fieldModeleConvention"
+				value="#{msgs['CONVENTION.LANGUECONVENTION']}" />
+		</legend>
+		<h:panelGrid id="fieldModeleConvention"
+			columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+			columns="2">
+			<h:selectOneMenu id="langueConvention" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				value="#{conventionController.selLangueConvention}"
+				converter="#{langueConventionConverter}">
+				<f:selectItems value="#{nomenclatureController.langueConventions}" />
+			</h:selectOneMenu>
+			<rich:message for="langueConvention">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</rich:message>
+		</h:panelGrid>
+	</fieldset>
+
+	<t:htmlTag value="div" style="height:10px;" />
+
+	<fieldset>
+		<legend>
 			<h:outputLabel for="fieldContenu"
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.CONTENU']}" />
 		</legend>
@@ -84,8 +106,16 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
-			<h:outputText
-				value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
+			<h:panelGrid columns="2" columnClasses="paginatorData-text"
+				rowClasses="paginatorData-text">
+				<h:graphicImage id="imgInfoComp"
+					alt="#{msgs['INFOSBULLES.COMPETENCES']}"
+					value="../../media/images/information.png" style="border:0">
+					<rich:tooltip value="#{msgs['INFOSBULLES.COMPETENCES']}" />
+				</h:graphicImage>
+				<h:outputText
+					value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
+			</h:panelGrid>
 			<h:inputTextarea id="competences"
 				value="#{conventionController.convention.competences}"
 				required="true"
@@ -119,21 +149,6 @@
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.DATES']}" />
 		</legend>
 
-		<a4j:outputPanel id="choixAnneeUniv">
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="2"
-				rendered="#{conventionController.choixAnneeUniv}">
-				<h:outputText value="#{msgs['CONVENTION.ANNEEUNIV']}" />
-				<h:selectOneMenu id="anU"
-					value="#{conventionController.selAnneeUniversitaire}">
-					<f:selectItems
-						value="#{conventionController.listeAnneeUnivConvention}" />
-				</h:selectOneMenu>
-			</h:panelGrid>
-		</a4j:outputPanel>
-
-		<rich:message for="choixAnneeUniv" />
-
 		<h:panelGrid id="fieldDates" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="3">
 			<h:outputText
@@ -144,7 +159,6 @@
 				datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
 				cellHeight="22px" style="width:200px" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<a4j:ajax event="change" render="choixAnneeUniv" />
 			</rich:calendar>
 			<rich:message for="dateDebutStage">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -162,7 +176,6 @@
 				datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
 				cellHeight="22px" style="width:200px" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<a4j:ajax event="change" render="choixAnneeUniv" />
 			</rich:calendar>
 			<rich:message for="dateFinStage">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -233,11 +246,19 @@
 				required="true">
 				<f:validateLength maximum="4" />
 				<f:validateLongRange minimum="1" maximum="9999" />
+				<a4j:ajax event="blur" render="alerte6mois" execute="@this" />
 			</h:inputText>
 			<rich:message for="dureeExceptionnelle">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 		</h:panelGrid>
+		<a4j:outputPanel id="alerte6mois">
+			<h:panelGrid style="margin-left:20px;" columns="2" rendered="#{conventionController.dureeSuperieureA6mois}">
+				<h:graphicImage id="imgAlerte6mois" alt="imgAlerte6mois"
+					value="../../media/images/warning_20px.png" style="border:0"/>
+				<h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.DUREEMAX']}" />
+			</h:panelGrid>
+		</a4j:outputPanel>
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="4"
 			rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle and conventionController.convention.idUniteDureeExceptionnelle != 0}">
@@ -417,7 +438,7 @@
 					rowClasses="paginatorData-text">
 					<h:outputText value="#{msgs['CONVENTION.SIMTGRATIFICATION']}" />
 					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="5">
+						rowClasses="paginatorData-text" columns="6">
 						<h:inputText id="montantGratification" size="4"
 							required="#{conventionController.selIndemnisation.libelle==beanUtils.indemnisationOui }"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
@@ -427,19 +448,26 @@
 							<a4j:ajax event="blur" />
 						</h:inputText>
 
-						<!-- 						<h:selectOneMenu id="monnaieGratification" -->
-						<!-- 							requiredMessage="#{requiredMessageController.champObligatoire}" -->
-						<!-- 							value="#{conventionController.selMonnaieGratification}"> -->
-						<!-- 							<a4j:ajax event="valueChange" -->
-						<!-- 								render="opMonnaieGratification" /> -->
-						<!-- 							<f:selectItems value="euros" /> -->
-						<!-- 							<f:selectItems value="autre" /> -->
-						<!-- 						</h:selectOneMenu> -->
-						<!-- 						<a4j:outputPanel id="opMonnaieGratification"> -->
-						<!-- 							<h:inputText id="montantGratification" size="5" -->
-						<!-- 								rendered="#{conventionController.selMonnaieGratification=='autre'}" -->
-						<!-- 								value="#{conventionController.convention.monnaieGratification}"/> -->
-						<!-- 						</a4j:outputPanel> -->
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text">
+							<h:selectOneMenu id="monnaieGratification"
+								value="#{conventionController.selMonnaieGratification}">
+								<a4j:ajax event="valueChange" render="opMonnaieGratification" />
+								<f:selectItem itemValue="euros" />
+								<f:selectItem itemValue="autre" />
+							</h:selectOneMenu>
+
+							<a4j:outputPanel id="opMonnaieGratification">
+								<h:outputText
+									rendered="#{conventionController.selMonnaieGratification=='autre'}"
+									value="Devise : " />
+								<h:inputText id="autreMonnaie" size="10"
+									rendered="#{conventionController.selMonnaieGratification=='autre'}"
+									value="#{conventionController.convention.monnaieGratification}" />
+							</a4j:outputPanel>
+
+						</h:panelGrid>
+
 						<h:outputText value=" par " />
 						<h:panelGrid columnClasses="paginatorData-text"
 							rowClasses="paginatorData-text">
@@ -508,7 +536,15 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
-			<h:outputText value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
+			<h:panelGrid columns="2">
+				<h:graphicImage id="infoSujetConfidentiel"
+					alt="#{msgs['INFOSBULLES.CONFIDENTIEL']}"
+					value="../../media/images/information.png" style="border:0">
+					<rich:tooltip value="#{msgs['INFOSBULLES.CONFIDENTIEL']}" />
+				</h:graphicImage>
+				<h:outputText value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
+			</h:panelGrid>
+
 			<h:selectOneRadio id="temConfSujetTeme"
 				value="#{conventionController.booltemConfSujetTeme}">
 				<f:selectItem itemLabel="oui" itemValue="true" />
@@ -586,20 +622,6 @@
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-
-			<h:outputText value="#{msgs['CONVENTION.LANGUECONVENTION']}" />
-			<h:selectOneMenu id="langueConvention" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				value="#{conventionController.selLangueConvention}"
-				converter="#{langueConventionConverter}">
-				<f:selectItems value="#{nomenclatureController.langueConventions}" />
-			</h:selectOneMenu>
-			<rich:message for="langueConvention">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
 		</h:panelGrid>
 	</fieldset>
 </ui:composition>

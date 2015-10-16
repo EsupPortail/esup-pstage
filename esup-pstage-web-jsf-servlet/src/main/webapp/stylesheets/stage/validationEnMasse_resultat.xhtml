@@ -231,11 +231,11 @@
 						</a4j:status>
 					</h:panelGrid>
 					<rich:popupPanel id="confirmValidEnMasse" autosized="true"
-						width="400" domElementAttachment="parent">
+						width="400" height="900" domElementAttachment="parent">
 						<f:facet name="header">
 							<h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
 						</f:facet>
-						<h:panelGrid columns="1" align="center"
+						<h:panelGrid align="center"
 							rendered="#{conventionController.sizeListeConventionsSelectionnes!=0}">
 							<h:outputFormat
 								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.CONFIRM2']}"
@@ -247,9 +247,13 @@
 
 							<!-- partie pour l'affichage des conventions selectionnees : idConvention|nom|prenom -->
 							<rich:dataTable id="recapListeConventionSelectionnees"
-								var="convention"
+								var="convention" rows="10"
 								value="#{conventionController.listeConventionsSelectionnees}">
-
+								<f:facet name="footer">
+									<rich:dataScroller align="center"
+										for="recapListeConventionSelectionnees" page="1"
+										id="listeMasseConventionScroller" renderIfSinglePage="false"/>
+								</f:facet>
 								<rich:column id="idConvention">
 									<h:outputText value="#{convention.idConvention}" />
 									<t:htmlTag value="div" style="width:5px;" />

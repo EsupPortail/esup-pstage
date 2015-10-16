@@ -18,7 +18,7 @@
 					<t:div
 						rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
 						<ui:include src="../_commun/_rechercheOffreNbResultats.xhtml" />
-						<rich:dataTable id="listeOffres"
+						<rich:dataTable id="listeOffres" rows="10"
 							value="#{offreController.rechercheOffrePaginator.visibleItems}"
 							var="offre" columnClasses="center" rowKeyVar="rowOffre"
 							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"

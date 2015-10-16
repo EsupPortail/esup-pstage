@@ -278,6 +278,12 @@ public interface StructureDomainService extends Serializable {
 	 */
 	public List<StructureDTO> getStructuresFromRaisonSocialeEtDepartement(String raisonSociale, String departement);
 	/**
+	 * @param raisonSociale
+	 * @param departement
+	 * @return List<StructureDTO>
+	 */
+	public List<StructureDTO> getStructuresFromRaisonSocialeEtDepartementFr(String raisonSociale, String departement);
+	/**
 	 * @param numSiren
 	 * @return List<StructureDTO>
 	 */

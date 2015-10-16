@@ -66,7 +66,7 @@
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									required="true">
 									<f:selectItems
-										value="#{conventionController.rechEvalListeEtapes}" />
+										value="#{conventionController.rechEvalListeEtapesParAnnee}" />
 								</h:selectManyListbox>
 								<h:selectManyListbox id="codesUfr"
 									style="width:550px; padding:10px;"
@@ -75,7 +75,7 @@
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									required="true">
 									<f:selectItems
-										value="#{conventionController.rechEvalListeEtapes}" />
+										value="#{conventionController.rechEvalListeEtapesParAnnee}" />
 								</h:selectManyListbox>
 								<h:outputText
 									value="#{msgs['RECHERCHEEVALUATION.ISETABLISSEMENT']}"
@@ -98,6 +98,8 @@
 									<f:selectItem itemValue="" />
 									<f:selectItems
 										value="#{nomenclatureController.anneesConvention}" />
+									<a4j:ajax event="valueChange" render="panelCodesEtapes"
+										execute="@this" status="statusRecherche" />	
 								</h:selectOneMenu>
 							</h:panelGrid>
 							<rich:message for="anU">

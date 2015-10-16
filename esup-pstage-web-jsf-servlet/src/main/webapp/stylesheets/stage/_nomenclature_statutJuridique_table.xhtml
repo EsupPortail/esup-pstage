@@ -18,7 +18,7 @@
 				</f:facet>
 				<h:panelGrid columns="4" columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text">
-					<a4j:commandLink rendered="#{statutJuridique.value.modifiable}"
+					<a4j:commandLink 
 						oncomplete="#{rich:component('suppressionStatutJuridique')}.show()"
 						render="suppressionStatutJuridique">
 						<f:setPropertyActionListener value="#{statutJuridique.value}"
@@ -26,7 +26,7 @@
 						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
 						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 					</a4j:commandLink>
-					<a4j:commandLink rendered="#{statutJuridique.value.modifiable}"
+					<a4j:commandLink 
 						render="statutJuridiqueTab">
 						<f:setPropertyActionListener value="modif"
 							target="#{nomenclatureController.statutJuridiqueCurrentPage}" />

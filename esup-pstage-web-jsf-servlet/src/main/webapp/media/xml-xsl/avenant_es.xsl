@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<xsl:stylesheet version="1.0"
+<xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format"
-	xmlns:java="http://xml.apache.org/xalan/java" exclude-result-prefixes="java">
+	xmlns:java="http://xml.apache.org/xalan/java" xmlns:str="http://exslt.org/strings"
+	exclude-result-prefixes="java">
 
 
 	<xsl:template match="/">
@@ -41,7 +42,6 @@
 					<fo:block>
 						<xsl:apply-templates select="avenant-dTO" />
 					</fo:block>
-
 				</fo:flow>
 			</fo:page-sequence>
 
@@ -64,7 +64,7 @@
 		<fo:block>
 			<xsl:call-template name="titre" />
 		</fo:block>
-		<fo:block padding-top="15pt">
+		<fo:block padding-top="8pt">
 			<xsl:call-template name="avenant" />
 		</fo:block>
 		<fo:block padding-top="8pt">
@@ -134,15 +134,16 @@
 	<!-- partie nom etablissement / titre convention -->
 	<xsl:template name="titre">
 		<fo:block line-height="110%" hyphenate="false" language="fr"
-			country="FR" font-size="8pt" font-family="Times New Roman,serif">
+			country="FR" font-size="8pt" font-family="Times New Roman,serif"
+			padding-top="0.3cm">
 
 			<fo:table table-layout="fixed" width="100%">
 				<fo:table-column column-width="proportional-column-width(1)" />
 				<fo:table-column column-width="proportional-column-width(1)" />
 				<fo:table-column column-width="proportional-column-width(1)" />
 
-				<fo:table-body>
-					<fo:table-row margin-top="20px" text-align="left">
+				<fo:table-body border="0.018cm solid #000000" padding="3pt">
+					<fo:table-row text-align="left">
 						<!-- partie Etablissement Superieur - Stage -->
 						<fo:table-cell number-columns-spanned="3"
 							padding-top="5pt" padding-bottom="5pt" padding-left="5pt"
@@ -151,94 +152,95 @@
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								padding-bottom="0.035cm">
-								Nombre del establecimiento :
 								<fo:inline font-weight="bold">
-									<xsl:choose>
-										<xsl:when test="convention/nom-etab-ref">
-											<xsl:value-of select="convention/nom-etab-ref" />
-										</xsl:when>
-										<xsl:otherwise>
-											<xsl:value-of select="document('config.xml')/config/nomUniversite" />
-										</xsl:otherwise>
-									</xsl:choose>
+									Nombre del establecimiento :
 								</fo:inline>
+								<xsl:choose>
+									<xsl:when test="convention/nom-etab-ref">
+										<xsl:value-of select="convention/nom-etab-ref" />
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="document('config.xml')/config/nomUniversite" />
+									</xsl:otherwise>
+								</xsl:choose>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								padding-bottom="0.035cm">
-								Dirección :
 								<fo:inline font-weight="bold">
-									<xsl:choose>
-										<xsl:when test="convention/adresse-etab-ref">
-											<xsl:value-of select="convention/adresse-etab-ref" />
-										</xsl:when>
-										<xsl:otherwise>
-											<xsl:value-of
-												select="document('config.xml')/config/adresseUniversite" />
-										</xsl:otherwise>
-									</xsl:choose>
+									Dirección :
 								</fo:inline>
+								<xsl:choose>
+									<xsl:when test="convention/adresse-etab-ref">
+										<xsl:value-of select="convention/adresse-etab-ref" />
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of
+											select="document('config.xml')/config/adresseUniversite" />
+									</xsl:otherwise>
+								</xsl:choose>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								padding-bottom="0.035cm">
-								Representado por (nombre del firmante del presente convenio) :
 								<fo:inline font-weight="bold">
-									<xsl:choose>
-										<xsl:when test="convention/nom-signataire-composante">
-											<xsl:value-of select="convention/nom-signataire-composante" />
-										</xsl:when>
-										<xsl:otherwise>
+									Representado por (nombre del
+									firmante del presente convenio) :
+								</fo:inline>
+								<xsl:choose>
+									<xsl:when test="convention/nom-signataire-composante">
+										<xsl:value-of select="convention/nom-signataire-composante" />
+									</xsl:when>
+									<xsl:otherwise>
 
-										</xsl:otherwise>
-									</xsl:choose>
-								</fo:inline>
+									</xsl:otherwise>
+								</xsl:choose>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								padding-bottom="0.035cm">
-								Cualidad del representante :
 								<fo:inline font-weight="bold">
-									<xsl:choose>
-										<xsl:when test="convention/qualite-signataire">
-											<xsl:value-of select="convention/qualite-signataire" />
-										</xsl:when>
-										<xsl:otherwise>
-											.....................................
-										</xsl:otherwise>
-									</xsl:choose>
+									Cualidad del representante :
 								</fo:inline>
+								<xsl:choose>
+									<xsl:when test="convention/qualite-signataire">
+										<xsl:value-of select="convention/qualite-signataire" />
+									</xsl:when>
+									<xsl:otherwise>
+										.....................................
+									</xsl:otherwise>
+								</xsl:choose>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								padding-bottom="0.035cm">
-								Componente /UFR/
+								<fo:inline font-weight="bold">
+									Componente /UFR/
+								</fo:inline>
 								<xsl:text> </xsl:text>
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="convention/centre-gestion/nom-centre" />
-								</fo:inline>
+								<xsl:value-of select="convention/centre-gestion/nom-centre" />
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								padding-bottom="0.035cm">
-								Dirección: (si es diferente a la del Centro de Educación)
 								<fo:inline font-weight="bold">
-									<xsl:value-of select="convention/centre-gestion/batiment-residence" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="convention/centre-gestion/voie" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="convention/centre-gestion/code-postal" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="convention/centre-gestion/commune" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="convention/centre-gestion/town-center" />
+									Dirección: (si es diferente a
+									la del Centro de Educación)
 								</fo:inline>
-
+								<xsl:value-of select="convention/centre-gestion/batiment-residence" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="convention/centre-gestion/voie" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="convention/centre-gestion/code-postal" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="convention/centre-gestion/commune" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="convention/centre-gestion/town-center" />
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
@@ -247,7 +249,9 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm">
-								Tél :
+								<fo:inline font-weight="bold">
+									Tél :
+								</fo:inline>
 								<xsl:value-of select="convention/centre-gestion/telephone" />
 							</fo:block>
 						</fo:table-cell>
@@ -255,7 +259,9 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm">
-								fax :
+								<fo:inline font-weight="bold">
+									Fax :
+								</fo:inline>
 								<xsl:value-of select="convention/centre-gestion/fax" />
 							</fo:block>
 						</fo:table-cell>
@@ -263,7 +269,9 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm">
-								mél :
+								<fo:inline font-weight="bold">
+									Mail :
+								</fo:inline>
 								<xsl:value-of select="convention/centre-gestion/mail" />
 							</fo:block>
 						</fo:table-cell>
@@ -274,32 +282,19 @@
 	</xsl:template>
 	<!-- partie préliminaire -->
 	<xsl:template name="avenant">
-		<fo:block line-height="110%" hyphenate="false" language="fr"
-			country="FR" font-size="12pt" font-family="Times New Roman,serif"
-			text-align="justify">
-		</fo:block>
 		<fo:table table-layout="fixed" width="100%">
 			<fo:table-column column-width="proportional-column-width(1)" />
-
 			<fo:table-body>
 				<fo:table-row>
 					<fo:table-cell>
-
 						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							text-align="center">
-							<fo:inline font-weight="bold" text-decoration="underline">
-								Modificación N°
-								<xsl:value-of select="id-avenant" />
-								<xsl:text> </xsl:text>
-								EL CONVENIO DE PRÁCTICAS PROFESIONALES
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="convention/type-convention/libelle" />
-								<xsl:text> </xsl:text>
-								n°
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="id-convention" />
-							</fo:inline>
+							country="FR" font-size="16pt" font-family="Times New Roman,serif"
+							text-align="center" font-weight="bold" text-decoration="underline">
+							Modificación n°
+							<xsl:value-of select="id-avenant" />
+							<xsl:text> </xsl:text>
+							el convenio de prácticas profesionales n°
+							<xsl:value-of select="id-convention" />
 						</fo:block>
 					</fo:table-cell>
 				</fo:table-row>
@@ -309,329 +304,354 @@
 	</xsl:template>
 	<!-- partie Avenant - Stage -->
 	<xsl:template name="infosAvenant">
+		<fo:table table-layout="fixed" width="100%">
+			<fo:table-column column-width="proportional-column-width(1)" />
+			<fo:table-body>
+				<fo:table-row text-align="left">
+					<fo:table-cell>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="12pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm" font-weight="bold">
+							Esta enmienda
+							tiene por
+							objeto modificar el periodo de formación se había
+							acordado entre :
+						</fo:block>
+					</fo:table-cell>
+				</fo:table-row>
+				<fo:table-row text-align="left">
+					<fo:table-cell border="0.018cm solid #000000"
+						padding="5pt">
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Nombre del organismo de acogida
+								:
+							</fo:inline>
+							<xsl:value-of select="convention/structure/raison-sociale" />
+						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Dirección :
+							</fo:inline>
+							<xsl:value-of select="convention/structure/batiment-residence" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="convention/structure/voie" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="convention/structure/code-postal" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="convention/structure/commune" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="convention/structure/pays/libelle" />
+						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Tél :
+							</fo:inline>
+							<xsl:value-of select="convention/structure/telephone" />
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<fo:inline font-weight="bold">
+								Fax :
+							</fo:inline>
+							<xsl:value-of select="convention/structure/fax" />
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<fo:inline font-weight="bold">
+								Mail :
+							</fo:inline>
+							<xsl:value-of select="convention/structure/mail" />
+						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Representado por (nombre del
+								firmante de la Convención) :
+							</fo:inline>
+							<xsl:value-of select="convention/signataire/civilite/libelle" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of
+								select="translate(convention/signataire/nom,$lowers,$uppers)" />
+							<xsl:text> </xsl:text>
+							<xsl:call-template name="start_upper">
+								<xsl:with-param name="prenom">
+									<xsl:value-of select="convention/signataire/prenom" />
+								</xsl:with-param>
+							</xsl:call-template>
+						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Calidad de representante :
+							</fo:inline>
+							<xsl:value-of select="convention/signataire/fonction" />
+						</fo:block>
+
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Nombre del tutor profesional :
+							</fo:inline>
+							<xsl:if test="@modification-salarie = 'true'">
+								<xsl:value-of select="contact/civilite/libelle" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="translate(contact/nom,$lowers,$uppers)" />
+								<xsl:text> </xsl:text>
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="contact/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
+							</xsl:if>
+							<xsl:if test="@modification-salarie = 'false'">
+								<xsl:value-of select="convention/contact/civilite/libelle" />
+								<xsl:text> </xsl:text>
+								<xsl:value-of
+									select="translate(convention/contact/nom,$lowers,$uppers)" />
+								<xsl:text> </xsl:text>
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="convention/contact/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
+							</xsl:if>
+						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Tél :
+							</fo:inline>
+							<xsl:if test="@modification-salarie = 'true'">
+								<xsl:value-of select="contact/tel" />
+							</xsl:if>
+							<xsl:if test="@modification-salarie = 'false'">
+								<xsl:value-of select="convention/contact/tel" />
+							</xsl:if>
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<fo:inline font-weight="bold">
+								Mail :
+							</fo:inline>
+							<xsl:if test="@modification-salarie = 'true'">
+								<xsl:value-of select="contact/mail" />
+							</xsl:if>
+							<xsl:if test="@modification-salarie = 'false'">
+								<xsl:value-of select="convention/contact/mail" />
+							</xsl:if>
+						</fo:block>
+					</fo:table-cell>
+				</fo:table-row>
+			</fo:table-body>
+		</fo:table>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif">
+			<fo:leader />
+		</fo:block>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="12pt" font-family="Times New Roman,serif"
+			padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+			padding-bottom="0.035cm" font-weight="bold">
+			y el
+			<xsl:value-of select="document('config.xml')/config/nomUniversite" />
+			, representada por su Presidente,
+			actuando en nombre del Departamento
+			de :
+		</fo:block>
+		<fo:table table-layout="fixed" width="100%">
+			<fo:table-column column-width="proportional-column-width(1)" />
+			<fo:table-body>
+				<fo:table-row text-align="left">
+					<fo:table-cell border="0.018cm solid #000000"
+						padding="5pt">
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Facultad/Instituto :
+							</fo:inline>
+							<xsl:value-of select="convention/ufr/libelle" />
+						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								y bajo la responsabilidad del
+								tutor profesor :
+							</fo:inline>
+							<xsl:if test="@modification-enseignant = 'true'">
+								<xsl:value-of select="translate(enseignant/nom,$lowers,$uppers)" />
+								<xsl:text> </xsl:text>
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="enseignant/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
+							</xsl:if>
+							<xsl:if test="@modification-enseignant = 'false'">
+								<xsl:value-of
+									select="translate(convention/enseignant/nom,$lowers,$uppers)" />
+								<xsl:text> </xsl:text>
+								<xsl:call-template name="start_upper">
+									<xsl:with-param name="prenom">
+										<xsl:value-of select="convention/enseignant/prenom" />
+									</xsl:with-param>
+								</xsl:call-template>
+							</xsl:if>
+						</fo:block>
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<fo:inline font-weight="bold">
+								Tél :
+							</fo:inline>
+							<xsl:if test="@modification-enseignant = 'true'">
+								<xsl:value-of select="enseignant/tel" />
+							</xsl:if>
+							<xsl:if test="@modification-enseignant = 'false'">
+								<xsl:value-of select="convention/enseignant/tel" />
+							</xsl:if>
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<fo:inline font-weight="bold">
+								Mail :
+							</fo:inline>
+							<xsl:if test="@modification-enseignant = 'true'">
+								<xsl:value-of select="enseignant/mail" />
+							</xsl:if>
+							<xsl:if test="@modification-enseignant = 'false'">
+								<xsl:value-of select="convention/enseignant/mail" />
+							</xsl:if>
+						</fo:block>
+					</fo:table-cell>
+				</fo:table-row>
+			</fo:table-body>
+		</fo:table>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif">
+			<fo:leader />
+		</fo:block>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="12pt" font-family="Times New Roman,serif"
+			padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+			padding-bottom="0.035cm" font-weight="bold">
+			y llevada a cabo por :
+		</fo:block>
+		<fo:table table-layout="fixed" width="100%">
+			<fo:table-column column-width="proportional-column-width(1)" />
+			<fo:table-body>
+				<fo:table-row text-align="left">
+					<fo:table-cell border="0.018cm solid #000000"
+						padding="5pt">
+						<fo:block line-height="110%" hyphenate="false" language="fr"
+							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
+							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+							padding-bottom="0.035cm">
+							<xsl:value-of
+								select="translate(convention/etudiant/nom,$lowers,$uppers)" />
+							<xsl:text> </xsl:text>
+							<xsl:call-template name="start_upper">
+								<xsl:with-param name="prenom">
+									<xsl:value-of select="convention/etudiant/prenom" />
+								</xsl:with-param>
+							</xsl:call-template>
+							<xsl:text> </xsl:text>
+							<fo:inline font-weight="bold">
+								estudiante en :
+							</fo:inline>
+							<xsl:value-of select="convention/etape/libelle" />
+						</fo:block>
+						<fo:block line-height="110%" padding-top="2pt"
+							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+							font-size="10pt" font-family="Times New Roman,serif">
+							<fo:inline font-weight="bold">
+								Dirección del estudiante :
+							</fo:inline>
+							<xsl:value-of select="convention/adresse-etudiant" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="convention/code-postal-etudiant" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="convention/ville-etudiant" />
+							<xsl:text> - </xsl:text>
+							<xsl:value-of select="convention/pays-etudiant" />
+						</fo:block>
+						<fo:block line-height="110%" padding-top="2pt"
+							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+							font-size="10pt" font-family="Times New Roman,serif">
+							<fo:inline font-weight="bold">
+								Tél :
+							</fo:inline>
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="convention/tel-etudiant" />
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<fo:inline font-weight="bold">
+								Portátil :
+							</fo:inline>
+							<xsl:value-of select="convention/tel-portable-etudiant" />
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<xsl:text> </xsl:text>
+							<fo:inline font-weight="bold">
+								Mail :
+							</fo:inline>
+							<xsl:value-of select="convention/etudiant/mail" />
+						</fo:block>
+					</fo:table-cell>
+				</fo:table-row>
+			</fo:table-body>
+		</fo:table>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="9pt" font-family="Times New Roman,serif">
+			<fo:leader />
+		</fo:block>
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="12pt" font-family="Times New Roman,serif"
+			padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
+			padding-bottom="0.035cm" font-weight="bold">
+			Por las siguientes razones :
+		</fo:block>
 
 		<fo:table table-layout="fixed" width="100%">
 			<fo:table-column column-width="proportional-column-width(1)" />
 			<fo:table-body>
 				<fo:table-row text-align="left">
-					<fo:table-cell padding-top="5pt" padding-bottom="5pt"
-						padding-left="5pt" padding-right="5pt">
+					<fo:table-cell border="0.018cm solid #000000"
+						padding="5pt">
 						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="12pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold" font-size="12pt">
-								ARTÍCULO 1
-							</fo:inline>
-							<fo:inline font-weight="bold" font-size="10.5pt">
-								Esta enmienda
-								tiene por objeto modificar el periodo de formación se había
-								acordado entre :
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
+							country="FR" font-size="10pt" font-family="Times New Roman,serif">
 							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/structure/raison-sociale" />
+								Título :
 							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/structure/batiment-residence" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="convention/structure/voie" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="convention/structure/code-postal" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="convention/structure/commune" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="convention/structure/pays/libelle" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Tél :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/structure/telephone" />
-							</fo:inline>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							fax :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/structure/fax" />
-							</fo:inline>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							mél :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/structure/mail" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Representado por (nombre del firmante de la Convención) :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/signataire/civilite/libelle" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of
-									select="translate(convention/signataire/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:text> </xsl:text>
-								<xsl:variable name="prenom1"
-									select="translate(substring(./convention/signataire/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(convention/signataire/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Calidad de representante :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/signataire/fonction" />
-							</fo:inline>
-						</fo:block>
-
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Nombre del tutor profesional :
-							<xsl:if test="@modification-salarie = 'true'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="contact/civilite/libelle" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of
-										select="translate(contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-								</fo:inline>
-							</xsl:if>
-							<xsl:if test="@modification-salarie = 'false'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="convention/contact/civilite/libelle" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of
-										select="translate(convention/contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-								</fo:inline>
-							</xsl:if>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Tél :
-							<xsl:if test="@modification-salarie = 'true'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="contact/tel" />
-								</fo:inline>
-							</xsl:if>
-							<xsl:if test="@modification-salarie = 'false'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="convention/contact/tel" />
-								</fo:inline>
-							</xsl:if>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							Mél :
-							<xsl:if test="@modification-salarie = 'true'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="contact/mail" />
-								</fo:inline>
-							</xsl:if>
-							<xsl:if test="@modification-salarie = 'false'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="convention/contact/mail" />
-								</fo:inline>
-							</xsl:if>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="9pt" font-family="Times New Roman,serif">
-							<fo:leader />
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								y el
-								<xsl:value-of select="document('config.xml')/config/nomUniversite" />
-								, representada por su Presidente,
-							</fo:inline>
-							actuando en nombre del Departamento de :
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/ufr/libelle" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							y bajo la responsabilidad del tutor profesor :
-							<xsl:if test="@modification-enseignant = 'true'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of
-										select="translate(enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-								</fo:inline>
-							</xsl:if>
-							<xsl:if test="@modification-enseignant = 'false'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of
-										select="translate(convention/enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-								</fo:inline>
-							</xsl:if>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							Tél :
-							<xsl:if test="@modification-enseignant = 'true'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="enseignant/tel" />
-								</fo:inline>
-							</xsl:if>
-							<xsl:if test="@modification-enseignant = 'false'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="convention/enseignant/tel" />
-								</fo:inline>
-							</xsl:if>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							Mél :
-							<xsl:if test="@modification-enseignant = 'true'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="enseignant/mail" />
-								</fo:inline>
-							</xsl:if>
-							<xsl:if test="@modification-enseignant = 'false'">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="convention/enseignant/mail" />
-								</fo:inline>
-							</xsl:if>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="9pt" font-family="Times New Roman,serif">
-							<fo:leader />
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							y llevada a cabo por :
-							<fo:inline font-weight="bold">
-								<xsl:value-of
-									select="translate(convention/etudiant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:text> </xsl:text>
-								<xsl:variable name="prenom1"
-									select="translate(substring(./convention/etudiant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-								<xsl:variable name="prenom2"
-									select="translate(convention/etudiant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-								<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
-								<xsl:text> </xsl:text>
-							</fo:inline>
-							estudiante en :
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="10.5pt" font-family="Times New Roman,serif"
-							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-							padding-bottom="0.035cm">
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/etape/libelle" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							Dirección del estudiante :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/adresse-etudiant" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="convention/code-postal-etudiant" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="convention/ville-etudiant" />
-								<xsl:text> - </xsl:text>
-								<xsl:value-of select="convention/pays-etudiant" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							Tél :
-							<xsl:text> </xsl:text>
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/tel-etudiant" />
-							</fo:inline>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							portátil :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/tel-portable-etudiant" />
-							</fo:inline>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							<xsl:text> </xsl:text>
-							Mél :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="convention/etudiant/mail" />
-							</fo:inline>
-						</fo:block>
-						<fo:block line-height="110%" hyphenate="false" language="fr"
-							country="FR" font-size="9pt" font-family="Times New Roman,serif">
-							<fo:leader />
-						</fo:block>
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							Por las siguientes razones :
-							<fo:inline font-weight="bold">
-								<xsl:value-of select="motif-avenant" />
-							</fo:inline>
+							<xsl:value-of select="titre-avenant" />
 						</fo:block>
 						<fo:block line-height="110%" padding-top="2pt" hyphenate="false"
-							language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+							language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+							font-weight="bold">
 							De común
 							acuerdo,
 						</fo:block>
@@ -640,15 +660,16 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								De las prácticas :
 								<fo:inline font-weight="bold">
-									<xsl:value-of
-										select="concat(substring(./date-rupture,9,2),'/',substring(./date-rupture,6,2), '/',substring(./date-rupture,1,4))" />
+									De las prácticas :
 								</fo:inline>
+								<xsl:value-of
+									select="concat(substring(./date-rupture,9,2),'/',substring(./date-rupture,6,2), '/',substring(./date-rupture,1,4))" />
 							</fo:block>
 							<fo:block hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:if test="commentaire-rupture!=''">
+									Comentario :
 									<fo:inline font-weight="bold">
 										<xsl:value-of select="commentaire-rupture" />
 									</fo:inline>
@@ -656,10 +677,10 @@
 							</fo:block>
 						</xsl:if>
 
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							<xsl:if test="@modification-periode = 'true'">
+						<xsl:if test="@modification-periode = 'true'">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								el curso previsto inicialmente :
 								<fo:inline font-weight="bold">
 									<xsl:value-of
@@ -680,147 +701,145 @@
 									<xsl:value-of
 										select="concat(substring(./date-fin-stage,9,2),'/',substring(./date-fin-stage,6,2), '/',substring(./date-fin-stage,1,4))" />
 								</fo:inline>
-							</xsl:if>
-						</fo:block>
+							</fo:block>
+						</xsl:if>
 
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							<xsl:if test="@modification-periode = 'true'">
+						<xsl:if test="@modification-periode = 'true'">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
+
 								<xsl:if test="@interruption-stage = 'true'">
-									interrupción de la formación: sí
-									de
+									Interrupción de la formación :
 									<fo:inline font-weight="bold">
+										Sí, de
 										<xsl:value-of
 											select="concat(substring(./date-debut-interruption,9,2),'/',substring(./date-debut-interruption,6,2), '/',substring(./date-debut-interruption,1,4))" />
-									</fo:inline>
-									a
-									<fo:inline font-weight="bold">
+										a
 										<xsl:value-of
 											select="concat(substring(./date-fin-interruption,9,2),'/',substring(./date-fin-interruption,6,2), '/',substring(./date-fin-interruption,1,4))" />
 									</fo:inline>
-									<xsl:if test="convention/interruption-stage = 'false'">
-										en lugar de "no interrupción de la formación"
+									<xsl:if test="convention/@interruption-stage = 'false'">
+										en lugar de
+										<fo:inline font-weight="bold">"no interrupción de la
+											formación"
+										</fo:inline>
 									</xsl:if>
 
-									<xsl:if test="convention/interruption-stage = 'true'">
-										en lugar de : interrupción programada :
+									<xsl:if test="convention/@interruption-stage = 'true'">
+										en lugar de :
 										<fo:inline font-weight="bold">
+											interrupción programada de
 											<xsl:value-of
 												select="concat(substring(./convention/date-debut-interruption,9,2),'/',substring(./convention/date-debut-interruption,6,2), '/',substring(./convention/date-debut-interruption,1,4))" />
-										</fo:inline>
-										a
-										<fo:inline font-weight="bold">
+											a
 											<xsl:value-of
 												select="concat(substring(./convention/date-fin-interruption,9,2),'/',substring(./convention/date-fin-interruption,6,2), '/',substring(./convention/date-fin-interruption,1,4))" />
 										</fo:inline>
 									</xsl:if>
-
 								</xsl:if>
 								<xsl:if test="@interruption-stage = 'false'">
-									<xsl:if test="convention/interruption-stage = 'true'">
-										interrupción del curso : no se :
-										interrupción programada :
+									<xsl:if test="convention/@interruption-stage = 'true'">
+										Interrupción del curso :
+										<fo:inline font-weight="bold">No</fo:inline>
+										en lugar de
 										<fo:inline font-weight="bold">
+											Interrupción programada de
 											<xsl:value-of
 												select="concat(substring(./convention/date-debut-interruption,9,2),'/',substring(./convention/date-debut-interruption,6,2), '/',substring(./convention/date-debut-interruption,1,4))" />
-										</fo:inline>
-										a
-										<fo:inline font-weight="bold">
+											a
 											<xsl:value-of
 												select="concat(substring(./convention/date-fin-interruption,9,2),'/',substring(./convention/date-fin-interruption,6,2), '/',substring(./convention/date-fin-interruption,1,4))" />
 										</fo:inline>
 									</xsl:if>
 
 								</xsl:if>
-							</xsl:if>
-						</fo:block>
+							</fo:block>
+						</xsl:if>
 
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							<xsl:if test="@modification-sujet = 'true'">
+						<xsl:if test="@modification-sujet = 'true'">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								El tema, por supuesto, será reemplazado por :
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="sujet-stage" />
 								</fo:inline>
-							</xsl:if>
-						</fo:block>
+							</fo:block>
+						</xsl:if>
 
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							<xsl:if test="@modification-salarie = 'true'">
+						<xsl:if test="@modification-salarie = 'true'">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								profesionales tutor había previsto inicialmente
 								<xsl:text> </xsl:text>
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="convention/contact/civilite/libelle" />
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(convention/contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(convention/contact/nom,$lowers,$uppers)" />
 									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="convention/contact/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 								</fo:inline>
 								<xsl:text> </xsl:text>
 								será reemplazado por :
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="contact/civilite/libelle" />
 									<xsl:text> </xsl:text>
-									<xsl:value-of
-										select="translate(contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+									<xsl:value-of select="translate(contact/nom,$lowers,$uppers)" />
 									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="contact/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 								</fo:inline>
-							</xsl:if>
-						</fo:block>
+							</fo:block>
+						</xsl:if>
 
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							<xsl:if test="@modification-enseignant = 'true'">
+						<xsl:if test="@modification-enseignant = 'true'">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								El profesor tutor se había previsto inicialmente
 								<xsl:text> </xsl:text>
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="convention/enseignant/civilite/libelle" />
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(convention/enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(convention/enseignant/nom,$lowers,$uppers)" />
 									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="convention/enseignant/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 								</fo:inline>
 								<xsl:text> </xsl:text>
 								será reemplazado por :
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="enseignant/civilite/libelle" />
 									<xsl:text> </xsl:text>
-									<xsl:value-of
-										select="translate(enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+									<xsl:value-of select="translate(enseignant/nom,$lowers,$uppers)" />
 									<xsl:text> </xsl:text>
-									<xsl:variable name="prenom1"
-										select="translate(substring(./enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="enseignant/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 								</fo:inline>
-							</xsl:if>
-						</fo:block>
+							</fo:block>
+						</xsl:if>
 
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							<xsl:if test="@modification-lieu = 'true'">
+						<xsl:if test="@modification-lieu = 'true'">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								El curso previsto inicialmente
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="convention/service/nom" />
@@ -845,13 +864,13 @@
 									<xsl:text> </xsl:text>
 									<xsl:value-of select="service/pays/libelle" />
 								</fo:inline>
-							</xsl:if>
-						</fo:block>
+							</fo:block>
+						</xsl:if>
 
-						<fo:block line-height="110%" padding-top="2pt"
-							padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-							font-size="10pt" font-family="Times New Roman,serif">
-							<xsl:if test="@modification-montant-gratification = 'true'">
+						<xsl:if test="@modification-montant-gratification = 'true'">
+							<fo:block line-height="110%" padding-top="2pt"
+								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif">
 								El importe de la gratificación se :
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="montant-gratification" />
@@ -863,6 +882,15 @@
 									<xsl:text> </xsl:text>
 									<xsl:value-of select="unite-duree-gratification/libelle" />
 									<xsl:text>.</xsl:text>
+								</fo:inline>
+							</fo:block>
+						</xsl:if>
+
+						<fo:block hyphenate="false" language="fr" country="FR"
+							font-size="10pt" font-family="Times New Roman,serif">
+							<xsl:if test="motif-avenant!=''">
+								<fo:inline font-weight="bold">
+									<xsl:value-of select="motif-avenant" />
 								</fo:inline>
 							</xsl:if>
 						</fo:block>
@@ -888,6 +916,10 @@
 							padding-top="5pt" padding-bottom="5pt" padding-left="5pt"
 							padding-right="5pt">
 							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
 								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								padding-bottom="0.035cm">
@@ -903,48 +935,27 @@
 					<fo:table-row text-align="left">
 
 						<fo:table-cell padding-left="5pt" padding-right="5pt">
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-decoration="underline">
 								Por el
-								Centro de Educación Superior
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
+								Centro de Educación Superior :
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:choose>
-									<xsl:when test="convention/nom-signataire-composante">
-									</xsl:when>
-									<xsl:otherwise>
-										(Nombre, apellido y firma del representante)
-									</xsl:otherwise>
-								</xsl:choose>
-							</fo:block>
-
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-
 								<xsl:choose>
 									<xsl:when test="convention/centre-gestion/nom-viseur">
 										delegado,
 										<fo:inline font-weight="bold">
-											<xsl:variable name="prenom1"
-												select="translate(substring(./convention/centre-gestion/prenom-viseur,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-											<xsl:variable name="prenom2"
-												select="translate(convention/centre-gestion/prenom-viseur,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-											<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+											<xsl:call-template name="start_upper">
+												<xsl:with-param name="prenom">
+													<xsl:value-of select="convention/centre-gestion/prenom-viseur" />
+												</xsl:with-param>
+											</xsl:call-template>
 											<xsl:text> </xsl:text>
 											<xsl:value-of
-												select="translate(convention/centre-gestion/nom-viseur,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+												select="translate(convention/centre-gestion/nom-viseur,$lowers,$uppers)" />
 										</fo:inline>
 									</xsl:when>
 									<xsl:otherwise>
@@ -954,33 +965,26 @@
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:block>
-							<fo:block line-height="110%" padding-top="5pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="center">
-								__________
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
+								hyphenate="false" language="fr" country="FR" font-size="10pt"
+								font-family="Times New Roman,serif" text-decoration="underline">
 								Por la
 								Empresa/Institución :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:choose>
 									<xsl:when test="convention/signataire/nom">
 									</xsl:when>
@@ -989,48 +993,36 @@
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:block>
-
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
 								<fo:inline font-weight="bold">
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/signataire/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/signataire/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="convention/signataire/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(convention/signataire/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(convention/signataire/nom,$lowers,$uppers)" />
 								</fo:inline>
 							</fo:block>
-							<fo:block line-height="110%" padding-top="5pt"
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" padding-bottom="0.1cm"
 								hyphenate="false" language="fr" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="center">
-								__________
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
+								font-family="Times New Roman,serif" text-decoration="underline">
 								Por el
-								alumno
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
+								alumno :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:choose>
 									<xsl:when test="convention/etudiant/nom">
 									</xsl:when>
@@ -1039,50 +1031,38 @@
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:inline font-weight="bold">
-									<xsl:variable name="prenom1"
-										select="translate(substring(./convention/etudiant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-									<xsl:variable name="prenom2"
-										select="translate(convention/etudiant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-									<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+									<xsl:call-template name="start_upper">
+										<xsl:with-param name="prenom">
+											<xsl:value-of select="convention/etudiant/prenom" />
+										</xsl:with-param>
+									</xsl:call-template>
 									<xsl:text> </xsl:text>
 									<xsl:value-of
-										select="translate(convention/etudiant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										select="translate(convention/etudiant/nom,$lowers,$uppers)" />
 								</fo:inline>
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell padding-left="5pt" padding-right="5pt">
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline text-decoration="underline">APROBACIÓN DE LOS TUTORES :
-								</fo:inline>
-							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-decoration="underline" padding-bottom="0.1cm">
 								Tutor
-								empresarial o institucional
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
+								empresarial o
+								institucional :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:if test="@modification-salarie = 'false'">
 									<xsl:choose>
 										<xsl:when test="convention/contact/nom">
@@ -1102,62 +1082,54 @@
 									</xsl:choose>
 								</xsl:if>
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:if test="@modification-salarie = 'true'">
 									<fo:inline font-weight="bold">
-										<xsl:variable name="prenom1"
-											select="translate(substring(./contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-										<xsl:variable name="prenom2"
-											select="translate(contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-										<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="contact/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
 										<xsl:text> </xsl:text>
-										<xsl:value-of
-											select="translate(contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										<xsl:value-of select="translate(contact/nom,$lowers,$uppers)" />
 									</fo:inline>
 								</xsl:if>
 								<xsl:if test="@modification-salarie = 'false'">
 									<fo:inline font-weight="bold">
-										<xsl:variable name="prenom1"
-											select="translate(substring(./convention/contact/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-										<xsl:variable name="prenom2"
-											select="translate(convention/contact/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-										<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="convention/contact/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
 										<xsl:text> </xsl:text>
 										<xsl:value-of
-											select="translate(convention/contact/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+											select="translate(convention/contact/nom,$lowers,$uppers)" />
 									</fo:inline>
 								</xsl:if>
 							</fo:block>
-							<fo:block line-height="110%" padding-top="5pt"
-								hyphenate="false" language="fr" country="FR" font-size="10pt"
-								font-family="Times New Roman,serif" text-align="center">
-								__________
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
+								<fo:leader />
+							</fo:block>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-decoration="underline" padding-bottom="0.1cm">
 								Tutor del
-								Centro de Educación
-								Superior
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
+								Centro de
+								Educación
+								Superior :
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:if test="@modification-enseignant = 'true'">
 									<xsl:choose>
 										<xsl:when test="enseignant/nom">
@@ -1177,31 +1149,29 @@
 									</xsl:choose>
 								</xsl:if>
 							</fo:block>
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<xsl:if test="@modification-enseignant = 'true'">
 									<fo:inline font-weight="bold">
-										<xsl:variable name="prenom1"
-											select="translate(substring(./enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-										<xsl:variable name="prenom2"
-											select="translate(enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-										<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="enseignant/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
 										<xsl:text> </xsl:text>
-										<xsl:value-of
-											select="translate(enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+										<xsl:value-of select="translate(enseignant/nom,$lowers,$uppers)" />
 									</fo:inline>
 								</xsl:if>
 								<xsl:if test="@modification-enseignant = 'false'">
 									<fo:inline font-weight="bold">
-										<xsl:variable name="prenom1"
-											select="translate(substring(./convention/enseignant/prenom,1,1),'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
-										<xsl:variable name="prenom2"
-											select="translate(convention/enseignant/prenom,'ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß','abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ')" />
-										<xsl:value-of select="concat($prenom1, substring($prenom2,2))" />
+										<xsl:call-template name="start_upper">
+											<xsl:with-param name="prenom">
+												<xsl:value-of select="convention/enseignant/prenom" />
+											</xsl:with-param>
+										</xsl:call-template>
 										<xsl:text> </xsl:text>
 										<xsl:value-of
-											select="translate(convention/enseignant/nom,'abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ','ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß')" />
+											select="translate(convention/enseignant/nom,$lowers,$uppers)" />
 									</fo:inline>
 								</xsl:if>
 							</fo:block>
@@ -1233,4 +1203,51 @@
 		<fo:block id="theEnd" />
 	</xsl:template>
 
+	<!-- mises en majuscules -->
+	<xsl:variable name='lowers'
+		select='"abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"' />
+	<xsl:variable name='uppers'
+		select='"ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞß"' />
+	<!-- majuscule pour 1er lettre de chaque terme (cas prenom composés) -->
+	<xsl:template name="start_upper">
+		<xsl:param name="prenom" />
+		<xsl:variable name="temp-prenom">
+			<xsl:call-template name="start_upper_bar">
+				<xsl:with-param name="prenom">
+					<xsl:value-of select="$prenom" />
+				</xsl:with-param>
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:variable name="clean-temp-prenom">
+			<xsl:choose>
+				<xsl:when
+					test="substring($temp-prenom, string-length($temp-prenom),  string-length($temp-prenom) +1  ) = '-'">
+					<xsl:value-of
+						select='substring($temp-prenom,1, string-length($temp-prenom)-1 )' />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select='$temp-prenom' />
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:for-each select='str:split($clean-temp-prenom, " ")'>
+			<xsl:value-of
+				select='concat(
+          translate(substring(., 1, 1), $lowers, $uppers),
+          substring(., 2),
+          " "
+         )' />
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="start_upper_bar">
+		<xsl:param name="prenom" />
+		<xsl:for-each select='str:split($prenom, "-")'>
+			<xsl:value-of
+				select='concat(
+          translate(substring(., 1, 1), $lowers, $uppers),
+          translate(substring(., 2),$uppers,$lowers),
+          "-"
+         )' />
+		</xsl:for-each>
+	</xsl:template>
 </xsl:stylesheet>

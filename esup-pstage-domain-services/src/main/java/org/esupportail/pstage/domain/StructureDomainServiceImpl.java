@@ -420,6 +420,14 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 		setObjects(ls);
 		return ls;
 	}
+	/**
+	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresFromRaisonSocialeEtDepartementFr(java.lang.String, java.lang.String)
+	 */
+	public List<StructureDTO> getStructuresFromRaisonSocialeEtDepartementFr(String raisonSociale, String departement){
+		List<StructureDTO> ls = this.remoteServices.getStructuresFromRaisonSocialeEtDepartementFr(raisonSociale,departement);
+		setObjects(ls);
+		return ls;
+	}
 
 	/**
 	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresFromNumSiren(java.lang.String)

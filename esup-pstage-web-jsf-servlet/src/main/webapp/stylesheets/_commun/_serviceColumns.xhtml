@@ -26,6 +26,9 @@
 			<rich:column>
 				<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
 			</rich:column>
+			<rich:column>
+				<h:outputText value="#{msgs['STRUCTURE.TELEPHONE']}" />
+			</rich:column>
 			<rich:column
 				rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 		welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
@@ -58,5 +61,8 @@
 				title="#{etablissementController.serviceSel.pays.libelle}" />
 			<h:outputText value="#{etablissementController.serviceSel.pays.libelle}" />
 		</h:panelGrid>
+	</rich:column>
+	<rich:column>
+		<h:outputText value="#{etablissementController.serviceSel.telephone}" />
 	</rich:column>
 </ui:composition>
