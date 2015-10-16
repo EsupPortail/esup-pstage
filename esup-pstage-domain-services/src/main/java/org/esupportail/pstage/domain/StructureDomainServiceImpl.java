@@ -623,4 +623,11 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 		return this.remoteServices.getTicketStructureValide(ticketStructure);
 	}
 
+	/**
+	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresTemEnServFalse()
+	 */
+	public List<StructureDTO> getStructuresTemEnServFalse() {
+		return this.remoteServices.getStructuresTemEnServFalse();
+	}
+
 }

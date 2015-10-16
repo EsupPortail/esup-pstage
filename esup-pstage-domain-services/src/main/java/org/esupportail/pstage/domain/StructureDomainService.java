@@ -425,5 +425,10 @@ public interface StructureDomainService extends Serializable {
 	 * @return List<String>
 	 */
 	public List<String> getRaisonsSociales(String raisonSociale);
+	
+	/**
+	 * @return StructureDTO
+	 */
+	public List<StructureDTO> getStructuresTemEnServFalse();
 
 }
