@@ -36,8 +36,11 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.esupportail.commons.annotations.cache.SessionCache;
 import org.esupportail.pstage.domain.beans.AdministrationApogee;
 import org.esupportail.pstage.domain.beans.ApogeeMap;
@@ -230,6 +233,10 @@ public class ConventionController extends AbstractContextAwareController {
 	 * UniteGratification choisi.
 	 */
 	private UniteDureeDTO selUniteDureeGratification;
+	/**
+	 * MonnaieGratification choisi.
+	 */
+	private String selMonnaieGratification;
 	/**
 	 * ModeVersGratification selectionne.
 	 */
@@ -3521,11 +3528,10 @@ public class ConventionController extends AbstractContextAwareController {
 			/**
 			 ** Methodes de creation des documents PDF selon l'edition demandee
 			 **/
-			String nomDocxsl = "";
+			String nomDocxsl = "recap.xsl";
 			String fileNameXml = "";
 			String fileNameXmlfin = ".xml";
 			String idConvention = this.convention.getIdConvention().toString();
-			nomDocxsl = "recap" + ".xsl";
 			fileNameXml = "recap_" + idConvention;
 			// appel castor pour fichier xml a partir de objet java convention
 			castorService.objectToFileXml(this.convention, fileNameXml
@@ -3557,13 +3563,22 @@ public class ConventionController extends AbstractContextAwareController {
 			String fileNameXml = "";
 			String fileNameXmlfin = ".xml";
 			String idConvention = this.convention.getIdConvention().toString();
-			nomDocxsl = "remerciement" + ".xsl";
+			nomDocxsl = "remerciement";
+			String nomDocxslFin = ".xsl";
 			fileNameXml = "remerciement_" + idConvention;
 			// appel castor pour fichier xml a partir de objet java convention
 			castorService.objectToFileXml(this.convention, fileNameXml
 					+ fileNameXmlfin);
 			// fusion du xsl et xml en pdf
 			String fileNamePdf = fileNameXml + ".pdf";
+
+			// Fonction existance de la lettre de remerciement pour ce centre ?
+			// si oui , lui donner la lettre correspondante,
+			// si non, lui donner la lettre de remerciement standand
+			nomDocxsl = FileExist(nomDocxsl, nomDocxslFin,
+					this.convention.getIdCentreGestion(),
+					castorService.getXslXmlPath());
+
 			PDFUtils.exportPDF(fileNameXml + fileNameXmlfin,
 					FacesContext.getCurrentInstance(),
 					castorService.getXslXmlPath(), fileNamePdf, nomDocxsl);
@@ -3575,6 +3590,27 @@ public class ConventionController extends AbstractContextAwareController {
 					e.getMessage());
 		}
 		return retour;
+	}
+
+	public String FileExist(String nomDocXsl, String nomDocXslFin,
+			int idCentreGestion, String path) {
+		String lettre = "";
+
+		// nom potentiel du fichier
+		String nom = nomDocXsl + "_idCentre_" + idCentreGestion + nomDocXslFin;
+		System.out.println("nom fichier potentiel : " + nom);
+
+		// vérification existance fichier
+		File f = new File(path + nom);
+		if (f.exists() && !f.isDirectory()) {
+			lettre = nom;
+			System.out.println("fichier existe et lettre : " + lettre);
+		} else {
+			lettre = nomDocXsl + nomDocXslFin;
+			System.out.println("fichier n'existe pas et lettre : " + lettre);
+		}
+
+		return lettre;
 	}
 
 	/**
@@ -5640,52 +5676,60 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String validerEnMasse() {
+	 public String validerEnMasse() {
 		if (logger.isDebugEnabled()) {
 			logger.debug("public String validerEnMasse()");
 		}
 		try {
 
-			for (ConventionDTO conventionTmp : this.listeConventionsSelectionnees) {
+			ConventionDTO conventionTmp = new ConventionDTO();
 
-				conventionTmp.setValidationConvention(true);
-				conventionTmp.setLoginValidation(getSessionController()
-						.getCurrentLogin());
-				conventionTmp.setDateValidation(new Date());
+			for (int i = 0; i < this.rechercheConventionPaginator.getListe()
+					.size(); i++) {
 
-				if (!this.getConventionDomainService().updateConvention(
-						conventionTmp)) {
-					addErrorMessage(null,
-							"CONVENTION.VALIDATION_EN_MASSE.ERREUR",
-							conventionTmp.getIdConvention());
-					return null;
-				} else {
-					if (getSessionController()
-							.isAvertissementEtudiantConvention()) {
-						String text = getString(
-								"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION",
-								conventionTmp.getIdConvention(),
-								getSessionController().getCurrentUser()
-								.getDisplayName());
-						String sujet = getString(
-								"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION.SUJET",
+				conventionTmp = this.rechercheConventionPaginator.getListe()
+						.get(i);
+
+				if (conventionTmp.isSelected()) {
+
+					conventionTmp = getConventionDomainService()
+							.getConventionFromId(
+									conventionTmp.getIdConvention());
+					conventionTmp.setValidationConvention(true);
+					conventionTmp.setLoginValidation(getSessionController()
+							.getCurrentLogin());
+					conventionTmp.setDateValidation(new Date());
+					if (!this.getConventionDomainService().updateConvention(
+							conventionTmp)) {
+						addErrorMessage(null,
+								"CONVENTION.VALIDATION_EN_MASSE.ERREUR",
 								conventionTmp.getIdConvention());
+						return null;
+					} else {
+						if (getSessionController()
+								.isAvertissementEtudiantConvention()) {
+							String text = getString(
+									"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION",
+									conventionTmp.getIdConvention(),
+									getSessionController().getCurrentUser()
+											.getDisplayName());
+							String sujet = getString(
+									"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION.SUJET",
+									conventionTmp.getIdConvention());
 
-						String mail = getEtudiantDomainService()
-								.getEtudiantFromId(
-										conventionTmp.getIdEtudiant())
-										.getMail();
-						if (conventionTmp.getCourrielPersoEtudiant() != null
-								&& !conventionTmp.getCourrielPersoEtudiant()
-								.isEmpty()) {
-							mail = conventionTmp.getCourrielPersoEtudiant();
+							String mail = getEtudiantDomainService()
+									.getEtudiantFromId(conventionTmp.getIdEtudiant()).getMail();
+							if (conventionTmp.getCourrielPersoEtudiant() != null
+									&& !conventionTmp.getCourrielPersoEtudiant().isEmpty()) {
+								mail = conventionTmp.getCourrielPersoEtudiant();
+							}
+							getSmtpService().send(new InternetAddress(mail), sujet,
+									text, text);
 						}
-						getSmtpService().send(new InternetAddress(mail), sujet,
-								text, text);
 					}
+					this.rechercheConventionPaginator.getListe().remove(i);
+					i--;
 				}
-				this.rechercheConventionPaginator.getListe().remove(
-						conventionTmp);
 
 			}
 		} catch (DataUpdateException ae) {
@@ -7566,7 +7610,7 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * return
 	 */
-	public void exportFichesEtudiant() {
+	public void exportFichesEtudiantRow() {
 
 		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
 		if (this.rechercheConventionPaginator.getListe() != null) {
@@ -7584,7 +7628,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
 
-			// ajout colonne nom et prénom
+			// ajout colonne nom et pr�nom
 			header.add(getString("CONVENTION.NOM"));
 			header.add(getString("CONVENTION.PRENOM"));
 
@@ -7660,14 +7704,18 @@ public class ConventionController extends AbstractContextAwareController {
 				row.createCell(i).setCellValue(header.get(i));
 			}
 
+			// geler de la premiere ligne/en-t�te
+			sheet.createFreezePane(0, 1);
+
 			ReponseEvaluationDTO reponseTmp;
 			ConventionDTO convention = new ConventionDTO();
+			int j = 1;
 			// Remplissage avec les reponses
 			for (int i = 0; i < listeExportEval.size(); i++) {
 				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
 
 				if (reponseTmp != null && reponseTmp.isValidationEtudiant()) {
-					row = sheet.createRow(i + 1);
+					row = sheet.createRow(j + 1);
 					int cpt = 0;
 					String reponse = "";
 
@@ -7768,7 +7816,7 @@ public class ConventionController extends AbstractContextAwareController {
 						if (reponseTmp.isReponseEtuI4d())
 							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.PROSPECTION"));
 						if (reponse == "") {
-							reponse = "NÉANT";
+							reponse = "N�ANT";
 						}
 						row.createCell(cpt).setCellValue(reponse);
 						cpt++;
@@ -7777,8 +7825,8 @@ public class ConventionController extends AbstractContextAwareController {
 						reponse = "";
 						if (reponseTmp.getReponseEtuI5() > 0)
 							reponse = getNomenclatureDomainService()
-							.getOrigineStageDTOFromId(
-									reponseTmp.getReponseEtuI5())
+									.getOrigineStageDTOFromId(
+											reponseTmp.getReponseEtuI5())
 									.getLibelle();
 						if (reponse == null) {
 							reponse = "";
@@ -7849,7 +7897,7 @@ public class ConventionController extends AbstractContextAwareController {
 							}
 						}
 						if (reponse == "") {
-							reponse = "NÉANT";
+							reponse = "N�ANT";
 						}
 						row.createCell(cpt).setCellValue(reponse);
 						cpt++;
@@ -7963,10 +8011,10 @@ public class ConventionController extends AbstractContextAwareController {
 						cpt++;
 						if (reponseTmp.isReponseEtuIII1())
 							row.createCell(cpt)
-							.setCellValue(
-									"VRAI, pour le sujet suivant : "
-											+ reponseTmp
-											.getReponseEtuIII1bis());
+									.setCellValue(
+											"VRAI, pour le sujet suivant : "
+													+ reponseTmp
+															.getReponseEtuIII1bis());
 						else
 							row.createCell(cpt).setCellValue(
 									reponseTmp.isReponseEtuIII1());
@@ -7975,10 +8023,10 @@ public class ConventionController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII2()) {
 						if (!reponseTmp.isReponseEtuIII2())
 							row.createCell(cpt)
-							.setCellValue(
-									"FAUX : "
-											+ reponseTmp
-											.getReponseEtuIII2bis());
+									.setCellValue(
+											"FAUX : "
+													+ reponseTmp
+															.getReponseEtuIII2bis());
 						else
 							row.createCell(cpt).setCellValue(
 									reponseTmp.isReponseEtuIII2());
@@ -8029,7 +8077,7 @@ public class ConventionController extends AbstractContextAwareController {
 						if (reponseTmp.isReponseEtuIII5c())
 							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.3"));
 						if (reponse == "") {
-							reponse = "NÉANT";
+							reponse = "N�ANT";
 						}
 						row.createCell(cpt).setCellValue(reponse);
 						cpt++;
@@ -8038,12 +8086,12 @@ public class ConventionController extends AbstractContextAwareController {
 						if (reponseTmp.getReponseEtuIII6() == 4
 								|| reponseTmp.getReponseEtuIII6() == 5)
 							row.createCell(cpt)
-							.setCellValue(
-									this.recupLibelleAvis(reponseTmp
-											.getReponseEtuIII6())
-											+ " : "
-											+ reponseTmp
-											.getReponseEtuIII6bis());
+									.setCellValue(
+											this.recupLibelleAvis(reponseTmp
+													.getReponseEtuIII6())
+													+ " : "
+													+ reponseTmp
+															.getReponseEtuIII6bis());
 						else
 							row.createCell(cpt).setCellValue(
 									this.recupLibelleAvis(reponseTmp
@@ -8054,12 +8102,12 @@ public class ConventionController extends AbstractContextAwareController {
 						if (reponseTmp.getReponseEtuIII7() == 4
 								|| reponseTmp.getReponseEtuIII7() == 5)
 							row.createCell(cpt)
-							.setCellValue(
-									this.recupLibelleAvis(reponseTmp
-											.getReponseEtuIII7())
-											+ " : "
-											+ reponseTmp
-											.getReponseEtuIII7bis());
+									.setCellValue(
+											this.recupLibelleAvis(reponseTmp
+													.getReponseEtuIII7())
+													+ " : "
+													+ reponseTmp
+															.getReponseEtuIII7bis());
 						else
 							row.createCell(cpt).setCellValue(
 									this.recupLibelleAvis(reponseTmp
@@ -8069,10 +8117,10 @@ public class ConventionController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII8()) {
 						if (reponseTmp.isReponseEtuIII8())
 							row.createCell(cpt)
-							.setCellValue(
-									"VRAI : "
-											+ reponseTmp
-											.getReponseEtuIII8bis());
+									.setCellValue(
+											"VRAI : "
+													+ reponseTmp
+															.getReponseEtuIII8bis());
 						else
 							row.createCell(cpt).setCellValue(
 									reponseTmp.isReponseEtuIII8());
@@ -8081,10 +8129,10 @@ public class ConventionController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII9()) {
 						if (!reponseTmp.isReponseEtuIII9())
 							row.createCell(cpt)
-							.setCellValue(
-									"FAUX : "
-											+ reponseTmp
-											.getReponseEtuIII9bis());
+									.setCellValue(
+											"FAUX : "
+													+ reponseTmp
+															.getReponseEtuIII9bis());
 						else
 							row.createCell(cpt).setCellValue(
 									reponseTmp.isReponseEtuIII9());
@@ -8117,7 +8165,7 @@ public class ConventionController extends AbstractContextAwareController {
 											.getReponseEtuIII15())
 											+ " : "
 											+ reponseTmp
-											.getReponseEtuIII15bis());
+													.getReponseEtuIII15bis());
 						else
 							row.createCell(cpt).setCellValue(
 									this.recupLibelleAvis(reponseTmp
@@ -8132,13 +8180,13 @@ public class ConventionController extends AbstractContextAwareController {
 											.getReponseEtuIII16())
 											+ " : "
 											+ reponseTmp
-											.getReponseEtuIII16bis());
+													.getReponseEtuIII16bis());
 						else
 							row.createCell(cpt).setCellValue(
 									this.recupLibelleNotation(reponseTmp
 											.getReponseEtuIII16()));
 					}
-
+					j++;
 				}
 			}
 
@@ -8149,11 +8197,17 @@ public class ConventionController extends AbstractContextAwareController {
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
 
-				String XlsFileName = "extraction_pstage_etudiant_"
+				List<Integer> idCentre = this.critereRechercheConvention
+						.getIdsCentreGestion();
+
+				String XlsFileName = "extraction_pstage_etudiant_IdCentre_"
+						+ idCentre.get(0)
+						+ "_AnneeUniv_"
 						+ this.critereRechercheConvention
-						.getAnneeUniversitaire() + ".xls";
+								.getAnneeUniversitaire() + ".xls";
 
 				edit.doGet(baosXLS, XlsFileName);
+
 			} catch (Exception e) {
 				logger.error("exportFichesEtudiant() - Exception lors de la tentative d'ecriture du baosXLS : "
 						+ e.getMessage());
@@ -8161,17 +8215,696 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 	}
 
+	public void exportFichesEtudiantColumn() {
+
+		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
+		if (this.rechercheConventionPaginator.getListe() != null) {
+			listeExportEval = this.rechercheConventionPaginator.getListe();
+		}
+
+		if (listeExportEval != null && !listeExportEval.isEmpty()) {
+			HSSFWorkbook classeur = new HSSFWorkbook();
+			HSSFSheet sheet = classeur.createSheet("exportFichesEtudiant");
+
+			List<String> header = new ArrayList<String>();
+			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService()
+					.getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
+
+			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
+
+			// ajout colonne nom et pr�nom
+			header.add(getString("CONVENTION.NOM"));
+			header.add(getString("CONVENTION.PRENOM"));
+
+			// Ajout des questions en fonction de leur utilisation ou non par le
+			// centre
+			if (ficheEvaluation.isQuestionEtuI1())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.1"));
+			if (ficheEvaluation.isQuestionEtuI2())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.2"));
+			if (ficheEvaluation.isQuestionEtuI3())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.3"));
+			if (ficheEvaluation.isQuestionEtuI4())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.4"));
+			if (ficheEvaluation.isQuestionEtuI5())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.5"));
+			if (ficheEvaluation.isQuestionEtuI6())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.6"));
+			if (ficheEvaluation.isQuestionEtuI7())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.7"));
+			if (ficheEvaluation.isQuestionEtuI8())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.8"));
+
+			if (ficheEvaluation.isQuestionEtuII1())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.1"));
+			if (ficheEvaluation.isQuestionEtuII2())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.2"));
+			if (ficheEvaluation.isQuestionEtuII3())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.3"));
+			if (ficheEvaluation.isQuestionEtuII4())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.4"));
+			if (ficheEvaluation.isQuestionEtuII5())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.5"));
+			if (ficheEvaluation.isQuestionEtuII6())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.6"));
+
+			if (ficheEvaluation.isQuestionEtuIII1()) {
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1_1"));
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1bis"));
+			}
+			if (ficheEvaluation.isQuestionEtuIII2())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.2"));
+			// if (ficheEvaluation.isQuestionEtuIII3())
+			// header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3"));
+			if (ficheEvaluation.isQuestionEtuIII4())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.4"));
+			if (ficheEvaluation.isQuestionEtuIII5())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.5"));
+			if (ficheEvaluation.isQuestionEtuIII6())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.6"));
+			if (ficheEvaluation.isQuestionEtuIII7())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.7"));
+			if (ficheEvaluation.isQuestionEtuIII8())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.8"));
+			if (ficheEvaluation.isQuestionEtuIII9())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.9"));
+			if (ficheEvaluation.isQuestionEtuIII10())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.10"));
+			if (ficheEvaluation.isQuestionEtuIII11())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.11"));
+			if (ficheEvaluation.isQuestionEtuIII12())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.12"));
+			// if (ficheEvaluation.isQuestionEtuIII13())
+			// header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13"));
+			if (ficheEvaluation.isQuestionEtuIII14())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.14"));
+			if (ficheEvaluation.isQuestionEtuIII15())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.15"));
+			if (ficheEvaluation.isQuestionEtuIII16())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.16"));
+
+			// Creation des cellules Header
+			HSSFRow row_i;
+			for (int i = 0; i < header.size(); i++) {
+				row_i = sheet.createRow(i);
+				row_i.createCell(0).setCellValue(header.get(i));
+			}
+
+			sheet.setColumnWidth(0, 256 * 95);
+
+			// geler de la premiere colonne/en-t�te
+			sheet.createFreezePane(1, 0);
+
+			ReponseEvaluationDTO reponseTmp;
+			ConventionDTO convention = new ConventionDTO();
+			int j = 0;
+
+			HSSFRow row;
+			HSSFCell cell;
+			HSSFCellStyle cellStyle = classeur.createCellStyle();
+			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+			HSSFCellStyle cellStyle2 = classeur.createCellStyle();
+			HSSFFont fonte = classeur.createFont();
+			fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			cellStyle2.setFont(fonte);
+			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+			// Remplissage avec les reponses
+			for (int i = 0; i < listeExportEval.size(); i++) {
+
+				// reglage taille colonne
+				sheet.setColumnWidth(i + 1, 256 * 40);
+
+				// remplissage colonne
+				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
+
+				if (reponseTmp != null && reponseTmp.isValidationEtudiant()) {
+					int cpt = 0;
+					String reponse = "";
+
+					// num convention
+					row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(listeExportEval.get(i).getIdConvention());
+					cell.setCellStyle(cellStyle2);
+					cpt++;
+
+					convention = listeExportEval.get(i);
+					convention = getConventionDomainService()
+							.getConventionFromId(convention.getIdConvention());
+
+					// renseignement etudiant
+					convention.setEtudiant(getEtudiantDomainService()
+							.getEtudiantFromId(convention.getIdEtudiant()));
+
+					// nom
+					row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(convention.getEtudiant().getNom());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+
+					// prenom
+					row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(convention.getEtudiant().getPrenom());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEtuI1()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						switch (reponseTmp.getReponseEtuI1()) {
+						case 1:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.1");
+							break;
+						case 2:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.2");
+							break;
+						case 3:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.3");
+							break;
+						default:
+							break;
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI2()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						switch (reponseTmp.getReponseEtuI2()) {
+						case 1:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.1");
+							break;
+						case 2:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.2");
+							break;
+						case 3:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.3");
+							break;
+						case 4:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.4");
+							break;
+						case 5:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.5");
+							break;
+						default:
+							break;
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI3()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						switch (reponseTmp.getReponseEtuI3()) {
+						case 1:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.1");
+							break;
+						case 2:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.2");
+							break;
+						case 3:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.3");
+							break;
+						case 4:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.4");
+							break;
+						default:
+							break;
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI4()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						if (reponseTmp.isReponseEtuI4a())
+							reponse += getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
+						if (reponseTmp.isReponseEtuI4b())
+							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
+						if (reponseTmp.isReponseEtuI4c())
+							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.COURRIER"));
+						if (reponseTmp.isReponseEtuI4d())
+							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.PROSPECTION"));
+						if (reponse == "") {
+							reponse = "N�ANT";
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI5()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						if (reponseTmp.getReponseEtuI5() > 0)
+							reponse = getNomenclatureDomainService()
+									.getOrigineStageDTOFromId(
+											reponseTmp.getReponseEtuI5())
+									.getLibelle();
+						if (reponse == null) {
+							reponse = "";
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI6()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						switch (reponseTmp.getReponseEtuI6()) {
+						case 1:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.1");
+							break;
+						case 2:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.2");
+							break;
+						case 3:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.3");
+							break;
+						case 4:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.4");
+							break;
+						default:
+							break;
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuI7()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						// Cas NON
+						if (!reponseTmp.isReponseEtuI7()) {
+							switch (reponseTmp.getReponseEtuI7bis2()) {
+							case 1:
+								reponse = (" FAUX - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.1"));
+								break;
+							case 2:
+								reponse = (" FAUX - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.2"));
+								break;
+							}
+						}
+						// Cas OUI
+						if (reponseTmp.isReponseEtuI7()) {
+							switch (reponseTmp.getReponseEtuI7bis1()) {
+							case 1:
+								reponse = (" VRAI - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.1"));
+								break;
+							case 2:
+								reponse = (" VRAI - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.2"));
+								break;
+							case 3:
+								reponse = (" VRAI - "
+										+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.3")
+										+ " - Utilisation des ressources : " + reponseTmp
+										.isReponseEtuI7bis1a());
+								break;
+							case 4:
+								reponse = (" VRAI - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.4"));
+								break;
+							case 5:
+								reponse = (" VRAI - "
+										+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.5")
+										+ " : " + reponseTmp
+										.getReponseEtuI7bis1b());
+								break;
+							default:
+								break;
+							}
+						}
+						if (reponse == "") {
+							reponse = "N�ANT";
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+
+					if (ficheEvaluation.isQuestionEtuI8())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.isReponseEtuI8());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEtuII1()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.getReponseEtuII1() == 4
+								|| reponseTmp.getReponseEtuII1() == 5)
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEtuII1())
+									+ " : " + reponseTmp.getReponseEtuII1bis());
+						else
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEtuII1()));
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuII2()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.getReponseEtuII2() == 4
+								|| reponseTmp.getReponseEtuII2() == 5)
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEtuII2())
+									+ " : " + reponseTmp.getReponseEtuII2bis());
+						else
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEtuII2()));
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuII3()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.getReponseEtuII3() == 4
+								|| reponseTmp.getReponseEtuII3() == 5)
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEtuII3())
+									+ " : " + reponseTmp.getReponseEtuII3bis());
+						else
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEtuII3()));
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuII4())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleAvis(reponseTmp
+							.getReponseEtuII4()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// if (ficheEvaluation.isQuestionEtuII5())
+					// row=sheet.getRow(cpt); cell=row.createCell(j+1);
+					// cell.setCellValue(reponseTmp.isReponseEtuII5());
+					// cell.setCellStyle(cellStyle); cpt++;
+
+					if (ficheEvaluation.isQuestionEtuII5()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						// cas NON
+						if (!reponseTmp.isReponseEtuII5()) {
+							cell.setCellValue("Non");
+							cell.setCellStyle(cellStyle);
+							cpt++;
+						}
+						// cas OUI
+						if (reponseTmp.isReponseEtuII5()) {
+							switch (reponseTmp.getReponseEtuII5a()) {
+							case 1:
+								if (reponseTmp.isReponseEtuII5b()) {
+									reponse = (" VRAI - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.1") + " - Avec autonomie : VRAI");
+								} else {
+									reponse = (" VRAI - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.1") + " - Avec autonomie : FAUX");
+								}
+								break;
+							case 2:
+								if (reponseTmp.isReponseEtuII5b()) {
+									reponse = (" VRAI - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.2") + " - Avec autonomie : VRAI");
+								} else {
+									reponse = (" VRAI - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.2") + " - Avec autonomie : FAUX");
+								}
+								break;
+							case 3:
+								if (reponseTmp.isReponseEtuII5b()) {
+									reponse = (" VRAI - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3") + " - Avec autonomie : VRAI");
+								} else {
+									reponse = (" VRAI - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3") + " - Avec autonomie : FAUX");
+								}
+								break;
+							}
+							cell.setCellValue(reponse);
+							cell.setCellStyle(cellStyle);
+							cpt++;
+						}
+					}
+					if (ficheEvaluation.isQuestionEtuII6())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.isReponseEtuII6());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEtuIII1()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						cell.setCellValue(convention.getSujetStage());
+						cell.setCellStyle(cellStyle);
+						cpt++;
+
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.isReponseEtuIII1())
+							cell.setCellValue("VRAI, pour le sujet suivant : "
+									+ reponseTmp.getReponseEtuIII1bis());
+						else
+							cell.setCellValue(reponseTmp.isReponseEtuIII1());
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII2()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (!reponseTmp.isReponseEtuIII2())
+							cell.setCellValue("FAUX : "
+									+ reponseTmp.getReponseEtuIII2bis());
+						else
+							cell.setCellValue(reponseTmp.isReponseEtuIII2());
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					// if (ficheEvaluation.isQuestionEtuIII3())
+					// row.createCell(cpt).setCellValue(reponseTmp.isReponseEtuIII3());
+					// cpt++;
+
+					if (ficheEvaluation.isQuestionEtuIII4()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						switch (reponseTmp.getReponseEtuIII4()) {
+						case 1:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.1");
+							break;
+						case 2:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.2");
+							break;
+						case 3:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.3");
+							break;
+						case 4:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.4");
+							break;
+						case 5:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.5");
+							break;
+						case 6:
+							reponse = getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.6");
+							break;
+						default:
+							break;
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII5()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						if (reponseTmp.isReponseEtuIII5a())
+							reponse += getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.1");
+						if (reponseTmp.isReponseEtuIII5b())
+							reponse += (" "
+									+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.2")
+									+ " : " + reponseTmp.getReponseEtuIII5bis());
+						if (reponseTmp.isReponseEtuIII5c())
+							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.3"));
+						if (reponse == "") {
+							reponse = "N�ANT";
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII6()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.getReponseEtuIII6() == 4
+								|| reponseTmp.getReponseEtuIII6() == 5)
+							cell.setCellValue(this.recupLibelleAvis(reponseTmp
+									.getReponseEtuIII6())
+									+ " : "
+									+ reponseTmp.getReponseEtuIII6bis());
+						else
+							cell.setCellValue(this.recupLibelleAvis(reponseTmp
+									.getReponseEtuIII6()));
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII7()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.getReponseEtuIII7() == 4
+								|| reponseTmp.getReponseEtuIII7() == 5)
+							cell.setCellValue(this.recupLibelleAvis(reponseTmp
+									.getReponseEtuIII7())
+									+ " : "
+									+ reponseTmp.getReponseEtuIII7bis());
+						else
+							cell.setCellValue(this.recupLibelleAvis(reponseTmp
+									.getReponseEtuIII7()));
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII8()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.isReponseEtuIII8())
+							cell.setCellValue("VRAI : "
+									+ reponseTmp.getReponseEtuIII8bis());
+						else
+							cell.setCellValue(reponseTmp.isReponseEtuIII8());
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII9()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (!reponseTmp.isReponseEtuIII9())
+							cell.setCellValue("FAUX : "
+									+ reponseTmp.getReponseEtuIII9bis());
+						else
+							cell.setCellValue(reponseTmp.isReponseEtuIII9());
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII10())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.isReponseEtuIII10());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEtuIII11())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.isReponseEtuIII11());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEtuIII12())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.isReponseEtuIII12());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					// if (ficheEvaluation.isQuestionEtuIII13())
+					// row=sheet.getRow(cpt); cell=row.createCell(j+1);
+					// cell.setCellValue(reponseTmp.isReponseEtuIII13());
+					// cell.setCellStyle(cellStyle); cpt++;
+					if (ficheEvaluation.isQuestionEtuIII14())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.isReponseEtuIII14());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEtuIII15()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.getReponseEtuIII15() == 4
+								|| reponseTmp.getReponseEtuIII15() == 5)
+							cell.setCellValue(this.recupLibelleAvis(reponseTmp
+									.getReponseEtuIII15())
+									+ " : "
+									+ reponseTmp.getReponseEtuIII15bis());
+						else
+							cell.setCellValue(this.recupLibelleAvis(reponseTmp
+									.getReponseEtuIII15()));
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEtuIII16()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.getReponseEtuIII16() == 4
+								|| reponseTmp.getReponseEtuIII16() == 5)
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEtuIII16())
+									+ " : "
+									+ reponseTmp.getReponseEtuIII16bis());
+						else
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEtuIII16()));
+						cell.setCellStyle(cellStyle);
+					}
+					j++;
+				}
+			}
+			try {
+				ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
+
+				classeur.write(baosXLS);
+
+				ExportConventionsServlet edit = new ExportConventionsServlet();
+
+				List<Integer> idCentre = this.critereRechercheConvention
+						.getIdsCentreGestion();
+
+				String XlsFileName = "extraction_pstage_etudiant_IdCentre_"
+						+ idCentre.get(0)
+						+ "_AnneeUniv_"
+						+ this.critereRechercheConvention
+								.getAnneeUniversitaire() + ".xls";
+
+				edit.doGet(baosXLS, XlsFileName);
+
+			} catch (Exception e) {
+				logger.error("exportFichesEtudiant() - Exception lors de la tentative d'ecriture du baosXLS : "
+						+ e.getMessage());
+			}
+
+		}
+	}
+
 	/**
 	 * return
 	 */
-	public void exportFichesEnseignant() {
+	public void exportFichesEnseignantRow() {
 		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
 		if (this.rechercheConventionPaginator.getListe() != null) {
 			listeExportEval = this.rechercheConventionPaginator.getListe();
 		}
 		if (listeExportEval != null && !listeExportEval.isEmpty()) {
 			HSSFWorkbook classeur = new HSSFWorkbook();
-			HSSFSheet sheet = classeur.createSheet("exportFichesEtudiant");
+			HSSFSheet sheet = classeur.createSheet("exportFichesEnseignant");
 
 			HSSFRow row = sheet.createRow(0);
 
@@ -8223,14 +8956,18 @@ public class ConventionController extends AbstractContextAwareController {
 				row.createCell(i).setCellValue(header.get(i));
 			}
 
+			// geler de la premiere ligne/en-t�te
+			sheet.createFreezePane(0, 1);
+
 			ReponseEvaluationDTO reponseTmp;
 			ConventionDTO convention = new ConventionDTO();
+			int j = 1;
 			// Remplissage avec les reponses
 			for (int i = 0; i < listeExportEval.size(); i++) {
 				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
 
 				if (reponseTmp != null && reponseTmp.isValidationEnseignant()) {
-					row = sheet.createRow(i + 1);
+					row = sheet.createRow(j + 1);
 					int cpt = 0;
 					String reponse = "";
 
@@ -8268,7 +9005,7 @@ public class ConventionController extends AbstractContextAwareController {
 							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
 
 						if (reponse == "") {
-							reponse = "NÉANT";
+							reponse = "N�ANT";
 						}
 						row.createCell(cpt).setCellValue(reponse);
 						cpt++;
@@ -8283,7 +9020,7 @@ public class ConventionController extends AbstractContextAwareController {
 							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
 
 						if (reponse == "") {
-							reponse = "NÉANT";
+							reponse = "N�ANT";
 						}
 						row.createCell(cpt).setCellValue(reponse);
 						cpt++;
@@ -8346,6 +9083,7 @@ public class ConventionController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEnsII11())
 						row.createCell(cpt).setCellValue(
 								reponseTmp.getReponseEnsII11());
+					j++;
 				}
 			}
 			try {
@@ -8355,9 +9093,285 @@ public class ConventionController extends AbstractContextAwareController {
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
 
-				String XlsFileName = "extraction_pstage_enseignant_"
+				List<Integer> idCentre = this.critereRechercheConvention
+						.getIdsCentreGestion();
+
+				String XlsFileName = "extraction_pstage_enseignant_IdCentre_"
+						+ idCentre.get(0)
+						+ "_AnneeUniv_"
 						+ this.critereRechercheConvention
-						.getAnneeUniversitaire() + ".xls";
+								.getAnneeUniversitaire() + ".xls";
+
+				edit.doGet(baosXLS, XlsFileName);
+
+			} catch (Exception e) {
+				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : "
+						+ e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * Essai du 21/07/15 return
+	 */
+	public void exportFichesEnseignantColumn() {
+		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
+		if (this.rechercheConventionPaginator.getListe() != null) {
+			listeExportEval = this.rechercheConventionPaginator.getListe();
+		}
+		if (listeExportEval != null && !listeExportEval.isEmpty()) {
+			HSSFWorkbook classeur = new HSSFWorkbook();
+			HSSFSheet sheet = classeur.createSheet("exportFichesEnseignant");
+
+			List<String> header = new ArrayList<String>();
+
+			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService()
+					.getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
+
+			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
+
+			// ajout des noms prenoms
+			header.add(getString("CONVENTION.NOM"));
+			header.add(getString("CONVENTION.PRENOM"));
+
+			// Ajout des questions en fonction de leur utilisation ou non par le
+			// centre
+			if (ficheEvaluation.isQuestionEnsI1())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.1"));
+			if (ficheEvaluation.isQuestionEnsI2())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.2"));
+			if (ficheEvaluation.isQuestionEnsI3())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.3"));
+
+			if (ficheEvaluation.isQuestionEnsII1())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.1"));
+			if (ficheEvaluation.isQuestionEnsII2())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.2"));
+			if (ficheEvaluation.isQuestionEnsII3())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.3"));
+			if (ficheEvaluation.isQuestionEnsII4())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.4"));
+			if (ficheEvaluation.isQuestionEnsII5())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.5"));
+			if (ficheEvaluation.isQuestionEnsII6())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.6"));
+			if (ficheEvaluation.isQuestionEnsII7())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.7"));
+			if (ficheEvaluation.isQuestionEnsII8())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.8"));
+			if (ficheEvaluation.isQuestionEnsII9())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.9"));
+			if (ficheEvaluation.isQuestionEnsII10())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.10"));
+			if (ficheEvaluation.isQuestionEnsII11())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.11"));
+
+			// Creation des cellules Header
+			HSSFRow row_i;
+			for (int i = 0; i < header.size(); i++) {
+				row_i = sheet.createRow(i);
+				row_i.createCell(0).setCellValue(header.get(i));
+			}
+
+			sheet.setColumnWidth(0, 256 * 46);
+
+			// geler de la premiere colonne/en-t�te
+			sheet.createFreezePane(1, 0);
+
+			ReponseEvaluationDTO reponseTmp;
+			ConventionDTO convention = new ConventionDTO();
+			HSSFRow row;
+			HSSFCell cell;
+			HSSFCellStyle cellStyle = classeur.createCellStyle();
+			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+			HSSFCellStyle cellStyle2 = classeur.createCellStyle();
+			HSSFFont fonte = classeur.createFont();
+			fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			cellStyle2.setFont(fonte);
+			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			int j = 0;
+
+			// Remplissage avec les reponses
+			for (int i = 0; i < listeExportEval.size(); i++) {
+
+				// remplissage colonne
+				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
+
+				// reglage taille colonne
+				sheet.setColumnWidth(i + 1, 256 * 22);
+
+				if (reponseTmp != null && reponseTmp.isValidationEnseignant()) {
+					int cpt = 0;
+					String reponse = "";
+
+					// num convention
+					row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(listeExportEval.get(i).getIdConvention());
+					cell.setCellStyle(cellStyle2);
+					cpt++;
+
+					convention = listeExportEval.get(i);
+					convention = getConventionDomainService()
+							.getConventionFromId(convention.getIdConvention());
+
+					// renseignement etudiant
+					convention.setEtudiant(getEtudiantDomainService()
+							.getEtudiantFromId(convention.getIdEtudiant()));
+
+					// nom
+					row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(convention.getEtudiant().getNom());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+
+					// prenom
+					row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(convention.getEtudiant().getPrenom());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEnsI1()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						if (reponseTmp.isReponseEnsI1a())
+							reponse += getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
+						if (reponseTmp.isReponseEnsI1b())
+							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
+						if (reponseTmp.isReponseEnsI1c())
+							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
+
+						if (reponse == "") {
+							reponse = "N�ANT";
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEnsI2()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						reponse = "";
+						if (reponseTmp.isReponseEnsI2a())
+							reponse += getString("CENTRE.FICHE_EVALUATION.LIBELLES.MAIL");
+						if (reponseTmp.isReponseEnsI2b())
+							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE"));
+						if (reponseTmp.isReponseEnsI2c())
+							reponse += (" " + getString("CENTRE.FICHE_EVALUATION.LIBELLES.RENCONTRE"));
+
+						if (reponse == "") {
+							reponse = "N�ANT";
+						}
+						cell.setCellValue(reponse);
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEnsI3())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.getReponseEnsI3());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEnsII1())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII1()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII2())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII2()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII3())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII3()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII4())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII4()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII5())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII5()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII6())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII6()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII7())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII7()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII8())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII8()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII9())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII9()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII10())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnsII10()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnsII11())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.getReponseEnsII11());
+					cell.setCellStyle(cellStyle);
+					j++;
+				}
+
+			}
+
+			try {
+				ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
+
+				classeur.write(baosXLS);
+
+				ExportConventionsServlet edit = new ExportConventionsServlet();
+
+				List<Integer> idCentre = this.critereRechercheConvention
+						.getIdsCentreGestion();
+
+				String XlsFileName = "extraction_pstage_enseignant_IdCentre_"
+						+ idCentre.get(0)
+						+ "_AnneeUniv_"
+						+ this.critereRechercheConvention
+								.getAnneeUniversitaire() + ".xls";
 
 				edit.doGet(baosXLS, XlsFileName);
 			} catch (Exception e) {
@@ -8370,14 +9384,14 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * return
 	 */
-	public void exportFichesEntreprise() {
+	public void exportFichesEntrepriseRow() {
 		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
 		if (this.rechercheConventionPaginator.getListe() != null) {
 			listeExportEval = this.rechercheConventionPaginator.getListe();
 		}
 		if (listeExportEval != null && !listeExportEval.isEmpty()) {
 			HSSFWorkbook classeur = new HSSFWorkbook();
-			HSSFSheet sheet = classeur.createSheet("exportFichesEtudiant");
+			HSSFSheet sheet = classeur.createSheet("exportFichesEntreprise");
 
 			HSSFRow row = sheet.createRow(0);
 
@@ -8439,14 +9453,18 @@ public class ConventionController extends AbstractContextAwareController {
 				row.createCell(i).setCellValue(header.get(i));
 			}
 
+			// geler de la premiere ligne/en-t�te
+			sheet.createFreezePane(0, 1);
+
 			ReponseEvaluationDTO reponseTmp;
 			ConventionDTO convention = new ConventionDTO();
+			int j = 1;
 			// Remplissage avec les reponses
 			for (int i = 0; i < listeExportEval.size(); i++) {
 				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
 
 				if (reponseTmp != null && reponseTmp.isValidationEntreprise()) {
-					row = sheet.createRow(i + 1);
+					row = sheet.createRow(j + 1);
 					int cpt = 0;
 
 					// num convention
@@ -8609,6 +9627,339 @@ public class ConventionController extends AbstractContextAwareController {
 									reponseTmp.isReponseEnt18());
 						cpt++;
 					}
+					j++;
+				}
+
+			}
+			try {
+				ByteArrayOutputStream baosXLS = new ByteArrayOutputStream();
+
+				classeur.write(baosXLS);
+
+				ExportConventionsServlet edit = new ExportConventionsServlet();
+
+				List<Integer> idCentre = this.critereRechercheConvention
+						.getIdsCentreGestion();
+
+				String XlsFileName = "extraction_pstage_entreprise_IdCentre_"
+						+ idCentre.get(0)
+						+ "_AnneeUniv_"
+						+ this.critereRechercheConvention
+								.getAnneeUniversitaire() + ".xls";
+
+				edit.doGet(baosXLS, XlsFileName);
+			} catch (Exception e) {
+				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : "
+						+ e.getMessage());
+			}
+		}
+	}
+
+	public void exportFichesEntrepriseColumn() {
+		List<ConventionDTO> listeExportEval = new ArrayList<ConventionDTO>();
+		if (this.rechercheConventionPaginator.getListe() != null) {
+			listeExportEval = this.rechercheConventionPaginator.getListe();
+		}
+		if (listeExportEval != null && !listeExportEval.isEmpty()) {
+			HSSFWorkbook classeur = new HSSFWorkbook();
+			HSSFSheet sheet = classeur.createSheet("exportFichesEntreprise");
+
+			HSSFRow row = sheet.createRow(0);
+			sheet.setColumnWidth(0, 256 * 52);
+
+			List<String> header = new ArrayList<String>();
+			FicheEvaluationDTO ficheEvaluation = getFicheEvaluationDomainService()
+					.getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
+
+			header.add(getString("RECHERCHEEVALUATION.NUMCONVENTION"));
+
+			// ajout des noms prenoms
+			header.add(getString("CONVENTION.NOM"));
+			header.add(getString("CONVENTION.PRENOM"));
+
+			// Ajout des questions en fonction de leur utilisation ou non par le
+			// centre
+			if (ficheEvaluation.isQuestionEnt1())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.1"));
+			if (ficheEvaluation.isQuestionEnt2())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.2"));
+			if (ficheEvaluation.isQuestionEnt3())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.3"));
+			if (ficheEvaluation.isQuestionEnt5())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.5"));
+			if (ficheEvaluation.isQuestionEnt9())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.9"));
+			if (ficheEvaluation.isQuestionEnt11())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.11"));
+			if (ficheEvaluation.isQuestionEnt12())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.12"));
+			if (ficheEvaluation.isQuestionEnt13())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.13"));
+			if (ficheEvaluation.isQuestionEnt14())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.14"));
+
+			if (ficheEvaluation.isQuestionEnt4())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.4"));
+			if (ficheEvaluation.isQuestionEnt6())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.6"));
+			if (ficheEvaluation.isQuestionEnt7())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.7"));
+			if (ficheEvaluation.isQuestionEnt8())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.8"));
+			if (ficheEvaluation.isQuestionEnt15())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.15"));
+
+			if (ficheEvaluation.isQuestionEnt16())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.16"));
+			if (ficheEvaluation.isQuestionEnt17())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.17"));
+			if (ficheEvaluation.isQuestionEnt19())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.19"));
+			if (ficheEvaluation.isQuestionEnt10())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.10"));
+			if (ficheEvaluation.isQuestionEnt18())
+				header.add(getString("CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.18"));
+
+			// Creation des cellules Header
+			HSSFRow row_i;
+			for (int i = 0; i < header.size(); i++) {
+				row_i = sheet.createRow(i);
+				row_i.createCell(0).setCellValue(header.get(i));
+			}
+
+			// geler de la premiere colonne/en-t�te
+			sheet.createFreezePane(1, 0);
+
+			ReponseEvaluationDTO reponseTmp;
+			ConventionDTO convention = new ConventionDTO();
+			int j = 0;
+			HSSFCell cell;
+			HSSFCellStyle cellStyle = classeur.createCellStyle();
+			cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+			HSSFCellStyle cellStyle2 = classeur.createCellStyle();
+			HSSFFont fonte = classeur.createFont();
+			fonte.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+			cellStyle2.setFont(fonte);
+			cellStyle2.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+			// Remplissage avec les reponses
+			for (int i = 0; i < listeExportEval.size(); i++) {
+
+				// reglage taille colonne
+				sheet.setColumnWidth(i + 1, 256 * 15);
+
+				// remplissage colonne
+				reponseTmp = listeExportEval.get(i).getReponseEvaluation();
+
+				if (reponseTmp != null && reponseTmp.isValidationEntreprise()) {
+					int cpt = 0;
+
+					// num convention
+					row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(listeExportEval.get(i).getIdConvention());
+					cell.setCellStyle(cellStyle2);
+					cpt++;
+
+					convention = listeExportEval.get(i);
+					convention = getConventionDomainService()
+							.getConventionFromId(convention.getIdConvention());
+
+					// renseignement etudiant
+					convention.setEtudiant(getEtudiantDomainService()
+							.getEtudiantFromId(convention.getIdEtudiant()));
+
+					// nom
+					row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(convention.getEtudiant().getNom());
+					cell.setCellStyle(cellStyle);
+
+					cpt++;
+
+					// prenom
+					row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(convention.getEtudiant().getPrenom());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEnt1())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt1())
+							+ " : "
+							+ reponseTmp.getReponseEnt1bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt2())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt2())
+							+ " : "
+							+ reponseTmp.getReponseEnt2bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt3())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt3()));
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt5())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt5())
+							+ " : "
+							+ reponseTmp.getReponseEnt5bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt9())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt9())
+							+ " : "
+							+ reponseTmp.getReponseEnt9bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt11())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt11())
+							+ " : "
+							+ reponseTmp.getReponseEnt11bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt12())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt12())
+							+ " : "
+							+ reponseTmp.getReponseEnt12bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt13())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt13())
+							+ " : "
+							+ reponseTmp.getReponseEnt13bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt14())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt14())
+							+ " : "
+							+ reponseTmp.getReponseEnt14bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEnt4())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt4())
+							+ " : "
+							+ reponseTmp.getReponseEnt4bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt6())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt6())
+							+ " : "
+							+ reponseTmp.getReponseEnt6bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt7())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt7())
+							+ " : "
+							+ reponseTmp.getReponseEnt7bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt8())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt8())
+							+ " : "
+							+ reponseTmp.getReponseEnt8bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt15())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleNotation(reponseTmp
+							.getReponseEnt15())
+							+ " : "
+							+ reponseTmp.getReponseEnt15bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+
+					if (ficheEvaluation.isQuestionEnt16())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(this.recupLibelleAvis(reponseTmp
+							.getReponseEnt16())
+							+ " : "
+							+ reponseTmp.getReponseEnt16bis());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt17()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (reponseTmp.getReponseEnt17() == 4
+								|| reponseTmp.getReponseEnt17() == 5)
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEnt17())
+									+ " : " + reponseTmp.getReponseEnt17bis());
+						else
+							cell.setCellValue(this
+									.recupLibelleNotation(reponseTmp
+											.getReponseEnt17()));
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					if (ficheEvaluation.isQuestionEnt19())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.getReponseEnt19());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt10())
+						row = sheet.getRow(cpt);
+					cell = row.createCell(j + 1);
+					cell.setCellValue(reponseTmp.isReponseEnt10());
+					cell.setCellStyle(cellStyle);
+					cpt++;
+					if (ficheEvaluation.isQuestionEnt18()) {
+						row = sheet.getRow(cpt);
+						cell = row.createCell(j + 1);
+						if (!reponseTmp.isReponseEnt18())
+							cell.setCellValue(" FAUX : "
+									+ reponseTmp.getReponseEnt18bis());
+						else
+							cell.setCellValue(reponseTmp.isReponseEnt18());
+						cell.setCellStyle(cellStyle);
+						cpt++;
+					}
+					j++;
 				}
 			}
 			try {
@@ -8618,9 +9969,14 @@ public class ConventionController extends AbstractContextAwareController {
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
 
-				String XlsFileName = "extraction_pstage_entreprise_"
+				List<Integer> idCentre = this.critereRechercheConvention
+						.getIdsCentreGestion();
+
+				String XlsFileName = "extraction_pstage_entreprise_IdCentre_"
+						+ idCentre.get(0)
+						+ "_AnneeUniv_"
 						+ this.critereRechercheConvention
-						.getAnneeUniversitaire() + ".xls";
+								.getAnneeUniversitaire() + ".xls";
 
 				edit.doGet(baosXLS, XlsFileName);
 			} catch (Exception e) {
@@ -10047,12 +11403,42 @@ public class ConventionController extends AbstractContextAwareController {
 							&& !critere.getCodeVersionEtape().isEmpty()) {
 						this.rechEvalListeEtapes.add(new SelectItem(critere
 								.getCode(), critere.getCode() + ";"
-										+ critere.getCodeVersionEtape() + " - "
-										+ critere.getLibelle()));
+								+ critere.getCodeVersionEtape() + " - "
+								+ critere.getLibelle()));
 					} else {
 						this.rechEvalListeEtapes.add(new SelectItem(critere
 								.getCode(), critere.getCode() + " - "
-										+ critere.getLibelle()));
+								+ critere.getLibelle()));
+					}
+				}
+			}
+		}
+		return rechEvalListeEtapes;
+	}
+
+	/**
+	 * @return the RechEvalListeEtapesParAnnee
+	 */
+	public List<SelectItem> getRechEvalListeEtapesParAnnee() {
+		this.rechEvalListeEtapes = new ArrayList<SelectItem>();
+		if (rechEvalIdCentre != null && rechEvalIdCentre > 0) {
+			List<CritereGestionDTO> listeEtapes = getCritereGestionDomainService()
+					.getCritereGestionFromIdCentreAndAnnee(
+							this.rechEvalIdCentre,
+							this.critereRechercheConvention
+									.getAnneeUniversitaire());
+			if (listeEtapes != null && !listeEtapes.isEmpty()) {
+				for (CritereGestionDTO critere : listeEtapes) {
+					if (critere.getCodeVersionEtape() != null
+							&& !critere.getCodeVersionEtape().isEmpty()) {
+						this.rechEvalListeEtapes.add(new SelectItem(critere
+								.getCode(), critere.getCode() + ";"
+								+ critere.getCodeVersionEtape() + " - "
+								+ critere.getLibelle()));
+					} else {
+						this.rechEvalListeEtapes.add(new SelectItem(critere
+								.getCode(), critere.getCode() + " - "
+								+ critere.getLibelle()));
 					}
 				}
 			}
@@ -10165,7 +11551,7 @@ public class ConventionController extends AbstractContextAwareController {
 		CritereRechercheConventionDTO c = null;
 		if (getBeanUtils() != null) {
 			c = new CritereRechercheConventionDTO();
-			// c.setPayqss(getBeanUtils().getFrance());
+			// c.setPays(getBeanUtils().getFrance());
 			c.setAnneeUniversitaire(getBeanUtils()
 					.getAnneeUniversitaireCourante(new Date()));
 		} else {
@@ -10239,6 +11625,14 @@ public class ConventionController extends AbstractContextAwareController {
 			nbr = this.getListeConventionsSelectionnees().size();
 		}
 		return nbr;
+	}
+
+	public String getSelMonnaieGratification() {
+		return selMonnaieGratification;
+	}
+
+	public void setSelMonnaieGratification(String selMonnaieGratification) {
+		this.selMonnaieGratification = selMonnaieGratification;
 	}
 
 	public boolean isRechOffreByNum() {

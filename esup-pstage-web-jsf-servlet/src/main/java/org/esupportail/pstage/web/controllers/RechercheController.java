@@ -14,14 +14,12 @@ import javax.faces.model.SelectItem;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.paginators.RechercheStructurePaginator;
-import org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO;
 import org.esupportail.pstagedata.domain.dto.CritereRechercheStructureAdresseDTO;
 import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 import org.esupportail.pstagedata.domain.dto.NafN1DTO;
 import org.esupportail.pstagedata.domain.dto.PaysDTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
 import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
-import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
 import org.springframework.util.StringUtils;
 
 

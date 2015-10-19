@@ -661,6 +661,20 @@
 		</rich:columnGroup>
 		<rich:columnGroup>
 			<rich:column>
+				<h:outputLabel for="coordContact1"
+					value="#{msgs['CONVENTION.CONTACT.COORD']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="Mail : #{conventionController.convention.contact.mail} " rendered="#{conventionController.convention.contact.mail!=''}"/>
+				<br/>
+				<h:outputText value="Tel : #{conventionController.convention.contact.tel} " rendered="#{conventionController.convention.contact.tel!=''}"/>
+				<br/>
+				<h:outputText value="Fax : #{conventionController.convention.contact.fax}" rendered="#{conventionController.convention.contact.fax!=''}"/>
+			</rich:column>
+		</rich:columnGroup>
+
+		<rich:columnGroup>
+			<rich:column>
 				<h:outputLabel for="signataire1"
 					value="#{msgs['CONVENTION.SIGNATAIRE']}" />
 			</rich:column>
