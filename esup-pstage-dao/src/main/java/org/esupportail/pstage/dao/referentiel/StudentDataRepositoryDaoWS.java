@@ -5,14 +5,9 @@ import gouv.education.apogee.commun.client.ws.etudiantmetier.EtudiantMetierServi
 import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierServiceInterfaceProxy;
 import gouv.education.apogee.commun.client.ws.pedagogiquemetier.PedagogiqueMetierServiceInterfaceProxy;
 import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierServiceInterfaceProxy;
-import gouv.education.apogee.commun.servicesmetiers.AdministratifMetierServiceInterface;
-import gouv.education.apogee.commun.servicesmetiers.EtudiantMetierServiceInterface;
-import gouv.education.apogee.commun.servicesmetiers.OffreFormationMetierServiceInterface;
-import gouv.education.apogee.commun.servicesmetiers.PedagogiqueMetierServiceInterface;
-import gouv.education.apogee.commun.servicesmetiers.ReferentielMetierServiceInterface;
 import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmAnuDTO2;
 import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmEtpDTO2;
-import gouv.education.apogee.commun.transverse.dto.etudiant.CoordonneesDTO;
+import gouv.education.apogee.commun.transverse.dto.etudiant.CoordonneesDTO2;
 import gouv.education.apogee.commun.transverse.dto.etudiant.IdentifiantsEtudiantDTO;
 import gouv.education.apogee.commun.transverse.dto.etudiant.InfoAdmEtuDTO;
 import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO2;
@@ -443,9 +438,9 @@ StudentDataRepositoryDao {
 		adminApogee.setRaison("");
 		try {
 			// appel au WS AMUE
-			EtudiantMetierServiceInterface etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+			EtudiantMetierServiceInterfaceProxy etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
 
-			AdministratifMetierServiceInterface serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
+			AdministratifMetierServiceInterfaceProxy serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
 
 			// Recherche l'etudiant dans Apogee
 			IdentifiantsEtudiantDTO etudiant;
@@ -457,12 +452,12 @@ StudentDataRepositoryDao {
 			InfoAdmEtuDTO infosAdmEtu = etudiantMetierService.recupererInfosAdmEtu(etudiant.getCodEtu().toString());
 
 			// Recuperation des coordonnees de l'etudiant
-			CoordonneesDTO coordonnees = new CoordonneesDTO();		
+			CoordonneesDTO2 coordonnees = new CoordonneesDTO2();		
 			try{
-				coordonnees = etudiantMetierService.recupererAdressesEtudiant(
+				coordonnees = etudiantMetierService.recupererAdressesEtudiant_v2(
 						etudiant.getCodEtu().toString(), null, this.temoinRecupAnnu);
 			} catch (WebBaseException wb) {
-				coordonnees = etudiantMetierService.recupererAdressesEtudiant(
+				coordonnees = etudiantMetierService.recupererAdressesEtudiant_v2(
 						etudiant.getCodEtu().toString(), anneeCourante, this.temoinRecupAnnu);
 			}
 
@@ -899,11 +894,11 @@ StudentDataRepositoryDao {
 
 		//		try {
 
-		AdministratifMetierServiceInterface serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
+		AdministratifMetierServiceInterfaceProxy serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
 
-		PedagogiqueMetierServiceInterface servicePedagogique =  new PedagogiqueMetierServiceInterfaceProxy();
+		PedagogiqueMetierServiceInterfaceProxy servicePedagogique =  new PedagogiqueMetierServiceInterfaceProxy();
 
-		ReferentielMetierServiceInterface referentielMetierService = new ReferentielMetierServiceInterfaceProxy();
+		ReferentielMetierServiceInterfaceProxy referentielMetierService = new ReferentielMetierServiceInterfaceProxy();
 
 		// Recuperation des etapes auxquelles l'etudiant est inscrit administrativement
 		// (inscription admin etape en cours (E)) en fonction de l'annee en param
@@ -993,7 +988,7 @@ StudentDataRepositoryDao {
 					etpins.setVersionDiplome(versDiplome);
 
 					try {
-						OffreFormationMetierServiceInterface offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
+						OffreFormationMetierServiceInterfaceProxy offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
 
 						// recherche du cursus LMD, codFinalite
 						SECritereDTO2 seCritereDTO = new SECritereDTO2();
@@ -1126,7 +1121,7 @@ StudentDataRepositoryDao {
 		}
 		try {
 
-			OffreFormationMetierServiceInterface offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
+			OffreFormationMetierServiceInterfaceProxy offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
 
 			// recuperation des etapes pedagogiques
 			LinkedHashMap<String,String> tabStudentsEtapesVets = apogeeMap.getStudentsEtapesVetsPedago();
@@ -1322,7 +1317,7 @@ StudentDataRepositoryDao {
 		}
 		String codEtu = codInd;
 		try {
-			EtudiantMetierServiceInterface etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+			EtudiantMetierServiceInterfaceProxy etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
 
 			// Recherche l'etudiant par le codind dans Apogee
 			IdentifiantsEtudiantDTO etudiant = etudiantMetierService.recupererIdentifiantsEtudiant(
@@ -1351,7 +1346,7 @@ StudentDataRepositoryDao {
 		}
 		String codInd = codEtu;
 		try {
-			EtudiantMetierServiceInterface etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
+			EtudiantMetierServiceInterfaceProxy etudiantMetierService = new EtudiantMetierServiceInterfaceProxy();
 
 			// Recherche du codInd de l'etudiant dans Apogee
 			IdentifiantsEtudiantDTO etudiant = etudiantMetierService.recupererIdentifiantsEtudiant(

@@ -228,6 +228,11 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	private String depotEncode;
 
+	/**
+	 * true si un codeEtape/codeUFR n'est plus existant dans apogee pour alerter avant sa suppression
+	 */
+	private boolean critereNotFound = false;
+	
 	/* ***************************************************************
 	 * FICHE EVAL
 	 ****************************************************************/
@@ -727,6 +732,7 @@ public class CentreController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToListeCritere() ");
 		}
+		this.critere = null;
 		return "listeCriteres";
 	}
 
@@ -988,11 +994,9 @@ public class CentreController extends AbstractContextAwareController {
 	 * Suppression d'un critere
 	 ****************************************************************/
 
-	/**
-	 * @return boolean
-	 */
-	public boolean isCritereNotFound(){
+	public void avantSuppressionCritere(){
 		if (this.critere!=null){
+			this.setCritereNotFound(false);
 			String codeUniversite = getSessionController().getCodeUniversite();
 			this.toutLesCriteres = new HashMap<String,String>();
 
@@ -1002,10 +1006,8 @@ public class CentreController extends AbstractContextAwareController {
 					this.toutLesCriteres = getPersonalComponentRepositoryDomain().getComposantesRef(codeUniversite);
 				} catch (CommunicationApogeeException cae){
 					logger.error(cae.fillInStackTrace());
-					return false;
 				} catch (Exception e){
 					logger.error(e.fillInStackTrace());
-					return false;
 				}
 			} else if ((this.centre.getNiveauCentre().getLibelle()).equalsIgnoreCase(DonneesStatic.CG_ETAPE)){
 				try{
@@ -1013,22 +1015,24 @@ public class CentreController extends AbstractContextAwareController {
 					this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
 				} catch (CommunicationApogeeException cae){
 					logger.error(cae.fillInStackTrace());
-					return false;
 				}catch (Exception e){
 					logger.error(e.fillInStackTrace());
-					return false;
 				}
 			}
-			if (this.toutLesCriteres != null 
-					&& !this.toutLesCriteres.isEmpty()
-					&& !this.toutLesCriteres.containsValue(this.critere.getLibelle())
-					&& !this.toutLesCriteres.containsKey(this.critere.getCode()+";"+this.critere.getCodeVersionEtape())){
-				return true;
+			String code = "";
+			if (this.critere.getCodeVersionEtape() != null
+				&& !this.critere.getCodeVersionEtape().isEmpty()){
+				code = this.critere.getCode()+";"+this.critere.getCodeVersionEtape();
+			} else {
+				code = this.critere.getCode();
+			}
+			if (this.toutLesCriteres == null 
+					|| this.toutLesCriteres.isEmpty()
+					|| !this.toutLesCriteres.containsKey(code)){
+				this.setCritereNotFound(true);
 			}
 		}
-
-		return false;
-	}		
+	}
 
 	/**
 	 * @return a String
@@ -1048,19 +1052,39 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	public void repercutionCriteres(){
 		try {
-			String codeEtape;
+			String codeCritere;
 			// On associe son codeVersionEtape si le critere en dispose
 			if (this.critere.getCodeVersionEtape() != null && !this.critere.getCodeVersionEtape().isEmpty()){
 				// On combine les codes pour simuler 2 parametres dans un seul, ceci afin de ne pas avoir
 				// a modifier toutes les methodes suite a l'ajout du codeVersionEtape
-				codeEtape = this.critere.getCode()+";"+this.critere.getCodeVersionEtape();
+				codeCritere = this.critere.getCode()+";"+this.critere.getCodeVersionEtape();
 			} else {
-				codeEtape = this.critere.getCode();
+				codeCritere = this.critere.getCode();
 			}
+			
+			// Si le centre est de type UFR
 			if (this.centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_UFR)){
-				// Si le centre est une UFR
-				// Partout ou le code critere est trouvé dans les conventions, on remet l'id du centre Etablissement
-				getConventionDomainService().updateCentreConventionByUfr(this.critere.getCode(), getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
+
+				// On récupère la liste des codesEtape de toutes les conventions impactées
+				List<String> listeCodes = getConventionDomainService().getCodesEtapesConventionsFromCodeUfrAndIdCentre(codeCritere, this.critere.getIdCentreGestion(), getSessionController().getCodeUniversite());
+				
+				if (listeCodes != null && !listeCodes.isEmpty()){
+					for (String code : listeCodes){
+						// Pour chaque codeEtape, on regarde si un centre le gere (dans la table CritereGestion)
+						CentreGestionDTO centre = getCentreGestionDomainService().getCentreFromCritere(code, getSessionController().getCodeUniversite());
+						if (centre != null){
+							// Si on trouve un centre, on l'associe a la convention
+							getConventionDomainService().updateCentreConventionByEtape(code,centre.getIdCentreGestion(),getSessionController().getCodeUniversite());
+						} else {
+							// Sinon, on met le centre etablissement
+							getConventionDomainService().updateCentreConventionByEtape(code, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
+						}
+					}
+				} else {
+					// Partout ou le code critere est trouvé dans les conventions, on remet l'id du centre Etablissement
+					getConventionDomainService().updateCentreConventionByUfr(codeCritere, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
+				}
+				
 			} else {
 				// Sinon, le centre est une Etape
 				// Si le critere de gestion du fichier de config est MIXTE, alors on vérifie d'abord qu'il n'y a pas d'UFR pouvant recuperer la convention avant l'etablissement
@@ -1074,22 +1098,22 @@ public class CentreController extends AbstractContextAwareController {
 						for (CritereGestionDTO crit : list){
 							// Si l'on trouve le code UFR dans la liste des criteres deja rattachés, alors on assigne le centre auquel est rattaché ce code a tout les centres touchés par la suppression
 							if (crit.getCode().equalsIgnoreCase(codeUfr)){
-								getConventionDomainService().updateCentreConventionByEtape(codeEtape,crit.getIdCentreGestion(),getSessionController().getCodeUniversite());
+								getConventionDomainService().updateCentreConventionByEtape(codeCritere,crit.getIdCentreGestion(),getSessionController().getCodeUniversite());
 								ufrFound = true;
 								break;
 							}
 						}
 						if (!ufrFound){
 							// Sinon, de meme que pour les ufr, on remplace l'idCentreGestion du centre auquel était rattaché le critere par celui de l'Etablissement
-							getConventionDomainService().updateCentreConventionByEtape(codeEtape, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
+							getConventionDomainService().updateCentreConventionByEtape(codeCritere, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
 						}
 					}
 				} else {
 					// Sinon, de meme que pour les ufr, on remplace l'idCentreGestion du centre auquel était rattaché le critere par celui de l'Etablissement
-					getConventionDomainService().updateCentreConventionByEtape(codeEtape, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
+					getConventionDomainService().updateCentreConventionByEtape(codeCritere, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
 				}
 			}
-			getCritereGestionDomainService().deleteCritere(codeEtape);
+			getCritereGestionDomainService().deleteCritere(codeCritere);
 			if (this.listeCriteres != null && !this.listeCriteres.isEmpty()){
 				this.listeCriteres.add(new SelectItem(this.critere.getCode(),(this.critere.getCode() +" - "+this.critere.getLibelle())));
 				Collections.sort(this.listeCriteres, new ComparatorSelectItem());
@@ -2730,5 +2754,11 @@ public class CentreController extends AbstractContextAwareController {
 	public void setListeQuestionsSupplementairesEntreprise3(
 			List<QuestionSupplementaireDTO> listeQuestionsSupplementairesEntreprise3) {
 		this.listeQuestionsSupplementairesEntreprise3 = listeQuestionsSupplementairesEntreprise3;
+	}
+	public boolean isCritereNotFound() {
+		return critereNotFound;
+	}
+	public void setCritereNotFound(boolean critereNotFound) {
+		this.critereNotFound = critereNotFound;
 	}
 }

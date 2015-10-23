@@ -524,14 +524,19 @@ public class ConventionController extends AbstractContextAwareController {
 	private List<SelectItem> listeItemsCurrentCentresGestionEval;
 	/**
 	 * Liste des criteres presentees au gestionnaires lors de la recherche de
-	 * fiche d'evaluation (ufr ou etape, en fait...)
+	 * fiche d'evaluation ufr ou etape
 	 */
-	private List<SelectItem> rechEvalListeEtapes;
+	private List<SelectItem> rechEvalListeCodes;
 
 	/**
 	 * true lorsque l'on consulte une convention via la recherche d'evaluation
 	 */
 	private boolean retourEvaluation = false;
+
+	/**
+	 * Etat de l'affichage de la recherche d'evaluation
+	 */
+	private int etatAffichageRechEval = 1;
 
 	/**
 	 * Bean constructor.
@@ -3221,7 +3226,7 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		return retour;
 	}
-	
+
 	/**
 	 * @return String
 	 */
@@ -4947,9 +4952,9 @@ public class ConventionController extends AbstractContextAwareController {
 						.hasNext();) {
 					SelectItem affec = iter.next();
 					if (affec != null){
-						
+
 						if (affec.getValue() == null) affec.setValue("");
-						
+
 						if (codeAffec.equals(affec.getValue().toString())) {
 							affecDTO.setCode(affec.getValue().toString());
 							affecDTO.setLibelle(affec.getLabel());
@@ -5287,10 +5292,8 @@ public class ConventionController extends AbstractContextAwareController {
 			this.critereRechercheConvention.setNomEnseignant(null);
 		if (this.critereRechercheConvention.getPrenomEnseignant() == "")
 			this.critereRechercheConvention.setPrenomEnseignant(null);
+		this.critereRechercheConvention.setIdsCentreGestion(getSessionController().getCurrentIdsCentresGestion());
 
-		this.critereRechercheConvention
-		.setIdsCentreGestion(getSessionController()
-				.getCurrentIdsCentresGestion());
 		if (StringUtils.hasText(this.rechTypeOuStatut)) {
 			if (this.rechTypeOuStatut.contains("t")) {
 				if (Utils.isNumber(this.rechTypeOuStatut.substring(1))) {
@@ -5344,13 +5347,9 @@ public class ConventionController extends AbstractContextAwareController {
 		else
 			this.critereRechercheConvention.setEstEtrangere(false);
 
-		// this.critereRechercheConvention.setLimit(true);
-		// this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
-		this.critereRechercheConvention
-		.setNbRechercheMaxi(this.critereRechercheConvention
-				.getNbRechercheMaxi());
-		// si enseignant référent, recherche des conventions pour les
-		// enseignants tuteur
+		this.critereRechercheConvention.setNbRechercheMaxi(this.critereRechercheConvention.getNbRechercheMaxi());
+
+		// si enseignant référent, recherche des conventions pour les enseignants tuteur
 		if (getSessionController().isEnseignantTuteur()) {
 			if (this.getSessionController().getCurrentAuthEnseignant()
 					.getUidEnseignant() != null) {
@@ -5386,17 +5385,14 @@ public class ConventionController extends AbstractContextAwareController {
 							.add(conventionDTO);
 						}
 					}
+
+					// On reorganise l'ordre des conventions
 					Collections.sort(this.resultatsRechercheConvention,
 							new Comparator<ConventionDTO>() {
-						/**
-						 * @see java.util.Comparator#compare(java.lang.Object,
-						 *      java.lang.Object)
-						 */
-						@Override
 						public int compare(ConventionDTO l1,
 								ConventionDTO l2) {
-							return l1.getIdConvention().compareTo(
-									l2.getIdConvention());
+							return l2.getIdConvention().compareTo(
+									l1.getIdConvention());
 						}
 					});
 				}
@@ -5428,12 +5424,10 @@ public class ConventionController extends AbstractContextAwareController {
 	 * Reset des criteres de recherche d'offres.
 	 */
 	public void resetRechercheConvention() {
-		// critereRechercheConvention = new CritereRechercheConventionDTO();
 		critereRechercheConvention = initCritereRechercheConvention();
 
-		this.critereRechercheConvention
-		.setIdsCentreGestion(getSessionController()
-				.getCurrentIdsCentresGestion());
+		this.critereRechercheConvention.setIdsCentreGestion(getSessionController().getCurrentIdsCentresGestion());
+
 		this.rechTypeOuStatut = null;
 	}
 
@@ -5676,7 +5670,7 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	 public String validerEnMasse() {
+	public String validerEnMasse() {
 		if (logger.isDebugEnabled()) {
 			logger.debug("public String validerEnMasse()");
 		}
@@ -5712,7 +5706,7 @@ public class ConventionController extends AbstractContextAwareController {
 									"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION",
 									conventionTmp.getIdConvention(),
 									getSessionController().getCurrentUser()
-											.getDisplayName());
+									.getDisplayName());
 							String sujet = getString(
 									"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION.SUJET",
 									conventionTmp.getIdConvention());
@@ -5829,8 +5823,7 @@ public class ConventionController extends AbstractContextAwareController {
 			// Premiere recherche pour les centres avec Validation pedago, et
 			// donc avec le critere de recherche Correspondant
 			this.critereRechercheConvention.setEstVerifiee(true);
-			this.critereRechercheConvention
-			.setIdsCentreGestion(idsCentresAvecVP);
+			this.critereRechercheConvention.setIdsCentreGestion(idsCentresAvecVP);
 
 			this.resultatsRechercheConvention = getConventionDomainService()
 					.getConventionsFromCriteres(this.critereRechercheConvention);
@@ -7031,7 +7024,6 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public String goToRechercheEval() {
 
-		// this.critereRechercheConvention=new CritereRechercheConventionDTO();
 		this.critereRechercheConvention = initCritereRechercheConvention();
 		this.critereRechercheConvention.setNbExportMaxi("");
 
@@ -7068,8 +7060,7 @@ public class ConventionController extends AbstractContextAwareController {
 			if (map != null && !map.isEmpty()) {
 				for (Iterator<Integer> iter = map.keySet().iterator(); iter
 						.hasNext();) {
-					CentreGestionDTO cg = getCentreGestionDomainService()
-							.getCentreGestion(iter.next());
+					CentreGestionDTO cg = getCentreGestionDomainService().getCentreGestion(iter.next());
 					this.listeItemsCurrentCentresGestionEval
 					.add(new SelectItem(cg.getIdCentreGestion(), cg
 							.getNomCentre()));
@@ -7083,80 +7074,10 @@ public class ConventionController extends AbstractContextAwareController {
 			this.rechEvalIdCentre = (Integer) this.listeItemsCurrentCentresGestionEval
 					.get(0).getValue();
 		}
+		
+		this.updateAffichageListeCodes();
 
 		return "rechercheEvaluation";
-	}
-
-	/**
-	 * Renvoie true si le centre sur lequel la recherche d'evaluation est faite
-	 * est de type ETAPE et remet à zero la liste d'idsUfrs du critere de
-	 * recherche de convention
-	 */
-	public boolean isEtape() {
-		if (this.rechEvalIdCentre != null && this.rechEvalIdCentre != 0) {
-			CentreGestionDTO centre = getCentreGestionDomainService()
-					.getCentreGestion(this.rechEvalIdCentre);
-			if (centre != null
-					&& centre.getNiveauCentre().getLibelle()
-					.equalsIgnoreCase(DonneesStatic.CG_ETAPE)) {
-				if (this.critereRechercheConvention != null) {
-					this.critereRechercheConvention
-					.setIdsUfrs(new ArrayList<String>());
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Renvoie true si le centre sur lequel la recherche d'evaluation est faite
-	 * est de type UFR et remet à zero la liste d'idsEtapes du critere de
-	 * recherche de convention
-	 */
-	public boolean isUfr() {
-		if (this.rechEvalIdCentre != null && this.rechEvalIdCentre != 0) {
-			CentreGestionDTO centre = getCentreGestionDomainService()
-					.getCentreGestion(this.rechEvalIdCentre);
-			if (centre != null
-					&& centre.getNiveauCentre().getLibelle()
-					.equalsIgnoreCase(DonneesStatic.CG_UFR)) {
-				if (this.critereRechercheConvention != null) {
-					this.critereRechercheConvention
-					.setIdsEtapes(new ArrayList<String>());
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Renvoie true si le centre sur lequel la recherche d'evaluation est faite
-	 * est de type Etablissement et remet à zero la liste d'idsEtapes et idsUfr
-	 * du critere de recherche de convention pour y mettre son id de centre de
-	 * gestion afin de recup les conventions orphelines
-	 */
-	public boolean isEtablissement() {
-		if (this.rechEvalIdCentre != null && this.rechEvalIdCentre != 0) {
-			CentreGestionDTO centre = getCentreGestionDomainService()
-					.getCentreGestion(this.rechEvalIdCentre);
-			if (centre != null
-					&& centre.getNiveauCentre().getLibelle()
-					.equalsIgnoreCase(DonneesStatic.CG_ETAB)) {
-				if (this.critereRechercheConvention != null) {
-					List<Integer> list = new ArrayList<Integer>();
-					list.add(this.rechEvalIdCentre);
-					this.critereRechercheConvention
-					.setIdsEtapes(new ArrayList<String>());
-					this.critereRechercheConvention
-					.setIdsUfrs(new ArrayList<String>());
-					this.critereRechercheConvention.setIdsCentreGestion(list);
-				}
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**
@@ -7178,16 +7099,10 @@ public class ConventionController extends AbstractContextAwareController {
 		list.add(this.rechEvalIdCentre);
 		this.critereRechercheConvention.setIdsCentreGestion(list);
 
-		// this.critereRechercheConvention.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
-		this.critereRechercheConvention
-		.setNbRechercheMaxi(this.critereRechercheConvention
-				.getNbRechercheMaxi());
+		this.critereRechercheConvention.setNbRechercheMaxi(this.critereRechercheConvention.getNbRechercheMaxi());
 
-		this.resultatsRechercheConvention = getConventionDomainService()
-				.getConventionsFromCriteres(this.critereRechercheConvention);
-
-		FicheEvaluationDTO fiche = getFicheEvaluationDomainService()
-				.getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
+		this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
+		FicheEvaluationDTO fiche = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.rechEvalIdCentre);
 
 		// instanciation de l'objet convention juste pour y stocker la fiche
 		// d'evaluation afin de l'utiliser dans la page de resultats
@@ -7825,8 +7740,8 @@ public class ConventionController extends AbstractContextAwareController {
 						reponse = "";
 						if (reponseTmp.getReponseEtuI5() > 0)
 							reponse = getNomenclatureDomainService()
-									.getOrigineStageDTOFromId(
-											reponseTmp.getReponseEtuI5())
+							.getOrigineStageDTOFromId(
+									reponseTmp.getReponseEtuI5())
 									.getLibelle();
 						if (reponse == null) {
 							reponse = "";
@@ -8011,10 +7926,10 @@ public class ConventionController extends AbstractContextAwareController {
 						cpt++;
 						if (reponseTmp.isReponseEtuIII1())
 							row.createCell(cpt)
-									.setCellValue(
-											"VRAI, pour le sujet suivant : "
-													+ reponseTmp
-															.getReponseEtuIII1bis());
+							.setCellValue(
+									"VRAI, pour le sujet suivant : "
+											+ reponseTmp
+											.getReponseEtuIII1bis());
 						else
 							row.createCell(cpt).setCellValue(
 									reponseTmp.isReponseEtuIII1());
@@ -8023,10 +7938,10 @@ public class ConventionController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII2()) {
 						if (!reponseTmp.isReponseEtuIII2())
 							row.createCell(cpt)
-									.setCellValue(
-											"FAUX : "
-													+ reponseTmp
-															.getReponseEtuIII2bis());
+							.setCellValue(
+									"FAUX : "
+											+ reponseTmp
+											.getReponseEtuIII2bis());
 						else
 							row.createCell(cpt).setCellValue(
 									reponseTmp.isReponseEtuIII2());
@@ -8086,12 +8001,12 @@ public class ConventionController extends AbstractContextAwareController {
 						if (reponseTmp.getReponseEtuIII6() == 4
 								|| reponseTmp.getReponseEtuIII6() == 5)
 							row.createCell(cpt)
-									.setCellValue(
-											this.recupLibelleAvis(reponseTmp
-													.getReponseEtuIII6())
-													+ " : "
-													+ reponseTmp
-															.getReponseEtuIII6bis());
+							.setCellValue(
+									this.recupLibelleAvis(reponseTmp
+											.getReponseEtuIII6())
+											+ " : "
+											+ reponseTmp
+											.getReponseEtuIII6bis());
 						else
 							row.createCell(cpt).setCellValue(
 									this.recupLibelleAvis(reponseTmp
@@ -8102,12 +8017,12 @@ public class ConventionController extends AbstractContextAwareController {
 						if (reponseTmp.getReponseEtuIII7() == 4
 								|| reponseTmp.getReponseEtuIII7() == 5)
 							row.createCell(cpt)
-									.setCellValue(
-											this.recupLibelleAvis(reponseTmp
-													.getReponseEtuIII7())
-													+ " : "
-													+ reponseTmp
-															.getReponseEtuIII7bis());
+							.setCellValue(
+									this.recupLibelleAvis(reponseTmp
+											.getReponseEtuIII7())
+											+ " : "
+											+ reponseTmp
+											.getReponseEtuIII7bis());
 						else
 							row.createCell(cpt).setCellValue(
 									this.recupLibelleAvis(reponseTmp
@@ -8117,10 +8032,10 @@ public class ConventionController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII8()) {
 						if (reponseTmp.isReponseEtuIII8())
 							row.createCell(cpt)
-									.setCellValue(
-											"VRAI : "
-													+ reponseTmp
-															.getReponseEtuIII8bis());
+							.setCellValue(
+									"VRAI : "
+											+ reponseTmp
+											.getReponseEtuIII8bis());
 						else
 							row.createCell(cpt).setCellValue(
 									reponseTmp.isReponseEtuIII8());
@@ -8129,10 +8044,10 @@ public class ConventionController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII9()) {
 						if (!reponseTmp.isReponseEtuIII9())
 							row.createCell(cpt)
-									.setCellValue(
-											"FAUX : "
-													+ reponseTmp
-															.getReponseEtuIII9bis());
+							.setCellValue(
+									"FAUX : "
+											+ reponseTmp
+											.getReponseEtuIII9bis());
 						else
 							row.createCell(cpt).setCellValue(
 									reponseTmp.isReponseEtuIII9());
@@ -8165,7 +8080,7 @@ public class ConventionController extends AbstractContextAwareController {
 											.getReponseEtuIII15())
 											+ " : "
 											+ reponseTmp
-													.getReponseEtuIII15bis());
+											.getReponseEtuIII15bis());
 						else
 							row.createCell(cpt).setCellValue(
 									this.recupLibelleAvis(reponseTmp
@@ -8180,7 +8095,7 @@ public class ConventionController extends AbstractContextAwareController {
 											.getReponseEtuIII16())
 											+ " : "
 											+ reponseTmp
-													.getReponseEtuIII16bis());
+											.getReponseEtuIII16bis());
 						else
 							row.createCell(cpt).setCellValue(
 									this.recupLibelleNotation(reponseTmp
@@ -8204,7 +8119,7 @@ public class ConventionController extends AbstractContextAwareController {
 						+ idCentre.get(0)
 						+ "_AnneeUniv_"
 						+ this.critereRechercheConvention
-								.getAnneeUniversitaire() + ".xls";
+						.getAnneeUniversitaire() + ".xls";
 
 				edit.doGet(baosXLS, XlsFileName);
 
@@ -8469,8 +8384,8 @@ public class ConventionController extends AbstractContextAwareController {
 						reponse = "";
 						if (reponseTmp.getReponseEtuI5() > 0)
 							reponse = getNomenclatureDomainService()
-									.getOrigineStageDTOFromId(
-											reponseTmp.getReponseEtuI5())
+							.getOrigineStageDTOFromId(
+									reponseTmp.getReponseEtuI5())
 									.getLibelle();
 						if (reponse == null) {
 							reponse = "";
@@ -8568,7 +8483,7 @@ public class ConventionController extends AbstractContextAwareController {
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
 											.getReponseEtuII1())
-									+ " : " + reponseTmp.getReponseEtuII1bis());
+											+ " : " + reponseTmp.getReponseEtuII1bis());
 						else
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
@@ -8584,7 +8499,7 @@ public class ConventionController extends AbstractContextAwareController {
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
 											.getReponseEtuII2())
-									+ " : " + reponseTmp.getReponseEtuII2bis());
+											+ " : " + reponseTmp.getReponseEtuII2bis());
 						else
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
@@ -8600,7 +8515,7 @@ public class ConventionController extends AbstractContextAwareController {
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
 											.getReponseEtuII3())
-									+ " : " + reponseTmp.getReponseEtuII3bis());
+											+ " : " + reponseTmp.getReponseEtuII3bis());
 						else
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
@@ -8857,8 +8772,8 @@ public class ConventionController extends AbstractContextAwareController {
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
 											.getReponseEtuIII16())
-									+ " : "
-									+ reponseTmp.getReponseEtuIII16bis());
+											+ " : "
+											+ reponseTmp.getReponseEtuIII16bis());
 						else
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
@@ -8882,7 +8797,7 @@ public class ConventionController extends AbstractContextAwareController {
 						+ idCentre.get(0)
 						+ "_AnneeUniv_"
 						+ this.critereRechercheConvention
-								.getAnneeUniversitaire() + ".xls";
+						.getAnneeUniversitaire() + ".xls";
 
 				edit.doGet(baosXLS, XlsFileName);
 
@@ -9100,7 +9015,7 @@ public class ConventionController extends AbstractContextAwareController {
 						+ idCentre.get(0)
 						+ "_AnneeUniv_"
 						+ this.critereRechercheConvention
-								.getAnneeUniversitaire() + ".xls";
+						.getAnneeUniversitaire() + ".xls";
 
 				edit.doGet(baosXLS, XlsFileName);
 
@@ -9371,7 +9286,7 @@ public class ConventionController extends AbstractContextAwareController {
 						+ idCentre.get(0)
 						+ "_AnneeUniv_"
 						+ this.critereRechercheConvention
-								.getAnneeUniversitaire() + ".xls";
+						.getAnneeUniversitaire() + ".xls";
 
 				edit.doGet(baosXLS, XlsFileName);
 			} catch (Exception e) {
@@ -9645,7 +9560,7 @@ public class ConventionController extends AbstractContextAwareController {
 						+ idCentre.get(0)
 						+ "_AnneeUniv_"
 						+ this.critereRechercheConvention
-								.getAnneeUniversitaire() + ".xls";
+						.getAnneeUniversitaire() + ".xls";
 
 				edit.doGet(baosXLS, XlsFileName);
 			} catch (Exception e) {
@@ -9928,7 +9843,7 @@ public class ConventionController extends AbstractContextAwareController {
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
 											.getReponseEnt17())
-									+ " : " + reponseTmp.getReponseEnt17bis());
+											+ " : " + reponseTmp.getReponseEnt17bis());
 						else
 							cell.setCellValue(this
 									.recupLibelleNotation(reponseTmp
@@ -9976,7 +9891,7 @@ public class ConventionController extends AbstractContextAwareController {
 						+ idCentre.get(0)
 						+ "_AnneeUniv_"
 						+ this.critereRechercheConvention
-								.getAnneeUniversitaire() + ".xls";
+						.getAnneeUniversitaire() + ".xls";
 
 				edit.doGet(baosXLS, XlsFileName);
 			} catch (Exception e) {
@@ -10025,6 +9940,86 @@ public class ConventionController extends AbstractContextAwareController {
 			return getString("CENTRE.FICHE_EVALUATION.AVIS.5");
 		default:
 			return null;
+		}
+	}
+
+	/**
+	 * Recharge la liste des codes de la recherche d'evaluation en fonction de l'annee et du centre choisis
+	 */
+	public void updateAffichageListeCodes() {
+
+		this.rechEvalListeCodes = new ArrayList<SelectItem>();
+
+		if (rechEvalIdCentre != null && rechEvalIdCentre > 0) {
+
+			CentreGestionDTO centre = getCentreGestionDomainService().getCentreGestion(this.rechEvalIdCentre);
+			if (centre != null){
+				if (centre.getNiveauCentre().getLibelle()
+						.equalsIgnoreCase(DonneesStatic.CG_ETAB)) {
+					// Si le centre chosi est de type etablissement, on affiche le message d'info (affichage 1)
+					this.etatAffichageRechEval = 1;
+
+					if (this.critereRechercheConvention != null) {
+						// Remise à zero de la liste d'idsEtapes et d'idsUfr
+						// du critere de recherche de convention pour y mettre l'id du centre etab
+						// afin de recup les conventions orphelines
+						List<Integer> list = new ArrayList<Integer>();
+						list.add(this.rechEvalIdCentre);
+						this.critereRechercheConvention.setIdsEtapes(new ArrayList<String>());
+						this.critereRechercheConvention.setIdsUfrs(new ArrayList<String>());
+						this.critereRechercheConvention.setIdsCentreGestion(list);
+					}
+				}
+
+				if (centre.getNiveauCentre().getLibelle()
+						.equalsIgnoreCase(DonneesStatic.CG_ETAPE)) {
+					// Si le centre chosi est de type etape, on affiche la liste de codeEtapes (affichage 2)
+					this.etatAffichageRechEval = 2;
+
+					if (this.critereRechercheConvention != null) {
+						this.critereRechercheConvention.setIdsUfrs(new ArrayList<String>());
+					}
+				}
+
+				if (centre.getNiveauCentre().getLibelle()
+						.equalsIgnoreCase(DonneesStatic.CG_UFR)) {
+					// Si le centre chosi est de type ufr, on affiche la liste de codeUfrs (affichage 3)
+					this.etatAffichageRechEval = 3;
+
+					if (this.critereRechercheConvention != null) {
+						this.critereRechercheConvention.setIdsEtapes(new ArrayList<String>());
+					}
+				}
+			}
+
+			if (this.etatAffichageRechEval == 2 || this.etatAffichageRechEval == 3){
+				List<CritereGestionDTO> listeCodes = getCritereGestionDomainService()
+						.getCritereGestionFromIdCentreAndAnnee(
+								this.rechEvalIdCentre,
+								this.critereRechercheConvention.getAnneeUniversitaire());
+
+				if (listeCodes != null && !listeCodes.isEmpty()) {
+					for (CritereGestionDTO critere : listeCodes) {
+						if (critere.getCodeVersionEtape() != null
+								&& !critere.getCodeVersionEtape().isEmpty()) {
+							this.rechEvalListeCodes.add(new SelectItem(critere
+									.getCode(), critere.getCode() + ";"
+											+ critere.getCodeVersionEtape() + " - "
+											+ critere.getLibelle()));
+						} else {
+							this.rechEvalListeCodes.add(new SelectItem(critere
+									.getCode(), critere.getCode() + " - "
+											+ critere.getLibelle()));
+						}
+					}
+				} else {
+					// Si au final il s'avere que la liste des codes est vide, on affiche un message l'indiquant (affichage 4)
+					this.etatAffichageRechEval = 4;
+					// Puis on vide les criteres de recherche
+					this.critereRechercheConvention.setIdsEtapes(new ArrayList<String>());
+					this.critereRechercheConvention.setIdsUfrs(new ArrayList<String>());
+				}
+			}
 		}
 	}
 
@@ -11390,71 +11385,6 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * @return the rechEvalListeEtapes
-	 */
-	public List<SelectItem> getRechEvalListeEtapes() {
-		this.rechEvalListeEtapes = new ArrayList<SelectItem>();
-		if (rechEvalIdCentre != null && rechEvalIdCentre > 0) {
-			List<CritereGestionDTO> listeEtapes = getCritereGestionDomainService()
-					.getCritereGestionFromIdCentre(this.rechEvalIdCentre);
-			if (listeEtapes != null && !listeEtapes.isEmpty()) {
-				for (CritereGestionDTO critere : listeEtapes) {
-					if (critere.getCodeVersionEtape() != null
-							&& !critere.getCodeVersionEtape().isEmpty()) {
-						this.rechEvalListeEtapes.add(new SelectItem(critere
-								.getCode(), critere.getCode() + ";"
-								+ critere.getCodeVersionEtape() + " - "
-								+ critere.getLibelle()));
-					} else {
-						this.rechEvalListeEtapes.add(new SelectItem(critere
-								.getCode(), critere.getCode() + " - "
-								+ critere.getLibelle()));
-					}
-				}
-			}
-		}
-		return rechEvalListeEtapes;
-	}
-
-	/**
-	 * @return the RechEvalListeEtapesParAnnee
-	 */
-	public List<SelectItem> getRechEvalListeEtapesParAnnee() {
-		this.rechEvalListeEtapes = new ArrayList<SelectItem>();
-		if (rechEvalIdCentre != null && rechEvalIdCentre > 0) {
-			List<CritereGestionDTO> listeEtapes = getCritereGestionDomainService()
-					.getCritereGestionFromIdCentreAndAnnee(
-							this.rechEvalIdCentre,
-							this.critereRechercheConvention
-									.getAnneeUniversitaire());
-			if (listeEtapes != null && !listeEtapes.isEmpty()) {
-				for (CritereGestionDTO critere : listeEtapes) {
-					if (critere.getCodeVersionEtape() != null
-							&& !critere.getCodeVersionEtape().isEmpty()) {
-						this.rechEvalListeEtapes.add(new SelectItem(critere
-								.getCode(), critere.getCode() + ";"
-								+ critere.getCodeVersionEtape() + " - "
-								+ critere.getLibelle()));
-					} else {
-						this.rechEvalListeEtapes.add(new SelectItem(critere
-								.getCode(), critere.getCode() + " - "
-								+ critere.getLibelle()));
-					}
-				}
-			}
-		}
-		return rechEvalListeEtapes;
-	}
-
-	/**
-	 * @param rechEvalListeEtapes
-	 *            the rechEvalListeEtapes to set
-	 */
-	public void setRechEvalListeEtapes(List<SelectItem> rechEvalListeEtapes) {
-		this.rechEvalListeEtapes = rechEvalListeEtapes;
-	}
-
-	/**
 	 * @return the retourEvaluation
 	 */
 	public boolean isRetourEvaluation() {
@@ -11551,17 +11481,12 @@ public class ConventionController extends AbstractContextAwareController {
 		CritereRechercheConventionDTO c = null;
 		if (getBeanUtils() != null) {
 			c = new CritereRechercheConventionDTO();
-			// c.setPays(getBeanUtils().getFrance());
 			c.setAnneeUniversitaire(getBeanUtils()
 					.getAnneeUniversitaireCourante(new Date()));
 		} else {
 			c = new CritereRechercheConventionDTO();
-			// PaysDTO p = new PaysDTO();
-			// p.setLibelle("FRANCE");
-			// p.setCog(DonneesStatic.FRANCE_COG);
-			// p.setCrpay(DonneesStatic.FRANCE_TERRITOIRE_CRPAY);
-			// c.setPays(p);
 		}
+		this.estEtrangere = false;
 		c.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
 		c.setNbExportMaxi(Integer
 				.toString(DonneesStatic.nb_response_export_maxi));
@@ -11649,5 +11574,21 @@ public class ConventionController extends AbstractContextAwareController {
 
 	public void setBlocageAucuneInscription(boolean blocageAucuneInscription) {
 		this.blocageAucuneInscription = blocageAucuneInscription;
+	}
+
+	public List<SelectItem> getRechEvalListeCodes() {
+		return rechEvalListeCodes;
+	}
+
+	public void setRechEvalListeCodes(List<SelectItem> rechEvalListeCodes) {
+		this.rechEvalListeCodes = rechEvalListeCodes;
+	}
+
+	public int getEtatAffichageRechEval() {
+		return etatAffichageRechEval;
+	}
+
+	public void setEtatAffichageRechEval(int etatAffichageRechEval) {
+		this.etatAffichageRechEval = etatAffichageRechEval;
 	}
 }

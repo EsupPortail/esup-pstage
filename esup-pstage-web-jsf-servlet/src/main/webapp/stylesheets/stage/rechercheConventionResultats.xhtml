@@ -214,41 +214,51 @@
 				</t:div>
 				<t:div>
 					<t:htmlTag value="div" style="height: 20px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="6">
-						<t:div>
-							<h:commandButton
-								value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
-								action="rechercheConvention"
-								rendered="#{!welcomeController.etudiant}" />
-						</t:div>
-						<t:htmlTag value="div" style="height: 50px;" />
-						<t:div>
-							<a4j:commandButton status="statusPatientez"
+
+					<h:panelGrid columns="3">
+						<h:panelGrid columns="3"
+							style="margin:5px;"
+								rendered="#{welcomeController.enseignantTuteur}">
+							<h:graphicImage id="exportExcel" alt="Excel"
+								value="../../media/images/excelSmall.png" style="border:0">
+								<rich:tooltip value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" />
+							</h:graphicImage>
+							<a4j:commandButton
 								value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
 								action="#{exportController.goToChoixExportConventionTuteur}"
-								rendered="#{welcomeController.enseignantTuteur}">
+								status="statusPatientez" style="border:solid 1px;">
 								<f:setPropertyActionListener
 									value="#{conventionController.resultatsRechercheConvention}"
 									target="#{exportController.resultatsRechercheConvention}" />
+								<f:setPropertyActionListener
+									value="resultatsRechercheConvention"
+									target="#{conventionController.retourAction}" />
 							</a4j:commandButton>
-						</t:div>
-						<t:div>
-							<a4j:commandButton status="statusPatientez"
+						</h:panelGrid>
+						<h:panelGrid columns="3"
+							style="margin:5px;"
+							rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer|| welcomeController.reader || welcomeController.enseignant}">
+							<h:graphicImage id="impression" alt="Print"
+								value="../../media/images/printer.png" style="border:0" />
+							<a4j:commandButton
 								value="#{msgs['CONVENTION.IMPRESSION.CONVENTIONS']}"
 								action="#{conventionController.editPdfConventionsEnMasseZip}"
-								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer|| welcomeController.reader || welcomeController.enseignant}" />
-						</t:div>
+								status="statusPatientez" style="border:solid 1px;" />
+						</h:panelGrid>
 						<a4j:status name="statusPatientez">
 							<f:facet name="start">
 								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 							</f:facet>
 						</a4j:status>
 					</h:panelGrid>
+
+					<t:htmlTag value="div" style="height:10px;" />
+
+					<h:commandButton
+						value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
+						action="rechercheConvention"
+						rendered="#{!welcomeController.etudiant}" />
 				</t:div>
-				<h:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
-					action="rechercheConvention"
-					immediate="true" rendered="#{!welcomeController.etudiant}" />
 			</h:form>
 		</rich:panel>
 	</ui:define>

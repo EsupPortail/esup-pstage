@@ -450,4 +450,11 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	public int getNbConventionsByAnneeAndEtu(String annee, String identEtudiant, String codeUniversite){
 		return this.remoteServices.getNbConventionsByAnneeAndEtu(annee, identEtudiant, codeUniversite);
 	}
+
+	/**
+	 * @see org.esupportail.pstagedata.domain.ConventionDomainService#getCodesEtapesConventionsFromCodeUfrAndIdCentre(java.lang.String, int, java.lang.String)
+	 */
+	public List<String> getCodesEtapesConventionsFromCodeUfrAndIdCentre(String codeUfr, int idCentreGestion, String codeUniversite) {
+		return this.remoteServices.getCodesEtapesConventionsFromCodeUfrAndIdCentre(codeUfr, idCentreGestion, codeUniversite);
+	}
 }

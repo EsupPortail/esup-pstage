@@ -56,24 +56,49 @@
 					<!-- 											style="text-transform:uppercase;" -->
 					<!-- 											converter="#{sansAccentEnMAJConverter}" /> -->
 
-					<rich:autocomplete id="rechRaisonSociale"
-						value="#{rechercheController.rechRaisonSociale}" size="50"
-						maxlength="150" mode="cachedAjax" tokens=", " minChars="2"
-						autofill="false"
-						autocompleteMethod="#{rechercheController.getRaisonsSociales}"
-						converter="#{sansAccentEnMAJConverter}" inputClass="ac"
-						styleClass="ac" popupClass="acPopup"
-						style="text-transform:uppercase; font-size : 10px"
-						attached="false" />
-
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
-						<h:outputText
-							value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
-						<h:inputText id="rechDepartement" size="2" maxlength="2"
-							value="#{rechercheController.rechDepartement}"
-							converter="#{sansAccentEnMAJConverter}" />
+					<h:panelGrid columns="2">
+						<h:outputLabel for="rechRaisonSociale"
+							value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
+						<rich:autocomplete id="rechRaisonSociale"
+							value="#{rechercheController.rechRaisonSociale}" size="50"
+							maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
+							autofill="false"
+							autocompleteMethod="#{rechercheController.getRaisonsSociales}"
+							converter="#{sansAccentEnMAJConverter}" inputClass="ac"
+							styleClass="ac" popupClass="acPopup"
+							style="text-transform:uppercase; font-size : 10px"
+							attached="false" />
 					</h:panelGrid>
+
+					<a4j:outputPanel id="rechPaysDep">
+						<h:panelGrid columnClasses="paginatorData-text"
+							rowClasses="paginatorData-text" columns="2">
+							<h:outputLabel
+								value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']}"
+								for="rechPays2" />
+							<h:selectOneMenu id="rechPays2"
+								value="#{rechercheController.rechPays}"
+								converter="#{paysConverter}"
+								valueChangeListener="#{rechercheController.valuePaysChanged}"
+								styleClass="paysInput">
+								<f:selectItem itemValue="" />
+								<f:selectItems value="#{nomenclatureController.pays}" />
+								<a4j:ajax event="valueChange" render="DepFrance" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</a4j:outputPanel>
+
+					<t:htmlTag value="div" style="width:20px;" />
+
+					<a4j:outputPanel id="DepFrance">
+						<h:panelGrid rendered="#{rechercheController.france}">
+							<h:outputLabel for="rechDepartement2"
+								value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
+							<h:inputText id="rechDepartement2" size="2" maxlength="2"
+								value="#{rechercheController.rechDepartement}"
+								converter="#{sansAccentEnMAJConverter}" escape="false" />
+						</h:panelGrid>
+					</a4j:outputPanel>
 					<h:commandButton
 						style="font-size:14px; border:solid 1px; margin-left:100px;"
 						action="#{rechercheController.rechercheRaisonSociale}"

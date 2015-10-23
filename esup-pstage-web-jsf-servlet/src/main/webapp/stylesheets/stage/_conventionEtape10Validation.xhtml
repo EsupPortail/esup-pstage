@@ -27,7 +27,7 @@
 
 				<h:outputText value="#{msgs['GENERAL.RAPPEL']}" />
 				<h:panelGrid columns="2" columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
+					rowClasses="paginatorData-text" style="border: solid 1px; border-color: #{a4jSkin.panelBorderColor}; padding:5px;">
 					<h:outputLabel for="etu"
 						value="#{msgs['RECHERCHECONVENTION.ETUDIANT']} : " />
 					<h:outputText id="etu"
@@ -182,7 +182,7 @@
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1">
+				rowClasses="paginatorData-text">
 				<h:outputText value="#{msgs['CONVENTION.VALIDATION.INFO']}" />
 				<t:htmlTag value="div" style="height: 5px;" />
 				<h:outputText

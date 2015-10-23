@@ -1,7 +1,6 @@
 package org.esupportail.pstage.dao.referentiel;
 
 import gouv.education.apogee.commun.client.ws.geographiemetier.GeographieMetierServiceInterfaceProxy;
-import gouv.education.apogee.commun.servicesmetiers.GeographieMetierServiceInterface;
 import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 import gouv.education.apogee.commun.transverse.exception.WebBaseException;
 
@@ -33,7 +32,7 @@ public class GeographieRepositoryDaoWS implements GeographieRepositoryDao {
 	public List<CommuneDTO> getCommuneFromDepartement(String departement){
 		List<CommuneDTO> l = null;
 		try{
-			GeographieMetierServiceInterface geographieMetierServiceInterface = new GeographieMetierServiceInterfaceProxy();
+			GeographieMetierServiceInterfaceProxy geographieMetierServiceInterface = new GeographieMetierServiceInterfaceProxy();
 			CommuneDTO[] cTab = geographieMetierServiceInterface.recupererCommune(departement, "O", "T");
 			if(cTab!=null && cTab.length>0){
 				l = new ArrayList<CommuneDTO>();

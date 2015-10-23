@@ -56,16 +56,17 @@
 				<!-- 					value="#{rechercheController.rechRaisonSociale}" -->
 				<!-- 					style="text-transform:uppercase;" -->
 				<!-- 					converter="#{sansAccentEnMAJConverter}" /> -->
-
-				<rich:autocomplete id="rechRaisonSociale"
-					value="#{rechercheController.rechRaisonSociale}" size="50"
-					maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
-					autofill="false"
-					autocompleteMethod="#{rechercheController.getRaisonsSociales}"
-					converter="#{sansAccentEnMAJConverter}" inputClass="ac"
-					styleClass="ac" popupClass="acPopup"
-					style="text-transform:uppercase; font-size : 10px" attached="false" />
-
+				<h:panelGrid columns="2">
+					<h:outputLabel for ="rechRaisonSociale" value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
+					<rich:autocomplete id="rechRaisonSociale"
+						value="#{rechercheController.rechRaisonSociale}" size="50"
+						maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
+						autofill="false"
+						autocompleteMethod="#{rechercheController.getRaisonsSociales}"
+						converter="#{sansAccentEnMAJConverter}" inputClass="ac"
+						styleClass="ac" popupClass="acPopup"
+						style="text-transform:uppercase; font-size : 10px" attached="false" />
+				</h:panelGrid>
 
 				<a4j:outputPanel id="rechPaysDep">
 					<h:panelGrid columnClasses="paginatorData-text"

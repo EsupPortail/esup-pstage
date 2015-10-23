@@ -87,7 +87,7 @@ public class RechercheController extends AbstractContextAwareController {
 	/**
 	 * Raison Sociale
 	 */
-	private String rechRaisonSociale="%";
+	private String rechRaisonSociale;
 	/* ** 
 	 * Champs onglet 3 : Activité (+dep)
 	 */	
@@ -243,7 +243,7 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	public String goToRechercheEtablissementStage(){
 		this.toVerificationStructures = false;
-
+		this.rechRaisonSociale = "";
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
 		}

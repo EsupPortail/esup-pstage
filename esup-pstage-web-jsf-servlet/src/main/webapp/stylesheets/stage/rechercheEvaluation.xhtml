@@ -33,8 +33,9 @@
 									style="width:300px;">
 									<f:selectItems
 										value="#{conventionController.listeItemsCurrentCentresGestionEval}" />
-									<a4j:ajax event="valueChange" render="panelCodesEtapes"
-										execute="@this" status="statusRecherche" />
+									<a4j:ajax execute="@this" event="valueChange"
+										render="panelCodes" status="statusRecherche"
+										listener="#{conventionController.updateAffichageListeCodes}" />
 								</h:selectOneMenu>
 							</h:panelGrid>
 							<rich:message for="centreGestion">
@@ -43,9 +44,13 @@
 						</t:htmlTag>
 						<h:panelGrid>
 							<t:htmlTag value="div" style="height:10px;" />
-							<a4j:outputPanel id="panelCodesEtapes">
+							<a4j:outputPanel id="panelCodes">
+								<h:outputText
+									value="#{msgs['RECHERCHEEVALUATION.ISETABLISSEMENT']}"
+									escape="false" rendered="#{conventionController.etatAffichageRechEval == 1}" />
+								
 								<h:panelGrid columns="3"
-									rendered="#{!conventionController.etablissement}">
+									rendered="#{conventionController.etatAffichageRechEval == 2 || conventionController.etatAffichageRechEval == 3}">
 									<h:graphicImage id="infoChoixMultiple"
 										alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"
 										value="../../media/images/information.png" style="border:0">
@@ -53,39 +58,40 @@
 											value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
 									</h:graphicImage>
 									<h:outputText style="font-weight:bold; padding:5px;"
-										value="Choisissez une ou plusieurs etapes de ce centre de gestion : " />
+										value="#{msgs['RECHERCHEEVALUATION.CHOIX_ETAPE']}" />
 									<rich:message for="codesEtapes">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 									</rich:message>
 								</h:panelGrid>
-								<t:htmlTag value="div" style="height:5px;" />
+								
 								<h:selectManyListbox id="codesEtapes"
 									style="width:550px; padding:10px;"
 									value="#{conventionController.critereRechercheConvention.idsEtapes}"
-									rendered="#{conventionController.etape}"
+									rendered="#{conventionController.etatAffichageRechEval == 2}"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									required="true">
 									<f:selectItems
-										value="#{conventionController.rechEvalListeEtapesParAnnee}" />
+										value="#{conventionController.rechEvalListeCodes}" />
 								</h:selectManyListbox>
 								<h:selectManyListbox id="codesUfr"
 									style="width:550px; padding:10px;"
 									value="#{conventionController.critereRechercheConvention.idsUfrs}"
-									rendered="#{conventionController.ufr}"
+									rendered="#{conventionController.etatAffichageRechEval == 3}"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									required="true">
 									<f:selectItems
-										value="#{conventionController.rechEvalListeEtapesParAnnee}" />
+										value="#{conventionController.rechEvalListeCodes}" />
 								</h:selectManyListbox>
 								<h:outputText
-									value="#{msgs['RECHERCHEEVALUATION.ISETABLISSEMENT']}"
-									escape="false" rendered="#{conventionController.etablissement}" />
+									value="#{msgs['RECHERCHEEVALUATION.ISEMPTY']}"
+									style="color:red;"
+									escape="false" rendered="#{conventionController.etatAffichageRechEval == 4}" />
 							</a4j:outputPanel>
 						</h:panelGrid>
 					</t:htmlTag>
 					<t:htmlTag value="div" style="height: 10px;" />
 					<h:panelGrid columnClasses="paginatorData-text" align="center"
-						rowClasses="paginatorData-text" columns="3" style="padding:10px;">
+						rowClasses="paginatorData-text" columns="2" style="padding:10px; padding-bottom:0px;">
 						<h:panelGrid>
 							<h:panelGrid columns="2">
 								<h:outputLabel
@@ -98,8 +104,9 @@
 									<f:selectItem itemValue="" />
 									<f:selectItems
 										value="#{nomenclatureController.anneesConvention}" />
-									<a4j:ajax event="valueChange" render="panelCodesEtapes"
-										execute="@this" status="statusRecherche" />	
+									<a4j:ajax execute="@this" event="valueChange"
+										render="panelCodes" status="statusRecherche"
+										listener="#{conventionController.updateAffichageListeCodes}" />
 								</h:selectOneMenu>
 							</h:panelGrid>
 							<rich:message for="anU">
@@ -109,12 +116,14 @@
 						<a4j:commandButton value="#{msgs['FORM.RECHERCHER']}"
 							action="#{conventionController.rechercherEvaluation}"
 							status="statusRecherche" />
+					</h:panelGrid>
+					<t:htmlTag value="center">
 						<a4j:status name="statusRecherche">
 							<f:facet name="start">
 								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 							</f:facet>
 						</a4j:status>
-					</h:panelGrid>
+					</t:htmlTag>
 				</h:panelGrid>
 			</h:form>
 			<rich:message for="formRechEval" style="color:red;font-weight:bold;">

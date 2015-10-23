@@ -23,7 +23,7 @@
 				<h:panelGrid columns="1"
 					rendered="#{!centreController.listeCritereVide}">
 					<rich:dataTable
-						style="width: 483px; border-right:1px solid #C0C0C0;"
+						style="width:483px; border-right:1px solid #C0C0C0;"
 						id="listeCriteres" rows="20" columnClasses="col"
 						value="#{centreController.listeCriteresRattaches}" var="critere"
 						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
@@ -69,6 +69,7 @@
 							<t:htmlTag value="center">
 								<a4j:commandLink execute="@this" status="ajoutStatus"
 									oncomplete="#{rich:component('suppressionCritere')}.show()"
+									action="#{centreController.avantSuppressionCritere}"
 									render="suppressionCritere">
 									<f:setPropertyActionListener value="#{critere}"
 										target="#{centreController.critere}" />

@@ -4,14 +4,13 @@ import gouv.education.apogee.commun.client.utils.WSUtils;
 import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierServiceInterfaceProxy;
 import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierServiceInterface;
 import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierSoapBindingStub;
-import gouv.education.apogee.commun.servicesmetiers.OffreFormationMetierServiceInterface;
 import gouv.education.apogee.commun.transverse.dto.WSReferentiel.recupererInformationEtabRef.VariableAppliWSEtabRefDTO;
 import gouv.education.apogee.commun.transverse.dto.WSReferentiel.recupererSignataire.SignataireWSSignataireDTO;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.EtapeDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO3;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.EtapeDTO3;
 import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.SECritereDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionDiplomeDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionEtapeDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionDiplomeDTO3;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionEtapeDTO3;
 import gouv.education.apogee.commun.transverse.dto.pedagogique.ComposanteDTO3;
 import gouv.education.apogee.commun.transverse.exception.WebBaseException;
 
@@ -147,7 +146,7 @@ StudentComponentRepositoryDao {
 		}
 		LinkedHashMap<String,String> lSI = new LinkedHashMap<String, String>();
 
-		OffreFormationMetierServiceInterface offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
+		OffreFormationMetierServiceInterfaceProxy offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
 		
 		Object idl = new Object();
 		String lib = "";
@@ -162,15 +161,15 @@ StudentComponentRepositoryDao {
 			param.setCodDip("aucun");
 			param.setCodVrsVdi("aucun");
 			param.setCodElp("aucun");
-			DiplomeDTO2[] diplomeDTO2 = offreFormationMetierService.recupererSE_v2(param);
+			DiplomeDTO3[] diplomeDTO3 = offreFormationMetierService.recupererSE_v3(param);
 			
-			for(DiplomeDTO2 ld : diplomeDTO2){
-				VersionDiplomeDTO2[] versionDiplomeDTO2 =ld.getListVersionDiplome();
-				for(VersionDiplomeDTO2 lvd : versionDiplomeDTO2){
-					EtapeDTO2[] etapeDTO2 = lvd.getOffreFormation().getListEtape();
-					for(EtapeDTO2 le : etapeDTO2){
-						VersionEtapeDTO2[] versionEtapeDTO2=le.getListVersionEtape();
-						for(VersionEtapeDTO2 ve : versionEtapeDTO2){
+			for(DiplomeDTO3 ld : diplomeDTO3){
+				VersionDiplomeDTO3[] versionDiplomeDTO3 =ld.getListVersionDiplome();
+				for(VersionDiplomeDTO3 lvd : versionDiplomeDTO3){
+					EtapeDTO3[] etapeDTO3 = lvd.getOffreFormation().getListEtape();
+					for(EtapeDTO3 le : etapeDTO3){
+						VersionEtapeDTO3[] versionEtapeDTO3=le.getListVersionEtape();
+						for(VersionEtapeDTO3 ve : versionEtapeDTO3){
 							idl = le.getCodEtp();
 							lib = ve.getLibWebVet();
 							lSI.put(idl+";"+ve.getCodVrsVet(), lib);
