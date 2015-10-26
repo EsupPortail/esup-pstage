@@ -36,8 +36,7 @@
 					<h:inputText id="voie"
 						value="#{etablissementController.formService.voie}" size="50"
 						maxlength="200" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-					</h:inputText>
+						requiredMessage="#{requiredMessageController.champObligatoire}"/>
 					<rich:message for="voie">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
@@ -46,9 +45,8 @@
 					<h:inputText id="batimentService"
 						value="#{etablissementController.formService.batimentResidence}"
 						size="50" maxlength="50" style="text-transform:uppercase;"
-						converter="#{upperCaseConverter}">
-					</h:inputText>					
-					<h:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']}" for="tel" />
+						converter="#{upperCaseConverter}"/>
+					<h:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']}" for="telephone" />
 					<h:inputText id="telephone"
 						value="#{etablissementController.formService.telephone}" size="20"
 						maxlength="20">

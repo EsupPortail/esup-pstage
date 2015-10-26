@@ -6,5 +6,5 @@ target/
 .project
 config.properties
 configUrlServices.properties
-convention_fr_artois.xsl
+config.xml
 log4j.properties

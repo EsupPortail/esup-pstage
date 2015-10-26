@@ -6,9 +6,9 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="_basicTemplate.xhtml">
 	<ui:define name="content">
-		<h:outputLink value="/stylesheets/depot/welcome.xhtml">Vers depot d'offres</h:outputLink>
+		<h:outputLink value="#{sessionController.baseUrl}/stylesheets/depot/welcome.xhtml">Vers depot d'offres</h:outputLink>
 		<t:htmlTag value="br" />
-		<h:outputLink value="/stylesheets/stage/welcome.xhtml">Vers stage</h:outputLink>
+		<h:outputLink value="#{sessionController.baseUrl}/stylesheets/stage/welcome.xhtml">Vers stage</h:outputLink>
 		<h:panelGroup layout="block" styleClass="app-footer" align="center">
 			<h:outputText value="#{msgs['COPYRIGHT']}" />
 		</h:panelGroup>

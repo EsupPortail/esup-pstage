@@ -10,12 +10,12 @@ import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmEtpDTO2;
 import gouv.education.apogee.commun.transverse.dto.etudiant.CoordonneesDTO2;
 import gouv.education.apogee.commun.transverse.dto.etudiant.IdentifiantsEtudiantDTO;
 import gouv.education.apogee.commun.transverse.dto.etudiant.InfoAdmEtuDTO;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO3;
 import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ElementPedagogiDTO2;
 import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ListeElementPedagogiDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.OffreFormationDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.OffreFormationDTO3;
 import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.SECritereDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionDiplomeDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionDiplomeDTO3;
 import gouv.education.apogee.commun.transverse.dto.pedagogique.ComposanteDTO3;
 import gouv.education.apogee.commun.transverse.dto.pedagogique.ContratPedagogiqueResultatVdiVetDTO;
 import gouv.education.apogee.commun.transverse.dto.pedagogique.EtapeResVdiVetDTO;
@@ -999,18 +999,18 @@ StudentDataRepositoryDao {
 						seCritereDTO.setCodVrsVdi(versDiplome);
 						seCritereDTO.setCodVrsVet("aucun");
 
-						DiplomeDTO2[] diplomeDTO = offreFormationMetierService.recupererSE_v2(seCritereDTO);
+						DiplomeDTO3[] diplomeDTO = offreFormationMetierService.recupererSE_v3(seCritereDTO);
 						if (diplomeDTO != null) {
 							if (logger.isDebugEnabled()) {
-								logger.debug("Nombre de diplomeDTO trouves via recupererSE_v2 : " + diplomeDTO.length);
+								logger.debug("Nombre de diplomeDTO trouves via recupererSE_v3 : " + diplomeDTO.length);
 							}
 							for (int i = 0; i < diplomeDTO.length; i++) {
-								VersionDiplomeDTO2[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
+								VersionDiplomeDTO3[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
 								for (int j = 0; j < versionDiplome.length; j++) {
 									if (versionDiplome[j].getCodCursusLmd() != null) {
 										etpins.setCodCursusLmd(versionDiplome[j].getCodCursusLmd());
 									}
-									OffreFormationDTO2 offreFormation = versionDiplome[j].getOffreFormation();
+									OffreFormationDTO3 offreFormation = versionDiplome[j].getOffreFormation();
 									if (offreFormation != null) {
 										if (offreFormation.getCodFinalite() != null) {
 											etpins.setCodFinalite(offreFormation.getCodFinalite());
@@ -1023,7 +1023,7 @@ StudentDataRepositoryDao {
 							}
 						}
 					} catch (WebBaseException e) {
-						logger.warn("WebBaseException recupererSE_v2 : " + e );
+						logger.warn("WebBaseException recupererSE_v3 : " + e );
 						if (e.toString().equals("technical.data.nullretrieve.recupererse")) {
 							logger.warn("Aucune donnee en sortie pour " + cod + " - diplome/vers : " + codeDiplome + versDiplome);
 							continue;
@@ -1149,15 +1149,15 @@ StudentDataRepositoryDao {
 						seCritereDTO.setCodVrsVet(vetEtape);
 
 						// recherche des Elements Pedagogiques des etapes, versions etapes
-						DiplomeDTO2[] diplomeDTO = offreFormationMetierService.recupererSE_v2(seCritereDTO);
+						DiplomeDTO3[] diplomeDTO = offreFormationMetierService.recupererSE_v3(seCritereDTO);
 						if (diplomeDTO != null) {
 							if (logger.isDebugEnabled()) {
-								logger.debug("Nombre de diplomeDTO trouves via recupererSE_v2 : " + diplomeDTO.length);
+								logger.debug("Nombre de diplomeDTO trouves via recupererSE_v3 : " + diplomeDTO.length);
 							}
 							for (int i = 0; i < diplomeDTO.length; i++) {
-								VersionDiplomeDTO2[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
+								VersionDiplomeDTO3[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
 								for (int j = 0; j < versionDiplome.length; j++) {
-									OffreFormationDTO2 offreFormation = versionDiplome[j].getOffreFormation();
+									OffreFormationDTO3 offreFormation = versionDiplome[j].getOffreFormation();
 									ListeElementPedagogiDTO2[] listeelementPedagogiDTO = 
 											offreFormation.getListEtape()[0].getListVersionEtape()[0].getListListeElementPedagogi();
 									for (int k = 0; k < listeelementPedagogiDTO.length; k++) {
