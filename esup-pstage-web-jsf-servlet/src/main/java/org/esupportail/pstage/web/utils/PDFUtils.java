@@ -326,7 +326,7 @@ private static byte[] transformXMLPDF(final File xml,
 	Driver driver = new Driver();
 
 	// Setup logger
-	org.apache.avalon.framework.logger.Logger logger = new ConsoleLogger(ConsoleLogger.LEVEL_DEBUG);
+	org.apache.avalon.framework.logger.Logger logger = new ConsoleLogger(ConsoleLogger.LEVEL_DISABLED);
 	driver.setLogger(logger);
 	MessageHandler.setScreenLogger(logger);
 

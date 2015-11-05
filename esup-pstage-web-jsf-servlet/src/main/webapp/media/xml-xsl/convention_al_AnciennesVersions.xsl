@@ -1596,19 +1596,9 @@
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
 								Der Praktikant darf während der Dauer des Praktikums an die
 								Bildungseinrichtung zurückkehren, um an vom Programm
-								ausdrücklich vorgesehenen Kursen und Versammlungen teilzunehmen,
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold">
-								(Artikel 4 Fortsetzung)
-							</fo:block>
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								deren Daten dem Leiter der Empfangseinrichtung von der
+								ausdrücklich vorgesehenen Kursen und Versammlungen
+								teilzunehmen,deren Daten dem Leiter der Empfangseinrichtung von
+								der
 								Einrichtung mitgeteilt werden. Die Empfangseinrichtung kann
 								Reisen des Praktikanten erlauben.
 							</fo:block>
@@ -1624,12 +1614,22 @@
 								dem Tutor
 								des Praktikums
 								festgestellt wird, muss dem
-								Referenzen
-								der
+								Referenzen der
 								Hochschuleinrichtung
 								mitgeteilt und
-								schnellstmöglich gelöst
-								werden.
+								schnellstmöglich
+							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
+							<fo:block line-height="110%" hyphenate="false" language="fr"
+								country="FR" font-size="10pt" font-family="Times New Roman,serif"
+								text-align="justify" font-weight="bold">
+								(Artikel 4 Fortsetzung)
+							</fo:block>
+							<fo:block line-height="110%" padding-top="1pt"
+								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
+								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
+								gelöst werden.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -1722,24 +1722,6 @@
 								</fo:inline>
 								(visites, rendez-vous téléphoniques, etc)
 							</fo:block>
-							<xsl:choose>
-								<xsl:when test="mode-encadre-suivi and mode-encadre-suivi != ''">
-									<fo:block line-height="100%" hyphenate="false"
-										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-										padding-bottom="2pt" background-color="#E6E6E6" font-style="italic">
-										<fo:inline font-weight="bold">
-											<xsl:value-of select="mode-encadre-suivi" />
-										</fo:inline>
-									</fo:block>
-								</xsl:when>
-								<xsl:otherwise>
-									<fo:block line-height="100%" hyphenate="false"
-										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-										padding-bottom="2pt" background-color="#E6E6E6" font-style="italic">
-										.......................................................................................................
-									</fo:block>
-								</xsl:otherwise>
-							</xsl:choose>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -2956,7 +2938,7 @@
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" padding-bottom="4pt">
+								text-align="justify">
 								Bei allen Praktika im
 								Ausland oder in Übersee
 								verpflichtet sich der Praktikant zum
@@ -3151,6 +3133,24 @@
 								die Angestellten gemäß der Artikel L.1225-16 à L.1225-28,
 								L.1225-35, L.1225-37, L.1225-46 des Arbeitsgesetzbuchs.
 							</fo:block>
+						</fo:table-cell>
+					</fo:table-row>
+				</fo:table-body>
+			</fo:table>
+		</fo:block>
+	</xsl:template>
+
+	<!-- cinquieme page -->
+	<xsl:template name="ArticlesPage5">
+		<fo:block line-height="110%" hyphenate="false" language="fr"
+			country="FR" font-size="10pt" font-family="Times New Roman,serif"
+			margin-left="0cm" margin-right="0cm" text-indent="0cm">
+			<fo:table table-layout="fixed" width="100%">
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-column column-width="proportional-column-width(1)" />
+				<fo:table-body>
+					<fo:table-row>
+						<fo:table-cell padding-right="10pt">
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
@@ -3173,30 +3173,6 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								............................................................................................
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-		</fo:block>
-	</xsl:template>
-
-	<!-- cinquieme page -->
-	<xsl:template name="ArticlesPage5">
-		<fo:block line-height="110%" hyphenate="false" language="fr"
-			country="FR" font-size="10pt" font-family="Times New Roman,serif"
-			margin-left="0cm" margin-right="0cm" text-indent="0cm">
-			<fo:table table-layout="fixed" width="100%">
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell padding-right="10pt">
-							<fo:block line-height="110%" padding-top="1pt"
-								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">
-								(Artikel 9 Fortsetzung)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
@@ -3401,6 +3377,8 @@
 								veröffentlicht oder dass einige sehr vertrauliche Elemente
 								komplett entfernt werden.
 							</fo:block>
+						</fo:table-cell>
+						<fo:table-cell>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								space-before="0cm" space-after="0cm" font-weight="normal"
@@ -3412,8 +3390,6 @@
 								enthaltenen Informationen weder zu nutzen noch
 								zu verbreiten.
 							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold" background-color="#E6E6E6"
