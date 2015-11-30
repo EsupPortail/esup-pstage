@@ -92,7 +92,17 @@
 					<t:htmlTag value="div" style="height: 10px;" />
 					<h:panelGrid columnClasses="paginatorData-text" align="center"
 						rowClasses="paginatorData-text" columns="2" style="padding:10px; padding-bottom:0px;">
-						<h:panelGrid>
+						
+						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE.TERMINE.QU']}" for="stageTermine"/>
+							<h:selectOneRadio id="stageTermine" 
+								value="#{conventionController.critereRechercheConvention.dateStage}">
+								<f:selectItem itemValue="#{2}" itemLabel="#{msgs['FORM.OUI']}"/>
+								<f:selectItem itemValue="#{null}" itemLabel="#{msgs['FORM.NON']}"/>
+							</h:selectOneRadio>
+					</h:panelGrid>
+					<h:panelGrid columnClasses="paginatorData-text" align="center"
+						rowClasses="paginatorData-text" columns="2" style="padding:10px; padding-bottom:0px;">	
+						<h:panelGrid>						
 							<h:panelGrid columns="2">
 								<h:outputLabel
 									rendered="#{not empty nomenclatureController.anneesConvention}"

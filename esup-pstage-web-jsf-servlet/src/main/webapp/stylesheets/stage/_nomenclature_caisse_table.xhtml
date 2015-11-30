@@ -17,7 +17,7 @@
 				</f:facet>
 				<h:panelGrid columns="4" columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text">
-					<a4j:commandLink rendered="#{caisse.value.modifiable}"
+					<a4j:commandLink
 						oncomplete="#{rich:component('suppressionCaisseRegime')}.show()"
 						render="suppressionCaisseRegime">
 						<f:setPropertyActionListener value="#{caisse.value}"
@@ -25,7 +25,7 @@
 						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
 						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 					</a4j:commandLink>
-					<a4j:commandLink rendered="#{caisse.value.modifiable}"
+					<a4j:commandLink 
 						render="caisseRegimeTab">
 						<f:setPropertyActionListener value="#{caisse.value}"
 							target="#{nomenclatureController.caisseRegime}" />

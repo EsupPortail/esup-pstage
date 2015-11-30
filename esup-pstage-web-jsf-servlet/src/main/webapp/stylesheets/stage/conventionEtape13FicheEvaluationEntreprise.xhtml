@@ -847,7 +847,8 @@
 								</rich:message>
 								<h:panelGrid value="div"
 									rendered="#{!conventionController.convention.reponseEvaluation.reponseEnt18}">
-									<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.RAISONS']}" />
+									<h:outputText
+										value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.RAISONS']}" />
 									<h:inputTextarea id="reponse18bis"
 										value="#{conventionController.convention.reponseEvaluation.reponseEnt18bis}"
 										required="true"
@@ -895,6 +896,8 @@
 						</h:panelGrid>
 					</rich:togglePanelItem>
 				</rich:togglePanel>
+
+
 
 				<t:htmlTag value="div" style="height: 30px;" />
 				<h:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"

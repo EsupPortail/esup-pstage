@@ -6633,7 +6633,7 @@ public class ConventionController extends AbstractContextAwareController {
 		// recuperation de la convention via l'id
 		this.convention = getConventionDomainService().getConventionFromId(
 				idDecode);
-
+		
 		this.accesPartieEntreprise();
 
 		return "goToFicheEntrepriseTuteurPro";
@@ -7332,39 +7332,40 @@ public class ConventionController extends AbstractContextAwareController {
 		case 1:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator
 					.getListe()) {
-				if (conventionTmp.isValidationConvention()
-						&& conventionTmp.getFicheEvaluation()
-						.isValidationEtudiant()) {
-					this.convention = getConventionDomainService()
-							.getConventionFromId(
-									conventionTmp.getIdConvention());
-					if ((this.convention.getReponseEvaluation() == null || !this.convention
-							.getReponseEvaluation().isValidationEtudiant())
-							&& ((!this.convention.isEnvoiMailEtudiant() && this.typeMailEval == 1) || (this.convention
-									.isEnvoiMailEtudiant() && this.typeMailEval == 2))) {
-						if (this.convention.getIdEtudiant() > 0) {
-							EtudiantDTO etudiantTmp = this
-									.getEtudiantDomainService()
-									.getEtudiantFromId(
-											this.convention.getIdEtudiant());
-							if (etudiantTmp != null) {
-								this.convention.setEtudiant(etudiantTmp);
+				if  (conventionTmp.isValidationConvention()
+						 && conventionTmp.getFicheEvaluation()!=null){
+					if (conventionTmp.getFicheEvaluation().isValidationEtudiant()) {
+						this.convention = getConventionDomainService()
+								.getConventionFromId(
+										conventionTmp.getIdConvention());
+						if ((this.convention.getReponseEvaluation() == null || !this.convention
+								.getReponseEvaluation().isValidationEtudiant())
+								&& ((!this.convention.isEnvoiMailEtudiant() && this.typeMailEval == 1) || (this.convention
+										.isEnvoiMailEtudiant() && this.typeMailEval == 2))) {
+							if (this.convention.getIdEtudiant() > 0) {
+								EtudiantDTO etudiantTmp = this
+										.getEtudiantDomainService()
+										.getEtudiantFromId(
+												this.convention.getIdEtudiant());
+								if (etudiantTmp != null) {
+									this.convention.setEtudiant(etudiantTmp);
+								}
 							}
-						}
-						if (this.convention.getIdStructure() > 0) {
-							StructureDTO structureTmp = this
-									.getStructureDomainService()
-									.getStructureFromId(
-											this.convention.getIdStructure());
-							if (structureTmp != null) {
-								this.convention.setStructure(structureTmp);
+							if (this.convention.getIdStructure() > 0) {
+								StructureDTO structureTmp = this
+										.getStructureDomainService()
+										.getStructureFromId(
+												this.convention.getIdStructure());
+								if (structureTmp != null) {
+									this.convention.setStructure(structureTmp);
+								}
 							}
-						}
-						this.envoiMailEtudiant();
-						try {
-							Thread.sleep(300);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+							this.envoiMailEtudiant();
+							try {
+								Thread.sleep(300);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -7373,39 +7374,40 @@ public class ConventionController extends AbstractContextAwareController {
 		case 2:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator
 					.getListe()) {
-				if (conventionTmp.isValidationConvention()
-						&& conventionTmp.getFicheEvaluation()
-						.isValidationEnseignant()) {
-					this.convention = getConventionDomainService()
-							.getConventionFromId(
-									conventionTmp.getIdConvention());
-					if ((this.convention.getReponseEvaluation() == null || !this.convention
-							.getReponseEvaluation().isValidationEnseignant())
-							&& ((!this.convention.isEnvoiMailTuteurPedago() && this.typeMailEval == 1) || (this.convention
-									.isEnvoiMailTuteurPedago() && this.typeMailEval == 2))) {
-						if (this.convention.getIdEnseignant() > 0) {
-							EnseignantDTO enseignantTmp = this
-									.getEnseignantDomainService()
-									.getEnseignantFromId(
-											this.convention.getIdEnseignant());
-							if (enseignantTmp != null) {
-								this.convention.setEnseignant(enseignantTmp);
+				if  (conventionTmp.isValidationConvention() 
+						&& conventionTmp.getFicheEvaluation()!=null){
+					if ( conventionTmp.getFicheEvaluation().isValidationEnseignant()){
+						this.convention = getConventionDomainService()
+								.getConventionFromId(
+										conventionTmp.getIdConvention());
+						if ((this.convention.getReponseEvaluation() == null || !this.convention
+								.getReponseEvaluation().isValidationEnseignant())
+								&& ((!this.convention.isEnvoiMailTuteurPedago() && this.typeMailEval == 1) || (this.convention
+										.isEnvoiMailTuteurPedago() && this.typeMailEval == 2))) {
+							if (this.convention.getIdEnseignant() > 0) {
+								EnseignantDTO enseignantTmp = this
+										.getEnseignantDomainService()
+										.getEnseignantFromId(
+												this.convention.getIdEnseignant());
+								if (enseignantTmp != null) {
+									this.convention.setEnseignant(enseignantTmp);
+								}
 							}
-						}
-						if (this.convention.getIdEtudiant() > 0) {
-							EtudiantDTO etudiantTmp = this
-									.getEtudiantDomainService()
-									.getEtudiantFromId(
-											this.convention.getIdEtudiant());
-							if (etudiantTmp != null) {
-								this.convention.setEtudiant(etudiantTmp);
+							if (this.convention.getIdEtudiant() > 0) {
+								EtudiantDTO etudiantTmp = this
+										.getEtudiantDomainService()
+										.getEtudiantFromId(
+												this.convention.getIdEtudiant());
+								if (etudiantTmp != null) {
+									this.convention.setEtudiant(etudiantTmp);
+								}
 							}
-						}
-						this.envoiMailEnseignant();
-						try {
-							Thread.sleep(300);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+							this.envoiMailEnseignant();							
+							try {
+								Thread.sleep(300);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -7414,41 +7416,40 @@ public class ConventionController extends AbstractContextAwareController {
 		case 3:
 			for (ConventionDTO conventionTmp : this.rechercheConventionPaginator
 					.getListe()) {
-				if (conventionTmp.isValidationConvention()
-						&& conventionTmp.getFicheEvaluation()
-						.isValidationEntreprise()) {
-					this.convention = getConventionDomainService()
-							.getConventionFromId(
-									conventionTmp.getIdConvention());
-					// On verifie que la fiche n'est pas deja saisie et qu'on
-					// envoie un 1er mail ou un mail de rappel
-					if ((this.convention.getReponseEvaluation() == null || !this.convention
-							.getReponseEvaluation().isValidationEntreprise())
-							&& ((!this.convention.isEnvoiMailTuteurPro() && this.typeMailEval == 1) || (this.convention
-									.isEnvoiMailTuteurPro() && this.typeMailEval == 2))) {
-						if (this.convention.getIdContact() > 0) {
-							ContactDTO contactTmp = this
-									.getStructureDomainService()
-									.getContactFromId(
-											this.convention.getIdContact());
-							if (contactTmp != null) {
-								this.convention.setContact(contactTmp);
+				if  (conventionTmp.isValidationConvention()
+						&& conventionTmp.getFicheEvaluation()!=null){
+					if (conventionTmp.getFicheEvaluation().isValidationEntreprise()) {
+						this.convention = getConventionDomainService()
+								.getConventionFromId(
+										conventionTmp.getIdConvention());
+						if ((this.convention.getReponseEvaluation() == null || !this.convention
+								.getReponseEvaluation().isValidationEntreprise())
+								&& ((!this.convention.isEnvoiMailTuteurPro() && this.typeMailEval == 1) || (this.convention
+										.isEnvoiMailTuteurPro() && this.typeMailEval == 2))) {
+							if (this.convention.getIdContact() > 0) {
+								ContactDTO contactTmp = this
+										.getStructureDomainService()
+										.getContactFromId(
+												this.convention.getIdContact());
+								if (contactTmp != null) {
+									this.convention.setContact(contactTmp);
+								}
 							}
-						}
-						if (this.convention.getIdEtudiant() > 0) {
-							EtudiantDTO etudiantTmp = this
-									.getEtudiantDomainService()
-									.getEtudiantFromId(
-											this.convention.getIdEtudiant());
-							if (etudiantTmp != null) {
-								this.convention.setEtudiant(etudiantTmp);
+							if (this.convention.getIdEtudiant() > 0) {
+								EtudiantDTO etudiantTmp = this
+										.getEtudiantDomainService()
+										.getEtudiantFromId(
+												this.convention.getIdEtudiant());
+								if (etudiantTmp != null) {
+									this.convention.setEtudiant(etudiantTmp);
+								}
 							}
-						}
-						this.envoiMailEntreprise();
-						try {
-							Thread.sleep(300);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+							this.envoiMailEntreprise();
+							try {
+								Thread.sleep(300);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -7513,13 +7514,26 @@ public class ConventionController extends AbstractContextAwareController {
 				nomContact, nomEtu, this.convention.getIdConvention(),
 				getSessionController().getApplicationNamePStage());
 
-		getSmtpService().send(getSessionController().getMailingListPStageIA(),
-				sujet, contenu, "");
+		CentreGestionDTO centreGestion=getCentreGestionDomainService().getCentreGestion(this.convention.getIdCentreGestion());
+		InternetAddress mail;
 
-		addInfoMessage(null, "CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",
-				getSessionController().getMailingListPStageIA(),
-				this.convention.getIdConvention());
-
+		try{
+			
+			if (centreGestion.getMail()==null || centreGestion.getMail().isEmpty())
+				mail=getSessionController().getMailingListPStageIA();			
+			else
+				mail=new InternetAddress(centreGestion.getMail());
+			
+			getSmtpService().send(mail, sujet, contenu, "");
+			addInfoMessage(null, "CONVENTION.ETAPE13.MAIL.ENVOI_REUSSI",mail,
+					this.convention.getIdConvention());
+		}
+		catch (Exception e) {
+			logger.error("envoiDemandeInvalidation() - Exception lors de l'envoi du mail au centre de gestion : "
+					+ e.getMessage());
+		}
+		
+		
 	}
 
 	/**

@@ -17,7 +17,7 @@
 				</f:facet>
 				<h:panelGrid columns="3" columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text">
-					<a4j:commandLink rendered="#{niveauFormation.value.modifiable}"
+					<a4j:commandLink 
 						oncomplete="#{rich:component('suppressionNiveauFormation')}.show()"
 						render="suppressionNiveauFormation">
 						<f:setPropertyActionListener value="#{niveauFormation.value}"
@@ -25,7 +25,7 @@
 						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
 						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 					</a4j:commandLink>
-					<a4j:commandLink rendered="#{niveauFormation.value.modifiable}"
+					<a4j:commandLink 
 						render="niveauFormationTab">
 						<f:setPropertyActionListener value="#{niveauFormation.value}"
 							target="#{nomenclatureController.niveauFormation}" />

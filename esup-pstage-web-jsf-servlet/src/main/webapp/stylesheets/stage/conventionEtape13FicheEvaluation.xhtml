@@ -112,7 +112,7 @@
 													timeZone="CET" />
 											</h:outputText>
 										</h:panelGrid>
-											
+										
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
 											action="#{conventionController.envoiMailEtudiant}"
 											rendered="#{!conventionController.convention.envoiMailEtudiant}"
@@ -130,7 +130,7 @@
 												<f:param value="#{sessionController.applicationNamePStage}" />
 											</h:outputFormat>
 										</h:panelGrid>
-										
+
 										<a4j:commandButton
 											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
 											action="#{conventionController.envoiMailEtudiant}"
@@ -149,7 +149,7 @@
 												<f:param value="#{sessionController.applicationNamePStage}" />
 											</h:outputFormat>
 										</h:panelGrid>
-										
+
 										<h:panelGrid align="center">
 											<rich:message for="panelMailEtudiant" />
 										</h:panelGrid>
@@ -228,7 +228,7 @@
 										and !conventionController.convention.reponseEvaluation.validationEnseignant}">
 									<t:fieldset style="width:400px;"
 										rendered="#{not empty conventionController.convention.enseignant.mail}">
-										
+
 										<h:panelGrid columns="2" style="padding:5px;"
 											rendered="#{!conventionController.convention.envoiMailTuteurPedago}">
 											<h:graphicImage value="../../media/images/information.png" />
@@ -249,7 +249,7 @@
 													timeZone="CET" />
 											</h:outputText>
 										</h:panelGrid>
-										
+
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
 											action="#{conventionController.envoiMailEnseignant}"
 											rendered="#{!conventionController.convention.envoiMailTuteurPedago}"
@@ -268,7 +268,7 @@
 												<f:param value="#{sessionController.applicationNamePStage}" />
 											</h:outputFormat>
 										</h:panelGrid>
-										
+
 										<a4j:commandButton
 											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
 											action="#{conventionController.envoiMailEnseignant}"
@@ -288,7 +288,7 @@
 												<f:param value="#{sessionController.applicationNamePStage}" />
 											</h:outputFormat>
 										</h:panelGrid>
-										
+
 										<h:panelGrid align="center">
 											<rich:message for="panelMailEnseignant" />
 										</h:panelGrid>
@@ -361,7 +361,7 @@
 									action="#{conventionController.editPdfFicheEntreprise}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" />
 								<t:htmlTag value="div" style="height:10px;" />
-
+								
 								<a4j:outputPanel id="panelMailTuteurPro"
 									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap}">
 									<t:fieldset style="width:400px;"
@@ -394,8 +394,8 @@
 											<f:setPropertyActionListener
 												target="#{conventionController.typeMailEval}" value="1" />
 										</a4j:commandButton>
-										
-										<h:panelGrid style="font-style:italic; padding:5px;" 
+
+										<h:panelGrid style="font-style:italic; padding:5px;"
 											rendered="#{!conventionController.convention.envoiMailTuteurPro}">
 											<h:outputText style="text-decoration:underline;" value="Squelette du mail : "/>
 											<h:outputFormat style="width:400px;"
@@ -415,7 +415,7 @@
 											<f:setPropertyActionListener
 												target="#{conventionController.typeMailEval}" value="2" />
 										</a4j:commandButton>
-										
+
 										<h:panelGrid style="font-style:italic; padding:5px;" 
 											rendered="#{conventionController.convention.envoiMailTuteurPro}">
 											<h:outputText style="text-decoration:underline;" value="Squelette du mail : "/>
@@ -427,7 +427,7 @@
 												<f:param value="#{sessionController.applicationNamePStage}" />
 											</h:outputFormat>
 										</h:panelGrid>
-										
+
 										<h:panelGrid align="center" style="padding:5px;">
 											<rich:message for="panelMailTuteurPro" />
 										</h:panelGrid>

@@ -17,7 +17,7 @@
 				</f:facet>
 				<h:panelGrid columns="3" columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text">
-					<a4j:commandLink rendered="#{origineStage.value.modifiable}"
+					<a4j:commandLink 
 						oncomplete="#{rich:component('suppressionOrigineStage')}.show()"
 						render="suppressionOrigineStage">
 						<f:setPropertyActionListener value="#{origineStage.value}"
@@ -25,7 +25,7 @@
 						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
 						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 					</a4j:commandLink>
-					<a4j:commandLink rendered="#{origineStage.value.modifiable}"
+					<a4j:commandLink 
 						render="origineStageTab">
 						<f:setPropertyActionListener value="#{origineStage.value}"
 							target="#{nomenclatureController.origineStage}" />

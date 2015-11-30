@@ -17,7 +17,7 @@
 				</f:facet>
 				<h:panelGrid columns="3" columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text">
-					<a4j:commandLink rendered="#{tempsTravail.value.modifiable}"
+					<a4j:commandLink 
 						oncomplete="#{rich:component('suppressionTempsTravail')}.show()"
 						render="suppressionTempsTravail">
 						<f:setPropertyActionListener value="#{tempsTravail.value}"
@@ -25,7 +25,7 @@
 						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
 						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 					</a4j:commandLink>
-					<a4j:commandLink rendered="#{tempsTravail.value.modifiable}"
+					<a4j:commandLink 
 						render="tempsTravailTab">
 						<f:setPropertyActionListener value="#{tempsTravail.value}"
 							target="#{nomenclatureController.tpsTravail}" />
