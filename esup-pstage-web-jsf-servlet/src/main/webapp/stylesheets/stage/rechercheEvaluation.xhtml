@@ -27,15 +27,15 @@
 									value="#{msgs['RECHERCHEEVALUATION.CENTREGESTION']}"
 									for="centreGestion" />
 								<h:selectOneMenu id="centreGestion"
-									value="#{conventionController.rechEvalIdCentre}"
+									value="#{evaluationController.rechEvalIdCentre}"
 									required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									style="width:300px;">
 									<f:selectItems
-										value="#{conventionController.listeItemsCurrentCentresGestionEval}" />
+										value="#{evaluationController.listeItemsCurrentCentresGestionEval}" />
 									<a4j:ajax execute="@this" event="valueChange"
 										render="panelCodes" status="statusRecherche"
-										listener="#{conventionController.updateAffichageListeCodes}" />
+										listener="#{evaluationController.updateAffichageListeCodes}" />
 								</h:selectOneMenu>
 							</h:panelGrid>
 							<rich:message for="centreGestion">
@@ -47,10 +47,10 @@
 							<a4j:outputPanel id="panelCodes">
 								<h:outputText
 									value="#{msgs['RECHERCHEEVALUATION.ISETABLISSEMENT']}"
-									escape="false" rendered="#{conventionController.etatAffichageRechEval == 1}" />
+									escape="false" rendered="#{evaluationController.etatAffichageRechEval == 1}" />
 								
 								<h:panelGrid columns="3"
-									rendered="#{conventionController.etatAffichageRechEval == 2 || conventionController.etatAffichageRechEval == 3}">
+									rendered="#{evaluationController.etatAffichageRechEval == 2 || evaluationController.etatAffichageRechEval == 3}">
 									<h:graphicImage id="infoChoixMultiple"
 										alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"
 										value="../../media/images/information.png" style="border:0">
@@ -67,25 +67,25 @@
 								<h:selectManyListbox id="codesEtapes"
 									style="width:550px; padding:10px;"
 									value="#{conventionController.critereRechercheConvention.idsEtapes}"
-									rendered="#{conventionController.etatAffichageRechEval == 2}"
+									rendered="#{evaluationController.etatAffichageRechEval == 2}"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									required="true">
 									<f:selectItems
-										value="#{conventionController.rechEvalListeCodes}" />
+										value="#{evaluationController.rechEvalListeCodes}" />
 								</h:selectManyListbox>
 								<h:selectManyListbox id="codesUfr"
 									style="width:550px; padding:10px;"
 									value="#{conventionController.critereRechercheConvention.idsUfrs}"
-									rendered="#{conventionController.etatAffichageRechEval == 3}"
+									rendered="#{evaluationController.etatAffichageRechEval == 3}"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									required="true">
 									<f:selectItems
-										value="#{conventionController.rechEvalListeCodes}" />
+										value="#{evaluationController.rechEvalListeCodes}" />
 								</h:selectManyListbox>
 								<h:outputText
 									value="#{msgs['RECHERCHEEVALUATION.ISEMPTY']}"
 									style="color:red;"
-									escape="false" rendered="#{conventionController.etatAffichageRechEval == 4}" />
+									escape="false" rendered="#{evaluationController.etatAffichageRechEval == 4}" />
 							</a4j:outputPanel>
 						</h:panelGrid>
 					</t:htmlTag>
@@ -106,7 +106,7 @@
 										value="#{nomenclatureController.anneesConvention}" />
 									<a4j:ajax execute="@this" event="valueChange"
 										render="panelCodes" status="statusRecherche"
-										listener="#{conventionController.updateAffichageListeCodes}" />
+										listener="#{evaluationController.updateAffichageListeCodes}" />
 								</h:selectOneMenu>
 							</h:panelGrid>
 							<rich:message for="anU">
@@ -114,7 +114,7 @@
 							</rich:message>
 						</h:panelGrid>
 						<a4j:commandButton value="#{msgs['FORM.RECHERCHER']}"
-							action="#{conventionController.rechercherEvaluation}"
+							action="#{evaluationController.rechercherEvaluation}"
 							status="statusRecherche" />
 					</h:panelGrid>
 					<t:htmlTag value="center">

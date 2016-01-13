@@ -1831,15 +1831,17 @@
 									</xsl:if>
 								</xsl:otherwise>
 							</xsl:choose>
-							<fo:block line-height="130%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif">
-								<fo:inline text-decoration="underline">SONSTIGE SACHLEISTUNGEN
-								</fo:inline>
-								:
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="avantages-nature" />
-								</fo:inline>
-							</fo:block>
+							<xsl:if test="avantages-nature and avantages-nature != ''">
+								<fo:block line-height="130%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
+									<fo:inline text-decoration="underline">SONSTIGE SACHLEISTUNGEN
+									</fo:inline>
+									:
+									<fo:inline font-weight="bold">
+										<xsl:value-of select="avantages-nature" />
+									</fo:inline>
+								</fo:block>
+							</xsl:if>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="9pt" font-family="Times New Roman,serif"

@@ -498,11 +498,13 @@ public class AvenantController extends AbstractContextAwareController {
 
 				// Envoi d'une alerte à l'enseignant référent si telle est la configuration
 				if (getSessionController().isAvertissementTuteurPedago()){
-					if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
+					if (conventionController.getConvention().getEnseignant() != null 
+						&& conventionController.getConvention().getEnseignant().getMail() != null
+						&& !conventionController.getConvention().getEnseignant().getMail().isEmpty())
 						getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
 				}
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
-				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
+				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(conventionController.getConvention().getIdCentreGestion());
 
 				if (listePersonnels != null){
 					for (PersonnelCentreGestionDTO personnel : listePersonnels){
@@ -599,11 +601,13 @@ public class AvenantController extends AbstractContextAwareController {
 
 				// Envoi d'une alerte à l'enseignant référent si telle est la configuration
 				if (getSessionController().isAvertissementTuteurPedago()){
-					if (conventionController.getConvention().getEnseignant().getMail() != null && !conventionController.getConvention().getEnseignant().getMail().isEmpty())
+					if (conventionController.getConvention().getEnseignant() != null 
+						&& conventionController.getConvention().getEnseignant().getMail() != null
+						&& !conventionController.getConvention().getEnseignant().getMail().isEmpty())
 						getSmtpService().send(new InternetAddress(conventionController.getConvention().getEnseignant().getMail()),sujet,text,text);
 				}
 				// Envoi d'une alerte aux personnels du centre gestion configurés pour les recevoir
-				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.avenant.getIdConvention());
+				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(conventionController.getConvention().getIdCentreGestion());
 
 				if (listePersonnels != null){
 					for (PersonnelCentreGestionDTO personnel : listePersonnels){

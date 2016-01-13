@@ -1818,7 +1818,7 @@
 												<fo:inline font-weight="bold">
 													<xsl:value-of select="montant-gratification" />
 												</fo:inline>
-<!-- 												euros -->
+												<!-- euros -->
 												<xsl:text> </xsl:text>
 												<xsl:value-of select="monnaie-gratification" />
 												<xsl:text> </xsl:text>
@@ -1843,15 +1843,17 @@
 									</xsl:if>
 								</xsl:otherwise>
 							</xsl:choose>
-							<fo:block line-height="130%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif">
-								<fo:inline text-decoration="underline">SONSTIGE SACHLEISTUNGEN
-								</fo:inline>
-								:
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="avantages-nature" />
-								</fo:inline>
-							</fo:block>
+							<xsl:if test="avantages-nature and avantages-nature != ''">
+								<fo:block line-height="130%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
+									<fo:inline text-decoration="underline">SONSTIGE SACHLEISTUNGEN
+									</fo:inline>
+									:
+									<fo:inline font-weight="bold">
+										<xsl:value-of select="avantages-nature" />
+									</fo:inline>
+								</fo:block>
+							</xsl:if>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -2003,7 +2005,7 @@
 											</xsl:when>
 											<xsl:otherwise>
 												...
-<!-- 												 euros -->
+												<!-- euros -->
 												<xsl:text> </xsl:text>
 												<xsl:value-of select="monnaie-gratification" />
 												<xsl:text> </xsl:text>
@@ -4704,13 +4706,14 @@
 									font-size="9pt" font-family="Times New Roman,serif"
 									padding-top="0.2cm">
 									Der Praktikant hat eine Praktikumsvergütung in Höhe
-									eines Gesamtbetrags von ..................................									
+									eines
+									Gesamtbetrags von ..................................
 									<xsl:if test="monnaie-gratification = 'euros'">
 										&#8364;
-									</xsl:if>					
+									</xsl:if>
 									<xsl:if test="monnaie-gratification != 'euros'">
-										<xsl:value-of select="monnaie-gratification"/>
-									</xsl:if>					
+										<xsl:value-of select="monnaie-gratification" />
+									</xsl:if>
 								</fo:block>
 								<fo:block line-height="110%" language="fr" country="FR"
 									font-size="6.5pt" font-family="Times New Roman,serif"

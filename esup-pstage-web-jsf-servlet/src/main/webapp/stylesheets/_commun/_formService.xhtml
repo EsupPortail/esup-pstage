@@ -16,7 +16,7 @@
 			requiredMessage="#{requiredMessageController.champObligatoire}"
 			style="text-transform:uppercase;">
 		</h:inputText>
-		<rich:message for="nomService">
+		<rich:message for="nomService" ajaxRendered="false">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 		</rich:message>
 		<h:outputLabel for="memeAdresseStructure"
@@ -37,7 +37,7 @@
 						value="#{etablissementController.formService.voie}" size="50"
 						maxlength="200" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}"/>
-					<rich:message for="voie">
+					<rich:message for="voie" ajaxRendered="false">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 					<h:outputLabel for="batimentService"
@@ -80,7 +80,7 @@
 								required="#{!sessionController.recupererCommunesDepuisApogee and 
 								(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)}">
 							</h:inputText>
-							<rich:message for="codePostal">
+							<rich:message for="codePostal" ajaxRendered="false">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 							</rich:message>
 						</h:panelGrid>
@@ -102,7 +102,7 @@
 										execute="@this" />
 								</h:inputText>
 							</h:panelGrid>
-							<rich:message for="dynaCodePostal">
+							<rich:message for="dynaCodePostal" ajaxRendered="false">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 							</rich:message>
 						</h:panelGrid>
@@ -118,9 +118,8 @@
 								value="#{etablissementController.formService.commune}" size="50"
 								maxlength="200" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}"
-								converter="#{sansAccentEnMAJConverter}">
-							</h:inputText>
-							<rich:message for="commune">
+								converter="#{sansAccentEnMAJConverter}"/>
+							<rich:message for="commune" ajaxRendered="false">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 							</rich:message>
 						</h:panelGrid>
@@ -138,7 +137,7 @@
 										value="#{etablissementController.formServiceCommunesListening}" />
 									<a4j:ajax event="valueChange" />
 								</h:selectOneMenu>
-								<rich:message for="dynaCommune">
+								<rich:message for="dynaCommune" ajaxRendered="false">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 								</rich:message>
 							</a4j:outputPanel>
@@ -163,10 +162,10 @@
 							styleClass="paysInput">
 							<f:selectItems value="#{nomenclatureController.pays}" />
 							<a4j:ajax event="valueChange"
-								render="opFlag, opCommune, opCodePostal" execute="@this" />
+								render="opFlag" execute="@this" />
 						</h:selectOneMenu>
 					</h:panelGrid>
-					<rich:message for="pays">
+					<rich:message for="pays" ajaxRendered="false">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
 				</h:panelGrid>

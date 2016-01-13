@@ -211,7 +211,7 @@ public class OffreController extends AbstractContextAwareController {
 	/**
 	 * on diffuse l'offre après ajout/modif si vrai
 	 */
-	private boolean diffusionDirecte = false;
+	private boolean diffusionDirecte = true;
 
 	/**
 	 * Nombre d'offres à diffuser (pour affichage _menu.jsp partie entreprise)
@@ -462,6 +462,10 @@ public class OffreController extends AbstractContextAwareController {
 		//		ret="_creationOffreEtape2";
 		getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape2");
 		getSessionController().setCreationOffreCurrentPage("_creationOffreEtape2");
+		
+		// Oui par défaut pour la diffusion directe de l'offre :
+		this.diffusionDirecte = true;
+		
 		this.formOffre.setLieuPays(this.formOffre.getStructure().getPays());
 		this.formOffre.setLieuCodePostal(this.formOffre.getStructure().getCodePostal());
 		this.formOffre.setLieuCommune(this.formOffre.getStructure().getCommune());
@@ -715,7 +719,7 @@ public class OffreController extends AbstractContextAwareController {
 		} else if (!this.formOffre.isEstDiffusee()){
 			addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION.DIFFUSION", this.formOffre.getIdOffre());
 		}
-		this.diffusionDirecte = false;
+		
 		//		return ret;
 	}
 

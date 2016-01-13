@@ -29,7 +29,7 @@
 							style="font-style:italic; font-weight:bold; font-size:16px;" />
 						<t:htmlTag value="div" style="height: 10px;" />
 					</h:panelGrid>
-					<rich:tabPanel switchType="ajax" id="listeQuestionsSupplementaires">
+					<rich:tabPanel switchType="ajax" id="tabFicheEtudiant">
 						<rich:tab id="etape1Tab">
 							<f:facet name="header">
 								<h:outputText style="font-size:14px; padding:10px;"
@@ -271,20 +271,23 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
-							<h:panelGrid align="center" width="500"
-								rowClasses="paginatorData-text" columnClasses="paginatorData-text"
-								rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant1}">
-								<t:htmlTag value="center">
-									<h:outputText style="font-weight:bold; font-size:16px;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
-								</t:htmlTag>
-								<rich:list var="questionSup" style="margin-left:10px;"
-									value="#{centreController.listeQuestionsSupplementairesEtudiant1}">
-									<ui:include
-										src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
-								</rich:list>
-								<t:htmlTag value="div" style="height:10px;" />
-							</h:panelGrid>
+							<a4j:outputPanel id="listeQuestionsSupplementaires1">
+								<h:panelGrid align="center" width="500"
+									rowClasses="paginatorData-text"
+									columnClasses="paginatorData-text"
+									rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant1}">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold; font-size:16px;"
+											value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
+									</t:htmlTag>
+									<rich:list var="questionSup" style="margin-left:10px;"
+										value="#{centreController.listeQuestionsSupplementairesEtudiant1}">
+										<ui:include
+											src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
+									</rich:list>
+									<t:htmlTag value="div" style="height:10px;" />
+								</h:panelGrid>
+							</a4j:outputPanel>
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
@@ -292,7 +295,8 @@
 									action="#{centreController.avantAjoutQuestionEtudiant1}"
 									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
 									render="editQuestionEvalPanel">
-									<f:setPropertyActionListener value="_questionEval_editEtape1Ajout"
+									<f:setPropertyActionListener
+										value="_questionEval_editEtape1Ajout"
 										target="#{sessionController.editQuestionEvalCurrentPage}" />
 								</a4j:commandButton>
 							</t:htmlTag>
@@ -478,21 +482,23 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
-							<h:panelGrid align="center" width="500"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text"
-								rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant2}">
-								<t:htmlTag value="center">
-									<h:outputText style="font-weight:bold; font-size:16px;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
-								</t:htmlTag>
-								<rich:list var="questionSup" style="margin-left:10px;"
-									value="#{centreController.listeQuestionsSupplementairesEtudiant2}">
-									<ui:include
-										src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
-								</rich:list>
-								<t:htmlTag value="div" style="height:10px;" />
-							</h:panelGrid>
+							<a4j:outputPanel id="listeQuestionsSupplementaires2">
+								<h:panelGrid align="center" width="500"
+									rowClasses="paginatorData-text"
+									columnClasses="paginatorData-text"
+									rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant2}">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold; font-size:16px;"
+											value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
+									</t:htmlTag>
+									<rich:list var="questionSup" style="margin-left:10px;"
+										value="#{centreController.listeQuestionsSupplementairesEtudiant2}">
+										<ui:include
+											src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
+									</rich:list>
+									<t:htmlTag value="div" style="height:10px;" />
+								</h:panelGrid>
+							</a4j:outputPanel>
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
@@ -500,7 +506,8 @@
 									action="#{centreController.avantAjoutQuestionEtudiant2}"
 									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
 									render="editQuestionEvalPanel">
-									<f:setPropertyActionListener value="_questionEval_editEtape1Ajout"
+									<f:setPropertyActionListener
+										value="_questionEval_editEtape1Ajout"
 										target="#{sessionController.editQuestionEvalCurrentPage}" />
 								</a4j:commandButton>
 							</t:htmlTag>
@@ -565,20 +572,20 @@
 										itemLabel="#{msgs['FORM.NON']}" />
 								</h:selectOneRadio>
 
-<!-- 								<h:panelGrid> -->
-<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
-<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
-<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3']}" /> -->
-<!-- 									<h:outputText style="margin-left:10px;" -->
-<!-- 										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" /> -->
-<!-- 								</h:panelGrid> -->
-<!-- 								<h:selectOneRadio -->
-<!-- 									value="#{centreController.ficheEvaluation.questionEtuIII3}"> -->
-<!-- 									<f:selectItem itemValue="#{true}" -->
-<!-- 										itemLabel="#{msgs['FORM.OUI']}" /> -->
-<!-- 									<f:selectItem itemValue="#{false}" -->
-<!-- 										itemLabel="#{msgs['FORM.NON']}" /> -->
-<!-- 								</h:selectOneRadio> -->
+								<!-- 								<h:panelGrid> -->
+								<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
+								<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
+								<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3']}" /> -->
+								<!-- 									<h:outputText style="margin-left:10px;" -->
+								<!-- 										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" /> -->
+								<!-- 								</h:panelGrid> -->
+								<!-- 								<h:selectOneRadio -->
+								<!-- 									value="#{centreController.ficheEvaluation.questionEtuIII3}"> -->
+								<!-- 									<f:selectItem itemValue="#{true}" -->
+								<!-- 										itemLabel="#{msgs['FORM.OUI']}" /> -->
+								<!-- 									<f:selectItem itemValue="#{false}" -->
+								<!-- 										itemLabel="#{msgs['FORM.NON']}" /> -->
+								<!-- 								</h:selectOneRadio> -->
 
 								<h:panelGrid>
 									<t:htmlTag value="div" style="height:10px;" />
@@ -765,20 +772,20 @@
 										itemLabel="#{msgs['FORM.NON']}" />
 								</h:selectOneRadio>
 
-<!-- 								<h:panelGrid> -->
-<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
-<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
-<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13']}" /> -->
-<!-- 									<h:outputText style="margin-left:10px;" -->
-<!-- 										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" /> -->
-<!-- 								</h:panelGrid> -->
-<!-- 								<h:selectOneRadio -->
-<!-- 									value="#{centreController.ficheEvaluation.questionEtuIII13}"> -->
-<!-- 									<f:selectItem itemValue="#{true}" -->
-<!-- 										itemLabel="#{msgs['FORM.OUI']}" /> -->
-<!-- 									<f:selectItem itemValue="#{false}" -->
-<!-- 										itemLabel="#{msgs['FORM.NON']}" /> -->
-<!-- 								</h:selectOneRadio> -->
+								<!-- 								<h:panelGrid> -->
+								<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
+								<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
+								<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13']}" /> -->
+								<!-- 									<h:outputText style="margin-left:10px;" -->
+								<!-- 										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" /> -->
+								<!-- 								</h:panelGrid> -->
+								<!-- 								<h:selectOneRadio -->
+								<!-- 									value="#{centreController.ficheEvaluation.questionEtuIII13}"> -->
+								<!-- 									<f:selectItem itemValue="#{true}" -->
+								<!-- 										itemLabel="#{msgs['FORM.OUI']}" /> -->
+								<!-- 									<f:selectItem itemValue="#{false}" -->
+								<!-- 										itemLabel="#{msgs['FORM.NON']}" /> -->
+								<!-- 								</h:selectOneRadio> -->
 
 								<h:panelGrid>
 									<t:htmlTag value="div" style="height:10px;" />
@@ -852,17 +859,19 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
-							<h:panelGrid align="center" width="500"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text"
-								rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant3}">
-								<rich:list var="questionSup" style="margin-left:10px;"
-									value="#{centreController.listeQuestionsSupplementairesEtudiant3}">
-									<ui:include
-										src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
-								</rich:list>
-								<t:htmlTag value="div" style="height:10px;" />
-							</h:panelGrid>
+							<a4j:outputPanel id="listeQuestionsSupplementaires3">
+								<h:panelGrid align="center" width="500"
+									rowClasses="paginatorData-text"
+									columnClasses="paginatorData-text"
+									rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant3}">
+									<rich:list var="questionSup" style="margin-left:10px;"
+										value="#{centreController.listeQuestionsSupplementairesEtudiant3}">
+										<ui:include
+											src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
+									</rich:list>
+									<t:htmlTag value="div" style="height:10px;" />
+								</h:panelGrid>
+							</a4j:outputPanel>
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
@@ -870,7 +879,8 @@
 									action="#{centreController.avantAjoutQuestionEtudiant3}"
 									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
 									render="editQuestionEvalPanel">
-									<f:setPropertyActionListener value="_questionEval_editEtape1Ajout"
+									<f:setPropertyActionListener
+										value="_questionEval_editEtape1Ajout"
 										target="#{sessionController.editQuestionEvalCurrentPage}" />
 								</a4j:commandButton>
 							</t:htmlTag>

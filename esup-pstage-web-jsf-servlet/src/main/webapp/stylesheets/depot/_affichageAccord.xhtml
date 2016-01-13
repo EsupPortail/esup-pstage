@@ -33,15 +33,15 @@
 					<rich:message for="raisonSociale">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" />
-					<h:inputText id="groupe" style="text-transform:uppercase;"
-						value="#{adminController.structureAccord.groupe}" size="50"
-						maxlength="50" disabled="true">
-						<f:converter binding="#{sansAccentEnMAJConverter}" />
-					</h:inputText>
-					<rich:message for="groupe">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+<!-- 					<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" /> -->
+<!-- 					<h:inputText id="groupe" style="text-transform:uppercase;" -->
+<!-- 						value="#{adminController.structureAccord.groupe}" size="50" -->
+<!-- 						maxlength="50" disabled="true"> -->
+<!-- 						<f:converter binding="#{sansAccentEnMAJConverter}" /> -->
+<!-- 					</h:inputText> -->
+<!-- 					<rich:message for="groupe"> -->
+<!-- 						<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+<!-- 					</rich:message> -->
 					<h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *"
 						for="effectif" />
 					<h:selectOneMenu id="effectif"
@@ -170,10 +170,9 @@
 					rendered="#{!etablissementController.codeNafObligatoire ||
 			(adminController.structureAccord.pays!=beanUtils.france and adminController.structureAccord.pays.cog!=beanUtils.cogFrance)}" />
 			</h:panelGrid>
-			<h:panelGrid columns="1">
-				<rich:editor id="actprinc"
-					value="#{adminController.structureAccord.activitePrincipale}"
-					width="400" height="200" readonly="true" />
+			<h:panelGrid>
+				<h:outputText id="actprinc" escape="false"
+					value="#{adminController.structureAccord.activitePrincipale}"/>
 				<rich:message for="actprinc">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>

@@ -61,7 +61,6 @@ public class FileUploadBean {
 			//encodage du nom en md5 pour s'affranchir des accents et caractéres spéciaux
 			fileName = Utils.encodeMD5(this.prefix+"")+extension;
 			this.nameUploadedFile=fileName;
-			System.out.println("filename : " + this.nameUploadedFile);
 			if(this.prefix>=0) fileName = this.prefix+"_"+fileName;
 			File fileToWrite = new File(this.directory + File.separator + fileName);
 			FileChannel in = null;

@@ -416,19 +416,19 @@
 							</xsl:if>
 						</xsl:when>
 						<xsl:when test="type-question = 'INT'">
-							<xsl:if test="reponse-supplementaire/@reponse-int = 1">
+							<xsl:if test="reponse-supplementaire/reponse-int = 1">
 								<xsl:value-of select="$notation1" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 2">
+							<xsl:if test="reponse-supplementaire/reponse-int = 2">
 								<xsl:value-of select="$notation2" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 3">
+							<xsl:if test="reponse-supplementaire/reponse-int = 3">
 								<xsl:value-of select="$notation3" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 4">
+							<xsl:if test="reponse-supplementaire/reponse-int = 4">
 								<xsl:value-of select="$notation4" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 5">
+							<xsl:if test="reponse-supplementaire/reponse-int = 5">
 								<xsl:value-of select="$notation5" />
 							</xsl:if>
 						</xsl:when>
@@ -635,19 +635,19 @@
 							</xsl:if>
 						</xsl:when>
 						<xsl:when test="type-question = 'INT'">
-							<xsl:if test="reponse-supplementaire/@reponse-int = 1">
+							<xsl:if test="reponse-supplementaire/reponse-int = 1">
 								<xsl:value-of select="$notation1" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 2">
+							<xsl:if test="reponse-supplementaire/reponse-int = 2">
 								<xsl:value-of select="$notation2" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 3">
+							<xsl:if test="reponse-supplementaire/reponse-int = 3">
 								<xsl:value-of select="$notation3" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 4">
+							<xsl:if test="reponse-supplementaire/reponse-int = 4">
 								<xsl:value-of select="$notation4" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 5">
+							<xsl:if test="reponse-supplementaire/reponse-int = 5">
 								<xsl:value-of select="$notation5" />
 							</xsl:if>
 						</xsl:when>
@@ -752,19 +752,19 @@
 							</xsl:if>
 						</xsl:when>
 						<xsl:when test="type-question = 'INT'">
-							<xsl:if test="reponse-supplementaire/@reponse-int = 1">
+							<xsl:if test="reponse-supplementaire/reponse-int = 1">
 								<xsl:value-of select="$notation1" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 2">
+							<xsl:if test="reponse-supplementaire/reponse-int = 2">
 								<xsl:value-of select="$notation2" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 3">
+							<xsl:if test="reponse-supplementaire/reponse-int = 3">
 								<xsl:value-of select="$notation3" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 4">
+							<xsl:if test="reponse-supplementaire/reponse-int = 4">
 								<xsl:value-of select="$notation4" />
 							</xsl:if>
-							<xsl:if test="reponse-supplementaire/@reponse-int = 5">
+							<xsl:if test="reponse-supplementaire/reponse-int = 5">
 								<xsl:value-of select="$notation5" />
 							</xsl:if>
 						</xsl:when>

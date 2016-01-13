@@ -124,7 +124,7 @@
 							<xsl:value-of select="structure/raison-sociale" />
 						</fo:block>
 						<fo:block text-align="left" font-family="Times New Roman,serif">
-							<xsl:value-of select="adresse-etudiant" />
+							<xsl:value-of select="structure/batiment-residence" />
 						</fo:block>
 						<fo:block text-align="left" font-family="Times New Roman,serif">
 							<xsl:value-of select="structure/voie" />

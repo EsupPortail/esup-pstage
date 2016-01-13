@@ -273,6 +273,14 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	}
 
 	/**
+	 * @see org.esupportail.pstagedata.domain.ConventionDomainService#updateConventionValidation(org.esupportail.pstagedata.domain.dto.ConventionDTO)
+	 */
+	public boolean updateConventionValidation(ConventionDTO convention)
+			throws DataUpdateException, WebServiceDataBaseException {
+		return this.remoteServices.updateConventionValidation(convention);
+	}
+	
+	/**
 	 * Rempli les divers objets (TypeConvention, ...) depuis les listes en caches
 	 * @param lc
 	 */

@@ -70,10 +70,10 @@
 								</h:panelGrid>
 								<h:commandButton
 									value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
-									action="#{conventionController.goToFicheEtudiant}" />
+									action="#{evaluationController.goToFicheEtudiant}" />
 								<t:htmlTag value="div" style="width:10px; display:inline;" />
 								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
-									action="#{conventionController.editPdfFicheEtudiant}"
+									action="#{evaluationController.editPdfFicheEtudiant}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEtudiant}" />
 								<t:htmlTag value="div" style="height:10px;" />
 
@@ -114,11 +114,11 @@
 										</h:panelGrid>
 											
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
-											action="#{conventionController.envoiMailEtudiant}"
+											action="#{evaluationController.envoiMailEtudiant}"
 											rendered="#{!conventionController.convention.envoiMailEtudiant}"
 											render="panelMailEtudiant">
 											<f:setPropertyActionListener
-												target="#{conventionController.typeMailEval}" value="1" />
+												target="#{evaluationController.typeMailEval}" value="1" />
 										</a4j:commandButton>
 										<h:panelGrid style="font-style:italic; padding:5px;"
 											rendered="#{!conventionController.convention.envoiMailEtudiant}">
@@ -133,11 +133,11 @@
 										
 										<a4j:commandButton
 											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
-											action="#{conventionController.envoiMailEtudiant}"
+											action="#{evaluationController.envoiMailEtudiant}"
 											rendered="#{conventionController.convention.envoiMailEtudiant}"
 											render="panelMailEtudiant">
 											<f:setPropertyActionListener
-												target="#{conventionController.typeMailEval}" value="2" />
+												target="#{evaluationController.typeMailEval}" value="2" />
 										</a4j:commandButton>
 										<h:panelGrid style="font-style:italic; padding:5px;"
 											rendered="#{conventionController.convention.envoiMailEtudiant}">
@@ -168,7 +168,7 @@
 					<t:div
 						rendered="#{welcomeController.superAdmin 
 						|| sessionController.droitsEvaluationEnseignantMap[conventionController.convention.idCentreGestion] 
-						|| conventionController.tuteurCurrentConvention}">
+						|| evaluationController.tuteurCurrentConvention}">
 						<t:htmlTag value="div" style="height:5px;" />
 						<t:htmlTag value="center">
 							<t:htmlTag value="div" style="height:2px; width:500px;"
@@ -216,10 +216,10 @@
 								</h:panelGrid>
 								<h:commandButton
 									value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
-									action="#{conventionController.goToFicheEnseignant}" />
+									action="#{evaluationController.goToFicheEnseignant}" />
 								<t:htmlTag value="div" style="width:10px; display:inline;" />
 								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
-									action="#{conventionController.editPdfFicheEnseignant}"
+									action="#{evaluationController.editPdfFicheEnseignant}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEnseignant}" />
 								<t:htmlTag value="div" style="height:10px;" />
 
@@ -251,11 +251,11 @@
 										</h:panelGrid>
 										
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
-											action="#{conventionController.envoiMailEnseignant}"
+											action="#{evaluationController.envoiMailEnseignant}"
 											rendered="#{!conventionController.convention.envoiMailTuteurPedago}"
 											render="panelMailEnseignant">
 											<f:setPropertyActionListener
-												target="#{conventionController.typeMailEval}" value="1" />
+												target="#{evaluationController.typeMailEval}" value="1" />
 										</a4j:commandButton>
 										<h:panelGrid style="font-style:italic; padding:5px;"
 											rendered="#{!conventionController.convention.envoiMailTuteurPedago}">
@@ -271,11 +271,11 @@
 										
 										<a4j:commandButton
 											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
-											action="#{conventionController.envoiMailEnseignant}"
+											action="#{evaluationController.envoiMailEnseignant}"
 											rendered="#{conventionController.convention.envoiMailTuteurPedago}"
 											render="panelMailEnseignant">
 											<f:setPropertyActionListener
-												target="#{conventionController.typeMailEval}" value="2" />
+												target="#{evaluationController.typeMailEval}" value="2" />
 										</a4j:commandButton>
 										<h:panelGrid style="font-style:italic; padding:5px;"
 											rendered="#{conventionController.convention.envoiMailTuteurPedago}">
@@ -354,11 +354,11 @@
 								<h:commandButton
 									value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
 									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap}"
-									action="#{conventionController.goToFicheEntreprise}" />
+									action="#{evaluationController.goToFicheEntreprise}" />
 								<t:htmlTag value="div" style="width:10px; display:inline;"
 									rendered="#{welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap}" />
 								<a4j:commandButton value="#{msgs['FORM.IMPRIMER']}"
-									action="#{conventionController.editPdfFicheEntreprise}"
+									action="#{evaluationController.editPdfFicheEntreprise}"
 									rendered="#{conventionController.convention.reponseEvaluation.validationEntreprise}" />
 								<t:htmlTag value="div" style="height:10px;" />
 
@@ -388,11 +388,11 @@
 										</h:panelGrid>
 
 										<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
-											action="#{conventionController.envoiMailEntreprise}"
+											action="#{evaluationController.envoiMailEntreprise}"
 											rendered="#{!conventionController.convention.envoiMailTuteurPro}"
 											render="panelMailTuteurPro">
 											<f:setPropertyActionListener
-												target="#{conventionController.typeMailEval}" value="1" />
+												target="#{evaluationController.typeMailEval}" value="1" />
 										</a4j:commandButton>
 										
 										<h:panelGrid style="font-style:italic; padding:5px;" 
@@ -409,11 +409,11 @@
 
 										<a4j:commandButton
 											value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.RAPPEL']}"
-											action="#{conventionController.envoiMailEntreprise}"
+											action="#{evaluationController.envoiMailEntreprise}"
 											rendered="#{conventionController.convention.envoiMailTuteurPro}"
 											render="panelMailTuteurPro">
 											<f:setPropertyActionListener
-												target="#{conventionController.typeMailEval}" value="2" />
+												target="#{evaluationController.typeMailEval}" value="2" />
 										</a4j:commandButton>
 										
 										<h:panelGrid style="font-style:italic; padding:5px;" 
@@ -447,7 +447,7 @@
 				<h:commandButton
 					value="#{msgs['RECHERCHEOFFRE.RETOURAUXRESULTATS']}"
 					action="resultatsRechercheEvaluation"
-					rendered="#{conventionController.retourEvaluation}" />
+					rendered="#{evaluationController.retourEvaluation}" />
 				<t:htmlTag value="div" style="height: 50px;" />
 			</h:form>
 		</rich:panel>

@@ -2346,8 +2346,12 @@ public class CentreController extends AbstractContextAwareController {
 			}
 
 		}catch (DataDeleteException de) {
-			logger.error("DataDeleteException ",de.fillInStackTrace());
-			addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
+//			logger.error("DataDeleteException ",de.fillInStackTrace());
+			if (de.getMessage().contains("foreign key constraint fails")){
+				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR_CONSTRAINT");
+			} else {
+				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
+			}
 		}catch (WebServiceDataBaseException we) {
 			logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
 			addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");

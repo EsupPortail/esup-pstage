@@ -31,7 +31,7 @@
 							style="font-weight:bold; font-size:16px;" />
 						<t:htmlTag value="div" style="height: 10px;" />
 					</h:panelGrid>
-					<rich:tabPanel switchType="ajax" id="listeQuestionsSupplementaires">
+					<rich:tabPanel switchType="ajax" id="tabFicheEnseignant">
 						<rich:tab id="etape1Tab">
 							<f:facet name="header">
 								<h:outputText
@@ -143,21 +143,23 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
-							<h:panelGrid align="center" width="500"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text"
-								rendered="#{not empty centreController.listeQuestionsSupplementairesEnseignant1}">
-								<t:htmlTag value="center">
-									<h:outputText style="font-weight:bold; font-size:16px;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
-								</t:htmlTag>
-								<rich:list var="questionSup" style="margin-left:10px;"
-									value="#{centreController.listeQuestionsSupplementairesEnseignant1}">
-									<ui:include
-										src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
-								</rich:list>
-								<t:htmlTag value="div" style="height:10px;" />
-							</h:panelGrid>
+							<a4j:outputPanel id="listeQuestionsSupplementaires1">
+								<h:panelGrid align="center" width="500"
+									rowClasses="paginatorData-text"
+									columnClasses="paginatorData-text"
+									rendered="#{not empty centreController.listeQuestionsSupplementairesEnseignant1}">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold; font-size:16px;"
+											value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
+									</t:htmlTag>
+									<rich:list var="questionSup" style="margin-left:10px;"
+										value="#{centreController.listeQuestionsSupplementairesEnseignant1}">
+										<ui:include
+											src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
+									</rich:list>
+									<t:htmlTag value="div" style="height:10px;" />
+								</h:panelGrid>
+							</a4j:outputPanel>
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
@@ -165,7 +167,8 @@
 									action="#{centreController.avantAjoutQuestionEnseignant1}"
 									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
 									render="editQuestionEvalPanel">
-									<f:setPropertyActionListener value="_questionEval_editEtape1Ajout"
+									<f:setPropertyActionListener
+										value="_questionEval_editEtape1Ajout"
 										target="#{sessionController.editQuestionEvalCurrentPage}" />
 								</a4j:commandButton>
 							</t:htmlTag>
@@ -470,21 +473,23 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
-							<h:panelGrid align="center" width="500"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text"
-								rendered="#{not empty centreController.listeQuestionsSupplementairesEnseignant2}">
-								<t:htmlTag value="center">
-									<h:outputText style="font-weight:bold; font-size:16px;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
-								</t:htmlTag>
-								<rich:list var="questionSup" style="margin-left:10px;"
-									value="#{centreController.listeQuestionsSupplementairesEnseignant2}">
-									<ui:include
-										src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
-								</rich:list>
-								<t:htmlTag value="div" style="height:10px;" />
-							</h:panelGrid>
+							<a4j:outputPanel id="listeQuestionsSupplementaires2">
+								<h:panelGrid align="center" width="500"
+									rowClasses="paginatorData-text"
+									columnClasses="paginatorData-text"
+									rendered="#{not empty centreController.listeQuestionsSupplementairesEnseignant2}">
+									<t:htmlTag value="center">
+										<h:outputText style="font-weight:bold; font-size:16px;"
+											value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
+									</t:htmlTag>
+									<rich:list var="questionSup" style="margin-left:10px;"
+										value="#{centreController.listeQuestionsSupplementairesEnseignant2}">
+										<ui:include
+											src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
+									</rich:list>
+									<t:htmlTag value="div" style="height:10px;" />
+								</h:panelGrid>
+							</a4j:outputPanel>
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
@@ -492,7 +497,8 @@
 									action="#{centreController.avantAjoutQuestionEnseignant2}"
 									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
 									render="editQuestionEvalPanel">
-									<f:setPropertyActionListener value="_questionEval_editEtape1Ajout"
+									<f:setPropertyActionListener
+										value="_questionEval_editEtape1Ajout"
 										target="#{sessionController.editQuestionEvalCurrentPage}" />
 								</a4j:commandButton>
 							</t:htmlTag>

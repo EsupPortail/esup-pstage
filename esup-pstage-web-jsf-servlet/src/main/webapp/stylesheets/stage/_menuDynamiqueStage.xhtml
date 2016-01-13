@@ -244,7 +244,7 @@
 						|| not empty sessionController.droitsEvaluationEnseignantMap
 						|| not empty sessionController.droitsEvaluationEntrepriseMap}">
 						<h:commandLink
-							action="#{conventionController.goToRechercheEval}">
+							action="#{evaluationController.goToRechercheEval}">
 							<h:graphicImage alt="#{msgs['RECHERCHEEVALUATION.TITRE']}"
 								title="#{msgs['RECHERCHEEVALUATION.TITRE']}"
 								value="/media/images/zoom.png" style="border:0" />
@@ -254,7 +254,7 @@
 					<t:htmlTag value="li"
 						rendered="#{welcomeController.enseignantTuteur}">
 						<h:commandLink
-							action="#{conventionController.goToRechercheEvalEns}">
+							action="#{evaluationController.goToRechercheEvalEns}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
 								title="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
 								value="/media/images/list.png" style="border:0" />
@@ -264,7 +264,7 @@
 					<t:htmlTag value="li"
 						rendered="#{welcomeController.etudiant}">
 						<h:commandLink
-							action="#{conventionController.goToRechercheEvalEtu}">
+							action="#{evaluationController.goToRechercheEvalEtu}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
 								title="#{msgs['MENUSTAGE.EVALUATION.GESTEVAL']}"
 								value="/media/images/list.png" style="border:0" />
