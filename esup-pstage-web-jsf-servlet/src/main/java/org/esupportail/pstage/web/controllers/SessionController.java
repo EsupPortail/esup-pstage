@@ -479,7 +479,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * MODIF SERVICE
 	 */
-	private String modifServiceCurrentPage = "_modifServiceEtape0";
+	private String modifServiceCurrentPage = "_modifServiceEtape1";
 	/**
 	 * SUPPRESSION SERVICE
 	 */
@@ -491,7 +491,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * MODIF CONTACT
 	 */
-	private String modifContactCurrentPage = "_modifContactEtape0";
+	private String modifContactCurrentPage = "_modifContactEtape1";
 	/**
 	 * SUPPRESSION CONTACT
 	 */

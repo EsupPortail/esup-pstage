@@ -33,13 +33,13 @@
 				<rich:message for="raisonSociale">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
-				<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" />
-				<h:inputText id="groupe" style="text-transform:uppercase;"
-					value="#{etablissementController.formStructure.groupe}" size="50"
-					maxlength="50" converter="#{sansAccentEnMAJConverter}" />
-				<rich:message for="groupe">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+<!-- 				<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" /> -->
+<!-- 				<h:inputText id="groupe" style="text-transform:uppercase;" -->
+<!-- 					value="#{etablissementController.formStructure.groupe}" size="50" -->
+<!-- 					maxlength="50" converter="#{sansAccentEnMAJConverter}" /> -->
+<!-- 				<rich:message for="groupe"> -->
+<!-- 					<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+<!-- 				</rich:message> -->
 				<h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *"
 					for="effectif" />
 				<h:selectOneMenu id="effectif"
@@ -215,7 +215,7 @@
 		</h:panelGrid>
 		<h:panelGrid columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text" columns="1">
-			<rich:editor id="actprinc"
+			<h:inputTextarea id="actprinc"
 				value="#{etablissementController.formStructure.activitePrincipale}"
 				width="400" height="200" />
 			<rich:message for="actprinc">

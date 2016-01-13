@@ -87,7 +87,7 @@ StudentDataRepositoryDao {
 	 */
 	private LdapAttributes ldapAttributes;
 
-	
+
 	/**
 	 * @see org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao#getEtudiantRef(java.lang.String, java.lang.String)
 	 */
@@ -143,9 +143,9 @@ StudentDataRepositoryDao {
 		if (!this.ldapStudentIdIsCODETU) { 
 			codEtu = getStudentCodEtu(codEtu);
 		}
-		
-		
-		
+
+
+
 		EtudiantRef studentApogee = new EtudiantRef();
 		EtudiantRef s = new EtudiantRef();
 		AdministrationApogee adminApogee = new AdministrationApogee();
@@ -197,10 +197,9 @@ StudentDataRepositoryDao {
 		List<LdapUser> listeLdapUser = ldapUserService.getLdapUsersFromFilter(filter);
 
 		EtudiantRef studentLdap = new EtudiantRef();
-		
+
 		if (listeLdapUser.isEmpty()) {
-			
-//			return null;
+			// return null;
 		} else {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Nombre d'etudiants trouves dans le ldap : " + listeLdapUser.size());
@@ -209,7 +208,7 @@ StudentDataRepositoryDao {
 			List <EtudiantRef> liste = new ArrayList<EtudiantRef>();
 			for (Iterator<LdapUser> iter = listeLdapUser.iterator(); iter.hasNext();) {
 				LdapUser ldapuser = iter.next();
-	
+
 				// creation d'un user et alimentation des donnees 
 				EtudiantRef etudiantUser = new EtudiantRef();
 				etudiantUser.setIdentEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapUid()));
@@ -236,7 +235,7 @@ StudentDataRepositoryDao {
 				logger.debug("studentLdap.getMail() = "+studentLdap.getMail());
 			}
 		}
-		
+
 		EtudiantRef studentApogee = new EtudiantRef();
 		EtudiantRef s = new EtudiantRef();
 		AdministrationApogee adminApogee = new AdministrationApogee();
@@ -416,12 +415,12 @@ StudentDataRepositoryDao {
 		Date dateNais = new Date();
 		// libelle CPAM etudiant
 		String libelleCPAM = "";
-		
+
 		// Ajout des variables d'annee (pour permettre la modif d'anciennes conventions)
 		String anneeCourante = "";
 		String anneePrecedente = "";
 		String anneeSuivante = "";
-		
+
 		if (annee != null && !annee.isEmpty()){
 			anneeCourante = annee;
 			anneePrecedente = String.valueOf((Utils.convertStringToInt(annee)-1));
@@ -950,12 +949,19 @@ StudentDataRepositoryDao {
 				Object idlComp = insAdmEtp.getComposante().getCodComposante();
 				String libComp = insAdmEtp.getComposante().getLibComposante();
 				if(libComp == null){
-					ComposanteDTO3[] composante = referentielMetierService.recupererComposante_v2((String)idlComp, null);
-					if(composante[0]!=null && composante[0].getLibCmp()!=null){
-						libComp=composante[0].getLibCmp();
+					ComposanteDTO3[] composante;
+					try {
+						composante = referentielMetierService.recupererComposante_v2((String)idlComp, null);
+						if(composante != null && composante[0]!=null && composante[0].getLibCmp()!=null){
+							libComp=composante[0].getLibCmp();
+						}
+						lComposante.put(idlComp + "" , libComp);
+					} catch (WebBaseException e) {
+						composante = new ComposanteDTO3[0];
+						logger.warn("WebBaseException recupererComposante_v2 : " + e );
+						continue;
 					}
 				}
-				lComposante.put(idlComp + "" , libComp);
 
 				//**********************
 				// POUR LES ETAPES

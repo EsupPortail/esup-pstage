@@ -6,9 +6,12 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<ui:include src="_confirmationMessages.xhtml" />
+	<h:panelGrid align="center">
+		<ui:include src="_confirmationMessages.xhtml" />
 
-	<h:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		onclick="#{rich:component('modifService')}.hide();" />
-
+		<t:htmlTag value="center">
+			<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
+				onclick="#{rich:component('modifService')}.hide();" />
+		</t:htmlTag>
+	</h:panelGrid>
 </ui:composition>

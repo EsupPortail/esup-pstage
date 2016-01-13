@@ -49,14 +49,14 @@
 		<fo:block padding-top="8pt">
 			<xsl:call-template name="AnnexeArticlesPage6" />
 		</fo:block>
-		<fo:block break-after="page" />
-		<fo:block>
-			<xsl:call-template name="Attestation" />
-		</fo:block>
-		<fo:block break-after="page" />
-		<fo:block>
-			<xsl:call-template name="FicheStageEtranger" />
-		</fo:block>
+		<!-- <fo:block break-after="page" /> -->
+		<!-- <fo:block> -->
+		<!-- <xsl:call-template name="Attestation" /> -->
+		<!-- </fo:block> -->
+		<!-- <fo:block break-after="page" /> -->
+		<!-- <fo:block> -->
+		<!-- <xsl:call-template name="FicheStageEtranger" /> -->
+		<!-- </fo:block> -->
 		<fo:block>
 			<xsl:choose>
 				<xsl:when test="document('config.xml')/config/triptik">
@@ -117,7 +117,7 @@
 			country="FR" font-size="9pt" font-family="Times New Roman,serif"
 			padding-top="0.1cm" font-style="italic" text-decoration="underline"
 			font-weight="bold">
-			Fichas a adjuntar al Acuerdo :
+			Documenti da allegare alla convenzione :
 		</fo:block>
 		<fo:block line-height="100%" hyphenate="false" language="fr"
 			country="FR" font-size="8pt" font-family="Times New Roman,serif"
@@ -128,10 +128,10 @@
 			country="FR" font-size="9pt" font-family="Times New Roman,serif"
 			padding-top="0.2cm" font-style="italic">
 			<fo:inline font-weight="bold">
-				1) Certificado de prácticas
+				1) Attestato di tirocinio
 			</fo:inline>
 			<fo:inline font-weight="bold" font-size="8pt">
-				(página siguiente)
+				(pagina seguente)
 			</fo:inline>
 		</fo:block>
 		<fo:block line-height="100%" hyphenate="false" language="fr"
@@ -143,12 +143,12 @@
 			country="FR" font-size="9pt" font-family="Times New Roman,serif"
 			padding-top="0.2cm" font-style="italic">
 			<fo:inline font-weight="bold">
-				2) Ficha de prácticas en el
-				extranjero
+				2) Scheda tirocinio all'estero
 			</fo:inline>
 			<fo:inline font-weight="bold" font-size="8pt">
-				(información sobre
-				seguridad social: cleiss.fr; información por países:
+				(per informazioni
+				sulla previdenza sociale, visitare il sito cleiss.fr, per i
+				documenti inerenti a ciascun paese, visitare il sito
 				diplomatie.gouv.fr)
 			</fo:inline>
 		</fo:block>
@@ -168,10 +168,10 @@
 			country="FR" font-size="9pt" font-family="Times New Roman,serif"
 			padding-top="0.2cm" font-style="italic">
 			<fo:inline font-weight="bold">
-				3) Otros anexos
+				3) Altri allegati
 			</fo:inline>
 			<fo:inline font-weight="bold" font-size="8pt">
-				(en su caso)
+				(se del caso)
 			</fo:inline>
 		</fo:block>
 		<fo:block line-height="100%" hyphenate="false" language="fr"
@@ -228,7 +228,7 @@
 						<fo:table-cell width="3cm">
 							<fo:block width="3.493cm" line-height="110%" language="fr"
 								country="FR" font-size="12pt" text-align="right">
-								Année universitaire
+								Anno accademico
 								<xsl:value-of select="annee" />
 							</fo:block>
 						</fo:table-cell>
@@ -254,11 +254,11 @@
 							hyphenate="false" language="fr" country="FR" font-size="14pt"
 							font-family="Times New Roman,serif" text-align="center">
 							<fo:inline font-weight="bold">
-								Acuerdo de prácticas
+								Convenzione di stage
 								<xsl:text> </xsl:text>
 								n°
 								<xsl:value-of select="id-convention" />
-								entre
+								tra
 
 							</fo:inline>
 						</fo:block>
@@ -283,14 +283,10 @@
 			country="FR" font-size="7.5pt" font-family="Times New Roman,serif"
 			padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 			font-style="italic">
-			Nota: para facilitar la lectura del documento, las
-			palabras
-			«estudiante en prácticas»,
-			«profesor referente», «tutor de
-			prácticas»,
-			«representante legal»
-			y «estudiante» se emplean en
-			masculino
+			Nota : per facilitare la lettura del documento, le parole
+			"stagista o tirocinante", "insegnante di riferimento o referente",
+			"tutor di stage", "rappresentante legale", "studente" sono utilizzate
+			al maschile.
 		</fo:block>
 		<fo:block line-height="110%" hyphenate="false" language="fr"
 			country="FR" font-size="6.5pt" font-family="Times New Roman,serif"
@@ -321,8 +317,8 @@
 							padding-bottom="0.035cm" text-align="center">
 							<fo:inline font-weight="bold">
 								1 -
-								<fo:inline text-decoration="underline">EL ESTABLECIMIENTO DE
-									ENSEÑANZA o DE FORMACIÓN
+								<fo:inline text-decoration="underline">L'ISTITUTO DI ISTRUZIONE
+									SUPERIORE O DI FORMAZIONE
 								</fo:inline>
 							</fo:inline>
 						</fo:block>
@@ -339,7 +335,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Nombre
+								Nome
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Nom)
 							</fo:inline>
@@ -360,7 +356,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Dirección
+								Indirizzo
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Adresse)
 							</fo:inline>
@@ -394,8 +390,8 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Representado por (firmante del
-								acuerdo)
+								Rappresentato da (segnatario
+								della convenzione)
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Représenté
 								par (nom du
@@ -422,7 +418,7 @@
 												padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 												padding-bottom="0.035cm">
 												<fo:inline font-weight="bold">
-													Cargo del representante
+													In qualità di
 												</fo:inline>
 												<fo:inline font-style="italic" font-size="8pt">(Qualité
 													du représentant)
@@ -468,7 +464,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Facultad/Instituto
+								Componente/UFR
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Composante/UFR)
 							</fo:inline>
@@ -481,8 +477,8 @@
 							country="FR" font-size="9pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm">
 							<fo:inline font-weight="bold">
-								Dirección (si fuera diferente a
-								la del establecimiento)
+								Indirizzo (se differente da
+								quello dell'istituto)
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Adresse (si
 								différente de celle
@@ -527,7 +523,7 @@
 							<fo:inline font-weight="bold">
 								2 -
 								<fo:inline text-decoration="underline">
-									EL ORGANISMO DE ACOGIDA
+									L'ORGANISMO OSPITANTE
 								</fo:inline>
 							</fo:inline>
 						</fo:block>
@@ -543,7 +539,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Nombre
+								Nome
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Nom)
 							</fo:inline>
@@ -556,7 +552,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Dirección
+								Indirizzo
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Adresse)
 							</fo:inline>
@@ -579,8 +575,8 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Representado por (nombre del
-								firmante del acuerdo)
+								Rappresentato da (segnatario
+								della convenzione)
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Représenté
 								par (nom du
@@ -605,7 +601,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Cargo del representante
+								In qualità di
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Qualité du
 								représentant)
@@ -619,8 +615,8 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Servicio en el que se realizarán
-								las prácticas
+								Ufficio o servizio di
+								svolgimento dello stage
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Service dans
 								lequel le stage
@@ -650,9 +646,8 @@
 								padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 								padding-bottom="0.035cm">
 								<fo:inline font-weight="bold">
-									Lugar de las prácticas (si
-									fuera diferente a la dirección del
-									organismo)
+									Luogo di svolgimento dello
+									stage (se diverso dall'indirizzo dell'organismo):
 								</fo:inline>
 								<fo:inline font-style="italic" font-size="8pt"> (Lieu du
 									stage (si différent de
@@ -695,11 +690,11 @@
 						<fo:block line-height="110%" hyphenate="false" language="fr"
 							country="FR" font-family="Times New Roman,serif" padding-left="0.141cm"
 							padding-right="0.141cm" padding-top="0cm" padding-bottom="0.035cm"
-							text-align="center">
+							text-align="center" font-size="9pt">
 							<fo:inline font-weight="bold">
 								3 -
-								<fo:inline text-decoration="underline" font-size="9pt">EL
-									ESTUDIANTE EN PRÁCTICAS
+								<fo:inline text-decoration="underline" font-size="9pt">IL
+									TIROCINANTE
 								</fo:inline>
 								<fo:inline font-style="italic" font-size="6.5pt">(LE
 									STAGIAIRE)
@@ -712,7 +707,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Apellidos
+								Nome
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Nom)
 							</fo:inline>
@@ -721,7 +716,7 @@
 							<xsl:value-of select="translate(etudiant/nom,$lowers,$uppers)" />
 							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 							<fo:inline font-weight="bold">
-								Nombre
+								Cognome
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Prénom)
 							</fo:inline>
@@ -735,12 +730,12 @@
 							</xsl:call-template>
 							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 							<fo:inline font-weight="bold">
-								Sexo :
+								Sesso :
 							</fo:inline>
 							<xsl:value-of select="etudiant/code-sexe" />
 							&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
 							<fo:inline font-weight="bold">
-								Nacido/a el
+								Nato/a il
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Né le)
 							</fo:inline>
@@ -754,7 +749,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Número de estudiante
+								Numero Studente
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Numéro
 								d'étudiant)
@@ -766,7 +761,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Dirección
+								Indirizzo
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Adresse)
 							</fo:inline>
@@ -803,10 +798,9 @@
 							country="FR" font-size="8pt" font-family="Times New Roman,serif"
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm" text-align="justify" font-weight="bold">
-							TÍTULO
-							DE LA FORMACIÓN O DEL PLAN DE ESTUDIOS SEGUIDO EN EL
-							ESTABLECIMIENTO DE ENSEÑANZA SUPERIOR Y NÚMERO DE HORAS (ANUAL O
-							SEMESTRAL) :
+							DENOMINAZIONE DELLA FORMAZIONE O DEL PERCORSO DI FORMAZIONE
+							SEGUITO NELL'ISTITUTO DI ISTRUZIONE SUPERIORE E VOLUME ORARIO
+							(ANNUALE O SEMESTRALE):
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-size="7pt" font-family="Times New Roman,serif"
@@ -828,7 +822,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Nùmero de horas
+								Numero di ore di formazione
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">
 								(Nombre
@@ -862,7 +856,7 @@
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold" text-decoration="underline"
 								font-size="9pt">
-								TEMA DE LAS PRÁCTICAS
+								OGGETTO DELLO STAGE
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="7pt">(SUJET DE
 								STAGE)
@@ -874,7 +868,7 @@
 								<xsl:value-of select="sujet-stage" />
 							</xsl:if>
 							<xsl:if test="tem-conf-sujet-teme = 'O'">
-								Confidentiel
+								Confidenziale
 							</xsl:if>
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
@@ -882,17 +876,16 @@
 							padding-left="0.5cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Fechas :
+								Date :
 							</fo:inline>
 							<xsl:text> </xsl:text>
 							<fo:inline font-weight="bold">
-								Del
+								Dal
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Du)
 							</fo:inline>
 							<fo:inline> :
 							</fo:inline>
-
 
 							<xsl:text> </xsl:text>
 							<xsl:value-of
@@ -911,7 +904,7 @@
 							<xsl:if test="@interruption-stage = 'true'">
 								<xsl:text> </xsl:text>
 								<fo:inline font-weight="bold">
-									con interrupción del
+									con interruzione di
 								</fo:inline>
 								<fo:inline font-style="italic" font-size="8pt">(avec
 									interruption du)
@@ -939,29 +932,29 @@
 											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 											padding-bottom="0.035cm">
 											<fo:inline>
-												Representando una
+												Per una
 											</fo:inline>
-											<fo:inline font-weight="bold"> duración total
+											<fo:inline font-weight="bold"> durata totale
 											</fo:inline>
-											<fo:inline> de :
+											<fo:inline> di :
 											</fo:inline>
 
 											<xsl:value-of select="duree-exceptionnelle" />
 											<xsl:text> </xsl:text>
 											<xsl:if test="id-unite-duree-exceptionnelle = '1'">
-												horas
+												ore
 											</xsl:if>
 											<xsl:if test="id-unite-duree-exceptionnelle = '2'">
-												días
+												giorni
 											</xsl:if>
 											<xsl:if test="id-unite-duree-exceptionnelle = '3'">
-												Semanas
+												settimane
 											</xsl:if>
 											<xsl:if test="id-unite-duree-exceptionnelle = '4'">
-												Meses
+												mesi
 											</xsl:if>
 											<xsl:if test="id-unite-duree-exceptionnelle = '5'">
-												año
+												anno
 											</xsl:if>
 										</fo:block>
 									</xsl:when>
@@ -971,13 +964,13 @@
 											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 											padding-bottom="0.035cm">
 											<fo:inline font-weight="bold">
-												Que corresponden a
+												Corrispondente a
 											</fo:inline>
 											<xsl:value-of select="duree-exceptionnelle" />
-											<xsl:text> horas </xsl:text>
+											<xsl:text> ore </xsl:text>
 											<fo:inline font-weight="bold">
-												de presencia efectiva en el
-												organismo de acogida
+												di presenza effettiva
+												nell'organismo ospitante
 											</fo:inline>
 										</fo:block>
 										<fo:block line-height="130%" hyphenate="false"
@@ -995,7 +988,7 @@
 											padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 											padding-bottom="0.035cm">
 											<fo:inline font-weight="bold">
-												y que corresponden a
+												E corrispondente a
 											</fo:inline>
 											<fo:inline font-style="italic" font-size="8pt">(et
 												correspondant à )
@@ -1007,11 +1000,11 @@
 											<xsl:variable name="nbJoursRestants" select="$nbJours mod 22" />
 
 											<xsl:value-of select="$nbMois" />
-											<xsl:text> Meses  </xsl:text>
+											<xsl:text> mesi  </xsl:text>
 											<xsl:value-of select="$nbJoursRestants" />
-											<xsl:text> días </xsl:text>
+											<xsl:text> giorni </xsl:text>
 											<xsl:value-of select="$nbHeuresRestantes" />
-											<xsl:text> horas  </xsl:text>
+											<xsl:text> ore  </xsl:text>
 											<fo:inline font-style="italic" font-size="8pt">
 												(... mois
 												... jours ... semaines)
@@ -1026,12 +1019,11 @@
 									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 									padding-bottom="0.035cm">
 									<fo:inline font-weight="bold">
-										Representando una duración
-										total de :
+										Per una durata totale di :
 									</fo:inline>
 									<xsl:value-of select="duree-stage" />
 									<xsl:text> </xsl:text>
-									semanas
+									settimmane
 									<fo:inline font-style="italic" font-size="8pt">(Représentant
 										une durée totale de ... semaines)
 									</fo:inline>
@@ -1047,8 +1039,8 @@
 										padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 										padding-bottom="0.035cm">
 										<fo:inline font-weight="bold">
-											Repartición en caso de
-											presencia discontinua
+											In caso di presenza
+											discontinua, ripartizione:
 										</fo:inline>
 										<fo:inline font-style="italic" font-size="8pt">(Répartition
 											si présence
@@ -1060,7 +1052,7 @@
 										<xsl:value-of select="nb-heures-hebdo" />
 										<xsl:text> </xsl:text>
 										<fo:inline font-weight="bold">
-											horas a la semana
+											numero di ore a settimana
 										</fo:inline>
 										<fo:inline font-style="italic" font-size="8pt">
 											(heures par
@@ -1076,7 +1068,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Comentario
+								Commenti
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Commentaire)
 							</fo:inline>
@@ -1115,8 +1107,8 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm" font-weight="bold" text-align="center"
 							text-decoration="underline">
-							ACOMPAÑAMIENTO DEL ESTUDIANTE EN PRÁCTICAS POR EL
-							ESTABLECIMIENTO DE ENSEÑANZA
+							INQUADRAMENTO DEL TIROCINANTE IN SENO
+							ALL'ISTITUTO DI ISTRUZIONE SUPERIORE
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-family="Times New Roman,serif" padding-left="0.141cm"
@@ -1131,8 +1123,8 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Apellidos y nombre del profesor
-								referente
+								Nome e cognome dell'insegnante
+								di riferimento
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Nom et
 								prénom
@@ -1155,7 +1147,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Cargo (o disciplina)
+								Funzione (o disciplina)
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Fonction (ou
 								discipline))
@@ -1188,8 +1180,8 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm" font-weight="bold" text-align="center"
 							text-decoration="underline">
-							ACOMPAÑAMIENTO DEL ESTUDIANTE EN PRÁCTICAS POR EL
-							ORGANISMO DE ACOGIDA
+							INQUADRAMENTO DEL TIROCINANTE IN SENO
+							ALL'ORGANISMO OSPITANTE
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-family="Times New Roman,serif" padding-left="0.141cm"
@@ -1203,8 +1195,8 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Apellidos y nombre del tutor de
-								prácticas
+								Nome e cognome del tutor di
+								stage
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Nom et
 								prénom
@@ -1227,7 +1219,7 @@
 							padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
 							padding-bottom="0.035cm">
 							<fo:inline font-weight="bold">
-								Cargo
+								Funzione
 							</fo:inline>
 							<fo:inline font-style="italic" font-size="8pt">(Fonction)
 							</fo:inline>
@@ -1273,11 +1265,10 @@
 						padding-top="0.2cm" padding-bottom="0.035cm" border="0.018cm solid #000000">
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-size="9pt" font-family="Times New Roman,serif">
-							Seguridad social o
-							seguro médico principal al que contactar
-							en caso de accidente (el
-							del
-							lugar del domicilio del estudiante salvo excepción) :
+							Ente sanitario da
+							contattare in caso di incidente (Cassa Primaria di Assicurazione
+							Malattia del luogo di domicilio del tirocinante, tranne casi
+							eccezionali) :
 						</fo:block>
 						<fo:block line-height="130%" hyphenate="false" language="fr"
 							country="FR" font-size="8pt" font-family="Times New Roman,serif"
@@ -1312,14 +1303,14 @@
 		<fo:block line-height="110%" hyphenate="false" language="fr"
 			country="FR" font-size="8pt" font-family="Times New Roman,serif"
 			padding-top="10pt" text-align="center">
-			Fecha de imprenta :
+			Stampa data :
 			<xsl:value-of
 				select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
 		</fo:block>
 		<fo:block line-height="110%" hyphenate="false" language="fr"
 			country="FR" font-size="7pt" font-family="Times New Roman,serif"
 			text-align="center" font-style="italic">
-			(Convention imprimée le : ...)
+			(Date d'impression : ...)
 		</fo:block>
 	</xsl:template>
 	<xsl:template name="ArticlesPage2">
@@ -1335,17 +1326,13 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">Artículo 1 - Objeto del acuerdo
+								font-weight="bold">Articolo 1 - Oggetto della convenzione
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								El presente acuerdo regula las relaciones del
-								organismo de
-								acogida con
-								el establecimiento de enseñanza superior y
-								el
-								estudiante en prácticas.
+								La presente convenzione regola i rapporti tra l'organismo
+								ospitante e l'istituto di formazione del tirocinante.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								background-color="#E6E6E6" padding-bottom="2pt" hyphenate="false"
@@ -1372,48 +1359,33 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
 								font-weight="bold">
-								Artículo 2 - Objetivo de las prácticas
+								Articolo 2 - Obiettivo dello stage
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Las prácticas de formación permiten al estudiante acceder
-								de
-								manera temporal a un entorno
-								profesional en el que adquiere
-								competencias profesionales
-								y pone en práctica
-								los conocimientos
-								adquiridos durante su formación con vistas a la
-								obtención
-								de un
-								título o certificación y para
-								favorecer su inserción profesional.
-								El estudiante en
-								prácticas recibe una
-								o varias
-								misiones
-								relacionadas con el proyecto pedagógico
-								del
-								establecimiento de
-								enseñanza
-								y aprobadas por el organismo de
-								acogida.
+								Lo stage corrisponde a un periodo di tempo limitato che permette
+								allo studente di sperimentare l'inserimento in ambiente
+								professionale. Grazie ad esso, lo studente acquisisce nuove
+								competenze mentre applica quelle già acquisite durante il suo
+								percorso di formazione, in vista dell'ottenimento di un diploma
+								o di una certificazione. Lo stage è volto a facilitare
+								l'inserimento professionale dello studente. Allo stagista
+								saranno affidate una o due missioni conformi al progetto
+								pedagogico definito dal suo istituto di formazione e approvato
+								dall'organismo ospitante.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								El programa de las prácticas es diseñado
-								por el
-								establecimiento y
-								el organismo de acogida según el programa
-								general de la formación
-								impartida.
+								Il programma è stabilito dall'istituto di formazione
+								e dall'organismo ospitante in funzione del programma generale
+								della formazione seguita.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline text-decoration="underline">ACTIVIDADES ENCOMENDADAS
+								<fo:inline text-decoration="underline">ATTIVITÀ DI STAGE
 								</fo:inline>
 								:
 							</fo:block>
@@ -1424,26 +1396,14 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline text-decoration="underline"> COMPETENCIAS A ADDQUIRIR O
-									A DESARROLLAR
+								<fo:inline text-decoration="underline"> COMPETENZE DA ACQUISIRE O
+									DA SVILUPPARE
 								</fo:inline>
 								:
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
+							<fo:block line-height="110%" hyphenate="true" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								.......................................................................................................
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								.......................................................................................................
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								.......................................................................................................
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
+								<xsl:value-of select="competences" />
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -1531,27 +1491,26 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
 								font-weight="bold">
-								Artículo 3 - Modalidad de las prácticas
+								Articolo 3 - Modalità di svolgimento dello stage
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								La presencia semanal del estudiante
-								en prácticas en la empresa
-								será de
+								La durata settimanale e la presenza dello stagista presso
+								l'organismo ospitante sarà di
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="nb-heures-hebdo" />
 								</fo:inline>
-								horas en base a
+								ore, calcolate sulla base di un contratto
 								<fo:inline font-weight="bold">
 									<xsl:choose>
 										<xsl:when
 											test="temps-travail/code-ctrl='TCOMP' or temps-travail/code-ctrl='TPART'">
 											<xsl:if test="temps-travail/code-ctrl='TCOMP'">
-												tiempo completo.
+												ordinario.
 											</xsl:if>
 											<xsl:if test="temps-travail/code-ctrl='TPART'">
-												tiempo parcial.
+												part-time.
 											</xsl:if>
 										</xsl:when>
 										<xsl:otherwise>
@@ -1570,11 +1529,8 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Si el estudiante debe estar presente en el organismo
-								de acogida
-								por la noche,
-								un domingo o un día festivo,
-								precisar los casos :
+								Servizio presso l'organismo ospitante nelle ore notturne, la
+								domenica o in giorni feriali, precisare i casi particolari :
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="travail-nuit-ferie" />
 								</fo:inline>
@@ -1620,92 +1576,69 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify"
-								font-weight="bold">Artículo 4 - Acogida y acompañamiento del estudiante
-								en prácticas
+								font-weight="bold">Articolo 4 - Accoglienza e inserimento del
+								tirocinante
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								El estudiante es seguido por un profesor referente
-								nombrado en el
-								presente acuerdo,
-								así como por el servicio del
-								establecimiento
-								encargado de las prácticas.
+								Il tirocinante è seguito dall'insegnante di riferimento
+								designato nella presente convenzione, come anche dal servizio
+								dedicato agli stage dell'istituto di formazione.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								El tutor de las prácticas nombrado por el organismo
-								de acogida en
-								el presente acuerdo
-								es responsable del seguimiento del estudiante
-								y de
-								la optimización de las condiciones
-								de realización de las
-								prácticas de acuerdo con las
-								estipulaciones pedagógicas
-								definidas.
+								Il tutor dello stage, designato dall'organismo ospitante nel
+								presente documento, ha il compito di assicurare il monitoraggio
+								dell'esperienza del tirocinante e di ottimizzare le condizioni
+								di realizzazione dello stage, conformemente agli obiettivi
+								pedagogici individuati.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								El estudiante puede volver al establecimiento de enseñanza
-								durante el periodo de prácticas
-								para asistir a ciertas clases
-								explícitamente requeridas
-								por el
-								programa o participar en
-								reuniones; las fechas serán
-								pertinentemente transmitidas
-								al
-								organismo de acogida por
-								parte del
-								establecimiento.
+								Il tirocinante, durante lo stage, è autorizzato a recarsi presso
+								l'istituto di provenienza per seguire lezioni esplicitamente
+								richieste dal programma, o per partecipare a eventuali riunioni,
+								le cui date saranno rese note dall'istituto di appartenenza
+								all'organismo ospitante.
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
-								(Artículo 4 continuación)
+								(Articolo 4 continuazione)
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt">
-								El organismo de
-								acogida puede autorizar el desplazamiento del
-								estudiante.
+								L'organismo
+								ospitante potrà autorizzare il tirocinante a spostarsi.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								Cualquier dificultad que pueda surgir en la realización o
-								desarrollo
-								de las prácticas, ya sea constatada por
-								el estudiante o
-								por el
-								tutor de prácticas, debe ponerse en
-								conocimiento del
-								profesor referente
-								y del establecimiento de enseñanza para ser
-								resuelta
-								cuanto antes.
+								Qualsiasi difficoltà riscontrata durante lo svolgimento del
+								tirocinio, constatata dal tirocinante o dal tutor assegnatogli,
+								dovrà essere sottoposta all'attenzione dell'insegnate referente
+								e dell'istituto di appartenenza, così da poter essere risolta
+								nel più breve tempo possibile.
 							</fo:block>
+
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="9pt" font-family="Times New Roman,serif" text-align="justify">
 								<fo:inline text-decoration="underline">
-									MODALIDADES DE
-									ACOMPAÑAMIENTO
+									MODALITÀ DI INSERIMENTO
 								</fo:inline>
-								(visitas, citas telefónicas, etc) :
+								(visite, appuntamenti telefonici, etc) :
 							</fo:block>
 							<xsl:choose>
 								<xsl:when test="mode-encadre-suivi and mode-encadre-suivi != ''">
-									<fo:block line-height="110%" hyphenate="false" language="fr"
-										country="FR" font-size="10pt" font-family="Times New Roman,serif">
-										<fo:inline font-weight="bold">
-											<xsl:value-of select="mode-encadre-suivi" />
-										</fo:inline>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif"
+										font-weight="bold">
+										<xsl:value-of select="mode-encadre-suivi" />
 									</fo:block>
 								</xsl:when>
 								<xsl:otherwise>
@@ -1715,6 +1648,7 @@
 									</fo:block>
 								</xsl:otherwise>
 							</xsl:choose>
+
 							<fo:block line-height="100%" padding-top="2pt"
 								hyphenate="false" language="fr" country="FR" font-size="9pt"
 								font-family="Times New Roman,serif" text-align="justify"
@@ -1750,93 +1684,64 @@
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								keep-with-next="always" text-align="justify" font-weight="bold">Artículo
-								5 - Gratificación - Beneficios
+								keep-with-next="always" text-align="justify" font-weight="bold">Articolo
+								5 - Gratificazioni - Vantaggi
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								En Francia, si la duración de las prácticas es superior a dos
-								meses,
-								consecutivos o no, estas deben
-								ser objeto de una
-								gratificación, salvo en caso de normas
-								particulares aplicables en
-								algunas
-								colectividades de ultramar francesas o en las prácticas
-								enmarcadas en el
-								artículo L4381-1
-								del Código de Salud Pública.
+								In Francia, qualsiasi tipo di stage dalla durata di due mesi che
+								siano consecutivi o meno, è obbligatoriamente oggetto di una
+								gratificazione in denaro, eccezion fatta per particolari regole
+								applicabili in alcune collettività d'oltremare francesi e per le
+								tipologie di stage disciplinate dall'articolo L4381-1 del Codice
+								di Deontologia Medica francese.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								El importe horario de la gratificación está fijado en
-								un 15 %
-								de la base máxima horaria de la
-								Seguridad Social
-								definida
-								en aplicación del artículo L 241-3
-								del Código de
-								la
-								Seguridad
-								Social.
-								Se puede establecer un importe superior a este
-								porcentaje
-								por
-								convenio colectivo sectorial
-								o por acuerdo
-								profesional.
+								L'importo orario della gratificazione è fissato al
+								15% del tetto orario massimo di previdenza sociale definito in
+								applicazione dell'articolo L.241-3 del Codice di Previdenza
+								Sociale francese. Una convenzione di settore o uno specifico
+								accordo professionale può definire un importo orario superiore.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								La gratificación debida por un organismo de derecho
-								público
-								no puede acumularse a una
-								remuneración pagada por este
-								mismo organismo
-								durante el mismo periodo.
+								La gratificazione dovuta da un organismo di diritto
+								pubblico non può essere cumulata con una remunerazione versata
+								dallo stesso organismo durante il periodo interessato.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								La gratificación se debe sin perjuicio del reembolso
-								de los gastos incurridos por
-								el estudiante durante las prácticas
-								y de los
-								beneficios que se le ofrezcan,
-								en su caso, para comida,
-								alojamiento y
-								transporte.
+								La gratificazione è dovuta indipendentemente dal
+								rimborso delle spese affrontate del tirocinante durante lo stage
+								e i vantaggi dovuti, se del caso, per la ristorazione,
+								l'alloggio e il trasporto.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								El organismo puede establecer una gratificación
-								para prácticas de
-								duración
-								inferior o igual a dos meses.
+								L'organismo può altresì decidere di versare una gratificazione
+								per gli stage di una durate inferiore o pari a due mesi.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								En caso de suspensión
-								o ruptura del presente acuerdo,
-								la cuantía de la gratificación
-								debida al estudiante se calcula a
-								prorrata según
-								la duración de
-								las prácticas efectuadas.
+								In caso di sospensione
+								o scioglimento della presente convenzione, l'importo della
+								gratificazione dovuta al tirocinante sarà calcolata pro rata in
+								funzione della durata dello stage effettuato.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								La duración con
-								derecho a gratificación se determina en
-								atención al presente
-								acuerdo y a
-								sus posibles anexos, así como al número de días de
-								presencia efectiva del estudiante
-								en prácticas en el organismo.
+								La durata a partire
+								dalla quale il tirocinante ha diritto alla gratificazione sarà
+								individuata tenendo conto della presente convenzione e delle
+								eventuali clausole ad essa allegate, così come del numero di
+								giorni di presenza effettiva del tirocinante presso l'organismo
+								ospitante.
 							</fo:block>
 							<xsl:variable name="indemnisation" select="id-indemnisation" />
 							<xsl:choose>
@@ -1846,10 +1751,10 @@
 								<xsl:otherwise>
 									<fo:block line-height="130%" hyphenate="false"
 										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
-										<fo:inline text-decoration="underline">El IMPORTE DE LA
-											GRATIFICACIÓN
+										<fo:inline text-decoration="underline">L'IMPORTO DELLA
+											GRATIFICAZIONE
 										</fo:inline>
-										se fija en
+										è fissato a
 										<xsl:variable name="nb-montant-gratification"
 											select="montant-gratification" />
 										<xsl:choose>
@@ -1860,10 +1765,15 @@
 												<fo:inline font-weight="bold">
 													<xsl:value-of select="montant-gratification" />
 												</fo:inline>
-												euros
+												<!-- euros -->
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="monnaie-gratification" />
 												<xsl:text> </xsl:text>
 												<xsl:value-of select="unite-gratification/libelle" />
-												al mes.
+												per
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="unite-duree-gratification/libelle" />
+												.
 											</xsl:otherwise>
 										</xsl:choose>
 									</fo:block>
@@ -1872,7 +1782,7 @@
 										<fo:block line-height="110%" hyphenate="false"
 											language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
 											<fo:inline text-decoration="underline">
-												Método de pago
+												Modalità di pagamento
 											</fo:inline>
 											:
 											<xsl:value-of select="mode-vers-gratification/libelle" />
@@ -1884,7 +1794,7 @@
 								<fo:block line-height="130%" hyphenate="false"
 									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
 									<fo:inline text-decoration="underline">
-										OTROS BENEFICIOS ACORDADOS
+										ALTRI VANTAGGI ACCORDATI
 									</fo:inline>
 									:
 									<fo:inline font-weight="bold">
@@ -2041,7 +1951,10 @@
 
 											</xsl:when>
 											<xsl:otherwise>
-												... euros
+												...
+												<!-- euros -->
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="monnaie-gratification" />
 												<xsl:text> </xsl:text>
 												<xsl:value-of select="unite-gratification/libelle" />
 												par
@@ -2089,25 +2002,22 @@
 						<fo:table-cell padding-right="10pt">
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold">Artículo 6 - Régimen de
-								protección social
+								text-align="justify" font-weight="bold">Articolo 6 - Regime di
+								previdenza sociale
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Durante el periodo de las prácticas, el estudiante
-								permanece afiliado a su
-								sistema de Seguridad Social anterior.
+								Per tutta la durata dello stage, il tirocinante
+								continuerà a dipendere dal regime di previdenza sociale
+								antecedente all'attività di tirocinio.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Las prácticas efectuadas en el extranjero deben
-								ser
-								comunicadas a la Seguridad
-								Social antes de la partida del
-								estudiante,
-								si esta así lo solicitara.
+								Se richiesto, i tirocini effettuati all'estero
+								saranno segnalati all'ente di Previdenza Sociale prima della
+								partenza del tirocinante.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -2150,56 +2060,44 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								<fo:inline font-size="10pt" font-weight="bold">6.1
-									Gratificación por un importe máximo del 15% de la base
-									máxima
-									horaria de la Seguridad Social:
+									Importo
+									massimo della gratificazione di stage pari al 15% del tetto
+									orario massimo di previdenza sociale:
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								La gratificación no está sujeta a cotización social.
+								La gratificazione è esente da contributi.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								El estudiante disfruta de la legislación sobre a
-								ccidentes de trabajo en atención
-								al régimen de estudiante del
-								artículo L.412-8-2 del
-								Código de la Seguridad Social.
+								Il tirocinante beneficia della legislazione sugli
+								infortuni sul lavoro secondo il regime di previdenza sociale
+								studenti dell'articolo L.412-8 comma 2 del Codice di Previdenza
+								Sociale francese.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Si el estudiante sufriera un accidente, bien durante el
-								desarrollo
-								de su actividad en el organismo,
-								bien durante el
-								trayecto o en los lugares considerados útiles
-								para las
-								necesidades de sus prácticas y,
-								en el caso de los
-								estudiantes en
-								medicina, en cirugía dental
-								o en farmacia que no tengan estatus
-								de personal de hospital, para las necesidades de las prácticas
-								en hospital efectuadas en las condiciones
-								previstas en b del 2°
-								apartado del
-								artículo L. 412-8,
+								In caso di incidente durante l'attività svolta presso
+								l'organismo, durante il tragitto per raggiungere il luogo di
+								stage, in specifici luoghi utili allo svolgimento dello stage e
+								per gli studenti in medicina, chirurgia dentale o farmacia non
+								aventi lo statuto di personale ospedaliero, durante lo stage
+								effettuato secondo le condizioni previste al punto b del comma 2
+								dell'articolo L.412-8,
 								<fo:inline text-decoration="underline">
-									el organismo de acogida
-									enviará la declaración
-									de accidente al sistema de seguro médico
-									principal
+									l'organismo ospitante invia
+									la dichiarazione alla Cassa Primaria di Assicurazione Malattia
 								</fo:inline>
-								(ver dirección en la primera página) donde se
-								indicará al
-								establecimiento como empleador, y
+								o all'ente competente (vedi indirizzo pag.1) menzionando
+								l'istituto di formazione come
+								datore di lavoro,
 								<fo:inline text-decoration="underline">
-									enviar una copia de la
-									misma al establecimiento de enseñanza
+									con copia all'istituto di
+									formazione
 								</fo:inline>
 								.
 							</fo:block>
@@ -2260,43 +2158,34 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								<fo:inline font-size="10pt" font-weight="bold">6.2
-									Gratificación superior
+									Gratificazione superiore
 								</fo:inline>
-								al 15 % de la base máxima horaria de la Seguridad Social:
+								al 15% del tetto orario massimo di previdenza sociale:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Las cotizaciones sociales se calculan en base al
-								diferencial entre el importe
-								de la gratificación y el 15 % de
-								la
-								base
-								máxima horaria de la
-								Seguridad Social. El estudiante se
-								beneficia de la cobertura
-								legal
-								en aplicación de las disposiciones
-								de los artículos
-								L 411-1 y
-								siguientes del Código de
-								la Seguridad
-								Social. En el supuesto de
-								que el estudiante
-								sufriera un accidente,
-								bien durante
-								el
-								desarrollo de su actividad en el organismo, bien
-								durante el
-								trayecto o en los lugares
-								considerados útiles para las
-								necesidades de sus prácticas,
-								el organismo de acogida efectuará
-								todos
-								los trámites necesarios respecto al sistema de seguro
-								médico
-								principal e informará al establecimiento
-								lo antes posible.
+								I contributi sociali sono calcolati sul differenziale
+								tra l'importo della gratificazione e il 15% del tetto massimo
+								orario di Previdenza Sociale.
+								Lo studente beneficia della
+								copertura legale in applicazione delle
+								disposizioni degli
+								articoli L.411-1 e seguenti del Codice di
+								Previdenza Sociale
+								francese. In caso di incidente durante
+								l'attività svolta presso
+								l'organismo, durante il tragitto per
+								raggiungere il luogo di
+								stage, in specifici luoghi utili allo
+								svolgimento dello stage,
+								l'organismo ospitante sarà tenuto a
+								effettuare tutte le pratiche
+								necessarie presso la Cassa Primaria
+								di Assicurazione Malattia e a
+								informarne l'istituto di
+								provenienza dal tirocinante nel più
+								breve tempo possibile.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -2338,117 +2227,89 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
-								6.3 - Protección sanitaria del
-								estudiante en el extranjero
+								6.3 - Assistenza sanitaria
+								dello stagista all'estero
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
 								1)
 								<fo:inline text-decoration="underline">
-									Protección derivada del
-									régimen de estudiante francés
+									Assistenza secondo il
+									regime di previdenza francese per gli studenti
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="1pt" padding-bottom="1pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								- para las
-								prácticas dentro del Espacio Económico Europeo (EEE)
-								efectuadas
-								por nacionales de un país
-								miembro de la Unión Europea, o de
-								Noruega, Islandia, Liechtenstein
-								o
-								Suiza, o incluso de otro país
-								(en este
-								último caso, esta
-								disposición no se aplica a las
-								prácticas en
-								Dinamarca, Noruega, Islandia,
-								Liechtenstein o Suiza),
-								el estudiante debe solicitar
-								la Tarjeta Sanitaria Europea (TSE).
+								- Per i tirocini
+								svolti in seno allo Spazio Economico Europeo (SEE), qualsiasi
+								studente proveniente da uno stato membro, dalla Norvegia,
+								dall'Islanda, dal Liechtenstein o dalla Svizzera, o ancora da
+								qualsiasi altro Stato (in questo ultimo caso, la presente
+								disposizione non sarà applicabile per un tirocinio in Danimarca,
+								Norvegia, Islanda, Liechtenstein o Svizzera) dovrà richiedere la
+								sua Tessera Europea di Assicurazione Malattia (TEAM);
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" space-before="0cm"
 								space-after="0cm" font-weight="normal" text-align="justify">
-								- para las
-								prácticas efectuadas en Quebec por los estudiantes de
-								nacionalidad francesa, el estudiante
-								debe solicitar el formulario
-								SE401Q (104 para las prácticas en
-								empresa, 106 para las prácticas
-								en universidad).
+								- Per i
+								tirocini effettuati in Québec da studenti di nazionalità
+								francese, il tirocinante dovrà richiedere il modulo SE401Q (104
+								per i tirocini in azienda, 106 per i tirocini in università);
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" space-before="0cm"
 								space-after="0cm" font-weight="normal" text-align="justify">
-								- en el resto
-								de los casos, los estudiantes que incurran en gastos
-								sanitarios
-								en el extranjero pueden ser
-								reembolsados por la mutua elegida
-								como Caja de Seguridad Social
-								de
-								Estudiantes, una vez de vuelta y
-								bajo
-								presentación de los
-								justificantes correspondientes: el
-								reembolso
-								se efectúa en base a
-								las tarifas sanitarias
-								francesas.
-								Pueden existir diferencias importantes entre los gastos
-								efectuados y las tarifas francesas de base
-								de reembolso. Por eso
-								es muy recomendable que el estudiante
-								suscriba
-								un seguro médico
-								complementario específico,
-								válido para el país de destino y el
-								periodo de las prácticas, a través
-								del organismo de acogida de su
-								elección
-								(mutua para los estudiantes, mutua de los padres,
-								compañía privada de
-								seguros ad hoc.) o en su caso, y después
-								de
-								verificar el alcance de las garantías ofertadas, ante el
-								organismo
-								de acogida si este proporcionara al estudiante
-								cobertura sanitaria en virtud del derecho local (ver 2 más
-								abajo).
+								- In tutti gli
+								altri casi, gli studenti che si trovano a dover affrontare spese
+								sanitarie, potranno essere rimborsati al ritorno presso la cassa
+								mutua che funge per loro come Cassa di Previdenza Sociale
+								Studente, su presentazione dei dovuti giustificativi. Il
+								rimborso verrà effettuato, allora, sulla base delle tariffe
+								applicate alle spese sanitarie in Francia.
+								Possono verificarsi
+								importanti differenze tra le spese affrontate e le
+								tariffe
+								francesi alla base del rimborso. Pertanto, è fortemente
+								consigliato agli studenti di sottoscrivere un'assicurazione
+								sanitaria complementare specifica, valida per il paese e per la
+								durata del tirocinio, presso l'organismo assicurativo di propria
+								scelta (cassa mutua studentesca, cassa mutua dei genitori,
+								compagnia privata ad hoc...) o, eventualmente e dopo verifica
+								dell'estensione delle garanzie proposte, presso l'organismo
+								ospitante, nel momento in cui quest'ultimo fornisca al
+								tirocinante una copertura sanitaria in ottemperanza di leggi
+								locali (cfr. 2° punto qui di seguito).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
 								2)
 								<fo:inline text-decoration="underline">
-									Protección social
-									proporcionada por el organismo de acogida
+									Previdenza sociale
+									dell'organismo ospitante
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Al marcar la casilla correspondiente, el organismo de
-								acogida
-								indica a continuación si proporciona
-								cobertura sanitaria
-								al estudiante en prácticas, en virtud
-								del derecho local:
+								Barrando la casella corrispondente, l'organismo
+								ospitante fornisce al tirocinante maggiori informazioni sulla
+								protezione sanitaria offerta, in virtù della legislazione
+								locale:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								padding-top="0.2cm" text-align="justify">
 								<fo:external-graphic src="url('square.JPG')" />
-								<fo:inline font-weight="bold"> SI
+								<fo:inline font-weight="bold"> SÌ
 								</fo:inline>
-								(esta se añade a los derechos derivados del régimen francés
-								"estudiante", los cuales se mantienen en el extranjero).
+								la protezione sanitaria si aggiunte, all'estero, al mantenimento
+								dei diritti già garantiti dalla legislazione francese.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2456,18 +2317,18 @@
 								<fo:external-graphic src="url('square.JPG')" />
 								<fo:inline font-weight="bold"> NO
 								</fo:inline>
-								(la cobertura es facilitada únicamente por los derechos
-								derivados del régimen francés "estudiante",
-								los cuales se
-								mantienen en el extranjero).
+								la protezione sanitaria, all'estero, sarà esclusivamente
+								garantita dal mantenimento dei diritti del regime di previdenza
+								sociale studenti francese.
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif"
 								space-before="0cm" space-after="0cm" font-weight="normal"
 								text-align="justify">
-								En caso de no marcarse ninguna casilla, se aplica el
-								6.3.1.
+								Nel caso in cui nessuna delle caselle fosse barrata,
+								si applicherà l'articolo
+								6.3-1.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -2632,181 +2493,152 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								<fo:inline font-weight="bold">6.4 -
-									Protección Accidentes de
-									trabajo del estudiante en el extranjero
+									Protezione infortuni sul
+									lavoro tirocinante all'estero
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt" padding-bottom="2pt">
 								1)
-								<fo:inline text-decoration="underline">Para poder beneficiarse de
-									la legislación francesa
+								<fo:inline text-decoration="underline">Per poter beneficiare dei
+									diritti francesi
 								</fo:inline>
-								sobre la cobertura de accidentes de trabajo, las presentes
-								prácticas deben:
+								sulla copertura assicurativa degli infortuni sul lavoro, il
+								presente stage deve:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								- tener una duración máxima de 6 meses, prórrogas
-								incluidas;
+								- avere una durata di massimo 6 mesi, esclusi
+								eventuali prolungamenti;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt">
-								- no dar lugar a ninguna
-								remuneración susceptible de generar
-								derechos a la protección
-								contra
-								accidentes laborales en el país de destino; se admite una
-								indemnización o gratificación de
-								un máximo de 15 % de la base
-								máxima horaria de la Seguridad
-								Social (vid. punto 5), y bajo el
-								consentimiento de la Caja
-								Primaria de Seguro Médico respecto
-								a la
-								solicitud de
-								mantenimiento de derecho;
+								- non dar luogo a nessuna
+								remunerazione suscettibile di aprire i diritti a una protezione
+								infortuni sul lavoro nel paese ospitante; sono ammesse
+								un'indennità o una gratificazione che non superi il tetto
+								massimo orario del 15% della previdenza sociale francese (cfr.
+								punto 5) e, con riserva dell'accordo della Cassa Primaria di
+								Assicurazione Malattia sulla richiesta di mantenimento dei
+								diritti;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt">
-								- desarrollarse únicamente en
-								el organismo signatario del presente acuerdo;
+								- svolgersi esclusivamente in
+								seno all'organismo segnatario della presente convenzione;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt">
-								- desarrollarse únicamente en
-								el país extranjero citado.
+								- svolgersi esclusivamente nel
+								paese ospitante menzionato.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" space-before="0cm"
 								space-after="0cm" font-weight="normal" text-align="justify">
-								Cuando no se
-								cumplan estas condiciones, el organismo de acogida
-								se compromete
-								a cotizar para la
-								protección del estudiante en prácticas y a
-								hacer las declaraciones
-								necesarias en caso de accidente de
-								trabajo.
+								Qualora le
+								sopracitate condizioni non fossero rispettate, l'organismo
+								ospitante si impegna a versare i contributi per la protezione
+								del tirocinante e a effettuare tutte le dichiarazioni necessarie
+								in caso di infortunio sul lavoro.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt" padding-bottom="2pt">
 								2)
 								<fo:inline text-decoration="underline">
-									La declaración de los
-									accidentes de trabajo
+									La dichiarazione degli
+									infortuni sul lavoro
 								</fo:inline>
-								concierne al establecimiento de enseñanza que debe
-								ser informado
-								por escrito en
-								un plazo de 48 horas por el organismo de acogida.
+								spetta all'istituto di provenienza dello studente che dovrà
+								esserne informato per iscritto dall'organismo ospitante entro 48
+								ore.
 							</fo:block>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								3)
-								<fo:inline text-decoration="underline">La cobertura abarca los
-									accidentes acontecidos:
+								<fo:inline text-decoration="underline">La copertura assicurativa
+									riguarda gli incidenti verificatisi:
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt" padding-bottom="2pt">
-								- En el
-								recinto del lugar de las prácticas y durante las horas de
-								prácticas,
+								- sul
+								posto di svolgimento dello stage e durante le ore ad esso
+								dedicate,
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt" padding-bottom="2pt">
-								- Durante
-								el trayecto de ida y vuelta habitual entre la residencia
-								del
-								estudiante en prácticas en el
-								territorio extranjero y el lugar de
-								las prácticas,
+								- sul
+								tragitto di andata e ritorno che il tirocinante percorre
+								abitualmente per recarsi dalla sua residenza al luogo di lavoro,
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt" padding-bottom="2pt">
-								- En el
-								contexto de una misión encomendada por el organismo
-								de acogida
-								del estudiante y
-								obligatoriamente recogida por orden de misión,
+								- nel
+								quadro di una missione affidata al tirocinante dall'organismo
+								ospitante e obbligatoriamente tramite ordine di missione.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt" padding-bottom="2pt">
 								- durante
-								el trayecto para ir de su domicilio al lugar de
-								su residencia
-								durante las prácticas
-								(desplazamiento al inicio de las
-								prácticas),
+								il primo tragitto per recarsi dal domicilio al luogo di
+								residenza durante lo stage (spostamento alla data di inizio del
+								tirocinio),
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt" padding-bottom="2pt">
 								- durante
-								el trayecto de vuelta desde su residencia
-								durante las prácticas a
-								su domicilio personal.
+								l'ultimo tragitto di ritorno dalla residenza occupata durante lo
+								stage fino al proprio domicilio alla fine di quest'ultimo.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
 								4)
-								<fo:inline text-decoration="underline"> En caso de que una sola
-									condición de
-									las previstas en el punto 6.4.1.
+								<fo:inline text-decoration="underline"> Per i casi in cui soltanto
+									una delle condizioni dell'articolo 6.4-1/
 								</fo:inline>
-								no se cumpla, el organismo de acogida se compromete por el
-								presente acuerdo a cubrir al
-								estudiante en prácticas contra el
-								riesgo de accidente de
-								trabajo, de trayecto y enfermedades
-								profesionales así como encargarse de
-								todas las
-								declaraciones
-								necesarias.
+								non fosse rispettata, l'organismo ospitante si impegna alla
+								copertura assicurativa del tirocinante contro il rischio di
+								infortunio sul lavoro, di infortunio durante il tragitto e di
+								malattie professionali e ad assicurarne tutte le dichiarazioni
+								necessarie.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="1pt" padding-bottom="1pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								<fo:inline text-decoration="underline">5) En cualquiera de los
-									casos:
+								<fo:inline text-decoration="underline">5) In tutti i casi:
 								</fo:inline>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								- Si el estudiante sufriera un accidente de trabajo
-								durante
-								las prácticas, el organismo de acogida
-								debe
-								imperativamente señalar este accidente al establecimiento
-								de
-								enseñanza de manera inmediata.
+								- se lo studente è vittima di un infortunio sul
+								lavoro durante lo stage, l'organismo ospitante dovrà
+								imperativamente e immediatamente segnalare l'incidente
+								all'istituto di provenienza;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt">
-								- Si el estudiante cumple
-								misiones fuera del organismo de acogida
-								o fuera del país de las
-								prácticas,
-								el organismo de acogida debe realizar todos los
-								trámites
-								necesarios para asegurarle adecuadamente.
+								- se lo studente svolge
+								missioni limitate al di fuori dell'organismo ospitante o al di
+								fuori del paese ospitante, l'organismo ospitante dovrà occuparsi
+								di tutte le disposizioni necessarie per offrirgli le
+								assicurazioni appropriate.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -3046,56 +2878,41 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
-								Artículo 7 - Responsabilidad y
-								seguro
+								Articolo 7 - Responsabilità e
+								assicurazione.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								El organismo de acogida y el estudiante declaran
-								estar cubiertos en materia
-								de responsabilidad civil.
+								L'organismo ospitante e il tirocinante dichiarano di
+								essere coperti dell'assicurazione di responsabilità civile di
+								base.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Para las prácticas en el extranjero o en
-								territorios
-								de ultramar
-								el estudiante se compromete a suscribir un
-								contrato
-								de
-								asistencia
-								en viaje (repatriación sanitaria, asistencia
-								jurídica.) y un contrato
-								de seguro individual de accidentes.
+								Per i tirocini all'estero o in territori d'oltremare,
+								il tirocinante si impegna a sottoscrivere un contrato di
+								assistenza (rimpatrio sanitario, assistenza giuridica...) e un
+								contratto di assicurazione individuale incidenti.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								En caso de que el organismo de acogida ponga un
-								vehículo
-								a disposición del estudiante en
-								prácticas, será su
-								responsabilidad verificar previamente
-								que la póliza de seguro del
-								vehículo
-								cubre la utilización por un estudiante.
+								Nel momento in cui l'organismo ospitante mette un
+								veicolo a disposizione del tirocinante, dovrà occuparsi di
+								verificare precedentemente che la polizza assicurativa compra
+								l'utilizzo di esso da parte di uno studente.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								space-before="0cm" space-after="0cm" font-weight="normal"
 								text-align="justify">
-								En caso de que, en el marco de las prácticas, el
-								estudiante
-								utilice su propio vehículo o un
-								vehículo prestado por
-								un tercero, lo declarará expresamente
-								al asegurador
-								de dicho
-								vehículo y,
-								en su caso, abonará la prima
-								correspondiente.
+								Se nel quadro dello stage, lo studente utilizza il
+								suo veicolo personale o un veicolo preso in prestito da terzi,
+								lo fa espressamente presente all'assicuratore del suddetto
+								veicolo e, se del caso, si farà carico del premio ad essa
+								afferente.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -3158,53 +2975,33 @@
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify"
 								font-weight="bold">
-								Artículo 8 - Disciplina
+								Articolo 8 - Disciplina
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								El estudiante se somete a la disciplina y a las
-								cláusulas
-								del reglamento interior del
-								organismo que le son
-								aplicables y que son puestas en su
-								conocimiento antes
-								de empezar
-								las prácticas, en especial en lo referente a los
-								horarios
-								y las
-								normas de higiene y
-								seguridad vigentes en el organismo de
-								acogida.
+								Il tirocinante è sottoposto alle regole disciplinari
+								e alle clausole del regolamento interno applicabili, di cui deve
+								essere messo a conoscenza prima dell'inizio dello stage, in
+								particolare per quanto riguarda gli orari, le regole igieniche e
+								di sicurezza in vigore nell'organismo di accoglienza.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								El establecimiento es el único que tiene potestad
-								para
-								decidir cualquier sanción
-								disciplinaria. En su caso, el
-								organismo de
-								acogida
-								informará al profesor referente
-								y al
-								establecimiento de las infracciones
-								y, en su caso,
-								le
-								proporcionará los
-								elementos constitutivos de la infracción.
+								Qualsiasi sanzione disciplinare può essere decisa
+								soltanto dall'istituto di provenienza. In questo caso,
+								l'organismo ospitante informa l'insegnante di riferimento e
+								l'istituto di provenienza delle mancanze dello studente e
+								fornisce gli eventuali elementi costitutivi.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								En caso de infracción disciplinaria particularmente
-								grave,
-								el organismo de acogida se
-								reserva el derecho de poner
-								término a las prácticas de
-								conformidad con
-								las disposiciones
-								fijadas en el artículo 9 del presente acuerdo.
+								In caso di mancanze particolarmente gravi alle regole
+								disciplinari, l'organismo ospitante si riserva il diritto di
+								porre fine allo stage, rispettando le disposizioni previste
+								all'articolo 9 della presente convenzione.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -3278,122 +3075,88 @@
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify"
 								font-weight="bold">
-								Artículo 9 - Ausencias - Interrupción de las
-								prácticas
+								Articolo 9 - Giorni di congedo - Interruzione dello
+								stage
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								En Francia (salvo
-								en caso de normas particulares aplicables
-								en algunas
-								colectividades
-								de ultramar francesas o en organismos de derecho
-								público),
-								en caso
-								de maternidad,
-								paternidad o adopción, el
-								estudiante en prácticas disfruta
-								de permisos de
-								ausencias de
-								una
-								duración equivalente a las previstas para los
-								asalariados
-								en los
-								artículos 225-16 al
-								L.1225-28,
-								L.1225-35,
-								L.1225-37,
-								L.1225-46
-								del
-								Código de Trabajo.
+								In Francia
+								(tranne in casi di regolamentazioni particolari applicabili in
+								alcune collettività d'oltremare francesi o negli organismi di
+								diritto pubblico), in caso di maternità, paternità o adozione,
+								il tirocinante beneficia di congedi e assenze giustificate di
+								una durata equivalente a quella prevista per gli effettivi
+								dipendenti dagli articoli da L.1225-16 a L.1225-28, L.1225-35,
+								L.1225-37, L.1225-46 del Codice del Lavoro francese.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="9pt"
 								font-family="Times New Roman,serif" text-align="justify">
-								Para las
-								prácticas de duración superior a dos
-								meses y sin que pueda
-								superar un máximo de 6 meses, los permisos
-								de ausencia son
-								posibles.
+								Per gli stage la
+								cui durata è superiore a due mesi e nei limiti della durata
+								massima di 6 mesi, è possibile richiedere ed accordare congedi o
+								assenze giustificate.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								<fo:inline text-decoration="underline">
-									NÚMERO DE DÍAS DE PERMISO
-									AUTORIZADOS
+									NUMERO DI GIORNI DI CONGEDO
+									AUTORIZZATI
 								</fo:inline>
-								/ o modalidades de permisos de ausencia durante las prácticas:
+								/ o modalità di congedo e assenze giustificate durante il
+								tirocinio:
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								............................................................................................
+								<xsl:value-of select="nb-conges" />
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Para cualquier otra interrupción temporal de las
-								prácticas
-								(enfermedad, ausencia injustificada.),
-								el organismo de
-								acogida deberá informar al responsable del
-								establecimiento por
-								correo.
+								Per qualsiasi altra interruzione temporanea dello
+								stage (malattia, assenza ingiustificata...) l'organismo
+								ospitante avverte per iscritto l'istituto di provenienza.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								padding-top="2pt" text-align="justify">
-								Cualquier interrupción de las
-								prácticas ha de ser comunicada
-								a las otras partes del acuerdo
-								y al
-								profesor referente, instaurando en su caso un proceso
-								de
-								validación. En caso de conformidad
-								de las partes del acuerdo, se
-								puede aplazar el final de
-								las prácticas para permitir la
-								realización de la duración total de
-								las prácticas previstas
-								inicialmente. El aplazamiento
-								será objeto de un anexo al acuerdo
-								de prácticas.
+								Qualsivoglia interruzione dello
+								stage, è segnalata alle altre parti della convenzione e
+								all'insegnante di riferimento. Se del caso, sarà messa in atto
+								dall'istituto di provenienza una procedura di convalida.
+								In caso
+								di accordo delle parti della convenzione,
+								sarà possibile
+								effettuare un rapporto finale di stage al fine di
+								permettere la
+								realizzazione della durata del tirocinio prevista
+								inizialmente.
+								Tale rapporto sarà da considerare come una
+								clausola alla
+								convenzione di stage.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								Podrá incorporarse un anexo al acuerdo en caso de
-								prórroga
-								de las prácticas a petición
-								conjunta del organismo de
-								acogida y el estudiante,
-								dentro de la duración
-								máxima
-								de las
-								prácticas fijadas por ley (6 meses).
+								In caso di prolungamento della sua durata, potrà
+								essere stipulata una clausola alla convenzione di stage, su
+								richiesta congiunta dell'organismo ospitante del tirocinante,
+								nel rispetto della durata massima dello stage fissata dalla
+								legge (6 mesi).
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								En caso de que una de las tres partes (organismo de
-								acogida,
-								establecimiento, estudiante)
-								deseara interrumpir de
-								manera definitiva las prácticas,
-								esta deberá
-								informar
-								inmediatamente
-								a las otras dos partes por escrito. Las razones
-								argumentadas
-								se examinarán de manera concertada.
-								La decisión
-								definitiva de
-								interrupción de las prácticas
-								se tomará únicamente
-								tras dicha fase de concertación.
+								Nel caso in cui una delle tre parti (organismo
+								ospitante, tirocinante, istituto di provenienza) volesse porre
+								fine al tirocinio, sarà necessario che ne informi immediatamente
+								le altre due parti per iscritto. Le ragioni riportate saranno
+								esaminate in stretta concertazione. La decisione definitiva di
+								porre fine allo stage sarà presa soltanto alla fine di questa
+								fase di concertazione.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -3524,64 +3287,44 @@
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify"
 								font-weight="bold">
-								Artículo 10 - Deber de reserva y confidencialidad
+								Articolo 10 - Dovere di riservatezza e
+								confidenzialità
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								El deber de reserva es de estricto cumplimiento y
-								es
-								determinado por el
-								organismo de acogida en atención a sus
-								particularidades.
-								El estudiante en prácticas
-								se compromete, por lo
-								tanto, a no utilizar bajo ninguna
-								circunstancia las informaciones
-								obtenidas para su publicación o
-								comunicación a terceros
-								sin previo
-								consentimiento del
-								organismo de acogida, incluido el informe de
-								las
-								prácticas. Este compromiso no
-								solo será válido durante el
-								periodo de las
-								prácticas
-								sino que se extenderá tras su
-								finalización. El estudiante se compromete a no conservar,
-								llevarse o copiar
-								ningún
-								documento o software, independientemente
-								de su naturaleza,
-								que pertenezca al organismo
-								de acogida, salvo
-								consentimiento de este
-								último.
+								Il dovere di riservatezza è applicato con rigore
+								assoluto ed è apprezzato dall'organismo ospitante, conto tenuto
+								delle sue proprie specificità. Il tirocinante si impegna,
+								dunque, a non utilizzare in alcun caso le informazioni raccolte
+								o ottenute per pubblicarle o comunicarle a terzi, senza
+								l'accordo dell'organismo ospitante, compreso il rapporto di
+								stage. Tale impegno resta valido non soltanto dello stage ma
+								anche dopo la data di fine rapporto. Il tirocinante si impegna a
+								non conservare, portare con sé, o effettuare una copia di
+								documenti o programmi di qualsiasi natura, di proprietà
+								dell'organismo ospitante, tranne in caso di accordo da parte di
+								quest'ultimo.
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
-								(Artículo 10 continuación)
+								(Articolo 10 continuazione)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								space-before="0cm" space-after="0cm" font-weight="normal"
 								text-align="justify">
-								En razón de la confidencialidad de las informaciones
-								contenidas en el informe,
-								el organismo de acogida puede solicitar
-								una
-								restricción de la
-								difusión del informe o, incluso, la retirada
-								de ciertos elementos
-								confidenciales. Las personas que accedan a
-								dichas informaciones
-								están obligadas por el secreto profesional
-								a
-								no divulgar las mismas.
+								Nel quadro della confidenzialità delle informazioni
+								contenute nel rapporto di stage, l'organismo ospitante può
+								chiedere una restrizione della diffusione del rapporto, nonché
+								il ritiro di alcuni elementi confidenziali.
+								I soggetti che ne
+								saranno a conoscenza sono obbligati dal segreto professionale al
+								non utilizzo e alla non divulgazione delle informazioni
+								contenute nel rapporto.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -3659,48 +3402,28 @@
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify"
 								font-weight="bold">
-								Artículo 11 - Propiedad intelectual
+								Articolo 11 - Proprietà intellettuale
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								De conformidad con el Código de Propiedad
-								Intelectual,
-								si el trabajo del estudiante
-								en prácticas diera lugar
-								a la creación de una
-								obra protegida con derechos
-								de autor o de
-								propiedad industrial
-								(software incluido),
-								y en cuyo caso, el
-								organismo
-								de acogida
-								deseara utilizarla y el estudiante en
-								prácticas estuviera de
-								acuerdo,
-								este último (el autor) y el
-								organismo de acogida
-								deberán
-								suscribir un contrato.
+								Conformemente al Codice della Proprietà Intellettuale
+								francese, nel caso in cui le attività del tirocinante diano
+								luogo a un'opera protetta da diritti d'autore o da proprietà
+								industriale (compresi alcuni programmi informatici), se
+								l'organismo ospitante desidera utilizzarli e il tirocinante dà
+								il proprio accordo, dovrà essere firmato un contratto tra lo
+								studente (autore) e l'organismo ospitate.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
-								En el contrato deberá precisarse el alcance de
-								los
-								derechos cedidos,
-								una posible exclusividad, la finalidad, los
-								soportes utilizados y
-								la duración de la cesión así como, en su
-								caso,
-								el importe de la remuneración
-								debida al estudiante en
-								concepto de
-								dicha cesión.
-								Esta cláusula se aplica
-								independientemente del estatuto del organismo
-								de acogida.
+								Il contratto dovrà allora precisare l'estensione dei
+								diritti ceduti, l'eventuale esclusività, la destinazione, i
+								supporti utilizzati e la durata della cessione, come anche, se
+								del caso, l'importo della remunerazione dovuta al tirocinante
+								per la cessione. Tale clausola si applica a prescindere dallo
+								statuto dell'organismo ospitante.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -3751,25 +3474,23 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
-								Artículo 12 - Final de las
-								prácticas - Informe - Evaluación
+								Articolo 12 - Fine dello stage
+								- Rapporto - Valutazione
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify">
 								1)
-								<fo:inline text-decoration="underline">Certificado de prácticas
+								<fo:inline text-decoration="underline">Attestati di stage
 								</fo:inline>
-								: Al término de las prácticas, el organismo de acogida
-								entregará
-								al estudiante
-								un certificado, cuyo modelo se incluye como anexo,
-								mencionando al
-								menos la
-								duración efectiva de las prácticas y, en
-								su caso,
-								la
-								cuantía de la gratificación percibida.
+								: alla fine dello stage, l'organismo ospitante fornisce allo
+								studente un attestato il cui modello figura in allegato, facente
+								menzione almeno della durata effettiva del tirocinio e, se del
+								caso, l'importo della gratificazione percepita. Il tirocinante
+								dovrà fornire tale attestato in caso di richiesta postuma di
+								apertura dei diritti al regime generale di assicurazione
+								vecchiaia previsto dall'art. L.351-17 del Codice di Prevenzione
+								Sociale francese;
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
@@ -3787,46 +3508,29 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt">
 								2)
-								<fo:inline text-decoration="underline">Calidad de las prácticas
+								<fo:inline text-decoration="underline">Qualità dello stage
 								</fo:inline>
-								: Al término de las prácticas, se invitará a las partes
-								del
-								presente acuerdo a formular
-								una apreciación sobre la calidad de
-								las prácticas.
-								El estudiante entrega al
-								servicio competente del
-								establecimiento de enseñanza
-								un documento en el
-								que
-								valora la
-								calidad de la acogida recibida en el organismo
-								de acogida.
-								Este
-								documento
-								no se tiene en cuenta en su evaluación o en la
-								obtención
-								del
-								diploma o del certificado.
+								: alla conclusione dello stage, le parti della presente
+								convenzione sono invitate a formulare una valutazione sulla
+								qualità dello stage. Il tirocinante trasmette al servizio
+								competente dell'istituto di formazione superiore di provenienza
+								un documento nel quale valuta la qualità dell'accoglienza di cui
+								ha beneficiano in seno all'organismo ospitante. Tale documento
+								non sarà preso in considerazione nella valutazione o
+								nell'ottenimento del diploma o della certificazione.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt">
 								3)
-								<fo:inline text-decoration="underline"> Evaluación de la actividad
-									del estudiante
+								<fo:inline text-decoration="underline"> Valutazione dell'attività
+									del tirocinante
 								</fo:inline>
-								: Al término de las prácticas, el organismo de acogida
-								completará una ficha de
-								evaluación de la actividad del estudiante
-								en prácticas
-								que entregará al
-								profesor
-								referente (o precisar en
-								caso de ficha anexa o
-								modalidades de evaluación
-								previamente
-								acordadas con el profesor referente).
+								: al termine dello stage, l'organismo ospitante compila una
+								scheda di valutazione dell'attività del tirocinante che
+								consegnerà all'insegnante di riferimento (diversamente precisare
+								se scheda annessa o modalità di valutazione precedentemente
+								definite in accordo con l'insegnante di riferimento).
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
@@ -3849,15 +3553,16 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">
-								(Artículo 12 continuación)
+								(Articolo 12 continuazione)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
 								4)
-								<fo:inline text-decoration="underline">Modalidades de evaluación
-									pedagógica :
+								<fo:inline text-decoration="underline">Modalità di valutazione
+									pedagogica :
 								</fo:inline>
+
 								<fo:inline font-weight="bold">
 									<xsl:value-of select="mode-validation-stage/libelle" />
 								</fo:inline>
@@ -3866,8 +3571,8 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								padding-top="2pt" padding-bottom="2pt">
 								<xsl:variable name="nb-credit" select="credit-eCTS" />
-								<fo:inline text-decoration="underline">NÚMERO DE CRÉDITOS ECTS (en
-									su caso):
+								<fo:inline text-decoration="underline">NUMERO DI ECTS (se del
+									caso) :
 								</fo:inline>
 								<xsl:choose>
 									<xsl:when test='$nb-credit=0.00'>
@@ -3883,19 +3588,12 @@
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" padding-top="2pt">
-								5) El tutor responsable del
-								organismo de acogida o
-								cualquier otro miembro del
-								organismo de
-								acogida que debiera personarse en el
-								establecimiento de enseñanza
-								para la preparación, el desarrollo y la validación
-								de las
-								prácticas no puede aspirar
-								a ningún tipo de pago o
-								indemnización
-								por parte del
-								establecimiento de enseñanza.
+								5) Il tutor dell'organismo
+								ospitante o qualsiasi suo membro chiamato a recarsi presso
+								l'istituto di provenienza del tirocinante nel quadro della
+								preparazione, svolgimento e convalida dello stage non può
+								pretendere nessun rimborso o indennizzo da parte dell'istituto
+								di formazione.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -4019,21 +3717,19 @@
 								padding-top="2pt" padding-bottom="2pt" country="FR" font-size="10pt"
 								font-family="Times New Roman,serif" text-align="justify"
 								font-weight="bold">
-								Artículo 13 - Derecho aplicable - Tribunales
-								competentes
+								Articolo 13 - Diritto applicabile - Tribunali di
+								competenza
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								El presente acuerdo
-								está únicamente regido por el Derecho francés.
+								La presente
+								convenzione è regolata esclusivamente dal diritto francese.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								Cualquier litigio no
-								resuelto por vía amistosa se
-								someterá la jurisdicción
-								de los
-								juzgados y tribunales franceses competentes.
+								Qualsiasi litigio non
+								risolto per via amichevole sarà sottoposto alla competenza della
+								giurisdizione francese competente.
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="9pt" font-family="Times New Roman,serif"
@@ -4083,7 +3779,7 @@
 			<fo:block line-height="110%" hyphenate="false" language="fr"
 				country="FR" font-size="10pt" font-family="Times New Roman,serif">
 				<fo:inline font-weight="bold">
-					HECHO EN
+					(LUOGO)
 				</fo:inline>
 				<fo:inline font-style="italic" font-size="8pt">(FAIT À)
 				</fo:inline>
@@ -4091,7 +3787,7 @@
 					.....................................................
 				</fo:inline>
 				<fo:inline font-weight="bold">
-					EL
+					IL
 				</fo:inline>
 				<fo:inline font-style="italic" font-size="8pt">(LE)
 				</fo:inline>
@@ -4117,8 +3813,7 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif"
 								font-weight="bold" text-decoration="underline">
-								POR EL ESTABLECIMIENTO DE
-								ENSEÑANZA
+								PER L'ISTITUTO DI FORMAZIONE
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -4135,7 +3830,7 @@
 											<fo:block line-height="110%" padding-top="2pt"
 												padding-bottom="2pt" hyphenate="false" language="fr"
 												country="FR" font-size="10pt" font-family="Times New Roman,serif">
-												Signatario del centro de gestión, por delegación,
+												Firmatario il centro di gestione, per delega,
 												<fo:inline font-weight="bold">
 													<xsl:call-template name="start_upper">
 														<xsl:with-param name="prenom">
@@ -4172,8 +3867,8 @@
 									<fo:block line-height="110%" padding-top="2pt"
 										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 										font-size="10pt" font-family="Times New Roman,serif">
-										Nombre y firma del representante
-										del establecimiento
+										Nome e firma del rappresentante
+										d'istituto
 									</fo:block>
 									<fo:block line-height="110%" padding-top="2pt"
 										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -4200,7 +3895,7 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif"
 								font-weight="bold" text-decoration="underline">
-								POR EL ORGANISMO DE ACOGIDA
+								PER L'ORGANISMO OSPITANTE
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -4230,8 +3925,8 @@
 									<fo:block line-height="110%" padding-top="2pt"
 										hyphenate="false" language="fr" country="FR" font-size="10pt"
 										font-family="Times New Roman,serif">
-										Nombre y firma del representante del organismo de
-										acogida
+										Nome e firma del rappresentante dell'organismo
+										ospitante
 									</fo:block>
 									<fo:block line-height="110%" padding-top="2pt"
 										hyphenate="false" language="fr" country="FR" font-size="7pt"
@@ -4256,8 +3951,8 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif"
 								text-decoration="underline" font-weight="bold">
-								ESTUDIANTE EN PRÁCTICAS
-								(Y SU REPRESENTANTE LEGAL EN SU CASO)
+								TIROCINANTE (E IL SUO
+								RAPPRESENTANTE LEGALE SE DEL CASO)
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -4287,7 +3982,7 @@
 									<fo:block line-height="110%" padding-top="2pt"
 										hyphenate="false" language="fr" country="FR" font-size="10pt"
 										font-family="Times New Roman,serif">
-										Nombre y firma
+										Nome e firma
 									</fo:block>
 									<fo:block line-height="110%" padding-top="2pt"
 										hyphenate="false" language="fr" country="FR" font-size="7pt"
@@ -4312,8 +4007,8 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif"
 								text-decoration="underline" font-weight="bold">
-								El tutor de prácticas
-								del organismo de acogida
+								Il tutor di stage
+								dell'organismo ospitante
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -4343,7 +4038,7 @@
 									<fo:block line-height="110%" padding-top="2pt"
 										hyphenate="false" language="fr" country="FR" font-size="10pt"
 										font-family="Times New Roman,serif">
-										Nombre y firma
+										Nome e firma
 									</fo:block>
 									<fo:block line-height="110%" padding-top="2pt"
 										hyphenate="false" language="fr" country="FR" font-size="7pt"
@@ -4366,8 +4061,8 @@
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif"
 								text-decoration="underline" font-weight="bold">
-								El profesor referente
-								del estudiante en prácticas
+								L'insegnante di
+								riferimento del tirocinante
 							</fo:block>
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -4397,7 +4092,7 @@
 									<fo:block line-height="110%" padding-top="2pt"
 										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 										font-size="10pt" font-family="Times New Roman,serif">
-										Nombre y firma
+										Nome e firma
 									</fo:block>
 									<fo:block line-height="110%" padding-top="2pt"
 										padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
@@ -4422,1209 +4117,6 @@
 		</fo:block>
 	</xsl:template>
 
-	<xsl:template name="Attestation">
-		<fo:block margin-right="1.5cm" margin-left="1.5cm"
-			margin-bottom="1.09cm" font-family="Times New Roman,serif"
-			padding-top="1cm">
-			<fo:block text-align="center" hyphenate="false" language="fr"
-				country="FR" font-weight="bold" font-size="18pt">
-				CERTIFICADO DE PRÁCTICAS
-			</fo:block>
-			<fo:block text-align="center" line-height="110%"
-				padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-				font-size="10pt" font-family="Times New Roman,serif" font-style="italic">
-				(ATTESTATION DE STAGE )
-			</fo:block>
-			<fo:block line-height="110%" hyphenate="false" language="fr"
-				country="FR" font-size="10pt" font-family="Times New Roman,serif">
-				<fo:leader />
-			</fo:block>
-			<fo:block text-align="center" padding-top="5pt" hyphenate="false"
-				language="fr" country="FR" font-weight="bold" font-size="16pt"
-				font-style="italic">
-				a entregar al
-				estudiante al finalizar las prácticas
-			</fo:block>
-			<fo:block text-align="center" line-height="110%"
-				padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-				font-size="10pt" font-family="Times New Roman,serif" font-style="italic">
-				(à
-				remettre au
-				stagiaire à l'issue du
-				stage)
-			</fo:block>
-			<fo:block padding-top="10pt">
-				<fo:table border="0.018cm solid #000000" padding="3pt"
-					width="100%" table-layout="fixed">
-					<fo:table-column column-width="proportional-column-width(1)" />
-					<fo:table-body>
-						<fo:table-row>
-							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
-								<fo:block>
-									<fo:inline font-weight="bold" text-decoration="underline"
-										font-size="9pt">
-										ORGANISMO DE ACOGIDA
-									</fo:inline>
-									<fo:inline font-size="8pt" font-style="italic">
-										(ORGANISME
-										D'ACCUEIL)
-									</fo:inline>
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-								<fo:block line-height="150%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold">
-										Nombre o Denominación social
-									</fo:inline>
-									<fo:inline font-size="8pt" font-style="italic">
-										(Nom ou
-										Dénomination sociale)
-									</fo:inline>
-									<fo:inline font-weight="bold">
-										:
-									</fo:inline>
-									<fo:inline>
-										<xsl:value-of select="structure/raison-sociale" />
-									</fo:inline>
-								</fo:block>
-								<fo:block line-height="150%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold">Dirección
-									</fo:inline>
-									<fo:inline font-size="8pt" font-style="italic">(Adresse)
-									</fo:inline>
-									<fo:inline font-weight="bold"> :
-									</fo:inline>
-									<fo:inline>
-										<xsl:value-of select="structure/batiment-residence" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="structure/voie" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="structure/code-postal" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="structure/commune" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="structure/pays/libelle" />
-									</fo:inline>
-								</fo:block>
-
-								<fo:block line-height="150%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold">Tel : </fo:inline>
-									<xsl:value-of select="structure/telephone" />
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-					</fo:table-body>
-				</fo:table>
-				<fo:block padding="0.1cm" font-weight="bold">
-					<fo:inline font-size="9pt" font-weight="bold">
-						Certifica que
-					</fo:inline>
-					<fo:inline font-style="italic" font-size="8pt">
-						(Certifie que)
-					</fo:inline>
-				</fo:block>
-				<fo:table border="0.018cm solid #000000" padding="3pt"
-					width="100%" table-layout="fixed">
-					<fo:table-column column-width="proportional-column-width(1)" />
-					<fo:table-body>
-						<fo:table-row>
-							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
-								<fo:block font-size="9pt">
-									<fo:inline font-weight="bold" font-size="9pt"
-										text-decoration="underline">
-										EL ESTUDIANTE
-									</fo:inline>
-									<fo:inline font-size="8pt" font-style="italic">
-										(LE
-										STAGIAIRE)
-									</fo:inline>
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold">
-										Apellidos
-									</fo:inline>
-									<fo:inline font-style="italic" font-size="8pt">
-										(Nom)
-									</fo:inline>
-									<fo:inline font-weight="bold">
-										:
-									</fo:inline>
-									<fo:inline>
-										<xsl:value-of select="translate(etudiant/nom,$lowers,$uppers)" />
-									</fo:inline>
-									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
-									<fo:inline font-weight="bold">
-										Nombre
-									</fo:inline>
-									<fo:inline font-style="italic" font-size="8pt">
-										(Prénom)
-									</fo:inline>
-									<fo:inline font-weight="bold">
-										:
-									</fo:inline>
-									<fo:inline>
-										<xsl:call-template name="start_upper">
-											<xsl:with-param name="prenom">
-												<xsl:value-of select="etudiant/prenom" />
-											</xsl:with-param>
-										</xsl:call-template>
-									</fo:inline>
-									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
-									<fo:inline font-weight="bold">
-										Sexo :
-									</fo:inline>
-									<fo:inline>
-										<xsl:value-of select="etudiant/code-sexe" />
-									</fo:inline>
-									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
-									<fo:inline font-weight="bold">
-										Nacido/a el
-									</fo:inline>
-									<fo:inline font-style="italic" font-size="8pt">
-										(Né
-										le)
-									</fo:inline>
-									<fo:inline font-weight="bold">
-										:
-									</fo:inline>
-									<fo:inline>
-										<xsl:value-of
-											select="concat(substring(./etudiant/date-nais,9,2),'/',substring(./etudiant/date-nais,6,2), '/',substring(./etudiant/date-nais,1,4))" />
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold">
-										Dirección
-									</fo:inline>
-									<fo:inline font-style="italic" font-size="8pt">
-										(Adresse)
-									</fo:inline>
-									<fo:inline font-weight="bold">
-										:
-									</fo:inline>
-									<fo:inline>
-										<xsl:value-of select="adresse-etudiant" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="code-postal-etudiant" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="ville-etudiant" />
-										<xsl:text> </xsl:text>
-										<xsl:value-of select="pays-etudiant" />
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold">
-										Tel :
-									</fo:inline>
-									<xsl:value-of select="tel-etudiant" />
-									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
-									<fo:inline font-weight="bold">
-										Tel móvil :
-									</fo:inline>
-									<xsl:value-of select="tel-portable-etudiant" />
-									<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
-									<fo:inline font-weight="bold">
-										E-mail :
-									</fo:inline>
-									<xsl:value-of select="etudiant/mail" />
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold" font-size="11pt">
-										QUE
-										CURSA
-									</fo:inline>
-									<fo:inline>
-										(nombre de la formación o del plan de enseñanza
-										superior seguido por el o la estudiante) :
-									</fo:inline>
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-style="italic" font-size="8pt">
-										(ETUDIANT
-										EN(intitulé de la formation ou du cursus de
-										l'enseignement
-										supérieur suivi par le ou la stagiaire ))
-									</fo:inline>
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<xsl:value-of select="etape/libelle" />
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell border="1" margin-left="0.2cm"
-								padding-top="0.2cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold" font-size="11pt">
-										EN
-									</fo:inline>
-									<fo:inline>
-										(nombre del establecimiento de enseñanza superior o
-										del organismo de formación)
-									</fo:inline>
-									<fo:inline font-style="italic" font-size="8pt">
-										(AU
-										SEIN DE
-										(nom de
-										l'établissement d'enseignement supérieur ou
-										de
-										l'organisme de
-										formation))
-									</fo:inline>
-									<fo:inline font-weight="bold">
-										:
-									</fo:inline>
-									<xsl:choose>
-										<xsl:when test="nom-etab-ref">
-											<xsl:value-of select="nom-etab-ref" />
-										</xsl:when>
-										<xsl:otherwise>
-											<xsl:value-of select="document('config.xml')/config/nomUniversite" />
-										</xsl:otherwise>
-									</xsl:choose>
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-					</fo:table-body>
-				</fo:table>
-				<fo:block padding="0.3cm" margin-left="0.1cm">
-					<fo:inline font-weight="bold" font-size="11pt">
-						ha realizado unas
-						prácticas previstas en el marco de sus estudios
-					</fo:inline>
-					<fo:inline font-style="italic" font-size="8pt">
-						(a
-						effectué un
-						stage prévu dans le cadre de ses études)
-					</fo:inline>
-				</fo:block>
-				<fo:table table-layout="fixed" width="100%"
-					border="0.018cm solid #000000">
-					<fo:table-column column-width="proportional-column-width(1)" />
-					<fo:table-body>
-						<fo:table-row>
-							<fo:table-cell>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									margin-left="0.5cm" padding-top="0.3cm">
-									<fo:inline font-size="11pt" font-weight="bold"
-										text-decoration="underline">
-										DURACIÓN DE LAS PRÁCTICAS
-									</fo:inline>
-									<fo:inline font-size="8pt" font-style="italic">
-										(DUREE DU
-										STAGE)
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell padding-top="0.2cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold">
-										Fechas de inicio y de fin de
-										las prácticas
-									</fo:inline>
-									<fo:inline font-style="italic" font-size="8pt">
-										(Dates de
-										début et de fin
-										du stage)
-									</fo:inline>
-									<fo:inline font-weight="bold">
-										:
-									</fo:inline>
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold">
-										Del
-									</fo:inline>
-									<fo:inline font-style="italic" font-size="8pt">
-										(Du)
-									</fo:inline>
-									<fo:inline>
-										......................................
-									</fo:inline>
-									<xsl:text> </xsl:text>
-									<fo:inline font-weight="bold">
-										Al
-									</fo:inline>
-									<fo:inline font-style="italic" font-size="8pt">
-										(Au)
-									</fo:inline>
-									<xsl:text> </xsl:text>
-									<fo:inline>
-										......................................
-									</fo:inline>
-									<xsl:if test="@interruption-stage = 'true'">
-										<xsl:text> </xsl:text>
-										<fo:inline font-weight="bold">
-											con interrupción del
-										</fo:inline>
-										<fo:inline font-style="italic" font-size="8pt">(avec
-											interruption du)
-										</fo:inline>
-										<xsl:text> </xsl:text>
-										......................................
-										<fo:inline font-weight="bold">
-											al
-										</fo:inline>
-										<fo:inline font-style="italic" font-size="8pt">(au)
-										</fo:inline>
-										<xsl:text> </xsl:text>
-										......................................
-									</xsl:if>
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell padding-top="0.2cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold">
-										Representan una
-										duración total
-										de
-									</fo:inline>
-									<fo:inline>
-										..................... (Nº de meses / Nº de semanas)
-										(tachar la mención inútil)
-									</fo:inline>
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic">
-									<fo:inline>
-										(Représentant une durée totale de)
-										<xsl:text>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</xsl:text>
-										((Nombre de Mois / Nombre de Semaines) (rayer la mention
-										inutile))
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell padding-top="0.2cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" margin-left="0.5cm" text-align="justify">
-									La
-									duración total de las prácticas se computa teniendo en cuenta
-									la presencia efectiva del
-									estudiante en el organismo, sin
-									perjuicio del derecho a
-									las ausencias
-									previstas
-									en el artículo
-									L.124-13 del Código de la Educación
-									(art. L.124-18 del Código de
-									la Educación). Cada periodo de como
-									mínimo 7 horas de presencia,
-									consecutivas o no, equivale a
-									un día de prácticas y cada período
-									de cómo mínimo 22 días de
-									presencia, consecutivos o
-									no, es
-									considerado como equivalente a un mes.
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									margin-left="0.5cm" text-align="justify" font-style="italic"
-									background-color="#E6E6E6">
-									(La durée totale du stage
-									est appréciée en
-									tenant compte de la
-									présence effective du
-									stagiaire dans
-									l'organisme, sous réserve
-									des droits à congés et
-									autorisations
-									d'absence prévus à
-									l'article L.124-13 du code de
-									l'éducation
-									(art. L.124-18 du code
-									de l'éducation). Chaque
-									période au moins
-									égale à 7 heures de
-									présence consécutives ou
-									non est considérée
-									comme équivalente à
-									un jour de stage et
-									chaque période au moins
-									égale à 22 jours de
-									présence
-									consécutifs
-									ou non est considérée
-									comme équivalente à
-									un mois.)
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-						<fo:table-row>
-							<fo:table-cell padding-top="0.2cm" border-top="0.018cm solid #000000">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									margin-left="0.5cm">
-									<fo:inline font-weight="bold" text-decoration="underline">
-										CUANTÍA DE LA GRATIFICACIÓN PAGADA AL ESTUDIANTE
-									</fo:inline>
-									<fo:inline font-size="8pt">
-										(MONTANT DE LA GRATIFICATION
-										VERSÉE AU STAGIAIRE)
-									</fo:inline>
-								</fo:block>
-								<fo:block line-height="110%" language="fr" country="FR"
-									font-size="10pt" font-family="Times New Roman,serif"
-									padding-top="0.2cm">
-									El estudiante ha recibido una gratificación de prácticas de una
-									<fo:inline font-weight="bold"> cuantía total
-									</fo:inline>
-									de ..................................
-									&#8364;
-								</fo:block>
-								<fo:block line-height="110%" language="fr" country="FR"
-									font-size="8pt" font-family="Times New Roman,serif"
-									padding-top="0.035cm" font-style="italic">
-									(Le stagiaire a perçu une
-									gratification de stage
-									pour un
-									montant total de)
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif">
-									<fo:leader />
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-					</fo:table-body>
-				</fo:table>
-
-
-				<fo:table table-layout="fixed" width="100%" margin-left="0cm"
-					padding-top="0.5cm">
-					<fo:table-column column-width="proportional-column-width(1)" />
-					<fo:table-column column-width="proportional-column-width(1)" />
-					<fo:table-body>
-						<fo:table-row>
-							<fo:table-cell>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic" text-align="justify">
-									<fo:inline font-weight="bold">
-										El certificado de prácticas
-									</fo:inline>
-									es indispensable para que, previo pago de una cotización,
-									se
-									pueda tener en cuenta
-									las prácticas en los derechos a la
-									jubilación.
-									La legislación sobre
-									jubilaciones (Ley n° 2014-40 de
-									20 de enero
-									de 2014) otorga a los estudiantes
-									<fo:inline font-weight="bold">
-										cuyas prácticas han sido
-										objeto de gratificación
-									</fo:inline>
-									la posibilidad de validarlas, con un
-									<fo:inline font-weight="bold">máximo de dos trimestres,
-									</fo:inline>
-									a condición de pagar una cotización.
-									<fo:inline font-weight="bold">El estudiante debe hacer la
-										solicitud en los dos años
-									</fo:inline>
-									siguientes a la finalización de las prácticas
-									<fo:inline font-weight="bold">debiendo presentar
-										obligatoriamente el certificado de prácticas
-									</fo:inline>
-									indicando la duración total de las mismas y la
-									cuantía total de
-									la
-									gratificación percibida. Solicitar información
-									exacta sobre la
-									cotización a abonar y el procedimiento a seguir
-									a la Seguridad
-									Social
-									(Código de la Seguridad social art.
-									L.351-17
-									-Código de la
-									Educación art.D.124-9).
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="7pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.035cm"
-									padding-bottom="0.035cm" font-style="italic" text-align="justify"
-									background-color="#E6E6E6">
-									(L'attestation de stage est indispensable pour
-									pouvoir, sous
-									réserve du versement d'une
-									cotisation, faire
-									prendre en compte
-									le stage dans les droits à
-									retraite. La
-									législation sur les
-									retraites (loi n°2014-40 du 20
-									Janvier 2014)
-									ouvre aux étudiants
-									dont le stage a été gratifié, la possibilité
-									de faire valider
-									celui-ci dans la limite de deux trimestres,
-									sous réserve du
-									versement d'une cotisation. La demande est à
-									faire par
-									l'étudiant dans les deux années
-									suivant la fin du stage
-									et sur
-									présentation obligatoire de l'attestation de stage
-									mentionnant
-									la durée totale du stage et le montant total de la
-									gratification perçue. Les informations
-									précises sur la
-									cotisation à verser et sur la procédure à suivre
-									sont à demander
-									auprès de la Sécurité sociale (code de la sécurité sociale art.
-									L.351-17 - code de
-									l'éducation art.D.124-9).)
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.2cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold" font-size="11pt">
-										HECHO EN
-									</fo:inline>
-									<fo:inline font-size="8pt">
-										(Fait à)
-										...................................................................
-									</fo:inline>
-								</fo:block>
-
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
-									padding-bottom="0.035cm">
-									<fo:inline font-weight="bold" font-size="11pt">
-										EL
-									</fo:inline>
-									<fo:inline font-size="8pt">
-										(Le)
-										.........................................................
-									</fo:inline>
-								</fo:block>
-
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.3cm"
-									padding-bottom="0.035cm">
-									Nombre, cargo y firma del representante del
-									organismo de acogida
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="8pt" font-family="Times New Roman,serif"
-									padding-left="0.141cm" padding-right="0.141cm" padding-top="0.1cm"
-									padding-bottom="0.035cm" font-style="italic">
-									(Nom, fonction et signature
-									du représentant de
-									l'organisme
-									d'accueil)
-								</fo:block>
-							</fo:table-cell>
-						</fo:table-row>
-					</fo:table-body>
-				</fo:table>
-			</fo:block>
-		</fo:block>
-	</xsl:template>
-	<xsl:template name="FicheStageEtranger">
-		<fo:block text-align="center">
-			<fo:table border="0.06cm solid #37638B" width="100%"
-				table-layout="fixed" color="#37638B">
-				<fo:table-column column-width="proportional-column-width(0.05)" />
-				<fo:table-column column-width="proportional-column-width(0.55)" />
-				<fo:table-column column-width="proportional-column-width(0.40)" />
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell padding="0.1cm">
-							<fo:external-graphic src="url('img_annexe_fiche_etranger.jpg')"
-								height="1.25cm" scaling="non-uniform" />
-						</fo:table-cell>
-						<fo:table-cell border-right="0.06cm solid #37638B"
-							padding="0.1cm" text-align="left">
-							<fo:block font-size="11pt" font-weight="bold"
-								text-align="center">
-								Stage à l'étranger
-							</fo:block>
-							<fo:block font-size="8pt" font-style="italic"
-								padding-top="0.2cm">
-								Fiche à compléter par l'établissement d'enseignement
-								ou
-								organisme de formation
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell border="1" margin-left="0.2cm"
-							display-align="center" padding-top="0.2cm" text-align="left">
-							<fo:block font-size="8pt">
-								<fo:inline text-decoration="underline" font-weight="bold">
-									PAYS D'ACCUEIL
-								</fo:inline>
-								:
-								<fo:inline color="black">
-									<xsl:choose>
-										<xsl:when test="service/pays/libelle">
-											<xsl:value-of select="service/pays/libelle" />
-										</xsl:when>
-										<xsl:otherwise>
-											...................................................
-										</xsl:otherwise>
-									</xsl:choose>
-								</fo:inline>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-		</fo:block>
-		<fo:block padding-top="5pt">
-			<fo:table border="0.018cm solid #000000" padding="3pt"
-				width="100%" table-layout="fixed">
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell border="1" margin-left="0.2cm"
-							padding-top="0.2cm">
-							<fo:block font-size="9pt" font-weight="bold"
-								text-decoration="underline">
-								CONDITIONS D'ENTRÉE ET DE SÉJOUR DANS LE PAYS
-								D'ACCUEIL
-							</fo:block>
-							<fo:block margin-left="1cm" line-height="130%"
-								hyphenate="false" language="fr" country="FR" font-size="8pt"
-								font-family="Times New Roman,serif" font-style="italic">
-								<fo:inline text-decoration="underline">
-									Préciser ici les
-									informations extraites de la
-								</fo:inline>
-								<fo:basic-link
-									external-destination="url('www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/')"
-									color="blue" text-decoration="underline">
-									Fiche-pays
-								</fo:basic-link>
-								<fo:inline vertical-align="super" font-size="60%">1
-								</fo:inline>
-								<fo:inline text-decoration="underline">
-									essentielles à connaître
-									par le stagiaire :
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="250%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif">
-								.........................................................................................................................................................................................................................................
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-		</fo:block>
-		<fo:block padding-top="5pt">
-			<fo:table border="0.018cm solid #000000" padding="3pt"
-				width="100%" table-layout="fixed">
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell border="1" margin-left="0.2cm"
-							padding-top="0.2cm">
-							<fo:block font-size="10pt" font-weight="bold"
-								text-decoration="underline" color="red">
-								AVERTISSEMENT SUR LA SÉCURITÉ
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:external-graphic src="url('cross.jpg')"
-									width="0.3cm" height="0.3cm" />
-								<fo:inline font-weight="bold">Consultez la classification de
-									la zone
-								</fo:inline>
-								où doit se dérouler le stage envisagé sur le site du Ministère
-								des Affaires étrangères
-								et du Développement international,
-								rubrique
-								<fo:basic-link
-									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/')"
-									color="blue" text-decoration="underline">
-									Conseils aux voyageurs
-								</fo:basic-link>
-								<fo:inline vertical-align="super" font-size="60%">2
-								</fo:inline>
-								:
-							</fo:block>
-							<fo:block font-size="10pt" font-family="Times New Roman,serif">
-								- votre établissement d'enseignement
-								<fo:inline color="red">ne validera pas</fo:inline>
-								une convention de stage pour une zone qualifiée "
-								<fo:inline color="red">rouge</fo:inline>
-								" ;
-							</fo:block>
-							<fo:block font-size="10pt" font-family="Times New Roman,serif">
-								- votre établissement d'enseignement examinera la situation
-								avant une
-								<fo:inline color="red">éventuelle validation</fo:inline>
-								d'une convention de stage pour une zone qualifiée "
-								<fo:inline color="red">orange</fo:inline>
-								". Les projets de stage en zone
-								orange font toutefois l'objet
-								d'un
-								<fo:inline font-weight="bold">à priori négatif</fo:inline>
-								;
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:external-graphic src="url('cross.jpg')"
-									width="0.3cm" height="0.3cm" />
-								<fo:inline font-weight="bold">En cas de basculement en zone
-									"rouge"
-								</fo:inline>
-								pendant votre séjour, il vous est demandé de
-								<fo:inline font-weight="bold">mettre fin immédiatement
-								</fo:inline>
-								au stage.
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:external-graphic src="url('cross.jpg')"
-									width="0.3cm" height="0.3cm" />
-								<fo:inline font-weight="bold">Avant de partir,</fo:inline>
-								vous devez prendre connaissance des
-								<fo:basic-link
-									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/')"
-									color="blue" text-decoration="underline">
-									conseils aux voyageurs
-								</fo:basic-link>
-								<fo:inline vertical-align="super" font-size="60%">2
-								</fo:inline>
-								<fo:inline font-weight="bold"> accessibles via la </fo:inline>
-								<fo:basic-link
-									external-destination="url('www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/')"
-									color="blue" text-decoration="underline">
-									fiche-pays
-								</fo:basic-link>
-								<fo:inline vertical-align="super" font-size="60%">1
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="200%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								font-style="italic">
-								<fo:inline text-decoration="underline">
-									Mentionner ici le lien
-									direct vers la fiche-pays concernée
-								</fo:inline>
-								:
-								...............................................................................................................
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:external-graphic src="url('cross.jpg')"
-									width="0.3cm" height="0.3cm" />
-								Il vous est demandé de
-								<fo:inline font-weight="bold">vous inscrire avant votre
-									départ
-								</fo:inline>
-								sur la
-								<fo:basic-link
-									external-destination="url('https://pastel.diplomatie.gouv.fr/fildariane/dyn/public/login.html')"
-									color="blue" text-decoration="underline">
-									base Ariane
-								</fo:basic-link>
-								<fo:inline vertical-align="super" font-size="60%">3
-								</fo:inline>
-								.
-								De cette manière, le Ministère des Affaires étrangères et du
-								développement international pourra vous joindre par mail ou sms
-								en cas d'incident sécuritaire.
-							</fo:block>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:external-graphic src="url('cross.jpg')"
-									width="0.3cm" height="0.3cm" />
-								Si vous demeurez
-								<fo:inline font-weight="bold">plus de six mois</fo:inline>
-								dans le pays, en tenant compte de votre temps de présence
-								<fo:inline font-weight="bold">avant et après le stage,
-								</fo:inline>
-								vous devrez
-								<fo:inline font-weight="bold">vous inscrire au Registre des
-									Français
-								</fo:inline>
-								établis hors de France auprès des autorités consulaires
-								Françaises (Consulat général ou section consulaire de
-								l'ambassade
-								<fo:inline vertical-align="super" font-size="60%">5
-								</fo:inline>
-								).
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-		</fo:block>
-		<fo:block padding-top="5pt">
-			<fo:table border="0.018cm solid #000000" width="100%"
-				table-layout="fixed">
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell padding="0.2cm">
-							<fo:block font-size="9pt" font-weight="bold"
-								text-decoration="underline">
-								CONDITIONS PARTICULIERES DU STATUT DU STAGIAIRE
-								DANS LE PAYS
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="12pt" font-family="Times New Roman,serif"
-								padding-top="0.2cm">
-								<fo:external-graphic src="url('square.JPG')" />
-								Non
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="12pt" font-family="Times New Roman,serif"
-								padding-top="0.2cm">
-								<fo:external-graphic src="url('square.JPG')" />
-								Oui
-								:
-								<fo:inline font-size="9pt" font-style="italic"
-									text-decoration="underline">Mentionner
-									ici des particularités liées aux
-									stages dans le pays
-									(réglementation spécifique / droits
-									d'inscription
-									complémentaire / convention de partenariat /
-									accords cadre /
-									conditions particulières sur la gratification ou
-									non)
-								</fo:inline>
-								:
-								......................................................
-							</fo:block>
-							<fo:block line-height="200%" hyphenate="false" language="fr"
-								country="FR" font-family="Times New Roman,serif">
-								.............................................................................................................................................................................
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row>
-						<fo:table-cell padding="0.2cm" border-top="0.018cm solid #000000">
-							<fo:block font-size="9pt" font-weight="bold"
-								text-decoration="underline">
-								ASSURANCE COMPLEMENTAIRE
-							</fo:block>
-							<fo:block font-size="9pt" line-height="110%" hyphenate="false"
-								language="fr" country="FR" font-family="Times New Roman,serif"
-								padding-top="2pt">
-								Les régimes de protection sont
-								différents selon le
-								pays d'accueil (y compris en Europe) et les
-								modalités du stage
-								(gratification supérieure ou non
-								au plafond
-								légal Français)*. Pour
-								votre stage :
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								padding-top="0.2cm">
-								<fo:external-graphic src="url('square.JPG')" />
-								<fo:inline font-weight="bold">Vous bénéficiez d'un régime de
-									protection sociale local
-								</fo:inline>
-								<fo:wrapper font-family="ZapfDingbats">&#x2192; </fo:wrapper>
-								<fo:inline font-weight="bold">Votre
-									convention de stage doit
-									le
-									préciser.
-								</fo:inline>
-								Si vous estimez cette
-								protection insuffisante, vous pouvez
-								souscrire à l'assurance
-								maladie volontaire de la
-								<fo:basic-link external-destination="url('http://www.cfe.fr/')"
-									color="blue" text-decoration="underline">
-									Caisse des Français de l'Etranger
-									(CFE)
-								</fo:basic-link>
-								<fo:inline vertical-align="super" font-size="60%">4
-								</fo:inline>
-								ou à une assurance privée.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								padding-top="0.2cm">
-								<fo:external-graphic src="url('square.JPG')" />
-								<fo:inline font-weight="bold">Vous ne bénéficiez pas
-								</fo:inline>
-								d'un régime de protection sociale local.
-								<fo:inline font-weight="bold">Vous devez souscrire
-								</fo:inline>
-								à l'assurance maladie volontaire de la
-								<fo:basic-link external-destination="url('http://www.cfe.fr/')"
-									color="blue" text-decoration="underline">
-									Caisse des Français de l'Etranger
-									(CFE)
-								</fo:basic-link>
-								<fo:inline vertical-align="super" font-size="60%">4
-								</fo:inline>
-								ou à une assurance
-								privée.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								padding-top="0.2cm" padding-bottom="0.2cm">
-								<fo:inline font-weight="bold">Dans tous les cas, </fo:inline>
-								compte tenu du coût élevé des soins dans de nombreux États,
-								<fo:inline font-weight="bold">il est vivement conseillé de
-									souscrire
-								</fo:inline>
-								à l'assurance maladie volontaire de la
-								<fo:basic-link external-destination="url('http://www.cfe.fr/')"
-									color="blue" text-decoration="underline">
-									Caisse des Français de l'Etranger
-									(CFE)
-								</fo:basic-link>
-								<fo:inline vertical-align="super" font-size="60%">4
-								</fo:inline>
-								ou à une assurance
-								privée.
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								font-style="italic">
-								*L'établissement doit vérifier
-								les conditions de
-								protection sociale du pays d'accueil afin
-								d'informer
-								préalablement le stagiaire et, au besoin, faire les
-								démarches
-								nécessaires auprès de la CPAM notamment pour la
-								protection
-								accidents du travail : pour les étudiants voir
-								convention-type
-								de
-								stage articles 6 et 7 (cf. arrêté du 29
-								décembre 2014 relatif
-								aux
-								conventions de stage dans
-								l'enseignement supérieur). Pour
-								les
-								élèves en formation
-								professionnelle de niveaux V et IV voir
-								convention type
-								concernant les périodes de formation en milieu
-								professionnel à
-								l'étranger (cf. circulaire n°2003-203 du
-								17/11/2003 notamment
-								article 8).
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row>
-						<fo:table-cell padding="0.2cm" border-top="0.018cm solid #000000">
-							<fo:block font-size="9pt" font-weight="bold"
-								text-decoration="underline">
-								STAGIAIRE MINEUR
-							</fo:block>
-							<fo:block font-size="10pt" font-family="Times New Roman,serif">
-								-
-								<fo:inline font-weight="bold">Se référer à la convention-type
-								</fo:inline>
-								concernant les périodes de formation en milieu professionnel à
-								l'étranger des élèves en formation professionnelle de niveaux V
-								et IV (circulaire n°2003-203 du 17/11/2003 dont notamment
-								articles 4, 5 et 6).
-							</fo:block>
-							<fo:block font-size="10pt" font-family="Times New Roman,serif"
-								text-decoration="underline" font-style="italic">
-								éventuellement
-								indications particulières à mettre en exergue par
-								l'établissement
-							</fo:block>
-							<fo:block font-size="10pt" font-family="Times New Roman,serif"
-								padding-top="0.1cm">
-								-
-								<fo:inline font-weight="bold">Règlementation particulière
-									pour les mineurs dans le pays d'accueil :
-								</fo:inline>
-							</fo:block>
-							<fo:block margin-left="1.5cm" padding-top="0.1cm">
-								<fo:block line-height="110%" hyphenate="false"
-									language="fr" country="FR" font-size="12pt" font-family="Times New Roman,serif">
-									<fo:external-graphic src="url('square.JPG')" />
-									Non
-								</fo:block>
-								<fo:block line-height="110%" hyphenate="false"
-									padding-top="0.1cm" language="fr" country="FR" font-size="12pt"
-									font-family="Times New Roman,serif">
-									<fo:external-graphic src="url('square.JPG')" />
-									Oui :
-									<fo:inline font-style="italic">précisez les particularités
-									</fo:inline>
-									:
-									..............................................................................................
-								</fo:block>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row>
-						<fo:table-cell font-size="9pt" padding="0.2cm"
-							border-top="0.018cm solid #000000">
-							<fo:block font-weight="bold" text-decoration="underline">
-								SITES DE
-								REFERENCE
-							</fo:block>
-							<fo:block padding-top="0.1cm">
-								<fo:inline vertical-align="super" font-size="60%">1
-								</fo:inline>
-								Fiches-pays :
-								<fo:basic-link
-									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/')"
-									color="blue" text-decoration="underline">
-									http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/
-								</fo:basic-link>
-							</fo:block>
-							<fo:block>
-								<fo:inline vertical-align="super" font-size="60%">2
-								</fo:inline>
-								Fiches Conseils aux voyageurs :
-								<fo:basic-link
-									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs')"
-									color="blue" text-decoration="underline">
-									http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs
-								</fo:basic-link>
-							</fo:block>
-							<fo:block>
-								<fo:inline vertical-align="super" font-size="60%">3
-								</fo:inline>
-								Base Ariane :
-								<fo:basic-link
-									external-destination="url('https://pastel.diplomatie.gouv.fr/fildariane/dyn/public/login.html')"
-									color="blue" text-decoration="underline">
-									https://pastel.diplomatie.gouv.fr/fildariane/dyn/public/login.html
-								</fo:basic-link>
-							</fo:block>
-							<fo:block>
-								<fo:inline vertical-align="super" font-size="60%">4
-								</fo:inline>
-								Caisse des Français de l'Etranger pour assurance complémentaire
-								:
-								<fo:basic-link external-destination="url('http://www.cfe.fr/')"
-									color="blue" text-decoration="underline">
-									http://www.cfe.fr/
-								</fo:basic-link>
-							</fo:block>
-							<fo:block>
-								<fo:inline vertical-align="super" font-size="60%">5
-								</fo:inline>
-								Sites internet des ambassades et consulat français indiqués dans
-								la Fiche-pays :
-								<fo:basic-link
-									external-destination="url('http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/')"
-									color="blue" text-decoration="underline">
-									http://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays/
-								</fo:basic-link>
-							</fo:block>
-							<fo:block>
-								Protection sociale à l'international :
-								<fo:basic-link external-destination="url('http://www.cleiss.fr/')"
-									color="blue" text-decoration="underline">
-									http://www.cleiss.fr/
-								</fo:basic-link>
-							</fo:block>
-							<fo:block>
-								Connaissance de l'enseignement supérieur (fiches de la base
-								"Curie") :
-								<fo:basic-link
-									external-destination="url('http://www.diplomatie.gouv.fr/fr/politique-etrangere-de-la-france/cooperation-educative/')"
-									color="blue" text-decoration="underline">
-									http://www.diplomatie.gouv.fr/fr/politique-etrangere-de-la-france/cooperation-educative/
-								</fo:basic-link>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-		</fo:block>
-	</xsl:template>
 	<!-- mises en majuscules -->
 	<xsl:variable name='lowers'
 		select='"abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"' />

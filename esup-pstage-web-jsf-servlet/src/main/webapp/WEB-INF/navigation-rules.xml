@@ -446,31 +446,11 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<display-name>_modifServiceEtape0</display-name>
-		<from-view-id>/stylesheets/_commun/_modifServiceEtape0.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifServiceEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modifServiceEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
 		<display-name>_modifServiceEtape1</display-name>
 		<from-view-id>/stylesheets/_commun/_modifServiceEtape1.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>_modifServiceEtape0</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modifServiceEtape0.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>_modifServiceEtape2Confirmation</from-outcome>
 			<to-view-id>/stylesheets/_commun/_modifServiceEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modifServiceEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_modifServiceEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifServiceEtape0</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modifServiceEtape0.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -511,31 +491,11 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<display-name>_modifContactEtape0</display-name>
-		<from-view-id>/stylesheets/_commun/_modifContactEtape0.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifContactEtape1</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modifContactEtape1.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
 		<display-name>_modifContactEtape1</display-name>
 		<from-view-id>/stylesheets/_commun/_modifContactEtape1.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>_modifContactEtape0</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modifContactEtape0.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>_modifContactEtape2Confirmation</from-outcome>
 			<to-view-id>/stylesheets/_commun/_modifContactEtape2Confirmation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_modifContactEtape2Confirmation</display-name>
-		<from-view-id>/stylesheets/_commun/_modifContactEtape2Confirmation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>_modifContactEtape0</from-outcome>
-			<to-view-id>/stylesheets/_commun/_modifContactEtape0.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

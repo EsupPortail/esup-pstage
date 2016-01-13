@@ -11,7 +11,7 @@
 
 		<h:outputLabel for="typeEnvoiMail" value="Type de mail : " />
 		<h:selectOneMenu id="typeEnvoiMail" required="true"
-			value="#{conventionController.typeMailEval}">
+			value="#{evaluationController.typeMailEval}">
 			<f:selectItem itemValue="1"
 				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEMAIL.1ERENVOI']}" />
 			<f:selectItem itemValue="2"
@@ -31,7 +31,7 @@
 		<h:outputLabel for="typeDestMailEval"
 			value="Destinataires des mails : " />
 		<h:selectOneRadio id="typeDestMailEval"
-			value="#{conventionController.typeDestMailEval}">
+			value="#{evaluationController.typeDestMailEval}">
 			<f:selectItem itemValue="1"
 				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEDEST.ETU']}" />
 			<f:selectItem itemValue="2" style="margin-left:10px;"
@@ -47,7 +47,7 @@
 
 		<h:outputLabel for="contenuMail" value="Squelette du mail : " />
 		<t:fieldset id="contenuMail" style="width:400px;">
-			<h:outputText value="#{conventionController.contenuMailEval}"
+			<h:outputText value="#{evaluationController.contenuMailEval}"
 				escape="false" disabled="true" />
 		</t:fieldset>
 	</t:panelGrid>
@@ -58,7 +58,7 @@
 	<h:panelGrid align="center" columns="3"
 		columnClasses="paginatorData-text" rowClasses="paginatorData-text">
 		<a4j:commandButton status="mailEvalStatus"
-			action="#{conventionController.envoiMailEvalEnMasse}"
+			action="#{evaluationController.envoiMailEvalEnMasse}"
 			value="#{msgs['FORM.OUI']}" render="formEnvoiMailEval" />
 		<t:htmlTag value="div" style="width:30px;" />
 		<a4j:commandButton value="#{msgs['FORM.NON']}"

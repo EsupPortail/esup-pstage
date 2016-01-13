@@ -158,8 +158,8 @@
 						</rich:column>
 
 						<rich:column
-							rendered="#{(empty conventionController.rechEvalIdCentre and !welcomeController.enseignantTuteur)
-							|| sessionController.droitsEvaluationEtudiantMap[conventionController.rechEvalIdCentre]
+							rendered="#{(empty evaluationController.rechEvalIdCentre and !welcomeController.enseignantTuteur)
+							|| sessionController.droitsEvaluationEtudiantMap[evaluationController.rechEvalIdCentre]
 							|| welcomeController.superAdmin
 							|| welcomeController.etudiant}">
 							<f:facet name="header">
@@ -219,7 +219,7 @@
 									and (welcomeController.superAdmin || sessionController.droitsEvaluationEtudiantMap[convention.idCentreGestion])}" />
 
 									<a4j:commandLink id="imprEvalEtu" style="padding:10px;"
-										action="#{conventionController.editPdfFicheEtudiant}"
+										action="#{evaluationController.editPdfFicheEtudiant}"
 										render="formRechEvaluation"
 										rendered="#{not empty convention.reponseEvaluation
 									and (welcomeController.superAdmin || welcomeController.etudiant
@@ -235,8 +235,8 @@
 							</t:div>
 						</rich:column>
 						<rich:column
-							rendered="#{(empty conventionController.rechEvalIdCentre and !welcomeController.etudiant)
-							|| sessionController.droitsEvaluationEnseignantMap[conventionController.rechEvalIdCentre]
+							rendered="#{(empty evaluationController.rechEvalIdCentre and !welcomeController.etudiant)
+							|| sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre]
 							|| welcomeController.superAdmin}">
 							<f:facet name="header">
 								<h:outputText
@@ -295,7 +295,7 @@
 									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationEnseignantMap)}" />
 
 									<h:commandLink id="imprEvalEns" style="padding:10px;"
-										action="#{conventionController.editPdfFicheEnseignant}"
+										action="#{evaluationController.editPdfFicheEnseignant}"
 										rendered="#{not empty convention.reponseEvaluation
 									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationEnseignantMap)
 									and convention.reponseEvaluation.validationEnseignant}">
@@ -309,9 +309,9 @@
 							</t:div>
 						</rich:column>
 						<rich:column
-							rendered="#{(empty conventionController.rechEvalIdCentre
+							rendered="#{(empty evaluationController.rechEvalIdCentre
 							and !welcomeController.etudiant and !welcomeController.enseignantTuteur)
-							|| sessionController.droitsEvaluationEntrepriseMap[conventionController.rechEvalIdCentre]
+							|| sessionController.droitsEvaluationEntrepriseMap[evaluationController.rechEvalIdCentre]
 							|| welcomeController.superAdmin}">
 							<f:facet name="header">
 								<h:outputText
@@ -368,7 +368,7 @@
 									and !convention.reponseEvaluation.impressionEntreprise
 									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap)}" />
 									<h:commandLink id="imprEvalEnt" style="padding:10px;"
-										action="#{conventionController.editPdfFicheEntreprise}"
+										action="#{evaluationController.editPdfFicheEntreprise}"
 										rendered="#{not empty convention.reponseEvaluation
 									and (welcomeController.superAdmin || not empty sessionController.droitsEvaluationEntrepriseMap)
 									and convention.reponseEvaluation.validationEntreprise}">
@@ -385,14 +385,14 @@
 						<rich:column>
 							<t:htmlTag value="center">
 								<h:commandLink id="accesEval"
-									action="#{conventionController.goToEvalConvention}">
+									action="#{evaluationController.goToEvalConvention}">
 									<h:graphicImage
 										alt="#{msgs['RECHERCHEEVALUATION.BOUTON_ACCES']}"
 										value="../../media/images/arrow_right.png" style="border:0" />
 									<f:setPropertyActionListener value="#{convention}"
 										target="#{conventionController.currentConvention}" />
 									<f:setPropertyActionListener value="#{true}"
-										target="#{conventionController.retourEvaluation}" />
+										target="#{evaluationController.retourEvaluation}" />
 									<rich:tooltip
 										value="#{msgs['RECHERCHEEVALUATION.BOUTON_ACCES']}" />
 								</h:commandLink>
@@ -409,7 +409,7 @@
 							<a4j:commandButton execute="@this"
 								style="font-size:16px; font-weight:bold; border-color:green;"
 								value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL']}"
-								action="#{conventionController.avantEnvoiMailEval}"
+								action="#{evaluationController.avantEnvoiMailEval}"
 								oncomplete="#{rich:component('envoiMailEvalPanel')}.show()"
 								render="envoiMailEvalPanel">
 								<f:setPropertyActionListener value="_envoiMailEval_etape1"
@@ -418,11 +418,11 @@
 						</t:htmlTag>
 						
 						<h:panelGrid columns="3"
-							rendered="#{not empty conventionController.rechEvalIdCentre
+							rendered="#{not empty evaluationController.rechEvalIdCentre
 						and (welcomeController.superAdmin
-						|| (sessionController.droitsEvaluationEtudiantMap[conventionController.rechEvalIdCentre]
-						|| not empty sessionController.droitsEvaluationEnseignantMap[conventionController.rechEvalIdCentre]
-						|| not empty sessionController.droitsEvaluationEntrepriseMap[conventionController.rechEvalIdCentre]))}">
+						|| (sessionController.droitsEvaluationEtudiantMap[evaluationController.rechEvalIdCentre]
+						|| not empty sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre]
+						|| not empty sessionController.droitsEvaluationEntrepriseMap[evaluationController.rechEvalIdCentre]))}">
 							<t:htmlTag value="div" style="width:25px;" />
 							<t:htmlTag value="div"
 								style="width:2px; height:100px; background-color: #{a4jSkin.panelBorderColor};" />
@@ -430,11 +430,11 @@
 						</h:panelGrid>
 
 						<t:fieldset style="width:300px;"
-							rendered="#{not empty conventionController.rechEvalIdCentre
+							rendered="#{not empty evaluationController.rechEvalIdCentre
 						and (welcomeController.superAdmin
-						|| (sessionController.droitsEvaluationEtudiantMap[conventionController.rechEvalIdCentre]
-						|| not empty sessionController.droitsEvaluationEnseignantMap[conventionController.rechEvalIdCentre]
-						|| not empty sessionController.droitsEvaluationEntrepriseMap[conventionController.rechEvalIdCentre]))}">
+						|| (sessionController.droitsEvaluationEtudiantMap[evaluationController.rechEvalIdCentre]
+						|| not empty sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre]
+						|| not empty sessionController.droitsEvaluationEntrepriseMap[evaluationController.rechEvalIdCentre]))}">
 							<legend>
 								<h:panelGrid columns="2">
 									<h:graphicImage id="exportExcel" alt="Excel"
@@ -451,16 +451,15 @@
 										title="#{msgs['GENERAL.WARNING']}" />
 									<h:outputFormat escape="false"
 										value="#{msgs['CONVENTION.ETAPE13.FICHE_ETUDIANT_VIDE']}">
-										<f:param value="#{conventionController.rechEvalIdCentre}" />
+										<f:param value="#{evaluationController.rechEvalIdCentre}" />
 									</h:outputFormat>
 								</h:panelGrid>
 								<t:htmlTag value="center"
 									rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEtudiant
-								and (welcomeController.superAdmin || sessionController.droitsEvaluationEtudiantMap[conventionController.rechEvalIdCentre])}">
+								and (welcomeController.superAdmin || sessionController.droitsEvaluationEtudiantMap[evaluationController.rechEvalIdCentre])}">
 									<h:commandButton id="extractionEtudiant"
 										value="#{msgs['RECHERCHEEVALUATION.EXPORT_ETUDIANT']}"
-										action="#{conventionController.exportFichesEtudiantColumn}">
-<!-- 										action="#{conventionController.exportFichesEtudiantRow}"> -->
+										action="#{evaluationController.exportFichesEtudiantColumn}">
 										
 										<rich:tooltip
 											value="#{msgs['RECHERCHEEVALUATION.EXPORT_ETUDIANT.TOOLTIP']}" />
@@ -475,17 +474,16 @@
 										title="#{msgs['GENERAL.WARNING']}" />
 									<h:outputFormat escape="false"
 										value="#{msgs['CONVENTION.ETAPE13.FICHE_ENSEIGNANT_VIDE']}">
-										<f:param value="#{conventionController.rechEvalIdCentre}" />
+										<f:param value="#{evaluationController.rechEvalIdCentre}" />
 									</h:outputFormat>
 								</h:panelGrid>
 								<t:htmlTag value="center"
 									rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEnseignant
-								and (welcomeController.superAdmin || sessionController.droitsEvaluationEnseignantMap[conventionController.rechEvalIdCentre])}">
+								and (welcomeController.superAdmin || sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre])}">
 									<h:commandButton id="extractionEnseignant"
 										value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENSEIGNANT']}"
 										style="display:inline;"
-										action="#{conventionController.exportFichesEnseignantColumn}">
-<!-- 										action="#{conventionController.exportFichesEnseignantRow}"> -->
+										action="#{evaluationController.exportFichesEnseignantColumn}">
 										<rich:tooltip
 											value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENSEIGNANT.TOOLTIP']}" />
 									</h:commandButton>
@@ -499,15 +497,14 @@
 										title="#{msgs['GENERAL.WARNING']}" />
 									<h:outputFormat escape="false"
 										value="#{msgs['CONVENTION.ETAPE13.FICHE_ENTREPRISE_VIDE']}">
-										<f:param value="#{conventionController.rechEvalIdCentre}" />
+										<f:param value="#{evaluationController.rechEvalIdCentre}" />
 									</h:outputFormat>
 								</h:panelGrid>
 								<h:commandButton id="extractionEntreprise"
 									rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEntreprise
-								and (welcomeController.superAdmin || sessionController.droitsEvaluationEntrepriseMap[conventionController.rechEvalIdCentre])}"
+								and (welcomeController.superAdmin || sessionController.droitsEvaluationEntrepriseMap[evaluationController.rechEvalIdCentre])}"
 									value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENTREPRISE']}"
-									action="#{conventionController.exportFichesEntrepriseColumn}">
-<!-- 									action="#{conventionController.exportFichesEntrepriseRow}"> -->
+									action="#{evaluationController.exportFichesEntrepriseColumn}">
 									<rich:tooltip
 										value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENTREPRISE.TOOLTIP']}" />
 								</h:commandButton>

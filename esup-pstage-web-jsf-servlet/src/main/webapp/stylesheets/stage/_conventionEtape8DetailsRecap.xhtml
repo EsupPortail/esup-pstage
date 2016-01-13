@@ -479,16 +479,16 @@
 					value="#{conventionController.convention.nbHeuresHebdo}" />
 			</rich:column>
 		</rich:columnGroup>
-		<rich:columnGroup>
-			<rich:column>
-				<h:outputLabel for="quotiteTravail1"
-					value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText id="quotiteTravail1"
-					value="#{conventionController.convention.quotiteTravail}" />
-			</rich:column>
-		</rich:columnGroup>
+<!-- 		<rich:columnGroup> -->
+<!-- 			<rich:column> -->
+<!-- 				<h:outputLabel for="quotiteTravail1" -->
+<!-- 					value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" /> -->
+<!-- 			</rich:column> -->
+<!-- 			<rich:column> -->
+<!-- 				<h:outputText id="quotiteTravail1" -->
+<!-- 					value="#{conventionController.convention.quotiteTravail}" /> -->
+<!-- 			</rich:column> -->
+<!-- 		</rich:columnGroup> -->
 		<rich:columnGroup>
 			<rich:column>
 				<h:outputLabel for="nbconges1"
@@ -520,17 +520,17 @@
 					value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}" />
 			</rich:column>
 		</rich:columnGroup>
-		<!-- 		<rich:columnGroup -->
-		<!-- 			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}"> -->
-		<!-- 			<rich:column> -->
-		<!-- 				<h:outputLabel for="modeVersGratification1" -->
-		<!-- 					value="#{msgs['CONVENTION.MODEVERSGRAT']}" /> -->
-		<!-- 			</rich:column> -->
-		<!-- 			<rich:column> -->
-		<!-- 				<h:outputText id="modeVersGratification1" -->
-		<!-- 					value="#{conventionController.convention.modeVersGratification.libelle}" /> -->
-		<!-- 			</rich:column> -->
-		<!-- 		</rich:columnGroup> -->
+		<rich:columnGroup
+			rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}">
+			<rich:column>
+				<h:outputLabel for="modeVersGratification1"
+					value="#{msgs['CONVENTION.MODEVERSGRAT']}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText id="modeVersGratification1"
+					value="#{conventionController.convention.modeVersGratification.libelle}" />
+			</rich:column>
+		</rich:columnGroup>
 		<rich:columnGroup>
 			<rich:column>
 				<h:outputLabel for="origineStage1"

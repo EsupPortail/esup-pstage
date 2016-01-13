@@ -31,16 +31,16 @@
 				<rich:message for="raisonSociale">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 				</rich:message>
-				<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" />
-				<h:inputText id="groupe" style="text-transform:uppercase;"
-					value="#{accordController.accord.structure.groupe}" size="50"
-					maxlength="50"
-					disabled="#{accordController.structureDejaExistante}">
-					<f:converter binding="#{sansAccentEnMAJConverter}" />
-				</h:inputText>
-				<rich:message for="groupe">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+<!-- 				<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" /> -->
+<!-- 				<h:inputText id="groupe" style="text-transform:uppercase;" -->
+<!-- 					value="#{accordController.accord.structure.groupe}" size="50" -->
+<!-- 					maxlength="50" -->
+<!-- 					disabled="#{accordController.structureDejaExistante}"> -->
+<!-- 					<f:converter binding="#{sansAccentEnMAJConverter}" /> -->
+<!-- 				</h:inputText> -->
+<!-- 				<rich:message for="groupe"> -->
+<!-- 					<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+<!-- 				</rich:message> -->
 				<h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *"
 					for="effectif" />
 				<h:selectOneMenu id="effectif"
@@ -178,16 +178,20 @@
 		(accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance)}"
 				for="actprinc" />
 		</h:panelGrid>
-		<h:panelGrid columns="1" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<rich:editor id="actprinc"
+		<h:panelGrid columnClasses="paginatorData-text"
+			rowClasses="paginatorData-text" id="actprinc">
+			<h:outputText escape="false"
 				value="#{accordController.accord.structure.activitePrincipale}"
-				width="400" height="200"
-				readonly="#{accordController.structureDejaExistante}" />
+				rendered="#{accordController.structureDejaExistante}" />
+			<h:inputTextarea 
+				value="#{accordController.accord.structure.activitePrincipale}"
+				rendered="#{!accordController.structureDejaExistante}" 
+				width="400" height="200" />
 			<rich:message for="actprinc">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</rich:message>
 		</h:panelGrid>
+		<t:div style="height:10px;" />
 		<h:outputText value="#{msgs['STRUCTURE.ADRESSE']}" />
 		<h:panelGrid columns="3" columnClasses="paginatorData-text"
 			rowClasses="paginatorData-text">

@@ -138,28 +138,28 @@
 							</t:htmlTag>
 						</rich:column>
 
-						<rich:column sortBy="#{centre.choixAnneeAvantDebutAnnee}">
-							<f:facet name="header">
-								<t:htmlTag value="center">
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" />
-								</t:htmlTag>
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:outputText
-									rendered="#{centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}"
-									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" />
-								<h:outputText
-									rendered="#{centre.choixAnneeApresDebutAnnee and !centre.choixAnneeAvantDebutAnnee}"
-									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" />
-								<h:outputText
-									rendered="#{centre.choixAnneeApresDebutAnnee and centre.choixAnneeAvantDebutAnnee}"
-									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANTAPRES']}" />
-								<h:outputText
-									rendered="#{!centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}"
-									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" />
-							</t:htmlTag>
-						</rich:column>
+<!-- 						<rich:column sortBy="#{centre.choixAnneeAvantDebutAnnee}"> -->
+<!-- 							<f:facet name="header"> -->
+<!-- 								<t:htmlTag value="center"> -->
+<!-- 									<h:outputText style="font-weight:bold;" -->
+<!-- 										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" /> -->
+<!-- 								</t:htmlTag> -->
+<!-- 							</f:facet> -->
+<!-- 							<t:htmlTag value="center"> -->
+<!-- 								<h:outputText -->
+<!-- 									rendered="#{centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
+<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" /> -->
+<!-- 								<h:outputText -->
+<!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and !centre.choixAnneeAvantDebutAnnee}" -->
+<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" /> -->
+<!-- 								<h:outputText -->
+<!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and centre.choixAnneeAvantDebutAnnee}" -->
+<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANTAPRES']}" /> -->
+<!-- 								<h:outputText -->
+<!-- 									rendered="#{!centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
+<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" /> -->
+<!-- 							</t:htmlTag> -->
+<!-- 						</rich:column> -->
 
 						<rich:column sortBy="#{centre.confidentialite.libelle}">
 							<f:facet name="header">

@@ -1559,28 +1559,30 @@
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								<fo:inline text-decoration="underline">
-									AUTRES AVANTAGES ACCORDÉS
-								</fo:inline>
-								<fo:inline font-style="italic" font-weight="bold">
-									(associés à
-									l'article 5bis ou
-									5ter selon le statut public ou
-									privé de
-									l'organisme d'accueil)
-									:
-								</fo:inline>
-							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif"
-								text-align="justify">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="avantages-nature" />
-								</fo:inline>
-							</fo:block>
+							<xsl:if test="avantages-nature and avantages-nature != ''">
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									text-align="justify">
+									<fo:inline text-decoration="underline">
+										AUTRES AVANTAGES ACCORDÉS
+									</fo:inline>
+									<fo:inline font-style="italic" font-weight="bold">
+										(associés à
+										l'article 5bis ou
+										5ter selon le statut public ou
+										privé de
+										l'organisme d'accueil)
+										:
+									</fo:inline>
+								</fo:block>
+								<fo:block line-height="110%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif"
+									text-align="justify">
+									<fo:inline font-weight="bold">
+										<xsl:value-of select="avantages-nature" />
+									</fo:inline>
+								</fo:block>
+							</xsl:if>
 
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">

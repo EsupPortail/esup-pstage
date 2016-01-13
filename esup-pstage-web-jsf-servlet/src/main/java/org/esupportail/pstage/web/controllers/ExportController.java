@@ -63,6 +63,14 @@ public class ExportController extends AbstractContextAwareController {
 	 * 1 = Oui. 2 = Non null = Les 2
 	 */
 	private String estValidee = null;
+	/**
+	 * 1 = Oui. 2 = Non null = Les 2
+	 */
+	private String estVerifiee = null;
+	/**
+	 * toutes les conventions etrangeres ou pays en particulier
+	 */
+	private boolean estEtrangere = false;
 
 	/**
 	 * Liste des colonnes convention choisies.
@@ -219,9 +227,19 @@ public class ExportController extends AbstractContextAwareController {
 			this.critereRechercheConvention.setEstValidee(true);
 		else if (this.estValidee.equals("2"))
 			this.critereRechercheConvention.setEstValidee(false);
-		// this.critereRechercheConvention.setLimit(true);
 
-		// this.critereRechercheConvention.setNbExportMaxi(Integer.toString(DonneesStatic.nb_response_export_maxi));
+		if (!StringUtils.hasText(this.estVerifiee))
+			this.critereRechercheConvention.setEstVerifiee(null);
+		else if (this.estVerifiee.equals("1"))
+			this.critereRechercheConvention.setEstVerifiee(true);
+		else if (this.estVerifiee.equals("2"))
+			this.critereRechercheConvention.setEstVerifiee(false);
+
+		if (this.estEtrangere)
+			this.critereRechercheConvention.setEstEtrangere(true);
+		else
+			this.critereRechercheConvention.setEstEtrangere(false);
+		
 		this.critereRechercheConvention
 				.setNbExportMaxi(this.critereRechercheConvention
 						.getNbExportMaxi());
@@ -1110,6 +1128,22 @@ public class ExportController extends AbstractContextAwareController {
 	public void setConventionEntrepriseColonnesChoisiesItem(
 			List<SelectItem> conventionEntrepriseColonnesChoisiesItem) {
 		this.conventionEntrepriseColonnesChoisiesItem = conventionEntrepriseColonnesChoisiesItem;
+	}
+
+	public String getEstVerifiee() {
+		return estVerifiee;
+	}
+
+	public void setEstVerifiee(String estVerifiee) {
+		this.estVerifiee = estVerifiee;
+	}
+
+	public boolean isEstEtrangere() {
+		return estEtrangere;
+	}
+
+	public void setEstEtrangere(boolean estEtrangere) {
+		this.estEtrangere = estEtrangere;
 	}
 
 }

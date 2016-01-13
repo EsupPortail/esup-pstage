@@ -42,11 +42,14 @@
 											value="../../media/images/information.png" style="border:0">
 											<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
 										</h:graphicImage>
-										<h:inputText id="rechRaisonSocialeAccord" size="50"
-											maxlength="100"
-											value="#{rechercheController.rechRaisonSociale}"
-											style="text-transform:uppercase;"
-											converter="#{sansAccentEnMAJConverter}" />
+										<rich:autocomplete id="rechRaisonSocialeAccord"
+											value="#{rechercheController.rechRaisonSociale}" size="50"
+											maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
+											autofill="false"
+											autocompleteMethod="#{rechercheController.getRaisonsSociales}"
+											converter="#{sansAccentEnMAJConverter}" inputClass="ac"
+											styleClass="ac" popupClass="acPopup"
+											style="text-transform:uppercase; font-size : 10px" attached="false" />
 									</h:panelGrid>
 									<h:outputLabel for="rechTypeAccord"
 										value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.ACCORD']}" />

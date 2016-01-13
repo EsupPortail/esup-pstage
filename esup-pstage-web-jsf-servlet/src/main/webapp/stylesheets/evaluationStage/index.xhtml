@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="../_basicStageTemplate.xhtml">
 	<f:metadata>
-		<f:viewParam name="id" value="#{conventionController.codeAccesFiche}" />
+		<f:viewParam name="id" value="#{evaluationController.codeAccesFiche}" />
 	</f:metadata>
 	<ui:define name="content">
 		<rich:panel
@@ -23,7 +23,7 @@
 							value="#{msgs['CONVENTION.ETAPE13.ENTREPRISE.ACCUEIL2']}" />
 						<a4j:commandButton
 							value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
-							action="#{conventionController.goToFicheEntrepriseTuteurPro}"
+							action="#{evaluationController.goToFicheEntrepriseTuteurPro}"
 							render="formFicheEntreprise" />
 					</h:panelGrid>
 				</h:panelGrid>

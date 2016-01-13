@@ -19,7 +19,7 @@
 					}
 				</h:outputStylesheet>
 
-				<rich:togglePanel switchType="ajax" activeItem="#{conventionController.togglePanelActiveItem}">
+				<rich:togglePanel switchType="ajax" activeItem="#{evaluationController.togglePanelActiveItem}">
 					<rich:togglePanelItem id="enseignantTogglePanel1" name="enseignantTogglePanel1">
 						<h:panelGrid style="margin-left:100px; padding:10px; width:700px;"
 							border="1">
@@ -138,7 +138,7 @@
 							</h:panelGrid>
 							<a4j:outputPanel style="margin-left:15px; width:700px;" layout="block">
 								<a4j:repeat
-									value="#{conventionController.questionsSupplementairesEnseignant1}"
+									value="#{evaluationController.questionsSupplementairesEnseignant1}"
 									var="questionSup">
 									<rich:panel style="width:300px; float:left; border:none;">
 										<h:outputText style="font-weight:bold;" escape="false"
@@ -208,7 +208,7 @@
 							<t:htmlTag value="center">
 								<a4j:commandButton id="save1"
 									value="#{msgs['FORM.ENREGISTRER']}"
-									action="#{conventionController.updateReponseEnseignant}"
+									action="#{evaluationController.updateReponseEnseignant}"
 									render="formFicheEnseignant" style="border-color:blue;">
 									<rich:tooltip
 										value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
@@ -223,10 +223,10 @@
 							<h:panelGrid align="center">
 							
 								<a4j:commandButton value="Suivant &gt;&gt;"
-									action="#{conventionController.updateReponseEnseignant}"
+									action="#{evaluationController.updateReponseEnseignant}"
 									render="formFicheEnseignant"
 									style="font-size:16px; border-color:green;">
-									<f:setPropertyActionListener value="enseignantTogglePanel2" target="#{conventionController.togglePanelActiveItem}"/>
+									<f:setPropertyActionListener value="enseignantTogglePanel2" target="#{evaluationController.togglePanelActiveItem}"/>
 								</a4j:commandButton>
 								<t:htmlTag value="div" style="height:5px;" />
 								<t:htmlTag value="center">
@@ -510,7 +510,7 @@
 							</h:panelGrid>
 							<a4j:outputPanel style="margin-left:15px; width:700px;" layout="block">
 								<a4j:repeat
-									value="#{conventionController.questionsSupplementairesEnseignant2}"
+									value="#{evaluationController.questionsSupplementairesEnseignant2}"
 									var="questionSup">
 									<rich:panel style="width:300px; float:left; border:none;">
 										<h:outputText style="font-weight:bold;" escape="false"
@@ -580,7 +580,7 @@
 							<t:htmlTag value="center">
 								<a4j:commandButton id="save3"
 									value="#{msgs['FORM.ENREGISTRER']}"
-									action="#{conventionController.updateReponseEnseignant}"
+									action="#{evaluationController.updateReponseEnseignant}"
 									render="formFicheEnseignant" style="border-color:blue;">
 									<rich:tooltip
 										value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
@@ -597,11 +597,11 @@
 									<a4j:commandButton value="&lt;&lt; Precedent"
 										render="formFicheEnseignant" immediate="true"
 										style="font-size:16px; border-color:red;">
-										<f:setPropertyActionListener value="enseignantTogglePanel1" target="#{conventionController.togglePanelActiveItem}"/>
+										<f:setPropertyActionListener value="enseignantTogglePanel1" target="#{evaluationController.togglePanelActiveItem}"/>
 									</a4j:commandButton>
 									<t:htmlTag value="div" style="width:10px;" />
 									<a4j:commandButton value="#{msgs['FORM.TERMINER']}"
-										action="#{conventionController.validateFicheEnseignant}"
+										action="#{evaluationController.validateFicheEnseignant}"
 										style="font-size:16px; border-color:green;" />
 								</h:panelGrid>
 								<t:htmlTag value="div" style="height:5px;" />

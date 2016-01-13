@@ -493,23 +493,23 @@
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row>
-						<fo:table-cell background-color="#e6e6e6"
-							text-align="left">
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								pourcentage de quotité travaillée
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:value-of select="quotite-travail" />
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+<!-- 					<fo:table-row> -->
+<!-- 						<fo:table-cell background-color="#e6e6e6" -->
+<!-- 							text-align="left"> -->
+<!-- 							<fo:block line-height="110%" padding-top="2pt" -->
+<!-- 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR" -->
+<!-- 								font-size="10pt" font-family="Times New Roman,serif"> -->
+<!-- 								pourcentage de quotité travaillée -->
+<!-- 							</fo:block> -->
+<!-- 						</fo:table-cell> -->
+<!-- 						<fo:table-cell text-align="left" padding-left="5pt"> -->
+<!-- 							<fo:block line-height="110%" padding-top="2pt" -->
+<!-- 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR" -->
+<!-- 								font-size="10pt" font-family="Times New Roman,serif"> -->
+<!-- 								<xsl:value-of select="quotite-travail" /> -->
+<!-- 							</fo:block> -->
+<!-- 						</fo:table-cell> -->
+<!-- 					</fo:table-row> -->
 					<fo:table-row>
 						<fo:table-cell background-color="#e6e6e6"
 							text-align="left">

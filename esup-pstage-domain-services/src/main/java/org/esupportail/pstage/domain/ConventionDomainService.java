@@ -211,4 +211,12 @@ public interface ConventionDomainService extends Serializable {
 	 * @return List<String>
 	 */
 	public List<String> getCodesEtapesConventionsFromCodeUfrAndIdCentre(String codeUfr, int idCentreGestion, String codeUniversite);
+
+	/**
+	 * @param convention
+	 * @return boolean
+	 * @throws DataUpdateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean updateConventionValidation(ConventionDTO convention) throws DataUpdateException, WebServiceDataBaseException;
 }

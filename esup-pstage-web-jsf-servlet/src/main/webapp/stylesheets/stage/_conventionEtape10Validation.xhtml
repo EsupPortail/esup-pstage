@@ -210,11 +210,19 @@
 				<h:panelGrid
 					rendered="#{conventionController.convention.validationConvention}">
 					<h:column>
-						<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-							title="#{msgs['GENERAL.OK']}" value="../../media/images/tick.png"
-							style="border:0" />
-						<h:outputText value="#{msgs['CONVENTION.VALIDATION.VALIDE']}"
-							escape="false" />
+						<h:panelGrid columns="3">
+							<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+								title="#{msgs['GENERAL.OK']}" value="../../media/images/tick.png"
+								style="border:0" />
+							<h:outputFormat escape="false"
+								value="#{msgs['CONVENTION.VALIDATION.VALIDE']}">
+								<f:param
+									value="#{conventionController.convention.loginValidation}" />
+							</h:outputFormat>
+							<h:outputText style="font-style:italic;" value="#{conventionController.convention.dateValidation}">
+								<f:convertDateTime pattern="dd MMM yyyy hh:mm" timeZone="CET" />
+							</h:outputText>
+						</h:panelGrid>
 					</h:column>
 				</h:panelGrid>
 			</h:panelGrid>

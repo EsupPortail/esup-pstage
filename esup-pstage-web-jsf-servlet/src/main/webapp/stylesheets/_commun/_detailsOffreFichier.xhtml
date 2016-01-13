@@ -7,7 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:panelGrid rendered="#{offreController.currentOffre.avecFichier
-		and offreController.currentOffre.idFichier>0
+		and offreController.currentOffre.idFichier gt 0
 							and not empty offreController.currentOffre.fichier}">
 		<h:panelGrid columns="2">
 			<h:outputLink

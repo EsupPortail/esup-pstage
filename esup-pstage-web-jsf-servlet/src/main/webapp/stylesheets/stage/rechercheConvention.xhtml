@@ -12,7 +12,8 @@
 			<f:facet name="header">
 				<h:outputText value="#{msgs['RECHERCHECONVENTION.TITRE']}" />
 			</f:facet>
-			<h:form id="formRechConvention">
+			<h:form id="formRechConvention"
+				onkeypress="if (event.keyCode == 13) { document.getElementById('formRechConvention:rechercherConvention').click(); return false; }">
 				<h:panelGrid columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text" style="width:700px;">
 					<h:panelGrid style="position:absolute;" columns="3">
@@ -122,7 +123,9 @@
 								value="#{conventionController.critereRechercheConvention.dateStage}">
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.datesStage}" />
+								<a4j:ajax render="test" />
 							</h:selectOneMenu>
+							<h:outputText id="test" value="#{conventionController.critereRechercheConvention.dateStage}" />
 							<t:htmlTag value="div" style="height:2px;" />
 							<h:outputLabel
 								value="#{msgs['RECHERCHECONVENTION.TEMPSTRAVAIL']}" for="tpsT" />
@@ -407,7 +410,7 @@
 
 					<t:htmlTag value="center">
 						<h:panelGrid columns="2">
-							<a4j:commandButton
+							<a4j:commandButton id="rechercherConvention"
 								value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
 								action="#{conventionController.rechercherConvention}"
 								status="statusRecherche"
@@ -445,6 +448,12 @@
 								<f:setPropertyActionListener
 									value="#{conventionController.estValidee}"
 									target="#{exportController.estValidee}" />
+								<f:setPropertyActionListener
+									value="#{conventionController.estVerifiee}"
+									target="#{exportController.estVerifiee}" />
+								<f:setPropertyActionListener
+									value="#{conventionController.estEtrangere}"
+									target="#{exportController.estEtrangere}" />
 								<f:setPropertyActionListener
 									value="rechercheConvention"
 									target="#{conventionController.retourAction}" />

@@ -29,7 +29,7 @@
 							style="font-weight:bold; font-size:16px;" />
 						<t:htmlTag value="div" style="height: 10px;" />
 					</h:panelGrid>
-					<rich:tabPanel switchType="ajax" id="listeQuestionsSupplementaires">
+					<rich:tabPanel switchType="ajax" id="tabFicheEntreprise">
 						<rich:tab id="etape1Tab">
 							<f:facet name="header">
 								<h:outputText style="font-size:14px; padding:10px;"
@@ -289,10 +289,10 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
+							<a4j:outputPanel id="listeQuestionsSupplementaires1">
 							<h:panelGrid align="center" width="500"
 								rendered="#{not empty centreController.listeQuestionsSupplementairesEntreprise1}"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text">
+								rowClasses="paginatorData-text" columnClasses="paginatorData-text">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold; font-size:16px;"
 										value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
@@ -304,6 +304,7 @@
 								</rich:list>
 								<t:htmlTag value="div" style="height:10px;" />
 							</h:panelGrid>
+							</a4j:outputPanel>
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
@@ -479,9 +480,9 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
+							<a4j:outputPanel id="listeQuestionsSupplementaires2">
 							<h:panelGrid align="center" width="500"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text"
+								rowClasses="paginatorData-text" columnClasses="paginatorData-text"
 								rendered="#{not empty centreController.listeQuestionsSupplementairesEntreprise2}">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold; font-size:16px;"
@@ -494,6 +495,7 @@
 								</rich:list>
 								<t:htmlTag value="div" style="height:10px;" />
 							</h:panelGrid>
+							</a4j:outputPanel>
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"
@@ -640,6 +642,7 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
+							<a4j:outputPanel id="listeQuestionsSupplementaires3">
 							<h:panelGrid align="center" width="500"
 								rendered="#{not empty centreController.listeQuestionsSupplementairesEntreprise3}"
 								rowClasses="paginatorData-text"
@@ -654,6 +657,7 @@
 										src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
 								</rich:list>
 							</h:panelGrid>
+							</a4j:outputPanel>
 							<t:htmlTag value="center">
 								<a4j:commandButton execute="@this"
 									style="font-size:16px; font-weight:bold; border-color:green;"

@@ -309,21 +309,21 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 						<t:htmlTag value="div" style="height: 5px;" />
-						<h:outputLabel value="#{msgs['CENTRE.MOIS_PRECEDENT']} *"
-							for="moisPrecedent" />
-						<h:selectOneRadio id="moisPrecedent"
-							value="#{centreController.centre.choixAnneeAvantDebutAnnee}">
-							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						</h:selectOneRadio>
-						<t:htmlTag value="div" style="height: 5px;" />
-						<h:outputLabel value="#{msgs['CENTRE.MOIS_SUIVANT']} *"
-							for="moisSuivant" />
-						<h:selectOneRadio id="moisSuivant"
-							value="#{centreController.centre.choixAnneeApresDebutAnnee}">
-							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						</h:selectOneRadio>
+<!-- 						<h:outputLabel value="#{msgs['CENTRE.MOIS_PRECEDENT']} *" -->
+<!-- 							for="moisPrecedent" /> -->
+<!-- 						<h:selectOneRadio id="moisPrecedent" -->
+<!-- 							value="#{centreController.centre.choixAnneeAvantDebutAnnee}"> -->
+<!-- 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" /> -->
+<!-- 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" /> -->
+<!-- 						</h:selectOneRadio> -->
+<!-- 						<t:htmlTag value="div" style="height: 5px;" /> -->
+<!-- 						<h:outputLabel value="#{msgs['CENTRE.MOIS_SUIVANT']} *" -->
+<!-- 							for="moisSuivant" /> -->
+<!-- 						<h:selectOneRadio id="moisSuivant" -->
+<!-- 							value="#{centreController.centre.choixAnneeApresDebutAnnee}"> -->
+<!-- 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" /> -->
+<!-- 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" /> -->
+<!-- 						</h:selectOneRadio> -->
 						<h:outputLabel value="#{msgs['CENTRE.IMPRESSIONCONVENTION']} *"
 							for="impressionConvention"
 							rendered="#{sessionController.autoriserCentresBloquerImpressionConvention}" />

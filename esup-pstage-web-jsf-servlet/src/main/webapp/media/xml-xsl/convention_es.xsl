@@ -49,14 +49,14 @@
 		<fo:block padding-top="8pt">
 			<xsl:call-template name="AnnexeArticlesPage6" />
 		</fo:block>
-<!-- 		<fo:block break-after="page" /> -->
-<!-- 		<fo:block> -->
-<!-- 			<xsl:call-template name="Attestation" /> -->
-<!-- 		</fo:block> -->
-<!-- 		<fo:block break-after="page" /> -->
-<!-- 		<fo:block> -->
-<!-- 			<xsl:call-template name="FicheStageEtranger" /> -->
-<!-- 		</fo:block> -->
+		<!-- <fo:block break-after="page" /> -->
+		<!-- <fo:block> -->
+		<!-- <xsl:call-template name="Attestation" /> -->
+		<!-- </fo:block> -->
+		<!-- <fo:block break-after="page" /> -->
+		<!-- <fo:block> -->
+		<!-- <xsl:call-template name="FicheStageEtranger" /> -->
+		<!-- </fo:block> -->
 		<fo:block>
 			<xsl:choose>
 				<xsl:when test="document('config.xml')/config/triptik">
@@ -1687,12 +1687,22 @@
 								</fo:inline>
 								(visitas, citas telefónicas, etc) :
 							</fo:block>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="mode-encadre-suivi" />
-								</fo:inline>
-							</fo:block>
+							<xsl:choose>
+								<xsl:when test="mode-encadre-suivi and mode-encadre-suivi != ''">
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										<fo:inline font-weight="bold">
+											<xsl:value-of select="mode-encadre-suivi" />
+										</fo:inline>
+									</fo:block>
+								</xsl:when>
+								<xsl:otherwise>
+									<fo:block line-height="110%" hyphenate="false"
+										language="fr" country="FR" font-size="10pt" font-family="Times New Roman,serif">
+										.......................................................................................................
+									</fo:block>
+								</xsl:otherwise>
+							</xsl:choose>
 							<fo:block line-height="100%" padding-top="2pt"
 								hyphenate="false" language="fr" country="FR" font-size="9pt"
 								font-family="Times New Roman,serif" text-align="justify"
@@ -1838,7 +1848,7 @@
 												<fo:inline font-weight="bold">
 													<xsl:value-of select="montant-gratification" />
 												</fo:inline>
-<!-- 												euros -->
+												<!-- euros -->
 												<xsl:text> </xsl:text>
 												<xsl:value-of select="monnaie-gratification" />
 												<xsl:text> </xsl:text>
@@ -1863,16 +1873,18 @@
 									</xsl:if>
 								</xsl:otherwise>
 							</xsl:choose>
-							<fo:block line-height="130%" hyphenate="false" language="fr"
-								country="FR" font-size="9pt" font-family="Times New Roman,serif">
-								<fo:inline text-decoration="underline">
-									OTROS BENEFICIOS ACORDADOS
-								</fo:inline>
-								:
-								<fo:inline font-weight="bold">
-									<xsl:value-of select="avantages-nature" />
-								</fo:inline>
-							</fo:block>
+							<xsl:if test="avantages-nature and avantages-nature != ''">
+								<fo:block line-height="130%" hyphenate="false"
+									language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
+									<fo:inline text-decoration="underline">
+										OTROS BENEFICIOS ACORDADOS
+									</fo:inline>
+									:
+									<fo:inline font-weight="bold">
+										<xsl:value-of select="avantages-nature" />
+									</fo:inline>
+								</fo:block>
+							</xsl:if>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="9pt" font-family="Times New Roman,serif"
 								keep-with-next="always" text-align="justify" font-weight="bold"
@@ -2023,7 +2035,7 @@
 											</xsl:when>
 											<xsl:otherwise>
 												...
-<!-- 												 euros -->
+												<!-- euros -->
 												<xsl:text> </xsl:text>
 												<xsl:value-of select="monnaie-gratification" />
 												<xsl:text> </xsl:text>

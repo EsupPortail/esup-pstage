@@ -6,15 +6,13 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="modifService" autosized="true" styleClass="panel">
+	<rich:popupPanel id="modifService" width="800" height="350">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['SERVICE.MODIF']}" />
 		</f:facet>
-		<a4j:outputPanel ajaxRendered="true">
-			<h:form id="formModifService">
-				<ui:include
-					src="/stylesheets/_commun/#{sessionController.modifServiceCurrentPage}.xhtml" />
-			</h:form>
-		</a4j:outputPanel>
+		<h:form id="formModifService">
+			<ui:include
+				src="/stylesheets/_commun/#{sessionController.modifServiceCurrentPage}.xhtml" />
+		</h:form>
 	</rich:popupPanel>
 </ui:composition>

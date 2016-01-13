@@ -38,15 +38,15 @@
 					<rich:message for="raisonSociale">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</rich:message>
-					<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" />
-					<h:inputText id="groupe" style="text-transform:uppercase;"
-						value="#{adminController.structureAccordAValider.groupe}"
-						size="50" maxlength="50">
-						<f:converter binding="#{sansAccentEnMAJConverter}" />
-					</h:inputText>
-					<rich:message for="groupe">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+<!-- 					<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" /> -->
+<!-- 					<h:inputText id="groupe" style="text-transform:uppercase;" -->
+<!-- 						value="#{adminController.structureAccordAValider.groupe}" -->
+<!-- 						size="50" maxlength="50"> -->
+<!-- 						<f:converter binding="#{sansAccentEnMAJConverter}" /> -->
+<!-- 					</h:inputText> -->
+<!-- 					<rich:message for="groupe"> -->
+<!-- 						<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+<!-- 					</rich:message> -->
 					<h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *"
 						for="effectif" />
 					<h:selectOneMenu id="effectif"
@@ -195,7 +195,7 @@
 			</h:panelGrid>
 			<h:panelGrid columns="1" rowClasses="paginatorData-text"
 				columnClasses="paginatorData-text">
-				<rich:editor id="actprinc"
+				<h:inputTextarea id="actprinc"
 					value="#{adminController.structureAccordAValider.activitePrincipale}"
 					width="400" height="200" />
 				<rich:message for="actprinc">

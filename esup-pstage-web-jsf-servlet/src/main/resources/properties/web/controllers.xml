@@ -272,14 +272,12 @@
 		<description>A bean to manage exception reports.</description>
 	</bean>
 
-	<!-- uncomment this bean and include _debug.jsp to get debug info <bean 
-		id="debugController" class="org.esupportail.commons.web.controllers.DebugController" 
-		scope="session" > <description>A bean to debug the current application state.</description> 
-		<property name="applicationService" ref="applicationService"> <description>The 
-		appplication service.</description> </property> <property name="authenticationService" 
-		ref="authenticationService"> <description>The authentication service.</description> 
-		</property> </bean> -->
-
+	<bean id="evaluationController"
+		class="org.esupportail.pstage.web.controllers.EvaluationController"
+		parent="abstractContextAwareController" scope="session">
+		<property name="conventionController" ref="conventionController" />
+		<property name="castorService" ref="castorService" />
+	</bean>
 
 	<bean id="anneesAccademiques" class="java.util.ArrayList" scope="prototype" />
 
