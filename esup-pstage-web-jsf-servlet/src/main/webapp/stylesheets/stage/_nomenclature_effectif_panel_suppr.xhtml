@@ -10,6 +10,14 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['NOMENCLATURES.SUPPRESSION.HEADER']}" />
 		</f:facet>
+		<h:panelGrid columns="2">
+			<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+				title="#{msgs['GENERAL.WARNING']}"
+				value="../../media/images/warning_20px.png" style="border:0" />
+			<h:outputText value="#{msgs['NOMENCLATURES.SUPPRESSION.BODY']}"
+				escape="false" />
+		</h:panelGrid>
+		<t:htmlTag value="div" style="height: 20px;" />
 		<h:outputFormat value="#{msgs['NOMENCLATURES.SUPPRESSION.QUESTION']}" escape="false">
 			<f:param value="#{nomenclatureController.effectif.libelle}"/>
 		</h:outputFormat>

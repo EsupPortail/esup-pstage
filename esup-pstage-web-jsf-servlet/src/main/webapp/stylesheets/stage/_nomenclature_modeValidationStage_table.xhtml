@@ -18,7 +18,7 @@
 				</f:facet>
 				<h:panelGrid columns="3" columnClasses="paginatorData-text"
 					rowClasses="paginatorData-text">
-					<a4j:commandLink rendered="#{modeValidationStage.value.modifiable}"
+					<a4j:commandLink 
 						oncomplete="#{rich:component('suppressionModeValidationStage')}.show()"
 						render="suppressionModeValidationStage">
 						<f:setPropertyActionListener value="#{modeValidationStage.value}"
@@ -26,7 +26,7 @@
 						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
 						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
 					</a4j:commandLink>
-					<a4j:commandLink rendered="#{modeValidationStage.value.modifiable}"
+					<a4j:commandLink 
 						render="modeValidationStageTab">
 						<f:setPropertyActionListener value="#{modeValidationStage.value}"
 							target="#{nomenclatureController.modeValidationStage}" />

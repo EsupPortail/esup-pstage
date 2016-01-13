@@ -60,49 +60,56 @@
                         and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
                         || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
                         || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
-			<h:panelGrid columns="2">
-				<h:outputText
-					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.ETAT']}" />
-				<h:outputText id="verification1" alt="#{msgs['FORM.OUI']}"
-					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
-					rendered="#{conventionController.convention.structure.estValidee == 1}"
-					style="border:0; color:green;" escape="false">
-					<rich:tooltip
-						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
-				</h:outputText>
-				<h:outputText id="verification2" alt="#{msgs['FORM.NON']}"
-					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
-					rendered="#{conventionController.convention.structure.estValidee == 2}"
-					style="border:0; color:red;" escape="false">
-					<rich:tooltip
-						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
-				</h:outputText>
-				<h:outputText id="verification3"
-					alt="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
-					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
-					rendered="#{conventionController.convention.structure.estValidee == 0}"
-					style="border:0; color:grey;" escape="false">
-					<rich:tooltip
-						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
-				</h:outputText>
-			</h:panelGrid>
-			<a4j:commandButton execute="@this" id="validerStructure"
-				oncomplete="#{rich:component('validerStructurePanel')}.show()"
-				rendered="#{sessionController.moderationStructures
+			<h:panelGrid rendered="#{conventionController.convention.structure.temEnServStructure == 'O'}">
+				<h:panelGrid columns="2">
+					<h:outputText
+						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.ETAT']}" />
+					<h:outputText id="verification1" alt="#{msgs['FORM.OUI']}"
+						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
+						rendered="#{conventionController.convention.structure.estValidee == 1}"
+						style="border:0; color:green;" escape="false">
+						<rich:tooltip
+							value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
+					</h:outputText>
+					<h:outputText id="verification2" alt="#{msgs['FORM.NON']}"
+						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
+						rendered="#{conventionController.convention.structure.estValidee == 2}"
+						style="border:0; color:red;" escape="false">
+						<rich:tooltip
+							value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
+					</h:outputText>
+					<h:outputText id="verification3"
+						alt="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
+						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
+						rendered="#{conventionController.convention.structure.estValidee == 0}"
+						style="border:0; color:grey;" escape="false">
+						<rich:tooltip
+							value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
+					</h:outputText>
+				</h:panelGrid>
+				<a4j:commandButton execute="@this" id="validerStructure"
+					oncomplete="#{rich:component('validerStructurePanel')}.show()"
+					rendered="#{sessionController.moderationStructures
 					and (sessionController.adminPageAuthorized || welcomeController.superAdmin 
 					|| welcomeController.admin || welcomeController.writer)}"
-				action="#{etablissementController.avantValidation}"
-				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
-				render="validerStructurePanel">
-				<f:setPropertyActionListener
-					value="#{conventionController.convention.structure}"
-					target="#{etablissementController.currentStruct}" />
-				<f:setPropertyActionListener value="_validStructureEtape1"
-					target="#{sessionController.validationStructureCurrentPage}" />
-				<rich:tooltip
-					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
-			</a4j:commandButton>
-
+					action="#{etablissementController.avantValidation}"
+					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
+					render="validerStructurePanel">
+					<f:setPropertyActionListener
+						value="#{conventionController.convention.structure}"
+						target="#{etablissementController.currentStruct}" />
+					<f:setPropertyActionListener value="_validStructureEtape1"
+						target="#{sessionController.validationStructureCurrentPage}" />
+					<rich:tooltip
+						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
+				</a4j:commandButton>
+			</h:panelGrid>
+			
+			<h:panelGrid rendered="#{conventionController.convention.structure.temEnServStructure == 'N'}">
+				<h:outputText id="MsgsStructureSupp" value="#{msgs['STRUCTURE.MODERATION.ETAT.SUPP']}" 
+				style="color:green;"  escape="false"/>
+			</h:panelGrid>
+			
 			<rich:popupPanel id="demandeConfirmModifEtab" autosized="true"
 				styleClass="panel">
 				<f:facet name="header">
@@ -121,10 +128,10 @@
 					rowClasses="paginatorData-text" align="center">
 					<a4j:commandButton value="#{msgs['FORM.OUI']}"
 						onclick="#{rich:component('demandeConfirmModifEtab')}.hide();"
-						action="#{conventionController.goToConventionRechEtab}"/>
-	
+						action="#{conventionController.goToConventionRechEtab}" />
+
 					<t:htmlTag value="div" style="width:80px;" />
-	
+
 					<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
 						onclick="#{rich:component('demandeConfirmModifEtab')}.hide();return false;" />
 				</h:panelGrid>
