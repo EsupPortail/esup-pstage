@@ -2,9 +2,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+	xmlns:p="http://primefaces.org/ui"
+	>
+	<h:panelGrid >
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
 		<h:outputLabel for="typeCompte"
 			value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE']}" />
@@ -14,11 +14,11 @@
 			requiredMessage="#{requiredMessageController.champObligatoire}">
 			<f:selectItems
 				value="#{adminController.listTypeCompteAdminStructure}" />
-			<a4j:ajax event="valueChange" render="opFormAdmin" execute="@this" />
+			<p:ajax event="valueChange" update="opFormAdmin"  />
 		</h:selectOneRadio>
 	</h:panelGrid>
-	<a4j:outputPanel id="opFormAdmin">
-		<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+	<p:outputPanel id="opFormAdmin">
+		<h:panelGrid >
 			<h:outputLabel for="nomAdmin" value="#{msgs['ADMINSTRUCTURE.NOM']} *" />
 			<h:inputText id="nomAdmin"
 				value="#{adminController.formAdminStructure.nom}" size="50"
@@ -26,11 +26,11 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				style="text-transform:uppercase;">
 				<f:converter binding="#{upperCaseConverter}" />
-				<a4j:ajax event="blur"/>
+				<p:ajax event="blur"/>
 			</h:inputText>
-			<rich:message for="nomAdmin">
+			<p:message for="nomAdmin">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 			<h:outputLabel for="prenomAdmin"
 				value="#{msgs['ADMINSTRUCTURE.PRENOM']} *" />
 			<h:inputText id="prenomAdmin" style="text-transform:capitalize;"
@@ -38,11 +38,11 @@
 				maxlength="50" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:converter binding="#{premiereLettreMAJConverter}" />
-				<a4j:ajax event="blur"/>
+				<p:ajax event="blur"/>
 			</h:inputText>
-			<rich:message for="prenomAdmin">
+			<p:message for="prenomAdmin">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 			<h:outputLabel for="mailAdmin"
 				value="#{msgs['ADMINSTRUCTURE.MAIL']} *" />
 			<h:inputText id="mailAdmin"
@@ -51,11 +51,11 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 				<f:validator binding="#{mailValidator}" />
-				<a4j:ajax event="blur"/>
+				<p:ajax event="blur"/>
 			</h:inputText>
-			<rich:message for="mailAdmin">
+			<p:message for="mailAdmin">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 			<h:outputLabel for="loginAdmin"
 				value="#{msgs['ADMINSTRUCTURE.LOGIN']} *"
 				rendered="#{adminController.typeCompteAdminStructure==0 || adminController.typeCompteAdminStructure==1}" />
@@ -64,11 +64,11 @@
 				rendered="#{adminController.typeCompteAdminStructure==0 || adminController.typeCompteAdminStructure==1}"
 				size="30" maxlength="50" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<a4j:ajax event="blur"/>
+				<p:ajax event="blur"/>
 			</h:inputText>
-			<rich:message for="loginAdmin">
+			<p:message for="loginAdmin">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 			<h:outputLabel for="mdpAdmin" value="#{msgs['ADMINSTRUCTURE.MDP']} *"
 				rendered="#{adminController.typeCompteAdminStructure==0}" />
 			<h:inputSecret id="mdpAdmin"
@@ -77,11 +77,11 @@
 				maxlength="20" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:converter binding="#{passwordConverter}" />
-				<a4j:ajax event="blur"/>
+				<p:ajax event="blur"/>
 			</h:inputSecret>
-			<rich:message for="mdpAdmin">
+			<p:message for="mdpAdmin">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 			<h:outputLabel for="cmdpAdmin"
 				value="#{msgs['ADMINSTRUCTURE.MDP_CONFIRMATION']} *"
 				rendered="#{adminController.typeCompteAdminStructure==0}" />
@@ -92,11 +92,11 @@
 				required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:converter binding="#{passwordConverter}" />
-				<a4j:ajax event="blur"/>
+				<p:ajax event="blur"/>
 			</h:inputSecret>
-			<rich:message for="cmdpAdmin">
+			<p:message for="cmdpAdmin">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 			<h:outputLabel for="eppnAdmin"
 				value="#{msgs['ADMINSTRUCTURE.EPPN']} *"
 				rendered="#{adminController.typeCompteAdminStructure==2}" />
@@ -107,11 +107,11 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 				<f:validator binding="#{mailValidator}" />
-				<a4j:ajax event="blur"/>
+				<p:ajax event="blur"/>
 			</h:inputText>
-			<rich:message for="eppnAdmin">
+			<p:message for="eppnAdmin">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
-	</a4j:outputPanel>
+	</p:outputPanel>
 </ui:composition>

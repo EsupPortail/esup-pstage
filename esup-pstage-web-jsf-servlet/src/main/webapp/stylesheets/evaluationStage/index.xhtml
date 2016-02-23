@@ -2,14 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_basicStageTemplate.xhtml">
 	<f:metadata>
 		<f:viewParam name="id" value="#{evaluationController.codeAccesFiche}" />
 	</f:metadata>
 	<ui:define name="content">
-		<rich:panel
+		<p:panel
 			style="width:800px; position:relative; margin-left:auto; margin-right:auto;">
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE13.HEADER']} " />
@@ -21,13 +21,13 @@
 					<h:panelGrid columns="2" style="padding:10px;">
 						<h:outputText
 							value="#{msgs['CONVENTION.ETAPE13.ENTREPRISE.ACCUEIL2']}" />
-						<a4j:commandButton
+						<p:commandButton
 							value="#{msgs['CONVENTION.ETAPE13.BOUTON_CREATION']}"
 							action="#{evaluationController.goToFicheEntrepriseTuteurPro}"
-							render="formFicheEntreprise" />
+							update="formFicheEntreprise" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

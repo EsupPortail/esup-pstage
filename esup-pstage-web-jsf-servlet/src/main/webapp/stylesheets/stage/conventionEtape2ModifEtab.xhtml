@@ -4,12 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
 			</f:facet>
@@ -22,17 +22,17 @@
 					<h:panelGrid columns="2" align="center">
 						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 							title="#{msgs['GENERAL.WARNING']}"
-							value="../../media/images/warning_20px.png" style="border:0" />
+							value="../../media/images/warning_20px.png" />
 						<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.INFO']}"
 							escape="false" />
 					</h:panelGrid>
 					<h:panelGrid>
-						<rich:messages showDetail="true" />
+						<p:messages showDetail="true" />
 						<ui:include
 							src="/stylesheets/stage/_conventionEtape2ModifEtab.xhtml" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

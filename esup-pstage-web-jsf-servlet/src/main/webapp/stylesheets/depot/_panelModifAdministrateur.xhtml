@@ -2,16 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:popupPanel id="modifAdministrateur" autosized="true" width="400"
-		styleClass="panel">
+	xmlns:p="http://primefaces.org/ui">
+	<p:dialog id="modifAdministrateur">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['ADMINSTRUCTURE.MODIF']}" />
 		</f:facet>
 		<h:form id="formModifAdminStructure">
-			<ui:include id="include"
+			<ui:include
 				src="/stylesheets/depot/#{sessionController.modifAdminStructureCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

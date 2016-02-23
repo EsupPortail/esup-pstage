@@ -2,13 +2,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 
 	<ui:include src="../_commun/_confirmationMessages.xhtml" />
 
-	<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
+	<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
 		action="_supprCompteContactEtape1"
-		onclick="#{rich:component('supprCompteContact')}.hide();" />
+		onclick="PF('supprCompteContact').hide();" />
 
 </ui:composition>

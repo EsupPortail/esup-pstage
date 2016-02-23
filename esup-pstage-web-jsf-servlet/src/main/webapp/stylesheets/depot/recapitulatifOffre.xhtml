@@ -2,16 +2,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	 template="../_basicTemplate.xhtml">
 	<ui:define name="content">
 		<t:div>
 			<h:panelGrid style="float:left;">
 				<ui:include src="./_menu.xhtml" />
 			</h:panelGrid>
-			<h:panelGrid columns="1" styleClass="panelEntreprise"
+			<h:panelGrid
 				rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
-				<rich:panel>
+				<p:panel>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
 					</f:facet>
@@ -20,13 +20,13 @@
 					</t:div>
 					<h:form>
 						<h:panelGrid>
-							<a4j:commandLink id="editoffre"
+							<p:commandLink id="editoffre"
 								action="#{offreController.editPdfOffre}">
 								<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-									value="../../media/images/printer.png" style="border:0" />
+									value="../../media/images/printer.png" />
 								<h:outputText value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
 									escape="false" />
-							</a4j:commandLink>
+							</p:commandLink>
 						</h:panelGrid>
 						<t:htmlTag value="div" style="height:5px;" />
 						<t:div rendered="#{not empty offreController.currentOffre}">
@@ -49,12 +49,12 @@
 									<h:commandLink id="modif"
 										action="#{offreController.goToEntrepriseModificationOffre}">
 										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-											value="../../media/images/edit.png" style="border:0" />
+											value="../../media/images/edit.png" />
 										<f:setPropertyActionListener value="recapitulatifOffre"
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="#{1}"
 											target="#{offreController.typeAjoutModifOffre}" />
-										<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
+										<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
 									</h:commandLink>
 								</legend>
 								<ui:include src="../_commun/_detailsOffre.xhtml" />
@@ -70,14 +70,14 @@
 										<h:commandLink id="modifF"
 											action="#{offreController.goToEntrepriseModificationOffre3}">
 											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png" style="border:0" />
+												value="../../media/images/edit.png" />
 											<f:setPropertyActionListener value="recapitulatifOffre"
 												target="#{offreController.retour}" />
 											<f:setPropertyActionListener value="#{1}"
 												target="#{offreController.typeAjoutModifOffre}" />
 											<f:setPropertyActionListener value="_modificationOffreEtape3"
 												target="#{sessionController.modificationOffre3CurrentPage}" />
-											<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
+											<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
 										</h:commandLink>
 									</legend>
 									<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
@@ -91,12 +91,12 @@
 										<h:commandLink id="modifC"
 											action="#{offreController.goToEntrepriseModificationOffre3C}">
 											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png" style="border:0" />
+												value="../../media/images/edit.png" />
 											<f:setPropertyActionListener value="recapitulatifOffre"
 												target="#{offreController.retour}" />
 											<f:setPropertyActionListener value="#{1}"
 												target="#{offreController.typeAjoutModifOffre}" />
-											<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
+											<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
 										</h:commandLink>
 									</legend>
 									<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
@@ -112,29 +112,29 @@
 							</t:div>
 							<t:htmlTag value="br" />
 							<t:htmlTag value="div" style="height:10px;" />
-							<h:panelGrid columns="1" style="float:right;"
+							<h:panelGrid style="float:right;"
 								rendered="#{!offreController.currentOffre.estSupprimee}">
-								<a4j:commandLink execute="@this" id="suppr" render="supprOffre"
-									oncomplete="#{rich:component('supprOffre')}.show()">
+								<p:commandLink  id="suppr" update="supprOffre"
+									oncomplete="PF('supprOffre').show();">
 									<f:setPropertyActionListener value="recapitulatifOffre"
 										target="#{offreController.retour}" />
 									<f:setPropertyActionListener
 										value="_supprOffreEtape1"
 										target="#{sessionController.suppressionOffreCurrentPage}" />
 									<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
-										value="../../media/images/delete.png" style="border:0" />
+										value="../../media/images/delete.png" />
 									<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
-									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-								</a4j:commandLink>
+									<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+								</p:commandLink>
 							</h:panelGrid>
-							<h:panelGrid columns="1" style="float:right;">
+							<h:panelGrid style="float:right;">
 								<t:aliasBean alias="#{objet}"
 									value="#{offreController.currentOffre}">
 									<ui:include src="../_commun/_updateInfos.xhtml" />
 								</t:aliasBean>
 							</h:panelGrid>
 						</t:div>
-						<h:panelGrid columns="1">
+						<h:panelGrid>
 							<t:htmlTag value="div" style="height:20px;" />
 							<h:commandButton action="#{offreController.goToGestionOffres}"
 								rendered="#{sessionController.pageAuthorized 
@@ -148,10 +148,10 @@
 					<ui:include src="../_commun/_panelOffrePourvue.xhtml" />
 					<ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
 					<ui:include src="../_commun/_panelSupprOffre.xhtml" />
-				</rich:panel>
+				</p:panel>
 				<ui:include src="_panelNousContacter.xhtml" />
 			</h:panelGrid>
-			<rich:editor rendered="false" />
+			<p:editor rendered="false" />
 		</t:div>
 	</ui:define>
 </ui:composition>

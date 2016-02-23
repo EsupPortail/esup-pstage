@@ -2,12 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 	<t:htmlTag value="center">
-		<rich:messages />
-		<a4j:commandButton execute="@this" value="#{msgs['GENERAL.CLOSE']}"
-			render="opRechercheStructureDataTable, opAffAccord"
-			onclick="#{rich:component('supprimerAccordPanel')}.hide();" />
+		<p:messages />
+		<p:commandButton  value="#{msgs['GENERAL.CLOSE']}"
+			update="opRechercheStructureDataTable, opAffAccord"
+			onclick="PF('supprimerAccordPanel').hide();" />
 	</t:htmlTag>
 </ui:composition>

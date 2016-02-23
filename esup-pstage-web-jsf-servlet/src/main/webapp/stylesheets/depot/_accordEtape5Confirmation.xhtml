@@ -2,9 +2,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 	<ui:include src="../_commun/_confirmationMessages.xhtml"/>
-	<a4j:commandButton action="#{welcomeController.goToAccueilEntr}"
+	<p:commandButton action="#{welcomeController.goToAccueilEntr}"
 		value="#{msgs['GENERAL.RETOURACCUEIL']}" />
 </ui:composition>

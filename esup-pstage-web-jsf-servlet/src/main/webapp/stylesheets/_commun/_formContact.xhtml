@@ -2,16 +2,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1"
+	<t:panelGrid
 		rendered="#{not empty etablissementController.formContact}">
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3">
+		<t:panelGrid columns="3">
 			<t:panelGroup colspan="3">
-				<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" align="center">
+				<t:panelGrid align="center">
 					<h:outputLabel value="#{msgs['CONTACT.GESTION.CENTREGESTION']} *"
 						for="centreGestion"
 						rendered="#{etablissementController.afficherSelectionCentreContact}" />
@@ -24,15 +24,15 @@
 						<f:selectItem itemValue="" />
 						<f:selectItems
 							value="#{offreController.listeItemsCurrentCentresGestion}" />
-						<a4j:ajax event="valueChange"/>
+						<p:ajax event="valueChange"/>
 					</h:selectOneMenu>
-					<rich:message for="centreGestion" ajaxRendered="false">
+					<p:message for="centreGestion" ajaxRendered="false">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</t:panelGrid>
 			</t:panelGroup>
-			<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
-				<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="margin-left:auto;margin-right:auto;">
+			<t:panelGrid>
+				<t:panelGrid columns="2" style="margin-left:auto;margin-right:auto;">
 					<h:outputLabel value="#{msgs['CONTACT.CIVILITE']} *" for="civilite" />
 					<h:selectOneMenu id="civilite"
 						value="#{etablissementController.formContact.civilite}"
@@ -40,12 +40,12 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.civilites}" />
-						<a4j:ajax event="valueChange" />
+						<p:ajax event="valueChange" />
 					</h:selectOneMenu>
 					<t:panelGroup colspan="2">
-						<rich:message for="civilite" ajaxRendered="false">
+						<p:message for="civilite" ajaxRendered="false">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</t:panelGroup>
 				</t:panelGrid>
 				<h:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
@@ -55,9 +55,9 @@
 					converter="#{upperCaseConverter}"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 				</h:inputText>
-				<rich:message for="nom" ajaxRendered="false">
+				<p:message for="nom" ajaxRendered="false">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 				<h:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
 				<h:inputText id="prenom" style="text-transform:capitalize;"
 					value="#{etablissementController.formContact.prenom}" size="50"
@@ -65,26 +65,26 @@
 					converter="#{premiereLettreMAJConverter}"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 				</h:inputText>
-				<rich:message for="prenom" ajaxRendered="false">
+				<p:message for="prenom" ajaxRendered="false">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 				<h:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
 				<h:inputText id="fonction" size="50" maxlength="100"
 					value="#{etablissementController.formContact.fonction}" />
-				<rich:message for="fonction" ajaxRendered="false">
+				<p:message for="fonction" ajaxRendered="false">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</t:panelGrid>
-			<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3">
+			<t:panelGrid columns="3">
 				<t:htmlTag value="div" style="width: 25px;" />
 				<t:htmlTag value="div" style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 200px;" />
 				<t:htmlTag value="div" style="width: 25px;" />
 			</t:panelGrid>
-			<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
-				<t:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2">
+			<t:panelGrid>
+				<t:panelGrid columns="2">
 					<h:graphicImage alt="arrow"
 					value="../../media/images/arrow_turn_down.png"
-						style="border:0" />
+						 />
 					<h:outputText id="msg1o3"
 						value="#{msgs['CONTACT.GESTION.UNDESTROIS']} " />
 				</t:panelGrid>
@@ -105,16 +105,16 @@
 					validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 					<f:validator binding="#{mailValidator}" />
 				</h:inputText>
-				<rich:message for="mailC" ajaxRendered="false">
+				<p:message for="mailC" ajaxRendered="false">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 				<h:outputText style="color:orange;"
 					value="#{msgs['CONTACT.GESTION.SANSMAILIMPOSSIBLE']}"
 					rendered="#{not empty etablissementController.formContact.login
 				and not empty etablissementController.formContact.mdp}" />
-				<rich:message for="msg1o3" ajaxRendered="false">
+				<p:message for="msg1o3" ajaxRendered="false">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</t:panelGrid>
 		</t:panelGrid>
 	</t:panelGrid>

@@ -2,58 +2,53 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height:5px;" />
 
 	<t:htmlTag value="center">
-		<rich:dataTable id="listeModeValidationStage" rows="15"
+		<p:dataTable id="listeModeValidationStage"
 			value="#{nomenclatureController.modeValidationStages}"
-			var="modeValidationStage">
-			<rich:column>
+			var="modeValidationStage" rows="15" rowHover="true"
+			rowStyleClass="nopointer" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+			<p:column>
 				<f:facet name="header">
 					<h:outputText value="#{msgs['NOMENCLATURES.TABLE.HEADER']}" />
 				</f:facet>
-				<h:panelGrid columns="3" columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
-					<a4j:commandLink 
-						oncomplete="#{rich:component('suppressionModeValidationStage')}.show()"
-						render="suppressionModeValidationStage">
+				<h:panelGrid columns="3">
+					<p:commandLink
+						oncomplete="PF('suppressionModeValidationStage').show();"
+						update="suppressionModeValidationStage">
 						<f:setPropertyActionListener value="#{modeValidationStage.value}"
 							target="#{nomenclatureController.modeValidationStage}" />
 						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
-						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-					</a4j:commandLink>
-					<a4j:commandLink 
-						render="modeValidationStageTab">
+						<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+					</p:commandLink>
+					<p:commandLink update="modeValidationStageTab">
 						<f:setPropertyActionListener value="#{modeValidationStage.value}"
 							target="#{nomenclatureController.modeValidationStage}" />
 						<f:setPropertyActionListener value="modif"
 							target="#{nomenclatureController.modeValidationStageCurrentPage}" />
 						<h:graphicImage alt="modifier" value="../../media/images/edit.png" />
-						<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-					</a4j:commandLink>
+						<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+					</p:commandLink>
 					<h:outputText value="#{modeValidationStage.label}" />
 				</h:panelGrid>
-			</rich:column>
-			<f:facet name="footer">
-				<rich:dataScroller align="center" for="listeModeValidationStage"
-					maxPages="20" page="1" id="listeScroller"
-					renderIfSinglePage="false" />
-			</f:facet>
-		</rich:dataTable>
+			</p:column>
+		</p:dataTable>
 
 		<t:htmlTag value="div" style="height:10px;" />
 
-		<a4j:commandButton style="color:green;"
+		<p:commandButton style="color:green;"
 			action="#{nomenclatureController.resetObjects}"
-			render="modeValidationStageTab"
+			update="modeValidationStageTab"
 			value="#{msgs['NOMENCLATURES.AJOUT']}">
 			<f:setPropertyActionListener value="ajout"
 				target="#{nomenclatureController.modeValidationStageCurrentPage}" />
-		</a4j:commandButton>
+		</p:commandButton>
 	</t:htmlTag>
 
 	<t:htmlTag value="div" style="height:10px;" />

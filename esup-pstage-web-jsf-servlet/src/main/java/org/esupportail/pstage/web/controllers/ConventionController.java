@@ -100,8 +100,8 @@ import org.springframework.util.StringUtils;
 public class ConventionController extends AbstractContextAwareController {
 
 	/* ***************************************************************
-	 * Proprietes**************************************************************
-	 */
+	 * Proprietes
+	 * ***************************************************************/
 	/**
 	 * The serialization id.
 	 */
@@ -463,8 +463,8 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/* ***************************************************************
-	 * Actions**************************************************************
-	 */
+	 * Actions
+	 *****************************************************************/
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -1130,11 +1130,11 @@ public class ConventionController extends AbstractContextAwareController {
 							"CONVENTION.CREERCONVENTION.CONFIRMATION");
 				}
 			} catch (DataUpdateException ae) {
-				logger.error("DataUpdateException", ae.fillInStackTrace());
+				logger.error("DataUpdateException", ae.getCause());
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ETU.ERREUR");
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ETU.ERREUR",
 						we.getMessage());
 			}
@@ -1170,13 +1170,13 @@ public class ConventionController extends AbstractContextAwareController {
 								+ ", id etape ajout : " + idEtape);
 					}
 				} catch (DataAddException ae) {
-					logger.error("DataAddException", ae.fillInStackTrace());
+					logger.error("DataAddException", ae.getCause());
 					addErrorMessage(null,
 							"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 					return retour;
 				} catch (WebServiceDataBaseException we) {
 					logger.error("WebServiceDataBaseException",
-							we.fillInStackTrace());
+							we.getCause());
 					addErrorMessage(null,
 							"CONVENTION.CREERCONVENTION.ETAPE.ERREUR",
 							we.getMessage());
@@ -1212,13 +1212,13 @@ public class ConventionController extends AbstractContextAwareController {
 								+ ", id ufr ajout : " + idUfr);
 					}
 				} catch (DataAddException ae) {
-					logger.error("DataAddException", ae.fillInStackTrace());
+					logger.error("DataAddException", ae.getCause());
 					addErrorMessage(null,
 							"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 					return retour;
 				} catch (WebServiceDataBaseException we) {
 					logger.error("WebServiceDataBaseException",
-							we.fillInStackTrace());
+							we.getCause());
 					addErrorMessage(null,
 							"CONVENTION.CREERCONVENTION.UFR.ERREUR",
 							we.getMessage());
@@ -1260,11 +1260,11 @@ public class ConventionController extends AbstractContextAwareController {
 					this.alerteMailModifConvention(" les infos étudiant ");
 				}
 			} catch (DataUpdateException ae) {
-				logger.error("DataUpdateException", ae.fillInStackTrace());
+				logger.error("DataUpdateException", ae.getCause());
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 						we.getMessage());
@@ -1560,10 +1560,10 @@ public class ConventionController extends AbstractContextAwareController {
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -1589,10 +1589,10 @@ public class ConventionController extends AbstractContextAwareController {
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -1633,10 +1633,10 @@ public class ConventionController extends AbstractContextAwareController {
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -1673,10 +1673,10 @@ public class ConventionController extends AbstractContextAwareController {
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -1703,10 +1703,10 @@ public class ConventionController extends AbstractContextAwareController {
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -1735,10 +1735,10 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -1816,12 +1816,12 @@ public class ConventionController extends AbstractContextAwareController {
 							"CONVENTION.CREERCONVENTION.CONFIRMATION");
 				}
 			} catch (DataUpdateException ae) {
-				logger.error("DataUpdateException", ae.fillInStackTrace());
+				logger.error("DataUpdateException", ae.getCause());
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 				ret = null;
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 						we.getMessage());
@@ -1960,10 +1960,10 @@ public class ConventionController extends AbstractContextAwareController {
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -2094,6 +2094,10 @@ public class ConventionController extends AbstractContextAwareController {
 					addErrorMessage(nomForm + ":modeVersGratification",
 							"CONVENTION.CREERCONVENTION.MODEVERSGRATIFICATION.OBLIGATOIRE");
 					ctrlInfosOK = false;
+				}
+				if (this.selMonnaieGratification != null
+					&& this.selMonnaieGratification != "autre"){
+					this.convention.setMonnaieGratification("euros");
 				}
 			} else {
 				this.convention.setMontantGratification("");
@@ -2329,11 +2333,11 @@ public class ConventionController extends AbstractContextAwareController {
 						+ ", id etape ajout : " + idEtape);
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			return retour;
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ETAPE.ERREUR",
 					we.getMessage());
 			return retour;
@@ -2354,11 +2358,11 @@ public class ConventionController extends AbstractContextAwareController {
 						+ ", id ufr ajout : " + idUfr);
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			return retour;
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.UFR.ERREUR",
 					we.getMessage());
 			return retour;
@@ -2390,11 +2394,11 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			return retour;
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ETU.ERREUR",
 					we.getMessage());
 			return retour;
@@ -2433,11 +2437,11 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			return retour;
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.UFR.ERREUR",
 					we.getMessage());
 			return retour;
@@ -2508,15 +2512,15 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			return retour;
 		} catch (DataUpdateException ue) {
-			logger.error("DataAddException", ue.fillInStackTrace());
+			logger.error("DataAddException", ue.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			return retour;
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR",
 					we.getMessage());
@@ -2884,7 +2888,7 @@ public class ConventionController extends AbstractContextAwareController {
 				retour = "conventionEtape8Recap";
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
 			if (we.getMessage().contains("Duplicate")) {
@@ -2892,19 +2896,19 @@ public class ConventionController extends AbstractContextAwareController {
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR_DUPLICATE");
 			} else {
 				logger.error("WebServiceDataBaseException ",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 						we.getMessage());
 			}
 		} catch (AddressException ade) {
-			logger.error("AddressException", ade.fillInStackTrace());
+			logger.error("AddressException", ade.getCause());
 			addErrorMessage(null, "GENERAL.ERREUR_MAIL");
 		} catch (MessagingException me) {
-			logger.error("MessagingException", me.fillInStackTrace());
+			logger.error("MessagingException", me.getCause());
 			addErrorMessage(null, "GENERAL.ERREUR_MAIL");
 		} catch (UnsupportedEncodingException uee) {
-			logger.error("UnsupportedEncodingException", uee.fillInStackTrace());
+			logger.error("UnsupportedEncodingException", uee.getCause());
 			addErrorMessage(null, "GENERAL.ERREUR_MAIL");
 		}
 		return retour;
@@ -2982,11 +2986,11 @@ public class ConventionController extends AbstractContextAwareController {
 							"CONVENTION.CREERCONVENTION.CONFIRMATION");
 				}
 			} catch (DataUpdateException ae) {
-				logger.error("DataUpdateException", ae.fillInStackTrace());
+				logger.error("DataUpdateException", ae.getCause());
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 						we.getMessage());
@@ -3087,7 +3091,7 @@ public class ConventionController extends AbstractContextAwareController {
 			addInfoMessage(null, "CONVENTION.IMPRESSION.CONFIRMATION");
 			this.editConvFR = false;
 		} catch (ExportException e) {
-			logger.error("ExportException ", e.fillInStackTrace());
+			logger.error("ExportException ", e.getCause());
 			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR",
 					e.getMessage());
 		}
@@ -3133,7 +3137,7 @@ public class ConventionController extends AbstractContextAwareController {
 			addInfoMessage(null, "CONVENTION.IMPRESSION.CONFIRMATION");
 			this.editConvFR = false;
 		} catch (ExportException e) {
-			logger.error("ExportException ", e.fillInStackTrace());
+			logger.error("ExportException ", e.getCause());
 			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR",
 					e.getMessage());
 		}
@@ -3173,7 +3177,7 @@ public class ConventionController extends AbstractContextAwareController {
 			addInfoMessage(null, "CONVENTION.IMPRESSION.CONFIRMATION");
 			this.editConvFR = false;
 		} catch (ExportException e) {
-			logger.error("ExportException ", e.fillInStackTrace());
+			logger.error("ExportException ", e.getCause());
 			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR",
 					e.getMessage());
 		}
@@ -3318,7 +3322,7 @@ public class ConventionController extends AbstractContextAwareController {
 					FacesContext.getCurrentInstance());
 
 		} catch (ExportException e) {
-			logger.error("ExportException ", e.fillInStackTrace());
+			logger.error("ExportException ", e.getCause());
 			addErrorMessage(null, "CONVENTION.EDIT.CONVENTION.ERREUR",
 					e.getMessage());
 		} catch (IOException e) {
@@ -3461,7 +3465,7 @@ public class ConventionController extends AbstractContextAwareController {
 					castorService.getXslXmlPath(), fileNamePdf, nomDocxsl);
 			addInfoMessage(null, "CONVENTION.IMPRESSION.RECAP.CONFIRMATION");
 		} catch (ExportException e) {
-			logger.error("editPdfRecap ", e.fillInStackTrace());
+			logger.error("editPdfRecap ", e.getCause());
 			addErrorMessage(null, "CONVENTION.EDIT.RECAP.ERREUR",
 					e.getMessage());
 		}
@@ -3503,7 +3507,7 @@ public class ConventionController extends AbstractContextAwareController {
 			addInfoMessage(null,
 					"CONVENTION.IMPRESSION.REMERCIEMENT.CONFIRMATION");
 		} catch (ExportException e) {
-			logger.error("editPdfRemerciement ", e.fillInStackTrace());
+			logger.error("editPdfRemerciement ", e.getCause());
 			addErrorMessage(null, "CONVENTION.EDIT.RECAP.ERREUR",
 					e.getMessage());
 		}
@@ -4315,10 +4319,10 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.ENSEIGNANT.ERREUR",
 					we.getMessage());
@@ -4333,10 +4337,10 @@ public class ConventionController extends AbstractContextAwareController {
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -4412,11 +4416,11 @@ public class ConventionController extends AbstractContextAwareController {
 						this.convention.getIdConvention());
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage("formSelConvention:erreurConventionVerification",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage("formSelConvention:erreurConventionVerification",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -4445,11 +4449,11 @@ public class ConventionController extends AbstractContextAwareController {
 						this.convention.getIdConvention());
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage("formSelConvention:erreurConventionVerification",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage("formSelConvention:erreurConventionVerification",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -4485,11 +4489,11 @@ public class ConventionController extends AbstractContextAwareController {
 						this.convention.getIdConvention());
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage("formSelConvention:erreurConventionValidation",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage("formSelConvention:erreurConventionValidation",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -4532,11 +4536,11 @@ public class ConventionController extends AbstractContextAwareController {
 						this.convention.getIdConvention());
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage("formSelConvention:erreurConventionValidation",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage("formSelConvention:erreurConventionValidation",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -4560,7 +4564,7 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 			getSmtpService().send(new InternetAddress(mail), sujet, text, text);
 		} catch (AddressException ade) {
-			logger.error("AddressException ", ade.fillInStackTrace());
+			logger.error("AddressException ", ade.getCause());
 			addErrorMessage("formSelConvention:erreurConventionValidation",
 					"GENERAL.ERREUR_MAIL", ade.getMessage());
 		}
@@ -4599,11 +4603,11 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 		} catch (DataDeleteException ae) {
-			logger.error("DataDeleteException", ae.fillInStackTrace());
+			logger.error("DataDeleteException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.SUPPRESSION.ERREUR",
 					this.convention.getIdConvention());
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null, "CONVENTION.SUPPRESSION.ERREUR",
 					this.convention.getIdConvention());
 		}
@@ -5339,7 +5343,7 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Reset des criteres de recherche d'offres.
+	 * Reset des criteres de recherche de convention
 	 */
 	public void resetRechercheConvention() {
 		critereRechercheConvention = initCritereRechercheConvention();
@@ -5645,19 +5649,19 @@ public class ConventionController extends AbstractContextAwareController {
 
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage("formResultConventions:messageResultat",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage("formResultConventions:messageResultat",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
 		} catch (AddressException ade) {
-			logger.error("AddressException", ade.fillInStackTrace());
+			logger.error("AddressException", ade.getCause());
 			addErrorMessage(null, "GENERAL.ERREUR_MAIL");
 		} catch (Exception e) {
-			logger.error("Exception ", e.fillInStackTrace());
+			logger.error("Exception ", e.getCause());
 			addErrorMessage("formResultConventions:messageResultat",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					e.getMessage());
@@ -5798,16 +5802,16 @@ public class ConventionController extends AbstractContextAwareController {
 						"CONVENTION.VALIDATION_COMMENTAIRE");
 			}
 		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.fillInStackTrace());
+			logger.error("DataUpdateException", ae.getCause());
 			addErrorMessage("formCommentaire",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage("formCommentaire",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
 		} catch (Exception e) {
-			logger.error("Exception ", e.fillInStackTrace());
+			logger.error("Exception ", e.getCause());
 			addErrorMessage("formCommentaire",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					e.getMessage());
@@ -5873,7 +5877,7 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 		} catch (AddressException ade) {
-			logger.error("AddressException", ade.fillInStackTrace());
+			logger.error("AddressException", ade.getCause());
 			addErrorMessage(null, "GENERAL.ERREUR_MAIL");
 		}
 	}
@@ -7117,6 +7121,8 @@ public class ConventionController extends AbstractContextAwareController {
 		} else {
 			c = new CritereRechercheConventionDTO();
 		}
+		this.estValidee = null;
+		this.estVerifiee = null;
 		this.estEtrangere = false;
 		c.setNbRechercheMaxi(Integer.toString(DonneesStatic.nb_recherche_maxi));
 		c.setNbExportMaxi(Integer.toString(DonneesStatic.nb_response_export_maxi));

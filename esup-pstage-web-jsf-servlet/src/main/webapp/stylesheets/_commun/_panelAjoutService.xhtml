@@ -2,11 +2,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="ajoutService" width="800" height="350">
+	<p:dialog id="ajoutService" widgetVar="ajoutService">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['SERVICE.AJOUT']}" />
 		</f:facet>
@@ -14,5 +13,5 @@
 			<ui:include
 				src="/stylesheets/_commun/#{sessionController.ajoutServiceCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

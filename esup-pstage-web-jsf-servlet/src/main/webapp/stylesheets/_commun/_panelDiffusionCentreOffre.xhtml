@@ -2,17 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-
-	<rich:popupPanel id="diffusionCentreOffre" autosized="true" width="600"
-		styleClass="panel" domElementAttachment="parent">
+	
+	<p:dialog id="diffusionCentreOffre" widgetVar="diffusionCentreOffre">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSION']}" />
 		</f:facet>
 		<h:form id="formDiffusionCentreOffre">
 			<ui:include src="/stylesheets/_commun/#{sessionController.diffusionCentreOffreCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

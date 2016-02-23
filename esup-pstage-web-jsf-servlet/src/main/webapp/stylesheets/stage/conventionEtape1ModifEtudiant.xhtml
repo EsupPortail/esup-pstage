@@ -2,28 +2,28 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columns="1">
+				<h:panelGrid>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE1.ETUDIANT']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="" />
-					<h:panelGrid columns="1">
+					<h:panelGrid>
 						<ui:include
 							src="/stylesheets/stage/_conventionEtape1ModifEtudiant.xhtml" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

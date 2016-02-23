@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-		<rich:panel
+		<p:panel
 			style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
@@ -22,13 +22,13 @@
 					<f:setPropertyActionListener value="_creerConventionEtape2Etab" target="#{sessionController.creationConventionEtape2CurrentPage}"/>
 				</h:commandButton>
 				<t:htmlTag value="div" style="width: 20px;" />
-				<a4j:commandButton value="#{msgs['FORM.CREER']}"
-					render="formConvention"
+				<p:commandButton value="#{msgs['FORM.CREER']}"
+					update="formConvention"
 					action="#{conventionController.ajouterEtablissement}" />
 			</h:panelGrid>
 			
 			<t:htmlTag value="div" style="height:10px;" />
-		</rich:panel>
+		</p:panel>
 </ui:composition>
 
 

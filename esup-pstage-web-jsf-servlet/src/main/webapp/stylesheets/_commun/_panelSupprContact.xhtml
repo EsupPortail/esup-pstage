@@ -2,16 +2,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="supprContact" autosized="true" styleClass="panel">
+	<p:dialog id="supprContact" widgetVar="supprContact">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONTACT.GESTION.SUPPR']}" />
 		</f:facet>
 		<h:form id="formSupprContact">
-			<ui:include	src="/stylesheets/_commun/#{sessionController.suppressionContactCurrentPage}.xhtml" />
+			<ui:include
+				src="/stylesheets/_commun/#{sessionController.suppressionContactCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

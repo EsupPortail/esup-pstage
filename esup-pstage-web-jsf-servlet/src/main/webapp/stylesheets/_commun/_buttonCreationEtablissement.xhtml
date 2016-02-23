@@ -2,8 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:panelGrid columns="3"
@@ -14,8 +14,8 @@
 			<f:setPropertyActionListener value="#{true}"
 				target="#{etablissementController.memeAdresseStructure}" />
 			<h:graphicImage alt="#{msgs['FORM.CREER']}"
-				value="../../media/images/new.png" style="border:0" />
-			<rich:tooltip value="#{msgs['FORM.CREER']}" />
+				value="../../media/images/new.png" />
+			<p:tooltip value="#{msgs['FORM.CREER']}" />
 		</h:commandLink>
 	</h:panelGrid>
 </ui:composition>

@@ -2,22 +2,22 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<f:facet name="header">
 		<h:outputText value="#{msgs['OFFRE.SELECTIONCONTACT']}" />
 	</f:facet>
-	<a4j:outputPanel id="opService" ajaxRendered="true">
+	<p:outputPanel id="opService" ajaxRendered="true">
 		<t:panelGrid columns="2">
 			<t:panelGroup colspan="2">
 				<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
 					rendered="#{empty etablissementController.listeServices}"
 					escape="false" />
 			</t:panelGroup>
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
+			<h:panelGrid columns="2"
+				>
 				<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
 					escape="false"
 					rendered="#{not empty etablissementController.listeServices}" />
@@ -27,12 +27,12 @@
 					valueChangeListener="#{etablissementController.valueIdServiceChanged}"
 					rendered="#{not empty etablissementController.listeServices}">
 					<f:selectItems value="#{etablissementController.servicesItems}" />
-					<a4j:ajax event="valueChange"
-						render="opContactsDataTable, opActionsService" execute="@this" />
+					<p:ajax event="valueChange"
+						update="opContactsDataTable, opActionsService"  />
 				</h:selectOneMenu>
 			</h:panelGrid>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text"
+			<h:panelGrid
+				
 				rendered="#{empty offreController.centreGestionDepotAnonyme
 			and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 			welcomeController.admin || welcomeController.personnel || welcomeController.writer)
@@ -42,12 +42,12 @@
 								and ((empty etablissementController.serviceSel.loginModif and
 								etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
 								|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin))))))))}">
-				<a4j:outputPanel id="opActionsService" ajaxRendered="true">
-					<a4j:commandLink execute="@this" id="modif"
+				<p:outputPanel id="opActionsService" ajaxRendered="true">
+					<p:commandLink  id="modif"
 						rendered="#{not empty etablissementController.listeServices and 
 					not empty etablissementController.idServiceSel}"
-						oncomplete="#{rich:component('modifService')}.show()"
-						render="modifService">
+						oncomplete="PF('modifService').show();"
+						update="modifService">
 						<f:setPropertyActionListener value="#{false}"
 							target="#{etablissementController.memeAdresseStructure}" />
 						<f:setPropertyActionListener
@@ -58,39 +58,39 @@
 						<f:setPropertyActionListener value="_modifServiceEtape1"
 							target="#{sessionController.modifServiceCurrentPage}" />
 						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-							value="../../media/images/edit.png" style="border:0" />
-						<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-					</a4j:commandLink>
-				</a4j:outputPanel>
+							value="../../media/images/edit.png" />
+						<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+					</p:commandLink>
+				</p:outputPanel>
 			</h:panelGrid>
 		</t:panelGrid>
-		<h:panelGrid columns="2" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text"
+		<h:panelGrid columns="2"
+			
 			rendered="#{empty offreController.centreGestionDepotAnonyme}">
 			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-			<a4j:commandLink execute="@this" id="ajout"
-				oncomplete="#{rich:component('ajoutService')}.show()"
+			<p:commandLink  id="ajout"
+				oncomplete="PF('ajoutService').show();"
 				action="#{etablissementController.ajoutService}"
-				render="ajoutService">
+				update="ajoutService">
 				<f:setPropertyActionListener value="#{true}"
 					target="#{etablissementController.memeAdresseStructure}" />
 				<f:setPropertyActionListener value="_ajoutServiceEtape1"
 					target="#{sessionController.ajoutServiceCurrentPage}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
-					value="../../media/images/new.png" style="border:0" />
-				<rich:tooltip value="#{msgs['FORM.CREER']}" />
-			</a4j:commandLink>
+					value="../../media/images/new.png" />
+				<p:tooltip value="#{msgs['FORM.CREER']}" />
+			</p:commandLink>
 		</h:panelGrid>
-	</a4j:outputPanel>
+	</p:outputPanel>
 
 	<t:htmlTag value="div" style="height:5px;" />
 	<t:htmlTag value="div"
 		style="height:2px; width:100%; background-color: #{a4jSkin.panelBorderColor};" />
 	<t:htmlTag value="div" style="height:5px;" />
 
-	<a4j:outputPanel id="opContactsDataTable" ajaxRendered="true">
-		<h:panelGrid columns="3" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text"
+	<p:outputPanel id="opContactsDataTable" ajaxRendered="true">
+		<h:panelGrid columns="3"
+			
 			rendered="#{not empty etablissementController.listeContacts}">
 			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
 				escape="false" />
@@ -101,39 +101,39 @@
 				required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:selectItems value="#{etablissementController.contactsItems}" />
-				<a4j:ajax event="valueChange" render="opContact" execute="@this" />
+				<p:ajax event="valueChange" update="opContact"  />
 			</h:selectOneMenu>
-			<rich:message for="sOMContact">
+			<p:message for="sOMContact">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
+		<h:panelGrid
+			>
 			<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
 				rendered="#{not empty etablissementController.serviceSel
 					and not empty etablissementController.listeServices
 					and empty etablissementController.listeContacts}"
 				escape="false" />
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text"
+			<h:panelGrid columns="2"
+				
 				rendered="#{empty offreController.centreGestionDepotAnonyme}">
 				<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
 					escape="false"
 					rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices}" />
-				<a4j:commandLink execute="@this" id="ajoutC"
+				<p:commandLink  id="ajoutC"
 					rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices}"
-					oncomplete="#{rich:component('ajoutContact')}.show()"
+					oncomplete="PF('ajoutContact').show();"
 					action="#{etablissementController.ajoutContact}"
-					render="ajoutContact">
+					update="ajoutContact">
 					<f:setPropertyActionListener value="_ajoutContactEtape1"
 						target="#{sessionController.ajoutContactCurrentPage}" />
 					<h:graphicImage alt="#{msgs['FORM.CREER']}"
-						value="../../media/images/new.png" style="border:0" />
-					<rich:tooltip value="#{msgs['FORM.CREER']}" />
-				</a4j:commandLink>
+						value="../../media/images/new.png" />
+					<p:tooltip value="#{msgs['FORM.CREER']}" />
+				</p:commandLink>
 			</h:panelGrid>
 		</h:panelGrid>
-	</a4j:outputPanel>
+	</p:outputPanel>
 </ui:composition>

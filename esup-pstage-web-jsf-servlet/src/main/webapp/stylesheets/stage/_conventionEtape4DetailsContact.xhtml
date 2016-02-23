@@ -2,18 +2,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text" rendered="#{not empty conventionController.convention.contact and conventionController.convention.contact.id > 0}">
+	<h:panelGrid rendered="#{not empty conventionController.convention.contact and conventionController.convention.contact.id > 0}">
 		<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
 			escape="false" />
 		<t:htmlTag value="div" style="width: 50px;" />
 		<ui:include
 			src="/stylesheets/stage/_conventionEtape4ContactColumns.xhtml" />
 	</h:panelGrid>
-	<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+	<h:panelGrid 
 		rendered="#{empty conventionController.convention.contact || conventionController.convention.contact.id == 0}">
 		<h:outputText value="#{msgs['CONTACT.AUCUNCONTACT']}" escape="false" />
 		<t:htmlTag value="div" style="width: 50px;" />

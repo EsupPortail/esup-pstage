@@ -180,11 +180,11 @@ public class EvaluationController extends AbstractContextAwareController {
 				getFicheEvaluationDomainService().addReponseEvaluation(
 						reponseEvalTmp);
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.fillInStackTrace());
+				logger.error("DataAddException", ae.getCause());
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 						we.getMessage());
@@ -240,10 +240,10 @@ public class EvaluationController extends AbstractContextAwareController {
 						reponsesSupplementaires);
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -318,12 +318,12 @@ public class EvaluationController extends AbstractContextAwareController {
 							+ reponseEvalTmp.getIdConvention());
 				}
 			} catch (DataUpdateException d) {
-				logger.error("DataUpdateException", d.fillInStackTrace());
+				logger.error("DataUpdateException", d.getCause());
 				addErrorMessage("formFicheEtudiant",
 						"CONVENTION.ETAPE13.ERREUR_AJOUT");
 			} catch (WebServiceDataBaseException w) {
 				logger.error("WebServiceDataBaseException",
-						w.fillInStackTrace());
+						w.getCause());
 				addErrorMessage("formFicheEtudiant",
 						"CONVENTION.ETAPE13.ERREUR_WS");
 			}
@@ -403,7 +403,7 @@ public class EvaluationController extends AbstractContextAwareController {
 						this.conventionController.getConvention().getIdConvention());
 			}
 		} catch (ExportException e) {
-			logger.error("editPdfFicheEtudiant ", e.fillInStackTrace());
+			logger.error("editPdfFicheEtudiant ", e.getCause());
 		}
 	}
 
@@ -497,11 +497,11 @@ public class EvaluationController extends AbstractContextAwareController {
 				getFicheEvaluationDomainService().addReponseEvaluation(
 						reponseEvalTmp);
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.fillInStackTrace());
+				logger.error("DataAddException", ae.getCause());
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 						we.getMessage());
@@ -544,10 +544,10 @@ public class EvaluationController extends AbstractContextAwareController {
 						reponsesSupplementaires);
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -609,12 +609,12 @@ public class EvaluationController extends AbstractContextAwareController {
 							+ reponseEvalTmp.getIdConvention());
 				}
 			} catch (DataUpdateException d) {
-				logger.error("DataUpdateException", d.fillInStackTrace());
+				logger.error("DataUpdateException", d.getCause());
 				addErrorMessage("formFicheEnseignant",
 						"CONVENTION.ETAPE13.ERREUR_AJOUT");
 			} catch (WebServiceDataBaseException w) {
 				logger.error("WebServiceDataBaseException",
-						w.fillInStackTrace());
+						w.getCause());
 				addErrorMessage("formFicheEnseignant",
 						"CONVENTION.ETAPE13.ERREUR_WS");
 			}
@@ -683,7 +683,7 @@ public class EvaluationController extends AbstractContextAwareController {
 						this.conventionController.getConvention().getIdConvention());
 			}
 		} catch (ExportException e) {
-			logger.error("editPdfFicheEnseignant ", e.fillInStackTrace());
+			logger.error("editPdfFicheEnseignant ", e.getCause());
 		}
 	}
 
@@ -809,11 +809,11 @@ public class EvaluationController extends AbstractContextAwareController {
 				getFicheEvaluationDomainService().addReponseEvaluation(
 						reponseEvalTmp);
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.fillInStackTrace());
+				logger.error("DataAddException", ae.getCause());
 				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage(null,
 						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 						we.getMessage());
@@ -870,10 +870,10 @@ public class EvaluationController extends AbstractContextAwareController {
 						reponsesSupplementaires);
 			}
 		} catch (DataAddException ae) {
-			logger.error("DataAddException", ae.fillInStackTrace());
+			logger.error("DataAddException", ae.getCause());
 			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException ", we.getCause());
 			addErrorMessage(null,
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
@@ -975,11 +975,11 @@ public class EvaluationController extends AbstractContextAwareController {
 			}
 
 		} catch (DataUpdateException d) {
-			logger.error("DataUpdateException", d.fillInStackTrace());
+			logger.error("DataUpdateException", d.getCause());
 			addErrorMessage("formFicheEntreprise",
 					"CONVENTION.ETAPE13.ERREUR_AJOUT");
 		} catch (WebServiceDataBaseException w) {
-			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", w.getCause());
 			addErrorMessage("formFicheEntreprise",
 					"CONVENTION.ETAPE13.ERREUR_WS");
 		}
@@ -1057,7 +1057,7 @@ public class EvaluationController extends AbstractContextAwareController {
 						conventionTmp.getIdConvention());
 			}
 		} catch (ExportException e) {
-			logger.error("editPdfFicheEntreprise ", e.fillInStackTrace());
+			logger.error("editPdfFicheEntreprise ", e.getCause());
 		}
 	}
 

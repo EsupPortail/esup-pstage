@@ -4,29 +4,29 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
+				<h:panelGrid
+					>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE1.ETUDIANT']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+					<h:panelGrid
+						>
 						<ui:include
 							src="/stylesheets/stage/_conventionEtape1DetailsEtudiant.xhtml" />
 					</h:panelGrid>
-					<a4j:commandButton id="modifEtudiant"
+					<p:commandButton id="modifEtudiant"
 						value="#{msgs['FORM.MODIFIER']}"
 						action="#{conventionController.goToConventionModifEtudiant}"
 						alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
@@ -35,13 +35,13 @@
 							and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
-					<a4j:status name="statusGoModifEtudiant">
+					<p:ajaxStatus name="statusGoModifEtudiant">
 						<f:facet name="start">
 							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 						</f:facet>
-					</a4j:status>
+					</p:ajaxStatus>
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

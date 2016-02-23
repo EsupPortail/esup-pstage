@@ -4,21 +4,21 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['STRUCTURE.AJOUT']}" />
 			</f:facet>
 			<h:form id="formAjoutEtab"
 				rendered="#{not empty etablissementController.formStructure}">
-				<rich:message for="formAjoutEtab">
+				<p:message for="formAjoutEtab">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 				<ui:include src="../_commun/_etablissementForm.xhtml" />
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="3">
+				<h:panelGrid columns="3">
 					<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 						action="#{rechercheController.goToRechercheEtablissementStage}"
 						alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
@@ -30,6 +30,6 @@
 					</h:commandButton>
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

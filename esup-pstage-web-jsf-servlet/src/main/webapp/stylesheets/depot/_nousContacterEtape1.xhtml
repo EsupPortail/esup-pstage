@@ -2,45 +2,41 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1" columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text">
+	xmlns:p="http://primefaces.org/ui">
+	<h:panelGrid>
 		<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER.INFO']}" />
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columns="3" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<h:panelGrid columns="1">
+		<h:panelGrid columns="3">
+			<h:panelGrid>
 				<h:outputLabel for="nomNC" value="#{msgs['CONTACT.NOM']} *" />
 				<h:inputText id="nomNC" style="text-transform:uppercase;"
 					value="#{sessionController.nousContacter.contact.nom}" size="30"
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{upperCaseConverter}" />
-					<a4j:ajax event="blur" />
+					<p:ajax event="blur" />
 				</h:inputText>
-				<rich:message for="nomNC">
+				<p:message for="nomNC">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</h:panelGrid>
 			<h:panelGrid columns="3">
 				<t:htmlTag value="div" style="width: 25px;" />
-				<t:htmlTag value="div"
-					style="width: 2px; height: 40px; background-color: #{a4jSkin.panelBorderColor};" />
+				<p:separator style="width:2px; height:40px;"/>
 				<t:htmlTag value="div" style="width: 25px;" />
 			</h:panelGrid>
-			<h:panelGrid columns="1">
+			<h:panelGrid>
 				<h:outputLabel for="prenomNC" value="#{msgs['CONTACT.PRENOM']} *" />
 				<h:inputText id="prenomNC" style="text-transform:capitalize;"
 					value="#{sessionController.nousContacter.contact.prenom}" size="30"
 					maxlength="50" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:converter binding="#{premiereLettreMAJConverter}" />
-					<a4j:ajax event="blur" />
+					<p:ajax event="blur" />
 				</h:inputText>
-				<rich:message for="prenomNC">
+				<p:message for="prenomNC">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</h:panelGrid>
 		</h:panelGrid>
 		<h:panelGrid columns="2">
@@ -54,11 +50,11 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 				<f:validator binding="#{mailValidator}" />
-				<a4j:ajax event="blur" />
+				<p:ajax event="blur" />
 			</h:inputText>
-			<rich:message for="mailNC">
+			<p:message for="mailNC">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
 		<h:outputLabel for="sujetNC"
 			value="#{msgs['GENERAL.NOUS_CONTACTER.SUJET']} *" />
@@ -67,26 +63,24 @@
 				value="#{sessionController.nousContacter.sujet}" size="50"
 				maxlength="50" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<a4j:ajax event="blur" />
+				<p:ajax event="blur" />
 			</h:inputText>
-			<rich:message for="sujetNC">
+			<p:message for="sujetNC">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
 		<h:outputLabel for="messageNC"
 			value="#{msgs['GENERAL.NOUS_CONTACTER.MESSAGE']} *" />
-		<rich:editor id="messageNC"
+		<p:editor id="messageNC"
 			value="#{sessionController.nousContacter.message}" width="400"
 			height="200" required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}">
-			<a4j:ajax event="blur" />
-		</rich:editor>
-		<rich:message for="messageNC">
+			requiredMessage="#{requiredMessageController.champObligatoire}" />
+		<p:message for="messageNC">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 		<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="paysNC" />
 		<h:panelGrid columns="5">
-			<a4j:outputPanel id="opFlagNC">
+			<p:outputPanel id="opFlagNC">
 				<t:htmlTag value="div" style="width: 16px;"
 					rendered="#{empty sessionController.nousContacter.pays}" />
 				<h:graphicImage id="flagNC"
@@ -94,22 +88,22 @@
 					value="../../media/images/flags/#{sessionController.nousContacter.pays.iso2}.png"
 					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 					title="#{sessionController.nousContacter.pays.libelle}" />
-			</a4j:outputPanel>
+			</p:outputPanel>
 			<t:htmlTag value="div" style="width:5px;" />
 			<h:selectOneMenu id="paysNC" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				value="#{sessionController.nousContacter.pays}"
-				converter="#{paysConverter}" styleClass="paysInput">
-				<a4j:ajax event="valueChange" render="opFlagNC, opCodePostalNC" />
+				converter="#{paysConverter}">
+				<p:ajax event="change" update="opFlagNC, opCodePostalNC" />
 				<f:selectItem itemValue="" />
 				<f:selectItems value="#{nomenclatureController.pays}" />
 			</h:selectOneMenu>
 			<t:htmlTag value="div" style="width: 10px;" />
-			<rich:message for="paysNC">
+			<p:message for="paysNC">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
-		<a4j:outputPanel id="opCodePostalNC">
+		<p:outputPanel id="opCodePostalNC">
 			<h:panelGrid columns="2">
 				<h:outputLabel for="codePostalNC"
 					value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
@@ -122,17 +116,16 @@
 					maxlength="10"
 					required="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<a4j:ajax event="blur" />
+					<p:ajax event="blur" />
 				</h:inputText>
-				<rich:message for="codePostalNC">
+				<p:message for="codePostalNC">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</h:panelGrid>
-		</a4j:outputPanel>
+		</p:outputPanel>
 	</h:panelGrid>
-	<a4j:commandButton value="#{msgs['FORM.ENVOYER']}"
-		action="#{welcomeController.nousContacter}"
-		render="formNousContacter"/>
-	<a4j:commandButton value="#{msgs['FORM.CANCEL']}"
-		onclick="#{rich:component('nousContacter')}.hide();return false;" />
+	<p:commandButton value="#{msgs['FORM.ENVOYER']}"
+		action="#{welcomeController.nousContacter}" update="formNousContacter" />
+	<p:commandButton value="#{msgs['FORM.CANCEL']}"
+		onclick="PF('nousContacter').hide();" />
 </ui:composition>

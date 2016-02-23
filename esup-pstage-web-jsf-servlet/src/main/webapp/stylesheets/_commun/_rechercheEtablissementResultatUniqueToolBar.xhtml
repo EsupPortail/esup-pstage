@@ -2,11 +2,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:toolbarGroup
+	<p:toolbarGroup
 		rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin}">
 		<h:commandLink id="modifierStructure"
 			action="#{etablissementController.goToModificationEtablissement}"
@@ -16,8 +15,7 @@
 				not empty rechercheController.resultatRechercheStructure.accordPartenariat
 				and rechercheController.resultatRechercheStructure.accordPartenariat.estValide))}">
 			<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-				title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
-				style="border:0" />
+				title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png" />
 			<h:outputText value="#{msgs['FORM.MODIFIER']}" />
 			<f:setPropertyActionListener
 				value="#{rechercheController.resultatRechercheStructure}"
@@ -25,20 +23,20 @@
 			<f:setPropertyActionListener value="#{true}"
 				target="#{etablissementController.modificationEtabBoutonAnnuler}" />
 		</h:commandLink>
-		<a4j:commandLink execute="@this" id="supprimerStructure"
-			oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
-			render="supprimerStructurePanel"
+		<p:commandLink id="supprimerStructure"
+			oncomplete="PF('supprimerStructurePanel').show();"
+			update="supprimerStructurePanel"
 			rendered="#{not empty rechercheController.ongletCourant 
 				and empty rechercheController.resultatRechercheStructure.accordPartenariat}">
 			<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 				title="#{msgs['FORM.SUPPRIMER']}"
-				value="../../media/images/delete.png" style="border:0" />
+				value="../../media/images/delete.png" />
 			<h:outputText value="#{msgs['FORM.SUPPRIMER']}" />
 			<f:setPropertyActionListener
 				value="#{rechercheController.resultatRechercheStructure}"
 				target="#{etablissementController.formStructure}" />
 			<f:setPropertyActionListener value="_supprStructureEtape1"
 				target="#{sessionController.suppressionStructureCurrentPage}" />
-		</a4j:commandLink>
-	</rich:toolbarGroup>
+		</p:commandLink>
+	</p:toolbarGroup>
 </ui:composition>

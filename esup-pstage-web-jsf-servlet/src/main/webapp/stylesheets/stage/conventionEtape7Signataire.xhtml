@@ -2,19 +2,19 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid
+					>
 					<f:facet name="header">
 						<h:outputFormat value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.INFO']}">
 							<f:param value="#{conventionController.convention.structure.raisonSociale}" />
@@ -22,16 +22,16 @@
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1">
-						<rich:messages />
+					<h:panelGrid
+						>
+						<p:messages />
 						<ui:include src="/stylesheets/stage/_conventionEtape7DetailsSignataire.xhtml" />
 					</h:panelGrid>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
-						<a4j:commandButton execute="@this"
-							oncomplete="#{rich:component('modifContact')}.show()"
-							render="modifContact" value="#{msgs['FORM.MODIFIER']}"
+					<h:panelGrid
+						columns="2">
+						<p:commandButton 
+							oncomplete="PF('modifContact').show();"
+							update="modifContact" value="#{msgs['FORM.MODIFIER']}"
 							rendered="#{(not empty conventionController.convention.signataire and !conventionController.conventionValide)
 									and (sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
@@ -54,9 +54,9 @@
 								target="#{etablissementController.afficherSelectionCentreContact}" />
 							<f:setPropertyActionListener value="_modifContactEtape1"
 								target="#{sessionController.modifContactCurrentPage}" />
-						</a4j:commandButton>
-						<a4j:commandButton execute="@this"
-							oncomplete="#{rich:component('selectServiceSignataire')}.show()"
+						</p:commandButton>
+						<p:commandButton 
+							oncomplete="PF('selectServiceSignataire').show();"
 							rendered="#{!conventionController.conventionValide 
 								 and (welcomeController.superAdmin || welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
@@ -74,22 +74,21 @@
 								target="#{etablissementController.serviceSel}" />
 							<f:setPropertyActionListener value="#{false}"
 								target="#{etablissementController.afficherSelectionCentreContact}" />
-						</a4j:commandButton>
-						<rich:popupPanel id="selectServiceSignataire" autosized="true"
-							width="400" styleClass="panel" domElementAttachment="parent">
+						</p:commandButton>
+						<p:dialog id="selectServiceSignataire" widgetVar="selectServiceSignataire">
 							<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
-							<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-								oncomplete="#{rich:component('selectServiceSignataire')}.hide();"
+							<p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+								oncomplete="PF('selectServiceSignataire').hide();"
 								
 								action="#{conventionController.goToConventionModifSignataire}">
 								<f:setPropertyActionListener
 									value="#{etablissementController.contactSel}"
 									target="#{conventionController.convention.signataire}" />
-							</a4j:commandButton>
+							</p:commandButton>
 							<t:htmlTag value="div" style="width: 100px; display: inline;" />
-							<a4j:commandButton value="#{msgs['FORM.CANCEL']}" execute="@this"
-								onclick="#{rich:component('selectServiceSignataire')}.hide();return false;" />
-						</rich:popupPanel>
+							<p:commandButton value="#{msgs['FORM.CANCEL']}" 
+								onclick="PF('selectServiceSignataire').hide();" />
+						</p:dialog>
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>
@@ -97,6 +96,6 @@
 			<ui:include src="../_commun/_panelModifContact.xhtml" />
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />
 			<ui:include src="../_commun/_panelModifService.xhtml" />
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

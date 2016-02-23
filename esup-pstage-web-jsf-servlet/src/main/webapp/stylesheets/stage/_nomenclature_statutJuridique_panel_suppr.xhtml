@@ -2,19 +2,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="suppressionStatutJuridique" autosized="true"
-		width="400">
+	<p:dialog id="suppressionStatutJuridique" widgetVar="suppressionStatutJuridique">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['NOMENCLATURES.SUPPRESSION.HEADER']}" />
 		</f:facet>
 		<h:panelGrid columns="2">
 			<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 				title="#{msgs['GENERAL.WARNING']}"
-				value="../../media/images/warning_20px.png" style="border:0" />
+				value="../../media/images/warning_20px.png" />
 			<h:outputText value="#{msgs['NOMENCLATURES.SUPPRESSION.BODY']}"
 				escape="false" />
 		</h:panelGrid>
@@ -31,8 +30,8 @@
 					action="#{nomenclatureController.deleteStatutJuridique}" />
 				<t:htmlTag value="div" style="width:100px;" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
-					onclick="#{rich:component('suppressionStatutJuridique')}.hide();return false;" />
+					onclick="PF('suppressionStatutJuridique').hide();" />
 			</h:panelGrid>
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

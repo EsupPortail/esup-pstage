@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1">
+	<h:panelGrid >
 
 		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.NUMOFFRE']}"
 			for="numOffre" />
@@ -43,10 +43,10 @@
 			converter="#{sansAccentEnMAJConverter}"/>
 		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
 			for="lieuCodePostal" />
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" style="font-size:11px;">
+		<h:panelGrid  columns="2" style="font-size:11px;">
 			<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
 				title="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL']}"
-				value="../../media/images/information.png" style="border:0" />
+				value="../../media/images/information.png" />
 			<h:outputText value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL.AIDE']}" />
 		</h:panelGrid>
 		<h:inputText id="lieuCodePostal"
@@ -57,7 +57,7 @@
 			for="lieuPays" />
 		<h:selectOneMenu id="lieuPays"
 			value="#{offreController.critereRechercheOffre.lieuPays}"
-			converter="#{paysConverter}" styleClass="paysInput">
+			converter="#{paysConverter}" >
 			<f:selectItem itemValue="" />
 			<f:selectItems value="#{nomenclatureController.pays}" />
 		</h:selectOneMenu>
@@ -69,7 +69,7 @@
 			<f:selectItem itemValue="" />
 			<f:selectItems value="#{nomenclatureController.fapN1}" />
 		</h:selectOneMenu>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1"
+		<h:panelGrid 
 			rendered="#{offreController.rechercheAvancee}">
 			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.SECTEURACTIVITE']}"
 				for="nafN1" />
@@ -91,11 +91,11 @@
 		
 		<h:outputLabel value="#{msgs['RECHERCHEOFFRE.MOTSCLES']}"
 			for="motsCles" />
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" style="font-size:11px;">
+		<h:panelGrid  columns="2" style="font-size:11px;">
 			<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"
 				title="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"
-				value="../../media/images/information.png" style="border:0">
-				<rich:tooltip value="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"/>
+				value="../../media/images/information.png">
+				<p:tooltip value="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}"/>
 			</h:graphicImage>
 			<h:outputText escape="false" value="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}" />
 		</h:panelGrid>
@@ -104,14 +104,14 @@
 			maxlength="200" />
 		
 		<t:htmlTag value="div" style="height: 20px;" />
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1"
+		<h:panelGrid 
 			rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin
 			|| welcomeController.admin}">
 
-			<t:htmlTag value="div" style="height: 5px; width: 600px;"
-				styleClass="spacer" />
+			<p:separator height="5px;" width="600px;"/>
 
 			<t:htmlTag value="div" style="height: 20px;" />
+			
 			<h:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPESTRUCTURE']}"
 				for="typeStructure" />
 			<h:selectOneMenu id="typeStructure"
@@ -129,8 +129,8 @@
 				<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 				<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 			</h:selectOneRadio>
-			<a4j:outputPanel id="diffOP">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="7">
+			<p:outputPanel id="diffOP">
+				<h:panelGrid  columns="7">
 					<h:outputText value="#{msgs['RECHERCHEOFFRE.CHOIXTYPEDIFFUSION']}"
 						escape="false" style="font-weight:bold;" />
 					<h:outputText
@@ -138,7 +138,7 @@
 						escape="false" />
 					<h:selectBooleanCheckbox
 						value="#{offreController.critereRechercheOffre.estDiffusee}">
-						<a4j:ajax event="click" render="critDiffOP, diffOP" />
+						<p:ajax event="click" update="critDiffOP, diffOP" />
 
 					</h:selectBooleanCheckbox>
 					<h:outputText
@@ -146,7 +146,7 @@
 						escape="false" />
 					<h:selectBooleanCheckbox
 						value="#{offreController.critereRechercheOffre.diffusionTerminee}">
-						<a4j:ajax event="click" render="critDiffOP, diffOP"/>
+						<p:ajax event="click" update="critDiffOP, diffOP"/>
 
 					</h:selectBooleanCheckbox>
 					<h:outputText
@@ -154,16 +154,16 @@
 						escape="false" />
 					<h:selectBooleanCheckbox
 						value="#{offreController.critereRechercheOffre.estSupprimee}">
-						<a4j:ajax event="click" render="critDiffOP, diffOP"/>
+						<p:ajax event="click" update="critDiffOP, diffOP"/>
 					</h:selectBooleanCheckbox>
 				</h:panelGrid>
-			</a4j:outputPanel>
-			<a4j:outputPanel id="critDiffOP">
-				<t:panelGrid columns="2" columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
+			</p:outputPanel>
+			<p:outputPanel id="critDiffOP">
+				<t:panelGrid columns="2"
+					>
 					<t:column style="padding:0px;">
 						<h:graphicImage value="../../media/images/arrow_right.png"
-							style="border:0" />
+							 />
 					</t:column>
 					<t:column style="padding:0px;">
 						<h:outputText
@@ -204,7 +204,7 @@
 							rendered="#{offreController.critereRechercheOffre.estSupprimee}" />
 					</t:column>
 				</t:panelGrid>
-			</a4j:outputPanel>
+			</p:outputPanel>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>

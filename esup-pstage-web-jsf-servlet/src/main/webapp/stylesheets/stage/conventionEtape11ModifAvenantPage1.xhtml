@@ -2,31 +2,31 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel rendered="#{conventionController.convention != null}">
+		<p:panel rendered="#{conventionController.convention != null}">
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CONVENTION.ETAPE11.MODIF']} #{avenantController.avenant.idAvenant}" />
 			</f:facet>
 			<h:form id="formModifAvenantPage1">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text"
+				<h:panelGrid
+					
 					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 
 					<ui:include src="/stylesheets/stage/_conventionEtape11FormAvenantPage1.xhtml" />
 
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" align="center" columns="1">
+					<h:panelGrid
+						align="center">
 						<h:commandButton value="#{msgs['CONVENTION.ETAPE11.MODIFIER']}"
 							action="#{avenantController.goToModifAvenantPage2}" />
 						<h:outputText id="erreurModification" value="" />
-						<rich:message for="erreurModification">
+						<p:message for="erreurModification">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
 				</h:panelGrid>
 				
@@ -35,7 +35,7 @@
 				<h:commandButton id="retour" style="float:left;"
 					value="#{msgs['GENERAL.RETOUR']}" immediate="true"
 					action="#{avenantController.goToDetailAvenant}">
-					<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+					<p:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
 				</h:commandButton>
 				
 				<t:htmlTag value="div" style="height: 20px;" />
@@ -43,7 +43,7 @@
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />
 			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
 			<ui:include src="./_panel_rechEnseignantAvenant.xhtml" />
-		</rich:panel>
+		</p:panel>
 		<t:div rendered="#{conventionController.convention == null}">
 			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
 		</t:div>

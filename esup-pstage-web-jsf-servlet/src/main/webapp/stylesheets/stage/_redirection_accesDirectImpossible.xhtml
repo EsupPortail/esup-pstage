@@ -2,18 +2,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1" style="width:800px;">
-		<rich:panel>
+	<h:panelGrid style="width:800px;">
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['GENERAL.REDIRECTION']}" />
 			</f:facet>
 			<t:htmlTag value="center">
 				<h:form>
-					<h:panelGrid columns="1">
+					<h:panelGrid>
 						<h:outputText value="#{msgs['CENTRE.REDIRECTION_2']}" />
 						<h:outputText value="#{msgs['CENTRE.REDIRECTION_2exemple']}" />
 					</h:panelGrid>
@@ -21,14 +20,14 @@
 					<t:htmlTag value="div" style="height:20px;" />
 					
 					<t:htmlTag value="center">
-						<a4j:commandButton id="home"
+						<p:commandButton id="home"
 							value="#{msgs['CENTRE.RETOUR_ACCUEIL']}"
 							action="#{centreController.goToAccueil}"
 							immediate="true" />
 					</t:htmlTag>
 				</h:form>
 			</t:htmlTag>
-		</rich:panel>
+		</p:panel>
 	</h:panelGrid>
 
 </ui:composition>

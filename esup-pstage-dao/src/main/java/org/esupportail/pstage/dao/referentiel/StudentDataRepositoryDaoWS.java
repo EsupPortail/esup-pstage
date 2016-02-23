@@ -1045,6 +1045,7 @@ StudentDataRepositoryDao {
 
 		// recherche des Inscriptions pedagogiques 
 		try{
+			
 			ContratPedagogiqueResultatVdiVetDTO[]  tabcontratPedagoResultatVdiVet = 
 					servicePedagogique.recupererContratPedagogiqueResultatVdiVet(cod, annee, DonneesStatic.ws_sourceRes_Apogee, "", "", "");
 			if(tabcontratPedagoResultatVdiVet!=null){
@@ -1091,7 +1092,7 @@ StudentDataRepositoryDao {
 					|| e.toString().equals("technical.data.nullretrieve.findIAE")) {
 				logger.warn("Pas d'inscription pour l'etudiant "+ cod +" sur l'annee "+annee);
 			} else {
-				logger.warn("WebBaseException dans getStudentIAIP - recupererContratPedagogiqueResultatVdiVet pour l'etudiant "+ cod +" sur l'annee "+annee);
+				logger.warn("WebBaseException dans getStudentIAIP - recupererContratPedagogiqueResultatVdiVet_v2 pour l'etudiant "+ cod +" sur l'annee "+annee);
 			}
 		} catch (Exception e) {
 			logger.error("Exception pour "+ cod +" sur l'annee "+ annee +" : " + e);

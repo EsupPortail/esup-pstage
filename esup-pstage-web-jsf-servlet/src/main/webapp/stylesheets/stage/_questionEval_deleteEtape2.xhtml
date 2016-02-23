@@ -2,16 +2,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height:10px;" />
-	<rich:messages />
+	<p:messages />
 	<t:htmlTag value="center">
-		<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-			render="listeQuestionsSupplementaires1,listeQuestionsSupplementaires2,listeQuestionsSupplementaires3"
-			onclick="#{rich:component('deleteQuestionEvalPanel')}.hide();" />
+		<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
+			update="listeQuestionsSupplementaires1,listeQuestionsSupplementaires2,listeQuestionsSupplementaires3"
+			onclick="PF('deleteQuestionEvalPanel').hide();" />
 	</t:htmlTag>
 
 </ui:composition>

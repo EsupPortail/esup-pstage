@@ -85,7 +85,10 @@
 		</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
+	<context-param>
+		<param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+		<param-value>true</param-value>
+	</context-param>
 	<!-- <context-param> -->
 	<!-- <param-name>org.apache.myfaces.ERROR_HANDLING</param-name> -->
 	<!-- <param-value>true</param-value> -->
@@ -116,35 +119,35 @@
 		</listener-class>
 	</listener>
 
-<!-- 	<context-param> -->
-<!-- 	<param-name>javax.faces.PROJECT_STAGE</param-name> -->
-<!-- 	<param-value>Production</param-value> -->
-<!-- 	</context-param> -->
+	<!-- <context-param> -->
+	<!-- <param-name>javax.faces.PROJECT_STAGE</param-name> -->
+	<!-- <param-value>Production</param-value> -->
+	<!-- </context-param> -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
 
-	<context-param>
-		<param-name>org.fckfaces.CUSTOM_CONFIGURATIONS_PATH
-		</param-name>
-		<param-value>/media/FCKeditor/custom-fckconfig.js
-		</param-value>
-	</context-param>
+	<!-- <context-param> -->
+	<!-- <param-name>org.fckfaces.CUSTOM_CONFIGURATIONS_PATH -->
+	<!-- </param-name> -->
+	<!-- <param-value>/media/FCKeditor/custom-fckconfig.js -->
+	<!-- </param-value> -->
+	<!-- </context-param> -->
 
 	<!--BEGIN-RICHFACES -->
 	<!-- Plugging the skin into the project -->
-	<context-param>
-		<param-name>org.richfaces.skin</param-name>
-		<param-value>classic</param-value>
-	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>org.richfaces.skin</param-name> -->
+<!-- 		<param-value>classic</param-value> -->
+<!-- 	</context-param> -->
 
 	<!-- Making the RichFaces skin spread to standard HTML controls -->
-	<context-param>
-		<param-name>org.richfaces.enableControlSkinning
-		</param-name>
-		<param-value>true</param-value>
-	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>org.richfaces.enableControlSkinning -->
+<!-- 		</param-name> -->
+<!-- 		<param-value>true</param-value> -->
+<!-- 	</context-param> -->
 
 	<!--END-RICHFACES -->
 
@@ -184,15 +187,15 @@
 
 	<!-- END CAS -->
 
-	<servlet>
-		<servlet-name>Resource Servlet</servlet-name>
-		<servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Resource Servlet</servlet-name>
-		<url-pattern>/org.richfaces.resources/*</url-pattern>
-	</servlet-mapping>
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>Resource Servlet</servlet-name> -->
+<!-- 		<servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class> -->
+<!-- 		<load-on-startup>1</load-on-startup> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>Resource Servlet</servlet-name> -->
+<!-- 		<url-pattern>/org.richfaces.resources/*</url-pattern> -->
+<!-- 	</servlet-mapping> -->
 	<servlet>
 		<description>
 			The main servlet of the application. This class inherits
@@ -254,15 +257,16 @@
 		<url-pattern>*.file</url-pattern>
 	</servlet-mapping>
 
-	<context-param>
-		<param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
-		<param-value>51200000</param-value>
-	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>org.richfaces.fileUpload.maxRequestSize</param-name> -->
+<!-- 		<param-value>51200000</param-value> -->
+<!-- 	</context-param> -->
 
 	<context-param>
 		<param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
 		<param-value>false</param-value>
 	</context-param>
+
 
 	<welcome-file-list>
 		<welcome-file>welcome.xhtml</welcome-file>

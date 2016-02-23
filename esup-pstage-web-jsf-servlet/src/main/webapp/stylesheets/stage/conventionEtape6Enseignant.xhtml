@@ -2,24 +2,24 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
+				<h:panelGrid
+					>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE6.ENSEIGNANT']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
-					<rich:messages />
+					<p:messages />
 					<ui:include
 						src="/stylesheets/stage/_conventionEtape6DetailsEnseignant.xhtml" />
 					<h:commandButton id="modifEnseigant"
@@ -32,6 +32,6 @@
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

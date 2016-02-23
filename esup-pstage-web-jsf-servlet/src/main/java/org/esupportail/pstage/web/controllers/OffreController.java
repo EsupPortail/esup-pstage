@@ -493,9 +493,9 @@ public class OffreController extends AbstractContextAwareController {
 					this.formOffre.setFichier(o);
 					getSessionController().getOffreFileUploadBean().setPrefix(idFichier);
 				} catch (DataAddException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 				} catch (WebServiceDataBaseException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 				}
 				break;
 			case 2:
@@ -621,9 +621,9 @@ public class OffreController extends AbstractContextAwareController {
 						addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
 						mailAjout();
 					}catch (DataAddException e) {
-						logger.error(e.fillInStackTrace());
+						logger.error(e.getCause());
 					}catch (WebServiceDataBaseException e) {
-						logger.error(e.fillInStackTrace());
+						logger.error(e.getCause());
 					}
 				}else{
 					addErrorMessage("formCreationOffre", "OFFRE.SELECTIONFICHIER.OBLIGATOIRE");
@@ -645,10 +645,10 @@ public class OffreController extends AbstractContextAwareController {
 					addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
 					mailAjout();
 				}catch (DataAddException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
 				}catch (WebServiceDataBaseException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
 				}
 				break;
@@ -669,9 +669,9 @@ public class OffreController extends AbstractContextAwareController {
 					}
 					getOffreDomainService().deleteFichier(this.formOffre.getIdFichier());
 				}catch (DataDeleteException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 				}catch (WebServiceDataBaseException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 				}
 			}
 
@@ -703,10 +703,10 @@ public class OffreController extends AbstractContextAwareController {
 					addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
 					mailAjout();
 				}catch (DataAddException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
 				}catch (WebServiceDataBaseException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.CREATION.ERREURAJOUT");
 				}
 			}else{
@@ -1112,9 +1112,9 @@ public class OffreController extends AbstractContextAwareController {
 						this.formOffre.setFichier(o);
 						getSessionController().getOffreFileUploadBean().setPrefix(idFichier);
 					} catch (DataAddException e) {
-						logger.error(e.fillInStackTrace());
+						logger.error(e.getCause());
 					} catch (WebServiceDataBaseException e) {
-						logger.error(e.fillInStackTrace());
+						logger.error(e.getCause());
 					}
 				}
 				break;
@@ -1273,9 +1273,9 @@ public class OffreController extends AbstractContextAwareController {
 						addInfoMessage(null, "OFFRE.MODIFICATION.CONFIRMATION", this.formOffre.getIdOffre());
 						mailModif();
 					}catch (DataAddException e) {
-						logger.error(e.fillInStackTrace());
+						logger.error(e.getCause());
 					}catch (WebServiceDataBaseException e) {
-						logger.error(e.fillInStackTrace());
+						logger.error(e.getCause());
 					}
 				}else{
 					addErrorMessage("formModificationOffre:opUploadFile:uploadFile", "OFFRE.SELECTIONFICHIER.OBLIGATOIRE");
@@ -1309,19 +1309,19 @@ public class OffreController extends AbstractContextAwareController {
 							}
 							getOffreDomainService().deleteFichier(this.currentOffre.getIdFichier());
 						}catch (DataDeleteException e) {
-							logger.warn(e.fillInStackTrace());
+							logger.warn(e.getCause());
 						}catch (WebServiceDataBaseException e) {
-							logger.warn(e.fillInStackTrace());
+							logger.warn(e.getCause());
 						}
 					}
 					mailModif();
 					ret="_modificationOffreEtape4Confirmation";
 					addInfoMessage(null, "OFFRE.MODIFICATION.CONFIRMATION", this.formOffre.getIdOffre());
 				}catch (DataAddException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.MODIFICATION.ERREURAJOUT");
 				}catch (WebServiceDataBaseException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.MODIFICATION.ERREURAJOUT");
 				}
 				break;
@@ -1378,9 +1378,9 @@ public class OffreController extends AbstractContextAwareController {
 								}
 								getOffreDomainService().deleteFichier(this.currentOffre.getIdFichier());
 							}catch (DataDeleteException e) {
-								logger.warn(e.fillInStackTrace());
+								logger.warn(e.getCause());
 							}catch (WebServiceDataBaseException e) {
-								logger.warn(e.fillInStackTrace());
+								logger.warn(e.getCause());
 							}
 						}
 					}
@@ -1389,11 +1389,11 @@ public class OffreController extends AbstractContextAwareController {
 					mailModif();
 				}catch (DataUpdateException e) {
 					ret="_modificationOffreEtape4Confirmation";
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.MODIFICATION.ERREURMODIF");
 				}catch (WebServiceDataBaseException e) {
 					ret="_modificationOffreEtape4Confirmation";
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.MODIFICATION.ERREURMODIF");
 				}
 			}else{
@@ -1458,10 +1458,10 @@ public class OffreController extends AbstractContextAwareController {
 			}
 			addInfoMessage(null, "OFFRE.SUPPR.CONFIRMATION");
 		}catch (DataUpdateException e) {
-			logger.error(e.fillInStackTrace());
+			logger.error(e.getCause());
 			addErrorMessage(null, "OFFRE.SUPPR.ERREUR");
 		}catch (WebServiceDataBaseException e) {
-			logger.error(e.fillInStackTrace());
+			logger.error(e.getCause());
 			addErrorMessage(null, "OFFRE.SUPPR.ERREUR");
 		}
 		//		return ret;
@@ -1574,13 +1574,13 @@ public class OffreController extends AbstractContextAwareController {
 					checkListeResultats();						
 				}
 			}catch (DataUpdateException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
 			}catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
 			}catch (AddressException ade){
-				logger.error("AddressException", ade.fillInStackTrace());
+				logger.error("AddressException", ade.getCause());
 				addErrorMessage(null, "GENERAL.ERREUR_MAIL");
 			}
 		}
@@ -1630,10 +1630,10 @@ public class OffreController extends AbstractContextAwareController {
 					checkListeResultats();						
 				}
 			}catch (DataUpdateException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
 			}catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
 			}
 		}
@@ -1678,10 +1678,10 @@ public class OffreController extends AbstractContextAwareController {
 					checkListeResultats();						
 				}
 			}catch (DataUpdateException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
 			}catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
 			}
 		}
@@ -1715,10 +1715,10 @@ public class OffreController extends AbstractContextAwareController {
 					checkListeResultats();						
 				}
 			}catch (DataUpdateException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.STOPDIFFUSION.ERREUR");
 			}catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.STOPDIFFUSION.ERREUR");
 			}
 		}
@@ -1755,10 +1755,10 @@ public class OffreController extends AbstractContextAwareController {
 				if(this.currentOffre.isEstPourvue())addInfoMessage(null, "OFFRE.GESTION.POURVOIROFFRE.CONFIRMATION");
 				if(!this.currentOffre.isEstPourvue())addInfoMessage(null, "OFFRE.GESTION.POURVOIROFFRE.CONFIRMATIONNON");
 			}catch (DataUpdateException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.POURVOIROFFRE.ERREUR");
 			}catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.POURVOIROFFRE.ERREUR");
 			}
 		}
@@ -1947,13 +1947,13 @@ public class OffreController extends AbstractContextAwareController {
 						addInfoMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.CONFIRMATION");
 					}
 				}catch (DataDeleteException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.ERREUR");
 				}catch (WebServiceDataBaseException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.ERREUR");
 				}catch (DataAddException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.ERREUR");
 				}
 			} else if(this.listesCentreGestionUniversiteADiffuser!=null 
@@ -1971,13 +1971,13 @@ public class OffreController extends AbstractContextAwareController {
 					getOffreDomainService().addOffreDiffusion(l);
 					addInfoMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.CONFIRMATION");
 				}catch (DataDeleteException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.ERREUR");
 				}catch (WebServiceDataBaseException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.ERREUR");
 				}catch (DataAddException e) {
-					logger.error(e.fillInStackTrace());
+					logger.error(e.getCause());
 					addErrorMessage(null, "OFFRE.GESTION.DIFFUSIONCENTRE.ERREUR");
 				}
 			}
@@ -2014,13 +2014,13 @@ public class OffreController extends AbstractContextAwareController {
 				}
 				addInfoMessage(null, "OFFRE.GESTION.TRANSFERT.CONFIRMATION");
 			}catch (DataUpdateException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.TRANSFERT.ERREUR");
 			}catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.TRANSFERT.ERREUR");
 			}catch (Exception e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 				addErrorMessage(null, "OFFRE.GESTION.TRANSFERT.ERREUR");
 			}
 		}
@@ -2375,9 +2375,9 @@ public class OffreController extends AbstractContextAwareController {
 			try {
 				getOffreDomainService().updateFichier(this.formOffre.getFichier());	
 			} catch (DataAddException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 			} catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
+				logger.error(e.getCause());
 			}
 			this.formOffre.setIdFichier(this.formOffre.getFichier().getIdFichier());
 		}
@@ -2396,9 +2396,9 @@ public class OffreController extends AbstractContextAwareController {
 			this.formOffre.setIdFichier(0);		
 			getSessionController().getOffreFileUploadBean().setPrefix(this.formOffre.getFichier().getIdFichier());
 		}catch (DataDeleteException e) {
-			logger.warn(e.fillInStackTrace());
+			logger.warn(e.getCause());
 		}catch (WebServiceDataBaseException e) {
-			logger.warn(e.fillInStackTrace());
+			logger.warn(e.getCause());
 		}
 	}
 
@@ -2642,7 +2642,7 @@ public class OffreController extends AbstractContextAwareController {
 			}
 
 		} catch (ExportException e) {
-			logger.error("editPdfRecap ", e.fillInStackTrace());
+			logger.error("editPdfRecap ", e.getCause());
 			addErrorMessage(null, "CONVENTION.EDIT.RECAP.ERREUR", e.getMessage());
 		}
 		return ret;

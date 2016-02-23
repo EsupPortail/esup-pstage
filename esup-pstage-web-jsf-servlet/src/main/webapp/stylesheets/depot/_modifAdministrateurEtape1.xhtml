@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 	<ui:include src="./_formAdministrateur.xhtml" />
 	<h:panelGrid columns="3" align="center">
-		<a4j:commandButton action="#{adminController.modifierAdministrateur}"
+		<p:commandButton action="#{adminController.modifierAdministrateur}"
 			value="#{msgs['FORM.MODIFIER']}"
-			render="nomAd, prenomAd, mailAd, loginAd, formModifAdminStructure" />
+			update="nomAd, prenomAd, mailAd, loginAd, formModifAdminStructure" />
 		<t:htmlTag value="div" style="width:150px;" />
-		<a4j:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
-			onclick="#{rich:component('modifAdministrateur')}.hide();"/>
+		<p:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
+			onclick="PF('modifAdministrateur').hide();"/>
 	</h:panelGrid>
 </ui:composition>

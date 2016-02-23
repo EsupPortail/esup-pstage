@@ -2,36 +2,36 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:column sortBy="#{offre.idOffre}">
+	<p:column sortBy="#{offre.idOffre}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.ID']}" />
 		</f:facet>
 		<h:outputText value="#{offre.idOffre}" />
-	</rich:column>
-	<rich:column sortBy="#{offre.intitule}">
+	</p:column>
+	<p:column sortBy="#{offre.intitule}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
 		</f:facet>
 		<h:outputText value="#{offre.intitule}" title="#{offre.intitule}">
 			<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
 		</h:outputText>
-	</rich:column>
-	<rich:column sortBy="#{offre.typeOffre.libelle}">
+	</p:column>
+	<p:column sortBy="#{offre.typeOffre.libelle}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
 		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  style="font-size:12px;" columns="1">
+		<h:panelGrid  style="font-size:12px;">
 			<h:outputText value="#{offre.typeOffre.libelle}" />
 			<t:htmlTag value="bold" rendered="#{not empty offre.contratOffre}">
 				<h:outputText value="#{offre.contratOffre.libelle}" />
 			</t:htmlTag>
 		</h:panelGrid>
-	</rich:column>
-	<rich:column sortBy="#{offre.structure.raisonSociale}">
+	</p:column>
+	<p:column sortBy="#{offre.structure.raisonSociale}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
 		</f:facet>
@@ -39,25 +39,25 @@
 			title="#{offre.structure.raisonSociale}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
-	</rich:column>
-	<rich:column sortBy="#{offre.lieuCodePostal}">
+	</p:column>
+	<p:column sortBy="#{offre.lieuCodePostal}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
 		</f:facet>
 		<h:outputText value="#{offre.lieuCodePostal}" />
-	</rich:column>
-	<rich:column sortBy="#{offre.lieuCommune}">
+	</p:column>
+	<p:column sortBy="#{offre.lieuCommune}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
 		</f:facet>
 		<h:outputText value="#{offre.lieuCommune}" />
-	</rich:column>
-	<rich:column sortBy="#{offre.lieuPays.libelle}"
+	</p:column>
+	<p:column sortBy="#{offre.lieuPays.libelle}"
 		sortable="#{not empty offre.lieuPays}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
 		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="2" style="font-size:12px;">
+		<h:panelGrid  columns="2" style="font-size:12px;">
 			<h:graphicImage id="flag" rendered="#{not empty offre.lieuPays}"
 				value="../../media/images/flags/#{offre.lieuPays.iso2}.png"
 				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
@@ -65,5 +65,5 @@
 			<h:outputText value="#{offre.lieuPays.libelle}"
 				rendered="#{not empty offre.lieuPays}" />
 		</h:panelGrid>
-	</rich:column>
+	</p:column>
 </ui:composition>

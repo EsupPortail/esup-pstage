@@ -2,18 +2,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:popupPanel id="supprAdministrateur" autosized="true" width="400"
-		styleClass="panel">
+	xmlns:p="http://primefaces.org/ui">
+	<p:dialog id="supprAdministrateur" widgetVar="supprAdministrateur">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['ADMINSTRUCTURE.SUPPRESSION']}" />
 		</f:facet>
 		<h:form id="formSupprAdminStructure">
-			<a4j:outputPanel ajaxRendered="true">
-				<ui:include id="include"
+			<p:outputPanel>
+				<ui:include
 					src="/stylesheets/depot/#{sessionController.suppressionAdminStructureCurrentPage}.xhtml" />
-			</a4j:outputPanel>
+			</p:outputPanel>
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

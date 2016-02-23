@@ -2,36 +2,36 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:column sortBy="#{offre.idOffre}">
+	<p:column sortBy="#{offre.idOffre}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.ID']}" />
 		</f:facet>
 		<h:outputText value="#{offre.idOffre}" />
-	</rich:column>
-	<rich:column sortBy="#{offre.intitule}">
+	</p:column>
+	<p:column sortBy="#{offre.intitule}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
 		</f:facet>
 		<h:outputText value="#{offre.intitule}" title="#{offre.intitule}">
 			<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
 		</h:outputText>
-	</rich:column>
-	<rich:column sortBy="#{offre.typeOffre.libelle}">
+	</p:column>
+	<p:column sortBy="#{offre.typeOffre.libelle}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
 		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" style="font-size:12px;">
+		<h:panelGrid
+			style="font-size:12px;">
 			<h:outputText value="#{offre.typeOffre.libelle}" />
 			<h:outputText value="#{offre.contratOffre.libelle}"
 				rendered="#{not empty offre.contratOffre}" />
 		</h:panelGrid>
-	</rich:column>
-	<rich:column sortBy="#{offre.structure.raisonSociale}"
+	</p:column>
+	<p:column sortBy="#{offre.structure.raisonSociale}"
 		rendered="#{not sessionController.pageAuthorized}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
@@ -42,8 +42,8 @@
 				<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 			</h:outputText>
 		</t:div>
-	</rich:column>
-	<rich:column sortBy="#{offre.centreGestion.nomCentre}"
+	</p:column>
+	<p:column sortBy="#{offre.centreGestion.nomCentre}"
 		rendered="#{welcomeController.personnel || welcomeController.etudiant || welcomeController.enseignant}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']}" />
@@ -53,14 +53,14 @@
 				title="#{offre.centreGestion.nomCentre}">
 			</h:outputText>
 		</t:div>
-	</rich:column>
-	<rich:column sortBy="#{offre.dateCreation}">
+	</p:column>
+	<p:column sortBy="#{offre.dateCreation}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
 		</f:facet>
 		<h:outputText value="#{offre.dateCreation}" />
-	</rich:column>
-	<rich:column sortBy="#{offre.estDiffusee}">
+	</p:column>
+	<p:column sortBy="#{offre.estDiffusee}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
 		</f:facet>
@@ -105,29 +105,29 @@
 			style="color:red;font-weight:bold;">
 			<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
 		</h:outputText>
-	</rich:column>
-	<rich:column sortBy="#{offre.avecFichier || offre.avecLien}">
+	</p:column>
+	<p:column sortBy="#{offre.avecFichier || offre.avecLien}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
 		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" style="font-size:12px;">
+		<h:panelGrid
+			columns="2" style="font-size:12px;">
 			<h:outputText value="#{msgs['FORM.OUI']}"
 				rendered="#{offre.avecFichier || offre.avecLien}" />
 			<h:graphicImage id="imageLien" alt="#{msgs['FORM.OUI']}"
 				title="#{msgs['OFFRE.LIEN']}"
-				value="../../media/images/world_link.png" style="border:0"
+				value="../../media/images/world_link.png"
 				rendered="#{offre.avecLien}">
-				<rich:tooltip value="#{msgs['OFFRE.LIEN']}" />
+				<p:tooltip value="#{msgs['OFFRE.LIEN']}" />
 			</h:graphicImage>
 			<h:graphicImage id="imageFichier" alt="#{msgs['FORM.OUI']}"
 				title="#{msgs['OFFRE.FICHIER']}"
-				value="../../media/images/page_link.png" style="border:0"
+				value="../../media/images/page_link.png"
 				rendered="#{offre.avecFichier}">
-				<rich:tooltip value="#{msgs['OFFRE.FICHIER']}" />
+				<p:tooltip value="#{msgs['OFFRE.FICHIER']}" />
 			</h:graphicImage>
 		</h:panelGrid>
 		<h:outputText value="#{msgs['FORM.NON']}"
 			rendered="#{!(offre.avecFichier || offre.avecLien)}" />
-	</rich:column>
+	</p:column>
 </ui:composition>

@@ -2,22 +2,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:div
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant le 1}">
 
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
-
+		<h:panelGrid>
 			<h:outputText escape="false"
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIRET']}" />
 
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="2">
+			<h:panelGrid columns="2">
 				<h:inputText id="rechNumeroSiret" size="20" maxlength="14"
 					value="#{rechercheController.rechNumeroSiret}">
 				</h:inputText>
@@ -29,8 +25,7 @@
 			<h:outputText escape="false"
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET1.NUMEROSIREN']}" />
 
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="2">
+			<h:panelGrid columns="2">
 				<h:inputText id="rechNumeroSiren" size="20" maxlength="9"
 					value="#{rechercheController.rechNumeroSiren}">
 				</h:inputText>
@@ -44,51 +39,49 @@
 	<t:div
 		rendered="#{empty rechercheController.ongletCourant 
 	or rechercheController.ongletCourant==2}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
+		<h:panelGrid>
 			<h:outputText
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE']}"
 				escape="false" />
 
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" style="margin-left:40px;">
+			<h:panelGrid style="margin-left:40px;">
 				<!-- 				<h:inputText id="rechRaisonSociale" size="50" maxlength="100" -->
 				<!-- 					value="#{rechercheController.rechRaisonSociale}" -->
 				<!-- 					style="text-transform:uppercase;" -->
 				<!-- 					converter="#{sansAccentEnMAJConverter}" /> -->
 				<h:panelGrid columns="2">
-					<h:outputLabel for ="rechRaisonSociale" value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
-					<rich:autocomplete id="rechRaisonSociale"
+					<h:outputLabel for="rechRaisonSociale"
+						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
+					<p:autoComplete id="rechRaisonSociale"
 						value="#{rechercheController.rechRaisonSociale}" size="50"
 						maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
 						autofill="false"
 						autocompleteMethod="#{rechercheController.getRaisonsSociales}"
 						converter="#{sansAccentEnMAJConverter}" inputClass="ac"
 						styleClass="ac" popupClass="acPopup"
-						style="text-transform:uppercase; font-size : 10px" attached="false" />
+						style="text-transform:uppercase; font-size : 10px"
+						attached="false" />
 				</h:panelGrid>
 
-				<a4j:outputPanel id="rechPaysDep">
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+				<p:outputPanel id="rechPaysDep">
+					<h:panelGrid columns="2">
 						<h:outputLabel
 							value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']}"
 							for="rechPays2" />
 						<h:selectOneMenu id="rechPays2"
 							value="#{rechercheController.rechPays}"
 							converter="#{paysConverter}"
-							valueChangeListener="#{rechercheController.valuePaysChanged}"
-							styleClass="paysInput">
+							valueChangeListener="#{rechercheController.valuePaysChanged}">
 							<f:selectItem itemValue="" />
 							<f:selectItems value="#{nomenclatureController.pays}" />
-							<a4j:ajax event="valueChange" render="DepFrance" />
+							<p:ajax event="valueChange" update="DepFrance" />
 						</h:selectOneMenu>
 					</h:panelGrid>
-				</a4j:outputPanel>
+				</p:outputPanel>
 
 				<t:htmlTag value="div" style="width:20px;" />
 
-				<a4j:outputPanel id="DepFrance">
+				<p:outputPanel id="DepFrance">
 					<h:panelGrid rendered="#{rechercheController.france}">
 						<h:outputLabel for="rechDepartement2"
 							value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
@@ -96,7 +89,7 @@
 							value="#{rechercheController.rechDepartement}"
 							converter="#{sansAccentEnMAJConverter}" escape="false" />
 					</h:panelGrid>
-				</a4j:outputPanel>
+				</p:outputPanel>
 
 				<h:commandButton
 					style="font-size:14px; border:solid 1px; margin-left:100px;"
@@ -114,8 +107,7 @@
 			escape="false" />
 
 
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2">
+		<h:panelGrid columns="2">
 
 
 			<h:outputLabel for="rechTypeStructure"
@@ -146,14 +138,12 @@
 	<t:div
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant==4}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
+		<h:panelGrid>
 			<h:outputText
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TELFAX']}"
 				escape="false" />
 
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3">
+			<h:panelGrid columns="3">
 				<h:outputLabel for="rechTelephone"
 					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TEL']}" />
 				<h:inputText id="rechTelephone" size="20" maxlength="20"
@@ -165,8 +155,7 @@
 			</h:panelGrid>
 
 
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3">
+			<h:panelGrid columns="3">
 				<h:outputLabel for="rechFax"
 					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}" />
 				<h:inputText id="rechFax" size="20" maxlength="20"
@@ -182,15 +171,12 @@
 	<t:div
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant==7}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
+		<h:panelGrid>
 			<h:outputText
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.ADRESSE']}"
 				escape="false" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="2">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+			<h:panelGrid columns="2">
+				<h:panelGrid columns="2">
 					<h:outputLabel for="rechVoie"
 						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.VOIE']}" />
 					<h:inputText id="rechVoie" size="30" maxlength="200"
@@ -207,8 +193,7 @@
 						value="#{rechercheController.critereRechercheStructureAdresse.rechVille}">
 					</h:inputText>
 				</h:panelGrid>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid columns="2">
 					<h:outputLabel for="rechDeps"
 						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.DEP']}" />
 					<h:inputText id="rechDeps" size="20" maxlength="20"
@@ -218,7 +203,7 @@
 						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']}" />
 					<h:selectOneMenu id="rechPays"
 						value="#{rechercheController.critereRechercheStructureAdresse.rechPays}"
-						converter="#{paysConverter}" styleClass="paysInput">
+						converter="#{paysConverter}">
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.pays}" />
 					</h:selectOneMenu>
@@ -232,13 +217,11 @@
 	<t:div
 		rendered="#{not empty rechercheController.ongletCourant 
 	and rechercheController.ongletCourant==5}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
+		<h:panelGrid>
 			<h:outputText
 				value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.SERVICE']}"
 				escape="false" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="2">
+			<h:panelGrid columns="2">
 				<h:outputLabel for="rechNomService"
 					value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET5.NOMSERVICE']}" />
 				<h:inputText id="rechNomService" size="30" maxlength="200"

@@ -2,34 +2,34 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	 template="../_basicTemplate.xhtml">
 	<ui:define name="content">
-		<h:panelGrid columns="1"
+		<h:panelGrid
 			style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 			<h:panelGrid columns="2"
 				rendered="#{not empty offreController.centreGestionDepotAnonyme}">
 				<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
 					title="#{msgs['GENERAL.HELP']}"
-					value="../../media/images/help32.png" style="border:0" />
+					value="../../media/images/help32.png" />
 				<h:outputText value="#{msgs['DEPOTANONYME.AIDE']}" escape="false" />
 			</h:panelGrid>
-			<rich:panel
+			<p:panel
 				rendered="#{not empty offreController.centreGestionDepotAnonyme}">
 				<f:facet name="header">
 					<h:outputText value="#{msgs['DEPOTANONYME.CREATION']} " />
 				</f:facet>
 				<h:form id="formCreationOffre">
-					<rich:message for="formCreationOffre">
+					<p:message for="formCreationOffre">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 					<ui:include src="/stylesheets/_commun/_creationOffreEtape02Etab.xhtml" />
 				</h:form>
-				<rich:message for="formCreationOffre">
+				<p:message for="formCreationOffre">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-			</rich:panel>
-			<rich:editor rendered="false" />
+				</p:message>
+			</p:panel>
+			<p:editor rendered="false" />
 		</h:panelGrid>
 	</ui:define>
 </ui:composition>

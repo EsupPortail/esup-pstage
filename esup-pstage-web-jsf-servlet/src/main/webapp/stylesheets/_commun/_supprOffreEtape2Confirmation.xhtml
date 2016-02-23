@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<ui:include src="_confirmationMessages.xhtml" />
 
 	<t:htmlTag value="center">
-		<a4j:commandButton execute="@this" value="#{msgs['GENERAL.CLOSE']}"
+		<p:commandButton  value="#{msgs['GENERAL.CLOSE']}"
 			action="#{offreController.retourTo}"
-			onclick="#{rich:component('supprOffre')}.hide();" />
+			onclick="PF('supprOffre').hide();" />
 	</t:htmlTag>
 </ui:composition>

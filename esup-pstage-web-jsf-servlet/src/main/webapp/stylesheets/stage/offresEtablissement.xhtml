@@ -4,11 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['OFFRE.GESTION']}" />
 			</f:facet>
@@ -21,56 +20,50 @@
 					rendered="#{not empty sessionController.currentManageStructure}">
 					<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNE']}"
 						rendered="#{empty offreController.listeOffres}" escape="false" />
-					<a4j:outputPanel id="opOffresDataTable">
+					<p:outputPanel id="opOffresDataTable">
 						<t:div rendered="#{not empty offreController.listeOffres}">
 							<h:outputText value="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']} "
 								escape="false" />
-							<rich:dataTable value="#{offreController.listeOffres}"
-								var="offre" columnClasses="center" rows="15" render="ds"
-								rowKeyVar="rowOffre"
-								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							<p:dataTable value="#{offreController.listeOffres}" var="offre"
+								rowKey="rowOffre" rows="15" rowHover="true"
+								rowStyleClass="nopointer" paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15,20"
 								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 								<ui:include
 									src="../_commun/_rechercheOffreResultatsColumns.xhtml" />
-								<rich:column>
+								<p:column>
 									<h:commandLink id="recap"
 										action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
 										<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-											value="../../media/images/document.png" style="border:0" />
+											value="../../media/images/document.png" />
 										<f:setPropertyActionListener value="#{offre}"
 											target="#{offreController.currentOffre}" />
-										<rich:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+										<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 									</h:commandLink>
-								</rich:column>
-								<f:facet name="footer">
-									<rich:dataScroller id="ds" renderIfSinglePage="false"></rich:dataScroller>
-								</f:facet>
-							</rich:dataTable>
-							<rich:dataTable value="#{offreController.listeOffres}"
-								var="offre" columnClasses="center" rows="15" render="ds"
-								rowKeyVar="rowOffre"
-								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+								</p:column>
+							</p:dataTable>
+							<p:dataTable value="#{offreController.listeOffres}" var="offre"
+								rowKey="rowOffre" rows="15" rowHover="true"
+								rowStyleClass="nopointer" paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15,20"
 								rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
 								<ui:include
 									src="../_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
-								<rich:column>
+								<p:column>
 									<h:commandLink id="recap"
 										action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
 										<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-											value="../../media/images/document.png" style="border:0" />
+											value="../../media/images/document.png" />
 										<f:setPropertyActionListener value="#{offre}"
 											target="#{offreController.currentOffre}" />
-										<rich:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+										<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 									</h:commandLink>
-								</rich:column>
-								<f:facet name="footer">
-									<rich:dataScroller id="ds" renderIfSinglePage="false"></rich:dataScroller>
-								</f:facet>
-							</rich:dataTable>
+								</p:column>
+							</p:dataTable>
 						</t:div>
-					</a4j:outputPanel>
+					</p:outputPanel>
 				</h:panelGrid>
 				<t:htmlTag value="br" />
 				<t:htmlTag value="div" style="height: 20px;" />
@@ -81,6 +74,6 @@
 				</h:commandButton>
 			</h:form>
 			<ui:include src="../_commun/_panelSupprOffre.xhtml" />
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

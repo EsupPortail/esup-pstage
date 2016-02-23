@@ -4,11 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
 			</f:facet>
@@ -16,52 +15,48 @@
 				<t:div
 					rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
 					<ui:include src="../_commun/_rechercheOffreNbResultats.xhtml" />
-					<rich:dataTable id="rechercheOffreDataTable"
+					<p:dataTable id="rechercheOffreDataTable"
 						value="#{offreController.rechercheOffrePaginator.liste}"
-						var="offre" columnClasses="center" rowKeyVar="rowOffre" rows="10"
+						var="offre" rowKey="rowOffre" rows="10" rowHover="true"
+						rowStyleClass="nopointer" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20"
 						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 						<ui:include src="../_commun/_rechercheOffreResultatsColumns.xhtml" />
-						<rich:column>
+						<p:column>
 							<h:commandLink id="recap"
 								action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
 								<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
 									title="#{msgs['OFFRE.GESTION.DETAILS']}"
-									value="../../media/images/document.png" style="border:0" />
+									value="../../media/images/document.png" />
 								<f:setPropertyActionListener value="#{offre}"
 									target="#{offreController.currentOffre}" />
-								<rich:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+								<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 							</h:commandLink>
-						</rich:column>
-						<f:facet name="footer">
-							<rich:dataScroller align="center" for="rechercheOffreDataTable"
-								maxPages="20" page="1" id="listeScrollerOffre"
-								renderIfSinglePage="false" />
-						</f:facet>
-					</rich:dataTable>
-					<rich:dataTable id="rechercheOffreDataTableE"
+						</p:column>
+					</p:dataTable>
+					<p:dataTable id="rechercheOffreDataTableE"
 						value="#{offreController.rechercheOffrePaginator.liste}"
-						var="offre" columnClasses="center" rowKeyVar="rowOffre" rows="10"
+						var="offre" rowKey="rowOffre" rows="10" rowHover="true"
+						rowStyleClass="nopointer" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20"
 						rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
 						<ui:include
 							src="../_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
-						<rich:column>
+						<p:column>
 							<h:commandLink id="recap"
 								action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
 								<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-									value="../../media/images/document.png" style="border:0" />
+									value="../../media/images/document.png" />
 								<f:setPropertyActionListener value="#{offre}"
 									target="#{offreController.currentOffre}" />
-								<rich:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+								<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 							</h:commandLink>
-						</rich:column>
-						<f:facet name="footer">
-							<rich:dataScroller align="center" for="rechercheOffreDataTableE"
-								maxPages="20" page="1" id="listeScrollerOffreE"
-								renderIfSinglePage="false" />
-						</f:facet>
-					</rich:dataTable>
+						</p:column>
+					</p:dataTable>
 				</t:div>
-				<h:panelGrid columns="1">
+				<h:panelGrid>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:commandButton
 						value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
@@ -69,6 +64,6 @@
 				</h:panelGrid>
 			</h:form>
 			<ui:include src="../_commun/_panelSupprOffre.xhtml" />
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

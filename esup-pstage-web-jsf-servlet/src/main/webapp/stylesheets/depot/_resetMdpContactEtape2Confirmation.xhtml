@@ -2,13 +2,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 	
 	<h:panelGrid align="center">
 		<ui:include src="../_commun/_confirmationMessages.xhtml" />
-		<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-			render="opContactsDataTable"
-			onclick="#{rich:component('resetMdpContact')}.hide();" />
+		<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
+			update="opContactsDataTable"
+			onclick="PF('resetMdpContact').hide();" />
 	</h:panelGrid>
 </ui:composition>

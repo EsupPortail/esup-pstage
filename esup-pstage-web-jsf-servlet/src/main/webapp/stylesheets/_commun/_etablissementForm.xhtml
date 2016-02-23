@@ -2,44 +2,39 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="1">
+	<h:panelGrid>
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3">
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1">
+		<h:panelGrid columns="3">
+			<h:panelGrid>
 				<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
 					for="raisonSociale" />
-				<h:panelGrid columns="2" columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
+				<h:panelGrid columns="2">
 					<h:graphicImage id="imgInfo"
 						alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
-						value="../../media/images/information.png" style="border:0">
-						<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+						value="../../media/images/information.png">
+						<p:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
 					</h:graphicImage>
 					<h:inputText id="raisonSociale" style="text-transform:uppercase;"
 						value="#{etablissementController.formStructure.raisonSociale}"
 						size="50" maxlength="150" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}"
 						converter="#{sansAccentEnMAJConverter}">
-						<a4j:ajax event="blur" />
+						<p:ajax event="blur" />
 					</h:inputText>
 				</h:panelGrid>
-				<rich:message for="raisonSociale">
+				<p:message for="raisonSociale">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-<!-- 				<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" /> -->
-<!-- 				<h:inputText id="groupe" style="text-transform:uppercase;" -->
-<!-- 					value="#{etablissementController.formStructure.groupe}" size="50" -->
-<!-- 					maxlength="50" converter="#{sansAccentEnMAJConverter}" /> -->
-<!-- 				<rich:message for="groupe"> -->
-<!-- 					<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-<!-- 				</rich:message> -->
+				</p:message>
+				<!-- 				<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" /> -->
+				<!-- 				<h:inputText id="groupe" style="text-transform:uppercase;" -->
+				<!-- 					value="#{etablissementController.formStructure.groupe}" size="50" -->
+				<!-- 					maxlength="50" converter="#{sansAccentEnMAJConverter}" /> -->
+				<!-- 				<p:message for="groupe"> -->
+				<!-- 					<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+				<!-- 				</p:message> -->
 				<h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *"
 					for="effectif" />
 				<h:selectOneMenu id="effectif"
@@ -48,23 +43,20 @@
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:selectItem itemValue="" />
 					<f:selectItems value="#{nomenclatureController.effectifs}" />
-					<a4j:ajax event="valueChange" />
+					<p:ajax event="valueChange" />
 				</h:selectOneMenu>
-				<rich:message for="effectif">
+				<p:message for="effectif">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</h:panelGrid>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3">
+			<h:panelGrid columns="3">
 				<t:htmlTag value="div" style="width: 25px;" />
 				<t:htmlTag value="div"
 					style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 125px;" />
 				<t:htmlTag value="div" style="width: 25px;" />
 			</h:panelGrid>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" id="olSiret" columns="2">
+			<h:panelGrid>
+				<h:panelGrid id="olSiret" columns="2">
 					<h:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']}" for="siret" />
 					<h:outputLabel value=" *" for="siret"
 						rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
@@ -73,8 +65,8 @@
 				<h:panelGrid columns="2">
 					<h:graphicImage id="infoNumsiret"
 						alt="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
-						value="../../media/images/information.png" style="border:0">
-						<rich:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
+						value="../../media/images/information.png">
+						<p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
 					</h:graphicImage>
 					<h:inputText id="siret"
 						value="#{etablissementController.formStructure.numeroSiret}"
@@ -85,24 +77,22 @@
 						validatorMessage="#{requiredMessageController.numeroSiretNonValide}"
 						readonly="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
 						<f:validator binding="#{numSiretValidator}" />
-						<a4j:ajax event="blur" />
+						<p:ajax event="blur" />
 					</h:inputText>
 				</h:panelGrid>
-				<rich:message for="siret">
+				<p:message for="siret">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<a4j:commandButton
+				</p:message>
+				<p:commandButton
 					action="#{welcomeController.nousContacterModifSiret}"
 					rendered="#{sessionController.pageAuthorized and sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure and
 			(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}"
 					value="#{msgs['STRUCTURE.DEMANDE_MODIFSIRET']}"
-					oncomplete="#{rich:component('nousContacter')}.show()"
-					render="nousContacter" />
+					oncomplete="PF('nousContacter').show();" update="nousContacter" />
 				<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}"
 					escape="false" />
-				<a4j:outputPanel id="opSiretOblig">
-					<h:panelGrid columns="2" columnClasses="paginatorData-Text"
-						rowClasses="paginatorData-Text"
+				<p:outputPanel id="opSiretOblig">
+					<h:panelGrid columns="2"
 						rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
 						and etablissementController.formStructureTmpTypeStructure.siretObligatoire}">
 						<h:graphicImage id="arrow"
@@ -111,10 +101,8 @@
 							title="#{msgs['GENERAL.ARROW_UP']}" />
 						<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}" />
 					</h:panelGrid>
-				</a4j:outputPanel>
-				<!-- 				<a4j:region> -->
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				</p:outputPanel>
+				<h:panelGrid>
 					<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
 						for="typeStructure" />
 					<h:selectOneMenu id="typeStructure"
@@ -124,15 +112,14 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.typesStructure}" />
-						<a4j:ajax event="valueChange"
-							render="opStatutJuridique, siret, olSiret" />
+						<p:ajax event="valueChange"
+							update="opStatutJuridique, siret, olSiret" />
 					</h:selectOneMenu>
-					<rich:message for="typeStructure">
+					<p:message for="typeStructure">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-					<a4j:outputPanel id="opStatutJuridique">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
+					</p:message>
+					<p:outputPanel id="opStatutJuridique">
+						<h:panelGrid
 							rendered="#{!empty etablissementController.statutsJuridiquesListening
 							and !empty etablissementController.formStructureTmpTypeStructure}">
 							<h:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']} *"
@@ -144,28 +131,25 @@
 								<f:selectItem itemValue="" />
 								<f:selectItems
 									value="#{etablissementController.statutsJuridiquesListening}" />
-								<a4j:ajax event="blur" />
+								<p:ajax event="blur" />
 							</h:selectOneMenu>
-							<rich:message for="statutJuridique">
+							<p:message for="statutJuridique">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</h:panelGrid>
-					</a4j:outputPanel>
+					</p:outputPanel>
 				</h:panelGrid>
-				<!-- 				</a4j:region> -->
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2">
+		<h:panelGrid columns="2">
 			<h:outputLabel value="#{msgs['STRUCTURE.CODE_NAF']} *" for="ape" />
 			<h:outputText value="#{msgs['STRUCTURE.CODE_NAF.AIDE']}"
 				escape="false" />
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="4">
+		<h:panelGrid columns="4">
 			<h:graphicImage id="infoApe" alt="#{msgs['INFOSBULLES.CODE_APE']}"
-				value="../../media/images/information.png" style="border:0">
-				<rich:tooltip value="#{msgs['INFOSBULLES.CODE_APE']}" />
+				value="../../media/images/information.png">
+				<p:tooltip value="#{msgs['INFOSBULLES.CODE_APE']}" />
 			</h:graphicImage>
 			<h:inputText id="ape" style="text-transform:uppercase;"
 				value="#{etablissementController.formStructureTmpNafN5.code}"
@@ -173,12 +157,11 @@
 				valueChangeListener="#{etablissementController.valueCodeNafChanged}"
 				converter="#{codNafN5Converter}" size="20" maxlength="6">
 				<f:validator binding="#{codeNAFValidator}" />
-				<a4j:ajax event="blur" render="opLibelleAPE" />
+				<p:ajax event="blur" update="opLibelleAPE" />
 			</h:inputText>
 			<t:htmlTag value="div" style="width: 20px;" />
-			<a4j:outputPanel id="opLibelleAPE">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+			<p:outputPanel id="opLibelleAPE">
+				<h:panelGrid columns="2">
 					<h:graphicImage
 						rendered="#{!empty etablissementController.formStructureTmpNafN5.libelle}"
 						value="../../media/images/tick.png" alt="Valide" title="Valide" />
@@ -186,14 +169,13 @@
 						rendered="#{!empty etablissementController.formStructureTmpNafN5.libelle}"
 						value="#{etablissementController.formStructureTmpNafN5.libelle}" />
 				</h:panelGrid>
-			</a4j:outputPanel>
+			</p:outputPanel>
 		</h:panelGrid>
-		<rich:message for="ape">
+		<p:message for="ape">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 		<t:div id="arrows">
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="4"
+			<h:panelGrid columns="4"
 				rendered="#{!etablissementController.codeNafObligatoire ||
 				(etablissementController.formStructureTmpPays!=beanUtils.france and etablissementController.formStructureTmpPays.cog!=beanUtils.cogFrance)}">
 				<t:htmlTag value="div" style="width: 20px;" />
@@ -205,83 +187,71 @@
 				<h:outputText value="#{msgs['STRUCTURE.CODE_NAF.OBLIGATOIRE']}" />
 			</h:panelGrid>
 		</t:div>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" id="olActprinc" columns="2">
+		<h:panelGrid id="olActprinc" columns="2">
 			<h:outputLabel value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"
 				for="actprinc" />
 			<h:outputLabel value=" *" for="actprinc"
 				rendered="#{!etablissementController.codeNafObligatoire ||
 			(etablissementController.formStructureTmpPays!=beanUtils.france and etablissementController.formStructureTmpPays.cog!=beanUtils.cogFrance)}" />
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
+		<h:panelGrid>
 			<h:inputTextarea id="actprinc"
 				value="#{etablissementController.formStructure.activitePrincipale}"
 				width="400" height="200" />
-			<rich:message for="actprinc">
+			<p:message for="actprinc">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
 		<h:outputText value="#{msgs['STRUCTURE.ADRESSE']}" />
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3">
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1">
+		<h:panelGrid columns="3">
+			<h:panelGrid>
 				<h:outputLabel value="#{msgs['STRUCTURE.VOIE']} *" for="voie" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid>
 					<h:inputText id="voie"
 						value="#{etablissementController.formStructure.voie}" size="50"
 						maxlength="200" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<a4j:ajax event="blur" />
+						<p:ajax event="blur" />
 					</h:inputText>
-					<rich:message for="voie">
+					<p:message for="voie">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 				<h:outputLabel value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']} "
 					for="batimentResidence" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid>
 					<h:inputText id="batimentResidence"
 						value="#{etablissementController.formStructure.batimentResidence}"
 						size="50" maxlength="200">
 					</h:inputText>
-					<rich:message for="batimentResidence">
+					<p:message for="batimentResidence">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 				<h:outputLabel value="#{msgs['STRUCTURE.CEDEX']} " for="cedex" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid>
 					<h:inputText id="cedex"
 						value="#{etablissementController.formStructure.libCedex}"
 						size="30" maxlength="28"
 						requiredMessage="#{requiredMessageController.champObligatoire}" />
-					<rich:message for="cedex">
+					<p:message for="cedex">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 			</h:panelGrid>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3">
+			<h:panelGrid columns="3">
 				<t:htmlTag value="div" style="width: 25px;" />
 				<t:htmlTag value="div"
 					style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 125px;" />
 				<t:htmlTag value="div" style="width: 25px;" />
 			</h:panelGrid>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1">
-				<!-- 				<a4j:region> -->
-				<a4j:outputPanel id="opCodePostal">
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1"
+			<h:panelGrid>
+				<p:outputPanel id="opCodePostal">
+					<h:panelGrid
 						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 				(etablissementController.formStructureTmpPays!=beanUtils.france and etablissementController.formStructureTmpPays.cog!=beanUtils.cogFrance
 				and sessionController.recupererCommunesDepuisApogee)}">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2">
+						<h:panelGrid columns="2">
 							<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
 								for="codePostal" />
 							<h:outputLabel value=" *" for="codePostal"
@@ -294,19 +264,16 @@
 							requiredMessage="#{requiredMessageController.champObligatoire}"
 							required="#{!sessionController.recupererCommunesDepuisApogee and 
 								(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}">
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:inputText>
-						<rich:message for="codePostal">
+						<p:message for="codePostal">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1"
+					<h:panelGrid
 						rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
-						<!-- 							<a4j:region id="dynaR"> -->
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1">
+						<h:panelGrid>
 							<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
 								for="dynaCodePostal" />
 							<h:inputText id="dynaCodePostal"
@@ -316,20 +283,15 @@
 								validatorMessage="#{requiredMessageController.codePostalNonValide}"
 								valueChangeListener="#{etablissementController.valueCodePostalChanged}">
 								<f:validator binding="#{codePostalValidator}" />
-								<a4j:ajax event="valueChange" render="opDynaCommune"
-									execute="@this" />
+								<p:ajax event="valueChange" update="opDynaCommune" />
 							</h:inputText>
 						</h:panelGrid>
-						<!-- 							</a4j:region> -->
-						<rich:message for="dynaCodePostal">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						<p:message for="dynaCodePostal" />
 					</h:panelGrid>
-				</a4j:outputPanel>
+				</p:outputPanel>
 				<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
-				<a4j:outputPanel id="opCommune">
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1"
+				<p:outputPanel id="opCommune">
+					<h:panelGrid
 						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 				(etablissementController.formStructureTmpPays!=beanUtils.france and etablissementController.formStructureTmpPays.cog!=beanUtils.cogFrance
 				and sessionController.recupererCommunesDepuisApogee)}">
@@ -338,17 +300,16 @@
 							size="50" maxlength="200" required="true"
 							converter="#{sansAccentEnMAJConverter}"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:inputText>
-						<rich:message for="commune">
+						<p:message for="commune">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1"
+					<h:panelGrid
 						rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
-						<a4j:outputPanel id="opDynaCommune">
+						<p:outputPanel id="opDynaCommune">
 							<h:selectOneMenu id="dynaCommune"
 								value="#{etablissementController.formStructureTmpCommuneDTO.codeCommune}"
 								required="true"
@@ -356,24 +317,23 @@
 								<f:selectItem itemValue="" />
 								<f:selectItems
 									value="#{etablissementController.communesListening}" />
-								<a4j:ajax event="valueChange" />
+								<p:ajax event="valueChange" />
 							</h:selectOneMenu>
-							<rich:message for="dynaCommune">
+							<p:message for="dynaCommune">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</a4j:outputPanel>
-						<!-- 							<a4j:status for="dynaR"> -->
+							</p:message>
+						</p:outputPanel>
+						<!-- 							<p:ajaxStatus for="dynaR"> -->
 						<!-- 								<f:facet name="start"> -->
 						<!-- 									<h:graphicImage value="../../media/images/ajax_process.gif" /> -->
 						<!-- 								</f:facet> -->
-						<!-- 							</a4j:status> -->
+						<!-- 							</p:ajaxStatus> -->
 					</h:panelGrid>
-				</a4j:outputPanel>
-				<t:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				</p:outputPanel>
+				<t:panelGrid>
 					<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="paysNC" />
 					<h:panelGrid columns="3">
-						<a4j:outputPanel id="opFlagNC">
+						<p:outputPanel id="opFlagNC">
 							<t:htmlTag value="div" style="width: 16px;"
 								rendered="#{empty etablissementController.formStructureTmpPays}" />
 							<h:graphicImage id="flagNC"
@@ -381,100 +341,86 @@
 								value="../../media/images/flags/#{etablissementController.formStructureTmpPays.iso2}.png"
 								alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 								title="#{etablissementController.formStructureTmpPays.libelle}" />
-						</a4j:outputPanel>
+						</p:outputPanel>
 						<t:htmlTag value="div" style="width:5px;" />
 						<h:selectOneMenu id="paysNC" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
 							value="#{etablissementController.formStructureTmpPays}"
-							converter="#{paysConverter}" styleClass="paysInput">
-							<a4j:ajax event="change"
-								render="opFlagNC, opSiretOblig, opCodePostal, opCommune, olSiret, siret, arrows, olActprinc"
-								execute="@this" />
+							converter="#{paysConverter}">
+							<p:ajax event="change"
+								update="opFlagNC, opSiretOblig, opCodePostal, opCommune, olSiret, siret, arrows, olActprinc" />
 							<f:selectItem itemValue="" />
 							<f:selectItems value="#{nomenclatureController.pays}" />
 						</h:selectOneMenu>
 					</h:panelGrid>
-					<rich:message for="paysNC">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					<p:message for="paysNC"/>
 				</t:panelGrid>
-				<!-- 				</a4j:region> -->
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3">
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+		<h:panelGrid columns="3">
+			<h:panelGrid>
+				<h:panelGrid columns="2">
 					<h:outputLabel value="#{msgs['STRUCTURE.MAIL']} " for="mail" />
 					<h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
 				</h:panelGrid>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid>
 					<h:inputText id="mail"
 						value="#{etablissementController.formStructure.mail}" size="50"
 						validatorMessage="#{requiredMessageController.adresseMailNonValide}"
 						maxlength="50">
 						<f:validator binding="#{mailValidator}" />
-						<a4j:ajax event="blur" />
+						<p:ajax event="blur" />
 					</h:inputText>
-					<rich:message for="mail">
+					<p:message for="mail">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid columns="2">
 					<h:outputLabel value="#{msgs['STRUCTURE.SITEWEB']} " for="siteWeb" />
 					<h:outputText value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
 						escape="false" />
 				</h:panelGrid>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid>
 					<h:inputText id="siteWeb"
 						value="#{etablissementController.formStructure.siteWeb}" size="50"
 						validatorMessage="#{requiredMessageController.siteWebNonValide}"
 						maxlength="200">
 						<f:validator binding="#{siteWebValidator}" />
-						<a4j:ajax event="blur" />
+						<p:ajax event="blur" />
 					</h:inputText>
-					<rich:message for="siteWeb">
+					<p:message for="siteWeb">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 			</h:panelGrid>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3">
+			<h:panelGrid columns="3">
 				<t:htmlTag value="div" style="width: 25px;" />
 				<t:htmlTag value="div"
 					style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 125px;" />
 				<t:htmlTag value="div" style="width: 25px;" />
 			</h:panelGrid>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1">
+			<h:panelGrid>
 				<h:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']} *"
 					for="telephone" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid>
 					<h:inputText id="telephone"
 						value="#{etablissementController.formStructure.telephone}"
 						size="20" maxlength="20" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<a4j:ajax event="blur" />
+						<p:ajax event="blur" />
 					</h:inputText>
-					<rich:message for="telephone">
+					<p:message for="telephone">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 				<h:outputLabel value="#{msgs['STRUCTURE.FAX']} " for="fax" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid>
 					<h:inputText id="fax"
 						value="#{etablissementController.formStructure.fax}" size="20"
 						maxlength="20" />
-					<rich:message for="fax">
+					<p:message for="fax">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 			</h:panelGrid>
 		</h:panelGrid>

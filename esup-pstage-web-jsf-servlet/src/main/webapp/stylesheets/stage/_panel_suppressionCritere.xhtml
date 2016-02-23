@@ -2,21 +2,20 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="suppressionCritere" autosized="true" style="width:350px; height:80px;">
+	<p:dialog id="suppressionCritere" widgetVar="suppressionCritere">
 		<f:facet name="header">
 			<h:outputText
 				value="#{msgs['CENTRE.CRITERE.SUPPRESSION.HEAD']} #{centreController.critere.code} - #{centreController.critere.libelle}" />
 		</f:facet>
 		<h:panelGrid columns="2"
 			rendered="#{centreController.critereNotFound}"
-			columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+			>
 			<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 				title="#{msgs['GENERAL.WARNING']}"
-				value="../../media/images/warning_20px.png" style="border:0" />
+				value="../../media/images/warning_20px.png" />
 			<h:panelGrid>
 				<h:outputText value="#{msgs['CENTRE.CRITERE.SUPPRESSION.WARNING1']}"
 					escape="false" />
@@ -31,25 +30,23 @@
 					value="#{msgs['CENTRE.CRITERE.SUPPRESSION.RAPPEL']} #{msgs['NAVIGATION.ACCESSKEY.ABOUT']}" />
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:panelGrid columns="3" align="center">
-					<a4j:commandButton value="#{msgs['FORM.OUI']}"
+					<p:commandButton value="#{msgs['FORM.OUI']}"
 						action="#{centreController.supprimerCritere}"
-						render="critereDataTable" status="supprCritStatus"/>
+						update="critereDataTable"/>
 					<t:htmlTag value="div" style="width: 30px;" />
-					<h:commandButton value="#{msgs['FORM.NON']}"
-						onclick="#{rich:component('suppressionCritere')}.hide();return false;" />
+					<p:commandButton value="#{msgs['FORM.NON']}"
+						onclick="PF('suppressionCritere').hide();" />
 				</h:panelGrid>
 				<t:htmlTag value="center">
-					<a4j:status name="supprCritStatus">
+					<p:ajaxStatus name="supprCritStatus">
 						<f:facet name="start">
 							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 						</f:facet>
-					</a4j:status>
+					</p:ajaxStatus>
 				</t:htmlTag>
 				<h:outputText id="erreurCritere" value="" />
-				<rich:message for="erreurCritere">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				<p:message for="erreurCritere"/>
 			</h:panelGrid>
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

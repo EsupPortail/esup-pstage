@@ -2,48 +2,34 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui">
 	<h:form>
-		<t:htmlTag value="div" style="height:5px;"/>
+		<t:htmlTag value="div" style="height:5px;" />
 		<h:panelGrid columns="2">
 			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
 				title="#{msgs['GENERAL.HELP']}" value="../../media/images/help.png"
-				style="border:0" />
-			<a4j:commandLink execute="@this" status="status1" style="color:blue;"
+				 />
+			<p:commandLink  status="status1" style="color:blue;"
 				action="#{welcomeController.initNousContacter}"
-				oncomplete="#{rich:component('nousContacter')}.show()"
-				render="nousContacter"
-				value="#{msgs['GENERAL.NOUS_CONTACTER']}"/>
+				oncomplete="PF('nousContacter').show();" update="nousContacter"
+				value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
 		</h:panelGrid>
 	</h:form>
-	<rich:popupPanel id="nousContacter" autosized="true"
-		styleClass="panel">
+	<p:dialog id="nousContacter" widgetVar="nousContacter">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
 		</f:facet>
-		<f:facet name="controls">
-			<h:panelGroup>
-				<h:graphicImage value="../../media/images/cancel.png" id="hidelink"
-					alt="#{msgs['GENERAL.CLOSE']}" title="#{msgs['GENERAL.CLOSE']}"
-					styleClass="hidelink">
-					<rich:componentControl target="nousContacter"
-						operation="hide" event="click" />
-				</h:graphicImage>
-			</h:panelGroup>
-		</f:facet>
 		<h:form id="formNousContacter">
-			<ui:include id="include"
+			<ui:include
 				src="/stylesheets/depot/#{sessionController.nousContacterCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
-	<a4j:status name="status1" onstart="#{rich:component('wait')}.show()"
-		onstop="#{rich:component('wait')}.hide()" />
-	<rich:popupPanel id="wait" autosized="true"
-		moveable="false" resizeable="false">
+	</p:dialog>
+	<p:ajaxStatus name="status1" onstart="PF('wait').show();"
+		onsuccess="PF('wait').hide();" />
+	<p:dialog id="wait" widgetVar="wait">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['GENERAL.LOADING']}" />
 		</f:facet>
 		<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

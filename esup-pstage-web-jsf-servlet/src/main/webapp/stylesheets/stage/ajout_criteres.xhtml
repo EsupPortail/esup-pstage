@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel
+		<p:panel
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin)
 						and centreController.centre != null}">
 			<f:facet name="header">
@@ -50,12 +50,12 @@
 				</h:panelGrid>
 
 				<h:panelGrid id="erreurAjoutCritere" align="center">
-					<rich:message for="erreurAjoutCritere">
+					<p:message for="erreurAjoutCritere">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin 
 			|| welcomeController.admin)}">

@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height:10px;" />
 
 	<!-- 	Titre de l'avenant -->
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="2" style="font-size:16px;">
+	<h:panelGrid
+		columns="2" style="font-size:16px;">
 		<h:outputLabel for="motif1"
 			value="#{msgs['CONVENTION.ETAPE11.TITRE']} :" />
 		<h:outputText id="motif1"
@@ -18,11 +18,11 @@
 	</h:panelGrid>
 
 	<!-- Motif de la modification -->
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="3"
+	<h:panelGrid
+		columns="3"
 		rendered="#{avenantController.avenant.rupture}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1">
+		<h:panelGrid
+			>
 			<h:outputLabel for="motif2"
 				value="#{msgs['CONVENTION.ETAPE11.MOTIF']} :" />
 			<h:outputText id="motif2"
@@ -30,8 +30,8 @@
 		</h:panelGrid>
 
 		<!-- barre grise  -->
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3">
+		<h:panelGrid
+			columns="3">
 			<t:htmlTag value="div" style="width: 50px;" />
 			<t:htmlTag value="div"
 				style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height:90px;" />
@@ -39,8 +39,8 @@
 		</h:panelGrid>
 
 		<!-- Type de la modification si rupture-->
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1"
+		<h:panelGrid
+			
 			rendered="#{avenantController.avenant.rupture}">
 			<h:outputLabel for="type1" value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
 			<h:outputText id="type1"
@@ -48,16 +48,16 @@
 		</h:panelGrid>
 
 		<!-- Type de la modification si pas de rupture-->
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1"
+		<h:panelGrid
+			
 			rendered="#{!avenantController.avenant.rupture}">
 			<h:outputLabel for="type2"
 				value="#{msgs['CONVENTION.ETAPE11.TYPE']} :" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="type2" columns="2">
+			<h:panelGrid
+				id="type2" columns="2">
 				<t:htmlTag value="div" style="width: 10px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid
+					>
 					<h:outputText
 						rendered="#{avenantController.avenant.modificationSujet}"
 						value="#{msgs['CONVENTION.ETAPE11.SUJET']}" />
@@ -86,11 +86,11 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="sujet"
 				value="#{msgs['CONVENTION.ETAPE11.CHANGE_SUJET']}" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="sujet" columns="2">
+			<h:panelGrid
+				id="sujet" columns="2">
 				<t:htmlTag value="div" style="width: 10px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid
+					columns="2">
 					<h:outputText style="color:red;"
 						value="#{msgs['CONVENTION.ETAPE11.INIT_SUJET']}" />
 					<h:outputText style="color:red;"
@@ -108,15 +108,15 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="periode"
 				value="#{msgs['CONVENTION.ETAPE11.NEW_PERIODE']}" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="periode" columns="2">
+			<h:panelGrid
+				id="periode" columns="2">
 				<t:htmlTag value="div" style="width: 10px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid
+					columns="2">
 					<h:outputText style="color:red;"
 						value="#{msgs['CONVENTION.ETAPE11.INIT_PERIODE']}" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="4">
+					<h:panelGrid
+						columns="4">
 						<h:outputText style="color:red;"
 							value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
 						<h:outputText style="color:red;"
@@ -132,8 +132,8 @@
 					</h:panelGrid>
 					<h:outputText style="color:green;"
 						value="#{msgs['CONVENTION.ETAPE11.NEW_PERIODE']}" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="4">
+					<h:panelGrid
+						columns="4">
 						<h:outputText style="color:green;"
 							value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
 						<h:outputText style="color:green;"
@@ -155,16 +155,16 @@
 			<h:outputLabel for="interruption"
 				rendered="#{avenantController.avenant.interruptionStage}"
 				value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION']}" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="interruption" columns="2"
+			<h:panelGrid
+				id="interruption" columns="2"
 				rendered="#{avenantController.avenant.interruptionStage}">
 				<t:htmlTag value="div" style="width: 10px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid
+					columns="2">
 					<h:outputText style="color:red;"
 						value="#{msgs['CONVENTION.ETAPE11.INIT_INTERRUPTION']}" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="4"
+					<h:panelGrid
+						columns="4"
 						rendered="#{conventionController.convention.interruptionStage}">
 						<h:outputText style="color:red;"
 							value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
@@ -184,8 +184,8 @@
 						value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION_NULLE']}" />
 					<h:outputText style="color:green;"
 						value="#{msgs['CONVENTION.ETAPE11.NEW_INTERRUPTION']}" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="4"
+					<h:panelGrid
+						columns="4"
 						rendered="#{avenantController.avenant.interruptionStage}">
 						<h:outputText style="color:green;"
 							value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
@@ -209,11 +209,11 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="gratification"
 				value="#{msgs['CONVENTION.ETAPE11.CHANGE_GRATIFICATION']}" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="gratification" columns="2">
+			<h:panelGrid
+				id="gratification" columns="2">
 				<t:htmlTag value="div" style="width: 10px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid
+					columns="2">
 					<h:outputText style="color:red;"
 						value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
 					<h:outputText style="color:red;"
@@ -231,11 +231,11 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="lieu"
 				value="#{msgs['CONVENTION.ETAPE11.CHANGE_LIEU']}" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="lieu" columns="2">
+			<h:panelGrid
+				id="lieu" columns="2">
 				<t:htmlTag value="div" style="width: 10px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid
+					columns="2">
 
 					<h:outputText style="color:red;"
 						value="#{msgs['CONVENTION.ETAPE11.INIT_LIEU']}" />
@@ -254,11 +254,11 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="salarie"
 				value="#{msgs['CONVENTION.ETAPE11.CHANGE_SALARIE']}" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="salarie" columns="2">
+			<h:panelGrid
+				id="salarie" columns="2">
 				<t:htmlTag value="div" style="width: 10px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid
+					columns="2">
 					<h:outputText style="color:red;"
 						value="#{msgs['CONVENTION.ETAPE11.INIT_SALARIE']}" />
 					<h:outputText style="color:red;"
@@ -278,11 +278,11 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="enseignant"
 				value="#{msgs['CONVENTION.ETAPE11.CHANGE_ENSEIGNANT']}" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="enseignant" columns="2">
+			<h:panelGrid
+				id="enseignant" columns="2">
 				<t:htmlTag value="div" style="width: 10px;" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid
+					columns="2">
 					<h:outputText style="color:red;"
 						value="#{msgs['CONVENTION.ETAPE11.INIT_ENSEIGNANT']}" />
 					<h:outputText style="color:red;"
@@ -300,8 +300,8 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="modifTexteLibre"
 				value="#{msgs['CONVENTION.ETAPE11.MODIF_TEXTELIBRE']}" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="modifTexteLibre" columns="2">
+			<h:panelGrid
+				id="modifTexteLibre" columns="2">
 				<t:htmlTag value="div" style="width: 10px;" />
 				<h:outputText style="color:green;"
 					value="#{avenantController.avenant.motifAvenant}" />
@@ -313,8 +313,8 @@
 		<t:htmlTag value="div" style="height: 10px;" />
 		<h:outputLabel for="dateRupture"
 			value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}" />
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" id="dateRupture" columns="3">
+		<h:panelGrid
+			id="dateRupture" columns="3">
 			<t:htmlTag value="div" style="width: 10px;" />
 			<h:outputText style="color:green;"
 				value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']}" />
@@ -329,8 +329,8 @@
 		</h:panelGrid>
 	</t:div>
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="1" align="center">
+	<h:panelGrid
+		 align="center">
 		<t:htmlTag value="div" style="height: 10px;" />
 		<t:htmlTag value="div"
 			style="width: 400px; background-color: #{a4jSkin.panelBorderColor}; height: 3px;" />

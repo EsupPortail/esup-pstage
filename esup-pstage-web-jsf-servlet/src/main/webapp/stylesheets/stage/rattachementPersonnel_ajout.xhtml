@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel
+		<p:panel
 			rendered="#{(welcomeController.superAdmin	
 								|| welcomeController.admin)
 								and centreController.centre != null and centreController.personnel != null}">
@@ -18,9 +18,9 @@
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form id="formAjoutPersonnel">
-				<h:panelGrid columns="1" align="center">
-					<h:panelGrid columns="3" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+				<h:panelGrid align="center">
+					<h:panelGrid columns="3"
+						>
 						<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}"
 							for="nomPersonnel" />
 						<t:htmlTag value="div" style="width: 20px;" />
@@ -85,15 +85,15 @@
 							converter="#{droitAdminConverter}"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:selectItems value="#{nomenclatureController.droitsAdmin}" />
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:selectOneMenu>
-						<rich:message for="droit">
+						<p:message for="droit">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
 
-<!-- 					<h:panelGrid columns="2" columnClasses="paginatorData-text" -->
-<!-- 						rowClasses="paginatorData-text"> -->
+<!-- 					<h:panelGrid columns="2" -->
+<!-- 						> -->
 <!-- 						<h:outputLabel -->
 <!-- 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.CONVENTION']}" -->
 <!-- 							for="personnelConvention" /> -->
@@ -104,8 +104,8 @@
 <!-- 						</h:selectOneRadio> -->
 <!-- 					</h:panelGrid> -->
 
-					<h:panelGrid columns="2" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+					<h:panelGrid columns="2"
+						>
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.ALERTES_MAIL']}"
 							for="alertesMail" />
@@ -116,8 +116,8 @@
 						</h:selectOneRadio>
 					</h:panelGrid>
 					
-					<h:panelGrid columns="2" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+					<h:panelGrid columns="2"
+						>
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ETUDIANT']}"
 							for="droitEvaluationEtudiant" />
@@ -127,8 +127,8 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+					<h:panelGrid columns="2"
+						>
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENSEIGNANT']}"
 							for="droitEvaluationEnseignant" />
@@ -138,8 +138,8 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+					<h:panelGrid columns="2"
+						>
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENTREPRISE']}"
 							for="droitEvaluationEntreprise" />
@@ -155,26 +155,26 @@
 					<h:panelGrid columns="3" align="center">
 						<h:commandButton id="retour" value="#{msgs['GENERAL.RETOUR']}"
 							action="#{centreController.goToRattachPersonnelResultat}">
-							<rich:tooltip value="#{msgs['CENTRE.PERSONNEL.RETOUR']}" />
+							<p:tooltip value="#{msgs['CENTRE.PERSONNEL.RETOUR']}" />
 						</h:commandButton>
 						<t:htmlTag value="div" style="width: 70px;" />
-						<a4j:commandButton id="ajouter" value="#{msgs['FORM.AJOUTER']}"
+						<p:commandButton id="ajouter" value="#{msgs['FORM.AJOUTER']}"
 							action="#{centreController.ajouterPersonnel}"
-							render="personnelDataTable">
-							<rich:tooltip value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
-						</a4j:commandButton>
+							update="personnelDataTable">
+							<p:tooltip value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
+						</p:commandButton>
 					</h:panelGrid>
 				</h:panelGrid>
 
 				<t:htmlTag value="center">
 					<h:outputText id="erreurAjout" value="" />
-					<rich:message for="erreurAjout">
+					<p:message for="erreurAjout">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</t:htmlTag>
 				<t:htmlTag value="div" style="height: 5px;" />
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin	
 		|| welcomeController.admin)}">

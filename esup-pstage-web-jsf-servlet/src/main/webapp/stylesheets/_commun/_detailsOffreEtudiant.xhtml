@@ -2,17 +2,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" style="font-size:12px;" columns="1">
+	<h:panelGrid
+		style="font-size:12px;">
 		<t:div>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" style="font-size:12px;" columns="1">
+			<h:panelGrid
+				style="font-size:12px;">
 				<h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.POSTE']} "
-					styleClass="titreOffre" />
+					 />
 				<t:htmlTag value="em">
 					<h:outputText value="#{msgs['OFFRE.DESCRIPTION']} : " />
 				</t:htmlTag>
@@ -20,8 +20,8 @@
 				<h:outputText value="#{offreController.currentOffre.description}"
 					escape="false" />
 
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" style="font-size:12px;" columns="2"
+				<h:panelGrid
+					style="font-size:12px;" columns="2"
 					rendered="#{not empty offreController.currentOffre.fapN1}">
 					<t:htmlTag value="em">
 						<h:outputText value="#{msgs['OFFRE.DOMAINE']} : " />
@@ -29,16 +29,16 @@
 					<h:outputText value="#{offreController.currentOffre.fapN1.libelle}" />
 				</h:panelGrid>
 
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" style="font-size:12px;" columns="2">
+				<h:panelGrid
+					style="font-size:12px;" columns="2">
 					<t:htmlTag value="em">
 						<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']} : " />
 					</t:htmlTag>
 					<h:outputText
 						value="#{offreController.currentOffre.typeOffre.libelle}" />
 				</h:panelGrid>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" style="font-size:12px;" columns="2"
+				<h:panelGrid
+					style="font-size:12px;" columns="2"
 					rendered="#{not empty offreController.currentOffre.contratOffre}">
 					<t:htmlTag value="em">
 						<h:outputText value="#{msgs['OFFRE.CONTRATOFFRE']} : " />
@@ -50,15 +50,15 @@
 		</t:div>
 		<t:div
 			rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
-			<h:panelGrid columns="1" style="font-size:12px;"
-				columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+			<h:panelGrid style="font-size:12px;"
+				>
 				<h:panelGrid columns="2" style="font-size:12px;"
-					columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+					>
 					<t:htmlTag value="em">
 						<h:outputText value="#{msgs['OFFRE.DEBUT']} : " />
 					</t:htmlTag>
 					<h:panelGrid style="font-size:12px;" columns="2"
-						columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+						>
 						<h:outputText value="#{offreController.currentOffre.moisDebut}"
 							rendered="#{not empty offreController.currentOffre.moisDebut}" />
 						<h:outputText value="#{offreController.currentOffre.anneeDebut}"
@@ -71,8 +71,8 @@
 					</h:panelGrid>
 				</h:panelGrid>
 
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" style="font-size:12px;" columns="2">
+				<h:panelGrid
+					style="font-size:12px;" columns="2">
 					<t:htmlTag value="em"
 						rendered="#{(offreController.currentOffre.contratOffre==beanUtils.cdd ||
 							offreController.currentOffre.typeOffre==beanUtils.stage ||
@@ -81,8 +81,8 @@
 							and offreController.currentOffre.duree gt 0}">
 						<h:outputText value="#{msgs['OFFRE.DUREE']} : " />
 					</t:htmlTag>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" style="font-size:12px;"
+					<h:panelGrid
+						style="font-size:12px;"
 						columns="2"
 						rendered="#{(offreController.currentOffre.contratOffre==beanUtils.cdd ||
 								offreController.currentOffre.typeOffre==beanUtils.stage ||
@@ -98,7 +98,7 @@
 		</t:div>
 		<t:div>
 			<h:panelGrid style="font-size:12px;" columns="4">
-				<h:panelGrid style="font-size:12px;" columns="1">
+				<h:panelGrid style="font-size:12px;">
 					<h:outputText value="#{msgs['OFFRE.LIEU']} : " escape="false" />
 				</h:panelGrid>
 				<h:panelGrid style="font-size:12px;" columns="2"
@@ -132,7 +132,7 @@
 		</t:div>
 		<t:div
 			rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
-			<h:panelGrid style="font-size:12px;" columns="1">
+			<h:panelGrid style="font-size:12px;">
 				<h:panelGrid style="font-size:12px;" columns="2">
 					<t:htmlTag value="em">
 						<h:outputText value="#{msgs['OFFRE.DEPLACEMENT']} " />
@@ -205,7 +205,7 @@
 				<t:htmlTag value="div" style="height: 20px;" />
 				<h:outputText
 					value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.CANDIDAT']} "
-					styleClass="titreOffre" />
+					 />
 				<h:panelGrid style="font-size:12px;" columns="2"
 					rendered="#{not empty offreController.currentOffre.niveauFormation}">
 					<t:htmlTag value="em">
@@ -214,7 +214,7 @@
 					<h:outputText
 						value="#{offreController.currentOffre.niveauFormation.libelle}" />
 				</h:panelGrid>
-				<h:panelGrid style="font-size:12px;" columns="1"
+				<h:panelGrid style="font-size:12px;"
 					rendered="#{not empty offreController.currentOffre.competences}">
 					<t:htmlTag value="em">
 						<h:outputText value="#{msgs['OFFRE.COMPSOUHAITEES']} : " />
@@ -225,7 +225,7 @@
 				<t:htmlTag value="div" style="height: 20px;" />
 				<h:outputText
 					value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.POSTULER']} "
-					styleClass="titreOffre" />
+					 />
 				<h:panelGrid style="font-size:12px;" columns="2"
 					rendered="#{not empty offreController.currentOffre.referenceOffreEtablissement}">
 					<t:htmlTag value="em">
@@ -240,10 +240,10 @@
 						<h:outputText
 							value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.MODALITESREP']} " />
 					</t:htmlTag>
-					<rich:list var="mode"
+					<p:dataList var="mode"
 						value="#{offreController.currentOffre.modesCandidature}" rows="10">
 						<h:outputText value="#{mode.libelle}" />
-					</rich:list>
+					</p:dataList>
 				</h:panelGrid>
 				<h:panelGrid style="font-size:12px;" columns="2">
 					<t:htmlTag value="em">
@@ -253,7 +253,7 @@
 						value="#{offreController.currentOffre.anneeUniversitaire}" />
 				</h:panelGrid>
 				<h:panelGrid columns="3" style="font-size:12px;" align="center">
-					<h:panelGrid columns="1" style="font-size:12px;"
+					<h:panelGrid style="font-size:12px;"
 						rendered="#{offreController.currentOffre.idContactCand>0 and not empty offreController.currentOffre.contactCand}">
 						<t:htmlTag value="em">
 							<h:outputText
@@ -282,7 +282,7 @@
 			and!offreController.currentOffre.cacherTelContactCand}">
 							<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
 								title="#{msgs['CONTACT.TELEPHONE']}"
-								value="../../media/images/phone.png" style="border:0" />
+								value="../../media/images/phone.png" />
 							<h:outputText
 								value=" #{offreController.currentOffre.contactCand.tel}" />
 						</h:panelGrid>
@@ -291,7 +291,7 @@
 			and !offreController.currentOffre.cacherFaxContactCand}">
 							<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
 								title="#{msgs['CONTACT.FAX']}"
-								value="../../media/images/printer.png" style="border:0" />
+								value="../../media/images/printer.png" />
 							<h:outputText
 								value=" #{offreController.currentOffre.contactCand.fax}" />
 						</h:panelGrid>
@@ -300,7 +300,7 @@
 			and !offreController.currentOffre.cacherMailContactCand}">
 							<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
 								title="#{msgs['CONTACT.MAIL']}"
-								value="../../media/images/email.png" style="border:0" />
+								value="../../media/images/email.png" />
 							<h:outputText
 								value=" #{offreController.currentOffre.contactCand.mail}" />
 						</h:panelGrid>
@@ -313,7 +313,7 @@
 							style="width:2px; height:180px; background-color:#{a4jSkin.panelBorderColor};" />
 						<t:htmlTag value="div" style="width: 25px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="1" style="font-size:12px;"
+					<h:panelGrid style="font-size:12px;"
 						rendered="#{offreController.currentOffre.idContactInfo gt 0 and not empty offreController.currentOffre.contactInfo}">
 						<t:htmlTag value="em">
 							<h:outputText
@@ -342,7 +342,7 @@
 			and!offreController.currentOffre.cacherTelContactInfo}">
 							<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
 								title="#{msgs['CONTACT.TELEPHONE']}"
-								value="../../media/images/phone.png" style="border:0" />
+								value="../../media/images/phone.png" />
 							<h:outputText
 								value=" #{offreController.currentOffre.contactInfo.tel}" />
 						</h:panelGrid>
@@ -351,7 +351,7 @@
 			and !offreController.currentOffre.cacherFaxContactInfo}">
 							<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
 								title="#{msgs['CONTACT.FAX']}"
-								value="../../media/images/printer.png" style="border:0" />
+								value="../../media/images/printer.png" />
 							<h:outputText
 								value=" #{offreController.currentOffre.contactInfo.fax}" />
 						</h:panelGrid>
@@ -360,7 +360,7 @@
 			and !offreController.currentOffre.cacherMailContactInfo}">
 							<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
 								title="#{msgs['CONTACT.MAIL']}"
-								value="../../media/images/email.png" style="border:0" />
+								value="../../media/images/email.png" />
 							<h:outputText
 								value=" #{offreController.currentOffre.contactInfo.mail}" />
 						</h:panelGrid>
@@ -368,9 +368,9 @@
 				</h:panelGrid>
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.COM']} "
-					styleClass="titreOffre"
+					
 					rendered="#{not empty offreController.currentOffre.observations}" />
-				<h:panelGrid style="font-size:12px;" columns="1"
+				<h:panelGrid style="font-size:12px;"
 					rendered="#{not empty offreController.currentOffre.observations}">
 					<t:htmlTag value="em">
 						<h:outputText value="#{msgs['OFFRE.COMOBS']} : " />
@@ -383,9 +383,9 @@
 		<t:htmlTag value="div" style="height: 10px;" />
 		<t:div
 			rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
-			<h:panelGrid style="font-size:12px;" columns="1">
+			<h:panelGrid style="font-size:12px;">
 				<h:outputText value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.DOCS']} "
-					styleClass="titreOffre" />
+					 />
 				<h:panelGrid
 					rendered="#{offreController.currentOffre.avecFichier 
 							and offreController.currentOffre.idFichier gt 0
@@ -397,7 +397,7 @@
 							target="_blank">
 							<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
 								title="#{msgs['GENERAL.FILE']}"
-								value="../../media/images/docu.png" style="border:0" />
+								value="../../media/images/docu.png" />
 						</h:outputLink>
 						<h:outputLink
 							value="get.file?fileId=#{offreController.currentOffre.idFichier}"
@@ -417,7 +417,7 @@
 							target="_blank">
 							<h:graphicImage alt="#{msgs['GENERAL.CLIQUEZICI']}"
 								title="#{msgs['GENERAL.CLIQUEZICI']}"
-								value="../../media/images/lien.png" style="border:0" />
+								value="../../media/images/lien.png" />
 						</h:outputLink>
 						<h:outputLink value="#{offreController.currentOffre.lienAttache}"
 							target="_blank">
@@ -432,8 +432,8 @@
 		</t:div>
 	</h:panelGrid>
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="5"
+	<h:panelGrid
+		columns="5"
 		style="font-size:11px;float:right;">
 		<h:outputText
 			value="#{msgs['OFFRE.ID']} #{offreController.currentOffre.idOffre}, 

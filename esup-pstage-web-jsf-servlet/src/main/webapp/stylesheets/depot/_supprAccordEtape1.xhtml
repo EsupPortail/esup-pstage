@@ -2,9 +2,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+	xmlns:p="http://primefaces.org/ui"
+	>
+	<h:panelGrid columns="2" >
 		<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 			value="../../media/images/warning_50px.png" />
 		<h:outputFormat value="#{msgs['ACCORD.SUPPRESSION.QUESTION']}"
@@ -13,12 +13,12 @@
 		</h:outputFormat>
 	</h:panelGrid>
 	<h:panelGrid columns="3" align="center">
-		<a4j:commandButton
+		<p:commandButton
 			action="#{adminController.supprimerAccord}"
 			value="#{msgs['FORM.SUPPRIMER']}"
-			render="formSupprAccord" />
+			update="@form" />
 		<t:htmlTag value="div" style="width:100px;" />
-		<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-			onclick="#{rich:component('supprimerAccordPanel')}.hide();return false;" />
+		<p:commandButton value="#{msgs['FORM.ANNULER']}"
+			onclick="PF('supprimerAccordPanel').hide();" />
 	</h:panelGrid>
 </ui:composition>

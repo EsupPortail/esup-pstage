@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
+	<h:panelGrid>
 		<h:outputText value="#{msgs['OFFRE.ERREUR.AUCUNETABSELECT']}"
 			rendered="#{empty offreController.formOffre.structure}" />
 		<h:panelGrid columns="2"
@@ -14,7 +14,7 @@
 			<t:panelGroup colspan="2">
 				<h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01NOMODIF']}" />
 			</t:panelGroup>
-			<h:panelGrid columns="1"
+			<h:panelGrid
 				rendered="#{not empty offreController.formOffre.centreGestion}">
 				<h:outputText
 					value="(#{offreController.formOffre.centreGestion.idCentreGestion}) #{offreController.formOffre.centreGestion.nomCentre}" />
@@ -31,11 +31,11 @@
 				style="width:300px;">
 				<f:selectItems
 					value="#{offreController.listeItemsCurrentCentresGestion}" />
-				<a4j:ajax event="valueChange"/>
+				<p:ajax event="valueChange"/>
 			</h:selectOneMenu>
-			<rich:message for="centreGestion">
+			<p:message for="centreGestion">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 			<t:panelGroup colspan="2">
 				<h:panelGrid columns="2">
 					<h:commandButton value="#{msgs['FORM.NEXT']}"

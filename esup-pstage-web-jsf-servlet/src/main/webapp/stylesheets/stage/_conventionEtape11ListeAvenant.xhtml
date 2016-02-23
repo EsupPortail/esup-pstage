@@ -2,29 +2,26 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" align="center"
-		rendered="#{avenantController.listeAvenantVide and !welcomeController.etudiant}"
-		columns="1">
+	<h:panelGrid align="center"
+		rendered="#{avenantController.listeAvenantVide and !welcomeController.etudiant}">
 		<h:outputText value="#{msgs['CONVENTION.ETAPE11.VIDE']}" />
 	</h:panelGrid>
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="1"
+	<h:panelGrid
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;"
 		rendered="#{!avenantController.listeAvenantVide and conventionController.convention.validationConvention}">
-		<a4j:outputPanel>
+		<p:outputPanel>
 			<t:htmlTag value="div" style="height: 15px;" />
-			<rich:dataTable id="listeAvenant" rows="5" columnClasses="col"
-				value="#{avenantController.listeAvenants}"
+			<p:dataTable id="listeAvenant"
 				style="border-right:1px solid #C0C0C0; margin: 0 auto;"
-				var="avenant" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				value="#{avenantController.listeAvenants}" var="avenant" rows="5"
+				rowHover="true" rowStyleClass="nopointer" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15,20">
 
-				<rich:column sortBy="#{avenant.idAvenant}">
+				<p:column sortBy="#{avenant.idAvenant}">
 					<f:facet name="header">
 						<h:outputText style="headerClass"
 							value="#{msgs['CONVENTION.ETAPE11.ID']}" />
@@ -32,9 +29,9 @@
 					<t:htmlTag value="center">
 						<h:outputText value="#{avenant.idAvenant}" />
 					</t:htmlTag>
-				</rich:column>
+				</p:column>
 
-				<rich:column sortBy="#{avenant.titreAvenant}">
+				<p:column sortBy="#{avenant.titreAvenant}">
 					<f:facet name="header">
 						<h:outputText style="headerClass"
 							value="#{msgs['CONVENTION.ETAPE11.TITRE']}" />
@@ -42,25 +39,21 @@
 					<t:htmlTag value="center">
 						<h:outputText value="#{avenant.titreAvenant}" />
 					</t:htmlTag>
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText style="headerClass"
 							value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
 					</f:facet>
 					<t:htmlTag value="center">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2"
-							rendered="#{avenant.rupture}">
+						<h:panelGrid columns="2" rendered="#{avenant.rupture}">
 							<h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE']} :" />
 							<h:outputText value="#{avenant.dateRupture}">
 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
 							</h:outputText>
 						</h:panelGrid>
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text"
-							rendered="#{!avenant.rupture}">
+						<h:panelGrid rendered="#{!avenant.rupture}">
 							<h:outputText rendered="#{avenant.modificationSujet}"
 								value="#{msgs['CONVENTION.ETAPE11.SUJET']}" />
 							<h:outputText rendered="#{avenant.modificationPeriode}"
@@ -74,13 +67,14 @@
 							<h:outputText
 								rendered="#{avenant.modificationMontantGratification}"
 								value="#{msgs['CONVENTION.ETAPE11.MONTANT_GRATIFICATION']}" />
-							<h:outputText escape="false" rendered="#{not empty avenant.motifAvenant}"
+							<h:outputText escape="false"
+								rendered="#{not empty avenant.motifAvenant}"
 								value="- Autre (texte libre)" />
 						</h:panelGrid>
 					</t:htmlTag>
-				</rich:column>
+				</p:column>
 
-				<rich:column sortBy="#{avenant.validationAvenant}">
+				<p:column sortBy="#{avenant.validationAvenant}">
 					<f:facet name="header">
 						<h:outputText style="headerClass"
 							value="#{msgs['CONVENTION.ETAPE11.VALIDATION']}" />
@@ -91,9 +85,9 @@
 						<h:outputText rendered="#{!avenant.validationAvenant}"
 							value="#{msgs['FORM.NON']}" />
 					</t:htmlTag>
-				</rich:column>
+				</p:column>
 
-				<rich:column
+				<p:column
 					rendered="#{welcomeController.superAdmin || welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
@@ -107,67 +101,59 @@
 							<f:setPropertyActionListener value="#{avenant}"
 								target="#{avenantController.avenant}" />
 							<h:graphicImage alt="#{msgs['FORM.VOIR']}"
-								value="../../media/images/zoom.png" style="border:0" />
-							<rich:tooltip value="#{msgs['FORM.CONSULTER']}" />
+								value="../../media/images/zoom.png" />
+							<p:tooltip value="#{msgs['FORM.CONSULTER']}" />
 						</h:commandLink>
-						<a4j:commandLink execute="@this"
+						<p:commandLink 
 							rendered="#{!avenant.validationAvenant}"
-							oncomplete="#{rich:component('suppressionAvenant')}.show()"
-							render="suppressionAvenant">
+							oncomplete="PF('suppressionAvenant').show();"
+							update="suppressionAvenant">
 							<f:setPropertyActionListener value="#{avenant}"
 								target="#{avenantController.avenant}" />
 							<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"
-								value="../../media/images/delete.png" style="border:0" />
-							<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-						</a4j:commandLink>
+								value="../../media/images/delete.png" />
+							<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+						</p:commandLink>
 					</t:htmlTag>
-				</rich:column>
-				<f:facet name="footer">
-					<rich:dataScroller align="center" for="listeAvenant" maxPages="20"
-						page="1" id="listeScroller" renderIfSinglePage="false" />
-				</f:facet>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 
 			<t:htmlTag value="div" style="height: 10px;" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="2" align="center">
+			<h:panelGrid columns="2" align="center">
 				<h:graphicImage id="warn" alt="#{msgs['GENERAL.WARNING']}"
 					title="#{msgs['GENERAL.WARNING']}"
-					value="../../media/images/warning_20px.png" style="border:0" />
+					value="../../media/images/warning_20px.png" />
 				<h:outputLabel for="warn"
 					value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.RAPPEL']}" />
 			</h:panelGrid>
-		</a4j:outputPanel>
+		</p:outputPanel>
 
 		<t:htmlTag value="div" style="height: 5px;" />
 	</h:panelGrid>
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="1" align="center"
+	<h:panelGrid align="center"
 		rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
 			and conventionController.convention.validationConvention}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" align="center">
+		<h:panelGrid columns="2" align="center">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE11.CREATION']}"
 				escape="false" />
 			<h:commandLink id="add"
 				action="#{avenantController.goToCreaAvenantPage1}">
 				<h:graphicImage alt="#{msgs['CONVENTION.ETAPE11.AJOUTER']}"
-					value="../../media/images/new.png" style="border:0" />
-				<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.AJOUTER']}" />
+					value="../../media/images/new.png" />
+				<p:tooltip value="#{msgs['CONVENTION.ETAPE11.AJOUTER']}" />
 			</h:commandLink>
 		</h:panelGrid>
 	</h:panelGrid>
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="2" align="center"
+	<h:panelGrid columns="2" align="center"
 		rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
 			and !conventionController.convention.validationConvention}">
 		<h:graphicImage id="warn2" alt="#{msgs['GENERAL.WARNING']}"
 			title="#{msgs['GENERAL.WARNING']}"
-			value="../../media/images/warning_20px.png" style="border:0" />
+			value="../../media/images/warning_20px.png" />
 		<h:outputLabel for="warn2"
 			value="#{msgs['CONVENTION.ETAPE11.INVALIDE']}" />
 	</h:panelGrid>

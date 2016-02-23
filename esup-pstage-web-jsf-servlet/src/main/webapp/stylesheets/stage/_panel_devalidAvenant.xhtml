@@ -2,17 +2,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="devalidAvenant" autosized="true" domElementAttachment="parent">
+	<p:dialog id="devalidAvenant" widgetVar="devalidAvenant">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.HEAD']}">
 				<f:param value="#{avenantController.avenant.idAvenant}" />
 			</h:outputText>
 		</f:facet>
-		<h:panelGrid columns="1" align="center">
+		<h:panelGrid align="center">
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="devalidPanel"
 				value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.QUESTION']}" />
@@ -21,17 +21,17 @@
 
 		<t:htmlTag value="div" style="height: 10px;" />
 		<h:panelGrid align="center" id="devalidPanel" columns="3">
-			<a4j:commandButton action="#{avenantController.devaliderAvenant}"
-				value="#{msgs['FORM.OUI']}" render="formDetailsAvenant" />
+			<p:commandButton action="#{avenantController.devaliderAvenant}"
+				value="#{msgs['FORM.OUI']}" update="formDetailsAvenant" />
 			<t:htmlTag value="div" style="width: 30px;" />
 			<h:commandButton value="#{msgs['FORM.NON']}"
-				onclick="#{rich:component('devalidAvenant')}.hide();return false;" />
+				onclick="PF('devalidAvenant').hide();" />
 		</h:panelGrid>
 		<t:htmlTag value="center">
 			<h:outputText id="erreurDevalidAvenant" value="" />
-			<rich:message for="erreurDevalidAvenant">
+			<p:message for="erreurDevalidAvenant">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</t:htmlTag>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

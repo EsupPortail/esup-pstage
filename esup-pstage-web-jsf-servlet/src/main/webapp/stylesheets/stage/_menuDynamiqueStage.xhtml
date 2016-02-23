@@ -2,10 +2,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:form id="menuDynamiqueStage" styleClass="app-form">
+	<h:form id="menuDynamiqueStage">
 		<t:htmlTag value="ul">
 			<t:htmlTag value="li"
 				rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin)}">
@@ -18,7 +18,7 @@
 						<h:commandLink action="#{centreController.goToListeCentre}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.LISTECENTRE']}"
 								title="#{msgs['MENUSTAGE.LISTECENTRE']}"
-								value="/media/images/list.png" style="border:0" />
+								value="/media/images/list.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.LISTECENTRE']}" />
 						</h:commandLink>
 					</t:htmlTag>
@@ -37,7 +37,7 @@
 							rendered="#{welcomeController.personnel || welcomeController.superAdmin }">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION']}"
 								title="#{msgs['MENUSTAGE.RECHCONVENTION']}"
-								value="/media/images/zoom.png" style="border:0" />
+								value="/media/images/zoom.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.RECHCONVENTION']}" />
 						</h:commandLink>
 					</t:htmlTag>
@@ -48,7 +48,7 @@
 							rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
 								title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
-								value="/media/images/new.png" style="border:0" />
+								value="/media/images/new.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
 						</h:commandLink>
 					</t:htmlTag>
@@ -57,7 +57,7 @@
 						<h:commandLink action="#{conventionController.goToValiderEnMasse}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
 								title="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
-								value="/media/images/tick.png" style="border:0" />
+								value="/media/images/tick.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.VALIDERENMASSE']}" />
 						</h:commandLink>
 					</t:htmlTag>
@@ -68,7 +68,7 @@
 							<h:graphicImage
 								alt="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
 								title="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
-								value="/media/images/list.png" style="border:0" />
+								value="/media/images/list.png" />
 							<h:outputText
 								value=" #{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}" />
 						</h:commandLink>
@@ -87,7 +87,7 @@
 							action="#{conventionController.goToRechercheConventionEtu}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
 								title="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
-								value="/media/images/list.png" style="border:0" />
+								value="/media/images/list.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.RECHCONVENTION.ETU']}" />
 						</h:commandLink>
 					</t:htmlTag>
@@ -97,7 +97,7 @@
 							action="#{conventionController.goToCreerConvention}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.CREERCONVENTION']}"
 								title="#{msgs['MENUSTAGE.CREERCONVENTION']}"
-								value="/media/images/new.png" style="border:0" />
+								value="/media/images/new.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.CREERCONVENTION']}" />
 						</h:commandLink>
 					</t:htmlTag>
@@ -114,7 +114,7 @@
 							action="#{rechercheController.goToRechercheEtablissementStage}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.RECHETAB']}"
 								title="#{msgs['MENUSTAGE.RECHETAB']}"
-								value="/media/images/zoom.png" style="border:0" />
+								value="/media/images/zoom.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.RECHETAB']}" />
 							<f:setPropertyActionListener value="#{2}"
 								target="#{rechercheController.ongletCourant}" />
@@ -132,7 +132,7 @@
 							action="#{rechercheController.goToEtablissementsAVerifier}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
 								title="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
-								value="/media/images/zoom.png" style="border:0" />
+								value="/media/images/zoom.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}" />
 							<f:setPropertyActionListener value="#{2}"
 								target="#{rechercheController.ongletCourant}" />
@@ -157,7 +157,7 @@
 						<h:commandLink action="#{offreController.goToRechercheOffreStage}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
 								title="#{msgs['MENUSTAGE.RECHOFFRE']}"
-								value="/media/images/zoom.png" style="border:0" />
+								value="/media/images/zoom.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.RECHOFFRE']}" />
 							<f:setPropertyActionListener value="#{null}"
 								target="#{sessionController.currentManageStructure}" />
@@ -173,7 +173,7 @@
 							action="#{offreController.goToCreationOffreSelectionCentre}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
 								title="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
-								value="/media/images/new.png" style="border:0" />
+								value="/media/images/new.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.AJOUTOFFRE']}" />
 							<f:setPropertyActionListener value="#{null}"
 								target="#{sessionController.currentManageStructure}" />
@@ -192,7 +192,7 @@
 						<h:commandLink action="#{offreController.goToOffreADiffuser}">
 							<h:graphicImage alt="#{msgs['MENU.OFFRESADIFFUSER']})"
 								title="#{msgs['MENU.OFFRESADIFFUSER']})"
-								value="/media/images/tick.png" style="border:0" />
+								value="/media/images/tick.png" />
 							<h:outputText
 								value=" #{msgs['MENU.OFFRESADIFFUSER']} (#{offreController.offreADiffuser})" />
 						</h:commandLink>
@@ -210,7 +210,7 @@
 						<h:commandLink action="#{offreController.goToRechercheOffreStage}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.RECHOFFRE']}"
 								title="#{msgs['MENUSTAGE.RECHOFFRE']}"
-								value="/media/images/zoom.png" style="border:0" />
+								value="/media/images/zoom.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.RECHOFFRE']}" />
 							<f:setPropertyActionListener value="#{null}"
 								target="#{sessionController.currentManageStructure}" />
@@ -247,7 +247,7 @@
 							action="#{evaluationController.goToRechercheEval}">
 							<h:graphicImage alt="#{msgs['RECHERCHEEVALUATION.TITRE']}"
 								title="#{msgs['RECHERCHEEVALUATION.TITRE']}"
-								value="/media/images/zoom.png" style="border:0" />
+								value="/media/images/zoom.png" />
 							<h:outputText value=" #{msgs['RECHERCHEEVALUATION.TITRE']}" />
 						</h:commandLink>
 					</t:htmlTag>
@@ -257,7 +257,7 @@
 							action="#{evaluationController.goToRechercheEvalEns}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
 								title="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
-								value="/media/images/list.png" style="border:0" />
+								value="/media/images/list.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.EVALUATION.VISUALISER']}" />
 						</h:commandLink>
 					</t:htmlTag>
@@ -267,7 +267,7 @@
 							action="#{evaluationController.goToRechercheEvalEtu}">
 							<h:graphicImage alt="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
 								title="#{msgs['MENUSTAGE.EVALUATION.GESTEVAL']}"
-								value="/media/images/list.png" style="border:0" />
+								value="/media/images/list.png" />
 							<h:outputText value=" #{msgs['MENUSTAGE.EVALUATION.VISUALISER']}" />
 						</h:commandLink>
 					</t:htmlTag>
@@ -286,7 +286,7 @@
 							<h:graphicImage
 								alt="#{msgs['MENU.GESTIONNOMENCLATURES.GESTION']})"
 								title="#{msgs['MENU.GESTIONNOMENCLATURES']})"
-								value="../../media/images/list.png" style="border:0" />
+								value="../../media/images/list.png" />
 							<h:outputText
 								value=" #{msgs['MENU.GESTIONNOMENCLATURES.GESTION']}" />
 						</h:commandLink>

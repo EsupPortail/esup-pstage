@@ -140,6 +140,11 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	private boolean ajoutPossible;
 
+	/**
+	 * Index du menu_centre
+	 */
+	private int indexMenu;
+
 	/* ***************************************************************
 	 * Critere de Gestion
 	 ****************************************************************/
@@ -232,7 +237,7 @@ public class CentreController extends AbstractContextAwareController {
 	 * true si un codeEtape/codeUFR n'est plus existant dans apogee pour alerter avant sa suppression
 	 */
 	private boolean critereNotFound = false;
-	
+
 	/* ***************************************************************
 	 * FICHE EVAL
 	 ****************************************************************/
@@ -340,6 +345,7 @@ public class CentreController extends AbstractContextAwareController {
 			logger.debug("public String goToListeCentre() ");
 		}
 		this.centresGestion = getCentreGestionDomainService().getCentreGestionList(getSessionController().getCodeUniversite());
+
 		return "listeCentres";
 	}
 
@@ -376,6 +382,9 @@ public class CentreController extends AbstractContextAwareController {
 		this.personnel=new PersonnelCentreGestionDTO();
 		this.centre.setNiveauCentre(new NiveauCentreDTO());
 		this.centre.setConfidentialite(new ConfidentialiteDTO());
+		this.centre.setPresenceTuteurEns(true);
+		this.centre.setPresenceTuteurPro(true);
+		this.centre.setSaisieTuteurProParEtudiant(true);
 		this.centre.setAutoriserImpressionConvention(true);
 
 		return "ajoutCentre";
@@ -451,7 +460,7 @@ public class CentreController extends AbstractContextAwareController {
 		try{
 			// Ajout Centre
 			int idCentreGestion = getCentreGestionDomainService().addCentreGestion(centre);
-			
+
 			centre.setIdCentreGestion(idCentreGestion);
 			this.centresGestion.add(centre);
 			if(logger.isDebugEnabled()){
@@ -459,15 +468,15 @@ public class CentreController extends AbstractContextAwareController {
 			}
 		} catch (DataAddException d){
 			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formAjoutCentre:erreurAjoutCentre","CENTRE.AJOUT_CENTRE.ERREUR");
+			addErrorMessage("formAjoutCentre","CENTRE.AJOUT_CENTRE.ERREUR");
 			return null;
 		} catch (WebServiceDataBaseException w){
 			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formAjoutCentre:erreurAjoutCentre", "CENTRE.AJOUT_CENTRE.ERREUR");
+			addErrorMessage("formAjoutCentre", "CENTRE.AJOUT_CENTRE.ERREUR");
 			return null;
 		} catch (CentreEtablissementDejaExistantException e) {
 			logger.error("EtablissementDejaExistantException", e.fillInStackTrace());
-			addErrorMessage("formAjoutCentre:erreurAjoutCentre", "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
+			addErrorMessage("formAjoutCentre", "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
 			return null;
 		}
 
@@ -552,7 +561,7 @@ public class CentreController extends AbstractContextAwareController {
 		try{
 			// Modification du Centre
 			getCentreGestionDomainService().updateCentreGestion(centre);
-			
+
 		} catch (DataUpdateException d){
 			logger.error("DataUpdateException",d.fillInStackTrace());
 			addErrorMessage("formModifCentre:erreurModifCentre","CENTRE.AJOUT_CENTRE.ERREUR");
@@ -627,35 +636,32 @@ public class CentreController extends AbstractContextAwareController {
 	 * Action de modification du centre entreprise
 	 */
 	public void modifierCentreEntreprise(){
-		//		String ret=null;
-		if(getCentreEntreprise()!=null){
-			if(StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) &&
-					this.formCentreEntreprise.getConfidentialite()!=null){
-				try{
-					this.formCentreEntreprise.setCodeConfidentialite(this.formCentreEntreprise.getConfidentialite().getCode());
-					this.formCentreEntreprise.setCodeUniversite("entreprise");
-					this.formCentreEntreprise.setIdNiveauCentre(getBeanUtils().getEntreprise().getId());
-					this.formCentreEntreprise.setLoginModif(getSessionController().getCurrentLogin());
-					getCentreGestionDomainService().updateCentreGestion(this.formCentreEntreprise);
-					getSessionController().setModifCentreEntrepriseCurrentPage("_modifCentreEntrepriseEtape1");
-					addInfoMessage("msgsEts", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
-					//					ret="_modifCentreEntrepriseEtape1";
-				} catch (DataAddException d){
-					logger.error("DataAddException", d.fillInStackTrace());				
-					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE");
-					//					return null;
-				} catch (CentreEntrepriseDejaExistantException e) {
-					logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
-					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-					//					return null;
-				} catch (WebServiceDataBaseException e) {
-					logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
-					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
-					//					return null;
-				}
+
+		if(getCentreEntreprise()!=null && StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) 
+				&& this.formCentreEntreprise.getConfidentialite()!=null){
+			try{
+				this.formCentreEntreprise.setCodeConfidentialite(this.formCentreEntreprise.getConfidentialite().getCode());
+				this.formCentreEntreprise.setCodeUniversite("entreprise");
+				this.formCentreEntreprise.setIdNiveauCentre(getBeanUtils().getEntreprise().getId());
+				this.formCentreEntreprise.setLoginModif(getSessionController().getCurrentLogin());
+
+				getCentreGestionDomainService().updateCentreGestion(this.formCentreEntreprise);
+
+				getSessionController().setModifCentreEntrepriseCurrentPage("_modifCentreEntrepriseEtape1");
+
+				addInfoMessage("msgsEts", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
+
+			} catch (DataAddException d){
+				logger.error("DataAddException", d.fillInStackTrace());				
+				addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE");
+			} catch (CentreEntrepriseDejaExistantException e) {
+				logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
+				addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
+			} catch (WebServiceDataBaseException e) {
+				logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
+				addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
 			}
 		}
-		//		return "centreEntreprise";
 	}
 
 	/* ****************************************************************************	 * 
@@ -701,20 +707,23 @@ public class CentreController extends AbstractContextAwareController {
 						this.repercutionCriteres();
 					}
 				}
+				// Suppression de la fiche d'évaluation
+				getFicheEvaluationDomainService().deleteFicheEvaluation(getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.centre.getIdCentreGestion()).getIdFicheEvaluation());
+				
 				getCentreGestionDomainService().deleteCentreGestion(this.centre.getIdCentreGestion());
 
 				this.centresGestion.remove(centre);
 			} catch (CentreReferenceException e){
 				logger.error("CentreReferenceException ",e.fillInStackTrace());
-				addErrorMessage("formSupprCentre:erreurListeCentre","CENTRE.SUPPRESSION.ERREUR.REFERENCE",e.getMessage());
+				addErrorMessage("formSupprCentre","CENTRE.SUPPRESSION.ERREUR.REFERENCE",e.getMessage());
 				return null;
 			}catch (DataDeleteException de) {
 				logger.error("DataDeleteException ",de.fillInStackTrace());
-				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
+				addErrorMessage("formSupprCentre", "CENTRE.SUPPRESSION.ERREUR");
 				return null;
 			}catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException ",we.fillInStackTrace());
-				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR");
+				addErrorMessage("formSupprCentre", "CENTRE.SUPPRESSION.ERREUR");
 				return null;
 			}
 			this.centre = new CentreGestionDTO();
@@ -723,7 +732,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/* ****************************************************************************
-	 * Liste des critéres rattachés
+	 * Liste des criteres rattachés
 	 *****************************************************************************/
 	/**
 	 * @return a String
@@ -876,9 +885,9 @@ public class CentreController extends AbstractContextAwareController {
 					// si le code n'est pas saisi et qu'il est un combine code/codeVersion
 					if(!codesSaisis.contains(codeEtp) && codeEtp.contains(";")){
 						// on en extrait juste sa partie codeEtape et on verifie qu'elle n'est pas non plus rattachee avant d'ajouter le code
-//						if(!codesSaisis.contains(tabCodes2[0])){
-//							criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
-//						}
+						//						if(!codesSaisis.contains(tabCodes2[0])){
+						//							criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
+						//						}
 						criteresDisponibles.put(codeEtp,this.toutLesCriteres.get(codeEtp));
 					}
 				}
@@ -946,7 +955,7 @@ public class CentreController extends AbstractContextAwareController {
 					this.listeCriteres.remove(j);
 				}
 			}
-			
+
 			liste.add(tmp);
 
 			if (tmp.getCodeVersionEtape() != ""){
@@ -1021,7 +1030,7 @@ public class CentreController extends AbstractContextAwareController {
 			}
 			String code = "";
 			if (this.critere.getCodeVersionEtape() != null
-				&& !this.critere.getCodeVersionEtape().isEmpty()){
+					&& !this.critere.getCodeVersionEtape().isEmpty()){
 				code = this.critere.getCode()+";"+this.critere.getCodeVersionEtape();
 			} else {
 				code = this.critere.getCode();
@@ -1061,13 +1070,13 @@ public class CentreController extends AbstractContextAwareController {
 			} else {
 				codeCritere = this.critere.getCode();
 			}
-			
+
 			// Si le centre est de type UFR
 			if (this.centre.getNiveauCentre().getLibelle().equalsIgnoreCase(DonneesStatic.CG_UFR)){
 
 				// On récupère la liste des codesEtape de toutes les conventions impactées
 				List<String> listeCodes = getConventionDomainService().getCodesEtapesConventionsFromCodeUfrAndIdCentre(codeCritere, this.critere.getIdCentreGestion(), getSessionController().getCodeUniversite());
-				
+
 				if (listeCodes != null && !listeCodes.isEmpty()){
 					for (String code : listeCodes){
 						// Pour chaque codeEtape, on regarde si un centre le gere (dans la table CritereGestion)
@@ -1084,7 +1093,7 @@ public class CentreController extends AbstractContextAwareController {
 					// Partout ou le code critere est trouvé dans les conventions, on remet l'id du centre Etablissement
 					getConventionDomainService().updateCentreConventionByUfr(codeCritere, getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite()).getIdCentreGestion(),getSessionController().getCodeUniversite());
 				}
-				
+
 			} else {
 				// Sinon, le centre est une Etape
 				// Si le critere de gestion du fichier de config est MIXTE, alors on vérifie d'abord qu'il n'y a pas d'UFR pouvant recuperer la convention avant l'etablissement
@@ -1307,7 +1316,7 @@ public class CentreController extends AbstractContextAwareController {
 			if (this.codeAffectationPersonnel == null 
 					&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
 					&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
-				addErrorMessage("formRechercheViseur:erreurRecherche","CENTRE.PERSONNEL.ERREUR_CHAMPS");
+				addErrorMessage("formRecherchePersonnel","CENTRE.PERSONNEL.ERREUR_CHAMPS");
 				return null;
 			}
 			String codeUniversite = getSessionController().getCodeUniversite();
@@ -1406,7 +1415,7 @@ public class CentreController extends AbstractContextAwareController {
 		if (this.codeAffectationPersonnel == null 
 				&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
 				&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
-			addErrorMessage("formRechercheViseur:erreurRecherche","CENTRE.PERSONNEL.ERREUR_CHAMPS");
+			addErrorMessage("formRechercheViseur","CENTRE.PERSONNEL.ERREUR_CHAMPS");
 			return null;
 		}
 
@@ -1469,12 +1478,12 @@ public class CentreController extends AbstractContextAwareController {
 
 			}
 		} catch (CommunicationApogeeException e) {
-			addErrorMessage("formRechercheViseur:erreurRecherche", "APOGEE.ERREUR");
+			addErrorMessage("formRechercheViseur", "APOGEE.ERREUR");
 			return null;
 		} catch (NullPointerException e){
 			this.personnel = new PersonnelCentreGestionDTO();
 			this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
-			addErrorMessage("formRechercheViseur:erreurRecherche", "CENTRE.PERSONNEL.RECHERCHE.VIDE");
+			addErrorMessage("formRechercheViseur", "CENTRE.PERSONNEL.RECHERCHE.VIDE");
 			return null;
 		}
 
@@ -1610,7 +1619,7 @@ public class CentreController extends AbstractContextAwareController {
 					if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
 				}
 				getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
-				
+
 
 				Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
 				if(this.personnel.isDroitEvaluationEntreprise()){
@@ -1722,7 +1731,7 @@ public class CentreController extends AbstractContextAwareController {
 					if (droitsEvaluationEnseignantMap.containsKey(this.personnel.getIdCentreGestion())) droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
 				}
 				getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
-				
+
 
 				Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
 				if(this.personnel.isDroitEvaluationEntreprise()){
@@ -1792,7 +1801,7 @@ public class CentreController extends AbstractContextAwareController {
 						droitsAccesMap.remove(this.personnel.getIdCentreGestion());
 						getSessionController().setDroitsAccesMap(droitsAccesMap);
 					}
-					
+
 					if (this.personnel.isDroitEvaluationEtudiant()){
 						Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
 						if(droitsEvaluationEtudiantMap!=null &&
@@ -2018,7 +2027,7 @@ public class CentreController extends AbstractContextAwareController {
 	/* ****************************************************************************
 	 * Fiche d'evaluation
 	 *****************************************************************************/
-	
+
 	/**
 	 * @return String
 	 */
@@ -2138,7 +2147,7 @@ public class CentreController extends AbstractContextAwareController {
 		if(this.listeQuestionsSupplementairesEntreprise3 == null){
 			this.listeQuestionsSupplementairesEntreprise3 = new ArrayList<QuestionSupplementaireDTO>();
 		}
-		
+
 		return "goToFicheEntreprise";
 	}
 
@@ -2227,7 +2236,7 @@ public class CentreController extends AbstractContextAwareController {
 			this.questionSupplementaire.setIdFicheEvaluation(this.ficheEvaluation.getIdFicheEvaluation());
 
 			int idQuestionSupplementaire = getFicheEvaluationDomainService().addQuestionSupplementaire(this.questionSupplementaire);
-			
+
 			if (idQuestionSupplementaire > 0) {
 				this.questionSupplementaire.setIdQuestionSupplementaire(idQuestionSupplementaire);
 
@@ -2346,7 +2355,7 @@ public class CentreController extends AbstractContextAwareController {
 			}
 
 		}catch (DataDeleteException de) {
-//			logger.error("DataDeleteException ",de.fillInStackTrace());
+			//			logger.error("DataDeleteException ",de.fillInStackTrace());
 			if (de.getMessage().contains("foreign key constraint fails")){
 				addErrorMessage("formSupprCentre:erreurListeCentre", "CENTRE.SUPPRESSION.ERREUR_CONSTRAINT");
 			} else {
@@ -2764,5 +2773,11 @@ public class CentreController extends AbstractContextAwareController {
 	}
 	public void setCritereNotFound(boolean critereNotFound) {
 		this.critereNotFound = critereNotFound;
+	}
+	public int getIndexMenu() {
+		return indexMenu;
+	}
+	public void setIndexMenu(int indexMenu) {
+		this.indexMenu = indexMenu;
 	}
 }

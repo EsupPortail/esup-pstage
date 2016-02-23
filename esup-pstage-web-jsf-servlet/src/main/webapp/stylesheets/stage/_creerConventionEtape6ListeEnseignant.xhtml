@@ -2,52 +2,49 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
+	<p:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
-			<h:outputText value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
+			<h:outputText
+				value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
 		</f:facet>
 
 		<t:htmlTag value="div" style="height: 10px;" />
 
-		<h:panelGrid align="center" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<rich:dataTable id="listeEns" rows="15"
-				value="#{conventionController.listeEnseignant}" var="enseignant">
-				<ui:include src="/stylesheets/stage/_conventionEtape6EnseignantColumns.xhtml" />
-				<rich:column>
+		<h:panelGrid align="center">
+			<p:dataTable id="listeEns"
+				value="#{conventionController.listeEnseignant}" var="enseignant"
+				rows="15" rowHover="true" rowStyleClass="nopointer" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15,20">
+				<ui:include
+					src="/stylesheets/stage/_conventionEtape6EnseignantColumns.xhtml" />
+				<p:column>
 					<f:facet name="header">
-						<h:outputText styleClass="headerText"
-							value="#{msgs['GENERAL.ACTIONS']}" />
+						<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
 					</f:facet>
-					<a4j:commandLink id="add"
+					<p:commandLink id="add"
 						action="#{conventionController.goToCreerConventionEtape6Enseignant}"
-						render="formConvention">
+						update="formConvention">
 						<f:setPropertyActionListener value="#{enseignant}"
 							target="#{conventionController.resultatEnseignant}" />
 						<h:graphicImage alt="#{msgs['FORM.VOIR']}"
-							value="../../media/images/zoom.png" style="border:0" />
-						<rich:tooltip
-							value="#{msgs['FORM.VOIR']}" />
-					</a4j:commandLink>
-				</rich:column>
-
-				<f:facet name="footer">
-					<rich:dataScroller align="center" for="listeEns" maxPages="20"
-						page="1" id="listeEnseignantScroller" renderIfSinglePage="false" />
-				</f:facet>
-			</rich:dataTable>
+							value="../../media/images/zoom.png" />
+						<p:tooltip value="#{msgs['FORM.VOIR']}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height: 10px;" />
-		<h:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
+		<h:commandButton
+			value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
 			action="creerConventionEtape6Enseignant" immediate="true">
 			<f:setPropertyActionListener
 				value="_creerConventionEtape6RechEnseignant"
 				target="#{sessionController.creationConventionEtape6CurrentPage}" />
 		</h:commandButton>
-	</rich:panel>
+	</p:panel>
 </ui:composition>

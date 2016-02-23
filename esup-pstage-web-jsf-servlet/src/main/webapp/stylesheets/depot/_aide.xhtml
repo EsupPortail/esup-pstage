@@ -2,26 +2,26 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 	<h:outputLabel for="panelAide"
 		value="#{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION']}"
 		rendered="#{sessionController.adminPageAuthorized}" escape="false" />
 	<h:panelGrid columns="2" id="panelAide"
-		columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+		
 		rendered="#{sessionController.adminPageAuthorized}">
 		<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}" id="adminIcon"
 			title="#{msgs['MENU.ADMINISTRATEURS']}"
-			value="../../media/images/user.png" style="border:0" />
+			value="../../media/images/user.png" />
 		<h:outputLabel for="adminIcon"
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.ADMINS']}"
 			escape="false" />
 		<t:htmlTag value="div" style="width:10px;" />
-		<h:panelGrid columns="1">
+		<h:panelGrid>
 			<t:htmlTag value="div">
 				<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}"
 					title="#{msgs['MENU.ADMINISTRATEURS']}"
-					value="../../media/images/new.png" style="border:0" />
+					value="../../media/images/new.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText
 					value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.ADMINS.CREATION']}"
@@ -30,14 +30,14 @@
 			<t:htmlTag value="div">
 				<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}"
 					title="#{msgs['MENU.ADMINISTRATEURS']}"
-					value="../../media/images/edit.png" style="border:0" />
+					value="../../media/images/edit.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText value=": #{msgs['AIDEGENERAL.MODIFICATION']}"
 					escape="false" />
 				<t:htmlTag value="div" style="display:inline; width:10px;" />
 				<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}"
 					title="#{msgs['MENU.ADMINISTRATEURS']}"
-					value="../../media/images/delete.png" style="border:0" />
+					value="../../media/images/delete.png" />
 				<t:htmlTag value="div" style="display:inline; width:10px;" />
 				<h:outputText value=": #{msgs['AIDEGENERAL.SUPPRESSION']}"
 					escape="false" />
@@ -46,17 +46,17 @@
 
 		<h:graphicImage id="rechEtabIcon" alt="#{msgs['MENU.RECHERCHEETAB']}"
 			title="#{msgs['MENU.RECHERCHEETAB']}"
-			value="../../media/images/zoom.png" style="border:0" />
+			value="../../media/images/zoom.png" />
 		<h:outputLabel for="rechEtabIcon"
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHETAB']}"
 			escape="false" />
 
 		<t:htmlTag value="div" style="width:10px;" />
-		<h:panelGrid columns="1">
+		<h:panelGrid>
 			<t:htmlTag value="div">
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
 					title="#{msgs['MENU.RECHERCHEETAB']}"
-					value="../../media/images/zoom.png" style="border:0" />
+					value="../../media/images/zoom.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText
 					value="#{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHETAB.MODES']}"
@@ -65,7 +65,7 @@
 			<t:htmlTag value="div">
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
 					title="#{msgs['MENU.RECHERCHEETAB']}"
-					value="../../media/images/new.png" style="border:0" />
+					value="../../media/images/new.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText
 					value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHETAB.CREATION']}"
@@ -74,14 +74,14 @@
 			<t:htmlTag value="div">
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
 					title="#{msgs['MENU.RECHERCHEETAB']}"
-					value="../../media/images/edit.png" style="border:0" />
+					value="../../media/images/edit.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText value=": #{msgs['AIDEGENERAL.MODIFICATION']}"
 					escape="false" />
 				<t:htmlTag value="div" style="display:inline; width:10px;" />
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEETAB']}"
 					title="#{msgs['MENU.RECHERCHEETAB']}"
-					value="../../media/images/delete.png" style="border:0" />
+					value="../../media/images/delete.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText value=": #{msgs['AIDEGENERAL.SUPPRESSION']}"
 					escape="false" />
@@ -89,20 +89,20 @@
 		</h:panelGrid>
 		<h:graphicImage id="accordsIcon" alt="#{msgs['MENU.ACCORDSAVALIDER']}"
 			title="#{msgs['MENU.ACCORDSAVALIDER']}"
-			value="../../media/images/tick.png" style="border:0" />
+			value="../../media/images/tick.png" />
 		<h:outputLabel for="accordsIcon"
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.ACCORDAVALIDER']}"
 			escape="false" />
 		<h:graphicImage id="rechOffreIcon"
 			alt="#{msgs['MENU.RECHERCHEOFFRE']}"
 			title="#{msgs['MENU.RECHERCHEOFFRE']}"
-			value="../../media/images/zoom.png" style="border:0" />
+			value="../../media/images/zoom.png" />
 		<h:outputLabel for="rechOffreIcon"
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE']}"
 			escape="false" />
 
 		<t:htmlTag value="div" style="width:10px;" />
-		<h:panelGrid columns="1">
+		<h:panelGrid>
 			<t:htmlTag value="div">
 				<h:outputText
 					value="#{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.PLUS']}"
@@ -116,7 +116,7 @@
 			<t:htmlTag value="div">
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
 					title="#{msgs['MENU.RECHERCHEOFFRE']}"
-					value="../../media/images/new.png" style="border:0" />
+					value="../../media/images/new.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText
 					value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.CREATION']}"
@@ -125,14 +125,14 @@
 			<t:htmlTag value="div">
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
 					title="#{msgs['MENU.RECHERCHEOFFRE']}"
-					value="../../media/images/edit.png" style="border:0" />
+					value="../../media/images/edit.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText value=": #{msgs['AIDEGENERAL.MODIFICATION']}"
 					escape="false" />
 				<t:htmlTag value="div" style="display:inline; width:10px;" />
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
 					title="#{msgs['MENU.RECHERCHEOFFRE']}"
-					value="../../media/images/delete.png" style="border:0" />
+					value="../../media/images/delete.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText value=": #{msgs['AIDEGENERAL.SUPPRESSION']}"
 					escape="false" />
@@ -141,7 +141,7 @@
 			<t:htmlTag value="div">
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
 					title="#{msgs['MENU.RECHERCHEOFFRE']}"
-					value="../../media/images/flag_green.png" style="border:0" />
+					value="../../media/images/flag_green.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText
 					value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.DIFFUSION']}"
@@ -152,7 +152,7 @@
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
 					title="#{msgs['MENU.RECHERCHEOFFRE']}"
-					value="../../media/images/target.png" style="border:0" />
+					value="../../media/images/target.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText
 					value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.CIBLAGE']}"
@@ -162,7 +162,7 @@
 			<t:htmlTag value="div">
 				<h:graphicImage alt="#{msgs['MENU.RECHERCHEOFFRE']}"
 					title="#{msgs['MENU.RECHERCHEOFFRE']}"
-					value="../../media/images/lock.png" style="border:0" />
+					value="../../media/images/lock.png" />
 				<t:htmlTag value="div" style="display:inline; width:5px;" />
 				<h:outputText
 					value=": #{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION.RECHOFFRE.POURVUE']}"
@@ -175,18 +175,18 @@
 		rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}"
 		escape="false" />
 	<h:panelGrid columns="2" id="aideIcon"
-		columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+		
 		rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
 		<h:graphicImage alt="#{msgs['MENU.FICHESIGNALETIQUE']}"
 			title="#{msgs['MENU.FICHESIGNALETIQUE']}"
-			value="../../media/images/card.png" style="border:0" />
+			value="../../media/images/card.png" />
 		<h:outputText
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.FICHESIGNALETIQUE']}"
 			escape="false" />
 
 		<h:graphicImage alt="#{msgs['MENU.GESTIONCONTACTS']}"
 			title="#{msgs['MENU.GESTIONCONTACTS']}"
-			value="../../media/images/book_open.png" style="border:0" />
+			value="../../media/images/book_open.png" />
 		<h:outputText
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CONTACTS']}"
 			escape="false" />
@@ -195,7 +195,7 @@
 		<t:htmlTag value="div">
 			<h:graphicImage alt="#{msgs['MENU.GESTIONCONTACTS']}"
 				title="#{msgs['MENU.GESTIONCONTACTS']}"
-				value="../../media/images/new.png" style="border:0" />
+				value="../../media/images/new.png" />
 			<t:htmlTag value="div" style="display:inline; width:5px;" />
 			<h:outputText
 				value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CONTACTS.CREATION']}"
@@ -203,7 +203,7 @@
 			<t:htmlTag value="div" style="display:inline; width:10px;" />
 			<h:graphicImage alt="#{msgs['MENU.GESTIONCONTACTS']}"
 				title="#{msgs['MENU.GESTIONCONTACTS']}"
-				value="../../media/images/edit.png" style="border:0" />
+				value="../../media/images/edit.png" />
 			<t:htmlTag value="div" style="display:inline; width:5px;" />
 			<h:outputText
 				value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CONTACTS.MODIF']}"
@@ -211,7 +211,7 @@
 			<t:htmlTag value="div" style="display:inline; width:10px;" />
 			<h:graphicImage alt="#{msgs['MENU.GESTIONCONTACTS']}"
 				title="#{msgs['MENU.GESTIONCONTACTS']}"
-				value="../../media/images/delete.png" style="border:0" />
+				value="../../media/images/delete.png" />
 			<t:htmlTag value="div" style="display:inline; width:5px;" />
 			<h:outputText
 				value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CONTACTS.SUPPRIMER']}"
@@ -220,7 +220,7 @@
 
 		<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
 			title="#{msgs['MENU.GESTIONOFFRES']}"
-			value="../../media/images/list.png" style="border:0" />
+			value="../../media/images/list.png" />
 		<h:outputText
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES']}"
 			escape="false" />
@@ -229,7 +229,7 @@
 		<t:htmlTag value="div">
 			<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
 				title="#{msgs['MENU.GESTIONOFFRES']}"
-				value="../../media/images/new.png" style="border:0" />
+				value="../../media/images/new.png" />
 			<t:htmlTag value="div" style="display:inline; width:5px;" />
 			<h:outputText
 				value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.CREATION']}"
@@ -237,7 +237,7 @@
 			<t:htmlTag value="div" style="display:inline; width:10px;" />
 			<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
 				title="#{msgs['MENU.GESTIONOFFRES']}"
-				value="../../media/images/edit.png" style="border:0" />
+				value="../../media/images/edit.png" />
 			<t:htmlTag value="div" style="display:inline; width:5px;" />
 			<h:outputText
 				value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.MODIF']}"
@@ -245,7 +245,7 @@
 			<t:htmlTag value="div" style="display:inline; width:10px;" />
 			<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
 				title="#{msgs['MENU.GESTIONOFFRES']}"
-				value="../../media/images/delete.png" style="border:0" />
+				value="../../media/images/delete.png" />
 			<t:htmlTag value="div" style="display:inline; width:5px;" />
 			<h:outputText
 				value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.SUPPRIMER']}"
@@ -254,7 +254,7 @@
 
 		<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
 			title="#{msgs['MENU.GESTIONOFFRES']}"
-			value="../../media/images/flag_green.png" style="border:0" />
+			value="../../media/images/flag_green.png" />
 		<h:outputText
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.DIFFUSION']}"
 			escape="false" />
@@ -262,7 +262,7 @@
 		<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
 			title="#{msgs['MENU.GESTIONOFFRES']}"
 			rendered="#{sessionController.autoriserEntrepriseAReserverOffre}"
-			value="../../media/images/target.png" style="border:0" />
+			value="../../media/images/target.png" />
 		<h:outputText
 			rendered="#{sessionController.autoriserEntrepriseAReserverOffre}"
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.CIBLAGE']}"
@@ -270,34 +270,34 @@
 
 		<h:graphicImage alt="#{msgs['MENU.GESTIONOFFRES']}"
 			title="#{msgs['MENU.GESTIONOFFRES']}"
-			value="../../media/images/lock.png" style="border:0" />
+			value="../../media/images/lock.png" />
 		<h:outputText
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.OFFRES.POURVUE']}"
 			escape="false" />
 
 		<h:graphicImage alt="#{msgs['MENU.MODIFMDP']}"
 			title="#{msgs['MENU.MODIFMDP']}" value="../../media/images/edit.png"
-			style="border:0" />
+			 />
 		<h:outputText value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.MDP']}"
 			escape="false" />
 
 		<h:graphicImage alt="#{msgs['MENU.GESTIONCVTHEQUE']}"
 			title="#{msgs['MENU.GESTIONCVTHEQUE']}"
 			rendered="#{sessionController.cvtheque}"
-			value="../../media/images/group.png" style="border:0" />
+			value="../../media/images/group.png" />
 		<h:outputText rendered="#{sessionController.cvtheque}"
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.FONCTION.CVTHEQUE']}"
 			escape="false" />
 
 		<h:graphicImage alt="#{msgs['MENU.AIDE']}"
 			title="#{msgs['MENU.AIDE']}"
-			value="../../media/images/information.png" style="border:0" />
+			value="../../media/images/information.png" />
 		<h:outputText value=": #{msgs['MENU.AIDEENTREPRISE']}" escape="false" />
 	</h:panelGrid>
 	<h:panelGrid columns="2">
 		<h:graphicImage id="decoIcon" alt="#{msgs['GENERAL.DECONNEXION']}"
 			title="#{msgs['GENERAL.DECONNEXION']}"
-			value="../../media/images/cancel.png" style="border:0" />
+			value="../../media/images/cancel.png" />
 		<h:outputLabel for="decoIcon"
 			value=": #{msgs['AIDEGENERAL.ENTREPRISE.DECONNEXION']}"
 			escape="false" />

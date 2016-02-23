@@ -2,12 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1" id="formAjoutEtab">
-		<rich:panel>
+	<h:panelGrid id="formAjoutEtab">
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE2.CREATION.ETAB']}" />
 			</f:facet>
@@ -18,16 +18,16 @@
 
 			<t:htmlTag value="div" style="height:20px;" />
 			
-			<rich:message for="formAjoutEtab">
+			<p:message for="formAjoutEtab">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 
 			<ui:include src="../_commun/_etablissementForm.xhtml" />
 
-			<h:panelGrid columns="1">
-				<a4j:commandButton value="#{msgs['FORM.CREER']}"
+			<h:panelGrid>
+				<p:commandButton value="#{msgs['FORM.CREER']}"
 					action="#{conventionController.ajouterEtablissementModif}" />
 			</h:panelGrid>
-		</rich:panel>
+		</p:panel>
 	</h:panelGrid>
 </ui:composition>

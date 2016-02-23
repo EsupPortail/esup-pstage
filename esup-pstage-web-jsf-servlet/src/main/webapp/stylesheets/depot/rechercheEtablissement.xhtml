@@ -4,16 +4,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="../_basicTemplate.xhtml">
 	<ui:define name="content">
 		<h:panelGrid style="float:left;">
 			<ui:include src="./_menu.xhtml" />
 		</h:panelGrid>
 		<t:div
 			rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
-			<h:panelGrid columns="1" styleClass="panelEntreprise">
-				<rich:panel>
+			<h:panelGrid>
+				<p:panel>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
 					</f:facet>
@@ -30,8 +29,7 @@
 					<t:div
 						rendered="#{not empty rechercheController.ongletCourant 
 					and rechercheController.ongletCourant==6}">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text">
+						<h:panelGrid>
 							<h:form id="formRechEtab6">
 								<t:panelGrid columns="2">
 									<h:outputLabel for="rechRaisonSocialeAccord"
@@ -39,17 +37,18 @@
 									<h:panelGrid columns="2">
 										<h:graphicImage id="infoRs"
 											alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
-											value="../../media/images/information.png" style="border:0">
-											<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+											value="../../media/images/information.png">
+											<p:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
 										</h:graphicImage>
-										<rich:autocomplete id="rechRaisonSocialeAccord"
+										<p:autoComplete id="rechRaisonSocialeAccord"
 											value="#{rechercheController.rechRaisonSociale}" size="50"
 											maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
 											autofill="false"
 											autocompleteMethod="#{rechercheController.getRaisonsSociales}"
 											converter="#{sansAccentEnMAJConverter}" inputClass="ac"
 											styleClass="ac" popupClass="acPopup"
-											style="text-transform:uppercase; font-size : 10px" attached="false" />
+											style="text-transform:uppercase; font-size : 10px"
+											attached="false" />
 									</h:panelGrid>
 									<h:outputLabel for="rechTypeAccord"
 										value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.ACCORD']}" />
@@ -63,7 +62,7 @@
 											<h:graphicImage
 												alt="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}"
 												title="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}"
-												value="../../media/images/information.png" style="border:0" />
+												value="../../media/images/information.png" />
 											<h:outputText
 												value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}" />
 										</h:panelGrid>
@@ -72,24 +71,24 @@
 										<h:panelGrid columns="4">
 											<h:outputLabel for="rechDateDebut"
 												value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEDEBUT']}" />
-											<rich:calendar id="rechDateDebut"
+											<p:calendar id="rechDateDebut"
 												value="#{rechercheController.dateDebut}"
-												locale="#{sessionController.locale}" popup="true"
+												locale="#{sessionController.locale}"
 												datePattern="#{rechercheController.datePattern}"
 												showApplyButton="false" cellWidth="24px" cellHeight="22px"
 												style="width:200px" />
 											<h:outputLabel for="rechDateFin"
 												value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEFIN']}" />
-											<rich:calendar id="rechDateFin"
+											<p:calendar id="rechDateFin"
 												value="#{rechercheController.dateFin}"
-												locale="#{sessionController.locale}" popup="true"
+												locale="#{sessionController.locale}"
 												datePattern="#{rechercheController.datePattern}"
 												showApplyButton="false" cellWidth="24px" cellHeight="22px"
 												style="width:200px" />
 										</h:panelGrid>
-										<rich:message for="rechDateDebut">
+										<p:message for="rechDateDebut">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</t:panelGroup>
 								</t:panelGrid>
 								<h:commandButton action="#{rechercheController.rechercheAccord}"
@@ -98,12 +97,11 @@
 						</h:panelGrid>
 					</t:div>
 					<h:form id="formResultatsRechEtab">
-						<h:panelGrid columns="1" columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text">
-							<rich:message for="formResultatsRechEtab">
+						<h:panelGrid>
+							<p:message for="formResultatsRechEtab">
 								<t:htmlTag value="div" style="height:20px;" />
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 							<t:htmlTag value="div" style="height:10px;" />
 							<t:div
 								rendered="#{not empty rechercheController.ongletCourant 
@@ -112,17 +110,19 @@
 							</t:div>
 							<t:htmlTag value="div" style="height:10px;" />
 						</h:panelGrid>
-						<a4j:outputPanel id="opRechercheStructureDataTable">
+						<p:outputPanel id="opRechercheStructureDataTable">
 							<t:div
 								rendered="#{not empty rechercheController.listeResultatsRechercheStructure
 					and not empty rechercheController.rechercheStructurePaginator}">
 								<ui:include
 									src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
-								<rich:dataTable id="rechercheStructureDataTable"
-									var="varRechercheStructure" rows="10"
-									rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}"
+								<p:dataTable id="rechercheStructureDataTable" style="width:600px;"
 									value="#{rechercheController.rechercheStructurePaginator.liste}"
-									width="600">
+									var="varRechercheStructure" rows="10" rowHover="true"
+									rowStyleClass="nopointer" paginator="true"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="5,10,15,20"
+									rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}">
 									<f:facet name="header">
 										<ui:include
 											src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
@@ -131,7 +131,7 @@
 										src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 									<ui:include
 										src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
-									<rich:column
+									<p:column
 										rendered="#{sessionController.adminPageAuthorized and 
 								not empty rechercheController.ongletCourant}">
 										<h:commandButton id="gererEtablissement"
@@ -144,10 +144,10 @@
 												target="#{sessionController.menuGestionEtab}" />
 											<f:setPropertyActionListener value="#{varRechercheStructure}"
 												target="#{sessionController.currentManageStructure}" />
-											<rich:tooltip value="#{msgs['STRUCTURE.GERER']}" />
+											<p:tooltip value="#{msgs['STRUCTURE.GERER']}" />
 										</h:commandButton>
-									</rich:column>
-									<rich:column
+									</p:column>
+									<p:column
 										rendered="#{sessionController.adminPageAuthorized and 
 								not empty rechercheController.ongletCourant 
 								and rechercheController.ongletCourant==6
@@ -163,7 +163,7 @@
 												<f:setPropertyActionListener
 													value="#{varRechercheStructure}"
 													target="#{adminController.structureAccordAValider}" />
-												<rich:tooltip value="#{msgs['FORM.VALIDER']}" />
+												<p:tooltip value="#{msgs['FORM.VALIDER']}" />
 											</h:commandButton>
 											<h:commandButton id="consulterAccord"
 												value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
@@ -175,34 +175,29 @@
 												<f:setPropertyActionListener
 													value="#{varRechercheStructure}"
 													target="#{adminController.structureAccord}" />
-												<rich:tooltip value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+												<p:tooltip value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
 													rendered="#{varRechercheStructure.accordPartenariat.estValide}" />
 											</h:commandButton>
-											<a4j:commandLink execute="@this" id="supprimerAccord"
-												oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
-												render="supprimerAccordPanel">
+											<p:commandLink  id="supprimerAccord"
+												oncomplete="PF('supprimerAccordPanel').show();"
+												update="supprimerAccordPanel">
 												<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
 													title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-													value="../../media/images/see_block.png" style="border:0" />
+													value="../../media/images/see_block.png" />
 												<f:setPropertyActionListener
 													value="#{varRechercheStructure}"
 													target="#{adminController.accordASupprimer}" />
 												<f:setPropertyActionListener value="_supprAccordEtape1"
 													target="#{sessionController.suppressionAccordCurrentPage}" />
-												<rich:tooltip value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
-											</a4j:commandLink>
+												<p:tooltip value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
+											</p:commandLink>
 										</h:panelGrid>
-									</rich:column>
-									<f:facet name="footer">
-										<rich:dataScroller align="center"
-											for="rechercheStructureDataTable" maxPages="20" page="1"
-											id="listeStructScroller" renderIfSinglePage="false" />
-									</f:facet>
-								</rich:dataTable>
+									</p:column>
+								</p:dataTable>
 							</t:div>
-						</a4j:outputPanel>
+						</p:outputPanel>
 					</h:form>
-				</rich:panel>
+				</p:panel>
 				<ui:include src="_panelSupprAccord.xhtml" />
 				<ui:include src="../_commun/_panelSupprStructure.xhtml" />
 				<ui:include src="_panelNousContacter.xhtml" />

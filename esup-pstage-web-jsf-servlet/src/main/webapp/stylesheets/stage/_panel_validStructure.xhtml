@@ -2,12 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="validerStructurePanel" width="500" autosized="true"
-		styleClass="panel">
+	<p:dialog id="validerStructurePanel" widgetVar="validerStructurePanel">
 		<f:facet name="header">
 			<h:outputFormat
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.PANEL.HEAD']}">
@@ -19,6 +18,6 @@
 			<ui:include
 				src="/stylesheets/stage/#{sessionController.validationStructureCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 
 </ui:composition>

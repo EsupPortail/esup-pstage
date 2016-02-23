@@ -4,72 +4,64 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-
-		<rich:panel id="centreDataTable"
-			rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant 
-					|| welcomeController.personnel}">
+		<p:panel id="centreDataTable"
+			rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel}">
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.HEAD']}" />
 			</f:facet>
-			<h:panelGrid align="center"
-				rendered="#{empty centreController.centresGestion}" columns="1">
+			<h:panelGrid rendered="#{empty centreController.centresGestion}">
 				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.ACCUEIL']}" />
 				<t:htmlTag value="div" style="height: 5px;" />
 				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.VIDE']}" />
 			</h:panelGrid>
-			<h:form id="formListeCentre">
-				<h:outputStylesheet>
-			        .active-row {
-			        	background-color: #FFEBDA !important;
-			        }
-				</h:outputStylesheet>
-				<h:panelGrid columns="1"
-					rendered="#{not empty centreController.centresGestion}">
-					<t:htmlTag value="div" style="height: 15px;" />
-					<rich:dataTable align="center" id="listeCentres" rows="15"
-						value="#{centreController.centresGestion}" var="centre"
-						styleClass="stable">
-						<rich:column
+			<h:form id="formListeCentre" style="font-size:0.8em;">
+				<h:panelGrid rendered="#{not empty centreController.centresGestion}">
+					<p:dataTable id="listeCentres"
+						value="#{centreController.centresGestion}" var="centre" 
+						rows="15" rowHover="true" rowStyleClass="nopointer"
+						paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15,20">
+						<p:column width="35px;"
 							sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}">
 							<f:facet name="header">
 								<h:graphicImage id="appartenanceHead"
 									alt="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE']}"
-									value="../../media/images/user_gray.png" style="border:0">
-									<rich:tooltip
+									value="../../media/images/user_gray.png">
+									<p:tooltip
 										value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
 								</h:graphicImage>
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:graphicImage id="appartenance1" alt="#{msgs['FORM.OUI']}"
 									rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] != null}"
-									value="../../media/images/tick.png" style="border:0">
-									<rich:tooltip
+									value="../../media/images/tick.png">
+									<p:tooltip
 										value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.OUI']}" />
 								</h:graphicImage>
 
 								<h:graphicImage id="appartenance2" alt="#{msgs['FORM.NON']}"
 									rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] == null}"
-									value="../../media/images/cross.png" style="border:0">
-									<rich:tooltip
+									value="../../media/images/cross.png">
+									<p:tooltip
 										value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}" />
 								</h:graphicImage>
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column sortBy="#{centre.idCentreGestion}">
+						<p:column width="35px;" sortBy="#{centre.idCentreGestion}">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['CENTRE.NUMCG']}" />
 							</f:facet>
 							<t:htmlTag value="center">
-								<h:outputText value="#{centre.idCentreGestion}" />
+								<h:outputText value="#{centre.idCentreGestion}"
+									style="font-weight:bold;" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column sortBy="#{centre.nomCentre}">
+						<p:column sortBy="#{centre.nomCentre}">
 							<f:facet name="header">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold;"
@@ -79,9 +71,9 @@
 							<t:htmlTag value="center">
 								<h:outputText value="#{centre.nomCentre}" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column sortBy="#{centre.niveauCentre.libelle}">
+						<p:column sortBy="#{centre.niveauCentre.libelle}">
 							<f:facet name="header">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold;"
@@ -91,9 +83,9 @@
 							<t:htmlTag value="center">
 								<h:outputText value="#{centre.niveauCentre.libelle}" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column sortBy="#{centre.presenceTuteurPro}">
+						<p:column sortBy="#{centre.presenceTuteurPro}">
 							<f:facet name="header">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold;"
@@ -106,9 +98,9 @@
 								<h:outputText rendered="#{!centre.presenceTuteurPro}"
 									value="#{msgs['FORM.NON']}" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column sortBy="#{centre.presenceTuteurEns}">
+						<p:column sortBy="#{centre.presenceTuteurEns}">
 							<f:facet name="header">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold;"
@@ -121,9 +113,9 @@
 								<h:outputText rendered="#{!centre.presenceTuteurEns}"
 									value="#{msgs['FORM.NON']}" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column sortBy="#{centre.saisieTuteurProParEtudiant}">
+						<p:column sortBy="#{centre.saisieTuteurProParEtudiant}">
 							<f:facet name="header">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold;"
@@ -136,32 +128,32 @@
 								<h:outputText rendered="#{!centre.saisieTuteurProParEtudiant}"
 									value="#{msgs['FORM.NON']}" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-<!-- 						<rich:column sortBy="#{centre.choixAnneeAvantDebutAnnee}"> -->
-<!-- 							<f:facet name="header"> -->
-<!-- 								<t:htmlTag value="center"> -->
-<!-- 									<h:outputText style="font-weight:bold;" -->
-<!-- 										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" /> -->
-<!-- 								</t:htmlTag> -->
-<!-- 							</f:facet> -->
-<!-- 							<t:htmlTag value="center"> -->
-<!-- 								<h:outputText -->
-<!-- 									rendered="#{centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
-<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" /> -->
-<!-- 								<h:outputText -->
-<!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and !centre.choixAnneeAvantDebutAnnee}" -->
-<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" /> -->
-<!-- 								<h:outputText -->
-<!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and centre.choixAnneeAvantDebutAnnee}" -->
-<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANTAPRES']}" /> -->
-<!-- 								<h:outputText -->
-<!-- 									rendered="#{!centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
-<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" /> -->
-<!-- 							</t:htmlTag> -->
-<!-- 						</rich:column> -->
+						<!-- 						<p:column sortBy="#{centre.choixAnneeAvantDebutAnnee}"> -->
+						<!-- 							<f:facet name="header"> -->
+						<!-- 								<t:htmlTag value="center"> -->
+						<!-- 									<h:outputText style="font-weight:bold;" -->
+						<!-- 										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" /> -->
+						<!-- 								</t:htmlTag> -->
+						<!-- 							</f:facet> -->
+						<!-- 							<t:htmlTag value="center"> -->
+						<!-- 								<h:outputText -->
+						<!-- 									rendered="#{centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
+						<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" /> -->
+						<!-- 								<h:outputText -->
+						<!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and !centre.choixAnneeAvantDebutAnnee}" -->
+						<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" /> -->
+						<!-- 								<h:outputText -->
+						<!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and centre.choixAnneeAvantDebutAnnee}" -->
+						<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANTAPRES']}" /> -->
+						<!-- 								<h:outputText -->
+						<!-- 									rendered="#{!centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
+						<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" /> -->
+						<!-- 							</t:htmlTag> -->
+						<!-- 						</p:column> -->
 
-						<rich:column sortBy="#{centre.confidentialite.libelle}">
+						<p:column sortBy="#{centre.confidentialite.libelle}">
 							<f:facet name="header">
 								<t:htmlTag value="center">
 									<h:outputText style="font-weight:bold;"
@@ -171,9 +163,9 @@
 							<t:htmlTag value="center">
 								<h:outputText value="#{centre.confidentialite.libelle}" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column>
+						<p:column width="50px;">
 							<f:facet name="header">
 								<h:outputText style="white-space:normal;"
 									value="#{msgs['CENTRE.LISTE_CENTRE.ACTIONS']}" />
@@ -183,66 +175,51 @@
 									action="#{centreController.goToVoirCentre}">
 									<f:setPropertyActionListener value="#{centre}"
 										target="#{centreController.centre}" />
+									<f:setPropertyActionListener value="0"
+										target="#{centreController.indexMenu}" />
 									<h:graphicImage alt="#{msgs['FORM.VOIR']}"
-										value="../../media/images/zoom.png" style="border:0" />
-									<rich:tooltip value="#{msgs['FORM.CONSULTER']}" />
+										value="../../media/images/zoom.png" />
+									<p:tooltip value="#{msgs['FORM.CONSULTER']}" for="see"/>
 								</h:commandLink>
 
-								<t:htmlTag value="div" style="display: inline; margin: 4px;" />
+								<t:htmlTag value="div" style="display:inline; margin: 4px;" />
 
-								<a4j:commandLink execute="@this" id="delete"
-									status="listeCentreStatus"
-									rendered="#{welcomeController.superAdmin}"
+								<p:commandLink id="delete" rendered="#{welcomeController.superAdmin}"
 									action="#{centreController.avantSupprimer}"
-									oncomplete="#{rich:component('suppressionCentre')}.show()"
-									render="suppressionCentre">
+									oncomplete="PF('suppressionCentre').show();"
+									update="suppressionCentre">
 									<f:setPropertyActionListener value="#{centre}"
 										target="#{centreController.centre}" />
 									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-										value="../../media/images/delete.png" style="border:0" />
-									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-								</a4j:commandLink>
+										value="../../media/images/delete.png" />
+									<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="delete" />
+								</p:commandLink>
 
 							</t:htmlTag>
-						</rich:column>
-						<f:facet name="footer">
-							<rich:dataScroller align="center" for="listeCentres"
-								maxPages="20" page="1" id="listeScroller"
-								renderIfSinglePage="false" />
-						</f:facet>
-					</rich:dataTable>
-<!-- 					<rich:jQuery selector=".stable tr" event="mouseover" -->
-<!-- 						query="jQuery(this).addClass('active-row')" /> -->
-<!-- 					<rich:jQuery selector=".stable tr" event="mouseout" -->
-<!-- 						query="jQuery(this).removeClass('active-row')" /> -->
-					<rich:jQuery selector=".stable tr"
-						query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
-					<rich:jQuery selector=".stable tr"
-						query="live('mouseout', function(){jQuery(this).removeClass('active-row')})" />
+						</p:column>
+					</p:dataTable>
 				</h:panelGrid>
 
-				<t:htmlTag value="div" style="height: 10px;" />
-
-				<h:panelGrid columns="2" align="center"
-					rendered="#{welcomeController.superAdmin and centreController.ajoutPossible}">
-					<h:outputLabel for="add" value="#{msgs['CENTRE.AJOUT_CENTRE']}" />
-					<a4j:commandLink id="add" status="listeCentreStatus"
-						action="#{centreController.goToAjoutCentre}">
-						<h:graphicImage alt="#{msgs['FORM.AJOUTER']}"
-							value="../../media/images/new.png" style="border:0" />
-						<rich:tooltip value="#{msgs['FORM.AJOUTER']}" />
-					</a4j:commandLink>
-				</h:panelGrid>
-				<t:htmlTag value="center">
-					<a4j:status name="listeCentreStatus">
+				<t:htmlTag value="div" style="height: 20px;" />
+				
+				<center>
+					<p:commandButton id="add" value="#{msgs['CENTRE.AJOUT_CENTRE']}"
+						action="#{centreController.goToAjoutCentre}"
+						style="font-size:14px; border:solid 1px;" />
+				
+					<t:htmlTag value="div" style="height: 10px;" />
+					
+					<p:ajaxStatus name="listeCentreStatus">
 						<f:facet name="start">
 							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 						</f:facet>
-					</a4j:status>
-				</t:htmlTag>
+					</p:ajaxStatus>
+				</center>
+				
 				<t:htmlTag value="div" style="height: 20px;" />
+				
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<ui:include src="./_panel_suppressionCentre.xhtml" />
 		<t:div
 			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant 
@@ -251,7 +228,3 @@
 		</t:div>
 	</ui:define>
 </ui:composition>
-
-
-
-

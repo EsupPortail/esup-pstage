@@ -2,22 +2,22 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<rich:popupPanel modal="true" id="suppressionCentre" autosized="true" width="500">
+	<p:dialog id="suppressionCentre" widgetVar="suppressionCentre"
+		header="#{msgs['CENTRE.SUPPRESSION.HEAD']}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CENTRE.SUPPRESSION.HEAD']}" />
 		</f:facet>
-		<rich:panel style="border:none">
-			<h:panelGrid columns="1" align="center">
-				<h:outputLabel value="#{centreController.centre.nomCentre}" for="suppressionCentre" />
-				<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+		<p:panel style="border:none">
+			<h:panelGrid align="center">
+				<h:outputLabel value="#{centreController.centre.nomCentre}"
+					for="suppressionCentre" />
+				<h:panelGrid columns="2">
 					<h:outputText value="#{centreController.centre.voie}" />
 					<h:outputText value="#{centreController.centre.batimentResidence}" />
 				</h:panelGrid>
-				<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+				<h:panelGrid columns="2">
 					<h:outputText value="#{centreController.centre.codePostal}" />
 					<h:outputText value="#{centreController.centre.commune}" />
 				</h:panelGrid>
@@ -25,37 +25,38 @@
 				<t:div
 					rendered="#{centreController.nbCriteres != 0 || centreController.nbPersonnels != 0 || centreController.nbContacts != 0
 				|| centreController.nbConventions != 0 || centreController.nbOffres != 0}">
-					<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}" for="suppressionCentre" />
-					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+					<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.ELEMENTS']}"
+						for="suppressionCentre" />
+					<h:panelGrid columns="2"
 						rendered="#{centreController.nbCriteres != 0}">
 						<h:outputText value="#{centreController.nbCriteres}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CRITERES']}" />
-						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+					<t:htmlTag value="div" style="height:3px;" />
+					<h:panelGrid columns="2"
 						rendered="#{centreController.nbPersonnels != 0}">
 						<h:outputText value="#{centreController.nbPersonnels}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_PERSONNES']}" />
-						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+					<t:htmlTag value="div" style="height:3px;" />
+					<h:panelGrid columns="2"
 						rendered="#{centreController.nbConventions != 0}">
 						<h:outputText value="#{centreController.nbConventions}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONVENTIONS']}" />
-						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+					<t:htmlTag value="div" style="height:3px;" />
+					<h:panelGrid columns="2"
 						rendered="#{centreController.nbOffres != 0}">
 						<h:outputText value="#{centreController.nbOffres}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_OFFRES']}" />
-						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+					<t:htmlTag value="div" style="height:3px;" />
+					<h:panelGrid columns="2"
 						rendered="#{centreController.nbContacts != 0}">
 						<h:outputText value="#{centreController.nbContacts}" />
 						<h:outputText value="#{msgs['CENTRE.SUPPRESSION.NB_CONTACTS']}" />
-						<t:htmlTag value="div" style="height:3px;" />
 					</h:panelGrid>
+					<t:htmlTag value="div" style="height:3px;" />
 				</t:div>
 				<t:div
 					rendered="#{centreController.nbCriteres == 0 and centreController.nbPersonnels == 0 and centreController.nbContacts == 0
@@ -78,24 +79,24 @@
 					</fieldset>
 				</t:div>
 				<t:htmlTag value="div" style="height:15px;" />
-				<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.AVERTISSEMENT']}" for="suppressionCentre" />
+				<h:outputLabel value="#{msgs['CENTRE.SUPPRESSION.AVERTISSEMENT']}"
+					for="suppressionCentre" />
 			</h:panelGrid>
-		</rich:panel>
+		</p:panel>
 		<h:form id="formSupprCentre">
-			<h:panelGrid columns="3" align="center">
-				<a4j:commandButton action="#{centreController.supprimerCentre}"
-					value="#{msgs['FORM.OUI']}" render="formListeCentre" />
-				<t:htmlTag value="div" style="width:30px;" />
-				<a4j:commandButton value="#{msgs['FORM.NON']}"
-					onclick="#{rich:component('suppressionCentre')}.hide();return false;" />
-			</h:panelGrid>
-			<t:htmlTag value="center">
-				<h:outputText id="erreurListeCentre" value="" />
-				<rich:message for="erreurListeCentre">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-			</t:htmlTag>
+			<center>
+				<h:panelGrid columns="3">
+					<p:commandButton action="#{centreController.supprimerCentre}"
+						value="#{msgs['FORM.OUI']}" update="erreurSupprCentre" />
+					<t:htmlTag value="div" style="width:30px;" />
+					<p:commandButton value="#{msgs['FORM.NON']}"
+						onclick="PF('suppressionCentre').hide();" />
+				</h:panelGrid>
+				<t:htmlTag value="div" style="height:10px;" />
+				<p:message id="erreurSupprCentre" for="formSupprCentre" />
+			</center>
+			<t:htmlTag value="div" style="height:20px;" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>
 

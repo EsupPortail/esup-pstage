@@ -2,10 +2,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<rich:panel
+	<p:panel
 		style="width:450px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['NOMENCLATURES.MODIFICATION.HEADER']}" />
@@ -15,19 +15,19 @@
 		<t:htmlTag value="div" style="height:5px;" />
 
 		<t:htmlTag value="center">
-			<a4j:commandButton style="color:green;"
+			<p:commandButton style="color:green;"
 				value="#{msgs['FORM.CONFIRMER']}"
 				action="#{nomenclatureController.updateNiveauFormation}"
-				render="niveauFormationTab" />
+				update="niveauFormationTab" />
 		</t:htmlTag>
 
 		<t:htmlTag value="div" style="height:10px;" />
 
-		<a4j:commandButton value="#{msgs['GENERAL.RETOUR']}" immediate="true"
-			render="niveauFormationTab">
+		<p:commandButton value="#{msgs['GENERAL.RETOUR']}" immediate="true"
+			update="niveauFormationTab">
 			<f:setPropertyActionListener value="table"
 				target="#{nomenclatureController.niveauFormationCurrentPage}" />
-		</a4j:commandButton>
-	</rich:panel>
+		</p:commandButton>
+	</p:panel>
 	<t:htmlTag value="div" style="height:10px;" />
 </ui:composition>

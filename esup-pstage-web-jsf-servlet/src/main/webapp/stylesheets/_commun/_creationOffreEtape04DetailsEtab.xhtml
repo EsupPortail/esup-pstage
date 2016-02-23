@@ -2,8 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:div
@@ -13,24 +13,24 @@
 			value="#{rechercheController.resultatRechercheStructure}">
 			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 		</t:aliasBean>
-		<a4j:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
+		<p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
 			action="#{offreController.goToCreationOffreModifEtab}"
 			alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
 			rendered="#{not empty rechercheController.resultatRechercheStructure
 		and empty offreController.centreGestionDepotAnonyme}"
-			render="formCreationOffre">
+			update="formCreationOffre">
 			<f:setPropertyActionListener
 				value="#{rechercheController.resultatRechercheStructure}"
 				target="#{etablissementController.formStructure}" />
-		</a4j:commandButton>
+		</p:commandButton>
 		<h:panelGrid align="center">
 			<h:outputText value=" " id="formAffEtab" />
-			<rich:message for="formAffEtab">
+			<p:message for="formAffEtab">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3">
+		<h:panelGrid
+			columns="3">
 			<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
 				alt="#{msgs['FORM.PREVIOUS']}"
 				title="#{msgs['FORM.PREVIOUS']}" immediate="true"
@@ -42,17 +42,17 @@
 					target="#{sessionController.creationOffreStageCurrentPage}" />
 			</h:commandButton>
 			<t:htmlTag value="div" style="width: 20px;" />
-			<a4j:commandButton id="selectionEtab"
+			<p:commandButton id="selectionEtab"
 				value="#{msgs['OFFRE.SELECTIONETAB']}"
 				action="#{offreController.goToCreationOffreEtape1}"
 				alt="#{msgs['OFFRE.SELECTIONETAB']}"
 				title="#{msgs['OFFRE.SELECTIONETAB']}"
 				rendered="#{not empty rechercheController.resultatRechercheStructure}"
-				render="formCreationOffre">
+				update="formCreationOffre">
 				<f:setPropertyActionListener
 					value="#{rechercheController.resultatRechercheStructure}"
 					target="#{offreController.formOffre.structure}" />
-			</a4j:commandButton>
+			</p:commandButton>
 		</h:panelGrid>
 	</t:div>
 </ui:composition>

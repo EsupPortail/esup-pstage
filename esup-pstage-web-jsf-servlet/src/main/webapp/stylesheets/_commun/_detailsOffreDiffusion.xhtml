@@ -2,14 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<a4j:outputPanel id="opDiffusion" ajaxRendered="true">
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1"
+	<p:outputPanel id="opDiffusion" ajaxRendered="true">
+		<h:panelGrid 
 			rendered="#{!offreController.currentOffre.estDiffusee}">
-			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="5" style="font-size:12px;">
+			<h:panelGrid  columns="5" style="font-size:12px;">
 				<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
 					rendered="#{!offreController.currentOffre.estDiffusee}"
 					style="color:orange;" />
@@ -17,38 +17,38 @@
 				<h:outputText value="--" />
 				<t:htmlTag value="div" style="height: 10px;" />
 
-				<a4j:commandLink execute="@this" id="diffusion"
-					render="diffusionOffre"
-					oncomplete="#{rich:component('diffusionOffre')}.show()"
+				<p:commandLink  id="diffusion"
+					update="diffusionOffre"
+					oncomplete="PF('diffusionOffre').show();"
 					rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 					disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
 					|| (sessionController.moderationActive and sessionController.pageAuthorized)}">
 					<h:graphicImage alt="#{msgs['FORM.DIFFUSER']}"
-						value="../../media/images/flag_green.png" style="border:0"
+						value="../../media/images/flag_green.png"
 						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
 					and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
 					<h:graphicImage alt="#{msgs['FORM.DIFFUSER']}"
-						value="../../media/images/flag_block.png" style="border:0"
+						value="../../media/images/flag_block.png"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
 					|| (sessionController.moderationActive and sessionController.pageAuthorized)}" />
 					<h:outputText value=" #{msgs['FORM.DIFFUSER']}" />
 					<f:setPropertyActionListener value="_diffusionOffreEtape1"
 						target="#{sessionController.diffusionOffreCurrentPage}" />
-					<rich:tooltip value="#{msgs['FORM.DIFFUSER']}"
+					<p:tooltip value="#{msgs['FORM.DIFFUSER']}"
 						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
 						and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
-					<rich:tooltip
+					<p:tooltip
 						value="#{msgs['OFFRE.ERREUR.NODIFF2']}"
 						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
 						and sessionController.moderationActive and sessionController.pageAuthorized}" />
-					<rich:tooltip value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+					<p:tooltip value="#{msgs['OFFRE.ERREUR.NODIFF']}"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-				</a4j:commandLink>
+				</p:commandLink>
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" style="font-size:12px;">
-			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="8" style="font-size:12px;"
+		<h:panelGrid style="font-size:12px;">
+			<h:panelGrid  columns="8" style="font-size:12px;"
 				rendered="#{offreController.currentOffre.estDiffusee}">
 				<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
 					rendered="#{offreController.currentOffre.estDiffusee}"
@@ -73,44 +73,44 @@
 				<h:outputText value="--" />
 				<t:htmlTag value="div" style="height: 10px;" />
 
-				<a4j:commandLink execute="@this" id="stopDiffusion"
-					render="stopDiffusionOffre"
-					oncomplete="#{rich:component('stopDiffusionOffre')}.show()"
+				<p:commandLink  id="stopDiffusion"
+					update="stopDiffusionOffre"
+					oncomplete="PF('stopDiffusionOffre').show();"
 					rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 					disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
 					<h:graphicImage alt="#{msgs['FORM.STOPDIFFUSER']}"
-						value="../../media/images/flag_orange.png" style="border:0"
+						value="../../media/images/flag_orange.png"
 						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 					<h:graphicImage alt="#{msgs['FORM.STOPDIFFUSER']}"
-						value="../../media/images/flag_block.png" style="border:0"
+						value="../../media/images/flag_block.png"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 					<h:outputText value=" #{msgs['FORM.STOPDIFFUSER']}" />
 					<f:setPropertyActionListener value="_stopDiffusionOffreEtape1"
 						target="#{sessionController.stopDiffusionOffreCurrentPage}" />
-					<rich:tooltip 
+					<p:tooltip 
 					value="#{msgs['FORM.STOPDIFFUSER']}"
 					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-					<rich:tooltip
+					<p:tooltip
 					value="#{msgs['OFFRE.ERREUR.NODIFF']}"
 					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-				</a4j:commandLink>
+				</p:commandLink>
 			</h:panelGrid>
 			<t:div
 				rendered="#{sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-				<a4j:commandLink execute="@this" id="diffusionCentre"
-					render="diffusionCentreOffre"
-					oncomplete="#{rich:component('diffusionCentreOffre')}.show()"
+				<p:commandLink  id="diffusionCentre"
+					update="diffusionCentreOffre"
+					oncomplete="PF('diffusionCentreOffre').show();"
 					rendered="#{(sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and !offreController.ciblageInterdit}"
 					disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"
 					action="#{offreController.majListesCentresDiffusion}">
 					<h:graphicImage alt="_" value="../../media/images/target.png"
-						style="border:0"
+						
 						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 					<h:graphicImage alt="_" value="../../media/images/target_block.png"
-						style="border:0"
+						
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 					<h:outputText
 						value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR']}"
@@ -123,13 +123,13 @@
 						rendered="#{!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)}" />
 					<f:setPropertyActionListener value="_diffusionCentreOffreEtape1"
 						target="#{sessionController.diffusionCentreOffreCurrentPage}" />
-					<rich:tooltip
+					<p:tooltip
 						value="#{msgs['OFFRE.ERREUR.NODIFF']}"
 						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-				</a4j:commandLink>
+				</p:commandLink>
 				
-				<a4j:outputPanel id="opOffreDiffusion">
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="1" style="font-size:12px;">
+				<p:outputPanel id="opOffreDiffusion">
+					<h:panelGrid  style="font-size:12px;">
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEA']}"
 							rendered="#{not empty offreController.currentOffre.offresDiffusion
@@ -144,11 +144,11 @@
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEA']}"
 							rendered="#{not empty offreController.currentOffre.offresDiffusion
 			and (sessionController.pageAuthorized || sessionController.pageAuthorized)}" />
-						<rich:list var="odiff"
+						<p:dataList var="odiff"
 							rendered="#{not empty offreController.currentOffre.offresDiffusion}"
 							value="#{offreController.currentOffre.offresDiffusion}">
 							<h:outputText value="#{odiff.nomCentre}" />
-						</rich:list>
+						</p:dataList>
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEATLM']}"
 							rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
@@ -158,10 +158,10 @@
 							rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
 							(!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)))}" />
 					</h:panelGrid>
-				</a4j:outputPanel>
+				</p:outputPanel>
 			</t:div>
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"  columns="5" style="font-size:12px;"
+		<h:panelGrid  columns="5" style="font-size:12px;"
 			rendered="#{(sessionController.adminPageAuthorized || sessionController.pageAuthorized || welcomeController.superAdmin 
 				|| welcomeController.admin || welcomeController.writer)}">
 			<h:outputText value="#{msgs['OFFRE.GESTION.POURVOIROFFRE.POURVUE']}"
@@ -174,23 +174,23 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputText value="--" />
 			<t:htmlTag value="div" style="height: 10px;" />
-			<a4j:commandLink execute="@this" id="offrePourvue"
-				render="panelOffrePourvue"
-				oncomplete="#{rich:component('panelOffrePourvue')}.show()"
+			<p:commandLink  id="offrePourvue"
+				update="panelOffrePourvue"
+				oncomplete="PF('panelOffrePourvue').show();"
 				rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 				disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
 				<h:graphicImage alt="_" value="../../media/images/lock.png"
-					style="border:0"
+					
 					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and !offreController.currentOffre.estPourvue}" />
 				<h:graphicImage alt="_" value="../../media/images/lock_block.png"
-					style="border:0"
+					
 					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and !offreController.currentOffre.estPourvue}" />
 				<h:graphicImage alt="_" value="../../media/images/lock_open.png"
-					style="border:0"
+					
 					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and offreController.currentOffre.estPourvue}" />
 				<h:graphicImage alt="_"
-					value="../../media/images/lock_open_block.png" style="border:0"
+					value="../../media/images/lock_open_block.png"
 					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and offreController.currentOffre.estPourvue}" />
 				<h:outputText
 					value=" #{msgs['OFFRE.GESTION.POURVOIROFFRE.POUVOIR']}"
@@ -200,7 +200,7 @@
 					rendered="#{offreController.currentOffre.estPourvue}" />
 				<f:setPropertyActionListener value="_offrePourvueEtape1"
 					target="#{sessionController.offrePourvueCurrentPage}" />
-			</a4j:commandLink>
+			</p:commandLink>
 		</h:panelGrid>
-	</a4j:outputPanel>
+	</p:outputPanel>
 </ui:composition>

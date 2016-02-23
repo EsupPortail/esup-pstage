@@ -2,14 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel id="indicateursStats">
+		<p:panel id="indicateursStats">
 			<f:facet name="header">
 				<h:outputText
-					value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']} pour le centre #{centreController.centre.nomCentre}" />
+					value="#{msgs['CENTRE.CONSULTATION']} #{centreController.centre.nomCentre}" />
 			</f:facet>
 			<ui:include src="../_menu_centre.xhtml" />
 			<t:htmlTag value="center">
@@ -17,6 +17,6 @@
 				<t:htmlTag value="div" style="height: 30px;" />
 				<ui:include	src="/stylesheets/stage/stats/indicateurs_stats_pour_offres.xhtml" />
 			</t:htmlTag>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

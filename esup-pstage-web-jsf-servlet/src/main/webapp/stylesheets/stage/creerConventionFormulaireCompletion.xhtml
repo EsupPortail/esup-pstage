@@ -4,12 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmap.xhtml" />
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
 			</f:facet>
@@ -21,9 +21,9 @@
 				<h:panelGrid style="margin-top:10px; margin-left:10px;">
 					<!-- idPays -->
 					<h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
-						<a4j:outputPanel id="opFlag">
+					<h:panelGrid
+						columns="2">
+						<p:outputPanel id="opFlag">
 							<t:htmlTag value="div" style="width:16px;"
 								rendered="#{empty etablissementController.formServiceTmpPays}" />
 							<h:graphicImage id="flag"
@@ -31,20 +31,20 @@
 								value="../../media/images/flags/#{etablissementController.formServiceTmpPays.iso2}.png"
 								alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 								title="#{etablissementController.formServiceTmpPays.libelle}" />
-						</a4j:outputPanel>
+						</p:outputPanel>
 						<h:selectOneMenu id="pays"
 							value="#{etablissementController.formServiceTmpPays}"
 							converter="#{paysConverter}" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
-							styleClass="paysInput">
+							>
 							<f:selectItems value="#{nomenclatureController.pays}" />
-							<a4j:ajax event="valueChange"
-								render="opFlag, opCommune, opCodePostal" execute="@this" />
+							<p:ajax event="valueChange"
+								update="opFlag, opCommune, opCodePostal"  />
 						</h:selectOneMenu>
 					</h:panelGrid>
-					<rich:message for="pays">
+					<p:message for="pays">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 
 					<t:htmlTag value="div" style="height:10px;" />
 
@@ -57,17 +57,17 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.effectifs}" />
-						<a4j:ajax event="valueChange" />
+						<p:ajax event="valueChange" />
 					</h:selectOneMenu>
-					<rich:message for="effectif">
+					<p:message for="effectif">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 
 					<t:htmlTag value="div" style="height:10px;" />
 
 					<!-- idTypeStructure -->
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1">
+					<h:panelGrid
+						>
 						<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
 							for="typeStructure" />
 						<h:selectOneMenu id="typeStructure"
@@ -77,15 +77,15 @@
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:selectItem itemValue="" />
 							<f:selectItems value="#{nomenclatureController.typesStructure}" />
-							<a4j:ajax event="valueChange"
-								render="opStatutJuridique, siret, olSiret" />
+							<p:ajax event="valueChange"
+								update="opStatutJuridique, siret, olSiret" />
 						</h:selectOneMenu>
-						<rich:message for="typeStructure">
+						<p:message for="typeStructure">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-						<a4j:outputPanel id="opStatutJuridique">
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="1"
+						</p:message>
+						<p:outputPanel id="opStatutJuridique">
+							<h:panelGrid
+								
 								rendered="#{!empty etablissementController.statutsJuridiquesListening
 							and !empty etablissementController.formStructureTmpTypeStructure}">
 								<h:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']} *"
@@ -97,13 +97,13 @@
 									<f:selectItem itemValue="" />
 									<f:selectItems
 										value="#{etablissementController.statutsJuridiquesListening}" />
-									<a4j:ajax event="blur" />
+									<p:ajax event="blur" />
 								</h:selectOneMenu>
-								<rich:message for="statutJuridique">
+								<p:message for="statutJuridique">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</h:panelGrid>
-						</a4j:outputPanel>
+						</p:outputPanel>
 					</h:panelGrid>
 
 					<t:htmlTag value="div" style="height:10px;" />
@@ -120,6 +120,6 @@
 					</t:htmlTag>
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

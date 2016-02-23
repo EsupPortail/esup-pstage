@@ -2,71 +2,63 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height: 15px;" />
 
 	<h:outputLabel for="titre"
 		value="#{msgs['CONVENTION.ETAPE11.TITRE']} *" />
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="2">
+	<h:panelGrid columns="2">
 		<h:inputText id="titre" required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}"
 			value="#{avenantController.avenant.titreAvenant}">
-			<a4j:ajax event="blur" render="msgTitre" />
+			<p:ajax event="blur" update="msgTitre" />
 		</h:inputText>
-		<rich:message id="msgTitre" for="titre" />
+		<p:message id="msgTitre" for="titre" />
 	</h:panelGrid>
 
 	<t:htmlTag value="div" style="height: 15px;" />
 
 	<!-- Rupture -->
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="2">
+	<h:panelGrid columns="2">
 		<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}"
 			for="rupture" />
 		<h:selectOneRadio id="rupture"
 			value="#{avenantController.avenant.rupture}">
 			<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 			<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-			<a4j:ajax execute="@this" event="click" render="modificationsAvenant" />
+			<p:ajax  event="click" update="modificationsAvenant" />
 			<!-- Après choix oui ou non, execute 'modificationsAvenant', il choisira le block 1 ou 2 selon le choix-->
 		</h:selectOneRadio>
 	</h:panelGrid>
 
 
-	<a4j:outputPanel id="modificationsAvenant">
+	<p:outputPanel id="modificationsAvenant">
 
 		<!-- Block 1: Cas où Rupture non -->
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text"
-			rendered="#{!avenantController.avenant.rupture}">
+		<h:panelGrid rendered="#{!avenantController.avenant.rupture}">
 
 
 			<!-- Sujet du stage -->
 			<t:div id="divSujet">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid columns="2">
 					<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.MODIF_SUJET']}"
 						for="sujet" />
 					<h:selectOneRadio id="sujet"
 						value="#{avenantController.avenant.modificationSujet}">
 						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<a4j:ajax execute="@this" event="click" render="divSujet" />
+						<p:ajax  event="click" update="divSujet" />
 					</h:selectOneRadio>
 				</h:panelGrid>
 
 				<!-- Nouveau sujet de stage -->
 				<t:div rendered="#{avenantController.avenant.modificationSujet}">
 					<t:htmlTag value="div" style="height: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid columns="2">
 						<t:htmlTag value="div" style="width: 10px;" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2">
+						<h:panelGrid columns="2">
 							<h:outputText value="#{msgs['CONVENTION.ETAPE11.INIT_SUJET']}" />
 							<h:outputText
 								value="#{conventionController.convention.sujetStage}"
@@ -75,12 +67,12 @@
 							<h:inputTextarea required="true" id="textSujet"
 								value="#{avenantController.avenant.sujetStage}"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<a4j:ajax event="blur" />
+								<p:ajax event="blur" />
 							</h:inputTextarea>
 							<h:outputText />
-							<rich:message for="textSujet">
+							<p:message for="textSujet">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</h:panelGrid>
 					</h:panelGrid>
 				</t:div>
@@ -92,15 +84,14 @@
 			<t:div id="divPeriode">
 
 				<!-- Ecrire : Modification de la période de stage : O oui O non -->
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid columns="2">
 					<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.MODIF_PERIODE']}"
 						for="periode" />
 					<h:selectOneRadio id="periode"
 						value="#{avenantController.avenant.modificationPeriode}">
 						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<a4j:ajax execute="@this" event="click" render="divPeriode" />
+						<p:ajax  event="click" update="divPeriode" />
 					</h:selectOneRadio>
 				</h:panelGrid>
 
@@ -108,21 +99,17 @@
 				<t:div rendered="#{avenantController.avenant.modificationPeriode}">
 
 					<h:outputText id="erreurPeriode" value="" />
-					<rich:message for="erreurPeriode">
+					<p:message for="erreurPeriode">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 
 					<!-- periode de stage intial : du   au   -->
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid columns="2">
 						<t:htmlTag value="div" style="width: 10px;" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1">
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+						<h:panelGrid>
+							<h:panelGrid columns="2">
 								<h:outputText value="#{msgs['CONVENTION.ETAPE11.INIT_PERIODE']}" />
-								<h:panelGrid columnClasses="paginatorData-text"
-									rowClasses="paginatorData-text" columns="4">
+								<h:panelGrid columns="4">
 									<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
 									<h:outputText
 										value="#{conventionController.convention.dateDebutStage}">
@@ -137,38 +124,36 @@
 							</h:panelGrid>
 
 							<!-- Bloc periode stage, nouvelle date debut et fin stage-->
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="3">
+							<h:panelGrid columns="3">
 								<h:outputText
 									value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_STAGE']}" />
-								<rich:calendar id="dateDebutStage"
+								<p:calendar id="dateDebutStage"
 									value="#{avenantController.avenant.dateDebutStage}"
 									locale="#{sessionController.locale}" popup="true"
 									datePattern="dd/MM/yyyy" showApplyButton="false"
 									cellWidth="24px" cellHeight="22px" style="width:200px"
 									required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}" />
-								<rich:message for="dateDebutStage">
+								<p:message for="dateDebutStage">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 								<h:outputText
 									value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_STAGE']}" />
-								<rich:calendar id="dateFinStage"
+								<p:calendar id="dateFinStage"
 									value="#{avenantController.avenant.dateFinStage}"
 									locale="#{sessionController.locale}" popup="true"
 									datePattern="dd/MM/yyyy" showApplyButton="false"
 									cellWidth="24px" cellHeight="22px" style="width:200px"
 									required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}" />
-								<rich:message for="dateFinStage">
+								<p:message for="dateFinStage">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</h:panelGrid>
 
 							<!-- interruption stage (y/n)  -->
 							<t:div id="divInterruption">
-								<h:panelGrid columnClasses="paginatorData-text"
-									rowClasses="paginatorData-text" columns="2">
+								<h:panelGrid columns="2">
 									<h:outputText
 										value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION']}" />
 									<h:selectOneRadio
@@ -176,23 +161,19 @@
 										<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 										<f:selectItem itemLabel="#{msgs['FORM.NON']}"
 											itemValue="false" />
-										<a4j:ajax execute="@this" event="click"
-											render="divInterruption" />
+										<p:ajax  event="click" update="divInterruption" />
 									</h:selectOneRadio>
 								</h:panelGrid>
 								<h:outputText id="erreurInterruption" value="" />
-								<rich:message for="erreurInterruption">
+								<p:message for="erreurInterruption">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
-								<h:panelGrid columnClasses="paginatorData-text"
-									rowClasses="paginatorData-text" columns="1"
+								</p:message>
+								<h:panelGrid
 									rendered="#{avenantController.avenant.interruptionStage}">
-									<h:panelGrid columnClasses="paginatorData-text"
-										rowClasses="paginatorData-text" columns="2">
+									<h:panelGrid columns="2">
 										<h:outputText
 											value="#{msgs['CONVENTION.ETAPE11.INIT_INTERRUPTION']}" />
-										<h:panelGrid columnClasses="paginatorData-text"
-											rowClasses="paginatorData-text" columns="4"
+										<h:panelGrid columns="4"
 											rendered="#{conventionController.convention.interruptionStage}">
 											<h:outputText
 												value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
@@ -211,33 +192,32 @@
 											rendered="#{!conventionController.convention.interruptionStage}"
 											value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION_NULLE']}" />
 									</h:panelGrid>
-									<h:panelGrid columnClasses="paginatorData-text"
-										rowClasses="paginatorData-text" columns="3">
+									<h:panelGrid columns="3">
 										<h:outputText
 											value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_INTERRUPTION']}" />
-										<rich:calendar id="dateDebutInterruptionStage"
+										<p:calendar id="dateDebutInterruptionStage"
 											value="#{avenantController.avenant.dateDebutInterruption}"
 											locale="#{sessionController.locale}" popup="true"
 											datePattern="dd/MM/yyyy" showApplyButton="false"
 											cellWidth="24px" cellHeight="22px" style="width:200px"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="dateDebutInterruptionStage">
+										<p:message for="dateDebutInterruptionStage">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 
 										<h:outputText
 											value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_INTERRUPTION']}" />
-										<rich:calendar id="dateFinInterruptionStage"
+										<p:calendar id="dateFinInterruptionStage"
 											value="#{avenantController.avenant.dateFinInterruption}"
 											locale="#{sessionController.locale}" popup="true"
 											datePattern="dd/MM/yyyy" showApplyButton="false"
 											cellWidth="24px" cellHeight="22px" style="width:200px"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="dateFinInterruptionStage">
+										<p:message for="dateFinInterruptionStage">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
 							</t:div>
@@ -248,8 +228,7 @@
 
 			<!-- Montant gratification -->
 			<t:div id="divGratif">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid columns="2">
 					<h:outputLabel
 						value="#{msgs['CONVENTION.ETAPE11.MODIF_GRATIFICATION']}"
 						for="montantGratification" />
@@ -257,16 +236,14 @@
 						value="#{avenantController.avenant.modificationMontantGratification}">
 						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<a4j:ajax execute="@this" event="click" render="divGratif" />
+						<p:ajax  event="click" update="divGratif" />
 					</h:selectOneRadio>
 				</h:panelGrid>
 				<t:div
 					rendered="#{avenantController.avenant.modificationMontantGratification}">
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid columns="2">
 						<t:htmlTag value="div" style="width: 10px;" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2">
+						<h:panelGrid columns="2">
 							<h:outputText
 								value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
 							<h:outputText
@@ -274,32 +251,31 @@
 							<h:outputText
 								value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
 
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="5">
+							<h:panelGrid columns="5">
 								<h:inputText id="gratification" size="4" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									validatorMessage="#{requiredMessageController.mtGratificationNonValide}"
 									value="#{avenantController.avenant.montantGratification}">
 									<f:validator binding="#{mtGratificationValidator}" />
-									<a4j:ajax event="blur" />
+									<p:ajax event="blur" />
 								</h:inputText>
 
-								<h:panelGrid columnClasses="paginatorData-text"
-									rowClasses="paginatorData-text">
-									<h:selectOneMenu value="#{avenantController.selMonnaieGratification}">
-										<a4j:ajax event="valueChange" render="newMonnaieGratification" />
+								<h:panelGrid>
+									<h:selectOneMenu
+										value="#{avenantController.selMonnaieGratification}">
+										<p:ajax event="valueChange" update="newMonnaieGratification" />
 										<f:selectItem itemValue="euros" />
 										<f:selectItem itemValue="autre" />
 									</h:selectOneMenu>
 
-									<a4j:outputPanel id="newMonnaieGratification">
+									<p:outputPanel id="newMonnaieGratification">
 										<h:outputText
 											rendered="#{avenantController.selMonnaieGratification=='autre'}"
 											value="Devise : " />
 										<h:inputText id="autreMonnaie" size="10"
 											rendered="#{avenantController.selMonnaieGratification=='autre'}"
 											value="#{avenantController.avenant.monnaieGratification}" />
-									</a4j:outputPanel>
+									</p:outputPanel>
 
 								</h:panelGrid>
 
@@ -311,8 +287,7 @@
 										value="#{nomenclatureController.uniteGratifications}" />
 								</h:selectOneMenu>
 								<h:outputText value=" par " />
-								<h:panelGrid columnClasses="paginatorData-text"
-									rowClasses="paginatorData-text">
+								<h:panelGrid>
 									<h:selectOneMenu id="uniteDureeGratification"
 										value="#{avenantController.avenant.uniteDureeGratification}"
 										converter="#{uniteDureeConverter}">
@@ -320,9 +295,9 @@
 										<f:selectItems value="#{nomenclatureController.unitesDurees}" />
 									</h:selectOneMenu>
 								</h:panelGrid>
-								<rich:message for="gratification">
+								<p:message for="gratification">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</h:panelGrid>
 						</h:panelGrid>
 					</h:panelGrid>
@@ -331,43 +306,42 @@
 
 			<!-- Lieu du stage -->
 			<t:div>
-				<a4j:outputPanel id="opActionsService">
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+				<p:outputPanel id="opActionsService">
+					<h:panelGrid columns="2">
 						<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.MODIF_LIEU']}"
 							for="lieu" />
 						<h:selectOneRadio id="lieu"
 							value="#{avenantController.avenant.modificationLieu}">
 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-							<a4j:ajax execute="@this" event="click"
+							<p:ajax  event="click"
 								listener="#{avenantController.updateLieu}"
-								render="opActionsService" />
+								update="opActionsService" />
 						</h:selectOneRadio>
 					</h:panelGrid>
 					<t:div rendered="#{avenantController.avenant.modificationLieu}">
 						<h:outputText id="erreurService" value="" />
-						<rich:message for="erreurService">
+						<p:message for="erreurService">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 						<t:htmlTag value="div" style="height: 10px;" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text"
-							rendered="#{empty avenantController.listeServices}" columns="1"
+						<h:panelGrid rendered="#{empty avenantController.listeServices}"
 							align="center">
 							<h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.VIDE']}" />
 						</h:panelGrid>
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
+						<h:panelGrid
 							rendered="#{not empty avenantController.listeServices}">
 							<h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.LISTE']}" />
 							<t:htmlTag value="div" style="height: 10px;" />
-							<rich:dataTable align="center" width="483" id="opService"
-								rows="20" columnClasses="col"
-								style="border-right:1px solid #C0C0C0;"
-								value="#{avenantController.listeServices}" var="service">
+							<p:dataTable id="opService"
+								style="width:483px; border-right:1px solid #C0C0C0;"
+								value="#{avenantController.listeServices}" var="service"
+								rows="20" rowHover="true" rowStyleClass="nopointer"
+								paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15,20">
 
-								<rich:column>
+								<p:column>
 									<f:facet name="header">
 										<h:outputText style="headerClass"
 											value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
@@ -376,30 +350,29 @@
 										<t:div
 											rendered="#{service.idService == etablissementController.serviceSel.idService}">
 											<h:graphicImage id="lieuChoisi" alt="#{msgs['GENERAL.OK']}"
-												value="../../media/images/tick.png" style="border:0">
-												<rich:tooltip
+												value="../../media/images/tick.png">
+												<p:tooltip
 													value="#{msgs['CONVENTION.ETAPE11.LIEU.SELECTIONNE']}" />
 											</h:graphicImage>
 										</t:div>
 										<t:div
 											rendered="#{service.idService != etablissementController.serviceSel.idService}">
-											<a4j:commandLink id="lieuDispo" action="return null;"
-												render="opActionsService" execute="@this">
+											<p:commandLink id="lieuDispo" action="return null;"
+												update="opActionsService" >
 												<h:graphicImage id="appartenance" alt="#{msgs['FORM.NON']}"
-													value="../../media/images/cross.png" style="border:0" />
+													value="../../media/images/cross.png" />
 												<f:setPropertyActionListener value="#{service}"
 													target="#{etablissementController.serviceSel}" />
 												<f:setPropertyActionListener
 													value="#{conventionController.convention.contact}"
 													target="#{etablissementController.contactSel}" />
-												<rich:tooltip
-													value="#{msgs['CONVENTION.ETAPE11.LIEU.CHOIX']}" />
-											</a4j:commandLink>
+												<p:tooltip value="#{msgs['CONVENTION.ETAPE11.LIEU.CHOIX']}" />
+											</p:commandLink>
 										</t:div>
 									</t:htmlTag>
-								</rich:column>
+								</p:column>
 
-								<rich:column sortBy="#{service.nom}">
+								<p:column sortBy="#{service.nom}">
 									<f:facet name="header">
 										<h:outputText style="headerClass"
 											value="#{msgs['CONVENTION.ETAPE11.LIEU.NOM']}" />
@@ -407,9 +380,9 @@
 									<t:htmlTag value="center">
 										<h:outputText value="#{service.nom}" />
 									</t:htmlTag>
-								</rich:column>
+								</p:column>
 
-								<rich:column sortBy="#{service.voie}">
+								<p:column sortBy="#{service.voie}">
 									<f:facet name="header">
 										<h:outputText style="headerClass"
 											value="#{msgs['CONVENTION.ETAPE11.LIEU.ADRESSE']}" />
@@ -417,9 +390,9 @@
 									<t:htmlTag value="center">
 										<h:outputText value="#{service.voie}" />
 									</t:htmlTag>
-								</rich:column>
+								</p:column>
 
-								<rich:column sortBy="#{service.codePostal}">
+								<p:column sortBy="#{service.codePostal}">
 									<f:facet name="header">
 										<h:outputText style="headerClass"
 											value="#{msgs['CONVENTION.ETAPE11.LIEU.CODE_POSTAL']}" />
@@ -427,9 +400,9 @@
 									<t:htmlTag value="center">
 										<h:outputText value="#{service.codePostal}" />
 									</t:htmlTag>
-								</rich:column>
+								</p:column>
 
-								<rich:column sortBy="#{service.commune}">
+								<p:column sortBy="#{service.commune}">
 									<f:facet name="header">
 										<h:outputText style="headerClass"
 											value="#{msgs['CONVENTION.ETAPE11.LIEU.VILLE']}" />
@@ -437,92 +410,83 @@
 									<t:htmlTag value="center">
 										<h:outputText value="#{service.commune}" />
 									</t:htmlTag>
-								</rich:column>
-
-								<f:facet name="footer">
-									<rich:dataScroller align="center" for="opService" maxPages="20"
-										page="1" id="listeScroller" renderIfSinglePage="false" />
-								</f:facet>
-							</rich:dataTable>
+								</p:column>
+							</p:dataTable>
 						</h:panelGrid>
 
 						<t:htmlTag value="div" style="height: 10px;" />
 
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2">
+						<h:panelGrid columns="2">
 							<h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.MSG_ADD']}" />
-							<a4j:commandButton id="addService" execute="@this"
+							<p:commandButton id="addService" 
 								value="#{msgs['CONVENTION.ETAPE11.LIEU.ADD']}"
-								oncomplete="#{rich:component('ajoutService')}.show()"
+								oncomplete="PF('ajoutService').show();"
 								action="#{etablissementController.ajoutService}"
-								render="ajoutService">
+								update="ajoutService">
 								<f:setPropertyActionListener value="#{true}"
 									target="#{etablissementController.memeAdresseStructure}" />
 								<f:setPropertyActionListener value="_ajoutServiceEtape1"
 									target="#{sessionController.ajoutServiceCurrentPage}" />
-							</a4j:commandButton>
+							</p:commandButton>
 						</h:panelGrid>
 					</t:div>
 
 					<h:panelGrid>
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2">
+						<h:panelGrid columns="2">
 							<h:outputLabel
 								value="#{msgs['CONVENTION.ETAPE11.MODIF_SALARIE']}"
 								for="salarie" />
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text"
+							<h:panelGrid
 								rendered="#{conventionController.convention.idService == etablissementController.serviceSel.idService}">
 								<h:selectOneRadio id="salarie"
 									value="#{avenantController.avenant.modificationSalarie}">
 									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-									<a4j:ajax execute="@this" event="click"
-										render="opActionsService" status="statusTuteurpro"
+									<p:ajax  event="click" update="opActionsService"
+										status="statusTuteurpro"
 										listener="#{avenantController.updateContact}" />
 								</h:selectOneRadio>
 							</h:panelGrid>
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text"
+							<h:panelGrid
 								rendered="#{conventionController.convention.idService != etablissementController.serviceSel.idService}">
 								<h:outputText
 									value="#{msgs['CONVENTION.ETAPE11.SALARIE.AVERTISSEMENT']}" />
 							</h:panelGrid>
 						</h:panelGrid>
 						<t:htmlTag value="center">
-							<a4j:status name="statusTuteurpro">
+							<p:ajaxStatus name="statusTuteurpro">
 								<f:facet name="start">
 									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 								</f:facet>
-							</a4j:status>
+							</p:ajaxStatus>
 						</t:htmlTag>
 					</h:panelGrid>
-					<a4j:outputPanel id="opContactsDataTable">
+					<p:outputPanel id="opContactsDataTable">
 						<t:div
 							rendered="#{avenantController.avenant.modificationSalarie || conventionController.convention.idService != etablissementController.serviceSel.idService}">
 							<h:outputText id="erreurSalarie" value="" />
-							<rich:message for="erreurSalarie">
+							<p:message for="erreurSalarie">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text"
-								rendered="#{empty avenantController.listeSalaries}"
+							</p:message>
+							<h:panelGrid rendered="#{empty avenantController.listeSalaries}"
 								align="center">
 								<h:outputText value="#{msgs['CONVENTION.ETAPE11.SALARIE.VIDE']}" />
 							</h:panelGrid>
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text"
+							<h:panelGrid
 								rendered="#{not empty avenantController.listeSalaries}">
 								<h:outputText
 									value="#{msgs['CONVENTION.ETAPE11.SALARIE.LISTE']}" />
 
 								<t:htmlTag value="div" style="height: 10px;" />
 
-								<rich:dataTable align="center" width="483"
-									style="border-right:1px solid #C0C0C0;" id="contactsDataTable"
-									rows="20" columnClasses="col"
-									value="#{avenantController.listeSalaries}" var="salarie">
-									<rich:column>
+								<p:dataTable id="contactsDataTable"
+									style="width:483; border-right:1px solid #C0C0C0;"
+									value="#{avenantController.listeSalaries}" var="salarie"
+									rows="20" rowHover="true" rowStyleClass="nopointer"
+									paginator="true"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="5,10,15,20">
+									<p:column>
 										<f:facet name="header">
 											<h:outputText style="headerClass"
 												value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
@@ -532,28 +496,28 @@
 												rendered="#{salarie.id == etablissementController.contactSel.id}">
 												<h:graphicImage id="salarieChoisi"
 													alt="#{msgs['GENERAL.OK']}"
-													value="../../media/images/tick.png" style="border:0">
-													<rich:tooltip
+													value="../../media/images/tick.png">
+													<p:tooltip
 														value="#{msgs['CONVENTION.ETAPE11.SALARIE.SELECTIONNE']}" />
 												</h:graphicImage>
 											</t:div>
 											<t:div
 												rendered="#{salarie.id != etablissementController.contactSel.id}">
-												<a4j:commandLink id="salarieDispo" action="return null;"
-													status="statusTuteurpro" render="opActionsService"
-													execute="@this">
+												<p:commandLink id="salarieDispo" action="return null;"
+													status="statusTuteurpro" update="opActionsService"
+													>
 													<h:graphicImage id="appartenance2"
 														alt="#{msgs['FORM.NON']}"
-														value="../../media/images/cross.png" style="border:0" />
+														value="../../media/images/cross.png" />
 													<f:setPropertyActionListener value="#{salarie}"
 														target="#{etablissementController.contactSel}" />
-													<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
-												</a4j:commandLink>
+													<p:tooltip value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+												</p:commandLink>
 											</t:div>
 										</t:htmlTag>
-									</rich:column>
+									</p:column>
 
-									<rich:column sortBy="#{salarie.civilite.libelle}">
+									<p:column sortBy="#{salarie.civilite.libelle}">
 										<f:facet name="header">
 											<h:outputText style="headerClass"
 												value="#{msgs['CONTACT.CIVILITE']}" />
@@ -561,9 +525,9 @@
 										<t:htmlTag value="center">
 											<h:outputText value="#{salarie.civilite.libelle}" />
 										</t:htmlTag>
-									</rich:column>
+									</p:column>
 
-									<rich:column sortBy="#{salarie.nom}">
+									<p:column sortBy="#{salarie.nom}">
 										<f:facet name="header">
 											<h:outputText style="headerClass"
 												value="#{msgs['CONTACT.NOM']}" />
@@ -571,9 +535,9 @@
 										<t:htmlTag value="center">
 											<h:outputText value="#{salarie.nom}" />
 										</t:htmlTag>
-									</rich:column>
+									</p:column>
 
-									<rich:column sortBy="#{salarie.prenom}">
+									<p:column sortBy="#{salarie.prenom}">
 										<f:facet name="header">
 											<h:outputText style="headerClass"
 												value="#{msgs['CONTACT.PRENOM']}" />
@@ -581,9 +545,9 @@
 										<t:htmlTag value="center">
 											<h:outputText value="#{salarie.prenom}" />
 										</t:htmlTag>
-									</rich:column>
+									</p:column>
 
-									<rich:column sortBy="#{salarie.fonction}">
+									<p:column sortBy="#{salarie.fonction}">
 										<f:facet name="header">
 											<h:outputText style="headerClass"
 												value="#{msgs['CONTACT.FONCTION']}" />
@@ -591,23 +555,22 @@
 										<t:htmlTag value="center">
 											<h:outputText value="#{salarie.fonction}" />
 										</t:htmlTag>
-									</rich:column>
+									</p:column>
 
-									<rich:column sortBy="#{salarie.tel}">
+									<p:column sortBy="#{salarie.tel}">
 										<f:facet name="header">
 											<h:outputText style="headerClass"
 												value="#{msgs['CONVENTION.ETAPE11.SALARIE.TEL_FAX']}" />
 										</f:facet>
-										<h:panelGrid columnClasses="paginatorData-text"
-											rowClasses="paginatorData-text" align="center" columns="1">
+										<h:panelGrid align="center">
 											<h:outputText
 												value="#{msgs['CONVENTION.ETAPE11.SALARIE.TEL']}#{salarie.tel}" />
 											<h:outputText
 												value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}#{salarie.fax}" />
 										</h:panelGrid>
-									</rich:column>
+									</p:column>
 
-									<rich:column sortBy="#{salarie.mail}">
+									<p:column sortBy="#{salarie.mail}">
 										<f:facet name="header">
 											<h:outputText style="headerClass"
 												value="#{msgs['CONTACT.MAIL']}" />
@@ -615,27 +578,19 @@
 										<t:htmlTag value="center">
 											<h:outputText value="#{salarie.mail}" />
 										</t:htmlTag>
-									</rich:column>
-
-									<f:facet name="footer">
-										<rich:dataScroller align="center" for="contactsDataTable"
-											maxPages="20" page="1" id="listeScroller"
-											renderIfSinglePage="false" />
-									</f:facet>
-								</rich:dataTable>
+									</p:column>
+								</p:dataTable>
 							</h:panelGrid>
 
 							<t:htmlTag value="div" style="height: 10px;" />
 
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							<h:panelGrid columns="2">
 								<h:outputText
 									value="#{msgs['CONVENTION.ETAPE11.SALARIE.MSG_ADD']}" />
-								<a4j:commandButton id="addSalarie" execute="@this"
+								<p:commandButton id="addSalarie" 
 									value="#{msgs['CONVENTION.ETAPE11.SALARIE.ADD']}"
 									action="#{avenantController.ajoutContact}"
-									oncomplete="#{rich:component('ajoutContact')}.show()"
-									render="ajoutContact">
+									oncomplete="PF('ajoutContact').show();" update="ajoutContact">
 									<f:setPropertyActionListener value="_ajoutContactEtape1"
 										target="#{sessionController.ajoutContactCurrentPage}" />
 									<f:setPropertyActionListener value="#{false}"
@@ -643,17 +598,16 @@
 									<f:setPropertyActionListener
 										value="#{etablissementController.serviceSel.idService}"
 										target="#{etablissementController.idServiceSel}" />
-								</a4j:commandButton>
+								</p:commandButton>
 							</h:panelGrid>
 						</t:div>
-					</a4j:outputPanel>
-				</a4j:outputPanel>
+					</p:outputPanel>
+				</p:outputPanel>
 			</t:div>
 
 			<!-- Enseignant référent -->
 			<t:div id="divEnseignant">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid columns="2">
 					<h:outputLabel
 						value="#{msgs['CONVENTION.ETAPE11.MODIF_ENSEIGNANT']}"
 						for="enseignant" />
@@ -661,29 +615,26 @@
 						value="#{avenantController.avenant.modificationEnseignant}">
 						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<a4j:ajax execute="@this" event="click" render="divEnseignant" />
+						<p:ajax  event="click" update="divEnseignant" />
 					</h:selectOneRadio>
 				</h:panelGrid>
 				<t:div
 					rendered="#{avenantController.avenant.modificationEnseignant}">
 					<h:outputText value="" id="erreurEnseignant" />
-					<rich:message for="erreurEnseignant">
+					<p:message for="erreurEnseignant">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					</p:message>
+					<h:panelGrid columns="2">
 						<t:htmlTag value="div" style="width:10px;" />
 						<t:div>
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							<h:panelGrid columns="2">
 								<h:outputText
 									value="#{msgs['CONVENTION.ETAPE11.INIT_ENSEIGNANT']}" />
 								<h:outputText
 									value="#{conventionController.convention.enseignant.prenom} #{conventionController.convention.enseignant.nom}" />
 							</h:panelGrid>
 
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							<h:panelGrid columns="2">
 								<h:outputText
 									value="#{msgs['CONVENTION.ETAPE11.NEW_ENSEIGNANT']}" />
 								<h:outputText style="color:green;"
@@ -691,13 +642,12 @@
 							</h:panelGrid>
 
 							<t:htmlTag value="div" style="height: 10px;" />
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text">
-								<a4j:commandButton id="search" execute="@this"
+							<h:panelGrid>
+								<p:commandButton id="search" 
 									value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RECHERCHE.BOUTON']}"
-									oncomplete="#{rich:component('rechEnseignantAvenant')}.show()"
+									oncomplete="PF('rechEnseignantAvenant').show();"
 									action="#{avenantController.avantRechercheEnseignant}"
-									render="rechEnseignantAvenant" />
+									update="rechEnseignantAvenant" />
 							</h:panelGrid>
 						</t:div>
 					</h:panelGrid>
@@ -708,8 +658,7 @@
 
 			<!-- Autre modification -->
 			<t:div id="divTexteLibre">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid columns="2">
 					<h:outputLabel
 						value="#{msgs['CONVENTION.ETAPE11.MODIF_TEXTELIBRE']}"
 						for="texteLibre" />
@@ -717,29 +666,27 @@
 						value="#{avenantController.modificationTexteLibre}">
 						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
 						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<a4j:ajax execute="@this" event="click" render="divTexteLibre" />
+						<p:ajax  event="click" update="divTexteLibre" />
 					</h:selectOneRadio>
 				</h:panelGrid>
 				<t:div rendered="#{avenantController.modificationTexteLibre}">
 					<h:outputText value="" id="erreurTexteLibre" />
-					<rich:message for="erreurTexteLibre">
+					<p:message for="erreurTexteLibre">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid columns="2">
 						<t:htmlTag value="div" style="width:10px;" />
 						<t:div>
 							<h:outputLabel for="motif"
 								value="#{msgs['CONVENTION.ETAPE11.MOTIF']} *" />
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							<h:panelGrid columns="2">
 								<h:inputTextarea style="width:200px;" id="motif" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									value="#{avenantController.avenant.motifAvenant}">
-									<a4j:ajax event="blur" render="msgMotif" />
+									<p:ajax event="blur" update="msgMotif" />
 								</h:inputTextarea>
-								<rich:message id="msgMotif" for="motif" />
+								<p:message id="msgMotif" for="motif" />
 							</h:panelGrid>
 						</t:div>
 					</h:panelGrid>
@@ -749,23 +696,19 @@
 
 
 		<!-- Block 2 :Cas où Rupture oui -->
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text"
-			rendered="#{avenantController.avenant.rupture}">
+		<h:panelGrid rendered="#{avenantController.avenant.rupture}">
 
 			<t:div id="divDateRupture">
 
 				<h:outputText id="erreurDateRupture" value="" />
-				<rich:message for="erreurDateRupture">
+				<p:message for="erreurDateRupture">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="3">
+				<h:panelGrid columns="3">
 
 					<h:outputText value="#{msgs['CONVENTION.ETAPE11.PERIODE']}" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="4">
+					<h:panelGrid columns="4">
 						<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
 						<h:outputText
 							value="#{conventionController.convention.dateDebutStage}">
@@ -779,40 +722,37 @@
 					</h:panelGrid>
 				</h:panelGrid>
 
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="3">
+				<h:panelGrid columns="3">
 					<h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']}" />
-					<rich:calendar id="dateRupture"
+					<p:calendar id="dateRupture"
 						value="#{avenantController.avenant.dateRupture}"
 						locale="#{sessionController.locale}" popup="true"
 						datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
 						cellHeight="22px" style="width:200px" required="true"
 						requiredMessage="#{requiredMessageController.champObligatoire}" />
 					<!-- 					<h:outputText id="erreurDateRupture" value="" /> -->
-					<rich:message for="dateRupture">
+					<p:message for="dateRupture">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2">
+				<h:panelGrid columns="2">
 					<h:outputText for="commentaireRupture"
 						value="#{msgs['CONVENTION.ETAPE11.RUPTURE.COMMENTAIRE']}" />
 					<h:inputTextarea style="width:200px;" id="commentaireRupture"
 						value="#{avenantController.avenant.commentaireRupture}">
-						<a4j:ajax event="blur" render="msgComRupture" />
+						<p:ajax event="blur" update="msgComRupture" />
 					</h:inputTextarea>
-					<rich:message id="msgComRupture" for="commentaireRupture" />
+					<p:message id="msgComRupture" for="commentaireRupture" />
 				</h:panelGrid>
 			</t:div>
 		</h:panelGrid>
 
-	</a4j:outputPanel>
+	</p:outputPanel>
 
 
 	<!--  	barre grise fin block   -->
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="1" align="center">
+	<h:panelGrid align="center">
 		<t:htmlTag value="div" style="height: 20px;" />
 		<t:htmlTag value="div"
 			style="width: 400px; background-color: #{a4jSkin.panelBorderColor}; height:3px;" />

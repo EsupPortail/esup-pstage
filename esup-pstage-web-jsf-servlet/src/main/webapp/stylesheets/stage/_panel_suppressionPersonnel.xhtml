@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="suppressionPersonnel" autosized="true" width="400">
+	<p:dialog id="suppressionPersonnel" widgetVar="suppressionPersonnel">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CENTRE.PERSONNEL.SUPPRESSION.HEAD']}" />
 		</f:facet>
@@ -17,15 +17,15 @@
 		<h:form id="formSupprPersonnel">
 			<t:htmlTag value="div" style="height: 20px;" />
 			<h:panelGrid align="center" columns="3">
-				<a4j:commandButton value="#{msgs['FORM.OUI']}"
+				<p:commandButton value="#{msgs['FORM.OUI']}"
 					action="#{centreController.supprimerPersonnel}"
-					render="personnelDataTable" />
+					update="personnelDataTable" />
 				<t:htmlTag value="div" style="width:100px;" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
-					onclick="#{rich:component('suppressionPersonnel')}.hide();return false;" />
+					onclick="PF('suppressionPersonnel').hide();" />
 			</h:panelGrid>
 			<h:outputText id="erreurSupprPersonnel" value="" />
-			<rich:message for="erreurSupprPersonnel" />
+			<p:message for="erreurSupprPersonnel" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

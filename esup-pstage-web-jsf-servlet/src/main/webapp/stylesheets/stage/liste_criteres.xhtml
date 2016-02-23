@@ -4,32 +4,32 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel id="critereDataTable"
+		<p:panel id="critereDataTable"
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 					|| welcomeController.personnel) and centreController.centre != null}">
 			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CENTRE.CRITERE.LISTE.HEAD']} pour le centre #{centreController.centre.nomCentre}" />
+<!-- 				<h:outputText -->
+<!-- 					value="#{msgs['CENTRE.CRITERE.LISTE.HEAD']} pour le centre #{centreController.centre.nomCentre}" /> -->
+				<h:outputLabel value="#{msgs['CENTRE.CONSULTATION']} " for="nomCentre" />
+				<h:outputText id="nomCentre"
+					value="#{centreController.centre.nomCentre}" />
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
-			<h:form id="formListeCritere" style="margin-left:100px; width:500px;">
+			<h:form id="formListeCritere" style="margin-left:100px; width:600px;">
 				<h:panelGrid rendered="#{centreController.listeCritereVide}">
 					<h:outputText value="#{msgs['CENTRE.CRITERE.LISTE.VIDE']}" />
 				</h:panelGrid>
-				<h:panelGrid columns="1"
+				<h:panelGrid
 					rendered="#{!centreController.listeCritereVide}">
-					<rich:dataTable
+					<p:dataTable
 						style="width:483px; border-right:1px solid #C0C0C0;"
 						id="listeCriteres" rows="20" columnClasses="col"
-						value="#{centreController.listeCriteresRattaches}" var="critere"
-						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						value="#{centreController.listeCriteresRattaches}" var="critere">
 
-						<rich:column sortBy="#{critere.code}">
+						<p:column sortBy="#{critere.code}">
 							<f:facet name="header">
 								<h:outputText style="headerClass"
 									value="#{msgs['CENTRE.CRITERE.CODE']}" />
@@ -37,9 +37,9 @@
 							<t:htmlTag value="center">
 								<h:outputText value="#{critere.code}" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column sortBy="#{critere.codeVersionEtape}">
+						<p:column sortBy="#{critere.codeVersionEtape}">
 							<f:facet name="header">
 								<h:outputText style="headerClass"
 									value="#{msgs['CENTRE.CRITERE.CODE']}" />
@@ -47,19 +47,19 @@
 							<t:htmlTag value="center">
 								<h:outputText value="#{critere.codeVersionEtape}" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column sortBy="#{critere.libelle}">
+						<p:column sortBy="#{critere.libelle}">
 							<f:facet name="header">
-								<h:outputText style="headerClass"
+								<h:outputText
 									value="#{msgs['CENTRE.CRITERE.LIBELLE']}" />
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:outputText value="#{critere.libelle}" />
 							</t:htmlTag>
-						</rich:column>
+						</p:column>
 
-						<rich:column
+						<p:column
 							rendered="#{welcomeController.superAdmin
 										|| welcomeController.admin}">
 							<f:facet name="header">
@@ -67,49 +67,42 @@
 									value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
 							</f:facet>
 							<t:htmlTag value="center">
-								<a4j:commandLink execute="@this" status="ajoutStatus"
-									oncomplete="#{rich:component('suppressionCritere')}.show()"
+								<p:commandLink
+									oncomplete="PF('suppressionCritere').show();"
 									action="#{centreController.avantSuppressionCritere}"
-									render="suppressionCritere">
+									update="suppressionCritere">
 									<f:setPropertyActionListener value="#{critere}"
 										target="#{centreController.critere}" />
 									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"
-										value="../../media/images/delete.png" style="border:0" />
-									<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-								</a4j:commandLink>
+										value="../../media/images/delete.png" />
+									<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+								</p:commandLink>
 							</t:htmlTag>
-						</rich:column>
-						<f:facet name="footer">
-							<rich:dataScroller align="center" for="listeCriteres"
-								maxPages="20" page="1" id="listeScroller"
-								renderIfSinglePage="false" />
-						</f:facet>
-					</rich:dataTable>
+						</p:column>
+					</p:dataTable>
 				</h:panelGrid>
 
 				<t:htmlTag value="div" style="height:15px;" />
 
 				<t:htmlTag value="center">
-					<a4j:commandButton id="add" status="ajoutStatus"
+					<p:commandButton id="add"
 						value="#{msgs['CENTRE.CRITERE.RATTACHER']}"
 						action="#{centreController.goToAjoutCritere}"
 						style="font-size:16px; font-weight:bold; border-color:green;"
 						rendered="#{welcomeController.superAdmin
 							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}" />
-					<a4j:status name="ajoutStatus">
+					<p:ajaxStatus name="ajoutStatus">
 						<f:facet name="start">
 							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 						</f:facet>
-					</a4j:status>
-					<h:panelGrid id="erreurListeCritere">
-						<rich:message for="erreurListeCritere">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
-					</h:panelGrid>
+					</p:ajaxStatus>
+					
+					<p:message for="formListeCritere" />
+					
 				</t:htmlTag>
 				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<ui:include src="./_panel_suppressionCritere.xhtml" />
 		<t:div
 			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant

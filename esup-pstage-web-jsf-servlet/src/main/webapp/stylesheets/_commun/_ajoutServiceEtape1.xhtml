@@ -2,18 +2,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<ui:include src="_formService.xhtml" />
 
 	<h:panelGrid columns="3">
-		<a4j:commandButton action="#{etablissementController.ajouterService}"
-			value="#{msgs['FORM.CREER']}"
-			render="opService, opActionsService, opContactsDataTable, formAjoutService" />
+		<p:commandButton action="#{etablissementController.ajouterService}"
+			value="#{msgs['FORM.CREER']}" update="@form" />
+		<!-- 			update="opService, opActionsService, opContactsDataTable, formAjoutService" /> -->
 		<t:htmlTag value="div" style="width:50px;" />
-		<a4j:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
-			onclick="#{rich:component('ajoutService')}.hide()" />
+		<p:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
+			onclick="PF('ajoutService')}.hide()" />
 	</h:panelGrid>
 </ui:composition>

@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+	<h:panelGrid>
 		<h:outputText value=" " id="formModifEtab" />
-		<rich:message for="formModifEtab">
+		<p:message for="formModifEtab">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 
 		<h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
 			rendered="#{empty etablissementController.formStructure}" />
@@ -18,17 +18,17 @@
 			<ui:include src="../_commun/_etablissementForm.xhtml" />
 		</t:div>
 
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+		<h:panelGrid>
 
 			<t:htmlTag value="div" style="width:20px;" />
-			<a4j:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
+			<p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
 				action="#{conventionController.modifierEtablissementDetail}"
 				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
 				rendered="#{not empty etablissementController.formStructure}">
 				<f:setPropertyActionListener
 					value="#{etablissementController.formStructure}"
 					target="#{conventionController.convention.structure}" />
-			</a4j:commandButton>
+			</p:commandButton>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>

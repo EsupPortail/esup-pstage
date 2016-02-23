@@ -2,8 +2,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:outputStylesheet>
@@ -12,85 +11,75 @@
 	        }
 	 </h:outputStylesheet>
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="1">
+	<h:panelGrid>
 		<h:outputText value="#{msgs['OFFRE.TEXT.ETAPE02']}" />
 		<t:htmlTag value="div" style="height: 10px;" />
 	</h:panelGrid>
 	<t:div>
 		<ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
-		<ui:include src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
+		<ui:include
+			src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
 	</t:div>
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="1" id="formResultatsRechEtab">
+	<h:panelGrid id="formResultatsRechEtab">
 		<t:div rendered="#{empty offreController.centreGestionDepotAnonyme}">
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3"
+			<h:panelGrid columns="3"
 				rendered="#{rechercheController.afficherBoutonAjoutEtab}">
 				<h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}"
 					escape="false" />
-				<a4j:commandLink id="ajoutEtab"
+				<p:commandLink id="ajoutEtab"
 					action="#{offreController.goToCreationOffreCreaEtab}"
-					render="formCreationOffre">
+					update="formCreationOffre">
 					<f:setPropertyActionListener value="#{true}"
 						target="#{etablissementController.memeAdresseStructure}" />
 					<h:graphicImage alt="#{msgs['FORM.CREER']}"
-						value="../../media/images/new.png" style="border:0" />
-					<rich:tooltip value="#{msgs['FORM.CREER']}" />
-				</a4j:commandLink>
+						value="../../media/images/new.png" />
+					<p:tooltip value="#{msgs['FORM.CREER']}" />
+				</p:commandLink>
 			</h:panelGrid>
 		</t:div>
 		<t:htmlTag value="div" style="height: 20px;" />
-		<rich:message for="formResultatsRechEtab">
+		<p:message for="formResultatsRechEtab">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
-		<a4j:outputPanel id="opRechercheStructureDataTable">
+		</p:message>
+		<p:outputPanel id="opRechercheStructureDataTable">
 			<t:div
 				rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
 				<ui:include
 					src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
-				<rich:dataTable id="rechercheStructureDataTable"
-					var="varRechercheStructure"
+				<p:dataTable id="rechercheStructureDataTable"
 					value="#{rechercheController.listeResultatsRechercheStructure}"
-					border="0" styleClass="stable" rows="20">
+					var="varRechercheStructure" rows="20" rowHover="true"
+					rowStyleClass="nopointer" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20">
 					<f:facet name="header">
 						<ui:include
 							src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
 					</f:facet>
 					<ui:include
 						src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-					<rich:column>
-						<h:commandButton id="selectionEtab"
+					<p:column>
+						<p:commandButton id="selectionEtab"
 							value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
 							action="#{offreController.goToCreationOffreDetailsEtab}"
-							image="../../media/images/zoom.png"
+							icon="ui-icon-search"
 							alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
 							title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
 							<f:setPropertyActionListener value="#{varRechercheStructure}"
 								target="#{rechercheController.resultatRechercheStructure}" />
-							<rich:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
-						</h:commandButton>
-					</rich:column>
-				</rich:dataTable>
-				<rich:dataScroller for="rechercheStructureDataTable" maxPages="20"
-					renderIfSinglePage="false" />
-				<!-- 				<rich:jQuery selector=".stable tr" event="mouseover" -->
-				<!-- 					query="jQuery(this).addClass('active-row')" /> -->
-				<!-- 				<rich:jQuery selector=".stable tr" event="mouseout" -->
-				<!-- 					query="jQuery(this).removeClass('active-row')" /> -->
-				<rich:jQuery selector=".stable tr"
-					query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
-				<rich:jQuery selector=".stable tr"
-					query="live('mouseout', function(){jQuery(this).removeClass('active-row')})" />
+							<p:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
 			</t:div>
-		</a4j:outputPanel>
-		<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+		</p:outputPanel>
+		<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
 			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
 			immediate="true"
 			rendered="#{offreController.typeAjoutModifOffre gt 2}"
-			render="formCreationOffre">
+			update="formCreationOffre">
 			<f:setPropertyActionListener value="_creationOffreEtape01Centre"
 				target="#{sessionController.creationOffreStageCurrentPage}" />
-		</a4j:commandButton>
+		</p:commandButton>
 	</h:panelGrid>
 </ui:composition>

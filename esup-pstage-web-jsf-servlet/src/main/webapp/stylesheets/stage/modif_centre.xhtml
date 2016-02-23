@@ -4,11 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel
+		<p:panel
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin)
 						and centreController.centre != null}">
 			<f:facet name="header">
@@ -17,37 +16,36 @@
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form id="formModifCentre">
-				<a4j:queue ignoreDupResponses="true" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" style="margin-left:100px;">
+				<h:panelGrid
+					style="margin-left:100px;">
 					<h:outputText value="#{msgs['CENTRE.AJOUT_CENTRE.ACCUEIL']}" />
 					<t:htmlTag value="div" style="height: 10px;" />
 					<h:outputLabel value="#{msgs['CENTRE.NOM']} *" for="nomCentre" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
-						<h:inputText id="nomCentre" style="text-transform:uppercase;"
+					<h:panelGrid
+						columns="2">
+						<p:inputText id="nomCentre" style="text-transform:uppercase;"
 							value="#{centreController.centre.nomCentre}" size="50"
 							maxlength="100" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:converter binding="#{sansAccentEnMAJConverter}" />
-						</h:inputText>
-						<rich:message for="nomCentre">
+						</p:inputText>
+						<p:message for="nomCentre">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
 					<t:htmlTag value="div" style="height: 10px;" />
 
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="3">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1">
+					<h:panelGrid
+						columns="3">
+						<h:panelGrid
+							>
 							<h:outputLabel value="#{msgs['CENTRE.VOIE']} *" for="voie" />
 							<h:inputText id="voie" value="#{centreController.centre.voie}"
 								size="50" maxlength="200" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}" />
-							<rich:message for="voie">
+							<p:message for="voie">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 
 							<h:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']}"
 								for="batimentResidence" />
@@ -56,27 +54,27 @@
 								maxlength="200" />
 						</h:panelGrid>
 
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="3">
+						<h:panelGrid
+							columns="3">
 							<t:htmlTag value="div" style="width: 25px;" />
 							<t:htmlTag value="div"
-								style="width: 2px; height: 110px; background-color: #{a4jSkin.panelBorderColor};" />
+								style="width: 2px; height: 110px; background-color: #{pSkin.panelBorderColor};" />
 							<t:htmlTag value="div" style="width: 25px;" />
 						</h:panelGrid>
 
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1">
+						<h:panelGrid
+							>
 							<h:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} *"
 								for="codePostal" />
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							<h:panelGrid
+								columns="2">
 								<h:inputText id="codePostal"
 									value="#{centreController.centre.codePostal}" size="20"
 									maxlength="10" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}" />
-								<rich:message for="codePostal">
+								<p:message for="codePostal">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</h:panelGrid>
 
 							<h:outputLabel value="#{msgs['CENTRE.COMMUNE']} *" for="commune" />
@@ -84,18 +82,18 @@
 								value="#{centreController.centre.commune}" size="50"
 								maxlength="200" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}" />
-							<rich:message for="commune">
+							<p:message for="commune">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</h:panelGrid>
 					</h:panelGrid>
 
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="3">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1">
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid
+						columns="3">
+						<h:panelGrid
+							>
+							<h:panelGrid
+								columns="2">
 								<h:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail" />
 								<h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}"
 									escape="false" />
@@ -106,11 +104,11 @@
 								maxlength="50">
 								<f:validator binding="#{mailValidator}" />
 							</h:inputText>
-							<rich:message for="mail">
+							<p:message for="mail">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							</p:message>
+							<h:panelGrid
+								columns="2">
 								<h:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb" />
 								<h:outputText value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
 									escape="false" />
@@ -121,102 +119,102 @@
 								maxlength="200">
 								<f:validator binding="#{siteWebValidator}" />
 							</h:inputText>
-							<rich:message for="siteWeb">
+							<p:message for="siteWeb">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</h:panelGrid>
 
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="3">
+						<h:panelGrid
+							columns="3">
 							<t:htmlTag value="div" style="width: 25px;" />
 							<t:htmlTag value="div"
-								style="width: 2px; height: 110px; background-color: #{a4jSkin.panelBorderColor};" />
+								style="width: 2px; height: 110px; background-color: #{pSkin.panelBorderColor};" />
 							<t:htmlTag value="div" style="width: 25px;" />
 						</h:panelGrid>
 
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1">
+						<h:panelGrid
+							>
 							<h:outputLabel value="#{msgs['CENTRE.TEL']} *" for="telephone" />
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							<h:panelGrid
+								columns="2">
 								<h:inputText id="telephone"
 									value="#{centreController.centre.telephone}" size="20"
 									maxlength="20" required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}" />
-								<rich:message for="telephone">
+								<p:message for="telephone">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</h:panelGrid>
 							<h:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax" />
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							<h:panelGrid
+								columns="2">
 								<h:inputText id="fax" value="#{centreController.centre.fax}"
 									size="20" maxlength="20" />
-								<rich:message for="fax">
+								<p:message for="fax">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</h:panelGrid>
 						</h:panelGrid>
 					</h:panelGrid>
 					<t:htmlTag value="div" style="height: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid
+						>
+						<h:panelGrid
+							columns="2">
 							<h:outputLabel value="#{msgs['CENTRE.URL_PAGE_INSTRUCTION']} "
 								for="pageInstruction" />
 							<h:outputText value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
 								escape="false" />
 						</h:panelGrid>
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2">
+						<h:panelGrid
+							columns="2">
 							<h:inputText id="pageInstruction"
 								value="#{centreController.centre.urlPageInstruction}" size="50"
 								validatorMessage="#{requiredMessageController.siteWebNonValide}"
 								maxlength="200">
 								<f:validator binding="#{siteWebValidator}" />
 							</h:inputText>
-							<rich:message for="pageInstruction">
+							<p:message for="pageInstruction">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</h:panelGrid>
 
 						<t:htmlTag value="div" style="height: 5px;" />
 
 						<t:div id="panelViseur">
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text">
+							<h:panelGrid
+								>
 								<h:outputLabel for="searchViseur"
 									value="#{msgs['CENTRE.VISEUR.CHOISIR']}" />
-								<h:panelGrid columnClasses="paginatorData-text"
-									rowClasses="paginatorData-text" columns="2">
-									<a4j:commandButton
+								<h:panelGrid
+									columns="2">
+									<p:commandButton
 										rendered="#{empty centreController.centre.nomViseur}"
-										id="searchViseur" execute="@this"
+										id="searchViseur" 
 										value="#{msgs['CENTRE.VISEUR.RECHERCHE']}"
-										oncomplete="#{rich:component('rechercheViseur')}.show()"
+										oncomplete="PF('rechercheViseur').show();"
 										action="#{centreController.avantRechercheViseur}"
-										render="rechercheViseur" />
+										update="rechercheViseur" />
 									<h:outputText
 										rendered="#{not empty centreController.centre.nomViseur}"
 										style="color:green; border:1px solid;"
 										value="#{centreController.centre.nomViseur} #{centreController.centre.prenomViseur}" />
-									<a4j:commandLink execute="@this"
+									<p:commandLink 
 										rendered="#{not empty centreController.centre.nomViseur}"
-										id="removeViseur" render="panelViseur">
+										id="removeViseur" update="panelViseur">
 										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
 											title="#{msgs['GENERAL.FILE']}"
-											value="../../media/images/cancel.png" style="border:0" />
+											value="../../media/images/cancel.png" />
 										<h:outputText value="#{msgs['CENTRE.VISEUR.RETIRER']}" />
 										<f:setPropertyActionListener value="#{null}"
 											target="#{centreController.centre.nomViseur}" />
 										<f:setPropertyActionListener value="#{null}"
 											target="#{centreController.centre.prenomViseur}" />
-									</a4j:commandLink>
+									</p:commandLink>
 								</h:panelGrid>
 							</h:panelGrid>
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2"
+							<h:panelGrid
+								columns="2"
 								rendered="#{not empty centreController.centre.nomViseur}">
 								<h:outputLabel for="qualiteViseur"
 									value="#{msgs['CENTRE.QUALITE_VISEUR']} " />
@@ -227,59 +225,59 @@
 
 						<t:htmlTag value="div" style="height: 5px;" />
 
-						<h:outputLabel value="#{msgs['CENTRE.CRITERE.CRITERES']} *"
+						<h:outputLabel value="#{msgs['CENTRE.TYPE_CENTRE']} *"
 							for="critereGestion" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="2">
+						<h:panelGrid
+							columns="2">
 							<h:selectOneMenu id="critereGestion"
 								value="#{centreController.centre.niveauCentre}" required="true"
 								converter="#{niveauCentreConverter}"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
 								<f:selectItems value="#{centreController.niveauxCentre}" />
 							</h:selectOneMenu>
-							<rich:message for="critereGestion">
+							<p:message for="critereGestion">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</h:panelGrid>
 
 						<t:htmlTag value="div" style="height: 5px;" />
 
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
+						<h:panelGrid
+							
 							rendered="#{centreController.confidentialiteAffichable}">
 							<h:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']} *"
 								for="confidentialite" />
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							<h:panelGrid
+								columns="2">
 								<h:selectOneMenu id="confidentialite"
 									value="#{centreController.centre.confidentialite}"
 									required="true" converter="#{confidentialiteConverter}"
 									requiredMessage="#{requiredMessageController.champObligatoire}">
 									<f:selectItems value="#{centreController.confidentialites}" />
 								</h:selectOneMenu>
-								<rich:message for="confidentialite">
+								<p:message for="confidentialite">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</h:panelGrid>
 						</h:panelGrid>
 
 <!-- 						<t:htmlTag value="div" style="height: 5px;" /> -->
 
-<!-- 						<h:panelGrid columnClasses="paginatorData-text" -->
-<!-- 							rowClasses="paginatorData-text" columns="1"> -->
+<!-- 						<h:panelGrid -->
+<!-- 							> -->
 <!-- 							<h:outputLabel value="#{msgs['CENTRE.MODEVALIDATIONSTAGE']} *" -->
 <!-- 								for="modeValidationStage" /> -->
-<!-- 							<h:panelGrid columnClasses="paginatorData-text" -->
-<!-- 								rowClasses="paginatorData-text" columns="2"> -->
+<!-- 							<h:panelGrid -->
+<!-- 								columns="2"> -->
 <!-- 								<h:selectOneMenu id="modeValidationStage" -->
 <!-- 									value="#{centreController.centre.modeValidationStage}" -->
 <!-- 									required="true" converter="#{modeValidationStageConverter}" -->
 <!-- 									requiredMessage="#{requiredMessageController.champObligatoire}"> -->
 <!-- 									<f:selectItems value="#{nomenclatureController.modeValidationStages}" /> -->
 <!-- 								</h:selectOneMenu> -->
-<!-- 								<rich:message for="modeValidationStage"> -->
+<!-- 								<p:message for="modeValidationStage"> -->
 <!-- 									<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-<!-- 								</rich:message> -->
+<!-- 								</p:message> -->
 <!-- 							</h:panelGrid> -->
 <!-- 						</h:panelGrid> -->
 
@@ -369,14 +367,12 @@
 
 					<t:htmlTag value="center">
 						<h:outputText id="erreurModifCentre" value="" />
-						<rich:message for="erreurModifCentre">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						<p:message for="erreurModifCentre" />
 					</t:htmlTag>
 				</h:panelGrid>
 			</h:form>
 			<ui:include src="./_panel_rechercheViseur.xhtml" />
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin	
 		|| welcomeController.admin)}">

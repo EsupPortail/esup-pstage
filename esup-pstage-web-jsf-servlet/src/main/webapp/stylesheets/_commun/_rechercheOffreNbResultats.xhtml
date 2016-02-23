@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="br" />
 	<t:htmlTag value="div" style="height: 5px;" />
 	<h:panelGrid columns="2">
 		<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
-			value="../../media/images/script.png" style="border:0"
+			value="../../media/images/script.png"
 			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 1
 						and offreController.rechercheOffrePaginator.totalItemsCount lt 200}" />
 		<h:outputFormat value="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
@@ -21,7 +21,7 @@
 				value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
 		</h:outputFormat>
 		<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
-			value="../../media/images/script.png" style="border:0"
+			value="../../media/images/script.png"
 			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 200}" />
 		<h:outputFormat value="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
 			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 200}"

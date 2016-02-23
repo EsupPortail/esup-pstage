@@ -2,12 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text"
+	<h:panelGrid
+		
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<t:htmlTag value="div" style="height:10px;" />
 		<h:panelGrid style="font-size:18px;" columns="2"
@@ -18,8 +18,8 @@
 				value="#{avenantController.avenant.titreAvenant}" />
 		</h:panelGrid>
 
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" style="font-size:16px;"
+		<h:panelGrid
+			columns="2" style="font-size:16px;"
 			rendered="#{!avenantController.avenant.rupture
 				and !avenantController.avenant.modificationSujet
 				and !avenantController.avenant.modificationPeriode
@@ -33,8 +33,8 @@
 				value="#{avenantController.avenant.motifAvenant}" />
 		</h:panelGrid>
 
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3"
+		<h:panelGrid
+			columns="3"
 			rendered="#{avenantController.avenant.rupture
 				|| avenantController.avenant.modificationSujet
 				|| avenantController.avenant.modificationPeriode
@@ -42,24 +42,24 @@
 				|| avenantController.avenant.modificationLieu
 				|| avenantController.avenant.modificationSalarie
 				|| avenantController.avenant.modificationEnseignant}">
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
+			<h:panelGrid
+				>
 				<h:outputLabel for="motif"
 					value="#{msgs['CONVENTION.ETAPE11.MOTIF']} :" />
 				<h:outputText id="motif"
 					value="#{avenantController.avenant.motifAvenant}" />
 			</h:panelGrid>
 
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3">
+			<h:panelGrid
+				columns="3">
 				<t:htmlTag value="div" style="width: 50px;" />
 				<t:htmlTag value="div"
 					style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height:90px;" />
 				<t:htmlTag value="div" style="width: 50px;" />
 			</h:panelGrid>
 
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1"
+			<h:panelGrid
+				
 				rendered="#{avenantController.avenant.rupture}">
 				<h:outputLabel for="type1"
 					value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
@@ -67,16 +67,16 @@
 					value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}" />				
 			</h:panelGrid>
 
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="1"
+			<h:panelGrid
+				
 				rendered="#{!avenantController.avenant.rupture}">
 				<h:outputLabel for="type2"
 					value="#{msgs['CONVENTION.ETAPE11.TYPE']} :" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" id="type2" columns="2">
+				<h:panelGrid
+					id="type2" columns="2">
 					<t:htmlTag value="div" style="width: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1">
+					<h:panelGrid
+						>
 						<h:outputText
 							rendered="#{avenantController.avenant.modificationSujet}"
 							value="#{msgs['CONVENTION.ETAPE11.SUJET']}" />
@@ -107,11 +107,11 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputLabel for="sujet"
 					value="#{msgs['CONVENTION.ETAPE11.NEW_SUJET']}" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" id="sujet" columns="2">
+				<h:panelGrid
+					id="sujet" columns="2">
 					<t:htmlTag value="div" style="width: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid
+						columns="2">
 						<h:outputText style="color:red;"
 							value="#{msgs['CONVENTION.ETAPE11.INIT_SUJET']}" />
 						<h:outputText style="color:red;"
@@ -129,15 +129,15 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputLabel for="periode"
 					value="#{msgs['CONVENTION.ETAPE11.NEW_PERIODE']}" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" id="periode" columns="2">
+				<h:panelGrid
+					id="periode" columns="2">
 					<t:htmlTag value="div" style="width: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid
+						columns="2">
 						<h:outputText style="color:red;"
 							value="#{msgs['CONVENTION.ETAPE11.INIT_PERIODE']}" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="4">
+						<h:panelGrid
+							columns="4">
 							<h:outputText style="color:red;"
 								value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
 							<h:outputText style="color:red;"
@@ -153,8 +153,8 @@
 						</h:panelGrid>
 						<h:outputText style="color:green;"
 							value="#{msgs['CONVENTION.ETAPE11.NEW_PERIODE']}" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="4">
+						<h:panelGrid
+							columns="4">
 							<h:outputText style="color:green;"
 								value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
 							<h:outputText style="color:green;"
@@ -176,16 +176,16 @@
 				<h:outputLabel for="interruption"
 					rendered="#{avenantController.avenant.interruptionStage}"
 					value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION']}" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" id="interruption" columns="2"
+				<h:panelGrid
+					id="interruption" columns="2"
 					rendered="#{avenantController.avenant.interruptionStage}">
 					<t:htmlTag value="div" style="width: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid
+						columns="2">
 						<h:outputText style="color:red;"
 							value="#{msgs['CONVENTION.ETAPE11.INIT_INTERRUPTION']}" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="4"
+						<h:panelGrid
+							columns="4"
 							rendered="#{conventionController.convention.interruptionStage}">
 							<h:outputText style="color:red;"
 								value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
@@ -205,8 +205,8 @@
 							value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION_NULLE']}" />
 						<h:outputText style="color:green;"
 							value="#{msgs['CONVENTION.ETAPE11.NEW_INTERRUPTION']}" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="4"
+						<h:panelGrid
+							columns="4"
 							rendered="#{avenantController.avenant.interruptionStage}">
 							<h:outputText style="color:green;"
 								value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
@@ -230,11 +230,11 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputLabel for="gratification"
 					value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" id="gratification" columns="2">
+				<h:panelGrid
+					id="gratification" columns="2">
 					<t:htmlTag value="div" style="width: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid
+						columns="2">
 						<h:outputText style="color:red;"
 							value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
 						<h:outputText style="color:red;"
@@ -252,11 +252,11 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputLabel for="lieu"
 					value="#{msgs['CONVENTION.ETAPE11.NEW_LIEU']}" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" id="lieu" columns="2">
+				<h:panelGrid
+					id="lieu" columns="2">
 					<t:htmlTag value="div" style="width: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid
+						columns="2">
 
 						<h:outputText style="color:red;"
 							value="#{msgs['CONVENTION.ETAPE11.INIT_LIEU']}" />
@@ -275,11 +275,11 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputLabel for="salarie"
 					value="#{msgs['CONVENTION.ETAPE11.NEW_SALARIE']}" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" id="salarie" columns="2">
+				<h:panelGrid
+					id="salarie" columns="2">
 					<t:htmlTag value="div" style="width: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid
+						columns="2">
 						<h:outputText style="color:red;"
 							value="#{msgs['CONVENTION.ETAPE11.INIT_SALARIE']}" />
 						<h:outputText style="color:red;"
@@ -299,11 +299,11 @@
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputLabel for="enseignant"
 					value="#{msgs['CONVENTION.ETAPE11.NEW_ENSEIGNANT']}" />
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" id="enseignant" columns="2">
+				<h:panelGrid
+					id="enseignant" columns="2">
 					<t:htmlTag value="div" style="width: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="2">
+					<h:panelGrid
+						columns="2">
 						<h:outputText style="color:red;"
 							value="#{msgs['CONVENTION.ETAPE11.INIT_ENSEIGNANT']}" />
 						<h:outputText style="color:red;"
@@ -323,8 +323,8 @@
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:outputLabel for="dateRupture"
 				value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']}" />
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" id="dateRupture" columns="3">
+			<h:panelGrid
+				id="dateRupture" columns="3">
 				<t:htmlTag value="div" style="width: 10px;" />
 				<h:outputText style="color:green;"
 					value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']}" />
@@ -348,7 +348,7 @@
 
 			<h:outputLabel for="urlPageInstruction" value="#{msgs['CONVENTION.IMPRESSION.URL']}"
 				rendered="#{conventionController.cgUrlInstruction}">
-				<h:outputLink
+				<h:outputLink target="_blank"
 					value="#{conventionController.convention.centreGestion.urlPageInstruction}">
 					<h:outputText id="urlPageInstruction"
 						value="#{conventionController.convention.centreGestion.urlPageInstruction}" />
@@ -360,28 +360,28 @@
 
 		<t:htmlTag value="div" style="height: 20px;" />
 
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3" align="center">
+		<h:panelGrid
+			columns="3" align="center">
 
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="3"
+			<h:panelGrid
+				columns="3"
 				rendered="#{!avenantController.avenant.validationAvenant and (welcomeController.superAdmin
 					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 					|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}">
-				<a4j:commandButton id="modif" execute="@this"
+				<p:commandButton id="modif" 
 					action="#{avenantController.goToModifAvenantPage1}"
 					value="#{msgs['FORM.MODIFIER']}" />
 				<t:htmlTag value="div" style="width: 20px;" />
-				<a4j:commandButton id="valid" execute="@this"
-					oncomplete="#{rich:component('validAvenant')}.show()"
+				<p:commandButton id="valid" 
+					oncomplete="PF('validAvenant').show();"
 					value="#{msgs['FORM.VALIDER']}" />
 			</h:panelGrid>
 
-			<a4j:commandButton id="devalid" execute="@this"
+			<p:commandButton id="devalid" 
 				rendered="#{avenantController.avenant.validationAvenant and (welcomeController.superAdmin
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
-				oncomplete="#{rich:component('devalidAvenant')}.show()"
+				oncomplete="PF('devalidAvenant').show();"
 				value="#{msgs['FORM.DEVALIDER']}" />
 
 			<t:htmlTag value="div" style="width: 20px;" />
@@ -390,19 +390,19 @@
 				rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
 				|| (welcomeController.etudiant and avenantController.avenant.validationAvenant)}">
-				<a4j:commandButton id="print" execute="@this"
+				<p:commandButton id="print" 
 					rendered="#{conventionController.convention.codeLangueConvention == 'fr'}"
 					action="#{avenantController.editPdfAvenant}"
 					value="#{msgs['CONVENTION.ETAPE11.IMPRIMER']}" />
 
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="3"
+				<h:panelGrid
+					columns="3"
 					rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
-					<a4j:commandButton id="printFr" execute="@this"
+					<p:commandButton id="printFr" 
 						action="#{avenantController.editPdfAvenantFr}"
 						value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_FR']}" />
 					<t:htmlTag value="div" style="width: 20px;" />
-					<a4j:commandButton id="printAutre" execute="@this"
+					<p:commandButton id="printAutre" 
 						action="#{avenantController.editPdfAvenant}"
 						value="#{msgs['CONVENTION.ETAPE11.IMPRIMER_AUTRE']} #{conventionController.convention.langueConvention.libelle}" />
 				</h:panelGrid>
@@ -414,11 +414,11 @@
 		<h:commandButton id="retour" style="float:left;"
 			value="#{msgs['GENERAL.RETOUR']}"
 			action="#{avenantController.goToListeAvenant}">
-			<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+			<p:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
 		</h:commandButton>
 		<t:htmlTag value="div" style="height: 20px;" />
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="1" style="float:right;"
+		<h:panelGrid
+			 style="float:right;"
 			rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 			<t:aliasBean alias="#{objet}" value="#{avenantController.avenant}">
 				<ui:include src="../_commun/_updateInfos.xhtml" />

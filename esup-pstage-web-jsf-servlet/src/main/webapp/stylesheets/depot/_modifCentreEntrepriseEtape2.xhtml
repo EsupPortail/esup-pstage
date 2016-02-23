@@ -2,10 +2,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1" rowClasses="paginatorData-text"
-		columnClasses="paginatorData-text">
+	xmlns:p="http://primefaces.org/ui"
+	>
+	<h:panelGrid 
+		>
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
 
 		<h:outputLabel for="nomCentre"
@@ -14,11 +14,11 @@
 			value="#{centreController.formCentreEntreprise.nomCentre}"
 			required="true" maxlength="100" size="50"
 			requiredMessage="#{requiredMessageController.champObligatoire}">
-			<a4j:ajax event="blur" />
+			<p:ajax event="blur" />
 		</h:inputText>
-		<rich:message for="nomCentre">
+		<p:message for="nomCentre">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 
 		<h:outputLabel for="confidentialite"
 			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} *" />
@@ -27,13 +27,13 @@
 			required="true"
 			requiredMessage="#{requiredMessageController.champObligatoire}"
 			converter="#{confidentialiteConverter}">
-			<a4j:ajax event="valueChange" />
+			<p:ajax event="valueChange" />
 			<f:selectItems
 				value="#{nomenclatureController.confidentialitesSansConfEtab}" />
 		</h:selectOneMenu>
-		<rich:message for="confidentialite">
+		<p:message for="confidentialite">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 
 		<h:outputLabel for="telCentre"
 			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']}" />
@@ -47,11 +47,11 @@
 			value="#{centreController.formCentreEntreprise.fax}" size="20"
 			maxlength="20" />
 	</h:panelGrid>
-	<a4j:commandButton
+	<p:commandButton
 		rendered="#{empty centreController.centreEntreprise}"
 		value="#{msgs['FORM.CREER']}"
 		action="#{centreController.ajouterCentreEntreprise}"
-		render="formCentreEntreprise" />
+		update="formCentreEntreprise" />
 	<h:commandButton
 		rendered="#{not empty centreController.centreEntreprise}"
 		value="#{msgs['FORM.MODIFIER']}"

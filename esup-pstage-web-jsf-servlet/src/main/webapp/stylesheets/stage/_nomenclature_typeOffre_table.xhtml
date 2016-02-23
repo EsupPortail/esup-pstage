@@ -2,58 +2,51 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height:5px;" />
-	
+
 	<t:htmlTag value="center">
-		<rich:dataTable id="listeTypeOffre" rows="15"
-			value="#{nomenclatureController.typesOffre}" var="typeOffre">
-			<rich:column>
+		<p:dataTable id="listeTypeOffre"
+			value="#{nomenclatureController.typesOffre}" var="typeOffre"
+			rows="15" rowHover="true" rowStyleClass="nopointer" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+			<p:column>
 				<f:facet name="header">
 					<h:outputText value="#{msgs['NOMENCLATURES.TABLE.HEADER']}" />
 				</f:facet>
-				<h:panelGrid columns="3" columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
-					<a4j:commandLink 
-						oncomplete="#{rich:component('suppressionTypeOffre')}.show()"
-						render="suppressionTypeOffre">
+				<h:panelGrid columns="3">
+					<p:commandLink oncomplete="PF('suppressionTypeOffre').show();"
+						update="suppressionTypeOffre">
 						<f:setPropertyActionListener value="#{typeOffre.value}"
 							target="#{nomenclatureController.typeOffre}" />
 						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
-						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-					</a4j:commandLink>
-					<a4j:commandLink 
-						render="typeOffreTab">
+						<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+					</p:commandLink>
+					<p:commandLink update="typeOffreTab">
 						<f:setPropertyActionListener value="#{typeOffre.value}"
 							target="#{nomenclatureController.typeOffre}" />
 						<f:setPropertyActionListener value="modif"
 							target="#{nomenclatureController.typeOffreCurrentPage}" />
 						<h:graphicImage alt="modifier" value="../../media/images/edit.png" />
-						<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-					</a4j:commandLink>
+						<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+					</p:commandLink>
 					<h:outputText value="#{typeOffre.label}" />
 				</h:panelGrid>
-			</rich:column>
-			<f:facet name="footer">
-				<rich:dataScroller align="center" for="listeTypeOffre"
-					maxPages="20" page="1" id="listeScroller"
-					renderIfSinglePage="false" />
-			</f:facet>
-		</rich:dataTable>
+			</p:column>
+		</p:dataTable>
 
 		<t:htmlTag value="div" style="height:10px;" />
 
-		<a4j:commandButton style="color:green;"
-			action="#{nomenclatureController.resetObjects}"
-			render="typeOffreTab"
+		<p:commandButton style="color:green;"
+			action="#{nomenclatureController.resetObjects}" update="typeOffreTab"
 			value="#{msgs['NOMENCLATURES.AJOUT']}">
 			<f:setPropertyActionListener value="ajout"
 				target="#{nomenclatureController.typeOffreCurrentPage}" />
-		</a4j:commandButton>
+		</p:commandButton>
 	</t:htmlTag>
-	
+
 	<t:htmlTag value="div" style="height:10px;" />
 </ui:composition>

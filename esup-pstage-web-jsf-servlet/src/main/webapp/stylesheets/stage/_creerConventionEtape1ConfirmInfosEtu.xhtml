@@ -2,26 +2,26 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
+	<p:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU']}" />
 		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" >
+		<h:panelGrid
+			columns="2" >
 			<h:graphicImage alt="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
 				title="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}"
-				value="../../media/images/information.png" style="border:0" />
+				value="../../media/images/information.png" />
 			<h:outputText style="font-weight:bold; font-size:15px;"
 				value="#{msgs['CONVENTION.ETAPE1.CONFIRMATIONINFOSETU.DEMANDE']}" />
 		</h:panelGrid>
-		<h:panelGrid columns="2" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" style="padding-top:10px; padding-left:10px;">
+		<h:panelGrid columns="2"
+			style="padding-top:10px; padding-left:10px;">
 			<h:outputLabel for="numeroetudiant1"
 				value="#{msgs['CONVENTION.NUMETUDIANT']}" />
 			<h:outputText id="numeroetudiant1"
@@ -83,8 +83,8 @@
 			<h:outputText id="caisses1"
 				value="#{conventionController.etudiantRef.theCaisseRegime.libelle}" />
 		</h:panelGrid>
-		<h:panelGrid columns="2" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" style="padding-left:10px;">
+		<h:panelGrid columns="2"
+			style="padding-left:10px;">
 			<h:outputLabel for="centregestion1"
 				value="#{msgs['CONVENTION.NOMCENTRE']}" />
 			<h:outputText id="centregestion1"
@@ -92,14 +92,14 @@
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height:20px;" />
 
-		<a4j:commandButton value="#{msgs['FORM.VALIDER']}"
+		<p:commandButton value="#{msgs['FORM.VALIDER']}"
 			style="font-size:14px; border:solid 1px; margin-left:200px;"
 			rendered="#{sessionController.utilisationEntreprise}"
-			render="formConvention">
+			update="formConvention">
 			<f:setPropertyActionListener
 				value="_creerConventionEtape1DemandeLienOffre"
 				target="#{sessionController.creationConventionEtape1CurrentPage}" />
-		</a4j:commandButton>
+		</p:commandButton>
 		<h:commandButton value="#{msgs['FORM.VALIDER']}"
 			style="font-size:14px; border:solid 1px; margin-left:200px;"
 			rendered="#{!sessionController.utilisationEntreprise}"
@@ -112,5 +112,5 @@
 				value="_creerConventionEtape1ChoixEtapeEtudiant"
 				target="#{sessionController.creationConventionEtape1CurrentPage}" />
 		</h:commandButton>
-	</rich:panel>
+	</p:panel>
 </ui:composition>

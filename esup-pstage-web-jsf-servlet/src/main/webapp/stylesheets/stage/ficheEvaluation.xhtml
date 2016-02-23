@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel id="panelFicheEvaluation"
+		<p:panel id="panelFicheEvaluation"
 			rendered="#{centreController.centre != null and not empty centreController.ficheEvaluation
 			and welcomeController.superAdmin}">
 			<f:facet name="header">
@@ -24,11 +24,11 @@
 					<legend>
 						<h:graphicImage id="warn" alt="#{msgs['GENERAL.WARNING']}"
 							title="#{msgs['GENERAL.WARNING']}"
-							value="../../media/images/warning_20px.png" style="border:0" />
+							value="../../media/images/warning_20px.png" />
 						<h:outputLabel style="padding-left:5px; padding-right:5px;" for="warn" value="Attention" />
 					</legend>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" align="center">
+					<h:panelGrid
+						align="center">
 						<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.ALERTE']}"
 							escape="false" />
 					</h:panelGrid>
@@ -57,7 +57,7 @@
 									title="#{msgs['GENERAL.WARNING']}" />
 								<h:outputText id="ficheEtudiantInvalide"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE']}">
-									<rich:tooltip
+									<p:tooltip
 										value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE.INFO']}" />
 								</h:outputText>
 							</h:panelGrid>
@@ -94,7 +94,7 @@
 									title="#{msgs['GENERAL.WARNING']}" />
 								<h:outputText id="ficheEnseignantInvalide"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE']}">
-									<rich:tooltip
+									<p:tooltip
 										value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE.INFO']}" />
 								</h:outputText>
 							</h:panelGrid>
@@ -134,7 +134,7 @@
 									title="#{msgs['GENERAL.WARNING']}" />
 								<h:outputText id="ficheEntrepriseInvalide"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE']}">
-									<rich:tooltip
+									<p:tooltip
 										value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE.INFO']}" />
 								</h:outputText>
 							</h:panelGrid>
@@ -150,7 +150,7 @@
 				</fieldset>
 			</h:form>
 			<t:htmlTag value="div" style="height: 20px;" />
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin
 			|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]

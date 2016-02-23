@@ -2,17 +2,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="suppressionAvenant" autosized="true" width="400">
+	<p:dialog id="suppressionAvenant" widgetVar="suppressionAvenant">
 		<f:facet name="header">
 			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.HEAD']} #{avenantController.avenant.idAvenant}" />
 		</f:facet>
 		<h:form id="formSupprAvenant">
-			<h:panelGrid columns="1" align="center">
+			<h:panelGrid align="center">
 				<t:htmlTag value="div" style="height: 10px;" />
 				<h:outputLabel for="delete"
 					value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.QUESTION']}" />
@@ -20,19 +20,19 @@
 			</h:panelGrid>
 			<t:htmlTag value="div" style="height: 10px;" />
 			<h:panelGrid id="delete" columns="3" align="center">
-				<a4j:commandButton value="#{msgs['FORM.OUI']}"
+				<p:commandButton value="#{msgs['FORM.OUI']}"
 					action="#{avenantController.supprimerAvenant}"
-					render="listeAvenant" />
+					update="listeAvenant" />
 				<t:htmlTag value="div" style="width: 30px;" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
-					onclick="#{rich:component('suppressionAvenant')}.hide();return false;" />
+					onclick="PF('suppressionAvenant').hide();" />
 			</h:panelGrid>
 			<t:htmlTag value="center">
 				<h:outputText id="erreurSupprAvenant" value="" />
-				<rich:message for="erreurSupprAvenant">
+				<p:message for="erreurSupprAvenant">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</t:htmlTag>
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

@@ -317,30 +317,9 @@ public class ExportController extends AbstractContextAwareController {
 				logger.debug("ExportController:: nombre convention : "
 						+ this.resultatsRechercheConvention.size());
 			}
-			// if (this.resultatsRechercheConvention.size() >
-			// DonneesStatic.nb_response_export_maxi) {
-			//			if (this.resultatsRechercheConvention.size() > Integer
-			//					.parseInt(this.critereRechercheConvention.getNbExportMaxi())) {
-			//				addInfoMessage("formRechConvention",
-			//						"RECHERCHECONVENTION.MAXRESULTATS",
-			//						this.resultatsRechercheConvention.size());
-			//				return ret;
-			//			}
 			if (logger.isInfoEnabled()) {
 				logger.info("ExportController:: Appel getConventionFromExport debut ");
 			}
-			// if (this.resultatsRechercheConvention != null &&
-			// !this.resultatsRechercheConvention.isEmpty()) {
-			// List<ConventionDTO> lConventionExport = new
-			// ArrayList<ConventionDTO>();
-			// for (ConventionDTO c : resultatsRechercheConvention) {
-			// c =
-			// getConventionDomainService().getConventionFromExport(c.getIdConvention());
-			// lConventionExport.add(c);
-			// }
-			// this.resultatsRechercheConvention = lConventionExport;
-			// ret = "exportConvention";
-			// }
 			if (this.resultatsRechercheConvention != null
 					&& !this.resultatsRechercheConvention.isEmpty()) {
 				List<ConventionDTO> lConventionExport = new ArrayList<ConventionDTO>();

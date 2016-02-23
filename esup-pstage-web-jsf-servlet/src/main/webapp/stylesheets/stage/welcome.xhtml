@@ -2,55 +2,71 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<h:panelGrid columns="1">
-			<t:div styleClass="sections">
-				<t:htmlTag value="br" />
-				<p>
-					<h:outputText escape="false"
-						value="#{msgs['GENERAL.ACCUEIL.STAGE.WELCOME']}" />
-				</p>
-				<t:htmlTag value="br" />
-				
-				<t:htmlTag value="div" style="height:10px;"/>
-				<h:outputText value="Documents annexes : " style="font-weight:bold;"/>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text"
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['MENU.ACCUEIL']}" />
+			</f:facet>
+			<h:panelGrid>
+				<t:htmlTag value="div" style="height:10px;" />
+				<h:outputText escape="false"
+					style="font-weight:bold; font-size:1.2em;"
+					value="#{msgs['GENERAL.ACCUEIL.STAGE.WELCOME']}" />
+
+				<t:htmlTag value="div" style="height:10px;" />
+
+				<h:outputText value="Documents annexes : " style="font-weight:bold;" />
+
+				<h:panelGrid
 					style="margin-left:20px; padding-top:2px; font-weight:bold; text-decoration:underline;">
-					<h:outputLink
+					<h:outputLink target="_blank"
 						value="#{sessionController.mediaPath}/docs/2015-Notice_Convention_Stage-v1.1.pdf">
-						<h:graphicImage value="../../media/images/docs.gif" alt="img_notice"/>
+						<h:graphicImage value="../../media/images/docs.gif"
+							alt="img_notice" />
 						Notice Convention de stage
 					</h:outputLink>
-					<t:htmlTag value="div" style="height:5px;"/>
-					<h:outputLink
+					<t:htmlTag value="div" style="height:5px;" />
+					<h:outputLink target="_blank"
 						value="#{sessionController.mediaPath}/docs/2015-Notice_Convention_Stage_BILINGUES-v1.1.zip">
-						<h:graphicImage value="../../media/images/docs.gif" alt="img_notices_bilingues"/>
+						<h:graphicImage value="../../media/images/docs.gif"
+							alt="img_notices_bilingues" />
 						Notices bilingues Convention de stage (Anglais - Espagnol - Allemand)
 					</h:outputLink>
 				</h:panelGrid>
-			</t:div>
-			<h:form id="disconnectEntr"
-				rendered="#{sessionController.adminPageAuthorized}">
-				<h:commandButton id="disco"
-					action="#{welcomeController.disconnectLight}"
-					value="#{msgs['GENERAL.ACCUEIL.STAGE.DECOENTR']}"
-					disabled="#{!sessionController.adminPageAuthorized}" />
-			</h:form>
-			<script type="text/javascript">
-				hideButton('disconnectEntr:disco');
-				window.onload = function() {
-					simulateLinkClick('disconnectEntr:disco');
-				};
-			</script>
-			<h:outputText value="#{msgs['MESSAGE_CNIL_STAGE']}" escape="false"
-				rendered="#{not empty msgs['MESSAGE_CNIL_STAGE']}" />
+				<h:form id="disconnectEntr"
+					rendered="#{sessionController.adminPageAuthorized}">
+					<h:commandButton id="disco"
+						action="#{welcomeController.disconnectLight}"
+						value="#{msgs['GENERAL.ACCUEIL.STAGE.DECOENTR']}" />
+				</h:form>
+				<script type="text/javascript">
+					hideButton('disconnectEntr:disco');
+					window.onload = function() {
+						var fireOnThis = document.getElementById('disconnectEntr:disco')
+					    if (fireOnThis == null) {
+					      if (debug) alert("element ['disconnectEntr:disco'] not found");
+					      return;
+					    }
+						if (document.createEvent) {
+							// Firefox
+							var evObj = document.createEvent('MouseEvents');
+							evObj.initEvent( 'click', true, false );
+							fireOnThis.dispatchEvent(evObj);
+						} else if (document.createEventObject) {
+							// IE
+							fireOnThis.fireEvent('onclick');
+							// IE 7
+							fireOnThis.click();
+						}
+					};
+				</script>
+				<h:outputText value="#{msgs['MESSAGE_CNIL_STAGE']}" escape="false"
+					rendered="#{not empty msgs['MESSAGE_CNIL_STAGE']}" />
 
-		</h:panelGrid>		
-
+			</h:panelGrid>
+		</p:panel>
 	</ui:define>
 </ui:composition>
 

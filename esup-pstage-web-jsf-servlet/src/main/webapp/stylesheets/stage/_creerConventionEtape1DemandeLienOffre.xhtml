@@ -2,17 +2,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
+	<p:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE']}" />
 		</f:facet>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
+		<h:panelGrid
+			>
 			<t:htmlTag value="div" style="height:10px;" />
 			<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.DEMANDE']}"
 				escape="false" />
@@ -30,16 +30,16 @@
 <!-- 			<h:panelGrid columns="2"> -->
 <!-- 				<h:graphicImage alt="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}" -->
 <!-- 					title="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}" -->
-<!-- 					value="../../media/images/information.png" style="border:0" /> -->
+<!-- 					value="../../media/images/information.png" /> -->
 <!-- 				<h:outputText value="#{msgs['CONVENTION.ETAPE1.LIENOFFRE.INFO']}" /> -->
 <!-- 			</h:panelGrid> -->
 			<t:htmlTag value="div" style="height:30px;" />
-			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
-				render="formConvention">
+			<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+				update="formConvention">
 				<f:setPropertyActionListener
 					value="_creerConventionEtape1ConfirmInfosEtu"
 					target="#{sessionController.creationConventionEtape1CurrentPage}" />
-			</a4j:commandButton>
+			</p:commandButton>
 		</h:panelGrid>
-	</rich:panel>
+	</p:panel>
 </ui:composition>

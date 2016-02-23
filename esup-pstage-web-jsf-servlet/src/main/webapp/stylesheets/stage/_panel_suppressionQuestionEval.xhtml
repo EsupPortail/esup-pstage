@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="deleteQuestionEvalPanel" width="450" autosized="true" modal="true">
+	<p:dialog id="deleteQuestionEvalPanel" widgetVar="deleteQuestionEvalPanel">
 		<f:facet name="header">
 			<h:outputText
 				value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.HEADER_DELETE']}"/>
@@ -15,6 +15,6 @@
 			<ui:include
 				src="/stylesheets/stage/#{sessionController.suppressionQuestionEvalCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 	
 </ui:composition>

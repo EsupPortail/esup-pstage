@@ -4,12 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_basicTemplate.xhtml">
 	<ui:define name="content">
-		<h:panelGrid columns="1" styleClass="panelRecherche">
-			<rich:panel id="panelOffre">
+		<h:panelGrid>
+			<p:panel id="panelOffre">
 				<f:facet name="header">
 					<h:outputText value="#{msgs['RECHERCHEOFFRE.DETAILS']}" />
 				</f:facet>
@@ -18,13 +18,13 @@
 				</t:div>
 				<h:form>
 					<h:panelGrid>
-						<a4j:commandLink execute="@this" id="editoffre"
+						<p:commandLink  id="editoffre"
 							action="#{offreController.editPdfOffre}">
 							<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-								value="../../media/images/printer.png" style="border:0" />
+								value="../../media/images/printer.png" />
 							<h:outputText value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
 								escape="false" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</h:panelGrid>
 					<t:htmlTag value="div" style="height:5px" />
 					<t:div rendered="#{not empty offreController.currentOffre}"
@@ -33,12 +33,12 @@
 							<h:outputText value="#{offreController.currentOffre.intitule}"
 								style="font-weight:bold;text-transform:uppercase;font-size:24px;" />
 						</h:panelGrid>
-						<h:panelGrid columns="1" style="font-size:12px;width:800px;">
+						<h:panelGrid style="font-size:12px;width:800px;">
 							<t:div
 								rendered="#{!offreController.currentOffre.cacherEtablissement}">
 								<h:outputText
 									value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.ETAB']} "
-									styleClass="titreOffre" />
+									 />
 								<ui:include src="../_commun/_detailsOffreEtab.xhtml" />
 							</t:div>
 							<t:htmlTag value="div" style="height:10px;" />
@@ -56,7 +56,7 @@
 							action="#{offreController.goToRechercheOffrePublic}" />
 					</h:panelGrid>
 				</h:form>
-			</rich:panel>
+			</p:panel>
 		</h:panelGrid>
 	</ui:define>
 </ui:composition>

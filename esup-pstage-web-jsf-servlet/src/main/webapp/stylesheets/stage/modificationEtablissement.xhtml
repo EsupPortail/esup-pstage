@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['STRUCTURE.MODIF']}" />
 			</f:facet>
@@ -17,9 +17,9 @@
 			</t:div>
 			<t:div rendered="#{not empty etablissementController.formStructure}">
 				<h:form id="formModifEtab">
-					<rich:message for="formModifEtab">
+					<p:message for="formModifEtab">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 					<ui:include src="../_commun/_etablissementForm.xhtml" />
 					<h:panelGrid columns="3">
 						<h:commandButton value="#{msgs['FORM.MODIFIER']}"
@@ -38,6 +38,6 @@
 					</h:panelGrid>
 				</h:form>
 			</t:div>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

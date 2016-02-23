@@ -4,29 +4,30 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['RECHERCHECONVENTION.TITRE']}" />
 			</f:facet>
 			<h:form id="formRechConvention"
 				onkeypress="if (event.keyCode == 13) { document.getElementById('formRechConvention:rechercherConvention').click(); return false; }">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" style="width:700px;">
+				<h:panelGrid
+					style="width:700px;">
 					<h:panelGrid style="position:absolute;" columns="3">
 						<h:outputText value="Mode de recherche : "
 							style="font-size:16px; font-weight:bold;" />
 						<h:commandButton
 							value="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}"
 							action="#{conventionController.rechercheSimpleAvancee}"
-							style="color: #{!conventionController.rechercheAvancee ? 'green' : 'black'}; border: solid 1px #{!conventionController.rechercheAvancee ? 'green' : 'black'};" />
+							style="color: #{!conventionController.rechercheAvancee ? 'green' : 'black'}; border: solid 1px #{!conventionController.rechercheAvancee ? 'green' : 'black'};"
+							disabled="#{!conventionController.rechercheAvancee}" />
 						<h:commandButton
 							value="#{msgs['RECHERCHECONVENTION.RECHERCHEAVANCEE']}"
 							action="#{conventionController.rechercheSimpleAvancee}"
-							style="color: #{conventionController.rechercheAvancee ? 'green' : 'black'}; border: solid 1px #{conventionController.rechercheAvancee ? 'green' : 'black'};" />
+							style="color: #{conventionController.rechercheAvancee ? 'green' : 'black'}; border: solid 1px #{conventionController.rechercheAvancee ? 'green' : 'black'};"
+							disabled="#{conventionController.rechercheAvancee}" />
 					</h:panelGrid>
 
 					<h:commandButton value="#{msgs['RECHERCHECONVENTION.REINIT']}"
@@ -38,7 +39,7 @@
 					<ui:include src="/stylesheets/stage/_panel_limites_resultats.xhtml" />
 
 					<t:htmlTag value="div" style="height: 5px;" />
-					<t:htmlTag value="div" style="height: 4px;" styleClass="spacer" />
+					<p:separator style="height:4px;" />
 					<t:htmlTag value="div" style="height: 5px;" />
 
 					<t:htmlTag value="fieldset">
@@ -80,8 +81,8 @@
 
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
-					<t:htmlTag value="div" style="height: 4px;" styleClass="spacer"
-						rendered="#{conventionController.rechercheAvancee}" />
+					<p:separator style="height:4px;"
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -123,9 +124,7 @@
 								value="#{conventionController.critereRechercheConvention.dateStage}">
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.datesStage}" />
-								<a4j:ajax render="test" />
 							</h:selectOneMenu>
-							<h:outputText id="test" value="#{conventionController.critereRechercheConvention.dateStage}" />
 							<t:htmlTag value="div" style="height:2px;" />
 							<h:outputLabel
 								value="#{msgs['RECHERCHECONVENTION.TEMPSTRAVAIL']}" for="tpsT" />
@@ -164,8 +163,8 @@
 									value="#{nomenclatureController.langueConventions}" />
 							</h:selectOneMenu>
 							<t:htmlTag value="div" style="height:2px;" />
-							<h:panelGrid columns="2" columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text">
+							<h:panelGrid columns="2"
+								>
 								<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
 									for="validee" />
 								<h:selectOneRadio id="validee" style="font-size:12px;"
@@ -178,8 +177,8 @@
 										itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUIETNON']}" />
 								</h:selectOneRadio>
 							</h:panelGrid>
-							<h:panelGrid columns="2" columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text"
+							<h:panelGrid columns="2"
+								
 								rendered="#{sessionController.validationPedagogique}">
 								<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VERIFIEE']}"
 									for="validee" />
@@ -197,8 +196,8 @@
 					</t:htmlTag>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
-					<t:htmlTag value="div" style="height: 4px;" styleClass="spacer"
-						rendered="#{conventionController.rechercheAvancee}" />
+					<p:separator style="height:4px;"
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -209,8 +208,8 @@
 							<h:outputText value="Formation"
 								style="font-weight:bold; padding:5px; font-size:16px;" />
 						</t:htmlTag>
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="3"
+						<h:panelGrid
+							columns="3"
 							style="font-size:11px;"
 							rendered="#{not empty conventionController.rechUfrs}">
 							<h:outputLabel value="#{msgs['RECHERCHECONVENTION.UFRS']}"
@@ -219,7 +218,7 @@
 								for="ufrs" />
 							<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.UFRS']}"
 								title="#{msgs['RECHERCHECONVENTION.UFRS']}"
-								value="../../media/images/information.png" style="border:0" />
+								value="../../media/images/information.png" />
 							<h:outputText value="#{msgs['RECHERCHECONVENTION.UFRS.AIDE']}" />
 						</h:panelGrid>
 						<h:selectManyMenu id="ufrs"
@@ -229,8 +228,8 @@
 							<f:selectItems value="#{conventionController.rechUfrs}" />
 						</h:selectManyMenu>
 						<t:htmlTag value="div" style="height:10px;" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="3"
+						<h:panelGrid
+							columns="3"
 							style="font-size:11px;"
 							rendered="#{not empty conventionController.rechEtapes}">
 							<h:outputLabel value="#{msgs['RECHERCHECONVENTION.ETAPES']}"
@@ -238,7 +237,7 @@
 								for="etapes" />
 							<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"
 								title="#{msgs['RECHERCHECONVENTION.ETAPES']}"
-								value="../../media/images/information.png" style="border:0" />
+								value="../../media/images/information.png" />
 							<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
 						</h:panelGrid>
 						<h:selectManyMenu id="etapes"
@@ -251,8 +250,8 @@
 
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
-					<t:htmlTag value="div" style="height: 4px;" styleClass="spacer"
-						rendered="#{conventionController.rechercheAvancee}" />
+					<p:separator style="height:4px;"
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -280,8 +279,8 @@
 
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
-					<t:htmlTag value="div" style="height: 4px;" styleClass="spacer"
-						rendered="#{conventionController.rechercheAvancee}" />
+					<p:separator style="height:4px;"
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -297,8 +296,8 @@
 						<h:panelGrid columns="2">
 							<h:graphicImage id="infoRs"
 								alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
-								value="../../media/images/information.png" style="border:0">
-								<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+								value="../../media/images/information.png">
+								<p:tooltip id="test" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
 							</h:graphicImage>
 							<h:inputText id="raisonSociale"
 								value="#{conventionController.critereRechercheConvention.raisonSociale}"
@@ -309,8 +308,8 @@
 						<h:panelGrid columns="2">
 							<h:graphicImage id="infoNumsiret"
 								alt="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
-								value="../../media/images/information.png" style="border:0">
-								<rich:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
+								value="../../media/images/information.png">
+								<p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
 							</h:graphicImage>
 							<h:inputText id="numSiret"
 								value="#{conventionController.critereRechercheConvention.numeroSiret}"
@@ -348,8 +347,8 @@
 
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
-					<t:htmlTag value="div" style="height: 4px;" styleClass="spacer"
-						rendered="#{conventionController.rechercheAvancee}" />
+					<p:separator style="height:4px;"
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -368,21 +367,21 @@
 							<f:selectItem
 								itemLabel="#{msgs['RECHERCHECONVENTION.CHOIX.PAYS']}"
 								itemValue="false" />
-							<a4j:ajax event="valueChange" render="choixPaysPanel" />
+							<p:ajax event="change" update="choixPaysPanel" />
 						</h:selectOneRadio>
-						<a4j:outputPanel id="choixPaysPanel">
+						<p:outputPanel id="choixPaysPanel">
 							<h:panelGrid columns="2"
 								rendered="#{!conventionController.estEtrangere}">
 								<h:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']} : "
 									for="pays" />
 								<h:selectOneMenu id="pays"
 									value="#{conventionController.critereRechercheConvention.pays}"
-									converter="#{paysConverter}" styleClass="paysInput">
+									converter="#{paysConverter}" >
 									<f:selectItem itemValue=" " />
 									<f:selectItems value="#{nomenclatureController.pays}" />
 								</h:selectOneMenu>
 							</h:panelGrid>
-						</a4j:outputPanel>
+						</p:outputPanel>
 
 						<t:htmlTag value="center">
 							<t:htmlTag value="div" style="height:10px;" />
@@ -410,7 +409,7 @@
 
 					<t:htmlTag value="center">
 						<h:panelGrid columns="2">
-							<a4j:commandButton id="rechercherConvention"
+							<p:commandButton id="rechercherConvention"
 								value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
 								action="#{conventionController.rechercherConvention}"
 								status="statusRecherche"
@@ -418,28 +417,27 @@
 								<f:setPropertyActionListener
 									value="resultatsRechercheConvention"
 									target="#{conventionController.retourAction}" />
-							</a4j:commandButton>
-							<a4j:status name="statusRecherche">
+							</p:commandButton>
+							<p:ajaxStatus name="statusRecherche">
 								<f:facet name="start">
 									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 								</f:facet>
-							</a4j:status>
+							</p:ajaxStatus>
 						</h:panelGrid>
 					</t:htmlTag>
 
 					<h:panelGrid columns="2" style="float:right;">
-						<a4j:status name="statusExport">
+						<p:ajaxStatus name="statusExport">
 							<f:facet name="start">
 								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 							</f:facet>
-						</a4j:status>
+						</p:ajaxStatus>
 						<h:panelGrid columns="3"
 							style="border:solid 1px; color:#{a4jSkin.panelBorderColor};">
 							<h:graphicImage id="exportExcel" alt="Excel"
-								value="../../media/images/excelSmall.png" style="border:0">
-								<rich:tooltip value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" />
-							</h:graphicImage>
-							<a4j:commandButton status="statusExport"
+								value="../../media/images/excelSmall.png"/>
+							<p:tooltip id="tooltipExport" value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" for="exportExcel" />
+							<p:commandButton status="statusExport"
 								value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
 								action="#{exportController.rechercherConvention}">
 								<f:setPropertyActionListener
@@ -457,17 +455,17 @@
 								<f:setPropertyActionListener
 									value="rechercheConvention"
 									target="#{conventionController.retourAction}" />
-							</a4j:commandButton>
+							</p:commandButton>
 						</h:panelGrid>
 					</h:panelGrid>
 
 					<t:htmlTag value="div" style="height:10px;" />
 				</h:panelGrid>
 			</h:form>
-			<rich:message for="formRechConvention" escape="false"
+			<p:message for="formRechConvention" escape="false"
 				style="color:red;font-weight:bold;">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</rich:panel>
+			</p:message>
+		</p:panel>
 	</ui:define>
 </ui:composition>

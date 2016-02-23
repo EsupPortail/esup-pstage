@@ -5,9 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 <f:view locale="fr">
 	<h:head>
@@ -17,29 +15,22 @@
 		</f:facet>
 		<title><h:outputText value="#{applicationService.name}" /></title>
 		<link rel="stylesheet" type="text/css"
-			href="#{sessionController.mediaPath}/style/skins/universality/etab/etab.css" />
-		<link rel="stylesheet" type="text/css"
-			href="#{sessionController.mediaPath}/style/spacer.css" />
-		<script type="text/javascript" language="Javascript"
-			src="#{sessionController.mediaPath}/js/functions.js"></script>
+			href="#{sessionController.mediaPath}/style/main.css" />
+<!-- 		<script type="text/javascript" language="Javascript" -->
+<!-- 			src="#{sessionController.mediaPath}/js/functions.js" /> -->
 	</h:head>
-	<h:body styleClass="fl-theme-app">
-		<ui:insert name="header" />
-		<t:div>
+	<h:body>
+		<h:panelGrid align="center" style="min-width: 1100px; max-width:1200px;">
+			<ui:insert name="header" />
+
 			<ui:insert name="navigationHeader" />
-			<t:div id="body" styleClass="app-body fl-col-flex2">
-				<t:div id="navigation" styleClass="app-navigation fl-col-flex13">
-					<ui:insert name="menuDynamique" />
-				</t:div>
-				<t:div id="content" styleClass="app-content fl-col-flex85">
-					<ui:insert name="content" />
-				</t:div>
-			</t:div>
-			<ui:insert name="navigationFooter" />
-			<script type="text/javascript">
-				hideButton("welcomeManagerForm:localeChangeButton");
-			</script>
-		</t:div>
+
+			<t:htmlTag value="div" style="height:5px;" />
+		
+			<ui:insert name="content" />
+		</h:panelGrid>
+
+		<t:htmlTag value="div" style="height:150px;" />
 	</h:body>
 </f:view>
 </html>

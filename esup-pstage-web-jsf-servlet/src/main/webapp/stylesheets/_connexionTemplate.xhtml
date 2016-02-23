@@ -9,8 +9,8 @@
 <f:view locale="#{sessionController.locale}">
 	<h:head>
 		<title><h:outputText value="#{applicationService.name}" /></title>
-		<script type="text/javascript" language="Javascript"
-			src="../../media/js/functions.js" />
+<!-- 		<script type="text/javascript" language="Javascript" -->
+<!-- 			src="../../media/js/functions.js" /> -->
 		<script type="text/javascript" language="Javascript">
 			//<![CDATA[
 	
@@ -24,8 +24,28 @@
 					idLienDirect.value = x[1];
 				}
 			}
+			
 			window.onload = function() {
 				simulateLinkClick('casForm:submitCAS');
+			}
+			
+			function simulateLinkClick(linkId) {
+				var fireOnThis = document.getElementById(linkId)
+			    if (fireOnThis == null) {
+			      if (debug) alert("element [" + linkId + "] not found");
+			      return;
+			    }
+				if (document.createEvent) {
+					// Firefox
+					var evObj = document.createEvent('MouseEvents');
+					evObj.initEvent( 'click', true, false );
+					fireOnThis.dispatchEvent(evObj);
+				} else if (document.createEventObject) {
+					// IE
+					fireOnThis.fireEvent('onclick');
+					// IE 7
+					fireOnThis.click();
+				}
 			}
 			//]]>
 		</script>

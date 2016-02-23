@@ -2,26 +2,26 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE6.ENSEIGNANT']}" />
 					</f:facet>
 					<h:outputText value="" />
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+					<h:panelGrid>
 						<ui:include
 							src="/stylesheets/stage/_conventionEtape6RechEnseignantForm.xhtml" />
 					</h:panelGrid>
-					<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1">
+					<h:panelGrid>
 						<h:commandButton id="rechEnseignant"
 							value="#{msgs['FORM.RECHERCHER']}"
 							action="#{conventionController.rechercheEnseignantModif}"
@@ -31,6 +31,6 @@
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

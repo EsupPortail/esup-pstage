@@ -2,13 +2,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:div rendered="#{not empty objet}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" style="font-size:11px;"
+		<h:panelGrid
+			columns="2" style="font-size:11px;"
 			rendered="#{not empty objet.dateCreation}">
 			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.CREELE']}"/>
 			<h:outputText value="#{objet.dateCreation}">
@@ -22,8 +22,8 @@
 				rendered="#{not empty objet.loginCreation}"/>
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height: 5px;" />
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="4" style="font-size:11px;"
+		<h:panelGrid
+			columns="4" style="font-size:11px;"
 			rendered="#{not empty objet}">
 			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.MODIFIELE']}"
 				rendered="#{not empty objet.dateModif}" />

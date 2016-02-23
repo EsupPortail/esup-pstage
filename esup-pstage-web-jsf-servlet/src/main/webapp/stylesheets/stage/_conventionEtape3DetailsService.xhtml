@@ -2,8 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
@@ -12,13 +12,13 @@
 		rendered="#{empty etablissementController.listeServices}"
 		escape="false" />
 
-	<a4j:outputPanel id="opService"
+	<p:outputPanel id="opService"
 		rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
 		and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}">
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2">
+		<h:panelGrid
+			columns="2">
 			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
 				escape="false"
 				rendered="#{not empty etablissementController.listeServices}" />
@@ -28,37 +28,37 @@
 				valueChangeListener="#{etablissementController.valueIdServiceChanged}"
 				rendered="#{not empty etablissementController.listeServices}">
 				<f:selectItems value="#{etablissementController.servicesItems}" />
-				<a4j:ajax event="valueChange" render="opActionsService"
-					execute="@this" />
+				<p:ajax event="valueChange" update="opActionsService"
+					 />
 			</h:selectOneMenu>
 		</h:panelGrid>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="3">
+		<h:panelGrid
+			columns="3">
 			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-			<a4j:commandLink execute="@this" id="ajout"
-				oncomplete="#{rich:component('ajoutService')}.show()"
+			<p:commandLink  id="ajout"
+				oncomplete="PF('ajoutService').show();"
 				action="#{etablissementController.ajoutService}"
-				render="ajoutService">
+				update="ajoutService">
 				<f:setPropertyActionListener value="#{true}"
 					target="#{etablissementController.memeAdresseStructure}" />
 				<f:setPropertyActionListener value="_ajoutServiceEtape1"
 					target="#{sessionController.ajoutServiceCurrentPage}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
-					value="../../media/images/new.png" style="border:0" />
-				<rich:tooltip value="#{msgs['FORM.CREER']}" />
-			</a4j:commandLink>
+					value="../../media/images/new.png" />
+				<p:tooltip value="#{msgs['FORM.CREER']}" />
+			</p:commandLink>
 		</h:panelGrid>
-	</a4j:outputPanel>
+	</p:outputPanel>
 	<t:htmlTag value="div" style="height: 20px;" />
-	<a4j:outputPanel id="opActionsService">
+	<p:outputPanel id="opActionsService">
 		<h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
 			escape="false"
 			rendered="#{not empty etablissementController.serviceSel}" />
-		<rich:dataTable value="#{etablissementController.serviceSel}"
+		<p:dataTable value="#{etablissementController.serviceSel}"
 			rendered="#{not empty etablissementController.serviceSel}">
 			<ui:include src="../_commun/_serviceColumns.xhtml" />
-			<rich:column>
-				<a4j:commandLink execute="@this" id="modif"
+			<p:column>
+				<p:commandLink  id="modif"
 					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
 						and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
 						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
@@ -68,8 +68,8 @@
 						and ((empty etablissementController.serviceSel.loginModif and
 						etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
 						|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
-					oncomplete="#{rich:component('modifService')}.show()"
-					render="modifService">
+					oncomplete="PF('modifService').show();"
+					update="modifService">
 					<f:setPropertyActionListener value="#{false}"
 						target="#{etablissementController.memeAdresseStructure}" />
 					<f:setPropertyActionListener
@@ -81,50 +81,49 @@
 					<f:setPropertyActionListener value="_modifServiceEtape1"
 						target="#{sessionController.modifServiceCurrentPage}" />
 					<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-						value="../../media/images/edit.png" style="border:0" />
-					<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-				</a4j:commandLink>
+						value="../../media/images/edit.png" />
+					<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+				</p:commandLink>
 
-				<a4j:commandButton execute="@this" id="selectionService"
+				<p:commandButton  id="selectionService"
 					value="#{msgs['FORM.SELECTIONNER']}" style="color:green;"
 					rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
 						and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
-					oncomplete="#{rich:component('demandeConfirmModifService')}.show()"
-					render="opActionsService">
+					oncomplete="PF('demandeConfirmModifService').show();"
+					update="opActionsService">
 					<f:setPropertyActionListener
 						value="#{etablissementController.serviceSel}"
 						target="#{etablissementController.formService}" />
 					<f:setPropertyActionListener
 						value="#{etablissementController.serviceSel}"
 						target="#{conventionController.convention.service}" />
-					<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
-				</a4j:commandButton>
-			</rich:column>
-		</rich:dataTable>
+					<p:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
 
-		<rich:popupPanel id="demandeConfirmModifService" autosized="true"
-			width="400" styleClass="panel" domElementAttachment="parent">
+		<p:dialog id="demandeConfirmModifService" widgetVar="demandeConfirmModifService">
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONVENTION.MODIF.SERVICE.DEMANDE']}" />
 			</f:facet>
-			<h:panelGrid columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text" columns="2" align="center">
+			<h:panelGrid
+				columns="2" align="center">
 				<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 					title="#{msgs['GENERAL.WARNING']}"
-					value="../../media/images/warning_50px.png" style="border:0" />
+					value="../../media/images/warning_50px.png" />
 				<h:outputText value="#{msgs['CONVENTION.MODIF.SERVICE.QUESTION']}"
 					escape="false" />
 			</h:panelGrid>
 			<h:panelGrid columns="3">
-				<a4j:commandButton value="#{msgs['FORM.OUI']}"
-					oncomplete="#{rich:component('demandeConfirmModifService')}.hide();"
+				<p:commandButton value="#{msgs['FORM.OUI']}"
+					oncomplete="PF('demandeConfirmModifService').hide();"
 					action="#{conventionController.goToConventionEtape3ServiceModif}" />
 				<t:htmlTag value="div" style="width: 100px;" />
-				<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
-					onclick="#{rich:component('demandeConfirmModifService')}.hide();return false;" />
+				<p:commandButton value="#{msgs['FORM.NON']}" 
+					onclick="PF('demandeConfirmModifService').hide();" />
 			</h:panelGrid>
-		</rich:popupPanel>
-	</a4j:outputPanel>
+		</p:dialog>
+	</p:outputPanel>
 </ui:composition>

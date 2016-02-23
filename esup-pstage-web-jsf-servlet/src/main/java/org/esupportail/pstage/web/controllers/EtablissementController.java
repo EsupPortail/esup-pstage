@@ -613,12 +613,12 @@ public class EtablissementController extends AbstractContextAwareController {
 											infoPersonne), "");
 				}
 			} catch (DataAddException ae) {
-				logger.error("DataAddException", ae.fillInStackTrace());
+				logger.error("DataAddException", ae.getCause());
 				addErrorMessage("formAjoutEtab", "STRUCTURE.ERREURAJOUT");
 				retour = null;
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage("formAjoutEtab", "STRUCTURE.ERREURAJOUT");
 				retour = null;
 			} catch (StructureNumSiretException se) {
@@ -951,12 +951,12 @@ public class EtablissementController extends AbstractContextAwareController {
 					addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				}
 			} catch (DataUpdateException ue) {
-				logger.error("DataUpdateException", ue.fillInStackTrace());
+				logger.error("DataUpdateException", ue.getCause());
 				addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				retour = null;
 			} catch (WebServiceDataBaseException we) {
 				logger.error("WebServiceDataBaseException",
-						we.fillInStackTrace());
+						we.getCause());
 				addErrorMessage("formModifEtab", "STRUCTURE.ERREURMODIF");
 				retour = null;
 			} catch (StructureNumSiretException se) {
@@ -1063,7 +1063,7 @@ public class EtablissementController extends AbstractContextAwareController {
 											infoPersonne), "");
 				}
 			} catch (StructureDeleteException e) {
-				logger.error("DataDeleteException", e.fillInStackTrace());
+				logger.error("DataDeleteException", e.getCause());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",
 						this.formStructure.getRaisonSociale());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREURAVANCEE",
@@ -1072,12 +1072,12 @@ public class EtablissementController extends AbstractContextAwareController {
 								: getString("FORM.NON"),
 								e.getNbComptesContact());
 			} catch (DataDeleteException e) {
-				logger.error("DataDeleteException", e.fillInStackTrace());
+				logger.error("DataDeleteException", e.getCause());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",
 						this.formStructure.getRaisonSociale());
 			} catch (WebServiceDataBaseException e) {
 				logger.error("WebServiceDataBaseException",
-						e.fillInStackTrace());
+						e.getCause());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",
 						this.formStructure.getRaisonSociale());
 			}
@@ -1158,10 +1158,10 @@ public class EtablissementController extends AbstractContextAwareController {
 			externalContext.redirect(forwardUrl);
 			facesContext.responseComplete();
 		} catch (DataAddException e) {
-			logger.error("DataAddException", e.fillInStackTrace());
+			logger.error("DataAddException", e.getCause());
 			addErrorMessage("formMenu:cvtheque", "TICKETSTRUCTURE.AJOUT.ERREUR");
 		} catch (WebServiceDataBaseException e) {
-			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", e.getCause());
 			addErrorMessage("formMenu:cvtheque", "TICKETSTRUCTURE.AJOUT.ERREUR");
 		} catch (IOException e) {
 			logger.error("probleme lors de la redirection Cvtheque, exception : "
@@ -1251,10 +1251,10 @@ public class EtablissementController extends AbstractContextAwareController {
 				addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
 			}
 		} catch (DataAddException e) {
-			logger.error("DataAddException", e.fillInStackTrace());
+			logger.error("DataAddException", e.getCause());
 			addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
 		} catch (WebServiceDataBaseException e) {
-			logger.error("DataUpdateException", e.fillInStackTrace());
+			logger.error("DataUpdateException", e.getCause());
 			addErrorMessage(null, "SERVICE.AJOUT.ERREUR");
 		}
 		getSessionController().setAjoutServiceCurrentPage("_ajoutServiceEtape2Confirmation");
@@ -1350,10 +1350,10 @@ public class EtablissementController extends AbstractContextAwareController {
 				addErrorMessage(null, "SERVICE.MODIF.ERREUR");
 			}
 		} catch (DataUpdateException e) {
-			logger.error("DataUpdateException", e.fillInStackTrace());
+			logger.error("DataUpdateException", e.getCause());
 			addErrorMessage(null, "SERVICE.MODIF.ERREUR");
 		} catch (WebServiceDataBaseException e) {
-			logger.error("DataUpdateException", e.fillInStackTrace());
+			logger.error("DataUpdateException", e.getCause());
 			addErrorMessage(null, "SERVICE.MODIF.ERREUR");
 		}
 		// return ret;
@@ -1399,7 +1399,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 			}
 		} catch (DataDeleteException e) {
-			logger.error("DataDeleteException", e.fillInStackTrace());
+			logger.error("DataDeleteException", e.getCause());
 			getSessionController().setSuppressionServiceCurrentPage("_supprServiceEtape2Confirmation");
 			System.out.println("e.get message : " + e.getMessage());
 			if (e.getMessage().contains("constraint")){
@@ -1408,10 +1408,10 @@ public class EtablissementController extends AbstractContextAwareController {
 				addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 			}
 		} catch (WebServiceDataBaseException e) {
-			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", e.getCause());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 		} catch (ServiceDeleteException e) {
-			logger.error("ServiceDeleteException", e.fillInStackTrace());
+			logger.error("ServiceDeleteException", e.getCause());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 		}
 		getSessionController().setSuppressionServiceCurrentPage("_supprServiceEtape2Confirmation");
@@ -1580,15 +1580,15 @@ public class EtablissementController extends AbstractContextAwareController {
 						addErrorMessage(null, "CONTACT.GESTION.AJOUT.ERREUR");
 					}
 				} catch (DataAddException e) {
-					logger.error("DataAddException", e.fillInStackTrace());
+					logger.error("DataAddException", e.getCause());
 					addErrorMessage(null, "CONTACT.GESTION.AJOUT.ERREUR");
 				} catch (WebServiceDataBaseException e) {
 					logger.error("WebServiceDataBaseException",
-							e.fillInStackTrace());
+							e.getCause());
 					addErrorMessage(null, "CONTACT.GESTION.AJOUT.ERREUR");
 				} catch (MailAlreadyUsedForStructureException e) {
 					logger.info("MailAlreadyUsedForStructureException",
-							e.fillInStackTrace());
+							e.getCause());
 					addErrorMessage("formAjoutContact:mailC",
 							"CONTACT.GESTION.ERREURACCOUNT");
 					//					ret = null;
@@ -1729,15 +1729,15 @@ public class EtablissementController extends AbstractContextAwareController {
 					this.keysContacts = Collections
 							.singleton(this.currentRowContact);
 				} catch (DataUpdateException e) {
-					logger.error("DataUpdateException", e.fillInStackTrace());
+					logger.error("DataUpdateException", e.getCause());
 					addErrorMessage(null, "CONTACT.GESTION.MODIF.ERREUR");
 				} catch (WebServiceDataBaseException e) {
 					logger.error("WebServiceDataBaseException",
-							e.fillInStackTrace());
+							e.getCause());
 					addErrorMessage(null, "CONTACT.GESTION.MODIF.ERREUR");
 				} catch (MailAlreadyUsedForStructureException e) {
 					logger.info("MailAlreadyUsedForStructureException",
-							e.fillInStackTrace());
+							e.getCause());
 					addErrorMessage("formModifContact:mailC",
 							"CONTACT.GESTION.ERREURACCOUNT");
 					//					ret = null;
@@ -1787,13 +1787,13 @@ public class EtablissementController extends AbstractContextAwareController {
 				addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREUR");
 			}
 		} catch (DataDeleteException e) {
-			logger.error("DataDeleteException", e.fillInStackTrace());
+			logger.error("DataDeleteException", e.getCause());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREUR");
 		} catch (WebServiceDataBaseException e) {
-			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", e.getCause());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREUR");
 		} catch (ContactDeleteException e) {
-			logger.info("ContactDeleteException", e.fillInStackTrace());
+			logger.info("ContactDeleteException", e.getCause());
 			addErrorMessage(null, "CONTACT.GESTION.SUPPR.ERREURREF");
 		}
 		//		return ret;
@@ -1874,16 +1874,16 @@ public class EtablissementController extends AbstractContextAwareController {
 				}
 				addErrorMessage(null, "MAIL.VALIDATION");
 			} catch (DataUpdateException e) {
-				logger.error("DataUpdateException", e.fillInStackTrace());
+				logger.error("DataUpdateException", e.getCause());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.CREATION.ERREUR");
 			} catch (WebServiceDataBaseException e) {
 				logger.error("WebServiceDataBaseException",
-						e.fillInStackTrace());
+						e.getCause());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.CREATION.ERREUR");
 			} catch (AccountAlreadyExistingForCoupleMailStructureException e) {
 				logger.info(
 						"AccountAlreadyExistingForCoupleMailStructureException",
-						e.fillInStackTrace());
+						e.getCause());
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT");
 			}
 		}
@@ -1923,18 +1923,18 @@ public class EtablissementController extends AbstractContextAwareController {
 							"CONTACT.GESTION.COMPTE.SUPPRESSION.ERREUR");
 				}
 			} catch (DataUpdateException e) {
-				logger.error("DataUpdateException", e.fillInStackTrace());
+				logger.error("DataUpdateException", e.getCause());
 				addErrorMessage(null,
 						"CONTACT.GESTION.COMPTE.SUPPRESSION.ERREUR");
 			} catch (WebServiceDataBaseException e) {
 				logger.error("WebServiceDataBaseException",
-						e.fillInStackTrace());
+						e.getCause());
 				addErrorMessage(null,
 						"CONTACT.GESTION.COMPTE.SUPPRESSION.ERREUR");
 			} catch (AccountAlreadyExistingForCoupleMailStructureException e) {
 				logger.info(
 						"AccountAlreadyExistingForCoupleMailStructureException",
-						e.fillInStackTrace());
+						e.getCause());
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT");
 			}
 		}
@@ -2011,16 +2011,16 @@ public class EtablissementController extends AbstractContextAwareController {
 							"CONTACT.GESTION.COMPTE.RESETMDP.ERREUR");
 				}
 			} catch (DataUpdateException e) {
-				logger.error("DataUpdateException", e.fillInStackTrace());
+				logger.error("DataUpdateException", e.getCause());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.RESETMDP.ERREUR");
 			} catch (WebServiceDataBaseException e) {
 				logger.error("WebServiceDataBaseException",
-						e.fillInStackTrace());
+						e.getCause());
 				addErrorMessage(null, "CONTACT.GESTION.COMPTE.RESETMDP.ERREUR");
 			} catch (AccountAlreadyExistingForCoupleMailStructureException e) {
 				logger.info(
 						"AccountAlreadyExistingForCoupleMailStructureException",
-						e.fillInStackTrace());
+						e.getCause());
 				addErrorMessage(null, "CONTACT.GESTION.ERREURACCOUNT");
 			}
 		}
@@ -2111,18 +2111,18 @@ public class EtablissementController extends AbstractContextAwareController {
 							}
 						} catch (DataUpdateException e) {
 							logger.error("DataUpdateException",
-									e.fillInStackTrace());
+									e.getCause());
 							addErrorMessage(null,
 									"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.ERREUR");
 						} catch (WebServiceDataBaseException e) {
 							logger.error("WebServiceDataBaseException",
-									e.fillInStackTrace());
+									e.getCause());
 							addErrorMessage(null,
 									"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.ERREUR");
 						} catch (AccountAlreadyExistingForCoupleMailStructureException e) {
 							logger.info(
 									"AccountAlreadyExistingForCoupleMailStructureException",
-									e.fillInStackTrace());
+									e.getCause());
 							addErrorMessage(null,
 									"CONTACT.GESTION.ERREURACCOUNT");
 						}

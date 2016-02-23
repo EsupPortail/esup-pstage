@@ -2,19 +2,19 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
+	<p:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE']}" />
 		</f:facet>
 
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
+		<h:panelGrid
+			>
 			<h:outputText style="font-weight:bold;"
 				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']} : " />
 			<ui:include
@@ -28,5 +28,5 @@
 		<t:htmlTag value="div" style="height:30px;" />
 		<h:commandButton value="#{msgs['FORM.CANCEL']}"
 			action="#{conventionController.goToCreerConventionEtape5StageR}" />
-	</rich:panel>
+	</p:panel>
 </ui:composition>

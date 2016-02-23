@@ -220,7 +220,7 @@ public final class PDFUtils {
 				LOGGER.info(" Failed to create directory !");
 			}
 		}
-		String chemin=dir.getPath()+"\\"+zipFile;
+		String chemin=dir.getPath()+"/"+zipFile;
 		OutputStream out= new FileOutputStream(chemin);	
 		ZipOutputStream zipStream= new ZipOutputStream(out);
 

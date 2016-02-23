@@ -2,17 +2,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 
 	<ui:include src="../_commun/__offreEtape2.xhtml" />
 
 	<h:panelGrid columns="3">
-		<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+		<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
 			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-			render="formModificationOffre" immediate="true">
+			update="formModificationOffre" immediate="true">
 			<f:setPropertyActionListener value="_modificationOffreEtape1"
 				target="#{sessionController.modificationOffreCurrentPage}" />
 			<f:setPropertyActionListener value="_modificationOffreEtape1"
@@ -21,14 +21,14 @@
 				target="#{sessionController.modificationOffre3CCurrentPage}" />
 			<f:setPropertyActionListener value="_modificationOffreEtape1"
 				target="#{sessionController.modificationEtabOffreCurrentPage}" />
-		</a4j:commandButton>
+		</p:commandButton>
 		<t:htmlTag value="div" style="width: 20px;" />
 		<h:commandButton value="#{msgs['FORM.NEXT']}"
 			action="#{offreController.goToModificationOffreEtape3}"
 			alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"/>
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height: 10px;" />
-	<a4j:outputPanel id="opFCE">
+	<p:outputPanel id="opFCE">
 		<h:panelGrid columns="3"
 			rendered="#{facesContext.maximumSeverity != null}">
 			<h:graphicImage value="../../media/images/arrow_up.png"
@@ -39,5 +39,5 @@
 				alt="#{msgs['GENERAL.ARROW_UP']}"
 				title="#{msgs['GENERAL.ARROW_UP']}" />
 		</h:panelGrid>
-	</a4j:outputPanel>
+	</p:outputPanel>
 </ui:fragment>

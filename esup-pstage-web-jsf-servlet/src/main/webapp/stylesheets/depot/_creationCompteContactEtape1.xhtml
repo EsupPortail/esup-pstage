@@ -2,25 +2,26 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 	<h:panelGrid>
-		<h:panelGrid columns="1">
+		<h:panelGrid>
 			<h:outputText
 				value="#{msgs['CONTACT.GESTION.COMPTE.CREATION.QUESTION']}"
 				escape="false" />
-			<rich:dataTable value="#{etablissementController.formContact}">
+			<p:dataTable value="#{etablissementController.formContact}">
 				<ui:include src="../_commun/_contactColumns.xhtml" />
-			</rich:dataTable>
+			</p:dataTable>
 		</h:panelGrid>
 		<h:panelGrid columns="3">
-			<a4j:commandButton action="#{etablissementController.creerCompte}"
+			<p:commandButton action="#{etablissementController.creerCompte}"
 				value="#{msgs['FORM.CREER']}"
-				render="opContactsDataTable" />
+				update="@form" />
+<!-- 				update="opContactsDataTable" /> -->
 			<t:htmlTag value="div" style="width:150px;" />
-			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="#{rich:component('creationCompteContact')}.hide();"
+			<p:commandButton value="#{msgs['FORM.ANNULER']}"
+				onclick="PF('creationCompteContact').hide();"
 				immediate="true" />
 		</h:panelGrid>
 	</h:panelGrid>

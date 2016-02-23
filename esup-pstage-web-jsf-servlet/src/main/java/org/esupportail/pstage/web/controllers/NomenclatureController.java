@@ -385,11 +385,11 @@ public class NomenclatureController extends AbstractContextAwareController {
 			if (we.getMessage().contains("Duplicate")){
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR_DUPLICAT");
 			} else {
-				logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+				logger.error("WebServiceDataBaseException", we.getCause());
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -417,10 +417,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.caisseRegimeCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -435,7 +435,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -450,11 +450,11 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.niveauFormationCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -468,10 +468,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.niveauFormationCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -486,7 +486,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -501,10 +501,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.tempsTravailCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -518,10 +518,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.tempsTravailCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -536,7 +536,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -551,10 +551,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.origineStageCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -568,10 +568,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.origineStageCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -586,7 +586,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -600,10 +600,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.typeConventionCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -617,10 +617,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.typeConventionCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -635,7 +635,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -650,10 +650,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.typeStructureCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -667,10 +667,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.typeStructureCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -688,7 +688,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 			if (e.getMessage().contains("Constraint")){
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR_CONTRAINTE_TYPESTRUCT");
 			} else {
-				logger.error("Exception", e.fillInStackTrace());
+				logger.error("Exception", e.getCause());
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		}
@@ -709,10 +709,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.statutJuridiqueCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -726,10 +726,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.statutJuridiqueCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -744,7 +744,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -759,10 +759,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.typeOffreCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -776,10 +776,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.typeOffreCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -795,10 +795,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			}
 		} catch(Exception e){
 			if (e.getMessage().contains("Constraint")){
-				logger.error("Exception", e.fillInStackTrace());
+				logger.error("Exception", e.getCause());
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR_CONTRAINTE_TYPEOFFRE");
 			} else {
-				logger.error("Exception", e.fillInStackTrace());
+				logger.error("Exception", e.getCause());
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		}
@@ -819,10 +819,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.contratOffreCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -836,10 +836,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.contratOffreCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -854,7 +854,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -869,10 +869,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.effectifCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -886,10 +886,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.effectifCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -904,7 +904,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -917,11 +917,11 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.modeValidationStageCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -935,10 +935,10 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.modeValidationStageCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
-			logger.error("WebServiceDataBaseException", we.fillInStackTrace());
+			logger.error("WebServiceDataBaseException", we.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
@@ -953,7 +953,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
-			logger.error("Exception", e.fillInStackTrace());
+			logger.error("Exception", e.getCause());
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}

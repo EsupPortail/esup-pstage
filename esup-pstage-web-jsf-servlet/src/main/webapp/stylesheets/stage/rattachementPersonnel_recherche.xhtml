@@ -4,12 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 
-		<rich:panel
+		<p:panel
 			rendered="#{(welcomeController.superAdmin	
 								|| welcomeController.admin)
 								and centreController.centre != null}">
@@ -18,70 +17,60 @@
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form id="formRecherchePersonnel">
-				<a4j:region id="rech">
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1" align="center">
-						<h:outputText
-							value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.ACCUEIL']}" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="3">
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="1">
-								<h:outputLabel for="nomPersonnel"
-									value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
-								<h:inputText id="nomPersonnel"
-									value="#{centreController.personnel.nom}" size="30"
-									maxlength="30" style="text-transform:uppercase;">
-									<f:converter binding="#{sansAccentEnMAJConverter}" />
-									<a4j:ajax execute="@this" event="change"
-										render="erreurRecherche" />
-								</h:inputText>
-							</h:panelGrid>
-
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="3">
-								<t:htmlTag value="div" style="width: 15px;" />
-								<t:htmlTag value="div"
-									style="width: 2px; height: 60px; background-color: #{a4jSkin.panelBorderColor};" />
-								<t:htmlTag value="div" style="width: 15px;" />
-							</h:panelGrid>
-
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="1">
-								<h:outputLabel for="prenomPersonnel"
-									value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
-								<h:inputText id="prenomPersonnel"
-									value="#{centreController.personnel.prenom}" size="30"
-									maxlength="50" style="text-transform:capitalize;">
-									<f:converter binding="#{premiereLettreMAJConverter}" />
-									<a4j:ajax execute="@this" event="change"
-										render="erreurRecherche" />
-								</h:inputText>
-							</h:panelGrid>
+				<h:panelGrid align="center">
+					<h:outputText value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.ACCUEIL']}" />
+					<h:panelGrid columns="3">
+						<h:panelGrid>
+							<h:outputLabel for="nomPersonnel"
+								value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
+							<h:inputText id="nomPersonnel"
+								value="#{centreController.personnel.nom}" size="30"
+								maxlength="30" style="text-transform:uppercase;">
+								<f:converter binding="#{sansAccentEnMAJConverter}" />
+								<p:ajax event="change" update="erreurRecherche" />
+							</h:inputText>
 						</h:panelGrid>
 
-						<t:htmlTag value="div" style="height: 20px;" />
+						<h:panelGrid columns="3">
+							<t:htmlTag value="div" style="width: 15px;" />
+							<t:htmlTag value="div"
+								style="width: 2px; height: 60px; background-color: #{a4jSkin.panelBorderColor};" />
+							<t:htmlTag value="div" style="width: 15px;" />
+						</h:panelGrid>
 
-						<t:htmlTag value="center">
-							<a4j:commandButton id="recherche"
-								action="#{centreController.rechercherPersonnel}"
-								value="#{msgs['CENTRE.PERSONNEL.RECHERCHER']}" />
-						</t:htmlTag>
+						<h:panelGrid>
+							<h:outputLabel for="prenomPersonnel"
+								value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
+							<h:inputText id="prenomPersonnel"
+								value="#{centreController.personnel.prenom}" size="30"
+								maxlength="50" style="text-transform:capitalize;">
+								<f:converter binding="#{premiereLettreMAJConverter}" />
+								<p:ajax event="change" update="erreurRecherche" />
+							</h:inputText>
+						</h:panelGrid>
 					</h:panelGrid>
-				</a4j:region>
+
+					<t:htmlTag value="div" style="height: 20px;" />
+
+					<t:htmlTag value="center">
+						<p:commandButton id="recherche"
+							action="#{centreController.rechercherPersonnel}"
+							value="#{msgs['CENTRE.PERSONNEL.RECHERCHER']}" />
+					</t:htmlTag>
+				</h:panelGrid>
 				<h:panelGrid align="center">
-					<a4j:status for="rech">
+					<p:ajaxStatus for="rech">
 						<f:facet name="start">
 							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 						</f:facet>
-					</a4j:status>
+					</p:ajaxStatus>
 					<h:outputText id="erreurRecherche" value="" />
-					<rich:message for="erreurRecherche">
+					<p:message for="erreurRecherche">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin	
 		|| welcomeController.admin)}">

@@ -2,32 +2,32 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:column rendered="#{sessionController.moderationStructures}">
+	<p:column rendered="#{sessionController.moderationStructures}">
 		<t:htmlTag value="center"
 			rendered="#{!(welcomeController.superAdmin and varRechercheStructure.temEnServStructure != 'O')}">
 			<h:outputText id="verification1" alt="#{msgs['FORM.OUI']}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
 				rendered="#{varRechercheStructure.estValidee == 1}"
 				style="border:0; color:green;" escape="false">
-				<rich:tooltip
+				<p:tooltip
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
 			</h:outputText>
 			<h:outputText id="verification2" alt="#{msgs['FORM.NON']}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
 				rendered="#{varRechercheStructure.estValidee == 2}"
 				style="border:0; color:red;" escape="false">
-				<rich:tooltip
+				<p:tooltip
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
 			</h:outputText>
 			<h:outputText id="verification3" alt="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
 				rendered="#{varRechercheStructure.estValidee == 0}"
 				style="border:0; color:grey;" escape="false">
-				<rich:tooltip
+				<p:tooltip
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
 			</h:outputText>
 		</t:htmlTag>
@@ -37,45 +37,45 @@
 				value="#{msgs['GENERAL.SUPPRIME']}"
 				style="border:0; color:purple;" escape="false"/>
 		</t:htmlTag>
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText value="#{varRechercheStructure.raisonSociale}"
 			title="#{varRechercheStructure.raisonSociale}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
 		<h:graphicImage id="avecAc" alt="accord"
-			value="../../media/images/bullet_green.png" style="border:0"
+			value="../../media/images/bullet_green.png"
 			rendered="#{varRechercheStructure.idAccordPartenariat gt 0 and !welcomeController.etudiant}">
-			<rich:tooltip value="#{msgs['STRUCTURE.AVECACCORD']}" />
+			<p:tooltip value="#{msgs['STRUCTURE.AVECACCORD']}" />
 		</h:graphicImage>
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText value="#{varRechercheStructure.numeroSiret}" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText value="#{varRechercheStructure.voie}"
 			title="#{varRechercheStructure.voie}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
-	</rich:column>
-	<!-- 	<rich:column> -->
+	</p:column>
+	<!-- 	<p:column> -->
 	<!-- 		<h:outputText value="#{varRechercheStructure.batimentResidence}" -->
 	<!-- 			title="#{varRechercheStructure.batimentResidence}"> -->
 	<!-- 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" /> -->
 	<!-- 		</h:outputText> -->
-	<!-- 	</rich:column> -->
-	<rich:column>
+	<!-- 	</p:column> -->
+	<p:column>
 		<h:outputText value="#{varRechercheStructure.codePostal}" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText value="#{varRechercheStructure.commune}"
 			title="#{varRechercheStructure.commune}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
-	</rich:column>
-	<rich:column>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" style="font-size:12px;">
+	</p:column>
+	<p:column>
+		<h:panelGrid
+			columns="2" style="font-size:12px;">
 			<h:graphicImage id="flag"
 				rendered="#{not empty varRechercheStructure.pays}"
 				value="../../media/images/flags/#{varRechercheStructure.pays.iso2}.png"
@@ -83,5 +83,5 @@
 				title="#{varRechercheStructure.pays.libelle}" />
 			<h:outputText value="#{varRechercheStructure.pays.libelle}" />
 		</h:panelGrid>
-	</rich:column>
+	</p:column>
 </ui:composition>

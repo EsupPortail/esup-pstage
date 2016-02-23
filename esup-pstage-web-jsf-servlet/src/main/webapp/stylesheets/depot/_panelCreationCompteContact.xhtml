@@ -2,17 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<rich:popupPanel id="creationCompteContact" autosized="true" width="400"
-		styleClass="panel">
+	
+	<p:dialog id="creationCompteContact" widgetVar="creationCompteContact">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONTACT.GESTION.COMPTE.CREATION']}" />
 		</f:facet>
 		<h:form id="formCreationCompteContact">
-			<ui:include id="include"
-				src="/stylesheets/depot/#{sessionController.creationCompteContactCurrentPage}.xhtml" />
+			<ui:include src="/stylesheets/depot/#{sessionController.creationCompteContactCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

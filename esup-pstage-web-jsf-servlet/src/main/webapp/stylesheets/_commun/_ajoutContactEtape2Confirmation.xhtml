@@ -2,14 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 
 	<ui:include src="_confirmationMessages.xhtml" />
-	<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		render="formAjoutContact"
-		onclick="#{rich:component('ajoutContact')}.hide();" />
+	<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
+		update="formAjoutContact"
+		onclick="PF('ajoutContact').hide();" />
 
 </ui:composition>

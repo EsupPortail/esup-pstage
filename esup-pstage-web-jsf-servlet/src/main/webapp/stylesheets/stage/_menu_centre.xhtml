@@ -2,58 +2,50 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid>
-		<t:htmlTag value="div" style="height: 10px;" />
-		<h:form id="formMenuCentre">
-			<rich:toolbar height="34" itemSeparator="line">
-				<rich:toolbarGroup>
-					<h:commandLink action="#{centreController.goToVoirCentre}">
-						<h:outputText value="#{msgs['CENTRE.MENU.DETAIL']}"
-							style="color:white;" />
-					</h:commandLink>
-				</rich:toolbarGroup>
-				<rich:toolbarGroup>
-					<h:commandLink action="#{centreController.goToModifLogo}">
-						<h:outputText value="#{msgs['CENTRE.MENU.LOGO']}"
-							style="color:white;" />
-					</h:commandLink>
-				</rich:toolbarGroup>
-				<rich:toolbarGroup
+	<h:form id="formMenuCentre">
+		<h:panelGrid>
+			<p:tabMenu activeIndex="#{centreController.indexMenu}">
+				<p:menuitem value="#{msgs['CENTRE.MENU.DETAIL']}"
+					icon="ui-icon-star" action="#{centreController.goToVoirCentre}">
+					<f:setPropertyActionListener value="0"
+						target="#{centreController.indexMenu}" />
+				</p:menuitem>
+				<p:menuitem value="#{msgs['CENTRE.MENU.LOGO']}" icon="ui-icon-gear"
+					action="#{centreController.goToModifLogo}">
+					<f:setPropertyActionListener value="1"
+						target="#{centreController.indexMenu}" />
+				</p:menuitem>
+				<p:menuitem value="#{msgs['CENTRE.MENU.LISTE_CRITERE']}"
+					icon="ui-icon-gear" action="#{centreController.goToListeCritere}"
 					rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEtablissement
 					and centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
-					<h:commandLink action="#{centreController.goToListeCritere}">
-						<h:outputText value="#{msgs['CENTRE.MENU.LISTE_CRITERE']}"
-							style="color:white;" />
-					</h:commandLink>
-				</rich:toolbarGroup>
-				<rich:toolbarGroup
+					<f:setPropertyActionListener value="2"
+						target="#{centreController.indexMenu}" />
+				</p:menuitem>
+				<p:menuitem value="#{msgs['CENTRE.MENU.LISTE_PERSONNEL']}"
+					icon="ui-icon-gear" action="#{centreController.goToListePersonnel}"
 					rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
-					<h:commandLink action="#{centreController.goToListePersonnel}">
-						<h:outputText value="#{msgs['CENTRE.MENU.LISTE_PERSONNEL']}"
-							style="color:white;" />
-					</h:commandLink>
-				</rich:toolbarGroup>
-				<rich:toolbarGroup
+					<f:setPropertyActionListener value="3"
+						target="#{centreController.indexMenu}" />
+				</p:menuitem>
+				<p:menuitem value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']}"
+					icon="ui-icon-gear" action="#{centreController.goToIndicateurStat}"
 					rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
-					<h:commandLink action="#{centreController.goToIndicateurStat}">
-						<h:outputText value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']}"
-							style="color:white;" />
-					</h:commandLink>
-				</rich:toolbarGroup>
-				<rich:toolbarGroup
+					<f:setPropertyActionListener value="4"
+						target="#{centreController.indexMenu}" />
+				</p:menuitem>
+				<p:menuitem value="#{msgs['CENTRE.MENU.FICHE_EVALUATION']}"
+					icon="ui-icon-gear"
+					action="#{centreController.goToFicheEvaluation}"
 					rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise
 					and welcomeController.superAdmin}">
-					<h:commandLink action="#{centreController.goToFicheEvaluation}">
-						<h:outputText value="#{msgs['CENTRE.MENU.FICHE_EVALUATION']}"
-							style="color:white;" />
-					</h:commandLink>
-				</rich:toolbarGroup>
-			</rich:toolbar>
-		</h:form>
-	</h:panelGrid>
-	<t:htmlTag value="div" style="height: 10px;" />
+					<f:setPropertyActionListener value="5"
+						target="#{centreController.indexMenu}" />
+				</p:menuitem>
+			</p:tabMenu>
+		</h:panelGrid>
+	</h:form>
 </ui:composition>

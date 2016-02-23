@@ -2,39 +2,35 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel rendered="#{conventionController.convention != null}">
+		<p:panel rendered="#{conventionController.convention != null}">
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.HEADER']}" />
 			</f:facet>
 			<h:form id="formFicheEtudiant">
 				<h:outputStylesheet>
-					.fl-theme-app .form-field-label, .fl-theme-app label {
+					label {
 					    font-weight: normal !important;
 					}
 				</h:outputStylesheet>
-				<rich:togglePanel switchType="ajax" activeItem="#{evaluationController.togglePanelActiveItem}">
-					<rich:togglePanelItem id="etudiantTogglePanel1" name="etudiantTogglePanel1">
+				<p:togglePanel switchType="ajax"
+					activeItem="#{evaluationController.togglePanelActiveItem}">
+					<p:togglePanelItem id="etudiantTogglePanel1"
+						name="etudiantTogglePanel1">
 						<h:panelGrid style="margin-left:100px; padding:10px; width:850px;"
 							border="1">
 							<f:facet name="header">
-								<h:outputText
-									style="font-weight:bold; font-size:20px;"
+								<h:outputText style="font-weight:bold; font-size:20px;"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.TITRE_1']}" />
 							</f:facet>
 							<t:htmlTag value="div" style="height: 10px;" />
-							<t:htmlTag value="div" style="height:2px;" styleClass="spacer" />
-							<h:panelGrid align="center" columns="2"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text">
+							<p:separator style="height:2px;" />
+							<h:panelGrid align="center" columns="2">
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuI1}">
 									<h:outputText style="font-weight:bold;"
 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.1']}" />
@@ -48,14 +44,12 @@
 										<f:selectItem itemValue="3"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.3']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseI1">
+									<p:message for="reponseI1">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuI2}">
 									<t:htmlTag value="div" style="height: 10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -74,14 +68,12 @@
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.5']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseI2">
+									<p:message for="reponseI2">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuI3}">
 									<t:htmlTag value="div" style="height: 10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -98,14 +90,12 @@
 										<f:selectItem itemValue="4"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.4']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseI3">
+									<p:message for="reponseI3">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuI4}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -122,9 +112,9 @@
 											<f:selectItem itemValue="#{false}"
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
-										<rich:message for="reponseI4a">
+										<p:message for="reponseI4a">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 
 										<h:outputText
 											value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE']}" />
@@ -136,9 +126,9 @@
 											<f:selectItem itemValue="#{false}"
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
-										<rich:message for="reponseI4b">
+										<p:message for="reponseI4b">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 
 										<h:outputText
 											value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.COURRIER']}" />
@@ -150,9 +140,9 @@
 											<f:selectItem itemValue="#{false}"
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
-										<rich:message for="reponseI4c">
+										<p:message for="reponseI4c">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 
 										<h:outputText
 											value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.PROSPECTION']}" />
@@ -164,35 +154,31 @@
 											<f:selectItem itemValue="#{false}"
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
-										<rich:message for="reponseI4d">
+										<p:message for="reponseI4d">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuI5}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;" layout="pageDirection"
 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.5']}" />
 									<h:outputText escape="false"
-										value="#{conventionController.convention.origineStage.libelle}"/>
-<!-- 									<h:selectOneMenu id="origineStage" style="margin-left:10px;" -->
-<!-- 										required="true" -->
-<!-- 										value="#{conventionController.selOrigineStage}" -->
-<!-- 										converter="#{origineStageConverter}"> -->
-<!-- 										<f:selectItems value="#{nomenclatureController.origineStages}" /> -->
-<!-- 									</h:selectOneMenu> -->
-<!-- 									<rich:message for="origineStage"> -->
-<!-- 										<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-<!-- 									</rich:message> -->
+										value="#{conventionController.convention.origineStage.libelle}" />
+									<!-- 									<h:selectOneMenu id="origineStage" style="margin-left:10px;" -->
+									<!-- 										required="true" -->
+									<!-- 										value="#{conventionController.selOrigineStage}" -->
+									<!-- 										converter="#{origineStageConverter}"> -->
+									<!-- 										<f:selectItems value="#{nomenclatureController.origineStages}" /> -->
+									<!-- 									</h:selectOneMenu> -->
+									<!-- 									<p:message for="origineStage"> -->
+									<!-- 										<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+									<!-- 									</p:message> -->
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuI6}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -209,14 +195,12 @@
 										<f:selectItem itemValue="4"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.4']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseI6">
+									<p:message for="reponseI6">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantI7" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuI7}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -228,12 +212,12 @@
 												itemLabel="#{msgs['FORM.OUI']}" />
 											<f:selectItem itemValue="#{false}"
 												itemLabel="#{msgs['FORM.NON']}" />
-											<a4j:ajax execute="@this" event="click"
-												render="questionEtudiantI7" />
+											<p:ajax  event="click"
+												update="questionEtudiantI7" />
 										</h:selectOneRadio>
-										<rich:message for="reponseI7">
+										<p:message for="reponseI7">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 										<t:htmlTag value="div"
 											rendered="#{conventionController.convention.reponseEvaluation.reponseEtuI7}">
 											<h:outputText value="Si oui, par qui ?"
@@ -251,12 +235,12 @@
 													itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.4']}" />
 												<f:selectItem itemValue="5"
 													itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.5']}" />
-												<a4j:ajax execute="@this" event="click"
-													render="questionEtudiantI7" />
+												<p:ajax  event="click"
+													update="questionEtudiantI7" />
 											</h:selectOneRadio>
-											<rich:message for="reponseI7a">
+											<p:message for="reponseI7a">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 											<t:htmlTag value="div"
 												rendered="#{conventionController.convention.reponseEvaluation.reponseEtuI7bis1 == 3}">
 												<h:outputText
@@ -269,9 +253,9 @@
 													<f:selectItem itemValue="#{false}"
 														itemLabel="#{msgs['FORM.NON']}" />
 												</h:selectOneRadio>
-												<rich:message for="reponseI7bis1a">
+												<p:message for="reponseI7bis1a">
 													<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-												</rich:message>
+												</p:message>
 											</t:htmlTag>
 											<t:htmlTag value="div"
 												rendered="#{conventionController.convention.reponseEvaluation.reponseEtuI7bis1 == 5}">
@@ -279,9 +263,9 @@
 													value="#{conventionController.convention.reponseEvaluation.reponseEtuI7bis1b}"
 													required="true"
 													requiredMessage="#{requiredMessageController.champObligatoire}" />
-												<rich:message for="reponseI7bis1b">
+												<p:message for="reponseI7bis1b">
 													<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-												</rich:message>
+												</p:message>
 											</t:htmlTag>
 										</t:htmlTag>
 										<t:htmlTag value="div"
@@ -296,16 +280,14 @@
 												<f:selectItem itemValue="2"
 													itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.2']}" />
 											</h:selectOneRadio>
-											<rich:message for="reponseI7b">
+											<p:message for="reponseI7b">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 										</t:htmlTag>
 									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuI8}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;" escape="false"
@@ -318,30 +300,28 @@
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseI8">
+									<p:message for="reponseI8">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 							</h:panelGrid>
-							<a4j:outputPanel style="margin-left:15px;" layout="block">
-								<a4j:repeat
+							<p:outputPanel style="margin-left:15px;" layout="block">
+								<ui:repeat
 									value="#{evaluationController.questionsSupplementairesEtudiant1}"
 									var="questionSup">
-									<rich:panel style="width:400px; float:left; border:none;">
+									<p:panel style="width:400px; float:left; border:none;">
 										<h:outputText style="font-weight:bold;" escape="false"
 											value="#{questionSup.question}" />
-										<h:panelGrid style="margin-left:10px;"
-											rowClasses="paginatorData-text"
-											columnClasses="paginatorData-text">
+										<h:panelGrid style="margin-left:10px;">
 											<h:inputTextarea id="reponse1"
 												value="#{questionSup.reponseSupplementaire.reponseTxt}"
 												style="width:250px; height:60px; resize:none;"
 												required="true"
 												requiredMessage="#{requiredMessageController.champObligatoire}"
 												rendered="#{questionSup.typeQuestion == 'TXT'}" />
-											<rich:message for="reponse1">
+											<p:message for="reponse1">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 											<h:selectOneRadio id="reponse2" required="true"
 												value="#{questionSup.reponseSupplementaire.reponseBool}"
 												rendered="#{questionSup.typeQuestion == 'BOOL'}">
@@ -350,12 +330,12 @@
 												<f:selectItem itemValue="#{false}"
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
-											<rich:message for="reponse2">
+											<p:message for="reponse2">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 										</h:panelGrid>
-										<h:selectOneRadio style="margin-left:10px;" id="reponse3" layout="pageDirection"
-											required="true"
+										<h:selectOneRadio style="margin-left:10px;" id="reponse3"
+											layout="pageDirection" required="true"
 											value="#{questionSup.reponseSupplementaire.reponseInt}"
 											rendered="#{questionSup.typeQuestion == 'INT'}">
 											<f:selectItem itemValue="1"
@@ -369,43 +349,44 @@
 											<f:selectItem itemValue="5"
 												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 										</h:selectOneRadio>
-										<rich:message for="reponse3">
+										<p:message for="reponse3">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
-									</rich:panel>
-								</a4j:repeat>
-							</a4j:outputPanel>
+										</p:message>
+									</p:panel>
+								</ui:repeat>
+							</p:outputPanel>
 							<t:htmlTag value="div" style="height:10px;" />
 							<t:htmlTag value="center">
-								<a4j:commandButton id="save1"
-									value="#{msgs['FORM.ENREGISTRER']}"
+								<p:commandButton id="save1" value="#{msgs['FORM.ENREGISTRER']}"
 									action="#{evaluationController.updateReponseEtudiant}"
-									render="formFicheEtudiant" style="border-color:blue;">
-									<rich:tooltip
+									update="formFicheEtudiant" style="border-color:blue;">
+									<p:tooltip
 										value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
-								</a4j:commandButton>
+								</p:commandButton>
 							</t:htmlTag>
 							<t:htmlTag value="div" style="height:20px;" />
-							<t:htmlTag value="div" style="height:2px;" styleClass="spacer" />
+							<p:separator style="height:2px;"/>
 							<h:panelGrid align="center" style="padding:10px;">
-								<rich:message for="formFicheEtudiant"
+								<p:message for="formFicheEtudiant"
 									style="font-size:16px;font-weight:bold;" />
 							</h:panelGrid>
 							<h:panelGrid align="center">
-								<a4j:commandButton value="Suivant &gt;&gt;"
+								<p:commandButton value="Suivant &gt;&gt;"
 									action="#{evaluationController.updateReponseEtudiant}"
-									render="formFicheEtudiant"
+									update="formFicheEtudiant"
 									style="font-size:16px; border-color:green;">
-									<f:setPropertyActionListener value="etudiantTogglePanel2" target="#{evaluationController.togglePanelActiveItem}"/>
-								</a4j:commandButton>
+									<f:setPropertyActionListener value="etudiantTogglePanel2"
+										target="#{evaluationController.togglePanelActiveItem}" />
+								</p:commandButton>
 								<t:htmlTag value="div" style="height:5px;" />
 								<t:htmlTag value="center">
 									1/3
 								</t:htmlTag>
 							</h:panelGrid>
 						</h:panelGrid>
-					</rich:togglePanelItem>
-					<rich:togglePanelItem id="etudiantTogglePanel2" name="etudiantTogglePanel2">
+					</p:togglePanelItem>
+					<p:togglePanelItem id="etudiantTogglePanel2"
+						name="etudiantTogglePanel2">
 						<h:panelGrid style="margin-left:100px; padding:10px; width:850px;"
 							border="1">
 							<f:facet name="header">
@@ -414,12 +395,9 @@
 									style="font-weight:bold; font-size:20px;" />
 							</f:facet>
 							<t:htmlTag value="div" style="height: 10px;" />
-							<t:htmlTag value="div" style="height:2px;" styleClass="spacer" />
-							<h:panelGrid columns="2" rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text">
+							<p:separator style="height:2px;"/>
+							<h:panelGrid columns="2">
 								<h:panelGrid style="margin-left:10px;" id="questionEtudiantII1"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuII1}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -437,12 +415,12 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantII1" />
+										<p:ajax  event="click"
+											update="questionEtudiantII1" />
 									</h:selectOneRadio>
-									<rich:message for="reponseII1">
+									<p:message for="reponseII1">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuII1 == 4
 									|| conventionController.convention.reponseEvaluation.reponseEtuII1 == 5}">
@@ -452,15 +430,13 @@
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuII1bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseII1bis">
+										<p:message for="reponseII1bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantII2" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuII2}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -478,12 +454,12 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantII2" />
+										<p:ajax  event="click"
+											update="questionEtudiantII2" />
 									</h:selectOneRadio>
-									<rich:message for="reponseII2">
+									<p:message for="reponseII2">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuII2 == 4
 									|| conventionController.convention.reponseEvaluation.reponseEtuII2 == 5}">
@@ -493,15 +469,13 @@
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuII2bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseII2bis">
+										<p:message for="reponseII2bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantII3" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuII3}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -519,12 +493,12 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantII3" />
+										<p:ajax  event="click"
+											update="questionEtudiantII3" />
 									</h:selectOneRadio>
-									<rich:message for="reponseII3">
+									<p:message for="reponseII3">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuII3 == 4
 									|| conventionController.convention.reponseEvaluation.reponseEtuII3 == 5}">
@@ -534,15 +508,13 @@
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuII3bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseII3bis">
+										<p:message for="reponseII3bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuII4}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -561,14 +533,12 @@
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseII4">
+									<p:message for="reponseII4">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantII5" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuII5}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -580,12 +550,12 @@
 												itemLabel="#{msgs['FORM.OUI']}" />
 											<f:selectItem itemValue="#{false}"
 												itemLabel="#{msgs['FORM.NON']}" />
-											<a4j:ajax execute="@this" event="click"
-												render="questionEtudiantII5" />
+											<p:ajax  event="click"
+												update="questionEtudiantII5" />
 										</h:selectOneRadio>
-										<rich:message for="reponseII5">
+										<p:message for="reponseII5">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 										<t:htmlTag value="div"
 											rendered="#{conventionController.convention.reponseEvaluation.reponseEtuII5}">
 											<h:outputText value="Si oui : a) De quel ordre ?"
@@ -600,9 +570,9 @@
 												<f:selectItem itemValue="3"
 													itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3']}" />
 											</h:selectOneRadio>
-											<rich:message for="reponseII5a">
+											<p:message for="reponseII5a">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 											<h:outputText value="b) Avec autonomie ?"
 												style="font-style:italic" />
 											<h:selectOneRadio id="reponseII5b" required="true"
@@ -612,16 +582,14 @@
 												<f:selectItem itemValue="#{false}"
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
-											<rich:message for="reponseII5b">
+											<p:message for="reponseII5b">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 										</t:htmlTag>
 									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuII6}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -634,30 +602,28 @@
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseII6">
+									<p:message for="reponseII6">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 							</h:panelGrid>
-							<a4j:outputPanel style="margin-left:15px;" layout="block">
-								<a4j:repeat
+							<p:outputPanel style="margin-left:15px;" layout="block">
+								<ui:repeat
 									value="#{evaluationController.questionsSupplementairesEtudiant2}"
 									var="questionSup">
-									<rich:panel style="width:400px; float:left; border:none;">
+									<p:panel style="width:400px; float:left; border:none;">
 										<h:outputText style="font-weight:bold;" escape="false"
 											value="#{questionSup.question}" />
-										<h:panelGrid style="margin-left:10px;"
-											rowClasses="paginatorData-text"
-											columnClasses="paginatorData-text">
+										<h:panelGrid style="margin-left:10px;">
 											<h:inputTextarea id="reponse1"
 												value="#{questionSup.reponseSupplementaire.reponseTxt}"
 												style="width:250px; height:60px; resize:none;"
 												required="true"
 												requiredMessage="#{requiredMessageController.champObligatoire}"
 												rendered="#{questionSup.typeQuestion == 'TXT'}" />
-											<rich:message for="reponse1">
+											<p:message for="reponse1">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 											<h:selectOneRadio id="reponse2" required="true"
 												value="#{questionSup.reponseSupplementaire.reponseBool}"
 												rendered="#{questionSup.typeQuestion == 'BOOL'}">
@@ -666,12 +632,12 @@
 												<f:selectItem itemValue="#{false}"
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
-											<rich:message for="reponse2">
+											<p:message for="reponse2">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 										</h:panelGrid>
-										<h:selectOneRadio style="margin-left:10px;" id="reponse3" layout="pageDirection"
-											required="true"
+										<h:selectOneRadio style="margin-left:10px;" id="reponse3"
+											layout="pageDirection" required="true"
 											value="#{questionSup.reponseSupplementaire.reponseInt}"
 											rendered="#{questionSup.typeQuestion == 'INT'}">
 											<f:selectItem itemValue="1"
@@ -685,42 +651,43 @@
 											<f:selectItem itemValue="5"
 												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 										</h:selectOneRadio>
-										<rich:message for="reponse3">
+										<p:message for="reponse3">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
-									</rich:panel>
-								</a4j:repeat>
-							</a4j:outputPanel>
+										</p:message>
+									</p:panel>
+								</ui:repeat>
+							</p:outputPanel>
 							<t:htmlTag value="div" style="height:10px;" />
 							<t:htmlTag value="center">
-								<a4j:commandButton id="save2"
-									value="#{msgs['FORM.ENREGISTRER']}"
+								<p:commandButton id="save2" value="#{msgs['FORM.ENREGISTRER']}"
 									action="#{evaluationController.updateReponseEtudiant}"
-									render="formFicheEtudiant" style="border-color:blue;">
-									<rich:tooltip
+									update="formFicheEtudiant" style="border-color:blue;">
+									<p:tooltip
 										value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
-								</a4j:commandButton>
+								</p:commandButton>
 							</t:htmlTag>
 							<t:htmlTag value="div" style="height:20px;" />
-							<t:htmlTag value="div" style="height:2px;" styleClass="spacer" />
+							<p:separator style="height:2px;"/>
 							<h:panelGrid align="center" style="padding:10px;">
-								<rich:message for="formFicheEtudiant"
+								<p:message for="formFicheEtudiant"
 									style="font-size:16px;font-weight:bold;" />
 							</h:panelGrid>
 							<h:panelGrid align="center">
 								<h:panelGrid columns="3">
-									<a4j:commandButton value="&lt;&lt; Precedent"
-										render="formFicheEtudiant" immediate="true"
+									<p:commandButton value="&lt;&lt; Precedent"
+										update="formFicheEtudiant" immediate="true"
 										style="font-size:16px; border-color:red;">
-										<f:setPropertyActionListener value="etudiantTogglePanel1" target="#{evaluationController.togglePanelActiveItem}"/>
-									</a4j:commandButton>
+										<f:setPropertyActionListener value="etudiantTogglePanel1"
+											target="#{evaluationController.togglePanelActiveItem}" />
+									</p:commandButton>
 									<t:htmlTag value="div" style="width:10px;" />
-									<a4j:commandButton value="Suivant &gt;&gt;"
+									<p:commandButton value="Suivant &gt;&gt;"
 										action="#{evaluationController.updateReponseEtudiant}"
-										render="formFicheEtudiant"
+										update="formFicheEtudiant"
 										style="font-size:16px; border-color:green;">
-										<f:setPropertyActionListener value="etudiantTogglePanel3" target="#{evaluationController.togglePanelActiveItem}"/>
-									</a4j:commandButton>
+										<f:setPropertyActionListener value="etudiantTogglePanel3"
+											target="#{evaluationController.togglePanelActiveItem}" />
+									</p:commandButton>
 								</h:panelGrid>
 								<t:htmlTag value="div" style="height:5px;" />
 								<t:htmlTag value="center">
@@ -728,8 +695,9 @@
 								</t:htmlTag>
 							</h:panelGrid>
 						</h:panelGrid>
-					</rich:togglePanelItem>
-					<rich:togglePanelItem id="etudiantTogglePanel3" name="etudiantTogglePanel3">
+					</p:togglePanelItem>
+					<p:togglePanelItem id="etudiantTogglePanel3"
+						name="etudiantTogglePanel3">
 						<h:panelGrid style="margin-left:100px; width:850px; padding:10px;"
 							border="1">
 							<f:facet name="header">
@@ -738,21 +706,16 @@
 									style="font-weight:bold; font-size:20px;" />
 							</f:facet>
 							<t:htmlTag value="div" style="height: 10px;" />
-							<t:htmlTag value="div" style="height:2px;" styleClass="spacer" />
-							<h:panelGrid align="center" columns="2"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text">
+							<p:separator style="height:2px;"/>
+							<h:panelGrid align="center" columns="2">
 								<h:panelGrid id="questionEtudiantIII1" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII1}">
 									<t:htmlTag value="div" style="height:10px;" />
-									<h:panelGrid columns="1"
-										rowClasses="paginatorData-text"
-										columnClasses="paginatorData-text">
+									<h:panelGrid>
 										<h:outputText style="font-weight:bold;"
 											value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1']}" />
-										<h:outputText style="margin-left:10px;" value="#{conventionController.convention.sujetStage}" />
+										<h:outputText style="margin-left:10px;"
+											value="#{conventionController.convention.sujetStage}" />
 									</h:panelGrid>
 									<h:outputText style="font-weight:bold;"
 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1bis']}" />
@@ -763,29 +726,27 @@
 											itemLabel="#{msgs['FORM.OUI']}" />
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantIII1" />
+										<p:ajax  event="click"
+											update="questionEtudiantIII1" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII1">
+									<p:message for="reponseIII1">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
-										<h:panelGrid
-											rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII1}">
+									</p:message>
+									<h:panelGrid
+										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII1}">
 										<h:outputText style="font-weight:bold;"
-											value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.1']}"/>
+											value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.1']}" />
 										<h:inputTextarea id="reponseIII1bis" style="margin-left:10px;"
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII1bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseIII1bis">
+										<p:message for="reponseIII1bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
-										</h:panelGrid>
+										</p:message>
+									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantIII2" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII2}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -797,59 +758,57 @@
 											itemLabel="#{msgs['FORM.OUI']}" />
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantIII2" />
+										<p:ajax  event="click"
+											update="questionEtudiantIII2" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII2">
+									<p:message for="reponseIII2">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<t:htmlTag value="div"
 										rendered="#{!conventionController.convention.reponseEvaluation.reponseEtuIII2}">
 										<h:inputTextarea id="reponseIII2bis"
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII2bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseIII2bis">
+										<p:message for="reponseIII2bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</t:htmlTag>
 								</h:panelGrid>
 
-<!-- 								<h:panelGrid id="questionEtudiantIII3" style="margin-left:10px;" -->
-<!-- 									rowClasses="paginatorData-text" -->
-<!-- 									columnClasses="paginatorData-text" -->
-<!-- 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII3}"> -->
-<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
-<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
-<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3']}" /> -->
-<!-- 									<h:selectOneRadio id="reponseIII3" style="margin-left:10px;" -->
-<!-- 										required="true" -->
-<!-- 										value="#{conventionController.convention.reponseEvaluation.reponseEtuIII3}"> -->
-<!-- 										<f:selectItem itemValue="#{true}" -->
-<!-- 											itemLabel="#{msgs['FORM.OUI']}" /> -->
-<!-- 										<f:selectItem itemValue="#{false}" -->
-<!-- 											itemLabel="#{msgs['FORM.NON']}" /> -->
-<!-- 										<a4j:ajax execute="@this" event="click" -->
-<!-- 											render="questionEtudiantIII3" /> -->
-<!-- 									</h:selectOneRadio> -->
-<!-- 									<rich:message for="reponseIII3"> -->
-<!-- 										<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-<!-- 									</rich:message> -->
-<!-- 									<t:htmlTag value="div" -->
-<!-- 										rendered="#{!conventionController.convention.reponseEvaluation.reponseEtuIII3}"> -->
-<!-- 										<h:inputTextarea id="reponseIII3bis" -->
-<!-- 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII3bis}" -->
-<!-- 											required="true" -->
-<!-- 											requiredMessage="#{requiredMessageController.champObligatoire}" /> -->
-<!-- 										<rich:message for="reponseIII3bis"> -->
-<!-- 											<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-<!-- 										</rich:message> -->
-<!-- 									</t:htmlTag> -->
-<!-- 								</h:panelGrid> -->
+								<!-- 								<h:panelGrid id="questionEtudiantIII3" style="margin-left:10px;" -->
+								<!-- 									-->
+								<!-- 									-->
+								<!-- 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII3}"> -->
+								<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
+								<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
+								<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3']}" /> -->
+								<!-- 									<h:selectOneRadio id="reponseIII3" style="margin-left:10px;" -->
+								<!-- 										required="true" -->
+								<!-- 										value="#{conventionController.convention.reponseEvaluation.reponseEtuIII3}"> -->
+								<!-- 										<f:selectItem itemValue="#{true}" -->
+								<!-- 											itemLabel="#{msgs['FORM.OUI']}" /> -->
+								<!-- 										<f:selectItem itemValue="#{false}" -->
+								<!-- 											itemLabel="#{msgs['FORM.NON']}" /> -->
+								<!-- 										<p:ajax  event="click" -->
+								<!-- 											update="questionEtudiantIII3" /> -->
+								<!-- 									</h:selectOneRadio> -->
+								<!-- 									<p:message for="reponseIII3"> -->
+								<!-- 										<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+								<!-- 									</p:message> -->
+								<!-- 									<t:htmlTag value="div" -->
+								<!-- 										rendered="#{!conventionController.convention.reponseEvaluation.reponseEtuIII3}"> -->
+								<!-- 										<h:inputTextarea id="reponseIII3bis" -->
+								<!-- 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII3bis}" -->
+								<!-- 											required="true" -->
+								<!-- 											requiredMessage="#{requiredMessageController.champObligatoire}" /> -->
+								<!-- 										<p:message for="reponseIII3bis"> -->
+								<!-- 											<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+								<!-- 										</p:message> -->
+								<!-- 									</t:htmlTag> -->
+								<!-- 								</h:panelGrid> -->
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII4}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -870,14 +829,12 @@
 										<f:selectItem itemValue="6"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.6']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII4">
+									<p:message for="reponseIII4">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantIII5" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII5}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -893,9 +850,9 @@
 											<f:selectItem itemValue="#{false}"
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
-										<rich:message for="reponseIII5a">
+										<p:message for="reponseIII5a">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 										<h:outputText
 											value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.2']}" />
 										<t:htmlTag value="div" style="width:15px;" />
@@ -905,12 +862,12 @@
 												itemLabel="#{msgs['FORM.OUI']}" />
 											<f:selectItem itemValue="#{false}"
 												itemLabel="#{msgs['FORM.NON']}" />
-											<a4j:ajax execute="@this" event="click"
-												render="questionEtudiantIII5" />
+											<p:ajax  event="click"
+												update="questionEtudiantIII5" />
 										</h:selectOneRadio>
-										<rich:message for="reponseIII5b">
+										<p:message for="reponseIII5b">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 
 										<t:panelGroup
 											rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII5b}"
@@ -919,9 +876,9 @@
 												value="#{conventionController.convention.reponseEvaluation.reponseEtuIII5bis}"
 												required="true"
 												requiredMessage="#{requiredMessageController.champObligatoire}" />
-											<rich:message for="reponseIII5bis">
+											<p:message for="reponseIII5bis">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 										</t:panelGroup>
 
 										<h:outputText
@@ -934,15 +891,13 @@
 											<f:selectItem itemValue="#{false}"
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
-										<rich:message for="reponseIII5c">
+										<p:message for="reponseIII5c">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</t:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantIII6" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII6}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -960,12 +915,12 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.4']}" />
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantIII6" />
+										<p:ajax  event="click"
+											update="questionEtudiantIII6" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII6">
+									<p:message for="reponseIII6">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII6 == 4
 									|| conventionController.convention.reponseEvaluation.reponseEtuIII6 == 5}">
@@ -975,15 +930,13 @@
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII6bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseIII6bis">
+										<p:message for="reponseIII6bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantIII7" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII7}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -1001,12 +954,12 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.4']}" />
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantIII7" />
+										<p:ajax  event="click"
+											update="questionEtudiantIII7" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII7">
+									<p:message for="reponseIII7">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII7 == 4
 									|| conventionController.convention.reponseEvaluation.reponseEtuIII7 == 5}">
@@ -1016,15 +969,13 @@
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII7bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseIII7bis">
+										<p:message for="reponseIII7bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantIII8" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII8}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -1036,12 +987,12 @@
 											itemLabel="#{msgs['FORM.OUI']}" />
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantIII8" />
+										<p:ajax  event="click"
+											update="questionEtudiantIII8" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII8">
+									<p:message for="reponseIII8">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<t:htmlTag value="div"
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII8}">
 										<h:outputText style="font-style:italic;"
@@ -1050,15 +1001,13 @@
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII8bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseIII8bis">
+										<p:message for="reponseIII8bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</t:htmlTag>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantIII9" style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII9}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -1070,27 +1019,25 @@
 											itemLabel="#{msgs['FORM.OUI']}" />
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantIII9" />
+										<p:ajax  event="click"
+											update="questionEtudiantIII9" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII9">
+									<p:message for="reponseIII9">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<t:htmlTag value="div"
 										rendered="#{!conventionController.convention.reponseEvaluation.reponseEtuIII9}">
 										<h:inputTextarea id="reponseIII9bis"
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII9bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseIII9bis">
+										<p:message for="reponseIII9bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</t:htmlTag>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII10}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -1103,14 +1050,12 @@
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII10">
+									<p:message for="reponseIII10">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII11}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -1123,14 +1068,12 @@
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII11">
+									<p:message for="reponseIII11">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII12}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -1143,34 +1086,32 @@
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII12">
+									<p:message for="reponseIII12">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
-<!-- 								<h:panelGrid style="margin-left:10px;" -->
-<!-- 									rowClasses="paginatorData-text" -->
-<!-- 									columnClasses="paginatorData-text" -->
-<!-- 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII13}"> -->
-<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
-<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
-<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13']}" /> -->
-<!-- 									<h:selectOneRadio id="reponseIII13" style="margin-left:10px;" -->
-<!-- 										required="true" -->
-<!-- 										value="#{conventionController.convention.reponseEvaluation.reponseEtuIII13}"> -->
-<!-- 										<f:selectItem itemValue="#{true}" -->
-<!-- 											itemLabel="#{msgs['FORM.OUI']}" /> -->
-<!-- 										<f:selectItem itemValue="#{false}" -->
-<!-- 											itemLabel="#{msgs['FORM.NON']}" /> -->
-<!-- 									</h:selectOneRadio> -->
-<!-- 									<rich:message for="reponseIII13"> -->
-<!-- 										<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-<!-- 									</rich:message> -->
-<!-- 								</h:panelGrid> -->
+								<!-- 								<h:panelGrid style="margin-left:10px;" -->
+								<!-- 									-->
+								<!-- 									-->
+								<!-- 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII13}"> -->
+								<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
+								<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
+								<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13']}" /> -->
+								<!-- 									<h:selectOneRadio id="reponseIII13" style="margin-left:10px;" -->
+								<!-- 										required="true" -->
+								<!-- 										value="#{conventionController.convention.reponseEvaluation.reponseEtuIII13}"> -->
+								<!-- 										<f:selectItem itemValue="#{true}" -->
+								<!-- 											itemLabel="#{msgs['FORM.OUI']}" /> -->
+								<!-- 										<f:selectItem itemValue="#{false}" -->
+								<!-- 											itemLabel="#{msgs['FORM.NON']}" /> -->
+								<!-- 									</h:selectOneRadio> -->
+								<!-- 									<p:message for="reponseIII13"> -->
+								<!-- 										<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+								<!-- 									</p:message> -->
+								<!-- 								</h:panelGrid> -->
 
 								<h:panelGrid style="margin-left:10px;"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII14}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -1183,14 +1124,13 @@
 										<f:selectItem itemValue="#{false}"
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII14">
+									<p:message for="reponseIII14">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantIII15"
-									style="margin-left:10px;" rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
+									style="margin-left:10px;"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII15}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -1208,12 +1148,12 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.4']}" />
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantIII15" />
+										<p:ajax  event="click"
+											update="questionEtudiantIII15" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII15">
+									<p:message for="reponseIII15">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII15 == 4
 									|| conventionController.convention.reponseEvaluation.reponseEtuIII15 == 5}">
@@ -1223,15 +1163,14 @@
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII15bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseIII15bis">
+										<p:message for="reponseIII15bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
 
 								<h:panelGrid id="questionEtudiantIII16"
-									style="margin-left:10px;" rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
+									style="margin-left:10px;"
 									rendered="#{conventionController.convention.ficheEvaluation.questionEtuIII16}">
 									<t:htmlTag value="div" style="height:10px;" />
 									<h:outputText style="font-weight:bold;"
@@ -1249,12 +1188,12 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
 										<f:selectItem itemValue="5"
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-										<a4j:ajax execute="@this" event="click"
-											render="questionEtudiantIII16" />
+										<p:ajax  event="click"
+											update="questionEtudiantIII16" />
 									</h:selectOneRadio>
-									<rich:message for="reponseIII16">
+									<p:message for="reponseIII16">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII16 == 4
 									|| conventionController.convention.reponseEvaluation.reponseEtuIII16 == 5}">
@@ -1264,31 +1203,29 @@
 											value="#{conventionController.convention.reponseEvaluation.reponseEtuIII16bis}"
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<rich:message for="reponseIII16bis">
+										<p:message for="reponseIII16bis">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
+										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
 							</h:panelGrid>
-							<a4j:outputPanel style="margin-left:15px;" layout="block">
-								<a4j:repeat
+							<p:outputPanel style="margin-left:15px;" layout="block">
+								<ui:repeat
 									value="#{evaluationController.questionsSupplementairesEtudiant3}"
 									var="questionSup">
-									<rich:panel style="width:400px; float:left; border:none;">
+									<p:panel style="width:400px; float:left; border:none;">
 										<h:outputText style="font-weight:bold;" escape="false"
 											value="#{questionSup.question}" />
-										<h:panelGrid style="margin-left:10px;"
-											rowClasses="paginatorData-text"
-											columnClasses="paginatorData-text">
+										<h:panelGrid style="margin-left:10px;">
 											<h:inputTextarea id="reponse1"
 												value="#{questionSup.reponseSupplementaire.reponseTxt}"
 												style="width:250px; height:60px; resize:none;"
 												required="true"
 												requiredMessage="#{requiredMessageController.champObligatoire}"
 												rendered="#{questionSup.typeQuestion == 'TXT'}" />
-											<rich:message for="reponse1">
+											<p:message for="reponse1">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 											<h:selectOneRadio id="reponse2" required="true"
 												value="#{questionSup.reponseSupplementaire.reponseBool}"
 												rendered="#{questionSup.typeQuestion == 'BOOL'}">
@@ -1297,12 +1234,12 @@
 												<f:selectItem itemValue="#{false}"
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
-											<rich:message for="reponse2">
+											<p:message for="reponse2">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</rich:message>
+											</p:message>
 										</h:panelGrid>
-										<h:selectOneRadio style="margin-left:10px;" id="reponse3" layout="pageDirection"
-											required="true"
+										<h:selectOneRadio style="margin-left:10px;" id="reponse3"
+											layout="pageDirection" required="true"
 											value="#{questionSup.reponseSupplementaire.reponseInt}"
 											rendered="#{questionSup.typeQuestion == 'INT'}">
 											<f:selectItem itemValue="1"
@@ -1316,39 +1253,39 @@
 											<f:selectItem itemValue="5"
 												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 										</h:selectOneRadio>
-										<rich:message for="reponse3">
+										<p:message for="reponse3">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</rich:message>
-									</rich:panel>
-								</a4j:repeat>
-							</a4j:outputPanel>
+										</p:message>
+									</p:panel>
+								</ui:repeat>
+							</p:outputPanel>
 							<t:htmlTag value="div" style="height:10px;" />
 							<t:htmlTag value="center">
-								<a4j:commandButton id="save3"
-									value="#{msgs['FORM.ENREGISTRER']}"
+								<p:commandButton id="save3" value="#{msgs['FORM.ENREGISTRER']}"
 									action="#{evaluationController.updateReponseEtudiant}"
-									render="formFicheEtudiant" style="border-color:blue;">
-									<rich:tooltip
+									update="formFicheEtudiant" style="border-color:blue;">
+									<p:tooltip
 										value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
-								</a4j:commandButton>
+								</p:commandButton>
 							</t:htmlTag>
 							<t:htmlTag value="div" style="height:20px;" />
-							<t:htmlTag value="div" style="height:2px;" styleClass="spacer" />
+							<p:separator style="height:2px;"/>
 							<h:panelGrid align="center" style="padding:10px;">
-								<rich:message for="formFicheEtudiant"
+								<p:message for="formFicheEtudiant"
 									style="font-size:16px;font-weight:bold;" />
 							</h:panelGrid>
 							<h:panelGrid align="center">
 								<h:panelGrid columns="3">
-									<a4j:commandButton value="&lt;&lt; Precedent"
-										render="formFicheEtudiant" immediate="true"
+									<p:commandButton value="&lt;&lt; Precedent"
+										update="formFicheEtudiant" immediate="true"
 										style="font-size:16px; border-color:red;">
-										<f:setPropertyActionListener value="etudiantTogglePanel2" target="#{evaluationController.togglePanelActiveItem}"/>
-									</a4j:commandButton>
+										<f:setPropertyActionListener value="etudiantTogglePanel2"
+											target="#{evaluationController.togglePanelActiveItem}" />
+									</p:commandButton>
 									<t:htmlTag value="div" style="width:10px;" />
-									<a4j:commandButton value="#{msgs['FORM.TERMINER']}"
+									<p:commandButton value="#{msgs['FORM.TERMINER']}"
 										action="#{evaluationController.validateFicheEtudiant}"
-										style="font-size:16px; border-color:green;"/>
+										style="font-size:16px; border-color:green;" />
 								</h:panelGrid>
 								<t:htmlTag value="div" style="height:5px;" />
 								<t:htmlTag value="center">
@@ -1356,14 +1293,14 @@
 								</t:htmlTag>
 							</h:panelGrid>
 						</h:panelGrid>
-					</rich:togglePanelItem>
-				</rich:togglePanel>
+					</p:togglePanelItem>
+				</p:togglePanel>
 
 				<t:htmlTag value="div" style="height: 30px;" />
 				<h:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
 					action="conventionEtape13FicheEvaluation" immediate="true" />
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div rendered="#{conventionController.convention == null}">
 			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
 		</t:div>

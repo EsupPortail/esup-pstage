@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1"
+	xmlns:p="http://primefaces.org/ui"
+	>
+	<h:panelGrid
 		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 		<t:aliasBean alias="#{structure}"
 			value="#{sessionController.currentManageStructure}">
 			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 		</t:aliasBean>
-		<h:panelGrid columns="1" style="float:right;"
+		<h:panelGrid style="float:right;"
 			rendered="#{sessionController.adminPageAuthorized}">
 			<t:aliasBean alias="#{objet}"
 				value="#{sessionController.currentManageStructure}">
@@ -20,14 +20,14 @@
 		<h:commandLink
 			rendered="#{not empty sessionController.currentManageStructure}"
 			action="#{etablissementController.goToModifierFicheSignaletique}">
-			<f:ajax render="formModifEtab" />
+			<f:ajax update="formModifEtab" />
 			<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 				title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
-				style="border:0" />
+				 />
 			<h:outputText value=" #{msgs['FORM.MODIFIER']}" />
 		</h:commandLink>
 		<h:panelGrid align="center">
-			<rich:messages style="font-size:16px;"/>
+			<p:messages style="font-size:16px;"/>
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height:5px;" />
 	</h:panelGrid>

@@ -2,26 +2,26 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<ui:include src="../_commun/__offreEtape3.xhtml" />
 
 	<h:panelGrid columns="3">
-		<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+		<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
 			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-			render="formModificationOffre" immediate="true">
+			update="formModificationOffre" immediate="true">
 			<f:setPropertyActionListener value="_modificationOffreEtape2"
 				target="#{sessionController.modificationOffreCurrentPage}" />
 			<f:setPropertyActionListener value="_modificationOffreEtape2"
 				target="#{sessionController.modificationOffre3CurrentPage}" />
 			<f:setPropertyActionListener value="_modificationOffreEtape2"
 				target="#{sessionController.modificationEtabOffreCurrentPage}" />
-		</a4j:commandButton>
+		</p:commandButton>
 		<t:htmlTag value="div" style="width: 20px;" />
-		<a4j:commandButton value="#{msgs['FORM.ENREGISTRER']}"
-			render="formModificationOffre"
+		<p:commandButton value="#{msgs['FORM.ENREGISTRER']}"
+			update="formModificationOffre"
 			action="#{offreController.modificationOffre}"
 			alt="#{msgs['FORM.ENREGISTRER']}" title="#{msgs['FORM.ENREGISTRER']}" />
 	</h:panelGrid>

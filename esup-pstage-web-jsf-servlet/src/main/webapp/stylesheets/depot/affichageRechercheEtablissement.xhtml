@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	 template="../_basicTemplate.xhtml">
 	<ui:define name="content">
 		<h:panelGrid style="float:left;">
 			<ui:include src="./_menu.xhtml" />
 		</h:panelGrid>
 		<t:div rendered="#{sessionController.adminPageAuthorized}">
-			<h:panelGrid columns="1" styleClass="panelEntreprise">
-				<rich:panel>
+			<h:panelGrid>
+				<p:panel>
 					<f:facet name="header">
 						<h:outputText
 							value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']}" />
@@ -22,12 +22,12 @@
 									src="../_commun/_confirmationImagesPermanentes.xhtml" />
 							</h:column>
 							<h:column>
-								<rich:message for="formAffEtab">
+								<p:message for="formAffEtab">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</h:column>
 						</h:panelGrid>
-						<a4j:outputPanel id="opAffEtab">
+						<p:outputPanel id="opAffEtab">
 							<t:div
 								rendered="#{empty rechercheController.resultatRechercheStructure}">
 								<h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
@@ -37,14 +37,14 @@
 								style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 								<ui:include src="_affichageRechercheEtablissement.xhtml" />
 							</t:div>
-							<h:panelGrid columns="1" style="float:right;"
+							<h:panelGrid style="float:right;"
 								rendered="#{sessionController.adminPageAuthorized}">
 								<t:aliasBean alias="#{objet}"
 									value="#{rechercheController.resultatRechercheStructure}">
 									<ui:include src="../_commun/_updateInfos.xhtml" />
 								</t:aliasBean>
 							</h:panelGrid>
-						</a4j:outputPanel>
+						</p:outputPanel>
 						<t:htmlTag value="br" />
 						<t:htmlTag value="div" style="height:20px;" />
 						<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
@@ -52,7 +52,7 @@
 							alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 							title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
 					</h:form>
-				</rich:panel>
+				</p:panel>
 				<ui:include src="_panelNousContacter.xhtml" />
 				<ui:include src="_panelSupprAccord.xhtml" />
 				<ui:include src="../_commun/_panelSupprStructure.xhtml" />

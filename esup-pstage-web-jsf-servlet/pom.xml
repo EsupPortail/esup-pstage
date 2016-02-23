@@ -10,9 +10,17 @@
 	<artifactId>esup-pstage-web-jsf-servlet</artifactId>
 	<packaging>war</packaging>
 	<description>couche vue-controller</description>
-	<properties>
-		<org.richfaces.bom.version>4.3.7.Final</org.richfaces.bom.version>
-	</properties>
+<!-- 	<properties> -->
+<!-- 		<org.richfaces.bom.version>4.3.7.Final</org.richfaces.bom.version> -->
+<!-- 	</properties> -->
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>Prime Technology Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<resources>
@@ -32,17 +40,6 @@
 		</plugins>
 	</build>
 	<dependencies>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.jasig.cas.client</groupId> -->
-<!-- 			<artifactId>cas-client-core</artifactId> -->
-<!-- 			<version>3.3.3</version> -->
-<!-- 			<exclusions> -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>org.opensaml</groupId> -->
-<!-- 					<artifactId>opensaml</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 			</exclusions> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.esupportail</groupId>
 			<artifactId>esup-pstage-domain-services</artifactId>
@@ -54,16 +51,16 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>org.richfaces.ui</groupId>
-			<artifactId>richfaces-components-ui</artifactId>
-			<version>${org.richfaces.bom.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.richfaces.core</groupId>
-			<artifactId>richfaces-core-impl</artifactId>
-			<version>${org.richfaces.bom.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.richfaces.ui</groupId> -->
+<!-- 			<artifactId>richfaces-components-ui</artifactId> -->
+<!-- 			<version>${org.richfaces.bom.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.richfaces.core</groupId> -->
+<!-- 			<artifactId>richfaces-core-impl</artifactId> -->
+<!-- 			<version>${org.richfaces.bom.version}</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
@@ -97,6 +94,11 @@
 			<version>0.5</version>
 			<type>jar</type>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>5.3</version>
 		</dependency>
 	</dependencies>
 </project>

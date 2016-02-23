@@ -2,17 +2,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 	<h:form id="roadMapForm">
-		<a4j:repeat value="#{conventionController.sequencesSel}" var="sequence">
-			<a4j:commandButton value="#{sequence.title}"
+		<ui:repeat value="#{conventionController.sequencesSel}" var="sequence">
+			<p:commandButton value="#{sequence.title}"
 				rendered="#{sequence.disabled}" disabled="#{sequence.disabled}"
-				styleClass="app-tab-inactive" action="#{sequence.actionEtape}" />
-			<a4j:commandButton value="#{sequence.title}"
+				action="#{sequence.actionEtape}" />
+			<p:commandButton value="#{sequence.title}"
 				rendered="#{!sequence.disabled}" disabled="#{sequence.disabled}"
-				styleClass="app-tab-active" action="#{sequence.actionEtape}" />
-		</a4j:repeat>
+				action="#{sequence.actionEtape}" />
+		</ui:repeat>
 	</h:form>
 </ui:composition>

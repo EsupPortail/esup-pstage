@@ -4,11 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel
+		<p:panel
 			rendered="#{(welcomeController.superAdmin	
 							|| welcomeController.admin)
 							and centreController.centre != null}">
@@ -17,14 +16,17 @@
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form>
-				<h:panelGrid columns="1" align="center">
-					<a4j:outputPanel id="rattachResultDataTable">
+				<h:panelGrid align="center">
+					<p:outputPanel id="rattachResultDataTable">
 						<t:htmlTag value="div" style="height: 15px;" />
-						<rich:dataTable align="center" id="listePersonnels" rows="20"
-							columnClasses="col"
-							value="#{centreController.recherchePersonnels}" var="personnel">
+						<p:dataTable id="listePersonnels"
+							value="#{centreController.recherchePersonnels}" var="personnel"
+							rows="20" rowHover="true" rowStyleClass="nopointer"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15,20">
 
-							<rich:column sortBy="#{personnel.civilite.libelle}">
+							<p:column sortBy="#{personnel.civilite.libelle}">
 								<f:facet name="header">
 									<h:outputText style="width:50px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.CIVILITE']}" />
@@ -32,8 +34,8 @@
 								<t:htmlTag value="center">
 									<h:outputText value="#{personnel.civilite.libelle}" />
 								</t:htmlTag>
-							</rich:column>
-							<rich:column sortBy="#{personnel.nom}">
+							</p:column>
+							<p:column sortBy="#{personnel.nom}">
 								<f:facet name="header">
 									<h:outputText style="width:100px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
@@ -41,8 +43,8 @@
 								<t:htmlTag value="center">
 									<h:outputText value="#{personnel.nom}" />
 								</t:htmlTag>
-							</rich:column>
-							<rich:column sortBy="#{personnel.prenom}">
+							</p:column>
+							<p:column sortBy="#{personnel.prenom}">
 								<f:facet name="header">
 									<h:outputText style="width:100px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
@@ -50,8 +52,8 @@
 								<t:htmlTag value="center">
 									<h:outputText value="#{personnel.prenom}" />
 								</t:htmlTag>
-							</rich:column>
-							<rich:column sortBy="#{personnel.affectation.libelle}">
+							</p:column>
+							<p:column sortBy="#{personnel.affectation.libelle}">
 								<f:facet name="header">
 									<h:outputText style="width:150px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
@@ -59,8 +61,8 @@
 								<t:htmlTag value="center">
 									<h:outputText value="#{personnel.affectation.libelle}" />
 								</t:htmlTag>
-							</rich:column>
-							<rich:column>
+							</p:column>
+							<p:column>
 								<f:facet name="header">
 									<h:outputText style="width:50px; display:block;"
 										value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
@@ -71,31 +73,26 @@
 										<f:setPropertyActionListener value="#{personnel}"
 											target="#{centreController.personnel}" />
 										<h:graphicImage alt="#{msgs['FORM.AJOUTER']}"
-											value="../../media/images/new.png" style="border:0" />
-										<rich:tooltip value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
+											value="../../media/images/new.png" />
+										<p:tooltip value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
 									</h:commandLink>
 								</t:htmlTag>
-							</rich:column>
-							<f:facet name="footer">
-								<rich:dataScroller align="center" for="listePersonnels"
-									maxPages="20" id="listeScroller" renderIfSinglePage="false" />
-							</f:facet>
-						</rich:dataTable>
+							</p:column>
+						</p:dataTable>
 
 						<t:htmlTag value="div" style="height: 10px;" />
 						<h:panelGrid columns="2" align="center">
 							<h:commandButton id="back" value="#{msgs['GENERAL.RETOUR']}"
 								action="#{centreController.goToRattachPersonnelRecherche}"
 								immediate="true">
-								<rich:tooltip
-									value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.RETOUR']}" />
+								<p:tooltip value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.RETOUR']}" />
 							</h:commandButton>
 						</h:panelGrid>
-					</a4j:outputPanel>
+					</p:outputPanel>
 					<t:htmlTag value="div" style="height: 20px;" />
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin	
 		|| welcomeController.admin)}">

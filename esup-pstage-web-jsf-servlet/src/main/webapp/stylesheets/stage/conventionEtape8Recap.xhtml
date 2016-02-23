@@ -4,27 +4,27 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />   <!-- 		permet d'afficher la barre de navigation avenant, tuteur, ... -->
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+				<h:panelGrid >
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE8.NAVIGATION']} " />
 					</f:facet>
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="3"
+					<h:panelGrid
+						columns="3"
 						rendered="#{conventionController.conventionCree}">
 						<h:graphicImage alt="#{msgs['GENERAL.OK']}"
 							title="#{msgs['GENERAL.OK']}"
-							value="../../media/images/valid.png" style="border:0" />
+							value="../../media/images/valid.png" />
 						<h:outputText id="confirmCreationConvention"
 							rendered="#{!welcomeController.etudiant}"
 							value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}" />
@@ -39,9 +39,9 @@
 					
 					<t:htmlTag value="div" style="height: 10px;" />
 					
-					<rich:messages />
+					<p:messages />
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

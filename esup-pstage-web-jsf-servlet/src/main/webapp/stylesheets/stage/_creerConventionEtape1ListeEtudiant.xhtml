@@ -2,11 +2,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
+	<p:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT']}" />
@@ -14,55 +13,54 @@
 
 		<t:htmlTag value="div" style="height: 10px;" />
 
-		<h:panelGrid align="center" columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
-			<rich:dataTable id="listeEtu" rows="15" var="etudiantRef"
-				value="#{conventionController.listeResultatsRechercheEtudiant}">
-				<rich:column>
+		<h:panelGrid align="center">
+			<p:dataTable id="listeEtu"
+				value="#{conventionController.listeResultatsRechercheEtudiant}"
+				var="etudiantRef" rows="15" rowHover="true"
+				rowStyleClass="nopointer" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15,20">
+				<p:column>
 					<f:facet name="header">
-						<h:outputText styleClass="headerText"
-							value="#{msgs['CONVENTION.NUMETUDIANT']}" />
+						<h:outputText value="#{msgs['CONVENTION.NUMETUDIANT']}" />
 					</f:facet>
 					<t:htmlTag value="center">
 						<h:outputText value="#{etudiantRef.numEtudiant}" />
 					</t:htmlTag>
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
-						<h:outputText styleClass="headerText"
-							value="#{msgs['CONVENTION.PRENOM']}" />
+						<h:outputText value="#{msgs['CONVENTION.PRENOM']}" />
 					</f:facet>
 					<h:outputText value="#{etudiantRef.prenom}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
-						<h:outputText styleClass="headerText"
-							value="#{msgs['CONVENTION.NOM']}" />
+						<h:outputText value="#{msgs['CONVENTION.NOM']}" />
 					</f:facet>
 					<h:outputText value="#{etudiantRef.nom}  #{etudiantRef.nomMarital}" />
-				</rich:column>
-				<!-- 				<rich:column> -->
+				</p:column>
+				<!-- 				<p:column> -->
 				<!-- 					<f:facet name="header"> -->
-				<!-- 						<h:outputText styleClass="headerText" -->
+				<!-- 						<h:outputText  -->
 				<!-- 							value="#{msgs['CONVENTION.VOTREETAPE']}" /> -->
 				<!-- 					</f:facet> -->
-				<!-- 					<rich:list var="key" value="#{etudiantRef.stepsKey}"> -->
+				<!-- 					<p:dataList var="key" value="#{etudiantRef.stepsKey}"> -->
 				<!-- 						<h:outputText value="#{key} : #{etudiantRef.steps[key]}  " /> -->
-				<!-- 					</rich:list> -->
-				<!-- 				</rich:column> -->
-				<!-- 				<rich:column> -->
+				<!-- 					</p:dataList> -->
+				<!-- 				</p:column> -->
+				<!-- 				<p:column> -->
 				<!-- 					<f:facet name="header"> -->
-				<!-- 						<h:outputText styleClass="headerText" -->
+				<!-- 						<h:outputText  -->
 				<!-- 							value="#{msgs['CONVENTION.VOTREUFR']}" /> -->
 				<!-- 					</f:facet> -->
-				<!-- 					<rich:list var="keyU" value="#{etudiantRef.studysKey }"> -->
+				<!-- 					<p:dataList var="keyU" value="#{etudiantRef.studysKey }"> -->
 				<!-- 						<h:outputText value="#{keyU} : #{etudiantRef.studys[keyU]}  " /> -->
-				<!-- 					</rich:list> -->
-				<!-- 				</rich:column> -->
-				<rich:column>
+				<!-- 					</p:dataList> -->
+				<!-- 				</p:column> -->
+				<p:column>
 					<f:facet name="header">
-						<h:outputText styleClass="headerText"
-							value="#{msgs['FORM.SELECTIONNER']}" />
+						<h:outputText value="#{msgs['FORM.SELECTIONNER']}" />
 					</f:facet>
 					<t:htmlTag value="center">
 						<h:commandLink id="voir"
@@ -70,17 +68,12 @@
 							<f:setPropertyActionListener value="#{etudiantRef}"
 								target="#{conventionController.resultatEtudiantRef}" />
 							<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
-								value="../../media/images/tick.png" style="border:0" />
-							<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
+								value="../../media/images/tick.png" />
+							<p:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
 						</h:commandLink>
 					</t:htmlTag>
-				</rich:column>
-
-				<f:facet name="footer">
-					<rich:dataScroller align="center" for="listeEtu" maxPages="20"
-						page="1" id="listeEtuScroller" renderIfSinglePage="false" />
-				</f:facet>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height:10px;" />
 		<h:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}"
@@ -89,5 +82,5 @@
 				value="_creerConventionEtape1RechercheEtudiant"
 				target="#{sessionController.creationConventionEtape1CurrentPage}" />
 		</h:commandButton>
-	</rich:panel>
+	</p:panel>
 </ui:composition>

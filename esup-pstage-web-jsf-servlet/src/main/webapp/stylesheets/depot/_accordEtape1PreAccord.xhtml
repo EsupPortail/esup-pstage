@@ -2,20 +2,20 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 
 	<h:outputText value="#{msgs['ACCORD.PREACCORD']}"
 		style="font-size:14px" />
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text">
+	<h:panelGrid
+		>
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
 		<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} * "
 			for="raisonSociale" />
 		<h:panelGrid columns="4">
 			<h:graphicImage id="imgInfo" alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
-				value="../../media/images/information.png" style="border:0">
-				<rich:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
+				value="../../media/images/information.png">
+				<p:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
 			</h:graphicImage>
 			<h:inputText id="raisonSociale" size="50" maxlength="150"
 				style="text-transform:uppercase;"
@@ -23,12 +23,12 @@
 				required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:converter binding="#{sansAccentEnMAJConverter}" />
-				<a4j:ajax event="blur" />
+				<p:ajax event="blur" />
 			</h:inputText>
 			<t:htmlTag value="div" style="width: 5px;" />
-			<rich:message for="raisonSociale">
+			<p:message for="raisonSociale">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
 		<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
 			for="typeStructure" />
@@ -39,11 +39,11 @@
 			requiredMessage="#{requiredMessageController.champObligatoire}">
 			<f:selectItem itemValue="" />
 			<f:selectItems value="#{nomenclatureController.typesStructure}" />
-			<a4j:ajax event="valueChange" render="siret, olSiret" execute="@this" />
+			<p:ajax event="valueChange" update="siret, olSiret"  />
 		</h:selectOneMenu>
-		<rich:message for="typeStructure">
+		<p:message for="typeStructure">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 		<h:panelGrid id="olSiret" columns="2">
 			<h:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']}" for="siret" />
 			<h:outputLabel value=" *" for="siret"
@@ -53,8 +53,8 @@
 		<h:panelGrid columns="4">
 			<h:graphicImage id="infoNumsiret"
 				alt="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
-				value="../../media/images/information.png" style="border:0">
-				<rich:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
+				value="../../media/images/information.png">
+				<p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
 			</h:graphicImage>
 			<h:inputText id="siret" size="20" maxlength="14"
 				value="#{accordController.preAccord.structure.numeroSiret}"
@@ -63,16 +63,16 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				validatorMessage="#{requiredMessageController.numeroSiretNonValide}">
 				<f:validator binding="#{numSiretValidator}" />
-				<a4j:ajax event="blur" />
+				<p:ajax event="blur" />
 			</h:inputText>
 			<t:htmlTag value="div" style="width: 10px;" />
-			<rich:message for="siret" id="rmS">
+			<p:message for="siret" id="rmS">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
 		<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}"
 			escape="false" />
-		<a4j:outputPanel id="opSiretOblig">
+		<p:outputPanel id="opSiretOblig">
 			<h:panelGrid columns="3"
 				rendered="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)
 						and accordController.preAccord.structure.typeStructure.siretObligatoire}">
@@ -83,10 +83,10 @@
 				<t:htmlTag value="div" style="width: 5px;" />
 				<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}" />
 			</h:panelGrid>
-		</a4j:outputPanel>
+		</p:outputPanel>
 		<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="pays" />
 		<h:panelGrid columns="5">
-			<a4j:outputPanel id="opFlag">
+			<p:outputPanel id="opFlag">
 				<t:htmlTag value="div" style="width: 16px;"
 					rendered="#{empty accordController.preAccord.structure.pays}" />
 				<h:graphicImage id="flag"
@@ -94,23 +94,23 @@
 					value="../../media/images/flags/#{accordController.preAccord.structure.pays.iso2}.png"
 					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 					title="#{accordController.preAccord.structure.pays.libelle}" />
-			</a4j:outputPanel>
+			</p:outputPanel>
 			<t:htmlTag value="div" style="width: 5px;" />
 			<h:selectOneMenu id="pays"
 				value="#{accordController.preAccord.structure.pays}"
-				converter="#{paysConverter}" styleClass="paysInput">
-				<a4j:ajax event="blur" render="opFlag, opSiretOblig, siret, olSiret"
-					execute="@this" />
+				converter="#{paysConverter}" >
+				<p:ajax event="blur" update="opFlag, opSiretOblig, siret, olSiret"
+					 />
 				<f:selectItems value="#{nomenclatureController.pays}" />
 			</h:selectOneMenu>
 			<t:htmlTag value="div" style="width: 10px;" />
-			<rich:message for="pays">
+			<p:message for="pays">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height:10px;" />
-	<a4j:commandButton value="#{msgs['GENERAL.RETOUR']}" action="welcome"
+	<p:commandButton value="#{msgs['GENERAL.RETOUR']}" action="welcome"
 		immediate="true"/>
 	<h:commandButton action="#{accordController.goToEtabTrouve}"
 		value="#{msgs['FORM.NEXT']}">

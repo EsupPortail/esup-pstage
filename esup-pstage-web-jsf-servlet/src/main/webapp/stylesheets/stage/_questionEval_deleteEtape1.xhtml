@@ -2,8 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height:10px;" />
@@ -14,12 +14,12 @@
 	<t:htmlTag value="div" style="height:15px;" />
 
 	<h:panelGrid align="center" columns="3"
-		columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-		<a4j:commandButton
+		>
+		<p:commandButton
 			action="#{centreController.supprimerQuestionSupplementaire}"
-			value="#{msgs['FORM.OUI']}" render="formDeleteQuestionEval" />
+			value="#{msgs['FORM.OUI']}" update="formDeleteQuestionEval" />
 		<t:htmlTag value="div" style="width:30px;" />
-		<a4j:commandButton value="#{msgs['FORM.NON']}"
-			onclick="#{rich:component('deleteQuestionEvalPanel')}.hide(); return false;" />
+		<p:commandButton value="#{msgs['FORM.NON']}"
+			onclick="PF('deleteQuestionEvalPanel').hide(); return false;" />
 	</h:panelGrid>
 </ui:composition>

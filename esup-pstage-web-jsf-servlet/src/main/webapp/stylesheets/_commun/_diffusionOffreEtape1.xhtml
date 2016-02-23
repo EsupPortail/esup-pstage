@@ -2,40 +2,40 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 		<h:panelGrid>
 			<h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSION.QUESTION']}"
 				escape="false" />
-			<rich:dataTable value="#{offreController.currentOffre}">
-				<rich:column rendered="#{sessionController.adminPageAuthorized}">
+			<p:dataTable value="#{offreController.currentOffre}">
+				<p:column rendered="#{sessionController.adminPageAuthorized}">
 					<f:facet name="header">
 						<h:outputText value="#{msgs['OFFRE.ID']}" />
 					</f:facet>
 					<h:outputText value="#{offreController.currentOffre.idOffre}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['OFFRE.INTITULE']}" />
 					</f:facet>
 					<h:outputText value="#{offreController.currentOffre.intitule}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
 					</f:facet>
 					<h:outputText
 						value="#{offreController.currentOffre.typeOffre.libelle}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['OFFRE.DATECREATION']}" />
 					</f:facet>
 					<h:outputText value="#{offreController.currentOffre.dateCreation}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
 					</f:facet>
@@ -55,8 +55,8 @@
 						style="color:green;">
 						<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
 					</h:outputText>
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
 					</f:facet>
@@ -64,8 +64,8 @@
 						rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}" />
 					<h:outputText value="#{msgs['FORM.NON']}"
 						rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}" />
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</h:panelGrid>
 		<h:panelGrid>
 			<t:htmlTag value="div" style="height: 10px;" />
@@ -83,16 +83,16 @@
 						value="#{offreController.dureeDiffusion}">
 						<f:selectItems value="#{offreController.dureesDiffusion}" />
 					</h:selectOneMenu>
-					<rich:message for="dureeDiffusion">
+					<p:message for="dureeDiffusion">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 			</h:panelGrid>
-			<a4j:commandButton action="#{offreController.diffuserOffre}"
-				render="formDiffusionOffre"
+			<p:commandButton action="#{offreController.diffuserOffre}"
+				update="formDiffusionOffre"
 				value="#{msgs['FORM.DIFFUSER']}"/>
-			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="#{rich:component('diffusionOffre')}.hide();"
+			<p:commandButton value="#{msgs['FORM.ANNULER']}"
+				onclick="PF('diffusionOffre').hide();"
 				immediate="true" />
 		</h:panelGrid>
 </ui:composition>

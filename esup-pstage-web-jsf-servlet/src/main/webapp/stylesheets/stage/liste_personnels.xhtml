@@ -4,157 +4,155 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-
-		<rich:panel id="personnelDataTable"
+		<p:panel id="personnelDataTable"
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 					|| welcomeController.personnel) and centreController.centre != null}">
 			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CENTRE.PERSONNEL.LISTE.HEAD']} #{centreController.centre.nomCentre}" />
+<!-- 				<h:outputText -->
+<!-- 					value="#{msgs['CENTRE.PERSONNEL.LISTE.HEAD']} #{centreController.centre.nomCentre}" /> -->
+				<h:outputLabel value="#{msgs['CENTRE.CONSULTATION']} " for="nomCentre" />
+				<h:outputText id="nomCentre"
+					value="#{centreController.centre.nomCentre}" />
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
-			<h:panelGrid rendered="#{centreController.listePersonnelVide}"
-				align="center">
-				<h:outputText value="#{msgs['CENTRE.PERSONNEL.LISTE.VIDE']}" />
-			</h:panelGrid>
-			<h:form id="formListePersonnel"
-				style="margin-left:100px; width:600px;">
-					<h:panelGrid rendered="#{!centreController.listePersonnelVide}">
-						<rich:dataTable align="center" width="483"
-							style="border-right:1px solid #C0C0C0;" id="listePersonnels"
-							rows="20" columnClasses="col"
-							value="#{centreController.personnels}" var="personnel">
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText style="width:50px; display:block;"
-										value="#{msgs['CENTRE.PERSONNEL.CIVILITE']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText value="#{personnel.civilite.libelle}" />
-								</t:htmlTag>
-							</rich:column>
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText style="width:100px; display:block;"
-										value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText value="#{personnel.nom}" />
-								</t:htmlTag>
-							</rich:column>
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText style="width:100px; display:block;"
-										value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText value="#{personnel.prenom}" />
-								</t:htmlTag>
-							</rich:column>
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText style="width:150px; display:block;"
-										value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText value="#{personnel.affectation.libelle}" />
-								</t:htmlTag>
-							</rich:column>
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText style="width:75px; display:block;"
-										value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText value="#{personnel.droitAdmin.libelle}" />
-								</t:htmlTag>
-							</rich:column>
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText value="#{msgs['CENTRE.PERSONNEL.ALERTES_MAIL']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText rendered="#{personnel.alertesMail}"
-										value="#{msgs['FORM.OUI']}" />
-									<h:outputText rendered="#{!personnel.alertesMail}"
-										value="#{msgs['FORM.NON']}" />
-								</t:htmlTag>
-							</rich:column>
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText value="#{msgs['CENTRE.PERSONNEL.DROIT_EVALUATION']}" />
-								</f:facet>
-								<h:panelGrid align="center">
-									<h:outputText rendered="#{personnel.droitEvaluationEtudiant}"
-										value="Etudiants" />
-									<h:outputText rendered="#{personnel.droitEvaluationEnseignant}"
-										value="Enseignants" />
-									<h:outputText rendered="#{personnel.droitEvaluationEntreprise}"
-										value="Entreprises" />
-									<h:outputText rendered="#{!personnel.droitEvaluationEtudiant
+			<h:form id="formListePersonnel" style="margin-left:100px; width:600px;">
+				<h:panelGrid rendered="#{centreController.listePersonnelVide}">
+					<h:outputText value="#{msgs['CENTRE.PERSONNEL.LISTE.VIDE']}" />
+				</h:panelGrid>
+				<h:panelGrid rendered="#{!centreController.listePersonnelVide}">
+					<p:dataTable id="listePersonnels"
+						style="width:483px; border-right:1px solid #C0C0C0;"
+						value="#{centreController.personnels}" var="personnel" rows="20"
+						rowHover="true" rowStyleClass="nopointer" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText style="width:50px; display:block;"
+									value="#{msgs['CENTRE.PERSONNEL.CIVILITE']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{personnel.civilite.libelle}" />
+							</t:htmlTag>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText style="width:100px; display:block;"
+									value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{personnel.nom}" />
+							</t:htmlTag>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText style="width:100px; display:block;"
+									value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{personnel.prenom}" />
+							</t:htmlTag>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText style="width:150px; display:block;"
+									value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{personnel.affectation.libelle}" />
+							</t:htmlTag>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText style="width:75px; display:block;"
+									value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{personnel.droitAdmin.libelle}" />
+							</t:htmlTag>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{msgs['CENTRE.PERSONNEL.ALERTES_MAIL']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText rendered="#{personnel.alertesMail}"
+									value="#{msgs['FORM.OUI']}" />
+								<h:outputText rendered="#{!personnel.alertesMail}"
+									value="#{msgs['FORM.NON']}" />
+							</t:htmlTag>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.PERSONNEL.DROIT_EVALUATION']}" />
+							</f:facet>
+							<h:panelGrid align="center">
+								<h:outputText rendered="#{personnel.droitEvaluationEtudiant}"
+									value="Etudiants" />
+								<h:outputText rendered="#{personnel.droitEvaluationEnseignant}"
+									value="Enseignants" />
+								<h:outputText rendered="#{personnel.droitEvaluationEntreprise}"
+									value="Entreprises" />
+								<h:outputText
+									rendered="#{!personnel.droitEvaluationEtudiant
 										and !personnel.droitEvaluationEnseignant
 										and !personnel.droitEvaluationEntreprise}"
-										value="Aucun" />
-								</h:panelGrid>
-							</rich:column>
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText style="width:50px; display:block;"
-										value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<a4j:commandLink id="see"
-										action="#{centreController.goToVoirPersonnel}">
-										<f:setPropertyActionListener value="#{personnel}"
-											target="#{centreController.personnel}" />
-										<h:graphicImage alt="#{msgs['FORM.VOIR']}"
-											value="../../media/images/zoom.png" style="border:0" />
-										<rich:tooltip value="#{msgs['FORM.VOIR']}" />
-									</a4j:commandLink>
+									value="Aucun" />
+							</h:panelGrid>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText style="width:50px; display:block;"
+									value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<p:commandLink id="see"
+									action="#{centreController.goToVoirPersonnel}">
+									<f:setPropertyActionListener value="#{personnel}"
+										target="#{centreController.personnel}" />
+									<h:graphicImage alt="#{msgs['FORM.VOIR']}"
+										value="../../media/images/zoom.png" />
+									<p:tooltip value="#{msgs['FORM.VOIR']}" />
+								</p:commandLink>
 
-									<a4j:commandLink execute="@this" id="delete"
-										rendered="#{welcomeController.superAdmin
+								<p:commandLink  id="delete"
+									rendered="#{welcomeController.superAdmin
 													|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
-										oncomplete="#{rich:component('suppressionPersonnel')}.show()"
-										render="suppressionPersonnel">
-										<f:setPropertyActionListener value="#{personnel}"
-											target="#{centreController.personnel}" />
-										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-											value="../../media/images/delete.png" style="border:0" />
-										<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-									</a4j:commandLink>
-								</t:htmlTag>
-							</rich:column>
-							<f:facet name="footer">
-								<rich:dataScroller align="center" for="listePersonnels"
-									maxPages="20" page="1" id="listeScroller"
-									renderIfSinglePage="false" />
-							</f:facet>
-						</rich:dataTable>
-					</h:panelGrid>
+									oncomplete="PF('suppressionPersonnel').show();"
+									update="suppressionPersonnel">
+									<f:setPropertyActionListener value="#{personnel}"
+										target="#{centreController.personnel}" />
+									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+										value="../../media/images/delete.png" />
+									<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+								</p:commandLink>
+							</t:htmlTag>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
 
-					<t:htmlTag value="div" style="height:20px;" />
+				<t:htmlTag value="div" style="height:20px;" />
 
-					<t:htmlTag value="center">
-						<a4j:commandButton id="add" status="statusAjout"
-							value="#{msgs['CENTRE.PERSONNEL.RATTACHER']}"
-							action="#{centreController.goToRattachPersonnelRecherche}"
-							style="font-size:16px; font-weight:bold; border-color:green;"
-							rendered="#{welcomeController.superAdmin
+				<t:htmlTag value="center">
+					<p:commandButton id="add" status="statusAjout"
+						value="#{msgs['CENTRE.PERSONNEL.RATTACHER']}"
+						action="#{centreController.goToRattachPersonnelRecherche}"
+						style="font-size:16px; font-weight:bold; border-color:green;"
+						rendered="#{welcomeController.superAdmin
 								|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}" />
-						<a4j:status name="statusAjout">
-							<f:facet name="start">
-								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-							</f:facet>
-						</a4j:status>
-					</t:htmlTag>
+					<p:ajaxStatus name="statusAjout">
+						<f:facet name="start">
+							<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+						</f:facet>
+					</p:ajaxStatus>
+				</t:htmlTag>
 				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<ui:include src="./_panel_suppressionPersonnel.xhtml" />
 		<t:div
 			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant

@@ -4,11 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel
+		<p:panel
 			rendered="#{welcomeController.superAdmin	
 								|| welcomeController.admin
 								|| welcomeController.writer}">
@@ -17,24 +16,24 @@
 					value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.HEADER']}" />
 			</f:facet>
 			<h:form id="formResultConventions">
-				<h:panelGrid columns="1" align="center"
+				<h:panelGrid align="center"
 					rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
 					<t:htmlTag value="br" />
 					<h:panelGrid columns="2">
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-							value="../../media/images/script.png" style="border:0" />
+							value="../../media/images/script.png" />
 						<h:outputText value="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
 							escape="false" />
 					</h:panelGrid>
 				</h:panelGrid>
-				<h:panelGrid columns="1" align="center"
+				<h:panelGrid align="center"
 					rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
 					<t:htmlTag value="div" style="height: 5px;" />
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
 					<h:panelGrid columns="2">
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-							value="../../media/images/script.png" style="border:0"
+							value="../../media/images/script.png"
 							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
 											and conventionController.rechercheConventionPaginator.totalItemsCount lt conventionController.critereRechercheConvention.nbRechercheMaxi}" />
 						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
@@ -45,7 +44,7 @@
 								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
 						</h:outputFormat>
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
-							value="../../media/images/script.png" style="border:0"
+							value="../../media/images/script.png"
 							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge conventionController.critereRechercheConvention.nbRechercheMaxi}" />
 						<h:outputFormat
 							value="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
@@ -57,30 +56,31 @@
 					</h:panelGrid>
 					<t:htmlTag value="br" />
 					<t:htmlTag value="div" style="height: 5px;" />
-					<rich:dataTable id="resultatConventionsDataTable" var="convention"
-						rows="20"
-						value="#{conventionController.rechercheConventionPaginator.liste}">
-						<rich:column id="idConvention" sortBy="#{convention.idConvention}">
+					<p:dataTable id="resultatConventionsDataTable"
+						value="#{conventionController.rechercheConventionPaginator.liste}"
+						var="convention" rows="20" rowHover="true"
+						rowStyleClass="nopointer" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20">
+						<p:column id="idConvention" sortBy="#{convention.idConvention}">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.ID']}" />
 							</f:facet>
 							<h:outputText value="#{convention.idConvention}" />
-						</rich:column>
-						<rich:column id="nomPrenom" sortBy="#{convention.etudiant.nom}"
+						</p:column>
+						<p:column id="nomPrenom" sortBy="#{convention.etudiant.nom}"
 							sortable="#{not empty convention.etudiant}">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
 							</f:facet>
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="3"
-								style="font-size:12px;"
+							<h:panelGrid columns="3" style="font-size:12px;"
 								rendered="#{not empty convention.etudiant}">
 								<h:outputText value="#{convention.etudiant.prenom}" />
 								<t:htmlTag value="div" style="width:5px;" />
 								<h:outputText value="#{convention.etudiant.nom}" />
 							</h:panelGrid>
-						</rich:column>
-						<rich:column id="raisonSociale"
+						</p:column>
+						<p:column id="raisonSociale"
 							sortBy="#{convention.structure.raisonSociale}"
 							sortable="#{not empty convention.structure}">
 							<f:facet name="header">
@@ -91,8 +91,8 @@
 								rendered="#{not empty convention.structure}">
 								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 							</h:outputText>
-						</rich:column>
-						<rich:column id="dateDebutStage"
+						</p:column>
+						<p:column id="dateDebutStage"
 							sortBy="#{convention.dateDebutStage}"
 							sortable="#{not empty convention.dateDebutStage}">
 							<f:facet name="header">
@@ -108,8 +108,8 @@
 								rendered="#{not empty convention.dateFinStage}">
 								<f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
 							</h:outputText>
-						</rich:column>
-						<rich:column id="ufr" sortBy="#{convention.ufr.libelle}"
+						</p:column>
+						<p:column id="ufr" sortBy="#{convention.ufr.libelle}"
 							title="#{convention.ufr.libelle}"
 							sortable="#{not empty convention.ufr}">
 							<f:facet name="header">
@@ -119,8 +119,8 @@
 								rendered="#{not empty convention.ufr}">
 								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 							</h:outputText>
-						</rich:column>
-						<rich:column id="libelle" sortBy="#{convention.etape.libelle}"
+						</p:column>
+						<p:column id="libelle" sortBy="#{convention.etape.libelle}"
 							sortable="#{not empty convention.etape}">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPE']}" />
@@ -130,10 +130,10 @@
 								rendered="#{not empty convention.etape}">
 								<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
 							</h:outputText>
-						</rich:column>
-						<rich:column style="width:30px;">
+						</p:column>
+						<p:column style="width:30px;">
 							<f:facet name="header">
-								<h:panelGrid columns="1" align="center">
+								<h:panelGrid align="center">
 									<script type="text/javascript">
 									//<![CDATA[
 										function checkAll(state){
@@ -188,50 +188,35 @@
 									<h:selectBooleanCheckbox id="checkAll"
 										onclick="checkAll2(this)">
 										<!-- onclick="checkAll(this.checked)" -->
-										<rich:tooltip value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
+										<p:tooltip value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
 									</h:selectBooleanCheckbox>
 								</h:panelGrid>
 							</f:facet>
 							<t:htmlTag value="center">
-								<h:selectBooleanCheckbox id="checkEntry" value="#{convention.selected}">  
-								<!-- onclick="return checkHere()">	-->
-									<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
+								<h:selectBooleanCheckbox id="checkEntry"
+									value="#{convention.selected}">
+									<p:tooltip value="#{msgs['FORM.SELECTIONNER']}"
+										for="checkEntry" />
 								</h:selectBooleanCheckbox>
 							</t:htmlTag>
-						</rich:column>
-						<f:facet name="footer">
-							<rich:dataScroller align="center"
-								for="resultatConventionsDataTable" maxPages="20" page="1"
-								id="listeMasseConventionScroller" renderIfSinglePage="false"
-								ajaxSingle="false" execute="@form">
-							</rich:dataScroller>
-						</f:facet>
-					</rich:dataTable>
+						</p:column>
+					</p:dataTable>
 					<t:htmlTag value="div" style="height: 15px;" />
-					<!-- 					<h:panelGrid columns="2" align="center" -->
-					<!-- 						rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount gt 20}"> -->
-					<!-- 						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}" -->
-					<!-- 							title="#{msgs['GENERAL.WARNING']}" -->
-					<!-- 							value="../../media/images/warning_20px.png" style="border:0" /> -->
-					<!-- 						<h:outputText -->
-					<!-- 							value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.WARN']}" /> -->
-					<!-- 					</h:panelGrid> -->
 					<h:panelGrid align="center">
-						<a4j:commandButton
+						<p:commandButton
 							value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.VALIDER']}"
 							action="#{conventionController.remplirListeConventionsSelectionnees}"
-							oncomplete="#{rich:component('confirmValidEnMasse')}.show()"
+							oncomplete="PF('confirmValidEnMasse').show();"
 							alt="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
-							status="statusValidation" render="confirmValidEnMasse" />
+							update="confirmValidEnMasse" />
 						<t:htmlTag value="div" style="height: 10px;" />
-						<a4j:status name="statusValidation">
+						<p:ajaxStatus name="statusValidation">
 							<f:facet name="start">
 								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 							</f:facet>
-						</a4j:status>
+						</p:ajaxStatus>
 					</h:panelGrid>
-					<rich:popupPanel id="confirmValidEnMasse" autosized="true"
-						width="400" height="900" domElementAttachment="parent">
+					<p:dialog id="confirmValidEnMasse" widgetVar="confirmValidEnMasse">
 						<f:facet name="header">
 							<h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
 						</f:facet>
@@ -246,80 +231,74 @@
 							<t:htmlTag value="div" style="height: 10px;" />
 
 							<!-- partie pour l'affichage des conventions selectionnees : idConvention|nom|prenom -->
-							<rich:dataTable id="recapListeConventionSelectionnees"
-								var="convention" rows="10"
-								value="#{conventionController.listeConventionsSelectionnees}">
-								<f:facet name="footer">
-									<rich:dataScroller align="center"
-										for="recapListeConventionSelectionnees" page="1"
-										id="listeMasseConventionScroller" renderIfSinglePage="false"/>
-								</f:facet>
-								<rich:column id="idConvention">
+							<p:dataTable id="recapListeConventionSelectionnees"
+								value="#{conventionController.listeConventionsSelectionnees}"
+								var="convention" rows="10" rowHover="true"
+								rowStyleClass="nopointer" paginator="true"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15,20">
+								<p:column id="idConvention">
 									<h:outputText value="#{convention.idConvention}" />
 									<t:htmlTag value="div" style="width:5px;" />
-								</rich:column>
-								<rich:column id="nomPrenom" sortBy="#{convention.etudiant.nom}"
+								</p:column>
+								<p:column id="nomPrenom" sortBy="#{convention.etudiant.nom}"
 									sortable="#{not empty convention.etudiant}">
-									<h:panelGrid columnClasses="paginatorData-text"
-										rowClasses="paginatorData-text" columns="3"
-										style="font-size:12px;"
+									<h:panelGrid columns="3" style="font-size:12px;"
 										rendered="#{not empty convention.etudiant}">
 										<h:outputText value="#{convention.etudiant.prenom}" />
 										<t:htmlTag value="div" style="width:5px;" />
 										<h:outputText value="#{convention.etudiant.nom}" />
 									</h:panelGrid>
-								</rich:column>								
-							</rich:dataTable>
+								</p:column>
+							</p:dataTable>
 
 							<t:htmlTag value="div" style="height: 10px;" />
 							<h:panelGrid columns="3" align="center">
-								<a4j:commandButton value="#{msgs['FORM.OUI']}"
+								<p:commandButton value="#{msgs['FORM.OUI']}"
 									status="statusConfirmValid"
-									oncomplete="#{rich:component('confirmValidEnMasse')}.hide();return false;"
-									render="formResultConventions"
+									oncomplete="PF('confirmValidEnMasse').hide();"
+									update="formResultConventions"
 									action="#{conventionController.validerEnMasse}" />
 								<t:htmlTag value="div" style="width: 50px;" />
-								<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
-									immediate="true"
-									onclick="#{rich:component('confirmValidEnMasse')}.hide();return false;" />
+								<p:commandButton value="#{msgs['FORM.NON']}" 
+									immediate="true" onclick="PF('confirmValidEnMasse').hide();" />
 							</h:panelGrid>
 						</h:panelGrid>
 
-						<h:panelGrid columns="1" align="center"
+						<h:panelGrid align="center"
 							rendered="#{conventionController.sizeListeConventionsSelectionnes==0}">
 							<h:outputFormat
 								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.CONFIRM.AUCUN']}"
 								escape="false" />
 							<t:htmlTag value="div" style="height: 10px;" />
 							<h:panelGrid columns="3" align="center">
-								<a4j:commandButton value="#{msgs['GENERAL.OK']}" execute="@this"
-									immediate="true"
-									onclick="#{rich:component('confirmValidEnMasse')}.hide();return false;" />
+								<p:commandButton value="#{msgs['GENERAL.OK']}" 
+									immediate="true" onclick="PF('confirmValidEnMasse').hide();" />
 							</h:panelGrid>
 						</h:panelGrid>
 
 						<t:htmlTag value="center">
-							<a4j:status name="statusConfirmValid">
+							<p:ajaxStatus name="statusConfirmValid">
 								<f:facet name="start">
 									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 								</f:facet>
-							</a4j:status>
+							</p:ajaxStatus>
 						</t:htmlTag>
-					</rich:popupPanel>
+					</p:dialog>
 				</h:panelGrid>
 				<h:panelGrid id="messageResultat" align="center">
-					<rich:message for="messageResultat" style="font-weight:bold;">
+					<p:message for="messageResultat" style="font-weight:bold;">
 						<f:facet name="infoMarker">
 							<h:graphicImage alt="tick" value="../../media/images/tick.png"
 								title="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
 						</f:facet>
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 				<h:commandButton immediate="true"
 					value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
 					action="rechercheMasseConvention" />
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin	
 								|| welcomeController.admin

@@ -2,8 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height: 20px;" />
@@ -19,7 +19,7 @@
 	</t:div>
 	<t:div id="divCommentaire"
 		rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-		<h:panelGrid  columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" style="margin-left:30;"
+		<h:panelGrid  style="margin-left:30;"
 			rendered="#{conventionController.convention.validationConvention}">
 			<h:outputText escape="false"
 				rendered="#{not empty conventionController.convention.commentaireStage}"
@@ -28,38 +28,38 @@
 				rendered="#{empty conventionController.convention.commentaireStage}"
 				value="Aucun commentaire enregistre." />
 		</h:panelGrid>
-		<h:panelGrid  columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" style="margin-left:30;"
+		<h:panelGrid  style="margin-left:30;"
 			rendered="#{!conventionController.convention.validationConvention}">
 			<t:htmlTag value="div" style="height: 10px;" />
-			<rich:editor id="commentaireStage"
+			<p:editor id="commentaireStage"
 				value="#{conventionController.convention.commentaireStage}"
 				width="400" height="200" />
 			<t:htmlTag value="div" style="height: 10px;" />
-			<h:panelGrid  columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" align="center">
-				<a4j:commandButton
+			<h:panelGrid  align="center">
+				<p:commandButton
 					action="#{conventionController.ajouterCommentaireStage}"
-					oncomplete="#{rich:component('popup')}.show()"
-					render="formCommentaire" value="Enregistrer" alt="Enregistrer" />
+					oncomplete="PF('popup').show();"
+					update="formCommentaire" value="Enregistrer" alt="Enregistrer" />
 			</h:panelGrid>
 		</h:panelGrid>
-		<rich:popupPanel id="popup" autosized="true" width="400">
+		<p:dialog id="popup" widgetVar="popup">
 			<f:facet name="header">
 				<h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
 			</f:facet>
 			<center>
-				<rich:message style="font-weight:bold;" for="formCommentaire">
+				<p:message style="font-weight:bold;" for="formCommentaire">
 					<f:facet name="infoMarker">
 						<h:graphicImage value="../../media/images/tick.png"
 							title="#{msgs['FORM.CONFIRMATION']}" />
 					</f:facet>
-				</rich:message>
+				</p:message>
 			</center>
-			<h:panelGrid  columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="1" align="center">
+			<h:panelGrid  align="center">
 				<t:htmlTag value="div" style="height: 10px;" />
-				<a4j:commandButton value="#{msgs['GENERAL.OK']}" execute="@this"
+				<p:commandButton value="#{msgs['GENERAL.OK']}" 
 					immediate="true"
-					onclick="#{rich:component('popup')}.hide();return false;" />
+					onclick="PF('popup').hide();" />
 			</h:panelGrid>
-		</rich:popupPanel>
+		</p:dialog>
 	</t:div>
 </ui:composition>

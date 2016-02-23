@@ -2,14 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 	<ui:include src="./_formAdministrateur.xhtml" />
 	<h:panelGrid columns="3" align="center">
-		<a4j:commandButton action="#{adminController.ajouterAdministrateur}"
-			value="#{msgs['FORM.VALIDER']}" render="opAdminDataTable,formAdminStructure" />
+		<p:commandButton action="#{adminController.ajouterAdministrateur}"
+			value="#{msgs['FORM.VALIDER']}" update="@form" />
 		<t:htmlTag value="div" style="width:150px;" />
-		<a4j:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
-			onclick="#{rich:component('ajoutAdministrateur')}.hide();return false;" />
+		<p:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
+			onclick="PF('ajoutAdministrateur').hide();" />
 	</h:panelGrid>
 </ui:composition>

@@ -4,11 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel id="panelFicheEvaluation"
+		<p:panel id="panelFicheEvaluation"
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 					|| welcomeController.personnel) and centreController.centre != null and not empty centreController.ficheEvaluation}">
 			<f:facet name="header">
@@ -25,19 +24,17 @@
 						<h:outputText style="font-weight:bold; font-size:20px;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.HEADER']}" />
 						<t:htmlTag value="div" style="height:10px;" />
-						<rich:message for="formFicheEtudiant"
+						<p:message for="formFicheEtudiant"
 							style="font-style:italic; font-weight:bold; font-size:16px;" />
 						<t:htmlTag value="div" style="height: 10px;" />
 					</h:panelGrid>
-					<rich:tabPanel switchType="ajax" id="tabFicheEtudiant">
-						<rich:tab id="etape1Tab">
+					<p:tabView id="tabFicheEtudiant">
+						<p:tab id="etape1Tab">
 							<f:facet name="header">
 								<h:outputText style="font-size:14px; padding:10px;"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.TITRE_1']}" />
 							</f:facet>
 							<t:panelGrid columns="2" align="center"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text"
 								style="width:750px; padding:10px; margin-left:20px; padding-top:0px;">
 								<t:htmlTag value="center">
 									<h:outputText style="margin-left:20px; font-weight:bold;"
@@ -45,16 +42,15 @@
 								</t:htmlTag>
 								<h:panelGrid columns="2">
 									<h:graphicImage id="infoActivation1" alt="information"
-										value="../../media/images/information.png" style="border:0">
-										<rich:tooltip
-											value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+										value="../../media/images/information.png">
+										<p:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
 									</h:graphicImage>
 									<h:outputText style="font-weight:bold;" value="Activation" />
 								</h:panelGrid>
 
 								<t:panelGroup colspan="2">
 									<t:htmlTag value="div" style="height:5px;" />
-									<t:htmlTag value="div" style="height:2px;" styleClass="spacer" />
+									<p:separator style="height:2px;" />
 									<t:htmlTag value="div" style="height:10px;" />
 								</t:panelGroup>
 
@@ -271,45 +267,41 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
-							<a4j:outputPanel id="listeQuestionsSupplementaires1">
+							<p:outputPanel id="listeQuestionsSupplementaires1">
 								<h:panelGrid align="center" width="500"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant1}">
 									<t:htmlTag value="center">
 										<h:outputText style="font-weight:bold; font-size:16px;"
 											value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
 									</t:htmlTag>
-									<rich:list var="questionSup" style="margin-left:10px;"
+									<p:dataList var="questionSup" style="margin-left:10px;"
 										value="#{centreController.listeQuestionsSupplementairesEtudiant1}">
 										<ui:include
 											src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
-									</rich:list>
+									</p:dataList>
 									<t:htmlTag value="div" style="height:10px;" />
 								</h:panelGrid>
-							</a4j:outputPanel>
+							</p:outputPanel>
 							<t:htmlTag value="center">
-								<a4j:commandButton execute="@this"
+								<p:commandButton 
 									style="font-size:16px; font-weight:bold; border-color:green;"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
 									action="#{centreController.avantAjoutQuestionEtudiant1}"
-									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
-									render="editQuestionEvalPanel">
+									oncomplete="PF('editQuestionEvalPanel').show();"
+									update="editQuestionEvalPanel">
 									<f:setPropertyActionListener
 										value="_questionEval_editEtape1Ajout"
 										target="#{sessionController.editQuestionEvalCurrentPage}" />
-								</a4j:commandButton>
+								</p:commandButton>
 							</t:htmlTag>
 							<t:htmlTag value="div" style="height:20px;" />
-						</rich:tab>
-						<rich:tab id="etape2Tab">
+						</p:tab>
+						<p:tab id="etape2Tab">
 							<f:facet name="header">
 								<h:outputText style="font-size:14px; padding:10px;"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.TITRE_2']}" />
 							</f:facet>
 							<t:panelGrid columns="2" align="center"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text"
 								style="width:750px; padding:10px; margin-left:20px; padding-top:0px;">
 
 								<t:htmlTag value="center">
@@ -318,16 +310,15 @@
 								</t:htmlTag>
 								<h:panelGrid columns="2">
 									<h:graphicImage id="infoActivation2" alt="information"
-										value="../../media/images/information.png" style="border:0">
-										<rich:tooltip
-											value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+										value="../../media/images/information.png">
+										<p:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
 									</h:graphicImage>
 									<h:outputText style="font-weight:bold;" value="Activation" />
 								</h:panelGrid>
 
 								<t:panelGroup colspan="2">
 									<t:htmlTag value="div" style="height:5px;" />
-									<t:htmlTag value="div" style="height:2px;" styleClass="spacer" />
+									<p:separator style="height:2px;" />
 									<t:htmlTag value="div" style="height:10px;" />
 								</t:panelGroup>
 
@@ -482,44 +473,40 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
-							<a4j:outputPanel id="listeQuestionsSupplementaires2">
+							<p:outputPanel id="listeQuestionsSupplementaires2">
 								<h:panelGrid align="center" width="500"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant2}">
 									<t:htmlTag value="center">
 										<h:outputText style="font-weight:bold; font-size:16px;"
 											value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
 									</t:htmlTag>
-									<rich:list var="questionSup" style="margin-left:10px;"
+									<p:dataList var="questionSup" style="margin-left:10px;"
 										value="#{centreController.listeQuestionsSupplementairesEtudiant2}">
 										<ui:include
 											src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
-									</rich:list>
+									</p:dataList>
 									<t:htmlTag value="div" style="height:10px;" />
 								</h:panelGrid>
-							</a4j:outputPanel>
+							</p:outputPanel>
 							<t:htmlTag value="center">
-								<a4j:commandButton execute="@this"
+								<p:commandButton 
 									style="font-size:16px; font-weight:bold; border-color:green;"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
 									action="#{centreController.avantAjoutQuestionEtudiant2}"
-									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
-									render="editQuestionEvalPanel">
+									oncomplete="PF('editQuestionEvalPanel').show();"
+									update="editQuestionEvalPanel">
 									<f:setPropertyActionListener
 										value="_questionEval_editEtape1Ajout"
 										target="#{sessionController.editQuestionEvalCurrentPage}" />
-								</a4j:commandButton>
+								</p:commandButton>
 							</t:htmlTag>
-						</rich:tab>
-						<rich:tab id="etape3Tab">
+						</p:tab>
+						<p:tab id="etape3Tab">
 							<f:facet name="header">
 								<h:outputText style="font-size:14px; padding:10px;"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.TITRE_3']}" />
 							</f:facet>
 							<t:panelGrid columns="2" align="center"
-								rowClasses="paginatorData-text"
-								columnClasses="paginatorData-text"
 								style="width:750px; padding:10px; margin-left:20px; padding-top:0px;">
 								<t:htmlTag value="center">
 									<h:outputText style="margin-left:20px; font-weight:bold;"
@@ -527,16 +514,15 @@
 								</t:htmlTag>
 								<h:panelGrid columns="2">
 									<h:graphicImage id="infoActivation3" alt="information"
-										value="../../media/images/information.png" style="border:0">
-										<rich:tooltip
-											value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+										value="../../media/images/information.png">
+										<p:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
 									</h:graphicImage>
 									<h:outputText style="font-weight:bold;" value="Activation" />
 								</h:panelGrid>
 
 								<t:panelGroup colspan="2">
 									<t:htmlTag value="div" style="height:5px;" />
-									<t:htmlTag value="div" style="height:2px;" styleClass="spacer" />
+									<p:separator style="height:2px;" />
 									<t:htmlTag value="div" style="height:10px;" />
 								</t:panelGroup>
 
@@ -859,34 +845,32 @@
 									styleClass="spacer" />
 								<t:htmlTag value="div" style="height:15px;" />
 							</t:htmlTag>
-							<a4j:outputPanel id="listeQuestionsSupplementaires3">
+							<p:outputPanel id="listeQuestionsSupplementaires3">
 								<h:panelGrid align="center" width="500"
-									rowClasses="paginatorData-text"
-									columnClasses="paginatorData-text"
 									rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant3}">
-									<rich:list var="questionSup" style="margin-left:10px;"
+									<p:dataList var="questionSup" style="margin-left:10px;"
 										value="#{centreController.listeQuestionsSupplementairesEtudiant3}">
 										<ui:include
 											src="/stylesheets/stage/_questionEval_listColumns.xhtml" />
-									</rich:list>
+									</p:dataList>
 									<t:htmlTag value="div" style="height:10px;" />
 								</h:panelGrid>
-							</a4j:outputPanel>
+							</p:outputPanel>
 							<t:htmlTag value="center">
-								<a4j:commandButton execute="@this"
+								<p:commandButton 
 									style="font-size:16px; font-weight:bold; border-color:green;"
 									value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
 									action="#{centreController.avantAjoutQuestionEtudiant3}"
-									oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
-									render="editQuestionEvalPanel">
+									oncomplete="PF('editQuestionEvalPanel').show();"
+									update="editQuestionEvalPanel">
 									<f:setPropertyActionListener
 										value="_questionEval_editEtape1Ajout"
 										target="#{sessionController.editQuestionEvalCurrentPage}" />
-								</a4j:commandButton>
+								</p:commandButton>
 							</t:htmlTag>
 							<t:htmlTag value="div" style="height:20px;" />
-						</rich:tab>
-					</rich:tabPanel>
+						</p:tab>
+					</p:tabView>
 					<t:htmlTag value="div" style="height:30px;" />
 					<t:htmlTag value="center">
 						<h:commandButton value="#{msgs['FORM.ENREGISTRER']}"
@@ -902,7 +886,7 @@
 			<ui:include src="_panel_editQuestionEval.xhtml" />
 			<ui:include src="_panel_suppressionQuestionEval.xhtml" />
 			<t:htmlTag value="div" style="height:10px;" />
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 					|| welcomeController.personnel)}">

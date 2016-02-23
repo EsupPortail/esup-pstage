@@ -2,10 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1" style="float:right;" columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text">
+	xmlns:p="http://primefaces.org/ui">
+	<h:panelGrid style="float:right;">
 		<h:outputText value="#{msgs['FORM.VOTRESAISIE']}" escape="false" />
 		<h:outputText
 			value="#{accordController.preAccord.structure.raisonSociale}" />
@@ -30,67 +28,59 @@
 		escape="false"
 		rendered="#{not empty accordController.listeStructureExistante}" />
 	<t:htmlTag value="div" style="height:30px;" />
-	<rich:dataTable align="center" width="700px"
-		id="strucureExistanteListe" rows="5"
+	<p:dataTable id="strucureExistanteListe" style="width:700px;" rows="5"
 		rendered="#{not empty accordController.listeStructureExistante}"
-		columnClasses="col"
 		value="#{accordController.listeStructureExistante}"
-		onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-		var="structureExistante">
+		var="structureExistante" rowHover="true" rowStyleClass="nopointer"
+		paginator="true"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="5,10,15,20">
 		<f:facet name="header">
-			<rich:columnGroup>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.NUM_SIRET']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.VOIE']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.COMMUNE']}" />
-				</rich:column>
-				<rich:column>
-					<h:outputText styleClass="headerText"
-						value="#{msgs['STRUCTURE.PAYS']}" />
-				</rich:column>
-				<rich:column>
-				</rich:column>
-			</rich:columnGroup>
+			<p:columnGroup>
+				<p:column>
+					<h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{msgs['STRUCTURE.VOIE']}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
+				</p:column>
+				<p:column>
+				</p:column>
+			</p:columnGroup>
 		</f:facet>
-		<rich:column>
+		<p:column>
 			<h:outputText value="#{structureExistante.raisonSociale}" />
-		</rich:column>
-		<rich:column>
+		</p:column>
+		<p:column>
 			<h:outputText value="#{structureExistante.numeroSiret}" />
-		</rich:column>
-		<rich:column>
+		</p:column>
+		<p:column>
 			<h:outputText value="#{structureExistante.batimentResidence}" />
-		</rich:column>
-		<rich:column>
+		</p:column>
+		<p:column>
 			<h:outputText value="#{structureExistante.voie}" />
-		</rich:column>
-		<rich:column>
+		</p:column>
+		<p:column>
 			<h:outputText value="#{structureExistante.codePostal}" />
-		</rich:column>
-		<rich:column>
+		</p:column>
+		<p:column>
 			<h:outputText value="#{structureExistante.commune}" />
-		</rich:column>
-		<rich:column>
+		</p:column>
+		<p:column>
 			<h:panelGrid columns="2">
 				<h:graphicImage id="flag"
 					rendered="#{not empty structureExistante.pays}"
@@ -99,25 +89,20 @@
 					title="#{structureExistante.pays.libelle}" />
 				<h:outputText value="#{structureExistante.pays.libelle}" />
 			</h:panelGrid>
-		</rich:column>
-		<rich:column>
-			<a4j:commandLink id="selectionStructure"
-				render="structureSelected, structureNonPresente">
+		</p:column>
+		<p:column>
+			<p:commandLink id="selectionStructure"
+				update="structureSelected, structureNonPresente">
 				<f:setPropertyActionListener value="#{structureExistante}"
 					target="#{accordController.structureExistante}" />
 				<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
-					value="../../media/images/zoom.png" style="border:0" />
-				<rich:tooltip followMouse="true" styleClass="tooltip"
-					value="#{msgs['FORM.SELECTIONNER']}" />
-			</a4j:commandLink>
-		</rich:column>
-		<f:facet name="footer">
-			<rich:dataScroller align="center" for="strucureExistanteListe"
-				maxPages="20" page="1" renderIfSinglePage="false" />
-		</f:facet>
-	</rich:dataTable>
+					value="../../media/images/zoom.png" />
+				<p:tooltip value="#{msgs['FORM.SELECTIONNER']}" for="selectionStructure" />
+			</p:commandLink>
+		</p:column>
+	</p:dataTable>
 	<t:htmlTag value="div" style="height:20px;" />
-	<a4j:outputPanel id="structureSelected">
+	<p:outputPanel id="structureSelected">
 		<t:div rendered="#{not empty accordController.structureExistante}">
 			<t:div
 				style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
@@ -132,22 +117,20 @@
 			</t:panelGroup>
 			<t:panelGroup colspan="2"
 				rendered="#{not empty accordController.listeStructureExistante}">
-				<a4j:commandLink render="structureSelected, structureNonPresente"
+				<p:commandLink update="structureSelected, structureNonPresente"
 					action="#{accordController.deSelectionner}">
 					<f:setPropertyActionListener value="#{null}"
 						target="#{accordController.structureExistante}" />
 					<h:graphicImage alt="#{msgs['FORM.DESELECTIONNER']}"
-						value="../../media/images/cancel.png" style="border:0" />
+						value="../../media/images/cancel.png" />
 					<h:outputText value="#{msgs['FORM.DESELECTIONNER']}" />
-				</a4j:commandLink>
+				</p:commandLink>
 			</t:panelGroup>
 			<t:htmlTag value="div" style="height:20px;" />
-			<h:panelGrid columns="1" align="center" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
+			<h:panelGrid align="center">
 				<h:outputText value="#{msgs['ACCORD.ETABTROUVE_QUESTION']}" />
 				<h:panelGrid columns="2">
-					<h:commandButton
-						action="#{accordController.goToFormulaireAccord}"
+					<h:commandButton action="#{accordController.goToFormulaireAccord}"
 						value="#{msgs['FORM.OUI']}">
 						<f:setPropertyActionListener
 							value="#{accordController.structureExistante}"
@@ -155,8 +138,7 @@
 						<f:setPropertyActionListener value="#{true}"
 							target="#{accordController.structureDejaExistante}" />
 					</h:commandButton>
-					<h:commandButton
-						action="#{accordController.goToFormulaireAccord}"
+					<h:commandButton action="#{accordController.goToFormulaireAccord}"
 						rendered="#{accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
 						value="#{msgs['FORM.NON']}">
 						<f:setPropertyActionListener value="#{null}"
@@ -167,30 +149,30 @@
 							value="#{accordController.preAccord.structure}"
 							target="#{accordController.accord.structure}" />
 					</h:commandButton>
-					<a4j:commandButton
+					<p:commandButton
 						action="#{accordController.nousContacterErreurEtablissement}"
 						rendered="#{accordController.accord.structure.pays==beanUtils.france || accordController.accord.structure.pays.cog==beanUtils.cogFrance}"
 						value="#{msgs['ACCORD.ERREUR_ETAB']}"
-						oncomplete="#{rich:component('nousContacter')}.show()"
-						render="nousContacter"/>
+						oncomplete="PF('nousContacter').show();" update="nousContacter" />
 				</h:panelGrid>
 			</h:panelGrid>
 		</t:div>
-	</a4j:outputPanel>
-	<a4j:outputPanel id="structureNonPresente">
+	</p:outputPanel>
+	<p:outputPanel id="structureNonPresente">
 		<t:div
 			rendered="#{not empty accordController.listeStructureExistante and empty accordController.structureExistante}">
-			<h:panelGrid align="center" columns="1">
+			<h:panelGrid align="center">
 				<h:outputText value="#{msgs['ACCORD.ETABTROUVE_NONCORRESPONDANT']}" />
-				<a4j:commandButton action="#{accordController.goToFormulaireAccord}"
+				<p:commandButton action="#{accordController.goToFormulaireAccord}"
 					rendered="#{accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
 					value="#{msgs['FORM.NEXT']}">
 					<f:setPropertyActionListener value="#{false}"
 						target="#{accordController.structureDejaExistante}" />
-				</a4j:commandButton>
+				</p:commandButton>
 			</h:panelGrid>
 		</t:div>
-	</a4j:outputPanel>
-	<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}" action="#{accordController.retourPreAccord}"
-		render="formAccord" immediate="true"/>
+	</p:outputPanel>
+	<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+		action="#{accordController.retourPreAccord}" update="formAccord"
+		immediate="true" />
 </ui:composition>

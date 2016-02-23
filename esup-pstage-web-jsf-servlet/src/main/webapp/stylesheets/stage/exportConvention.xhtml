@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['EXPORTCONVENTION.TITRE']}" />
 			</f:facet>
@@ -19,20 +19,20 @@
 					<t:htmlTag value="div" style="height:5px;" />
 					<h:outputLabel for="formRechConvention"
 						value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
-					<rich:pickList listHeight="250" listWidth="250"
+					<p:pickList listHeight="250" listWidth="250"
 						addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
 						addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
 						removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
 						removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
 						value="#{exportController.conventionColonnesChoisies}">
 						<f:selectItems value="#{exportController.conventionColonnes}" />
-					</rich:pickList>
+					</p:pickList>
 
 					<t:htmlTag value="div" style="height:10px;" />
 
 					<h:outputLabel for="formRechConvention"
 						value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
-					<rich:pickList listHeight="250" listWidth="250"
+					<p:pickList listHeight="250" listWidth="250"
 						addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
 						addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
 						removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
@@ -40,7 +40,7 @@
 						value="#{exportController.conventionEntrepriseColonnesChoisies}">
 						<f:selectItems
 							value="#{exportController.conventionEntrepriseColonnes}" />
-					</rich:pickList>
+					</p:pickList>
 
 					<t:htmlTag value="div" style="height:20px;" />
 					<h:panelGrid columns="3">
@@ -54,9 +54,7 @@
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>
-			<rich:message for="formRechConvention" showDetail="true">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</rich:panel>
+			<p:message for="formRechConvention" showDetail="true" />
+		</p:panel>
 	</ui:define>
 </ui:composition>

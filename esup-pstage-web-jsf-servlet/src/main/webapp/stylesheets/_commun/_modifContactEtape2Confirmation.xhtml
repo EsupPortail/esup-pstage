@@ -2,8 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height: 20px;" />
@@ -13,7 +13,7 @@
 	<t:htmlTag value="div" style="height: 20px;" />
 
 	<t:htmlTag value="center">
-		<a4j:commandButton value="#{msgs['GENERAL.CLOSE']}"
-			oncomplete="#{rich:component('modifContact')}.hide();" />
+		<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
+			oncomplete="PF('modifContact').hide();" />
 	</t:htmlTag>
 </ui:composition>

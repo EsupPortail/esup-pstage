@@ -2,16 +2,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	 template="../_basicTemplate.xhtml">
 	<ui:define name="content">
 		<t:div>
 			<h:panelGrid style="float:left;">
 				<ui:include src="./_menu.xhtml" />
 			</h:panelGrid>
-			<h:panelGrid columns="1" styleClass="panelEntreprise"
+			<h:panelGrid
 				rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
-				<rich:panel>
+				<p:panel>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['OFFRE.MODIFICATION']}" />
 					</f:facet>
@@ -28,17 +28,17 @@
 							title="#{msgs['FORM.ANNULERETRETOUR']}" immediate="true"
 							style="float:right;" />
 					</h:form>
-					<rich:message for="formModificationOffre">
+					<p:message for="formModificationOffre">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 					<ui:include src="../_commun/_panelAjoutService.xhtml" />
 					<ui:include src="../_commun/_panelModifService.xhtml" />
 					<ui:include src="../_commun/_panelAjoutContact.xhtml" />
 					<ui:include src="../_commun/_panelModifContact.xhtml" />
-				</rich:panel>
+				</p:panel>
 				<ui:include src="_panelNousContacter.xhtml" />
 			</h:panelGrid>
-			<rich:editor rendered="false" />
+			<p:editor rendered="false" />
 		</t:div>
 	</ui:define>
 </ui:composition>

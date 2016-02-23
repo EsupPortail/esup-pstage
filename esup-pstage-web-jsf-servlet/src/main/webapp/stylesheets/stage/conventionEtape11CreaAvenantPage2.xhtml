@@ -4,45 +4,45 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel
+		<p:panel
 			rendered="#{conventionController.convention != null and avenantController.avenant != null}">
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CONVENTION.ETAPE11.RECAP']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formCreaAvenantPage2">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1"
+				<h:panelGrid
+					
 					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 
 					<ui:include src="/stylesheets/stage/_conventionEtape11FormAvenantPage2.xhtml" />
 					
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" align="center" columns="1">
+					<h:panelGrid
+						align="center">
 						<h:commandButton
 							value="#{msgs['CONVENTION.ETAPE11.CONFIRMATION']}"
 							action="#{avenantController.creerAvenant}" />
 						<h:outputText id="erreurAjoutAvenant" value="" />
-						<rich:message for="erreurAjoutAvenant">
+						<p:message for="erreurAjoutAvenant">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
 					<br />
 
 					<h:commandButton id="retour" style="float:left;"
 						value="#{msgs['GENERAL.RETOUR']}"
 						action="#{avenantController.rectifierAvenant}">
-						<rich:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
+						<p:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
 					</h:commandButton>
 					<t:htmlTag value="div" style="height: 20px;" />
 				</h:panelGrid>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{conventionController.convention == null || avenantController.avenant == null}">
 			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />

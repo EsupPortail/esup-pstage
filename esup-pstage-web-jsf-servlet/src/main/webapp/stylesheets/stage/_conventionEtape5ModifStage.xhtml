@@ -2,24 +2,24 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:panelGrid>
 		<h:outputText value=" " id="formModifStage" />
-		<rich:message for="formModifStage">
+		<p:message for="formModifStage">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 		<t:div rendered="#{not empty conventionController.convention}">
 			<ui:include src="/stylesheets/stage/_conventionEtape5StageForm.xhtml" />
 			<h:panelGrid columns="2">
-				<a4j:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
+				<p:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"
 					action="#{conventionController.modifierStageDetail}"
 					alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
 					rendered="#{not empty conventionController.convention}"
-					render="opFCE"/>
-				<a4j:outputPanel id="opFCE">
+					update="opFCE"/>
+				<p:outputPanel id="opFCE">
 					<h:panelGrid columns="3"
 						rendered="#{facesContext.maximumSeverity != null}">
 						<h:graphicImage value="../../media/images/arrow_up.png"
@@ -30,7 +30,7 @@
 							alt="#{msgs['GENERAL.ARROW_UP']}"
 							title="#{msgs['GENERAL.ARROW_UP']}" />
 					</h:panelGrid>
-				</a4j:outputPanel>
+				</p:outputPanel>
 			</h:panelGrid>
 		</t:div>
 	</h:panelGrid>

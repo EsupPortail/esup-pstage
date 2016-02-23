@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:column>
+	<p:column>
 		<h:commandButton id="detailStructure"
 			value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
 			action="#{rechercheController.goToAffichageRechercheEtablissement}"
@@ -15,10 +15,10 @@
 			rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
 			<f:setPropertyActionListener value="#{varRechercheStructure}"
 				target="#{rechercheController.resultatRechercheStructure}" />
-			<rich:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+			<p:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
 		</h:commandButton>
-	</rich:column>
-	<rich:column
+	</p:column>
+	<p:column
 		rendered="#{(sessionController.adminPageAuthorized || welcomeController.superAdmin 
 	|| welcomeController.admin || welcomeController.writer)}">
 		<t:div style="display:inline;">
@@ -38,57 +38,57 @@
 						target="#{etablissementController.formStructure}" />
 					<f:setPropertyActionListener value="#{false}"
 						target="#{etablissementController.modificationEtabBoutonAnnuler}" />
-					<rich:tooltip>
+					<p:tooltip>
 						<h:outputLabel for="tooltip" value="#{msgs['FORM.MODIFIER']}" />
 						<t:htmlTag value="br" />
 						<t:aliasBean id="tooltip" alias="#{objet}" value="#{varRechercheStructure}">
 							<ui:include src="../_commun/_updateInfos.xhtml" />
 						</t:aliasBean>
-					</rich:tooltip>
+					</p:tooltip>
 				</h:commandButton>
-				<a4j:commandLink execute="@this" id="supprimerStructure"
-					oncomplete="#{rich:component('supprimerStructurePanel')}.show()"
-					render="supprimerStructurePanel"
+				<p:commandLink  id="supprimerStructure"
+					oncomplete="PF('supprimerStructurePanel').show();"
+					update="supprimerStructurePanel"
 					rendered="#{not empty rechercheController.ongletCourant 		
 				and rechercheController.ongletCourant!=6
 				or (rechercheController.ongletCourant==6 and
 				(empty varRechercheStructure.accordPartenariat))}">
 					<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-						value="../../media/images/delete.png" style="border:0" />
+						value="../../media/images/delete.png" />
 					<f:setPropertyActionListener value="#{varRechercheStructure}"
 						target="#{etablissementController.formStructure}" />
 					<f:setPropertyActionListener value="_supprStructureEtape1"
 						target="#{sessionController.suppressionStructureCurrentPage}" />
-					<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-				</a4j:commandLink>
+					<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+				</p:commandLink>
 			</t:div>
-			<a4j:commandLink execute="@this" id="validerStructure"
-				oncomplete="#{rich:component('validerStructurePanel')}.show()"
+			<p:commandLink  id="validerStructure"
+				oncomplete="PF('validerStructurePanel').show();"
 				rendered="#{empty varRechercheStructure.accordPartenariat and sessionController.moderationStructures}"
 				action="#{etablissementController.avantValidation}"
-				render="validerStructurePanel">
+				update="validerStructurePanel">
 				<h:graphicImage alt="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
-					value="../../media/images/tick.png" style="border:0" />
+					value="../../media/images/tick.png" />
 				<f:setPropertyActionListener value="#{varRechercheStructure}"
 					target="#{etablissementController.currentStruct}" />
 				<f:setPropertyActionListener value="_validStructureEtape1"
 					target="#{sessionController.validationStructureCurrentPage}" />
-				<rich:tooltip value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
-			</a4j:commandLink>
-<!-- 			<a4j:commandLink execute="@this" id="devaliderStructure" -->
-<!-- 				oncomplete="#{rich:component('validerStructurePanel')}.show()" -->
+				<p:tooltip value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
+			</p:commandLink>
+<!-- 			<p:commandLink  id="devaliderStructure" -->
+<!-- 				oncomplete="PF('validerStructurePanel').show();" -->
 <!-- 				rendered="#{(varRechercheStructure.estValidee == 1 || varRechercheStructure.estValidee == 2) -->
 <!-- 				and empty varRechercheStructure.accordPartenariat}" -->
 <!-- 				action="#{etablissementController.avantValidation}" -->
-<!-- 				render="validerStructurePanel"> -->
+<!-- 				update="validerStructurePanel"> -->
 <!-- 				<h:graphicImage alt="#{msgs['FORM.DEVALIDER']}" -->
-<!-- 					value="../../media/images/cross.png" style="border:0" /> -->
+<!-- 					value="../../media/images/cross.png" /> -->
 <!-- 				<f:setPropertyActionListener value="#{varRechercheStructure}" -->
 <!-- 					target="#{etablissementController.currentStruct}" /> -->
 <!-- 				<f:setPropertyActionListener value="_validStructureEtape1" -->
 <!-- 					target="#{sessionController.validationStructureCurrentPage}" /> -->
-<!-- 				<rich:tooltip value="#{msgs['FORM.DEVALIDER']}" /> -->
-<!-- 			</a4j:commandLink> -->
+<!-- 				<p:tooltip value="#{msgs['FORM.DEVALIDER']}" /> -->
+<!-- 			</p:commandLink> -->
 		</t:div>
-	</rich:column>
+	</p:column>
 </ui:composition>

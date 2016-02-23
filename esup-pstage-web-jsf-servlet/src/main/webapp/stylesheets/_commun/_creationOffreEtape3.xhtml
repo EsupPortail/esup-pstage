@@ -2,8 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<ui:include src="__offreEtape3.xhtml" />
@@ -20,9 +20,9 @@
 				target="#{sessionController.creationOffreStageCurrentPage}" />
 		</h:commandButton>
 		<t:htmlTag value="div" style="width:30px;" />
-		<a4j:commandButton value="#{msgs['FORM.ENREGISTRER']}"
+		<p:commandButton value="#{msgs['FORM.ENREGISTRER']}"
 			action="#{offreController.ajoutOffre}"
 			alt="#{msgs['FORM.ENREGISTRER']}" title="#{msgs['FORM.ENREGISTRER']}"
-			render="formCreationOffre"/>
+			update="formCreationOffre"/>
 	</h:panelGrid>
 </ui:composition>

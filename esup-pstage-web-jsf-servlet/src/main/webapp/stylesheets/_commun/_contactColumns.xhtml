@@ -2,70 +2,70 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<f:facet name="header">
-		<rich:columnGroup>
-			<rich:column>
+		<p:columnGroup>
+			<p:column>
 				<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
 					title="#{msgs['CONTACT.CIVILITE']}"
-					value="../../media/images/user_gray.png" style="border:0" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText" value="#{msgs['CONTACT.NOM']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
+					value="../../media/images/user_gray.png" />
+			</p:column>
+			<p:column>
+				<h:outputText  value="#{msgs['CONTACT.NOM']}" />
+			</p:column>
+			<p:column>
+				<h:outputText 
 					value="#{msgs['CONTACT.PRENOM']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
+			</p:column>
+			<p:column>
+				<h:outputText 
 					value="#{msgs['CONTACT.FONCTION']}" />
-			</rich:column>
-			<rich:column>
-				<h:outputText styleClass="headerText"
+			</p:column>
+			<p:column>
+				<h:outputText 
 					value="#{msgs['CONTACT.TELFAXMAIL']}" />
-			</rich:column>
-		</rich:columnGroup>
+			</p:column>
+		</p:columnGroup>
 	</f:facet>
-	<rich:column>
+	<p:column>
 		<h:outputText id="civC"
 			value="#{etablissementController.formContact.civilite.libelle}" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText id="nomC" value="#{etablissementController.formContact.nom}" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText id="prenomC"
 			value="#{etablissementController.formContact.prenom}" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText id="fonctionC"
 			value="#{etablissementController.formContact.fonction}" />
-	</rich:column>
-	<rich:column>
-		<h:panelGrid columns="1">
+	</p:column>
+	<p:column>
+		<h:panelGrid>
 			<h:panelGrid columns="2">
 				<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
 					title="#{msgs['CONTACT.TELEPHONE']}"
-					value="../../media/images/phone.png" style="border:0" />
+					value="../../media/images/phone.png" />
 				<h:outputText id="telC" value="#{etablissementController.formContact.tel}" />
 			</h:panelGrid>
 			<h:panelGrid columns="2">
 				<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
 					title="#{msgs['CONTACT.FAX']}"
-					value="../../media/images/printer.png" style="border:0" />
+					value="../../media/images/printer.png" />
 				<h:outputText id="faxC" value="#{etablissementController.formContact.fax}" />
 			</h:panelGrid>
 			<h:panelGrid columns="2">
 				<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
 					title="#{msgs['CONTACT.MAIL']}"
-					value="../../media/images/email.png" style="border:0" />
+					value="../../media/images/email.png" />
 				<h:outputText id="mailC"
 					value="#{etablissementController.formContact.mail}" />
 			</h:panelGrid>
 		</h:panelGrid>
-	</rich:column>
+	</p:column>
 </ui:composition>

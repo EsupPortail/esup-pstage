@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
+	<p:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT']}" />
@@ -17,19 +17,19 @@
 		<h:outputText
 			value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT.DEMANDE']}" />
 
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text">
+		<h:panelGrid
+			>
 			<t:htmlTag value="div" style="height: 20px;" />
-			<h:panelGrid columns="4" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
+			<h:panelGrid columns="4"
+				>
 				<h:outputLabel value="#{msgs['CONVENTION.NUMETUDIANT']}"
 					for="identEtudiant" />
 				<h:inputText id="identEtudiant" size="50" maxlength="30"
 					value="#{conventionController.rechIdentEtudiant}" />
 				<t:htmlTag value="div" style="width: 10px;" />
-				<rich:message for="identEtudiant">
+				<p:message for="identEtudiant">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 
 				<t:htmlTag value="div" style="width: 20px;" />
 				<h:panelGrid id="oblig" columns="2">
@@ -40,9 +40,9 @@
 					<h:outputText value="#{msgs['RECHERCHEETU.OBLIGATOIRE']}" />
 				</h:panelGrid>
 				<t:htmlTag value="div" style="width: 10px;" />
-				<rich:message for="oblig">
+				<p:message for="oblig">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 
 				<h:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
 
@@ -52,9 +52,9 @@
 					<f:converter binding="#{sansAccentEnMAJConverter}" />
 				</h:inputText>
 				<t:htmlTag value="div" style="width: 10px;" />
-				<rich:message for="nom">
+				<p:message for="nom">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 
 				<h:outputLabel value="#{msgs['CONVENTION.PRENOM']}" for="prenom" />
 
@@ -64,9 +64,9 @@
 					<f:converter binding="#{sansAccentEnMAJConverter}" />
 				</h:inputText>
 				<t:htmlTag value="div" style="width: 10px;" />
-				<rich:message for="prenom">
+				<p:message for="prenom">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</h:panelGrid>
 			<t:htmlTag value="div" style="height:10px;" />
 			<t:htmlTag value="center">
@@ -79,5 +79,5 @@
 		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
 			action="#{conventionController.goToCreerConventionConsignes}"
 			immediate="true" />
-	</rich:panel>
+	</p:panel>
 </ui:composition>

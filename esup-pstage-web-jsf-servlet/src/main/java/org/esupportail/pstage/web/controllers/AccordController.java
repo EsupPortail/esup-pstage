@@ -460,7 +460,7 @@ public class AccordController extends AbstractContextAwareController {
 				}
 				accordEnregistre=true;
 			}catch (DataAddException d) {
-				logger.error("DataAddException", d.fillInStackTrace());
+				logger.error("DataAddException", d.getCause());
 				addErrorMessage(null, "ACCORD.ERREUR");
 				//Suppression des éléments ajoutés en base
 				if(contactTmp.getId()>0){
@@ -483,7 +483,7 @@ public class AccordController extends AbstractContextAwareController {
 				}
 			}catch (WebServiceDataBaseException w){
 				try {
-					logger.error("WebServiceDataBaseException", w.fillInStackTrace());
+					logger.error("WebServiceDataBaseException", w.getCause());
 					addErrorMessage(null, "ACCORD.ERREUR");
 					//Suppression des éléments ajoutés en base
 					if(contactTmp.getId()>0){
@@ -533,7 +533,7 @@ public class AccordController extends AbstractContextAwareController {
 			}catch (AccordAlreadyExistingForContactException ac) {
 				// Impossible ici
 			}catch (MailAlreadyUsedForStructureException e) {
-				logger.info("MailAlreadyUsedForStructureException", e.fillInStackTrace());
+				logger.info("MailAlreadyUsedForStructureException", e.getCause());
 				addErrorMessage("formAccord:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 				getSessionController().setCreationAccordCurrentPage("_accordEtape3FormulaireAccord");
 //				retour=null;

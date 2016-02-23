@@ -2,38 +2,37 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height:5px;" />
 
 	<t:htmlTag value="center">
-		<rich:dataTable id="listeTypeStructure" rows="15"
-			value="#{nomenclatureController.typesStructure}" var="typeStructure">
-			<rich:column>
+		<p:dataTable id="listeTypeStructure"
+			value="#{nomenclatureController.typesStructure}" var="typeStructure"
+			rows="15" rowHover="true" rowStyleClass="nopointer" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+			<p:column>
 				<f:facet name="header">
 					<h:outputText value="#{msgs['NOMENCLATURES.TABLE.HEADER']}" />
 				</f:facet>
-				<h:panelGrid columns="4" columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text">
-					<a4j:commandLink 
-						oncomplete="#{rich:component('suppressionTypeStructure')}.show()"
-						render="suppressionTypeStructure">
+				<h:panelGrid columns="4">
+					<p:commandLink oncomplete="PF('suppressionTypeStructure').show();"
+						update="suppressionTypeStructure">
 						<f:setPropertyActionListener value="#{typeStructure.value}"
 							target="#{nomenclatureController.typeStructure}" />
 						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
-						<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-					</a4j:commandLink>
-					<a4j:commandLink 
-						render="typeStructureTab">
+						<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+					</p:commandLink>
+					<p:commandLink update="typeStructureTab">
 						<f:setPropertyActionListener value="#{typeStructure.value}"
 							target="#{nomenclatureController.typeStructure}" />
 						<f:setPropertyActionListener value="modif"
 							target="#{nomenclatureController.typeStructureCurrentPage}" />
 						<h:graphicImage alt="modifier" value="../../media/images/edit.png" />
-						<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-					</a4j:commandLink>
+						<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+					</p:commandLink>
 					<t:htmlTag value="b">
 						<h:outputText value="#{typeStructure.label}" />
 					</t:htmlTag>
@@ -46,26 +45,21 @@
 							value="#{msgs['NOMENCLATURES.AJOUT.SIRETOBLIGATOIRE.NON']}" />
 					</t:htmlTag>
 				</h:panelGrid>
-			</rich:column>
-			<f:facet name="footer">
-				<rich:dataScroller align="center" for="listeTypeStructure"
-					maxPages="20" page="1" id="listeScroller"
-					renderIfSinglePage="false" />
-			</f:facet>
-		</rich:dataTable>
+			</p:column>
+		</p:dataTable>
 
 		<t:htmlTag value="div" style="height:10px;" />
 
-		<rich:dataTable border="0" value="" row="1" var="var">
-			<rich:column>
-				<a4j:commandButton style="color:green;"
+		<p:dataTable border="0" value="" row="1" var="var">
+			<p:column>
+				<p:commandButton style="color:green;"
 					action="#{nomenclatureController.resetObjects}"
-					render="typeStructureTab" value="#{msgs['NOMENCLATURES.AJOUT']}">
+					update="typeStructureTab" value="#{msgs['NOMENCLATURES.AJOUT']}">
 					<f:setPropertyActionListener value="ajout"
 						target="#{nomenclatureController.typeStructureCurrentPage}" />
-				</a4j:commandButton>
-			</rich:column>
-		</rich:dataTable>
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
 	</t:htmlTag>
 
 	<t:htmlTag value="div" style="height:10px;" />

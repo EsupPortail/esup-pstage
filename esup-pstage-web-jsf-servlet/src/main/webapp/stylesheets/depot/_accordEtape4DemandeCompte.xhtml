@@ -2,12 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 
 	<t:htmlTag value="div" style="height:40px;" />
 
-	<a4j:commandButton action="#{accordController.goToEtapePrecedente}"
+	<p:commandButton action="#{accordController.goToEtapePrecedente}"
 		value="#{msgs['FORM.PREVIOUS']}" immediate="true" />
 	<t:htmlTag value="br" />
 	<t:htmlTag value="br" />
@@ -30,10 +30,10 @@
 			<h:outputText value="#{msgs['ACCORD.EXISTANT']}" escape="false" />
 		</h2>
 		<h:panelGrid columns="2" align="center">
-			<h:panelGrid columns="1">
+			<h:panelGrid>
 				<ui:include src="../_commun/_champsObligatoires.xhtml" />
 				<h:panelGrid columns="3">
-					<h:panelGrid columns="1">
+					<h:panelGrid>
 						<h:panelGrid columns="2"
 							style="margin-left:auto;margin-right:auto;">
 							<h:outputLabel value="#{msgs['CONTACT.CIVILITE']} *"
@@ -44,12 +44,12 @@
 								requiredMessage="#{requiredMessageController.champObligatoire}">
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.civilites}" />
-								<a4j:ajax event="blur" />
+								<p:ajax event="blur" />
 							</h:selectOneMenu>
 							<t:panelGroup colspan="2">
-								<rich:message for="civilite">
+								<p:message for="civilite">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</t:panelGroup>
 						</h:panelGrid>
 						<h:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
@@ -58,39 +58,39 @@
 							maxlength="50" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:converter binding="#{upperCaseConverter}" />
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:inputText>
-						<rich:message for="nom">
+						<p:message for="nom">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 						<h:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
 						<h:inputText id="prenom" style="text-transform:capitalize;"
 							value="#{accordController.contactDemandeCompte.prenom}" size="50"
 							maxlength="50" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:converter binding="#{premiereLettreMAJConverter}" />
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:inputText>
-						<rich:message for="prenom">
+						<p:message for="prenom">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 						<h:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
 						<h:inputText id="fonction" size="50" maxlength="100"
 							value="#{accordController.contactDemandeCompte.fonction}" />
-						<rich:message for="fonction">
+						<p:message for="fonction">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 						<h:outputLabel for="nomService" value="#{msgs['SERVICE.NOM']} *" />
 						<h:inputText id="nomService" style="text-transform:uppercase;"
 							value="#{accordController.contactDemandeCompte.service.nom}"
 							size="50" maxlength="50" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:converter binding="#{upperCaseConverter}" />
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:inputText>
-						<rich:message for="nomService">
+						<p:message for="nomService">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
 					<h:panelGrid columns="3">
 						<t:htmlTag value="div" style="width:25px;" />
@@ -98,24 +98,24 @@
 							style="width:2px; height:225px; background-color: #{a4jSkin.panelBorderColor};" />
 						<t:htmlTag value="div" style="width:25px;" />
 					</h:panelGrid>
-					<h:panelGrid columns="1">
+					<h:panelGrid>
 						<t:htmlTag value="div" style="height:25px;" />
 						<h:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} *" />
 						<h:inputText id="telC"
 							value="#{accordController.contactDemandeCompte.tel}" size="20"
 							maxlength="20" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:inputText>
-						<rich:message for="telC">
+						<p:message for="telC">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 						<h:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
 						<h:inputText id="faxC" size="20" maxlength="20"
 							value="#{accordController.contactDemandeCompte.fax}" />
-						<rich:message for="faxC">
+						<p:message for="faxC">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 						<h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
 						<h:inputText id="mailC"
 							value="#{accordController.contactDemandeCompte.mail}" size="50"
@@ -123,11 +123,11 @@
 							requiredMessage="#{requiredMessageController.champObligatoire}"
 							validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 							<f:validator binding="#{mailValidator}" />
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:inputText>
-						<rich:message for="mailC">
+						<p:message for="mailC">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 						<h:outputLabel for="mailConfirmation"
 							value="#{msgs['CONTACT.MAIL_CONFIRMATION']} *" />
 						<h:inputText id="mailConfirmation"
@@ -136,17 +136,17 @@
 							requiredMessage="#{requiredMessageController.champObligatoire}"
 							validatorMessage="#{requiredMessageController.adresseMailNonValide}">
 							<f:validator binding="#{mailValidator}" />
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:inputText>
-						<rich:message for="mailConfirmation">
+						<p:message for="mailConfirmation">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:panelGrid>
 		</h:panelGrid>
-		<a4j:commandButton action="#{accordController.validerDemandeCompte}"
-			render="formAccord"
+		<p:commandButton action="#{accordController.validerDemandeCompte}"
+			update="formAccord"
 			value="#{msgs['FORM.ENVOYER']}" />
 	</t:div>
 </ui:composition>

@@ -2,22 +2,22 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:p="http://primefaces.org/ui"
+	>
 	<t:aliasBean alias="#{structure}"
 		value="#{rechercheController.resultatRechercheStructure}">
 		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 	</t:aliasBean>
-	<a4j:outputPanel id="opAffAccord" ajaxRendered="true">
-		<rich:toolbar height="26" itemSeparator="none">
+	<p:outputPanel id="opAffAccord" ajaxRendered="true">
+		<p:toolbar height="26" itemSeparator="none">
 			<ui:include
 				src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
-		</rich:toolbar>
+		</p:toolbar>
 
 		<t:htmlTag value="div" style="height:5px;" />
 
-		<h:panelGrid columns="5" rowClasses="paginatorData-text"
-			columnClasses="paginatorData-text"
+		<h:panelGrid columns="5" 
+			
 			rendered="#{sessionController.adminPageAuthorized and 
 				not empty rechercheController.ongletCourant 
 				and rechercheController.ongletCourant==6
@@ -43,9 +43,9 @@
 
 		<t:htmlTag value="div" style="height:5px;" />
 
-		<rich:toolbar height="26" itemSeparator="none">
-			<h:panelGrid columns="4" rowClasses="paginatorData-text"
-				columnClasses="paginatorData-text"
+		<p:toolbar height="26" itemSeparator="none">
+			<h:panelGrid columns="4" 
+				
 				rendered="#{sessionController.adminPageAuthorized
 			and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">
 				<h:commandLink id="validerAccord"
@@ -53,7 +53,7 @@
 					rendered="#{not rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
 					<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
 						title="#{msgs['FORM.VALIDER']}"
-						value="../../media/images/tick.png" style="border:0" />
+						value="../../media/images/tick.png" />
 					<f:setPropertyActionListener
 						value="#{rechercheController.resultatRechercheStructure}"
 						target="#{adminController.structureAccordAValider}" />
@@ -64,27 +64,27 @@
 					rendered="#{rechercheController.resultatRechercheStructure.accordPartenariat.estValide}">
 					<h:graphicImage alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
 						title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-						value="../../media/images/see.png" style="border:0" />
+						value="../../media/images/see.png" />
 					<f:setPropertyActionListener
 						value="#{rechercheController.resultatRechercheStructure}"
 						target="#{adminController.structureAccord}" />
 					<h:outputText value="#{msgs['ACCORD.CONSULTATION.BUTTON']}" />
 				</h:commandLink>
 				<t:htmlTag value="div" style="width:10px;" />
-				<a4j:commandLink execute="@this" id="supprimerAccord"
-					oncomplete="#{rich:component('supprimerAccordPanel')}.show()"
-					render="supprimerAccordPanel">
+				<p:commandLink  id="supprimerAccord"
+					oncomplete="PF('supprimerAccordPanel').show();"
+					update="supprimerAccordPanel">
 					<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
 						title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-						value="../../media/images/see_block.png" style="border:0" />
+						value="../../media/images/see_block.png" />
 					<h:outputText value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
 					<f:setPropertyActionListener
 						value="#{rechercheController.resultatRechercheStructure}"
 						target="#{adminController.accordASupprimer}" />
 					<f:setPropertyActionListener value="_supprAccordEtape1" 
 						target="#{sessionController.suppressionAccordCurrentPage}" />
-				</a4j:commandLink>
+				</p:commandLink>
 			</h:panelGrid>
-		</rich:toolbar>
-	</a4j:outputPanel>
+		</p:toolbar>
+	</p:outputPanel>
 </ui:composition>

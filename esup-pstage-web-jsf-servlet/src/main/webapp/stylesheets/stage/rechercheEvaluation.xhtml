@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['RECHERCHEEVALUATION.TITRE']}" />
 			</f:facet>
@@ -21,8 +21,8 @@
 
 					<t:htmlTag value="fieldset">
 						<t:htmlTag value="legend">
-							<h:panelGrid columnClasses="paginatorData-text"
-								rowClasses="paginatorData-text" columns="2">
+							<h:panelGrid
+								columns="2">
 								<h:outputLabel
 									value="#{msgs['RECHERCHEEVALUATION.CENTREGESTION']}"
 									for="centreGestion" />
@@ -33,18 +33,18 @@
 									style="width:300px;">
 									<f:selectItems
 										value="#{evaluationController.listeItemsCurrentCentresGestionEval}" />
-									<a4j:ajax execute="@this" event="valueChange"
-										render="panelCodes" status="statusRecherche"
+									<p:ajax  event="valueChange"
+										update="panelCodes" status="statusRecherche"
 										listener="#{evaluationController.updateAffichageListeCodes}" />
 								</h:selectOneMenu>
 							</h:panelGrid>
-							<rich:message for="centreGestion">
+							<p:message for="centreGestion">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</t:htmlTag>
 						<h:panelGrid>
 							<t:htmlTag value="div" style="height:10px;" />
-							<a4j:outputPanel id="panelCodes">
+							<p:outputPanel id="panelCodes">
 								<h:outputText
 									value="#{msgs['RECHERCHEEVALUATION.ISETABLISSEMENT']}"
 									escape="false" rendered="#{evaluationController.etatAffichageRechEval == 1}" />
@@ -53,15 +53,15 @@
 									rendered="#{evaluationController.etatAffichageRechEval == 2 || evaluationController.etatAffichageRechEval == 3}">
 									<h:graphicImage id="infoChoixMultiple"
 										alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"
-										value="../../media/images/information.png" style="border:0">
-										<rich:tooltip
+										value="../../media/images/information.png">
+										<p:tooltip
 											value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
 									</h:graphicImage>
 									<h:outputText style="font-weight:bold; padding:5px;"
 										value="#{msgs['RECHERCHEEVALUATION.CHOIX_ETAPE']}" />
-									<rich:message for="codesEtapes">
+									<p:message for="codesEtapes">
 										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</rich:message>
+									</p:message>
 								</h:panelGrid>
 								
 								<h:selectManyListbox id="codesEtapes"
@@ -86,12 +86,12 @@
 									value="#{msgs['RECHERCHEEVALUATION.ISEMPTY']}"
 									style="color:red;"
 									escape="false" rendered="#{evaluationController.etatAffichageRechEval == 4}" />
-							</a4j:outputPanel>
+							</p:outputPanel>
 						</h:panelGrid>
 					</t:htmlTag>
 					<t:htmlTag value="div" style="height: 10px;" />
-					<h:panelGrid columnClasses="paginatorData-text" align="center"
-						rowClasses="paginatorData-text" columns="2" style="padding:10px; padding-bottom:0px;">
+					<h:panelGrid align="center"
+						columns="2" style="padding:10px; padding-bottom:0px;">
 						
 						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE.TERMINE.QU']}" for="stageTermine"/>
 							<h:selectOneRadio id="stageTermine" 
@@ -100,8 +100,8 @@
 								<f:selectItem itemValue="#{null}" itemLabel="#{msgs['FORM.NON']}"/>
 							</h:selectOneRadio>
 					</h:panelGrid>
-					<h:panelGrid columnClasses="paginatorData-text" align="center"
-						rowClasses="paginatorData-text" columns="2" style="padding:10px; padding-bottom:0px;">	
+					<h:panelGrid align="center"
+						columns="2" style="padding:10px; padding-bottom:0px;">	
 						<h:panelGrid>						
 							<h:panelGrid columns="2">
 								<h:outputLabel
@@ -114,31 +114,31 @@
 									<f:selectItem itemValue="" />
 									<f:selectItems
 										value="#{nomenclatureController.anneesConvention}" />
-									<a4j:ajax execute="@this" event="valueChange"
-										render="panelCodes" status="statusRecherche"
+									<p:ajax  event="valueChange"
+										update="panelCodes" status="statusRecherche"
 										listener="#{evaluationController.updateAffichageListeCodes}" />
 								</h:selectOneMenu>
 							</h:panelGrid>
-							<rich:message for="anU">
+							<p:message for="anU">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</h:panelGrid>
-						<a4j:commandButton value="#{msgs['FORM.RECHERCHER']}"
+						<p:commandButton value="#{msgs['FORM.RECHERCHER']}"
 							action="#{evaluationController.rechercherEvaluation}"
 							status="statusRecherche" />
 					</h:panelGrid>
 					<t:htmlTag value="center">
-						<a4j:status name="statusRecherche">
+						<p:ajaxStatus name="statusRecherche">
 							<f:facet name="start">
 								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 							</f:facet>
-						</a4j:status>
+						</p:ajaxStatus>
 					</t:htmlTag>
 				</h:panelGrid>
 			</h:form>
-			<rich:message for="formRechEval" style="color:red;font-weight:bold;">
+			<p:message for="formRechEval" style="color:red;font-weight:bold;">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-		</rich:panel>
+			</p:message>
+		</p:panel>
 	</ui:define>
 </ui:composition>

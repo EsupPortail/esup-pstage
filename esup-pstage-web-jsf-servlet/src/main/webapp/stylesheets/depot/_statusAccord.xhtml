@@ -2,16 +2,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<a4j:status onstart="#{rich:component('wait')}.show()"
-		onstop="#{rich:component('wait')}.hide()" />
-	<rich:modalPanel id="wait" autosized="true" width="200" height="120"
+	<p:ajaxStatus onstart="PF('wait').show();"
+		onstop="PF('wait')}.hide()" />
+	<p:modalPanel id="wait" autosized="true" width="200" height="120"
 		moveable="false" resizeable="false">
 		<f:facet name="header">
 			<h:outputText value="Action en cours" />
 		</f:facet>
 		<h:outputText value="Merci de patienter ..." />
-	</rich:modalPanel>
+	</p:modalPanel>
 </ui:composition>

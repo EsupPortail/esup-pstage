@@ -2,18 +2,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	template="../_basicTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel styleClass="panelEntreprise">
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value=" " />
 			</f:facet>
 
 			<h:panelGrid columns="3" width="100%" alternateColors="true">
-				<h:graphicImage value="../../media/images/stop.png" style="border:0" />
+				<h:graphicImage value="../../media/images/stop.png" />
 				<h:outputLabel for="exceptionName"
 					value="#{msgs['EXCEPTION.EXCEPTION.NAME']}" />
 				<h:outputText id="exceptionName" escape="false"
@@ -22,12 +22,12 @@
 
 			<h:panelGrid columns="3" width="100%" alternateColors="true">
 				<h:graphicImage value="../../media/images/exclamation.png"
-					style="border:0" />
+					 />
 				<h:outputLabel for="exceptionMessage"
 					value="#{msgs['EXCEPTION.EXCEPTION.MESSAGE']}" />
 				<h:outputText id="exceptionMessage" escape="false"
 					value="#{msgs['EXCEPTION.DOWNLOADEXCEPTION.MESSAGE']}" />
 			</h:panelGrid>
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

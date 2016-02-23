@@ -2,58 +2,58 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<f:facet name="header">
-		<rich:columnGroup>
-			<rich:column>
+		<p:columnGroup>
+			<p:column>
 				<h:outputText value="#{msgs['SERVICE.NOM']}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<h:outputText value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<h:outputText value="#{msgs['STRUCTURE.VOIE']}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<h:outputText value="#{msgs['STRUCTURE.TELEPHONE']}" />
-			</rich:column>
-			<rich:column
+			</p:column>
+			<p:column
 				rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 		welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 				<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
-			</rich:column>
-		</rich:columnGroup>
+			</p:column>
+		</p:columnGroup>
 	</f:facet>
-	<rich:column>
+	<p:column>
 		<h:outputText value="#{etablissementController.serviceSel.nom}" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText
 			value="#{etablissementController.serviceSel.batimentResidence}" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText value="#{etablissementController.serviceSel.voie}" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText value="#{etablissementController.serviceSel.codePostal}" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText value="#{etablissementController.serviceSel.commune}" />
-	</rich:column>
-	<rich:column>
-		<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text" columns="2" style="font-size:12px;"
+	</p:column>
+	<p:column>
+		<h:panelGrid columns="2" style="font-size:12px;"
 			rendered="#{not empty etablissementController.serviceSel.pays}">
 			<h:graphicImage
 				value="../../media/images/flags/#{etablissementController.serviceSel.pays.iso2}.png"
@@ -61,8 +61,8 @@
 				title="#{etablissementController.serviceSel.pays.libelle}" />
 			<h:outputText value="#{etablissementController.serviceSel.pays.libelle}" />
 		</h:panelGrid>
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<h:outputText value="#{etablissementController.serviceSel.telephone}" />
-	</rich:column>
+	</p:column>
 </ui:composition>

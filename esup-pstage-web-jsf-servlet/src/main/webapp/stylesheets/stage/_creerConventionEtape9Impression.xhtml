@@ -2,19 +2,19 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text">
+	<h:panelGrid
+		>
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE9.IMPRESSION']}" />
 		</f:facet>
 		<t:htmlTag value="div" style="height: 20px;" />
-		<rich:messages />
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2"
+		<p:messages />
+		<h:panelGrid
+			columns="2"
 			style="border:solid 1px; padding:5px;">
 			<h:outputLabel for="numeroconvention"
 				value="#{msgs['CONVENTION.NUMEROCONVENTION']}" />
@@ -66,17 +66,17 @@
 
 		<h:panelGrid columns="2"
 			rendered="#{conventionController.convention.codeLangueConvention == 'fr'}">
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
+			<h:panelGrid columns="2"
+				>
 				<h:graphicImage id="imgInfoImpressionConventionFR"
 					alt="#{msgs['INFOSBULLES.CONVENTION_TYPE']}"
-					value="../../media/images/information.png" style="border:0">
-					<rich:tooltip value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
+					value="../../media/images/information.png">
+					<p:tooltip value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
 				</h:graphicImage>
 				<h:outputText style="font-weight:bold;"
 					value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.INFOS']}" />
 			</h:panelGrid>
-			<a4j:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
+			<p:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
 				action="#{conventionController.editPdfConvention}"
 				rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}"
 				style="border: solid 1px;" />
@@ -84,17 +84,17 @@
 		
 		<h:panelGrid columns="2"
 			rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
+			<h:panelGrid columns="2"
+				>
 				<h:graphicImage id="imgInfoImpressionConventionAUTRE"
 					alt="#{msgs['INFOSBULLES.CONVENTION_TYPE']}"
-					value="../../media/images/information.png" style="border:0">
-					<rich:tooltip value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
+					value="../../media/images/information.png">
+					<p:tooltip value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
 				</h:graphicImage>
 				<h:outputText style="font-weight:bold;"
 					value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.INFOS']}" />
 			</h:panelGrid>
-			<a4j:commandButton id="printAutre" execute="@this"
+			<p:commandButton id="printAutre" 
 				action="#{conventionController.editPdfConvention}"
 				value="#{msgs['CONVENTION.IMPRESSION_AUTRE']}#{conventionController.convention.langueConvention.libelle}"
 				style="border: solid 1px;" />
@@ -103,17 +103,17 @@
 		<t:htmlTag value="div" style="height:10px;" />
 
 		<h:panelGrid columns="2">
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
+			<h:panelGrid columns="2"
+				>
 				<h:graphicImage id="imgInfoImpressionAttestation"
 					alt="#{msgs['INFOSBULLES.ATTESTATION_CONVENTION']}"
-					value="../../media/images/information.png" style="border:0">
-					<rich:tooltip value="#{msgs['INFOSBULLES.ATTESTATION_CONVENTION']}" />
+					value="../../media/images/information.png">
+					<p:tooltip value="#{msgs['INFOSBULLES.ATTESTATION_CONVENTION']}" />
 				</h:graphicImage>
 				<h:outputText style="font-weight:bold;"
 					value="#{msgs['CONVENTION.IMPRESSION_ATTESTATION.INFOS']}" />
 			</h:panelGrid>
-			<a4j:commandButton id="printAttestation2" execute="@this"
+			<p:commandButton id="printAttestation2" 
 				action="#{conventionController.editPdfAttestation}"
 				value="#{msgs['CONVENTION.IMPRESSION_ATTESTATION']}"
 				style="border: solid 1px;" />
@@ -123,17 +123,17 @@
 		<h:panelGrid columns="2"
 			rendered="#{conventionController.convention.codeLangueConvention != 'fr'
 			|| conventionController.convention.service.pays.cog != 99100}">
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text">
+			<h:panelGrid columns="2"
+				>
 				<h:graphicImage id="imgInfoImpressionAnnexeH"
 					alt="#{msgs['INFOSBULLES.ANNEXEH']}"
-					value="../../media/images/information.png" style="border:0">
-					<rich:tooltip value="#{msgs['INFOSBULLES.ANNEXEH']}" />
+					value="../../media/images/information.png">
+					<p:tooltip value="#{msgs['INFOSBULLES.ANNEXEH']}" />
 				</h:graphicImage>
 				<h:outputText style="font-weight:bold;"
 					value="#{msgs['CONVENTION.IMPRESSION_ANNEXEH.INFOS']}" />
 			</h:panelGrid>
-			<a4j:commandButton id="printAnnexeH" execute="@this"
+			<p:commandButton id="printAnnexeH" 
 				action="#{conventionController.editPdfAnnexeH}"
 				value="#{msgs['CONVENTION.IMPRESSION_ANNEXEH']}"
 				style="border: solid 1px;" />

@@ -2,12 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="2" alternateColors="true" style="font-size:12px;">
+	<h:panelGrid
+		columns="2" alternateColors="true" style="font-size:12px;">
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.ID']}" />
 		</t:htmlTag>
@@ -31,14 +31,14 @@
 			value="#{offreController.currentOffre.contratOffre.libelle}" />
 	</h:panelGrid>
 
-	<h:panelGrid columns="2" columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text"	style="font-size:12px;"
+	<h:panelGrid columns="2"
+			style="font-size:12px;"
 		rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.DEBUT']}" />
 		</t:htmlTag>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" style="font-size:12px;">
+		<h:panelGrid
+			columns="2" style="font-size:12px;">
 			<h:outputText value="#{offreController.currentOffre.moisDebut}" />
 			<h:outputText value="#{offreController.currentOffre.anneeDebut}" />
 		</h:panelGrid>
@@ -55,8 +55,8 @@
 								offreController.currentOffre.typeOffre==beanUtils.alternance ||
 								offreController.currentOffre.typeOffre==beanUtils.vieVia}" />
 		</t:htmlTag>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" style="font-size:12px;"
+		<h:panelGrid
+			columns="2" style="font-size:12px;"
 			rendered="#{offreController.currentOffre.contratOffre==beanUtils.cdd ||
 								offreController.currentOffre.typeOffre==beanUtils.stage ||
 								offreController.currentOffre.typeOffre==beanUtils.alternance ||
@@ -67,8 +67,8 @@
 		</h:panelGrid>
 	</h:panelGrid>
 
-	<t:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="2" style="font-size:12px;">
+	<t:panelGrid
+		columns="2" style="font-size:12px;">
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.DOMAINE']}" />
 		</t:htmlTag>
@@ -104,8 +104,8 @@
 		<h:outputText value="#{offreController.currentOffre.lieuPays.libelle}" />
 	</t:panelGrid>
 
-	<h:panelGrid columns="2" style="font-size:12px;" columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text">
+	<h:panelGrid columns="2" style="font-size:12px;"
+		>
  		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.DEPLACEMENT']}" />
 		</t:htmlTag>
@@ -180,10 +180,10 @@
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.MODECANDIDATURE']}" />
 		</t:htmlTag>
-		<rich:list var="mode"
+		<p:dataList var="mode"
 			value="#{offreController.currentOffre.modesCandidature}" rows="10">
 			<h:outputText value="#{mode.libelle}" />
-		</rich:list>
+		</p:dataList>
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.COMOBS']}" />
 		</t:htmlTag>

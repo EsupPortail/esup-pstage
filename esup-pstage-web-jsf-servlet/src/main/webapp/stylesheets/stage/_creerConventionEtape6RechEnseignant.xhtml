@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
+	<p:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText
@@ -19,17 +19,17 @@
 
 		<h:panelGrid columns="3">
 			<t:htmlTag value="div" style="width: 30px;" />
-			<a4j:commandButton status="statusRechEns"
+			<p:commandButton status="statusRechEns"
 				action="#{conventionController.rechercheEnseignantCrea}"
 				style="font-size:14px; border:solid 1px;" 
-				render="formConvention" value="#{msgs['FORM.RECHERCHER']}" />
+				update="formConvention" value="#{msgs['FORM.RECHERCHER']}" />
 		</h:panelGrid>
 		<t:htmlTag value="center">
-			<a4j:status name="statusRechEns">
+			<p:ajaxStatus name="statusRechEns">
 				<f:facet name="start">
 					<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 				</f:facet>
-			</a4j:status>
+			</p:ajaxStatus>
 		</t:htmlTag>
 
 		<t:htmlTag value="div" style="height: 20px;" />
@@ -38,16 +38,16 @@
 			rendered="#{conventionController.convention.centreGestion.presenceTuteurEns == false}">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE']}"
 				escape="false" />
-			<a4j:commandLink execute="@this" id="passeretape"
+			<p:commandLink  id="passeretape"
 				action="#{conventionController.goToCreerConventionEtape7Signataire}">
 				<f:setPropertyActionListener value="#{null}"
 					target="#{conventionController.convention.enseignant}" />
 				<h:outputText
 					value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}"
 					escape="false" />
-				<rich:tooltip
+				<p:tooltip
 					value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}" />
-			</a4j:commandLink>
+			</p:commandLink>
 		</h:panelGrid>
 
 		<t:htmlTag value="div" style="height:30px;" />
@@ -59,5 +59,5 @@
 			<f:setPropertyActionListener value="_creerConventionEtape5Stage"
 				target="#{sessionController.creationConventionEtape5CurrentPage}" />
 		</h:commandButton>
-	</rich:panel>
+	</p:panel>
 </ui:composition>

@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
+	<h:panelGrid>
 		<h:outputText value=" " id="formModifEtab" />
-		<rich:message for="formModifEtab">
+		<p:message for="formModifEtab">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 
 		<h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
 			rendered="#{empty etablissementController.formStructure}" />
@@ -27,14 +27,14 @@
 			
 			<t:htmlTag value="div" style="width: 20px;" />
 			
-			<a4j:commandButton id="modifEtab2" value="#{msgs['FORM.MODIFIER']}"
+			<p:commandButton id="modifEtab2" value="#{msgs['FORM.MODIFIER']}"
 				action="#{offreController.modifierOffreModifierEtablissement}"
 				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
 				rendered="#{not empty etablissementController.formStructure}"
-				render="opFCE, formModificationOffre"/>
+				update="opFCE, formModificationOffre"/>
 				
 			<t:htmlTag value="div" style="width: 20px;" />
-			<a4j:outputPanel id="opFCE">
+			<p:outputPanel id="opFCE">
 				<h:panelGrid columns="3"
 					rendered="#{facesContext.maximumSeverity != null}">
 					<h:graphicImage value="../../media/images/arrow_up.png"
@@ -45,7 +45,7 @@
 						alt="#{msgs['GENERAL.ARROW_UP']}"
 						title="#{msgs['GENERAL.ARROW_UP']}" />
 				</h:panelGrid>
-			</a4j:outputPanel>
+			</p:outputPanel>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:fragment>

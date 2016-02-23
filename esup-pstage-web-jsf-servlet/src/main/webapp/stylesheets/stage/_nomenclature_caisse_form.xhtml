@@ -2,8 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<ui:include src="../_commun/_champsObligatoires.xhtml" />
@@ -12,8 +12,8 @@
 		
 	<h:outputText value=""/>
 	<h:panelGrid columns="3" style="margin-left:10%;"
-		columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text">
+		
+		>
 		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.CODE']}"
 			for="codeCaisse" />
 		<t:htmlTag value="div" style="width:5px;" />
@@ -23,11 +23,11 @@
 				maxlength="5" style="text-transform:uppercase;"
 				converter="#{sansAccentEnMAJConverter}" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<a4j:ajax event="blur" render="msgCodeCaisse" />
+				<p:ajax event="blur" update="msgCodeCaisse" />
 			</h:inputText>
-			<rich:message id="msgCodeCaisse" for="codeCaisse">
+			<p:message id="msgCodeCaisse" for="codeCaisse">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
 				
 		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.LIBELLE']}"
@@ -38,11 +38,11 @@
 				value="#{nomenclatureController.caisseRegime.libelle}" size="30"
 				maxlength="100" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<a4j:ajax event="blur" render="msgLibelleCaisse" />
+				<p:ajax event="blur" update="msgLibelleCaisse" />
 			</h:inputText>
-			<rich:message id="msgLibelleCaisse" for="libelleCaisse">
+			<p:message id="msgLibelleCaisse" for="libelleCaisse">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</h:panelGrid>
 		
 		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.INFOCAISSE']}"

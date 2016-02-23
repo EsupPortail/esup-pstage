@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="1">
+	<h:panelGrid>
 		<h:outputText value=" " id="formModifEtab" />
-		<rich:message for="formModifEtab">
+		<p:message for="formModifEtab">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 
 		<h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
 			rendered="#{empty etablissementController.formStructure}" />
@@ -18,25 +18,25 @@
 			<ui:include src="../_commun/_etablissementForm.xhtml" />
 		</t:div>
 
-		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<a4j:commandButton value="#{msgs['FORM.PREVIOUS']}"
+		<h:panelGrid columns="3" >
+			<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
 				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-				render="formConvention"
+				update="formConvention"
 				immediate="true">
 				<f:setPropertyActionListener
 					value="_creerConventionEtape2DetailsEtab"
 					target="#{sessionController.creationConventionEtape2CurrentPage}" />
-			</a4j:commandButton>
+			</p:commandButton>
 			<t:htmlTag value="div" style="width: 20px;" />
-			<a4j:commandButton id="modifEtab2" value="#{msgs['FORM.MODIFIER']}"
+			<p:commandButton id="modifEtab2" value="#{msgs['FORM.MODIFIER']}"
 				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
 				action="#{conventionController.modifierEtablissement}"
-				render="formConvention"
+				update="formConvention"
 				rendered="#{not empty etablissementController.formStructure}">
 				<f:setPropertyActionListener
 					value="#{etablissementController.formStructure}"
 					target="#{rechercheController.resultatRechercheStructure}" />
-			</a4j:commandButton>
+			</p:commandButton>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:fragment>

@@ -2,16 +2,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 	<t:aliasBean alias="#{structure}"
 		value="#{rechercheController.resultatRechercheStructure}">
 		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 	</t:aliasBean>
-	<rich:toolbar height="26" itemSeparator="none">
+	<p:toolbar height="26" itemSeparator="none">
 	
 		<ui:include src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
 		
-	</rich:toolbar>
+	</p:toolbar>
 </ui:composition>

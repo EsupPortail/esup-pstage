@@ -2,38 +2,38 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="1">
+	<h:panelGrid
+		>
 		<h:outputText value=" " id="formAffEtab" />
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2" align="center">
+		<h:panelGrid
+			columns="2" align="center">
 			<h:column>
 				<h:graphicImage alt="#{msgs['GENERAL.OK']}"
 					title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
-					style="border:0"
+					
 					rendered="#{(facesContext.maximumSeverity == 'Info')
 				and !(facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn')}" />
 				<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 					title="#{msgs['GENERAL.WARNING']}"
-					value="../../media/images/warning_50px.png" style="border:0"
+					value="../../media/images/warning_50px.png"
 					rendered="#{facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn'}" />
 			</h:column>
 			<h:column>
-				<rich:message for="formAffEtab">
+				<p:message for="formAffEtab">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</h:column>
 		</h:panelGrid>
 		<t:aliasBean alias="#{structure}"
 			value="#{conventionController.convention.structure}">
 			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
 		</t:aliasBean>
-		<h:panelGrid columnClasses="paginatorData-text"
-			rowClasses="paginatorData-text" columns="2">
+		<h:panelGrid
+			columns="2">
 			<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
 				action="#{conventionController.goToConventionModifEtab}"
 				alt="#{msgs['FORM.MODIFIER.ETAB']}"
@@ -52,8 +52,8 @@
 					target="#{etablissementController.formStructure}" />
 			</h:commandButton>
 
-			<a4j:commandButton execute="@this"
-				oncomplete="#{rich:component('demandeConfirmModifEtab')}.show()"
+			<p:commandButton 
+				oncomplete="PF('demandeConfirmModifEtab').show();"
 				value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
 				alt="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER.AUTRE']}"
 				rendered="#{not empty conventionController.convention.structure and !conventionController.conventionValide
@@ -68,14 +68,14 @@
 						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
 						rendered="#{conventionController.convention.structure.estValidee == 1}"
 						style="border:0; color:green;" escape="false">
-						<rich:tooltip
+						<p:tooltip
 							value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
 					</h:outputText>
 					<h:outputText id="verification2" alt="#{msgs['FORM.NON']}"
 						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
 						rendered="#{conventionController.convention.structure.estValidee == 2}"
 						style="border:0; color:red;" escape="false">
-						<rich:tooltip
+						<p:tooltip
 							value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
 					</h:outputText>
 					<h:outputText id="verification3"
@@ -83,26 +83,26 @@
 						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
 						rendered="#{conventionController.convention.structure.estValidee == 0}"
 						style="border:0; color:grey;" escape="false">
-						<rich:tooltip
+						<p:tooltip
 							value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
 					</h:outputText>
 				</h:panelGrid>
-				<a4j:commandButton execute="@this" id="validerStructure"
-					oncomplete="#{rich:component('validerStructurePanel')}.show()"
+				<p:commandButton  id="validerStructure"
+					oncomplete="PF('validerStructurePanel').show();"
 					rendered="#{sessionController.moderationStructures
 					and (sessionController.adminPageAuthorized || welcomeController.superAdmin 
 					|| welcomeController.admin || welcomeController.writer)}"
 					action="#{etablissementController.avantValidation}"
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
-					render="validerStructurePanel">
+					update="validerStructurePanel">
 					<f:setPropertyActionListener
 						value="#{conventionController.convention.structure}"
 						target="#{etablissementController.currentStruct}" />
 					<f:setPropertyActionListener value="_validStructureEtape1"
 						target="#{sessionController.validationStructureCurrentPage}" />
-					<rich:tooltip
+					<p:tooltip
 						value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
-				</a4j:commandButton>
+				</p:commandButton>
 			</h:panelGrid>
 			
 			<h:panelGrid rendered="#{conventionController.convention.structure.temEnServStructure == 'N'}">
@@ -110,32 +110,31 @@
 				style="color:green;"  escape="false"/>
 			</h:panelGrid>
 			
-			<rich:popupPanel id="demandeConfirmModifEtab" autosized="true"
-				styleClass="panel">
+			<p:dialog id="demandeConfirmModifEtab" widgetVar="demandeConfirmModifEtab">
 				<f:facet name="header">
 					<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.DEMANDE']}" />
 				</f:facet>
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="2" align="center">
+				<h:panelGrid
+					columns="2" align="center">
 					<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 						title="#{msgs['GENERAL.WARNING']}"
-						value="../../media/images/warning_20px.png" style="border:0" />
+						value="../../media/images/warning_20px.png" />
 					<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.QUESTION']}"
 						escape="false" />
 				</h:panelGrid>
 				<t:htmlTag value="div" style="height:20px;"/>
-				<h:panelGrid columns="3" columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" align="center">
-					<a4j:commandButton value="#{msgs['FORM.OUI']}"
-						onclick="#{rich:component('demandeConfirmModifEtab')}.hide();"
+				<h:panelGrid columns="3"
+					align="center">
+					<p:commandButton value="#{msgs['FORM.OUI']}"
+						onclick="PF('demandeConfirmModifEtab').hide();"
 						action="#{conventionController.goToConventionRechEtab}" />
 
 					<t:htmlTag value="div" style="width:80px;" />
 
-					<a4j:commandButton value="#{msgs['FORM.NON']}" execute="@this"
-						onclick="#{rich:component('demandeConfirmModifEtab')}.hide();return false;" />
+					<p:commandButton value="#{msgs['FORM.NON']}" 
+						onclick="PF('demandeConfirmModifEtab').hide();" />
 				</h:panelGrid>
-			</rich:popupPanel>
+			</p:dialog>
 		</h:panelGrid>
 
 	</h:panelGrid>

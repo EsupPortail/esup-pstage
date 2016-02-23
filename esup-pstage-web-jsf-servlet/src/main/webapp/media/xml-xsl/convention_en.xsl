@@ -1007,7 +1007,7 @@
 											<xsl:text> hour(s) </xsl:text>
 											<fo:inline font-style="italic" font-size="8pt">
 												(... mois
-												... jours ... semaines)
+												... jours ... heures)
 											</fo:inline>
 										</fo:block>
 									</xsl:otherwise>

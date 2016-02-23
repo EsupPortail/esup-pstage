@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
+	<p:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText
@@ -17,8 +17,8 @@
 
 		<h:panelGrid align="center">
 
-			<h:panelGrid columns="2" columnClasses="paginatorData-text"
-				rowClasses="paginatorData-text"
+			<h:panelGrid columns="2"
+				
 				rendered="#{conventionController.surchargeTuteur}">
 				<h:graphicImage value="../../media/images/warn.png"
 					alt="#{msgs['GENERAL.WARNING']}" title="#{msgs['GENERAL.WARNING']}" />
@@ -65,5 +65,5 @@
 					target="#{sessionController.creationConventionEtape6CurrentPage}" />
 			</h:commandButton>
 		</h:panelGrid>
-	</rich:panel>
+	</p:panel>
 </ui:composition>

@@ -2,12 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
-		<rich:panel
+		<p:panel
 			rendered="#{conventionController.convention != null and avenantController.avenant != null}">
 			<f:facet name="header">
 				<h:outputText
@@ -17,7 +17,7 @@
 				<ui:include
 					src="/stylesheets/stage/_conventionEtape11DetailsAvenant.xhtml" />
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{conventionController.convention == null || avenantController.avenant == null}">
 			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />

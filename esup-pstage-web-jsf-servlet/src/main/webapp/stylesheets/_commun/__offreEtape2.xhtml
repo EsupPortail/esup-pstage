@@ -2,13 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+	<h:panelGrid>
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columns="3"  columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+		<h:panelGrid columns="3"
 			rendered="#{offreController.formOffre.idOffre gt 0}"
 			style="float:right;">
 			<h:outputLabel value="#{msgs['OFFRE']} " for="idOffre" />
@@ -16,7 +15,7 @@
 			<h:outputText id="idOffre"
 				value="#{offreController.formOffre.idOffre}" />
 		</h:panelGrid>
-		<h:panelGrid columns="3"  columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+		<h:panelGrid columns="3">
 			<h:panelGrid>
 				<h:outputLabel value="#{msgs['OFFRE.INTITULE']} *" for="intitule" />
 				<h:inputText id="intitule" style="text-transform:uppercase;"
@@ -24,22 +23,17 @@
 					maxlength="200" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}"
 					converter="#{sansAccentEnMAJConverter}">
-					<a4j:ajax event="blur" />
+					<p:ajax event="blur" />
 				</h:inputText>
-				<rich:message for="intitule">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-				<h:panelGrid columns="1"
-					rendered="#{!offreController.avecFichierOuLien}">
+				<p:message for="intitule"/>
+				<h:panelGrid rendered="#{!offreController.avecFichierOuLien}">
 					<h:outputLabel value="#{msgs['OFFRE.REFOFFRE']}" for="refOffre" />
 					<h:inputText id="refOffre"
 						value="#{offreController.formOffre.referenceOffreEtablissement}"
 						size="50" maxlength="100">
-						<a4j:ajax event="blur" />
+						<p:ajax event="blur" />
 					</h:inputText>
-					<rich:message for="refOffre">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					<p:message for="refOffre"/>
 				</h:panelGrid>
 				<h:outputLabel value="#{msgs['OFFRE.TYPEOFFRE']} *" for="typeOffre" />
 				<h:selectOneMenu id="typeOffre"
@@ -48,7 +42,7 @@
 					requiredMessage="#{requiredMessageController.champObligatoire}"
 					disabled="true">
 					<f:selectItems value="#{nomenclatureController.typesOffre}" />
-					<a4j:ajax event="valueChange" />
+					<p:ajax event="valueChange" />
 				</h:selectOneMenu>
 				<h:outputLabel value="#{msgs['OFFRE.CONTRATOFFRE']} *" for="contrat"
 					rendered="#{not empty offreController.contratsListening}" />
@@ -59,23 +53,19 @@
 					rendered="#{not empty offreController.contratsListening}">
 					<f:selectItem itemValue="" />
 					<f:selectItems value="#{offreController.contratsListening}" />
-					<a4j:ajax event="valueChange" render="opDuree" execute="@this" />
+					<p:ajax event="valueChange" update="opDuree"  />
 				</h:selectOneMenu>
-				<rich:message for="contrat">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				<p:message for="contrat"/>
 			</h:panelGrid>
 			<h:panelGrid columns="3"
 				rendered="#{!offreController.avecFichierOuLien}">
 				<t:htmlTag value="div" style="width: 25px;" />
-				<t:htmlTag value="div"
-					style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height:180px;" />
+				<p:separator style="height:180px;" />
 				<t:htmlTag value="div" style="width: 25px;" />
 			</h:panelGrid>
-			<h:panelGrid columns="1"
-				rendered="#{!offreController.avecFichierOuLien}">
-				<a4j:outputPanel id="opDebutMission">
-					<h:panelGrid columns="1">
+			<h:panelGrid rendered="#{!offreController.avecFichierOuLien}">
+				<p:outputPanel id="opDebutMission">
+					<h:panelGrid>
 						<h:outputText value="#{msgs['OFFRE.DEBUT']}" />
 						<h:panelGrid columns="5">
 							<h:outputLabel value="#{msgs['OFFRE.DEBUT.MOIS']} "
@@ -86,8 +76,8 @@
 								requiredMessage="#{requiredMessageController.champObligatoire}">
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.mois}" />
-								<a4j:ajax event="valueChange" render="precisionDebutMission"
-									execute="@this" />
+								<p:ajax event="valueChange" update="precisionDebutMission"
+									 />
 							</h:selectOneMenu>
 							<t:htmlTag value="div" style="width: 20px;" />
 							<h:outputLabel value="#{msgs['OFFRE.DEBUT.ANNEE']} "
@@ -98,18 +88,18 @@
 								requiredMessage="#{requiredMessageController.champObligatoire}">
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.annees}" />
-								<a4j:ajax event="valueChange" render="precisionDebutMission"
-									execute="@this" />
+								<p:ajax event="valueChange" update="precisionDebutMission"
+									 />
 							</h:selectOneMenu>
 							<t:panelGroup colspan="3">
-								<rich:message for="moisMission">
+								<p:message for="moisMission">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</t:panelGroup>
 							<t:panelGroup colspan="2">
-								<rich:message for="anneeMission">
+								<p:message for="anneeMission">
 									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								</p:message>
 							</t:panelGroup>
 						</h:panelGrid>
 						<h:outputLabel value="#{msgs['OFFRE.DEBUT.PRECISION']} "
@@ -119,16 +109,16 @@
 							maxlength="200"
 							required="#{empty offreController.formOffre.moisDebut and empty offreController.formOffre.anneeDebut}"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<a4j:ajax event="valueChange" render="moisMission, anneeMission"
-								execute="@this" />
+							<p:ajax event="valueChange" update="moisMission, anneeMission"
+								 />
 						</h:inputText>
-						<rich:message for="precisionDebutMission">
+						<p:message for="precisionDebutMission">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
-				</a4j:outputPanel>
-				<a4j:outputPanel id="opDuree">
-					<h:panelGrid columns="1"
+				</p:outputPanel>
+				<p:outputPanel id="opDuree">
+					<h:panelGrid
 						rendered="#{offreController.formOffre.contratOffre==beanUtils.cdd ||
 				offreController.formOffre.typeOffre==beanUtils.stage ||
 				offreController.formOffre.typeOffre==beanUtils.alternance ||
@@ -144,7 +134,7 @@
 								requiredMessage="#{requiredMessageController.champObligatoire}"
 								validatorMessage="#{requiredMessageController.superieurA0}">
 								<f:validator binding="#{entierValidator}" />
-								<a4j:ajax event="blur" />
+								<p:ajax event="blur" />
 								<f:validateLongRange minimum="1" />
 							</h:inputText>
 							<t:htmlTag value="div" style="width: 20px;" />
@@ -154,22 +144,18 @@
 								required="true" converter="#{uniteDureeConverter}">
 								<f:selectItem itemValue="" />
 								<f:selectItems value="#{nomenclatureController.unitesDurees}" />
-								<a4j:ajax event="valueChange" />
+								<p:ajax event="valueChange" />
 							</h:selectOneMenu>
-							<rich:message for="uniteDuree">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							<p:message for="uniteDuree"/>
 							<t:panelGroup colspan="4">
-								<rich:message for="duree">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
+								<p:message for="duree"/>
 							</t:panelGroup>
 						</t:panelGrid>
 					</h:panelGrid>
-				</a4j:outputPanel>
+				</p:outputPanel>
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columns="1"  columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+		<h:panelGrid>
 			<h:outputLabel value="#{msgs['OFFRE.DOMAINE']} *" for="fapN3" />
 			<h:selectOneMenu id="fapN3"
 				value="#{offreController.formOffre.fapN1}"
@@ -178,14 +164,11 @@
 				style="width:300px;">
 				<f:selectItem itemValue="" />
 				<f:selectItems value="#{nomenclatureController.fapN1}" />
-				<a4j:ajax event="valueChange" />
+				<p:ajax event="valueChange" />
 			</h:selectOneMenu>
-			<rich:message for="fapN3">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			<p:message for="fapN3"/>
 		</h:panelGrid>
-		<h:panelGrid columns="1"  columnClasses="paginatorData-text" rowClasses="paginatorData-text"
-			rendered="#{offreController.avecFichierOuLien}">
+		<h:panelGrid rendered="#{offreController.avecFichierOuLien}">
 			<h:outputLabel value="#{msgs['OFFRE.NIVEAUFORMATION']} *"
 				for="niveauFormationF" />
 			<h:selectOneMenu id="niveauFormationF"
@@ -194,137 +177,125 @@
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:selectItem itemValue="" />
 				<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
-				<a4j:ajax event="valueChange" />
+				<p:ajax event="valueChange" />
 			</h:selectOneMenu>
-			<rich:message for="niveauFormationF">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			<p:message for="niveauFormationF" />
 		</h:panelGrid>
 		<h:outputLabel value="#{msgs['OFFRE.DESCRIPTION']} *"
 			for="description" />
-		<h:inputTextarea id="description" style="width:300px; height:150px;"
+		<p:editor id="description"
 			value="#{offreController.formOffre.description}" required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}"
-			resizeable="false">
-			<a4j:ajax event="blur" />
-		</h:inputTextarea>
-		<rich:message for="description">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
-		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-			<h:panelGrid columns="1">
+			requiredMessage="#{requiredMessageController.champObligatoire}" />
+		<p:message for="description"/>
+		<h:panelGrid columns="3">
+			<h:panelGrid>
 				<h:outputText value="#{msgs['OFFRE.LIEU']}" escape="false" />
-				<a4j:region renderRegionOnly="true">
-					<a4j:outputPanel id="opCodePostal">
-						<h:panelGrid columns="1"
-							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+				<p:outputPanel id="opCodePostal">
+					<h:panelGrid
+						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 				(offreController.formOffre.lieuPays!=beanUtils.france and offreController.formOffre.lieuPays.cog!=beanUtils.cogFrance
 				and sessionController.recupererCommunesDepuisApogee)}">
-							<h:panelGrid columns="2">
-								<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
-									for="codePostal" />
-								<h:outputLabel value=" *" for="codePostal"
-									rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
+								for="codePostal" />
+							<h:outputLabel value=" *" for="codePostal"
+								rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 				(offreController.formOffre.lieuPays!=beanUtils.france and offreController.formOffre.lieuPays.cog!=beanUtils.cogFrance
 				and sessionController.recupererCommunesDepuisApogee)}" />
-							</h:panelGrid>
-							<h:inputText id="codePostal"
-								value="#{offreController.formOffre.lieuCodePostal}" size="20"
-								maxlength="10"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								required="#{!sessionController.recupererCommunesDepuisApogee and 
+						</h:panelGrid>
+						<h:inputText id="codePostal"
+							value="#{offreController.formOffre.lieuCodePostal}" size="20"
+							maxlength="10"
+							requiredMessage="#{requiredMessageController.champObligatoire}"
+							required="#{!sessionController.recupererCommunesDepuisApogee and 
 								(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)}">
-								<a4j:ajax event="blur" />
-							</h:inputText>
-							<rich:message for="codePostal">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-						<h:panelGrid columns="1"
-							rendered="#{(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)
+							<p:ajax event="blur" />
+						</h:inputText>
+						<p:message for="codePostal">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</p:message>
+					</h:panelGrid>
+					<h:panelGrid
+						rendered="#{(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
-							<a4j:region id="dynaR">
-								<h:panelGrid columns="1">
-									<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
-										for="dynaCodePostal" />
-									<h:inputText id="dynaCodePostal"
-										value="#{offreController.formOffre.lieuCodePostal}" size="5"
-										maxlength="5" required="true"
-										requiredMessage="#{requiredMessageController.champObligatoire}"
-										validatorMessage="#{requiredMessageController.codePostalNonValide}"
-										valueChangeListener="#{offreController.formOffreValueCodePostalChanged}">
-										<a4j:ajax event="blur" render="opDynaCommune" execute="@this" />
-									</h:inputText>
-								</h:panelGrid>
-							</a4j:region>
-							<rich:message for="dynaCodePostal">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-					</a4j:outputPanel>
-					<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
-					<a4j:outputPanel id="opCommune">
-						<h:panelGrid columns="1"
-							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+						<p:outputPanel id="dynaR">
+							<h:panelGrid>
+								<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
+									for="dynaCodePostal" />
+								<h:inputText id="dynaCodePostal"
+									value="#{offreController.formOffre.lieuCodePostal}" size="5"
+									maxlength="5" required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}"
+									validatorMessage="#{requiredMessageController.codePostalNonValide}"
+									valueChangeListener="#{offreController.formOffreValueCodePostalChanged}">
+									<p:ajax event="blur" update="opDynaCommune" />
+								</h:inputText>
+							</h:panelGrid>
+						</p:outputPanel>
+						<p:message for="dynaCodePostal">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</p:message>
+					</h:panelGrid>
+				</p:outputPanel>
+				<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
+				<p:outputPanel id="opCommune">
+					<h:panelGrid
+						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 				(offreController.formOffre.lieuPays!=beanUtils.france and offreController.formOffre.lieuPays.cog!=beanUtils.cogFrance
 				and sessionController.recupererCommunesDepuisApogee)}">
-							<h:inputText id="commune" style="text-transform:uppercase;"
-								value="#{offreController.formOffre.lieuCommune}" size="50"
-								maxlength="200" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								converter="#{sansAccentEnMAJConverter}">
-								<a4j:ajax event="blur" />
-							</h:inputText>
-							<rich:message for="commune">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
-						</h:panelGrid>
-						<h:panelGrid columns="1"
-							rendered="#{(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)
-				and sessionController.recupererCommunesDepuisApogee}">
-							<a4j:outputPanel id="opDynaCommune">
-								<h:selectOneMenu id="dynaCommune"
-									value="#{offreController.formOffre.codeCommune}"
-									required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}">
-									<f:selectItem itemValue="" />
-									<f:selectItems
-										value="#{offreController.formOffreCommunesListening}" />
-									<a4j:ajax event="valueChange" />
-								</h:selectOneMenu>
-								<rich:message for="dynaCommune">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</rich:message>
-							</a4j:outputPanel>
-						</h:panelGrid>
-					</a4j:outputPanel>
-					<h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
-					<h:panelGrid columns="2">
-						<a4j:outputPanel id="opFlag">
-							<t:htmlTag value="div" style="width: 16px;"
-								rendered="#{empty offreController.formOffre.lieuPays}" />
-							<h:graphicImage id="flag"
-								rendered="#{not empty offreController.formOffre.lieuPays}"
-								value="../../media/images/flags/#{offreController.formOffre.lieuPays.iso2}.png"
-								alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-								title="#{offreController.formOffre.lieuPays.libelle}" />
-						</a4j:outputPanel>
-						<h:selectOneMenu id="pays"
-							value="#{offreController.formOffre.lieuPays}"
-							converter="#{paysConverter}" required="true"
+						<h:inputText id="commune" style="text-transform:uppercase;"
+							value="#{offreController.formOffre.lieuCommune}" size="50"
+							maxlength="200" required="true"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
-							styleClass="paysInput">
-							<f:selectItems value="#{nomenclatureController.pays}" />
-							<a4j:ajax event="valueChange"
-								render="opFlag, opCommune, opCodePostal" execute="@this" />
-						</h:selectOneMenu>
+							converter="#{sansAccentEnMAJConverter}">
+							<p:ajax event="blur" />
+						</h:inputText>
+						<p:message for="commune">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</p:message>
 					</h:panelGrid>
-					<rich:message for="pays">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-				</a4j:region>
-				<h:panelGrid columns="1"
-					rendered="#{!offreController.avecFichierOuLien}">
+					<h:panelGrid
+						rendered="#{(offreController.formOffre.lieuPays==beanUtils.france || offreController.formOffre.lieuPays.cog==beanUtils.cogFrance)
+				and sessionController.recupererCommunesDepuisApogee}">
+						<p:outputPanel id="opDynaCommune">
+							<h:selectOneMenu id="dynaCommune"
+								value="#{offreController.formOffre.codeCommune}" required="true"
+								requiredMessage="#{requiredMessageController.champObligatoire}">
+								<f:selectItem itemValue="" />
+								<f:selectItems
+									value="#{offreController.formOffreCommunesListening}" />
+								<p:ajax event="valueChange" />
+							</h:selectOneMenu>
+							<p:message for="dynaCommune">
+								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							</p:message>
+						</p:outputPanel>
+					</h:panelGrid>
+				</p:outputPanel>
+				<h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
+				<h:panelGrid columns="2">
+					<p:outputPanel id="opFlag">
+						<t:htmlTag value="div" style="width: 16px;"
+							rendered="#{empty offreController.formOffre.lieuPays}" />
+						<h:graphicImage id="flag"
+							rendered="#{not empty offreController.formOffre.lieuPays}"
+							value="../../media/images/flags/#{offreController.formOffre.lieuPays.iso2}.png"
+							alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+							title="#{offreController.formOffre.lieuPays.libelle}" />
+					</p:outputPanel>
+					<h:selectOneMenu id="pays"
+						value="#{offreController.formOffre.lieuPays}"
+						converter="#{paysConverter}" required="true"
+						requiredMessage="#{requiredMessageController.champObligatoire}">
+						<f:selectItems value="#{nomenclatureController.pays}" />
+						<p:ajax event="valueChange"
+							update="opFlag, opCommune, opCodePostal"  />
+					</h:selectOneMenu>
+				</h:panelGrid>
+				<p:message for="pays">
+					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				</p:message>
+				<h:panelGrid rendered="#{!offreController.avecFichierOuLien}">
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputLabel value="#{msgs['OFFRE.INDEMNITE']} *" for="indemnite" />
 					<h:selectOneRadio id="indemnite"
@@ -332,14 +303,14 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-						<a4j:ajax event="valueChange" execute="@this"
-							render="opPrecisionsIndemnite" />
+						<p:ajax event="valueChange" 
+							update="opPrecisionsIndemnite" />
 					</h:selectOneRadio>
-					<rich:message for="indemnite">
+					<p:message for="indemnite">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-					<a4j:outputPanel id="opPrecisionsIndemnite">
-						<h:panelGrid columns="1">
+					</p:message>
+					<p:outputPanel id="opPrecisionsIndemnite">
+						<h:panelGrid>
 							<h:panelGrid columns="2">
 								<h:outputLabel value="#{msgs['OFFRE.INDEMNITE_PRECISIONS']}"
 									for="precisionsIndemnite" />
@@ -351,21 +322,21 @@
 								size="50" maxlength="200"
 								required="#{offreController.formOffre.remuneration}"
 								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<a4j:ajax event="blur" />
+								<p:ajax event="blur" />
 							</h:inputText>
-							<rich:message for="precisionsIndemnite">
+							<p:message for="precisionsIndemnite">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</h:panelGrid>
-					</a4j:outputPanel>
+					</p:outputPanel>
 					<h:outputLabel value="#{msgs['OFFRE.AVANTAGES']}" for="avantages" />
 					<h:inputText id="avantages"
 						value="#{offreController.formOffre.avantages}" size="50"
 						maxlength="200">
 					</h:inputText>
-					<rich:message for="avantages">
+					<p:message for="avantages">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 					<t:htmlTag value="div" style="height: 50px;" />
 					<h:outputLabel value="#{msgs['OFFRE.NIVEAUFORMATION']} *"
 						for="niveauFormation" />
@@ -375,29 +346,28 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}">
 						<f:selectItem itemValue="" />
 						<f:selectItems value="#{nomenclatureController.niveauxFormation}" />
-						<a4j:ajax event="valueChange" />
+						<p:ajax event="valueChange" />
 					</h:selectOneMenu>
-					<rich:message for="niveauFormation">
+					<p:message for="niveauFormation">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 					<h:outputLabel value="#{msgs['OFFRE.COMPSOUHAITEES']}"
 						for="compSouhaitees" />
-					<h:inputTextarea id="compSouhaitees" style="width:300px; height:200px;"
+					<h:inputTextarea id="compSouhaitees"
+						style="width:300px; height:200px;"
 						value="#{offreController.formOffre.competences}" />
-					<rich:message for="compSouhaitees">
+					<p:message for="compSouhaitees">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 			</h:panelGrid>
 			<h:panelGrid columns="3"
 				rendered="#{!offreController.avecFichierOuLien}">
 				<t:htmlTag value="div" style="width: 25px;" />
-				<t:htmlTag value="div"
-					style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 750px;" />
+				<p:separator style="height:750px;" />
 				<t:htmlTag value="div" style="width: 25px;" />
 			</h:panelGrid>
-			<h:panelGrid columns="1"
-				rendered="#{!offreController.avecFichierOuLien}">
+			<h:panelGrid rendered="#{!offreController.avecFichierOuLien}">
 				<h:outputLabel value="#{msgs['OFFRE.DEPLACEMENT']} *"
 					for="deplacement" />
 				<h:selectOneRadio id="deplacement"
@@ -405,25 +375,25 @@
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-					<a4j:ajax event="valueChange" />
+					<p:ajax event="valueChange" />
 				</h:selectOneRadio>
-				<rich:message for="deplacement">
+				<p:message for="deplacement">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 				<h:outputLabel value="#{msgs['OFFRE.PERMIS']} *" for="permis" />
 				<h:selectOneRadio id="permis"
 					value="#{offreController.formOffre.permis}" required="true"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-					<a4j:ajax event="valueChange" />
+					<p:ajax event="valueChange" />
 				</h:selectOneRadio>
-				<rich:message for="permis">
+				<p:message for="permis">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 				<t:htmlTag value="div" style="height: 90px;" />
 				<h:panelGrid columns="3">
-					<h:panelGrid columns="1">
+					<h:panelGrid>
 						<h:outputLabel value="#{msgs['OFFRE.TEMPSTRAVAIL']} *"
 							for="tempsTravail" />
 						<h:selectOneMenu id="tempsTravail"
@@ -432,16 +402,16 @@
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:selectItem itemValue="" />
 							<f:selectItems value="#{nomenclatureController.tempsTravail}" />
-							<a4j:ajax event="valueChange" render="opQuotiteTravail"
-								execute="@this" />
+							<p:ajax event="valueChange" update="opQuotiteTravail"
+								 />
 						</h:selectOneMenu>
-						<rich:message for="tempsTravail">
+						<p:message for="tempsTravail">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
 					<t:htmlTag value="div" style="width: 20px;" />
-					<a4j:outputPanel id="opQuotiteTravail">
-						<h:panelGrid columns="1"
+					<p:outputPanel id="opQuotiteTravail">
+						<h:panelGrid
 							rendered="#{offreController.formOffre.tempsTravail==beanUtils.tempsPartiel}">
 							<h:panelGrid columns="2">
 								<h:outputLabel value="#{msgs['OFFRE.QUOTITETRAVAIL']}"
@@ -456,15 +426,15 @@
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									validatorMessage="#{requiredMessageController.pourcentage}">
 									<f:validator binding="#{pourcentageValidator}" />
-									<a4j:ajax event="blur" />
+									<p:ajax event="blur" />
 								</h:inputText>
 								<h:outputText value="%" />
 							</h:panelGrid>
-							<rich:message for="quotiteTravail">
+							<p:message for="quotiteTravail">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</rich:message>
+							</p:message>
 						</h:panelGrid>
-					</a4j:outputPanel>
+					</p:outputPanel>
 				</h:panelGrid>
 				<h:outputLabel value="#{msgs['OFFRE.COMTPSTRAVAIL']}"
 					for="comTpsTravail" />
@@ -472,9 +442,9 @@
 					value="#{offreController.formOffre.commentaireTempsTravail}"
 					size="50" maxlength="200">
 				</h:inputText>
-				<rich:message for="comTpsTravail">
+				<p:message for="comTpsTravail">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 				<t:htmlTag value="div" style="height: 40px;" />
 				<h:outputLabel value="#{msgs['OFFRE.MODECANDIDATURE']} *"
 					for="modeCand" />
@@ -484,21 +454,21 @@
 					requiredMessage="#{requiredMessageController.champObligatoire}"
 					required="true">
 					<f:selectItems value="#{nomenclatureController.modesCandidature}" />
-					<a4j:ajax event="blur" />
+					<p:ajax event="blur" />
 				</h:selectManyListbox>
-				<rich:message for="modeCand">
+				<p:message for="modeCand">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 				<h:outputLabel value="#{msgs['OFFRE.COMOBS']}" for="comobs" />
 				<h:inputTextarea id="comobs" style="height:200px; width:300px;"
-					value="#{offreController.formOffre.observations}"/>
-				<rich:message for="comobs">
+					value="#{offreController.formOffre.observations}" />
+				<p:message for="comobs">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
+				</p:message>
 			</h:panelGrid>
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height: 10px;" />
-		<h:panelGrid columns="1" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+		<h:panelGrid
 			rendered="#{sessionController.moderationActive and sessionController.pageAuthorized}">
 			<h:panelGrid columns="2"
 				rendered="#{!offreController.formOffre.estDiffusee}">
@@ -508,7 +478,7 @@
 					value="#{msgs['OFFRE.GESTION.DIFFUSION.MODERATION.MSG_NODIFF']}" />
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columns="1" id="diffusionOffre" columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+		<h:panelGrid id="diffusionOffre"
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer
 		|| sessionController.adminPageAuthorized || sessionController.pageAuthorized) and !offreController.formOffre.estDiffusee
 		and !(sessionController.pageAuthorized and sessionController.moderationActive)}">
@@ -518,7 +488,7 @@
 				<h:selectOneRadio value="#{offreController.diffusionDirecte}">
 					<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 					<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-					<a4j:ajax event="click" execute="@this" render="diffusionOffre" />
+					<p:ajax event="click"  update="diffusionOffre" />
 				</h:selectOneRadio>
 			</h:panelGrid>
 			<h:panelGrid columns="2"
@@ -531,9 +501,9 @@
 						value="#{offreController.dureeDiffusion}">
 						<f:selectItems value="#{offreController.dureesDiffusion}" />
 					</h:selectOneMenu>
-					<rich:message for="dureeDiffusion">
+					<p:message for="dureeDiffusion">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</h:panelGrid>
 			</h:panelGrid>
 		</h:panelGrid>

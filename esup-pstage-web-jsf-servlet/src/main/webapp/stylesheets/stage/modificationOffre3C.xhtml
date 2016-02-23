@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['OFFRE.MODIFICATION']}" />
 			</f:facet>
@@ -26,6 +26,6 @@
 			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
 			<ui:include src="../_commun/_panelModifContact.xhtml" />
 			<ui:include src="../_commun/_panelSupprContact.xhtml" />
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

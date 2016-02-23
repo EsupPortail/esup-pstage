@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="modifService" width="800" height="350">
+	<p:dialog id="modifService" widgetVar="modifService">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['SERVICE.MODIF']}" />
 		</f:facet>
@@ -14,5 +14,5 @@
 			<ui:include
 				src="/stylesheets/_commun/#{sessionController.modifServiceCurrentPage}.xhtml" />
 		</h:form>
-	</rich:popupPanel>
+	</p:dialog>
 </ui:composition>

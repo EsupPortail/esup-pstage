@@ -2,11 +2,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	 template="../_basicTemplate.xhtml">
 	<ui:define name="content">
-		<h:panelGrid columns="1" styleClass="panelRecherche">
-			<rich:panel>
+		<h:panelGrid>
+			<p:panel>
 				<f:facet name="header">
 					<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
 				</f:facet>
@@ -39,11 +39,11 @@
 							action="#{offreController.resetRechercheOffre}" />
 					</h:panelGrid>
 				</h:form>
-				<rich:message for="formRechOffre"
+				<p:message for="formRechOffre"
 					style="color:red;font-weight:bold;">
 					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</rich:message>
-			</rich:panel>
+				</p:message>
+			</p:panel>
 		</h:panelGrid>
 	</ui:define>
 </ui:composition>

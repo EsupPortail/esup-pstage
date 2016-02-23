@@ -2,61 +2,61 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="1" align="center" style="font-size:12px;"
-		columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+	xmlns:p="http://primefaces.org/ui"
+	>
+	<h:panelGrid align="center" style="font-size:12px;"
+		>
 		<h:outputText value="#{msgs['MOTDEPASSEPERDU.CHOIXETAB']}"
 			rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}" />
-		<rich:dataTable id="listeStructuresTrouveeMotDePassePerdu" rows="10"
+		<p:dataTable id="listeStructuresTrouveeMotDePassePerdu" rows="10"
 			rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"
 			value="#{welcomeController.listeStructuresTrouveeMotDePassePerdu}"
 			var="structure">
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
-					<h:outputText styleClass="headerText"
+					<h:outputText 
 						value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
 				</f:facet>
 				<h:outputText value="#{structure.raisonSociale}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
-					<h:outputText styleClass="headerText"
+					<h:outputText 
 						value="#{msgs['STRUCTURE.NUM_SIRET']}" />
 				</f:facet>
 				<h:outputText value="#{structure.numeroSiret}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
-					<h:outputText styleClass="headerText"
+					<h:outputText 
 						value="#{msgs['STRUCTURE.VOIE']}" />
 				</f:facet>
 				<h:outputText value="#{structure.voie}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
-					<h:outputText styleClass="headerText"
+					<h:outputText 
 						value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
 				</f:facet>
 				<h:outputText value="#{structure.batimentResidence}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
-					<h:outputText styleClass="headerText"
+					<h:outputText 
 						value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
 				</f:facet>
 				<h:outputText value="#{structure.codePostal}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
-					<h:outputText styleClass="headerText"
+					<h:outputText 
 						value="#{msgs['STRUCTURE.COMMUNE']}" />
 				</f:facet>
 				<h:outputText value="#{structure.commune}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
-					<h:outputText styleClass="headerText"
+					<h:outputText 
 						value="#{msgs['STRUCTURE.PAYS']}" />
 				</f:facet>
 				<h:panelGrid columns="2" style="font-size:12px;">
@@ -66,28 +66,23 @@
 						title="#{structure.pays.libelle}" />
 					<h:outputText value="#{structure.pays.libelle}" />
 				</h:panelGrid>
-			</rich:column>
-			<rich:column>
-				<a4j:commandLink id="selectionStructure" render="structureSelected">
+			</p:column>
+			<p:column>
+				<p:commandLink id="selectionStructure" update="structureSelected">
 					<f:setPropertyActionListener value="#{structure}"
 						target="#{welcomeController.structureSelectionneeMotDePassePerdu}" />
 					<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
-						value="../../media/images/zoom.png" style="border:0" />
-					<rich:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
-				</a4j:commandLink>
-			</rich:column>
-			<f:facet name="footer">
-				<rich:dataScroller align="center"
-					for="listeStructuresTrouveeMotDePassePerdu" maxPages="20" page="1"
-					renderIfSinglePage="false" />
-			</f:facet>
-		</rich:dataTable>
+						value="../../media/images/zoom.png" />
+					<p:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height:20px;" />
-	<a4j:outputPanel id="structureSelected">
+	<p:outputPanel id="structureSelected">
 		<t:div
 			rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu}">
-			<h:panelGrid columns="2" align="center" columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+			<h:panelGrid columns="2" align="center" >
 				<h:outputLabel for="raisonSociale"
 					value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
 				<h:outputText id="raisonSociale"
@@ -120,10 +115,10 @@
 						value="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
 				</h:panelGrid>
 				<t:htmlTag value="div" style="height:40px;" />
-				<a4j:commandButton
+				<p:commandButton
 					action="#{welcomeController.goToRecuperationMotDePasse}"
-					render="formMotDePassePerdu" value="#{msgs['FORM.NEXT']}" />
+					update="formMotDePassePerdu" value="#{msgs['FORM.NEXT']}" />
 			</h:panelGrid>
 		</t:div>
-	</a4j:outputPanel>
+	</p:outputPanel>
 </ui:fragment>

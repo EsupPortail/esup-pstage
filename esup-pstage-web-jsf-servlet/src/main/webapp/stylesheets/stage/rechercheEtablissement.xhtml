@@ -4,8 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<h:outputStylesheet>
@@ -19,7 +18,7 @@
 	        background-color: #FFEBDA !important;
 	        }
 	    </h:outputStylesheet>
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
 			</f:facet>
@@ -40,12 +39,11 @@
 				</fieldset>
 			</t:div>
 			<h:form id="formResultatsRechEtab">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text"
+				<h:panelGrid
 					rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
-					<rich:message for="formResultatsRechEtab">
+					<p:message for="formResultatsRechEtab">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
+					</p:message>
 					<t:htmlTag value="div" style="height: 10px;" />
 					<t:div
 						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
@@ -53,16 +51,18 @@
 					</t:div>
 					<t:htmlTag value="div" style="height: 10px;" />
 				</h:panelGrid>
-				<a4j:outputPanel id="opRechercheStructureDataTable">
+				<p:outputPanel id="opRechercheStructureDataTable">
 					<t:div
 						rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
 						<ui:include
 							src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
-						<rich:dataTable id="rechercheStructureDataTable"
-							var="varRechercheStructure" rowClasses="odd-row, even-row"
-							styleClass="stable"
+						<p:dataTable id="rechercheStructureDataTable"
+							style="width:1000px;"
 							value="#{rechercheController.listeResultatsRechercheStructure}"
-							style="width:1000px;" rows="20">
+							var="varRechercheStructure" rows="20" rowHover="true"
+							rowStyleClass="nopointer" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15,20">
 							<f:facet name="header">
 								<ui:include
 									src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
@@ -71,22 +71,11 @@
 								src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 							<ui:include
 								src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
-							<f:facet name="footer">
-								<rich:dataScroller for="rechercheStructureDataTable"
-									maxPages="20" renderIfSinglePage="false" />
-							</f:facet>
-						</rich:dataTable>
-						<rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
-						<rich:jQuery selector=".stable tr:even"
-							query="addClass('even-row')" />
-						<rich:jQuery selector=".stable tr"
-							query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
-						<rich:jQuery selector=".stable tr"
-							query="live('mouseout', function(){jQuery(this).removeClass('active-row')})" />
+						</p:dataTable>
 					</t:div>
-				</a4j:outputPanel>
+				</p:outputPanel>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<ui:include src="../_commun/_panelSupprStructure.xhtml" />
 		<ui:include src="./_panel_validStructure.xhtml" />
 	</ui:define>

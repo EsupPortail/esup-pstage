@@ -2,15 +2,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="../_basicTemplate.xhtml">
+	xmlns:p="http://primefaces.org/ui"
+	 template="../_basicTemplate.xhtml">
 	<ui:define name="content">
 		<h:panelGrid style="float:left;">
 			<ui:include src="./_menu.xhtml" />
 		</h:panelGrid>
-		<h:panelGrid columns="1" styleClass="panelEntreprise"
+		<h:panelGrid
 			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
-			<rich:panel>
+			<p:panel>
 				<f:facet name="header">
 					<h:outputText
 						value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.TITRE']}" />
@@ -23,7 +23,7 @@
 				<h:outputText value="#{msgs['MENU.MODIFMDP.BLOCK']}"
 					style="font-weight:bold;color:red;"
 					rendered="#{sessionController.adminPageAuthorized}" />
-			</rich:panel>
+			</p:panel>
 			<ui:include src="_panelNousContacter.xhtml" />
 		</h:panelGrid>
 	</ui:define>

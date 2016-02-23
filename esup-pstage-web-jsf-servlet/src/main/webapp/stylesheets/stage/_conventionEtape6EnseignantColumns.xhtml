@@ -2,48 +2,48 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:column>
+	<p:column>
 		<f:facet name="header">
-			<h:outputText styleClass="headerText"
+			<h:outputText 
 				value="#{msgs['CONVENTION.CIVILITE']}" />
 		</f:facet>
 		<h:outputText value="#{enseignant.civilite.libelle}" />
 		<t:htmlTag value="div" style="height: 5px;" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<f:facet name="header">
-			<h:outputText styleClass="headerText"
+			<h:outputText 
 				value="#{msgs['CONVENTION.NOM']}" />
 		</f:facet>
 		<h:outputText value="#{enseignant.nom}" />
 		<t:htmlTag value="div" style="height: 5px;" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<f:facet name="header">
-			<h:outputText styleClass="headerText"
+			<h:outputText 
 				value="#{msgs['CONVENTION.PRENOM']}" />
 		</f:facet>
 		<h:outputText value="#{enseignant.prenom}" />
 		<t:htmlTag value="div" style="height: 5px;" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<f:facet name="header">
-			<h:outputText styleClass="headerText"
+			<h:outputText 
 				value="#{msgs['CONVENTION.MAIL']}" />
 		</f:facet>
 		<h:outputText value="#{enseignant.mail}" />
 		<t:htmlTag value="div" style="height: 5px;" />
-	</rich:column>
-	<rich:column>
+	</p:column>
+	<p:column>
 		<f:facet name="header">
-			<h:outputText styleClass="headerText"
+			<h:outputText 
 				value="#{msgs['CONVENTION.DEPARTEMENT']}" />
 		</f:facet>
 		<h:outputText
 			value="#{enseignant.codeAffectation} - #{enseignant.affectation.libelle}" />
-	</rich:column>
+	</p:column>
 </ui:composition>

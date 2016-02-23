@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel
+		<p:panel
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin)
 					and centreController.centre != null and centreController.personnel != null}">
 			<f:facet name="header">
@@ -17,10 +17,10 @@
 			</f:facet>
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form id="formModifPersonnel">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" style="margin-left:100px; width:500px;">
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="3">
+				<h:panelGrid
+					style="margin-left:100px; width:500px;">
+					<h:panelGrid
+						columns="3">
 						<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}"
 							for="nomPersonnel" />
 						<t:htmlTag value="div" style="width: 20px;" />
@@ -85,15 +85,15 @@
 							converter="#{droitAdminConverter}"
 							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:selectItems value="#{nomenclatureController.droitsAdmin}" />
-							<a4j:ajax event="blur" />
+							<p:ajax event="blur" />
 						</h:selectOneMenu>
-						<rich:message for="droit">
+						<p:message for="droit">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</h:panelGrid>
 
-<!-- 					<h:panelGrid columnClasses="paginatorData-text" -->
-<!-- 						rowClasses="paginatorData-text" columns="2" cellspacing="10"> -->
+<!-- 					<h:panelGrid -->
+<!-- 						columns="2" cellspacing="10"> -->
 <!-- 						<h:outputLabel -->
 <!-- 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.CONVENTION']}" -->
 <!-- 							for="personnelConvention" /> -->
@@ -104,8 +104,8 @@
 <!-- 						</h:selectOneRadio> -->
 <!-- 					</h:panelGrid> -->
 
-					<h:panelGrid columns="2" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+					<h:panelGrid columns="2"
+						>
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.ALERTES_MAIL']}"
 							for="alertesMail" />
@@ -116,8 +116,8 @@
 						</h:selectOneRadio>
 					</h:panelGrid>
 					
-					<h:panelGrid columns="2" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+					<h:panelGrid columns="2"
+						>
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ETUDIANT']}"
 							for="droitEvaluationEtudiant" />
@@ -127,8 +127,8 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+					<h:panelGrid columns="2"
+						>
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENSEIGNANT']}"
 							for="droitEvaluationEnseignant" />
@@ -138,8 +138,8 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
+					<h:panelGrid columns="2"
+						>
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENTREPRISE']}"
 							for="droitEvaluationEntreprise" />
@@ -157,17 +157,17 @@
 							style="font-size:16px; font-weight:bold; border-color:green;"
 							value="#{msgs['FORM.ENREGISTRER']}" />
 						<h:outputText id="erreurModifPersonnel" value="" />
-						<rich:message for="erreurModifPersonnel">
+						<p:message for="erreurModifPersonnel">
 							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</rich:message>
+						</p:message>
 					</t:htmlTag>
 				</h:panelGrid>
 				<h:commandButton id="retour" value="#{msgs['GENERAL.RETOUR']}"
 					action="voirPersonnel" immediate="true">
-					<rich:tooltip value="#{msgs['GENERAL.RETOUR']}" />
+					<p:tooltip value="#{msgs['GENERAL.RETOUR']}" />
 				</h:commandButton>
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin	
 		|| welcomeController.admin)}">

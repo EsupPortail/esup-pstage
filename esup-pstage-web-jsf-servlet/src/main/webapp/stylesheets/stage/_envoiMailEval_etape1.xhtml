@@ -2,12 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:panelGrid columns="2" columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text">
+	<t:panelGrid columns="2"
+		>
 
 		<h:outputLabel for="typeEnvoiMail" value="Type de mail : " />
 		<h:selectOneMenu id="typeEnvoiMail" required="true"
@@ -16,12 +16,12 @@
 				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEMAIL.1ERENVOI']}" />
 			<f:selectItem itemValue="2"
 				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEMAIL.RAPPEL']}" />
-			<a4j:ajax event="valueChange" render="formEnvoiMailEval" />
+			<p:ajax event="valueChange" update="formEnvoiMailEval" />
 		</h:selectOneMenu>
 		<t:panelGroup colspan="2">
-			<rich:message for="typeEnvoiMail">
+			<p:message for="typeEnvoiMail">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			</p:message>
 		</t:panelGroup>
 
 		<t:panelGroup colspan="2">
@@ -38,7 +38,7 @@
 				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEDEST.ENS']}" />
 			<f:selectItem itemValue="3" style="margin-left:10px;"
 				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEDEST.ENT']}" />
-			<a4j:ajax event="valueChange" render="formEnvoiMailEval" />
+			<p:ajax event="valueChange" update="formEnvoiMailEval" />
 		</h:selectOneRadio>
 
 		<t:panelGroup colspan="2">
@@ -56,21 +56,21 @@
 	<h:outputText value="#{msgs['FORM.CONFIRMER']} ?"
 		style="float:center; font-weight:bold; font-size:14px;" />
 	<h:panelGrid align="center" columns="3"
-		columnClasses="paginatorData-text" rowClasses="paginatorData-text">
-		<a4j:commandButton status="mailEvalStatus"
+		>
+		<p:commandButton status="mailEvalStatus"
 			action="#{evaluationController.envoiMailEvalEnMasse}"
-			value="#{msgs['FORM.OUI']}" render="formEnvoiMailEval" />
+			value="#{msgs['FORM.OUI']}" update="formEnvoiMailEval" />
 		<t:htmlTag value="div" style="width:30px;" />
-		<a4j:commandButton value="#{msgs['FORM.NON']}"
-			onclick="#{rich:component('envoiMailEvalPanel')}.hide();" />
+		<p:commandButton value="#{msgs['FORM.NON']}"
+			onclick="PF('envoiMailEvalPanel').hide();" />
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height:5px;" />
 	<t:htmlTag value="center">
-		<a4j:status name="mailEvalStatus">
+		<p:ajaxStatus name="mailEvalStatus">
 			<f:facet name="start">
 				<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 			</f:facet>
-		</a4j:status>
+		</p:ajaxStatus>
 	</t:htmlTag>
 	<t:htmlTag value="div" style="height:10px;" />
 </ui:composition>

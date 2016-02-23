@@ -4,19 +4,22 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CENTRE.LOGO.HEAD']} #{centreController.centre.nomCentre}" />
+<!-- 				<h:outputText -->
+<!-- 					value="#{msgs['CENTRE.LOGO.HEAD']} #{centreController.centre.nomCentre}" /> -->
+				<h:outputLabel value="#{msgs['CENTRE.CONSULTATION']} " for="nomCentre" />
+				<h:outputText id="nomCentre"
+					value="#{centreController.centre.nomCentre}" />
 			</f:facet>
+			
 			<ui:include src="./_menu_centre.xhtml" />
+			
 			<t:div style="margin-left:100px; width:500px;">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" columns="1">
+				<h:panelGrid>
 					<h:outputText value="#{msgs['CENTRE.LOGO.AVERTISSEMENT_1']}" />
 					<h:outputText
 						value="#{msgs['CENTRE.LOGO.AVERTISSEMENT_2']} #{centreController.centre.niveauCentre.libelle}" />
@@ -25,20 +28,18 @@
 						value="#{msgs['CENTRE.LOGO.AVERTISSEMENT_3']}" />
 				</h:panelGrid>
 				<t:htmlTag value="div" style="height: 20px;" />
-				<a4j:outputPanel id="opUploadImage">
+				<p:outputPanel id="opUploadImage">
 					<h:form>
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" align="center"
+						<h:panelGrid align="center"
 							rendered="#{centreController.centre.idFichier le 0}">
-							<a4j:commandButton id="add"
+							<p:commandButton id="add"
 								style="font-size:16px; font-weight:bold; border-color:green;"
 								action="#{centreController.avantAjoutLogo}"
-								oncomplete="#{rich:component('addLogo')}.show()"
+								oncomplete="PF('addLogo').show();"
 								value="#{msgs['CENTRE.LOGO.ADD']}" />
 						</h:panelGrid>
 
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" align="center"
+						<h:panelGrid align="center"
 							rendered="#{centreController.centre.idFichier gt 0}">
 							<h:outputText value="#{msgs['CENTRE.LOGO.IMAGEUPLOADE']}" />
 							<t:htmlTag value="div" style="height: 15px;" />
@@ -46,23 +47,23 @@
 								<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
 									title="#{msgs['GENERAL.FILE']}"
 									value="get.image?imageId=#{centreController.centre.idFichier}"
-									style="border:0" />
+									 />
 							</t:htmlTag>
 							<t:htmlTag value="div" style="height: 30px;" />
 							<t:htmlTag value="center">
-								<a4j:commandLink id="delete"
-									onclick="#{rich:component('suppressionLogo')}.show()">
+								<p:commandLink id="delete"
+									onclick="PF('suppressionLogo').show();">
 									<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
 										title="#{msgs['GENERAL.FILE']}"
-										value="../../media/images/cancel.png" style="border:0" />
+										value="../../media/images/cancel.png" />
 									<h:outputText value=" #{msgs['CENTRE.LOGO.MODIF']}" />
-								</a4j:commandLink>
+								</p:commandLink>
 							</t:htmlTag>
 						</h:panelGrid>
 					</h:form>
-				</a4j:outputPanel>
+				</p:outputPanel>
 			</t:div>
-		</rich:panel>
+		</p:panel>
 		<ui:include src="./_panel_logo.xhtml" />
 		<ui:include src="./_panel_suppressionLogo.xhtml" />
 	</ui:define>

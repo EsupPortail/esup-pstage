@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
 			</f:facet>
@@ -21,7 +21,7 @@
 					<t:div rendered="#{not empty offreController.currentOffre}">
 						<t:div
 							rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-							<a4j:outputPanel ajaxRendered="true">
+							<p:outputPanel ajaxRendered="true">
 								<fieldset>
 									<legend>
 										<h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']} " />
@@ -30,18 +30,18 @@
 											rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 											disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
 											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png" style="border:0"
+												value="../../media/images/edit.png"
 												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit_block.png" style="border:0"
+												value="../../media/images/edit_block.png"
 												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 											<f:setPropertyActionListener value="recapitulatifOffreCentre"
 												target="#{offreController.retour}" />
 											<f:setPropertyActionListener value="#{3}"
 												target="#{offreController.typeAjoutModifOffre}" />
-											<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+											<p:tooltip value="#{msgs['FORM.MODIFIER']}"
 												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+											<p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
 												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										</h:commandLink>
 									</legend>
@@ -58,18 +58,18 @@
 											rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 											disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
 											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png" style="border:0"
+												value="../../media/images/edit.png"
 												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit_block.png" style="border:0"
+												value="../../media/images/edit_block.png"
 												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 											<f:setPropertyActionListener value="recapitulatifOffreCentre"
 												target="#{offreController.retour}" />
 											<f:setPropertyActionListener value="#{3}"
 												target="#{offreController.typeAjoutModifOffre}" />
-											<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+											<p:tooltip value="#{msgs['FORM.MODIFIER']}"
 												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+											<p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
 												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										</h:commandLink>
 									</legend>
@@ -91,19 +91,19 @@
 												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 												disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
 												<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-													value="../../media/images/edit.png" style="border:0"
+													value="../../media/images/edit.png"
 													rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 												<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-													value="../../media/images/edit_block.png" style="border:0"
+													value="../../media/images/edit_block.png"
 													rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 												<f:setPropertyActionListener
 													value="recapitulatifOffreCentre"
 													target="#{offreController.retour}" />
 												<f:setPropertyActionListener value="#{3}"
 													target="#{offreController.typeAjoutModifOffre}" />
-												<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+												<p:tooltip value="#{msgs['FORM.MODIFIER']}"
 													rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-												<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+												<p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
 													rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 											</h:commandLink>
 										</legend>
@@ -123,19 +123,19 @@
 												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 												disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
 												<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-													value="../../media/images/edit.png" style="border:0"
+													value="../../media/images/edit.png"
 													rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 												<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-													value="../../media/images/edit_block.png" style="border:0"
+													value="../../media/images/edit_block.png"
 													rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 												<f:setPropertyActionListener
 													value="recapitulatifOffreCentre"
 													target="#{offreController.retour}" />
 												<f:setPropertyActionListener value="#{3}"
 													target="#{offreController.typeAjoutModifOffre}" />
-												<rich:tooltip value="#{msgs['FORM.MODIFIER']}"
+												<p:tooltip value="#{msgs['FORM.MODIFIER']}"
 													rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-												<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+												<p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
 													rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 											</h:commandLink>
 
@@ -143,7 +143,7 @@
 										<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
 									</fieldset>
 								</t:div>
-							</a4j:outputPanel>
+							</p:outputPanel>
 
 							<t:htmlTag value="div" style="height: 10px;" />
 							<t:div>
@@ -154,59 +154,59 @@
 									<ui:include src="../_commun/_detailsOffreDiffusion.xhtml" />
 								</fieldset>
 							</t:div>
-							<a4j:outputPanel ajaxRendered="true">
-								<h:panelGrid columns="1" style="float:right;"
+							<p:outputPanel ajaxRendered="true">
+								<h:panelGrid style="float:right;"
 									rendered="#{!offreController.currentOffre.estSupprimee}">
-									<a4j:commandLink execute="@this" id="suppr" render="supprOffre"
-										oncomplete="#{rich:component('supprOffre')}.show()"
+									<p:commandLink  id="suppr" update="supprOffre"
+										oncomplete="PF('supprOffre').show();"
 										rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 										disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
 										<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
-											value="../../media/images/delete.png" style="border:0"
+											value="../../media/images/delete.png"
 											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
-											value="../../media/images/delete_block.png" style="border:0"
+											value="../../media/images/delete_block.png"
 											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										<f:setPropertyActionListener value="resultatsRechercheOffre"
 											target="#{offreController.retour}" />
 										<f:setPropertyActionListener value="_supprOffreEtape1"
 											target="#{sessionController.suppressionOffreCurrentPage}" />
 										<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
-										<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}"
+										<p:tooltip value="#{msgs['FORM.SUPPRIMER']}"
 											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
+										<p:tooltip value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
 											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-									</a4j:commandLink>
+									</p:commandLink>
 
 								</h:panelGrid>
-								<h:panelGrid columns="1" style="float:right;">
-									<a4j:commandLink execute="@this" id="transfert"
-										oncomplete="#{rich:component('panelTransfertOffre')}.show()"
+								<h:panelGrid style="float:right;">
+									<p:commandLink  id="transfert"
+										oncomplete="PF('panelTransfertOffre').show();"
 										rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
 										disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
 										<h:graphicImage alt="#{msgs['OFFRE.TRANSFERT']}"
-											value="../../media/images/package_go.png" style="border:0"
+											value="../../media/images/package_go.png"
 											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										<h:graphicImage alt="#{msgs['OFFRE.TRANSFERT']}"
 											value="../../media/images/package_go_block.png"
-											style="border:0"
+											
 											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
 										<h:outputText value=" #{msgs['OFFRE.TRANSFERT']}" />
-										<rich:tooltip value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
+										<p:tooltip value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
 											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-									</a4j:commandLink>
+									</p:commandLink>
 								</h:panelGrid>
-								<h:panelGrid columns="1" style="float:right;">
+								<h:panelGrid style="float:right;">
 									<t:aliasBean alias="#{objet}"
 										value="#{offreController.currentOffre}">
 										<ui:include src="../_commun/_updateInfos.xhtml" />
 									</t:aliasBean>
 								</h:panelGrid>
-							</a4j:outputPanel>
+							</p:outputPanel>
 						</t:div>
 					</t:div>
 					<t:htmlTag value="div" style="height: 20px;" />
-					<h:panelGrid columns="1">
+					<h:panelGrid>
 						<t:htmlTag value="div" style="height: 20px;" />
 						<h:commandButton action="offresEtablissement"
 							value=" #{msgs['OFFRE.RETOURLISTES']}">
@@ -220,6 +220,6 @@
 			<ui:include src="../_commun/_panelTransfertOffre.xhtml" />
 			<ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
 			<ui:include src="../_commun/_panelSupprOffre.xhtml" />
-		</rich:panel>
+		</p:panel>
 	</ui:define>
 </ui:composition>

@@ -2,11 +2,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:popupPanel id="pDiffusionCentreOffre" autosized="true" width="15"
+	<p:dialog id="pDiffusionCentreOffre" widgetVar="pDiffusionCentreOffre" autosized="true" width="15"
 		height="40" moveable="false" resizeable="false"
 		style="position:absolute;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
@@ -14,11 +13,11 @@
 		</f:facet>
 		<h:graphicImage value="../../media/images/loadingCircle.gif"
 			style="margin-left:25px;" alt="#{msgs['GENERAL.LOADING']}"
-			title="#{msgs['GENERAL.LOADING']}" styleClass="hidelink" />
-	</rich:popupPanel>
-	<a4j:region id="rDiffusionCentreOffre">
-		<h:panelGrid columns="1" style="font-size:12px;" columnClasses="paginatorData-text" rowClasses="paginatorData-text" >
-			<h:panelGrid columns="1"
+			title="#{msgs['GENERAL.LOADING']}" />
+	</p:dialog>
+	<p:outputPanel id="rDiffusionCentreOffre">
+		<h:panelGrid style="font-size:12px;" >
+			<h:panelGrid
 				rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
 				style="font-size:12px;">
 				<h:outputText
@@ -37,18 +36,18 @@
 					converter="#{intConverter}">
 					<f:selectItems
 						value="#{offreController.listesCentresGestionEtablissement}" />
-					<a4j:ajax render="opLCgUniv" execute="@this" event="valueChange" />
+					<p:ajax update="opLCgUniv"  event="valueChange" />
 				</h:selectOneMenu>
 			</h:panelGrid>
-			<a4j:outputPanel id="opLCgUniv">
+			<p:outputPanel id="opLCgUniv">
 				<h:outputText
 					value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNCENTRE']}"
 					rendered="#{empty offreController.listesCentresGestionUniversite
 					and offreController.idCentreEtablissementSelect>0}" />
-				<h:panelGrid columns="1" style="font-size:12px;"
+				<h:panelGrid style="font-size:12px;"
 					rendered="#{not empty offreController.listesCentresGestionUniversite
 				and offreController.idCentreEtablissementSelect>0}">
-					<h:panelGrid columns="1" style="font-size:12px;">
+					<h:panelGrid style="font-size:12px;">
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONCENTRE']}"
 							rendered="#{sessionController.adminPageAuthorized}" />
@@ -66,44 +65,44 @@
 						</h:selectManyListbox>
 					</h:panelGrid>
 					<h:panelGrid columns="8" style="font-size:12px;">
-						<a4j:commandLink id="addAll"
+						<p:commandLink id="addAll"
 							action="#{offreController.addAllCentresGestionToListeADiffuser}"
-							render="lCgUnivSelect">
+							update="lCgUnivSelect">
 							<h:graphicImage
 								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
-								value="../../media/images/addAll.png" style="border:0" />
-							<rich:tooltip
+								value="../../media/images/addAll.png" />
+							<p:tooltip
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}" />
-						</a4j:commandLink>
-						<a4j:commandLink id="add"
+						</p:commandLink>
+						<p:commandLink id="add"
 							action="#{offreController.addCentresGestionToListeADiffuser}"
-							render="lCgUnivSelect">
+							update="lCgUnivSelect">
 							<h:graphicImage
 								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
-								value="../../media/images/new.png" style="border:0" />
-							<rich:tooltip
+								value="../../media/images/new.png" />
+							<p:tooltip
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTER']}" />
-						</a4j:commandLink>
-						<a4j:commandLink id="remove"
+						</p:commandLink>
+						<p:commandLink id="remove"
 							action="#{offreController.deleteCentresGestionFromListeADiffuser}"
-							render="lCgUnivSelect">
+							update="lCgUnivSelect">
 							<h:graphicImage
 								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}"
-								value="../../media/images/del.png" style="border:0" />
-							<rich:tooltip
+								value="../../media/images/del.png" />
+							<p:tooltip
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}" />
-						</a4j:commandLink>
-						<a4j:commandLink id="removeAll"
+						</p:commandLink>
+						<p:commandLink id="removeAll"
 							action="#{offreController.deleteAllCentresGestionFromListeADiffuser}"
-							render="lCgUnivSelect">
+							update="lCgUnivSelect">
 							<h:graphicImage
 								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}"
-								value="../../media/images/forbidden.png" style="border:0" />
-							<rich:tooltip
+								value="../../media/images/forbidden.png" />
+							<p:tooltip
 								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</h:panelGrid>
-					<h:panelGrid columns="1" style="font-size:12px;">
+					<h:panelGrid style="font-size:12px;">
 						<h:outputText
 							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.CENTRESELECT']}"
 							rendered="#{sessionController.adminPageAuthorized}" />
@@ -121,17 +120,17 @@
 						</h:selectManyListbox>
 					</h:panelGrid>
 				</h:panelGrid>
-			</a4j:outputPanel>
+			</p:outputPanel>
 		</h:panelGrid>
-		<h:panelGrid columns="3" columnClasses="paginatorData-text" rowClasses="paginatorData-text" >
-			<a4j:commandButton action="#{offreController.diffusionCentreOffre}"
+		<h:panelGrid columns="3" >
+			<p:commandButton action="#{offreController.diffusionCentreOffre}"
 				value="#{msgs['FORM.ENREGISTRER']}"
-				render="formDiffusionCentreOffre"
+				update="formDiffusionCentreOffre"
 				rendered="#{not empty offreController.listesCentresGestionUniversite}" />
 			<t:htmlTag value="div" style="width:100px;" />
-			<a4j:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="#{rich:component('diffusionCentreOffre')}.hide();"
+			<p:commandButton value="#{msgs['FORM.ANNULER']}"
+				onclick="PF('diffusionCentreOffre').hide();"
 				immediate="true" />
 		</h:panelGrid>
-	</a4j:region>
+	</p:outputPanel>
 </ui:composition>

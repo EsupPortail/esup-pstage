@@ -5,9 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 <h:head>
 	<f:facet name="first">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -15,19 +13,13 @@
 	</f:facet>
 	<title><h:outputText value="#{applicationService.name}" /></title>
 	<link rel="stylesheet" type="text/css"
-		href="#{sessionController.mediaPath}/style/skins/universality/etab/etab.css" />
-	<link rel="stylesheet" type="text/css"
-		href="#{sessionController.mediaPath}/style/spacer.css" />
-	<script type="text/javascript" language="Javascript"
-		src="#{sessionController.mediaPath}/js/functions.js" />
+		href="#{sessionController.mediaPath}/style/main.css" />
+<!-- 	<script type="text/javascript" language="Javascript" -->
+<!-- 		src="#{sessionController.mediaPath}/js/functions.js" /> -->
 </h:head>
 <f:view locale="fr">
-	<h:body styleClass="fl-theme-app">
-		<t:div id="body" styleClass="app-body fl-col-flex2">
-			<t:div id="content" styleClass="app-content fl-col-flex85">
-				<ui:insert name="content" />
-			</t:div>
-		</t:div>
+	<h:body>
+		<ui:insert name="content" />
 	</h:body>
 </f:view>
 </html>

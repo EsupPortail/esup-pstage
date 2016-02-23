@@ -2,27 +2,27 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text"
+	<h:panelGrid 
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CONVENTION.ETAPE2.MODIFSERVICESIGNATIRE']}" />
 			</f:facet>
-			<h:panelGrid columnClasses="paginatorData-text" rowClasses="paginatorData-text">
+			<h:panelGrid >
 
 				<t:div id="information">
-					<rich:message for="information">
+					<p:message for="information">
 						<ui:include src="../_commun/_messageInfoMarker.xhtml" />
-					</rich:message>
+					</p:message>
 				</t:div>
 
-				<a4j:commandButton execute="@this"
-					oncomplete="#{rich:component('selectServiceSignataire')}.show()"
+				<p:commandButton 
+					oncomplete="PF('selectServiceSignataire').show();"
 					value="#{msgs['CONVENTION.ETAPE2.MODIF.SERVICESIGNATAIRE.SELEC']}">
 					<f:setPropertyActionListener value="#{0}"
 						target="#{etablissementController.idContactSel}" />
@@ -34,23 +34,22 @@
 						target="#{etablissementController.serviceSel}" />
 					<f:setPropertyActionListener value="#{false}"
 						target="#{etablissementController.afficherSelectionCentreContact}" />
-				</a4j:commandButton>
+				</p:commandButton>
 				
-				<rich:popupPanel id="selectServiceSignataire" autosized="true"
-					style="width:500px; height:150px;" styleClass="panel" domElementAttachment="parent">
+				<p:dialog id="selectServiceSignataire" widgetVar="selectServiceSignataire">
 					
 					<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 					
 					<t:htmlTag value="div" style="height:20px;"/>
 					
 					<t:htmlTag value="center">
-						<a4j:commandButton value="#{msgs['FORM.CANCEL']}" execute="@this"
-							onclick="#{rich:component('selectServiceSignataire')}.hide();return false;" />
+						<p:commandButton value="#{msgs['FORM.CANCEL']}" 
+							onclick="PF('selectServiceSignataire').hide();" />
 							
 						<t:htmlTag value="div" style="width:150px; display:inline;" />
 						
-						<a4j:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-							oncomplete="#{rich:component('selectServiceSignataire')}.hide();"
+						<p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+							oncomplete="PF('selectServiceSignataire').hide();"
 							action="#{conventionController.goToConventionModifEtabServiceSignataire}">
 							<f:setPropertyActionListener
 								value="#{etablissementController.serviceSel}"
@@ -58,11 +57,11 @@
 							<f:setPropertyActionListener
 								value="#{etablissementController.contactSel}"
 								target="#{conventionController.convention.signataire}" />
-						</a4j:commandButton>
+						</p:commandButton>
 					</t:htmlTag>
-				</rich:popupPanel>
+				</p:dialog>
 
 			</h:panelGrid>
-		</rich:panel>
+		</p:panel>
 	</h:panelGrid>
 </ui:composition>

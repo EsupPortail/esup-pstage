@@ -2,305 +2,278 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel
+		<h:outputStylesheet>
+			label {
+		    	font-weight: bold;
+			}
+		</h:outputStylesheet>
+		<p:panel
 			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 						|| welcomeController.personnel) and centreController.centre != null}">
 			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CENTRE.MENU.DETAIL']} #{centreController.centre.nomCentre}" />
+				<h:outputLabel value="#{msgs['CENTRE.CONSULTATION']} " for="nomCentre" />
+				<h:outputText id="nomCentre"
+					value="#{centreController.centre.nomCentre}" />
 			</f:facet>
+
 			<ui:include src="_menu_centre.xhtml" />
+
 			<h:form id="formVoirCentre">
-				<h:panelGrid columnClasses="paginatorData-text"
-					rowClasses="paginatorData-text" style="margin-left:100px; width:500px;">
-					<h:outputLabel value="#{msgs['CENTRE.NOM']} " for="nomCentre" />
-					<h:outputText id="nomCentre"
-						value="#{centreController.centre.nomCentre}" />
+				<h:panelGrid>
 
 					<t:htmlTag value="div" style="height: 10px;" />
 
-					<h:panelGrid columns="3" columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text">
-							<h:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']} "
-								for="batimentResidence" />
-							<h:outputText id="batimentResidence"
-								value="#{centreController.centre.batimentResidence}" />
-
-							<h:outputLabel value="#{msgs['CENTRE.VOIE']} " for="voie"
-								rendered="#{not empty centreController.centre.voie}" />
-							<h:outputText id="voie" value="#{centreController.centre.voie}"
-								rendered="#{not empty centreController.centre.voie}" />
-						</h:panelGrid>
-
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="3">
-							<t:htmlTag value="div" style="width: 50px;" />
-							<t:htmlTag value="div"
-								style="width: 2px; height: 90px; background-color: #{a4jSkin.panelBorderColor};" />
-							<t:htmlTag value="div" style="width: 50px;" />
-						</h:panelGrid>
-
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text">
-							<h:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} "
-								for="codePostal" />
-							<h:outputText id="codePostal"
-								value="#{centreController.centre.codePostal}" />
-
-							<h:outputLabel value="#{msgs['CENTRE.COMMUNE']} " for="commune" />
-							<h:outputText id="commune"
-								value="#{centreController.centre.commune}" />
-						</h:panelGrid>
-					</h:panelGrid>
-
-					<t:htmlTag value="div" style="height: 5px;" />
-
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="3">
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
-							rendered="#{not empty centreController.centre.mail 
-											|| not empty centreController.centre.siteWeb}">
-							<h:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail"
-								rendered="#{not empty centreController.centre.mail}" />
-							<h:outputText id="mail" value="#{centreController.centre.mail}"
-								rendered="#{not empty centreController.centre.mail}" />
-
-							<h:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb"
-								rendered="#{not empty centreController.centre.siteWeb}" />
-							<h:outputText id="siteWeb"
-								value="#{centreController.centre.siteWeb}"
-								rendered="#{not empty centreController.centre.siteWeb}" />
-						</h:panelGrid>
-
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="3"
-							rendered="#{(not empty centreController.centre.mail 
-											|| not empty centreController.centre.siteWeb)
-											and (not empty centreController.centre.fax 
-											|| not empty centreController.centre.telephone)}">
-							<t:htmlTag value="div" style="width: 50px;" />
-							<t:htmlTag value="div"
-								style="width: 2px; height: 90px; background-color: #{a4jSkin.panelBorderColor};" />
-							<t:htmlTag value="div" style="width: 50px;" />
-						</h:panelGrid>
-
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
-							rendered="#{not empty centreController.centre.telephone
-											|| not empty centreController.centre.fax}">
-							<h:outputLabel value="#{msgs['CENTRE.TEL']} " for="telephone"
-								rendered="#{not empty centreController.centre.telephone}" />
-							<h:outputText id="telephone"
-								value="#{centreController.centre.telephone}"
-								rendered="#{not empty centreController.centre.telephone}" />
-
-							<h:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax"
-								rendered="#{not empty centreController.centre.fax}" />
-							<h:outputText id="fax" value="#{centreController.centre.fax}"
-								rendered="#{not empty centreController.centre.fax}" />
-						</h:panelGrid>
-					</h:panelGrid>
-
-					<t:htmlTag value="div" style="height: 10px;" />
-
-					<h:panelGrid columnClasses="paginatorData-text"
-						rowClasses="paginatorData-text" columns="1">
-						<h:outputLabel value="#{msgs['CENTRE.URL_PAGE_INSTRUCTION']} "
-							for="pageInstruction"
-							rendered="#{not empty centreController.centre.urlPageInstruction}" />
-						<h:outputText id="pageInstruction"
-							value="#{centreController.centre.urlPageInstruction}"
-							rendered="#{not empty centreController.centre.urlPageInstruction}" />
-
-						<t:htmlTag value="div" style="height: 5px;" />
-
-						<h:outputLabel for="nomViseur"
-							value="#{msgs['CENTRE.NOM_VISEUR']} "
-							rendered="#{not empty centreController.centre.nomViseur}" />
-						<h:outputText id="nomViseur"
-							value="#{centreController.centre.nomViseur}"
-							rendered="#{not empty centreController.centre.nomViseur}" />
-
-						<h:outputLabel for="prenomViseur"
-							value="#{msgs['CENTRE.PRENOM_VISEUR']} "
-							rendered="#{not empty centreController.centre.prenomViseur}" />
-						<h:outputText id="prenomViseur"
-							value="#{centreController.centre.prenomViseur}"
-							rendered="#{not empty centreController.centre.prenomViseur}" />
-
-						<h:outputLabel for="qualiteViseur"
-							value="#{msgs['CENTRE.QUALITE_VISEUR']} "
-							rendered="#{not empty centreController.centre.qualiteViseur}" />
-						<h:outputText id="qualiteViseur"
-							value="#{centreController.centre.qualiteViseur}"
-							rendered="#{not empty centreController.centre.qualiteViseur}" />
-							
-						<t:htmlTag value="div" style="height: 5px;" />
-
-						<h:outputLabel value="#{msgs['CENTRE.CRITERE.CRITERES']}"
+					<h:panelGrid columns="2" style="font-size:1.2em;">
+						<h:outputLabel value="#{msgs['CENTRE.TYPE_CENTRE']} : "
 							rendered="#{centreController.centre.niveauCentre!=null}"
 							for="critereGestion" />
 						<h:outputText id="critereGestion"
 							rendered="#{centreController.centre.niveauCentre!=null}"
 							value="#{centreController.centre.niveauCentre.libelle}" />
+					</h:panelGrid>
 
-						<t:htmlTag value="div" style="height: 5px;" />
+					<t:htmlTag value="div" style="height: 10px;" />
 
-						<h:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']}"
+					<t:fieldset>
+						<legend>
+							<h:outputLabel value="#{msgs['CENTRE.COORDONNEES']}" for="voie" />
+						</legend>
+						<h:panelGrid columns="3" style="width:100%;">
+							<h:panelGrid>
+								<h:outputLabel value="#{msgs['CENTRE.VOIE']} " for="voie"
+									rendered="#{not empty centreController.centre.voie}" />
+								<h:outputText id="voie" value="#{centreController.centre.voie}"
+									rendered="#{not empty centreController.centre.voie}" />
+
+								<h:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']} "
+									for="batimentResidence" />
+								<h:outputText id="batimentResidence"
+									value="#{centreController.centre.batimentResidence}" />
+							</h:panelGrid>
+
+							<h:panelGrid columns="3">
+								<p:spacer width="30" />
+								<p:separator style="height:100px;" />
+								<p:spacer width="30" />
+							</h:panelGrid>
+
+							<h:panelGrid>
+								<h:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} "
+									for="codePostal" />
+								<h:outputText id="codePostal"
+									value="#{centreController.centre.codePostal}" />
+
+								<h:outputLabel value="#{msgs['CENTRE.COMMUNE']} " for="commune" />
+								<h:outputText id="commune"
+									value="#{centreController.centre.commune}" />
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<h:panelGrid columns="3" style="width:100%;">
+							<h:panelGrid
+								rendered="#{not empty centreController.centre.mail 
+											|| not empty centreController.centre.siteWeb}">
+								<h:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail"
+									rendered="#{not empty centreController.centre.mail}" />
+								<h:outputText id="mail" value="#{centreController.centre.mail}"
+									rendered="#{not empty centreController.centre.mail}" />
+
+								<h:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb"
+									rendered="#{not empty centreController.centre.siteWeb}" />
+								<h:outputText id="siteWeb"
+									value="#{centreController.centre.siteWeb}"
+									rendered="#{not empty centreController.centre.siteWeb}" />
+							</h:panelGrid>
+
+							<h:panelGrid columns="3"
+								rendered="#{(not empty centreController.centre.mail 
+											|| not empty centreController.centre.siteWeb)
+											and (not empty centreController.centre.fax 
+											|| not empty centreController.centre.telephone)}">
+								<p:spacer width="30" />
+								<p:separator style="height:100px;" />
+								<p:spacer width="30" />
+							</h:panelGrid>
+
+							<h:panelGrid
+								rendered="#{not empty centreController.centre.telephone
+											|| not empty centreController.centre.fax}">
+								<h:outputLabel value="#{msgs['CENTRE.TEL']} " for="telephone"
+									rendered="#{not empty centreController.centre.telephone}" />
+								<h:outputText id="telephone"
+									value="#{centreController.centre.telephone}"
+									rendered="#{not empty centreController.centre.telephone}" />
+
+								<h:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax"
+									rendered="#{not empty centreController.centre.fax}" />
+								<h:outputText id="fax" value="#{centreController.centre.fax}"
+									rendered="#{not empty centreController.centre.fax}" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</t:fieldset>
+
+					<t:htmlTag value="div" style="height: 10px;" />
+
+					<t:fieldset>
+						<legend>
+							<h:outputLabel value="#{msgs['CENTRE.PARAMETRAGE']}"
+								for="confidentialite" />
+						</legend>
+
+						<t:htmlTag value="div" style="height:10px;" />
+
+						<h:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']} : "
 							rendered="#{centreController.centre.confidentialite != null}"
 							for="confidentialite" />
 						<h:outputText id="confidentialite"
 							value="#{centreController.centre.confidentialite.libelle}"
 							rendered="#{centreController.centre.confidentialite != null}" />
 
-						<t:htmlTag value="div" style="height: 5px;" />
+						<t:htmlTag value="div" style="height:10px;" />
 
-						<h:outputLabel value="#{msgs['CENTRE.MODEVALIDATIONSTAGE']}"
-							rendered="#{centreController.centre.modeValidationStage != null}"
-							for="modeValidationStage" />
-						<h:outputText id="modeValidationStage"
-							rendered="#{centreController.centre.modeValidationStage != null}"
-							value="#{centreController.centre.modeValidationStage.libelle}" />
-
-						<t:htmlTag value="div" style="height: 5px;" />
-
-						<h:outputLabel value="#{msgs['CENTRE.TUTEUR_ENS_OBLIGATOIRE']} "
-							for="tuteurEnsObligatoire" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
-							id="tuteurEnsObligatoire">
-							<h:outputText
-								rendered="#{centreController.centre.presenceTuteurEns}"
-								value="#{msgs['FORM.OUI']}" />
-							<h:outputText
-								rendered="#{!centreController.centre.presenceTuteurEns}"
-								value="#{msgs['FORM.NON']}" />
+						<h:panelGrid columns="2">
+							<p:selectBooleanCheckbox disabled="true"
+								id="tuteurEnsObligatoire"
+								value="#{centreController.centre.presenceTuteurEns}" />
+							<h:outputText value="#{msgs['CENTRE.TUTEUR_ENS_OBLIGATOIRE']}"
+								escape="false" />
 						</h:panelGrid>
 
-						<t:htmlTag value="div" style="height: 5px;" />
+						<t:htmlTag value="div" style="height: 10px;" />
 
-						<h:outputLabel value="#{msgs['CENTRE.TUTEUR_PRO_OBLIGATOIRE']} "
-							for="tuteurProObligatoire" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
-							id="tuteurProObligatoire">
-							<h:outputText
-								rendered="#{centreController.centre.presenceTuteurPro}"
-								value="#{msgs['FORM.OUI']}" />
-							<h:outputText
-								rendered="#{!centreController.centre.presenceTuteurPro}"
-								value="#{msgs['FORM.NON']}" />
-						</h:panelGrid>
-						<t:htmlTag value="div" style="height: 5px;" />
-
-						<h:outputLabel value="#{msgs['CENTRE.SAISIE_EN_LIGNE']} "
-							for="saisieEnLigne" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1" id="saisieEnLigne">
-							<h:outputText
-								rendered="#{centreController.centre.saisieTuteurProParEtudiant}"
-								value="#{msgs['FORM.OUI']}" />
-							<h:outputText
-								rendered="#{!centreController.centre.saisieTuteurProParEtudiant}"
-								value="#{msgs['FORM.NON']}" />
+						<h:panelGrid columns="2">
+							<p:selectBooleanCheckbox disabled="true"
+								id="tuteurProObligatoire"
+								value="#{centreController.centre.presenceTuteurPro}" />
+							<h:outputText value="#{msgs['CENTRE.TUTEUR_PRO_OBLIGATOIRE']}"
+								escape="false" />
 						</h:panelGrid>
 
-						<t:htmlTag value="div" style="height: 5px;" />
+						<t:htmlTag value="div" style="height: 10px;" />
 
-						<h:outputLabel value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']} "
-							for="choixAnnee" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1" id="choixAnnee">
-							<h:outputText
-								rendered="#{centreController.centre.choixAnneeAvantDebutAnnee and !centreController.centre.choixAnneeApresDebutAnnee}"
-								value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" />
-							<h:outputText
-								rendered="#{centreController.centre.choixAnneeApresDebutAnnee and !centreController.centre.choixAnneeAvantDebutAnnee}"
-								value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" />
-							<h:outputText
-								rendered="#{centreController.centre.choixAnneeApresDebutAnnee and centreController.centre.choixAnneeAvantDebutAnnee}"
-								value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANTAPRES']}" />
-							<h:outputText
-								rendered="#{!centreController.centre.choixAnneeAvantDebutAnnee and !centreController.centre.choixAnneeApresDebutAnnee}"
-								value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" />
+						<h:panelGrid columns="2">
+							<p:selectBooleanCheckbox disabled="true" id="saisieEnLigne"
+								required="true"
+								value="#{centreController.centre.saisieTuteurProParEtudiant}" />
+							<h:outputLabel value="#{msgs['CENTRE.SAISIE_EN_LIGNE']}"
+								for="saisieEnLigne" />
 						</h:panelGrid>
 
-						<h:outputLabel value="#{msgs['CENTRE.IMPRESSIONCONVENTION']}"
-							for="impressionConvention"
-							rendered="#{sessionController.autoriserCentresBloquerImpressionConvention}" />
-						<h:panelGrid columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text" columns="1"
-							id="impressionConvention"
+						<t:htmlTag value="div" style="height: 10px;" />
+
+						<h:panelGrid columns="2"
 							rendered="#{sessionController.autoriserCentresBloquerImpressionConvention}">
-							<h:outputText
-								rendered="#{centreController.centre.autoriserImpressionConvention}"
-								value="#{msgs['FORM.OUI']}" />
-							<h:outputText
-								rendered="#{!centreController.centre.autoriserImpressionConvention}"
-								value="#{msgs['FORM.NON']}" />
+							<p:selectBooleanCheckbox disabled="true"
+								id="impressionConvention"
+								value="#{centreController.centre.autoriserImpressionConvention}" />
+							<h:outputLabel value="#{msgs['CENTRE.IMPRESSIONCONVENTION']}"
+								for="impressionConvention" />
 						</h:panelGrid>
 
-						<h:outputLabel value="#{msgs['CENTRE.CREATIONCONVENTION']}"
-							for="creationConvention" />
-						<h:panelGrid id="creationConvention"
-							columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text">
-							<h:outputText
-								rendered="#{centreController.centre.autorisationEtudiantCreationConvention}"
-								value="#{msgs['FORM.OUI']}" />
-							<h:outputText
-								rendered="#{!centreController.centre.autorisationEtudiantCreationConvention}"
-								value="#{msgs['FORM.NON']}" />
+						<t:htmlTag value="div" style="height: 10px;" />
+
+						<h:panelGrid columns="2">
+							<p:selectBooleanCheckbox disabled="true" id="creationConvention"
+								value="#{centreController.centre.autorisationEtudiantCreationConvention}" />
+							<h:outputLabel value="#{msgs['CENTRE.CREATIONCONVENTION']}"
+								for="creationConvention" />
 						</h:panelGrid>
 
-						<h:outputLabel value="Validation Pedagogique"
-							for="validationPedagogique"
-							rendered="#{sessionController.validationPedagogique}" />
-						<h:panelGrid id="validationPedagogique"
-							columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text"
+						<t:htmlTag value="div" style="height: 10px;" />
+
+						<h:panelGrid columns="2"
 							rendered="#{sessionController.validationPedagogique}">
-							<h:outputText
-								rendered="#{centreController.centre.validationPedagogique}"
-								value="#{msgs['FORM.OUI']}" />
-							<h:outputText
-								rendered="#{!centreController.centre.validationPedagogique}"
-								value="#{msgs['FORM.NON']}" />
+							<p:selectBooleanCheckbox disabled="true"
+								id="validationPedagogique"
+								value="#{centreController.centre.validationPedagogique}" />
+							<h:outputLabel value="#{msgs['CENTRE.VALIDATION_PEDAGOGIQUE']}"
+								for="validationPedagogique" />
 						</h:panelGrid>
-						
-						<h:outputLabel value="#{msgs['CENTRE.VISIBILITE_EVAL_TUTEURPRO']}"
-							for="visibiliteEvalPro" />
-						<h:panelGrid id="visibiliteEvalPro"
-							columnClasses="paginatorData-text"
-							rowClasses="paginatorData-text">
-							<h:outputText
-								rendered="#{centreController.centre.visibiliteEvalPro}"
-								value="#{msgs['FORM.OUI']}" />
-							<h:outputText
-								rendered="#{!centreController.centre.visibiliteEvalPro}"
-								value="#{msgs['FORM.NON']}" />
+
+						<t:htmlTag value="div" style="height: 10px;" />
+
+						<h:panelGrid columns="2">
+							<p:selectBooleanCheckbox disabled="true" id="visibiliteEvalPro"
+								value="#{centreController.centre.visibiliteEvalPro}" />
+							<h:outputLabel
+								value="#{msgs['CENTRE.VISIBILITE_EVAL_TUTEURPRO']}"
+								for="visibiliteEvalPro" />
 						</h:panelGrid>
-					</h:panelGrid>
+
+						<t:htmlTag value="div" style="height: 10px;" />
+
+						<!-- 						<h:outputLabel value="#{msgs['CENTRE.MOIS_PRECEDENT']} *" -->
+						<!-- 							for="moisPrecedent" /> -->
+						<!-- 						<h:selectOneRadio id="moisPrecedent" -->
+						<!-- 							value="#{centreController.centre.choixAnneeAvantDebutAnnee}"> -->
+						<!-- 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" /> -->
+						<!-- 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" /> -->
+						<!-- 						</h:selectOneRadio> -->
+
+						<!-- 						<t:htmlTag value="div" style="height: 5px;" /> -->
+
+						<!-- 						<h:outputLabel value="#{msgs['CENTRE.MOIS_SUIVANT']} *" -->
+						<!-- 							for="moisSuivant" /> -->
+						<!-- 						<h:selectOneRadio id="moisSuivant" -->
+						<!-- 							value="#{centreController.centre.choixAnneeApresDebutAnnee}"> -->
+						<!-- 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" /> -->
+						<!-- 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" /> -->
+						<!-- 						</h:selectOneRadio> -->
+
+						<p:separator style="width:10%;" />
+
+						<t:htmlTag value="div" style="height: 5px;" />
+						<h:panelGrid>
+							<h:outputLabel value="#{msgs['CENTRE.URL_PAGE_INSTRUCTION']} "
+								for="pageInstruction"
+								rendered="#{not empty centreController.centre.urlPageInstruction}" />
+							<h:outputText id="pageInstruction"
+								value="#{centreController.centre.urlPageInstruction}"
+								rendered="#{not empty centreController.centre.urlPageInstruction}" />
+						</h:panelGrid>
+
+						<t:htmlTag value="div" style="height: 5px;" />
+						<h:panelGrid columns="2">
+							<h:outputLabel for="nomViseur"
+								value="#{msgs['CENTRE.NOM_VISEUR']} "
+								rendered="#{not empty centreController.centre.nomViseur}" />
+							<h:outputText id="nomViseur"
+								value="#{centreController.centre.nomViseur}"
+								rendered="#{not empty centreController.centre.nomViseur}" />
+
+							<h:outputLabel for="prenomViseur"
+								value="#{msgs['CENTRE.PRENOM_VISEUR']} "
+								rendered="#{not empty centreController.centre.prenomViseur}" />
+							<h:outputText id="prenomViseur"
+								value="#{centreController.centre.prenomViseur}"
+								rendered="#{not empty centreController.centre.prenomViseur}" />
+
+							<h:outputLabel for="qualiteViseur"
+								value="#{msgs['CENTRE.QUALITE_VISEUR']} "
+								rendered="#{not empty centreController.centre.qualiteViseur}" />
+							<h:outputText id="qualiteViseur"
+								value="#{centreController.centre.qualiteViseur}"
+								rendered="#{not empty centreController.centre.qualiteViseur}" />
+						</h:panelGrid>
+					</t:fieldset>
+
+					<t:htmlTag value="div" style="height:10px;" />
 
 					<t:htmlTag value="center">
-						<a4j:commandButton execute="@this" style="font-size:16px; border-color:green;"
-							rendered="#{welcomeController.superAdmin
-							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
+						<p:commandButton value="#{msgs['FORM.MODIFIER']}"
+							style="font-size:16px; border-color:green;"
 							action="#{centreController.goToModifCentre}"
-							value="#{msgs['FORM.MODIFIER']}" />
+							rendered="#{welcomeController.superAdmin
+							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}" />
 					</t:htmlTag>
 				</h:panelGrid>
-				<h:commandButton id="back" value="#{msgs['CENTRE.RETOUR_LISTE']}"
+				<p:commandButton id="back" value="#{msgs['CENTRE.RETOUR_LISTE']}"
 					action="#{centreController.goToListeCentre}" immediate="true" />
 			</h:form>
-		</rich:panel>
+		</p:panel>
 		<t:div
 			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 		|| welcomeController.personnel)}">

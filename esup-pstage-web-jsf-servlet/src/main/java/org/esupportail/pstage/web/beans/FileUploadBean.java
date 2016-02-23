@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 
 import org.esupportail.pstage.utils.Utils;
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -50,9 +50,9 @@ public class FileUploadBean {
 			// logger.warn("Invalid upload event");
 		}else{
 			// on recupere l'item envoye
-			UploadedFile uploadItem = event.getUploadedFile();
+			UploadedFile uploadItem = event.getFile();
 			
-			String fileName = uploadItem.getName();
+			String fileName = uploadItem.getFileName();
 			String extension="";
 			if(fileName.lastIndexOf(".")>0){
 				extension = fileName.substring(fileName.lastIndexOf("."));
@@ -66,7 +66,7 @@ public class FileUploadBean {
 			FileChannel in = null;
 			FileChannel out = null;
 			try{
-				in = ((FileInputStream)uploadItem.getInputStream()).getChannel();
+				in = ((FileInputStream)uploadItem.getInputstream()).getChannel();
 				out = new FileOutputStream(fileToWrite).getChannel();
 				in.transferTo(0, in.size(), out);
 			} catch(IOException e){

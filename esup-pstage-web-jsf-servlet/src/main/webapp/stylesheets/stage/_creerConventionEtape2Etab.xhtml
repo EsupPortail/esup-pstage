@@ -2,11 +2,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<rich:panel
+	<p:panel
 		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
@@ -24,7 +23,7 @@
 		</t:htmlTag>
 		<ui:include
 			src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
-		
+
 		<h:panelGrid id="formResultatsRechEtab">
 			<t:div style="padding-top:15px;"
 				rendered="#{not empty rechercheController.ongletCourant 
@@ -36,53 +35,51 @@
 					action="#{conventionController.goToCreerConventionEtape2CreaEtab}"
 					rendered="#{rechercheController.afficherBoutonAjoutEtab}">
 					<h:graphicImage alt="#{msgs['FORM.CREER']}"
-						value="../../media/images/new.png" style="border:0" />
-					<rich:tooltip value="#{msgs['FORM.CREER']}" />
+						value="../../media/images/new.png" />
+					<p:tooltip value="#{msgs['FORM.CREER']}" />
 				</h:commandLink>
 			</t:div>
 
 			<t:htmlTag value="div" style="height:20px;" />
-			<rich:message for="formResultatsRechEtab">
+			<p:message for="formResultatsRechEtab">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
-			<a4j:outputPanel id="opRechercheStructureDataTable">
+			</p:message>
+			<p:outputPanel id="opRechercheStructureDataTable">
 				<t:div
 					rendered="#{not empty rechercheController.listeResultatsRechercheStructure
 					and not empty rechercheController.rechercheStructurePaginator}">
 					<ui:include
 						src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
-					<rich:dataTable id="rechercheStructureDataTable"
-						var="varRechercheStructure"
-						rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}"
+					<p:dataTable id="rechercheStructureDataTable"
 						value="#{rechercheController.rechercheStructurePaginator.liste}"
-						rows="20">
+						var="varRechercheStructure" rows="20" rowHover="true"
+						rowStyleClass="nopointer" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15,20"
+						rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}">
 						<f:facet name="header">
 							<ui:include
 								src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
 						</f:facet>
 						<ui:include
 							src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-						<rich:column>
-							<a4j:commandButton id="selectionEtab"
+						<p:column>
+							<p:commandButton id="selectionEtab"
 								value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
 								alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
 								title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
 								action="#{conventionController.goToCreerConventionEtape2DetailsEtab}"
-								image="../../media/images/zoom.png" render="formConvention">
+								image="../../media/images/zoom.png" update="formConvention">
 								<f:setPropertyActionListener value="#{varRechercheStructure}"
 									target="#{rechercheController.resultatRechercheStructure}" />
 								<f:setPropertyActionListener value="_creerConventionEtape2Etab"
 									target="#{conventionController.retourAction}" />
-								<rich:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
-							</a4j:commandButton>
-						</rich:column>
-						<f:facet name="footer">
-							<rich:dataScroller for="rechercheStructureDataTable"
-								maxPages="20" page="1" renderIfSinglePage="false" />
-						</f:facet>
-					</rich:dataTable>
+								<p:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
 				</t:div>
-			</a4j:outputPanel>
+			</p:outputPanel>
 		</h:panelGrid>
 		<t:htmlTag value="div" style="height:30px;" />
 		<h:commandButton value="#{msgs['FORM.PREVIOUS']}" immediate="true"
@@ -99,5 +96,5 @@
 				value="_creerConventionEtape1ConfirmInfosEtu"
 				target="#{sessionController.creationConventionEtape1CurrentPage}" />
 		</h:commandButton>
-	</rich:panel>
+	</p:panel>
 </ui:composition>

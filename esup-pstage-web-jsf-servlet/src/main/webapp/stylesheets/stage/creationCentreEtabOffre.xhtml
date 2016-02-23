@@ -4,29 +4,23 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<rich:panel>
+		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['OFFRE.CREATION']}" />
 			</f:facet>
-				<h:form id="formCreationOffre">
-					<a4j:queue ignoreDupResponses="true"/>
-					<rich:message for="formCreationOffre">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</rich:message>
-					<ui:include src="/stylesheets/_commun/#{sessionController.creationOffreStageCurrentPage}.xhtml" />
-				</h:form>
-			<rich:message for="formCreationOffre">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</rich:message>
+			<h:form id="formCreationOffre">
+				<p:message for="formCreationOffre" />
+				<ui:include
+					src="/stylesheets/_commun/#{sessionController.creationOffreStageCurrentPage}.xhtml" />
+			</h:form>
+			<p:message for="formCreationOffre" />
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />
 			<ui:include src="../_commun/_panelModifService.xhtml" />
 			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
 			<ui:include src="../_commun/_panelModifContact.xhtml" />
-		</rich:panel>
-		<rich:editor rendered="false" />
+		</p:panel>
 	</ui:define>
 </ui:composition>

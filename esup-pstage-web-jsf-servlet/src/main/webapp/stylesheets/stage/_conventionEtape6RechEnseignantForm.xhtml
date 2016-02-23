@@ -2,21 +2,21 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:htmlTag value="div" style="height: 20px;" />
 	<h:outputText
 		value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT.DEMANDE']}" />
 	<t:div id="information">
-		<rich:message for="information">
+		<p:message for="information">
 			<ui:include src="../_commun/_messageInfoMarker.xhtml" />
-		</rich:message>
+		</p:message>
 	</t:div>
 	<t:htmlTag value="div" style="height: 20px;" />
-	<h:panelGrid columnClasses="paginatorData-text"
-		rowClasses="paginatorData-text" columns="4">
+	<h:panelGrid
+		columns="4">
 		<h:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
 		<h:inputText id="nom" size="50" maxlength="30"
 			style="text-transform:uppercase;"
@@ -24,9 +24,9 @@
 			<f:converter binding="#{sansAccentEnMAJConverter}" />
 		</h:inputText>
 		<t:htmlTag value="div" style="width: 10px;" />
-		<rich:message for="nom">
+		<p:message for="nom">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 		<t:htmlTag value="div" style="height: 5px;" />
 		<t:htmlTag value="div" style="height: 5px;" />
 		<t:htmlTag value="div" style="height: 5px;" />
@@ -38,9 +38,9 @@
 			<f:converter binding="#{sansAccentEnMAJConverter}" />
 		</h:inputText>
 		<t:htmlTag value="div" style="width: 10px;" />
-		<rich:message for="prenom">
+		<p:message for="prenom">
 			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</rich:message>
+		</p:message>
 <!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
 <!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
 <!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
@@ -54,8 +54,8 @@
 <!-- 			<f:selectItems value="#{conventionController.listeAffectation}" /> -->
 <!-- 		</h:selectOneMenu> -->
 <!-- 		<t:htmlTag value="div" style="width: 10px;" /> -->
-<!-- 		<rich:message for="codeAffectation"> -->
+<!-- 		<p:message for="codeAffectation"> -->
 <!-- 			<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-<!-- 		</rich:message> -->
+<!-- 		</p:message> -->
 	</h:panelGrid>
 </ui:composition>

@@ -2,13 +2,13 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	template="../_basicTemplate.xhtml">
 	<ui:define name="content">
 		<t:div
 			rendered="#{not sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
-			<h:panelGrid columns="1" styleClass="panelEntreprise">
+			<h:panelGrid>
 				<h:outputFormat
 					value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.BIENVENUE']}"
 					escape="false">
@@ -19,15 +19,15 @@
 				<h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ACCUEIL']}"
 					escape="false" />
 				<t:htmlTag value="div" style="height: 20px;" />
-				<rich:panel
+				<p:panel
 					rendered="#{not empty centreController.centreEntreprise}">
 					<f:facet name="header">
 						<h:outputText
 							value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.AVECCOMPTE']}" />
 					</f:facet>
-					<h:panelGrid columns="1" align="center">
+					<h:panelGrid align="center">
 						<t:htmlTag value="div" style="height:10px;" />
-						<h:panelGrid columns="1" align="center">
+						<h:panelGrid align="center">
 							<ui:include src="./_formLogin.xhtml" />
 							<t:htmlTag value="center">
 								<h:form>
@@ -42,9 +42,9 @@
 								style="width:400px; height: 2px; background-color: #{a4jSkin.panelBorderColor};" />
 							<t:htmlTag value="div" style="height: 40px;" />
 						</h:panelGrid>
-						<h:panelGrid columns="1" align="center">
+						<h:panelGrid align="center">
 							<h:form>
-								<h:panelGrid columns="1" align="center">
+								<h:panelGrid align="center">
 									<t:div
 										rendered="#{sessionController.adminAuthentication == 'cas'}">
 										<h:outputLink
@@ -64,9 +64,9 @@
 							</h:form>
 						</h:panelGrid>
 					</h:panelGrid>
-				</rich:panel>
+				</p:panel>
 				<t:htmlTag value="div" style="height: 20px;" />
-				<rich:panel
+				<p:panel
 					rendered="#{not empty centreController.centreEntreprise}">
 					<f:facet name="header">
 						<h:outputText
@@ -77,8 +77,8 @@
 							value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CREERCOMPTE']}"
 							title="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CREERCOMPTE']}" />
 					</h:form>
-				</rich:panel>
-				<rich:panel rendered="#{empty centreController.centreEntreprise}">
+				</p:panel>
+				<p:panel rendered="#{empty centreController.centreEntreprise}">
 					<f:facet name="header">
 						<h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CENTRE']}" />
 					</f:facet>
@@ -89,7 +89,7 @@
 						</h:panelGrid>
 						<h:panelGrid>
 							<h:form>
-								<h:panelGrid columns="1" style="color:red;">
+								<h:panelGrid style="color:red;">
 									<h:outputText
 										value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.CENTREACREER']}" />
 								</h:panelGrid>
@@ -101,7 +101,7 @@
 								style="width: 2px; height: 125px; background-color: #{a4jSkin.panelBorderColor};" />
 							<t:htmlTag value="div" style="width: 25px;" />
 						</h:panelGrid>
-						<h:panelGrid columns="1" style="text-align:center;">
+						<h:panelGrid style="text-align:center;">
 							<h:outputText value="#{msgs['GENERAL.ACCUEIL.ENTREPRISE.ADMIN']}" />
 							<h:form>
 								<t:div
@@ -114,7 +114,7 @@
 							</h:form>
 						</h:panelGrid>
 					</h:panelGrid>
-				</rich:panel>
+				</p:panel>
 				<t:htmlTag value="div" style="height: 15px;" />
 				<h:outputText value="#{msgs['MESSAGE_CNIL_ENTREPRISE']}"
 					escape="false"
@@ -126,13 +126,13 @@
 			<h:panelGrid style="float:left;">
 				<ui:include src="./_menu.xhtml" />
 			</h:panelGrid>
-			<h:panelGrid columns="1" styleClass="panelEntreprise">
-				<rich:panel>
+			<h:panelGrid>
+				<p:panel>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['MENU.ACCUEIL']}" />
 					</f:facet>
 					<ui:include src="_aide.xhtml" />
-				</rich:panel>
+				</p:panel>
 				<ui:include src="_panelNousContacter.xhtml" />
 			</h:panelGrid>
 		</t:div>

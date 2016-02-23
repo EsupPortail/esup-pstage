@@ -17,8 +17,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import org.esupportail.pstage.utils.Utils;
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
@@ -65,8 +65,8 @@ public class ImageUploadBean{
 			//			logger.warn("Invalid upload event");
 		} else {
 			// on recupere l'item envoye
-			UploadedFile uploadItem = event.getUploadedFile();
-			String imageName = uploadItem.getName();
+			UploadedFile uploadItem = event.getFile();
+			String imageName = uploadItem.getFileName();
 
 			int i=imageName.lastIndexOf(".");
 			this.extension="";
@@ -88,7 +88,7 @@ public class ImageUploadBean{
 //				in = ((FileInputStream)test).getChannel();
 //				out = new FileOutputStream(fileToWrite).getChannel();
 //				in.transferTo(0, in.size(), out);
-				is = (ByteArrayInputStream) scaleImage(new BufferedInputStream((FileInputStream)uploadItem.getInputStream()), 300, 300,this.extension);
+				is = (ByteArrayInputStream) scaleImage(new BufferedInputStream((FileInputStream)uploadItem.getInputstream()), 300, 300,this.extension);
 				fos = new FileOutputStream(fileToWrite);
 				int data;
 				while((data=is.read())!=-1){

@@ -2,8 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:panelGrid columns="2">
@@ -21,28 +21,28 @@
 				rendered="#{questionSup.typeQuestion == 'BOOL'}" />
 		</h:panelGrid>
 		<h:panelGrid columns="2" style="padding:10px;">
-			<a4j:commandLink execute="@this"
-				oncomplete="#{rich:component('editQuestionEvalPanel')}.show()"
-				render="editQuestionEvalPanel">
+			<p:commandLink 
+				oncomplete="PF('editQuestionEvalPanel').show();"
+				update="editQuestionEvalPanel">
 				<h:graphicImage alt="editFiche" value="../../media/images/edit.png"
-					style="border:0" />
+					 />
 				<f:setPropertyActionListener value="_questionEval_editEtape1Modif"
 					target="#{sessionController.editQuestionEvalCurrentPage}" />
 				<f:setPropertyActionListener value="#{questionSup}"
 					target="#{centreController.questionSupplementaire}" />
-				<rich:tooltip value="#{msgs['FORM.MODIFIER']}" />
-			</a4j:commandLink>
-			<a4j:commandLink execute="@this"
-				oncomplete="#{rich:component('deleteQuestionEvalPanel')}.show()"
-				render="formDeleteQuestionEval">
+				<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+			</p:commandLink>
+			<p:commandLink 
+				oncomplete="PF('deleteQuestionEvalPanel').show();"
+				update="formDeleteQuestionEval">
 				<h:graphicImage alt="deleteFiche"
-					value="../../media/images/delete.png" style="border:0" />
+					value="../../media/images/delete.png" />
 				<f:setPropertyActionListener value="_questionEval_deleteEtape1"
 					target="#{sessionController.suppressionQuestionEvalCurrentPage}" />
 				<f:setPropertyActionListener value="#{questionSup}"
 					target="#{centreController.questionSupplementaire}" />
-				<rich:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-			</a4j:commandLink>
+				<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+			</p:commandLink>
 		</h:panelGrid>
 	</h:panelGrid>
 
