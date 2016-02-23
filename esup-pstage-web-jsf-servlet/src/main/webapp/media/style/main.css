@@ -1,0 +1,24 @@
+/*
+ * Imports the Fluid Skinning System (FSS) CSS. 
+ * For more information on FSS, refer to:
+ * http://wiki.fluidproject.org/x/96M7
+ */
+html {
+	overflow: auto;
+	font: 12px arial, helvetica, clean, sans-serif;
+	background-color: #F9F9F9;
+	color: #000;
+	min-width: 1200px;
+}
+
+.nopointer {
+	cursor: default !important;
+}
+
+.alignTop td {
+	vertical-align: top;
+}
+
+.unbold label {
+	font-weight: initial;
+}
