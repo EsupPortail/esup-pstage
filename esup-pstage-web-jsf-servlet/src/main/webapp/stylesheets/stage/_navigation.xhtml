@@ -169,13 +169,10 @@
 				rendered="#{welcomeController.etudiant}" />
 		</p:submenu>
 
-		<p:submenu label="#{msgs['MENU.GESTIONNOMENCLATURES']}"
-			icon="ui-icon-newwin" style="white-space:nowrap; width:auto;"
-			rendered="#{welcomeController.superAdmin}">
-			<p:menuitem value="#{msgs['MENU.GESTIONNOMENCLATURES.GESTION']}"
-				icon="ui-icon-search"
-				action="#{nomenclatureController.goToGestionNomenclatures}" />
-		</p:submenu>
+		<p:menuitem value="#{msgs['MENU.GESTIONNOMENCLATURES']}"
+			icon="ui-icon-newwin"
+			action="#{nomenclatureController.goToGestionNomenclatures}"
+			rendered="#{welcomeController.superAdmin}"/>
 
 		<f:facet name="options">
 			<p:commandButton value="#{msgs['NAVIGATION.TEXT.LOGOUT']}"

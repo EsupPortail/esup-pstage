@@ -35,33 +35,7 @@
 						Notices bilingues Convention de stage (Anglais - Espagnol - Allemand)
 					</h:outputLink>
 				</h:panelGrid>
-				<h:form id="disconnectEntr"
-					rendered="#{sessionController.adminPageAuthorized}">
-					<h:commandButton id="disco"
-						action="#{welcomeController.disconnectLight}"
-						value="#{msgs['GENERAL.ACCUEIL.STAGE.DECOENTR']}" />
-				</h:form>
-				<script type="text/javascript">
-					hideButton('disconnectEntr:disco');
-					window.onload = function() {
-						var fireOnThis = document.getElementById('disconnectEntr:disco')
-					    if (fireOnThis == null) {
-					      if (debug) alert("element ['disconnectEntr:disco'] not found");
-					      return;
-					    }
-						if (document.createEvent) {
-							// Firefox
-							var evObj = document.createEvent('MouseEvents');
-							evObj.initEvent( 'click', true, false );
-							fireOnThis.dispatchEvent(evObj);
-						} else if (document.createEventObject) {
-							// IE
-							fireOnThis.fireEvent('onclick');
-							// IE 7
-							fireOnThis.click();
-						}
-					};
-				</script>
+				
 				<h:outputText value="#{msgs['MESSAGE_CNIL_STAGE']}" escape="false"
 					rendered="#{not empty msgs['MESSAGE_CNIL_STAGE']}" />
 

@@ -29,60 +29,60 @@
 
 				<h:panelGrid>
 					<p:tabView>
-						<p:tab id="caisseRegimeTab" header="CaisseRegime">
+						<p:tab id="caisseRegimeTab" title="CaisseRegime">
 							<ui:include
-								src="/stylesheets/stage/_nomenclature_caisse_#{nomenclatureController.caisseRegimeCurrentPage}.xhtml" />
+								src="/stylesheets/stage/nomenclature/_nomenclature_caisse_#{nomenclatureController.caisseRegimeCurrentPage}.xhtml" />
 						</p:tab>
 
-						<p:tab id="modeValidationStageTab" header="ModeValidationStage">
+						<p:tab id="modeValidationStageTab" title="ModeValidationStage">
 							<ui:include
-								src="/stylesheets/stage/_nomenclature_modeValidationStage_#{nomenclatureController.modeValidationStageCurrentPage}.xhtml" />
+								src="/stylesheets/stage/nomenclature/_nomenclature_modeValidationStage_#{nomenclatureController.modeValidationStageCurrentPage}.xhtml" />
 						</p:tab>
 
-						<p:tab id="niveauFormationTab" header="NiveauFormation">
-							<ui:include
-								src="/stylesheets/stage/_nomenclature_niveauFormation_#{nomenclatureController.niveauFormationCurrentPage}.xhtml" />
-						</p:tab>
+<!-- 						<p:tab id="niveauFormationTab" header="NiveauFormation"> -->
+<!-- 							<ui:include -->
+<!-- 								src="/stylesheets/stage/nomenclature/_nomenclature_niveauFormation_#{nomenclatureController.niveauFormationCurrentPage}.xhtml" /> -->
+<!-- 						</p:tab> -->
 
-						<p:tab id="tempsTravailTab" header="TempsTravail">
-							<ui:include
-								src="/stylesheets/stage/_nomenclature_tempsTravail_#{nomenclatureController.tempsTravailCurrentPage}.xhtml" />
-						</p:tab>
+<!-- 						<p:tab id="tempsTravailTab" header="TempsTravail"> -->
+<!-- 							<ui:include -->
+<!-- 								src="/stylesheets/stage/nomenclature/_nomenclature_tempsTravail_#{nomenclatureController.tempsTravailCurrentPage}.xhtml" /> -->
+<!-- 						</p:tab> -->
 
-						<p:tab id="origineStageTab" header="OrigineStage">
-							<ui:include
-								src="/stylesheets/stage/_nomenclature_origineStage_#{nomenclatureController.origineStageCurrentPage}.xhtml" />
-						</p:tab>
+<!-- 						<p:tab id="origineStageTab" header="OrigineStage"> -->
+<!-- 							<ui:include -->
+<!-- 								src="/stylesheets/stage/nomenclature/_nomenclature_origineStage_#{nomenclatureController.origineStageCurrentPage}.xhtml" /> -->
+<!-- 						</p:tab> -->
 
 						<!-- 						<p:tab id="typeConventionTab" header="TypeConvention"> -->
 						<!-- 							<ui:include -->
-						<!-- 								src="/stylesheets/stage/_nomenclature_typeConvention_#{nomenclatureController.typeConventionCurrentPage}.xhtml" /> -->
+						<!-- 								src="/stylesheets/stage/nomenclature/_nomenclature_typeConvention_#{nomenclatureController.typeConventionCurrentPage}.xhtml" /> -->
 						<!-- 						</p:tab> -->
 
-						<p:tab id="typeStructureTab" header="TypeStructure">
-							<ui:include
-								src="/stylesheets/stage/_nomenclature_typeStructure_#{nomenclatureController.typeStructureCurrentPage}.xhtml" />
-						</p:tab>
+<!-- 						<p:tab id="typeStructureTab" header="TypeStructure"> -->
+<!-- 							<ui:include -->
+<!-- 								src="/stylesheets/stage/nomenclature/_nomenclature_typeStructure_#{nomenclatureController.typeStructureCurrentPage}.xhtml" /> -->
+<!-- 						</p:tab> -->
 
-						<p:tab id="statutJuridiqueTab" header="StatutJuridique">
-							<ui:include
-								src="/stylesheets/stage/_nomenclature_statutJuridique_#{nomenclatureController.statutJuridiqueCurrentPage}.xhtml" />
-						</p:tab>
+<!-- 						<p:tab id="statutJuridiqueTab" header="StatutJuridique"> -->
+<!-- 							<ui:include -->
+<!-- 								src="/stylesheets/stage/nomenclature/_nomenclature_statutJuridique_#{nomenclatureController.statutJuridiqueCurrentPage}.xhtml" /> -->
+<!-- 						</p:tab> -->
 
-						<p:tab id="typeOffreTab" header="TypeOffre">
-							<ui:include
-								src="/stylesheets/stage/_nomenclature_typeOffre_#{nomenclatureController.typeOffreCurrentPage}.xhtml" />
-						</p:tab>
+<!-- 						<p:tab id="typeOffreTab" header="TypeOffre"> -->
+<!-- 							<ui:include -->
+<!-- 								src="/stylesheets/stage/nomenclature/_nomenclature_typeOffre_#{nomenclatureController.typeOffreCurrentPage}.xhtml" /> -->
+<!-- 						</p:tab> -->
 
-						<p:tab id="contratOffreTab" header="ContratOffre">
-							<ui:include
-								src="/stylesheets/stage/_nomenclature_contratOffre_#{nomenclatureController.contratOffreCurrentPage}.xhtml" />
-						</p:tab>
+<!-- 						<p:tab id="contratOffreTab" header="ContratOffre"> -->
+<!-- 							<ui:include -->
+<!-- 								src="/stylesheets/stage/nomenclature/_nomenclature_contratOffre_#{nomenclatureController.contratOffreCurrentPage}.xhtml" /> -->
+<!-- 						</p:tab> -->
 
-						<p:tab id="effectifTab" header="Effectif">
-							<ui:include
-								src="/stylesheets/stage/_nomenclature_effectif_#{nomenclatureController.effectifCurrentPage}.xhtml" />
-						</p:tab>
+<!-- 						<p:tab id="effectifTab" header="Effectif"> -->
+<!-- 							<ui:include -->
+<!-- 								src="/stylesheets/stage/nomenclature/_nomenclature_effectif_#{nomenclatureController.effectifCurrentPage}.xhtml" /> -->
+<!-- 						</p:tab> -->
 					</p:tabView>
 					<t:htmlTag value="div" style="height:10px;" />
 					<h:panelGrid align="center">
@@ -91,17 +91,19 @@
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
-		<ui:include src="./_nomenclature_caisse_panel_suppr.xhtml" />
-		<ui:include src="./_nomenclature_niveauFormation_panel_suppr.xhtml" />
-		<ui:include src="./_nomenclature_tempsTravail_panel_suppr.xhtml" />
-		<ui:include src="./_nomenclature_origineStage_panel_suppr.xhtml" />
-		<!-- 		<ui:include src="./_nomenclature_typeConvention_panel_suppr.xhtml" /> -->
-		<ui:include src="./_nomenclature_typeStructure_panel_suppr.xhtml" />
-		<ui:include src="./_nomenclature_statutJuridique_panel_suppr.xhtml" />
-		<ui:include src="./_nomenclature_typeOffre_panel_suppr.xhtml" />
-		<ui:include src="./_nomenclature_contratOffre_panel_suppr.xhtml" />
-		<ui:include src="./_nomenclature_effectif_panel_suppr.xhtml" />
+		<ui:include src="./nomenclature/_nomenclature_caisse_ajout.xhtml" />
+		<ui:include src="./nomenclature/_nomenclature_caisse_modif.xhtml" />
+		<ui:include src="./nomenclature/_nomenclature_caisse_panel_suppr.xhtml" />
+<!-- 		<ui:include src="./nomenclature/_nomenclature_niveauFormation_panel_suppr.xhtml" /> -->
+<!-- 		<ui:include src="./nomenclature/_nomenclature_tempsTravail_panel_suppr.xhtml" /> -->
+<!-- 		<ui:include src="./nomenclature/_nomenclature_origineStage_panel_suppr.xhtml" /> -->
+		<!-- 		<ui:include src="./nomenclature/_nomenclature_typeConvention_panel_suppr.xhtml" /> -->
+<!-- 		<ui:include src="./nomenclature/_nomenclature_typeStructure_panel_suppr.xhtml" /> -->
+<!-- 		<ui:include src="./nomenclature/_nomenclature_statutJuridique_panel_suppr.xhtml" /> -->
+<!-- 		<ui:include src="./nomenclature/_nomenclature_typeOffre_panel_suppr.xhtml" /> -->
+<!-- 		<ui:include src="./nomenclature/_nomenclature_contratOffre_panel_suppr.xhtml" /> -->
+<!-- 		<ui:include src="./nomenclature/_nomenclature_effectif_panel_suppr.xhtml" /> -->
 		<ui:include
-			src="./_nomenclature_modeValidationStage_panel_suppr.xhtml" />
+			src="./nomenclature/_nomenclature_modeValidationStage_panel_suppr.xhtml" />
 	</ui:define>
 </ui:composition>

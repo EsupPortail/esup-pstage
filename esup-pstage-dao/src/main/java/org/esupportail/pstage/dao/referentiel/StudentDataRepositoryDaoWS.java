@@ -649,6 +649,18 @@ StudentDataRepositoryDao {
 				if (isInscriptionPost) listeAnneesUniv.add(anneeSuivante);
 			}
 
+			// Recuperation du libelle CPAM a partir de l'annee courante (avant de fusionner les tabs)
+			for (InsAdmAnuDTO2 insAdmAnu : tabInsAdmAnu) {
+				if (insAdmAnu.getCpam() != null) {
+					if (logger.isDebugEnabled()) {
+						logger.debug("insAdmAnu.getCpam().getLibCpam() : "+insAdmAnu.getCpam().getLibCpam());
+					}
+					if (insAdmAnu.getCpam().getLibCpam() != null) {
+						libelleCPAM = insAdmAnu.getCpam().getLibCpam();
+					}
+				}
+			}
+
 			if (tabInsAdmAnuAnt.length!=0 || tabInsAdmAnuPost.length!=0){
 				int t = tabInsAdmAnu.length;
 				int finalSize = (t+tabInsAdmAnuAnt.length+tabInsAdmAnuPost.length);
@@ -676,18 +688,6 @@ StudentDataRepositoryDao {
 					}
 				}
 				tabInsAdmAnu = finalTab;
-			}
-
-			// Recuperation du libelle CPAM
-			for (InsAdmAnuDTO2 insAdmAnu : tabInsAdmAnu) {
-				if (insAdmAnu.getCpam() != null) {
-					if (logger.isDebugEnabled()) {
-						logger.debug("insAdmAnu.getCpam().getLibCpam() : "+insAdmAnu.getCpam().getLibCpam());
-					}
-					if (insAdmAnu.getCpam().getLibCpam() != null) {
-						libelleCPAM = insAdmAnu.getCpam().getLibCpam();
-					}
-				}
 			}
 
 			studentApogee.setIdentEtudiant(id);

@@ -3,13 +3,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-
 	<ui:include src="_confirmationMessages.xhtml" />
+	
 	<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		update="formAjoutContact"
-		onclick="PF('ajoutContact').hide();" />
+		update="@form" onclick="PF('ajoutContact').hide();" />
 
 </ui:composition>

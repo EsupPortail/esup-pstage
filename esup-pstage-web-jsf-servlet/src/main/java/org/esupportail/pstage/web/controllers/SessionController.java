@@ -556,7 +556,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * PANEL RESET MDP CONTACT
 	 */
 	private String resetMdpContactCurrentPage = "_resetMdpContactEtape1";
-
+	/**
+	 * CONSULTATION D'UN CENTRE DE GESTION
+	 */
+	private String consultationCentreCurrentPage = "_detail_centre";
+	
 	/**
 	 * Constructor.
 	 */
@@ -2577,6 +2581,15 @@ public class SessionController extends AbstractDomainAwareBean {
 
 	public void setCurrentAuthEtudiant(EtudiantRef currentAuthEtudiant) {
 		this.currentAuthEtudiant = currentAuthEtudiant;
+	}
+
+	public String getConsultationCentreCurrentPage() {
+		return consultationCentreCurrentPage;
+	}
+
+	public void setConsultationCentreCurrentPage(
+			String consultationCentreCurrentPage) {
+		this.consultationCentreCurrentPage = consultationCentreCurrentPage;
 	}
 
 }

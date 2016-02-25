@@ -379,21 +379,20 @@ public class NomenclatureController extends AbstractContextAwareController {
 	public void addCaisseRegime(){
 		try{
 			getNomenclatureDomainService().addCaisseRegime(this.caisseRegime);
-			addInfoMessage("formNomenclature","NOMENCLATURES.AJOUT.CONFIRMATION");
+			addInfoMessage(null,"NOMENCLATURES.AJOUT.CONFIRMATION");
 			this.caisseRegimeCurrentPage="table";
 		} catch(WebServiceDataBaseException we){
 			if (we.getMessage().contains("Duplicate")){
-				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR_DUPLICAT");
+				addErrorMessage(null,"NOMENCLATURES.ERREUR_DUPLICAT");
 			} else {
 				logger.error("WebServiceDataBaseException", we.getCause());
-				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+				addErrorMessage(null,"NOMENCLATURES.ERREUR");
 			}
 		} catch(Exception e){
 			logger.error("Exception", e.getCause());
-			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+			addErrorMessage(null,"NOMENCLATURES.ERREUR");
 		}
 	}
-
 	/**
 	 * @return
 	 */

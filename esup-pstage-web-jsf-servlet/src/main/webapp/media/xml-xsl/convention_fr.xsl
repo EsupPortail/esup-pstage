@@ -28,15 +28,7 @@
 		</fo:block>
 		<fo:block break-after="page" />
 		<fo:block padding-top="8pt">
-			<xsl:call-template name="ArticlesPage2" />
-		</fo:block>
-		<fo:block break-after="page" />
-		<fo:block padding-top="8pt">
-			<xsl:call-template name="ArticlesPage3" />
-		</fo:block>
-		<fo:block break-after="page" />
-		<fo:block padding-top="8pt">
-			<xsl:call-template name="ArticlesPage4" />
+			<xsl:call-template name="Articles" />
 		</fo:block>
 		<fo:block padding-top="8pt">
 			<xsl:call-template name="AnnexeArticlesPage4" />
@@ -63,7 +55,7 @@
 				<fo:simple-page-master master-name="all"
 					page-height="29.699cm" page-width="20.999cm" margin-right="1cm"
 					margin-left="0.9cm" margin-bottom="0.4cm" margin-top="0.794cm">
-					<fo:region-body margin-bottom="0cm" />
+					<fo:region-body margin-bottom="0.6cm" />
 					<fo:region-after display-align="after"
 						space-before="0cm" extent="0.55cm" />
 				</fo:simple-page-master>
@@ -1047,12 +1039,11 @@
 				select="java:format (java:java.text.SimpleDateFormat.new('dd-MM-yyyy kk:mm:ss'), java:java.util.Date.new())" />
 		</fo:block>
 	</xsl:template>
-	<xsl:template name="ArticlesPage2">
+	<xsl:template name="Articles">
 		<fo:block line-height="110%" hyphenate="false" language="fr"
 			country="FR" font-size="10pt" font-family="Times New Roman,serif"
 			margin-left="0cm" margin-right="0cm" text-indent="0cm">
 			<fo:table table-layout="fixed" width="100%">
-				<fo:table-column column-width="proportional-column-width(1)" />
 				<fo:table-column column-width="proportional-column-width(1)" />
 				<fo:table-body>
 					<fo:table-row>
@@ -1350,14 +1341,9 @@
 								restauration, l'hébergement, et
 								le transport.
 							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell>
 							<fo:block line-height="110%" padding-top="1pt"
 								padding-bottom="1pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif" text-align="justify">
-								<fo:inline font-weight="bold">
-									(Article 5 suite)
-								</fo:inline>
 								L'organisme peut
 								décider de verser une
 								gratification pour les
@@ -1579,11 +1565,6 @@
 									</fo:inline>
 								</fo:block>
 							</xsl:if>
-
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif">
-								<fo:leader />
-							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								padding-top="2pt" country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify" font-weight="bold">Article 6 - Régime de
@@ -1656,30 +1637,10 @@
 									d'enseignement.
 								</fo:inline>
 							</fo:block>
-
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif">
 								<fo:leader />
 							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-
-		</fo:block>
-	</xsl:template>
-	<!-- troisieme page -->
-
-	<xsl:template name="ArticlesPage3">
-		<fo:block line-height="110%" hyphenate="false" language="fr"
-			country="FR" font-size="10pt" font-family="Times New Roman,serif"
-			margin-left="0cm" margin-right="0cm" text-indent="0cm">
-			<fo:table table-layout="fixed" width="100%">
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell padding-right="10pt">
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								text-align="justify">
@@ -1920,14 +1881,6 @@
 								incombe à l'établissement d'enseignement qui doit en être
 								informé par l'organisme d'accueil par écrit dans un délai de 48
 								heures.
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" padding-top="2pt" padding-bottom="2pt"
-								font-weight="bold">
-								(Article 6.4 suite)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
@@ -2184,29 +2137,6 @@
 								d'enseignement par
 								courrier.
 							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-		</fo:block>
-	</xsl:template>
-	<!-- quatrieme page -->
-
-	<xsl:template name="ArticlesPage4">
-		<fo:block line-height="110%" hyphenate="false" language="fr"
-			country="FR" font-size="10pt" font-family="Times New Roman,serif"
-			margin-left="0cm" margin-right="0cm" text-indent="0cm">
-			<fo:table table-layout="fixed" width="100%">
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-column column-width="proportional-column-width(1)" />
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell padding-right="10pt">
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" font-weight="bold">
-								(Article 9 suite)
-							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
 								padding-top="2pt">
@@ -2317,14 +2247,6 @@
 								d'accueil souhaite l'utiliser et que le stagiaire en est
 								d'accord, un contrat devra être signé entre le stagiaire
 								(auteur) et l'organisme d'accueil.
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell>
-							<fo:block line-height="110%" hyphenate="false" language="fr"
-								country="FR" font-size="10pt" font-family="Times New Roman,serif"
-								text-align="justify" padding-top="2pt" padding-bottom="2pt"
-								font-weight="bold">
-								(Article 11 suite)
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="10pt" font-family="Times New Roman,serif"
