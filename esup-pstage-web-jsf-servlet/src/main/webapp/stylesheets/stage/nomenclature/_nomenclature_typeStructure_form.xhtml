@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<ui:include src="../../_commun/_champsObligatoires.xhtml" />
+
+	<t:htmlTag value="div" style="height:5px;" />
+
+	<h:panelGrid columns="3" style="margin-left:10%;"
+		>
+		<h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.LIBELLE']}"
+			for="libelleTypeStructure" />
+		<t:htmlTag value="div" style="width:5px;" />
+		<h:panelGrid columns="2">
+			<h:inputText id="libelleTypeStructure"
+				value="#{nomenclatureController.typeStructure.libelle}" size="30"
+				maxlength="100" required="true"
+				requiredMessage="#{requiredMessageController.champObligatoire}">
+				<p:ajax event="blur" update="msgLibelleStruct" />
+			</h:inputText>
+			<p:message id="msgLibelleStruct" for="libelleTypeStructure">
+				<ui:include src="../../_commun/_messageErrorMarker.xhtml" />
+			</p:message>
+		</h:panelGrid>
+	</h:panelGrid>
+	<h:panelGrid columns="3" style="margin-left:10%;"
+		>
+		<h:outputLabel
+			value="#{msgs['NOMENCLATURES.AJOUT.SIRETOBLIGATOIRE']}"
+			for="siretOblig" />
+		<t:htmlTag value="div" style="width:5px;" />
+		<h:panelGrid columns="2">
+			<h:selectOneRadio id="siretOblig"
+				value="#{nomenclatureController.typeStructure.siretObligatoire}">
+				<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+				<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" selected="true"/>
+				<p:ajax event="valueChange" update="msgSiretOblig" />
+			</h:selectOneRadio>
+			<p:message id="msgSiretOblig" for="siretOblig">
+				<ui:include src="../../_commun/_messageErrorMarker.xhtml" />
+			</p:message>
+		</h:panelGrid>
+	</h:panelGrid>
+
+	<h:panelGrid columns="2" style="margin-left:12%; width:250px;">
+		<h:graphicImage alt="arrow"
+			value="../../media/images/arrow_turn_up.png" />
+		<h:outputText value="#{msgs['NOMENCLATURES.INFOS.SIRETOBLIGATOIRE']}"
+			escape="false" />
+	</h:panelGrid>
+	<t:htmlTag value="div" style="height:10px;" />
+</ui:composition>

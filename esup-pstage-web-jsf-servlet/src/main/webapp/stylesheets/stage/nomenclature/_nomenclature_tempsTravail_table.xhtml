@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<t:htmlTag value="div" style="height:5px;" />
+
+	<t:htmlTag value="center">
+		<p:dataTable id="listeTempsTravail"
+			value="#{nomenclatureController.tempsTravail}" var="tempsTravail"
+			rows="15" rowHover="true" rowStyleClass="nopointer" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="#{msgs['NOMENCLATURES.TABLE.HEADER']}" />
+				</f:facet>
+				<h:panelGrid columns="3">
+					<p:commandLink oncomplete="PF('suppressionTempsTravail').show();"
+						update="suppressionTempsTravail">
+						<f:setPropertyActionListener value="#{tempsTravail.value}"
+							target="#{nomenclatureController.tpsTravail}" />
+						<h:graphicImage alt="delete" value="../../media/images/delete.png" />
+						<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+					</p:commandLink>
+					<p:commandLink update="tempsTravailTab">
+						<f:setPropertyActionListener value="#{tempsTravail.value}"
+							target="#{nomenclatureController.tpsTravail}" />
+						<f:setPropertyActionListener value="modif"
+							target="#{nomenclatureController.tempsTravailCurrentPage}" />
+						<h:graphicImage alt="modifier" value="../../media/images/edit.png" />
+						<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+					</p:commandLink>
+					<h:outputText value="#{tempsTravail.label}" />
+				</h:panelGrid>
+			</p:column>
+		</p:dataTable>
+
+		<t:htmlTag value="div" style="height:10px;" />
+
+		<p:commandButton style="color:green;"
+			action="#{nomenclatureController.resetObjects}"
+			update="tempsTravailTab" value="#{msgs['NOMENCLATURES.AJOUT']}">
+			<f:setPropertyActionListener value="ajout"
+				target="#{nomenclatureController.tempsTravailCurrentPage}" />
+		</p:commandButton>
+	</t:htmlTag>
+
+	<t:htmlTag value="div" style="height:10px;" />
+</ui:composition>

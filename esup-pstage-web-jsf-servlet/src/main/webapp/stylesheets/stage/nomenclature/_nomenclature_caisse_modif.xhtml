@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<p:dialog id="popupModifCaisseRegime"
+		widgetVar="popupModifCaisseRegime">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['NOMENCLATURES.MODIFICATION.HEADER']}" />
+		</f:facet>
+
+		<h:form id="formModifCaisseRegime">
+			<ui:include
+				src="/stylesheets/stage/nomenclature/_nomenclature_caisse_form.xhtml" />
+
+			<t:htmlTag value="div" style="height:5px;" />
+
+			<t:htmlTag value="center">
+				<p:commandButton style="color:green;"
+					value="#{msgs['FORM.CONFIRMER']}"
+					action="#{nomenclatureController.updateCaisseRegime}"
+					update="@form" />
+			</t:htmlTag>
+		</h:form>
+	</p:dialog>
+</ui:composition>

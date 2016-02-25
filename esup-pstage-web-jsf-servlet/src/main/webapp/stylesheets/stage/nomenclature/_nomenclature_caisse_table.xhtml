@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<t:htmlTag value="div" style="height:5px;" />
+
+	<t:htmlTag value="center">
+		<p:dataTable id="listeCaisses"
+			value="#{nomenclatureController.caisseRegimes}" var="caisse" rows="5"
+			rowHover="true" rowStyleClass="nopointer" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false">
+			<p:column style="padding:5px;"
+				headerText="#{msgs['NOMENCLATURES.TABLE.HEADER']}">
+				<p:commandLink id="deleteCaisse"
+					oncomplete="PF('suppressionCaisseRegime').show();"
+					update="suppressionCaisseRegime">
+					<f:setPropertyActionListener value="#{caisse.value}"
+						target="#{nomenclatureController.caisseRegime}" />
+					<h:graphicImage alt="delete" value="../../media/images/delete.png" />
+					<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="deleteCaisse" />
+				</p:commandLink>
+				<p:commandLink id="updateCaisse"
+					oncomplete="PF('popupModifCaisseRegime').show();"
+					style="padding:5px;" update="popupModifCaisseRegime">
+					<f:setPropertyActionListener value="#{caisse.value}"
+						target="#{nomenclatureController.caisseRegime}" />
+					<f:setPropertyActionListener value="#{caisse.value.code}"
+						target="#{nomenclatureController.codeCaisseRegime}" />
+					<h:graphicImage alt="modifier" value="../../media/images/edit.png" />
+					<p:tooltip value="#{msgs['FORM.MODIFIER']}" for="updateCaisse" />
+				</p:commandLink>
+				<h:outputText value=" #{caisse.value.code} - #{caisse.label}" />
+			</p:column>
+		</p:dataTable>
+
+		<t:htmlTag value="div" style="height:10px;" />
+
+		<p:commandButton style="color:green;"
+			action="#{nomenclatureController.resetObjects}"
+			oncomplete="PF('popupAjoutCaisseRegime').show();"
+			value="#{msgs['NOMENCLATURES.AJOUT']}" />
+	</t:htmlTag>
+
+	<t:htmlTag value="div" style="height:10px;" />
+</ui:composition>
