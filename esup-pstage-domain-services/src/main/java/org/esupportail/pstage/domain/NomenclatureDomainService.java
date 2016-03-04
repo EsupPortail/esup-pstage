@@ -41,10 +41,7 @@ import org.esupportail.pstagedata.domain.dto.TypeOffreDTO;
 import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
 import org.esupportail.pstagedata.domain.dto.UniteDureeDTO;
 import org.esupportail.pstagedata.domain.dto.UniteGratificationDTO;
-import org.esupportail.pstagedata.exceptions.DataAddException;
-import org.esupportail.pstagedata.exceptions.DataDeleteException;
-import org.esupportail.pstagedata.exceptions.DataUpdateException;
-import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.esupportail.pstagedata.exceptions.*;
 
 /**
  * The NomenclatureDaoService service interface.
@@ -72,7 +69,14 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteCaisseRegime(String codeCaisse) throws DataDeleteException,WebServiceDataBaseException;
-	
+
+	/**
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @return WebServiceDataBaseException
+	 */
+	public boolean reactivateCaisseRegime(String codeCaisse) throws DataReactivateException,WebServiceDataBaseException;
+
 	/**
 	 * @return int
 	 * @throws DataAddException 
