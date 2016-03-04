@@ -1,0 +1,46 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	template="../_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<h:outputStylesheet>
+			label {
+		    	font-weight: bold;
+			}
+		</h:outputStylesheet>
+		<p:panel
+			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
+						|| welcomeController.personnel) and centreController.centre != null}">
+			<f:facet name="header">
+				<h:outputLabel value="#{msgs['CENTRE.CONSULTATION']} "
+					for="nomCentre" />
+				<h:outputText id="nomCentre"
+					value="#{centreController.centre.nomCentre}" />
+			</f:facet>
+
+			<ui:include src="_menu_centre.xhtml" />
+
+			<h:panelGrid id="panelConsultation" style="padding-left:100px; padding-top:15px; padding-bottom:20px;">
+				<ui:include
+					src="/stylesheets/stage/#{sessionController.consultationCentreCurrentPage}.xhtml" />
+			</h:panelGrid>
+
+			<h:form>
+				<p:commandButton id="back" value="#{msgs['CENTRE.RETOUR_LISTE']}"
+					action="listeCentres" immediate="true" />
+			</h:form>
+		</p:panel>
+		<t:div
+			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
+		|| welcomeController.personnel)}">
+			<ui:include src="./_redirection_droitsInsuffisants.xhtml" />
+		</t:div>
+		<t:div
+			rendered="#{(welcomeController.superAdmin || welcomeController.enseignant || welcomeController.personnel)
+		and centreController.centre == null}">
+			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+		</t:div>
+	</ui:define>
+</ui:composition>
