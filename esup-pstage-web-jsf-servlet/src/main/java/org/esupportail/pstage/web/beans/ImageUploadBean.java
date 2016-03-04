@@ -61,9 +61,7 @@ public class ImageUploadBean{
 	 * @param event the upload event
 	 */
 	public void imageUploadListener(FileUploadEvent event) {
-		if (event == null) {
-			//			logger.warn("Invalid upload event");
-		} else {
+		if (event != null) {
 			// on recupere l'item envoye
 			UploadedFile uploadItem = event.getFile();
 			String imageName = uploadItem.getFileName();
@@ -79,15 +77,11 @@ public class ImageUploadBean{
 			if (this.prefix >=0)
 				imageName = this.prefix+"_"+imageName;
 
-			//code ici on recupere le path vers le repertoire ou stocker le fichier
+			// ici on recupere le path vers le repertoire ou stocker le fichier
 			File fileToWrite = new File(this.directory + File.separator + imageName);
 			ByteArrayInputStream is = null;
 			FileOutputStream fos = null;
 			try {
-//				test = scaleImage(uploadItem.getInputStream(), 300, 300, this.extension);
-//				in = ((FileInputStream)test).getChannel();
-//				out = new FileOutputStream(fileToWrite).getChannel();
-//				in.transferTo(0, in.size(), out);
 				is = (ByteArrayInputStream) scaleImage(new BufferedInputStream((FileInputStream)uploadItem.getInputstream()), 300, 300,this.extension);
 				fos = new FileOutputStream(fileToWrite);
 				int data;

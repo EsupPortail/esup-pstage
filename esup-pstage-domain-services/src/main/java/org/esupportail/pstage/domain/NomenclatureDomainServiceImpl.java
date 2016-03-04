@@ -45,10 +45,7 @@ import org.esupportail.pstagedata.domain.dto.TypeOffreDTO;
 import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
 import org.esupportail.pstagedata.domain.dto.UniteDureeDTO;
 import org.esupportail.pstagedata.domain.dto.UniteGratificationDTO;
-import org.esupportail.pstagedata.exceptions.DataAddException;
-import org.esupportail.pstagedata.exceptions.DataDeleteException;
-import org.esupportail.pstagedata.exceptions.DataUpdateException;
-import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.esupportail.pstagedata.exceptions.*;
 import org.esupportail.pstagedata.remote.RemoteServices;
 
 /**
@@ -96,6 +93,13 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	public boolean deleteCaisseRegime(String codeCaisse) throws DataDeleteException, WebServiceDataBaseException{
 		return this.remoteServices.deleteCaisseRegime(codeCaisse);	
 	}
+
+	@Override
+	public boolean reactivateCaisseRegime(String codeCaisse) throws DataReactivateException, WebServiceDataBaseException {
+		System.out.println("========= CAISSE REGIME REMOTE SERVICE CALL");
+		return this.remoteServices.reactivateCaisseRegime(codeCaisse);
+	}
+
 	@Override
 	public int addNiveauFormation(NiveauFormationDTO nf)
 			throws DataAddException, WebServiceDataBaseException {

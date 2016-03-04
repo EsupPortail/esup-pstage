@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<p:dialog id="rechercheViseur" widgetVar="rechercheViseur">
+	<p:dialog id="rechercheViseur" widgetVar="rechercheViseur" resizable="false">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CENTRE.VISEUR.HEAD']}" />
 		</f:facet>
@@ -96,7 +96,7 @@
 							<center>
 								<p:commandLink id="choisir" 
 									oncomplete="PF('rechercheViseur').hide()"
-									update="formAjoutCentre">
+									update="formCentre">
 									<h:graphicImage alt="#{msgs['GENERAL.OK']}"
 										value="../../media/images/arrow_right.png" />
 									<f:setPropertyActionListener value="#{personnel.nom}"

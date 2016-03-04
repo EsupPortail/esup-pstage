@@ -3,7 +3,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:panelGrid
@@ -24,7 +23,7 @@
 						<f:selectItem itemValue="" />
 						<f:selectItems
 							value="#{offreController.listeItemsCurrentCentresGestion}" />
-						<p:ajax event="valueChange"/>
+						<p:ajax event="valueChange" />
 					</h:selectOneMenu>
 					<p:message for="centreGestion" ajaxRendered="false">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
@@ -51,8 +50,7 @@
 				<h:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
 				<h:inputText id="nom" style="text-transform:uppercase;"
 					value="#{etablissementController.formContact.nom}" size="50"
-					maxlength="50" required="true"
-					converter="#{upperCaseConverter}"
+					maxlength="50" required="true" converter="#{upperCaseConverter}"
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 				</h:inputText>
 				<p:message for="nom" ajaxRendered="false">
@@ -77,27 +75,26 @@
 			</t:panelGrid>
 			<t:panelGrid columns="3">
 				<t:htmlTag value="div" style="width: 25px;" />
-				<t:htmlTag value="div" style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height: 200px;" />
+				<p:separator style="height: 200px;" />
 				<t:htmlTag value="div" style="width: 25px;" />
 			</t:panelGrid>
 			<t:panelGrid>
 				<t:panelGrid columns="2">
 					<h:graphicImage alt="arrow"
-					value="../../media/images/arrow_turn_down.png"
-						 />
+						value="../../media/images/arrow_turn_down.png" />
 					<h:outputText id="msg1o3"
 						value="#{msgs['CONTACT.GESTION.UNDESTROIS']} " />
 				</t:panelGrid>
 				<t:htmlTag value="div" style="height: 5px;" />
-				
+
 				<h:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} " />
 				<h:inputText id="telC" size="20" maxlength="20"
 					value="#{etablissementController.formContact.tel}" />
-				
+
 				<h:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
 				<h:inputText id="faxC" size="20" maxlength="20"
 					value="#{etablissementController.formContact.fax}" />
-				
+
 				<h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
 				<h:inputText id="mailC"
 					value="#{etablissementController.formContact.mail}" size="50"

@@ -53,8 +53,7 @@
 			<h:panelGrid
 				columns="3">
 				<t:htmlTag value="div" style="width: 50px;" />
-				<t:htmlTag value="div"
-					style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height:90px;" />
+				<p:separator style="width:2px; height:90px;" />
 				<t:htmlTag value="div" style="width: 50px;" />
 			</h:panelGrid>
 
@@ -387,9 +386,9 @@
 			<t:htmlTag value="div" style="width: 20px;" />
 
 			<t:div
-				rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+				rendered="#{welcomeController.superAdmin || (sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-				|| (welcomeController.etudiant and avenantController.avenant.validationAvenant)}">
+				|| (welcomeController.etudiant and avenantController.avenant.validationAvenant))}">
 				<p:commandButton id="print" 
 					rendered="#{conventionController.convention.codeLangueConvention == 'fr'}"
 					action="#{avenantController.editPdfAvenant}"

@@ -1,0 +1,16 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	template="../../_definedStageTemplate.xhtml">
+	
+	<t:htmlTag id="indicateursStats" value="center">
+		<ui:include
+			src="/stylesheets/stage/stats/indicateurs_stats_pour_stages.xhtml" />
+		<t:htmlTag value="div" style="height: 30px;" />
+		<ui:include
+			src="/stylesheets/stage/stats/indicateurs_stats_pour_offres.xhtml" />
+	</t:htmlTag>
+	
+</ui:composition>

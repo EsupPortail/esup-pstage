@@ -1,0 +1,87 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:form id="formListeCritere">
+		<h:panelGrid rendered="#{centreController.listeCritereVide}">
+			<h:outputText value="#{msgs['CENTRE.CRITERE.LISTE.VIDE']}" />
+		</h:panelGrid>
+		<h:panelGrid rendered="#{!centreController.listeCritereVide}">
+			<p:dataTable style="border-right:1px solid #C0C0C0;"
+				id="listeCriteres" rows="20" columnClasses="col"
+				value="#{centreController.listeCriteresRattaches}" var="critere">
+
+				<p:column sortBy="#{critere.code}">
+					<f:facet name="header">
+						<h:outputText style="headerClass"
+							value="#{msgs['CENTRE.CRITERE.CODE']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<h:outputText value="#{critere.code}" />
+					</t:htmlTag>
+				</p:column>
+
+				<p:column sortBy="#{critere.codeVersionEtape}">
+					<f:facet name="header">
+						<h:outputText style="headerClass"
+							value="#{msgs['CENTRE.CRITERE.CODE']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<h:outputText value="#{critere.codeVersionEtape}" />
+					</t:htmlTag>
+				</p:column>
+
+				<p:column sortBy="#{critere.libelle}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['CENTRE.CRITERE.LIBELLE']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<h:outputText value="#{critere.libelle}" />
+					</t:htmlTag>
+				</p:column>
+
+				<p:column
+					rendered="#{welcomeController.superAdmin
+										|| welcomeController.admin}">
+					<f:facet name="header">
+						<h:outputText style="headerClass"
+							value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<p:commandLink oncomplete="PF('suppressionCritere').show();"
+							action="#{centreController.avantSuppressionCritere}"
+							update="suppressionCritere">
+							<f:setPropertyActionListener value="#{critere}"
+								target="#{centreController.critere}" />
+							<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"
+								value="../../media/images/delete.png" />
+							<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+						</p:commandLink>
+					</t:htmlTag>
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+
+		<t:htmlTag value="div" style="height:15px;" />
+
+		<t:htmlTag value="center">
+			<p:commandButton id="add" value="#{msgs['CENTRE.CRITERE.RATTACHER']}"
+				action="#{centreController.goToAjoutCritere}"
+				style="font-size:16px; font-weight:bold; border-color:green;"
+				rendered="#{welcomeController.superAdmin
+							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}" />
+			<p:ajaxStatus name="ajoutStatus">
+				<f:facet name="start">
+					<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+				</f:facet>
+			</p:ajaxStatus>
+
+			<p:message for="formListeCritere" />
+
+		</t:htmlTag>
+		<t:htmlTag value="div" style="height: 20px;" />
+	</h:form>
+	<ui:include src="./_panel_suppressionCritere.xhtml" />
+</ui:composition>

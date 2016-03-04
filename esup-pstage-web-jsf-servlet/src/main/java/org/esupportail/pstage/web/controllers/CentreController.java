@@ -4,6 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,6 +43,7 @@ import org.esupportail.pstagedata.exceptions.DataDeleteException;
 import org.esupportail.pstagedata.exceptions.DataUpdateException;
 import org.esupportail.pstagedata.exceptions.PersonalAlreadyExistingForCentreException;
 import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.primefaces.event.FileUploadEvent;
 import org.springframework.util.StringUtils;
 
 
@@ -327,12 +329,12 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToIndicateurStat(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToIndicateurStat() ");
-		}
-		return "indicateurStat";
-	}
+	//	public String goToIndicateurStat(){
+	//		if(logger.isDebugEnabled()){
+	//			logger.debug("public String goToIndicateurStat() ");
+	//		}
+	//		return "indicateurStat";
+	//	}
 
 	/* ****************************************************************************
 	 * LISTE DES CENTRES
@@ -468,15 +470,15 @@ public class CentreController extends AbstractContextAwareController {
 			}
 		} catch (DataAddException d){
 			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formAjoutCentre","CENTRE.AJOUT_CENTRE.ERREUR");
+			addErrorMessage("formCentre","CENTRE.AJOUT_CENTRE.ERREUR");
 			return null;
 		} catch (WebServiceDataBaseException w){
 			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formAjoutCentre", "CENTRE.AJOUT_CENTRE.ERREUR");
+			addErrorMessage("formCentre", "CENTRE.AJOUT_CENTRE.ERREUR");
 			return null;
 		} catch (CentreEtablissementDejaExistantException e) {
 			logger.error("EtablissementDejaExistantException", e.fillInStackTrace());
-			addErrorMessage("formAjoutCentre", "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
+			addErrorMessage("formCentre", "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
 			return null;
 		}
 
@@ -497,6 +499,9 @@ public class CentreController extends AbstractContextAwareController {
 		}
 		this.listeCriteres = new ArrayList<SelectItem>();
 		this.personnels = new ArrayList<PersonnelCentreGestionDTO>();
+		this.indexMenu = 0;
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_detail");
+
 		return "voirCentre";
 	}
 
@@ -504,20 +509,10 @@ public class CentreController extends AbstractContextAwareController {
 	 * MODIFICATION D'UN CENTRE
 	 *****************************************************************************/
 	/**
-	 * @return a String
-	 */
-	public String goToModifCentre(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToModifCentre() ");
-		}
-
-		return "modifCentre";
-	}
-	/**
 	 * Traite le formulaire une fois valide et renvoie vers la liste des centres
 	 * @return a String
 	 */
-	public String modifierCentre(){
+	public void modifierCentre(){
 
 		centre.setLoginModif(getSessionController().getCurrentLogin());
 
@@ -550,7 +545,7 @@ public class CentreController extends AbstractContextAwareController {
 			// On recupére l'id du centre superviseur ajouté (temporaire)
 			centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
 		} catch (NullPointerException e ){
-			addErrorMessage("formModifCentre:erreurModifCentre","CENTRE.AJOUT_CENTRE.ERREUR_SUPERVISEUR");
+			addErrorMessage("formCentre","CENTRE.AJOUT_CENTRE.ERREUR_SUPERVISEUR");
 		}
 
 
@@ -562,21 +557,20 @@ public class CentreController extends AbstractContextAwareController {
 			// Modification du Centre
 			getCentreGestionDomainService().updateCentreGestion(centre);
 
+			addInfoMessage("formConsultationCentre","CENTRE.MODIF_CENTRE.CONFIRM");
+
 		} catch (DataUpdateException d){
 			logger.error("DataUpdateException",d.fillInStackTrace());
-			addErrorMessage("formModifCentre:erreurModifCentre","CENTRE.AJOUT_CENTRE.ERREUR");
-			return null;
+			addErrorMessage("formCentre","CENTRE.AJOUT_CENTRE.ERREUR");
 		} catch (WebServiceDataBaseException w){
 			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formModifCentre:erreurModifCentre", "CENTRE.AJOUT_CENTRE.ERREUR");
-			return null;
+			addErrorMessage("formCentre", "CENTRE.AJOUT_CENTRE.ERREUR");
 		} catch (CentreEtablissementDejaExistantException e) {
 			logger.error("EtablissementDejaExistantException", e.fillInStackTrace());
-			addErrorMessage("formModifCentre:erreurModifCentre", "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
-			return null;
+			addErrorMessage("formCentre", "CENTRE.AJOUT_CENTRE.ERREUR_ETABLISSEMENT");
 		}
 
-		return "voirCentre";
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_detail");
 	}
 
 	/* ****************************************************************************
@@ -709,7 +703,7 @@ public class CentreController extends AbstractContextAwareController {
 				}
 				// Suppression de la fiche d'évaluation
 				getFicheEvaluationDomainService().deleteFicheEvaluation(getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.centre.getIdCentreGestion()).getIdFicheEvaluation());
-				
+
 				getCentreGestionDomainService().deleteCentreGestion(this.centre.getIdCentreGestion());
 
 				this.centresGestion.remove(centre);
@@ -737,12 +731,13 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToListeCritere(){
+	public void goToListeCritere(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToListeCritere() ");
 		}
 		this.critere = null;
-		return "listeCriteres";
+
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_criteres");
 	}
 
 	/**
@@ -1129,87 +1124,79 @@ public class CentreController extends AbstractContextAwareController {
 			}
 		} catch (DataUpdateException e) {
 			logger.error("DataUpdateException", e.fillInStackTrace());
-			addErrorMessage("formSupprCritere:erreurCritere", "CENTRE.CRITERE.SUPPRESSION.ERREUR",this.critere.getCode());
+			addErrorMessage("formSupprCritere", "CENTRE.CRITERE.SUPPRESSION.ERREUR",this.critere.getCode());
 		} catch (WebServiceDataBaseException e) {
 			logger.error("WebServiceDataBaseException", e.fillInStackTrace());
-			addErrorMessage("formSupprCritere:erreurCritere", "CENTRE.CRITERE.SUPPRESSION.ERREUR",this.critere.getCode());
+			addErrorMessage("formSupprCritere", "CENTRE.CRITERE.SUPPRESSION.ERREUR",this.critere.getCode());
 		}
 	}
 	/* ****************************************************************************
 	 * AJOUT/MODIFICATION DU LOGO
 	 *****************************************************************************/
 	/**
-	 * @return a String
+	 * Upload du logo
 	 */
-	public String goToModifLogo(){
+	public void uploadLogoCentre(FileUploadEvent event){
 		if(logger.isDebugEnabled()){
-			logger.debug("public String goToModifLogo() ");
+			logger.debug("public String uploadLogoCentre() ");
 		}
-		return "modifLogo";
-	}
+		ImageUploadBean imgUlBean = getSessionController().getImageUploadBean();
 
-	/**
-	 * Methode appelée avant l'affichage du panel_logo
-	 */
-	public void avantAjoutLogo(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String avantModifLogo() ");
-		}
-		if (!(this.centre.getIdFichier() > 0)){
-			try {
-				getSessionController().setImageUploadBean(new ImageUploadBean(getSessionController().getUploadFilesLogosCentrePath()));
-				FichierDTO o = new FichierDTO();
-				o.setNomFichier("");
-				o.setNomReel("");
-				int idFichier = getOffreDomainService().addFichier(o);
-				o.setIdFichier(idFichier);
-				this.centre.setFichier(o);
-				getSessionController().getImageUploadBean().setPrefix(idFichier);
-			} catch (DataAddException e) {
-				logger.error(e.fillInStackTrace());
-			} catch (WebServiceDataBaseException e) {
-				logger.error(e.fillInStackTrace());
-			}
-		}
-	}
+		// On met le prefix a -1 sinon '0_' est ajouté au nom
+		imgUlBean.setPrefix(-1);
+		// Methode s'occupant de l'upload du fichier
+		imgUlBean.imageUploadListener(event);
 
-	/**
-	 * Action appellée après l'upload d'un fichier
-	 */
-	public String insertLogo() {
-		String nomFichier = getSessionController().getImageUploadBean().getNameUploadedImage();
-		String nomReel = getSessionController().getImageUploadBean().getRealNameImage();
+		// Recuperation du nom final du fichier
+		String nomFichier = imgUlBean.getNameUploadedImage();
+		String nomReel = imgUlBean.getRealNameImage();
+
 		//Si nom de fichier non vide (cas des fichiers volumineux)
 		if(StringUtils.hasText(nomFichier)){
-			this.centre.getFichier().setNomFichier(nomFichier);
+			FichierDTO f = new FichierDTO();
+			f.setNomFichier(nomFichier);
 			if(StringUtils.hasText(nomReel)){
-				this.centre.getFichier().setNomReel(nomReel);
+				f.setNomReel(nomReel);
+			} else {
+				f.setNomReel("");
 			}
 			try {
-				getOffreDomainService().updateFichier(this.centre.getFichier());
+				int idFichier = getOffreDomainService().addFichier(f);
+
+				// Maintenant que l'upload s'est bien passé et que l'on a pu inserer le fichier en base,
+				// on recupere le last insert id pour l'assigner au centre
+				f.setIdFichier(idFichier);
+				this.centre.setFichier(f);
+				this.centre.setIdFichier(idFichier);
 				getCentreGestionDomainService().updateIdFichier(this.centre.getIdCentreGestion(), this.centre.getFichier().getIdFichier());
-				this.centre.setIdFichier(this.centre.getFichier().getIdFichier());
-				return "modifLogo";
-			} catch (DataUpdateException d){
-				logger.error("DataUpdateException",d.fillInStackTrace());
-				addErrorMessage("panelUpload:erreurLogo",d.getMessage());
+
+				// Pour que l'image puisse etre recup par getFileServlet, il faut la prefixer de l'idFichier,
+				// On la recupere donc pour la renommer
+				String directory = getSessionController().getUploadFilesLogosCentrePath() + File.separator;
+				File fichier = new File(directory + f.getNomFichier());
+				fichier.renameTo(new File(directory+ idFichier +"_"+f.getNomFichier()));
+
+			} catch (DataAddException e) {
+				logger.error(e.fillInStackTrace());
+				addErrorMessage("panelUpload",e.getMessage());
+			} catch (DataUpdateException e) {
+				logger.error(e.fillInStackTrace());
+				addErrorMessage("panelUpload",e.getMessage());
 			} catch (WebServiceDataBaseException e) {
 				logger.error(e.fillInStackTrace());
-				addErrorMessage("panelUpload:erreurLogo",e.getMessage());
+				addErrorMessage("panelUpload",e.getMessage());
 			}
 		}
-		return null;
 	}
 
 	/**
 	 * @return String
 	 */
-	public String cleanFichiers(){
+	public void cleanFichiers(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String cleanFichiers() ");
 		}
 		getOffreDomainService().cleanFichiers();
-		return "modifLogo";
 	}
 	/* ****************************************************************************
 	 * SUPPRESSION DU LOGO
@@ -1217,7 +1204,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String deleteLogo() {
+	public void deleteLogo() {
 		try{
 			getSessionController().getImageUploadBean().deleteImageFromDirectory(
 					this.centre.getFichier().getIdFichier(), this.centre.getFichier().getNomFichier());
@@ -1225,13 +1212,11 @@ public class CentreController extends AbstractContextAwareController {
 			getOffreDomainService().deleteFichier(this.centre.getIdFichier());
 			this.centre.setIdFichier(0);
 			this.centre.setFichier(null);
-			return "modifLogo";
 		}catch (DataDeleteException e) {
 			logger.warn(e.fillInStackTrace());
 		}catch (WebServiceDataBaseException e) {
 			logger.warn(e.fillInStackTrace());
 		}
-		return null;
 	}
 
 	/* ****************************************************************************
@@ -1240,15 +1225,16 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToListePersonnel(){
+	public void goToListePersonnel(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToListePersonnel() ");
 		}
+
 		if(this.personnels == null || this.personnels.isEmpty()){
 			this.personnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.centre.getIdCentreGestion());
 		}
 
-		return "listePersonnels";
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_personnels");
 	}
 
 	/**
@@ -1832,11 +1818,11 @@ public class CentreController extends AbstractContextAwareController {
 				}
 			} catch (DataDeleteException e) {
 				logger.error("DataDeleteException", e.fillInStackTrace());
-				addErrorMessage("formSupprPersonnel:erreurSupprPersonnel", "CENTRE.PERSONNEL.SUPPRESSION.ERREUR",this.personnel.getUidPersonnel());
+				addErrorMessage("formSupprPersonnel", "CENTRE.PERSONNEL.SUPPRESSION.ERREUR",this.personnel.getUidPersonnel());
 				return null;
 			} catch (WebServiceDataBaseException e) {
 				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
-				addErrorMessage("formSupprPersonnel:erreurSupprPersonnel", "CENTRE.PERSONNEL.SUPPRESSION.ERREUR",this.personnel.getUidPersonnel());
+				addErrorMessage("formSupprPersonnel", "CENTRE.PERSONNEL.SUPPRESSION.ERREUR",this.personnel.getUidPersonnel());
 				return null;
 			}
 

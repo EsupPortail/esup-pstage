@@ -439,6 +439,23 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 	}
 
+	/**
+	 * @return
+	 */
+	public void reactivateCaisseRegime() {
+		logger.info("reactivateCaisseRegime - Start");
+		try {
+			if(getNomenclatureDomainService().reactivateCaisseRegime(this.caisseRegime.getCode())) {
+				addInfoMessage("formNomenclature","NOMENCLATURES.REACTIVATION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+			}
+		} catch (Exception e) {
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+		}
+		logger.info("reactivateCaisseRegime - End");
+	}
 
 	/**
 	 * @return

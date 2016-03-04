@@ -17,7 +17,7 @@
 				headerText="#{msgs['NOMENCLATURES.TABLE.HEADER']}">
 				<p:commandLink id="deleteCaisse"
 					oncomplete="PF('suppressionCaisseRegime').show();"
-					update="suppressionCaisseRegime">
+					update="suppressionCaisseRegime" disabled="#{caisse.value.temEnServ == 'N'}">
 					<f:setPropertyActionListener value="#{caisse.value}"
 						target="#{nomenclatureController.caisseRegime}" />
 					<h:graphicImage alt="delete" value="../../media/images/delete.png" />
@@ -25,7 +25,7 @@
 				</p:commandLink>
 				<p:commandLink id="updateCaisse"
 					oncomplete="PF('popupModifCaisseRegime').show();"
-					style="padding:5px;" update="popupModifCaisseRegime">
+					style="padding:5px;" update="popupModifCaisseRegime" disabled="#{caisse.value.temEnServ == 'N'}">
 					<f:setPropertyActionListener value="#{caisse.value}"
 						target="#{nomenclatureController.caisseRegime}" />
 					<f:setPropertyActionListener value="#{caisse.value.code}"
@@ -33,9 +33,31 @@
 					<h:graphicImage alt="modifier" value="../../media/images/edit.png" />
 					<p:tooltip value="#{msgs['FORM.MODIFIER']}" for="updateCaisse" />
 				</p:commandLink>
+				<h:graphicImage id="deletedCaisse" rendered="#{caisse.value.temEnServ == 'N'}" alt="#{msgs['FORM.SUPPRIMEE']}" value="../../media/images/exclamation.png" />
+				<p:tooltip value="#{msgs['FORM.SUPPRIMEE']}" for="deletedCaisse" />
 				<h:outputText value=" #{caisse.value.code} - #{caisse.label}" />
+				<p:commandLink id="refreshCaisse"
+							   oncomplete="PF('popupRefreshCaisseRegime').show();"
+							   style="padding:5px;" update="popupRefreshCaisseRegime">
+					<f:setPropertyActionListener value="#{caisse.value}"
+												 target="#{nomenclatureController.caisseRegime}" />
+					<f:setPropertyActionListener value="#{caisse.value.code}"
+												 target="#{nomenclatureController.codeCaisseRegime}" />
+					<h:graphicImage rendered="#{caisse.value.temEnServ == 'N'}" alt="#{msgs['FORM.SUPPRIMEE']}" value="../../media/images/arrow_refresh.png" style="float:right;"/>
+					<p:tooltip value="#{msgs['FORM.REACTIVER']}" for="refreshCaisse" />
+				</p:commandLink>
 			</p:column>
 		</p:dataTable>
+
+		<t:htmlTag value="div" style="height:10px;" />
+
+<!-- 		<i> -->
+<!-- 			<h:graphicImage alt="#{msgs['FORM.SUPPRIMEE']}" value="../../media/images/exclamation.png" /> -->
+<!-- 			<h:outputText value=" #{msgs['NOMENCLATURES.CAISSE.SUPPRIMEE']}" /> -->
+<!-- 			<t:htmlTag value="div" style="height:10px;" /> -->
+<!-- 			<h:graphicImage alt="#{msgs['FORM.SUPPRIMEE']}" value="../../media/images/arrow_refresh.png" /> -->
+<!-- 			<h:outputText value=" #{msgs['NOMENCLATURES.CAISSE.REACTIVER']}" /> -->
+<!-- 		</i> -->
 
 		<t:htmlTag value="div" style="height:10px;" />
 
