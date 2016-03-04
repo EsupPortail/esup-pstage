@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 	<p:dialog id="popupModifCaisseRegime"
-		widgetVar="popupModifCaisseRegime">
+		widgetVar="popupModifCaisseRegime" resizable="false">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['NOMENCLATURES.MODIFICATION.HEADER']}" />
 		</f:facet>
@@ -20,7 +20,7 @@
 				<p:commandButton style="color:green;"
 					value="#{msgs['FORM.CONFIRMER']}"
 					action="#{nomenclatureController.updateCaisseRegime}"
-					update="@form" />
+					update="formNomenclature" onclick="PF('suppressionCaisseRegime').hide();" />
 			</t:htmlTag>
 		</h:form>
 	</p:dialog>

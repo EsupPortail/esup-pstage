@@ -96,7 +96,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 
 	@Override
 	public boolean reactivateCaisseRegime(String codeCaisse) throws DataReactivateException, WebServiceDataBaseException {
-		System.out.println("========= CAISSE REGIME REMOTE SERVICE CALL");
 		return this.remoteServices.reactivateCaisseRegime(codeCaisse);
 	}
 
