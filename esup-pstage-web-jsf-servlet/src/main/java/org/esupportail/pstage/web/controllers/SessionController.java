@@ -559,7 +559,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * CONSULTATION D'UN CENTRE DE GESTION
 	 */
-	private String consultationCentreCurrentPage = "_detail_centre";
+	private String consultationCentreCurrentPage = "_consultationCentre_detail";
 	
 	/**
 	 * Constructor.
@@ -655,20 +655,20 @@ public class SessionController extends AbstractDomainAwareBean {
 		this.imageUploadBean=new ImageUploadBean(this.uploadFilesLogosCentrePath);
 		Assert.notNull(this.uploadImagesFileSizeLimit, "property uploadImagesFileSizeLimit of class " 
 				+ this.getClass().getName() + " can not be null");
-		if(Utils.isNumber(uploadImagesFileSizeLimit)){
-			int i = Utils.convertStringToInt(this.uploadImagesFileSizeLimit);
-			if((""+i).length()<=3 && (""+i).length()>1){
-				this.uploadImagesFileSizeLimit=i+"o";
-			}
-			i = i /1024;
-			if((""+i).length()<=3 && (""+i).length()>1){
-				this.uploadImagesFileSizeLimit=i+"ko";
-			}
-			i = i /1000;
-			if((""+i).length()<=3 && (""+i).length()>1){
-				this.uploadImagesFileSizeLimit=i+"mo";
-			}
-		}
+//		if(Utils.isNumber(uploadImagesFileSizeLimit)){
+//			int i = Utils.convertStringToInt(this.uploadImagesFileSizeLimit);
+//			if((""+i).length()<=3 && (""+i).length()>1){
+//				this.uploadImagesFileSizeLimit=i+"o";
+//			}
+//			i = i /1024;
+//			if((""+i).length()<=3 && (""+i).length()>1){
+//				this.uploadImagesFileSizeLimit=i+"ko";
+//			}
+//			i = i /1000;
+//			if((""+i).length()<=3 && (""+i).length()>1){
+//				this.uploadImagesFileSizeLimit=i+"mo";
+//			}
+//		}
 
 		Assert.notNull(this.uploadFilesOffresFileExtensions, "property uploadFilesOffresFileExtensions of class " 
 				+ this.getClass().getName() + " can not be null");

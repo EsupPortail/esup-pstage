@@ -3,11 +3,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid
-		>
+	<h:panelGrid>
 		<ui:include src="../_commun/_champsObligatoires.xhtml" />
 		<h:outputLabel for="nomService" value="#{msgs['SERVICE.NOM']} *" />
 		<h:inputText id="nomService"
@@ -25,7 +23,7 @@
 			value="#{etablissementController.memeAdresseStructure}">
 			<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 			<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-			<p:ajax event="valueChange" update="adresseService"  />
+			<p:ajax event="valueChange" update="adresseService" />
 		</h:selectOneRadio>
 		<p:outputPanel id="adresseService">
 			<h:panelGrid
@@ -36,7 +34,7 @@
 					<h:inputText id="voie"
 						value="#{etablissementController.formService.voie}" size="50"
 						maxlength="200" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}"/>
+						requiredMessage="#{requiredMessageController.champObligatoire}" />
 					<p:message for="voie" ajaxRendered="false">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</p:message>
@@ -45,25 +43,22 @@
 					<h:inputText id="batimentService"
 						value="#{etablissementController.formService.batimentResidence}"
 						size="50" maxlength="50" style="text-transform:uppercase;"
-						converter="#{upperCaseConverter}"/>
-					<h:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']}" for="telephone" />
+						converter="#{upperCaseConverter}" />
+					<h:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']}"
+						for="telephone" />
 					<h:inputText id="telephone"
 						value="#{etablissementController.formService.telephone}" size="20"
 						maxlength="20">
-					</h:inputText>		
+					</h:inputText>
 				</h:panelGrid>
-				<h:panelGrid
-					columns="3">
+				<h:panelGrid columns="3">
 					<t:htmlTag value="div" style="width: 25px;" />
-					<t:htmlTag value="div"
-						style="width: 2px; background-color: #{a4jSkin.panelBorderColor}; height:124px;" />
+					<p:separator style="width:2px; height:124px;" />
 					<t:htmlTag value="div" style="width: 25px;" />
 				</h:panelGrid>
-				<h:panelGrid
-					>
+				<h:panelGrid>
 					<p:outputPanel id="opCodePostal">
 						<h:panelGrid
-							
 							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 								(etablissementController.formServiceTmpPays!=beanUtils.france and etablissementController.formServiceTmpPays.cog!=beanUtils.cogFrance
 								and sessionController.recupererCommunesDepuisApogee)}">
@@ -85,11 +80,9 @@
 							</p:message>
 						</h:panelGrid>
 						<h:panelGrid
-							
 							rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
-							<h:panelGrid
-								>
+							<h:panelGrid>
 								<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
 									for="dynaCodePostal" />
 								<h:inputText id="dynaCodePostal"
@@ -98,8 +91,7 @@
 									requiredMessage="#{requiredMessageController.champObligatoire}"
 									validatorMessage="#{requiredMessageController.codePostalNonValide}"
 									valueChangeListener="#{etablissementController.formServiceValueCodePostalChanged}">
-									<p:ajax event="valueChange" update="opDynaCommune"
-										 />
+									<p:ajax event="valueChange" update="opDynaCommune" />
 								</h:inputText>
 							</h:panelGrid>
 							<p:message for="dynaCodePostal" ajaxRendered="false">
@@ -110,7 +102,6 @@
 					<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
 					<p:outputPanel id="opCommune">
 						<h:panelGrid
-							
 							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 				(etablissementController.formServiceTmpPays!=beanUtils.france and etablissementController.formServiceTmpPays.cog!=beanUtils.cogFrance
 				and sessionController.recupererCommunesDepuisApogee)}">
@@ -118,13 +109,12 @@
 								value="#{etablissementController.formService.commune}" size="50"
 								maxlength="200" required="true"
 								requiredMessage="#{requiredMessageController.champObligatoire}"
-								converter="#{sansAccentEnMAJConverter}"/>
+								converter="#{sansAccentEnMAJConverter}" />
 							<p:message for="commune" ajaxRendered="false">
 								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 							</p:message>
 						</h:panelGrid>
 						<h:panelGrid
-							
 							rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
 				and sessionController.recupererCommunesDepuisApogee}">
 							<p:outputPanel id="opDynaCommune">
@@ -144,8 +134,7 @@
 						</h:panelGrid>
 					</p:outputPanel>
 					<h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
-					<h:panelGrid
-						columns="2">
+					<h:panelGrid columns="2">
 						<p:outputPanel id="opFlag">
 							<t:htmlTag value="div" style="width: 16px;"
 								rendered="#{empty etablissementController.formServiceTmpPays}" />
@@ -158,11 +147,9 @@
 						<h:selectOneMenu id="pays"
 							value="#{etablissementController.formServiceTmpPays}"
 							converter="#{paysConverter}" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}"
-							>
+							requiredMessage="#{requiredMessageController.champObligatoire}">
 							<f:selectItems value="#{nomenclatureController.pays}" />
-							<p:ajax event="valueChange"
-								update="opFlag"  />
+							<p:ajax event="valueChange" update="opFlag" />
 						</h:selectOneMenu>
 					</h:panelGrid>
 					<p:message for="pays" ajaxRendered="false">

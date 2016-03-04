@@ -14,13 +14,10 @@
 		<p:menuitem value="#{msgs['NAVIGATION.TEXT.WELCOME']}"
 			action="#{welcomeController.goToAccueilStage}" icon="ui-icon-home" />
 
-		<p:submenu label="#{msgs['MENUSTAGE.GESTIONCENTRE']}"
-			icon="ui-icon-gear" id="testSubmenu"
-			rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin)}">
-			<p:menuitem value="#{msgs['MENUSTAGE.LISTECENTRE']}" id="testMenu"
-			styleClass="expand"
-				icon="ui-icon-script" action="#{centreController.goToListeCentre}" />
-		</p:submenu>
+		<p:menuitem value="#{msgs['MENUSTAGE.GESTIONCENTRE']}" id="testMenu"
+			styleClass="expand" icon="ui-icon-gear"
+			action="#{centreController.goToListeCentre}"
+			rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin)}" />
 
 		<p:submenu label="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
 			icon="ui-icon-script" style="white-space:nowrap; width:auto;"
@@ -172,7 +169,7 @@
 		<p:menuitem value="#{msgs['MENU.GESTIONNOMENCLATURES']}"
 			icon="ui-icon-newwin"
 			action="#{nomenclatureController.goToGestionNomenclatures}"
-			rendered="#{welcomeController.superAdmin}"/>
+			rendered="#{welcomeController.superAdmin}" />
 
 		<f:facet name="options">
 			<p:commandButton value="#{msgs['NAVIGATION.TEXT.LOGOUT']}"

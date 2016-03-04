@@ -3,11 +3,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid
-		columns="2" alternateColors="true" style="font-size:12px;">
+	<h:panelGrid columns="2" alternateColors="true" style="font-size:12px;">
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.ID']}" />
 		</t:htmlTag>
@@ -31,14 +29,12 @@
 			value="#{offreController.currentOffre.contratOffre.libelle}" />
 	</h:panelGrid>
 
-	<h:panelGrid columns="2"
-			style="font-size:12px;"
+	<h:panelGrid columns="2" style="font-size:12px;"
 		rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.DEBUT']}" />
 		</t:htmlTag>
-		<h:panelGrid
-			columns="2" style="font-size:12px;">
+		<h:panelGrid columns="2" style="font-size:12px;">
 			<h:outputText value="#{offreController.currentOffre.moisDebut}" />
 			<h:outputText value="#{offreController.currentOffre.anneeDebut}" />
 		</h:panelGrid>
@@ -55,8 +51,7 @@
 								offreController.currentOffre.typeOffre==beanUtils.alternance ||
 								offreController.currentOffre.typeOffre==beanUtils.vieVia}" />
 		</t:htmlTag>
-		<h:panelGrid
-			columns="2" style="font-size:12px;"
+		<h:panelGrid columns="2" style="font-size:12px;"
 			rendered="#{offreController.currentOffre.contratOffre==beanUtils.cdd ||
 								offreController.currentOffre.typeOffre==beanUtils.stage ||
 								offreController.currentOffre.typeOffre==beanUtils.alternance ||
@@ -67,8 +62,7 @@
 		</h:panelGrid>
 	</h:panelGrid>
 
-	<t:panelGrid
-		columns="2" style="font-size:12px;">
+	<t:panelGrid columns="2" style="font-size:12px;">
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.DOMAINE']}" />
 		</t:htmlTag>
@@ -89,7 +83,7 @@
 		<t:panelGroup colspan="2">
 			<h:outputText value="#{msgs['OFFRE.LIEU']}" escape="false" />
 		</t:panelGroup>
-		
+
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
 		</t:htmlTag>
@@ -102,11 +96,23 @@
 			<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
 		</t:htmlTag>
 		<h:outputText value="#{offreController.currentOffre.lieuPays.libelle}" />
+	
+		<t:htmlTag value="b">
+			<h:outputText value="#{msgs['OFFRE.NIVEAUFORMATION']}" />
+		</t:htmlTag>
+		<h:outputText
+			value="#{offreController.currentOffre.niveauFormation.libelle}" />
+		
+		<t:htmlTag value="b">
+			<h:outputText value="#{msgs['OFFRE.ANNEEU']}" />
+		</t:htmlTag>
+		<h:outputText
+			value="#{offreController.currentOffre.anneeUniversitaire}" />
 	</t:panelGrid>
 
 	<h:panelGrid columns="2" style="font-size:12px;"
-		>
- 		<t:htmlTag value="b">
+		rendered="#{!(offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien)}">
+		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.DEPLACEMENT']}" />
 		</t:htmlTag>
 		<h:outputText value="#{msgs['FORM.OUI']}"
@@ -160,13 +166,7 @@
 		</t:htmlTag>
 		<h:outputText
 			value="#{offreController.currentOffre.commentaireTempsTravail}" />
-
-		<t:htmlTag value="b">
-			<h:outputText value="#{msgs['OFFRE.NIVEAUFORMATION']}" />
-		</t:htmlTag>
-		<h:outputText
-			value="#{offreController.currentOffre.niveauFormation.libelle}" />
-
+			
 		<t:htmlTag value="b">
 			<h:outputText value="#{msgs['OFFRE.COMPSOUHAITEES']}" />
 		</t:htmlTag>
@@ -189,10 +189,5 @@
 		</t:htmlTag>
 		<h:outputText value="#{offreController.currentOffre.observations}"
 			escape="false" />
-		<t:htmlTag value="b">
-			<h:outputText value="#{msgs['OFFRE.ANNEEU']}" />
-		</t:htmlTag>
-		<h:outputText
-			value="#{offreController.currentOffre.anneeUniversitaire}" />
 	</h:panelGrid>
 </ui:composition>

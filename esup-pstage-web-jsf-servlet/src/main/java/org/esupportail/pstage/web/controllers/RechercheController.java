@@ -402,22 +402,22 @@ public class RechercheController extends AbstractContextAwareController {
 	public String rechercheRaisonSociale(){		
 
 		afficherBoutonAjoutEtab=true;
-
+		
 		if(!StringUtils.hasText(this.rechRaisonSociale)){
-			this.rechRaisonSociale = "%";
+			this.rechRaisonSociale = "";
 		}
 		this.resultatRechercheStructure=null;
 
 		if(this.getRechPays()!=null && this.getRechPays().getId()>0){
 			if(StringUtils.hasText(this.rechDepartement)){
-				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtDepartementFr(this.rechRaisonSociale, this.rechDepartement);
+				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtDepartementFr("%"+this.rechRaisonSociale, this.rechDepartement);
 			}
 			else{
-				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtPays(this.rechRaisonSociale, this.getRechPays().getCog());
+				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSocialeEtPays("%"+this.rechRaisonSociale, this.getRechPays().getCog());
 			}
 		}
 		else {
-			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSociale(this.rechRaisonSociale);
+			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromRaisonSociale("%"+this.rechRaisonSociale);
 		}
 
 		checkListeResultats();

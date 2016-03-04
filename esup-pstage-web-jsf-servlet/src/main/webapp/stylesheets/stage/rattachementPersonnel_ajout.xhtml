@@ -5,7 +5,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<p:panel
@@ -19,8 +18,7 @@
 			<ui:include src="./_menu_centre.xhtml" />
 			<h:form id="formAjoutPersonnel">
 				<h:panelGrid align="center">
-					<h:panelGrid columns="3"
-						>
+					<h:panelGrid columns="3">
 						<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}"
 							for="nomPersonnel" />
 						<t:htmlTag value="div" style="width: 20px;" />
@@ -92,20 +90,19 @@
 						</p:message>
 					</h:panelGrid>
 
-<!-- 					<h:panelGrid columns="2" -->
-<!-- 						> -->
-<!-- 						<h:outputLabel -->
-<!-- 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.CONVENTION']}" -->
-<!-- 							for="personnelConvention" /> -->
-<!-- 						<h:selectOneRadio id="personnelConvention" -->
-<!-- 							value="#{centreController.personnel.impressionConvention}"> -->
-<!-- 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" /> -->
-<!-- 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" /> -->
-<!-- 						</h:selectOneRadio> -->
-<!-- 					</h:panelGrid> -->
+					<!-- 					<h:panelGrid columns="2" -->
+					<!-- 						> -->
+					<!-- 						<h:outputLabel -->
+					<!-- 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.CONVENTION']}" -->
+					<!-- 							for="personnelConvention" /> -->
+					<!-- 						<h:selectOneRadio id="personnelConvention" -->
+					<!-- 							value="#{centreController.personnel.impressionConvention}"> -->
+					<!-- 							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" /> -->
+					<!-- 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" /> -->
+					<!-- 						</h:selectOneRadio> -->
+					<!-- 					</h:panelGrid> -->
 
-					<h:panelGrid columns="2"
-						>
+					<h:panelGrid columns="2">
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.ALERTES_MAIL']}"
 							for="alertesMail" />
@@ -115,9 +112,8 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 					</h:panelGrid>
-					
-					<h:panelGrid columns="2"
-						>
+
+					<h:panelGrid columns="2">
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ETUDIANT']}"
 							for="droitEvaluationEtudiant" />
@@ -127,8 +123,7 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 					</h:panelGrid>
-					<h:panelGrid columns="2"
-						>
+					<h:panelGrid columns="2">
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENSEIGNANT']}"
 							for="droitEvaluationEnseignant" />
@@ -138,8 +133,7 @@
 							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
 						</h:selectOneRadio>
 					</h:panelGrid>
-					<h:panelGrid columns="2"
-						>
+					<h:panelGrid columns="2">
 						<h:outputLabel
 							value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENTREPRISE']}"
 							for="droitEvaluationEntreprise" />
@@ -160,7 +154,7 @@
 						<t:htmlTag value="div" style="width: 70px;" />
 						<p:commandButton id="ajouter" value="#{msgs['FORM.AJOUTER']}"
 							action="#{centreController.ajouterPersonnel}"
-							update="personnelDataTable">
+							update="@form">
 							<p:tooltip value="#{msgs['CENTRE.PERSONNEL.MSG_ADD']}" />
 						</p:commandButton>
 					</h:panelGrid>

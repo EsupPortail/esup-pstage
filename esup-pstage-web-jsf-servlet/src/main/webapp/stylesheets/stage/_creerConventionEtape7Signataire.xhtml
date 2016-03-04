@@ -3,7 +3,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<p:panel
@@ -14,8 +13,7 @@
 					value="#{conventionController.convention.structure.raisonSociale}" />
 			</h:outputFormat>
 		</f:facet>
-		<h:panelGrid
-			>
+		<h:panelGrid>
 			<t:htmlTag value="div" style="height:10px;" />
 			<h:outputFormat
 				value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.DEMANDE']}"
@@ -29,7 +27,7 @@
 					<ui:include src="../_commun/_messageInfoMarker.xhtml" />
 				</p:message>
 			</t:div>
-			<p:commandButton 
+			<p:commandButton
 				rendered="#{conventionController.saisieTuteurProParEtudiant}"
 				oncomplete="PF('selectSignataire').show();"
 				value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.SELECTION']}">
@@ -45,7 +43,7 @@
 				rendered="#{conventionController.convention.centreGestion.presenceTuteurPro == false and conventionController.saisieTuteurProParEtudiant}">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE']}"
 					escape="false" />
-				<p:commandLink  id="passeretape"
+				<p:commandLink id="passeretape"
 					action="#{conventionController.goToCreerConventionEtape8Recap}">
 					<f:setPropertyActionListener value="#{null}"
 						target="#{conventionController.signataireSel}" />
@@ -63,7 +61,7 @@
 				<h:outputText
 					value="#{msgs['CONVENTION.ETAPE7.PASSERETAPE.SAISIETUTEURPRONON']}"
 					escape="false" />
-				<p:commandLink  id="passeretape2"
+				<p:commandLink id="passeretape2"
 					action="#{conventionController.goToCreerConventionEtape8Recap}">
 					<f:setPropertyActionListener value="#{null}"
 						target="#{conventionController.signataireSel}" />
@@ -81,30 +79,26 @@
 				<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 				<h:panelGrid columns="3">
 					<p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-						oncomplete="PF('selectSignataire').hide();"
-						update="opSignataire">
+						oncomplete="PF('selectSignataire').hide();" update="opSignataire">
 						<f:setPropertyActionListener
 							value="#{etablissementController.contactSel}"
 							target="#{conventionController.signataireSel}" />
 					</p:commandButton>
 					<t:htmlTag value="div" style="width: 100px;" />
-					<p:commandButton value="#{msgs['FORM.CANCEL']}" 
+					<p:commandButton value="#{msgs['FORM.CANCEL']}"
 						onclick="PF('selectSignataire').hide();" />
 				</h:panelGrid>
 			</p:dialog>
 			<p:outputPanel id="opSignataire"
 				rendered="#{conventionController.saisieTuteurProParEtudiant}">
-				<t:htmlTag value="div"
-					style="height: 2px; width: 600px; background-color: #{a4jSkin.panelBorderColor};"
+				<p:separator style="width:600px; height:2px;"
 					rendered="#{not empty conventionController.signataireSel}" />
 				<h:panelGrid
-					
 					rendered="#{not empty conventionController.signataireSel}">
 					<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
 						escape="false" />
 					<t:htmlTag value="div" style="width: 50px;" />
-					<h:panelGrid columns="3"
-						>
+					<h:panelGrid columns="3">
 						<h:outputText id="civC"
 							value="#{conventionController.signataireSel.civilite.libelle} " />
 						<h:outputText id="nomC"
@@ -124,8 +118,7 @@
 					<h:outputText id="mailC"
 						value="#{conventionController.signataireSel.mail}" />
 					<t:htmlTag value="div" style="width: 50px;" />
-					<p:commandLink  id="modifC"
-						oncomplete="PF('modifContact').show();"
+					<p:commandLink id="modifC" oncomplete="PF('modifContact').show();"
 						update="modifContact"
 						disabled="#{!(sessionController.adminPageAuthorized 
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty conventionController.signataireSel.login and empty conventionController.signataireSel.mdp)
