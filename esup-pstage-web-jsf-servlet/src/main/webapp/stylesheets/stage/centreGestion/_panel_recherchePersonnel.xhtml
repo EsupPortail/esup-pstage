@@ -1,0 +1,124 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<p:dialog id="recherchePersonnel" widgetVar="recherchePersonnel" resizable="false" modal="true">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['CENTRE.VISEUR.HEAD']}" rendered="#{centreController.rechercheViseur}" />
+			<h:outputText value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.HEAD']}" rendered="#{!centreController.rechercheViseur}" />
+		</f:facet>
+		<h:form id="formRecherchePersonnel">
+			<h:panelGrid>
+				<h:outputText value="#{msgs['CENTRE.PERSONNEL.RECHERCHE.ACCUEIL']}" />
+				<h:panelGrid columns="2">
+					<h:outputLabel for="nomPersonnel"
+						value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
+					<h:inputText id="nomPersonnel"
+						value="#{centreController.personnel.nom}" size="30" maxlength="30"
+						style="text-transform:uppercase;">
+						<f:converter binding="#{sansAccentEnMAJConverter}" />
+					</h:inputText>
+
+					<t:htmlTag value="div" style="height: 5px;" />
+					<t:htmlTag value="div" style="height: 5px;" />
+
+					<h:outputLabel for="prenomPersonnel"
+						value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
+					<h:inputText id="prenomPersonnel"
+						style="text-transform:capitalize;"
+						value="#{centreController.personnel.prenom}" size="30"
+						maxlength="50">
+						<f:converter binding="#{premiereLettreMAJConverter}" />
+					</h:inputText>
+
+				</h:panelGrid>
+				<h:panelGrid align="center">
+					<p:commandButton value="#{msgs['FORM.RECHERCHER']}"
+						action="#{centreController.rechercherPersonnel}"
+						update="divRecherchePersonnel" />
+				</h:panelGrid>
+			</h:panelGrid>
+
+			<t:div id="divRecherchePersonnel">
+				<center>
+					<p:message for="formRecherchePersonnel" />
+				</center>
+				<h:panelGrid
+					rendered="#{not empty centreController.recherchePersonnels}">
+					<h:outputText value="#{msgs['CENTRE.PERSONNEL.RESULTAT.HEAD']} : " />
+					<p:dataTable align="center" style="width:500px;"
+						id="listePersonnels" rows="5"
+						value="#{centreController.recherchePersonnels}" var="personnel"
+						rowHover="true" rowStyleClass="nopointer" paginator="true"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						paginatorAlwaysVisible="false">
+
+						<p:column sortBy="#{personnel.nom}" width="30%">
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.PERSONNEL.NOM']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{personnel.nom}" />
+							</t:htmlTag>
+						</p:column>
+						<p:column sortBy="#{personnel.prenom}" width="30%">
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.PERSONNEL.PRENOM']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{personnel.prenom}" />
+							</t:htmlTag>
+						</p:column>
+						<p:column sortBy="#{personnel.affectation.libelle}" width="30%">
+							<f:facet name="header">
+								<h:outputText
+									value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}" />
+							</f:facet>
+							<t:htmlTag value="center">
+								<h:outputText value="#{personnel.affectation.libelle}" />
+							</t:htmlTag>
+						</p:column>
+
+						<p:column width="10%">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+							</f:facet>
+							<center>
+								<!-- Si on est dans un panel de recherche de viseur -->
+								<p:commandLink id="choisirViseur" 
+									oncomplete="PF('recherchePersonnel').hide();"
+									update="formCentre"
+									rendered="#{centreController.rechercheViseur}">
+									<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+										value="/media/images/arrow_right.png" />
+									<f:setPropertyActionListener value="#{personnel.nom}"
+										target="#{centreController.centre.nomViseur}" />
+									<f:setPropertyActionListener value="#{personnel.prenom}"
+										target="#{centreController.centre.prenomViseur}" />
+									<p:tooltip value="#{msgs['CENTRE.VISEUR.CHOIX']}" for="choisirViseur"/>
+								</p:commandLink>
+								
+								<!-- Si on est dans un panel de recherche de personnel classique-->
+								<p:commandLink id="choisirPersonnel"
+									oncomplete="PF('recherchePersonnel').hide(); PF('ajoutPersonnel').show();"
+									update="formAjoutPersonnel"
+									rendered="#{!centreController.rechercheViseur}">
+									<f:setPropertyActionListener value="#{personnel}"
+										target="#{centreController.personnel}" />
+									<h:graphicImage alt="#{msgs['GENERAL.OK']}"
+										value="/media/images/arrow_right.png" />
+									<p:tooltip value="#{msgs['CENTRE.VISEUR.CHOIX']}" for="choisirPersonnel"/>
+								</p:commandLink>
+							</center>
+						</p:column>
+					</p:dataTable>
+				</h:panelGrid>
+			</t:div>
+			<t:htmlTag value="div" style="height:10px;" />
+		</h:form>
+	</p:dialog>
+</ui:composition>

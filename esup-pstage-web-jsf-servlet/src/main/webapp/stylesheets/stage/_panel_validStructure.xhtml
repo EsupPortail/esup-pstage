@@ -3,15 +3,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dialog id="validerStructurePanel" widgetVar="validerStructurePanel">
+	<p:dialog id="validerStructurePanel" widgetVar="validerStructurePanel"
+		resizable="false" modal="true">
 		<f:facet name="header">
 			<h:outputFormat
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.PANEL.HEAD']}">
-				 <f:param value="#{etablissementController.formStructure.idStructure}"/>
-				 <f:param value="#{etablissementController.formStructure.loginCreation}"/>
+				<f:param
+					value="#{etablissementController.formStructure.idStructure}" />
+				<f:param
+					value="#{etablissementController.formStructure.loginCreation}" />
 			</h:outputFormat>
 		</f:facet>
 		<h:form id="formValidStructure">

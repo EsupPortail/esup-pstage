@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<t:fieldset>
+		<h:panelGrid columns="2">
+			<h:outputLabel for="limites" value="Limites maximales de resultats :" />
+			<h:panelGrid
+				id="limites" columns="3">
+				<h:outputText
+					value="#{msgs['RECHERCHECONVENTION.LIMITE.RECHERCHE']}" />
+				<h:inputText id="limiteRecherche"
+					value="#{conventionController.critereRechercheConvention.nbRechercheMaxi}"
+					size="3" maxlength="4" required="true">
+					<f:convertNumber integerOnly="true" type="number" />
+				</h:inputText>
+				<p:message for="limiteRecherche" />
+				<h:outputText value="#{msgs['RECHERCHECONVENTION.LIMITE.EXPORT']}" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}" />
+				<h:inputText id="limiteExport" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}"
+					value="#{conventionController.critereRechercheConvention.nbExportMaxi}"
+					size="3" maxlength="4" required="true">
+					<f:convertNumber integerOnly="true" type="number" />
+				</h:inputText>
+				<p:message for="limiteExport" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}" />
+			</h:panelGrid>
+		</h:panelGrid>
+		<h:panelGrid
+			columns="2">
+			<h:graphicImage value="../../media/images/warn.png"
+				alt="#{msgs['GENERAL.WARNING']}" title="#{msgs['GENERAL.WARNING']}"/>
+			<h:outputText escape="false"
+				value="#{msgs['RECHERCHECONVENTION.LIMITE.WARN']}" />
+		</h:panelGrid>
+	</t:fieldset>
+</ui:composition>

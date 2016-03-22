@@ -561,10 +561,4 @@
 		<h:commandButton value="#{msgs['FORM.CANCEL']}"
 			action="#{conventionController.goToCreerConventionEtape7Signataire}" />
 	</p:panel>
-	<p:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
-	<p:jQuery selector=".stable tr:even" query="addClass('even-row')" />
-	<p:jQuery selector=".stable tr"
-		query="live('mouseover', function(){jQuery(this).addClass('active-row')})" />
-	<p:jQuery selector=".stable tr"
-		query="live('mouseout', function(){jQuery(this).removeClass('active-row')})" />
 </ui:composition>

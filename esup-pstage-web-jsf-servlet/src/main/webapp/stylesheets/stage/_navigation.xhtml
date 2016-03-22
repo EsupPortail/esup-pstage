@@ -9,6 +9,13 @@
 		   width:250px;
 		}
 	</h:outputStylesheet>
+	
+	<p:ajaxStatus onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()" />
+ 
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
+	</p:dialog>
+	
 	<p:menubar autoDisplay="false">
 
 		<p:menuitem value="#{msgs['NAVIGATION.TEXT.WELCOME']}"

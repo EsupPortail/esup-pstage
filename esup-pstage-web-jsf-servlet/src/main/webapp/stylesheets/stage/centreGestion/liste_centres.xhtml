@@ -1,0 +1,223 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui"
+	template="/stylesheets/_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<p:panel id="centreDataTable"
+			rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant || welcomeController.personnel}">
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.HEAD']}" />
+			</f:facet>
+			<t:div rendered="#{empty centreController.centresGestion}"
+				style="margin:5px; text-align:center;">
+				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.ACCUEIL']}" />
+				<br/>
+				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.VIDE']}" />
+			</t:div>
+			<h:form id="formListeCentre" style="font-size:0.8em;">
+				<p:dataTable id="listeCentres"
+					value="#{centreController.centresGestion}" var="centre" rows="15"
+					rowHover="true" rowStyleClass="nopointer" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20"
+					rendered="#{not empty centreController.centresGestion}">
+					<p:column width="35px;"
+						sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}">
+						<f:facet name="header">
+							<h:graphicImage id="appartenanceHead"
+								alt="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE']}"
+								value="/media/images/user_gray.png">
+								<p:tooltip
+									value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
+							</h:graphicImage>
+						</f:facet>
+						<center>
+							<h:graphicImage id="appartenance1" alt="#{msgs['FORM.OUI']}"
+								rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] != null}"
+								value="/media/images/tick.png">
+								<p:tooltip
+									value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.OUI']}" />
+							</h:graphicImage>
+
+							<h:graphicImage id="appartenance2" alt="#{msgs['FORM.NON']}"
+								rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] == null}"
+								value="/media/images/cross.png">
+								<p:tooltip
+									value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}" />
+							</h:graphicImage>
+						</center>
+					</p:column>
+
+					<p:column width="35px;" sortBy="#{centre.idCentreGestion}">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['CENTRE.NUMCG']}" />
+						</f:facet>
+						<t:htmlTag value="center">
+							<h:outputText value="#{centre.idCentreGestion}"
+								style="font-weight:bold;" />
+						</t:htmlTag>
+					</p:column>
+
+					<p:column sortBy="#{centre.nomCentre}">
+						<f:facet name="header">
+							<t:htmlTag value="center">
+								<h:outputText style="font-weight:bold;"
+									value="#{msgs['CENTRE.LISTE_CENTRE.NOM']}" />
+							</t:htmlTag>
+						</f:facet>
+						<t:htmlTag value="center">
+							<h:outputText value="#{centre.nomCentre}" />
+						</t:htmlTag>
+					</p:column>
+
+					<p:column sortBy="#{centre.niveauCentre.libelle}">
+						<f:facet name="header">
+							<t:htmlTag value="center">
+								<h:outputText style="font-weight:bold;"
+									value="#{msgs['CENTRE.LISTE_CENTRE.CRITERE']}" />
+							</t:htmlTag>
+						</f:facet>
+						<t:htmlTag value="center">
+							<h:outputText value="#{centre.niveauCentre.libelle}" />
+						</t:htmlTag>
+					</p:column>
+
+					<p:column sortBy="#{centre.presenceTuteurPro}">
+						<f:facet name="header">
+							<t:htmlTag value="center">
+								<h:outputText style="font-weight:bold;"
+									value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_PRO']}" />
+							</t:htmlTag>
+						</f:facet>
+						<t:htmlTag value="center">
+							<h:outputText rendered="#{centre.presenceTuteurPro}"
+								value="#{msgs['FORM.OUI']}" />
+							<h:outputText rendered="#{!centre.presenceTuteurPro}"
+								value="#{msgs['FORM.NON']}" />
+						</t:htmlTag>
+					</p:column>
+
+					<p:column sortBy="#{centre.presenceTuteurEns}">
+						<f:facet name="header">
+							<t:htmlTag value="center">
+								<h:outputText style="font-weight:bold;"
+									value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_ENS']}" />
+							</t:htmlTag>
+						</f:facet>
+						<t:htmlTag value="center">
+							<h:outputText rendered="#{centre.presenceTuteurEns}"
+								value="#{msgs['FORM.OUI']}" />
+							<h:outputText rendered="#{!centre.presenceTuteurEns}"
+								value="#{msgs['FORM.NON']}" />
+						</t:htmlTag>
+					</p:column>
+
+					<p:column sortBy="#{centre.saisieTuteurProParEtudiant}">
+						<f:facet name="header">
+							<t:htmlTag value="center">
+								<h:outputText style="font-weight:bold;"
+									value="#{msgs['CENTRE.LISTE_CENTRE.SAISIE_TUTEUR_PRO']}" />
+							</t:htmlTag>
+						</f:facet>
+						<t:htmlTag value="center">
+							<h:outputText rendered="#{centre.saisieTuteurProParEtudiant}"
+								value="#{msgs['FORM.OUI']}" />
+							<h:outputText rendered="#{!centre.saisieTuteurProParEtudiant}"
+								value="#{msgs['FORM.NON']}" />
+						</t:htmlTag>
+					</p:column>
+
+					<!-- 						<p:column sortBy="#{centre.choixAnneeAvantDebutAnnee}"> -->
+					<!-- 							<f:facet name="header"> -->
+					<!-- 								<t:htmlTag value="center"> -->
+					<!-- 									<h:outputText style="font-weight:bold;" -->
+					<!-- 										value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_ANNEE']}" /> -->
+					<!-- 								</t:htmlTag> -->
+					<!-- 							</f:facet> -->
+					<!-- 							<t:htmlTag value="center"> -->
+					<!-- 								<h:outputText -->
+					<!-- 									rendered="#{centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
+					<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANT']}" /> -->
+					<!-- 								<h:outputText -->
+					<!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and !centre.choixAnneeAvantDebutAnnee}" -->
+					<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_APRES']}" /> -->
+					<!-- 								<h:outputText -->
+					<!-- 									rendered="#{centre.choixAnneeApresDebutAnnee and centre.choixAnneeAvantDebutAnnee}" -->
+					<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AVANTAPRES']}" /> -->
+					<!-- 								<h:outputText -->
+					<!-- 									rendered="#{!centre.choixAnneeAvantDebutAnnee and !centre.choixAnneeApresDebutAnnee}" -->
+					<!-- 									value="#{msgs['CENTRE.LISTE_CENTRE.CHOIX_AUCUN']}" /> -->
+					<!-- 							</t:htmlTag> -->
+					<!-- 						</p:column> -->
+
+					<p:column sortBy="#{centre.confidentialite.libelle}">
+						<f:facet name="header">
+							<t:htmlTag value="center">
+								<h:outputText style="font-weight:bold;"
+									value="#{msgs['CENTRE.LISTE_CENTRE.CONFIDENTIALITE']}" />
+							</t:htmlTag>
+						</f:facet>
+						<t:htmlTag value="center">
+							<h:outputText value="#{centre.confidentialite.libelle}" />
+						</t:htmlTag>
+					</p:column>
+
+					<p:column width="50px;">
+						<f:facet name="header">
+							<h:outputText style="white-space:normal;"
+								value="#{msgs['CENTRE.LISTE_CENTRE.ACTIONS']}" />
+						</f:facet>
+						<t:htmlTag value="center">
+							<h:commandLink id="see"
+								action="#{centreController.goToVoirCentre}">
+								<f:setPropertyActionListener value="#{centre}"
+									target="#{centreController.centre}" />
+								<f:setPropertyActionListener value="#{null}"
+									target="#{statistiquesConventionController.anneesConventions}" />
+								<f:setPropertyActionListener value="#{null}"
+									target="#{statistiquesOffresController.anneesOffres}" />
+								<h:graphicImage alt="#{msgs['FORM.VOIR']}"
+									value="/media/images/zoom.png" />
+								<p:tooltip value="#{msgs['FORM.CONSULTER']}" for="see" />
+							</h:commandLink>
+
+							<t:htmlTag value="div" style="display:inline; margin:4px;" />
+
+							<p:commandLink id="delete" global="false"
+								rendered="#{welcomeController.superAdmin}"
+								action="#{centreController.avantSupprimer}"
+								oncomplete="PF('suppressionCentre').show();"
+								update="suppressionCentre">
+								<f:setPropertyActionListener value="#{centre}"
+									target="#{centreController.centre}" />
+								<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+									value="/media/images/delete.png" />
+								<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="delete" />
+							</p:commandLink>
+
+						</t:htmlTag>
+					</p:column>
+				</p:dataTable>
+
+				<t:htmlTag value="div" style="height: 20px;" />
+
+				<center>
+					<p:commandButton id="add" value="#{msgs['CENTRE.AJOUT_CENTRE']}"
+						action="#{centreController.goToAjoutCentre}"
+						style="font-size:14px; border:solid 1px;" />
+				</center>
+
+				<t:htmlTag value="div" style="height:30px;" />
+
+			</h:form>
+		</p:panel>
+		<ui:include src="./_panel_suppressionCentre.xhtml" />
+		<t:div
+			rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant 
+					|| welcomeController.personnel)}">
+			<ui:include src="../_redirection_droitsInsuffisants.xhtml" />
+		</t:div>
+	</ui:define>
+</ui:composition>

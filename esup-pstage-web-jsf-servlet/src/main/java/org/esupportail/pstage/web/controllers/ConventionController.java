@@ -2308,7 +2308,8 @@ public class ConventionController extends AbstractContextAwareController {
 				this.convention.setIdSignataire(this.signataireSel.getId());
 			}
 		}
-		return "creerConventionEtape8Recap";
+//		return "creerConventionEtape8Recap";
+		return "creerConventionEtape8DetailsRecap";
 	}
 
 	/**

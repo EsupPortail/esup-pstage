@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
 	
-	template="../_definedStageTemplate.xhtml">
+	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmap.xhtml" />
 		<p:panel>
@@ -14,8 +14,7 @@
 				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
 			</f:facet>
 			<h:form id="formConvention">
-				<ui:include id="include"
-					src="/stylesheets/stage/_creerConventionEtape8DetailsRecap.xhtml" />
+				<ui:include src="/stylesheets/stage/_creerConventionEtape8DetailsRecap.xhtml" />
 			</h:form>
 		</p:panel>
 	</ui:define>

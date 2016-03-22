@@ -1,0 +1,84 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="formListeCritere" style="padding-top:15px;">
+		<t:div
+			rendered="#{centreController.listeCritereVide}">
+			<h:outputText value="#{msgs['CENTRE.CRITERE.LISTE.VIDE']}" />
+		</t:div>
+		<t:div rendered="#{!centreController.listeCritereVide}">
+			<p:dataTable id="listeCriteres"
+				value="#{centreController.listeCriteresRattaches}" var="critere"
+				rows="10" rowHover="true" rowStyleClass="nopointer" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false">
+
+				<p:column sortBy="#{critere.code}" width="100">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['CENTRE.CRITERE.CODE']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<h:outputText value="#{critere.code}" />
+					</t:htmlTag>
+				</p:column>
+
+				<p:column sortBy="#{critere.codeVersionEtape}" width="100">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['CENTRE.CRITERE.CODEVERSIONETAPE']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<h:outputText value="#{critere.codeVersionEtape}" />
+					</t:htmlTag>
+				</p:column>
+
+				<p:column sortBy="#{critere.libelle}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['CENTRE.CRITERE.LIBELLE']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<h:outputText value="#{critere.libelle}" />
+					</t:htmlTag>
+				</p:column>
+
+				<p:column width="50"
+					rendered="#{welcomeController.superAdmin
+										|| welcomeController.admin}">
+					<f:facet name="header">
+						<h:outputText value="#{msgs['CENTRE.PERSONNEL.ACTIONS']}" />
+					</f:facet>
+					<t:htmlTag value="center">
+						<p:commandLink oncomplete="PF('suppressionCritere').show();"
+							action="#{centreController.avantSuppressionCritere}"
+							update="suppressionCritere">
+							<f:setPropertyActionListener value="#{critere}"
+								target="#{centreController.critere}" />
+							<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"
+								value="/media/images/delete.png" />
+							<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+						</p:commandLink>
+					</t:htmlTag>
+				</p:column>
+			</p:dataTable>
+		</t:div>
+
+		<t:htmlTag value="div" style="height:15px;" />
+
+		<t:htmlTag value="center">
+			<p:commandButton id="add" value="#{msgs['CENTRE.CRITERE.RATTACHER']}"
+				action="#{centreController.goToAjoutCritere}"
+				oncomplete="PF('ajoutCritere').show();" update="ajoutCritere"
+				style="font-size:16px; font-weight:bold; border-color:green;"
+				rendered="#{welcomeController.superAdmin
+							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}" />
+
+			<p:message for="formListeCritere" />
+
+		</t:htmlTag>
+		<t:htmlTag value="div" style="height: 20px;" />
+	</h:form>
+	<ui:include src="_panel_ajoutCriteres.xhtml" />
+	<ui:include src="_panel_suppressionCritere.xhtml" />
+</ui:composition>

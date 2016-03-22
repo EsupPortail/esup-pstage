@@ -1378,7 +1378,14 @@
 
 							<xsl:choose>
 								<xsl:when test='$indemnisation!=1'>
-
+									<fo:block line-height="130%" hyphenate="false"
+										language="fr" country="FR" font-size="9pt" font-family="Times New Roman,serif">
+										<fo:inline text-decoration="underline" font-weight="bold">
+											LE MONTANT DE LA
+											GRATIFICATION 
+										</fo:inline>
+										est fixé à : 0
+									</fo:block>
 								</xsl:when>
 								<xsl:otherwise>
 									<fo:block line-height="130%" hyphenate="false"
@@ -1391,7 +1398,7 @@
 											select="montant-gratification" />
 										<xsl:choose>
 											<xsl:when test='$nb-montant-gratification=""'>
-
+												0
 											</xsl:when>
 											<xsl:otherwise>
 												<fo:inline font-weight="bold">
