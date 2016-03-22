@@ -4,44 +4,11 @@
  */
 package org.esupportail.pstage.domain;
 
+import org.esupportail.pstagedata.domain.dto.*;
+import org.esupportail.pstagedata.exceptions.*;
+
 import java.io.Serializable;
 import java.util.List;
-
-import org.esupportail.pstagedata.domain.dto.AffectationDTO;
-import org.esupportail.pstagedata.domain.dto.AssuranceDTO;
-import org.esupportail.pstagedata.domain.dto.CaisseRegimeDTO;
-import org.esupportail.pstagedata.domain.dto.CiviliteDTO;
-import org.esupportail.pstagedata.domain.dto.ConfidentialiteDTO;
-import org.esupportail.pstagedata.domain.dto.ContratOffreDTO;
-import org.esupportail.pstagedata.domain.dto.CritereGestionDTO;
-import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
-import org.esupportail.pstagedata.domain.dto.EffectifDTO;
-import org.esupportail.pstagedata.domain.dto.FapN1DTO;
-import org.esupportail.pstagedata.domain.dto.FapN2DTO;
-import org.esupportail.pstagedata.domain.dto.FapN3DTO;
-import org.esupportail.pstagedata.domain.dto.FapQualificationDTO;
-import org.esupportail.pstagedata.domain.dto.FapQualificationSimplifieeDTO;
-import org.esupportail.pstagedata.domain.dto.IndemnisationDTO;
-import org.esupportail.pstagedata.domain.dto.LangueConventionDTO;
-import org.esupportail.pstagedata.domain.dto.ModeCandidatureDTO;
-import org.esupportail.pstagedata.domain.dto.ModeValidationStageDTO;
-import org.esupportail.pstagedata.domain.dto.ModeVersGratificationDTO;
-import org.esupportail.pstagedata.domain.dto.NafN1DTO;
-import org.esupportail.pstagedata.domain.dto.NafN5DTO;
-import org.esupportail.pstagedata.domain.dto.NatureTravailDTO;
-import org.esupportail.pstagedata.domain.dto.NiveauCentreDTO;
-import org.esupportail.pstagedata.domain.dto.NiveauFormationDTO;
-import org.esupportail.pstagedata.domain.dto.OrigineStageDTO;
-import org.esupportail.pstagedata.domain.dto.PaysDTO;
-import org.esupportail.pstagedata.domain.dto.StatutJuridiqueDTO;
-import org.esupportail.pstagedata.domain.dto.TempsTravailDTO;
-import org.esupportail.pstagedata.domain.dto.ThemeDTO;
-import org.esupportail.pstagedata.domain.dto.TypeConventionDTO;
-import org.esupportail.pstagedata.domain.dto.TypeOffreDTO;
-import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
-import org.esupportail.pstagedata.domain.dto.UniteDureeDTO;
-import org.esupportail.pstagedata.domain.dto.UniteGratificationDTO;
-import org.esupportail.pstagedata.exceptions.*;
 
 /**
  * The NomenclatureDaoService service interface.
@@ -95,7 +62,14 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteNiveauFormation(int id) throws DataDeleteException,WebServiceDataBaseException;
-	
+	/**
+	 * @param id
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean reactivateNiveauFormation(int id) throws DataReactivateException,WebServiceDataBaseException;
+
 	/**
 	 * @return int
 	 * @throws DataAddException 
@@ -114,7 +88,13 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteEffectif(int id) throws DataDeleteException,WebServiceDataBaseException;
-	
+	/**
+	 * @param id
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean reactivateEffectif(int id) throws DataReactivateException,WebServiceDataBaseException;
 	/**
 	 * @return int
 	 * @throws DataAddException 
@@ -133,7 +113,14 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteTempsTravail(int id) throws DataDeleteException,WebServiceDataBaseException;
-	
+	/**
+	 * @param id
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean reactivateTempsTravail(int id) throws DataReactivateException,WebServiceDataBaseException;
+
 	/**
 	 * @return int
 	 * @throws DataAddException 
@@ -152,7 +139,14 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteOrigineStage(int id) throws DataDeleteException,WebServiceDataBaseException;
-	
+	/**
+	 * @param id
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean reactivateOrigineStage(int id) throws DataReactivateException,WebServiceDataBaseException;
+
 	/**
 	 * @return int
 	 * @throws DataAddException 
@@ -190,7 +184,14 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteTypeStructure(int id) throws DataDeleteException,WebServiceDataBaseException;
-	
+	/**
+	 * @param id
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean reactivateTypeStructure(int id) throws DataReactivateException,WebServiceDataBaseException;
+
 	/**
 	 * @return int
 	 * @throws DataAddException 
@@ -209,7 +210,14 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteStatutJuridique(int id) throws DataDeleteException,WebServiceDataBaseException;
-	
+	/**
+	 * @param id
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean reactivateStatutJuridique(int id) throws DataReactivateException,WebServiceDataBaseException;
+
 	/**
 	 * @return int
 	 * @throws DataAddException 
@@ -228,7 +236,13 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteTypeOffre(int id) throws DataDeleteException,WebServiceDataBaseException;
-	
+	/**
+	 * @param id
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean reactivateTypeOffre(int id) throws DataReactivateException,WebServiceDataBaseException;
 	/**
 	 * @return int
 	 * @throws DataAddException 
@@ -247,7 +261,13 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteContratOffre(int id) throws DataDeleteException,WebServiceDataBaseException;
-	
+	/**
+	 * @param id
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean reactivateContratOffre(int id) throws DataReactivateException,WebServiceDataBaseException;
 	/**
 	 * @return int
 	 * @throws DataAddException 
@@ -266,6 +286,13 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @throws WebServiceDataBaseException
 	 */
 	public boolean deleteModeValidationStage(int id) throws DataDeleteException,WebServiceDataBaseException;
+	/**
+	 * @param id
+	 * @return boolean
+	 * @throws DataReactivateException
+	 * @throws WebServiceDataBaseException
+	 */
+	public boolean reactivateModeValidationStage(int id) throws DataReactivateException,WebServiceDataBaseException;
 	/* ****************************************************************************
 	 * AFFECTATION
 	 *****************************************************************************/
@@ -759,4 +786,5 @@ public interface NomenclatureDomainService extends Serializable {
 	 * @return UniteGratificationDTO
 	 */
 	public UniteGratificationDTO getUniteGratificationDTOFromId(int id);
+
 }

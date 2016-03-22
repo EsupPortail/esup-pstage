@@ -118,6 +118,11 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	}
 
 	@Override
+	public boolean reactivateNiveauFormation(int id) throws DataReactivateException, WebServiceDataBaseException {
+		return this.remoteServices.reactivateNiveauFormation(id);
+	}
+
+	@Override
 	public int addEffectif(EffectifDTO ef) throws DataAddException,
 			WebServiceDataBaseException {
 		return this.remoteServices.addEffectif(ef);
@@ -135,6 +140,15 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 		return this.remoteServices.deleteEffectif(id);
 	}
 
+	/**
+	 * @see org.esupportail.pstage.domain.NomenclatureDomainService#reactivateEffectif(int)
+	 */
+	@Override
+	public boolean reactivateEffectif(int id) throws DataReactivateException,
+			WebServiceDataBaseException {
+		return this.remoteServices.reactivateEffectif(id);
+	}
+	
 	@Override
 	public int addTempsTravail(TempsTravailDTO tt) throws DataAddException,
 			WebServiceDataBaseException {
@@ -154,6 +168,11 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	}
 
 	@Override
+	public boolean reactivateTempsTravail(int id) throws DataReactivateException, WebServiceDataBaseException {
+		return this.remoteServices.reactivateTempsTravail(id);
+	}
+
+	@Override
 	public int addOrigineStage(OrigineStageDTO os) throws DataAddException,
 			WebServiceDataBaseException {
 		return this.remoteServices.addOrigineStage(os);
@@ -169,6 +188,11 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	public boolean deleteOrigineStage(int id) throws DataDeleteException,
 			WebServiceDataBaseException {
 		return this.remoteServices.deleteOrigineStage(id);
+	}
+
+	@Override
+	public boolean reactivateOrigineStage(int id) throws DataReactivateException, WebServiceDataBaseException {
+		return this.remoteServices.reactivateOrigineStage(id);
 	}
 
 	@Override
@@ -208,6 +232,11 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	}
 
 	@Override
+	public boolean reactivateTypeStructure(int id) throws DataReactivateException, WebServiceDataBaseException {
+		return this.remoteServices.reactivateTypeStructure(id);
+	}
+
+	@Override
 	public int addStatutJuridique(StatutJuridiqueDTO sj)
 			throws DataAddException, WebServiceDataBaseException {
 		return this.remoteServices.addStatutJuridique(sj);
@@ -223,6 +252,11 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	public boolean deleteStatutJuridique(int id) throws DataDeleteException,
 			WebServiceDataBaseException {
 		return this.remoteServices.deleteStatutJuridique(id);
+	}
+
+	@Override
+	public boolean reactivateStatutJuridique(int id) throws DataReactivateException, WebServiceDataBaseException {
+		return this.remoteServices.reactivateStatutJuridique(id);
 	}
 
 	@Override
@@ -244,6 +278,11 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	}
 
 	@Override
+	public boolean reactivateTypeOffre(int id) throws DataReactivateException, WebServiceDataBaseException {
+		return this.remoteServices.reactivateTypeOffre(id);
+	}
+
+	@Override
 	public int addContratOffre(ContratOffreDTO co) throws DataAddException,
 			WebServiceDataBaseException {
 		return this.remoteServices.addContratOffre(co);
@@ -260,6 +299,12 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 			WebServiceDataBaseException {
 		return this.remoteServices.deleteContratOffre(id);
 	}
+
+	@Override
+	public boolean reactivateContratOffre(int id) throws DataReactivateException, WebServiceDataBaseException {
+		return this.remoteServices.reactivateContratOffre(id);
+	}
+
 	@Override
 	public int addModeValidationStage(ModeValidationStageDTO mv)
 			throws DataAddException, WebServiceDataBaseException {
@@ -276,6 +321,11 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	public boolean deleteModeValidationStage(int id) throws DataDeleteException,
 			WebServiceDataBaseException {
 		return this.remoteServices.deleteModeValidationStage(id);
+	}
+
+	@Override
+	public boolean reactivateModeValidationStage(int id) throws DataReactivateException, WebServiceDataBaseException {
+		return this.remoteServices.reactivateModeValidationStage(id);
 	}
 	/* ****************************************************************************
 	 * AFFECTATION
@@ -1423,4 +1473,6 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 		}
 		return o;
 	}
+
+
 }
