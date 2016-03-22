@@ -3,10 +3,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dialog id="devalidAvenant" widgetVar="devalidAvenant"
-		resizable="false" modal="true">
+	<p:dialog id="devalidAvenant" widgetVar="devalidAvenant">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.HEAD']}">
 				<f:param value="#{avenantController.avenant.idAvenant}" />

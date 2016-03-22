@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<fieldset>
@@ -10,7 +11,9 @@
 			<h:outputLabel for="fieldModeleConvention"
 				value="#{msgs['CONVENTION.LANGUECONVENTION']}" />
 		</legend>
-		<h:panelGrid id="fieldModeleConvention" columns="2">
+		<h:panelGrid id="fieldModeleConvention"
+			
+			columns="2">
 			<h:selectOneMenu id="langueConvention" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}"
 				value="#{conventionController.selLangueConvention}"
@@ -30,7 +33,8 @@
 			<h:outputLabel for="fieldContenu"
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.CONTENU']}" />
 		</legend>
-		<h:panelGrid id="fieldContenu" columns="3">
+		<h:panelGrid id="fieldContenu"
+			columns="3">
 			<h:outputText
 				value="#{msgs['CONVENTION.TYPECONVENTION']} #{msgs['CONVENTION.ETOILE']}" />
 			<h:selectOneMenu id="typeConvention"
@@ -102,7 +106,8 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="2"
+				>
 				<h:graphicImage id="imgInfoComp"
 					alt="#{msgs['INFOSBULLES.COMPETENCES']}"
 					value="../../media/images/information.png">
@@ -144,14 +149,15 @@
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.DATES']}" />
 		</legend>
 
-		<h:panelGrid id="fieldDates" columns="3">
+		<h:panelGrid id="fieldDates"
+			columns="3">
 			<h:outputText
 				value="#{msgs['CONVENTION.DEBUTSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
 			<p:calendar id="dateDebutStage"
 				value="#{conventionController.convention.dateDebutStage}"
-				locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
-				showApplyButton="false" cellWidth="24px" cellHeight="22px"
-				style="width:200px" required="true"
+				locale="#{sessionController.locale}" popup="true"
+				datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
+				cellHeight="22px" style="width:200px" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 			</p:calendar>
 			<p:message for="dateDebutStage">
@@ -166,9 +172,9 @@
 				value="#{msgs['CONVENTION.FINSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
 			<p:calendar id="dateFinStage"
 				value="#{conventionController.convention.dateFinStage}"
-				locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
-				showApplyButton="false" cellWidth="24px" cellHeight="22px"
-				style="width:200px" required="true"
+				locale="#{sessionController.locale}" popup="true"
+				datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
+				cellHeight="22px" style="width:200px" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 			</p:calendar>
 			<p:message for="dateFinStage">
@@ -179,17 +185,18 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 
 			<h:outputText value="#{msgs['CONVENTION.INTERRUPTION']} " />
-			<p:selectOneRadio id="interruptionStage"
+			<h:selectOneRadio id="interruptionStage"
 				value="#{conventionController.convention.interruptionStage}">
 				<f:selectItem itemLabel="oui" itemValue="true" />
 				<f:selectItem itemLabel="non" itemValue="false" />
 				<p:ajax event="valueChange" update="interruptPanel" />
-			</p:selectOneRadio>
+			</h:selectOneRadio>
 			<p:message for="interruptionStage">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</p:message>
 		</h:panelGrid>
-		<h:panelGrid columns="2">
+		<h:panelGrid
+			columns="2">
 			<t:htmlTag value="div" style="width:20px;" />
 			<p:outputPanel id="interruptPanel">
 				<h:panelGrid columns="3"
@@ -197,9 +204,9 @@
 					<h:outputText value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}" />
 					<p:calendar id="dateDebutInterruption"
 						value="#{conventionController.convention.dateDebutInterruption}"
-						locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
-						showApplyButton="false" cellWidth="24px" cellHeight="22px"
-						style="width:200px" />
+						locale="#{sessionController.locale}" popup="true"
+						datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
+						cellHeight="22px" style="width:200px" />
 					<p:message for="dateDebutInterruption">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</p:message>
@@ -209,9 +216,9 @@
 					<h:outputText value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}" />
 					<p:calendar id="dateFinInterruption"
 						value="#{conventionController.convention.dateFinInterruption}"
-						locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
-						showApplyButton="false" cellWidth="24px" cellHeight="22px"
-						style="width:200px" />
+						locale="#{sessionController.locale}" popup="true"
+						datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
+						cellHeight="22px" style="width:200px" />
 					<p:message for="dateFinInterruption">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</p:message>
@@ -221,9 +228,11 @@
 
 		<t:htmlTag value="div" style="height: 10px;" />
 
-		<h:panelGrid columns="3"
+		<h:panelGrid
+			columns="3"
 			rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}">
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="2"
+				>
 				<h:graphicImage id="imgInfoDuree"
 					alt="#{msgs['INFOSBULLES.DUREE_EXCEPT']}"
 					value="../../media/images/information.png">
@@ -237,21 +246,21 @@
 				required="true">
 				<f:validateLength maximum="4" />
 				<f:validateLongRange minimum="1" maximum="9999" />
-				<p:ajax event="blur" update="alerte6mois" />
+				<p:ajax event="blur" update="alerte6mois"  />
 			</h:inputText>
 			<p:message for="dureeExceptionnelle">
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</p:message>
 		</h:panelGrid>
 		<p:outputPanel id="alerte6mois">
-			<h:panelGrid style="margin-left:20px;" columns="2"
-				rendered="#{conventionController.dureeSuperieureA6mois}">
+			<h:panelGrid style="margin-left:20px;" columns="2" rendered="#{conventionController.dureeSuperieureA6mois}">
 				<h:graphicImage id="imgAlerte6mois" alt="imgAlerte6mois"
-					value="../../media/images/warning_20px.png" />
+					value="../../media/images/warning_20px.png"/>
 				<h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.DUREEMAX']}" />
 			</h:panelGrid>
 		</p:outputPanel>
-		<h:panelGrid columns="4"
+		<h:panelGrid
+			columns="4"
 			rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle and conventionController.convention.idUniteDureeExceptionnelle != 0}">
 			<h:outputText escape="false"
 				value="#{msgs['CONVENTION.DUREEEXCEPT.ANCIEN']} #{msgs['CONVENTION.ETOILE']}" />
@@ -294,7 +303,8 @@
 		</h:panelGrid>
 
 		<t:htmlTag value="div" style="height: 5px;" />
-		<h:panelGrid columns="3">
+		<h:panelGrid
+			columns="3">
 
 			<h:outputText
 				value="#{msgs['CONVENTION.NBJOURSHEBDO']} #{msgs['CONVENTION.ETOILE']}" />
@@ -346,7 +356,8 @@
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />
 
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="2"
+				>
 				<h:graphicImage id="imgInfoComDuree"
 					alt="#{msgs['INFOSBULLES.COMMENTDUREETRAVAIL']}"
 					value="../../media/images/information.png">
@@ -393,7 +404,8 @@
 			<h:outputLabel for="fieldGratification"
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.GRATIFICATION']}" />
 		</legend>
-		<h:panelGrid id="fieldGratification" columns="3">
+		<h:panelGrid id="fieldGratification" columns="3"
+			>
 			<h:panelGrid columns="2">
 				<h:graphicImage id="infoGratification"
 					alt="#{msgs['INFOSBULLES.GRATIFICATION']}"
@@ -422,9 +434,11 @@
 			<h:panelGrid columns="2"
 				rendered="#{conventionController.selIndemnisation.libelle==beanUtils.indemnisationOui}">
 				<t:htmlTag value="div" style="width:20px;" />
-				<h:panelGrid columns="3">
+				<h:panelGrid columns="3"
+					>
 					<h:outputText value="#{msgs['CONVENTION.SIMTGRATIFICATION']}" />
-					<h:panelGrid columns="6">
+					<h:panelGrid
+						columns="6">
 						<h:inputText id="montantGratification" size="4"
 							required="#{conventionController.selIndemnisation.libelle==beanUtils.indemnisationOui }"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
@@ -434,7 +448,8 @@
 							<p:ajax event="blur" />
 						</h:inputText>
 
-						<h:panelGrid>
+						<h:panelGrid
+							>
 							<h:selectOneMenu id="monnaieGratification"
 								value="#{conventionController.selMonnaieGratification}">
 								<p:ajax event="valueChange" update="opMonnaieGratification" />
@@ -454,7 +469,8 @@
 						</h:panelGrid>
 
 						<h:outputText value=" par " />
-						<h:panelGrid>
+						<h:panelGrid
+							>
 							<h:selectOneMenu id="uniteDureeGratification"
 								value="#{conventionController.selUniteDureeGratification}"
 								converter="#{uniteDureeConverter}">
@@ -464,7 +480,8 @@
 						</h:panelGrid>
 
 						<h:outputText value=" en " />
-						<h:panelGrid>
+						<h:panelGrid
+							>
 							<h:selectOneMenu id="UniteGratification"
 								value="#{conventionController.selUniteGratification}"
 								converter="#{uniteGratificationConverter}">
@@ -500,7 +517,8 @@
 			<h:outputLabel for="fieldMisc"
 				value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.MISC']}" />
 		</legend>
-		<h:panelGrid id="fieldMisc" columns="3">
+		<h:panelGrid id="fieldMisc"
+			columns="3">
 			<h:outputText
 				value="#{msgs['CONVENTION.ORIGINESTAGE.COMMENT']} #{msgs['CONVENTION.ETOILE']}" />
 			<h:selectOneMenu id="origineStage"
@@ -527,13 +545,15 @@
 				<h:outputText value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
 			</h:panelGrid>
 
-			<p:selectOneRadio id="temConfSujetTeme"
+			<h:selectOneRadio id="temConfSujetTeme"
 				value="#{conventionController.booltemConfSujetTeme}">
 				<f:selectItem itemLabel="oui" itemValue="true" />
 				<f:selectItem itemLabel="non" itemValue="false" />
 				<p:ajax event="blur" />
-			</p:selectOneRadio>
-			<p:message for="temConfSujetTeme" />
+			</h:selectOneRadio>
+			<p:message for="temConfSujetTeme">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</p:message>
 
 			<t:htmlTag value="div" style="height: 5px;" />
 			<t:htmlTag value="div" style="height: 5px;" />

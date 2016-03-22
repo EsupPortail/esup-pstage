@@ -4,23 +4,22 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<p:dialog id="popupAjoutCaisseRegime"
-		widgetVar="popupAjoutCaisseRegime" resizable="false">
+
+    <p:dialog id="popupAjout${idNomenclature}" widgetVar="popupAjout${idNomenclature}" resizable="false">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['NOMENCLATURES.AJOUT']}" />
 		</f:facet>
 
-		<h:form id="formAjoutCaisseRegime">
-			<ui:include
-				src="/stylesheets/stage/nomenclature/_nomenclature_caisse_form.xhtml" />
+		<h:form id="formAjout${idNomenclature}">
+			<ui:include src="/stylesheets/stage/nomenclature/${fileFormNomenclature}" />
 
 			<t:htmlTag value="div" style="height:5px;" />
 
 			<t:htmlTag value="center">
 				<p:commandButton style="color:green;"
 					value="#{msgs['FORM.AJOUTER']}"
-					action="#{nomenclatureController.addCaisseRegime}" update="@form"
-					oncomplete="PF('popupModifCaisseRegime').hide();"/>
+					action="#{ctrl[method]}" update="formNomenclature"
+					oncomplete="PF('popupAjout${idNomenclature}').hide();"/>
 			</t:htmlTag>
 		</h:form>
 	</p:dialog>

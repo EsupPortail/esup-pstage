@@ -300,4 +300,8 @@
 		<property name="statistiquesDomainService" ref="statistiquesDomainService" />
 	</bean>
 
+	<bean id="responsiveController"
+		  class="org.esupportail.pstage.web.controllers.ResponsiveController"
+		  lazy-init="true" parent="abstractContextAwareController" scope="session"/>
+
 </beans>

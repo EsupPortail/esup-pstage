@@ -274,6 +274,19 @@
 		<param-value>false</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<!--<param-value>delta</param-value>-->
+		<!--<param-value>aristo</param-value>-->
+		<!--<param-value>flick</param-value>-->
+		<param-value>afterwork</param-value>
+		<!--<param-value>delta</param-value>-->
+	</context-param>
+
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
 
 	<welcome-file-list>
 		<welcome-file>welcome.xhtml</welcome-file>

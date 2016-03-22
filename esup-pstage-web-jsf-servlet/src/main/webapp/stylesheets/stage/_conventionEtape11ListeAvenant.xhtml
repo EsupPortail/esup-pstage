@@ -23,7 +23,7 @@
 
 				<p:column sortBy="#{avenant.idAvenant}">
 					<f:facet name="header">
-						<h:outputText
+						<h:outputText style="headerClass"
 							value="#{msgs['CONVENTION.ETAPE11.ID']}" />
 					</f:facet>
 					<t:htmlTag value="center">
@@ -33,7 +33,7 @@
 
 				<p:column sortBy="#{avenant.titreAvenant}">
 					<f:facet name="header">
-						<h:outputText
+						<h:outputText style="headerClass"
 							value="#{msgs['CONVENTION.ETAPE11.TITRE']}" />
 					</f:facet>
 					<t:htmlTag value="center">
@@ -43,7 +43,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<h:outputText
+						<h:outputText style="headerClass"
 							value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
 					</f:facet>
 					<t:htmlTag value="center">
@@ -76,7 +76,7 @@
 
 				<p:column sortBy="#{avenant.validationAvenant}">
 					<f:facet name="header">
-						<h:outputText
+						<h:outputText style="headerClass"
 							value="#{msgs['CONVENTION.ETAPE11.VALIDATION']}" />
 					</f:facet>
 					<t:htmlTag value="center">
@@ -92,7 +92,7 @@
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
 					<f:facet name="header">
-						<h:outputText
+						<h:outputText style="headerClass"
 							value="#{msgs['GENERAL.ACTIONS']}" />
 					</f:facet>
 					<t:htmlTag value="center">

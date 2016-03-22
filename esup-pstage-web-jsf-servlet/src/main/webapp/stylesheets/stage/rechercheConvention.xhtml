@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
+	template="../_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<p:panel>
 			<f:facet name="header">
@@ -13,7 +13,8 @@
 			</f:facet>
 			<h:form id="formRechConvention"
 				onkeypress="if (event.keyCode == 13) { document.getElementById('formRechConvention:rechercherConvention').click(); return false; }">
-				<h:panelGrid style="width:700px;">
+				<h:panelGrid
+					style="width:700px;">
 					<h:panelGrid style="position:absolute;" columns="3">
 						<h:outputText value="Mode de recherche : "
 							style="font-size:16px; font-weight:bold;" />
@@ -35,10 +36,10 @@
 
 					<t:htmlTag value="div" style="height: 5px;" />
 
-					<ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
+					<ui:include src="/stylesheets/stage/_panel_limites_resultats.xhtml" />
 
 					<t:htmlTag value="div" style="height: 5px;" />
-					<p:separator style="height:4px; padding-top:5px; padding-bottom:5px;" />
+					<p:separator style="height:4px;" />
 					<t:htmlTag value="div" style="height: 5px;" />
 
 					<t:htmlTag value="fieldset">
@@ -81,7 +82,7 @@
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 					<p:separator style="height:4px;"
-						rendered="#{conventionController.rechercheAvancee}" />
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -162,7 +163,8 @@
 									value="#{nomenclatureController.langueConventions}" />
 							</h:selectOneMenu>
 							<t:htmlTag value="div" style="height:2px;" />
-							<h:panelGrid columns="2">
+							<h:panelGrid columns="2"
+								>
 								<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
 									for="validee" />
 								<h:selectOneRadio id="validee" style="font-size:12px;"
@@ -176,6 +178,7 @@
 								</h:selectOneRadio>
 							</h:panelGrid>
 							<h:panelGrid columns="2"
+								
 								rendered="#{sessionController.validationPedagogique}">
 								<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VERIFIEE']}"
 									for="validee" />
@@ -194,7 +197,7 @@
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 					<p:separator style="height:4px;"
-						rendered="#{conventionController.rechercheAvancee}" />
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -205,7 +208,9 @@
 							<h:outputText value="Formation"
 								style="font-weight:bold; padding:5px; font-size:16px;" />
 						</t:htmlTag>
-						<h:panelGrid columns="3" style="font-size:11px;"
+						<h:panelGrid
+							columns="3"
+							style="font-size:11px;"
 							rendered="#{not empty conventionController.rechUfrs}">
 							<h:outputLabel value="#{msgs['RECHERCHECONVENTION.UFRS']}"
 								rendered="#{conventionController.rechercheAvancee and
@@ -223,7 +228,9 @@
 							<f:selectItems value="#{conventionController.rechUfrs}" />
 						</h:selectManyMenu>
 						<t:htmlTag value="div" style="height:10px;" />
-						<h:panelGrid columns="3" style="font-size:11px;"
+						<h:panelGrid
+							columns="3"
+							style="font-size:11px;"
 							rendered="#{not empty conventionController.rechEtapes}">
 							<h:outputLabel value="#{msgs['RECHERCHECONVENTION.ETAPES']}"
 								rendered="#{not empty conventionController.rechEtapes}"
@@ -244,7 +251,7 @@
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 					<p:separator style="height:4px;"
-						rendered="#{conventionController.rechercheAvancee}" />
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -273,7 +280,7 @@
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 					<p:separator style="height:4px;"
-						rendered="#{conventionController.rechercheAvancee}" />
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -290,8 +297,7 @@
 							<h:graphicImage id="infoRs"
 								alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
 								value="../../media/images/information.png">
-								<p:tooltip id="test"
-									value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+								<p:tooltip id="test" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
 							</h:graphicImage>
 							<h:inputText id="raisonSociale"
 								value="#{conventionController.critereRechercheConvention.raisonSociale}"
@@ -342,7 +348,7 @@
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 					<p:separator style="height:4px;"
-						rendered="#{conventionController.rechercheAvancee}" />
+						rendered="#{conventionController.rechercheAvancee}"/>
 					<t:htmlTag value="div" style="height: 5px;"
 						rendered="#{conventionController.rechercheAvancee}" />
 
@@ -370,7 +376,7 @@
 									for="pays" />
 								<h:selectOneMenu id="pays"
 									value="#{conventionController.critereRechercheConvention.pays}"
-									converter="#{paysConverter}">
+									converter="#{paysConverter}" >
 									<f:selectItem itemValue=" " />
 									<f:selectItems value="#{nomenclatureController.pays}" />
 								</h:selectOneMenu>
@@ -405,45 +411,60 @@
 							<p:commandButton id="rechercherConvention"
 								value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
 								action="#{conventionController.rechercherConvention}"
+								status="statusRecherche"
 								style="font-size:14px; border:solid 1px; ">
 								<f:setPropertyActionListener
 									value="resultatsRechercheConvention"
 									target="#{conventionController.retourAction}" />
 							</p:commandButton>
+							<p:ajaxStatus name="statusRecherche">
+								<f:facet name="start">
+									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+								</f:facet>
+							</p:ajaxStatus>
 						</h:panelGrid>
 					</t:htmlTag>
 
-					<h:panelGrid columns="2"
-						style="border:solid 1px; color:grey; float:right;">
-						<h:graphicImage id="exportExcel" alt="Excel"
-							value="../../media/images/excelSmall.png">
-							<p:tooltip id="tooltipExport"
-								value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" for="exportExcel" />
-						</h:graphicImage>
-						<p:commandButton value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
-							action="#{exportController.rechercherConvention}">
-							<f:setPropertyActionListener
-								value="#{conventionController.critereRechercheConvention}"
-								target="#{exportController.critereRechercheConvention}" />
-							<f:setPropertyActionListener
-								value="#{conventionController.estValidee}"
-								target="#{exportController.estValidee}" />
-							<f:setPropertyActionListener
-								value="#{conventionController.estVerifiee}"
-								target="#{exportController.estVerifiee}" />
-							<f:setPropertyActionListener
-								value="#{conventionController.estEtrangere}"
-								target="#{exportController.estEtrangere}" />
-							<f:setPropertyActionListener value="rechercheConvention"
-								target="#{conventionController.retourAction}" />
-						</p:commandButton>
+					<h:panelGrid columns="2" style="float:right;">
+						<p:ajaxStatus name="statusExport">
+							<f:facet name="start">
+								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+							</f:facet>
+						</p:ajaxStatus>
+						<h:panelGrid columns="3"
+							style="border:solid 1px; color:grey;">
+							<h:graphicImage id="exportExcel" alt="Excel"
+								value="../../media/images/excelSmall.png"/>
+							<p:tooltip id="tooltipExport" value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" for="exportExcel" />
+							<p:commandButton status="statusExport"
+								value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
+								action="#{exportController.rechercherConvention}">
+								<f:setPropertyActionListener
+									value="#{conventionController.critereRechercheConvention}"
+									target="#{exportController.critereRechercheConvention}" />
+								<f:setPropertyActionListener
+									value="#{conventionController.estValidee}"
+									target="#{exportController.estValidee}" />
+								<f:setPropertyActionListener
+									value="#{conventionController.estVerifiee}"
+									target="#{exportController.estVerifiee}" />
+								<f:setPropertyActionListener
+									value="#{conventionController.estEtrangere}"
+									target="#{exportController.estEtrangere}" />
+								<f:setPropertyActionListener
+									value="rechercheConvention"
+									target="#{conventionController.retourAction}" />
+							</p:commandButton>
+						</h:panelGrid>
 					</h:panelGrid>
 
 					<t:htmlTag value="div" style="height:10px;" />
 				</h:panelGrid>
 			</h:form>
 			<p:message for="formRechConvention" escape="false"
-				style="color:red;font-weight:bold;"/>
+				style="color:red;font-weight:bold;">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</p:message>
 		</p:panel>
 	</ui:define>
 </ui:composition>

@@ -52,15 +52,15 @@
 				<h:panelGrid columns="2">
 					<h:outputLabel for="rechRaisonSociale"
 						value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
-						
-						<p:autoComplete id="rechRaisonSociale"
-							value="#{rechercheController.rechRaisonSociale}" size="50"
-							maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
-							autofill="false"
-							autocompleteMethod="#{rechercheController.getRaisonsSociales}"
-							converter="#{sansAccentEnMAJConverter}" inputClass="ac"
-							style="text-transform:uppercase; font-size : 10px"
-							attached="false" />
+					<p:autoComplete id="rechRaisonSociale"
+						value="#{rechercheController.rechRaisonSociale}" size="50"
+						maxlength="100" mode="cachedAjax" tokens=", " minChars="2"
+						autofill="false"
+						autocompleteMethod="#{rechercheController.getRaisonsSociales}"
+						converter="#{sansAccentEnMAJConverter}" inputClass="ac"
+						styleClass="ac" popupClass="acPopup"
+						style="text-transform:uppercase; font-size : 10px"
+						attached="false" />
 				</h:panelGrid>
 
 				<p:outputPanel id="rechPaysDep">

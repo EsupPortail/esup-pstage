@@ -462,10 +462,10 @@ public class OffreController extends AbstractContextAwareController {
 		//		ret="_creationOffreEtape2";
 		getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape2");
 		getSessionController().setCreationOffreCurrentPage("_creationOffreEtape2");
-
+		
 		// Oui par défaut pour la diffusion directe de l'offre :
 		this.diffusionDirecte = true;
-
+		
 		this.formOffre.setLieuPays(this.formOffre.getStructure().getPays());
 		this.formOffre.setLieuCodePostal(this.formOffre.getStructure().getCodePostal());
 		this.formOffre.setLieuCommune(this.formOffre.getStructure().getCommune());
@@ -522,7 +522,7 @@ public class OffreController extends AbstractContextAwareController {
 			this.contratsListening=null;
 		}
 		//Reset de la durée de diffusion
-		this.dureeDiffusion = 2;
+		this.dureeDiffusion = 1;
 		return this.creationOffre;
 	}
 
@@ -719,7 +719,7 @@ public class OffreController extends AbstractContextAwareController {
 		} else if (!this.formOffre.isEstDiffusee()){
 			addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION.DIFFUSION", this.formOffre.getIdOffre());
 		}
-
+		
 		//		return ret;
 	}
 
@@ -2063,15 +2063,15 @@ public class OffreController extends AbstractContextAwareController {
 		CritereRechercheOffreDTO c = null;
 		if(getBeanUtils()!=null){
 			c=new CritereRechercheOffreDTO();
-			//			c.setLieuPays(getBeanUtils().getFrance());
+//			c.setLieuPays(getBeanUtils().getFrance());
 			c.setLieuPays(null);
 		}else{
 			c=new CritereRechercheOffreDTO();
-			//			PaysDTO p = new PaysDTO();
-			//			p.setLibelle("FRANCE");
-			//			p.setCog(DonneesStatic.FRANCE_COG);
-			//			p.setCrpay(DonneesStatic.FRANCE_TERRITOIRE_CRPAY);
-			//			c.setLieuPays(p);
+//			PaysDTO p = new PaysDTO();
+//			p.setLibelle("FRANCE");
+//			p.setCog(DonneesStatic.FRANCE_COG);
+//			p.setCrpay(DonneesStatic.FRANCE_TERRITOIRE_CRPAY);
+//			c.setLieuPays(p);
 			c.setLieuPays(null);
 		}
 		return c;
@@ -2120,25 +2120,23 @@ public class OffreController extends AbstractContextAwareController {
 		}
 
 		List<Integer> idCG = getSessionController().getCurrentIdsCentresGestion();
-
 		if (idCG == null) idCG = new ArrayList<Integer>();
-
 		boolean trouveCGEtab = false;
-		//		if(getSessionController().getCurrentAuthEtudiant()!=null){
-		CentreGestionDTO cgEtab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
-		if(cgEtab!=null && cgEtab.getIdCentreGestion()>0){
-			if (!idCG.isEmpty()){
-				for (Integer intCG : idCG) {
-					if (intCG.equals(cgEtab.getIdCentreGestion())) {
-						trouveCGEtab = true;
+		if(getSessionController().getCurrentAuthEtudiant()!=null){
+			CentreGestionDTO cgEtab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
+			if(cgEtab!=null && cgEtab.getIdCentreGestion()>0){
+				if (idCG != null) {
+					for (Integer intCG : idCG) {
+						if (intCG.equals(cgEtab.getIdCentreGestion())) {
+							trouveCGEtab = true;
+						}
 					}
-				}
-			}
-			if (!trouveCGEtab) {
-				idCG.add(cgEtab.getIdCentreGestion());
+					if (!trouveCGEtab) {
+						idCG.add(cgEtab.getIdCentreGestion());
+					}
+				}	
 			}
 		}
-		//		}
 		this.critereRechercheOffre.setIdsCentreGestion(idCG);
 		if(StringUtils.hasText(this.rechTypeOuContrat)){
 			if(this.rechTypeOuContrat.contains("t")){
@@ -2282,7 +2280,7 @@ public class OffreController extends AbstractContextAwareController {
 		}
 		return ret;
 	}
-
+	
 	/**
 	 * @return String
 	 */
@@ -2298,7 +2296,7 @@ public class OffreController extends AbstractContextAwareController {
 		return ret;
 	}
 
-
+	
 	/**
 	 * @param idOffre
 	 * @return String
@@ -2659,7 +2657,7 @@ public class OffreController extends AbstractContextAwareController {
 		return this.rechercherOffre();
 	}
 
-
+	
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/

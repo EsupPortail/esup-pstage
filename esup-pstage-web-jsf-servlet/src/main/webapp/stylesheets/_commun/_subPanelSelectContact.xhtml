@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<f:facet name="header">
@@ -15,7 +16,8 @@
 					rendered="#{empty etablissementController.listeServices}"
 					escape="false" />
 			</t:panelGroup>
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="2"
+				>
 				<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
 					escape="false"
 					rendered="#{not empty etablissementController.listeServices}" />
@@ -26,10 +28,11 @@
 					rendered="#{not empty etablissementController.listeServices}">
 					<f:selectItems value="#{etablissementController.servicesItems}" />
 					<p:ajax event="valueChange"
-						update="opContactsDataTable, opActionsService" />
+						update="opContactsDataTable, opActionsService"  />
 				</h:selectOneMenu>
 			</h:panelGrid>
 			<h:panelGrid
+				
 				rendered="#{empty offreController.centreGestionDepotAnonyme
 			and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 			welcomeController.admin || welcomeController.personnel || welcomeController.writer)
@@ -40,10 +43,11 @@
 								etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
 								|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin))))))))}">
 				<p:outputPanel id="opActionsService" ajaxRendered="true">
-					<p:commandLink id="modif"
+					<p:commandLink  id="modif"
 						rendered="#{not empty etablissementController.listeServices and 
 					not empty etablissementController.idServiceSel}"
-						oncomplete="PF('modifService').show();" update="modifService">
+						oncomplete="PF('modifService').show();"
+						update="modifService">
 						<f:setPropertyActionListener value="#{false}"
 							target="#{etablissementController.memeAdresseStructure}" />
 						<f:setPropertyActionListener
@@ -61,9 +65,11 @@
 			</h:panelGrid>
 		</t:panelGrid>
 		<h:panelGrid columns="2"
+			
 			rendered="#{empty offreController.centreGestionDepotAnonyme}">
 			<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-			<p:commandLink id="ajout" oncomplete="PF('ajoutService').show();"
+			<p:commandLink  id="ajout"
+				oncomplete="PF('ajoutService').show();"
 				action="#{etablissementController.ajoutService}"
 				update="ajoutService">
 				<f:setPropertyActionListener value="#{true}"
@@ -83,6 +89,7 @@
 
 	<p:outputPanel id="opContactsDataTable" ajaxRendered="true">
 		<h:panelGrid columns="3"
+			
 			rendered="#{not empty etablissementController.listeContacts}">
 			<h:outputText value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
 				escape="false" />
@@ -93,23 +100,27 @@
 				required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
 				<f:selectItems value="#{etablissementController.contactsItems}" />
-				<p:ajax event="valueChange" update="opContactsDataTable" />
+				<p:ajax event="valueChange" update="opContact"  />
 			</h:selectOneMenu>
-			<p:message for="sOMContact" />
+			<p:message for="sOMContact">
+				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			</p:message>
 		</h:panelGrid>
-		<h:panelGrid>
+		<h:panelGrid
+			>
 			<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
 				rendered="#{not empty etablissementController.serviceSel
 					and not empty etablissementController.listeServices
 					and empty etablissementController.listeContacts}"
 				escape="false" />
 			<h:panelGrid columns="2"
+				
 				rendered="#{empty offreController.centreGestionDepotAnonyme}">
 				<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
 					escape="false"
 					rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices}" />
-				<p:commandLink id="ajoutC"
+				<p:commandLink  id="ajoutC"
 					rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices}"
 					oncomplete="PF('ajoutContact').show();"
