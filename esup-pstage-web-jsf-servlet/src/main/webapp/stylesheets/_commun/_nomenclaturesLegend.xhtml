@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:htmlTag value="div" style="height:10px;"/>
+
+    <i>
+        <h:graphicImage alt="#{msgs['FORM.SUPPRIMEE']}" value="../../media/images/exclamation.png"/>
+        <h:outputText value=" #{msgs['NOMENCLATURES.SUPPRIMEE']}"/>
+        <t:htmlTag value="div" style="height:10px;"/>
+        <h:graphicImage alt="#{msgs['FORM.SUPPRIMEE']}" value="../../media/images/arrow_refresh.png"/>
+        <h:outputText value=" #{msgs['NOMENCLATURES.REACTIVER']}"/>
+    </i>
+
+    <t:htmlTag value="div" style="height:10px;"/>
+
+</ui:composition>

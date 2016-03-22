@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <ui:include src="../../_commun/_champsObligatoires.xhtml"/>
+
+    <t:htmlTag value="div" style="height:5px;"/>
+
+    <h:panelGrid columns="3" style="margin-left:10%;">
+        <h:outputLabel value="#{msgs['NOMENCLATURES.AJOUT.LIBELLE']}" for="libelleContratOffre"/>
+        <t:htmlTag value="div" style="width:5px;"/>
+        <h:panelGrid columns="2">
+            <h:inputText id="libelleContratOffre" value="#{nomenclatureController.contratOffre.libelle}" size="30"
+                         maxlength="100" required="true"
+                         requiredMessage="#{requiredMessageController.champObligatoire}">
+                <p:ajax event="blur" update="msgLibelleContrat"/>
+            </h:inputText>
+            <p:message id="msgLibelleContrat" for="libelleContratOffre"/>
+        </h:panelGrid>
+    </h:panelGrid>
+    <t:htmlTag value="div" style="height:5px;"/>
+    <h:panelGrid columns="3" style="margin-left:10%;">
+        <h:outputLabel value="#{msgs['OFFRE.TYPEOFFRE']} *" for="typeOffreContrat"/>
+        <t:htmlTag value="div" style="width:5px;"/>
+        <h:panelGrid columns="2">
+            <p:selectOneMenu id="typeOffreContrat" value="#{nomenclatureController.contratOffre.typeOffre}"
+                             converter="#{typeOffreConverter}" required="true"
+                             requiredMessage="#{requiredMessageController.champObligatoire}">
+                <f:selectItems value="#{nomenclatureController.typesOffre}"/>
+                <p:ajax event="valueChange" update="msgTypeOffre"/>
+            </p:selectOneMenu>
+            <p:message id="msgTypeOffre" for="typeOffreContrat"/>
+        </h:panelGrid>
+    </h:panelGrid>
+    <h:panelGrid columns="2" style="margin-left:10%;">
+        <h:graphicImage alt="arrow" value="../../media/images/arrow_turn_up.png"/>
+        <h:outputText value="#{msgs['NOMENCLATURES.INFOS.TYPEOFFRE']}" escape="false"/>
+    </h:panelGrid>
+</ui:composition>
