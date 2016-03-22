@@ -156,8 +156,8 @@ public class ExportController extends AbstractContextAwareController {
 			this.critereRechercheConvention.setPrenomEnseignant(null);
 
 		this.critereRechercheConvention
-				.setIdsCentreGestion(getSessionController()
-						.getCurrentIdsCentresGestion());
+		.setIdsCentreGestion(getSessionController()
+				.getCurrentIdsCentresGestion());
 		if (logger.isDebugEnabled()) {
 			logger.debug("ExportController:: limit : "
 					+ this.critereRechercheConvention.isLimit());
@@ -176,10 +176,10 @@ public class ExportController extends AbstractContextAwareController {
 				.getIdConvention())
 				&& !StringUtils.hasText(this.critereRechercheConvention
 						.getNumeroEtudiant())
-				&& !StringUtils.hasText(this.critereRechercheConvention
-						.getNomEtudiant())
-				&& !StringUtils.hasText(this.critereRechercheConvention
-						.getPrenomEtudiant())) {
+						&& !StringUtils.hasText(this.critereRechercheConvention
+								.getNomEtudiant())
+								&& !StringUtils.hasText(this.critereRechercheConvention
+										.getPrenomEtudiant())) {
 			if (!StringUtils.hasText(this.critereRechercheConvention
 					.getAnneeUniversitaire())) {
 				addErrorMessage("formRechConvention",
@@ -191,29 +191,29 @@ public class ExportController extends AbstractContextAwareController {
 			if (this.rechTypeOuStatut.contains("t")) {
 				if (Utils.isNumber(this.rechTypeOuStatut.substring(1))) {
 					this.critereRechercheConvention
-							.setTypeStructure(getNomenclatureDomainService()
-									.getTypeStructureFromId(
-											Utils.convertStringToInt(this.rechTypeOuStatut
-													.substring(1))));
+					.setTypeStructure(getNomenclatureDomainService()
+							.getTypeStructureFromId(
+									Utils.convertStringToInt(this.rechTypeOuStatut
+											.substring(1))));
 					this.critereRechercheConvention.setStatutJuridique(null);
 				}
 			}
 			if (this.rechTypeOuStatut.contains("s")) {
 				if (Utils.isNumber(this.rechTypeOuStatut.substring(1))) {
 					this.critereRechercheConvention
-							.setStatutJuridique(getNomenclatureDomainService()
-									.getStatutJuridiqueFromId(
-											Utils.convertStringToInt(this.rechTypeOuStatut
-													.substring(1))));
+					.setStatutJuridique(getNomenclatureDomainService()
+							.getStatutJuridiqueFromId(
+									Utils.convertStringToInt(this.rechTypeOuStatut
+											.substring(1))));
 					if (this.critereRechercheConvention.getStatutJuridique() != null
 							&& this.critereRechercheConvention
-									.getStatutJuridique().getIdParent() > 0) {
+							.getStatutJuridique().getIdParent() > 0) {
 						this.critereRechercheConvention
-								.setTypeStructure(getNomenclatureDomainService()
-										.getTypeStructureFromId(
-												this.critereRechercheConvention
-														.getStatutJuridique()
-														.getIdParent()));
+						.setTypeStructure(getNomenclatureDomainService()
+								.getTypeStructureFromId(
+										this.critereRechercheConvention
+										.getStatutJuridique()
+										.getIdParent()));
 					}
 				}
 			}
@@ -239,10 +239,7 @@ public class ExportController extends AbstractContextAwareController {
 			this.critereRechercheConvention.setEstEtrangere(true);
 		else
 			this.critereRechercheConvention.setEstEtrangere(false);
-		
-		this.critereRechercheConvention
-				.setNbExportMaxi(this.critereRechercheConvention
-						.getNbExportMaxi());
+
 		if (logger.isInfoEnabled()) {
 			logger.info("ExportController:: Appel getConventionsFromCriteresExport debut ");
 		}
@@ -254,8 +251,8 @@ public class ExportController extends AbstractContextAwareController {
 				EnseignantDTO tmpEns = getEnseignantDomainService()
 						.getEnseignantFromUid(
 								this.getSessionController()
-										.getCurrentAuthEnseignant()
-										.getUidEnseignant(),
+								.getCurrentAuthEnseignant()
+								.getUidEnseignant(),
 								getSessionController().getCodeUniversite());
 				if (tmpEns != null) {
 					this.resultatsRechercheConvention = getConventionDomainService()
@@ -279,22 +276,22 @@ public class ExportController extends AbstractContextAwareController {
 						if (!this.resultatsRechercheConvention
 								.contains(conventionDTO)) {
 							this.resultatsRechercheConvention
-									.add(conventionDTO);
+							.add(conventionDTO);
 						}
 					}
 					Collections.sort(this.resultatsRechercheConvention,
 							new Comparator<ConventionDTO>() {
-								/**
-								 * @see java.util.Comparator#compare(java.lang.Object,
-								 *      java.lang.Object)
-								 */
-								@Override
-								public int compare(ConventionDTO l1,
-										ConventionDTO l2) {
-									return l1.getIdConvention().compareTo(
-											l2.getIdConvention());
-								}
-							});
+						/**
+						 * @see java.util.Comparator#compare(java.lang.Object,
+						 *      java.lang.Object)
+						 */
+						@Override
+						public int compare(ConventionDTO l1,
+								ConventionDTO l2) {
+							return l1.getIdConvention().compareTo(
+									l2.getIdConvention());
+						}
+					});
 				}
 			}
 		} else {
@@ -421,7 +418,7 @@ public class ExportController extends AbstractContextAwareController {
 						conventionTmp.setMontantGratification("Ne sait pas");
 					} else if (conventionTmp.getIdIndemnisation() == 2) {
 						conventionTmp
-								.setMontantGratification("Pas d'indemnisation");
+						.setMontantGratification("Pas d'indemnisation");
 					}
 				}
 
@@ -445,22 +442,32 @@ public class ExportController extends AbstractContextAwareController {
 								if (avenant.isValidationAvenant()) {
 									isAvenantExistant = true;
 
-									ligneAvenant = "["
-											+ avenant.getTitreAvenant()
-											+ "] Créé le "
-											+ new SimpleDateFormat(
-													"dd/MM/yyyy à HH:mm:ss")
-													.format(avenant
-															.getDateCreation())
-											+ "\n";
+									if (avenant.getDateCreation() != null){
+										ligneAvenant = "["
+												+ avenant.getTitreAvenant()
+												+ "] Créé le "
+												+ new SimpleDateFormat(
+														"dd/MM/yyyy à HH:mm:ss")
+										.format(avenant
+												.getDateCreation())
+												+ "\n";
+									} else {
+										ligneAvenant = "["
+												+ avenant.getTitreAvenant()
+												+ "]\n";
+									}
 
 									// Rupture
 									if (avenant.isRupture()) {
-										ligneAvenant += "Rupture à compter du "
-												+ new SimpleDateFormat(
-														"dd/MM/yyyy")
-														.format(avenant
-																.getDateRupture());
+										if (avenant.getDateRupture() != null){
+											ligneAvenant += "Rupture à compter du "
+													+ new SimpleDateFormat(
+															"dd/MM/yyyy")
+											.format(avenant
+													.getDateRupture());
+										} else {
+											ligneAvenant += "Rupture du stage";
+										}
 									} else {
 
 										// Modif sujet
@@ -472,27 +479,35 @@ public class ExportController extends AbstractContextAwareController {
 
 										// Modif periode
 										if (avenant.isModificationPeriode()) {
-											ligneAvenant += "Remplacement de la période par : Du "
-													+ new SimpleDateFormat(
-															"dd/MM/yyyy")
-															.format(avenant
-																	.getDateDebutStage())
-													+ " au "
-													+ new SimpleDateFormat(
-															"dd/MM/yyyy")
-															.format(avenant
-																	.getDateFinStage());
-											if (avenant.isInterruptionStage()) {
-												ligneAvenant += " avec interruption du "
+											if (avenant.getDateDebutStage() != null && avenant.getDateFinStage() != null){
+												ligneAvenant += "Remplacement de la période par : Du "
 														+ new SimpleDateFormat(
 																"dd/MM/yyyy")
-																.format(avenant
-																		.getDateDebutInterruption())
+												.format(avenant
+														.getDateDebutStage())
 														+ " au "
 														+ new SimpleDateFormat(
 																"dd/MM/yyyy")
-																.format(avenant
-																		.getDateFinInterruption());
+												.format(avenant
+														.getDateFinStage());
+											} else {
+												ligneAvenant += "Remplacement de la période";
+											}
+											if (avenant.isInterruptionStage()) {
+												if (avenant.getDateDebutInterruption() != null && avenant.getDateFinInterruption() != null){
+													ligneAvenant += " avec interruption du "
+															+ new SimpleDateFormat(
+																	"dd/MM/yyyy")
+													.format(avenant
+															.getDateDebutInterruption())
+															+ " au "
+															+ new SimpleDateFormat(
+																	"dd/MM/yyyy")
+													.format(avenant
+															.getDateFinInterruption());
+												} else {
+													ligneAvenant += " avec interruption";
+												}
 											} else {
 												ligneAvenant += " sans interruption";
 											}
@@ -508,11 +523,11 @@ public class ExportController extends AbstractContextAwareController {
 											}
 											ligneAvenant += "Remplacement de la gratification par : "
 													+ avenant
-															.getMontantGratification()
+													.getMontantGratification()
 													+ " "
 													+ avenant
-															.getUniteGratification()
-															.getLibelle()
+													.getUniteGratification()
+													.getLibelle()
 													+ " par "
 													+ uniteDureeGratif;
 											ligneAvenant += "\n";
@@ -522,7 +537,7 @@ public class ExportController extends AbstractContextAwareController {
 										if (avenant.isModificationLieu()) {
 											ligneAvenant += "Remplacement du lieu par : "
 													+ avenant.getService()
-															.getNom() + "";
+													.getNom() + "";
 											ligneAvenant += "\n";
 										}
 
@@ -530,10 +545,10 @@ public class ExportController extends AbstractContextAwareController {
 										if (avenant.isModificationSalarie()) {
 											ligneAvenant += "Remplacement du contact par : "
 													+ avenant.getContact()
-															.getPrenom()
+													.getPrenom()
 													+ " "
 													+ avenant.getContact()
-															.getNom();
+													.getNom();
 											ligneAvenant += "\n";
 										}
 
@@ -541,7 +556,7 @@ public class ExportController extends AbstractContextAwareController {
 										if (avenant.isModificationEnseignant()) {
 											ligneAvenant += "Remplacement de l'enseignant référent par : "
 													+ avenant.getEnseignant()
-															.getUidEnseignant();
+													.getUidEnseignant();
 											ligneAvenant += "\n";
 										}
 									}
@@ -581,11 +596,11 @@ public class ExportController extends AbstractContextAwareController {
 				classeur.write(baosXLS);
 
 				ExportConventionsServlet edit = new ExportConventionsServlet();
-				
+
 				String XlsFileName ="extraction_pstage.xls";
-				
+
 				edit.doGet(baosXLS,XlsFileName);
-				
+
 			} catch (Exception e) {
 				logger.error("exportConvention() - Exception lors de la tentative d'ecriture du baosXLS : "
 						+ e.getMessage());
@@ -651,12 +666,20 @@ public class ExportController extends AbstractContextAwareController {
 				return convention.getEtape().getLibelle();
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB")) {
-				return new SimpleDateFormat("dd/MM/yyyy").format(convention
-						.getDateDebutStage());
+				if (convention.getDateDebutStage() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention
+							.getDateDebutStage());
+				} else {
+					return "";
+				}
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.DATEFIN")) {
-				return new SimpleDateFormat("dd/MM/yyyy").format(convention
-						.getDateFinStage());
+				if (convention.getDateFinStage() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention
+							.getDateFinStage());
+				} else {
+					return "";
+				}
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.INTERRUPTION")) {
 				if (convention.getInterruptionStageExport()) {
@@ -666,12 +689,20 @@ public class ExportController extends AbstractContextAwareController {
 				}
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB.INTERRUPT")) {
-				return new SimpleDateFormat("dd/MM/yyyy").format(convention
-						.getDateDebutInterruption());
+				if (convention.getDateDebutInterruption() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention
+							.getDateDebutInterruption());
+				} else {
+					return "";
+				}
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.DATEFIN.INTERRUPT")) {
-				return new SimpleDateFormat("dd/MM/yyyy").format(convention
-						.getDateFinInterruption());
+				if (convention.getDateFinInterruption() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention
+							.getDateFinInterruption());
+				} else {
+					return "";
+				}
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.THEMATIQUE")) {
 				return convention.getTheme().getLibelle();
@@ -807,12 +838,20 @@ public class ExportController extends AbstractContextAwareController {
 				return convention.getEtudiant().getMail();
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.DATECREATION")) {
-				return new SimpleDateFormat("dd/MM/yyyy à HH:mm:ss").format(convention
-						.getDateCreation());
+				if (convention.getDateCreation() != null){
+					return new SimpleDateFormat("dd/MM/yyyy à HH:mm:ss").format(convention
+							.getDateCreation());
+				} else {
+					return "";
+				}
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.DATEMODIF")) {
-				return new SimpleDateFormat("dd/MM/yyyy à HH:mm:ss").format(convention
-						.getDateModif());
+				if (convention.getDateModif() != null){
+					return new SimpleDateFormat("dd/MM/yyyy à HH:mm:ss").format(convention
+							.getDateModif());
+				} else {
+					return "";
+				}
 			} else {
 				if (logger.isDebugEnabled())
 					logger.debug("methode recupValueStage(...) : NameProperty "

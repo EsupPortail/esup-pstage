@@ -17,20 +17,20 @@
 		<title><h:outputText value="#{applicationService.name}" /></title>
 		<link rel="stylesheet" type="text/css"
 			href="#{sessionController.mediaPath}/style/main.css" />
-<!-- 		<script type="text/javascript" language="Javascript" -->
-<!-- 			src="#{sessionController.mediaPath}/js/functions.js" /> -->
+		<!-- 		<script type="text/javascript" language="Javascript" -->
+		<!-- 			src="#{sessionController.mediaPath}/js/functions.js" /> -->
 	</h:head>
 	<h:body>
-		<h:panelGrid align="center" style="min-width: 1100px; max-width:1150px;">
+		<t:div
+			style="min-width:1150px; max-width:1150px; margin-left:300px;">
 			<ui:insert name="header" />
 
 			<ui:insert name="navigationHeader" />
 
 			<t:htmlTag value="div" style="height:5px;" />
-		
+
 			<ui:insert name="content" />
-		</h:panelGrid>
-		
+		</t:div>
 		<t:htmlTag value="div" style="height:150px;" />
 	</h:body>
 </f:view>

@@ -4,7 +4,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
 	
-	template="../_definedStageTemplate.xhtml">
+	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<p:panel
 			rendered="#{welcomeController.superAdmin
@@ -23,7 +23,7 @@
 						</legend>
 						<h:panelGrid
 							>
-							<ui:include src="/stylesheets/stage/_panel_limites_resultats.xhtml" />
+							<ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
 							<t:htmlTag value="div" style="height: 10px;" />
 							<h:panelGrid
 								columns="5" align="center">

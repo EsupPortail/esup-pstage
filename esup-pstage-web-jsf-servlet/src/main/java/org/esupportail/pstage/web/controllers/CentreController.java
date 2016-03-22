@@ -221,6 +221,10 @@ public class CentreController extends AbstractContextAwareController {
 	 * True si la liste des affectations est vide
 	 */
 	private boolean listeAffectationVide;
+	/**
+	 * True si l'on se trouve dans le formulaire d'ajout/modif centre et qu'on cherche un viseur
+	 */
+	private boolean rechercheViseur;
 
 	/**
 	 * Centre Entreprise
@@ -388,6 +392,8 @@ public class CentreController extends AbstractContextAwareController {
 		this.centre.setPresenceTuteurPro(true);
 		this.centre.setSaisieTuteurProParEtudiant(true);
 		this.centre.setAutoriserImpressionConvention(true);
+		// On indique au flag correspondant que l'on est en recherche de personnel et pas de viseur (pour modifier le form)
+		this.rechercheViseur = true;
 
 		return "ajoutCentre";
 	}
@@ -497,9 +503,10 @@ public class CentreController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToVoirCentre() ");
 		}
+		this.indexMenu = 0;
 		this.listeCriteres = new ArrayList<SelectItem>();
 		this.personnels = new ArrayList<PersonnelCentreGestionDTO>();
-		this.indexMenu = 0;
+		
 		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_detail");
 
 		return "voirCentre";
@@ -764,7 +771,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToAjoutCritere(){
+	public void goToAjoutCritere(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToAjoutCritere() ");
 		}
@@ -792,16 +799,16 @@ public class CentreController extends AbstractContextAwareController {
 				this.toutLesCriteres = getPersonalComponentRepositoryDomain().getComposantesRef(codeUniversite);
 			} catch (CommunicationApogeeException cae){
 				logger.error(cae.fillInStackTrace());
-				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
-				return null;
+				addErrorMessage("formListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
+				return;
 			} catch (Exception e){
 				logger.error(e.fillInStackTrace());
-				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR");
-				return null;
+				addErrorMessage("formListeCritere", "CENTRE.CRITERE.ERREUR");
+				return;
 			}
 
 			if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
-				return null;
+				return;
 			}
 
 			// Liste des codes ufr uniquement
@@ -846,16 +853,16 @@ public class CentreController extends AbstractContextAwareController {
 				this.toutLesCriteres = getStudentComponentRepositoryDomain().getEtapesRef(codeUniversite);
 			} catch (CommunicationApogeeException cae){
 				logger.error(cae.fillInStackTrace());
-				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
-				return null;
+				addErrorMessage("formListeCritere", "CENTRE.CRITERE.ERREUR_COMMUNICATION");
+				return;
 			}catch (Exception e){
 				logger.error(e.fillInStackTrace());
-				addErrorMessage("formListeCritere:erreurListeCritere", "CENTRE.CRITERE.ERREUR");
-				return null;
+				addErrorMessage("formListeCritere", "CENTRE.CRITERE.ERREUR");
+				return;
 			}
 
 			if (this.toutLesCriteres == null || this.toutLesCriteres.isEmpty()) {
-				return null;
+				return;
 			}
 			// liste des codes ETAPES et version etapes
 			List<String> codesEtape = new ArrayList<String>();
@@ -903,7 +910,6 @@ public class CentreController extends AbstractContextAwareController {
 		}
 		Collections.sort(this.listeCriteres, new ComparatorSelectItem());
 
-		return "ajoutCritere";
 	}
 
 	/**
@@ -916,7 +922,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String ajouterCriteres(){
+	public void ajouterCriteres(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String ajouterCriteres() ");
 		}
@@ -929,7 +935,7 @@ public class CentreController extends AbstractContextAwareController {
 				logger.info("Ajout impossible : aucun critere choisi dans la liste.");
 			}
 			addErrorMessage("formAjoutCritere:erreurAjoutCritere", "CENTRE.CRITERE.ERREUR_CHOIX");
-			return null;
+			return;
 		}
 		for(int i=0;i < this.listeCriteresChoisis.size();i++){
 			tmp = new CritereGestionDTO();
@@ -989,8 +995,6 @@ public class CentreController extends AbstractContextAwareController {
 		} catch (WebServiceDataBaseException e) {
 			logger.error(e.fillInStackTrace());
 		}
-
-		return "listeCriteres";
 	}
 
 
@@ -1041,14 +1045,13 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String supprimerCritere(){
+	public void supprimerCritere(){
 		if(this.critere != null){
 			if(logger.isInfoEnabled()){
 				logger.info("Suppression du critere de gestion : " + this.critere);
 			}
 			repercutionCriteres();
 		}
-		return "listeCriteres";
 	}
 
 	/**
@@ -1233,7 +1236,10 @@ public class CentreController extends AbstractContextAwareController {
 		if(this.personnels == null || this.personnels.isEmpty()){
 			this.personnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.centre.getIdCentreGestion());
 		}
-
+		
+		// On indique au flag correspondant que l'on est en recherche de personnel et pas de viseur (pour modifier le form)
+		this.rechercheViseur = false;
+		
 		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_personnels");
 	}
 
@@ -1270,9 +1276,9 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToRattachPersonnelRecherche(){
+	public void avantRecherchePersonnel(){
 		if(logger.isDebugEnabled()){
-			logger.debug("public String goToRattachPersonnelRecherche() ");
+			logger.debug("public String avantRecherchePersonnel() ");
 		}
 
 		// On initialise tout les objets en rapport avec le personnel récupéré depuis le LDAP
@@ -1285,124 +1291,22 @@ public class CentreController extends AbstractContextAwareController {
 		this.personnel.setAffectation(a);
 		this.personnel.setDroitAdmin(new DroitAdministrationDTO());
 		this.personnel.setCodeAffectation(" ");
-
-		return "rattachPersonnelRecherche";
-	}
-
-	/**
-	 * @return a String
-	 */
-	public String rechercherPersonnel(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String rechercherPersonnel() ");
-		}
-		try{
-			this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
-
-			if (this.codeAffectationPersonnel == null 
-					&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
-					&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
-				addErrorMessage("formRecherchePersonnel","CENTRE.PERSONNEL.ERREUR_CHAMPS");
-				return null;
-			}
-			String codeUniversite = getSessionController().getCodeUniversite();
-			String codeAffectation = "";
-			if (this.codeAffectationPersonnel != null) {
-				codeAffectation = (String) this.codeAffectationPersonnel;
-			}
-			try {
-				LinkedHashMap<String,String> map = (LinkedHashMap<String, String>) getPersonalComponentRepositoryDomain().getComposantesRef(getSessionController().getCodeUniversite());
-
-				AffectationDTO a;
-				String libelleAffectation = null;
-				List<PersonnelCentreGestionDTO> lp = getPersonalDataRepositoryDomain().getPersonnelCentreGestionRefByName(codeUniversite,this.personnel.getNom(),this.personnel.getPrenom(),codeAffectation);
-
-				for(PersonnelCentreGestionDTO tmp : lp){
-					a = new AffectationDTO();
-					a.setCodeUniversite(getSessionController().getCodeUniversite());
-
-					if (tmp.getAffectation().getCode() == null && tmp.getAffectation().getLibelle() == null){
-						// Le code et le libelle sont vides
-						a.setLibelle(" ");
-						a.setCode(" ");
-						tmp.setAffectation(a);
-						tmp.setCodeAffectation(a.getCode());
-					}
-
-					if(tmp.getAffectation().getCode() == null){
-						// Si seul le code est vide on utilise le libelle pour le retrouver
-						if (map != null && !map.isEmpty()){
-							for (Iterator<String> i = map.keySet().iterator() ; i.hasNext() ; ){
-								String key = i.next();
-								if ((map.get(key)).equalsIgnoreCase(tmp.getAffectation().getLibelle())){
-									codeAffectation = key;
-								}
-							}
-						}
-						a.setCode(codeAffectation==null?" ":codeAffectation);
-						a.setLibelle(tmp.getAffectation().getLibelle());
-						tmp.setAffectation(a);
-						tmp.setCodeAffectation(a.getCode());
-					}
-
-					if (tmp.getAffectation().getLibelle() == null){
-						// Si seul le libelle est vide on utilise le code pour le retrouver
-						if (map != null && map.get(codeAffectation) != null) {
-							libelleAffectation = map.get(codeAffectation);
-						}
-						a.setCode(tmp.getAffectation().getCode());
-						a.setLibelle(libelleAffectation==null?" ":libelleAffectation);
-						tmp.setAffectation(a);
-						tmp.setCodeAffectation(a.getCode());
-					}
-
-					tmp.setCivilite(getNomenclatureDomainService().getCiviliteFromId(tmp.getIdCivilite()));
-
-					this.recherchePersonnels.add(tmp);
-
-				}
-			} catch (CommunicationApogeeException e) {
-				addErrorMessage("formRecherchePersonnel:erreurRecherche", "APOGEE.ERREUR");
-				return null;
-			}
-
-		} catch (NullPointerException e){
-
-			this.personnel = new PersonnelCentreGestionDTO();
-			this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
-			addErrorMessage("formRecherchePersonnel:erreurRecherche", "CENTRE.PERSONNEL.RECHERCHE.VIDE");
-
-			return null;
-		}
-
-		return "rattachPersonnelResultat";
-	}
-
-	/**
-	 * @return a String
-	 */
-	public void avantRechercheViseur(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public void avantRechercheViseur() ");
-		}
-		this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
-		this.personnel = new PersonnelCentreGestionDTO();
 	}
 
 	/**
 	 * 
 	 */
-	public String rechercherViseur(){
+	public void rechercherPersonnel(){
 		if(logger.isDebugEnabled()){
-			logger.debug("public String rechercherViseur() ");
+			logger.debug("public String rechercherPersonnel() ");
 		}
 		this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
 
 		if (this.codeAffectationPersonnel == null 
 				&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
 				&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
-			addErrorMessage("formRechercheViseur","CENTRE.PERSONNEL.ERREUR_CHAMPS");
-			return null;
+			addErrorMessage("formRecherchePersonnel","CENTRE.PERSONNEL.ERREUR_CHAMPS");
+			return;
 		}
 
 		// Déclaration des codes nécessaires à chaque recuperation dans le ldap
@@ -1464,26 +1368,14 @@ public class CentreController extends AbstractContextAwareController {
 
 			}
 		} catch (CommunicationApogeeException e) {
-			addErrorMessage("formRechercheViseur", "APOGEE.ERREUR");
-			return null;
+			addErrorMessage("formRecherchePersonnel", "APOGEE.ERREUR");
+			return;
 		} catch (NullPointerException e){
 			this.personnel = new PersonnelCentreGestionDTO();
 			this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
-			addErrorMessage("formRechercheViseur", "CENTRE.PERSONNEL.RECHERCHE.VIDE");
-			return null;
+			addErrorMessage("formRecherchePersonnel", "CENTRE.PERSONNEL.RECHERCHE.VIDE");
+			return;
 		}
-
-		return null;
-	}
-
-	/**
-	 * @return a String
-	 */
-	public String goToRattachPersonnelResultat(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToRattachPersonnelResultat() ");
-		}
-		return "rattachPersonnelResultat";
 	}
 
 	/* ****************************************************************************
@@ -1492,21 +1384,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String goToRattachPersonnelAjout(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToRattachPersonnelAjout() ");
-		}
-
-		// Instanciation des objets du personnel correspondant au formulaire rempli
-		this.personnel.setDroitAdmin(new DroitAdministrationDTO());
-
-		return "rattachPersonnelAjout";
-	}
-
-	/**
-	 * @return a String
-	 */
-	public String ajouterPersonnel(){
+	public void ajouterPersonnel(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String ajouterPersonnel() ");
 		}
@@ -1534,16 +1412,16 @@ public class CentreController extends AbstractContextAwareController {
 			}
 		} catch (DataAddException d){
 			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ERREUR");
-			return null;
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ERREUR");
+			return;
 		} catch (WebServiceDataBaseException w){
 			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout", "CENTRE.WS.ERREUR");
-			return null;
+			addErrorMessage("formAjoutPersonnel", "CENTRE.WS.ERREUR");
+			return;
 		}catch (Exception e){
 			logger.error("Exception",e.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ERREUR");
-			return null;
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ERREUR");
+			return;
 		}
 		this.personnel.setCodeUniversiteAffectation(getSessionController().getCodeUniversite());
 		try {
@@ -1622,39 +1500,26 @@ public class CentreController extends AbstractContextAwareController {
 			}
 		}  catch (PersonalAlreadyExistingForCentreException pe){
 			logger.error("DataAddException",pe.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ALREADYEXISTING",this.personnel.getUidPersonnel());
-			return null;
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ALREADYEXISTING",this.personnel.getUidPersonnel());
+			return;
 		} catch (DataAddException d){
 			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ERREURAJOUT");
-			return null;
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ERREURAJOUT");
+			return;
 		} catch (WebServiceDataBaseException w){
 			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout", "CENTRE.WS.ERREUR");
-			return null;
+			addErrorMessage("formAjoutPersonnel", "CENTRE.WS.ERREUR");
+			return;
 		}catch (Exception e){
 			logger.error("Exception",e.fillInStackTrace());
-			addErrorMessage("formAjoutPersonnel:erreurAjout","CENTRE.PERSONNEL.ERREUR");
-			return null;
+			addErrorMessage("formAjoutPersonnel","CENTRE.PERSONNEL.ERREUR");
+			return;
 		}
 
 		this.personnel = new PersonnelCentreGestionDTO();
 
-		return "listePersonnels";
 	}
 
-	/* ****************************************************************************
-	 * Consulter un personnel rattaché
-	 *****************************************************************************/
-	/**
-	 * @return a String
-	 */
-	public String goToVoirPersonnel(){
-		if(logger.isDebugEnabled()){
-			logger.debug("public String goToVoirPersonnel() ");
-		}
-		return "voirPersonnel";
-	}
 
 	/* ****************************************************************************
 	 * Modifier un personnel rattaché
@@ -1672,7 +1537,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String modifierPersonnel(){
+	public void modifierPersonnel(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String modifierPersonnel() ");
 		}
@@ -1731,17 +1596,16 @@ public class CentreController extends AbstractContextAwareController {
 			}
 		} catch (DataUpdateException d){
 			logger.error("DataUpdateException",d.fillInStackTrace());
-			addErrorMessage("formModifPersonnel:erreurModifPersonnel","CENTRE.PERSONNEL.MODIF.ERREUR");
-			return null;
+			addErrorMessage("formModifPersonnel","CENTRE.PERSONNEL.MODIF.ERREUR");
+			return;
 		} catch (WebServiceDataBaseException w){
 			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formModifPersonnel:erreurModifPersonnel", "CENTRE.PERSONNEL.MODIF.ERREUR");
-			return null;
+			addErrorMessage("formModifPersonnel", "CENTRE.PERSONNEL.MODIF.ERREUR");
+			return;
 		}
 
 		this.personnel = new PersonnelCentreGestionDTO();
 
-		return "listePersonnels";
 	}
 
 	/* ****************************************************************************
@@ -2010,6 +1874,7 @@ public class CentreController extends AbstractContextAwareController {
 		return depotEncode;
 	}
 
+	
 	/* ****************************************************************************
 	 * Fiche d'evaluation
 	 *****************************************************************************/
@@ -2017,7 +1882,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String goToFicheEvaluation(){
+	public void goToFicheEvaluation(){
 		this.ficheEvaluation = new FicheEvaluationDTO();
 		this.questionSupplementaire = new QuestionSupplementaireDTO();
 		FicheEvaluationDTO tmp = getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.centre.getIdCentreGestion());
@@ -2034,20 +1899,20 @@ public class CentreController extends AbstractContextAwareController {
 			} catch (DataAddException d){
 				logger.error("DataAddException",d.fillInStackTrace());
 				addErrorMessage("formFicheEtudiant","CENTRE.AJOUT_CENTRE.ERREUR");
-				return null;
+				return;
 			} catch (WebServiceDataBaseException w){
 				logger.error("WebServiceDataBaseException", w.fillInStackTrace());
 				addErrorMessage("formFicheEtudiant", "CENTRE.AJOUT_CENTRE.ERREUR");
-				return null;
+				return;
 			}
 		}
-		return "goToFicheEvaluation";
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_evaluations");
 	}
 
 	/**
 	 * @return String
 	 */
-	public String goToFicheEtudiant(){
+	public void goToFicheEtudiant(){
 		this.listeQuestionsSupplementairesEtudiant1 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(), 1);
 		if(this.listeQuestionsSupplementairesEtudiant1 == null){
 			this.listeQuestionsSupplementairesEtudiant1 = new ArrayList<QuestionSupplementaireDTO>();
@@ -2060,7 +1925,8 @@ public class CentreController extends AbstractContextAwareController {
 		if(this.listeQuestionsSupplementairesEtudiant3 == null){
 			this.listeQuestionsSupplementairesEtudiant3 = new ArrayList<QuestionSupplementaireDTO>();
 		}
-		return "goToFicheEtudiant";
+		
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_evaluationsEtudiant");
 	}
 
 	/**
@@ -2085,7 +1951,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String goToFicheEnseignant(){
+	public void goToFicheEnseignant(){
 		this.listeQuestionsSupplementairesEnseignant1 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),4);
 		if(this.listeQuestionsSupplementairesEnseignant1 == null){
 			this.listeQuestionsSupplementairesEnseignant1 = new ArrayList<QuestionSupplementaireDTO>();
@@ -2094,7 +1960,7 @@ public class CentreController extends AbstractContextAwareController {
 		if(this.listeQuestionsSupplementairesEnseignant2 == null){
 			this.listeQuestionsSupplementairesEnseignant2 = new ArrayList<QuestionSupplementaireDTO>();
 		}
-		return "goToFicheEnseignant";
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_evaluationsEnseignant");
 	}
 
 	/**
@@ -2119,7 +1985,7 @@ public class CentreController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String goToFicheEntreprise(){
+	public void goToFicheEntreprise(){
 
 		this.listeQuestionsSupplementairesEntreprise1 = getFicheEvaluationDomainService().getQuestionsSupplementairesFromIdPlacement(this.ficheEvaluation.getIdFicheEvaluation(),6);
 		if(this.listeQuestionsSupplementairesEntreprise1 == null){
@@ -2134,7 +2000,7 @@ public class CentreController extends AbstractContextAwareController {
 			this.listeQuestionsSupplementairesEntreprise3 = new ArrayList<QuestionSupplementaireDTO>();
 		}
 
-		return "goToFicheEntreprise";
+		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_evaluationsEntreprise");
 	}
 
 	/**
@@ -2765,5 +2631,11 @@ public class CentreController extends AbstractContextAwareController {
 	}
 	public void setIndexMenu(int indexMenu) {
 		this.indexMenu = indexMenu;
+	}
+	public boolean isRechercheViseur() {
+		return rechercheViseur;
+	}
+	public void setRechercheViseur(boolean rechercheViseur) {
+		this.rechercheViseur = rechercheViseur;
 	}
 }
