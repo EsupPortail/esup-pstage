@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:include src="../_nomenclature_ajout.xhtml">
+		<ui:param name="idNomenclature" value="ModeValidationStage" />
+		<ui:param name="fileFormNomenclature" value="_nomenclature_modeValidationStage_form.xhtml" />
+		<ui:param name="ctrl" value="#{nomenclatureController}"/>
+		<ui:param name="method" value="addModeValidationStage"/>
+	</ui:include>
+	<ui:include src="../_nomenclature_modif.xhtml">
+		<ui:param name="idNomenclature" value="ModeValidationStage" />
+		<ui:param name="fileFormNomenclature" value="_nomenclature_modeValidationStage_form.xhtml" />
+		<ui:param name="ctrl" value="#{nomenclatureController}"/>
+		<ui:param name="method" value="updateModeValidationStage"/>
+	</ui:include>
+	<ui:include src="../_nomenclature_reactiver.xhtml">
+		<ui:param name="idNomenclature" value="ModeValidationStage" />
+		<ui:param name="valueLibelleQuestion" value="#{nomenclatureController.modeValidationStage.libelle}" />
+		<ui:param name="ctrl" value="#{nomenclatureController}"/>
+		<ui:param name="method" value="reactivateModeValidationStage"/>
+	</ui:include>
+	<ui:include src="../_nomenclature_suppr.xhtml">
+		<ui:param name="idNomenclature" value="ModeValidationStage" />
+		<ui:param name="valueLibelleQuestion" value="#{nomenclatureController.modeValidationStage.libelle}" />
+		<ui:param name="ctrl" value="#{nomenclatureController}"/>
+		<ui:param name="method" value="deleteModeValidationStage"/>
+	</ui:include>
+
+</ui:composition>

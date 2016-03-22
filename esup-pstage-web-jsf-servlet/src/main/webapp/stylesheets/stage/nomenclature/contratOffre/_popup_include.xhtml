@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:include src="../_nomenclature_ajout.xhtml">
+		<ui:param name="idNomenclature" value="ContratOffre" />
+		<ui:param name="fileFormNomenclature" value="_nomenclature_contratOffre_form.xhtml" />
+		<ui:param name="ctrl" value="#{nomenclatureController}"/>
+		<ui:param name="method" value="addContratOffre"/>
+	</ui:include>
+	<ui:include src="../_nomenclature_modif.xhtml">
+		<ui:param name="idNomenclature" value="ContratOffre" />
+		<ui:param name="fileFormNomenclature" value="_nomenclature_contratOffre_form.xhtml" />
+		<ui:param name="ctrl" value="#{nomenclatureController}"/>
+		<ui:param name="method" value="updateContratOffre"/>
+	</ui:include>
+	<ui:include src="../_nomenclature_reactiver.xhtml">
+		<ui:param name="idNomenclature" value="ContratOffre" />
+		<ui:param name="valueLibelleQuestion" value="#{nomenclatureController.contratOffre.libelle}" />
+		<ui:param name="ctrl" value="#{nomenclatureController}"/>
+		<ui:param name="method" value="reactivateContratOffre"/>
+	</ui:include>
+	<ui:include src="../_nomenclature_suppr.xhtml">
+		<ui:param name="idNomenclature" value="ContratOffre" />
+		<ui:param name="valueLibelleQuestion" value="#{nomenclatureController.contratOffre.libelle}" />
+		<ui:param name="ctrl" value="#{nomenclatureController}"/>
+		<ui:param name="method" value="deleteContratOffre"/>
+	</ui:include>
+
+</ui:composition>
