@@ -2472,11 +2472,6 @@
 		<display-name>goToFicheEvaluation</display-name>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
-			<from-outcome>goToFicheEvaluation</from-outcome>
-			<to-view-id>/stylesheets/stage/ficheEvaluation.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>goToFicheEtudiant</from-outcome>
 			<to-view-id>/stylesheets/stage/ficheEvaluation_etudiant.xhtml</to-view-id>
 			<redirect/>
@@ -2739,57 +2734,17 @@
 		-->
 		<navigation-case>
 			<from-outcome>listeCentres</from-outcome>
-			<to-view-id>/stylesheets/stage/liste_centres.xhtml</to-view-id>
+			<to-view-id>/stylesheets/stage/centreGestion/liste_centres.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>ajoutCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/ajout_centre.xhtml</to-view-id>
+			<to-view-id>/stylesheets/stage/centreGestion/ajoutCentre.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>voirCentre</from-outcome>
-			<to-view-id>/stylesheets/stage/consultationCentre.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>ajoutCritere</from-outcome>
-			<to-view-id>/stylesheets/stage/ajout_criteres.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>rattachPersonnelRecherche</from-outcome>
-			<to-view-id>/stylesheets/stage/rattachementPersonnel_recherche.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>rattachPersonnelResultat</from-outcome>
-			<to-view-id>/stylesheets/stage/rattachementPersonnel_resultat.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>rattachPersonnelAjout</from-outcome>
-			<to-view-id>/stylesheets/stage/rattachementPersonnel_ajout.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatStagesStats</from-outcome>
-			<to-view-id>/stylesheets/stage/stats/resultat_stagesStats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>resultatOffresStats</from-outcome>
-			<to-view-id>/stylesheets/stage/stats/resultat_offresStats.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>voirPersonnel</from-outcome>
-			<to-view-id>/stylesheets/stage/voir_personnel.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>modifPersonnel</from-outcome>
-			<to-view-id>/stylesheets/stage/modif_personnel.xhtml</to-view-id>
+			<to-view-id>/stylesheets/stage/centreGestion/consultationCentre.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<!--

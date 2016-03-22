@@ -3,17 +3,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dialog id="validAvenant" widgetVar="validAvenant">
+	<p:dialog id="validAvenant" widgetVar="validAvenant" resizable="false"
+		modal="true">
 		<f:facet name="header">
 			<h:outputText
 				value="#{msgs['CONVENTION.ETAPE11.VALIDATION.HEAD']}#{avenantController.avenant.idAvenant}" />
 		</f:facet>
 		<p:panel style="border:none">
-			<h:panelGrid
-				 align="center">
+			<h:panelGrid align="center">
 				<h:outputText value="#{msgs['CONVENTION.ETAPE11.VALIDATION.INFO']}" />
 				<h:outputText
 					value="#{msgs['CONVENTION.ETAPE11.VALIDATION.AVERTISSEMENT']}" />
@@ -24,9 +23,7 @@
 				value="#{msgs['CONVENTION.ETAPE11.VALIDATION.QUESTION']}" />
 		</t:htmlTag>
 		<t:htmlTag value="div" style="height: 10px;" />
-		<h:panelGrid
-			align="center" id="validPanel"
-			columns="3">
+		<h:panelGrid align="center" id="validPanel" columns="3">
 			<p:commandButton action="#{avenantController.validerAvenant}"
 				value="#{msgs['FORM.OUI']}" update="formDetailsAvenant" />
 			<t:htmlTag value="div" style="width: 30px;" />

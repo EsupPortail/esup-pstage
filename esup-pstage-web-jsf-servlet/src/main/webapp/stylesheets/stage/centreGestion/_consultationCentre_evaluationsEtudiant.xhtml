@@ -1,0 +1,775 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="formFicheEtudiant" style="padding-top:15px; padding-bottom:20px;">
+		<h:panelGrid align="center">
+			<h:outputText style="font-weight:bold; font-size:20px;"
+				value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.HEADER']}" />
+			<t:htmlTag value="div" style="height:10px;" />
+		</h:panelGrid>
+		<p:tabView id="tabFicheEtudiant">
+			<p:tab id="etape1Tab"
+				title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.TITRE_1']}">
+				<t:panelGrid columns="2" align="center"
+					style="width:750px; padding:10px; margin-left:20px; padding-top:0px;">
+					<t:htmlTag value="center">
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE1']}" />
+					</t:htmlTag>
+					<h:panelGrid columns="2">
+						<h:graphicImage id="infoActivation1" alt="information"
+							value="/media/images/information.png">
+							<p:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+						</h:graphicImage>
+						<h:outputText style="font-weight:bold;" value="Activation" />
+					</h:panelGrid>
+
+					<t:panelGroup colspan="2">
+						<t:htmlTag value="div" style="height:5px;" />
+						<p:separator style="height:2px;" />
+						<t:htmlTag value="div" style="height:10px;" />
+					</t:panelGroup>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height: 10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.1']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.1']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.2']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.3']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuI1}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height: 10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.2']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.1']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.2']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.3']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.4']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.5']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuI2}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height: 10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.3']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.1']}" />
+
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.2']}" />
+
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.3']}" />
+
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.4']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuI3}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.4']}" />
+						<h:panelGrid columns="3" style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.MAIL']}" />
+							<t:htmlTag value="div" style="width:15px;" />
+							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.TELEPHONE']}" />
+							<t:htmlTag value="div" style="width:15px;" />
+							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.COURRIER']}" />
+							<t:htmlTag value="div" style="width:15px;" />
+							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.PROSPECTION']}" />
+							<t:htmlTag value="div" style="width:15px;" />
+							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuI4}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.5']}" />
+						<h:selectOneMenu id="origineStage" style="margin-left:10px;"
+							value="#{conventionController.selOrigineStage}"
+							converter="#{origineStageConverter}">
+							<f:selectItems value="#{nomenclatureController.origineStages}" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuI5}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.6']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.1']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.2']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.3']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.4']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuI6}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.7']}" />
+
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+							<h:outputText value="Si oui, par qui ?" style="font-style:italic" />
+							<h:panelGrid style="margin-left:10px;">
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.1']}" />
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.2']}" />
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.3']}" />
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.4']}" />
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.5']}" />
+							</h:panelGrid>
+							<h:outputText value="Si non, pourquoi ?"
+								style="font-style:italic" />
+							<h:panelGrid style="margin-left:10px;">
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.1']}" />
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.2']}" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuI7}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;" escape="false"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.8']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuI8}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+				</t:panelGrid>
+
+				<t:htmlTag value="center">
+					<t:htmlTag value="div" style="height:5px;" />
+					<t:htmlTag value="div" style="width:500px; height:2px;"
+						styleClass="spacer" />
+					<t:htmlTag value="div" style="height:15px;" />
+				</t:htmlTag>
+				<p:outputPanel id="listeQuestionsSupplementaires1">
+					<h:panelGrid align="center" width="500"
+						rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant1}">
+						<t:htmlTag value="center">
+							<h:outputText style="font-weight:bold; font-size:16px;"
+								value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
+						</t:htmlTag>
+						<p:dataList var="questionSup" style="margin-left:10px;"
+							value="#{centreController.listeQuestionsSupplementairesEtudiant1}">
+							<ui:include
+								src="/stylesheets/stage/centreGestion/_questionEval_listColumns.xhtml" />
+						</p:dataList>
+						<t:htmlTag value="div" style="height:10px;" />
+					</h:panelGrid>
+				</p:outputPanel>
+				<t:htmlTag value="center">
+					<p:commandButton
+						style="font-size:16px; font-weight:bold; border-color:green;"
+						value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
+						action="#{centreController.avantAjoutQuestionEtudiant1}"
+						oncomplete="PF('editQuestionEvalPanel').show();"
+						update="editQuestionEvalPanel">
+						<f:setPropertyActionListener value="_questionEval_editEtape1Ajout"
+							target="#{sessionController.editQuestionEvalCurrentPage}" />
+					</p:commandButton>
+				</t:htmlTag>
+				<t:htmlTag value="div" style="height:20px;" />
+			</p:tab>
+			<p:tab id="etape2Tab"
+				title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.TITRE_2']}">
+				<t:panelGrid columns="2" align="center"
+					style="width:750px; padding:10px; margin-left:20px; padding-top:0px;">
+
+					<t:htmlTag value="center">
+						<h:outputText style="margin-left:20px; font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE1']}" />
+					</t:htmlTag>
+					<h:panelGrid columns="2">
+						<h:graphicImage id="infoActivation2" alt="information"
+							value="/media/images/information.png">
+							<p:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+						</h:graphicImage>
+						<h:outputText style="font-weight:bold;" value="Activation" />
+					</h:panelGrid>
+
+					<t:panelGroup colspan="2">
+						<t:htmlTag value="div" style="height:5px;" />
+						<p:separator style="height:2px;" />
+						<t:htmlTag value="div" style="height:10px;" />
+					</t:panelGroup>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.1']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuII1}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.2']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuII2}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.3']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuII3}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.4']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.1']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.2']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.4']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuII4}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.5']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+							<h:outputText value="Si oui : a) de quel ordre ?"
+								style="font-style:italic" />
+							<h:panelGrid style="margin-left:10px;">
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.1']}" />
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.2']}" />
+								<h:outputText
+									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3']}" />
+							</h:panelGrid>
+							<h:outputText value="b) avec autonomie ?"
+								style="font-style:italic" />
+							<h:outputText style="margin-left:10px;"
+								value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuII5}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.II.6']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuII6}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+				</t:panelGrid>
+
+				<t:htmlTag value="center">
+					<t:htmlTag value="div" style="height:5px;" />
+					<t:htmlTag value="div" style="width:500px; height:2px;"
+						styleClass="spacer" />
+					<t:htmlTag value="div" style="height:15px;" />
+				</t:htmlTag>
+				<p:outputPanel id="listeQuestionsSupplementaires2">
+					<h:panelGrid align="center" width="500"
+						rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant2}">
+						<t:htmlTag value="center">
+							<h:outputText style="font-weight:bold; font-size:16px;"
+								value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LISTE']}" />
+						</t:htmlTag>
+						<p:dataList var="questionSup" style="margin-left:10px;"
+							value="#{centreController.listeQuestionsSupplementairesEtudiant2}">
+							<ui:include
+								src="/stylesheets/stage/centreGestion/_questionEval_listColumns.xhtml" />
+						</p:dataList>
+						<t:htmlTag value="div" style="height:10px;" />
+					</h:panelGrid>
+				</p:outputPanel>
+				<t:htmlTag value="center">
+					<p:commandButton
+						style="font-size:16px; font-weight:bold; border-color:green;"
+						value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
+						action="#{centreController.avantAjoutQuestionEtudiant2}"
+						oncomplete="PF('editQuestionEvalPanel').show();"
+						update="editQuestionEvalPanel">
+						<f:setPropertyActionListener value="_questionEval_editEtape1Ajout"
+							target="#{sessionController.editQuestionEvalCurrentPage}" />
+					</p:commandButton>
+				</t:htmlTag>
+			</p:tab>
+			<p:tab id="etape3Tab"
+				title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.TITRE_3']}">
+				<t:panelGrid columns="2" align="center"
+					style="width:750px; padding:10px; margin-left:20px; padding-top:0px;">
+					<t:htmlTag value="center">
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE1']}" />
+					</t:htmlTag>
+					<h:panelGrid columns="2">
+						<h:graphicImage id="infoActivation3" alt="information"
+							value="/media/images/information.png">
+							<p:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+						</h:graphicImage>
+						<h:outputText style="font-weight:bold;" value="Activation" />
+					</h:panelGrid>
+
+					<t:panelGroup colspan="2">
+						<t:htmlTag value="div" style="height:5px;" />
+						<p:separator style="height:2px;" />
+						<t:htmlTag value="div" style="height:10px;" />
+					</t:panelGroup>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1']}" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1bis']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII1}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.2']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII2}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<!-- 								<h:panelGrid> -->
+					<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
+					<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
+					<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.3']}" /> -->
+					<!-- 									<h:outputText style="margin-left:10px;" -->
+					<!-- 										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" /> -->
+					<!-- 								</h:panelGrid> -->
+					<!-- 								<h:selectOneRadio -->
+					<!-- 									value="#{centreController.ficheEvaluation.questionEtuIII3}"> -->
+					<!-- 									<f:selectItem itemValue="#{true}" -->
+					<!-- 										itemLabel="#{msgs['FORM.OUI']}" /> -->
+					<!-- 									<f:selectItem itemValue="#{false}" -->
+					<!-- 										itemLabel="#{msgs['FORM.NON']}" /> -->
+					<!-- 								</h:selectOneRadio> -->
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.4']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.1']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.2']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.3']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.4']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.5']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.6']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII4}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.5']}" />
+						<h:panelGrid columns="3" style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.1']}" />
+							<t:htmlTag value="div" style="width:15px;" />
+							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.2']}" />
+							<t:htmlTag value="div" style="width:15px;" />
+							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.3']}" />
+							<t:htmlTag value="div" style="width:15px;" />
+							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII5}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.6']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.1']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.2']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.3']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.4']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII6}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.7']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.1']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.2']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.3']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.4']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII7}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.8']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII8}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.9']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII9}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.10']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII10}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.11']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII11}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.12']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII12}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<!-- 								<h:panelGrid> -->
+					<!-- 									<t:htmlTag value="div" style="height:10px;" /> -->
+					<!-- 									<h:outputText style="font-weight:bold;" escape="false" -->
+					<!-- 										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.13']}" /> -->
+					<!-- 									<h:outputText style="margin-left:10px;" -->
+					<!-- 										value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" /> -->
+					<!-- 								</h:panelGrid> -->
+					<!-- 								<h:selectOneRadio -->
+					<!-- 									value="#{centreController.ficheEvaluation.questionEtuIII13}"> -->
+					<!-- 									<f:selectItem itemValue="#{true}" -->
+					<!-- 										itemLabel="#{msgs['FORM.OUI']}" /> -->
+					<!-- 									<f:selectItem itemValue="#{false}" -->
+					<!-- 										itemLabel="#{msgs['FORM.NON']}" /> -->
+					<!-- 								</h:selectOneRadio> -->
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.14']}" />
+						<h:outputText style="margin-left:10px;"
+							value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII14}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.15']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.1']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.2']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.3']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.4']}" />
+							<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII15}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+
+					<h:panelGrid>
+						<t:htmlTag value="div" style="height:10px;" />
+						<h:outputText style="font-weight:bold;"
+							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.16']}" />
+						<h:panelGrid style="margin-left:10px;">
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+							<h:outputText
+								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:selectOneRadio
+						value="#{centreController.ficheEvaluation.questionEtuIII16}">
+						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+					</h:selectOneRadio>
+				</t:panelGrid>
+
+				<t:htmlTag value="center">
+					<t:htmlTag value="div" style="height:5px;" />
+					<t:htmlTag value="div" style="width:500px; height:2px;"
+						styleClass="spacer" />
+					<t:htmlTag value="div" style="height:15px;" />
+				</t:htmlTag>
+				<p:outputPanel id="listeQuestionsSupplementaires3">
+					<h:panelGrid align="center" width="500"
+						rendered="#{not empty centreController.listeQuestionsSupplementairesEtudiant3}">
+						<p:dataList var="questionSup" style="margin-left:10px;"
+							value="#{centreController.listeQuestionsSupplementairesEtudiant3}">
+							<ui:include
+								src="/stylesheets/stage/centreGestion/_questionEval_listColumns.xhtml" />
+						</p:dataList>
+						<t:htmlTag value="div" style="height:10px;" />
+					</h:panelGrid>
+				</p:outputPanel>
+				<t:htmlTag value="center">
+					<p:commandButton
+						style="font-size:16px; font-weight:bold; border-color:green;"
+						value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
+						action="#{centreController.avantAjoutQuestionEtudiant3}"
+						oncomplete="PF('editQuestionEvalPanel').show();"
+						update="editQuestionEvalPanel">
+						<f:setPropertyActionListener value="_questionEval_editEtape1Ajout"
+							target="#{sessionController.editQuestionEvalCurrentPage}" />
+					</p:commandButton>
+				</t:htmlTag>
+				<t:htmlTag value="div" style="height:20px;" />
+			</p:tab>
+		</p:tabView>
+		<t:htmlTag value="div" style="height:30px;" />
+		<t:htmlTag value="center">
+			<p:commandButton value="#{msgs['FORM.ENREGISTRER']}"
+				style="font-size:16px; border-color:green;"
+				update="formFicheEtudiant"
+				action="#{centreController.updateFicheEtudiant}" />
+		</t:htmlTag>
+		<p:messages style="text-align:center;"/>
+		<t:htmlTag value="div" style="height: 30px;" />
+		<p:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
+			update="panelConsultation" immediate="true">
+			<f:setPropertyActionListener value="_consultationCentre_evaluations"
+				target="#{sessionController.consultationCentreCurrentPage}" />
+		</p:commandButton>
+	</h:form>
+	<ui:include src="_panel_editQuestionEval.xhtml" />
+	<ui:include src="_panel_suppressionQuestionEval.xhtml" />
+</ui:composition>

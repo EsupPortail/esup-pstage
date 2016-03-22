@@ -33,8 +33,9 @@
 			<p:commandButton
 				action="#{conventionController.goToCreerConventionCtrlStage}"
 				value="#{msgs['FORM.VALIDER']}"
-				update="opFCE,formConvention,tableEtape5"
+				update="opFCE,@form"
 				style="font-size:14px; border:solid 1px;" />
+<!-- 				update="opFCE,formConvention,tableEtape5" -->
 		</t:htmlTag>
 		<t:htmlTag value="div" style="height: 30px;" />
 		<h:commandButton
