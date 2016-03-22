@@ -29,16 +29,11 @@
 		</t:panelGroup>
 	</t:panelGrid>
 
-	<t:htmlTag value="div" style="height:15px;" />
-
-	<h:panelGrid id="ajoutQuestionPanel" align="center" columns="3">
-		<p:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
-			onclick="PF('editQuestionEvalPanel').hide();" />
-		<t:htmlTag value="div" style="width:30px;" />
+	<center style="padding-top:15px;">
 		<p:commandButton
 			action="#{centreController.ajouterQuestionSupplementaire}"
 			oncomplete="PF('editQuestionEvalPanel').hide();"
-			value="#{msgs['FORM.AJOUTER']}" update="listeQuestionsSupplementaires1" />
-	</h:panelGrid>
+			value="#{msgs['FORM.AJOUTER']}"  />
+	</center>
 
 </ui:composition>

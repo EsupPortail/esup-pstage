@@ -303,10 +303,6 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	public String goToGestionNomenclatures(){
 		this.resetObjects();
-		this.caisseRegimeCurrentPage = "table";
-		this.niveauFormationCurrentPage = "table";
-		this.tempsTravailCurrentPage = "table";
-		this.origineStageCurrentPage = "table";
 		this.typeConventionCurrentPage = "table";
 		this.typeStructureCurrentPage = "table";
 		this.statutJuridiqueCurrentPage = "table";
@@ -376,7 +372,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	/**
 	 * @return
 	 */
-	public void addCaisseRegime(){
+	public void addCaisseRegime() {
 		try{
 			getNomenclatureDomainService().addCaisseRegime(this.caisseRegime);
 			addInfoMessage(null,"NOMENCLATURES.AJOUT.CONFIRMATION");
@@ -400,11 +396,12 @@ public class NomenclatureController extends AbstractContextAwareController {
 		try{
 			// Si le code de CaisseRegime a été modifié dans le formulaire
 			if (!this.codeCaisseRegime.equalsIgnoreCase(this.caisseRegime.getCode())){
-				// On verifie que le code saisi n'est pas deja existant dans la liste
+//				// On verifie que le code saisi n'est pas deja existant dans la liste
 				List<SelectItem> listTmp = this.getCaisseRegimes();
 				if (listTmp != null) {
 					for (SelectItem tmp : listTmp){
 						CaisseRegimeDTO caisseRegime = (CaisseRegimeDTO)tmp.getValue();
+						logger.info(this.caisseRegime.getCode() + " " + caisseRegime.getCode());
 						if (this.caisseRegime.getCode().equalsIgnoreCase(caisseRegime.getCode())){
 							addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR_DUPLICAT");
 							return;
@@ -505,6 +502,21 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 	}
 
+	/**
+	 * @return
+	 */
+	public void reactivateNiveauFormation() {
+		try {
+			if(getNomenclatureDomainService().reactivateNiveauFormation(this.niveauFormation.getId())) {
+				addInfoMessage("formNomenclature","NOMENCLATURES.REACTIVATION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+			}
+		} catch (Exception e) {
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+		}
+	}
 
 	/**
 	 * @return
@@ -555,6 +567,21 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 	}
 
+	/**
+	 * @return
+	 */
+	public void reactivateTempsTravail() {
+		try{
+			if (getNomenclatureDomainService().reactivateTempsTravail(this.tpsTravail.getId())){
+				addInfoMessage("formNomenclature","NOMENCLATURES.REACTIVATION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+			}
+		} catch(Exception e){
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+		}
+	}
 
 	/**
 	 * @return
@@ -596,6 +623,22 @@ public class NomenclatureController extends AbstractContextAwareController {
 		try{
 			if (getNomenclatureDomainService().deleteOrigineStage(this.origineStage.getId())){
 				addInfoMessage("formNomenclature","NOMENCLATURES.SUPPRESSION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+			}
+		} catch(Exception e){
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	public void reactivateOrigineStage() {
+		try{
+			if (getNomenclatureDomainService().reactivateOrigineStage(this.origineStage.getId())){
+				addInfoMessage("formNomenclature","NOMENCLATURES.REACTIVATION.CONFIRMATION");
 			} else {
 				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 			}
@@ -708,14 +751,29 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 	}
 
+	/**
+	 * @return
+	 */
+	public void reactivateTypeStructure() {
+		try {
+			if(getNomenclatureDomainService().reactivateTypeStructure(this.typeStructure.getId())) {
+				addInfoMessage("formNomenclature","NOMENCLATURES.REACTIVATION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+			}
+		} catch (Exception e) {
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
+		}
+	}
 
 	/**
 	 * @return
 	 */
 	public void addStatutJuridique(){
 		try{
-			if(this.typeStructure != null){
-				this.statutJuridique.setIdParent(this.typeStructure.getId());
+			if(this.statutJuridique.getTypeStructure() != null){
+				this.statutJuridique.setIdParent(this.statutJuridique.getTypeStructure().getId());
 			} else {
 				this.statutJuridique.setIdParent(0);
 			}
@@ -736,6 +794,11 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	public void updateStatutJuridique(){
 		try{
+			if(this.statutJuridique.getTypeStructure() != null){
+				this.statutJuridique.setIdParent(this.statutJuridique.getTypeStructure().getId());
+			} else {
+				this.statutJuridique.setIdParent(0);
+			}
 			getNomenclatureDomainService().updateStatutJuridique(this.statutJuridique);
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.statutJuridiqueCurrentPage="table";
@@ -763,6 +826,21 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 	}
 
+	/**
+	 * @return
+	 */
+	public void reactivateStatutJuridique() {
+		try {
+			if(getNomenclatureDomainService().reactivateStatutJuridique(this.statutJuridique.getId())) {
+				addInfoMessage("formNomenclature", "NOMENCLATURES.REACTIVATION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+			}
+		} catch(Exception e) {
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+		}
+	}
 
 	/**
 	 * @return
@@ -818,14 +896,29 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 	}
 
+	/**
+	 * @return
+	 */
+	public void reactivateTypeOffre() {
+		try {
+			if(getNomenclatureDomainService().reactivateTypeOffre(this.typeOffre.getId())) {
+				addInfoMessage("formNomenclature", "NOMENCLATURES.REACTIVATION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+			}
+		} catch(Exception e) {
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+		}
+	}
 
 	/**
 	 * @return
 	 */
 	public void addContratOffre(){
 		try{
-			if(this.typeOffre != null){
-				this.contratOffre.setIdParent(this.typeOffre.getId());
+			if(this.contratOffre.getTypeOffre() != null){
+				this.contratOffre.setIdParent(this.contratOffre.getTypeOffre().getId());
 			} else {
 				this.contratOffre.setIdParent(0);
 			}
@@ -846,6 +939,11 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	public void updateContratOffre(){
 		try{
+			if(this.contratOffre.getTypeOffre() != null){
+				this.contratOffre.setIdParent(this.contratOffre.getTypeOffre().getId());
+			} else {
+				this.contratOffre.setIdParent(0);
+			}
 			getNomenclatureDomainService().updateContratOffre(this.contratOffre);
 			addInfoMessage("formNomenclature","NOMENCLATURES.MODIFICATION.CONFIRMATION");
 			this.contratOffreCurrentPage="table";
@@ -873,6 +971,21 @@ public class NomenclatureController extends AbstractContextAwareController {
 		}
 	}
 
+	/**
+	 * @return
+	 */
+	public void reactivateContratOffre() {
+		try {
+			if(getNomenclatureDomainService().reactivateContratOffre(this.contratOffre.getId())) {
+				addInfoMessage("formNomenclature", "NOMENCLATURES.REACTIVATION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+			}
+		} catch(Exception e) {
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+		}
+	}
 
 	/**
 	 * @return
@@ -922,6 +1035,23 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
+
+	/**
+	 * @return
+	 */
+	public void reactivateEffectif() {
+		try {
+			if(getNomenclatureDomainService().reactivateEffectif(this.effectif.getId())) {
+				addInfoMessage("formNomenclature", "NOMENCLATURES.REACTIVATION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+			}
+		} catch(Exception e) {
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+		}
+	}
+
 	/**
 	 * @return
 	 */
@@ -971,6 +1101,23 @@ public class NomenclatureController extends AbstractContextAwareController {
 			addErrorMessage("formNomenclature","NOMENCLATURES.ERREUR");
 		}
 	}
+
+	/**
+	 * @return
+	 */
+	public void reactivateModeValidationStage() {
+		try {
+			if(getNomenclatureDomainService().reactivateModeValidationStage(this.modeValidationStage.getId())) {
+				addInfoMessage("formNomenclature", "NOMENCLATURES.REACTIVATION.CONFIRMATION");
+			} else {
+				addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+			}
+		} catch(Exception e) {
+			logger.error("Exception", e.getCause());
+			addErrorMessage("formNomenclature", "NOMENCLATURES.ERREUR");
+		}
+	}
+
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/
@@ -1048,8 +1195,8 @@ public class NomenclatureController extends AbstractContextAwareController {
 			ls = new ArrayList<SelectItem>();
 			for(CaisseRegimeDTO o : l){
 				String lib="";
-				lib+=o.getLibelle();
-				lib+=(o.getInfoCaisse()!=null && !o.getInfoCaisse().isEmpty())?" (" + o.getInfoCaisse() + " )":"";
+				lib+=o.getCode() + " - " + o.getLibelle();
+				lib+=(o.getInfoCaisse()!=null && !o.getInfoCaisse().isEmpty())?" ( <i>" + o.getInfoCaisse() + "</i> )":"";
 				ls.add(new SelectItem(o,lib));
 			}
 		}
@@ -1109,11 +1256,13 @@ public class NomenclatureController extends AbstractContextAwareController {
 		if(l!=null){
 			ls = new ArrayList<SelectItem>();
 			for(ContratOffreDTO o : l){
-				ls.add(new SelectItem(o,o.getLibelle()));
+				String lib = o.getLibelle() + " ( <i>TypeOffre: " + o.getTypeOffre().getLibelle() + " </i>)";
+				ls.add(new SelectItem(o,lib));
 			}
 		}
 		return ls;
 	}
+
 	/**
 	 * @param id 
 	 * @return List<SelectItem>
@@ -1524,7 +1673,8 @@ public class NomenclatureController extends AbstractContextAwareController {
 		if(l!=null){
 			ls = new ArrayList<SelectItem>();
 			for(StatutJuridiqueDTO o : l){
-				ls.add(new SelectItem(o,o.getLibelle()));
+				String lib = o.getLibelle() + " ( <i>TypeStructure: " + o.getTypeStructure().getLibelle() + "</i> )";
+				ls.add(new SelectItem(o,lib));
 			}
 		}
 		return ls;
@@ -1632,12 +1782,32 @@ public class NomenclatureController extends AbstractContextAwareController {
 		if(l!=null){
 			ls = new ArrayList<SelectItem>();
 			for(TypeStructureDTO o : l){
-				ls.add(new SelectItem(o,o.getLibelle()));
+				String lib="";
+				lib+=o.getLibelle() + " ( <i>SIRET " + (o.isSiretObligatoire() ? "Obligatoire" : "Non obligatoire") + " </i>)";
+				ls.add(new SelectItem(o,lib));
 			}
 		}
+
 		return ls;
 	}
-	
+
+	/**
+	 * @return List<SelectItem>
+	 */
+	public List<SelectItem> getTypesStructureDropDown(){
+		List<SelectItem> ls = null;
+		List<TypeStructureDTO> l = getNomenclatureDomainService().getTypesStructure();
+		if(l!=null){
+			ls = new ArrayList<SelectItem>();
+			for(TypeStructureDTO o : l){
+				String lib="";
+				lib+=o.getLibelle() + " ( SIRET " + (o.isSiretObligatoire() ? "Obligatoire" : "Non obligatoire") + " )";
+				ls.add(new SelectItem(o,lib));
+			}
+		}
+
+		return ls;
+	}
 	
 	/**
 	 * @return List<SelectItem>
@@ -1680,6 +1850,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	public void setCaisseRegime(CaisseRegimeDTO caisseRegime) {
 		this.caisseRegime = caisseRegime;
+		this.codeCaisseRegime = this.caisseRegime.getCode();
 	}
 
 	/**
