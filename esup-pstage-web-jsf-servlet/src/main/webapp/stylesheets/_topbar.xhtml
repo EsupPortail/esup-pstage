@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+
+	<t:div id="TOPBAR">
+		<t:div id="TOPBAR_TITLE">
+			<t:htmlTag value="h1">Application Stage</t:htmlTag>
+			<t:htmlTag value="h3">Gestion des conventions et des offres de stage</t:htmlTag>
+		</t:div>
+		<t:div id="TOPBAR_INFO">
+			<t:div styleClass="infos">
+				<t:htmlTag value="span" styleClass="loginName">maxime.ostrowski</t:htmlTag>
+				<t:htmlTag value="span" styleClass="versionNumber">Version 6.6.6</t:htmlTag>
+			</t:div>
+			<t:div styleClass="buttons">
+				<p:commandButton id="buttonHelp" icon="fa fa-question"></p:commandButton>
+				<p:commandButton id="buttonLogout" action="#{sessionController.logout}"
+								 rendered="#{sessionController.printLogout}" icon="fa fa-power-off"></p:commandButton>
+				<p:tooltip for="buttonHelp" value="Besoin d'aide"/>
+				<p:tooltip for="buttonLogout" value="Déconnexion"/>
+			</t:div>
+		</t:div>
+	</t:div>
+</ui:composition>

@@ -3,15 +3,46 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	template="_stageTemplate.xhtml">
-	<ui:define name="navigationHeader">
-		<h:form id="navigationHeader">
-			<ui:include src="stage/_navigation.xhtml" />
-		</h:form>
+
+	<ui:define name="sidebar">
+		<ui:include src="_sidebar.xhtml"/>
 	</ui:define>
-	<ui:define name="header">
-		<ui:include src="stage/_header.xhtml" />
+	<ui:define name="topbar">
+		<ui:include src="_topbar.xhtml"/>
 	</ui:define>
-	<ui:define name="menuDynamique">
-		<ui:include src="stage/_menuDynamiqueStage.xhtml" />
-	</ui:define>
+
+
+	<!--<h:head>-->
+		<!--<f:facet name="first">-->
+			<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />-->
+			<!--<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />-->
+		<!--</f:facet>-->
+		<!--<title><h:outputText value="#{applicationService.name}" /></title>-->
+		<!--<link rel="stylesheet" type="text/css"-->
+			  <!--href="#{sessionController.mediaPath}/style/main.css" />-->
+		<!--&lt;!&ndash; 	<script type="text/javascript" language="Javascript" &ndash;&gt;-->
+		<!--&lt;!&ndash; 		src="#{sessionController.mediaPath}/js/functions.js" /> &ndash;&gt;-->
+	<!--</h:head>-->
+	<!--<f:view locale="fr">-->
+		<!--<h:body>-->
+			<!--<ui:insert name="sidebar" />-->
+			<!--<ui:insert name="topbar" />-->
+			<!--<t:div id="MAIN_CONTENT">-->
+				<!--<ui:insert name="content" />-->
+			<!--</t:div>-->
+		<!--</h:body>-->
+	<!--</f:view>-->
+
+	<!--template="_stageTemplate.xhtml">-->
+	<!--<ui:define name="navigationHeader">-->
+		<!--<h:form id="navigationHeader">-->
+			<!--<ui:include src="stage/_navigation.xhtml" />-->
+		<!--</h:form>-->
+	<!--</ui:define>-->
+	<!--<ui:define name="header">-->
+		<!--<ui:include src="stage/_header.xhtml" />-->
+	<!--</ui:define>-->
+	<!--<ui:define name="menuDynamique">-->
+		<!--<ui:include src="stage/_menuDynamiqueStage.xhtml" />-->
+	<!--</ui:define>-->
 </ui:composition>
