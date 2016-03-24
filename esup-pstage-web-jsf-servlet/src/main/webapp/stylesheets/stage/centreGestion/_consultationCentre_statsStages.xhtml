@@ -64,7 +64,7 @@
 					<c:forEach var="list" items="#{liste}">
 						<c:if
 							test="#{list.libPriorCriteria ne libPrec and (!empty libPrec)}">
-							<tr>
+							<tr style="text-align: center;">
 								<td><b><h:outputText value="#{libPrec}" /></b></td>
 								<td><b><h:outputText value="sous-total" /></b></td>
 								<td><b><h:outputText value="#{sousTotal}" /></b></td>
@@ -76,7 +76,7 @@
 							<c:set var="pourcent" value="0" />
 						</c:if>
 
-						<tr>
+						<tr style="text-align: center;">
 							<td><h:outputText value="#{list.libPriorCriteria}" /></td>
 							<td><h:outputText value="#{list.lib}" /></td>
 							<td><h:outputText value="#{list.number}" /></td>
@@ -89,14 +89,17 @@
 
 					</c:forEach>
 
-					<tr>
+					<tr style="text-align: center;">
 						<td><b><h:outputText value="#{libPrec}" /></b></td>
 						<td><b><h:outputText value="sous-total" /></b></td>
 						<td><b><h:outputText value="#{sousTotal}" /></b></td>
 						<td><b><h:outputText value="#{pourcent} %" /></b></td>
 					</tr>
+					
+					<tr style="height: 20px;">
+					</tr>
 
-					<tr>
+					<tr style="text-align: center;">
 						<td><b><h:outputText
 									value="#{statistiquesConventionController.critereUnLib}" /></b></td>
 						<td><b><h:outputText value="Total" /></b></td>

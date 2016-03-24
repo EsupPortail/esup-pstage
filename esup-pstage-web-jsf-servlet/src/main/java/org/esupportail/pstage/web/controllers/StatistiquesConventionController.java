@@ -235,6 +235,7 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 
 			//Appel de la fonction selon le critere 2
 			if (critereDeuxCle.equals("")){
+				uneAnnee = "all";
 				statsItemList = statistiquesDomainService.getNumberOfConventions(idCentreGestion, etab);
 				message = getString("CONVENTION.STATS.ANNEE");
 			}

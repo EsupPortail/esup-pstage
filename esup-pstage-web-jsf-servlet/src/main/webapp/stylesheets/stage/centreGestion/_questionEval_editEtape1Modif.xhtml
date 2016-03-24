@@ -3,18 +3,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:panelGrid columns="2"
-		>
+	<t:panelGrid columns="2">
 		<h:outputLabel for="libelleQuestionModif"
 			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LIBELLE']}" />
 		<h:inputTextarea id="libelleQuestionModif" required="true"
 			style="width:200px; height:50px; resize:none;"
 			value="#{centreController.questionSupplementaire.question}" />
 		<t:htmlTag value="div" style="height: 5px;" />
-		<p:message for="libelleQuestionModif"/>
+		<p:message for="libelleQuestionModif" />
 		<h:outputLabel for="typeQuestionModif"
 			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE']}" />
 		<h:selectOneMenu id="typeQuestionModif" required="true"
@@ -27,20 +25,16 @@
 				itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE.BOOL']}" />
 		</h:selectOneMenu>
 		<t:panelGroup colspan="2">
-			<p:message for="typeQuestionModif"/>
+			<p:message for="typeQuestionModif" />
 		</t:panelGroup>
 	</t:panelGrid>
 
 	<t:htmlTag value="div" style="height:15px;" />
 
-	<h:panelGrid align="center" columns="3"
-		>
+	<center>
 		<p:commandButton
 			action="#{centreController.modifierQuestionSupplementaire}"
 			value="#{msgs['FORM.MODIFIER']}" update="formEditQuestionEval" />
-		<t:htmlTag value="div" style="width:30px;" />
-		<p:commandButton value="#{msgs['FORM.ANNULER']}" 
-			onclick="PF('editQuestionEvalPanel').hide();" />
-	</h:panelGrid>
+	</center>
 
 </ui:composition>

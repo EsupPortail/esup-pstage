@@ -10,9 +10,6 @@
             <h:outputText value="#{msgs['NOMENCLATURES.REACTIVATION.HEADER']}"/>
         </f:facet>
 
-        <h:outputText value="#{msgs['NOMENCLATURES.REACTIVATION.BODY']}"
-                      escape="false"/>
-
         <t:htmlTag value="div" style="height: 20px;"/>
 
         <h:outputFormat value="#{msgs['NOMENCLATURES.REACTIVATION.QUESTION']}" escape="false">
@@ -25,7 +22,7 @@
                 <p:commandButton value="#{msgs['FORM.OUI']}"
                                  action="#{ctrl[method]}" update="formNomenclature"
                                  oncomplete="PF('popupReactivate${idNomenclature}').hide();"/>
-                <t:htmlTag value="div" style="width:100px;"/>
+                <t:htmlTag value="div" style="width:50px;"/>
                 <p:commandButton value="#{msgs['FORM.NON']}"
                                  oncomplete="PF('popupReactivate${idNomenclature}').hide();"/>
             </h:panelGrid>

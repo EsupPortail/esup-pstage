@@ -21,18 +21,16 @@
 					<h:panelGrid columns="2">
 						<h:graphicImage id="infoActivation1" alt="information"
 							value="/media/images/information.png">
-							<p:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+							<p:tooltip for="infoActivation1" value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
 						</h:graphicImage>
 						<h:outputText style="font-weight:bold;" value="Activation" />
 					</h:panelGrid>
 
 					<t:panelGroup colspan="2">
-						<t:htmlTag value="div" style="height: 5px;" />
-						<p:separator style="height:2px;" />
-						<t:htmlTag value="div" style="height: 20px;" />
+						<p:separator style="height:2px; margin-top:5px; margin-bottom:20px;" />
 					</t:panelGroup>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.1']}" />
@@ -50,14 +48,14 @@
 							<t:htmlTag value="div" style="width:15px;" />
 							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsI1}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height: 10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.2']}" />
@@ -75,20 +73,20 @@
 							<t:htmlTag value="div" style="width:15px;" />
 							<h:outputText value="#{msgs['FORM.OUI']} / #{msgs['FORM.NON']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsI2}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height: 10px;" />
 						<h:outputText style="font-weight:bold;" escape="false"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.I.3']}" />
 						<h:outputText escape="false"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.TXTLIBRE']}" />
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio style="padding-top:20px;"
 						value="#{centreController.ficheEvaluation.questionEnsI3}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
@@ -119,7 +117,7 @@
 				</p:outputPanel>
 				<t:htmlTag value="center">
 					<p:commandButton
-						style="font-size:16px; font-weight:bold; border-color:green;"
+						style="font-size:16px; font-weight:bold;"
 						value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
 						action="#{centreController.avantAjoutQuestionEnseignant1}"
 						oncomplete="PF('editQuestionEvalPanel').show();"
@@ -141,17 +139,15 @@
 					<h:panelGrid columns="2">
 						<h:graphicImage id="infoActivation2" alt="information"
 							value="/media/images/information.png">
-							<p:tooltip value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+							<p:tooltip  for="infoActivation2" value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
 						</h:graphicImage>
 						<h:outputText style="font-weight:bold;" value="Activation" />
 					</h:panelGrid>
 
 					<t:panelGroup colspan="2">
-						<t:htmlTag value="div" style="height: 5px;" />
-						<p:separator style="height:2px;" />
-						<t:htmlTag value="div" style="height: 20px;" />
+						<p:separator style="height:2px; margin-top:5px; margin-bottom:20px;" />
 					</t:panelGroup>
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.1']}" />
@@ -167,14 +163,14 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII1}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.2']}" />
@@ -190,14 +186,14 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII2}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.3']}" />
@@ -213,14 +209,14 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII3}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.4']}" />
@@ -236,14 +232,14 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII4}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.5']}" />
@@ -259,14 +255,14 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII5}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.6']}" />
@@ -282,14 +278,14 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII6}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.7']}" />
@@ -305,14 +301,14 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII7}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.8']}" />
@@ -328,14 +324,14 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII8}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.9']}" />
@@ -351,14 +347,14 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII9}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height:10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.10']}" />
@@ -374,20 +370,20 @@
 							<h:outputText
 								value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio
 						value="#{centreController.ficheEvaluation.questionEnsII10}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
 						<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
 					</h:selectOneRadio>
 
-					<h:panelGrid>
+					<t:div>
 						<t:htmlTag value="div" style="height: 10px;" />
 						<h:outputText style="font-weight:bold;"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENSEIGNANT.QUESTIONS.II.11']}" />
 						<h:outputText
 							value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.TXTLIBRE']}" />
-					</h:panelGrid>
+					</t:div>
 					<h:selectOneRadio style="padding-top:20px;"
 						value="#{centreController.ficheEvaluation.questionEnsII11}">
 						<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
@@ -417,7 +413,7 @@
 				</p:outputPanel>
 				<t:htmlTag value="center">
 					<p:commandButton
-						style="font-size:16px; font-weight:bold; border-color:green;"
+						style="font-size:16px; font-weight:bold;"
 						value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE']}"
 						action="#{centreController.avantAjoutQuestionEnseignant2}"
 						oncomplete="PF('editQuestionEvalPanel').show();"
@@ -432,7 +428,7 @@
 		<t:htmlTag value="div" style="height: 30px;" />
 		<t:htmlTag value="center">
 			<p:commandButton value="#{msgs['FORM.ENREGISTRER']}"
-				style="font-size:16px; border-color:green;"
+				style="font-size:16px;"
 				update="formFicheEnseignant"
 				action="#{centreController.updateFicheEnseignant}" />
 		</t:htmlTag>

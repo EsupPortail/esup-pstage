@@ -19,7 +19,7 @@
 				maxlength="5" style="text-transform:uppercase;"
 				converter="#{sansAccentEnMAJConverter}" required="true"
 				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<p:ajax event="blur" update="msgCodeCaisse" />
+				<p:ajax event="blur" update="msgCodeCaisse" global="false"/>
 			</h:inputText>
 			<p:message id="msgCodeCaisse" for="codeCaisse"/>
 		</h:panelGrid>

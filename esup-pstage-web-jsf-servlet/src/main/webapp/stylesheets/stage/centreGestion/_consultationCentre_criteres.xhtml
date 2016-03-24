@@ -69,12 +69,13 @@
 		<t:htmlTag value="center">
 			<p:commandButton id="add" value="#{msgs['CENTRE.CRITERE.RATTACHER']}"
 				action="#{centreController.goToAjoutCritere}"
-				oncomplete="PF('ajoutCritere').show();" update="ajoutCritere"
+				onstart="PF('statusDialog').show();"
+				oncomplete="PF('statusDialog').hide(); PF('ajoutCritere').show();" update="ajoutCritere"
 				style="font-size:16px; font-weight:bold; border-color:green;"
 				rendered="#{welcomeController.superAdmin
 							|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}" />
 
-			<p:message for="formListeCritere" />
+			<p:messages />
 
 		</t:htmlTag>
 		<t:htmlTag value="div" style="height: 20px;" />

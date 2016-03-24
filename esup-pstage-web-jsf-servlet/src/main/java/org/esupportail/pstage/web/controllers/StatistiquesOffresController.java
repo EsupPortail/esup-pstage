@@ -237,6 +237,7 @@ public class StatistiquesOffresController extends AbstractContextAwareController
 
 		//Critere 1 et critere 2 vides
 		if(critereUnCle.equals("") && critereDeuxCle.equals("")){
+			uneAnnee = "all";
 			statsItemList = statistiquesDomainService.getNumberOfOffers(idCentreGestion, etat);
 			message = getString("OFFRES.STATS.ANNEE");
 		}
