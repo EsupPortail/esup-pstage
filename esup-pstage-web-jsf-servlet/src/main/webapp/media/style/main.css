@@ -1,14 +1,46 @@
+/*!**/
+ /** Imports the Fluid Skinning System (FSS) CSS. */
+ /** For more information on FSS, refer to:*/
+ /** http://wiki.fluidproject.org/x/96M7*/
+ /**!*/
+/*html {*/
+	/*overflow: auto;*/
+	/*font: 12px arial, helvetica, clean, sans-serif;*/
+	/*background-color: #F9F9F9;*/
+	/*color: #000;*/
+	/*min-width: 1200px;*/
+/*}*/
+
+/*.nopointer {*/
+	/*cursor: default !important;*/
+/*}*/
+
+/*.alignTop td {*/
+	/*vertical-align: top;*/
+/*}*/
+
+/*.unbold label {*/
+	/*font-weight: initial;*/
+/*}*/
+
 /*
- * Imports the Fluid Skinning System (FSS) CSS. 
+ * Imports the Fluid Skinning System (FSS) CSS.
  * For more information on FSS, refer to:
  * http://wiki.fluidproject.org/x/96M7
  */
 html {
 	overflow: auto;
-	font: 12px arial, helvetica, clean, sans-serif;
-	background-color: #F9F9F9;
+	/*font: 12px arial, helvetica, clean, sans-serif;*/
+	font-size: 12px;
+	background-color: #E9E9E9;
 	color: #000;
-	min-width: 1200px;
+	/*min-width: 1200px; */
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+	margin: 0;
+	padding: 0;
 }
 
 .nopointer {
@@ -21,4 +53,325 @@ html {
 
 .unbold label {
 	font-weight: initial;
+}
+
+.ui-widget {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#SIDEBAR {
+	position: fixed;
+	width: 300px;
+	margin: 0;
+	padding: 0;
+	bottom: 0;
+	left: 0;
+	top: 0;
+	border: 0;
+	box-sizing: border-box;
+	background: linear-gradient(to left,#155C82 0%, #2C7094 9px);
+	z-index: 500;
+}
+
+#SIDEBAR #SIDEBAR_LOGO {
+	height: 100px;
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(#16587C 0%, #094667 100%);
+	border-bottom: 1px solid #094667;
+}
+
+#SIDEBAR #SIDEBAR_LOGO img {
+	height: 90px;
+	padding: 5px 0;
+	margin: 0 0 0 150px;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+
+#SIDEBAR #SIDEBAR_MENU {
+	height: auto;
+	overflow: hidden;
+	padding-top: 10px;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-button.customPstage {
+	width: 100%;
+	border: 0;
+	background: transparent;
+	box-sizing: border-box;
+	padding: 0;
+	height: 25px;
+	color: #F9F9F9;
+	margin: 0 0 10px 0;
+	text-align: left;
+	font-weight: bold;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-button.customPstage:hover {
+	font-weight: bold;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-button.customPstage.selected {
+	background: #094667;
+	border-radius: 0;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-button.customPstage:last-child {
+	padding-left: 27px;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-button.customPstage > * {
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-button.customPstage:hover > * {
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-button.customPstage:active > * {
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage {
+	width: 100%;
+	border: 0;
+	background: transparent;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-panel {
+
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header {
+	border: 0;
+	background: transparent;
+	box-sizing: border-box;
+	margin: 0 0 10px 0;
+	height: 25px;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header *:first-child {
+	background: transparent;
+	font-family: FontAwesome;
+	text-indent: 0;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header *:first-child:before {
+	content: "\f054";
+}
+
+/*#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header.ui-state-active {*/
+/*margin-bottom: 0;*/
+/*}*/
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header.ui-state-active *:first-child:before {
+	content: "\f078";
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header > * {
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header a {
+	line-height: 100%;
+	padding-left: 27px;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header a:active {
+	border: 0;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header > * {
+	color: #F9F9F9;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header:hover > * {
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-header:active > * {
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-content {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-content .ui-menu-list {
+	padding-left: 15px;
+	margin-bottom: 10px;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-content .ui-menu-list .ui-menuitem {
+	margin: 0;
+	padding: 0;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-content .ui-menu-list .ui-menuitem > .ui-menuitem-link {
+	border: 0;
+	line-height: 100%;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-content .ui-menu-list .ui-menuitem > .ui-menuitem-link:hover {
+	background: transparent;
+	border: 0;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-content .ui-menu-list .ui-menuitem > .ui-menuitem-link.selected {
+	background: #094667;
+	/*background: linear-gradient(to left,#2C7094 0%, #094667 9px);*/
+	border-radius: 0;
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-content .ui-menu-list .ui-menuitem > .ui-menuitem-link > * {
+	color: #F9F9F9;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-content .ui-menu-list .ui-menuitem > .ui-menuitem-link:hover > * {
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+}
+
+#SIDEBAR #SIDEBAR_MENU .ui-panelmenu.customPstage .ui-panelmenu-content .ui-menu-list .ui-menuitem > .ui-menuitem-link:active > * {
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#TOPBAR {
+	height: 100px;
+	margin: 0 0 0 300px;
+	box-sizing: border-box;
+	padding: 0;
+}
+
+#TOPBAR #TOPBAR_TITLE {
+	width: 70%;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	float: left;
+	text-align: center;
+}
+
+#TOPBAR #TOPBAR_TITLE h1 {
+	height: 3.6rem;
+	font-size: 3.6rem;
+	margin: 15px 0 6px 0;
+	padding: 0;
+}
+
+#TOPBAR #TOPBAR_TITLE h3 {
+	font-weight: normal;
+	height: 1.2rem;
+	font-size: 1.2rem;
+	margin: 0;
+	padding: 0;
+}
+
+#TOPBAR #TOPBAR_INFO {
+	width: 30%;
+	margin: 0;
+	padding: 10px 10px 0 0;
+	box-sizing: border-box;
+	height: 100%;
+	float: right;
+}
+
+#TOPBAR #TOPBAR_INFO span.loginName {
+	font-size: 1.4rem;
+	font-weight: bold;
+	display: block;
+	float: right;
+}
+
+#TOPBAR #TOPBAR_INFO span.versionNumber {
+	font-size: 1.1rem;
+	font-weight: normal;
+	display: block;
+	float: right;
+	clear: right;
+}
+
+#TOPBAR #TOPBAR_INFO .infos {
+	height: 40%;
+}
+
+#TOPBAR #TOPBAR_INFO .buttons {
+	height: 60%;
+	text-align: right;
+	padding-top: 10px;
+	box-sizing: border-box;
+}
+
+#TOPBAR #TOPBAR_INFO .buttons button {
+	color:#094667;
+	width: 40px;
+	height: 40px;
+	font-size: 1.7rem;
+	border-radius: 50%;
+	margin-left: 5px;
+}
+
+#TOPBAR #TOPBAR_INFO .buttons button > *:first-child {
+	height: 20px;
+	width: 20px;
+	margin-top: -9.5px;
+	margin-left: -9.5px;
+}
+
+#MAIN_CONTENT {
+	margin: 0 0 0 300px;
+	padding: 10px;
+}
+
+#MAIN_CONTENT > * {
+	font-size: 1.1rem;
+}
+
+#MAIN_CONTENT a {
+	color: #094667;
+	text-decoration: none;
+}
+
+#MAIN_CONTENT .ui-panel {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+}
+
+#MAIN_CONTENT .ui-panel .ui-panel-titlebar {
+	border: 0;
+	margin: 0 0 20px 0;
+	padding: 0;
+	background: transparent;
+	font-size: 1.7rem;
+	color: #094667;
+}
+
+#MAIN_CONTENT .ui-panel .ui-panel-content {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+}
+
+.ui-button {
+	color: #094667;
+	font-weight: normal;
+}
+
+.ui-button:hover {
+	color: #2C7094;
+	font-weight: normal;
 }
