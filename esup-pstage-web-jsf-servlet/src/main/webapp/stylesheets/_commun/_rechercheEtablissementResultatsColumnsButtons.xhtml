@@ -6,24 +6,25 @@
 	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:column>
-		<h:commandButton id="detailStructure"
-			value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-			action="#{rechercheController.goToAffichageRechercheEtablissement}"
-			image="../../media/images/document.png"
-			alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-			rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
-			<f:setPropertyActionListener value="#{varRechercheStructure}"
-				target="#{rechercheController.resultatRechercheStructure}" />
-			<p:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
-		</h:commandButton>
-	</p:column>
 	<p:column
 		rendered="#{(sessionController.adminPageAuthorized || welcomeController.superAdmin 
 	|| welcomeController.admin || welcomeController.writer)}">
+		<f:facet name="header">
+			<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
+		</f:facet>
 		<t:div style="display:inline;">
 			<t:div style="display:inline;"
 				rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
+				<h:commandButton id="detailStructure"
+								 value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+								 action="#{rechercheController.goToAffichageRechercheEtablissement}"
+								 image="../../media/images/document.png"
+								 alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
+								 rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
+					<f:setPropertyActionListener value="#{varRechercheStructure}"
+												 target="#{rechercheController.resultatRechercheStructure}" />
+					<p:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+				</h:commandButton>
 				<h:commandButton id="modifierStructure"
 					value="#{msgs['FORM.MODIFIER']}"
 					action="#{etablissementController.goToModificationEtablissement}"
@@ -75,6 +76,7 @@
 					target="#{sessionController.validationStructureCurrentPage}" />
 				<p:tooltip value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
 			</p:commandLink>
+
 <!-- 			<p:commandLink  id="devaliderStructure" -->
 <!-- 				oncomplete="PF('validerStructurePanel').show();" -->
 <!-- 				rendered="#{(varRechercheStructure.estValidee == 1 || varRechercheStructure.estValidee == 2) -->

@@ -7,6 +7,12 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<p:column rendered="#{sessionController.moderationStructures}">
+		<f:facet name="header">
+			<h:outputText id="infoHeader" value="#{msgs['STRUCTURE.MODERATION.VALIDATION']}"
+						  alt="#{msgs['GENERAL.OK']}">
+				<p:tooltip value="#{msgs['STRUCTURE.MODERATION.HEADER']}"/>
+			</h:outputText>
+		</f:facet>
 		<t:htmlTag value="center"
 			rendered="#{!(welcomeController.superAdmin and varRechercheStructure.temEnServStructure != 'O')}">
 			<h:outputText id="verification1" alt="#{msgs['FORM.OUI']}"
@@ -39,6 +45,9 @@
 		</t:htmlTag>
 	</p:column>
 	<p:column>
+		<f:facet name="header">
+			<h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+		</f:facet>
 		<h:outputText value="#{varRechercheStructure.raisonSociale}"
 			title="#{varRechercheStructure.raisonSociale}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
@@ -50,9 +59,15 @@
 		</h:graphicImage>
 	</p:column>
 	<p:column>
+		<f:facet name="header">
+			<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+		</f:facet>
 		<h:outputText value="#{varRechercheStructure.numeroSiret}" />
 	</p:column>
 	<p:column>
+		<f:facet name="header">
+			<h:outputText value="#{msgs['STRUCTURE.VOIE']}" />
+		</f:facet>
 		<h:outputText value="#{varRechercheStructure.voie}"
 			title="#{varRechercheStructure.voie}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
@@ -65,15 +80,24 @@
 	<!-- 		</h:outputText> -->
 	<!-- 	</p:column> -->
 	<p:column>
+		<f:facet name="header">
+			<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+		</f:facet>
 		<h:outputText value="#{varRechercheStructure.codePostal}" />
 	</p:column>
 	<p:column>
+		<f:facet name="header">
+			<h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
+		</f:facet>
 		<h:outputText value="#{varRechercheStructure.commune}"
 			title="#{varRechercheStructure.commune}">
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
 	</p:column>
 	<p:column>
+		<f:facet name="header">
+			<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
+		</f:facet>
 		<h:panelGrid
 			columns="2" style="font-size:12px;">
 			<h:graphicImage id="flag"

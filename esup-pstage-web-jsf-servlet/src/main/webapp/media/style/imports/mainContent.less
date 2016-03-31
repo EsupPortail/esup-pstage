@@ -1,0 +1,124 @@
+@import "commun/variables";
+
+#MAIN_CONTENT {
+  margin: 0 0 0 @SidebarWidth;
+  padding: @MainContentPadding;
+
+  a {
+    color: @MainLinkFontColor;
+    text-decoration: none;
+  }
+
+  & > * {
+    font-size: @MainFontSize;
+  }
+
+  .ui-panel {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+
+    .ui-panel-titlebar {
+      border: 0;
+      margin: 0 0 20px 0;
+      padding: 0;
+      background: transparent;
+      font-size: @MainPanelTitleFontSize;
+      color: @MainPanelTitleFontColor;
+    }
+
+    .ui-panel-content {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+    }
+  }
+}
+
+.formUL {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  label {
+    display: block;
+    margin-bottom: 2px;
+
+    & > .legendLabel {
+      margin-left: 10px;
+      font-size: 0.8em;
+      font-style: italic;
+
+      & > * {
+        font-size: 0.8em;
+        font-style: italic;
+      }
+
+      & > i {
+        font-size: 1.2em;
+        font-style: normal;
+        margin-right: 2px;
+      }
+    }
+  }
+
+  input, .ui-selectonemenu {
+    width: 320px;
+    box-sizing: border-box;
+  }
+
+  & > li {
+    margin-bottom: 15px;
+  }
+}
+
+.ui-inputfield.ui-inputtext.customPstage {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid @Gray;
+  border-radius: 0;
+
+  &:focus {
+    -webkit-box-shadow: 0px 0px 4px @MainInputTextFocusColor;
+    -moz-box-shadow: 0px 0px 4px @MainInputTextFocusColor;
+    box-shadow: 0px 0px 4px @MainInputTextFocusColor;
+  }
+}
+
+.ui-selectonemenu.customPstage {
+  border-radius: 0;
+  box-shadow: none;
+  background: @White;
+  border: 1px solid @Gray;
+
+  .ui-selectonemenu-trigger {
+    border-left: 1px solid @Gray;
+  }
+
+  .ui-selectonemenu-label, .ui-selectonemenu-trigger {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.ui-selectoneradio.customPstage .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+  background: @MainSelectRadioBackground;
+}
+
+.ui-chkbox.customPstage .ui-chkbox-box.ui-state-active {
+  background: @MainSelectCheckboxBackground;
+}
+
+.ui-state-highlight { /* en attendant de trouver mieux */
+  background: @MainSelectLineHighlightBackground !important;
+  color: @White !important;
+  text-shadow: none !important;
+}

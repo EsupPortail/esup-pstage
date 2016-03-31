@@ -26,12 +26,10 @@
 					<p:column width="35px;"
 						sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}">
 						<f:facet name="header">
-							<h:graphicImage id="appartenanceHead"
-								alt="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE']}"
-								value="/media/images/user_gray.png">
+							<t:htmlTag value="i" styleClass="fa fa-user fz16 fontBlack" id="appartenanceHead">
 								<p:tooltip
 									value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
-							</h:graphicImage>
+							</t:htmlTag>
 						</f:facet>
 						<center>
 							<h:graphicImage id="appartenance1" alt="#{msgs['FORM.OUI']}"
@@ -41,12 +39,10 @@
 									value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.OUI']}" />
 							</h:graphicImage>
 
-							<h:graphicImage id="appartenance2" alt="#{msgs['FORM.NON']}"
-								rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] == null}"
-								value="/media/images/cross.png">
+							<t:htmlTag value="i" styleClass="fa fa-remove fz16 fontRed" rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] == null}" id="appartenance2">
 								<p:tooltip
-									value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}" />
-							</h:graphicImage>
+									value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}" for="appartenance2"/>
+							</t:htmlTag>
 						</center>
 					</p:column>
 
@@ -178,8 +174,7 @@
 									target="#{statistiquesConventionController.anneesConventions}" />
 								<f:setPropertyActionListener value="#{null}"
 									target="#{statistiquesOffresController.anneesOffres}" />
-								<h:graphicImage alt="#{msgs['FORM.VOIR']}"
-									value="/media/images/zoom.png" />
+								<t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
 								<p:tooltip value="#{msgs['FORM.CONSULTER']}" for="see" />
 							</h:commandLink>
 
@@ -192,8 +187,7 @@
 								update="suppressionCentre">
 								<f:setPropertyActionListener value="#{centre}"
 									target="#{centreController.centre}" />
-								<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-									value="/media/images/delete.png" />
+								<t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontDarkGray"/>
 								<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="delete" />
 							</p:commandLink>
 

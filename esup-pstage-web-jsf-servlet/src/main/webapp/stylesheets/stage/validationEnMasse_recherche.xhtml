@@ -49,14 +49,12 @@
 							<h:outputText escape="false"
 								rendered="#{!sessionController.validationPedagogique}"
 								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO']}">
-								<h:graphicImage alt="avertissement"
-									value="../../media/images/information.png" />
+								<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
 							</h:outputText>
 							<h:outputText escape="false"
 								rendered="#{sessionController.validationPedagogique}"
 								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO_PEDAGO']}">
-								<h:graphicImage alt="avertissement"
-									value="../../media/images/information.png" />
+								<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
 							</h:outputText>
 							<t:htmlTag value="div" style="height:10px;" />
 						</h:panelGrid>
