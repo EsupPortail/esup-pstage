@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmap.xhtml" />
@@ -19,9 +16,7 @@
 						src="/stylesheets/stage/#{sessionController.creationConventionEtape2CurrentPage}.xhtml" />
 				</h:form>
 				<t:htmlTag value="div" style="height: 10px;" />
-				<p:message for="formAjoutEtab">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
+				<p:messages />
 				<t:htmlTag value="div" style="height: 10px;" />
 			</h:panelGrid>
 		</p:panel>

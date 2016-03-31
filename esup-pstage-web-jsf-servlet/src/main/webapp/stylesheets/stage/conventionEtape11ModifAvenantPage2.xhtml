@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -17,13 +14,11 @@
 			</f:facet>
 			<h:form id="formModifAvenantPage2">
 				<h:panelGrid
-					
 					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 
-					<ui:include src="/stylesheets/stage/_conventionEtape11FormAvenantPage2.xhtml" />
+					<ui:include src="/stylesheets/stage/_formAvenantPage2.xhtml" />
 
-					<h:panelGrid
-						align="center">
+					<h:panelGrid align="center">
 						<h:commandButton
 							value="#{msgs['CONVENTION.ETAPE11.CONFIRMATION']}"
 							action="#{avenantController.modifierAvenant}" />

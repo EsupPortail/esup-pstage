@@ -261,7 +261,11 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	@SuppressWarnings("unused")
 	private List<SelectItem> mois;
-	
+
+	/**
+	 * Index du menu_centre
+	 */
+	private int indexMenu;
 
 	
 	
@@ -2160,6 +2164,14 @@ public class NomenclatureController extends AbstractContextAwareController {
 	 */
 	public void setModeValidationStage(ModeValidationStageDTO modeValidationStage) {
 		this.modeValidationStage = modeValidationStage;
+	}
+
+	public int getIndexMenu() {
+		return indexMenu;
+	}
+
+	public void setIndexMenu(int indexMenu) {
+		this.indexMenu = indexMenu;
 	}
 	
 	

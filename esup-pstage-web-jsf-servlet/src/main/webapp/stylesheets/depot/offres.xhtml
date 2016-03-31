@@ -74,7 +74,7 @@
 												target="#{offreController.retour}" />
 											<f:setPropertyActionListener value="#{false}"
 												target="#{etablissementController.afficherSelectionCentreContact}" />
-											<p:tooltip>
+											<p:tooltip for="modif">
 												<h:panelGrid>
 													<h:outputLabel for="modif" value="#{msgs['FORM.MODIFIER']}" />
 													<t:div rendered="#{sessionController.adminPageAuthorized}">

@@ -1,26 +1,5 @@
 package org.esupportail.pstage.dao.referentiel;
 
-import gouv.education.apogee.commun.client.ws.administratifmetier.AdministratifMetierServiceInterfaceProxy;
-import gouv.education.apogee.commun.client.ws.etudiantmetier.EtudiantMetierServiceInterfaceProxy;
-import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierServiceInterfaceProxy;
-import gouv.education.apogee.commun.client.ws.pedagogiquemetier.PedagogiqueMetierServiceInterfaceProxy;
-import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierServiceInterfaceProxy;
-import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmAnuDTO2;
-import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmEtpDTO2;
-import gouv.education.apogee.commun.transverse.dto.etudiant.CoordonneesDTO2;
-import gouv.education.apogee.commun.transverse.dto.etudiant.IdentifiantsEtudiantDTO;
-import gouv.education.apogee.commun.transverse.dto.etudiant.InfoAdmEtuDTO;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO3;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ElementPedagogiDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ListeElementPedagogiDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.OffreFormationDTO3;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.SECritereDTO2;
-import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionDiplomeDTO3;
-import gouv.education.apogee.commun.transverse.dto.pedagogique.ComposanteDTO3;
-import gouv.education.apogee.commun.transverse.dto.pedagogique.ContratPedagogiqueResultatVdiVetDTO;
-import gouv.education.apogee.commun.transverse.dto.pedagogique.EtapeResVdiVetDTO;
-import gouv.education.apogee.commun.transverse.exception.WebBaseException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +22,27 @@ import org.esupportail.pstage.exceptions.CommunicationApogeeException;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.springframework.util.StringUtils;
+
+import gouv.education.apogee.commun.client.ws.administratifmetier.AdministratifMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.etudiantmetier.EtudiantMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.offreformationmetier.OffreFormationMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.pedagogiquemetier.PedagogiqueMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.client.ws.referentielmetier.ReferentielMetierServiceInterfaceProxy;
+import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmAnuDTO2;
+import gouv.education.apogee.commun.transverse.dto.administratif.InsAdmEtpDTO2;
+import gouv.education.apogee.commun.transverse.dto.etudiant.CoordonneesDTO2;
+import gouv.education.apogee.commun.transverse.dto.etudiant.IdentifiantsEtudiantDTO;
+import gouv.education.apogee.commun.transverse.dto.etudiant.InfoAdmEtuDTO;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.DiplomeDTO3;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ElementPedagogiDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.ListeElementPedagogiDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.OffreFormationDTO3;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.SECritereDTO2;
+import gouv.education.apogee.commun.transverse.dto.offreformation.recupererse.VersionDiplomeDTO3;
+import gouv.education.apogee.commun.transverse.dto.pedagogique.ComposanteDTO3;
+import gouv.education.apogee.commun.transverse.dto.pedagogique.ContratPedagogiqueResultatVdiVetDTO2;
+import gouv.education.apogee.commun.transverse.dto.pedagogique.EtapeResVdiVetDTO2;
+import gouv.education.apogee.commun.transverse.exception.WebBaseException;
 
 /**
  * Acces donnees etudiant
@@ -1046,13 +1046,13 @@ StudentDataRepositoryDao {
 		// recherche des Inscriptions pedagogiques 
 		try{
 			
-			ContratPedagogiqueResultatVdiVetDTO[]  tabcontratPedagoResultatVdiVet = 
-					servicePedagogique.recupererContratPedagogiqueResultatVdiVet(cod, annee, DonneesStatic.ws_sourceRes_Apogee, "", "", "");
+			ContratPedagogiqueResultatVdiVetDTO2[]  tabcontratPedagoResultatVdiVet = 
+					servicePedagogique.recupererContratPedagogiqueResultatVdiVet_v2(cod, annee, DonneesStatic.ws_sourceRes_Apogee, "", "", "","E");
 			if(tabcontratPedagoResultatVdiVet!=null){
-				for (ContratPedagogiqueResultatVdiVetDTO contratPedagoResVdiVet : tabcontratPedagoResultatVdiVet) {
+				for (ContratPedagogiqueResultatVdiVetDTO2 contratPedagoResVdiVet : tabcontratPedagoResultatVdiVet) {
 
-					EtapeResVdiVetDTO[]  tabEtapeResVdiVet = contratPedagoResVdiVet.getEtapes();
-					for (EtapeResVdiVetDTO etapeResVdiVet : tabEtapeResVdiVet) {
+					EtapeResVdiVetDTO2[]  tabEtapeResVdiVet = contratPedagoResVdiVet.getEtapes();
+					for (EtapeResVdiVetDTO2 etapeResVdiVet : tabEtapeResVdiVet) {
 						if (etapeResVdiVet.getEtape() != null) {
 							// prendre les IP en cours "E"
 							if (logger.isDebugEnabled()){
@@ -1060,26 +1060,24 @@ StudentDataRepositoryDao {
 								logger.debug("[codeEtape : "+etapeResVdiVet.getEtape().getCodEtp() +
 										", codeVersionEtape : " + etapeResVdiVet.getEtape().getCodVrsVet() +
 										", libEtape : "+etapeResVdiVet.getEtape().getLibWebVet() +
-										", etatInscription : " + etapeResVdiVet.getCodEtaIae()+"]"); 
+										", etatInscription : E ]"); 
 							}
-							if (etapeResVdiVet.getCodEtaIae() != null && etapeResVdiVet.getCodEtaIae().equals("E")) {
-								// liste etape
-								Object idl=etapeResVdiVet.getEtape().getCodEtp();
-								String lib=etapeResVdiVet.getEtape().getLibWebVet();
-								lEtape.put(idl+"",lib);
-								// liste etape-versionEtape
-								String vet=etapeResVdiVet.getEtape().getCodVrsVet().toString();
-								lEtapeVet.put(idl+"",vet);
-								// liste etape-versionEtape pedagogique
-								lEtapeVetPedago.put(idl+"",vet);
-								// renseignement de la liste des etapes- version etapes - inscriptions
-								EtapeInscription etpins = new EtapeInscription();
-								etpins.setCodeEtp(etapeResVdiVet.getEtape().getCodEtp());
-								etpins.setCodVrsVet(etapeResVdiVet.getEtape().getCodVrsVet().toString());
-								etpins.setLibWebVet(etapeResVdiVet.getEtape().getLibWebVet());
-								etpins.setTypeIns(DonneesStatic.TYPE_INS_PEDAGO);
-								//									listeEtapeInscriptions.add(etpins);
-							}
+							// liste etape
+							Object idl=etapeResVdiVet.getEtape().getCodEtp();
+							String lib=etapeResVdiVet.getEtape().getLibWebVet();
+							lEtape.put(idl+"",lib);
+							// liste etape-versionEtape
+							String vet=etapeResVdiVet.getEtape().getCodVrsVet().toString();
+							lEtapeVet.put(idl+"",vet);
+							// liste etape-versionEtape pedagogique
+							lEtapeVetPedago.put(idl+"",vet);
+							// renseignement de la liste des etapes- version etapes - inscriptions
+							EtapeInscription etpins = new EtapeInscription();
+							etpins.setCodeEtp(etapeResVdiVet.getEtape().getCodEtp());
+							etpins.setCodVrsVet(etapeResVdiVet.getEtape().getCodVrsVet().toString());
+							etpins.setLibWebVet(etapeResVdiVet.getEtape().getLibWebVet());
+							etpins.setTypeIns(DonneesStatic.TYPE_INS_PEDAGO);
+							//									listeEtapeInscriptions.add(etpins);
 						}
 					}
 				}

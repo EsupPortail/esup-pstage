@@ -3,7 +3,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -20,8 +19,7 @@
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="" />
 					<h:panelGrid>
-						<ui:include
-							src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
+						<ui:include src="/stylesheets/stage/_detailsStage.xhtml" />
 					</h:panelGrid>
 					<h:panelGrid>
 						<h:commandButton id="modifStage" value="#{msgs['FORM.MODIFIER']}"

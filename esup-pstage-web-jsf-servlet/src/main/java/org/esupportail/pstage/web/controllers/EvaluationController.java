@@ -553,8 +553,6 @@ public class EvaluationController extends AbstractContextAwareController {
 					we.getMessage());
 		}
 
-		getSessionController().setFicheEvaluationCurrentPage(
-				"_conventionEtape13FicheEvaluationEnseignant");
 		return "conventionEtape13FicheEvaluationEnseignant";
 	}
 
@@ -878,9 +876,6 @@ public class EvaluationController extends AbstractContextAwareController {
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
 		}
-
-		getSessionController().setFicheEvaluationCurrentPage(
-				"_conventionEtape13FicheEvaluationEntreprise");
 	}
 
 	/**

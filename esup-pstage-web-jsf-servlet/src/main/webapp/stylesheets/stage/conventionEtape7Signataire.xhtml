@@ -3,7 +3,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -13,24 +12,96 @@
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid
-					>
+				<h:panelGrid>
 					<f:facet name="header">
-						<h:outputFormat value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.INFO']}">
-							<f:param value="#{conventionController.convention.structure.raisonSociale}" />
+						<h:outputFormat
+							value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.INFO']}">
+							<f:param
+								value="#{conventionController.convention.structure.raisonSociale}" />
 						</h:outputFormat>
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<h:outputText value="" />
+					<p:messages />
 					<h:panelGrid
-						>
-						<p:messages />
-						<ui:include src="/stylesheets/stage/_conventionEtape7DetailsSignataire.xhtml" />
+						rendered="#{not empty conventionController.convention.signataire and conventionController.convention.signataire.id gt 0}">
+						<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+							escape="false" />
+						<t:htmlTag value="div" style="width: 50px;" />
+						<p:dataTable value="#{conventionController.convention.signataire}">
+							<f:facet name="header">
+								<p:columnGroup>
+									<p:column>
+										<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
+											title="#{msgs['CONTACT.CIVILITE']}"
+											value="../../media/images/user_gray.png" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{msgs['CONTACT.NOM']}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{msgs['CONTACT.PRENOM']}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{msgs['CONTACT.FONCTION']}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
+									</p:column>
+								</p:columnGroup>
+							</f:facet>
+							<p:column>
+								<h:outputText id="civC"
+									value="#{conventionController.convention.signataire.civilite.libelle}" />
+							</p:column>
+							<p:column>
+								<h:outputText id="nomC"
+									value="#{conventionController.convention.signataire.nom}" />
+							</p:column>
+							<p:column>
+								<h:outputText id="prenomC"
+									value="#{conventionController.convention.signataire.prenom}" />
+							</p:column>
+							<p:column>
+								<h:outputText id="fonctionC"
+									value="#{conventionController.convention.signataire.fonction}" />
+							</p:column>
+							<p:column>
+								<h:panelGrid>
+									<h:panelGrid columns="2">
+										<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+											title="#{msgs['CONTACT.TELEPHONE']}"
+											value="../../media/images/phone.png" />
+										<h:outputText id="telC"
+											value="#{conventionController.convention.signataire.tel}" />
+									</h:panelGrid>
+									<h:panelGrid columns="2">
+										<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+											title="#{msgs['CONTACT.FAX']}"
+											value="../../media/images/printer.png" />
+										<h:outputText id="faxC"
+											value="#{conventionController.convention.signataire.fax}" />
+									</h:panelGrid>
+									<h:panelGrid columns="2">
+										<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+											title="#{msgs['CONTACT.MAIL']}"
+											value="../../media/images/email.png" />
+										<h:outputText id="mailC"
+											value="#{conventionController.convention.signataire.mail}" />
+									</h:panelGrid>
+								</h:panelGrid>
+
+							</p:column>
+						</p:dataTable>
 					</h:panelGrid>
 					<h:panelGrid
-						columns="2">
-						<p:commandButton 
-							oncomplete="PF('modifContact').show();"
+						rendered="#{empty conventionController.convention.signataire || conventionController.convention.signataire.id == 0}">
+						<h:outputText value="#{msgs['CONTACT.AUCUNSIGNATAIRE']}"
+							escape="false" />
+						<t:htmlTag value="div" style="width: 50px;" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:commandButton oncomplete="PF('modifContact').show();"
 							update="modifContact" value="#{msgs['FORM.MODIFIER']}"
 							rendered="#{(not empty conventionController.convention.signataire and !conventionController.conventionValide)
 									and (sessionController.adminPageAuthorized 
@@ -55,7 +126,7 @@
 							<f:setPropertyActionListener value="_modifContactEtape1"
 								target="#{sessionController.modifContactCurrentPage}" />
 						</p:commandButton>
-						<p:commandButton 
+						<p:commandButton
 							oncomplete="PF('selectServiceSignataire').show();"
 							rendered="#{!conventionController.conventionValide 
 								 and (welcomeController.superAdmin || welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
@@ -75,18 +146,18 @@
 							<f:setPropertyActionListener value="#{false}"
 								target="#{etablissementController.afficherSelectionCentreContact}" />
 						</p:commandButton>
-						<p:dialog id="selectServiceSignataire" widgetVar="selectServiceSignataire">
+						<p:dialog id="selectServiceSignataire"
+							widgetVar="selectServiceSignataire">
 							<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 							<p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 								oncomplete="PF('selectServiceSignataire').hide();"
-								
 								action="#{conventionController.goToConventionModifSignataire}">
 								<f:setPropertyActionListener
 									value="#{etablissementController.contactSel}"
 									target="#{conventionController.convention.signataire}" />
 							</p:commandButton>
 							<t:htmlTag value="div" style="width: 100px; display: inline;" />
-							<p:commandButton value="#{msgs['FORM.CANCEL']}" 
+							<p:commandButton value="#{msgs['FORM.CANCEL']}"
 								onclick="PF('selectServiceSignataire').hide();" />
 						</p:dialog>
 					</h:panelGrid>

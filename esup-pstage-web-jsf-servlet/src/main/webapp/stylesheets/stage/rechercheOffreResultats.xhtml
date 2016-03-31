@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -15,7 +13,7 @@
 				<t:div
 					rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
 					<ui:include src="../_commun/_rechercheOffreNbResultats.xhtml" />
-					<p:dataTable id="rechercheOffreDataTable"
+					<p:dataTable id="rechercheOffreDataTable" styleClass="mt20 mb20"
 						value="#{offreController.rechercheOffrePaginator.liste}"
 						var="offre" rowKey="rowOffre" rows="10" rowHover="true"
 						rowStyleClass="nopointer" paginator="true"
@@ -26,16 +24,15 @@
 						<p:column>
 							<h:commandLink id="recap"
 								action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
-								<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-									title="#{msgs['OFFRE.GESTION.DETAILS']}"
-									value="../../media/images/document.png" />
+								<t:htmlTag id="detailDiffOffre" value="i" styleClass="fa fa-file-text-o fontBlue2 fz13"/>
+								<p:tooltip for="detailDiffOffre" value="#{msgs['OFFRE.GESTION.DETAILS']}"/>
 								<f:setPropertyActionListener value="#{offre}"
 									target="#{offreController.currentOffre}" />
 								<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
 							</h:commandLink>
 						</p:column>
 					</p:dataTable>
-					<p:dataTable id="rechercheOffreDataTableE"
+					<p:dataTable id="rechercheOffreDataTableE" styleClass="mt20 mb20"
 						value="#{offreController.rechercheOffrePaginator.liste}"
 						var="offre" rowKey="rowOffre" rows="10" rowHover="true"
 						rowStyleClass="nopointer" paginator="true"
@@ -56,12 +53,12 @@
 						</p:column>
 					</p:dataTable>
 				</t:div>
-				<h:panelGrid>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<p:commandButton
+				<!--<h:panelGrid>-->
+					<!--<t:htmlTag value="div" style="height: 20px;" />-->
+					<p:commandButton icon="fa fa-search"
 						value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
 						action="#{offreController.goToRechercheOffreStage}" />
-				</h:panelGrid>
+				<!--</h:panelGrid>-->
 			</h:form>
 			<ui:include src="../_commun/_panelSupprOffre.xhtml" />
 		</p:panel>

@@ -3,7 +3,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -14,13 +13,11 @@
 			</f:facet>
 			<h:form id="formModifAvenantPage1">
 				<h:panelGrid
-					
 					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
 
-					<ui:include src="/stylesheets/stage/_conventionEtape11FormAvenantPage1.xhtml" />
+					<ui:include src="/stylesheets/stage/_formAvenantPage1.xhtml" />
 
-					<h:panelGrid
-						align="center">
+					<h:panelGrid align="center">
 						<h:commandButton value="#{msgs['CONVENTION.ETAPE11.MODIFIER']}"
 							action="#{avenantController.goToModifAvenantPage2}" />
 						<h:outputText id="erreurModification" value="" />
@@ -29,7 +26,7 @@
 						</p:message>
 					</h:panelGrid>
 				</h:panelGrid>
-				
+
 				<t:htmlTag value="div" style="height: 10px;" />
 
 				<h:commandButton id="retour" style="float:left;"
@@ -37,7 +34,7 @@
 					action="#{avenantController.goToDetailAvenant}">
 					<p:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
 				</h:commandButton>
-				
+
 				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>
 			<ui:include src="../_commun/_panelAjoutService.xhtml" />

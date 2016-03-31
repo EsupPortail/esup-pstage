@@ -3,7 +3,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -13,8 +12,62 @@
 					value="Commentaires sur la convention n#{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formCommentaire">
-				<ui:include
-					src="/stylesheets/stage/_conventionEtape12Commentaire.xhtml" />
+				<t:htmlTag value="div" style="height: 20px;" />
+				<h:outputLabel for="divCommentaire"
+					value="Commentaire sur le stage : " />
+				<t:div
+					rendered="#{welcomeController.etudiant || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitLecture}">
+					<h:outputText
+						rendered="#{empty conventionController.convention.commentaireStage}"
+						value="Aucun commentaire saisi." />
+					<h:outputText escape="false"
+						rendered="#{not empty conventionController.convention.commentaireStage}"
+						value="#{conventionController.convention.commentaireStage}" />
+				</t:div>
+				<t:div id="divCommentaire"
+					rendered="#{sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
+					<h:panelGrid style="margin-left:30;"
+						rendered="#{conventionController.convention.validationConvention}">
+						<h:outputText escape="false"
+							rendered="#{not empty conventionController.convention.commentaireStage}"
+							value="#{conventionController.convention.commentaireStage}" />
+						<h:outputText
+							rendered="#{empty conventionController.convention.commentaireStage}"
+							value="Aucun commentaire enregistre." />
+					</h:panelGrid>
+					<h:panelGrid style="margin-left:30;"
+						rendered="#{!conventionController.convention.validationConvention}">
+						<t:htmlTag value="div" style="height: 10px;" />
+						<p:editor id="commentaireStage"
+							value="#{conventionController.convention.commentaireStage}"
+							width="400" height="200" />
+						<t:htmlTag value="div" style="height: 10px;" />
+						<h:panelGrid align="center">
+							<p:commandButton
+								action="#{conventionController.ajouterCommentaireStage}"
+								oncomplete="PF('popup').show();" update="formCommentaire"
+								value="Enregistrer" alt="Enregistrer" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<p:dialog id="popup" widgetVar="popup">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
+						</f:facet>
+						<center>
+							<p:message style="font-weight:bold;" for="formCommentaire">
+								<f:facet name="infoMarker">
+									<h:graphicImage value="../../media/images/tick.png"
+										title="#{msgs['FORM.CONFIRMATION']}" />
+								</f:facet>
+							</p:message>
+						</center>
+						<h:panelGrid align="center">
+							<t:htmlTag value="div" style="height: 10px;" />
+							<p:commandButton value="#{msgs['GENERAL.OK']}" immediate="true"
+								onclick="PF('popup').hide();" />
+						</h:panelGrid>
+					</p:dialog>
+				</t:div>
 			</h:form>
 		</p:panel>
 		<t:div rendered="#{conventionController.convention == null}">

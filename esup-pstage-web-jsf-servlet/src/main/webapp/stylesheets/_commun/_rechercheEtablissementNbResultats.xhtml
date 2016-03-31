@@ -31,8 +31,7 @@
 	</h:panelGrid>
 	<h:panelGrid columns="2" 
 		rendered="#{sessionController.moderationStructures and rechercheController.toVerificationStructures}">
-		<h:graphicImage alt="avertissement"
-			value="../../media/images/information.png" />
+		<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
 		<h:outputText value="#{msgs['STRUCTURE.MODERATION.INFORMATION']}" escape="false"/>
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height:10px;" />

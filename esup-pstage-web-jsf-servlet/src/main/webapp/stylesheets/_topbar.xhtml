@@ -7,13 +7,21 @@
 
 	<t:div id="TOPBAR">
 		<t:div id="TOPBAR_TITLE">
-			<t:htmlTag value="h1">Application Stage</t:htmlTag>
-			<t:htmlTag value="h3">Gestion des conventions et des offres de stage</t:htmlTag>
+			<t:htmlTag value="h1">
+				<h:outputText value="#{msgs['APPLICATION.BIG_TITLE']}"/>
+			</t:htmlTag>
+			<!--<t:htmlTag value="h3">-->
+				<!--<h:outputText value="#{msgs['APPLICATION.TITLE']}"/>-->
+			<!--</t:htmlTag>-->
 		</t:div>
 		<t:div id="TOPBAR_INFO">
 			<t:div styleClass="infos">
-				<t:htmlTag value="span" styleClass="loginName">maxime.ostrowski</t:htmlTag>
-				<t:htmlTag value="span" styleClass="versionNumber">Version 6.6.6</t:htmlTag>
+				<t:htmlTag value="span" styleClass="loginName">
+					<h:outputText value="#{sessionController.currentUser.displayName}"/>
+				</t:htmlTag>
+				<t:htmlTag value="span" styleClass="versionNumber">
+					<h:outputText value="#{msgs['GENERAL.INFORMATION.VERSION']} #{applicationService.version}"/>
+				</t:htmlTag>
 			</t:div>
 			<t:div styleClass="buttons">
 				<p:commandButton id="buttonHelp" icon="fa fa-question"></p:commandButton>

@@ -773,7 +773,7 @@ public class OffreController extends AbstractContextAwareController {
 	public String goToEntrepriseModificationOffre(){
 		String ret=null;
 		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape1");
-		ret=_goToEntrepriseModificationOffre("modificationOffre");
+		ret=_goToEntrepriseModificationOffre();
 		return ret;
 	}
 
@@ -782,8 +782,9 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToEntrepriseModificationOffre3(){
 		String ret=null;
-		getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape3");
-		ret=_goToEntrepriseModificationOffre("modificationOffre3");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3");
+//		ret=_goToEntrepriseModificationOffre("modificationOffre3");
+		ret=_goToEntrepriseModificationOffre();
 		return ret;
 	}
 
@@ -792,16 +793,16 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToEntrepriseModificationOffre3C(){
 		String ret=null;
-		getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape3C");
-		ret=_goToEntrepriseModificationOffre("_modificationOffreEtape3Contacts");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3C");
+//		ret=_goToEntrepriseModificationOffre("_modificationOffreEtape3Contacts");
+		ret=_goToEntrepriseModificationOffre();
 		return ret;
 	}
 
 	/**
-	 * @param retr 
 	 * @return String
 	 */
-	public String _goToEntrepriseModificationOffre(String retr){
+	public String _goToEntrepriseModificationOffre(){
 		String ret=null;
 		this.formOffre=(OffreDTO) this.currentOffre.clone();
 		if(this.formOffre!=null){
@@ -818,7 +819,7 @@ public class OffreController extends AbstractContextAwareController {
 				this.avecFichierOuLien=false;
 				this.fichierOuLien=0;
 			}
-			ret=retr;
+			ret="modificationOffre";
 		}
 		return ret;
 	}
@@ -828,7 +829,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtab(){
 		String ret=null;
-		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
 		ret=_goToModificationOffreEtab("modificationEtabOffre");
 		return ret;
 	}
@@ -848,7 +849,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtab3(){
 		String ret=null;
-		getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape3");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3");
 		ret=_goToModificationOffreEtab("modificationOffre3");
 		return ret;
 	}
@@ -858,7 +859,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtab3C(){
 		String ret=null;
-		getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape3Contacts");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3C");
 		ret=_goToModificationOffreEtab("modificationOffre3C");
 		return ret;
 	}
@@ -898,7 +899,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtabCentre(){
 		String ret=null;
-		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape01Centre");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape01Centre");
 		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre04");
 		return ret;
 	}
@@ -908,7 +909,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtabCentre04(){
 		String ret=null;
-		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
 		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre04");
 		return ret;
 	}
@@ -928,7 +929,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtabCentre3(){
 		String ret=null;
-		getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape3");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3");
 		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre3");
 		return ret;
 	}
@@ -938,7 +939,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreEtabCentre3C(){
 		String ret=null;
-		getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape3Contacts");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3C");
 		ret=_goToModificationOffreEtabCentre("modificationCentreEtabOffre3C");
 		return ret;
 	}
@@ -1012,7 +1013,7 @@ public class OffreController extends AbstractContextAwareController {
 		//		String ret=null;
 		this.etablissementController.goToModificationEtablissement();
 		//		ret="_modificationOffreEtape05ModifEtab";
-		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape05ModifEtab");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape05ModifEtab");
 		//		return ret;
 	}
 
@@ -1039,7 +1040,7 @@ public class OffreController extends AbstractContextAwareController {
 		}
 
 		if(StringUtils.hasText(ret)){
-			getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
+			getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
 		}
 
 		//		return "";
@@ -1050,7 +1051,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public String goToModificationOffreDetailsEtab(){
 		String ret="modificationEtabOffre";
-		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
+		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape04DetailsEtab");
 		this.formOffre.setCentreGestion(getCentreGestionDomainService().getCentreGestion(this.formOffre.getIdCentreGestion()));
 		getSessionController().setCentreGestionRattachement(this.formOffre.getCentreGestion());
 		return ret;
@@ -1068,9 +1069,6 @@ public class OffreController extends AbstractContextAwareController {
 		getSessionController().setMenuGestionEtab(false);
 		this.etablissementController.loadContactsServices();
 		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape1");
-		getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape1");
-		getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape1");
-		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape1");
 		//		return "_modificationOffreEtape1";
 	}
 
@@ -1081,9 +1079,6 @@ public class OffreController extends AbstractContextAwareController {
 		//		String ret=null;
 		//		ret="_modificationOffreEtape2";
 		getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape2");
-		getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape2");
-		getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape2");
-		getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape2");
 		if(this.formOffre.getIdLieuPays()<=0){
 			this.formOffre.setLieuPays(this.formOffre.getStructure().getPays());
 			if(getSessionController().isRecupererCommunesDepuisApogee() &&
@@ -1128,9 +1123,6 @@ public class OffreController extends AbstractContextAwareController {
 				break;
 			default:
 				getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape1");
-				getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape1");
-				getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape1");
-				getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape1");
 				break;
 			}
 		}
@@ -1177,15 +1169,9 @@ public class OffreController extends AbstractContextAwareController {
 		if(this.avecFichierOuLien){
 			//			ret="_modificationOffreEtape3";
 			getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3");
-			getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape3");
-			getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape3");
-			getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape3");
 		}else{
 			//			ret="_modificationOffreEtape3Contacts";
 			getSessionController().setModificationOffreCurrentPage("_modificationOffreEtape3Contacts");
-			getSessionController().setModificationOffre3CurrentPage("_modificationOffreEtape3");
-			getSessionController().setModificationOffre3CCurrentPage("_modificationOffreEtape3Contacts");
-			getSessionController().setModificationEtabOffreCurrentPage("_modificationOffreEtape3Contacts");
 		}
 		//		return ret;
 	}
@@ -1197,9 +1183,6 @@ public class OffreController extends AbstractContextAwareController {
 		String ret=_modificationOffre();
 		if(StringUtils.hasText(ret)){
 			getSessionController().setModificationOffreCurrentPage(ret);
-			getSessionController().setModificationOffre3CurrentPage(ret);
-			getSessionController().setModificationOffre3CCurrentPage(ret);
-			getSessionController().setModificationEtabOffreCurrentPage(ret);
 			this.currentOffre=(OffreDTO) this.formOffre.clone();
 			if(this.formOffre.getFichier()!=null) this.currentOffre.setFichier((FichierDTO)(this.formOffre.getFichier().clone()));
 			this.formOffre=null;

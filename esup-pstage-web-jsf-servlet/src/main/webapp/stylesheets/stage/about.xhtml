@@ -1,52 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
-			<h:section value="#{msgs['ABOUT.TITLE']}">
-				<f:param value="#{applicationService.name}" />
-				<f:param value="#{applicationService.version}" />
-			</h:section>
+		<h:section value="#{msgs['ABOUT.TITLE']}">
+			<f:param value="#{applicationService.name}" />
+			<f:param value="#{applicationService.version}" />
+		</h:section>
 
-			<h:paragraph value="#{msgs['ABOUT.TEXT.SUMMARY']}">
-				<f:param value="#{applicationService.name}" />
-			</h:paragraph>
+		<h:paragraph value="#{msgs['ABOUT.TEXT.SUMMARY']}">
+			<f:param value="#{applicationService.name}" />
+		</h:paragraph>
 
-			<h:paragraph value="#{msgs['ABOUT.TEXT.AUTHORS']}">
-				<f:param value="#{applicationService.name}" />
-			</h:paragraph>
-			<ul>
-				<li value="#{msgs['ABOUT.TEXT.AUTHORS.PA']}" />
-			</ul>
+		<h:paragraph value="#{msgs['ABOUT.TEXT.AUTHORS']}">
+			<f:param value="#{applicationService.name}" />
+		</h:paragraph>
+		<ul>
+			<li value="#{msgs['ABOUT.TEXT.AUTHORS.PA']}" />
+		</ul>
 
-			<h:subSection value="#{msgs['ABOUT.SUBTITLE.COPYRIGHT']}" />
-			<h:paragraph value="#{msgs['ABOUT.TEXT.COPYRIGHT']}">
-				<f:param value="#{applicationService.name}" />
-				<f:param value="#{applicationService.version}" />
-				<f:param value="#{applicationService.copyright}" />
-			</h:paragraph>
+		<h:subSection value="#{msgs['ABOUT.SUBTITLE.COPYRIGHT']}" />
+		<h:paragraph value="#{msgs['ABOUT.TEXT.COPYRIGHT']}">
+			<f:param value="#{applicationService.name}" />
+			<f:param value="#{applicationService.version}" />
+			<f:param value="#{applicationService.copyright}" />
+		</h:paragraph>
 
-			<h:subSection value="#{msgs['ABOUT.SUBTITLE.LICENCE']}" />
-			<h:paragraph escape="false" value="#{msgs['ABOUT.TEXT.LICENCE']}" />
+		<h:subSection value="#{msgs['ABOUT.SUBTITLE.LICENCE']}" />
+		<h:paragraph escape="false" value="#{msgs['ABOUT.TEXT.LICENCE']}" />
 
-			<h:subSection value="#{msgs['ABOUT.SUBTITLE.MORE_INFORMATION']}">
-				<f:param value="#{applicationService.name}" />
-			</h:subSection>
-			<ul>
-				<li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_BLANK']}" />
-				<li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_COMMONS']}" />
-				<li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_PORTAIL']}" />
-			</ul>
-			<h:subSection value="#{msgs['ABOUT.SUBTITLE.EXCEPTION']}" />
-			<h:form>
-				<h:commandButton immediate="true"
-					action="#{aboutController.throwException}"
-					value="#{msgs['ABOUT.BUTTON.EXCEPTION']}" />
-			</h:form>
+		<h:subSection value="#{msgs['ABOUT.SUBTITLE.MORE_INFORMATION']}">
+			<f:param value="#{applicationService.name}" />
+		</h:subSection>
+		<ul>
+			<li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_BLANK']}" />
+			<li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_COMMONS']}" />
+			<li value="#{msgs['ABOUT.TEXT.MORE_INFORMATION.ESUP_PORTAIL']}" />
+		</ul>
+		<h:subSection value="#{msgs['ABOUT.SUBTITLE.EXCEPTION']}" />
+		<h:form>
+			<h:commandButton immediate="true"
+				action="#{aboutController.throwException}"
+				value="#{msgs['ABOUT.BUTTON.EXCEPTION']}" />
+		</h:form>
 	</ui:define>
 </ui:composition>

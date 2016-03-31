@@ -1,0 +1,16 @@
+@import "variables";
+
+.generate-fontColors(@i: 1) when (@i <= length(@Colors)) {
+  @key: extract(extract(@Colors, @i), 1);
+  @value: extract(extract(@Colors, @i), 2);
+  .font@{key} { color: @value; }
+  .generate-fontColors(@i + 1);
+}
+
+.generate-margins-by(@by, @n, @i: 0) when (@i =< (@by * @n)) {
+  .mt@{i} { margin-top: ~"@{i}px"; }
+  .ml@{i} { margin-left: ~"@{i}px"; }
+  .mr@{i} { margin-right: ~"@{i}px"; }
+  .mb@{i} { margin-bottom: ~"@{i}px"; }
+  .generate-margins-by(@by, @n, (@i + @by));
+}

@@ -3,7 +3,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -17,11 +16,302 @@
 						<h:outputText value="#{msgs['CONVENTION.ETAPE1.ETUDIANT']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputText value="" />
-					<h:panelGrid>
-						<ui:include
-							src="/stylesheets/stage/_conventionEtape1ModifEtudiant.xhtml" />
-					</h:panelGrid>
+					<p:messages />
+					<t:div
+						rendered="#{not empty conventionController.convention.etudiant}">
+						<h:panelGrid columns="2">
+							<h:outputLabel for="numeroetudiant1"
+								value="#{msgs['CONVENTION.NUMETUDIANT']}" />
+							<h:outputText id="numeroetudiant1"
+								value="#{conventionController.convention.etudiant.numEtudiant}" />
+							<h:outputLabel for="nom1" value="#{msgs['CONVENTION.NOM']}" />
+							<h:outputText id="nom1"
+								value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}" />
+							<h:outputLabel for="prenom1" value="#{msgs['CONVENTION.PRENOM']}" />
+							<h:outputText id="prenom1"
+								value="#{conventionController.convention.etudiant.prenom}" />
+						</h:panelGrid>
+						<h:panelGrid>
+							<t:htmlTag value="div" style="height: 10px;" />
+							<h:panelGrid columns="3">
+								<h:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']} *"
+									for="mainAddress" />
+								<h:inputText id="mainAddress"
+									value="#{conventionController.convention.adresseEtudiant}"
+									size="50" required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<p:ajax event="blur" />
+								</h:inputText>
+								<p:message for="mainAddress" />
+
+								<h:outputLabel value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}"
+									for="codePostal" />
+								<h:inputText id="codePostal"
+									value="#{conventionController.convention.codePostalEtudiant}" />
+								<p:message for="codePostal" />
+
+								<h:outputLabel value="#{msgs['CONVENTION.ETU.COMMUNE']}"
+									for="commune" />
+								<h:inputText id="commune"
+									value="#{conventionController.convention.villeEtudiant}" />
+								<p:message for="commune">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</p:message>
+
+								<h:outputLabel value="#{msgs['CONVENTION.ETU.PAYS']} *"
+									for="pays" />
+								<h:inputText id="pays"
+									value="#{conventionController.convention.paysEtudiant}"
+									required="true"
+									requiredMessage="#{requiredMessageController.champObligatoire}">
+									<p:ajax event="blur" />
+								</h:inputText>
+								<p:message for="pays">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</p:message>
+
+
+								<h:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE']}"
+									for="telephone" />
+								<h:inputText id="telephone"
+									value="#{conventionController.convention.telEtudiant}" />
+								<p:message for="telephone">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</p:message>
+
+								<h:outputLabel
+									value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}"
+									for="telephoneportable" />
+								<h:inputText id="telephoneportable"
+									value="#{conventionController.convention.telPortableEtudiant}" />
+								<p:message for="telephoneportable">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</p:message>
+
+								<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"
+									for="mailinstitu" />
+								<h:outputText id="mailinstitu"
+									value="#{conventionController.convention.etudiant.mail}" />
+								<p:message for="mailinstitu">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</p:message>
+
+								<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']} *"
+									for="mailperso" />
+								<h:inputText id="mailperso" required="true"
+									value="#{conventionController.convention.courrielPersoEtudiant}"
+									size="50" />
+								<p:message for="mailperso">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</p:message>
+							</h:panelGrid>
+
+							<t:htmlTag value="div" style="height:5px;" />
+
+							<h:panelGrid columns="2" styleClass="alignTop"
+								rendered="#{not empty conventionController.convention.etudiant}">
+								<t:fieldset>
+									<legend>
+										<h:outputLabel for="affilss" style="font-size:12px;"
+											value="#{msgs['CONVENTION.CHOIX.AFFILSS']} * " />
+									</legend>
+									<h:selectOneRadio id="affilss" layout="pageDirection"
+										required="true" styleClass="unbold"
+										requiredMessage="#{requiredMessageController.champObligatoire}"
+										value="#{conventionController.selAssurance}"
+										converter="#{assuranceConverter}">
+										<f:selectItems value="#{nomenclatureController.assurances}" />
+									</h:selectOneRadio>
+									<p:message for="affilss">
+										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									</p:message>
+								</t:fieldset>
+								<t:fieldset style="width:80%;">
+									<legend>
+										<h:outputLabel for="caisses" style="font-size:12px;"
+											value="#{msgs['CONVENTION.CHOIX.CPAM']} * " />
+									</legend>
+									<h:selectOneRadio id="caisses" layout="pageDirection"
+										value="#{conventionController.selCaisseRegime}"
+										converter="#{caisseRegimeConverter}" styleClass="unbold">
+										<f:selectItems value="#{nomenclatureController.caisseRegimes}" />
+									</h:selectOneRadio>
+									<p:message for="caisses">
+										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									</p:message>
+								</t:fieldset>
+							</h:panelGrid>
+
+							<p:panel style="width:700px;" id="panelInscription">
+								<f:facet name="header">
+									<h:outputText style="font-size:12px;"
+										value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
+								</f:facet>
+								<!-- 					<h:panelGrid columns="2" -->
+								<!-- 						> -->
+								<!-- 						<h:outputText value="#{msgs['CONVENTION.ANNEE']}" -->
+								<!-- 							style="font-weight:bold;" /> -->
+								<!-- 						<h:outputText value="#{conventionController.convention.annee}" /> -->
+								<!-- 					</h:panelGrid> -->
+
+								<h:panelGrid columns="3">
+									<h:outputText value="#{msgs['CONVENTION.ANNEE']}" />
+									<h:selectOneMenu id="choixAnneeUniv" required="true"
+										value="#{conventionController.selectedAnneeUniv}">
+										<f:selectItem itemValue="" />
+										<f:selectItems value="#{conventionController.listeAnneesUniv}" />
+										<p:ajax event="valueChange" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+											listener="#{conventionController.loadInfosEtu}"
+											update="panelInscription" />
+									</h:selectOneMenu>
+									<p:message for="choixAnneeUniv"/>
+								</h:panelGrid>
+								<h:panelGrid columns="2"
+									rendered="#{conventionController.blocageCreationEtpOrpheline}">
+									<h:graphicImage value="../../media/images/cancel.png"
+										alt="#{msgs['GENERAL.WARNING']}"
+										title="#{msgs['GENERAL.WARNING']}" />
+									<h:outputText
+										value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.NONRATTACHE']}"
+										style="color:red;" />
+								</h:panelGrid>
+
+								<h:panelGrid columns="2"
+									rendered="#{conventionController.blocageAucuneInscription}">
+									<h:graphicImage value="../../media/images/cancel.png"
+										alt="#{msgs['GENERAL.WARNING']}"
+										title="#{msgs['GENERAL.WARNING']}" />
+									<h:outputText
+										value="#{msgs['CONVENTION.CREERCONVENTION.ETAPE.AUCUNE_INSCRIPTION_PAYEE']}"
+										style="color:red;" />
+								</h:panelGrid>
+
+								<t:div
+									rendered="#{!conventionController.blocageCreationEtpOrpheline
+						and !conventionController.blocageAucuneInscription}">
+
+									<t:htmlTag value="div" style="height: 10px;" />
+
+									<t:div rendered="#{!conventionController.etudiantSupUneEtape}">
+										<h:panelGrid columns="2">
+											<h:outputLabel for="ufr"
+												value="#{msgs['CONVENTION.VOTREUFR']}" />
+											<h:outputText id="ufr"
+												value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
+											<h:outputLabel for="etape"
+												value="#{msgs['CONVENTION.VOTREETAPE']}" />
+											<h:outputText id="etape"
+												value="#{conventionController.etudiantRef.theCodeEtape} ; #{conventionController.etudiantRef.theCodeVersionEtape} - #{conventionController.etudiantRef.theEtape}" />
+										</h:panelGrid>
+										<h:panelGrid columns="2" style="padding:5px;"
+											rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">
+											<h:outputLabel for="elp1" value="#{msgs['CONVENTION.ELP']}" />
+											<h:panelGrid>
+												<h:selectOneMenu id="choixElp1"
+													value="#{conventionController.selectedCodeElp}"
+													required="true"
+													requiredMessage="#{requiredMessageController.champObligatoire}">
+													<f:selectItem itemValue="" />
+													<f:selectItems
+														value="#{conventionController.listeELPEtapesSelectItems}" />
+													<p:ajax event="valueChange"
+														listener="#{conventionController.rechargeElp}"
+														update="elp1" />
+												</h:selectOneMenu>
+												<h:outputText id="elp1"
+													value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} credit(s)" />
+											</h:panelGrid>
+										</h:panelGrid>
+										<p:message for="choixElp1">
+											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										</p:message>
+									</t:div>
+
+									<t:div rendered="#{conventionController.etudiantSupUneEtape}">
+										<p:outputPanel id="ufrs">
+											<h:panelGrid columns="2"
+												rendered="#{conventionController.choixEtape}">
+												<h:outputLabel for="ufr"
+													value="#{msgs['CONVENTION.VOTREUFR']}" />
+												<h:outputText
+													value="#{conventionController.etudiantRef.thecodeUFR} - #{conventionController.etudiantRef.theUfr}" />
+											</h:panelGrid>
+										</p:outputPanel>
+										<h:panelGrid columns="2">
+											<h:outputLabel for="etapes"
+												value="#{msgs['CONVENTION.VOTREETAPE']}" />
+											<h:panelGrid columns="2" id="etapes">
+												<h:selectOneMenu id="choixEtape"
+													value="#{conventionController.selectedCodeEtape}">
+													<f:selectItem itemValue="" />
+													<f:selectItems
+														value="#{conventionController.listeEtapesEtudiant}" />
+													<p:ajax event="valueChange"
+														listener="#{conventionController.rechargeUfr}"
+														update="ufrs,elementPedago,panelElp" />
+												</h:selectOneMenu>
+												<p:message for="choixEtape">
+													<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												</p:message>
+											</h:panelGrid>
+										</h:panelGrid>
+										<p:outputPanel id="elementPedago">
+											<h:panelGrid columns="2"
+												rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">
+												<h:outputLabel for="elementPedago"
+													value="#{msgs['CONVENTION.ELP']}" />
+												<h:outputText
+													value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} credit(s)" />
+											</h:panelGrid>
+										</p:outputPanel>
+										<p:outputPanel id="panelElp">
+											<h:panelGrid columns="3"
+												rendered="#{conventionController.etudiantSupUnElp}">
+												<h:outputLabel for="choixElp2"
+													value="#{msgs['CONVENTION.ELP']}" />
+												<h:selectOneMenu id="choixElp2"
+													value="#{conventionController.selectedCodeElp}"
+													required="true"
+													requiredMessage="#{requiredMessageController.champObligatoire}">
+													<f:selectItem itemValue="" />
+													<f:selectItems
+														value="#{conventionController.listeELPEtapesSelectItems}" />
+													<p:ajax event="valueChange"
+														listener="#{conventionController.rechargeElp}" />
+												</h:selectOneMenu>
+												<p:message for="choixElp2">
+													<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												</p:message>
+											</h:panelGrid>
+										</p:outputPanel>
+									</t:div>
+								</t:div>
+								<p:message for="etape">
+									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								</p:message>
+							</p:panel>
+
+						</h:panelGrid>
+
+						<p:outputPanel id="opFCE">
+							<h:panelGrid columns="3"
+								rendered="#{facesContext.maximumSeverity != null}">
+								<h:graphicImage value="../../media/images/arrow_up.png"
+									alt="#{msgs['GENERAL.ARROW_UP']}"
+									title="#{msgs['GENERAL.ARROW_UP']}" />
+								<h:outputText value="#{msgs['FORM.FORMERROR']}" />
+								<h:graphicImage value="../../media/images/arrow_up.png"
+									alt="#{msgs['GENERAL.ARROW_UP']}"
+									title="#{msgs['GENERAL.ARROW_UP']}" />
+							</h:panelGrid>
+						</p:outputPanel>
+					</t:div>
+
+					<p:commandButton id="modifEtudiant"
+						value="#{msgs['FORM.MODIFIER']}"
+						action="#{conventionController.modifierEtudiantDetail}"
+						rendered="#{not empty conventionController.convention.etudiant}"
+						update="opFCE" />
 				</h:panelGrid>
 			</h:form>
 		</p:panel>

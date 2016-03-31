@@ -3,7 +3,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<p:panel
@@ -18,7 +17,6 @@
 		<h:panelGrid align="center">
 
 			<h:panelGrid columns="2"
-				
 				rendered="#{conventionController.surchargeTuteur}">
 				<h:graphicImage value="../../media/images/warn.png"
 					alt="#{msgs['GENERAL.WARNING']}" title="#{msgs['GENERAL.WARNING']}" />
@@ -33,8 +31,7 @@
 
 			<t:htmlTag value="div" style="height: 10px;" />
 
-			<ui:include
-				src="/stylesheets/stage/_conventionEtape6DetailsEnseignant.xhtml" />
+			<ui:include src="/stylesheets/stage/_detailsEnseignant.xhtml" />
 
 			<t:htmlTag value="div" style="height:15px;" />
 

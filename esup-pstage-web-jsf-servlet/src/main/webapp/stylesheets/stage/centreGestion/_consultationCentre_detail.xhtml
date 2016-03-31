@@ -4,7 +4,8 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:form id="formConsultationCentre" style="padding-top:15px; padding-bottom:20px;">
+	<h:form id="formConsultationCentre"
+		style="padding-top:15px; padding-bottom:20px;">
 		<h:panelGrid columns="2" style="font-size:1.2em;">
 			<h:outputLabel value="#{msgs['CENTRE.TYPE_CENTRE']} : "
 				rendered="#{centreController.centre.niveauCentre!=null}"
@@ -33,11 +34,7 @@
 						value="#{centreController.centre.batimentResidence}" />
 				</h:panelGrid>
 
-				<h:panelGrid columns="3">
-					<p:spacer width="30" />
-					<p:separator style="height:100px;" />
-					<p:spacer width="30" />
-				</h:panelGrid>
+				<p:separator style="height:100px; width:2px; margin:0 30px;" />
 
 				<h:panelGrid>
 					<h:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} "
@@ -67,15 +64,11 @@
 						rendered="#{not empty centreController.centre.siteWeb}" />
 				</h:panelGrid>
 
-				<h:panelGrid columns="3"
+				<p:separator style="height:100px; width:2px; margin:0 30px;"
 					rendered="#{(not empty centreController.centre.mail 
 											|| not empty centreController.centre.siteWeb)
 											and (not empty centreController.centre.fax 
-											|| not empty centreController.centre.telephone)}">
-					<p:spacer width="30" />
-					<p:separator style="height:100px;" />
-					<p:spacer width="30" />
-				</h:panelGrid>
+											|| not empty centreController.centre.telephone)}" />
 
 				<h:panelGrid
 					rendered="#{not empty centreController.centre.telephone
@@ -239,7 +232,7 @@
 			rendered="#{welcomeController.superAdmin
 				|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}">
 			<p:commandButton value="#{msgs['FORM.MODIFIER']}"
-				update="panelConsultation"
+				update="divConsultation"
 				style="font-size:14px; border-color:green;">
 				<f:setPropertyActionListener value="_consultationCentre_modif"
 					target="#{sessionController.consultationCentreCurrentPage}" />

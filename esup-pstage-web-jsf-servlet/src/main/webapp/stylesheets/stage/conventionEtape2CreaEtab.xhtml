@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -14,7 +11,31 @@
 				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<ui:include src="/stylesheets/stage/_conventionEtape2CreaEtab.xhtml" />
+				<h:panelGrid id="formAjoutEtab">
+					<p:panel>
+						<f:facet name="header">
+							<h:outputText value="#{msgs['CONVENTION.ETAPE2.CREATION.ETAB']}" />
+						</f:facet>
+
+						<t:htmlTag value="div" style="height:20px;" />
+
+						<h:outputText
+							value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
+
+						<t:htmlTag value="div" style="height:20px;" />
+
+						<p:message for="formAjoutEtab">
+							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						</p:message>
+
+						<ui:include src="../_commun/_etablissementForm.xhtml" />
+
+						<h:panelGrid>
+							<p:commandButton value="#{msgs['FORM.CREER']}"
+								action="#{conventionController.ajouterEtablissementModif}" />
+						</h:panelGrid>
+					</p:panel>
+				</h:panelGrid>
 			</h:form>
 		</p:panel>
 	</ui:define>

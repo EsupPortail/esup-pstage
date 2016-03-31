@@ -3,7 +3,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<p:panel
@@ -14,7 +13,7 @@
 
 		<t:htmlTag value="div" style="height: 20px;" />
 
-		<ui:include src="/stylesheets/stage/_conventionEtape5StageForm.xhtml" />
+		<ui:include src="/stylesheets/stage/_formStage.xhtml" />
 
 		<t:htmlTag value="div" style="height:20px;" />
 		<p:outputPanel id="opFCE">
@@ -32,10 +31,9 @@
 		<t:htmlTag value="center">
 			<p:commandButton
 				action="#{conventionController.goToCreerConventionCtrlStage}"
-				value="#{msgs['FORM.VALIDER']}"
-				update="opFCE,@form"
+				value="#{msgs['FORM.VALIDER']}" update="opFCE,@form"
 				style="font-size:14px; border:solid 1px;" />
-<!-- 				update="opFCE,formConvention,tableEtape5" -->
+			<!-- 				update="opFCE,formConvention,tableEtape5" -->
 		</t:htmlTag>
 		<t:htmlTag value="div" style="height: 30px;" />
 		<h:commandButton

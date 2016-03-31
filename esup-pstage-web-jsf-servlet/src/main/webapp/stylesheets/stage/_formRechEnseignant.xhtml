@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<t:htmlTag value="div" style="height: 20px;" />
+	<h:outputText
+		value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT.DEMANDE']}" />
+	<t:div id="information">
+		<p:message for="information">
+			<ui:include src="../_commun/_messageInfoMarker.xhtml" />
+		</p:message>
+	</t:div>
+	<t:htmlTag value="div" style="height: 20px;" />
+	<h:panelGrid columns="4">
+		<h:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
+		<h:inputText id="nom" size="50" maxlength="30"
+			style="text-transform:uppercase;"
+			value="#{conventionController.rechNomEnseignant}">
+			<f:converter binding="#{sansAccentEnMAJConverter}" />
+		</h:inputText>
+		<t:htmlTag value="div" style="width: 10px;" />
+		<p:message for="nom">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</p:message>
+		<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<t:htmlTag value="div" style="height: 5px;" />
+		<h:outputLabel value="#{msgs['CONVENTION.PRENOM']}" for="prenom" />
+		<h:inputText id="prenom" size="50" maxlength="30"
+			style="text-transform:uppercase;"
+			value="#{conventionController.rechPrenomEnseignant}">
+			<f:converter binding="#{sansAccentEnMAJConverter}" />
+		</h:inputText>
+		<t:htmlTag value="div" style="width: 10px;" />
+		<p:message for="prenom">
+			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		</p:message>
+		<!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
+		<!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
+		<!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
+		<!-- 		<t:htmlTag value="div" style="height: 5px;" /> -->
+		<!-- 		<h:outputLabel value="#{msgs['CONVENTION.AFFECTATION']}" -->
+		<!-- 			for="codeAffectation" /> -->
+		<!-- 		<h:selectOneMenu id="codeAffectation" -->
+		<!-- 			requiredMessage="#{requiredMessageController.champObligatoire}" -->
+		<!-- 			value="#{conventionController.selCodeAffectationEnseignant}"> -->
+		<!-- 			<f:selectItem itemValue="" /> -->
+		<!-- 			<f:selectItems value="#{conventionController.listeAffectation}" /> -->
+		<!-- 		</h:selectOneMenu> -->
+		<!-- 		<t:htmlTag value="div" style="width: 10px;" /> -->
+		<!-- 		<p:message for="codeAffectation"> -->
+		<!-- 			<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+		<!-- 		</p:message> -->
+	</h:panelGrid>
+</ui:composition>

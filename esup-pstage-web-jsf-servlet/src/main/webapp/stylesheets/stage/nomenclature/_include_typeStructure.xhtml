@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<h:form id="formNomenclature">
+		<ui:include
+			src="/stylesheets/stage/nomenclature/_nomenclature_table.xhtml">
+			<ui:param name="idNomenclature" value="TypeStructure" />
+			<ui:param name="valueListeDataTable"
+				value="#{nomenclatureController.typesStructure}" />
+			<ui:param name="controllerTarget"
+				value="#{nomenclatureController.typeStructure}" />
+		</ui:include>
+		<center>
+			<p:messages />
+		</center>
+	</h:form>
+
+	<ui:include src="_nomenclature_ajout.xhtml">
+		<ui:param name="idNomenclature" value="TypeStructure" />
+		<ui:param name="fileFormNomenclature"
+			value="_nomenclature_form_typeStructure.xhtml" />
+		<ui:param name="ctrl" value="#{nomenclatureController}" />
+		<ui:param name="method" value="addTypeStructure" />
+	</ui:include>
+	<ui:include src="_nomenclature_modif.xhtml">
+		<ui:param name="idNomenclature" value="TypeStructure" />
+		<ui:param name="fileFormNomenclature"
+			value="_nomenclature_form_typeStructure.xhtml" />
+		<ui:param name="ctrl" value="#{nomenclatureController}" />
+		<ui:param name="method" value="updateTypeStructure" />
+	</ui:include>
+	<ui:include src="_nomenclature_reactiver.xhtml">
+		<ui:param name="idNomenclature" value="TypeStructure" />
+		<ui:param name="valueLibelleQuestion"
+			value="#{nomenclatureController.typeStructure.libelle}" />
+		<ui:param name="ctrl" value="#{nomenclatureController}" />
+		<ui:param name="method" value="reactivateTypeStructure" />
+	</ui:include>
+	<ui:include src="_nomenclature_suppr.xhtml">
+		<ui:param name="idNomenclature" value="TypeStructure" />
+		<ui:param name="valueLibelleQuestion"
+			value="#{nomenclatureController.typeStructure.libelle}" />
+		<ui:param name="ctrl" value="#{nomenclatureController}" />
+		<ui:param name="method" value="deleteTypeStructure" />
+	</ui:include>
+
+</ui:composition>

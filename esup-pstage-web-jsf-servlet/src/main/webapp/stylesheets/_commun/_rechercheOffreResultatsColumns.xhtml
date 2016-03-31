@@ -24,12 +24,9 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.TYPEOFFRE']}" />
 		</f:facet>
-		<h:panelGrid
-			style="font-size:12px;">
-			<h:outputText value="#{offre.typeOffre.libelle}" />
-			<h:outputText value="#{offre.contratOffre.libelle}"
-				rendered="#{not empty offre.contratOffre}" />
-		</h:panelGrid>
+		<h:outputText value="#{offre.typeOffre.libelle}" />
+		<h:outputText value="#{offre.contratOffre.libelle}"
+			rendered="#{not empty offre.contratOffre}" />
 	</p:column>
 	<p:column sortBy="#{offre.structure.raisonSociale}"
 		rendered="#{not sessionController.pageAuthorized}">
@@ -110,23 +107,12 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.FICHIERLIEN']}" />
 		</f:facet>
-		<h:panelGrid
-			columns="2" style="font-size:12px;">
-			<h:outputText value="#{msgs['FORM.OUI']}"
-				rendered="#{offre.avecFichier || offre.avecLien}" />
-			<h:graphicImage id="imageLien" alt="#{msgs['FORM.OUI']}"
-				title="#{msgs['OFFRE.LIEN']}"
-				value="../../media/images/world_link.png"
-				rendered="#{offre.avecLien}">
-				<p:tooltip value="#{msgs['OFFRE.LIEN']}" />
-			</h:graphicImage>
-			<h:graphicImage id="imageFichier" alt="#{msgs['FORM.OUI']}"
-				title="#{msgs['OFFRE.FICHIER']}"
-				value="../../media/images/page_link.png"
-				rendered="#{offre.avecFichier}">
-				<p:tooltip value="#{msgs['OFFRE.FICHIER']}" />
-			</h:graphicImage>
-		</h:panelGrid>
+		<h:outputText value="#{msgs['FORM.OUI']} /"
+			rendered="#{offre.avecFichier || offre.avecLien}" />
+		<t:htmlTag value="i" styleClass="fa fa-link fz13 fontDarkGray ml5" id="imageLien" rendered="#{offre.avecLien}"/>
+		<p:tooltip for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
+		<t:htmlTag value="i" styleClass="fa fa-file-text fz13 fontBlue2 ml5" id="imageFichier" rendered="#{offre.avecFichier}"/>
+		<p:tooltip for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
 		<h:outputText value="#{msgs['FORM.NON']}"
 			rendered="#{!(offre.avecFichier || offre.avecLien)}" />
 	</p:column>
