@@ -990,6 +990,9 @@ public class CentreController extends AbstractContextAwareController {
 					getConventionDomainService().updateCentreConventionByEtape(code, this.centre.getIdCentreGestion(),getSessionController().getCodeUniversite());
 				}
 			}
+			
+			addInfoMessage("formListeCritere", "CENTRE.CRITERE.CONFIRM_AJOUT");
+			
 		} catch (DataAddException e) {
 			logger.error(e.fillInStackTrace());
 		} catch (WebServiceDataBaseException e) {
@@ -2126,14 +2129,14 @@ public class CentreController extends AbstractContextAwareController {
 				logger.info("Ajout de la question supplementaire n°"+idQuestionSupplementaire+" pour la fiche n°" +this.ficheEvaluation.getIdFicheEvaluation());
 			} else {
 				logger.error(getString("CENTRE.FICHE_EVALUATION.ERREUR"));
-				addErrorMessage("formEditQuestionEval", "CENTRE.FICHE_EVALUATION.ERREUR");
+				addErrorMessage(null, "CENTRE.FICHE_EVALUATION.ERREUR");
 			}
 		} catch (DataAddException d){
 			logger.error("DataAddException",d.fillInStackTrace());
-			addErrorMessage("formEditQuestionEval","CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
+			addErrorMessage(null,"CENTRE.FICHE_EVALUATION.CONFIRMATION_MODIF");
 		} catch (WebServiceDataBaseException w){
 			logger.error("WebServiceDataBaseException", w.fillInStackTrace());
-			addErrorMessage("formEditQuestionEval", "CENTRE.FICHE_EVALUATION.ERREUR");
+			addErrorMessage(null, "CENTRE.FICHE_EVALUATION.ERREUR");
 		}
 	}
 

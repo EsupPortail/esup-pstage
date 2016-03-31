@@ -277,7 +277,7 @@
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<!--<param-value>delta</param-value>-->
-		<!--<param-value>aristo</param-value>-->
+<!-- 		<param-value>aristo</param-value> -->
 		<!--<param-value>flick</param-value>-->
 		<param-value>afterwork</param-value>
 		<!--<param-value>delta</param-value>-->

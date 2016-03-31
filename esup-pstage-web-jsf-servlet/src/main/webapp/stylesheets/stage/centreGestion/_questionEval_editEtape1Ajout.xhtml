@@ -7,12 +7,12 @@
 
 	<t:panelGrid columns="2">
 		<h:outputLabel for="libelleQuestionAjout"
-			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LIBELLE']}" />
+			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.LIBELLE']} " />
 		<h:inputTextarea id="libelleQuestionAjout" required="true"
 			style="width:200px; height:50px; resize:none;"
-			value="#{centreController.questionSupplementaire.question}" />
+			value="#{centreController.questionSupplementaire.question}"/>
 		<t:htmlTag value="div" style="height: 5px;" />
-		<p:message for="libelleQuestionAjout" />
+		<p:message id="msgLibelle" for="libelleQuestionAjout" />
 		<h:outputLabel for="typeQuestionAjout"
 			value="#{msgs['CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.TYPE']}" />
 		<h:selectOneMenu id="typeQuestionAjout" required="true"
@@ -29,11 +29,13 @@
 		</t:panelGroup>
 	</t:panelGrid>
 
-	<center style="padding-top:15px;">
+	<t:htmlTag value="div" style="height:15px;" />
+
+	<center>
 		<p:commandButton
 			action="#{centreController.ajouterQuestionSupplementaire}"
-			oncomplete="PF('editQuestionEvalPanel').hide();"
-			value="#{msgs['FORM.AJOUTER']}"  />
+			update="formEditQuestionEval"
+			value="#{msgs['FORM.AJOUTER']}" />
 	</center>
 
 </ui:composition>

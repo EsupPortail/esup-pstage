@@ -234,9 +234,6 @@
 		</t:fieldset>
 
 		<t:htmlTag value="div" style="height:10px;" />
-		<h:panelGrid align="center">
-			<p:message for="formConsultationCentre" />
-		</h:panelGrid>
 
 		<t:htmlTag value="center"
 			rendered="#{welcomeController.superAdmin
@@ -249,6 +246,7 @@
 				<f:setPropertyActionListener value="#{true}"
 					target="#{centreController.rechercheViseur}" />
 			</p:commandButton>
+			<p:messages />
 		</t:htmlTag>
 	</h:form>
 </ui:composition>

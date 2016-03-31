@@ -29,22 +29,20 @@
 			</p:inputText>
 		</t:div>
 
-		<h:panelGrid columns="3">
-			<p:spacer width="30" />
-			<p:separator style="height:60px;" />
-			<p:spacer width="30" />
-		</h:panelGrid>
+		<p:separator style="height:60px; margin-left:30px; margin-right:30px;" />
 
-		<h:panelGrid>
+		<t:div>
 			<p:outputLabel value="#{msgs['CENTRE.TYPE_CENTRE']}"
 				for="critereGestion" />
-			<h:selectOneMenu id="critereGestion"
+			<br/>
+			<p:selectOneMenu id="critereGestion" style="margin:5px;"
 				value="#{centreController.centre.niveauCentre}"
 				converter="#{niveauCentreConverter}" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
+				requiredMessage="#{requiredMessageController.champObligatoire}"
+				effect="none">
 				<f:selectItems value="#{centreController.niveauxCentre}" />
-			</h:selectOneMenu>
-		</h:panelGrid>
+			</p:selectOneMenu>
+		</t:div>
 	</h:panelGrid>
 
 	<t:htmlTag value="div" style="height: 10px;" />
@@ -54,7 +52,7 @@
 			<h:outputText value="#{msgs['CENTRE.COORDONNEES']}" />
 		</legend>
 		<h:panelGrid columns="3">
-			<h:panelGrid id="panelVoie">
+			<t:div id="panelVoie">
 				<h:panelGrid columns="2">
 					<p:outputLabel value="#{msgs['CENTRE.VOIE']}" for="voie" />
 					<p:message for="voie" />
@@ -69,15 +67,11 @@
 				<p:inputText id="batimentResidence"
 					value="#{centreController.centre.batimentResidence}" size="50"
 					maxlength="200" />
-			</h:panelGrid>
+			</t:div>
 
-			<h:panelGrid columns="3">
-				<p:spacer width="30" />
-				<p:separator style="height:130px;" />
-				<p:spacer width="30" />
-			</h:panelGrid>
+			<p:separator style="height:130px; margin-left:30px; margin-right:30px;" />
 
-			<h:panelGrid>
+			<t:div>
 				<h:panelGrid id="panelCodePostal" columns="2">
 					<p:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']}"
 						for="codePostal" />
@@ -100,7 +94,7 @@
 					requiredMessage="#{requiredMessageController.champObligatoire}">
 					<p:ajax event="blur" update="panelCommune,commune" />
 				</p:inputText>
-			</h:panelGrid>
+			</t:div>
 		</h:panelGrid>
 		<h:panelGrid columns="3">
 			<h:panelGrid id="panelWeb">
@@ -131,11 +125,7 @@
 				<p:message for="siteWeb" />
 			</h:panelGrid>
 
-			<h:panelGrid columns="3">
-				<p:spacer width="30" />
-				<p:separator style="height:150px;" />
-				<p:spacer width="30" />
-			</h:panelGrid>
+			<p:separator style="height:150px; margin-left:30px; margin-right:30px;" />
 
 			<h:panelGrid id="panelTel">
 				<h:panelGrid columns="2">

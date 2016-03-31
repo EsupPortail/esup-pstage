@@ -5,13 +5,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid align="center">
-		<p:messages />
-		<t:htmlTag value="center">
-			<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
-				update="listeQuestionsSupplementaires1,listeQuestionsSupplementaires2,listeQuestionsSupplementaires3"
-				onclick="PF('editQuestionEvalPanel').hide();" />
-		</t:htmlTag>
-	</h:panelGrid>
+	<p:messages />
+	<t:htmlTag value="center">
+		<p:commandButton value="#{msgs['GENERAL.CLOSE']}" ajax="false"
+			onclick="PF('editQuestionEvalPanel').hide();" />
+	</t:htmlTag>
 
 </ui:composition>
