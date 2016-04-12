@@ -3,7 +3,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -13,15 +12,13 @@
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid
-					>
+				<h:panelGrid>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE6.ENSEIGNANT']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
 					<p:messages />
-					<ui:include
-						src="/stylesheets/stage/_conventionEtape6DetailsEnseignant.xhtml" />
+					<ui:include src="/stylesheets/stage/_detailsEnseignant.xhtml" />
 					<h:commandButton id="modifEnseigant"
 						value="#{msgs['CONVENTION.ETAPE6.MODIF.ENSEIGNANT']}"
 						action="#{conventionController.goToConventionModifEnseignant}"

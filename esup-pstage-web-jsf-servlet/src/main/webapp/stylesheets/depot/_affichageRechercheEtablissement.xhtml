@@ -2,8 +2,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
+	xmlns:p="http://primefaces.org/ui">
 	<t:aliasBean alias="#{structure}"
 		value="#{rechercheController.resultatRechercheStructure}">
 		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
@@ -16,8 +15,7 @@
 
 		<t:htmlTag value="div" style="height:5px;" />
 
-		<h:panelGrid columns="5" 
-			
+		<h:panelGrid columns="5"
 			rendered="#{sessionController.adminPageAuthorized and 
 				not empty rechercheController.ongletCourant 
 				and rechercheController.ongletCourant==6
@@ -44,8 +42,7 @@
 		<t:htmlTag value="div" style="height:5px;" />
 
 		<p:toolbar height="26" itemSeparator="none">
-			<h:panelGrid columns="4" 
-				
+			<h:panelGrid columns="4"
 				rendered="#{sessionController.adminPageAuthorized
 			and not empty rechercheController.resultatRechercheStructure.accordPartenariat}">
 				<h:commandLink id="validerAccord"
@@ -71,7 +68,7 @@
 					<h:outputText value="#{msgs['ACCORD.CONSULTATION.BUTTON']}" />
 				</h:commandLink>
 				<t:htmlTag value="div" style="width:10px;" />
-				<p:commandLink  id="supprimerAccord"
+				<p:commandLink id="supprimerAccord"
 					oncomplete="PF('supprimerAccordPanel').show();"
 					update="supprimerAccordPanel">
 					<h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
@@ -81,7 +78,7 @@
 					<f:setPropertyActionListener
 						value="#{rechercheController.resultatRechercheStructure}"
 						target="#{adminController.accordASupprimer}" />
-					<f:setPropertyActionListener value="_supprAccordEtape1" 
+					<f:setPropertyActionListener value="_supprAccordEtape1"
 						target="#{sessionController.suppressionAccordCurrentPage}" />
 				</p:commandLink>
 			</h:panelGrid>

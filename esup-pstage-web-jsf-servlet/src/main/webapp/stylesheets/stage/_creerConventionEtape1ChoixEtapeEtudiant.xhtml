@@ -160,23 +160,17 @@
 				<h:outputText style="font-size:12px;"
 					value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT.DEMANDE']}" />
 			</f:facet>
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="2">
 				<h:selectOneMenu id="choixAnneeUniv" required="true"
 					value="#{conventionController.selectedAnneeUniv}">
 					<f:selectItem itemValue="" />
 					<f:selectItems value="#{conventionController.listeAnneesUniv}" />
-					<p:ajax event="valueChange" status="statusLoadInfos"
+					<p:ajax event="valueChange" onstart="PF('statusDialog').show();"
+						oncomplete="PF('statusDialog').hide();"
 						listener="#{conventionController.loadInfosEtu}"
 						update="panelInscription" />
 				</h:selectOneMenu>
-				<p:message for="choixAnneeUniv">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-				<p:ajaxStatus name="statusLoadInfos">
-					<f:facet name="start">
-						<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-					</f:facet>
-				</p:ajaxStatus>
+				<p:message for="choixAnneeUniv" />
 			</h:panelGrid>
 
 			<h:panelGrid columns="2"

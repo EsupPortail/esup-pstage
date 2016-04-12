@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<p:panel>
@@ -15,7 +12,7 @@
 			</f:facet>
 			<ui:include src="_menuGestionEtab.xhtml" />
 			<h:form id="formAffEtab">
-				<h:panelGrid  columns="2" align="center">
+				<h:panelGrid columns="2" align="center">
 					<h:column>
 						<ui:include src="../_commun/_confirmationImagesPermanentes.xhtml" />
 					</h:column>
@@ -33,7 +30,15 @@
 					<t:div
 						rendered="#{not empty rechercheController.resultatRechercheStructure}"
 						style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-						<ui:include src="_affichageRechercheEtablissement.xhtml" />
+						<t:aliasBean alias="#{structure}"
+							value="#{rechercheController.resultatRechercheStructure}">
+							<ui:include
+								src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+						</t:aliasBean>
+						<p:toolbar height="26" itemSeparator="none">
+							<ui:include
+								src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+						</p:toolbar>
 					</t:div>
 					<h:panelGrid style="float:right;"
 						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">

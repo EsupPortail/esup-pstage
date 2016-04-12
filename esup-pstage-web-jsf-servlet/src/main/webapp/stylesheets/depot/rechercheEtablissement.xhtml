@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -19,6 +17,7 @@
 					<h:form>
 						<ui:include
 							src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
+                        <t:htmlTag value="div" style="margin: 10px; display:inline;" />
 						<h:commandButton
 							style="color: #{rechercheController.ongletCourant == '3' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '3' ? 'green' : 'black'};"
 							action="#{rechercheController.goToOngletAccord}"

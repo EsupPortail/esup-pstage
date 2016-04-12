@@ -17,9 +17,9 @@
 					    font-weight: normal !important;
 					}
 				</h:outputStylesheet>
-				<p:togglePanel switchType="ajax"
+				<p:wizard switchType="ajax"
 					activeItem="#{evaluationController.togglePanelActiveItem}">
-					<p:togglePanelItem id="etudiantTogglePanel1"
+					<p:tab id="etudiantTogglePanel1"
 						name="etudiantTogglePanel1">
 						<h:panelGrid style="margin-left:100px; padding:10px; width:850px;"
 							border="1">
@@ -313,16 +313,14 @@
 										<h:outputText style="font-weight:bold;" escape="false"
 											value="#{questionSup.question}" />
 										<h:panelGrid style="margin-left:10px;">
-											<h:inputTextarea id="reponse1"
+											<h:inputTextarea id="repSupI1"
 												value="#{questionSup.reponseSupplementaire.reponseTxt}"
 												style="width:250px; height:60px; resize:none;"
 												required="true"
 												requiredMessage="#{requiredMessageController.champObligatoire}"
 												rendered="#{questionSup.typeQuestion == 'TXT'}" />
-											<p:message for="reponse1">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</p:message>
-											<h:selectOneRadio id="reponse2" required="true"
+											<p:message for="repSupI1"/>
+											<h:selectOneRadio id="repSupI2" required="true"
 												value="#{questionSup.reponseSupplementaire.reponseBool}"
 												rendered="#{questionSup.typeQuestion == 'BOOL'}">
 												<f:selectItem itemValue="#{true}"
@@ -330,11 +328,9 @@
 												<f:selectItem itemValue="#{false}"
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
-											<p:message for="reponse2">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-											</p:message>
+											<p:message for="repSupI2"/>
 										</h:panelGrid>
-										<h:selectOneRadio style="margin-left:10px;" id="reponse3"
+										<h:selectOneRadio style="margin-left:10px;" id="repSupI3"
 											layout="pageDirection" required="true"
 											value="#{questionSup.reponseSupplementaire.reponseInt}"
 											rendered="#{questionSup.typeQuestion == 'INT'}">
@@ -349,9 +345,7 @@
 											<f:selectItem itemValue="5"
 												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 										</h:selectOneRadio>
-										<p:message for="reponse3">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</p:message>
+										<p:message for="repSupI3"/>
 									</p:panel>
 								</ui:repeat>
 							</p:outputPanel>
@@ -384,8 +378,8 @@
 								</t:htmlTag>
 							</h:panelGrid>
 						</h:panelGrid>
-					</p:togglePanelItem>
-					<p:togglePanelItem id="etudiantTogglePanel2"
+					</p:tab>
+					<p:tab id="etudiantTogglePanel2"
 						name="etudiantTogglePanel2">
 						<h:panelGrid style="margin-left:100px; padding:10px; width:850px;"
 							border="1">
@@ -615,16 +609,16 @@
 										<h:outputText style="font-weight:bold;" escape="false"
 											value="#{questionSup.question}" />
 										<h:panelGrid style="margin-left:10px;">
-											<h:inputTextarea id="reponse1"
+											<h:inputTextarea id="repSupII1"
 												value="#{questionSup.reponseSupplementaire.reponseTxt}"
 												style="width:250px; height:60px; resize:none;"
 												required="true"
 												requiredMessage="#{requiredMessageController.champObligatoire}"
 												rendered="#{questionSup.typeQuestion == 'TXT'}" />
-											<p:message for="reponse1">
+											<p:message for="repSupII1">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 											</p:message>
-											<h:selectOneRadio id="reponse2" required="true"
+											<h:selectOneRadio id="repSupII2" required="true"
 												value="#{questionSup.reponseSupplementaire.reponseBool}"
 												rendered="#{questionSup.typeQuestion == 'BOOL'}">
 												<f:selectItem itemValue="#{true}"
@@ -632,11 +626,11 @@
 												<f:selectItem itemValue="#{false}"
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
-											<p:message for="reponse2">
+											<p:message for="repSupII2">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 										</h:panelGrid>
-										<h:selectOneRadio style="margin-left:10px;" id="reponse3"
+										<h:selectOneRadio style="margin-left:10px;" id="repSupII3"
 											layout="pageDirection" required="true"
 											value="#{questionSup.reponseSupplementaire.reponseInt}"
 											rendered="#{questionSup.typeQuestion == 'INT'}">
@@ -651,7 +645,7 @@
 											<f:selectItem itemValue="5"
 												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 										</h:selectOneRadio>
-										<p:message for="reponse3">
+										<p:message for="repSupII3">
 											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</p:panel>
@@ -695,8 +689,8 @@
 								</t:htmlTag>
 							</h:panelGrid>
 						</h:panelGrid>
-					</p:togglePanelItem>
-					<p:togglePanelItem id="etudiantTogglePanel3"
+					</p:tab>
+					<p:tab id="etudiantTogglePanel3"
 						name="etudiantTogglePanel3">
 						<h:panelGrid style="margin-left:100px; width:850px; padding:10px;"
 							border="1">
@@ -1217,16 +1211,16 @@
 										<h:outputText style="font-weight:bold;" escape="false"
 											value="#{questionSup.question}" />
 										<h:panelGrid style="margin-left:10px;">
-											<h:inputTextarea id="reponse1"
+											<h:inputTextarea id="repSupIII1"
 												value="#{questionSup.reponseSupplementaire.reponseTxt}"
 												style="width:250px; height:60px; resize:none;"
 												required="true"
 												requiredMessage="#{requiredMessageController.champObligatoire}"
 												rendered="#{questionSup.typeQuestion == 'TXT'}" />
-											<p:message for="reponse1">
+											<p:message for="repSupIII1">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 											</p:message>
-											<h:selectOneRadio id="reponse2" required="true"
+											<h:selectOneRadio id="repSupIII2" required="true"
 												value="#{questionSup.reponseSupplementaire.reponseBool}"
 												rendered="#{questionSup.typeQuestion == 'BOOL'}">
 												<f:selectItem itemValue="#{true}"
@@ -1234,11 +1228,11 @@
 												<f:selectItem itemValue="#{false}"
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
-											<p:message for="reponse2">
+											<p:message for="repSupIII2">
 												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 										</h:panelGrid>
-										<h:selectOneRadio style="margin-left:10px;" id="reponse3"
+										<h:selectOneRadio style="margin-left:10px;" id="repSupIII3"
 											layout="pageDirection" required="true"
 											value="#{questionSup.reponseSupplementaire.reponseInt}"
 											rendered="#{questionSup.typeQuestion == 'INT'}">
@@ -1253,9 +1247,7 @@
 											<f:selectItem itemValue="5"
 												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 										</h:selectOneRadio>
-										<p:message for="reponse3">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-										</p:message>
+										<p:message for="repSupIII3"/>
 									</p:panel>
 								</ui:repeat>
 							</p:outputPanel>
@@ -1293,8 +1285,8 @@
 								</t:htmlTag>
 							</h:panelGrid>
 						</h:panelGrid>
-					</p:togglePanelItem>
-				</p:togglePanel>
+					</p:tab>
+				</p:wizard>
 
 				<t:htmlTag value="div" style="height: 30px;" />
 				<h:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"

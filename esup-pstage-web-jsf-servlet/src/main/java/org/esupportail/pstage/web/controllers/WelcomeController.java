@@ -17,6 +17,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.util.SystemOutLogger;
 import org.esupportail.commons.services.ldap.LdapUser;
 import org.esupportail.commons.services.ldap.LdapUserService;
 import org.esupportail.pstage.domain.beans.EtapeInscription;
@@ -354,8 +355,11 @@ public class WelcomeController extends AbstractContextAwareController {
 	public String connect(){
 		String ret=null;
 		if(StringUtils.hasText(login) && StringUtils.hasText(mdp)){
+			System.out.println("mdp saisi :  " + mdp);
 			ContactDTO tmp = getStructureDomainService().getContactFromLogin(this.login);
+			System.out.println("yes papa ! " + tmp);
 			if(tmp!=null && StringUtils.hasText(tmp.getMdp())){
+				System.out.println("mdp : " + tmp.getMdp());
 				StructureDTO st = getStructureDomainService().getStructureFromIdService(tmp.getIdService());
 				if(st!=null && st.getIdStructure()>0){
 					AccordPartenariatDTO ap = getStructureDomainService().getAccordFromIdStructure(st.getIdStructure());
@@ -644,7 +648,8 @@ public class WelcomeController extends AbstractContextAwareController {
 						// Ajout des droits pour le centre entreprise (artois) si la personne est superadmin ou adminStructure
 						if ((getSessionController().isSuperAdminPageAuthorized() 
 								|| getAdminDomainService().getAdminStructureFromLogin(getSessionController().getCurrentLogin()) != null)
-								&& getCentreGestionDomainService().getCentreEntreprise() != null){
+								&& getCentreGestionDomainService().getCentreEntreprise() != null
+								&& !getSessionController().getCurrentCentresGestion().contains(getCentreGestionDomainService().getCentreEntreprise())){
 							getSessionController().getCurrentCentresGestion().add(getCentreGestionDomainService().getCentreEntreprise());
 						}
 						Collections.sort(getSessionController().getCurrentCentresGestion(), new Comparator<CentreGestionDTO>(){

@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<p:dataTable value="#{conventionController.convention.enseignant}"
+		rendered="#{not empty conventionController.convention.enseignant}">
+		<p:column>
+			<f:facet name="header">
+				<h:graphicImage alt="#{msgs['CONVENTION.CIVILITE']}"
+					title="#{msgs['CONVENTION.CIVILITE']}"
+					value="../../media/images/user_gray.png" />
+			</f:facet>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.civilite.libelle}" />
+			<t:htmlTag value="div" style="height: 5px;" />
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.NOM']}" />
+			</f:facet>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.nom}" />
+			<t:htmlTag value="div" style="height: 5px;" />
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.PRENOM']}" />
+			</f:facet>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.prenom}" />
+			<t:htmlTag value="div" style="height: 5px;" />
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.TYPE']}" />
+			</f:facet>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.typePersonne}" />
+			<t:htmlTag value="div" style="height: 5px;" />
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.DEPARTEMENT']}" />
+			</f:facet>
+			<h:outputText
+				value="#{conventionController.convention.enseignant.codeAffectation} - #{conventionController.convention.enseignant.affectation.libelle}" />
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
+			</f:facet>
+			<h:panelGrid columns="2">
+				<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+					title="#{msgs['CONTACT.TELEPHONE']}"
+					value="../../media/images/phone.png" />
+				<h:outputText id="telC"
+					value="#{conventionController.convention.enseignant.tel}" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+					title="#{msgs['CONTACT.MAIL']}"
+					value="../../media/images/email.png" />
+				<h:outputText id="mailC"
+					value="#{conventionController.convention.enseignant.mail}" />
+			</h:panelGrid>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.CAMPUS']}" />
+			</f:facet>
+			<h:panelGrid columns="2">
+				<h:graphicImage alt="#{msgs['CONVENTION.CAMPUS']}"
+					title="#{msgs['CONVENTION.CAMPUS']}"
+					value="../../media/images/house.png" />
+				<h:outputText id="campusC"
+					value="#{conventionController.convention.enseignant.campus}" />
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:graphicImage alt="#{msgs['CONVENTION.BATIMENT']}"
+					title="#{msgs['CONVENTION.BATIMENT']}"
+					value="../../media/images/building.png" />
+				<h:outputText id="batimentC"
+					value="#{conventionController.convention.enseignant.batiment}" />
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:graphicImage alt="#{msgs['CONVENTION.BUREAU']}"
+					title="#{msgs['CONVENTION.BUREAU']}"
+					value="../../media/images/computer.png" />
+				<h:outputText id="bureauC"
+					value="#{conventionController.convention.enseignant.bureau}" />
+			</h:panelGrid>
+		</p:column>
+	</p:dataTable>
+	<h:panelGrid
+		rendered="#{empty conventionController.convention.enseignant}">
+		<h:outputText value="#{msgs['CONVENTION.AUCUNENSEIGNANT']}"
+			escape="false" />
+		<t:htmlTag value="div" style="width: 50px;" />
+	</h:panelGrid>
+</ui:composition>

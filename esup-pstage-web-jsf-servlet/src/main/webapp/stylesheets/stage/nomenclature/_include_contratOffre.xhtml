@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<h:form id="formNomenclature">
+		<ui:include
+			src="/stylesheets/stage/nomenclature/_nomenclature_table.xhtml">
+			<ui:param name="idNomenclature" value="ContratOffre" />
+			<ui:param name="valueListeDataTable"
+				value="#{nomenclatureController.contrats}" />
+			<ui:param name="controllerTarget"
+				value="#{nomenclatureController.contratOffre}" />
+		</ui:include>
+		<center>
+			<p:messages />
+		</center>
+	</h:form>
+
+	<ui:include src="_nomenclature_ajout.xhtml">
+		<ui:param name="idNomenclature" value="ContratOffre" />
+		<ui:param name="fileFormNomenclature"
+			value="_nomenclature_form_contratOffre.xhtml" />
+		<ui:param name="ctrl" value="#{nomenclatureController}" />
+		<ui:param name="method" value="addContratOffre" />
+	</ui:include>
+	<ui:include src="_nomenclature_modif.xhtml">
+		<ui:param name="idNomenclature" value="ContratOffre" />
+		<ui:param name="fileFormNomenclature"
+			value="_nomenclature_form_contratOffre.xhtml" />
+		<ui:param name="ctrl" value="#{nomenclatureController}" />
+		<ui:param name="method" value="updateContratOffre" />
+	</ui:include>
+	<ui:include src="_nomenclature_reactiver.xhtml">
+		<ui:param name="idNomenclature" value="ContratOffre" />
+		<ui:param name="valueLibelleQuestion"
+			value="#{nomenclatureController.contratOffre.libelle}" />
+		<ui:param name="ctrl" value="#{nomenclatureController}" />
+		<ui:param name="method" value="reactivateContratOffre" />
+	</ui:include>
+	<ui:include src="_nomenclature_suppr.xhtml">
+		<ui:param name="idNomenclature" value="ContratOffre" />
+		<ui:param name="valueLibelleQuestion"
+			value="#{nomenclatureController.contratOffre.libelle}" />
+		<ui:param name="ctrl" value="#{nomenclatureController}" />
+		<ui:param name="method" value="deleteContratOffre" />
+	</ui:include>
+
+</ui:composition>

@@ -3,11 +3,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:panelGrid columns="2"
-		>
+	<t:panelGrid columns="2">
 
 		<h:outputLabel for="typeEnvoiMail" value="Type de mail : " />
 		<h:selectOneMenu id="typeEnvoiMail" required="true"
@@ -55,8 +53,7 @@
 	<t:htmlTag value="div" style="height:15px;" />
 	<h:outputText value="#{msgs['FORM.CONFIRMER']} ?"
 		style="float:center; font-weight:bold; font-size:14px;" />
-	<h:panelGrid align="center" columns="3"
-		>
+	<h:panelGrid align="center" columns="3">
 		<p:commandButton status="mailEvalStatus"
 			action="#{evaluationController.envoiMailEvalEnMasse}"
 			value="#{msgs['FORM.OUI']}" update="formEnvoiMailEval" />

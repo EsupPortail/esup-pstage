@@ -441,18 +441,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private String modificationOffreCurrentPage = "_modificationOffreEtape1";
 	/**
-	 * MODIFICATION OFFRE 3 - PARTIE DEPOT
-	 */
-	private String modificationOffre3CurrentPage = "_modificationOffreEtape3";
-	/**
-	 * MODIFICATION OFFRE 3C - PARTIE DEPOT
-	 */
-	private String modificationOffre3CCurrentPage = "_modificationOffreEtape3Contacts";
-	/**
-	 * MODIFICATION ETABLISSEMENT OFFRE
-	 */
-	private String modificationEtabOffreCurrentPage = "_modificationOffreEtape04DetailsEtab";
-	/**
 	 * SUPPRESSION OFFRE
 	 */
 	private String suppressionOffreCurrentPage = "_supprOffreEtape1";
@@ -529,10 +517,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	private String validationStructureCurrentPage = "_validStructureEtape1";
 	/**
-	 * FICHE EVALUATION
-	 */
-	private String ficheEvaluationCurrentPage = "_conventionEtape13FicheEvaluation";
-	/**
 	 * EDITION QUESTION FICHE EVALUATION 
 	 */
 	private String editQuestionEvalCurrentPage = "_questionEval_editEtape1Ajout";
@@ -560,6 +544,10 @@ public class SessionController extends AbstractDomainAwareBean {
 	 * CONSULTATION D'UN CENTRE DE GESTION
 	 */
 	private String consultationCentreCurrentPage = "_consultationCentre_detail";
+	/**
+	 * CONFIGURATION DES TABLES DE NOMENCLATURE
+	 */
+	private String nomenclatureCurrentPage = "_include_caisseRegime";
 	
 	/**
 	 * Constructor.
@@ -1963,21 +1951,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	}
 
 	/**
-	 * @return the modificationEtabOffreCurrentPage
-	 */
-	public String getModificationEtabOffreCurrentPage() {
-		return modificationEtabOffreCurrentPage;
-	}
-
-	/**
-	 * @param modificationEtabOffreCurrentPage the modificationEtabOffreCurrentPage to set
-	 */
-	public void setModificationEtabOffreCurrentPage(
-			String modificationEtabOffreCurrentPage) {
-		this.modificationEtabOffreCurrentPage = modificationEtabOffreCurrentPage;
-	}
-
-	/**
 	 * @return the modifMdpCurrentPage
 	 */
 	public String getModifMdpCurrentPage() {
@@ -1989,36 +1962,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	 */
 	public void setModifMdpCurrentPage(String modifMdpCurrentPage) {
 		this.modifMdpCurrentPage = modifMdpCurrentPage;
-	}
-
-	/**
-	 * @return the modificationOffre3CurrentPage
-	 */
-	public String getModificationOffre3CurrentPage() {
-		return modificationOffre3CurrentPage;
-	}
-
-	/**
-	 * @param modificationOffre3CurrentPage the modificationOffre3CurrentPage to set
-	 */
-	public void setModificationOffre3CurrentPage(
-			String modificationOffre3CurrentPage) {
-		this.modificationOffre3CurrentPage = modificationOffre3CurrentPage;
-	}
-
-	/**
-	 * @return the modificationOffre3CCurrentPage
-	 */
-	public String getModificationOffre3CCurrentPage() {
-		return modificationOffre3CCurrentPage;
-	}
-
-	/**
-	 * @param modificationOffre3CCurrentPage the modificationOffre3CCurrentPage to set
-	 */
-	public void setModificationOffre3CCurrentPage(
-			String modificationOffre3CCurrentPage) {
-		this.modificationOffre3CCurrentPage = modificationOffre3CCurrentPage;
 	}
 
 	/**
@@ -2358,20 +2301,6 @@ public class SessionController extends AbstractDomainAwareBean {
 	}
 
 	/**
-	 * @return the ficheEvaluationCurrentPage
-	 */
-	public String getFicheEvaluationCurrentPage() {
-		return ficheEvaluationCurrentPage;
-	}
-
-	/**
-	 * @param ficheEvaluationCurrentPage the ficheEvaluationCurrentPage to set
-	 */
-	public void setFicheEvaluationCurrentPage(String ficheEvaluationCurrentPage) {
-		this.ficheEvaluationCurrentPage = ficheEvaluationCurrentPage;
-	}
-
-	/**
 	 * @return the editQuestionEvalCurrentPage
 	 */
 	public String getEditQuestionEvalCurrentPage() {
@@ -2590,6 +2519,14 @@ public class SessionController extends AbstractDomainAwareBean {
 	public void setConsultationCentreCurrentPage(
 			String consultationCentreCurrentPage) {
 		this.consultationCentreCurrentPage = consultationCentreCurrentPage;
+	}
+
+	public String getNomenclatureCurrentPage() {
+		return nomenclatureCurrentPage;
+	}
+
+	public void setNomenclatureCurrentPage(String nomenclatureCurrentPage) {
+		this.nomenclatureCurrentPage = nomenclatureCurrentPage;
 	}
 
 }

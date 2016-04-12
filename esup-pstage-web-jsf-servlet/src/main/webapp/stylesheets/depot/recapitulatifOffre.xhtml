@@ -1,157 +1,161 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	 template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<t:div>
-			<h:panelGrid style="float:left;">
-				<ui:include src="./_menu.xhtml" />
-			</h:panelGrid>
-			<h:panelGrid
-				rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
-				<p:panel>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
-					</f:facet>
-					<t:div rendered="#{empty offreController.currentOffre}">
-						<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
-					</t:div>
-					<h:form>
-						<h:panelGrid>
-							<p:commandLink id="editoffre"
-								action="#{offreController.editPdfOffre}">
-								<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-									value="../../media/images/printer.png" />
-								<h:outputText value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
-									escape="false" />
-							</p:commandLink>
-						</h:panelGrid>
-						<t:htmlTag value="div" style="height:5px;" />
-						<t:div rendered="#{not empty offreController.currentOffre}">
-							<t:htmlTag value="div"
-								rendered="#{sessionController.moderationActive and sessionController.pageAuthorized and offreController.currentOffre.estDiffusee}">
-								<t:htmlTag value="br" />
-								<t:htmlTag value="div" style="height:10px;" />
-								<h:panelGrid columns="2">
-									<h:graphicImage id="imgDiff" value="../../media/images/information.png"
-										alt="#{msgs['GENERAL.OK']}" />
-									<h:outputLabel for="imgDiff"
-										value="#{msgs['OFFRE.GESTION.DIFFUSION.MODERATION.MSG_DIFF']}" />
-								</h:panelGrid>
-								<t:htmlTag value="br" />
-								<t:htmlTag value="div" style="height:10px;" />
-							</t:htmlTag>
-							<fieldset>
-								<legend>
-									<h:outputText value="#{msgs['OFFRE.GESTION.DETAILS']} " />
-									<h:commandLink id="modif"
-										action="#{offreController.goToEntrepriseModificationOffre}">
-										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-											value="../../media/images/edit.png" />
-										<f:setPropertyActionListener value="recapitulatifOffre"
-											target="#{offreController.retour}" />
-										<f:setPropertyActionListener value="#{1}"
-											target="#{offreController.typeAjoutModifOffre}" />
-										<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
-									</h:commandLink>
-								</legend>
-								<ui:include src="../_commun/_detailsOffre.xhtml" />
-							</fieldset>
-							<t:htmlTag value="br" />
-							<t:htmlTag value="div" style="height:10px;" />
-							<t:div
-								rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
-								<fieldset>
-									<legend>
-										<h:outputText
-											value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " />
-										<h:commandLink id="modifF"
-											action="#{offreController.goToEntrepriseModificationOffre3}">
-											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png" />
-											<f:setPropertyActionListener value="recapitulatifOffre"
-												target="#{offreController.retour}" />
-											<f:setPropertyActionListener value="#{1}"
-												target="#{offreController.typeAjoutModifOffre}" />
-											<f:setPropertyActionListener value="_modificationOffreEtape3"
-												target="#{sessionController.modificationOffre3CurrentPage}" />
-											<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
-										</h:commandLink>
-									</legend>
-									<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
-								</fieldset>
-							</t:div>
-							<t:div
-								rendered="#{!offreController.currentOffre.avecFichier and !offreController.currentOffre.avecLien}">
-								<fieldset>
-									<legend>
-										<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS']} " />
-										<h:commandLink id="modifC"
-											action="#{offreController.goToEntrepriseModificationOffre3C}">
-											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png" />
-											<f:setPropertyActionListener value="recapitulatifOffre"
-												target="#{offreController.retour}" />
-											<f:setPropertyActionListener value="#{1}"
-												target="#{offreController.typeAjoutModifOffre}" />
-											<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
-										</h:commandLink>
-									</legend>
-									<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
-								</fieldset>
-							</t:div>
-							<t:div>
-								<fieldset>
-									<legend>
-										<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
-									</legend>
-									<ui:include src="../_commun/_detailsOffreDiffusion.xhtml" />
-								</fieldset>
-							</t:div>
-							<t:htmlTag value="br" />
-							<t:htmlTag value="div" style="height:10px;" />
-							<h:panelGrid style="float:right;"
-								rendered="#{!offreController.currentOffre.estSupprimee}">
-								<p:commandLink  id="suppr" update="supprOffre"
-									oncomplete="PF('supprOffre').show();">
-									<f:setPropertyActionListener value="recapitulatifOffre"
-										target="#{offreController.retour}" />
-									<f:setPropertyActionListener
-										value="_supprOffreEtape1"
-										target="#{sessionController.suppressionOffreCurrentPage}" />
-									<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
-										value="../../media/images/delete.png" />
-									<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
-									<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-								</p:commandLink>
-							</h:panelGrid>
-							<h:panelGrid style="float:right;">
-								<t:aliasBean alias="#{objet}"
-									value="#{offreController.currentOffre}">
-									<ui:include src="../_commun/_updateInfos.xhtml" />
-								</t:aliasBean>
-							</h:panelGrid>
-						</t:div>
-						<h:panelGrid>
-							<t:htmlTag value="div" style="height:20px;" />
-							<h:commandButton action="#{offreController.goToGestionOffres}"
-								rendered="#{sessionController.pageAuthorized 
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <t:div>
+            <h:panelGrid style="float:left;">
+                <ui:include src="./_menu.xhtml" />
+            </h:panelGrid>
+            <h:panelGrid
+                    rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+                <p:panel>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
+                    </f:facet>
+                    <t:div rendered="#{empty offreController.currentOffre}">
+                        <h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
+                    </t:div>
+                    <h:form>
+                        <h:panelGrid>
+                            <p:commandLink id="editoffre"
+                                           action="#{offreController.editPdfOffre}">
+                                <h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+                                                value="../../media/images/printer.png" />
+                                <h:outputText value="#{msgs['OFFRE.GESTION.IMPRESSION']}"
+                                              escape="false" />
+                            </p:commandLink>
+                        </h:panelGrid>
+                        <t:htmlTag value="div" style="height:5px;" />
+                        <t:div rendered="#{not empty offreController.currentOffre}">
+                            <t:htmlTag value="div"
+                                       rendered="#{sessionController.moderationActive and sessionController.pageAuthorized and offreController.currentOffre.estDiffusee}">
+                                <t:htmlTag value="br" />
+                                <t:htmlTag value="div" style="height:10px;" />
+                                <h:panelGrid columns="2">
+                                    <h:graphicImage id="imgDiff" value="../../media/images/information.png"
+                                                    alt="#{msgs['GENERAL.OK']}" />
+                                    <h:outputLabel for="imgDiff"
+                                                   value="#{msgs['OFFRE.GESTION.DIFFUSION.MODERATION.MSG_DIFF']}" />
+                                </h:panelGrid>
+                                <t:htmlTag value="br" />
+                                <t:htmlTag value="div" style="height:10px;" />
+                            </t:htmlTag>
+                            <fieldset>
+                                <legend>
+                                    <h:outputText value="#{msgs['OFFRE.GESTION.DETAILS']} " />
+                                    <h:commandLink id="modif"
+                                                   action="#{offreController.goToEntrepriseModificationOffre}">
+                                        <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                        value="../../media/images/edit.png" />
+                                        <f:setPropertyActionListener value="recapitulatifOffre"
+                                                                     target="#{offreController.retour}" />
+                                        <f:setPropertyActionListener value="#{1}"
+                                                                     target="#{offreController.typeAjoutModifOffre}" />
+                                        <f:setPropertyActionListener value="_modificationOffreEtape1"
+                                                                     target="#{sessionController.modificationOffreCurrentPage}" />
+                                        <p:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
+                                    </h:commandLink>
+                                </legend>
+                                <ui:include src="../_commun/_detailsOffre.xhtml" />
+                            </fieldset>
+                            <t:htmlTag value="br" />
+                            <t:htmlTag value="div" style="height:10px;" />
+                            <t:div
+                                    rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
+                                <fieldset>
+                                    <legend>
+                                        <h:outputText
+                                                value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " />
+                                        <h:commandLink id="modifF"
+                                                       action="#{offreController.goToEntrepriseModificationOffre}">
+                                            <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                            value="../../media/images/edit.png" />
+                                            <f:setPropertyActionListener value="recapitulatifOffre"
+                                                                         target="#{offreController.retour}" />
+                                            <f:setPropertyActionListener value="#{1}"
+                                                                         target="#{offreController.typeAjoutModifOffre}" />
+                                            <f:setPropertyActionListener value="_modificationOffreEtape3"
+                                                                         target="#{sessionController.modificationOffreCurrentPage}" />
+                                            <p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+                                        </h:commandLink>
+                                    </legend>
+                                    <ui:include src="../_commun/_detailsOffreFichier.xhtml" />
+                                </fieldset>
+                            </t:div>
+                            <t:div
+                                    rendered="#{!offreController.currentOffre.avecFichier and !offreController.currentOffre.avecLien}">
+                                <fieldset>
+                                    <legend>
+                                        <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS']} " />
+                                        <h:commandLink id="modifC"
+                                                       action="#{offreController.goToEntrepriseModificationOffre}">
+                                            <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                            value="../../media/images/edit.png" />
+                                            <f:setPropertyActionListener value="recapitulatifOffre"
+                                                                         target="#{offreController.retour}" />
+                                            <f:setPropertyActionListener value="#{1}"
+                                                                         target="#{offreController.typeAjoutModifOffre}" />
+                                            <f:setPropertyActionListener value="_modificationOffreEtape3Contacts"
+                                                                         target="#{sessionController.modificationOffreCurrentPage}" />
+                                            <p:tooltip value="#{msgs['FORM.MODIFIER']}" />
+                                        </h:commandLink>
+                                    </legend>
+                                    <ui:include src="../_commun/_detailsOffreContacts.xhtml" />
+                                </fieldset>
+                            </t:div>
+                            <t:div>
+                                <fieldset>
+                                    <legend>
+                                        <h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
+                                    </legend>
+                                    <ui:include src="../_commun/_detailsOffreDiffusion.xhtml" />
+                                </fieldset>
+                            </t:div>
+                            <t:htmlTag value="br" />
+                            <t:htmlTag value="div" style="height:10px;" />
+                            <h:panelGrid style="float:right;"
+                                         rendered="#{!offreController.currentOffre.estSupprimee}">
+                                <p:commandLink  id="suppr" update="supprOffre"
+                                                oncomplete="PF('supprOffre').show();">
+                                    <f:setPropertyActionListener value="recapitulatifOffre"
+                                                                 target="#{offreController.retour}" />
+                                    <f:setPropertyActionListener
+                                            value="_supprOffreEtape1"
+                                            target="#{sessionController.suppressionOffreCurrentPage}" />
+                                    <h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
+                                                    value="../../media/images/delete.png" />
+                                    <h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
+                                    <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+                                </p:commandLink>
+                            </h:panelGrid>
+                            <h:panelGrid style="float:right;">
+                                <t:aliasBean alias="#{objet}"
+                                             value="#{offreController.currentOffre}">
+                                    <ui:include src="../_commun/_updateInfos.xhtml" />
+                                </t:aliasBean>
+                            </h:panelGrid>
+                        </t:div>
+                        <h:panelGrid>
+                            <t:htmlTag value="div" style="height:20px;" />
+                            <h:commandButton action="#{offreController.goToGestionOffres}"
+                                             rendered="#{sessionController.pageAuthorized
 		|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)}"
-								value=" #{msgs['OFFRE.RETOURLISTES']}">
-							</h:commandButton>
-						</h:panelGrid>
-					</h:form>
-					<ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
-					<ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
-					<ui:include src="../_commun/_panelOffrePourvue.xhtml" />
-					<ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
-					<ui:include src="../_commun/_panelSupprOffre.xhtml" />
-				</p:panel>
-				<ui:include src="_panelNousContacter.xhtml" />
-			</h:panelGrid>
-			<p:editor rendered="false" />
-		</t:div>
-	</ui:define>
+                                             value=" #{msgs['OFFRE.RETOURLISTES']}">
+                            </h:commandButton>
+                        </h:panelGrid>
+                    </h:form>
+                    <ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
+                    <ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
+                    <ui:include src="../_commun/_panelOffrePourvue.xhtml" />
+                    <ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
+                    <ui:include src="../_commun/_panelSupprOffre.xhtml" />
+                </p:panel>
+                <ui:include src="_panelNousContacter.xhtml" />
+            </h:panelGrid>
+            <p:editor rendered="false" />
+        </t:div>
+    </ui:define>
 </ui:composition>

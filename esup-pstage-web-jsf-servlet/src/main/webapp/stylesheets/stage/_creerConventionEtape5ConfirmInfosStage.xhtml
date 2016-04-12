@@ -3,7 +3,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<p:panel
@@ -13,12 +12,10 @@
 				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE']}" />
 		</f:facet>
 
-		<h:panelGrid
-			>
+		<h:panelGrid>
 			<h:outputText style="font-weight:bold;"
 				value="#{msgs['CONVENTION.ETAPE5.CONFIRMATIONINFOSSTAGE.DEMANDE']} : " />
-			<ui:include
-				src="/stylesheets/stage/_conventionEtape5DetailsStage.xhtml" />
+			<ui:include src="/stylesheets/stage/_detailsStage.xhtml" />
 		</h:panelGrid>
 		<t:htmlTag value="center">
 			<h:commandButton value="#{msgs['FORM.VALIDER']}"

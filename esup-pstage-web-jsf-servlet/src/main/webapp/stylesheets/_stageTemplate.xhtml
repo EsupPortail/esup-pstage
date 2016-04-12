@@ -21,6 +21,9 @@
 	</h:head>
 	<f:view locale="fr">
 		<h:body>
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+				<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
+			</p:dialog>
 			<ui:insert name="sidebar" />
 			<ui:insert name="topbar" />
 			<t:div id="MAIN_CONTENT">

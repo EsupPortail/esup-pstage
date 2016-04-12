@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -14,8 +11,41 @@
 				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<ui:include
-					src="/stylesheets/stage/_conventionEtape6ListeEnseignant.xhtml" />
+				<h:panelGrid
+					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+					<p:panel>
+						<f:facet name="header">
+							<h:outputText
+								value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
+						</f:facet>
+						<t:htmlTag value="div" style="height: 20px;" />
+						<h:outputText
+							value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}" />
+						<t:htmlTag value="br" />
+						<p:dataTable style="width:483px;"
+							value="#{conventionController.listeEnseignant}" var="enseignant"
+							rows="10" rowHover="true" rowStyleClass="nopointer"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15,20">
+							<ui:include
+								src="/stylesheets/stage/_listeEnseignantsColumns.xhtml" />
+							<p:column>
+								<p:commandLink id="add"
+									action="#{conventionController.goToConventionEtape6ValidEnseignant}">
+									<f:setPropertyActionListener value="#{enseignant}"
+										target="#{conventionController.resultatEnseignant}" />
+									<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
+										value="../../media/images/zoom.png" />
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+						<p:commandButton
+							action="#{conventionController.goToConventionModifEnseignant}"
+							value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
+							immediate="true"/>
+					</p:panel>
+				</h:panelGrid>
 			</h:form>
 		</p:panel>
 	</ui:define>

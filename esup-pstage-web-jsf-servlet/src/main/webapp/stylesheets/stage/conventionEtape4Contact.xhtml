@@ -3,7 +3,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -13,25 +12,93 @@
 					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<h:panelGrid
-					>
+				<h:panelGrid>
 					<f:facet name="header">
 						<h:outputText value="#{msgs['CONVENTION.ETAPE4.CONTACT.INFO']}" />
 					</f:facet>
 					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputText value="" />
-					<h:panelGrid
-						>
-						<p:messages showDetail="true">
-						</p:messages>
-						<ui:include
-							src="/stylesheets/stage/_conventionEtape4DetailsContact.xhtml" />
+					<h:panelGrid>
+						<p:messages />
+						<h:panelGrid
+							rendered="#{not empty conventionController.convention.contact and conventionController.convention.contact.id > 0}">
+							<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+								escape="false" />
+							<t:htmlTag value="div" style="width: 50px;" />
+							<p:dataTable value="#{conventionController.convention.contact}">
+								<f:facet name="header">
+									<p:columnGroup>
+										<p:column>
+											<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
+												title="#{msgs['CONTACT.CIVILITE']}"
+												value="../../media/images/user_gray.png" />
+										</p:column>
+										<p:column>
+											<h:outputText value="#{msgs['CONTACT.NOM']}" />
+										</p:column>
+										<p:column>
+											<h:outputText value="#{msgs['CONTACT.PRENOM']}" />
+										</p:column>
+										<p:column>
+											<h:outputText value="#{msgs['CONTACT.FONCTION']}" />
+										</p:column>
+										<p:column>
+											<h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
+										</p:column>
+									</p:columnGroup>
+								</f:facet>
+								<p:column>
+									<h:outputText id="civC"
+										value="#{conventionController.convention.contact.civilite.libelle}" />
+								</p:column>
+								<p:column>
+									<h:outputText id="nomC"
+										value="#{conventionController.convention.contact.nom}" />
+								</p:column>
+								<p:column>
+									<h:outputText id="prenomC"
+										value="#{conventionController.convention.contact.prenom}" />
+								</p:column>
+								<p:column>
+									<h:outputText id="fonctionC"
+										value="#{conventionController.convention.contact.fonction}" />
+								</p:column>
+								<p:column>
+									<h:panelGrid>
+										<h:panelGrid columns="2">
+											<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
+												title="#{msgs['CONTACT.TELEPHONE']}"
+												value="../../media/images/phone.png" />
+											<h:outputText id="telC"
+												value="#{conventionController.convention.contact.tel}" />
+										</h:panelGrid>
+										<h:panelGrid columns="2">
+											<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
+												title="#{msgs['CONTACT.FAX']}"
+												value="../../media/images/printer.png" />
+											<h:outputText id="faxC"
+												value="#{conventionController.convention.contact.fax}" />
+										</h:panelGrid>
+										<h:panelGrid columns="2">
+											<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
+												title="#{msgs['CONTACT.MAIL']}"
+												value="../../media/images/email.png" />
+											<h:outputText id="mailC"
+												value="#{conventionController.convention.contact.mail}" />
+										</h:panelGrid>
+									</h:panelGrid>
+								</p:column>
+							</p:dataTable>
+						</h:panelGrid>
+						<h:panelGrid
+							rendered="#{empty conventionController.convention.contact || conventionController.convention.contact.id == 0}">
+							<h:outputText value="#{msgs['CONTACT.AUCUNCONTACT']}"
+								escape="false" />
+							<t:htmlTag value="div" style="width: 50px;" />
+						</h:panelGrid>
 					</h:panelGrid>
-					<h:panelGrid
-						columns="2">
+					<h:panelGrid columns="2">
 
-						<p:commandButton 
-							oncomplete="PF('modifContact').show();"
+						<p:commandButton oncomplete="PF('modifContact').show();"
 							update="modifContact" value="#{msgs['FORM.MODIFIER']}"
 							rendered="#{not empty conventionController.convention.contact and !conventionController.conventionValide
 								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized 
@@ -51,7 +118,7 @@
 								target="#{sessionController.modifContactCurrentPage}" />
 						</p:commandButton>
 
-						<p:commandButton  update="selectServiceContact"
+						<p:commandButton update="selectServiceContact"
 							oncomplete="PF('selectServiceContact').show();"
 							rendered="#{!conventionController.conventionValide
 		                        and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
@@ -72,7 +139,8 @@
 								target="#{etablissementController.afficherSelectionCentreContact}" />
 						</p:commandButton>
 
-						<p:dialog id="selectServiceContact" widgetVar="selectServiceContact">
+						<p:dialog id="selectServiceContact"
+							widgetVar="selectServiceContact">
 							<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
 							<p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 								oncomplete="PF('selectServiceContact').hide();"
@@ -85,7 +153,7 @@
 									target="#{conventionController.convention.contact}" />
 							</p:commandButton>
 							<t:htmlTag value="div" style="width: 150px; display: inline;" />
-							<p:commandButton value="#{msgs['FORM.CANCEL']}" 
+							<p:commandButton value="#{msgs['FORM.CANCEL']}"
 								onclick="PF('selectServiceContact').hide();" />
 						</p:dialog>
 

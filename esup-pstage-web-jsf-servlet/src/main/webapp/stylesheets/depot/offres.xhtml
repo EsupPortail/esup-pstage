@@ -1,112 +1,113 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui" template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.xhtml" />
-		</h:panelGrid>
-		<t:div
-			rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
-			<h:panelGrid>
-				<p:panel>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['OFFRE.GESTION']}" />
-					</f:facet>
-					<h:outputText
-						value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
-						rendered="#{empty sessionController.currentManageStructure}" />
-					<h:form
-						rendered="#{not empty sessionController.currentManageStructure}">
-						<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNE']}"
-							rendered="#{empty offreController.listeOffres}" escape="false" />
-						<h:panelGrid columns="2"
-							rendered="#{(sessionController.pageAuthorized 
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui" template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <h:panelGrid style="float:left;">
+            <ui:include src="./_menu.xhtml" />
+        </h:panelGrid>
+        <t:div
+                rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
+            <h:panelGrid>
+                <p:panel>
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs['OFFRE.GESTION']}" />
+                    </f:facet>
+                    <h:outputText
+                            value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+                            rendered="#{empty sessionController.currentManageStructure}" />
+                    <h:form
+                            rendered="#{not empty sessionController.currentManageStructure}">
+                        <h:outputText value="#{msgs['OFFRE.GESTION.AUCUNE']}"
+                                      rendered="#{empty offreController.listeOffres}" escape="false" />
+                        <h:panelGrid columns="2"
+                                     rendered="#{(sessionController.pageAuthorized
 					|| (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)) 
 					and empty offreController.listeOffres}">
-							<h:outputText value="#{msgs['OFFRE.GESTION.CREER']}"
-								escape="false" />
-							<h:commandLink id="ajoutO"
-								action="#{offreController.goToEntrepriseCreationOffre}">
-								<h:graphicImage alt="#{msgs['FORM.CREER']}"
-									value="../../media/images/new.png" />
-								<f:setPropertyActionListener value="#{false}"
-									target="#{etablissementController.afficherSelectionCentreContact}" />
-								<f:setPropertyActionListener value="#{1}"
-									target="#{offreController.typeAjoutModifOffre}" />
-								<f:setPropertyActionListener value="_creationOffreEtape1"
-									target="#{sessionController.creationOffreCurrentPage}" />
-								<p:tooltip value="#{msgs['FORM.CREER']}" />
-							</h:commandLink>
-						</h:panelGrid>
-						<p:outputPanel id="opOffresDataTable">
-							<t:div rendered="#{not empty offreController.listeOffres}">
-								<h:outputText value="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']}"
-									escape="false" />
-								<p:dataTable value="#{offreController.listeOffres}" var="offre"
-									rows="15" update="ds" rowKey="rowOffre"
-									rowHover="true" rowStyleClass="nopointer" paginator="true"
-									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-									rowsPerPageTemplate="5,10,15,20">
-									<ui:include
-										src="../_commun/_rechercheOffreResultatsColumns.xhtml" />
-									<p:column>
-										<h:commandLink id="recap"
-											action="#{offreController.goToRecapitulatifOffre}">
-											<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-												value="../../media/images/document.png" />
-											<f:setPropertyActionListener value="recapitulatifOffre"
-												target="#{offreController.retour}" />
-											<f:setPropertyActionListener value="#{offre}"
-												target="#{offreController.currentOffre}" />
-											<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-										</h:commandLink>
-										<h:commandLink id="modif"
-											action="#{offreController.goToEntrepriseModificationOffre}">
-											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png" />
-											<f:setPropertyActionListener value="#{offre}"
-												target="#{offreController.currentOffre}" />
-											<f:setPropertyActionListener value="#{1}"
-												target="#{offreController.typeAjoutModifOffre}" />
-											<f:setPropertyActionListener value="gestionOffres"
-												target="#{offreController.retour}" />
-											<f:setPropertyActionListener value="#{false}"
-												target="#{etablissementController.afficherSelectionCentreContact}" />
-											<p:tooltip>
-												<h:panelGrid>
-													<h:outputLabel for="modif" value="#{msgs['FORM.MODIFIER']}" />
-													<t:div rendered="#{sessionController.adminPageAuthorized}">
-														<t:htmlTag value="br" />
-														<t:aliasBean alias="#{objet}" value="#{offre}">
-															<ui:include src="../_commun/_updateInfos.xhtml" />
-														</t:aliasBean>
-													</t:div>
-												</h:panelGrid>
-											</p:tooltip>
-										</h:commandLink>
-										<p:commandLink  id="suppr" update="supprOffre"
-											oncomplete="PF('supprOffre').show();">
-											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-												value="../../media/images/delete.png" />
-											<f:setPropertyActionListener value="gestionOffres"
-												target="#{offreController.retour}" />
-											<f:setPropertyActionListener value="_supprOffreEtape1"
-												target="#{sessionController.suppressionOffreCurrentPage}" />
-											<f:setPropertyActionListener value="#{offre}"
-												target="#{offreController.currentOffre}" />
-											<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-										</p:commandLink>
-									</p:column>
-								</p:dataTable>
-							</t:div>
-						</p:outputPanel>
-					</h:form>
-					<ui:include src="../_commun/_panelSupprOffre.xhtml" />
-				</p:panel>
-				<ui:include src="_panelNousContacter.xhtml" />
-			</h:panelGrid>
-		</t:div>
-	</ui:define>
+                            <h:outputText value="#{msgs['OFFRE.GESTION.CREER']}"
+                                          escape="false" />
+                            <h:commandLink id="ajoutO"
+                                           action="#{offreController.goToEntrepriseCreationOffre}">
+                                <h:graphicImage alt="#{msgs['FORM.CREER']}"
+                                                value="../../media/images/new.png" />
+                                <f:setPropertyActionListener value="#{false}"
+                                                             target="#{etablissementController.afficherSelectionCentreContact}" />
+                                <f:setPropertyActionListener value="#{1}"
+                                                             target="#{offreController.typeAjoutModifOffre}" />
+                                <f:setPropertyActionListener value="_creationOffreEtape1"
+                                                             target="#{sessionController.creationOffreCurrentPage}" />
+                                <p:tooltip value="#{msgs['FORM.CREER']}" />
+                            </h:commandLink>
+                        </h:panelGrid>
+                        <p:outputPanel id="opOffresDataTable">
+                            <t:div rendered="#{not empty offreController.listeOffres}">
+                                <h:outputText value="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']}"
+                                              escape="false" />
+                                <p:dataTable value="#{offreController.listeOffres}" var="offre"
+                                             rows="15" update="ds" rowKey="rowOffre"
+                                             rowHover="true" rowStyleClass="nopointer" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15,20">
+
+                                    <ui:include src="../_commun/_rechercheOffreResultatsColumns.xhtml" />
+
+                                    <p:column>
+                                        <h:commandLink id="recap"
+                                                       action="#{offreController.goToRecapitulatifOffre}">
+                                            <h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
+                                                            value="/media/images/document.png" />
+                                            <f:setPropertyActionListener value="recapitulatifOffre"
+                                                                         target="#{offreController.retour}" />
+                                            <f:setPropertyActionListener value="#{offre}"
+                                                                         target="#{offreController.currentOffre}" />
+                                            <p:tooltip for="recap" value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+                                        </h:commandLink>
+                                        <h:commandLink id="modif"
+                                                       action="#{offreController.goToEntrepriseModificationOffre}">
+                                            <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                            value="/media/images/edit.png" />
+                                            <f:setPropertyActionListener value="#{offre}"
+                                                                         target="#{offreController.currentOffre}" />
+                                            <f:setPropertyActionListener value="#{1}"
+                                                                         target="#{offreController.typeAjoutModifOffre}" />
+                                            <f:setPropertyActionListener value="gestionOffres"
+                                                                         target="#{offreController.retour}" />
+                                            <f:setPropertyActionListener value="#{false}"
+                                                                         target="#{etablissementController.afficherSelectionCentreContact}" />
+                                            <f:setPropertyActionListener value="_modificationOffreEtape1"
+                                                                         target="#{sessionController.modificationOffreCurrentPage}" />
+                                            <p:tooltip for="modif">
+                                                <h:outputLabel for="modif" value="#{msgs['FORM.MODIFIER']}" />
+                                                <t:div rendered="#{sessionController.adminPageAuthorized}">
+                                                    <t:htmlTag value="br" />
+                                                    <t:aliasBean alias="#{objet}" value="#{offre}">
+                                                        <ui:include src="../_commun/_updateInfos.xhtml" />
+                                                    </t:aliasBean>
+                                                </t:div>
+                                            </p:tooltip>
+                                        </h:commandLink>
+                                        <p:commandLink  id="suppr" update="supprOffre"
+                                                        oncomplete="PF('supprOffre').show();">
+                                            <h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+                                                            value="/media/images/delete.png" />
+                                            <f:setPropertyActionListener value="gestionOffres"
+                                                                         target="#{offreController.retour}" />
+                                            <f:setPropertyActionListener value="_supprOffreEtape1"
+                                                                         target="#{sessionController.suppressionOffreCurrentPage}" />
+                                            <f:setPropertyActionListener value="#{offre}"
+                                                                         target="#{offreController.currentOffre}" />
+                                            <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                            </t:div>
+                        </p:outputPanel>
+                    </h:form>
+                    <ui:include src="../_commun/_panelSupprOffre.xhtml" />
+                </p:panel>
+                <ui:include src="_panelNousContacter.xhtml" />
+            </h:panelGrid>
+        </t:div>
+    </ui:define>
 </ui:composition>
