@@ -23,13 +23,11 @@
 						action="#{offreController.rechercheSimpleAvancee}" update="@form"
 						rendered="#{!offreController.rechercheAvancee}" />
 					<t:htmlTag value="div" style="width: 20px;" />
-					<p:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}" update="@form"
+					<p:commandButton type="reset" value="#{msgs['RECHERCHEOFFRE.REINIT']}" ajax="false"
 						action="#{offreController.resetRechercheOffre}" />
 				</h:panelGrid>
 			</h:form>
-			<p:message for="formRechOffre" style="color:red;font-weight:bold;">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</p:message>
+			<p:message for="formRechOffre" style="color:red;font-weight:bold;"/>
 		</p:panel>
 	</ui:define>
 </ui:composition>

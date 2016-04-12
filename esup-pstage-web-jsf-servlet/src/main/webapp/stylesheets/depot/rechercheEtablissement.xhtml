@@ -17,6 +17,7 @@
 					<h:form>
 						<ui:include
 							src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
+                        <t:htmlTag value="div" style="margin: 10px; display:inline;" />
 						<h:commandButton
 							style="color: #{rechercheController.ongletCourant == '3' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '3' ? 'green' : 'black'};"
 							action="#{rechercheController.goToOngletAccord}"

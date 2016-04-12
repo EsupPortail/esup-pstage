@@ -1996,10 +1996,10 @@ public class EvaluationController extends AbstractContextAwareController {
 						if (!reponseTmp.isReponseEtuI7()) {
 							switch (reponseTmp.getReponseEtuI7bis2()) {
 							case 1:
-								reponse = (" FAUX - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.1"));
+								reponse = (" Non - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.1"));
 								break;
 							case 2:
-								reponse = (" FAUX - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.2"));
+								reponse = (" Non - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.2"));
 								break;
 							}
 						}
@@ -2007,22 +2007,22 @@ public class EvaluationController extends AbstractContextAwareController {
 						if (reponseTmp.isReponseEtuI7()) {
 							switch (reponseTmp.getReponseEtuI7bis1()) {
 							case 1:
-								reponse = (" VRAI - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.1"));
+								reponse = (" Oui - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.1"));
 								break;
 							case 2:
-								reponse = (" VRAI - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.2"));
+								reponse = (" Oui - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.2"));
 								break;
 							case 3:
-								reponse = (" VRAI - "
+								reponse = (" Oui - "
 										+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.3")
 										+ " - Utilisation des ressources : " + reponseTmp
 										.isReponseEtuI7bis1a());
 								break;
 							case 4:
-								reponse = (" VRAI - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.4"));
+								reponse = (" Oui - " + getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.4"));
 								break;
 							case 5:
-								reponse = (" VRAI - "
+								reponse = (" Oui - "
 										+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.OUI.5")
 										+ " : " + reponseTmp
 										.getReponseEtuI7bis1b());
@@ -2043,7 +2043,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuI8()){
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						cell.setCellValue(reponseTmp.isReponseEtuI8());
+						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuI8()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2158,29 +2158,29 @@ public class EvaluationController extends AbstractContextAwareController {
 							switch (reponseTmp.getReponseEtuII5a()) {
 							case 1:
 								if (reponseTmp.isReponseEtuII5b()) {
-									reponse = (" VRAI - "
-											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.1") + " - Avec autonomie : VRAI");
+									reponse = (" Oui - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.1") + " - Avec autonomie : Oui");
 								} else {
-									reponse = (" VRAI - "
-											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.1") + " - Avec autonomie : FAUX");
+									reponse = (" Oui - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.1") + " - Avec autonomie : Non");
 								}
 								break;
 							case 2:
 								if (reponseTmp.isReponseEtuII5b()) {
-									reponse = (" VRAI - "
-											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.2") + " - Avec autonomie : VRAI");
+									reponse = (" Oui - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.2") + " - Avec autonomie : Oui");
 								} else {
-									reponse = (" VRAI - "
-											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.2") + " - Avec autonomie : FAUX");
+									reponse = (" Oui - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.2") + " - Avec autonomie : Non");
 								}
 								break;
 							case 3:
 								if (reponseTmp.isReponseEtuII5b()) {
-									reponse = (" VRAI - "
-											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3") + " - Avec autonomie : VRAI");
+									reponse = (" Oui - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3") + " - Avec autonomie : Oui");
 								} else {
-									reponse = (" VRAI - "
-											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3") + " - Avec autonomie : FAUX");
+									reponse = (" Oui - "
+											+ getString("CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3") + " - Avec autonomie : Non");
 								}
 								break;
 							}
@@ -2194,7 +2194,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuII6()){
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						cell.setCellValue(reponseTmp.isReponseEtuII6());
+						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuII6()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2242,10 +2242,10 @@ public class EvaluationController extends AbstractContextAwareController {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
 						if (reponseTmp.isReponseEtuIII1())
-							cell.setCellValue("VRAI, pour le sujet suivant : "
+							cell.setCellValue("Oui, pour le sujet suivant : "
 									+ reponseTmp.getReponseEtuIII1bis());
 						else
-							cell.setCellValue(reponseTmp.isReponseEtuIII1());
+							cell.setCellValue("Non");
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2255,10 +2255,10 @@ public class EvaluationController extends AbstractContextAwareController {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
 						if (!reponseTmp.isReponseEtuIII2())
-							cell.setCellValue("FAUX : "
+							cell.setCellValue("Non : "
 									+ reponseTmp.getReponseEtuIII2bis());
 						else
-							cell.setCellValue(reponseTmp.isReponseEtuIII2());
+							cell.setCellValue("Oui");
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2360,10 +2360,10 @@ public class EvaluationController extends AbstractContextAwareController {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
 						if (reponseTmp.isReponseEtuIII8())
-							cell.setCellValue("VRAI : "
+							cell.setCellValue("Oui : "
 									+ reponseTmp.getReponseEtuIII8bis());
 						else
-							cell.setCellValue(reponseTmp.isReponseEtuIII8());
+							cell.setCellValue("Non");
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2373,10 +2373,10 @@ public class EvaluationController extends AbstractContextAwareController {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
 						if (!reponseTmp.isReponseEtuIII9())
-							cell.setCellValue("FAUX : "
+							cell.setCellValue("Non : "
 									+ reponseTmp.getReponseEtuIII9bis());
 						else
-							cell.setCellValue(reponseTmp.isReponseEtuIII9());
+							cell.setCellValue("Oui");
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2385,7 +2385,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII10()){
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						cell.setCellValue(reponseTmp.isReponseEtuIII10());
+						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuIII10()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2394,7 +2394,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII11()){
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						cell.setCellValue(reponseTmp.isReponseEtuIII11());
+						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuIII11()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2403,7 +2403,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII12()){
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						cell.setCellValue(reponseTmp.isReponseEtuIII12());
+						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuIII12()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -2418,7 +2418,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEtuIII14()){
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						cell.setCellValue(reponseTmp.isReponseEtuIII14());
+						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEtuIII14()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -3366,7 +3366,7 @@ public class EvaluationController extends AbstractContextAwareController {
 					if (ficheEvaluation.isQuestionEnt10()) {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
-						cell.setCellValue(reponseTmp.isReponseEnt10());
+						cell.setCellValue(transformBooleanRep(reponseTmp.isReponseEnt10()));
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -3375,10 +3375,10 @@ public class EvaluationController extends AbstractContextAwareController {
 						row = sheet.getRow(cpt);
 						cell = row.createCell(j + 1);
 						if (!reponseTmp.isReponseEnt18())
-							cell.setCellValue(" FAUX : "
+							cell.setCellValue(" Non : "
 									+ reponseTmp.getReponseEnt18bis());
 						else
-							cell.setCellValue(reponseTmp.isReponseEnt18());
+							cell.setCellValue("Oui");
 						cell.setCellStyle(cellStyle);
 						cpt++;
 					}
@@ -3466,6 +3466,19 @@ public class EvaluationController extends AbstractContextAwareController {
 			this.reponsesSupplementaires.add(reponse);
 		}
 		return reponse;
+	}
+
+	/**
+	 * Remplace l'affichage "VRAI/FAUX" en "OUI/NON"
+	 * @param bool
+	 * @return String
+	 */
+	private String transformBooleanRep(boolean bool) {
+		if (bool){
+			return "Oui";
+		} else {
+			return "Non";
+		}
 	}
 
 	/**

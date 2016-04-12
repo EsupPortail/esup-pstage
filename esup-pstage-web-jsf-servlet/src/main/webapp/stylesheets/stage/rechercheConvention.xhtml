@@ -1,391 +1,408 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['RECHERCHECONVENTION.TITRE']}" />
-			</f:facet>
-			<h:form id="formRechConvention"
-				style="width:700px; display:inline-block;"
-				onkeypress="if (event.keyCode == 13) { document.getElementById('formRechConvention:rechercherConvention').click(); return false; }">
-				<t:div>
-					<p:commandButton
-						value="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}"
-						action="#{conventionController.rechercheSimpleAvancee}"
-						update="@form" onstart="PF('statusDialog').show();"
-						oncomplete="PF('statusDialog').hide();" style="border: solid 1px;"
-						disabled="#{!conventionController.rechercheAvancee}" />
-					<p:commandButton
-						value="#{msgs['RECHERCHECONVENTION.RECHERCHEAVANCEE']}"
-						action="#{conventionController.rechercheSimpleAvancee}"
-						update="@form" onstart="PF('statusDialog').show();"
-						oncomplete="PF('statusDialog').hide();" style="border: solid 1px;"
-						disabled="#{conventionController.rechercheAvancee}" />
-					<p:commandButton value="#{msgs['RECHERCHECONVENTION.REINIT']}"
-						action="#{conventionController.resetRechercheConvention}"
-						style="float:right;" />
-				</t:div>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHECONVENTION.TITRE']}" />
+            </f:facet>
+            <h:form id="formRechConvention"
+                    style="width:700px;"
+                    onkeypress="if (event.keyCode == 13) { document.getElementById('formRechConvention:rechercherConvention').click(); return false; }">
+                <t:div>
+                    <p:commandButton
+                            value="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}"
+                            action="#{conventionController.rechercheSimpleAvancee}"
+                            update="@form" onstart="PF('statusDialog').show();"
+                            oncomplete="PF('statusDialog').hide();" style="border: solid 1px;"
+                            disabled="#{!conventionController.rechercheAvancee}" />
+                    <p:commandButton
+                            value="#{msgs['RECHERCHECONVENTION.RECHERCHEAVANCEE']}"
+                            action="#{conventionController.rechercheSimpleAvancee}"
+                            update="@form" onstart="PF('statusDialog').show();"
+                            oncomplete="PF('statusDialog').hide();" style="border: solid 1px;"
+                            disabled="#{conventionController.rechercheAvancee}" />
+                    <p:commandButton value="#{msgs['RECHERCHECONVENTION.REINIT']}"
+                                     action="#{conventionController.resetRechercheConvention}"
+                                     type="reset" ajax="false"
+                                     style="float:right;" />
+                </t:div>
 
+                <t:htmlTag value="div" style="height: 5px;" />
 
-				<t:htmlTag value="div" style="height: 5px;" />
+                <ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
 
-				<ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
+                <t:htmlTag value="div" style="height:10px;" />
 
-				<t:htmlTag value="div" style="height:10px;" />
+                <p:fieldset toggleable="true" legend="General">
+                    <t:htmlTag value="ul" styleClass="formUL">
+                        <t:htmlTag value="li">
+                            <p:outputLabel
+                                    rendered="#{not empty nomenclatureController.anneesConvention}"
+                                    value="#{msgs['RECHERCHECONVENTION.ANNEEU']}" for="anU" />
+                            <p:selectOneMenu id="anU" effect="none"
+                                             rendered="#{not empty nomenclatureController.anneesConvention}"
+                                             value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{nomenclatureController.anneesConvention}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel
+                                    value="#{msgs['RECHERCHECONVENTION.NUMCONVENTION']}"
+                                    for="numConvention" />
+                            <p:inputText id="numConvention"
+                                         value="#{conventionController.critereRechercheConvention.idConvention}"
+                                         size="10" maxlength="10" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.NUMETUDIANT']}"
+                                           for="numEtudiant" />
+                            <p:inputText id="numEtudiant"
+                                         value="#{conventionController.critereRechercheConvention.numeroEtudiant}"
+                                         size="10" maxlength="16" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.NOMETUDIANT']}"
+                                           for="nomEtudiant" />
+                            <p:inputText id="nomEtudiant"
+                                         value="#{conventionController.critereRechercheConvention.nomEtudiant}"
+                                         size="50" maxlength="50" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel
+                                    value="#{msgs['RECHERCHECONVENTION.PRENOMETUDIANT']}"
+                                    for="prenomEtudiant" />
+                            <p:inputText id="prenomEtudiant"
+                                         value="#{conventionController.critereRechercheConvention.prenomEtudiant}"
+                                         size="50" maxlength="50" />
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </p:fieldset>
 
-				<t:htmlTag value="fieldset">
-					<h:panelGrid>
-						<h:outputLabel
-							rendered="#{not empty nomenclatureController.anneesConvention}"
-							value="#{msgs['RECHERCHECONVENTION.ANNEEU']}" for="anU" />
-						<h:selectOneMenu id="anU"
-							rendered="#{not empty nomenclatureController.anneesConvention}"
-							value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.anneesConvention}" />
-						</h:selectOneMenu>
-						<h:outputLabel
-							value="#{msgs['RECHERCHECONVENTION.NUMCONVENTION']}"
-							for="numConvention" />
-						<h:inputText id="numConvention"
-							value="#{conventionController.critereRechercheConvention.idConvention}"
-							size="10" maxlength="10" />
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.NUMETUDIANT']}"
-							for="numEtudiant" />
-						<h:inputText id="numEtudiant"
-							value="#{conventionController.critereRechercheConvention.numeroEtudiant}"
-							size="10" maxlength="16" />
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.NOMETUDIANT']}"
-							for="nomEtudiant" />
-						<h:inputText id="nomEtudiant"
-							value="#{conventionController.critereRechercheConvention.nomEtudiant}"
-							size="50" maxlength="50" />
-						<h:outputLabel
-							value="#{msgs['RECHERCHECONVENTION.PRENOMETUDIANT']}"
-							for="prenomEtudiant" />
-						<h:inputText id="prenomEtudiant"
-							value="#{conventionController.critereRechercheConvention.prenomEtudiant}"
-							size="50" maxlength="50" />
-					</h:panelGrid>
-				</t:htmlTag>
+                <p:fieldset legend="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.CONTENU']}" toggleable="true"
+                            style="margin-top: 10px;"
+                            rendered="#{conventionController.rechercheAvancee}">
+                    <t:htmlTag value="ul" styleClass="formUL">
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.SUJETSTAGE']}"
+                                           for="sujetStage" />
+                            <p:inputText id="sujetStage"
+                                         value="#{conventionController.critereRechercheConvention.sujetStage}"
+                                         size="50" maxlength="200" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.TYPECONV']}"
+                                           for="typeConv" />
+                            <p:selectOneMenu id="typeConv"
+                                             value="#{conventionController.critereRechercheConvention.typeConvention}"
+                                             converter="#{typeConventionConverter}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{nomenclatureController.typeConventions}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.THEME']}"
+                                           for="theme" />
+                            <p:selectOneMenu id="theme"
+                                             value="#{conventionController.critereRechercheConvention.theme}"
+                                             converter="#{themeConverter}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{nomenclatureController.themes}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE']}"
+                                           for="dateStage" />
+                            <p:selectOneMenu id="dateStage"
+                                             value="#{conventionController.critereRechercheConvention.dateStage}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{nomenclatureController.datesStage}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.TEMPSTRAVAIL']}"
+                                           for="tpsT" />
+                            <p:selectOneMenu id="tpsT"
+                                             value="#{conventionController.critereRechercheConvention.tempsTravail}"
+                                             converter="#{tempsTravailConverter}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{nomenclatureController.tempsTravail}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.NBJH']}"
+                                           for="nbJH" />
+                            <p:selectOneMenu id="nbJH"
+                                             value="#{conventionController.critereRechercheConvention.nbJoursHebdo}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{conventionController.nbJoursHebdoItems}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.GRAT']}"
+                                           for="grat" />
+                            <p:selectOneMenu id="grat"
+                                             value="#{conventionController.critereRechercheConvention.indemnisation}"
+                                             converter="#{indemnisationConverter}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{nomenclatureController.indemnisations}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel
+                                    value="#{msgs['RECHERCHECONVENTION.LANGUEIMPRESSION']}"
+                                    for="langue" />
+                            <p:selectOneMenu id="langue"
+                                             value="#{conventionController.critereRechercheConvention.langueConvention}"
+                                             converter="#{langueConventionConverter}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems
+                                        value="#{nomenclatureController.langueConventions}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
+                                           for="validee" />
+                            <p:selectOneRadio id="validee" style="font-size:12px;"
+                                              value="#{conventionController.estValidee}">
+                                <f:selectItem itemValue="#{'1'}"
+                                              itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUI']}" />
+                                <f:selectItem itemValue="#{'2'}"
+                                              itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.NON']}" />
+                                <f:selectItem itemValue="#{null}"
+                                              itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUIETNON']}" />
+                            </p:selectOneRadio>
+                        </t:htmlTag>
+                        <t:htmlTag value="li"
+                                   rendered="#{sessionController.validationPedagogique}">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.VERIFIEE']}"
+                                           for="validee" />
+                            <p:selectOneRadio id="verifiee" style="font-size:12px;"
+                                              value="#{conventionController.estVerifiee}">
+                                <f:selectItem itemValue="#{'1'}"
+                                              itemLabel="#{msgs['RECHERCHECONVENTION.VERIFIEE.OUI']}" />
+                                <f:selectItem itemValue="#{'2'}"
+                                              itemLabel="#{msgs['RECHERCHECONVENTION.VERIFIEE.NON']}" />
+                                <f:selectItem itemValue="#{null}"
+                                              itemLabel="#{msgs['RECHERCHECONVENTION.VERIFIEE.OUIETNON']}" />
+                            </p:selectOneRadio>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </p:fieldset>
 
-				<t:htmlTag value="div" style="height:10px;"
-					rendered="#{conventionController.rechercheAvancee}" />
+                <p:fieldset
+                        legend="Formation"
+                        toggleable="true"
+                        style="margin-top: 10px;"
+                        rendered="#{conventionController.rechercheAvancee}">
+                    <t:htmlTag value="ul" styleClass="formUL">
+                        <t:htmlTag value="li"
+                                   rendered="#{not empty conventionController.rechUfrs}">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.UFRS']} "
+                                           style="font-weight: bold; font-size:14px;"
+                                           for="ufrs">
+                                <t:htmlTag value="span" styleClass="legendLabel">
+                                    <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                                    <h:outputText value="#{msgs['RECHERCHECONVENTION.UFRS.AIDE']}" />
+                                </t:htmlTag>
+                            </p:outputLabel>
+                            <p:selectManyMenu id="ufrs" filter="true" filterMatchMode="contains"
+                                              value="#{conventionController.critereRechercheConvention.idsUfrs}"
+                                              style="width:auto;">
+                                <f:selectItems value="#{conventionController.rechUfrs}" />
+                            </p:selectManyMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li"
+                                   rendered="#{not empty conventionController.rechEtapes}">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.ETAPES']} "
+                                           style="font-weight: bold; font-size:14px;"
+                                           for="etapes">
+                                <t:htmlTag value="span" styleClass="legendLabel">
+                                    <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                                    <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
+                                </t:htmlTag>
+                            </p:outputLabel>
+                            <p:selectManyMenu id="etapes" filter="true" filterMatchMode="contains"
+                                              value="#{conventionController.critereRechercheConvention.idsEtapes}"
+                                              style="width:auto">
+                                <f:selectItems value="#{conventionController.rechEtapes}" />
+                            </p:selectManyMenu>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </p:fieldset>
 
-				<t:htmlTag value="fieldset"
-					rendered="#{conventionController.rechercheAvancee}">
-					<t:htmlTag value="legend">
-						<h:outputText
-							value="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.CONTENU']}"
-							style="font-weight:bold; padding:5px; font-size:16px;" />
-					</t:htmlTag>
-					<h:panelGrid>
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.SUJETSTAGE']}"
-							for="sujetStage" />
-						<h:inputText id="sujetStage"
-							value="#{conventionController.critereRechercheConvention.sujetStage}"
-							size="50" maxlength="200" />
-						<t:htmlTag value="div" style="height:2px;" />
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.TYPECONV']}"
-							for="typeConv" />
-						<h:selectOneMenu id="typeConv"
-							value="#{conventionController.critereRechercheConvention.typeConvention}"
-							converter="#{typeConventionConverter}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.typeConventions}" />
-						</h:selectOneMenu>
-						<t:htmlTag value="div" style="height:2px;" />
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.THEME']}"
-							for="theme" />
-						<h:selectOneMenu id="theme"
-							value="#{conventionController.critereRechercheConvention.theme}"
-							converter="#{themeConverter}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.themes}" />
-						</h:selectOneMenu>
-						<t:htmlTag value="div" style="height:2px;" />
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE']}"
-							for="dateStage" />
-						<h:selectOneMenu id="dateStage"
-							value="#{conventionController.critereRechercheConvention.dateStage}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.datesStage}" />
-						</h:selectOneMenu>
-						<t:htmlTag value="div" style="height:2px;" />
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.TEMPSTRAVAIL']}"
-							for="tpsT" />
-						<h:selectOneMenu id="tpsT"
-							value="#{conventionController.critereRechercheConvention.tempsTravail}"
-							converter="#{tempsTravailConverter}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.tempsTravail}" />
-						</h:selectOneMenu>
-						<t:htmlTag value="div" style="height:2px;" />
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.NBJH']}"
-							for="nbJH" />
-						<h:selectOneMenu id="nbJH"
-							value="#{conventionController.critereRechercheConvention.nbJoursHebdo}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{conventionController.nbJoursHebdoItems}" />
-						</h:selectOneMenu>
-						<t:htmlTag value="div" style="height:2px;" />
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.GRAT']}"
-							for="grat" />
-						<h:selectOneMenu id="grat"
-							value="#{conventionController.critereRechercheConvention.indemnisation}"
-							converter="#{indemnisationConverter}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.indemnisations}" />
-						</h:selectOneMenu>
-						<t:htmlTag value="div" style="height:2px;" />
-						<h:outputLabel
-							value="#{msgs['RECHERCHECONVENTION.LANGUEIMPRESSION']}"
-							for="langue" />
-						<h:selectOneMenu id="langue"
-							value="#{conventionController.critereRechercheConvention.langueConvention}"
-							converter="#{langueConventionConverter}">
-							<f:selectItem itemValue="" />
-							<f:selectItems
-								value="#{nomenclatureController.langueConventions}" />
-						</h:selectOneMenu>
-						<t:htmlTag value="div" style="height:2px;" />
-						<h:panelGrid columns="2">
-							<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
-								for="validee" />
-							<h:selectOneRadio id="validee" style="font-size:12px;"
-								value="#{conventionController.estValidee}">
-								<f:selectItem itemValue="#{'1'}"
-									itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUI']}" />
-								<f:selectItem itemValue="#{'2'}"
-									itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.NON']}" />
-								<f:selectItem itemValue="#{null}"
-									itemLabel="#{msgs['RECHERCHECONVENTION.VALIDEE.OUIETNON']}" />
-							</h:selectOneRadio>
-						</h:panelGrid>
-						<h:panelGrid columns="2"
-							rendered="#{sessionController.validationPedagogique}">
-							<h:outputLabel value="#{msgs['RECHERCHECONVENTION.VERIFIEE']}"
-								for="validee" />
-							<h:selectOneRadio id="verifiee" style="font-size:12px;"
-								value="#{conventionController.estVerifiee}">
-								<f:selectItem itemValue="#{'1'}"
-									itemLabel="#{msgs['RECHERCHECONVENTION.VERIFIEE.OUI']}" />
-								<f:selectItem itemValue="#{'2'}"
-									itemLabel="#{msgs['RECHERCHECONVENTION.VERIFIEE.NON']}" />
-								<f:selectItem itemValue="#{null}"
-									itemLabel="#{msgs['RECHERCHECONVENTION.VERIFIEE.OUIETNON']}" />
-							</h:selectOneRadio>
-						</h:panelGrid>
-					</h:panelGrid>
-				</t:htmlTag>
+                <p:fieldset
+                        legend="#{msgs['CONVENTION.ENSEIGNANT']}"
+                        toggleable="true"
+                        style="margin-top: 10px;"
+                        rendered="#{conventionController.rechercheAvancee}">
+                    <t:htmlTag value="ul" styleClass="formUL">
+                        <t:htmlTag value="li">
+                            <p:outputLabel
+                                    value="#{msgs['RECHERCHECONVENTION.NOMENSEIGNANT']}"
+                                    for="nomEnseignant" />
+                            <p:inputText id="nomEnseignant"
+                                         value="#{conventionController.critereRechercheConvention.nomEnseignant}"
+                                         size="50" maxlength="50" />
+                        </t:htmlTag>
 
-				<t:htmlTag value="div" style="height:10px;"
-					rendered="#{conventionController.rechercheAvancee}" />
+                        <t:htmlTag value="li">
+                            <p:outputLabel
+                                    value="#{msgs['RECHERCHECONVENTION.PRENOMENSEIGNANT']}"
+                                    for="prenomEnseignant" />
+                            <p:inputText id="prenomEnseignant"
+                                         value="#{conventionController.critereRechercheConvention.prenomEnseignant}"
+                                         size="50" maxlength="50" />
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </p:fieldset>
 
-				<t:htmlTag value="fieldset"
-					rendered="#{conventionController.rechercheAvancee}"
-					style="padding:20px; padding-top:10px;">
-					<t:htmlTag value="legend">
-						<h:outputText value="Formation"
-							style="font-weight:bold; padding:5px; font-size:16px;" />
-					</t:htmlTag>
-					<h:panelGrid columns="3" style="font-size:11px;"
-						rendered="#{not empty conventionController.rechUfrs}">
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.UFRS']}"
-							rendered="#{conventionController.rechercheAvancee and
-									not empty conventionController.rechUfrs}"
-							for="ufrs" />
-						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.UFRS']}"
-							title="#{msgs['RECHERCHECONVENTION.UFRS']}"
-							value="../../media/images/information.png" />
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.UFRS.AIDE']}" />
-					</h:panelGrid>
-					<h:selectManyMenu id="ufrs"
-						value="#{conventionController.critereRechercheConvention.idsUfrs}"
-						rendered="#{not empty conventionController.rechUfrs}"
-						style="height:100px;">
-						<f:selectItems value="#{conventionController.rechUfrs}" />
-					</h:selectManyMenu>
-					<t:htmlTag value="div" style="height:10px;" />
-					<h:panelGrid columns="3" style="font-size:11px;"
-						rendered="#{not empty conventionController.rechEtapes}">
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.ETAPES']}"
-							rendered="#{not empty conventionController.rechEtapes}"
-							for="etapes" />
-						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"
-							title="#{msgs['RECHERCHECONVENTION.ETAPES']}"
-							value="../../media/images/information.png" />
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />
-					</h:panelGrid>
-					<h:selectManyMenu id="etapes"
-						value="#{conventionController.critereRechercheConvention.idsEtapes}"
-						rendered="#{not empty conventionController.rechEtapes}"
-						style="height:100px;">
-						<f:selectItems value="#{conventionController.rechEtapes}" />
-					</h:selectManyMenu>
-				</t:htmlTag>
+                <p:fieldset
+                        legend="#{msgs['CONVENTION.STRUCTURE']}"
+                        toggleable="true"
+                        style="margin-top: 10px;"
+                        rendered="#{conventionController.rechercheAvancee}">
+                    <t:htmlTag value="ul" styleClass="formUL">
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.RAISONSOCIALE']}"
+                                           for="raisonSociale">
+                                <t:htmlTag id="infoRs" value="i"
+                                           styleClass="fa fa-info-circle fz16 fontBlue1"
+                                           style="padding: 0 5px; cursor:help;">
+                                    <p:tooltip for="infoRs"
+                                               value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+                                </t:htmlTag>
+                            </p:outputLabel>
+                            <p:inputText id="raisonSociale"
+                                         value="#{conventionController.critereRechercheConvention.raisonSociale}"
+                                         size="50" maxlength="200" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.NUMEROSIRET']}"
+                                           for="numSiret">
+                                <t:htmlTag id="infoNumsiret" value="i"
+                                           styleClass="fa fa-info-circle fz16 fontBlue1"
+                                           style="padding: 0 5px; cursor:help;">
+                                    <p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
+                                               for="infoNumsiret" />
+                                </t:htmlTag>
+                            </p:outputLabel>
+                            <p:inputText id="numSiret"
+                                         value="#{conventionController.critereRechercheConvention.numeroSiret}"
+                                         size="20" maxlength="14" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel
+                                    value="#{msgs['RECHERCHECONVENTION.TYPESTATUTSTRUCTURE']}"
+                                    for="typeStatut" />
+                            <p:selectOneMenu id="typeStatut"
+                                             value="#{conventionController.rechTypeOuStatut}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems
+                                        value="#{conventionController.rechTypesStatutsStructure}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
 
-				<t:htmlTag value="div" style="height:10px;"
-					rendered="#{conventionController.rechercheAvancee}" />
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.EFFECTIF']}"
+                                           for="effectif" />
+                            <p:selectOneMenu id="effectif"
+                                             value="#{conventionController.critereRechercheConvention.effectif}"
+                                             converter="#{effectifConverter}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{nomenclatureController.effectifs}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.NAFN1']}"
+                                           for="nafN1" />
+                            <p:selectOneMenu id="nafN1"
+                                             value="#{conventionController.critereRechercheConvention.nafN1}"
+                                             converter="#{nafN1Converter}">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{nomenclatureController.nafN1}" />
+                            </p:selectOneMenu>
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </p:fieldset>
 
-				<t:htmlTag value="fieldset"
-					rendered="#{conventionController.rechercheAvancee}">
-					<t:htmlTag value="legend">
-						<h:outputText value="#{msgs['CONVENTION.ENSEIGNANT']}"
-							style="font-weight:bold; padding:5px; font-size:16px;" />
-					</t:htmlTag>
-					<h:panelGrid>
-						<h:outputLabel
-							value="#{msgs['RECHERCHECONVENTION.NOMENSEIGNANT']}"
-							for="nomEnseignant" />
-						<h:inputText id="nomEnseignant"
-							value="#{conventionController.critereRechercheConvention.nomEnseignant}"
-							size="50" maxlength="50" />
-						<h:outputLabel
-							value="#{msgs['RECHERCHECONVENTION.PRENOMENSEIGNANT']}"
-							for="prenomEnseignant" />
-						<h:inputText id="prenomEnseignant"
-							value="#{conventionController.critereRechercheConvention.prenomEnseignant}"
-							size="50" maxlength="50" />
-					</h:panelGrid>
-				</t:htmlTag>
+                <p:fieldset
+                        legend="Lieu du stage"
+                        toggleable="true"
+                        style="margin-top: 10px;"
+                        rendered="#{conventionController.rechercheAvancee}">
+                    <t:htmlTag value="ul" styleClass="formUL">
+                        <t:htmlTag value="li">
+                            <p:selectOneRadio id="conventionEtrangereOuChoixPays"
+                                              value="#{conventionController.estEtrangere}"
+                                              layout="pageDirection">
+                                <f:selectItem itemLabel="#{msgs['RECHERCHECONVENTION.ETRANGERE']}"
+                                              itemValue="true" />
+                                <f:selectItem
+                                        itemLabel="#{msgs['RECHERCHECONVENTION.CHOIX.PAYS']}"
+                                        itemValue="false" />
+                                <p:ajax event="change" update="choixPaysPanel" />
+                            </p:selectOneRadio>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputPanel id="choixPaysPanel">
+                                <h:panelGrid columns="2"
+                                             rendered="#{!conventionController.estEtrangere}">
+                                    <p:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']} : "
+                                                   for="pays" />
+                                    <p:selectOneMenu id="pays"
+                                                     value="#{conventionController.critereRechercheConvention.pays}"
+                                                     converter="#{paysConverter}">
+                                        <f:selectItem itemValue=" " />
+                                        <f:selectItems value="#{nomenclatureController.pays}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </p:outputPanel>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <t:htmlTag value="center">
+                                <p:separator
+                                        style="width:80%; height:2px; margin-top:10px; margin-bottom:10px;" />
+                            </t:htmlTag>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.COMMUNE']}"
+                                           for="commune" />
+                            <p:inputText id="commune"
+                                         value="#{conventionController.critereRechercheConvention.commune}"
+                                         size="50" maxlength="200" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['RECHERCHECONVENTION.CODEPOSTAL']}"
+                                           for="codePostal" />
+                            <p:inputText id="codePostal"
+                                         value="#{conventionController.critereRechercheConvention.codePostal}"
+                                         size="10" maxlength="10" />
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </p:fieldset>
 
-				<t:htmlTag value="div" style="height:10px;"
-					rendered="#{conventionController.rechercheAvancee}" />
+                <t:htmlTag value="div" style="height:10px;" />
 
-				<t:htmlTag value="fieldset"
-					rendered="#{conventionController.rechercheAvancee}">
-					<t:htmlTag value="legend">
-						<h:outputText value="#{msgs['CONVENTION.STRUCTURE']}"
-							style="font-weight:bold; padding:5px; font-size:16px;" />
-					</t:htmlTag>
-					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.RAISONSOCIALE']}"
-						for="raisonSociale" />
-					<h:panelGrid columns="2">
-						<t:htmlTag id="infoRs" value="i"
-							styleClass="fa fa-info-circle">
-							<p:tooltip id="test"
-								value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
-						</t:htmlTag>
-						<h:inputText id="raisonSociale"
-							value="#{conventionController.critereRechercheConvention.raisonSociale}"
-							size="50" maxlength="200" />
-					</h:panelGrid>
-					<h:outputLabel value="#{msgs['RECHERCHECONVENTION.NUMEROSIRET']}"
-						for="numSiret" />
-					<t:div>
-						<t:htmlTag id="infoNumsiret" value="i"
-							styleClass="fa fa-info-circle">
-							<p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
-								for="infoNumsiret" />
-						</t:htmlTag>
-						<h:inputText id="numSiret"
-							value="#{conventionController.critereRechercheConvention.numeroSiret}"
-							size="20" maxlength="14" />
-					</t:div>
-					<t:htmlTag value="div" style="height: 5px;" />
-					<h:panelGrid columns="2">
-						<h:outputLabel
-							value="#{msgs['RECHERCHECONVENTION.TYPESTATUTSTRUCTURE']}"
-							for="typeStatut" />
-						<h:selectOneMenu id="typeStatut"
-							value="#{conventionController.rechTypeOuStatut}">
-							<f:selectItem itemValue="" />
-							<f:selectItems
-								value="#{conventionController.rechTypesStatutsStructure}" />
-						</h:selectOneMenu>
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.EFFECTIF']}"
-							for="effectif" />
-						<h:selectOneMenu id="effectif"
-							value="#{conventionController.critereRechercheConvention.effectif}"
-							converter="#{effectifConverter}">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.effectifs}" />
-						</h:selectOneMenu>
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.NAFN1']}"
-							for="nafN1" />
-						<h:selectOneMenu id="nafN1"
-							value="#{conventionController.critereRechercheConvention.nafN1}"
-							converter="#{nafN1Converter}" style="width:300px;">
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.nafN1}" />
-						</h:selectOneMenu>
-					</h:panelGrid>
-				</t:htmlTag>
+                <t:htmlTag value="center">
+                    <p:commandButton id="rechercherConvention"
+                                     value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
+                                     action="#{conventionController.rechercherConvention}"
+                                     update="@form"
+                                     style="font-size:14px; border:solid 1px;"
+                                     onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                        <f:setPropertyActionListener value="resultatsRechercheConvention"
+                                                     target="#{conventionController.retourAction}" />
+                    </p:commandButton>
+                </t:htmlTag>
 
-				<t:htmlTag value="div" style="height:10px;"
-					rendered="#{conventionController.rechercheAvancee}" />
-
-				<t:htmlTag value="fieldset"
-					rendered="#{conventionController.rechercheAvancee}">
-					<t:htmlTag value="legend">
-						<h:outputText value="Lieu du stage"
-							style="font-weight:bold; padding:5px; font-size:16px;" />
-					</t:htmlTag>
-					<h:selectOneRadio id="conventionEtrangereOuChoixPays"
-						value="#{conventionController.estEtrangere}"
-						layout="pageDirection">
-						<f:selectItem itemLabel="#{msgs['RECHERCHECONVENTION.ETRANGERE']}"
-							itemValue="true" />
-						<f:selectItem
-							itemLabel="#{msgs['RECHERCHECONVENTION.CHOIX.PAYS']}"
-							itemValue="false" />
-						<p:ajax event="change" update="choixPaysPanel" />
-					</h:selectOneRadio>
-					<p:outputPanel id="choixPaysPanel">
-						<h:panelGrid columns="2"
-							rendered="#{!conventionController.estEtrangere}">
-							<h:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']} : "
-								for="pays" />
-							<h:selectOneMenu id="pays"
-								value="#{conventionController.critereRechercheConvention.pays}"
-								converter="#{paysConverter}">
-								<f:selectItem itemValue=" " />
-								<f:selectItems value="#{nomenclatureController.pays}" />
-							</h:selectOneMenu>
-						</h:panelGrid>
-					</p:outputPanel>
-
-					<t:htmlTag value="center">
-						<p:separator
-							style="width:80%; height:2px; margin-top:10px; margin-bottom:10px;" />
-					</t:htmlTag>
-
-					<h:panelGrid columns="2">
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.COMMUNE']}"
-							for="commune" />
-						<h:inputText id="commune"
-							value="#{conventionController.critereRechercheConvention.commune}"
-							size="50" maxlength="200" />
-						<h:outputLabel value="#{msgs['RECHERCHECONVENTION.CODEPOSTAL']}"
-							for="codePostal" />
-						<h:inputText id="codePostal"
-							value="#{conventionController.critereRechercheConvention.codePostal}"
-							size="10" maxlength="10" />
-					</h:panelGrid>
-				</t:htmlTag>
-
-				<t:htmlTag value="div" style="height:10px;" />
-
-				<t:htmlTag value="center">
-					<h:panelGrid columns="2">
-						<p:commandButton id="rechercherConvention"
-							value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
-							action="#{conventionController.rechercherConvention}"
-							style="font-size:14px; border:solid 1px; ">
-							<f:setPropertyActionListener value="resultatsRechercheConvention"
-								target="#{conventionController.retourAction}" />
-						</p:commandButton>
-					</h:panelGrid>
-				</t:htmlTag>
-
-				<t:htmlTag value="div" style="height:10px;" />
-			</h:form>
-			<p:messages escape="false" style="color:red;font-weight:bold;" />
-		</p:panel>
-	</ui:define>
+                <t:htmlTag value="div" style="height:10px;" />
+            </h:form>
+            <p:messages escape="false" style="color:red;font-weight:bold;" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

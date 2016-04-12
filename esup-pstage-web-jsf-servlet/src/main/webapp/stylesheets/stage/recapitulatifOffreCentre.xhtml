@@ -1,223 +1,231 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
-			</f:facet>
-			<h:panelGrid
-				style="width:800px;position:relative;margin-left:100px;margin-right:auto;">
-				<t:div rendered="#{empty offreController.currentOffre}">
-					<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
-				</t:div>
-				<h:form>
-					<t:div rendered="#{not empty offreController.currentOffre}">
-						<t:div
-							rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-							<p:outputPanel ajaxRendered="true">
-								<fieldset>
-									<legend>
-										<h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']} " />
-										<h:commandLink id="modifCentre"
-											action="#{offreController.goToModificationOffreEtabCentre}"
-											rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-											disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png"
-												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit_block.png"
-												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											<f:setPropertyActionListener value="recapitulatifOffreCentre"
-												target="#{offreController.retour}" />
-											<f:setPropertyActionListener value="#{3}"
-												target="#{offreController.typeAjoutModifOffre}" />
-											<p:tooltip value="#{msgs['FORM.MODIFIER']}"
-												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											<p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
-												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										</h:commandLink>
-									</legend>
-									<h:outputText
-										value="(#{offreController.currentOffre.centreGestion.idCentreGestion}) #{offreController.currentOffre.centreGestion.nomCentre}"
-										rendered="#{not empty offreController.currentOffre.centreGestion}" />
-								</fieldset>
-								<t:htmlTag value="div" style="height: 10px;" />
-								<fieldset>
-									<legend>
-										<h:outputText value="#{msgs['OFFRE.GESTION.DETAILS']} " />
-										<h:commandLink id="modif"
-											action="#{offreController.goToModificationOffreEtabCentre1}"
-											rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-											disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png"
-												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit_block.png"
-												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											<f:setPropertyActionListener value="recapitulatifOffreCentre"
-												target="#{offreController.retour}" />
-											<f:setPropertyActionListener value="#{3}"
-												target="#{offreController.typeAjoutModifOffre}" />
-											<p:tooltip value="#{msgs['FORM.MODIFIER']}"
-												rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											<p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
-												rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										</h:commandLink>
-									</legend>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
 
-									<ui:include src="../_commun/_detailsOffre.xhtml" />
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['OFFRE.RECAPITULATIF']}" />
+            </f:facet>
+            <h:panelGrid
+                    style="width:800px;position:relative;margin-left:100px;margin-right:auto;">
+                <t:div rendered="#{empty offreController.currentOffre}">
+                    <h:outputText value="#{msgs['OFFRE.GESTION.AUCUNEOFFRESEL']}" />
+                </t:div>
+                <h:form>
+                    <t:div rendered="#{not empty offreController.currentOffre}">
+                        <t:div
+                                rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+                            <p:outputPanel ajaxRendered="true">
+                                <fieldset>
+                                    <legend>
+                                        <h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']} " />
+                                        <h:commandLink id="modifCentre"
+                                                       action="#{offreController.goToModificationOffreEtabCentre}"
+                                                       rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+                                                       disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                            <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                            value="../../media/images/edit.png"
+                                                            rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                            <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                            value="../../media/images/edit_block.png"
+                                                            rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                            <f:setPropertyActionListener value="recapitulatifOffreCentre"
+                                                                         target="#{offreController.retour}" />
+                                            <f:setPropertyActionListener value="#{3}"
+                                                                         target="#{offreController.typeAjoutModifOffre}" />
+                                            <f:setPropertyActionListener value="_modificationOffreEtape01Centre"
+                                                                         target="#{sessionController.modificationOffreCurrentPage}" />
+                                            <p:tooltip value="#{msgs['FORM.MODIFIER']}"
+                                                       rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                            <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+                                                       rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                        </h:commandLink>
+                                    </legend>
+                                    <h:outputText
+                                            value="(#{offreController.currentOffre.centreGestion.idCentreGestion}) #{offreController.currentOffre.centreGestion.nomCentre}"
+                                            rendered="#{not empty offreController.currentOffre.centreGestion}" />
+                                </fieldset>
+                                <t:htmlTag value="div" style="height: 10px;" />
+                                <fieldset>
+                                    <legend>
+                                        <h:outputText value="#{msgs['OFFRE.GESTION.DETAILS']} " />
+                                        <h:commandLink id="modif"
+                                                       action="#{offreController.goToModificationOffreEtabCentre}"
+                                                       rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+                                                       disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                            <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                            value="../../media/images/edit.png"
+                                                            rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                            <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                            value="../../media/images/edit_block.png"
+                                                            rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                            <f:setPropertyActionListener value="recapitulatifOffreCentre"
+                                                                         target="#{offreController.retour}" />
+                                            <f:setPropertyActionListener value="#{3}"
+                                                                         target="#{offreController.typeAjoutModifOffre}" />
+                                            <f:setPropertyActionListener value="_modificationOffreEtape1"
+                                                                         target="#{sessionController.modificationOffreCurrentPage}" />
+                                            <p:tooltip value="#{msgs['FORM.MODIFIER']}"
+                                                       rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                            <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+                                                       rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                        </h:commandLink>
+                                    </legend>
 
-								</fieldset>
+                                    <ui:include src="../_commun/_detailsOffre.xhtml" />
 
-								<t:htmlTag value="div" style="height: 10px;" />
+                                </fieldset>
 
-								<t:div
-									rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
-									<fieldset>
-										<legend>
-											<h:outputText
-												value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " />
-											<h:commandLink id="modifF"
-												action="#{offreController.goToModificationOffreEtabCentre3}"
-												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-												disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-												<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-													value="../../media/images/edit.png"
-													rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-												<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-													value="../../media/images/edit_block.png"
-													rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-												<f:setPropertyActionListener
-													value="recapitulatifOffreCentre"
-													target="#{offreController.retour}" />
-												<f:setPropertyActionListener value="#{3}"
-													target="#{offreController.typeAjoutModifOffre}" />
-												<p:tooltip value="#{msgs['FORM.MODIFIER']}"
-													rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-												<p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
-													rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											</h:commandLink>
-										</legend>
-										<ui:include src="../_commun/_detailsOffreFichier.xhtml" />
-									</fieldset>
-								</t:div>
-								<t:div
-									rendered="#{(!offreController.currentOffre.avecFichier and !offreController.currentOffre.avecLien
+                                <t:htmlTag value="div" style="height: 10px;" />
+
+                                <t:div
+                                        rendered="#{offreController.currentOffre.avecFichier || offreController.currentOffre.avecLien}">
+                                    <fieldset>
+                                        <legend>
+                                            <h:outputText
+                                                    value="#{msgs['OFFRE.GESTION.FICHIERLIENATTACHE']} " />
+                                            <h:commandLink id="modifF"
+                                                           action="#{offreController.goToModificationOffreEtabCentre}"
+                                                           rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+                                                           disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                                <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                                value="../../media/images/edit.png"
+                                                                rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                                <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                                value="../../media/images/edit_block.png"
+                                                                rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                                <f:setPropertyActionListener
+                                                        value="recapitulatifOffreCentre"
+                                                        target="#{offreController.retour}" />
+                                                <f:setPropertyActionListener value="#{3}"
+                                                                             target="#{offreController.typeAjoutModifOffre}" />
+                                                <f:setPropertyActionListener value="_modificationOffreEtape3"
+                                                                             target="#{sessionController.modificationOffreCurrentPage}" />
+                                                <p:tooltip value="#{msgs['FORM.MODIFIER']}"
+                                                           rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                                <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+                                                           rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                            </h:commandLink>
+                                        </legend>
+                                        <ui:include src="../_commun/_detailsOffreFichier.xhtml" />
+                                    </fieldset>
+                                </t:div>
+                                <t:div
+                                        rendered="#{(!offreController.currentOffre.avecFichier and !offreController.currentOffre.avecLien
 										and offreController.currentOffre.centreGestion.codeConfidentialite==beanUtils.confidentialiteNulle.code)
 										|| (welcomeController.etudiant || 
 										(sessionController.adminPageAuthorized || sessionController.pageAuthorized))}">
-									<fieldset>
-										<legend>
-											<h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS']} " />
-											<h:commandLink id="modifC"
-												action="#{offreController.goToModificationOffreEtabCentre3C}"
-												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-												disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-												<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-													value="../../media/images/edit.png"
-													rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-												<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-													value="../../media/images/edit_block.png"
-													rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-												<f:setPropertyActionListener
-													value="recapitulatifOffreCentre"
-													target="#{offreController.retour}" />
-												<f:setPropertyActionListener value="#{3}"
-													target="#{offreController.typeAjoutModifOffre}" />
-												<p:tooltip value="#{msgs['FORM.MODIFIER']}"
-													rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-												<p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
-													rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-											</h:commandLink>
+                                    <fieldset>
+                                        <legend>
+                                            <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS']} " />
+                                            <h:commandLink id="modifC"
+                                                           action="#{offreController.goToModificationOffreEtabCentre}"
+                                                           rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+                                                           disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                                <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                                value="../../media/images/edit.png"
+                                                                rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                                <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+                                                                value="../../media/images/edit_block.png"
+                                                                rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                                <f:setPropertyActionListener
+                                                        value="recapitulatifOffreCentre"
+                                                        target="#{offreController.retour}" />
+                                                <f:setPropertyActionListener value="#{3}"
+                                                                             target="#{offreController.typeAjoutModifOffre}" />
+                                                <f:setPropertyActionListener value="_modificationOffreEtape3Contacts"
+                                                                             target="#{sessionController.modificationOffreCurrentPage}" />
+                                                <p:tooltip value="#{msgs['FORM.MODIFIER']}"
+                                                           rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                                <p:tooltip value="#{msgs['OFFRE.ERREUR.NOMODIF']}"
+                                                           rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                            </h:commandLink>
 
-										</legend>
-										<ui:include src="../_commun/_detailsOffreContacts.xhtml" />
-									</fieldset>
-								</t:div>
-							</p:outputPanel>
+                                        </legend>
+                                        <ui:include src="../_commun/_detailsOffreContacts.xhtml" />
+                                    </fieldset>
+                                </t:div>
+                            </p:outputPanel>
 
-							<t:htmlTag value="div" style="height: 10px;" />
-							<t:div>
-								<fieldset>
-									<legend>
-										<h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
-									</legend>
-									<ui:include src="../_commun/_detailsOffreDiffusion.xhtml" />
-								</fieldset>
-							</t:div>
-							<p:outputPanel ajaxRendered="true">
-								<h:panelGrid style="float:right;"
-									rendered="#{!offreController.currentOffre.estSupprimee}">
-									<p:commandLink  id="suppr" update="supprOffre"
-										oncomplete="PF('supprOffre').show();"
-										rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-										disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-										<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
-											value="../../media/images/delete.png"
-											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										<h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
-											value="../../media/images/delete_block.png"
-											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										<f:setPropertyActionListener value="resultatsRechercheOffre"
-											target="#{offreController.retour}" />
-										<f:setPropertyActionListener value="_supprOffreEtape1"
-											target="#{sessionController.suppressionOffreCurrentPage}" />
-										<h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
-										<p:tooltip value="#{msgs['FORM.SUPPRIMER']}"
-											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										<p:tooltip value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
-											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-									</p:commandLink>
+                            <t:htmlTag value="div" style="height: 10px;" />
+                            <t:div>
+                                <fieldset>
+                                    <legend>
+                                        <h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
+                                    </legend>
+                                    <ui:include src="../_commun/_detailsOffreDiffusion.xhtml" />
+                                </fieldset>
+                            </t:div>
+                            <p:outputPanel ajaxRendered="true">
+                                <h:panelGrid style="float:right;"
+                                             rendered="#{!offreController.currentOffre.estSupprimee}">
+                                    <p:commandLink  id="suppr" update="supprOffre"
+                                                    oncomplete="PF('supprOffre').show();"
+                                                    rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+                                                    disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                        <h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
+                                                        value="../../media/images/delete.png"
+                                                        rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                        <h:graphicImage alt="#{msgs['OFFRE.SUPPRIMER']}"
+                                                        value="../../media/images/delete_block.png"
+                                                        rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                        <f:setPropertyActionListener value="resultatsRechercheOffre"
+                                                                     target="#{offreController.retour}" />
+                                        <f:setPropertyActionListener value="_supprOffreEtape1"
+                                                                     target="#{sessionController.suppressionOffreCurrentPage}" />
+                                        <h:outputText value=" #{msgs['OFFRE.SUPPRIMER']}" />
+                                        <p:tooltip value="#{msgs['FORM.SUPPRIMER']}"
+                                                   rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                        <p:tooltip value="#{msgs['OFFRE.ERREUR.NOSUPPR']}"
+                                                   rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    </p:commandLink>
 
-								</h:panelGrid>
-								<h:panelGrid style="float:right;">
-									<p:commandLink  id="transfert"
-										oncomplete="PF('panelTransfertOffre').show();"
-										rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-										disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-										<h:graphicImage alt="#{msgs['OFFRE.TRANSFERT']}"
-											value="../../media/images/package_go.png"
-											rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										<h:graphicImage alt="#{msgs['OFFRE.TRANSFERT']}"
-											value="../../media/images/package_go_block.png"
-											
-											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-										<h:outputText value=" #{msgs['OFFRE.TRANSFERT']}" />
-										<p:tooltip value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
-											rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-									</p:commandLink>
-								</h:panelGrid>
-								<h:panelGrid style="float:right;">
-									<t:aliasBean alias="#{objet}"
-										value="#{offreController.currentOffre}">
-										<ui:include src="../_commun/_updateInfos.xhtml" />
-									</t:aliasBean>
-								</h:panelGrid>
-							</p:outputPanel>
-						</t:div>
-					</t:div>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:panelGrid>
-						<t:htmlTag value="div" style="height: 20px;" />
-						<h:commandButton action="offresEtablissement"
-							value=" #{msgs['OFFRE.RETOURLISTES']}">
-						</h:commandButton>
-					</h:panelGrid>
-				</h:form>
-			</h:panelGrid>
-			<ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
-			<ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
-			<ui:include src="../_commun/_panelOffrePourvue.xhtml" />
-			<ui:include src="../_commun/_panelTransfertOffre.xhtml" />
-			<ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
-			<ui:include src="../_commun/_panelSupprOffre.xhtml" />
-		</p:panel>
-	</ui:define>
+                                </h:panelGrid>
+                                <h:panelGrid style="float:right;">
+                                    <p:commandLink  id="transfert"
+                                                    oncomplete="PF('panelTransfertOffre').show();"
+                                                    rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+                                                    disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
+                                        <h:graphicImage alt="#{msgs['OFFRE.TRANSFERT']}"
+                                                        value="../../media/images/package_go.png"
+                                                        rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                        <h:graphicImage alt="#{msgs['OFFRE.TRANSFERT']}"
+                                                        value="../../media/images/package_go_block.png"
+
+                                                        rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                        <h:outputText value=" #{msgs['OFFRE.TRANSFERT']}" />
+                                        <p:tooltip value="#{msgs['OFFRE.ERREUR.NOTRANSFERT']}"
+                                                   rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                                    </p:commandLink>
+                                </h:panelGrid>
+                                <h:panelGrid style="float:right;">
+                                    <t:aliasBean alias="#{objet}"
+                                                 value="#{offreController.currentOffre}">
+                                        <ui:include src="../_commun/_updateInfos.xhtml" />
+                                    </t:aliasBean>
+                                </h:panelGrid>
+                            </p:outputPanel>
+                        </t:div>
+                    </t:div>
+                    <t:htmlTag value="div" style="height: 20px;" />
+                    <h:panelGrid>
+                        <t:htmlTag value="div" style="height: 20px;" />
+                        <h:commandButton action="offresEtablissement"
+                                         value=" #{msgs['OFFRE.RETOURLISTES']}">
+                        </h:commandButton>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGrid>
+            <ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
+            <ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
+            <ui:include src="../_commun/_panelOffrePourvue.xhtml" />
+            <ui:include src="../_commun/_panelTransfertOffre.xhtml" />
+            <ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
+            <ui:include src="../_commun/_panelSupprOffre.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>
