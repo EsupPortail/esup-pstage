@@ -1,18 +1,69 @@
 @import "commun/variables";
 
 #TOPBAR {
-  height: @TopbarHeight;
-  margin: 0 0 0 @SidebarWidth;
+  height: @TopbarPhoneHeight;
   box-sizing: border-box;
+  margin: 0;
   padding: 0;
+  border-bottom: 1px solid @HalfBlack;
+  background: @LogoBackground;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 333;
 
-  #TOPBAR_TITLE {
-    width: 70%;
+  @media (min-width: @MediaTablet) {
+    height: @TopbarPCHeight;
+    margin: 0 0 0 @SidebarPCWidth;
+    border: 0;
+    position: static;
+    background: transparent;
+    top: auto;
+    right: auto;
+    left: auto;
+  }
+
+  #TOPBAR_MENU_BUTTON {
+    display: block;
+    height: (@TopbarPhoneHeight - 1px); // hauteur - 1px de bordure
+    width: (@TopbarPhoneHeight - 1px);
     margin: 0;
     padding: 0;
-    height: 100%;
+    border: 0;
+    border-right: 1px solid @White;
+    border-radius: 0;
     float: left;
-    text-align: center;
+    background: transparent;
+    text-shadow: none;
+    font-size: 1.2rem;
+    color: @White;
+
+    &.ui-state-active {
+      background: linear-gradient(lighten(@Blue2Secondary, 5%) 0%, lighten(@Blue2, 5%) 100%);
+    }
+  }
+
+  #TOPBAR_LOGO {
+    display: block;
+    height: (@TopbarPhoneHeight - 2px);
+    width: auto;
+    margin: 0 auto;
+    padding: 1px 0 0 0;
+  }
+
+  #TOPBAR_TITLE {
+    display: none;
+
+    @media (min-width: @MediaTablet) {
+      display: block;
+      width: 70%;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      float: left;
+      text-align: center;
+    }
 
     h1 {
       height: @TopbarTitleFontSize;
@@ -31,12 +82,17 @@
   }
 
   #TOPBAR_INFO {
-    width: 30%;
-    margin: 0;
-    padding: 10px 10px 0 0;
-    box-sizing: border-box;
-    height: 100%;
-    float: right;
+    display: none;
+
+    @media (min-width: @MediaTablet) {
+      display: block;
+      width: 30%;
+      margin: 0;
+      padding: 10px 10px 0 0;
+      box-sizing: border-box;
+      height: 100%;
+      float: right;
+    }
 
     span {
       &.loginName {

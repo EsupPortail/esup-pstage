@@ -1,35 +1,46 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:p="http://primefaces.org/ui">
 
-	<t:div id="TOPBAR">
-		<t:div id="TOPBAR_TITLE">
-			<t:htmlTag value="h1">
-				<h:outputText value="#{msgs['APPLICATION.BIG_TITLE']}"/>
-			</t:htmlTag>
-			<!--<t:htmlTag value="h3">-->
-				<!--<h:outputText value="#{msgs['APPLICATION.TITLE']}"/>-->
-			<!--</t:htmlTag>-->
-		</t:div>
-		<t:div id="TOPBAR_INFO">
-			<t:div styleClass="infos">
-				<t:htmlTag value="span" styleClass="loginName">
-					<h:outputText value="#{sessionController.currentUser.displayName}"/>
-				</t:htmlTag>
-				<t:htmlTag value="span" styleClass="versionNumber">
-					<h:outputText value="#{msgs['GENERAL.INFORMATION.VERSION']} #{applicationService.version}"/>
-				</t:htmlTag>
-			</t:div>
-			<t:div styleClass="buttons">
-				<p:commandButton id="buttonHelp" icon="fa fa-question"></p:commandButton>
-				<p:commandButton id="buttonLogout" action="#{sessionController.logout}"
-								 rendered="#{sessionController.printLogout}" icon="fa fa-power-off"></p:commandButton>
-				<p:tooltip for="buttonHelp" value="Besoin d'aide"/>
-				<p:tooltip for="buttonLogout" value="Déconnexion"/>
-			</t:div>
-		</t:div>
-	</t:div>
+    <t:div id="TOPBAR">
+        <p:commandButton id="TOPBAR_MENU_BUTTON" styleClass="phoneOnly" icon="fa fa-navicon" onclick="toggleSidebar();"/>
+        <p:graphicImage id="TOPBAR_LOGO" value="#{sessionController.mediaPath}/images/logo.png" styleClass="phoneOnly"/>
+        <t:div id="TOPBAR_TITLE">
+            <t:htmlTag value="h1">
+                <h:outputText value="#{msgs['APPLICATION.BIG_TITLE']}"/>
+            </t:htmlTag>
+            <!--<t:htmlTag value="h3">-->
+            <!--<h:outputText value="#{msgs['APPLICATION.TITLE']}"/>-->
+            <!--</t:htmlTag>-->
+        </t:div>
+        <t:div id="TOPBAR_INFO">
+            <t:div styleClass="infos">
+                <t:htmlTag value="span" styleClass="loginName">
+                    <h:outputText value="#{sessionController.currentUser.displayName}"/>
+                </t:htmlTag>
+                <t:htmlTag value="span" styleClass="versionNumber">
+                    <h:outputText value="#{msgs['GENERAL.INFORMATION.VERSION']} #{applicationService.version}"/>
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="buttons">
+                <p:commandButton id="buttonHelp" icon="fa fa-question"/>
+                <p:commandButton id="buttonLogout" action="#{sessionController.logout}"
+                                 rendered="#{sessionController.printLogout}" icon="fa fa-power-off"/>
+                <p:tooltip for="buttonHelp" value="Besoin d'aide"/>
+                <p:tooltip for="buttonLogout" value="Déconnexion"/>
+            </t:div>
+        </t:div>
+    </t:div>
+
+    <script type="text/javascript">
+        function toggleSidebar() {
+            if(document.getElementById("SIDEBAR").style.transform == 'translateX(0%)' || document.getElementById("SIDEBAR").style.transform == "") {
+                document.getElementById("SIDEBAR").style.transform = 'translateX(100%)';
+//                document.getElementById("cacheTout").className = 'active';
+            } else {
+                document.getElementById("SIDEBAR").style.transform = 'translateX(0%)';
+//                document.getElementById("cacheTout").className = '';
+            }
+        }
+    </script>
 </ui:composition>

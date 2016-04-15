@@ -12,22 +12,25 @@
 			<f:facet name="header">
 				<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
 			</f:facet>
-			<h:form id="formRechOffre">
+			<h:form id="formRechOffre" styleClass="customPstage">
 				<ui:include src="../_commun/_rechercheOffre.xhtml" />
-				<h:panelGrid columns="5">
+				<!--<h:panelGrid columns="5">-->
 					<p:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}" update="@form"
-						action="#{offreController.rechercherOffre}" icon="fa fa-search"/>
-					<t:htmlTag value="div" style="width: 100px;" />
-					<p:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
-						action="#{offreController.rechercheSimpleAvancee}" update="@form"
-						rendered="#{offreController.rechercheAvancee}" />
-					<p:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
-						action="#{offreController.rechercheSimpleAvancee}" update="@form"
-						rendered="#{!offreController.rechercheAvancee}" />
-					<t:htmlTag value="div" style="width: 20px;" />
-					<p:commandButton type="reset" value="#{msgs['RECHERCHEOFFRE.REINIT']}" ajax="false"
-						action="#{offreController.resetRechercheOffre}" />
-				</h:panelGrid>
+						action="#{offreController.rechercherOffre}" icon="fa fa-search" styleClass="customPstage floatLeft"/>
+					<!--<t:htmlTag value="div" style="width: 100px;" />-->
+					<t:div styleClass="floatRight">
+						<p:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}"
+							action="#{offreController.rechercheSimpleAvancee}" update="@form"
+							rendered="#{offreController.rechercheAvancee}"  styleClass="customPstage ml5"/>
+						<p:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}"
+							action="#{offreController.rechercheSimpleAvancee}" update="@form"
+							rendered="#{!offreController.rechercheAvancee}" styleClass="customPstage ml5"/>
+						<!--<t:htmlTag value="div" style="width: 20px;" />-->
+						<p:commandButton type="reset" value="#{msgs['RECHERCHEOFFRE.REINIT']}" ajax="false"
+							action="#{offreController.resetRechercheOffre}" styleClass="customPstage ml5"/>
+					</t:div>
+					<t:div styleClass="clearFloat"/>
+				<!--</h:panelGrid>-->
 			</h:form>
 			<p:message for="formRechOffre" style="color:red;font-weight:bold;"/>
 		</p:panel>

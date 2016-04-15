@@ -14,6 +14,13 @@ body {
 	padding: 0;
 }
 
+.phoneOnly {
+	display: block !important;
+	@media (min-width: @MediaTablet) {
+		display: none !important;
+	}
+}
+
 .nopointer {
 	cursor: default !important;
 }

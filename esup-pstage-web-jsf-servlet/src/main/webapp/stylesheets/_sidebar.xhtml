@@ -122,6 +122,8 @@
                              action="#{nomenclatureController.goToGestionNomenclatures}"
                              rendered="#{welcomeController.superAdmin}" icon="fa fa-table"
                              styleClass="#{false ? 'customPstage selected' : 'customPstage'}"/>
+            <p:commandButton value="Déconnexion" styleClass="customPstage phoneOnly" action="#{sessionController.logout}"
+                             rendered="#{sessionController.printLogout}" icon="fa fa-power-off"/>
         </h:form>
     </t:div>
 </ui:composition>

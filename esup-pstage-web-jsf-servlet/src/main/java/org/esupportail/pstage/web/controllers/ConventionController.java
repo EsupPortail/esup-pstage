@@ -6604,7 +6604,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return the estValidee
 	 */
 	public String getEstValidee() {
-		return estValidee;
+		return estValidee == null ? "" : estValidee;
 	}
 
 	/**
@@ -7057,7 +7057,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return the estVerifiee
 	 */
 	public String getEstVerifiee() {
-		return estVerifiee;
+		return estVerifiee == null ? "" : estVerifiee;
 	}
 
 	/**

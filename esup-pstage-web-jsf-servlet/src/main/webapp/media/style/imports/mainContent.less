@@ -1,9 +1,13 @@
 @import "commun/variables";
 
 #MAIN_CONTENT {
-  margin: 0 0 0 @SidebarWidth;
-  padding: @MainContentPadding;
+  margin: @TopbarPhoneHeight 0 0 0;
+  padding: @MainContentPhonePadding;
 
+  @media (min-width: @MediaTablet) {
+    margin: 0 0 0 @SidebarPCWidth;
+    padding: @MainContentPCPadding;
+  }
   a {
     color: @MainLinkFontColor;
     text-decoration: none;
@@ -26,6 +30,11 @@
       background: transparent;
       font-size: @MainPanelTitleFontSize;
       color: @MainPanelTitleFontColor;
+      text-align: left;
+
+      @media (min-width: @MediaTablet) {
+        text-align: center;
+      }
     }
 
     .ui-panel-content {
@@ -65,12 +74,28 @@
   }
 
   input, .ui-selectonemenu {
-    width: 320px;
+    width: 100%;
     box-sizing: border-box;
+
+    @media (min-width: @MediaTablet) {
+      width: @InputWidth;
+    }
   }
 
-  & > li {
-    margin-bottom: 15px;
+  li {
+    width: 100%;
+    margin: 0 auto 15px auto;
+    //margin-bottom: 15px;
+    @media (min-width: @MediaTablet) {
+      width: @InputWidth;
+    }
+
+    &.widthAuto {
+      width: auto !important;
+      input, .ui-selectonemenu {
+        width: auto !important;
+      }
+    }
   }
 }
 
@@ -91,6 +116,28 @@
     -moz-box-shadow: 0px 0px 4px @MainInputTextFocusColor;
     box-shadow: 0px 0px 4px @MainInputTextFocusColor;
   }
+
+  box-sizing: border-box;
+
+  width: 100%;
+
+  @media (min-width: @MediaTablet) {
+
+  }
+}
+
+.ui-button.customPstage {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 5px 0;
+
+  @media (min-width: @MediaTablet) {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .ui-selectonemenu.customPstage {
@@ -107,6 +154,9 @@
     border-radius: 0;
     box-shadow: none;
   }
+  box-sizing: border-box;
+
+  width: 100%;
 }
 
 .ui-selectoneradio.customPstage .ui-radiobutton .ui-radiobutton-box.ui-state-active {
@@ -121,4 +171,25 @@
   background: @MainSelectLineHighlightBackground !important;
   color: @White !important;
   text-shadow: none !important;
+}
+
+.columns-2 {
+  position: relative;
+  & > .column {
+    float: none;
+    box-sizing: border-box;
+    width: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+
+    @media (min-width: @MediaTablet) {
+      float: left;
+      width: 50%;
+    }
+    @media (max-width: (@SidebarPCWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 50px)) { // empecher interpolation des input dans les 2 columns
+      float: none;
+      width: 100%;
+    }
+  }
 }

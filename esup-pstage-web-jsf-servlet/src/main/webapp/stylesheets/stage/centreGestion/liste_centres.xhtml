@@ -17,7 +17,9 @@
 				<h:outputText value="#{msgs['CENTRE.LISTE_CENTRE.VIDE']}" />
 			</t:div>
 			<h:form id="formListeCentre" style="font-size:0.8em;">
+				<t:div style="overflow-x: auto;">
 				<p:dataTable id="listeCentres"
+							 style="min-width: 700px;"
 					value="#{centreController.centresGestion}" var="centre" rows="15"
 					rowHover="true" rowStyleClass="nopointer" paginator="true"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -194,6 +196,7 @@
 						</t:htmlTag>
 					</p:column>
 				</p:dataTable>
+				</t:div>
 
 				<t:htmlTag value="div" style="height: 20px;" />
 

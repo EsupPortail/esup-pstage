@@ -1,23 +1,51 @@
 @import "commun/variables";
 
 #SIDEBAR {
+
   position: fixed;
-  width: @SidebarWidth;
+  width: @SidebarPhoneWidth;
   margin: 0;
   padding: 0;
   bottom: 0;
-  left: 0;
-  top: 0;
-  border: 0;
+  left: -@SidebarPhoneWidth;
+  top: @TopbarPhoneHeight;
   box-sizing: border-box;
-  background: linear-gradient(to left,@Blue1Secondary 0%, @Blue1 9px);
+  background: linear-gradient(to left, @Blue1Secondary 0%, @Blue1 9px);
   z-index: 500;
+  border: 0;
+  -webkit-transition: transform 0.7s;
+  -moz-transition: transform 0.7s;
+  -ms-transition: transform 0.7s;
+  -o-transition: transform 0.7s;
+  transition: transform 0.7s;
+
+  @media (min-width: @MediaTablet) {
+    width: @SidebarPCWidth;
+    left: 0;
+    top: 0;
+    -webkit-transition: transform 0s !important;
+    -moz-transition: transform 0s !important;
+    -ms-transition: transform 0s !important;
+    -o-transition: transform 0s !important;
+    transition: transform 0s !important;
+    -webkit-transform: translateX(0%) !important;
+    -moz-transform: translateX(0%) !important;
+    -ms-transform: translateX(0%) !important;
+    -o-transform: translateX(0%) !important;
+    transform: translateX(0%) !important;
+  }
 
   #SIDEBAR_LOGO {
+    display: none;
+
+    @media (min-width: @MediaTablet) {
+      display: block;
+    }
+
     height: 100px;
     margin: 0;
     padding: 0;
-    background: linear-gradient(@Blue2Secondary 0%, @Blue2 100%);
+    background: @LogoBackground;
     border-bottom: 1px solid @Blue2;
 
     img {
