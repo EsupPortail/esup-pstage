@@ -1,841 +1,130 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<h:outputStylesheet>
-        .even-row {
-        background-color: #FCFFFE;
-        }
- 
-        .odd-row {
-        background-color: #ECF3FE;
-        }
- 
-        .active-row {
-        background-color: #FFEBDA !important;
-        }
-    </h:outputStylesheet>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <ui:include src="_roadmapSel.xhtml" />
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <h:outputText value="#{msgs['CONVENTION.ETAPE8.NAVIGATION']} " />
+                <h:panelGrid columns="3"
+                             rendered="#{conventionController.conventionCree}">
+                    <h:graphicImage alt="#{msgs['GENERAL.OK']}"
+                                    title="#{msgs['GENERAL.OK']}"
+                                    value="../../media/images/valid.png" />
+                    <h:outputText id="confirmCreationConvention"
+                                  rendered="#{!welcomeController.etudiant}"
+                                  value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}" />
+                    <h:outputText id="confirmCreationConventionEtu"
+                                  rendered="#{welcomeController.etudiant}"
+                                  value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION.ETUDIANT']}" />
+                </h:panelGrid>
 
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE8.NAVIGATION']} " />
-					</f:facet>
-					<h:panelGrid columns="3"
-						rendered="#{conventionController.conventionCree}">
-						<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-							title="#{msgs['GENERAL.OK']}"
-							value="../../media/images/valid.png" />
-						<h:outputText id="confirmCreationConvention"
-							rendered="#{!welcomeController.etudiant}"
-							value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}" />
-						<h:outputText id="confirmCreationConventionEtu"
-							rendered="#{welcomeController.etudiant}"
-							value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION.ETUDIANT']}" />
-					</h:panelGrid>
+                <t:htmlTag value="div" style="height: 10px;" />
 
-					<t:htmlTag value="div" style="height: 10px;" />
+                <h:panelGrid columns="2">
+                    <p:commandLink id="editrecap"
+                                   action="#{conventionController.editPdfRecap}">
+                        <h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+                                        value="../../media/images/printer.png" />
+                        <t:htmlTag value="div" style="display: inline; margin: 4px;" />
+                        <h:outputText
+                                value="#{msgs['CONVENTION.IMPRESSION.RECAP.DEMANDE']}"
+                                escape="false" />
+                    </p:commandLink>
+                    <p:commandLink id="impression" action="conventionEtape9Impression">
+                        <h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+                                        value="../../media/images/printer.png" />
+                        <t:htmlTag value="div" style="display: inline; margin: 4px;" />
+                        <h:outputText
+                                value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.DEMANDE']}"
+                                escape="false" />
+                    </p:commandLink>
+                </h:panelGrid>
 
-					<h:panelGrid columns="2">
-						<p:commandLink id="editrecap"
-							action="#{conventionController.editPdfRecap}">
-							<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-								value="../../media/images/printer.png" />
-							<t:htmlTag value="div" style="display: inline; margin: 4px;" />
-							<h:outputText
-								value="#{msgs['CONVENTION.IMPRESSION.RECAP.DEMANDE']}"
-								escape="false" />
-						</p:commandLink>
-						<p:commandLink id="impression" action="conventionEtape9Impression">
-							<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-								value="../../media/images/printer.png" />
-							<t:htmlTag value="div" style="display: inline; margin: 4px;" />
-							<h:outputText
-								value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.DEMANDE']}"
-								escape="false" />
-						</p:commandLink>
-					</h:panelGrid>
-
-					<p:commandLink action="#{conventionController.editPdfRemerciement}"
-						rendered="#{sessionController.courrierRemerciement
+                <p:commandLink action="#{conventionController.editPdfRemerciement}"
+                               rendered="#{sessionController.courrierRemerciement
 		and conventionController.convention.validationConvention}">
-						<h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-							value="../../media/images/printer.png" />
-						<t:htmlTag value="div" style="display:inline; margin:4px;" />
-						<h:outputText
-							value="#{msgs['CONVENTION.IMPRESSION.REMERCIEMENT.DEMANDE']}"
-							escape="false" />
-					</p:commandLink>
+                    <h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
+                                    value="../../media/images/printer.png" />
+                    <t:htmlTag value="div" style="display:inline; margin:4px;" />
+                    <h:outputText
+                            value="#{msgs['CONVENTION.IMPRESSION.REMERCIEMENT.DEMANDE']}"
+                            escape="false" />
+                </p:commandLink>
 
-					<t:htmlTag value="div" style="height: 10px;" />
+                <t:htmlTag value="div" style="height: 10px;" />
 
-					<p:dataTable id="table" var="convention"
-						value="#{conventionController.convention}" style="width:800px;"
-						rowHover="true" rowStyleClass="nopointer">
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="numeroconvention"
-									value="#{msgs['CONVENTION.NUMEROCONVENTION']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="numeroconvention"
-									value="#{conventionController.convention.idConvention}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="annee" value="#{msgs['CONVENTION.ANNEE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="annee"
-									value="#{conventionController.convention.annee}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup
-							rendered="#{!conventionController.convention.validationConvention}">
-							<p:column>
-								<h:outputLabel for="valide"
-									value="#{msgs['CONVENTION.VALIDER']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="valide" value="#{msgs['FORM.NON']}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup
-							rendered="#{conventionController.convention.validationConvention == true}">
-							<p:column>
-								<h:outputLabel for="valide2"
-									value="#{msgs['CONVENTION.VALIDER']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="valide2" value="#{msgs['FORM.OUI']}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup rendered="#{conventionController.nbAvenant gt 0}">
-							<p:column>
-								<h:outputLabel for="avenantOui"
-									value="#{msgs['CONVENTION.AVENANT']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="avenantOui"
-									value="#{conventionController.nbAvenant}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup rendered="#{conventionController.nbAvenant == 0}">
-							<p:column>
-								<h:outputLabel for="avenantNon"
-									value="#{msgs['CONVENTION.AVENANTNON']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="avenantNon"
-									value="#{conventionController.nbAvenant}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="numeroetudiant1"
-									value="#{msgs['CONVENTION.NUMETUDIANT']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="numeroetudiant1"
-									value="#{conventionController.convention.etudiant.numEtudiant}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="nom1" value="#{msgs['CONVENTION.NOM']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="nom1"
-									value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="prenom1"
-									value="#{msgs['CONVENTION.PRENOM']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="prenom1"
-									value="#{conventionController.convention.etudiant.prenom}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="etape1"
-									value="#{msgs['CONVENTION.VOTREETAPE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="etape1"
-									value="#{conventionController.convention.etape.code} - #{conventionController.convention.etape.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="ufr1" value="#{msgs['CONVENTION.VOTREUFR']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="ufr1"
-									value="#{conventionController.convention.ufr.code} - #{conventionController.convention.ufr.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="elp" value="#{msgs['CONVENTION.ELP']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="elp"
-									value="#{conventionController.convention.codeElp} - #{conventionController.convention.creditECTS} #{msgs['CONVENTION.CREDITS']}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup rendered="#{welcomeController.personnel}">
-							<p:column>
-								<h:outputLabel for="centre"
-									value="#{msgs['CONVENTION.NOMCENTRE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="centre"
-									value="#{conventionController.convention.idCentreGestion}" />
-							</p:column>
-						</p:columnGroup>
+                <ui:include src="/stylesheets/stage/_recapConvention.xhtml" />
 
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel value="#{msgs['CONVENTION.ETU.ADRESSE']}"
-									for="mainAddress1" />
-							</p:column>
-							<p:column>
-								<h:outputText id="mainAddress1"
-									value="#{conventionController.convention.adresseEtudiant}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}"
-									for="codePostal1" />
-							</p:column>
-							<p:column>
-								<h:outputText id="codePostal1"
-									value="#{conventionController.convention.codePostalEtudiant} - #{conventionController.convention.villeEtudiant} - #{conventionController.convention.paysEtudiant}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel value="#{msgs['CONVENTION.ETU.TELEPHONE']}"
-									for="telephone1" />
-							</p:column>
-							<p:column>
-								<h:outputText id="telephone1"
-									value="#{conventionController.convention.telEtudiant}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel
-									value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}"
-									for="telephoneportable1" />
-							</p:column>
-							<p:column>
-								<h:outputText id="telephoneportable1"
-									value="#{conventionController.convention.telPortableEtudiant}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILINSTITU']}"
-									for="mailinstitu1" />
-							</p:column>
-							<p:column>
-								<h:outputText id="mailinstitu1"
-									value="#{conventionController.convention.etudiant.mail}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel value="#{msgs['CONVENTION.ETU.MAILPERSO']}"
-									for="mailperso1" />
-							</p:column>
-							<p:column>
-								<h:outputText id="mailperso1"
-									value="#{conventionController.convention.courrielPersoEtudiant}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel value="#{msgs['CONVENTION.ETU.AFFILSS']}"
-									for="affilss1" />
-							</p:column>
-							<p:column>
-								<h:outputText id="affilss1"
-									value="#{conventionController.convention.assurance.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel value="#{msgs['CONVENTION.ETU.CPAM']}"
-									for="caisses1" />
-							</p:column>
-							<p:column>
-								<h:outputText id="caisses1"
-									value="#{conventionController.convention.caisseRegime.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="typeConvention1"
-									value="#{msgs['CONVENTION.TYPECONVENTION']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="typeConvention1"
-									value="#{conventionController.convention.typeConvention.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="langueConvention1"
-									value="#{msgs['CONVENTION.LANGUECONVENTION']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="langueConvention1"
-									value="#{conventionController.convention.langueConvention.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="theme1" value="#{msgs['CONVENTION.THEME']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="theme1"
-									value="#{conventionController.convention.theme.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="sujetStage1"
-									value="#{msgs['CONVENTION.SUJET']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="sujetStage1"
-									value="#{conventionController.convention.sujetStage}"
-									escape="false" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="fonctionsEtTaches1"
-									value="#{msgs['CONVENTION.FONCTION']}" />
-							</p:column>
-							<p:column style="word-break:break-all; white-space:normal;">
-								<h:outputText id="fonctionsEtTaches1"
-									value="#{conventionController.convention.fonctionsEtTaches}"
-									escape="false" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="competences1"
-									value="#{msgs['CONVENTION.COMPETENCES']}" />
-							</p:column>
-							<p:column style="word-break:break-all; white-space:normal;">
-								<h:outputText id="competences1"
-									value="#{conventionController.convention.competences}"
-									escape="false" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="details1"
-									value="#{msgs['CONVENTION.DETAILS']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="details1"
-									value="#{conventionController.convention.details}"
-									escape="false" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="dateDebutStage1"
-									value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="dateDebutStage1"
-									value="#{conventionController.convention.dateDebutStage}">
-									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-								</h:outputText>
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="dateFinStage1"
-									value="#{msgs['CONVENTION.FINSTAGE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="dateFinStage1"
-									value="#{conventionController.convention.dateFinStage}">
-									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-								</h:outputText>
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup
-							rendered="#{conventionController.convention.interruptionStage == false}">
-							<p:column>
-								<h:outputLabel for="interruptionStage1"
-									value="#{msgs['CONVENTION.INTERRUPTION']}" />
-							</p:column>
-							<p:column id="interruptionStage1">
-								<h:outputText value="#{msgs['FORM.NON']}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="interruptionStage2"
-									value="#{msgs['CONVENTION.INTERRUPTION']}"
-									rendered="#{conventionController.convention.interruptionStage == true}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="interruptionStage2"
-									value="#{msgs['FORM.OUI']}"
-									rendered="#{conventionController.convention.interruptionStage == true}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup
-							rendered="#{conventionController.convention.interruptionStage }">
-							<p:column>
-								<h:outputLabel for="dateDebutInterruption1"
-									value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="dateDebutInterruption1"
-									value="#{conventionController.convention.dateDebutInterruption}">
-									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-								</h:outputText>
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup
-							rendered="#{conventionController.convention.interruptionStage}">
-							<p:column>
-								<h:outputLabel for="dateFinInterruption1"
-									value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="dateFinInterruption1"
-									value="#{conventionController.convention.dateFinInterruption}">
-									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-								</h:outputText>
-							</p:column>
-						</p:columnGroup>
-						<!-- 		<p:columnGroup> -->
-						<!-- 			<p:column> -->
-						<!-- 				<h:outputLabel for="dureeStage1" -->
-						<!-- 					value="#{msgs['CONVENTION.DUREESTAGE.INFO']}" /> -->
-						<!-- 			</p:column> -->
-						<!-- 			<p:column> -->
-						<!-- 				<h:outputText id="dureeStage1" -->
-						<!-- 					value="#{conventionController.convention.dureeStage}" /> -->
-						<!-- 			</p:column> -->
-						<!-- 		</p:columnGroup> -->
-						<p:columnGroup
-							rendered="#{not empty conventionController.convention.dureeExceptionnelle}">
-							<p:column>
-								<h:outputText style="font-weight:bold;"
-									value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
-							</p:column>
-							<p:column>
-								<h:outputText
-									rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}"
-									value="#{conventionController.convention.dureeExceptionnelle} heure(s)" />
-
-								<h:panelGrid columns="2"
-									rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle and conventionController.convention.idUniteDureeExceptionnelle != 0}">
-									<h:outputText
-										value="#{conventionController.convention.dureeExceptionnelle}" />
-									<h:outputText value="heure(s)"
-										rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
-									<h:outputText value="jour(s)"
-										rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
-									<h:outputText value="semaine(s)"
-										rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 3}" />
-									<h:outputText value="mois"
-										rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 4}" />
-									<h:outputText value="annee(s)"
-										rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 5}" />
-								</h:panelGrid>
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="nbJoursHebdo1"
-									value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="nbJoursHebdo1"
-									value="#{conventionController.convention.nbJoursHebdo}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="tempsTravail1"
-									value="#{msgs['CONVENTION.TEMPSTRAVAIL']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="tempsTravail1"
-									value="#{conventionController.convention.tempsTravail.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="commentaireDureeTravail1"
-									value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.INFO']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="commentaireDureeTravail1"
-									value="#{conventionController.convention.commentaireDureeTravail}"
-									escape="false" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="nbHeuresHebdo1"
-									value="#{msgs['CONVENTION.NBHEURESHEBDO.INFO']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="nbHeuresHebdo1"
-									value="#{conventionController.convention.nbHeuresHebdo}" />
-							</p:column>
-						</p:columnGroup>
-						<!-- 		<p:columnGroup> -->
-						<!-- 			<p:column> -->
-						<!-- 				<h:outputLabel for="quotiteTravail1" -->
-						<!-- 					value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" /> -->
-						<!-- 			</p:column> -->
-						<!-- 			<p:column> -->
-						<!-- 				<h:outputText id="quotiteTravail1" -->
-						<!-- 					value="#{conventionController.convention.quotiteTravail}" /> -->
-						<!-- 			</p:column> -->
-						<!-- 		</p:columnGroup> -->
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="nbconges1"
-									value="#{msgs['CONVENTION.NBCONGES']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="nbconges1"
-									value="#{conventionController.convention.nbConges}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="indemnisation1"
-									value="#{msgs['CONVENTION.INDEMNISATION']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="indemnisation1"
-									value="#{conventionController.convention.indemnisation.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup
-							rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}">
-							<p:column>
-								<h:outputLabel for="montantGratification1"
-									value="#{msgs['CONVENTION.MTGRATIFICATION']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="montantGratification1"
-									value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} par #{conventionController.convention.uniteDureeGratification.libelle} - #{conventionController.convention.uniteGratification.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup
-							rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}">
-							<p:column>
-								<h:outputLabel for="modeVersGratification1"
-									value="#{msgs['CONVENTION.MODEVERSGRAT']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="modeVersGratification1"
-									value="#{conventionController.convention.modeVersGratification.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="origineStage1"
-									value="#{msgs['CONVENTION.ORIGINESTAGE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="origineStage1"
-									value="#{conventionController.convention.origineStage.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup
-							rendered="#{conventionController.booltemConfSujetTeme == true}">
-							<p:column>
-								<h:outputLabel for="temConfSujetTemeO"
-									value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{msgs['FORM.OUI']}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="temConfSujetTemeN"
-									value="#{msgs['CONVENTION.TEMCONFSUJET']}"
-									rendered="#{conventionController.booltemConfSujetTeme == false}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="temConfSujetTemeN" value="#{msgs['FORM.NON']}"
-									rendered="#{conventionController.booltemConfSujetTeme == false}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="modeEncadreSuivi1"
-									value="#{msgs['CONVENTION.MODESUIVI.INFO']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="modeEncadreSuivi1"
-									value="#{conventionController.convention.modeEncadreSuivi}"
-									escape="false" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="avantagesNature1"
-									value="#{msgs['CONVENTION.AVANTAGESNATURE.INFO']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="avantagesNature1"
-									value="#{conventionController.convention.avantagesNature}"
-									escape="false" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="natureTravail1"
-									value="#{msgs['CONVENTION.NATURETRAVAIL']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="natureTravail1"
-									value="#{conventionController.convention.natureTravail.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="modeValidationStage1"
-									value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="modeValidationStage1"
-									value="#{conventionController.convention.modeValidationStage.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="travailNuitFerie1"
-									value="#{msgs['CONVENTION.TRAVAILNUITFERIE.INFO']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="travailNuitFerie1"
-									value="#{conventionController.convention.travailNuitFerie}"
-									escape="false" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="enseignant1"
-									value="#{msgs['CONVENTION.ENSEIGNANT']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="enseignant1"
-									value="#{conventionController.convention.enseignant.civilite.libelle} 
-					#{conventionController.convention.enseignant.nom} #{conventionController.convention.enseignant.prenom} 
-					- #{conventionController.convention.enseignant.affectation.libelle} " />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="structure1"
-									value="#{msgs['CONVENTION.STRUCTURE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="structure1"
-									value="#{conventionController.convention.structure.raisonSociale} 
-								#{conventionController.convention.structure.commune} #{conventionController.convention.structure.pays.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="service1"
-									value="#{msgs['CONVENTION.SERVICE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="service1"
-									value="#{conventionController.convention.service.nom} 
-								#{conventionController.convention.service.commune} #{conventionController.convention.service.pays.libelle}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="contact1"
-									value="#{msgs['CONVENTION.CONTACT']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="contact1"
-									value="#{conventionController.convention.contact.civilite.libelle} 
-								#{conventionController.convention.contact.nom} #{conventionController.convention.contact.prenom} 
-								#{conventionController.convention.contact.fonction}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="coordContact1"
-									value="#{msgs['CONVENTION.CONTACT.COORD']}" />
-							</p:column>
-							<p:column>
-								<h:outputText
-									value="Mail : #{conventionController.convention.contact.mail} "
-									rendered="#{conventionController.convention.contact.mail!=''}" />
-								<br />
-								<h:outputText
-									value="Tel : #{conventionController.convention.contact.tel} "
-									rendered="#{conventionController.convention.contact.tel!=''}" />
-								<br />
-								<h:outputText
-									value="Fax : #{conventionController.convention.contact.fax}"
-									rendered="#{conventionController.convention.contact.fax!=''}" />
-							</p:column>
-						</p:columnGroup>
-
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="signataire1"
-									value="#{msgs['CONVENTION.SIGNATAIRE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="signataire1"
-									value="#{conventionController.convention.signataire.civilite.libelle} 
-								#{conventionController.convention.signataire.nom} #{conventionController.convention.signataire.prenom} 
-								#{conventionController.convention.signataire.fonction}" />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="nomCG1"
-									value="#{msgs['CONVENTION.NOMCENTRE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="nomCG1"
-									value="#{conventionController.convention.centreGestion.nomCentre} " />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="adresseCG1"
-									value="#{msgs['CONVENTION.ADRESSECENTRE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="adresseCG1"
-									value="#{conventionController.convention.centreGestion.batimentResidence} 
-				#{conventionController.convention.centreGestion.voie} 
-				#{conventionController.convention.centreGestion.codePostal} 
-				#{conventionController.convention.centreGestion.commune} " />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="mailCG1"
-									value="#{msgs['CONVENTION.MAILCENTRE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="mailCG1"
-									value="#{conventionController.convention.centreGestion.mail} " />
-							</p:column>
-						</p:columnGroup>
-						<p:columnGroup>
-							<p:column>
-								<h:outputLabel for="telfaxCG1"
-									value="#{msgs['CONVENTION.TELFAXCENTRE']}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="telfaxCG1"
-									value="#{msgs['CONVENTION.TELCENTRE']} #{conventionController.convention.centreGestion.telephone}   
-				- #{msgs['CONVENTION.FAXCENTRE']} #{conventionController.convention.centreGestion.fax} " />
-							</p:column>
-						</p:columnGroup>
-					</p:dataTable>
-
-					<h:panelGrid rendered="#{conventionController.retourListe}">
-						<t:htmlTag value="div" style="height: 20px;" />
-						<h:commandButton
-							value="#{msgs['RECHERCHECONVENTION.RETOURLISTE']}"
-							action="#{conventionController.goToRetourAction}" />
-					</h:panelGrid>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:panelGrid align="right"
-						rendered="#{welcomeController.superAdmin 
+                <h:panelGrid rendered="#{conventionController.retourListe}">
+                    <t:htmlTag value="div" style="height: 20px;" />
+                    <h:commandButton
+                            value="#{msgs['RECHERCHECONVENTION.RETOURLISTE']}"
+                            action="#{conventionController.goToRetourAction}" />
+                </h:panelGrid>
+                <t:htmlTag value="div" style="height: 20px;" />
+                <h:panelGrid align="right"
+                             rendered="#{welcomeController.superAdmin
 			|| welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-						<p:commandLink id="suppr"
-							oncomplete="PF('supprConvention').show();"
-							disabled="#{conventionController.conventionValide}">
-							<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-								value="../../media/images/delete.png"
-								rendered="#{!conventionController.conventionValide}" />
-							<h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
-								escape="false"
-								rendered="#{!conventionController.conventionValide}" />
-							<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-								value="../../media/images/delete_block.png"
-								rendered="#{conventionController.conventionValide}" />
-							<h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
-								escape="false"
-								rendered="#{conventionController.conventionValide}" />
-							<p:tooltip
-								rendered="#{conventionController.conventionValide
+                    <p:commandLink id="suppr"
+                                   oncomplete="PF('supprConvention').show();"
+                                   disabled="#{conventionController.conventionValide}">
+                        <h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+                                        value="../../media/images/delete.png"
+                                        rendered="#{!conventionController.conventionValide}" />
+                        <h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
+                                      escape="false"
+                                      rendered="#{!conventionController.conventionValide}" />
+                        <h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
+                                        value="../../media/images/delete_block.png"
+                                        rendered="#{conventionController.conventionValide}" />
+                        <h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
+                                      escape="false"
+                                      rendered="#{conventionController.conventionValide}" />
+                        <p:tooltip
+                                rendered="#{conventionController.conventionValide
 				|| conventionController.nbAvenant gt 0}"
-								value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}" />
-						</p:commandLink>
-						<t:aliasBean alias="#{objet}"
-							value="#{conventionController.convention}">
-							<ui:include src="../_commun/_updateInfos.xhtml" />
-						</t:aliasBean>
-					</h:panelGrid>
+                                value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}" />
+                    </p:commandLink>
+                    <t:aliasBean alias="#{objet}"
+                                 value="#{conventionController.convention}">
+                        <ui:include src="../_commun/_updateInfos.xhtml" />
+                    </t:aliasBean>
+                </h:panelGrid>
 
-					<p:dialog id="supprConvention" widgetVar="supprConvention">
-						<f:facet name="header">
-							<h:outputText value="#{msgs['CONVENTION.SUPPRESSION']}" />
-						</f:facet>
-						<h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
-							escape="false" />
+                <p:dialog id="supprConvention" widgetVar="supprConvention">
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs['CONVENTION.SUPPRESSION']}" />
+                    </f:facet>
+                    <h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
+                                  escape="false" />
 
-						<t:htmlTag value="div" style="height: 20px;" />
-						<h:panelGrid columns="3">
-							<p:commandButton value="#{msgs['FORM.OUI']}"
-								oncomplete="PF('supprConvention').hide();"
-								action="#{conventionController.goToSuppConvention}">
-							</p:commandButton>
-							<t:htmlTag value="div" style="width: 150px;" />
+                    <t:htmlTag value="div" style="height: 20px;" />
+                    <h:panelGrid columns="3">
+                        <p:commandButton value="#{msgs['FORM.OUI']}"
+                                         oncomplete="PF('supprConvention').hide();"
+                                         action="#{conventionController.goToSuppConvention}">
+                        </p:commandButton>
+                        <t:htmlTag value="div" style="width: 150px;" />
 
-							<p:commandButton value="#{msgs['FORM.NON']}" immediate="true"
-								oncomplete="PF('supprConvention').hide();" />
-						</h:panelGrid>
-					</p:dialog>
+                        <p:commandButton value="#{msgs['FORM.NON']}" immediate="true"
+                                         oncomplete="PF('supprConvention').hide();" />
+                    </h:panelGrid>
+                </p:dialog>
 
-					<t:htmlTag value="div" style="height: 10px;" />
+                <t:htmlTag value="div" style="height: 10px;" />
 
-					<p:messages />
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-	</ui:define>
+                <p:messages />
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

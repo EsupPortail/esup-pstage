@@ -29,8 +29,8 @@
                                 icon="fa fa-check" styleClass="#{false ? 'selected' : ''}"/>
                     <p:menuitem value="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
                                 action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
-                                rendered="#{welcomeController.enseignantTuteur}" icon="fa fa-check"
-                                styleClass="#{false ? 'selected' : ''}"/>
+                                rendered="#{welcomeController.enseignantTuteur}"
+                                icon="fa fa-list" styleClass="#{false ? 'selected' : ''}"/>
                 </p:submenu>
                 <p:submenu label="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
                            rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
@@ -110,11 +110,11 @@
                                 styleClass="#{false ? 'selected' : ''}"/>
                     <p:menuitem value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
                                 action="#{evaluationController.goToRechercheEvalEns}"
-                                rendered="#{welcomeController.enseignantTuteur}" icon="fa fa-search"
+                                rendered="#{welcomeController.enseignantTuteur}" icon="fa fa-list"
                                 styleClass="#{false ? 'selected' : ''}"/>
                     <p:menuitem value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
                                 action="#{evaluationController.goToRechercheEvalEtu}"
-                                rendered="#{welcomeController.etudiant}" icon="fa fa-search"
+                                rendered="#{welcomeController.etudiant}" icon="fa fa-list"
                                 styleClass="#{false ? 'selected' : ''}"/>
                 </p:submenu>
             </p:panelMenu>

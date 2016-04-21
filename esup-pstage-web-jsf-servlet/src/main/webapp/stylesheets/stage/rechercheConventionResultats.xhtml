@@ -71,15 +71,15 @@
 					<t:htmlTag value="div" style="height: 5px;" />
 					<p:dataTable id="rechercheConventionDataTable" style="width:100%;"
 						value="#{conventionController.rechercheConventionPaginator.liste}"
-						var="convention" rows="20" rowHover="true"
+						var="convention" rows="10" rowHover="true"
 						rowStyleClass="nopointer" paginator="true"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15,20"
 						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader || welcomeController.etudiant || welcomeController.enseignantTuteur}">
 
-						<p:column sortBy="#{convention.idConvention}">
+						<p:column sortBy="#{convention.idConvention}" style="width:40px;">
 							<f:facet name="header">
-								<h:outputText style="color:white;"
+								<h:outputText
 									value="#{msgs['RECHERCHECONVENTION.ID']}" />
 							</f:facet>
 							<t:htmlTag value="center">
@@ -90,12 +90,10 @@
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
 							</f:facet>
-							<h:panelGrid columns="3" style="font-size:12px;"
-								rendered="#{not empty convention.etudiant}">
+							<t:div rendered="#{not empty convention.etudiant}">
 								<h:outputText value="#{convention.etudiant.prenom}" />
-								<t:htmlTag value="div" style="width:5px;" />
-								<h:outputText value="#{convention.etudiant.nom}" />
-							</h:panelGrid>
+								<h:outputText style="padding-left:4px;" value="#{convention.etudiant.nom}" />
+							</t:div>
 						</p:column>
 						<p:column>
 							<f:facet name="header">
@@ -141,7 +139,7 @@
 								<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
 							</h:outputText>
 						</p:column>
-						<p:column>
+						<p:column style="width:65px;">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
 							</f:facet>
@@ -152,7 +150,7 @@
 									rendered="#{convention.validationConvention == true}" />
 							</t:htmlTag>
 						</p:column>
-						<p:column>
+						<p:column style="width:55px;">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.ANNEEUNIV']}" />
 							</f:facet>
@@ -160,7 +158,7 @@
 								rendered="#{not empty convention.annee}" />
 						</p:column>
 
-						<p:column>
+						<p:column style="width:55px;">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['RECHERCHECONVENTION.AVENANT']}" />
 							</f:facet>
@@ -172,13 +170,13 @@
 							</t:htmlTag>
 						</p:column>
 
-						<p:column>
+						<p:column style="width:55px;">
 							<f:facet name="header">
 								<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
 							</f:facet>
 							<t:htmlTag value="center">
 								<h:commandLink id="validConvention"
-									rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique 
+									rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique
 									and convention.centreGestion.validationPedagogique and !convention.validationPedagogique}"
 									action="#{conventionController.goToValidConvention}">
 									<h:graphicImage alt="#{msgs['FORM.VALIDER']}"

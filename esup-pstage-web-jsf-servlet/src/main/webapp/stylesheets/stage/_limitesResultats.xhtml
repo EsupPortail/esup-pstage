@@ -20,18 +20,18 @@
                     id="limites" columns="3" style="padding-left:10px;">
                 <h:outputText
                         value="#{msgs['RECHERCHECONVENTION.LIMITE.RECHERCHE']}" />
-                <h:inputText id="limiteRecherche"
+                <p:inputText id="limiteRecherche"
                              value="#{conventionController.critereRechercheConvention.nbRechercheMaxi}"
                              size="3" maxlength="4" required="true">
                     <f:convertNumber integerOnly="true" type="number" />
-                </h:inputText>
+                </p:inputText>
                 <p:message for="limiteRecherche" />
                 <h:outputText value="#{msgs['RECHERCHECONVENTION.LIMITE.EXPORT']}" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}" />
-                <h:inputText id="limiteExport" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}"
+                <p:inputText id="limiteExport" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}"
                              value="#{conventionController.critereRechercheConvention.nbExportMaxi}"
                              size="3" maxlength="4" required="true">
                     <f:convertNumber integerOnly="true" type="number" />
-                </h:inputText>
+                </p:inputText>
                 <p:message for="limiteExport" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}" />
             </h:panelGrid>
         </t:div>

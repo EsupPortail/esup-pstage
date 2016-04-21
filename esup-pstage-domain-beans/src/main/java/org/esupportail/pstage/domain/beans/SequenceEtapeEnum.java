@@ -50,7 +50,7 @@ public enum SequenceEtapeEnum {
 	/**
 	 * etape 8, Récapitulatif
 	 */
-	etape8(8,"Recapitulatif","creerConventionEtape8DetailsRecap"),
+	etape8(8,"Recapitulatif","creerConventionEtape8Recap");
 	
 	/**
 	 * etape 9, Impression
@@ -60,7 +60,7 @@ public enum SequenceEtapeEnum {
 	/**
 	 * etape 10,  
 	 */
-	etape10(10,"","");
+//	etape10(10,"","");
 	
 	/*
 	 ******************* PROPERTIES ******************* */

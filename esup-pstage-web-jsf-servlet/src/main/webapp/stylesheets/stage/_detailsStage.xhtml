@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dataTable id="table" style="width:750px;"
+	<p:panelGrid id="table" style="width:750px;"
 		value="#{conventionController.convention}" var="convention"
 		rowHover="true" rowStyleClass="nopointer">
 		<p:columnGroup>
@@ -330,5 +330,5 @@
 					escape="false" />
 			</p:column>
 		</p:columnGroup>
-	</p:dataTable>
+	</p:panelGrid>
 </ui:composition>

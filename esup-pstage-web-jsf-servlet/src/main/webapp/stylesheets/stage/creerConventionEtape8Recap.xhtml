@@ -1,19 +1,42 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmap.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
-			</f:facet>
-			<h:form id="formConvention">
-				<ui:include src="/stylesheets/stage/_creerConventionEtape8Recap.xhtml" />
-			</h:form>
-		</p:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <ui:include src="_roadmap.xhtml" />
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+            </f:facet>
+            <h:form id="formConvention">
+                <p:panel
+                        style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+                    <f:facet name="header">
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE8.RECAP']}" />
+                    </f:facet>
+
+                    <t:htmlTag value="div" style="height: 10px;" />
+
+                    <p:messages />
+
+                    <ui:include src="/stylesheets/stage/_recapConvention.xhtml" />
+
+                    <t:htmlTag value="div" style="height:20px;" />
+
+                    <t:htmlTag value="center">
+                        <p:commandButton value="#{msgs['FORM.CREER']}"
+                                         style="font-size:14px;"
+                                         action="#{conventionController.goToAjouterConvention}" />
+                    </t:htmlTag>
+
+                    <t:htmlTag value="div" style="height:30px;" />
+
+                    <p:commandButton value="#{msgs['FORM.CANCEL']}" immediate="true"
+                                     action="#{conventionController.goToCreerConventionEtape7Signataire}" />
+                </p:panel>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

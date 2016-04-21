@@ -13,22 +13,15 @@
                     style="max-width:800px; margin: 0 auto;"
                     onkeypress="if (event.keyCode == 13) { document.getElementById('formRechConvention:rechercherConvention').click(); return false; }">
                 <t:div>
-                    <p:commandButton
-                            value="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}"
-                            action="#{conventionController.rechercheSimpleAvancee}"
-                            update="@form" onstart="PF('statusDialog').show();"
-                            oncomplete="PF('statusDialog').hide();" style="border: solid 1px;"
-                            disabled="#{!conventionController.rechercheAvancee}" />
-                    <p:commandButton
-                            value="#{msgs['RECHERCHECONVENTION.RECHERCHEAVANCEE']}"
-                            action="#{conventionController.rechercheSimpleAvancee}"
-                            update="@form" onstart="PF('statusDialog').show();"
-                            oncomplete="PF('statusDialog').hide();" style="border: solid 1px;"
-                            disabled="#{conventionController.rechercheAvancee}" />
+                    <p:selectOneButton value="#{conventionController.rechercheAvancee}">
+                        <f:selectItem itemLabel="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}" itemValue="#{false}" />
+                        <f:selectItem itemLabel="#{msgs['RECHERCHECONVENTION.RECHERCHEAVANCEE']}" itemValue="#{true}" />
+                        <p:ajax event="change" update="@form" onstart="PF('statusDialog').show();"
+                                oncomplete="PF('statusDialog').hide();"/>
+                    </p:selectOneButton>
                     <p:commandButton value="#{msgs['RECHERCHECONVENTION.REINIT']}"
                                      action="#{conventionController.resetRechercheConvention}"
-                                     type="reset" ajax="false"
-                                     style="float:right;" />
+                                     ajax="false" style="float:right;" />
                 </t:div>
 
                 <t:htmlTag value="div" style="height: 5px;" />
@@ -222,8 +215,8 @@
                             </p:outputLabel>
                             <p:selectManyMenu id="ufrs" filter="true" filterMatchMode="contains"
                                               value="#{conventionController.critereRechercheConvention.idsUfrs}"
-                                              style="width:auto;">
-                                <f:selectItems value="#{conventionController.rechUfrs}" />
+                                              style="width:auto;" showCheckbox="true" >
+                                <f:selectItems value="#{conventionController.rechUfrs}"/>
                             </p:selectManyMenu>
                         </t:htmlTag>
                         <t:htmlTag value="li" styleClass="widthAuto"
@@ -238,7 +231,7 @@
                             </p:outputLabel>
                             <p:selectManyMenu id="etapes" filter="true" filterMatchMode="contains"
                                               value="#{conventionController.critereRechercheConvention.idsEtapes}"
-                                              style="width:auto">
+                                              style="width:auto" showCheckbox="true">
                                 <f:selectItems value="#{conventionController.rechEtapes}" />
                             </p:selectManyMenu>
                         </t:htmlTag>
@@ -401,7 +394,7 @@
                     <p:commandButton id="rechercherConvention"
                                      value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
                                      action="#{conventionController.rechercherConvention}"
-                                     update="@form"
+                                     update="@form" icon="fa fa-search"
                                      style="font-size:14px; border:solid 1px;"
                                      onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
                         <f:setPropertyActionListener value="resultatsRechercheConvention"
@@ -436,10 +429,8 @@
                 </h:panelGrid>
 
                 <t:htmlTag value="div" style="height:10px;" />
-                <!--</h:panelGrid>-->
+                <p:messages escape="false" />
             </h:form>
-            <p:message for="formRechConvention" escape="false"
-                       style="color:red;font-weight:bold;"/>
         </p:panel>
     </ui:define>
 </ui:composition>
