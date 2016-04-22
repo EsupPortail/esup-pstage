@@ -16,9 +16,8 @@
 			<h:form id="formResultConventions">
 				<h:panelGrid align="center"
 					rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
-					<t:htmlTag value="br" />
 					<h:panelGrid columns="2">
-						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
+						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
 							value="../../media/images/script.png" />
 						<h:outputText value="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
 							escape="false" />
@@ -26,27 +25,13 @@
 				</h:panelGrid>
 				<h:panelGrid align="center"
 					rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
-					<t:htmlTag value="div" style="height: 5px;" />
-					<t:htmlTag value="br" />
-					<t:htmlTag value="div" style="height: 5px;" />
+					<t:htmlTag value="div" style="height:10px;" />
 					<h:panelGrid columns="2">
 						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
 							value="../../media/images/script.png"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
-											and conventionController.rechercheConventionPaginator.totalItemsCount lt conventionController.critereRechercheConvention.nbRechercheMaxi}" />
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}" />
 						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
-											and conventionController.rechercheConventionPaginator.totalItemsCount lt conventionController.critereRechercheConvention.nbRechercheMaxi}"
-							escape="false">
-							<f:param
-								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
-						</h:outputFormat>
-						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
-							value="../../media/images/script.png"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge conventionController.critereRechercheConvention.nbRechercheMaxi}" />
-						<h:outputFormat
-							value="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge conventionController.critereRechercheConvention.nbRechercheMaxi}"
+							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}"
 							escape="false">
 							<f:param
 								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />

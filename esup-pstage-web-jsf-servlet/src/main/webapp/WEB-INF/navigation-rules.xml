@@ -1692,7 +1692,7 @@
 
 	<navigation-rule>
 		<display-name>_creerConventionEtape9Impression</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape9Impression.xhtml</from-view-id>
+		<from-view-id>/stylesheets/stage/_impressionConvention.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>creerConventionEtape9Impression</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape9Impression.xhtml</to-view-id>

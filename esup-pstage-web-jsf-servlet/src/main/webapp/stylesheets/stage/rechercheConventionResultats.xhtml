@@ -1,248 +1,198 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['RECHERCHECONVENTION.TITRE']}" />
-			</f:facet>
-			<h:form id="formRechConvention">
-				<t:div
-					rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
-					<t:htmlTag value="br" />
-					<t:htmlTag value="div" style="height: 5px;" />
-					<h:panelGrid columns="2">
-						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-							value="../../media/images/script.png" />
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
-							escape="false" />
-					</h:panelGrid>
-				</t:div>
-				<t:div
-					rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
-					<t:htmlTag value="br" />
-					<t:htmlTag value="div" style="height: 5px;" />
-					<h:panelGrid columns="2"
-						rendered="#{welcomeController.enseignantTuteur}">
-						<h:graphicImage value="../../media/images/information.png"
-							alt="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR']}"
-							 />
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR']}"
-							escape="false" />
-					</h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHECONVENTION.TITRE']}" />
+            </f:facet>
+            <h:form id="formRechConvention">
+                <h:panelGrid columns="2"
+                             rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
+                    <h:graphicImage alt="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
+                                    value="../../media/images/script.png" />
+                    <h:outputText value="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
+                                  escape="false" />
+                </h:panelGrid>
+                <t:div
+                        rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
+                    <t:htmlTag value="div" style="height: 5px;" />
 
-					<h:panelGrid columns="2"
-						rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique}">
-						<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
-							value="../../media/images/tick.png" />
-						<h:outputText
-							value=" = #{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}" />
-					</h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
+                                        value="../../media/images/script.png"
+                                        rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}" />
+                        <h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
+                                        rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}"
+                                        escape="false">
+                            <f:param
+                                    value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
+                        </h:outputFormat>
+                    </h:panelGrid>
+                    <t:htmlTag value="div" style="height: 5px;" />
+                    <p:dataTable id="rechercheConventionDataTable" style="width:100%;"
+                                 value="#{conventionController.rechercheConventionPaginator.liste}"
+                                 var="convention" rows="10" rowHover="true"
+                                 rowStyleClass="nopointer" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20"
+                                 rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader || welcomeController.etudiant || welcomeController.enseignantTuteur}">
 
-					<t:htmlTag value="br" />
-					<t:htmlTag value="div" style="height: 5px;" />
-					<h:panelGrid columns="2">
-						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-							value="../../media/images/script.png"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
-						and conventionController.rechercheConventionPaginator.totalItemsCount gt conventionController.critereRechercheConvention.nbRechercheMaxi}" />
-						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1
-						and conventionController.rechercheConventionPaginator.totalItemsCount gt conventionController.critereRechercheConvention.nbRechercheMaxi}"
-							escape="false">
-							<f:param
-								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
-						</h:outputFormat>
-						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
-							value="../../media/images/script.png"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge conventionController.critereRechercheConvention.nbRechercheMaxi}" />
-						<h:outputFormat
-							value="#{msgs['RECHERCHECONVENTION.MAXRESULTATS']}"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge conventionController.critereRechercheConvention.nbRechercheMaxi}"
-							escape="false">
-							<f:param
-								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
-						</h:outputFormat>
-					</h:panelGrid>
-					<t:htmlTag value="br" />
-					<t:htmlTag value="div" style="height: 5px;" />
-					<p:dataTable id="rechercheConventionDataTable" style="width:100%;"
-						value="#{conventionController.rechercheConventionPaginator.liste}"
-						var="convention" rows="10" rowHover="true"
-						rowStyleClass="nopointer" paginator="true"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15,20"
-						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader || welcomeController.etudiant || welcomeController.enseignantTuteur}">
+                        <p:column sortBy="#{convention.idConvention}" style="width:35px;">
+                            <f:facet name="header">
+                                <h:outputText
+                                        value="#{msgs['RECHERCHECONVENTION.ID']}" />
+                            </f:facet>
+                            <t:htmlTag value="center">
+                                <h:outputText value="#{convention.idConvention}" />
+                            </t:htmlTag>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
+                            </f:facet>
+                            <t:div rendered="#{not empty convention.etudiant}">
+                                <h:outputText value="#{convention.etudiant.prenom}" />
+                                <h:outputText style="padding-left:4px;" value="#{convention.etudiant.nom}" />
+                            </t:div>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAB']}" />
+                            </f:facet>
+                            <h:outputText value="#{convention.structure.raisonSociale}"
+                                          title="#{convention.structure.raisonSociale}"
+                                          rendered="#{not empty convention.structure}">
+                                <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE']}" />
+                            </f:facet>
+                            <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']} " />
+                            <h:outputText value="#{convention.dateDebutStage}"
+                                          rendered="#{not empty convention.dateDebutStage}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
+                            </h:outputText>
+                            <h:outputText value=" #{msgs['RECHERCHECONVENTION.PERIODE.AU']} " />
+                            <h:outputText value="#{convention.dateFinStage}"
+                                          rendered="#{not empty convention.dateFinStage}">
+                                <f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.UFR']}" />
+                            </f:facet>
+                            <h:outputText value="#{convention.ufr.libelle}"
+                                          rendered="#{not empty convention.ufr}">
+                                <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPE']}" />
+                            </f:facet>
+                            <h:outputText value="#{convention.etape.libelle}"
+                                          rendered="#{not empty convention.etape}">
+                                <f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column style="width:65px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
+                            </f:facet>
+                            <t:htmlTag value="center">
+                                <h:outputText value="#{msgs['FORM.NON']}"
+                                              rendered="#{convention.validationConvention == false}" />
+                                <h:outputText value="#{msgs['FORM.OUI']}"
+                                              rendered="#{convention.validationConvention == true}" />
+                            </t:htmlTag>
+                        </p:column>
 
-						<p:column sortBy="#{convention.idConvention}" style="width:40px;">
-							<f:facet name="header">
-								<h:outputText
-									value="#{msgs['RECHERCHECONVENTION.ID']}" />
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:outputText value="#{convention.idConvention}" />
-							</t:htmlTag>
-						</p:column>
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
-							</f:facet>
-							<t:div rendered="#{not empty convention.etudiant}">
-								<h:outputText value="#{convention.etudiant.prenom}" />
-								<h:outputText style="padding-left:4px;" value="#{convention.etudiant.nom}" />
-							</t:div>
-						</p:column>
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAB']}" />
-							</f:facet>
-							<h:outputText value="#{convention.structure.raisonSociale}"
-								title="#{convention.structure.raisonSociale}"
-								rendered="#{not empty convention.structure}">
-								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
-							</h:outputText>
-						</p:column>
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE']}" />
-							</f:facet>
-							<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']} " />
-							<h:outputText value="#{convention.dateDebutStage}"
-								rendered="#{not empty convention.dateDebutStage}">
-								<f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
-							</h:outputText>
-							<h:outputText value=" #{msgs['RECHERCHECONVENTION.PERIODE.AU']} " />
-							<h:outputText value="#{convention.dateFinStage}"
-								rendered="#{not empty convention.dateFinStage}">
-								<f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
-							</h:outputText>
-						</p:column>
-						<p:column title="#{convention.ufr.libelle}">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.UFR']}" />
-							</f:facet>
-							<h:outputText value="#{convention.ufr.libelle}"
-								rendered="#{not empty convention.ufr}">
-								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
-							</h:outputText>
-						</p:column>
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPE']}" />
-							</f:facet>
-							<h:outputText value="#{convention.etape.libelle}"
-								title="#{convention.etape.libelle}"
-								rendered="#{not empty convention.etape}">
-								<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
-							</h:outputText>
-						</p:column>
-						<p:column style="width:65px;">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:outputText value="#{msgs['FORM.NON']}"
-									rendered="#{convention.validationConvention == false}" />
-								<h:outputText value="#{msgs['FORM.OUI']}"
-									rendered="#{convention.validationConvention == true}" />
-							</t:htmlTag>
-						</p:column>
-						<p:column style="width:55px;">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.ANNEEUNIV']}" />
-							</f:facet>
-							<h:outputText value="#{convention.annee}"
-								rendered="#{not empty convention.annee}" />
-						</p:column>
+                        <p:column style="width:55px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.AVENANT']}" />
+                            </f:facet>
+                            <t:htmlTag value="center">
+                                <h:outputText value="#{msgs['FORM.NON']}"
+                                              rendered="#{convention.nbAvenant == 0}" />
+                                <h:outputText value="#{msgs['FORM.OUI']}"
+                                              rendered="#{convention.nbAvenant > 0}" />
+                            </t:htmlTag>
+                        </p:column>
 
-						<p:column style="width:55px;">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.AVENANT']}" />
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:outputText value="#{msgs['FORM.NON']}"
-									rendered="#{convention.nbAvenant == 0}" />
-								<h:outputText value="#{msgs['FORM.OUI']}"
-									rendered="#{convention.nbAvenant > 0}" />
-							</t:htmlTag>
-						</p:column>
+                        <p:column style="width:55px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.ANNEEUNIV']}" />
+                            </f:facet>
+                            <h:outputText value="#{convention.annee}"
+                                          rendered="#{not empty convention.annee}" />
+                        </p:column>
 
-						<p:column style="width:55px;">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:commandLink id="validConvention"
-									rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique
-									and convention.centreGestion.validationPedagogique and !convention.validationPedagogique}"
-									action="#{conventionController.goToValidConvention}">
-									<h:graphicImage alt="#{msgs['FORM.VALIDER']}"
-										value="../../media/images/tick.png" />
-									<f:setPropertyActionListener value="#{convention}"
-										target="#{conventionController.currentConvention}" />
-									<p:tooltip value="#{msgs['FORM.VALIDER']}" />
-								</h:commandLink>
+                        <p:column style="width:55px; background-color:#A5A5A5;">
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
+                            </f:facet>
+                            <t:htmlTag value="center">
+                                <h:commandLink id="recap"
+                                               action="#{conventionController.goToRecapConvention}">
 
-								<h:commandLink id="recap"
-									action="#{conventionController.goToRecapConvention}">
-									<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.DETAILS']}"
-										value="../../media/images/document.png" />
-									<f:setPropertyActionListener value="#{convention}"
-										target="#{conventionController.currentConvention}" />
-									<p:tooltip value="#{msgs['RECHERCHECONVENTION.DETAILS']}" />
-								</h:commandLink>
-							</t:htmlTag>
-						</p:column>
-					</p:dataTable>
-				</t:div>
-				<t:div>
-					<t:htmlTag value="div" style="height: 20px;" />
+                                    <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
+                                    <f:setPropertyActionListener value="#{convention}"
+                                                                 target="#{conventionController.currentConvention}" />
+                                    <p:tooltip for="recap" value="#{msgs['FORM.CONSULTER']}" />
+                                </h:commandLink>
 
-					<h:panelGrid columns="3">
-						<h:panelGrid columns="3" style="margin:5px;"
-							rendered="#{welcomeController.enseignantTuteur}">
-							<h:graphicImage id="exportExcel" alt="Excel"
-								value="../../media/images/excelSmall.png">
-								<p:tooltip value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" />
-							</h:graphicImage>
-							<p:commandButton value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
-								action="#{exportController.goToChoixExportConventionTuteur}"
-								status="statusPatientez" style="border:solid 1px;">
-								<f:setPropertyActionListener
-									value="#{conventionController.resultatsRechercheConvention}"
-									target="#{exportController.resultatsRechercheConvention}" />
-								<f:setPropertyActionListener
-									value="resultatsRechercheConvention"
-									target="#{conventionController.retourAction}" />
-							</p:commandButton>
-						</h:panelGrid>
-						<h:panelGrid columns="3" style="margin:5px;"
-							rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer|| welcomeController.reader || welcomeController.enseignant}">
-							<h:graphicImage id="impression" alt="Print"
-								value="../../media/images/printer.png" />
-							<p:commandButton
-								value="#{msgs['CONVENTION.IMPRESSION.CONVENTIONS']}"
-								action="#{conventionController.editPdfConventionsEnMasseZip}"
-								status="statusPatientez" style="border:solid 1px;" />
-						</h:panelGrid>
-						<p:ajaxStatus name="statusPatientez">
-							<f:facet name="start">
-								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-							</f:facet>
-						</p:ajaxStatus>
-					</h:panelGrid>
+                                <h:commandLink id="validConvention"
+                                               rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique and !convention.validationPedagogique}"
+                                               action="#{conventionController.goToValidConvention}" style="margin-left:5px;">
+                                    <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
+                                    <f:setPropertyActionListener value="#{convention}"
+                                                                 target="#{conventionController.currentConvention}" />
+                                    <p:tooltip for="validConvention" value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}" />
+                                </h:commandLink>
+                            </t:htmlTag>
+                        </p:column>
+                    </p:dataTable>
+                </t:div>
+                <t:div>
+                    <t:htmlTag value="div" style="height: 20px;" />
 
-					<t:htmlTag value="div" style="height:10px;" />
+                    <t:htmlTag value="center">
+                        <p:commandButton value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
+                                         action="#{exportController.goToChoixExportConventionTuteur}"
+                                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                         style="border:solid 1px;" icon="fa fa-file-excel-o"
+                                         rendered="#{welcomeController.enseignantTuteur}">
+                            <f:setPropertyActionListener
+                                    value="#{conventionController.resultatsRechercheConvention}"
+                                    target="#{exportController.resultatsRechercheConvention}" />
+                            <f:setPropertyActionListener
+                                    value="resultatsRechercheConvention"
+                                    target="#{conventionController.retourAction}" />
+                        </p:commandButton>
+                        <p:commandButton
+                                value="#{msgs['CONVENTION.IMPRESSION.CONVENTIONS']}"
+                                action="#{conventionController.editPdfConventionsEnMasseZip}"
+                                onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                style="border:solid 1px; margin-left:5px;" icon="fa fa-print"
+                                rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer|| welcomeController.reader || welcomeController.enseignant}"/>
+                    </t:htmlTag>
 
-					<h:commandButton
-						value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
-						action="rechercheConvention"
-						rendered="#{!welcomeController.etudiant}" />
-				</t:div>
-			</h:form>
-		</p:panel>
-	</ui:define>
+                    <t:htmlTag value="div" style="height:10px;" />
+
+                    <p:commandButton
+                            value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
+                            action="rechercheConvention"
+                            rendered="#{!welcomeController.etudiant}" />
+                </t:div>
+            </h:form>
+            <t:htmlTag value="div" style="height: 50px;" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

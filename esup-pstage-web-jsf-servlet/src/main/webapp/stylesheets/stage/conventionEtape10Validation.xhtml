@@ -20,12 +20,12 @@
 		and !conventionController.convention.validationConvention}">
 					<fieldset>
 						<legend>
-							<h:outputLabel for="erreurConventionVerification"
-								style="font-size:12px"
+							<h:outputText
+								style="font-size:12px; font-weight:bold;"
 								value="#{msgs['CONVENTION.ETAPE10.VALIDATION_PEDAGOGIQUE']}" />
 						</legend>
-						<h:panelGrid id="erreurConventionVerification">
-							<p:message for="erreurConventionVerification" />
+						<h:panelGrid>
+							<p:messages />
 							<h:outputText
 								value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.INFO']}"
 								escape="false" />
@@ -158,9 +158,10 @@
 								<h:panelGrid align="center" columns="3">
 									<p:commandButton value="#{msgs['FORM.OUI']}"
 										oncomplete="PF('demandeConfirmUnVerifConvention').hide();"
-										action="#{conventionController.goToConventionUnVerification}" />
+										action="#{conventionController.goToConventionUnVerification}"
+                                        ajax="false"/>
 									<t:htmlTag value="div" style="width:100px;" />
-									<h:commandButton value="#{msgs['FORM.NON']}"
+									<p:commandButton value="#{msgs['FORM.NON']}"
 										onclick="PF('demandeConfirmUnVerifConvention').hide();" />
 								</h:panelGrid>
 								<t:htmlTag value="div" style="height:5px;" />
@@ -177,14 +178,11 @@
 	|| (sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique and conventionController.convention.validationPedagogique)}">
 					<fieldset>
 						<legend>
-							<h:outputLabel for="erreurConventionValidation"
-								style="font-size:12px"
+							<h:outputText
+								style="font-size:12px; font-weight:bold;"
 								value="#{msgs['CONVENTION.ETAPE10.VALIDATION']}" />
 						</legend>
-						<h:outputText id="erreurConventionValidation" value="" />
-						<p:message for="erreurConventionValidation">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</p:message>
+						<p:messages />
 						<h:panelGrid>
 							<h:outputText value="#{msgs['CONVENTION.VALIDATION.INFO']}" />
 							<t:htmlTag value="div" style="height: 5px;" />
@@ -273,9 +271,10 @@
 								<h:panelGrid align="center" columns="3">
 									<p:commandButton value="#{msgs['FORM.OUI']}"
 										oncomplete="PF('demandeConfirmInValidConvention').hide();"
-										action="#{conventionController.goToConventionInValidation}" />
+										action="#{conventionController.goToConventionInValidation}"
+                                        ajax="false"/>
 									<t:htmlTag value="div" style="width:100px;" />
-									<h:commandButton value="#{msgs['FORM.NON']}"
+									<p:commandButton value="#{msgs['FORM.NON']}"
 										onclick="PF('demandeConfirmInValidConvention').hide();" />
 								</h:panelGrid>
 								<t:htmlTag value="div" style="height: 5px;" />

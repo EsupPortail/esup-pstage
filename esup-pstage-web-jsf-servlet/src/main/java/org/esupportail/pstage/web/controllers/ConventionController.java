@@ -3876,6 +3876,8 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 			sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape10;
+
+			sequenceEtapeEnumSel = SequenceEtapeEnumSel.etape13;
 			retour = "conventionEtape10Validation";
 		}
 		return retour;
@@ -4411,17 +4413,17 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 				retour = SequenceEtapeEnumSel.etape10.actionEtape();
 				addInfoMessage(
-						"formSelConvention:erreurConventionVerification",
+						"formSelConvention",
 						"CONVENTION.VALIDER.CONFIRMATION",
 						this.convention.getIdConvention());
 			}
 		} catch (DataUpdateException ae) {
 			logger.error("DataUpdateException", ae.getCause());
-			addErrorMessage("formSelConvention:erreurConventionVerification",
+			addErrorMessage("formSelConvention",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
 			logger.error("WebServiceDataBaseException ", we.getCause());
-			addErrorMessage("formSelConvention:erreurConventionVerification",
+			addErrorMessage("formSelConvention",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
 		}
@@ -4444,17 +4446,17 @@ public class ConventionController extends AbstractContextAwareController {
 				this.convention.setValidationPedagogique(false);
 				retour = SequenceEtapeEnumSel.etape10.actionEtape();
 				addInfoMessage(
-						"formSelConvention:erreurConventionVerification",
+						"formSelConvention",
 						"CONVENTION.VALIDATION_PEDAGOGIQUE.CONFIRMATION_UNVERIF",
 						this.convention.getIdConvention());
 			}
 		} catch (DataUpdateException ae) {
 			logger.error("DataUpdateException", ae.getCause());
-			addErrorMessage("formSelConvention:erreurConventionVerification",
+			addErrorMessage("formSelConvention",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
 			logger.error("WebServiceDataBaseException ", we.getCause());
-			addErrorMessage("formSelConvention:erreurConventionVerification",
+			addErrorMessage("formSelConvention",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
 		}
@@ -4490,11 +4492,11 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		} catch (DataUpdateException ae) {
 			logger.error("DataUpdateException", ae.getCause());
-			addErrorMessage("formSelConvention:erreurConventionValidation",
+			addErrorMessage("formSelConvention",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
 			logger.error("WebServiceDataBaseException ", we.getCause());
-			addErrorMessage("formSelConvention:erreurConventionValidation",
+			addErrorMessage("formSelConvention",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
 		}
@@ -4518,7 +4520,7 @@ public class ConventionController extends AbstractContextAwareController {
 				}
 			}
 			if (presenceAvenantValide) {
-				addErrorMessage("formSelConvention:erreurConventionValidation",
+				addErrorMessage("formSelConvention",
 						"CONVENTION.INVALIDER.IMPOSSIBLE");
 				return null;
 			}
@@ -4537,11 +4539,11 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 		} catch (DataUpdateException ae) {
 			logger.error("DataUpdateException", ae.getCause());
-			addErrorMessage("formSelConvention:erreurConventionValidation",
+			addErrorMessage("formSelConvention",
 					"CONVENTION.CREERCONVENTION.ERREURAJOUT");
 		} catch (WebServiceDataBaseException we) {
 			logger.error("WebServiceDataBaseException ", we.getCause());
-			addErrorMessage("formSelConvention:erreurConventionValidation",
+			addErrorMessage("formSelConvention",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
 		}

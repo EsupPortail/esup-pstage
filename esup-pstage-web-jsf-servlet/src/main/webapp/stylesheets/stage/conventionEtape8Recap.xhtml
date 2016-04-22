@@ -63,14 +63,13 @@
 
                 <ui:include src="/stylesheets/stage/_recapConvention.xhtml" />
 
-                <h:panelGrid rendered="#{conventionController.retourListe}">
+                <t:div rendered="#{conventionController.retourListe}">
                     <t:htmlTag value="div" style="height: 20px;" />
-                    <h:commandButton
+                    <p:commandButton ajax="false"
                             value="#{msgs['RECHERCHECONVENTION.RETOURLISTE']}"
                             action="#{conventionController.goToRetourAction}" />
-                </h:panelGrid>
-                <t:htmlTag value="div" style="height: 20px;" />
-                <h:panelGrid align="right"
+                </t:div>
+                <t:div style="float:right;"
                              rendered="#{welcomeController.superAdmin
 			|| welcomeController.etudiant
 			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
@@ -99,7 +98,7 @@
                                  value="#{conventionController.convention}">
                         <ui:include src="../_commun/_updateInfos.xhtml" />
                     </t:aliasBean>
-                </h:panelGrid>
+                </t:div>
 
                 <p:dialog id="supprConvention" widgetVar="supprConvention">
                     <f:facet name="header">

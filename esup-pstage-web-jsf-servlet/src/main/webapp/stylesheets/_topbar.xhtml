@@ -32,6 +32,10 @@
         </t:div>
     </t:div>
 
+    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+        <ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
+    </p:dialog>
+
     <script type="text/javascript">
         function toggleSidebar() {
             if(document.getElementById("SIDEBAR").style.transform == 'translateX(0%)' || document.getElementById("SIDEBAR").style.transform == "") {
