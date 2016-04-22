@@ -46,6 +46,26 @@
   }
 }
 
+
+
+.legendLabel {
+  //margin-left: 10px;
+  font-size: 0.8em;
+  font-style: italic;
+
+  & > * {
+    font-size: 0.8em;
+    font-style: italic;
+  }
+
+  & > i {
+    font-size: 1.2em;
+    font-style: normal;
+    margin-right: 2px;
+  }
+}
+
+
 .formUL {
   list-style: none;
   padding: 0;
@@ -54,23 +74,6 @@
   label {
     display: block;
     margin-bottom: 2px;
-
-    & > .legendLabel {
-      margin-left: 10px;
-      font-size: 0.8em;
-      font-style: italic;
-
-      & > * {
-        font-size: 0.8em;
-        font-style: italic;
-      }
-
-      & > i {
-        font-size: 1.2em;
-        font-style: normal;
-        margin-right: 2px;
-      }
-    }
   }
 
   input, .ui-selectonemenu {
@@ -187,9 +190,21 @@
       float: left;
       width: 50%;
     }
-    @media (max-width: (@SidebarPCWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 50px)) { // empecher interpolation des input dans les 2 columns
+    @media (max-width: (@SidebarPCWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
       float: none;
       width: 100%;
+    }
+  }
+}
+
+.ui-selectmanymenu {
+  &.customPstage {
+    li {
+      width: auto !important;
+    }
+    input.ui-selectlistbox-filter {
+      width: 100% !important;
+      box-sizing: border-box;
     }
   }
 }

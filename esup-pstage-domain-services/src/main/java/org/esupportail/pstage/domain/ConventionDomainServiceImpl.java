@@ -217,11 +217,6 @@ public class ConventionDomainServiceImpl implements Serializable, ConventionDoma
 	//	}
 	public List<ConventionDTO> getConventionsFromExport(List<Integer> idsConventionsExport) {
 		List<ConventionDTO> lc = this.remoteServices.getConventionsFromExport(idsConventionsExport);
-		if(lc!=null){
-			for(ConventionDTO c : lc){
-				setObjectsExport(c);
-			}
-		}
 		return lc;
 	}
 

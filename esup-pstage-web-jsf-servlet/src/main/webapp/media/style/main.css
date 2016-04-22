@@ -17,6 +17,15 @@
 .clearFloat {
   clear: both;
 }
+.textCenter {
+  text-align: center;
+}
+.textRight {
+  text-align: right;
+}
+.textLeft {
+  text-align: left;
+}
 html {
   overflow: auto;
   font-size: 12px;
@@ -391,6 +400,19 @@ body {
   padding: 0;
   background: transparent;
 }
+.legendLabel {
+  font-size: 0.8em;
+  font-style: italic;
+}
+.legendLabel > * {
+  font-size: 0.8em;
+  font-style: italic;
+}
+.legendLabel > i {
+  font-size: 1.2em;
+  font-style: normal;
+  margin-right: 2px;
+}
 .formUL {
   list-style: none;
   padding: 0;
@@ -399,20 +421,6 @@ body {
 .formUL label {
   display: block;
   margin-bottom: 2px;
-}
-.formUL label > .legendLabel {
-  margin-left: 10px;
-  font-size: 0.8em;
-  font-style: italic;
-}
-.formUL label > .legendLabel > * {
-  font-size: 0.8em;
-  font-style: italic;
-}
-.formUL label > .legendLabel > i {
-  font-size: 1.2em;
-  font-style: normal;
-  margin-right: 2px;
 }
 .formUL input,
 .formUL .ui-selectonemenu {
@@ -519,11 +527,18 @@ body {
     width: 50%;
   }
 }
-@media (max-width: 1030px) {
+@media (max-width: 1040px) {
   .columns-2 > .column {
     float: none;
     width: 100%;
   }
+}
+.ui-selectmanymenu.customPstage li {
+  width: auto !important;
+}
+.ui-selectmanymenu.customPstage input.ui-selectlistbox-filter {
+  width: 100% !important;
+  box-sizing: border-box;
 }
 .ui-button {
   color: #094667;

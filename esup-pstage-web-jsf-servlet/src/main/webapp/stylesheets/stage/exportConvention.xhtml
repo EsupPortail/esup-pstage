@@ -1,10 +1,10 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	
-	template="/stylesheets/_definedStageTemplate.xhtml">
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:p="http://primefaces.org/ui"
+
+				template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<p:panel>
 			<f:facet name="header">
@@ -13,42 +13,43 @@
 			<h:form id="formRechConvention">
 				<h:panelGrid style="width:auto;">
 					<h:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES']}"
-						for="formRechConvention" />
+								   for="formRechConvention" />
 					<t:htmlTag value="div" style="height:5px;" />
 					<h:outputLabel for="formRechConvention"
-						value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
-					<p:pickList listHeight="250" listWidth="250"
-						addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-						addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-						removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
-						removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
-						value="#{exportController.conventionColonnesChoisies}">
-						<f:selectItems value="#{exportController.conventionColonnes}" />
+								   value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
+					<p:pickList converter="#{exportConventionColonnes}"
+								var="critConv" itemValue="#{critConv}"
+								showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+								value="#{exportController.conventionColonnesChoisies}">
+						<!--<f:selectItems value="#{exportController.conventionColonnes}" />-->
+						<p:column>
+							#{msgs[critConv]}
+						</p:column>
 					</p:pickList>
 
 					<t:htmlTag value="div" style="height:10px;" />
 
 					<h:outputLabel for="formRechConvention"
-						value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
-					<p:pickList listHeight="250" listWidth="250"
-						addAllText="#{msgs['EXPORTCONVENTION.AJOUTERTOUT']}"
-						addText="#{msgs['EXPORTCONVENTION.AJOUTER']}"
-						removeText="#{msgs['EXPORTCONVENTION.RETIRER']}"
-						removeAllText="#{msgs['EXPORTCONVENTION.RETIRERTOUT']}"
-						value="#{exportController.conventionEntrepriseColonnesChoisies}">
-						<f:selectItems
-							value="#{exportController.conventionEntrepriseColonnes}" />
+								   value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
+					<p:pickList converter="#{conventionEntrepriseColonnesChoisies}"
+								var="critEtab" itemValue="#{critEtab}"
+								showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+								value="#{exportController.conventionEntrepriseColonnesChoisies}">
+						<!--<f:selectItems-->
+						<!--value="#{exportController.conventionEntrepriseColonnes}" />-->
+						<p:column>
+							#{msgs[critEtab]}
+						</p:column>
 					</p:pickList>
-
 					<t:htmlTag value="div" style="height:20px;" />
 					<h:panelGrid columns="3">
 						<h:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
-							action="#{conventionController.goToRetourAction}"
-							immediate="true" />
+										 action="#{conventionController.goToRetourAction}"
+										 immediate="true" />
 						<t:htmlTag value="div" style="width:150px; display:inline;" />
 						<h:commandButton
-							value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
-							action="#{exportController.goToExportConvention}" />
+								value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
+								action="#{exportController.goToExportConvention}" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>

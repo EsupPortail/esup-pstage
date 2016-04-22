@@ -1,15 +1,5 @@
 package org.esupportail.pstage.web.controllers;
 
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -18,11 +8,15 @@ import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.beans.ConventionColonneEnum;
 import org.esupportail.pstage.web.beans.ConventionEntrepriseColonneEnum;
 import org.esupportail.pstage.web.servlet.ExportConventionsServlet;
-import org.esupportail.pstagedata.domain.dto.AvenantDTO;
-import org.esupportail.pstagedata.domain.dto.ConventionDTO;
-import org.esupportail.pstagedata.domain.dto.CritereRechercheConventionDTO;
-import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
+import org.esupportail.pstagedata.domain.dto.*;
+import org.primefaces.model.DualListModel;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
+
+import javax.faces.model.SelectItem;
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author dhouillo
@@ -75,7 +69,7 @@ public class ExportController extends AbstractContextAwareController {
 	/**
 	 * Liste des colonnes convention choisies.
 	 */
-	private List<String> conventionColonnesChoisies;
+	private DualListModel<String> conventionColonnesChoisies;
 
 	/**
 	 * Liste des colonnes convention choisies.
@@ -85,7 +79,7 @@ public class ExportController extends AbstractContextAwareController {
 	/**
 	 * Liste des colonnes convention/entreprise choisies.
 	 */
-	private List<String> conventionEntrepriseColonnesChoisies;
+	private DualListModel<String> conventionEntrepriseColonnesChoisies;
 
 	/**
 	 * Liste des colonnes convention/entreprise choisies.
@@ -116,8 +110,8 @@ public class ExportController extends AbstractContextAwareController {
 	@Override
 	public void reset() {
 		super.reset();
-		this.conventionColonnesChoisies = new ArrayList<String>();
-		this.conventionEntrepriseColonnesChoisies = new ArrayList<String>();
+		this.conventionColonnesChoisies = new DualListModel<String>();
+		this.conventionEntrepriseColonnesChoisies = new DualListModel<String>();
 
 		enter();
 	}
@@ -334,8 +328,31 @@ public class ExportController extends AbstractContextAwareController {
 				logger.info("ExportController:: Appel getConventionFromExport fin ");
 			}
 		}
-		this.conventionColonnesChoisies = new ArrayList<String>();
-		this.conventionEntrepriseColonnesChoisies = new ArrayList<String>();
+		List<String> sourceCCC = new ArrayList<String>();
+		for(ConventionColonneEnum cce : ConventionColonneEnum.values()) {
+			sourceCCC.add(cce.getKeyLabel());
+		}
+		Collections.sort(sourceCCC, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return getString(s1).compareToIgnoreCase(getString(s2));
+			}
+		});
+		List<String> targetCCC = new ArrayList<String>();
+		this.conventionColonnesChoisies = new DualListModel<String>(sourceCCC, targetCCC);
+
+		List<String> sourceCECC = new ArrayList<String>();
+		for(ConventionEntrepriseColonneEnum cecc : ConventionEntrepriseColonneEnum.values()) {
+			sourceCECC.add(cecc.getKeyLabel());
+		}
+		Collections.sort(sourceCECC, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return getString(s1).compareTo(getString(s2));
+			}
+		});
+		List<String> targetCECC = new ArrayList<String>();
+		this.conventionEntrepriseColonnesChoisies = new DualListModel<String>(sourceCECC, targetCECC);
 		return ret;
 	}
 
@@ -358,8 +375,32 @@ public class ExportController extends AbstractContextAwareController {
 			this.resultatsRechercheConvention = lConventionExport;
 			ret = "exportConvention";
 		}
-		this.conventionColonnesChoisies = new ArrayList<String>();
-		this.conventionEntrepriseColonnesChoisies = new ArrayList<String>();
+
+		List<String> sourceCCC = new ArrayList<String>();
+		for(ConventionColonneEnum cce : ConventionColonneEnum.values()) {
+			sourceCCC.add(cce.getKeyLabel());
+		}
+		Collections.sort(sourceCCC, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return getString(s1).compareToIgnoreCase(getString(s2));
+			}
+		});
+		List<String> targetCCC = new ArrayList<String>();
+		this.conventionColonnesChoisies = new DualListModel<String>(sourceCCC, targetCCC);
+
+		List<String> sourceCECC = new ArrayList<String>();
+		for(ConventionEntrepriseColonneEnum cecc : ConventionEntrepriseColonneEnum.values()) {
+			sourceCECC.add(cecc.getKeyLabel());
+		}
+		Collections.sort(sourceCECC, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return getString(s1).compareTo(getString(s2));
+			}
+		});
+		List<String> targetCECC = new ArrayList<String>();
+		this.conventionEntrepriseColonnesChoisies = new DualListModel<String>(sourceCECC, targetCECC);
 		return ret;
 	}
 
@@ -368,8 +409,7 @@ public class ExportController extends AbstractContextAwareController {
 	 */
 	public String goToExportConvention() {
 		String ret = null;
-		if (this.resultatsRechercheConvention != null
-				&& !this.resultatsRechercheConvention.isEmpty()) {
+		if (this.resultatsRechercheConvention != null && !this.resultatsRechercheConvention.isEmpty()) {
 			exportConvention();
 		}
 		return ret;
@@ -390,7 +430,7 @@ public class ExportController extends AbstractContextAwareController {
 			HSSFRow row = sheet.createRow(0);
 
 			int cpt = 0;
-			for (String colonne : this.conventionColonnesChoisies) {
+			for (String colonne : this.conventionColonnesChoisies.getTarget()) {
 				row.createCell(cpt).setCellValue(getString(colonne));
 				// Si on choisi d'avoir les avenants, on ajoute une case pour
 				// leurs contenus
@@ -400,7 +440,7 @@ public class ExportController extends AbstractContextAwareController {
 				}
 				cpt++;
 			}
-			for (String colonne : this.conventionEntrepriseColonnesChoisies) {
+			for (String colonne : this.conventionEntrepriseColonnesChoisies.getTarget()) {
 				row.createCell(cpt).setCellValue(getString(colonne));
 				cpt++;
 			}
@@ -425,7 +465,7 @@ public class ExportController extends AbstractContextAwareController {
 				row = sheet.createRow(i + 1);
 
 				cpt = 0;
-				for (String colonne : this.conventionColonnesChoisies) {
+				for (String colonne : this.conventionColonnesChoisies.getTarget()) {
 
 					if (colonne.equalsIgnoreCase("EXPORTCONVENTION.AVENANT")) {
 						if (conventionTmp.getNbAvenant() > 0) {
@@ -583,7 +623,7 @@ public class ExportController extends AbstractContextAwareController {
 					}
 					cpt++;
 				}
-				for (String colonne : this.conventionEntrepriseColonnesChoisies) {
+				for (String colonne : this.conventionEntrepriseColonnesChoisies.getTarget()) {
 					row.createCell(cpt).setCellValue(
 							this.recupValueEntreprise(colonne, conventionTmp));
 					cpt++;
@@ -1087,7 +1127,7 @@ public class ExportController extends AbstractContextAwareController {
 	/**
 	 * @return the conventionColonnesChoisies
 	 */
-	public List<String> getConventionColonnesChoisies() {
+	public DualListModel<String> getConventionColonnesChoisies() {
 		return conventionColonnesChoisies;
 	}
 
@@ -1096,14 +1136,14 @@ public class ExportController extends AbstractContextAwareController {
 	 *            the conventionColonnesChoisies to set
 	 */
 	public void setConventionColonnesChoisies(
-			List<String> conventionColonnesChoisies) {
+			DualListModel<String> conventionColonnesChoisies) {
 		this.conventionColonnesChoisies = conventionColonnesChoisies;
 	}
 
 	/**
 	 * @return the conventionEntrepriseColonnesChoisies
 	 */
-	public List<String> getConventionEntrepriseColonnesChoisies() {
+	public DualListModel<String> getConventionEntrepriseColonnesChoisies() {
 		return conventionEntrepriseColonnesChoisies;
 	}
 
@@ -1112,7 +1152,7 @@ public class ExportController extends AbstractContextAwareController {
 	 *            the conventionEntrepriseColonnesChoisies to set
 	 */
 	public void setConventionEntrepriseColonnesChoisies(
-			List<String> conventionEntrepriseColonnesChoisies) {
+			DualListModel<String> conventionEntrepriseColonnesChoisies) {
 		this.conventionEntrepriseColonnesChoisies = conventionEntrepriseColonnesChoisies;
 	}
 
