@@ -4,7 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
-    <t:fieldset>
+    <p:fieldset toggleable="false">
         <h:panelGrid
                 columns="2">
             <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontYellow"/>
@@ -35,5 +35,5 @@
                 <p:message for="limiteExport" rendered="#{not empty conventionController.critereRechercheConvention.nbExportMaxi}" />
             </h:panelGrid>
         </t:div>
-    </t:fieldset>
+    </p:fieldset>
 </ui:composition>

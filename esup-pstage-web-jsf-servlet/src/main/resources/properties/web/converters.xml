@@ -138,6 +138,14 @@
 	
 	<bean id="caisseRegimeConverter" class="org.esupportail.pstage.web.converters.CaisseRegimeConverter">		
 		<property name="nomenclatureDomainService" ref="nomenclatureDomainService"/>
-	</bean>	
-	
+	</bean>
+
+	<bean id="exportConventionColonnes"
+		  class="org.esupportail.pstage.web.converters.ExportConventionColonnes" scope="request">
+	</bean>
+
+	<bean id="conventionEntrepriseColonnesChoisies"
+		  class="org.esupportail.pstage.web.converters.ExportConventionEntrepriseColonnesChoisies" scope="request">
+	</bean>
+
 </beans>
