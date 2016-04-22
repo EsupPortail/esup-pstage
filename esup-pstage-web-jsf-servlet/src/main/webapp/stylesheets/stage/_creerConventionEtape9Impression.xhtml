@@ -1,146 +1,145 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+    <h:panelGrid>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CONVENTION.ETAPE9.IMPRESSION']}" />
+        </f:facet>
+        <t:htmlTag value="div" style="height: 20px;" />
+        <p:messages />
+        <h:panelGrid
+                columns="2"
+                style="border:solid 1px; padding:5px;">
+            <h:outputLabel for="numeroconvention"
+                           value="#{msgs['CONVENTION.NUMEROCONVENTION']}" />
+            <h:outputText id="numeroconvention"
+                          value="#{conventionController.convention.idConvention}" />
 
-	<h:panelGrid
-		>
-		<f:facet name="header">
-			<h:outputText value="#{msgs['CONVENTION.ETAPE9.IMPRESSION']}" />
-		</f:facet>
-		<t:htmlTag value="div" style="height: 20px;" />
-		<p:messages />
-		<h:panelGrid
-			columns="2"
-			style="border:solid 1px; padding:5px;">
-			<h:outputLabel for="numeroconvention"
-				value="#{msgs['CONVENTION.NUMEROCONVENTION']}" />
-			<h:outputText id="numeroconvention"
-				value="#{conventionController.convention.idConvention}" />
+            <t:htmlTag value="div" style="height: 5px;" />
+            <t:htmlTag value="div" style="height: 5px;" />
+            <h:outputLabel for="nom" value="#{msgs['CONVENTION.NOM']}" />
+            <h:outputText id="nom"
+                          value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}   #{conventionController.convention.etudiant.prenom}" />
 
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<h:outputLabel for="nom" value="#{msgs['CONVENTION.NOM']}" />
-			<h:outputText id="nom"
-				value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}   #{conventionController.convention.etudiant.prenom}" />
+            <t:htmlTag value="div" style="height: 5px;" />
+            <t:htmlTag value="div" style="height: 5px;" />
+            <h:outputLabel for="langue" value="#{msgs['CONVENTION.LANGUE']}" />
+            <h:outputText id="langue"
+                          value="#{conventionController.convention.langueConvention.libelle}" />
 
-			<t:htmlTag value="div" style="height: 5px;" />
-			<t:htmlTag value="div" style="height: 5px;" />
-			<h:outputLabel for="langue" value="#{msgs['CONVENTION.LANGUE']}" />
-			<h:outputText id="langue"
-				value="#{conventionController.convention.langueConvention.libelle}" />
+        </h:panelGrid>
 
-		</h:panelGrid>
-
-		<t:htmlTag value="div" style="height: 20px;" />
-	</h:panelGrid>
-	<t:fieldset style="padding:15px; width:50%;"
-		rendered="#{welcomeController.personnel || (welcomeController.etudiant 
+        <t:htmlTag value="div" style="height: 20px;" />
+    </h:panelGrid>
+    <t:fieldset style="padding:15px; width:50%;"
+                rendered="#{welcomeController.personnel || (welcomeController.etudiant
 		and conventionController.convention.centreGestion.autoriserImpressionConvention
 		and (!sessionController.validationPedagogique || (sessionController.validationPedagogique and !conventionController.convention.centreGestion.validationPedagogique)
-		|| (sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique 
+		|| (sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique
 		and conventionController.convention.validationPedagogique)))}">
-		<legend>
-			<h:outputText style="font-size:14px; font-weight:bold;"
-				value="Documents a imprimer" />
-		</legend>
-		<h:outputText value="#{msgs['CONVENTION.IMPRESSION.INSTRUCTION']}"
-			rendered="#{!conventionController.cgUrlInstruction}" />
+        <legend>
+            <h:outputText style="font-size:14px; font-weight:bold;"
+                          value="Documents a imprimer" />
+        </legend>
+        <h:outputText value="#{msgs['CONVENTION.IMPRESSION.INSTRUCTION']}"
+                      rendered="#{!conventionController.cgUrlInstruction}" />
 
-		<h:panelGrid columns="2">
-			<h:outputText style="font-weight:bold;"
-				value="#{msgs['CONVENTION.IMPRESSION.URL']}"
-				rendered="#{conventionController.cgUrlInstruction}" />
-			<h:outputLink id="urlPageInstruction" target="_blank"
-				value="#{conventionController.convention.centreGestion.urlPageInstruction}"
-				rendered="#{conventionController.cgUrlInstruction}">
-				<h:outputText
-					value="#{conventionController.convention.centreGestion.urlPageInstruction}" />
-			</h:outputLink>
-		</h:panelGrid>
+        <h:panelGrid columns="2">
+            <h:outputText style="font-weight:bold;"
+                          value="#{msgs['CONVENTION.IMPRESSION.URL']}"
+                          rendered="#{conventionController.cgUrlInstruction}" />
+            <h:outputLink id="urlPageInstruction" target="_blank"
+                          value="#{conventionController.convention.centreGestion.urlPageInstruction}"
+                          rendered="#{conventionController.cgUrlInstruction}">
+                <h:outputText
+                        value="#{conventionController.convention.centreGestion.urlPageInstruction}" />
+            </h:outputLink>
+        </h:panelGrid>
 
-		<t:htmlTag value="div" style="height:10px;" />
+        <t:htmlTag value="div" style="height:10px;" />
 
-		<h:panelGrid columns="2"
-			rendered="#{conventionController.convention.codeLangueConvention == 'fr'}">
-			<h:panelGrid columns="2"
-				>
-				<h:graphicImage id="imgInfoImpressionConventionFR"
-					alt="#{msgs['INFOSBULLES.CONVENTION_TYPE']}"
-					value="../../media/images/information.png">
-					<p:tooltip value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
-				</h:graphicImage>
-				<h:outputText style="font-weight:bold;"
-					value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.INFOS']}" />
-			</h:panelGrid>
-			<p:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
-				action="#{conventionController.editPdfConvention}"
-				rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}"
-				style="border: solid 1px;" />
-		</h:panelGrid>
-		
-		<h:panelGrid columns="2"
-			rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
-			<h:panelGrid columns="2"
-				>
-				<h:graphicImage id="imgInfoImpressionConventionAUTRE"
-					alt="#{msgs['INFOSBULLES.CONVENTION_TYPE']}"
-					value="../../media/images/information.png">
-					<p:tooltip value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
-				</h:graphicImage>
-				<h:outputText style="font-weight:bold;"
-					value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.INFOS']}" />
-			</h:panelGrid>
-			<p:commandButton id="printAutre" 
-				action="#{conventionController.editPdfConvention}"
-				value="#{msgs['CONVENTION.IMPRESSION_AUTRE']}#{conventionController.convention.langueConvention.libelle}"
-				style="border: solid 1px;" />
-		</h:panelGrid>
+        <h:panelGrid columns="2"
+                     rendered="#{conventionController.convention.codeLangueConvention == 'fr'}">
+            <h:panelGrid columns="2">
+                <h:graphicImage id="imgInfoImpressionConventionFR"
+                                alt="#{msgs['INFOSBULLES.CONVENTION_TYPE']}"
+                                value="../../media/images/information.png">
+                    <p:tooltip value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
+                </h:graphicImage>
+                <h:outputText style="font-weight:bold;"
+                              value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.INFOS']}" />
+            </h:panelGrid>
+            <p:commandButton value="#{msgs['CONVENTION.IMPRESSION.INFO']}"
+                             action="#{conventionController.editPdfConvention}"
+                             rendered="#{!(!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant)}"
+                             style="border: solid 1px;" />
+        </h:panelGrid>
 
-		<t:htmlTag value="div" style="height:10px;" />
+        <h:panelGrid columns="2"
+                     rendered="#{conventionController.convention.codeLangueConvention != 'fr'}">
+            <h:panelGrid columns="2">
+                <h:graphicImage id="imgInfoImpressionConventionAUTRE"
+                                alt="#{msgs['INFOSBULLES.CONVENTION_TYPE']}"
+                                value="../../media/images/information.png">
+                    <p:tooltip value="#{msgs['INFOSBULLES.CONVENTION_TYPE']}" />
+                </h:graphicImage>
+                <h:outputText style="font-weight:bold;"
+                              value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.INFOS']}" />
+            </h:panelGrid>
+            <p:commandButton id="printAutre"
+                             action="#{conventionController.editPdfConvention}"
+                             value="#{msgs['CONVENTION.IMPRESSION_AUTRE']}#{conventionController.convention.langueConvention.libelle}"
+                             style="border: solid 1px;" />
+        </h:panelGrid>
 
-		<h:panelGrid columns="2">
-			<h:panelGrid columns="2"
-				>
-				<h:graphicImage id="imgInfoImpressionAttestation"
-					alt="#{msgs['INFOSBULLES.ATTESTATION_CONVENTION']}"
-					value="../../media/images/information.png">
-					<p:tooltip value="#{msgs['INFOSBULLES.ATTESTATION_CONVENTION']}" />
-				</h:graphicImage>
-				<h:outputText style="font-weight:bold;"
-					value="#{msgs['CONVENTION.IMPRESSION_ATTESTATION.INFOS']}" />
-			</h:panelGrid>
-			<p:commandButton id="printAttestation2" 
-				action="#{conventionController.editPdfAttestation}"
-				value="#{msgs['CONVENTION.IMPRESSION_ATTESTATION']}"
-				style="border: solid 1px;" />
-		</h:panelGrid>
+        <t:htmlTag value="div" style="height:10px;" />
 
-		<t:htmlTag value="div" style="height:10px;" />
-		<h:panelGrid columns="2"
-			rendered="#{conventionController.convention.codeLangueConvention != 'fr'
+        <h:panelGrid columns="2">
+            <h:panelGrid columns="2">
+                <h:graphicImage id="imgInfoImpressionAttestation"
+                                alt="#{msgs['INFOSBULLES.ATTESTATION_CONVENTION']}"
+                                value="../../media/images/information.png">
+                    <p:tooltip value="#{msgs['INFOSBULLES.ATTESTATION_CONVENTION']}" />
+                </h:graphicImage>
+                <h:outputText style="font-weight:bold;"
+                              value="#{msgs['CONVENTION.IMPRESSION_ATTESTATION.INFOS']}" />
+            </h:panelGrid>
+            <p:commandButton id="printAttestation2"
+                             action="#{conventionController.editPdfAttestation}"
+                             value="#{msgs['CONVENTION.IMPRESSION_ATTESTATION']}"
+                             style="border: solid 1px;" />
+        </h:panelGrid>
+
+        <t:htmlTag value="div" style="height:10px;" />
+        <h:panelGrid columns="2"
+                     rendered="#{conventionController.convention.codeLangueConvention != 'fr'
 			|| conventionController.convention.service.pays.cog != 99100}">
-			<h:panelGrid columns="2"
-				>
-				<h:graphicImage id="imgInfoImpressionAnnexeH"
-					alt="#{msgs['INFOSBULLES.ANNEXEH']}"
-					value="../../media/images/information.png">
-					<p:tooltip value="#{msgs['INFOSBULLES.ANNEXEH']}" />
-				</h:graphicImage>
-				<h:outputText style="font-weight:bold;"
-					value="#{msgs['CONVENTION.IMPRESSION_ANNEXEH.INFOS']}" />
-			</h:panelGrid>
-			<p:commandButton id="printAnnexeH" 
-				action="#{conventionController.editPdfAnnexeH}"
-				value="#{msgs['CONVENTION.IMPRESSION_ANNEXEH']}"
-				style="border: solid 1px;" />
-		</h:panelGrid>
-	</t:fieldset>
-	<t:htmlTag value="em"
-		rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant}">
-		<h:outputText value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}" />
-	</t:htmlTag>
+            <h:panelGrid columns="2">
+                <h:graphicImage id="imgInfoImpressionAnnexeH"
+                                alt="#{msgs['INFOSBULLES.ANNEXEH']}"
+                                value="../../media/images/information.png">
+                    <p:tooltip value="#{msgs['INFOSBULLES.ANNEXEH']}" />
+                </h:graphicImage>
+                <h:outputText style="font-weight:bold;"
+                              value="#{msgs['CONVENTION.IMPRESSION_ANNEXEH.INFOS']}" />
+            </h:panelGrid>
+            <p:commandButton id="printAnnexeH"
+                             action="#{conventionController.editPdfAnnexeH}"
+                             value="#{msgs['CONVENTION.IMPRESSION_ANNEXEH']}"
+                             style="border: solid 1px;" />
+        </h:panelGrid>
+    </t:fieldset>
+    <t:htmlTag value="em"
+               rendered="#{!conventionController.convention.centreGestion.autoriserImpressionConvention and welcomeController.etudiant}">
+        <h:outputText value="#{msgs['CONVENTION.IMPRESSION.IMPOSSIBLE']}" />
+    </t:htmlTag>
+    <t:htmlTag value="em"
+               rendered="#{welcomeController.etudiant and conventionController.convention.centreGestion.autoriserImpressionConvention and
+               sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique
+		        and !conventionController.convention.validationPedagogique}">
+        <h:outputText value="#{msgs['CONVENTION.IMPRESSION.BLOCAGE_VALIDATION']}" />
+    </t:htmlTag>
 </ui:composition>

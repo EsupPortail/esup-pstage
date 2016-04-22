@@ -2082,7 +2082,7 @@ public class OffreController extends AbstractContextAwareController {
 		if(this.resultatsRechercheOffre==null || this.resultatsRechercheOffre.isEmpty()){
 			this.resultatsRechercheOffre=null;
 			ret=false;
-			addInfoMessage("formRechOffre", "RECHERCHEOFFRE.AUCUNRESULTAT");
+			addErrorMessage("formRechOffre", "RECHERCHEOFFRE.AUCUNRESULTAT");
 		}else if(this.resultatsRechercheOffre!=null && !this.resultatsRechercheOffre.isEmpty()){
 			reloadRechercheOffrePaginator();
 		}
