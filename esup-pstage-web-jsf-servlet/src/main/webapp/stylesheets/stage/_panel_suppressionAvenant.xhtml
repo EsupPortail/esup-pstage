@@ -22,17 +22,12 @@
 			<h:panelGrid id="delete" columns="3" align="center">
 				<p:commandButton value="#{msgs['FORM.OUI']}"
 					action="#{avenantController.supprimerAvenant}"
-					update="listeAvenant" />
+					update="@form" />
 				<t:htmlTag value="div" style="width: 30px;" />
 				<h:commandButton value="#{msgs['FORM.NON']}"
 					onclick="PF('suppressionAvenant').hide();" />
 			</h:panelGrid>
-			<t:htmlTag value="center">
-				<h:outputText id="erreurSupprAvenant" value="" />
-				<p:message for="erreurSupprAvenant">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-			</t:htmlTag>
+            <p:messages />
 		</h:form>
 	</p:dialog>
 </ui:composition>

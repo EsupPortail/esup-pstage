@@ -2,11 +2,7 @@ package org.esupportail.pstage.dao.referentiel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.esupportail.commons.services.ldap.LdapUser;
@@ -50,10 +46,10 @@ import gouv.education.apogee.commun.transverse.exception.WebBaseException;
 
 @SuppressWarnings("serial")
 public class StudentDataRepositoryDaoWS implements
-StudentDataRepositoryDao {
+		StudentDataRepositoryDao {
 
 	/**
-	 * 
+	 *
 	 */
 	final Logger logger = Logger.getLogger(StudentDataRepositoryDaoWS.class);
 
@@ -96,7 +92,7 @@ StudentDataRepositoryDao {
 			logger.debug("#getEtudiantRef# - [id : " + id + ", universityCode  : " + universityCode+"]");
 		}
 
-		String filter = "(" + ldapAttributes.getLdapUid() + "=" + id + ")"; 
+		String filter = "(" + ldapAttributes.getLdapUid() + "=" + id + ")";
 
 		List<LdapUser> listeLdapUser = ldapUserService.getLdapUsersFromFilter(filter);
 
@@ -115,7 +111,7 @@ StudentDataRepositoryDao {
 			// creation d'un user et alimentation des donnees 
 			EtudiantRef etudiantUser = new EtudiantRef();
 			etudiantUser.setIdentEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapUid()));
-			etudiantUser.setNumEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapStudentId()));    
+			etudiantUser.setNumEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapStudentId()));
 			etudiantUser.setNom(ldapuser.getAttribute(ldapAttributes.getLdapName()));
 			etudiantUser.setPrenom(ldapuser.getAttribute(ldapAttributes.getLdapFirstName()));
 			if (ldapuser.getAttribute(ldapAttributes.getLdapMail()) != null) {
@@ -140,7 +136,7 @@ StudentDataRepositoryDao {
 		}
 		String codEtu = studentLdap.getNumEtudiant();
 		//CodEtu ldap = codeInd
-		if (!this.ldapStudentIdIsCODETU) { 
+		if (!this.ldapStudentIdIsCODETU) {
 			codEtu = getStudentCodEtu(codEtu);
 		}
 
@@ -175,13 +171,13 @@ StudentDataRepositoryDao {
 			s.setAdministrationApogee(adminApogee);
 		} else {
 			s = studentApogee;
-		}	
+		}
 
 		return s;
 	}
 
 	/**
-	 * @see org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao#getEtudiantRefByNum(java.lang.String, java.lang.String)
+	 * @see org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao#getEtudiantRefByNum(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public EtudiantRef getEtudiantRefByNum(final String universityCode, final String id, String annee) {
 		// id = numero etudiant
@@ -193,7 +189,7 @@ StudentDataRepositoryDao {
 		if (!this.ldapStudentIdIsCODETU) {
 			codEtu = getStudentCodInd(id);
 		}
-		String filter = "(" + ldapAttributes.getLdapStudentId() + "=" + codEtu + ")"; 
+		String filter = "(" + ldapAttributes.getLdapStudentId() + "=" + codEtu + ")";
 		List<LdapUser> listeLdapUser = ldapUserService.getLdapUsersFromFilter(filter);
 
 		EtudiantRef studentLdap = new EtudiantRef();
@@ -212,7 +208,7 @@ StudentDataRepositoryDao {
 				// creation d'un user et alimentation des donnees 
 				EtudiantRef etudiantUser = new EtudiantRef();
 				etudiantUser.setIdentEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapUid()));
-				etudiantUser.setNumEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapStudentId()));    
+				etudiantUser.setNumEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapStudentId()));
 				etudiantUser.setNom(ldapuser.getAttribute(ldapAttributes.getLdapName()));
 				etudiantUser.setPrenom(ldapuser.getAttribute(ldapAttributes.getLdapFirstName()));
 				if (ldapuser.getAttribute(ldapAttributes.getLdapMail()) != null) {
@@ -264,7 +260,7 @@ StudentDataRepositoryDao {
 			s.setAdministrationApogee(adminApogee);
 		} else {
 			s = studentApogee;
-		}	
+		}
 		return s;
 	}
 
@@ -273,7 +269,7 @@ StudentDataRepositoryDao {
 	 * @see org.esupportail.pstage.dao.referentiel.StudentDataRepositoryDao#getEtudiantsRefByName(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public List<EtudiantRef> getEtudiantsRefByName(String universityCode,
-			String name, String firstName) {
+												   String name, String firstName) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("#getEtudiantsRefByName# [universityCode  :"+universityCode+"]");
 		}
@@ -281,7 +277,7 @@ StudentDataRepositoryDao {
 		name=name==null?"":name;
 		List<EtudiantRef> students = new ArrayList<EtudiantRef>();
 
-		String filter = "(&(" + ldapAttributes.getLdapAffiliation() + "=" + ldapAttributes.getLdapStudentAffiliation() + ")"; 
+		String filter = "(&(" + ldapAttributes.getLdapAffiliation() + "=" + ldapAttributes.getLdapStudentAffiliation() + ")";
 		if (StringUtils.hasText(name)) {
 			filter += "(" + ldapAttributes.getLdapName() + "=*" + name + "*)";
 		}
@@ -318,7 +314,7 @@ StudentDataRepositoryDao {
 			// creation d'un user et alimentation des donn�es 
 			EtudiantRef etudiantUser = new EtudiantRef();
 			etudiantUser.setIdentEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapUid()));
-			etudiantUser.setNumEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapStudentId()));    
+			etudiantUser.setNumEtudiant(ldapuser.getAttribute(ldapAttributes.getLdapStudentId()));
 			etudiantUser.setNom(ldapuser.getAttribute(ldapAttributes.getLdapName()));
 			etudiantUser.setPrenom(ldapuser.getAttribute(ldapAttributes.getLdapFirstName()));
 			if (ldapuser.getAttribute(ldapAttributes.getLdapMail()) != null) {
@@ -364,7 +360,7 @@ StudentDataRepositoryDao {
 					}
 				}
 			}
-		} 
+		}
 
 		return students;
 	}
@@ -442,16 +438,14 @@ StudentDataRepositoryDao {
 			AdministratifMetierServiceInterfaceProxy serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
 
 			// Recherche l'etudiant dans Apogee
-			IdentifiantsEtudiantDTO etudiant;
-
-			etudiant = etudiantMetierService.recupererIdentifiantsEtudiant(
+			IdentifiantsEtudiantDTO etudiant = etudiantMetierService.recupererIdentifiantsEtudiant(
 					id, null, null, null, null, null, null, null, null, this.temoinRecupAnnu);
 
 			// Recuperation des infos de l'etudiant dans Apogee
 			InfoAdmEtuDTO infosAdmEtu = etudiantMetierService.recupererInfosAdmEtu(etudiant.getCodEtu().toString());
 
 			// Recuperation des coordonnees de l'etudiant
-			CoordonneesDTO2 coordonnees = new CoordonneesDTO2();		
+			CoordonneesDTO2 coordonnees = new CoordonneesDTO2();
 			try{
 				coordonnees = etudiantMetierService.recupererAdressesEtudiant_v2(
 						etudiant.getCodEtu().toString(), null, this.temoinRecupAnnu);
@@ -459,16 +453,15 @@ StudentDataRepositoryDao {
 				coordonnees = etudiantMetierService.recupererAdressesEtudiant_v2(
 						etudiant.getCodEtu().toString(), anneeCourante, this.temoinRecupAnnu);
 			}
-
 			cod_ind = etudiant.getCodInd();
 
 			// recuperation du nom, prenom
 			if (infosAdmEtu.getNomPatronymique() != null) {
 				nompatro = infosAdmEtu.getNomPatronymique();
-			} 
+			}
 			if (infosAdmEtu.getNomUsuel() != null) {
 				nommarital = infosAdmEtu.getNomUsuel();
-			} 
+			}
 
 			if (infosAdmEtu.getPrenom1() != null) {
 				prenom = infosAdmEtu.getPrenom1();
@@ -557,103 +550,40 @@ StudentDataRepositoryDao {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Verification des inscriptions annuelles de l'étudiant");
 			}
-			boolean isInscriptionCourante = true; // inscription sur l'annee courante
-			boolean isInscriptionAnt = true; // inscription sur l'annee anterieure
-			boolean isInscriptionPost = true; // inscription sur l'annee posterieure
-			InsAdmAnuDTO2[] tabInsAdmAnu;
-			InsAdmAnuDTO2[] tabInsAdmAnuAnt;
-			InsAdmAnuDTO2[] tabInsAdmAnuPost;
+
 			List<String> listeAnneesUniv = new ArrayList<String>();
 
-			// INSCRIPTION SUR L'ANNEE COURANTE ?
-			try {
-				tabInsAdmAnu = serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeCourante, "E");
-				if (logger.isDebugEnabled()) {
-					logger.debug("Inscription trouvee sur l'annee courante ("+anneeCourante+")");
-				}
-			} catch (WebBaseException e) {
-				isInscriptionCourante = false;
-				tabInsAdmAnu = new InsAdmAnuDTO2[0];
-				if (logger.isDebugEnabled()) {
-					if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-						logger.debug("Aucun resultat pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeCourante);
-					} else if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")
-							|| e.toString().equals("technical.data.nullretrieve.findIAA")
-							|| e.toString().equals("technical.data.nullretrieve.findIAE")) {
-						logger.debug("Pas d'inscription pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeCourante);
-					} else {
-						logger.debug("WebBaseException recupererIAAnnuelles_v2 annee courante = " + e );
-					}
-				}
-			} catch (Exception e) {
-				logger.error("Exception pour "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeCourante+" : " + e);
-				throw new CommunicationApogeeException(e);
-			}
+			String [] annees = serviceAdministratif.recupererAnneesIa(etudiant.getCodEtu().toString(), "E");
 
 			// INSCRIPTION SUR L'ANNEE PRECEDENTE ?
-			try {
-				tabInsAdmAnuAnt =  serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneePrecedente, "E");
-				if (logger.isDebugEnabled()) {
-					logger.debug("Inscription trouvee sur l'annee precedente ("+anneePrecedente+")");
-				}
-			} catch (WebBaseException e) {
-				isInscriptionAnt = false;
-				tabInsAdmAnuAnt = new InsAdmAnuDTO2[0];
-				if (logger.isDebugEnabled()) {
-					if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-						logger.debug("Aucun resultat pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneePrecedente);
-					} else if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")
-							|| e.toString().equals("technical.data.nullretrieve.findIAA")
-							|| e.toString().equals("technical.data.nullretrieve.findIAE")) {
-						logger.debug("Pas d'inscription pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneePrecedente);
-					} else {
-						logger.debug("WebBaseException recupererIAAnnuelles_v2 annee précédente = " + e );
-					}
-				}
-			} catch (Exception e) {
-				logger.error("Exception pour "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneePrecedente+" : " + e);
-				throw new CommunicationApogeeException(e);
+			if (Arrays.asList(annees).contains(anneePrecedente)){
+				logger.debug("Inscription trouvee sur l'annee precedente ("+anneePrecedente+")");
+				listeAnneesUniv.add(anneePrecedente);
+			} else {
+				logger.debug("Pas d'inscription pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneePrecedente);
+			}
+
+			// INSCRIPTION SUR L'ANNEE COURANTE ?
+			if (Arrays.asList(annees).contains(anneeCourante)){
+				logger.debug("Inscription trouvee sur l'annee courante ("+anneeCourante+")");
+				listeAnneesUniv.add(anneeCourante);
+			} else {
+				logger.debug("Pas d'inscription pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeCourante);
 			}
 
 			// INSCRIPTION SUR L'ANNEE SUIVANTE ?
-			try {
-				tabInsAdmAnuPost = serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeSuivante, "E");
-				if (logger.isDebugEnabled()) {
-					logger.debug("Inscription trouvee sur l'annee suivante ("+anneeSuivante+")");
-				}
-			} catch (WebBaseException e) {
-				isInscriptionPost = false;
-				tabInsAdmAnuPost = new InsAdmAnuDTO2[0];
-				if (logger.isDebugEnabled()) {
-					if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-						logger.debug("Aucun resultat pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeSuivante);
-					} else if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")
-							|| e.toString().equals("technical.data.nullretrieve.findIAA")
-							|| e.toString().equals("technical.data.nullretrieve.findIAE")) {
-						logger.debug("Pas d'inscription pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeSuivante);
-					} else {
-						logger.debug("WebBaseException recupererIAAnnuelles_v2 annee suivante = " + e );
-					}
-				}
-			} catch (Exception e) {
-				logger.error("Exception pour "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeSuivante+" : " + e);
-				throw new CommunicationApogeeException(e);
-			}
-
-			if (!isInscriptionCourante && !isInscriptionAnt && !isInscriptionPost){
-				throw new AdministrationApogeeException("Pas d'inscription pour l'annee courante, précédente, ou suivante. Voir les logs precedents pour plus de details.",
-						new WebBaseException());
+			if (Arrays.asList(annees).contains(anneeSuivante)){
+				logger.debug("Inscription trouvee sur l'annee suivante ("+anneeSuivante+")");
+				listeAnneesUniv.add(anneeSuivante);
 			} else {
-				if (isInscriptionAnt) listeAnneesUniv.add(anneePrecedente);
-				if (isInscriptionCourante) listeAnneesUniv.add(anneeCourante);
-				if (isInscriptionPost) listeAnneesUniv.add(anneeSuivante);
+				logger.debug("Pas d'inscription pour l'etudiant "+ etudiant.getCodEtu().toString()+" sur l'annee "+anneeSuivante);
 			}
 
-			// Recuperation du libelle CPAM a partir de l'annee courante (avant de fusionner les tabs)
-			for (InsAdmAnuDTO2 insAdmAnu : tabInsAdmAnu) {
+			// Recuperation du libelle CPAM a partir de l'IA sur l'annee courante
+			for (InsAdmAnuDTO2 insAdmAnu : serviceAdministratif.recupererIAAnnuelles_v2(etudiant.getCodEtu().toString(), anneeCourante, "E")) {
 				if (insAdmAnu.getCpam() != null) {
 					if (logger.isDebugEnabled()) {
-						logger.debug("insAdmAnu.getCpam().getLibCpam() : "+insAdmAnu.getCpam().getLibCpam());
+						logger.debug("Libelle CPAM : "+insAdmAnu.getCpam().getLibCpam());
 					}
 					if (insAdmAnu.getCpam().getLibCpam() != null) {
 						libelleCPAM = insAdmAnu.getCpam().getLibCpam();
@@ -661,39 +591,11 @@ StudentDataRepositoryDao {
 				}
 			}
 
-			if (tabInsAdmAnuAnt.length!=0 || tabInsAdmAnuPost.length!=0){
-				int t = tabInsAdmAnu.length;
-				int finalSize = (t+tabInsAdmAnuAnt.length+tabInsAdmAnuPost.length);
-				InsAdmAnuDTO2[] finalTab = new InsAdmAnuDTO2[finalSize];
-				int i=0;
-				int k=0;
-				int l=0;
-
-				while (i<t){
-					finalTab[i] = tabInsAdmAnu[i];
-					i++;
-				}
-				if (tabInsAdmAnuAnt.length != 0){
-					while(i<finalSize && k<tabInsAdmAnuAnt.length){
-						finalTab[i] = tabInsAdmAnuAnt[k];
-						i++;
-						k++;
-					}
-				}
-				if (tabInsAdmAnuPost.length != 0){
-					while(i<finalSize && l<tabInsAdmAnuPost.length){
-						finalTab[i] = tabInsAdmAnuPost[l];
-						i++;
-						l++;
-					}
-				}
-				tabInsAdmAnu = finalTab;
-			}
 
 			studentApogee.setIdentEtudiant(id);
 			studentApogee.setNumEtudiant(etudiant.getCodEtu().toString());
-			studentApogee.setNom(nompatro);	
-			studentApogee.setNomMarital(nommarital);	
+			studentApogee.setNom(nompatro);
+			studentApogee.setNomMarital(nommarital);
 			studentApogee.setPrenom(prenom);
 			studentApogee.setMail(mail);
 			studentApogee.setCodeUniversite(universityCode);
@@ -790,7 +692,7 @@ StudentDataRepositoryDao {
 		if (studentApogee != null) {
 			if (studentApogee.getStudys() != null && !studentApogee.getStudys().isEmpty()) {
 				s.setStudys(studentApogee.getStudys());
-			}			
+			}
 		} else {
 			s.setStudys(studentLdap.getStudys());
 		}
@@ -800,7 +702,7 @@ StudentDataRepositoryDao {
 				logger.debug("studentApogee.getNom() = "+studentApogee.getNom());
 				logger.debug("studentApogee.getMail() = "+studentApogee.getMail());
 			}
-			s.setNom(studentApogee.getNom());	
+			s.setNom(studentApogee.getNom());
 			s.setPrenom(studentApogee.getPrenom());
 			// recuperation du mail dans l'annuaire
 			if (StringUtils.hasText(studentApogee.getMail())) {
@@ -830,12 +732,12 @@ StudentDataRepositoryDao {
 				s.setListeAnneesUniv(studentApogee.getListeAnneesUniv());
 			}
 		} else {
-			s.setNom(nompatro);	
-			s.setNomMarital(nommarital);	
+			s.setNom(nompatro);
+			s.setNomMarital(nommarital);
 			s.setPrenom(prenom);
 			if (studentLdap.getMail() != null) {
 				mail = studentLdap.getMail();
-			} 
+			}
 			s.setSteps(steps);
 
 			// ajout des informations etudiants
@@ -868,13 +770,19 @@ StudentDataRepositoryDao {
 		if (logger.isDebugEnabled()) {
 			logger.debug("#getEtapesByEtudiantAndAnnee# - cod : " + cod);
 		}
+		long t1 = System.currentTimeMillis();
 		// recherche des Inscriptions Administratives et Inscription Pedagogiques
 		ApogeeMap apogeeMap = getStudentIAIP(cod, anneeScolaire);
+		long t2 = System.currentTimeMillis();
+		System.out.println("duree getStudentIAIP : " + (t2-t1) +" ms");
 
 		if (apogeeMap != null) {
 			// Si on a bien des inscriptions, recherche des elements pedagogiques
 			// (apogeeMap en param est FINAL, elle est donc modifiee definitivement au sein de la methode)
-			ApogeeMap apogeeMapELP = getStudentELPV2(cod, apogeeMap);
+			t1 = System.currentTimeMillis();
+//			ApogeeMap apogeeMapELP = getStudentELPV2(cod, apogeeMap);
+			t2 = System.currentTimeMillis();
+			System.out.println("duree getStudentELPV2 : " + (t2-t1) +" ms");
 		}
 
 		return apogeeMap;
@@ -882,7 +790,7 @@ StudentDataRepositoryDao {
 
 	/**
 	 * recherche des Inscriptions Administratives et Inscriptions Pedagogiques.
-	 * @param cod 
+	 * @param cod
 	 * @return  ApogeeMap
 	 */
 	public ApogeeMap getStudentIAIP(String cod, String annee) {
@@ -903,7 +811,10 @@ StudentDataRepositoryDao {
 		// (inscription admin etape en cours (E)) en fonction de l'annee en param
 		InsAdmEtpDTO2[] tabInsAdmEtp;
 		try {
+			long t1 = System.currentTimeMillis();
 			tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, annee, "E", "E");
+			long t2 = System.currentTimeMillis();
+			System.out.println("RecupererIAEtapes_v2 : " + (t2-t1) + " ms");
 		} catch (WebBaseException e) {
 			tabInsAdmEtp = new InsAdmEtpDTO2[0];
 			if (logger.isDebugEnabled()){
@@ -928,6 +839,9 @@ StudentDataRepositoryDao {
 		LinkedHashMap<String,String> lComposante = new LinkedHashMap<String, String>();
 		// Liste des etapes a l'inscription administrative
 		List<EtapeInscription> listeEtapeInscriptions = new  ArrayList<EtapeInscription>();
+		// Pour les Elps
+		LinkedHashMap<String,ElementPedagogique> elementPedagogiques = new LinkedHashMap<String,ElementPedagogique>();
+		List<ElementPedagogique> listeELPs = new  ArrayList<ElementPedagogique>();
 
 		// recherche des Inscriptions Administratives payees de l'etudiant
 		for (InsAdmEtpDTO2 insAdmEtp : tabInsAdmEtp) {
@@ -938,7 +852,7 @@ StudentDataRepositoryDao {
 						", libEtape : "+insAdmEtp.getEtape().getLibWebVet() +
 						", codeComposante : " + insAdmEtp.getComposante().getCodComposante() +
 						", libComposante : " + insAdmEtp.getComposante().getLibComposante() +
-						", codeInscriptionPayee : " + insAdmEtp.getCodeInscriptionPayee()+"]"); 
+						", codeInscriptionPayee : " + insAdmEtp.getCodeInscriptionPayee()+"]");
 			}
 
 			if (insAdmEtp.getCodeInscriptionPayee().equals("P")) {
@@ -955,13 +869,13 @@ StudentDataRepositoryDao {
 						if(composante != null && composante[0]!=null && composante[0].getLibCmp()!=null){
 							libComp=composante[0].getLibCmp();
 						}
-						lComposante.put(idlComp + "" , libComp);
 					} catch (WebBaseException e) {
 						composante = new ComposanteDTO3[0];
 						logger.warn("WebBaseException recupererComposante_v2 : " + e );
 						continue;
 					}
 				}
+				lComposante.put(idlComp + "" , libComp);
 
 				//**********************
 				// POUR LES ETAPES
@@ -992,24 +906,26 @@ StudentDataRepositoryDao {
 					etpins.setLibDiplome(insAdmEtp.getDiplome().getLibLongDiplome());
 					String versDiplome = insAdmEtp.getDiplome().getVersionDiplome();
 					etpins.setVersionDiplome(versDiplome);
-
 					try {
 						OffreFormationMetierServiceInterfaceProxy offreFormationMetierService = new OffreFormationMetierServiceInterfaceProxy();
 
 						// recherche du cursus LMD, codFinalite
 						SECritereDTO2 seCritereDTO = new SECritereDTO2();
-						seCritereDTO.setCodAnu(annee);
-						seCritereDTO.setCodDip(codeDiplome);
-						seCritereDTO.setCodElp("aucun");
-						seCritereDTO.setCodEtp("aucun");
-						seCritereDTO.setCodVrsVdi(versDiplome);
-						seCritereDTO.setCodVrsVet("aucun");
+//						seCritereDTO.setCodAnu(annee);
+						seCritereDTO.setCodDip("aucun");
+						seCritereDTO.setCodVrsVdi("aucun");
+//						seCritereDTO.setCodEtp("aucun");
+						seCritereDTO.setCodEtp(insAdmEtp.getEtape().getCodeEtp());
+//						seCritereDTO.setCodVrsVet("aucun");
+						seCritereDTO.setCodVrsVet(insAdmEtp.getEtape().getVersionEtp());
+						seCritereDTO.setCodElp("tous");
+//						seCritereDTO.setCodNatureElp("stag");
 
+						long t1 = System.currentTimeMillis();
 						DiplomeDTO3[] diplomeDTO = offreFormationMetierService.recupererSE_v3(seCritereDTO);
+						long t2 = System.currentTimeMillis();
+						System.out.println("recupererSE_v3 : " + (t2-t1) + " ms");
 						if (diplomeDTO != null) {
-							if (logger.isDebugEnabled()) {
-								logger.debug("Nombre de diplomeDTO trouves via recupererSE_v3 : " + diplomeDTO.length);
-							}
 							for (int i = 0; i < diplomeDTO.length; i++) {
 								VersionDiplomeDTO3[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
 								for (int j = 0; j < versionDiplome.length; j++) {
@@ -1023,6 +939,37 @@ StudentDataRepositoryDao {
 										}
 										if (offreFormation.getLibFinalite() != null) {
 											etpins.setLibFinalite(offreFormation.getLibFinalite());
+										}
+
+										// Recup éléments pédagogiques
+										ListeElementPedagogiDTO2[] listeelementPedagogiDTO = offreFormation.getListEtape()[0].getListVersionEtape()[0].getListListeElementPedagogi();
+										System.out.println("Taille liste elements pedagogiques dto : " + listeelementPedagogiDTO.length);
+										if(listeelementPedagogiDTO != null) {
+											for (int k = 0; k < listeelementPedagogiDTO.length; k++) {
+												ElementPedagogiDTO2[] elementPedagogique = listeelementPedagogiDTO[k].getListElementPedagogi();
+												for (int l = 0; l < elementPedagogique.length; l++) {
+													// Remplissage de la table des elements pedagogiques si elp de nature stage (ou avec temoin stage actif) et non suspendu
+													if ((elementPedagogique[l].getLibNatureElp().equalsIgnoreCase("stage") || elementPedagogique[l].getTemStage().equals("O"))
+															&& !elementPedagogique[l].getTemSusp().equals("O")) {
+														ElementPedagogique elpedago = new ElementPedagogique();
+														elpedago.setCodEtp(etpins.getCodeEtp());
+														elpedago.setCodVrsVet(etpins.getCodVrsVet());
+														elpedago.setCodElp(elementPedagogique[l].getCodElp());
+														elpedago.setLibElp(elementPedagogique[l].getLibElp());
+														elpedago.setTemElpTypeStage(elementPedagogique[l].getTemStage());
+														if (elementPedagogique[l].getCredits() != null) {
+															elpedago.setNbrCrdElp(elementPedagogique[l].getCredits());
+														}
+														//renseignement de la map element pedagogique
+														elementPedagogiques.put(etpins.getCodeEtp() + "", elpedago);
+														// renseignement de la liste des elements pedagogiques
+														if (!listeELPs.contains(elpedago)) {
+															listeELPs.add(elpedago);
+														}
+
+													}
+												}
+											}
 										}
 									}
 								}
@@ -1042,13 +989,15 @@ StudentDataRepositoryDao {
 			}
 		}
 
-
+		/*
 		// recherche des Inscriptions pedagogiques 
 		try{
-			
-			ContratPedagogiqueResultatVdiVetDTO2[]  tabcontratPedagoResultatVdiVet = 
+			long t1 = System.currentTimeMillis();
+			ContratPedagogiqueResultatVdiVetDTO2[]  tabcontratPedagoResultatVdiVet =
 					servicePedagogique.recupererContratPedagogiqueResultatVdiVet_v2(cod, annee, DonneesStatic.ws_sourceRes_Apogee, "", "", "","E");
-			if(tabcontratPedagoResultatVdiVet!=null){
+			long t2 = System.currentTimeMillis();
+			System.out.println("recupererContratPedagogiqueResultatVdiVet_v2 : " + (t2-t1) + " ms");
+			if(tabcontratPedagoResultatVdiVet != null){
 				for (ContratPedagogiqueResultatVdiVetDTO2 contratPedagoResVdiVet : tabcontratPedagoResultatVdiVet) {
 
 					EtapeResVdiVetDTO2[]  tabEtapeResVdiVet = contratPedagoResVdiVet.getEtapes();
@@ -1060,7 +1009,7 @@ StudentDataRepositoryDao {
 								logger.debug("[codeEtape : "+etapeResVdiVet.getEtape().getCodEtp() +
 										", codeVersionEtape : " + etapeResVdiVet.getEtape().getCodVrsVet() +
 										", libEtape : "+etapeResVdiVet.getEtape().getLibWebVet() +
-										", etatInscription : E ]"); 
+										", etatInscription : E ]");
 							}
 							// liste etape
 							Object idl=etapeResVdiVet.getEtape().getCodEtp();
@@ -1096,11 +1045,15 @@ StudentDataRepositoryDao {
 			logger.error("Exception pour "+ cod +" sur l'annee "+ annee +" : " + e);
 		}
 
+		*/
+
 		apogeeMap.setStudentSteps(lEtape);
 		apogeeMap.setStudentsEtapesVets(lEtapeVet);
 		apogeeMap.setStudentsEtapesVetsPedago(lEtapeVetPedago);
 		apogeeMap.setListeEtapeInscriptions(listeEtapeInscriptions);
 		apogeeMap.setStudentStudys(lComposante);
+		apogeeMap.setElementPedagogiques(elementPedagogiques);
+		apogeeMap.setListeELPs(listeELPs);
 
 		if (logger.isDebugEnabled()){
 			logger.debug("- ApogeeMap -");
@@ -1108,19 +1061,20 @@ StudentDataRepositoryDao {
 					", StudentsEtapesVets : " + lEtapeVet +
 					", StudentsEtapesVetsPedago : "+ lEtapeVetPedago +
 					", ListeEtapeInscriptions : "+ listeEtapeInscriptions +
-					", StudentStudys : " + lComposante +"]"); 
+					", StudentStudys : " + lComposante +"]");
 		}
 
 		return apogeeMap;
 	}
 
+
 	/**
 	 * recherche des ELPs etudiant.
-	 * @param cod 
-	 * @param apogeeMap 
+	 * @param cod
+	 * @param apogeeMap
 	 * @return ApogeeMap
 	 */
-	public ApogeeMap getStudentELPV2(final String cod, final ApogeeMap apogeeMap) {
+/*	public ApogeeMap getStudentELPV2(final String cod, final ApogeeMap apogeeMap) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("#getStudentELPV2# - cod : " + cod);
 		}
@@ -1134,7 +1088,7 @@ StudentDataRepositoryDao {
 			String vetEtape = "";
 			LinkedHashMap<String,ElementPedagogique> elementPedagogiques = new LinkedHashMap<String,ElementPedagogique>();
 			List<ElementPedagogique> listeELPs = new  ArrayList<ElementPedagogique>();
-			if (tabStudentsEtapesVets != null &&  (!tabStudentsEtapesVets.isEmpty())) {
+			if (tabStudentsEtapesVets != null && (!tabStudentsEtapesVets.isEmpty())) {
 				Iterator<String> it2 = tabStudentsEtapesVets.keySet().iterator();
 				while (it2.hasNext()) {
 					etape = it2.next();
@@ -1154,16 +1108,16 @@ StudentDataRepositoryDao {
 						seCritereDTO.setCodVrsVet(vetEtape);
 
 						// recherche des Elements Pedagogiques des etapes, versions etapes
+						long t1 = System.currentTimeMillis();
 						DiplomeDTO3[] diplomeDTO = offreFormationMetierService.recupererSE_v3(seCritereDTO);
+						long t2 = System.currentTimeMillis();
+						System.out.println("ELPV2 - recupererSE_v3 " + (t2-t1) + " ms");
 						if (diplomeDTO != null) {
-							if (logger.isDebugEnabled()) {
-								logger.debug("Nombre de diplomeDTO trouves via recupererSE_v3 : " + diplomeDTO.length);
-							}
 							for (int i = 0; i < diplomeDTO.length; i++) {
 								VersionDiplomeDTO3[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
 								for (int j = 0; j < versionDiplome.length; j++) {
 									OffreFormationDTO3 offreFormation = versionDiplome[j].getOffreFormation();
-									ListeElementPedagogiDTO2[] listeelementPedagogiDTO = 
+									ListeElementPedagogiDTO2[] listeelementPedagogiDTO =
 											offreFormation.getListEtape()[0].getListVersionEtape()[0].getListListeElementPedagogi();
 									for (int k = 0; k < listeelementPedagogiDTO.length; k++) {
 										ElementPedagogiDTO2[] elementPedagogique = listeelementPedagogiDTO[k].getListElementPedagogi();
@@ -1225,91 +1179,6 @@ StudentDataRepositoryDao {
 			logger.error("Exception in getStudentELPV2 = " + e);
 			throw new CommunicationApogeeException(e);
 		}
-	}
-
-	/*
-	public LinkedHashMap<String,String> getStudentComposantes(final String cod) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("getStudentComposantes - cod : " + cod);
-		}
-		LinkedHashMap<String,String> lvide = new LinkedHashMap<String, String>();
-		try {
-			AdministratifMetierServiceInterface serviceAdministratif = new AdministratifMetierServiceInterfaceProxy();
-
-			// recuperer les etapes auxquelles l'etudiant est inscrit administrativement (inscription admin etape en cours (E))
-			InsAdmEtpDTO2[] tabInsAdmEtp;
-			try {
-				tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, getYear(),"E", "E");
-			} catch (WebBaseException e) {
-				logger.warn("WebBaseException annee courante = " + e );
-				tabInsAdmEtp = new InsAdmEtpDTO2[0];
-				if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-					logger.warn("Aucun resultat pour l'etudiant "+ cod +" sur l'annee "+annee);
-				}
-				if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-					logger.warn("Pas d'inscription pedagogique pour l'etudiant "+ cod +" sur l'annee "+annee);
-				}
-				if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-					logger.warn("Erreur : "+e.getLastErrorMsg() + " pour l'etudiant "+ cod +" sur l'annee " + annee);
-				}
-
-			} catch (Exception e) {
-				logger.error("Exception : " + e);
-				throw new CommunicationApogeeException(e);
-			}
-
-
-			LinkedHashMap<String,String> l = new LinkedHashMap<String, String>();
-
-			// recuperer les Inscriptions Administratives payees de l'etudiant
-			for (InsAdmEtpDTO2 insAdmEtp : tabInsAdmEtp) {
-				if (logger.isDebugEnabled()){
-					logger.debug("StudentDataRepositoryDaoWS:: lecture insAdmEtp, cod = "+insAdmEtp.getEtape().getCodeEtp() + " lib = "+insAdmEtp.getEtape().getLibWebVet() +
-							" insAdmEtp.getCodeInscriptionPayee() : " + insAdmEtp.getCodeInscriptionPayee() );
-				}
-				if (insAdmEtp.getCodeInscriptionPayee().equals("P")) {
-					Object idl = insAdmEtp.getComposante().getCodComposante();
-					String lib = insAdmEtp.getComposante().getLibComposante();
-					if(lib == null){
-						ReferentielMetierServiceInterface referentielMetierService = 
-								(ReferentielMetierSoapBindingStub) WSUtils.getService(
-										WSUtils.REFERENTIEL_SERVICE_NAME);
-						ComposanteDTO3[] lcomposante = referentielMetierService.recupererComposante_v2((String)idl, null);
-						if(lcomposante[0]!=null && lcomposante[0].getLibCmp()!=null){
-							lib=lcomposante[0].getLibCmp();
-						}
-					}
-					l.put(idl + "" , lib);
-					if (logger.isDebugEnabled()) {
-						logger.debug("StudentDataRepositoryDaoWS:: " 
-								+ "insAdmEtp.getComposante().getCodComposante() = "
-								+ insAdmEtp.getComposante().getCodComposante());
-						logger.debug("StudentDataRepositoryDaoWS:: " 
-								+ "insAdmEtp.getComposante().getLibComposante() = "
-								+ insAdmEtp.getComposante().getLibComposante());
-					}
-
-				}
-
-			}
-			return l;
-		} catch (WebBaseException e) {
-			logger.error("WebBaseException in getStudentComposantes : " + e );
-
-			if (e.toString().equals("technical.parameter.noncoherentinput.invalidUser")) {
-				logger.warn("Aucun resultat pour l'etudiant "+ cod +" sur l'annee "+annee);
-			}
-			if (e.toString().equals("technical.data.nullretrieve.DossierEtudiantIP")) {
-				logger.warn("Pas d'inscription pedagogique pour l'etudiant "+ cod +" sur l'annee "+annee);
-			}
-			if (e.toString().equals("technical.data.nullretrieve.findIAE")) {
-				logger.warn("Erreur : "+e.getLastErrorMsg() + " pour l'etudiant "+ cod +" sur l'annee " + annee);
-			}
-			return lvide;
-		} catch (Exception e) {
-			logger.error("Exception in getStudentComposantes : " + e);
-			throw new CommunicationApogeeException(e);
-		}
 	}*/
 
 	/**
@@ -1361,7 +1230,7 @@ StudentDataRepositoryDao {
 			logger.warn("WebBaseException in getStudentByNum = " + e );
 			if (e.toString().equals("technical.security.invaliduser.user")) {
 				logger.warn("Aucun resultat pour l'etudiant "+ codEtu);
-			} 
+			}
 			if (e.toString().equals("technical.data.nullretrieve.findIAA")) {
 				logger.warn("Pas d'inscription pedagogique pour l'etudiant "+ codEtu);
 			}

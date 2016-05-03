@@ -424,13 +424,11 @@
 				<t:htmlTag value="div" style="width:20px;" />
 				<h:panelGrid columns="3">
 					<h:outputText value="#{msgs['CONVENTION.SIMTGRATIFICATION']}" />
-					<h:panelGrid columns="6">
+					<t:div>
 						<h:inputText id="montantGratification" size="4"
 							required="#{conventionController.selIndemnisation.libelle==beanUtils.indemnisationOui }"
 							requiredMessage="#{requiredMessageController.champObligatoire}"
-							value="#{conventionController.convention.montantGratification}"
-							validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
-							<f:validator binding="#{mtGratificationValidator}" />
+							value="#{conventionController.convention.montantGratification}">
 							<p:ajax event="blur" />
 						</h:inputText>
 
@@ -473,7 +471,7 @@
 									value="#{nomenclatureController.uniteGratifications}" />
 							</h:selectOneMenu>
 						</h:panelGrid>
-					</h:panelGrid>
+					</t:div>
 					<p:message for="montantGratification">
 						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 					</p:message>

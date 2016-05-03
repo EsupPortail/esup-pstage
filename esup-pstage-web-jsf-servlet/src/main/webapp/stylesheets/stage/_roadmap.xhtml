@@ -1,15 +1,20 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
-	<h:form id="roadMapForm">
-		<ui:repeat value="#{conventionController.sequences}" var="sequence">
-			<p:commandButton value="#{sequence.title}"
-				rendered="#{sequence.disabled}" disabled="#{sequence.disabled}"
-				action="#{sequence.actionEtape}" />
-			<p:commandButton value="#{sequence.title}"
-				rendered="#{!sequence.disabled}" disabled="#{sequence.disabled}"
-				action="#{sequence.actionEtape}" />
-		</ui:repeat>
-	</h:form>
+                xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:repeat value="#{conventionController.sequences}" var="sequence">
+        <p:commandButton value="#{sequence.title}" immediate="true"
+                         rendered="#{sequence.disabled}" disabled="true"
+                         action="#{sequence.actionEtape}" update="@form"
+                         style="color: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? '#2C7094' : 'black'};
+                    opacity: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? 1 : .35};"/>
+        <p:commandButton value="#{sequence.title}" immediate="true"
+                         rendered="#{!sequence.disabled}" disabled="false"
+                         action="#{sequence.actionEtape}" update="@form"
+                         style="color: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? '#2C7094' : 'black'};">
+            <f:setPropertyActionListener value="#{sequence}" target="#{conventionController.sequenceEtapeEnum}" />
+        </p:commandButton>
+    </ui:repeat>
 </ui:composition>
+

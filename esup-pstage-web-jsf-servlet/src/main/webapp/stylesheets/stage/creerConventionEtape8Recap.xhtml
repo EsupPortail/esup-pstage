@@ -5,12 +5,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/stylesheets/_definedStageTemplate.xhtml">
     <ui:define name="content">
-        <ui:include src="_roadmap.xhtml" />
         <p:panel>
             <f:facet name="header">
                 <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
             </f:facet>
             <h:form id="formConvention">
+                <ui:include src="_roadmap.xhtml" />
                 <p:panel
                         style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
                     <f:facet name="header">

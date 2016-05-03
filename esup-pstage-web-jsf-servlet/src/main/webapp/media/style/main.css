@@ -385,15 +385,15 @@ body {
   margin: 0 0 20px 0;
   padding: 0;
   background: transparent;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #094667;
   text-align: left;
 }
-@media (min-width: 801px) {
-  #MAIN_CONTENT .ui-panel .ui-panel-titlebar {
-    text-align: center;
-  }
-}
+/*@media (min-width: 801px) {*/
+  /*#MAIN_CONTENT .ui-panel .ui-panel-titlebar {*/
+    /*text-align: center;*/
+  /*}*/
+/*}*/
 #MAIN_CONTENT .ui-panel .ui-panel-content {
   border: 0;
   margin: 0;
@@ -681,4 +681,27 @@ body {
 }
 .mb20 {
   margin-bottom: 20px !important;
+}
+
+.mt40 {
+    margin-top: 40px !important;
+}
+.ml40 {
+    margin-left: 0 !important;
+}
+@media (min-width: 801px) {
+    .ml40 {
+        margin-left: 40px !important;
+    }
+}
+.mr40 {
+    margin-right: 0 !important;
+}
+@media (min-width: 801px) {
+    .mr40 {
+        margin-right: 40px !important;
+    }
+}
+.mb40 {
+    margin-bottom: 40px !important;
 }
