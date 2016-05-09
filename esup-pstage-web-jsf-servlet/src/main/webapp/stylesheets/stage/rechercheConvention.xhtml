@@ -33,13 +33,9 @@
                 <p:fieldset toggleable="true" legend="General">
                     <t:htmlTag value="ul" styleClass="formUL columns-2">
                         <t:div styleClass="column">
-                            <t:htmlTag value="li">
-                                <p:outputLabel
-                                        rendered="#{not empty nomenclatureController.anneesConvention}"
-                                        value="#{msgs['RECHERCHECONVENTION.ANNEEU']}" for="anU" />
-                                <p:selectOneMenu id="anU" effect="none"
-                                                 rendered="#{not empty nomenclatureController.anneesConvention}"
-                                                 value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
+                            <t:htmlTag value="li" rendered="#{not empty nomenclatureController.anneesConvention}">
+                                <p:outputLabel value="#{msgs['RECHERCHECONVENTION.ANNEEU']}" for="anU" />
+                                <p:selectOneMenu id="anU" effect="none" value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.anneesConvention}" />
                                 </p:selectOneMenu>
@@ -215,10 +211,8 @@
                             </p:outputLabel>
                             <p:selectManyMenu id="ufrs" filter="true" filterMatchMode="contains"
                                               value="#{conventionController.critereRechercheConvention.idsUfrs}"
-                                              style="width:auto;" styleClass="customPstage">
+                                              style="width:auto;" styleClass="customPstage" showCheckbox="true">
                                 <f:selectItems value="#{conventionController.rechUfrs}" />
-                                              style="width:auto;" showCheckbox="true" >
-                                <f:selectItems value="#{conventionController.rechUfrs}"/>
                             </p:selectManyMenu>
                         </t:htmlTag>
                         <t:htmlTag value="li" styleClass="widthAuto"

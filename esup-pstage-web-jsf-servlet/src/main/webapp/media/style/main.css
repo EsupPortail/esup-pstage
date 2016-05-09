@@ -131,6 +131,7 @@ body {
   margin: 0 0 10px 0;
   text-align: left;
   font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 #SIDEBAR #SIDEBAR_MENU .ui-button.customPstage:hover {
   font-weight: bold;
@@ -449,7 +450,7 @@ body {
 .formUL li.widthAuto .ui-selectonemenu {
   width: auto !important;
 }
-.ui-inputfield.ui-inputtext.customPstage {
+.ui-inputfield.ui-inputtext {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -463,26 +464,71 @@ body {
   box-sizing: border-box;
   width: 100%;
 }
-.ui-inputfield.ui-inputtext.customPstage:focus {
+.ui-inputfield.ui-inputtext:focus {
   -webkit-box-shadow: 0px 0px 4px #2c7094;
   -moz-box-shadow: 0px 0px 4px #2c7094;
   box-shadow: 0px 0px 4px #2c7094;
 }
-.ui-button.customPstage {
+.ui-button {
+  color: #094667;
+  font-weight: 500;
   display: block;
   width: 100%;
   margin-bottom: 5px;
   padding: 5px 0;
+  font-family: "Segoe UI", Verdana, Arial, sans-serif;
+}
+.ui-button:hover {
+  color: #2c7094;
+  font-weight: 500;
 }
 @media (min-width: 801px) {
-  .ui-button.customPstage {
+  .ui-button {
     display: inline-block;
     width: auto;
     margin: 0;
     padding: 0;
   }
 }
-.ui-selectonemenu.customPstage {
+.ui-selectonebutton .ui-button {
+  color: #094667;
+  font-weight: 500;
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 5px 0;
+}
+.ui-selectonebutton .ui-button:hover {
+  color: #2c7094;
+  font-weight: 500;
+}
+.ui-selectonebutton .ui-button.ui-state-active {
+  color: #f9f9f9;
+}
+.ui-selectonebutton .ui-button.ui-state-active:hover {
+  color: #f9f9f9;
+  font-weight: 500;
+}
+.ui-selectonebutton .ui-button.ui-state-active.ui-state-active {
+  background: linear-gradient(#2c7094 0%, #16587c 100%);
+}
+@media (min-width: 801px) {
+  .ui-selectonebutton .ui-button {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+}
+@media (min-width: 801px) {
+  .ui-selectonebutton {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+}
+.ui-selectonemenu {
   border-radius: 0;
   box-shadow: none;
   background: #f9f9f9;
@@ -490,18 +536,21 @@ body {
   box-sizing: border-box;
   width: 100%;
 }
-.ui-selectonemenu.customPstage .ui-selectonemenu-trigger {
+.ui-selectonemenu .ui-selectonemenu-trigger {
   border-left: 1px solid #a5a5a5;
 }
-.ui-selectonemenu.customPstage .ui-selectonemenu-label,
-.ui-selectonemenu.customPstage .ui-selectonemenu-trigger {
+.ui-selectonemenu .ui-selectonemenu-label,
+.ui-selectonemenu .ui-selectonemenu-trigger {
   border-radius: 0;
   box-shadow: none;
 }
-.ui-selectoneradio.customPstage .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+.ui-selectoneradio .ui-radiobutton .ui-radiobutton-box.ui-state-active {
   background: linear-gradient(#2c7094 0%, #16587c 100%);
 }
-.ui-chkbox.customPstage .ui-chkbox-box.ui-state-active {
+.ui-chkbox .ui-chkbox-box {
+  margin-right: 5px;
+}
+.ui-chkbox .ui-chkbox-box.ui-state-active {
   background: linear-gradient(#2c7094 0%, #16587c 100%);
 }
 .ui-state-highlight {
@@ -539,14 +588,6 @@ body {
 .ui-selectmanymenu.customPstage input.ui-selectlistbox-filter {
   width: 100% !important;
   box-sizing: border-box;
-}
-.ui-button {
-  color: #094667;
-  font-weight: normal;
-}
-.ui-button:hover {
-  color: #2c7094;
-  font-weight: normal;
 }
 .fz16 {
   font-size: 1.6rem;
