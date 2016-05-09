@@ -1,74 +1,69 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-					<p:panel>
-						<f:facet name="header">
-							<h:outputText
-								value="#{msgs['CONVENTION.ETAPE2.MODIFSERVICECONTACT']}" />
-						</f:facet>
-						<h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <ui:include src="_roadmapSel.xhtml" />
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <p:panel>
+                    <f:facet name="header">
+                        <h:outputText
+                                value="#{msgs['CONVENTION.ETAPE2.MODIFSERVICECONTACT']}" />
+                    </f:facet>
 
-							<t:div id="information">
-								<p:message for="information">
-									<ui:include src="../_commun/_messageInfoMarker.xhtml" />
-								</p:message>
-							</t:div>
+                    <t:div id="information">
+                        <p:message for="information">
+                            <ui:include src="../_commun/_messageInfoMarker.xhtml" />
+                        </p:message>
+                    </t:div>
 
-							<p:commandButton update="@form"
-								oncomplete="PF('selectServiceContact').show();"
-								value="#{msgs['CONVENTION.ETAPE2.MODIF.SERVICECONTACT.SELEC']}">
-								<!-- 					<f:setPropertyActionListener value="#{0}" -->
-								<!-- 						target="#{etablissementController.idContactSel}" /> -->
-								<!-- 					<f:setPropertyActionListener value="#{null}" -->
-								<!-- 						target="#{etablissementController.contactSel}" /> -->
-								<!-- 					<f:setPropertyActionListener value="#{0}" -->
-								<!-- 						target="#{etablissementController.idServiceSel}" /> -->
-								<!-- 					<f:setPropertyActionListener value="#{null}" -->
-								<!-- 						target="#{etablissementController.serviceSel}" /> -->
-								<f:setPropertyActionListener value="#{false}"
-									target="#{etablissementController.afficherSelectionCentreContact}" />
-							</p:commandButton>
+                    <p:commandButton update="@form"
+                                     oncomplete="PF('selectServiceContact').show();"
+                                     value="#{msgs['CONVENTION.ETAPE2.MODIF.SERVICECONTACT.SELEC']}">
+                        <!-- 					<f:setPropertyActionListener value="#{0}" -->
+                        <!-- 						target="#{etablissementController.idContactSel}" /> -->
+                        <!-- 					<f:setPropertyActionListener value="#{null}" -->
+                        <!-- 						target="#{etablissementController.contactSel}" /> -->
+                        <!-- 					<f:setPropertyActionListener value="#{0}" -->
+                        <!-- 						target="#{etablissementController.idServiceSel}" /> -->
+                        <!-- 					<f:setPropertyActionListener value="#{null}" -->
+                        <!-- 						target="#{etablissementController.serviceSel}" /> -->
+                        <f:setPropertyActionListener value="#{false}"
+                                                     target="#{etablissementController.afficherSelectionCentreContact}" />
+                    </p:commandButton>
 
-							<p:dialog id="selectServiceContact"
-								widgetVar="selectServiceContact">
-								<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
-								<p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-									oncomplete="PF('selectServiceContact').hide();"
-									action="#{conventionController.goToConventionModifServiceContact}">
-									<f:setPropertyActionListener
-										value="#{etablissementController.serviceSel}"
-										target="#{conventionController.convention.service}" />
-									<f:setPropertyActionListener
-										value="#{etablissementController.contactSel}"
-										target="#{conventionController.convention.contact}" />
-								</p:commandButton>
+                    <p:dialog id="selectServiceContact"
+                              widgetVar="selectServiceContact">
+                        <ui:include src="../_commun/_subPanelSelectContact.xhtml" />
+                        <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+                                         oncomplete="PF('selectServiceContact').hide();"
+                                         action="#{conventionController.goToConventionModifServiceContact}">
+                            <f:setPropertyActionListener
+                                    value="#{etablissementController.serviceSel}"
+                                    target="#{conventionController.convention.service}" />
+                            <f:setPropertyActionListener
+                                    value="#{etablissementController.contactSel}"
+                                    target="#{conventionController.convention.contact}" />
+                        </p:commandButton>
 
-								<t:htmlTag value="div" style="margin: 100px; display: inline;" />
+                        <t:htmlTag value="div" style="margin: 100px; display: inline;" />
 
-								<p:commandButton value="#{msgs['FORM.CANCEL']}"
-									onclick="PF('selectServiceContact').hide();" />
-							</p:dialog>
+                        <p:commandButton value="#{msgs['FORM.CANCEL']}"
+                                         onclick="PF('selectServiceContact').hide();" />
+                    </p:dialog>
 
-						</h:panelGrid>
-					</p:panel>
-				</h:panelGrid>
-			</h:form>
-			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="../_commun/_panelModifContact.xhtml" />
-			<ui:include src="../_commun/_panelAjoutService.xhtml" />
-			<ui:include src="../_commun/_panelModifService.xhtml" />
-		</p:panel>
-	</ui:define>
+                </p:panel>
+            </h:form>
+            <ui:include src="../_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="../_commun/_panelModifContact.xhtml" />
+            <ui:include src="../_commun/_panelAjoutService.xhtml" />
+            <ui:include src="../_commun/_panelModifService.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

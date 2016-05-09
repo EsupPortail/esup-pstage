@@ -6,13 +6,13 @@
 	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<ui:include src="_roadmap.xhtml" />
 		<p:panel>
 			<f:facet name="header">
 				<h:outputText
 					value="#{msgs['CONVENTION.TITRE.IMPRESSION']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formConvention">
+                <ui:include src="_roadmap.xhtml" />
 				<ui:include
 					src="/stylesheets/stage/_impressionConvention.xhtml" />
 			</h:form>

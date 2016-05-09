@@ -190,14 +190,31 @@
 									Représenté par : (nom du (de
 									la) signataire de la convention) :
 								</fo:inline>
-								<xsl:choose>
-									<xsl:when test="convention/nom-signataire-composante">
-										<xsl:value-of select="convention/nom-signataire-composante" />
-									</xsl:when>
-									<xsl:otherwise>
+                                <xsl:choose>
+                                    <xsl:when test="convention/centre-gestion/nom-viseur">
+                                        Par délégation,
+                                        <fo:inline font-weight="bold">
+                                            <xsl:call-template name="start_upper">
+                                                <xsl:with-param name="prenom">
+                                                    <xsl:value-of select="convention/centre-gestion/prenom-viseur" />
+                                                </xsl:with-param>
+                                            </xsl:call-template>
+                                            <xsl:text> </xsl:text>
+                                            <xsl:value-of
+                                                    select="translate(convention/centre-gestion/nom-viseur,$lowers,$uppers)" />
+                                        </fo:inline>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:choose>
+                                            <xsl:when test="convention/nom-signataire-composante">
+                                                <xsl:value-of select="convention/nom-signataire-composante" />
+                                            </xsl:when>
+                                            <xsl:otherwise>
 
-									</xsl:otherwise>
-								</xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:otherwise>
+                                </xsl:choose>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
@@ -206,14 +223,23 @@
 								<fo:inline font-weight="bold">
 									Qualité du représentant :
 								</fo:inline>
-								<xsl:choose>
-									<xsl:when test="convention/qualite-signataire">
-										<xsl:value-of select="convention/qualite-signataire" />
-									</xsl:when>
-									<xsl:otherwise>
-										.....................................
-									</xsl:otherwise>
-								</xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="convention/centre-gestion/nom-viseur">
+                                        <xsl:if test="convention/centre-gestion/qualite-viseur">
+                                                <xsl:value-of select="convention/centre-gestion/qualite-viseur" />
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:choose>
+                                            <xsl:when test="convention/qualite-signataire">
+                                                <xsl:value-of select="convention/qualite-signataire" />
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                .....................................
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:otherwise>
+                                </xsl:choose>
 							</fo:block>
 							<fo:block line-height="110%" hyphenate="false" language="fr"
 								country="FR" font-size="11.5pt" font-family="Times New Roman,serif"
