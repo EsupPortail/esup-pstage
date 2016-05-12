@@ -152,6 +152,34 @@
 }
 
 .ui-selectonebutton {
+
+  &.customRechercheConvention {
+    width: 100%;
+    box-sizing: border-box;
+    @media (min-width: @MediaTablet) {
+      width: auto;
+    }
+    .ui-button {
+      box-sizing: border-box;
+      width: 50%;
+      @media (min-width: @MediaTablet) {
+        width: auto;
+      }
+      &:first-child {
+        float: left;
+        @media (min-width: @MediaTablet) {
+          float: none;
+        }
+      }
+      &:last-child {
+        float: right;
+        @media (min-width: @MediaTablet) {
+          float: none;
+        }
+      }
+    }
+  }
+
   .ui-button {
     color: @ButtonColors;
     font-weight: 500;
@@ -208,6 +236,17 @@
   width: 100%;
 }
 
+.ui-tabmenu {
+  .ui-tabmenu-nav {
+    .ui-tabmenuitem {
+      &.ui-state-active {
+        background: @MainSelectCheckboxBackground;
+        color: @White;
+      }
+    }
+  }
+}
+
 .ui-selectoneradio .ui-radiobutton .ui-radiobutton-box.ui-state-active {
   background: @MainSelectRadioBackground;
 }
@@ -256,5 +295,40 @@
       width: 100% !important;
       box-sizing: border-box;
     }
+  }
+}
+
+.block {
+  max-width:@BlockSize;
+  &.centerBlock {
+    margin: 0 auto;
+  }
+}
+
+#blackScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 222;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s ease-in-out, visibility 0s .25s;
+  -moz-transition: opacity .25s ease-in-out, visibility 0s .25s;
+  -webkit-transition: opacity .25s ease-in-out, visibility 0s .25s;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .25s ease-in-out, visibility 0s;
+    -moz-transition: opacity .25s ease-in-out, visibility 0s;
+    -webkit-transition: opacity .25s ease-in-out, visibility 0s;
+  }
+
+  @media(min-width: @MediaTablet) {
+    display: none;
   }
 }

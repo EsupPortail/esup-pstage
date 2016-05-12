@@ -71,12 +71,17 @@
       background: transparent;
       box-sizing: border-box;
       padding: 0;
-      height: 25px;
+      height: @SidebarItemHeightPhone;
       color: @White;
-      margin: 0 0 10px 0;
+      margin: 0;
       text-align: left;
       font-weight: bold;
       font-family: @FontFamily;
+
+      @media (min-width: @MediaTablet) {
+        height: @SidebarItemHeightPC;
+        margin: 0 0 10px 0;
+      }
 
       &:hover {
         font-weight: bold;
@@ -115,8 +120,13 @@
         border: 0;
         background: transparent;
         box-sizing: border-box;
-        margin: 0 0 10px 0;
-        height: 25px;
+        margin: 0;
+        height: @SidebarItemHeightPhone;
+
+        @media (min-width: @MediaTablet) {
+          height: @SidebarItemHeightPC;
+          margin: 0 0 10px 0;
+        }
 
         *:first-child {
           background: transparent;
@@ -146,8 +156,12 @@
         }
 
         a {
-          line-height: 100%;
-          padding-left: 27px;
+          line-height: @SidebarItemHeightPhone;
+          padding: 0 0 0 27px;
+
+          @media (min-width: @MediaTablet) {
+            line-height: @SidebarItemHeightPC;
+          }
 
           &:active {
             border: 0;
@@ -171,7 +185,16 @@
 
             & > .ui-menuitem-link {
               border: 0;
-              line-height: 100%;
+              line-height: (@SidebarItemHeightPhone * 0.75);
+              padding-top: 0;
+              padding-right: 0;
+              padding-bottom: 0;
+              height: (@SidebarItemHeightPhone * 0.75);
+
+              @media (min-width: @MediaTablet) {
+                height: (@SidebarItemHeightPC * 0.92);
+                line-height: (@SidebarItemHeightPC * 0.92);
+              }
 
               & > * {
                 color: @White;

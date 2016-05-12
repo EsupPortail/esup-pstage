@@ -21,31 +21,34 @@
          Black    @Black;
 
 
-@TopbarPCHeight: 100px;
-@TopbarPhoneHeight: 40px;
-@TopbarTitleFontSize: 3.6rem;
+@TopbarPCHeight: 100px; // Hauteur du bandeau sur PC
+@TopbarPhoneHeight: 40px; // Hauteur du bandeau sur téléphone
+@TopbarTitleFontSize: 3.6rem; // Taille de la police du titre de l'application
 
-@SidebarPCWidth: 300px;
-@SidebarPhoneWidth: 280px;
-@SidebarBackground: linear-gradient(to left, @Blue1Secondary 0%, @Blue1 9px);
-@LogoBackground: linear-gradient(@Blue2Secondary 0%, @Blue2 100%);
+@SidebarPCWidth: 300px; // Largeur de la sidebar en mode PC
+@SidebarPhoneWidth: 280px; // Largeur de la sidebar en mode téléphone
+@SidebarBackground: linear-gradient(to left, @Blue1Secondary 0%, @Blue1 9px); // Couleur de fond de la sidebar
+@LogoBackground: linear-gradient(@Blue2Secondary 0%, @Blue2 100%); // Couleur de fond de l'emplacement du logo
+@SidebarItemHeightPhone: 50px;
+@SidebarItemHeightPC: 25px;
 
-@MainContentPCPadding: 10px 20px 20px 20px; // top right bottom left
-@MainContentPhonePadding: 5px 10px 10px 10px; // top right bottom left
-@MainPanelTitleFontSize: 2rem;
-@MainPanelTitleFontColor: @Blue2;
-@MainFontSize: 1.1rem;
-@MainLinkFontColor: @Blue2;
-@MainInputTextFocusColor: @Blue1;
-@MainSelectRadioBackground: linear-gradient(@Blue1 0%, @Blue2Secondary 100%);
-@MainSelectCheckboxBackground: linear-gradient(@Blue1 0%, @Blue2Secondary 100%);
-@MainSelectLineHighlightBackground: linear-gradient(@Blue2Secondary 0%, @Blue2 100%);
+@BlockSize: 900px; // Taille d'un block (une div qui ne prendra pas tout l'espace disponible)
+@MainContentPCPadding: 10px 20px 20px 20px; // Padding de l'application (le contenu uniquement) en mode PC // top right bottom left
+@MainContentPhonePadding: 5px 10px 10px 10px; // Padding de l'application (le contenu uniquement) en mode téléphone // top right bottom left
+@MainPanelTitleFontSize: 2rem; // Taille de la police de caractères des titres de page
+@MainPanelTitleFontColor: @Blue2; // Couleur des titres de page
+@MainFontSize: 1.1rem; // Taille de la police de caractères dans l'application
+@MainLinkFontColor: @Blue2; // Couleur des liens dans l'application
+@MainInputTextFocusColor: @Blue1; // Couleur de surbrillance d'un élément Input (lors de la saisie d'un champ texte)
+@MainSelectRadioBackground: linear-gradient(@Blue1 0%, @Blue2Secondary 100%); // Couleur de fond des éléments de type Radio (form)
+@MainSelectCheckboxBackground: linear-gradient(@Blue1 0%, @Blue2Secondary 100%); // Couleur de fond des éléments de type Checkbox (form)
+@MainSelectLineHighlightBackground: linear-gradient(@Blue2Secondary 0%, @Blue2 100%); // Couleur de fond d'un élément en surbrillance (ex. liste à cocher dans la recherche de convention avancée)
 
-@ButtonFontFamily: "Segoe UI", Verdana, Arial, sans-serif;
-@ButtonColors: @Blue2;
-@ButtonHoverColors: @Blue1;
+@ButtonFontFamily: "Segoe UI", Verdana, Arial, sans-serif; // Nom de la police de caractères par défaut d'un bouton
+@ButtonColors: @Blue2; // Couleur par défaut de la police de caractères d'un bouton
+@ButtonHoverColors: @Blue1; // Couleur de la police de caractères quand un bouton est survolé
 
-@InputWidth: 320px;
+@InputWidth: 320px; // Largeur des éléments de type Input (pas les liste à cocher)
 
-@MediaTablet: 801px;
-@MediaPhone: 600px;
+@MediaTablet: 801px; // Largeur à partir de laquelle on passe en mode "Tablet"
+@MediaPhone: 600px; // Largeur à partir de laquelle on passe en mode "Phone"
