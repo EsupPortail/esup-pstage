@@ -2229,4 +2229,36 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+
+	<navigation-rule>
+		<description>Menu Sidebar pour affichage en mode Tablette</description>
+
+		<navigation-case>
+			<description>Menu Conventions de Stage pour l'affichage en mode Tablette</description>
+			<from-outcome>menuConventionsStageTablette</from-outcome>
+			<to-view-id>/stylesheets/stage/menuConventionsStageTablette.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+
+		<navigation-case>
+			<description>Menu Etablissements d'accueil pour l'affichage en mode Tablette</description>
+			<from-outcome>menuEtablissementsAccueilTablette</from-outcome>
+			<to-view-id>/stylesheets/stage/menuEtablissementsAccueilTablette.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+
+		<navigation-case>
+			<description>Menu Offres pour l'affichage en mode Tablette</description>
+			<from-outcome>menuOffresTablette</from-outcome>
+			<to-view-id>/stylesheets/stage/menuOffresTablette.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+
+		<navigation-case>
+			<description>Menu Evaluations des Stages pour l'affichage en mode Tablette</description>
+			<from-outcome>menuEvaluationsStagesTablette</from-outcome>
+			<to-view-id>/stylesheets/stage/menuEvaluationsStagesTablette.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

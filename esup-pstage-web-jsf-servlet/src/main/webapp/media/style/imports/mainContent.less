@@ -4,7 +4,11 @@
   margin: @TopbarPhoneHeight 0 0 0;
   padding: @MainContentPhonePadding;
 
-  @media (min-width: @MediaTablet) {
+  @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+    margin: 0 0 0 @SidebarTabletWidth;
+    padding: @MainContentPCPadding;
+  }
+  @media (min-width: @MediaPC) {
     margin: 0 0 0 @SidebarPCWidth;
     padding: @MainContentPCPadding;
   }
@@ -279,7 +283,8 @@
       float: left;
       width: 50%;
     }
-    @media (max-width: (@SidebarPCWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
+
+    @media (max-width: (@SidebarTabletWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
       float: none;
       width: 100%;
     }
@@ -330,5 +335,28 @@
 
   @media(min-width: @MediaTablet) {
     display: none;
+  }
+}
+
+.ui-button {
+  &.buttonMenuTablet {
+    height: @SidebarItemHeightTablet;
+    width: 100%;
+    margin-bottom: 1rem;
+    .ui-button-icon-left {
+      position: relative;
+      display: block;
+      margin: 0;
+      width: 100%;
+      padding: 0;
+      top: initial;
+      left: initial;
+      font-size: 2rem;
+      height: 2rem;
+    }
+    .ui-button-text {
+      padding: .3em 1em;
+      font-size: 1.3rem;
+    }
   }
 }

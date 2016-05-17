@@ -21,6 +21,7 @@
 	</h:head>
 	<f:view locale="fr">
 		<h:body>
+			<f:event type="preRenderView" listener="#{sessionController.resetCurrentPage}"/>
 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
 				<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
 			</p:dialog>

@@ -4,42 +4,43 @@
 
     <t:div id="SIDEBAR">
         <t:div id="SIDEBAR_LOGO">
-            <p:graphicImage value="#{sessionController.mediaPath}/images/logo.png"/>
+            <p:graphicImage value="#{sessionController.mediaPath}/images/logoTablet.png" styleClass="tabletOnly"/>
+            <p:graphicImage value="#{sessionController.mediaPath}/images/logoPC.png" styleClass="PCOnly"/>
         </t:div>
         <h:form id="SIDEBAR_MENU">
             <p:commandButton value="#{msgs['NAVIGATION.TEXT.WELCOME']}" action="#{welcomeController.goToAccueilStage}"
-                             icon="fa fa-home" styleClass="#{true ? 'customPstage selected' : 'customPstage'}"/>
+                             icon="fa fa-home" styleClass="#{sessionController.currentPageHome ? 'customPstage selected' : 'customPstage'}"/>
             <p:commandButton value="#{msgs['MENUSTAGE.GESTIONCENTRE']}" action="#{centreController.goToListeCentre}"
                              rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin)}"
                              icon="fa fa-gear" styleClass="#{false ? 'customPstage selected' : 'customPstage'}"/>
-            <p:panelMenu styleClass="customPstage">
+            <p:panelMenu styleClass="customPstage noTablet">
                 <p:submenu label="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
                            rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant)}">
                     <p:menuitem value="#{msgs['MENUSTAGE.RECHCONVENTION']}"
                                 action="#{conventionController.goToRechercheConvention}"
                                 rendered="#{welcomeController.personnel || welcomeController.superAdmin }"
-                                icon="fa fa-search" styleClass="#{false ? 'selected' : ''}"/>
+                                icon="fa fa-search" styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
                     <p:menuitem value="#{msgs['MENUSTAGE.CREERCONVENTION']}"
                                 action="#{conventionController.goToCreerConvention}"
                                 rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}"
-                                icon="fa fa-plus" styleClass="#{false ? 'selected' : ''}"/>
+                                icon="fa fa-plus" styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
                     <p:menuitem value="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
                                 action="#{conventionController.goToValiderEnMasse}"
                                 rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}"
-                                icon="fa fa-check" styleClass="#{false ? 'selected' : ''}"/>
+                                icon="fa fa-check" styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
                     <p:menuitem value="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
                                 action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
                                 rendered="#{welcomeController.enseignantTuteur}"
-                                icon="fa fa-list" styleClass="#{false ? 'selected' : ''}"/>
+                                icon="fa fa-list" styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
                 </p:submenu>
                 <p:submenu label="#{msgs['MENUSTAGE.GESTIONCONVENTION']}"
                            rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
                     <p:menuitem value="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}"
                                 action="#{conventionController.goToRechercheConventionEtu}" icon="fa fa-search"
-                                styleClass="#{false ? 'selected' : ''}"/>
+                                styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
                     <p:menuitem value="#{msgs['MENUSTAGE.CREERCONVENTION']}"
                                 action="#{conventionController.goToCreerConvention}" icon="fa fa-plus"
-                                styleClass="#{false ? 'selected' : ''}"/>
+                                styleClass="#{sessionController.currentPageConvention ? 'selected' : ''}"/>
                 </p:submenu>
                 <p:submenu label="#{msgs['MENUSTAGE.GESTIONETAB']}">
                     <p:menuitem value="#{msgs['MENUSTAGE.RECHETAB']}"
@@ -118,6 +119,25 @@
                                 styleClass="#{false ? 'selected' : ''}"/>
                 </p:submenu>
             </p:panelMenu>
+            <!-- tablet only -->
+            <p:commandButton value="#{msgs['MENUSTAGE.GESTIONCONVENTION']}" action="#{welcomeController.goToMenuConventionsStageTablette}"
+                             rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant || welcomeController.etudiant)}"
+                             icon="fa fa-file-text" styleClass="#{sessionController.currentPageConvention ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+            <p:commandButton value="#{msgs['MENUSTAGE.GESTIONETAB']}" action="#{welcomeController.goToMenuEtablissementsAccueilTablette}"
+                             icon="fa fa-building" styleClass="#{false ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+            <p:commandButton value="#{msgs['MENUSTAGE.GESTIONOFFRE']}" action="#{welcomeController.goToMenuOffresTablette}"
+                             rendered="#{sessionController.utilisationEntreprise}"
+                             icon="fa fa-suitcase" styleClass="#{false ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+            <p:commandButton value="#{msgs['MENUSTAGE.EVALUATION']}" action="#{welcomeController.goToMenuEvaluationsStagesTablette}"
+                             rendered="#{sessionController.utilisationStage
+                                        and (welcomeController.superAdmin
+                                                || not empty sessionController.droitsEvaluationEtudiantMap
+                                                || not empty sessionController.droitsEvaluationEnseignantMap
+                                                || not empty sessionController.droitsEvaluationEntrepriseMap
+                                                || welcomeController.enseignantTuteur
+                                                || welcomeController.etudiant)}"
+                             icon="fa fa-bar-chart" styleClass="#{false ? 'customPstage selected tabletOnly' : 'customPstage tabletOnly'}"/>
+            <!-- / tablet only -->
             <p:commandButton value="#{msgs['MENU.GESTIONNOMENCLATURES']}"
                              action="#{nomenclatureController.goToGestionNomenclatures}"
                              rendered="#{welcomeController.superAdmin}" icon="fa fa-table"

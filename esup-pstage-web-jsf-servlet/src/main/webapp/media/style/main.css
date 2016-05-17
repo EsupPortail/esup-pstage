@@ -45,6 +45,35 @@ body {
     display: none !important;
   }
 }
+.tabletOnly {
+  display: none !important;
+}
+@media (min-width: 801px) and (max-width: 1250px) {
+  .tabletOnly {
+    display: block !important;
+  }
+}
+.PCOnly {
+  display: none;
+}
+@media (min-width: 1250px) {
+  .PCOnly {
+    display: block !important;
+  }
+}
+.noTablet {
+  display: block !important;
+}
+@media (min-width: 801px) {
+  .noTablet {
+    display: none !important;
+  }
+}
+@media (min-width: 1250px) {
+  .noTablet {
+    display: block !important;
+  }
+}
 .nopointer {
   cursor: default !important;
 }
@@ -77,6 +106,23 @@ body {
 }
 @media (min-width: 801px) {
   #SIDEBAR {
+    width: 100px;
+    left: 0;
+    top: 0;
+    -webkit-transition: transform 0s !important;
+    -moz-transition: transform 0s !important;
+    -ms-transition: transform 0s !important;
+    -o-transition: transform 0s !important;
+    transition: transform 0s !important;
+    -webkit-transform: translateX(0%) !important;
+    -moz-transform: translateX(0%) !important;
+    -ms-transform: translateX(0%) !important;
+    -o-transform: translateX(0%) !important;
+    transform: translateX(0%) !important;
+  }
+}
+@media (min-width: 1250px) {
+  #SIDEBAR {
     width: 300px;
     left: 0;
     top: 0;
@@ -108,12 +154,17 @@ body {
 #SIDEBAR #SIDEBAR_LOGO img {
   height: 90px;
   padding: 5px 0;
-  margin: 0 0 0 150px;
+  margin: 0 0 0 50px;
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
+}
+@media (min-width: 1250px) {
+  #SIDEBAR #SIDEBAR_LOGO img {
+    margin: 0 0 0 150px;
+  }
 }
 #SIDEBAR #SIDEBAR_MENU {
   height: auto;
@@ -133,10 +184,42 @@ body {
   font-weight: bold;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-@media (min-width: 801px) {
+@media (min-width: 801px) and (max-width: 1250px) {
+  #SIDEBAR #SIDEBAR_MENU .ui-button.customPstage {
+    height: 75px;
+    margin: 0 0 10px 0;
+    padding: 0;
+  }
+}
+@media (min-width: 1250px) {
   #SIDEBAR #SIDEBAR_MENU .ui-button.customPstage {
     height: 25px;
     margin: 0 0 10px 0;
+  }
+}
+@media (min-width: 801px) and (max-width: 1250px) {
+  #SIDEBAR #SIDEBAR_MENU .ui-button.customPstage > .ui-button-icon-left {
+    height: 75px;
+    font-size: 40px;
+    margin: 0;
+    padding: 0;
+    top: 3px;
+    left: 0;
+    text-align: center;
+    width: 100%;
+  }
+}
+#SIDEBAR #SIDEBAR_MENU .ui-button.customPstage > .ui-button-text {
+  display: block;
+}
+@media (min-width: 801px) and (max-width: 1250px) {
+  #SIDEBAR #SIDEBAR_MENU .ui-button.customPstage > .ui-button-text {
+    font-size: 0.8em;
+    margin-top: 40px;
+    padding: 0;
+    width: 90px;
+    margin-left: 5px;
+    text-align: center;
   }
 }
 #SIDEBAR #SIDEBAR_MENU .ui-button.customPstage:hover {
@@ -274,7 +357,7 @@ body {
 @media (min-width: 801px) {
   #TOPBAR {
     height: 100px;
-    margin: 0 0 0 300px;
+    margin: 0 0 0 100px;
     border: 0;
     position: static;
     background: transparent;
@@ -389,7 +472,13 @@ body {
   margin: 40px 0 0 0;
   padding: 5px 10px 10px 10px;
 }
-@media (min-width: 801px) {
+@media (min-width: 801px) and (max-width: 1250px) {
+  #MAIN_CONTENT {
+    margin: 0 0 0 100px;
+    padding: 10px 20px 20px 20px;
+  }
+}
+@media (min-width: 1250px) {
   #MAIN_CONTENT {
     margin: 0 0 0 300px;
     padding: 10px 20px 20px 20px;
@@ -641,7 +730,7 @@ body {
     width: 50%;
   }
 }
-@media (max-width: 1040px) {
+@media (max-width: 840px) {
   .columns-2 > .column {
     float: none;
     width: 100%;
@@ -686,6 +775,26 @@ body {
   #blackScreen {
     display: none;
   }
+}
+.ui-button.buttonMenuTablet {
+  height: 75px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.ui-button.buttonMenuTablet .ui-button-icon-left {
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  top: initial;
+  left: initial;
+  font-size: 2rem;
+  height: 2rem;
+}
+.ui-button.buttonMenuTablet .ui-button-text {
+  padding: .3em 1em;
+  font-size: 1.3rem;
 }
 .fz16 {
   font-size: 1.6rem;

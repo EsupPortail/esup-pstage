@@ -1,0 +1,50 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:p="http://primefaces.org/ui"
+				template="/stylesheets/_definedStageTemplate.xhtml">
+
+	<ui:define name="content">
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['MENUSTAGE.GESTIONOFFRE']}" />
+			</f:facet>
+			<t:div rendered="#{sessionController.utilisationEntreprise}">
+				<p:commandButton value="#{msgs['MENUSTAGE.RECHOFFRE']}"
+							action="#{offreController.goToRechercheOffreStage}" icon="fa fa-search"
+							styleClass="buttonMenuTablet">
+					<f:setPropertyActionListener value="#{null}"
+												 target="#{sessionController.currentManageStructure}"/>
+					<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+					<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+				</p:commandButton>
+				<p:commandButton value="#{msgs['MENUSTAGE.AJOUTOFFRE']}"
+							action="#{offreController.goToCreationOffreSelectionCentre}"
+							rendered="#{!welcomeController.etudiant and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}"
+							icon="fa fa-plus" styleClass="buttonMenuTablet">
+					<f:setPropertyActionListener value="#{null}"
+												 target="#{sessionController.currentManageStructure}"/>
+					<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+					<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+					<f:setPropertyActionListener value="#{3}" target="#{offreController.typeAjoutModifOffre}"/>
+					<f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+				</p:commandButton>
+				<p:commandButton value="#{msgs['MENU.OFFRESADIFFUSER']}(#{offreController.offreADiffuser})"
+							action="#{offreController.goToOffreADiffuser}"
+							rendered="#{!welcomeController.etudiant and sessionController.moderationActive and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
+							icon="fa fa-check" styleClass="buttonMenuTablet">
+					<f:setPropertyActionListener value="#{null}"
+												 target="#{sessionController.currentManageStructure}"/>
+					<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+					<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+					<f:setPropertyActionListener value="#{3}" target="#{offreController.typeAjoutModifOffre}"/>
+					<f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+				</p:commandButton>
+			</t:div>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+
+
+
