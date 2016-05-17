@@ -36,7 +36,7 @@
                     <p:dataTable id="rechercheConventionDataTable" style="width:100%;"
                                  value="#{conventionController.rechercheConventionPaginator.liste}"
                                  var="convention" rows="10" rowHover="true"
-                                 rowStyleClass="nopointer" paginator="true"
+                                 rowStyleClass="noPointer" paginator="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15,20"
                                  rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader || welcomeController.etudiant || welcomeController.enseignantTuteur}">
@@ -139,30 +139,27 @@
                                 <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                             </f:facet>
                             <t:htmlTag value="center">
-                                <h:commandLink id="recap"
+                                <p:commandLink id="recap"
                                                action="#{conventionController.goToRecapConvention}">
-
                                     <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
                                     <f:setPropertyActionListener value="#{convention}"
                                                                  target="#{conventionController.currentConvention}" />
                                     <p:tooltip for="recap" value="#{msgs['FORM.CONSULTER']}" />
-                                </h:commandLink>
+                                </p:commandLink>
 
-                                <h:commandLink id="validConvention"
+                                <p:commandLink id="validConvention"
                                                rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique and !convention.validationPedagogique}"
-                                               action="#{conventionController.goToValidConvention}" style="margin-left:5px;">
+                                               action="#{conventionController.goToValidConvention}" styleClass="ml5">
                                     <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
                                     <f:setPropertyActionListener value="#{convention}"
                                                                  target="#{conventionController.currentConvention}" />
                                     <p:tooltip for="validConvention" value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}" />
-                                </h:commandLink>
+                                </p:commandLink>
                             </t:htmlTag>
                         </p:column>
                     </p:dataTable>
                 </t:div>
-                <t:div>
-                    <t:htmlTag value="div" style="height: 20px;" />
-
+                <t:div styleClass="mt20">
                     <t:htmlTag value="center">
                         <p:commandButton value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
                                          action="#{exportController.goToChoixExportConventionTuteur}"

@@ -9,20 +9,18 @@
             <f:facet name="header">
                 <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
             </f:facet>
-            <t:div id="formAjoutEtab">
-                <h:form id="formConvention">
-                    <t:fieldset>
-                        <legend>
-                            <ui:include src="_roadmap.xhtml" />
-                        </legend>
+            <h:form id="formConvention">
+                <t:fieldset>
+                    <legend>
+                        <ui:include src="_roadmap.xhtml" />
+                    </legend>
+                    <t:div styleClass="mt20 ml30" style="max-width: 800px;">
                         <ui:include
                                 src="/stylesheets/stage/#{sessionController.creationConventionEtape2CurrentPage}.xhtml" />
-                        <t:htmlTag value="div" style="height: 10px;" />
-                        <p:messages />
-                        <t:htmlTag value="div" style="height: 10px;" />
-                    </t:fieldset>
-                </h:form>
-            </t:div>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
         </p:panel>
+        <t:htmlTag value="div" style="height:300px;"/>
     </ui:define>
 </ui:composition>

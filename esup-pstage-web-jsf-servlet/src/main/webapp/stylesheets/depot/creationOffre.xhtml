@@ -16,13 +16,10 @@
 						<h:outputText value="#{msgs['OFFRE.CREATION']}" />
 					</f:facet>
 					<h:form id="formCreationOffre">
-						<ui:include id="include"
-							src="/stylesheets/_commun/#{sessionController.creationOffreCurrentPage}.xhtml" />
+						<ui:include id="include" src="/stylesheets/_commun/#{sessionController.creationOffreCurrentPage}.xhtml" />
 					</h:form>
 					<t:htmlTag value="div" style="height:10px;" />
-					<p:message for="formCreationOffre">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
+					<p:message for="formCreationOffre" />
 					<ui:include src="../_commun/_panelAjoutService.xhtml" />
 					<ui:include src="../_commun/_panelModifService.xhtml" />
 					<ui:include src="../_commun/_panelAjoutContact.xhtml" />

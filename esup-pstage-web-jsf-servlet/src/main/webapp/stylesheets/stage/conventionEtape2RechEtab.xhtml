@@ -20,16 +20,7 @@
 
 						<t:htmlTag value="div" style="height: 10px;" />
 
-						<ui:include
-							src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
-
-						<t:htmlTag value="center">
-							<t:htmlTag value="div" style="height: 20px;" />
-							<t:htmlTag value="div"
-								style="width:50%; lineType:beveled; height: 4px;"
-								styleClass="spacer" />
-							<t:htmlTag value="div" style="height: 20px;" />
-						</t:htmlTag>
+						<ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 
 						<ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
 
@@ -62,7 +53,7 @@
 										style="width:600px;"
 										value="#{rechercheController.rechercheStructurePaginator.liste}"
 										var="varRechercheStructure" rows="15" rowHover="true"
-										rowStyleClass="nopointer" paginator="true"
+										rowStyleClass="noPointer" paginator="true"
 										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 										rowsPerPageTemplate="5,10,15,20"
 										rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}">

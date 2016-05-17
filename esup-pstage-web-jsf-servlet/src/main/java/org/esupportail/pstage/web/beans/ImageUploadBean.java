@@ -50,7 +50,7 @@ public class ImageUploadBean{
 
 	/**
 	 * Constructeur
-	 * @param directory 
+	 * @param directory
 	 */
 	public ImageUploadBean(String directory) {
 		this.directory=directory;
@@ -90,7 +90,7 @@ public class ImageUploadBean{
 					fos.write(ch);
 				}
 				fos.flush();
-			}catch (IOException ex1){ 
+			}catch (IOException ex1){
 				ex1.printStackTrace();
 				//
 			}catch (Exception e){
@@ -103,13 +103,11 @@ public class ImageUploadBean{
 						e.printStackTrace();
 						//logger.error("Can't close input file channel");
 					}
-					if(fos != null){
-						try{
-							fos.close();
-						}catch (IOException e){
-							e.printStackTrace();
-							// logger.error("Can't close ouput file channel");
-						}
+					try{
+						fos.close();
+					}catch (IOException e){
+						e.printStackTrace();
+						// logger.error("Can't close ouput file channel");
 					}
 				}
 			}
@@ -121,7 +119,7 @@ public class ImageUploadBean{
 	 * @param p_image
 	 * @param p_width
 	 * @param p_height
-	 * @param extension 
+	 * @param extension
 	 * @return ByteArrayOutputStream
 	 * @throws Exception
 	 */
@@ -136,7 +134,7 @@ public class ImageUploadBean{
 
 		if (imageWidth > 300 || imageHeight > 300){
 			thumbWidth = p_width;
-			thumbHeight = p_height;        
+			thumbHeight = p_height;
 		} else {
 			thumbWidth = imageWidth;
 			thumbHeight =imageHeight;
@@ -167,20 +165,20 @@ public class ImageUploadBean{
 		ImageIO.write(thumbImage, extension, out);
 
 		// Read the outputstream into the inputstream for the return value
-		ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());        
+		ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());
 
 		return bis;
 	}
 
 	/**
 	 * Suppression d'une image
-	 * @param id 
-	 * @param name 
+	 * @param id
+	 * @param name
 	 * @return boolean
 	 */
 	public boolean deleteImageFromDirectory(int id, String name){
 		String imageName=name;
-		if(id>=0) 
+		if(id>=0)
 			imageName = id+"_"+imageName;
 		File f = new File(this.directory + File.separator + imageName);
 		return f.delete();

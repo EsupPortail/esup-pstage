@@ -17,8 +17,7 @@
 	</h:panelGrid>
 	<t:div>
 		<ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
-		<ui:include
-			src="../_commun/_rechercheEtablissementOngletsSansForm.xhtml" />
+		<ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
 	</t:div>
 	<h:panelGrid id="formResultatsRechEtab">
 		<t:div rendered="#{empty offreController.centreGestionDepotAnonyme}">
@@ -38,9 +37,7 @@
 			</h:panelGrid>
 		</t:div>
 		<t:htmlTag value="div" style="height: 20px;" />
-		<p:message for="formResultatsRechEtab">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</p:message>
+		<p:message for="formResultatsRechEtab"/>
 		<p:outputPanel id="opRechercheStructureDataTable">
 			<t:div
 				rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
@@ -49,15 +46,13 @@
 				<p:dataTable id="rechercheStructureDataTable"
 					value="#{rechercheController.listeResultatsRechercheStructure}"
 					var="varRechercheStructure" rows="20" rowHover="true"
-					rowStyleClass="nopointer" paginator="true"
+					rowStyleClass="noPointer" paginator="true"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="5,10,15,20">
 					<f:facet name="header">
-						<ui:include
-							src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
+						<ui:include src="../_commun/_rechercheEtablissementResultatsHeaders.xhtml" />
 					</f:facet>
-					<ui:include
-						src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+					<ui:include src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 					<p:column>
 						<p:commandButton id="selectionEtab"
 							value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"

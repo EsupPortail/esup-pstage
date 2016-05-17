@@ -1,86 +1,50 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:panel
-		style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['CONVENTION.ETAPE1.CHOIXETUDIANT']}" />
-		</f:facet>
+    <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT.LISTE']}" styleClass="ml5" escape="false"/>
 
-		<t:htmlTag value="div" style="height: 10px;" />
-
-		<h:panelGrid align="center">
-			<p:dataTable id="listeEtu"
-				value="#{conventionController.listeResultatsRechercheEtudiant}"
-				var="etudiantRef" rows="15" rowHover="true"
-				rowStyleClass="nopointer" paginator="true"
-				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15,20">
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.NUMETUDIANT']}" />
-					</f:facet>
-					<t:htmlTag value="center">
-						<h:outputText value="#{etudiantRef.numEtudiant}" />
-					</t:htmlTag>
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.PRENOM']}" />
-					</f:facet>
-					<h:outputText value="#{etudiantRef.prenom}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.NOM']}" />
-					</f:facet>
-					<h:outputText value="#{etudiantRef.nom}  #{etudiantRef.nomMarital}" />
-				</p:column>
-				<!-- 				<p:column> -->
-				<!-- 					<f:facet name="header"> -->
-				<!-- 						<h:outputText  -->
-				<!-- 							value="#{msgs['CONVENTION.VOTREETAPE']}" /> -->
-				<!-- 					</f:facet> -->
-				<!-- 					<p:dataList var="key" value="#{etudiantRef.stepsKey}"> -->
-				<!-- 						<h:outputText value="#{key} : #{etudiantRef.steps[key]}  " /> -->
-				<!-- 					</p:dataList> -->
-				<!-- 				</p:column> -->
-				<!-- 				<p:column> -->
-				<!-- 					<f:facet name="header"> -->
-				<!-- 						<h:outputText  -->
-				<!-- 							value="#{msgs['CONVENTION.VOTREUFR']}" /> -->
-				<!-- 					</f:facet> -->
-				<!-- 					<p:dataList var="keyU" value="#{etudiantRef.studysKey }"> -->
-				<!-- 						<h:outputText value="#{keyU} : #{etudiantRef.studys[keyU]}  " /> -->
-				<!-- 					</p:dataList> -->
-				<!-- 				</p:column> -->
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['FORM.SELECTIONNER']}" />
-					</f:facet>
-					<t:htmlTag value="center">
-						<h:commandLink id="voir"
-							action="#{conventionController.goToChoixEtapeEtudiant}">
-							<f:setPropertyActionListener value="#{etudiantRef}"
-								target="#{conventionController.resultatEtudiantRef}" />
-							<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
-								value="../../media/images/tick.png" />
-							<p:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
-						</h:commandLink>
-					</t:htmlTag>
-				</p:column>
-			</p:dataTable>
-		</h:panelGrid>
-		<t:htmlTag value="div" style="height:10px;" />
-		<h:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}"
-			action="creerConventionEtape1Etudiant" immediate="true">
-			<f:setPropertyActionListener
-				value="_creerConventionEtape1RechercheEtudiant"
-				target="#{sessionController.creationConventionEtape1CurrentPage}" />
-		</h:commandButton>
-	</p:panel>
+    <p:dataTable id="listeEtu" styleClass="mt20 mb10"
+                 value="#{conventionController.listeResultatsRechercheEtudiant}"
+                 var="etudiantRef" rows="5" rowHover="true"
+                 rowStyleClass="noPointer" paginator="true"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 paginatorAlwaysVisible="false">
+        <p:column style="width:25%;">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.NUMETUDIANT']}" />
+            </f:facet>
+            <t:htmlTag value="center">
+                <h:outputText value="#{etudiantRef.numEtudiant}" />
+            </t:htmlTag>
+        </p:column>
+        <p:column style="width:50%;">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.NOM']} / #{msgs['CONVENTION.PRENOM']}" />
+            </f:facet>
+            <h:outputText value="#{etudiantRef.nom} #{etudiantRef.nomMarital} " styleClass="fontBold"/>
+            <h:outputText value=" #{etudiantRef.prenom}" />
+        </p:column>
+        <p:column style="width:25%;">
+            <t:htmlTag value="center">
+                <p:commandButton id="voir" value="#{msgs['FORM.SELECTIONNER']}" icon="fa fa-check"
+                                 action="#{conventionController.goToChoixEtapeEtudiant}"
+                                 update="@form">
+                    <f:setPropertyActionListener value="#{etudiantRef}"
+                                                 target="#{conventionController.resultatEtudiantRef}" />
+                </p:commandButton>
+            </t:htmlTag>
+        </p:column>
+    </p:dataTable>
+    <p:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}"
+                     immediate="true" update="@form"
+                     styleClass="mt20 mb20 ml40">
+        <f:setPropertyActionListener
+                value="_creerConventionEtape1RechercheEtudiant"
+                target="#{sessionController.creationConventionEtape1CurrentPage}" />
+    </p:commandButton>
 </ui:composition>

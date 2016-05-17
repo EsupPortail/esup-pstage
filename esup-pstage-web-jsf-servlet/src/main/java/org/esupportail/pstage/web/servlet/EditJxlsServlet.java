@@ -134,7 +134,9 @@ public class EditJxlsServlet extends HttpServlet  {
 			headerToAdd.append("; filename=");
 			response.setHeader("Content-disposition",headerToAdd.toString());
 
-			response.setContentLength( (int) xlsfile.length());
+			if (xlsfile != null) {
+				response.setContentLength( (int) xlsfile.length());
+			}
 			FileInputStream input = new FileInputStream(xlsfile);
 			buf = new BufferedInputStream(input);
 			int readBytes = 0;

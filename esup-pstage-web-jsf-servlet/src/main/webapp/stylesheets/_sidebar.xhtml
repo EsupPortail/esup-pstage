@@ -55,10 +55,18 @@
                     <p:menuitem value="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
                                 action="#{rechercheController.goToEtablissementsAVerifier}"
                                 rendered="#{sessionController.moderationStructures and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}"
-                                icon="fa fa-check" styleClass="#{false ? 'selected' : ''}">
+                                icon="fa fa-check" styleClass="#{false ? 'selected' : ''}"
+                                onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
                         <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
-                        <f:setPropertyActionListener value="#{null}"
-                                                     target="#{sessionController.currentManageStructure}"/>
+                        <f:setPropertyActionListener value="#{null}" target="#{sessionController.currentManageStructure}"/>
+                        <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+                        <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+                    </p:menuitem>
+                    <p:menuitem value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET8']}"
+                                action="#{rechercheController.rechercheTemoinFalse}"
+                                rendered="#{welcomeController.superAdmin}"
+                                icon="fa fa-times" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                        <f:setPropertyActionListener value="#{null}" target="#{sessionController.currentManageStructure}"/>
                         <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
                         <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
                     </p:menuitem>

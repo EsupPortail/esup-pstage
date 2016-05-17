@@ -186,6 +186,11 @@ public class RechercheController extends AbstractContextAwareController {
 	private boolean toVerificationStructures = false;
 
 	/**
+	 * Indique si la liste de resultats d'établissement est celle de la page des etab supprimés (temoin a false)
+	 */
+	private boolean toStructuresTemFalse = false;
+
+	/**
 	 * Bean constructor.
 	 */
 	public RechercheController() {
@@ -198,15 +203,50 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Actions
 	 ****************************************************************/
 	/**
+	 * @return int
+	 */
+	public int getResultatRechercheSize(){
+		return this.listeResultatsRechercheStructure.size();
+	}
+
+	/**
+	 * @return A String
+	 */
+	public String goToRechercheEtablissement(){
+		this.toVerificationStructures = false;
+		this.toStructuresTemFalse=false;
+		if(this.critereRechercheStructureAdresse==null){
+			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
+		}
+		reloadRechercheStructurePaginator();
+		return "rechercheEtablissement";
+	}
+
+	/**
+	 * @return A String
+	 */
+	public String goToRechercheEtablissementStage(){
+		this.toVerificationStructures = false;
+		this.toStructuresTemFalse=false;
+		this.rechRaisonSociale = "";
+		if(this.critereRechercheStructureAdresse==null){
+			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
+		}
+		this.listeResultatsRechercheStructure = new ArrayList<StructureDTO>();
+		reloadRechercheStructurePaginator();
+		return "rechercheEtablissementStage";
+	}
+
+	/**
 	 * @return A String
 	 */
 	public String goToEtablissementsAVerifier(){
 
 		this.afficherBoutonAjoutEtab=false;
 		this.toVerificationStructures=true;
+		this.toStructuresTemFalse=false;
 
 		if(this.critereRechercheStructureAdresse==null){
-
 			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
 		}
 		resetResultats();
@@ -218,39 +258,34 @@ public class RechercheController extends AbstractContextAwareController {
 
 		checkListeResultats();
 
-		return "rechercheEtablissementStage";
+		return "etablissementsAValider";
 	}
 
 	/**
-	 * @return int
+	 * Recherche par temoin en service a false
+	 * @return String
 	 */
-	public int getResultatRechercheSize(){
-		return this.listeResultatsRechercheStructure.size();
+	public String rechercheTemoinFalse(){
+
+		this.afficherBoutonAjoutEtab=false;
+		this.toVerificationStructures=false;
+		this.toStructuresTemFalse=true;
+
+		if(this.critereRechercheStructureAdresse==null){
+			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
+		}
+		resetResultats();
+		reloadRechercheStructurePaginator();
+
+		this.listeResultatsRechercheStructure=new ArrayList<StructureDTO>();
+
+		this.listeResultatsRechercheStructure = getStructureDomainService().getStructuresTemEnServFalse();
+
+		checkListeResultats();
+
+		return "etablissementsTemFalse";
 	}
 
-	/**
-	 * @return A String
-	 */
-	public String goToRechercheEtablissement(){
-		if(this.critereRechercheStructureAdresse==null){
-			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
-		}
-		reloadRechercheStructurePaginator();
-		return "rechercheEtablissement";
-	}
-	/**
-	 * @return A String
-	 */
-	public String goToRechercheEtablissementStage(){
-		this.toVerificationStructures = false;
-		this.rechRaisonSociale = "";
-		if(this.critereRechercheStructureAdresse==null){
-			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
-		}
-		this.listeResultatsRechercheStructure = new ArrayList<StructureDTO>();
-		reloadRechercheStructurePaginator();
-		return "rechercheEtablissementStage";
-	}
 	/**
 	 * @return A String
 	 */
@@ -273,8 +308,71 @@ public class RechercheController extends AbstractContextAwareController {
 	}
 
 	/* *********************************************
-	 * Changement d'onglets
-	 **********************************************/
+		 * Changement d'onglets
+		 **********************************************/
+	private int selectedOnglet;
+
+	public int getSelectedOnglet() {
+		return selectedOnglet;
+	}
+
+	public void setSelectedOnglet(int selectedOnglet) {
+		this.selectedOnglet = selectedOnglet;
+	}
+	public List<SelectItem> getOnglets() {
+		List<SelectItem> ls = new ArrayList<SelectItem>();
+		ls.add(new SelectItem(2,getString("RECHERCHEETABLISSEMENT.ONGLET2")));
+		ls.add(new SelectItem(1,getString("RECHERCHEETABLISSEMENT.ONGLET1")));
+		ls.add(new SelectItem(3,getString("RECHERCHEETABLISSEMENT.ONGLET3")));
+		ls.add(new SelectItem(4,getString("RECHERCHEETABLISSEMENT.ONGLET4")));
+		ls.add(new SelectItem(7,getString("RECHERCHEETABLISSEMENT.ONGLET7")));
+		ls.add(new SelectItem(5,getString("RECHERCHEETABLISSEMENT.ONGLET5")));
+		// Seulement si l'on est dans la partie entreprise :
+		if (getSessionController().isPageAuthorized() || getSessionController().isAdminPageAuthorized()) {
+			ls.add(new SelectItem(6, getString("RECHERCHEETABLISSEMENT.ONGLET6")));
+		}
+		return ls;
+	}
+
+	public void changeOnglet(){
+		switch (selectedOnglet){
+			case 1:
+				afficherBoutonAjoutEtab=false;
+				resetResultats();
+				this.ongletCourant=1;
+				break;
+			case 2:
+				afficherBoutonAjoutEtab=false;
+				resetResultats();
+				this.ongletCourant=2;
+				break;
+			case 3:
+				afficherBoutonAjoutEtab=false;
+				resetResultats();
+				this.ongletCourant=3;
+				break;
+			case 4:
+				afficherBoutonAjoutEtab=false;
+				resetResultats();
+				this.ongletCourant=4;
+				break;
+			case 5:
+				afficherBoutonAjoutEtab=false;
+				resetResultats();
+				this.ongletCourant=5;
+				break;
+			case 6:
+				afficherBoutonAjoutEtab=false;
+				resetResultats();
+				this.ongletCourant=6;
+				break;
+			case 7:
+				afficherBoutonAjoutEtab=false;
+				resetResultats();
+				this.ongletCourant=7;
+				break;
+		}
+	}
 	/**
 	 * Met à 1 la valeur d' "ongletCourant" pour afficher l'onglet 1:Siren/Siret
 	 * @return String
@@ -575,24 +673,6 @@ public class RechercheController extends AbstractContextAwareController {
 		return null;
 	}
 
-	/* *********************************************
-	 * Recherches des etablissements supprimés pour superadmin
-	 **********************************************/
-	/**
-	 * Recherche par temoin en service a false
-	 * @return String
-	 */
-	public String rechercheTemoinFalse(){
-
-		afficherBoutonAjoutEtab=false;
-		resetResultats();
-		this.ongletCourant=8;
-		this.resultatRechercheStructure=null;
-		this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresTemEnServFalse();
-		checkListeResultats();
-		
-		return null;
-	}
 
 	/**
 	 * Re-chargement du paginator 
@@ -1023,7 +1103,13 @@ public class RechercheController extends AbstractContextAwareController {
 		this.france = france;
 	}
 
+	public boolean isToStructuresTemFalse() {
+		return toStructuresTemFalse;
+	}
 
+	public void setToStructuresTemFalse(boolean toStructuresTemFalse) {
+		this.toStructuresTemFalse = toStructuresTemFalse;
+	}
 
 
 }

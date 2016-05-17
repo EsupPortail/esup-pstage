@@ -100,7 +100,6 @@ public final class PDFUtils {
 	/**
 	 *  Export PDF in a directory after delete xml file.
 	 * @param fileNameXml
-	 * @param facesContext
 	 * @param directory
 	 * @param fileNamePdf
 	 * @param fileNameXsl
@@ -252,7 +251,7 @@ public final class PDFUtils {
 					zipStream.putNextEntry(zipEntry);
 
 					zipStream.write(arrayPDF);
-					f1.delete();		
+					f1.delete();
 
 				} catch (TransformerException e) {
 					LOGGER.error(" Probleme de preparation du zip contenant le pdf = "
@@ -262,6 +261,7 @@ public final class PDFUtils {
 			} // end for
 			zipStream.closeEntry();
 			zipStream.close();
+			out.close();
 		}// end else
 		PDFUtils.setZipDownLoadAndSend(chemin, facesContext);
 		LOGGER.info(" Impression conventions dans fichier ZIP '"+chemin +"' réussis  -  téléchargement en cours.  ");
