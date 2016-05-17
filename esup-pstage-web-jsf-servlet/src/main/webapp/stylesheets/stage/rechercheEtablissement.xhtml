@@ -9,17 +9,15 @@
             <f:facet name="header">
                 <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
             </f:facet>
-            <fieldset>
-                <h:form>
-                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
-                </h:form>
-                <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />
-            </fieldset>
             <h:form id="formResultatsRechEtab">
+
+                <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
+
+                <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />
 
                 <p:message for="formResultatsRechEtab"/>
 
-                <t:div rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}" styleClass="mt10 mb10">
+                <t:div styleClass="mt10 mb10" rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
                     <ui:include src="/stylesheets/_commun/_buttonCreationEtablissement.xhtml" />
                 </t:div>
 
