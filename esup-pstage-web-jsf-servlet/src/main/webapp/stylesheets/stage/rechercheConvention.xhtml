@@ -10,7 +10,7 @@
                 <h:outputText value="#{msgs['RECHERCHECONVENTION.TITRE']}" />
             </f:facet>
             <h:form id="formRechConvention"
-                    style="max-width:800px; margin: 0 auto;"
+                    style="max-width:800px; margin: 0 auto;" styleClass="mb40"
                     onkeypress="if (event.keyCode == 13) { document.getElementById('formRechConvention:rechercherConvention').click(); return false; }">
                 <t:div>
                     <p:selectOneButton value="#{conventionController.rechercheAvancee}">
@@ -215,9 +215,9 @@
                             </p:outputLabel>
                             <p:selectManyMenu id="ufrs" filter="true" filterMatchMode="contains"
                                               value="#{conventionController.critereRechercheConvention.idsUfrs}"
-                                              style="width:auto;" styleClass="customPstage">
+                                              style="width:auto;" styleClass="customPstage" showCheckbox="true">
                                 <f:selectItems value="#{conventionController.rechUfrs}" />
-                                              style="width:auto;" showCheckbox="true" >
+                                style="width:auto;" showCheckbox="true" >
                                 <f:selectItems value="#{conventionController.rechUfrs}"/>
                             </p:selectManyMenu>
                         </t:htmlTag>
@@ -363,24 +363,19 @@
                         </t:div>
                         <t:div id="choixLieuPanel" styleClass="column">
                             <t:htmlTag value="li" rendered="#{!conventionController.estEtrangere}">
-                                <p:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']}"
+                                <p:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']} : "
                                                for="pays" />
                                 <p:selectOneMenu id="pays" effect="none"
                                                  value="#{conventionController.critereRechercheConvention.pays}"
                                                  converter="#{paysConverter}"
                                                  var="p" filter="true" filterMatchMode="startsWith">
-                                    <f:selectItem itemValue=" " />
                                     <f:selectItems value="#{nomenclatureController.pays}" var="pays" />
 
-                                    <p:column style="width:10%">
+                                    <p:column rendered="#{not empty p}">
                                         <h:graphicImage
-                                                        rendered="#{not empty p}"
-                                                        value="../../media/images/flags/#{p.iso2}.png"
-                                                        alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-                                                        title="#{p.libelle}" />
-                                    </p:column>
-                                    <p:column style="width:10%">
-                                        <h:outputText value="p.libellePays"/>
+                                                value="/media/images/flags/#{p.iso2}.png"
+                                                alt="    "
+                                                title="#{p.libelle}" /> #{p.libelle}
                                     </p:column>
                                 </p:selectOneMenu>
                             </t:htmlTag>
@@ -404,43 +399,37 @@
 
                 <t:htmlTag value="div" style="height:10px;" />
 
-                <!--<t:htmlTag value="center">-->
-                    <p:commandButton id="rechercherConvention"
-                                     value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
-                                     action="#{conventionController.rechercherConvention}"
-                                     update="@form"
-                                     icon="fa fa-search"
-                                     onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
-                        <f:setPropertyActionListener value="resultatsRechercheConvention"
-                                                     target="#{conventionController.retourAction}" />
-                    </p:commandButton>
-                <!--</t:htmlTag>-->
+                <p:commandButton id="rechercherConvention"
+                                 value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
+                                 action="#{conventionController.rechercherConvention}"
+                                 update="@form"
+                                 icon="fa fa-search"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                    <f:setPropertyActionListener value="resultatsRechercheConvention"
+                                                 target="#{conventionController.retourAction}" />
+                </p:commandButton>
 
-                <h:panelGrid columns="2"
-                             styleClass="floatRight">
-                    <h:graphicImage id="exportExcel" alt="Excel"
-                                    value="../../media/images/excelSmall.png">
-                        <p:tooltip id="tooltipExport"
-                                   value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" for="exportExcel" />
-                    </h:graphicImage>
-                    <p:commandButton value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
-                                     action="#{exportController.rechercherConvention}">
-                        <f:setPropertyActionListener
-                                value="#{conventionController.critereRechercheConvention}"
-                                target="#{exportController.critereRechercheConvention}" />
-                        <f:setPropertyActionListener
-                                value="#{conventionController.estValidee}"
-                                target="#{exportController.estValidee}" />
-                        <f:setPropertyActionListener
-                                value="#{conventionController.estVerifiee}"
-                                target="#{exportController.estVerifiee}" />
-                        <f:setPropertyActionListener
-                                value="#{conventionController.estEtrangere}"
-                                target="#{exportController.estEtrangere}" />
-                        <f:setPropertyActionListener value="rechercheConvention"
-                                                     target="#{conventionController.retourAction}" />
-                    </p:commandButton>
-                </h:panelGrid>
+                <p:commandButton id="exportExcel" styleClass="floatRight"
+                                 value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
+                                 icon="fa fa-file-excel-o"
+                                 action="#{exportController.rechercherConvention}">
+                    <f:setPropertyActionListener
+                            value="#{conventionController.critereRechercheConvention}"
+                            target="#{exportController.critereRechercheConvention}" />
+                    <f:setPropertyActionListener
+                            value="#{conventionController.estValidee}"
+                            target="#{exportController.estValidee}" />
+                    <f:setPropertyActionListener
+                            value="#{conventionController.estVerifiee}"
+                            target="#{exportController.estVerifiee}" />
+                    <f:setPropertyActionListener
+                            value="#{conventionController.estEtrangere}"
+                            target="#{exportController.estEtrangere}" />
+                    <f:setPropertyActionListener value="rechercheConvention"
+                                                 target="#{conventionController.retourAction}" />
+                    <p:tooltip id="tooltipExport"
+                               value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" for="exportExcel" />
+                </p:commandButton>
 
                 <t:htmlTag value="div" style="height:10px;" />
                 <p:messages escape="false" />

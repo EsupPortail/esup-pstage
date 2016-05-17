@@ -5,19 +5,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <!--<h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT']}" styleClass="main"/>-->
-
-    <t:htmlTag value="div" style="height: 10px;" />
-
     <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-    <h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT.DEMANDE']}" styleClass="ml5"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE1.RECHERCHE.ETUDIANT.DEMANDE']}" styleClass="ml5" escape="false"/>
 
     <t:htmlTag value="div" style="height: 20px;" />
 
-    <t:htmlTag value="ul" styleClass="formUL columns-2" style="width: 60%;">
+    <t:htmlTag value="ul" styleClass="formUL columns-2">
         <t:div styleClass="column" style="vertical-align:top;">
             <t:htmlTag value="li">
-                <h:outputLabel value="#{msgs['CONVENTION.NUMETUDIANT']}"
+                <p:outputLabel value="#{msgs['CONVENTION.NUMETUDIANT']}"
                                for="identEtudiant" />
                 <p:inputText id="identEtudiant" size="50" maxlength="30"
                              value="#{conventionController.rechIdentEtudiant}" />
@@ -26,9 +22,9 @@
         </t:div>
         <t:div styleClass="column">
             <t:htmlTag value="li">
-                <h:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
+                <p:outputLabel value="#{msgs['CONVENTION.NOM']}" for="nom" />
 
-                <p:inputText id="nom" size="50" maxlength="30"
+                <p:inputText id="nom" maxlength="30"
                              style="text-transform:uppercase;"
                              value="#{conventionController.rechNomEtudiant}">
                     <f:converter binding="#{sansAccentEnMAJConverter}" />
@@ -36,9 +32,9 @@
                 <p:message for="nom"/>
             </t:htmlTag>
             <t:htmlTag value="li">
-                <h:outputLabel value="#{msgs['CONVENTION.PRENOM']}" for="prenom" />
+                <p:outputLabel value="#{msgs['CONVENTION.PRENOM']}" for="prenom" />
 
-                <p:inputText id="prenom" size="50" maxlength="30"
+                <p:inputText id="prenom" maxlength="30"
                              style="text-transform:uppercase;"
                              value="#{conventionController.rechPrenomEtudiant}">
                     <f:converter binding="#{sansAccentEnMAJConverter}" />
@@ -47,14 +43,15 @@
             </t:htmlTag>
         </t:div>
         <t:div styleClass="clearFloat textCenter">
-            <p:commandButton value="#{msgs['FORM.RECHERCHER']}" update="@form"
+            <p:commandButton id="test" value="#{msgs['FORM.RECHERCHER']}" update="@form"
                              action="#{conventionController.rechercheEtudiant}"
-                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" />
-
+                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                             styleClass="mt10 mb5" icon="fa fa-search"/>
+            <p:message for="test" />
         </t:div>
     </t:htmlTag>
     <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
                      action="#{conventionController.goToCreerConventionConsignes}"
                      immediate="true" ajax="false"
-                     styleClass="mt20 mb20 ml40"/>
+                     styleClass="mt20 mb20"/>
 </ui:composition>

@@ -18,16 +18,18 @@
                     <legend>
                         <ui:include src="_roadmap.xhtml" />
                     </legend>
-                    <t:htmlTag value="div" style="height:10px;" />
+                    <t:div styleClass="mt20 ml30">
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
                     <h:outputText value="#{msgs['CONVENTION.CONSIGNES']}"
-                                  escape="false" />
+                                  styleClass="ml5" escape="false"/>
                     <h:outputText value="#{msgs['CONVENTION.CONSIGNES1']}"
-                                  escape="false" />
+                                  escape="false"/>
                     <h:outputText value="#{msgs['CONVENTION.CONSIGNES2']}"
-                                  escape="false" />
+                                  escape="false"/>
                     <t:div styleClass="ml40 mt20 mb20">
                         <p:commandButton value="#{msgs['FORM.NEXT']}" ajax="false"
                                          action="#{conventionController.goToCreerConventionRechEtu}"/>
+                    </t:div>
                     </t:div>
                 </t:fieldset>
             </h:form>

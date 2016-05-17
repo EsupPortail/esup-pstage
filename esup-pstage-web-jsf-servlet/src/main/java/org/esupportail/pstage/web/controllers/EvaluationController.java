@@ -1191,7 +1191,7 @@ public class EvaluationController extends AbstractContextAwareController {
 			if (mapEnt != null && !mapEnt.isEmpty()) {
 				map.putAll(mapEnt);
 			}
-			if (map != null && !map.isEmpty()) {
+			if (!map.isEmpty()) {
 				for (Iterator<Integer> iter = map.keySet().iterator(); iter
 						.hasNext();) {
 					CentreGestionDTO cg = getCentreGestionDomainService().getCentreGestion(iter.next());
@@ -3580,9 +3580,8 @@ public class EvaluationController extends AbstractContextAwareController {
 				}
 			}
 
-			if (this.etatAffichageRechEval == 2 || this.etatAffichageRechEval == 3){
-				List<CritereGestionDTO> listeCodes = getCritereGestionDomainService()
-						.getCritereGestionFromIdCentreAndAnnee(
+			if (critereRechercheEvaluation != null && (this.etatAffichageRechEval == 2 || this.etatAffichageRechEval == 3)){
+				List<CritereGestionDTO> listeCodes = getCritereGestionDomainService().getCritereGestionFromIdCentreAndAnnee(
 								this.rechEvalIdCentre,
 								critereRechercheEvaluation.getAnneeUniversitaire());
 

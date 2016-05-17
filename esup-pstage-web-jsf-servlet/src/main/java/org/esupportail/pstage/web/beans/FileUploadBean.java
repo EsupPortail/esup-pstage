@@ -12,7 +12,7 @@ import org.primefaces.model.UploadedFile;
 
 /**
  * @author Matthieu Manginot : matthieu.manginot@univ-nancy2.fr
- * 
+ *
  */
 public class FileUploadBean {
 
@@ -35,7 +35,7 @@ public class FileUploadBean {
 
 	/**
 	 * Constructeur
-	 * @param directory  
+	 * @param directory
 	 */
 	public FileUploadBean(String directory) {
 		this.directory=directory;
@@ -51,7 +51,7 @@ public class FileUploadBean {
 		}else{
 			// on recupere l'item envoye
 			UploadedFile uploadItem = event.getFile();
-			
+
 			String fileName = uploadItem.getFileName();
 			String extension="";
 			if(fileName.lastIndexOf(".")>0){
@@ -99,8 +99,8 @@ public class FileUploadBean {
 
 	/**
 	 * Suppression d'un fichier 
-	 * @param id 
-	 * @param name 
+	 * @param id
+	 * @param name
 	 * @return boolean
 	 */
 	public boolean deleteFileFromDirectory(int id, String name){

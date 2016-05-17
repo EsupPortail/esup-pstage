@@ -24,7 +24,7 @@
 								escape="false" />
 							<p:dataTable value="#{offreController.listeOffres}" var="offre"
 								rowKey="rowOffre" rows="15" rowHover="true"
-								rowStyleClass="nopointer" paginator="true"
+								rowStyleClass="noPointer" paginator="true"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="5,10,15,20"
 								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
@@ -43,7 +43,7 @@
 							</p:dataTable>
 							<p:dataTable value="#{offreController.listeOffres}" var="offre"
 								rowKey="rowOffre" rows="15" rowHover="true"
-								rowStyleClass="nopointer" paginator="true"
+								rowStyleClass="noPointer" paginator="true"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="5,10,15,20"
 								rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">

@@ -64,7 +64,7 @@ public class PaysConverter implements Serializable, Converter {
 			final FacesContext context, 
 			final UIComponent component, 
 			final String value) {
-		if (!StringUtils.hasText(value) 
+		if (!StringUtils.hasText(value)
 				|| !Utils.isNumber(value)) {
 			return null;
 		}

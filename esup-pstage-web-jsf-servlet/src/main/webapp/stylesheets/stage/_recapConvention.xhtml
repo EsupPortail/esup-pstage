@@ -1,15 +1,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-    <h:outputStylesheet>
-        .detailGrid tr, .detailGrid .ui-panelgrid-cell {border: none;}
-        .detailGrid tr:nth-child(even) {background: inherit}
-        .detailGrid tr:nth-child(odd) {background: #FFF}
-    </h:outputStylesheet>
-    <p:panelGrid id="table" var="convention" styleClass="detailGrid"
-                 value="#{conventionController.convention}">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <p:panelGrid id="table" styleClass="noBorder">
         <p:row rendered="#{not empty conventionController.convention.idConvention}">
             <p:column style="text-align:right;">
                 <h:outputText style="font-weight:bold;"

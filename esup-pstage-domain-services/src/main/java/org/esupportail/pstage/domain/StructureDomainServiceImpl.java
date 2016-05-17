@@ -328,7 +328,7 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 
 	// Ajout moderation Entreprise
 	/**
-	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresFromVerification(boolean)
+	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresFromVerification(int)
 	 */
 	public List<StructureDTO> getStructuresFromVerification(int estValidee){
 		List<StructureDTO> ls = this.remoteServices.getStructuresFromVerification(estValidee);
@@ -627,7 +627,9 @@ public class StructureDomainServiceImpl implements Serializable, StructureDomain
 	 * @see org.esupportail.pstage.domain.StructureDomainService#getStructuresTemEnServFalse()
 	 */
 	public List<StructureDTO> getStructuresTemEnServFalse() {
-		return this.remoteServices.getStructuresTemEnServFalse();
+		List<StructureDTO> ls = this.remoteServices.getStructuresTemEnServFalse();
+		setObjects(ls);
+		return ls;
 	}
 
 }

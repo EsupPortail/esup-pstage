@@ -20,7 +20,7 @@
                                 src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
                         <t:htmlTag value="div" style="margin: 10px; display:inline;" />
                         <h:commandButton
-                                style="color: #{rechercheController.ongletCourant == '3' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '3' ? 'green' : 'black'};"
+                                style="color: #{rechercheController.ongletCourant == '6' ? 'green' : 'black'}; border: solid 1px #{rechercheController.ongletCourant == '6' ? 'green' : 'black'};"
                                 action="#{rechercheController.goToOngletAccord}"
                                 value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6']}"
                                 immediate="true" />
@@ -119,7 +119,7 @@
                                 <p:dataTable id="rechercheStructureDataTable" style="width:600px;"
                                              value="#{rechercheController.rechercheStructurePaginator.liste}"
                                              var="varRechercheStructure" rows="10" rowHover="true"
-                                             rowStyleClass="nopointer" paginator="true"
+                                             rowStyleClass="noPointer" paginator="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,15,20"
                                              rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}">

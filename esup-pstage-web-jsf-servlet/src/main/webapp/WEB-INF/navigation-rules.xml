@@ -1108,6 +1108,11 @@
 			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+        <navigation-case>
+            <from-outcome>creerConventionEtape2Etab</from-outcome>
+            <to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
 		<navigation-case>
 			<from-outcome>creerConventionEtape3Service</from-outcome>
 			<to-view-id>/stylesheets/stage/creerConventionEtape3Service.xhtml</to-view-id>
@@ -1357,70 +1362,7 @@
 		<display-name>creerConvention</display-name>
 		<from-view-id>/stylesheets/stage/creerConvention.xhtml</from-view-id>
 	</navigation-rule>
-	
-	<!-- creation etape 1 - choix etude etudiant -->
-	<navigation-rule>
-		<display-name>creerConventionEtape1Etudiant</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>creerConventionEtape5Stage</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape5Stage.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
 
-	<!-- creation etape 1 - DemandeLienOffre  -->
-	<navigation-rule>
-		<display-name>_creerConventionEtape1DemandeLienOffre</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</from-view-id>
-		<!-- annuler -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape1Etudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</to-view-id>
-		</navigation-case>
-		<!--  annuler -->
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
-		</navigation-case>
-		<!-- envoyer -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape2Etab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		
-	</navigation-rule>
-<!-- 	NEW -->
-	<navigation-rule>
-		<display-name>creerConventionEtape1Etudiant</display-name>
-		<from-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</from-view-id>
-		<!-- annuler -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape1Etudiant</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape1Etudiant.xhtml</to-view-id>
-		</navigation-case>
-		<!-- envoyer -->
-		<navigation-case>
-			<from-outcome>creerConventionEtape2Etab</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape2Etab.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>_creerConventionEtape1Offre</display-name>
-		<from-view-id>/stylesheets/stage/_creerConventionEtape1Offre.xhtml</from-view-id>
-		
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</to-view-id>
-		</navigation-case>
-		
-		<navigation-case>
-			<from-outcome>_creerConventionEtape1ConfirmInfosEtu</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
 	<!-- creation etape 2 - Recherche Etablissement  -->
 	<navigation-rule>
 		<display-name>creerConventionEtape2Etab</display-name>
@@ -1434,8 +1376,8 @@
 			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</to-view-id>
+			<from-outcome>_creerConventionEtape2DemandeLienOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DemandeLienOffre.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>creationEtablissement</from-outcome>
@@ -1459,8 +1401,8 @@
 			<to-view-id>/stylesheets/stage/_creerConventionEtape1ConfirmInfosEtu.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>_creerConventionEtape1DemandeLienOffre</from-outcome>
-			<to-view-id>/stylesheets/stage/_creerConventionEtape1DemandeLienOffre.xhtml</to-view-id>
+			<from-outcome>_creerConventionEtape2DemandeLienOffre</from-outcome>
+			<to-view-id>/stylesheets/stage/_creerConventionEtape2DemandeLienOffre.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>creationEtablissement</from-outcome>
@@ -2121,6 +2063,16 @@
 			<to-view-id>/stylesheets/stage/rechercheEtablissement.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+        <navigation-case>
+            <from-outcome>etablissementsAValider</from-outcome>
+            <to-view-id>/stylesheets/stage/etablissementsAValider.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>etablissementsTemFalse</from-outcome>
+            <to-view-id>/stylesheets/stage/etablissementsTemFalse.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
 		<navigation-case>
 			<from-outcome>creationCentreEtabOffre</from-outcome>
 			<to-view-id>/stylesheets/stage/creationCentreEtabOffre.xhtml</to-view-id>

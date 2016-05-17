@@ -770,20 +770,9 @@ public class StudentDataRepositoryDaoWS implements
 		if (logger.isDebugEnabled()) {
 			logger.debug("#getEtapesByEtudiantAndAnnee# - cod : " + cod);
 		}
-		long t1 = System.currentTimeMillis();
+
 		// recherche des Inscriptions Administratives et Inscription Pedagogiques
 		ApogeeMap apogeeMap = getStudentIAIP(cod, anneeScolaire);
-		long t2 = System.currentTimeMillis();
-		System.out.println("duree getStudentIAIP : " + (t2-t1) +" ms");
-
-		if (apogeeMap != null) {
-			// Si on a bien des inscriptions, recherche des elements pedagogiques
-			// (apogeeMap en param est FINAL, elle est donc modifiee definitivement au sein de la methode)
-			t1 = System.currentTimeMillis();
-//			ApogeeMap apogeeMapELP = getStudentELPV2(cod, apogeeMap);
-			t2 = System.currentTimeMillis();
-			System.out.println("duree getStudentELPV2 : " + (t2-t1) +" ms");
-		}
 
 		return apogeeMap;
 	}
@@ -811,10 +800,7 @@ public class StudentDataRepositoryDaoWS implements
 		// (inscription admin etape en cours (E)) en fonction de l'annee en param
 		InsAdmEtpDTO2[] tabInsAdmEtp;
 		try {
-			long t1 = System.currentTimeMillis();
 			tabInsAdmEtp = serviceAdministratif.recupererIAEtapes_v2(cod, annee, "E", "E");
-			long t2 = System.currentTimeMillis();
-			System.out.println("RecupererIAEtapes_v2 : " + (t2-t1) + " ms");
 		} catch (WebBaseException e) {
 			tabInsAdmEtp = new InsAdmEtpDTO2[0];
 			if (logger.isDebugEnabled()){
@@ -921,10 +907,7 @@ public class StudentDataRepositoryDaoWS implements
 						seCritereDTO.setCodElp("tous");
 //						seCritereDTO.setCodNatureElp("stag");
 
-						long t1 = System.currentTimeMillis();
 						DiplomeDTO3[] diplomeDTO = offreFormationMetierService.recupererSE_v3(seCritereDTO);
-						long t2 = System.currentTimeMillis();
-						System.out.println("recupererSE_v3 : " + (t2-t1) + " ms");
 						if (diplomeDTO != null) {
 							for (int i = 0; i < diplomeDTO.length; i++) {
 								VersionDiplomeDTO3[] versionDiplome = diplomeDTO[i].getListVersionDiplome();
@@ -943,7 +926,7 @@ public class StudentDataRepositoryDaoWS implements
 
 										// Recup éléments pédagogiques
 										ListeElementPedagogiDTO2[] listeelementPedagogiDTO = offreFormation.getListEtape()[0].getListVersionEtape()[0].getListListeElementPedagogi();
-										System.out.println("Taille liste elements pedagogiques dto : " + listeelementPedagogiDTO.length);
+
 										if(listeelementPedagogiDTO != null) {
 											for (int k = 0; k < listeelementPedagogiDTO.length; k++) {
 												ElementPedagogiDTO2[] elementPedagogique = listeelementPedagogiDTO[k].getListElementPedagogi();

@@ -98,14 +98,13 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
 		</f:facet>
-		<h:panelGrid
-			columns="2" style="font-size:12px;">
+		<t:div>
 			<h:graphicImage id="flag"
 				rendered="#{not empty varRechercheStructure.pays}"
-				value="../../media/images/flags/#{varRechercheStructure.pays.iso2}.png"
+				value="/media/images/flags/#{varRechercheStructure.pays.iso2}.png"
 				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 				title="#{varRechercheStructure.pays.libelle}" />
-			<h:outputText value="#{varRechercheStructure.pays.libelle}" />
-		</h:panelGrid>
+			<h:outputText value="#{varRechercheStructure.pays.libelle}" styleClass="ml5" />
+        </t:div>
 	</p:column>
 </ui:composition>

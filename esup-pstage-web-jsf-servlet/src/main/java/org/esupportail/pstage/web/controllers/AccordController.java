@@ -601,8 +601,7 @@ public class AccordController extends AbstractContextAwareController {
 			}
 		}else{
 			//Mail != Confirmation
-			if(!mailConfirmationOK)
-				addErrorMessage("formAccord:mailConfirmation", "CONTACT.MAIL_CONFIRMATION.VALIDATION");
+			addErrorMessage("formAccord:mailConfirmation", "CONTACT.MAIL_CONFIRMATION.VALIDATION");
 		}
 //		return retour;
 	}

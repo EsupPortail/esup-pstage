@@ -1,38 +1,19 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+    <t:div rendered="#{rechercheController.resultatRechercheSize gt 1 and rechercheController.resultatRechercheSize lt 200}">
+        <t:htmlTag value="i" styleClass="fa fa-building-o fz13 fontBlue2"/>
+        <h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}" escape="false" styleClass="ml5">
+            <f:param value="#{rechercheController.resultatRechercheSize}" />
+        </h:outputFormat>
+    </t:div>
 
-	<h:panelGrid columns="2"
-		rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
-		<h:graphicImage value="../../media/images/building.png"
-			alt="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}"
-			rendered="#{rechercheController.resultatRechercheSize gt 1
-						and rechercheController.resultatRechercheSize lt 200}" />
-		<h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}"
-			rendered="#{rechercheController.resultatRechercheSize gt 1
-						and rechercheController.resultatRechercheSize lt 200}"
-			escape="false">
-			<f:param
-				value="#{rechercheController.resultatRechercheSize}" />
-		</h:outputFormat>
-		<h:graphicImage value="../../media/images/building.png"
-			alt="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}"
-			rendered="#{rechercheController.resultatRechercheSize ge 200}" />
-		<h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}"
-			rendered="#{rechercheController.resultatRechercheSize ge 200}"
-			escape="false">
-			<f:param
-				value="#{rechercheController.resultatRechercheSize}" />
-		</h:outputFormat>
-	</h:panelGrid>
-	<h:panelGrid columns="2" 
-		rendered="#{sessionController.moderationStructures and rechercheController.toVerificationStructures}">
-		<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-		<h:outputText value="#{msgs['STRUCTURE.MODERATION.INFORMATION']}" escape="false"/>
-	</h:panelGrid>
-	<t:htmlTag value="div" style="height:10px;" />
+    <t:div rendered="#{rechercheController.resultatRechercheSize ge 200}">
+        <t:htmlTag value="i" styleClass="fa fa-building-o fz13 fontBlue2"/>
+        <h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.MAXRESULTATS']}" escape="false" styleClass="ml5">
+            <f:param value="#{rechercheController.resultatRechercheSize}" />
+        </h:outputFormat>
+    </t:div>
 </ui:composition>

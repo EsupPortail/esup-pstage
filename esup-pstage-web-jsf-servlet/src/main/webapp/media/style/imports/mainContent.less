@@ -32,9 +32,9 @@
       color: @MainPanelTitleFontColor;
       text-align: left;
 
-      @media (min-width: @MediaTablet) {
-        text-align: center;
-      }
+      //@media (min-width: @MediaTablet) {
+      //  text-align: center;
+      //}
     }
 
     .ui-panel-content {
@@ -208,3 +208,32 @@
     }
   }
 }
+
+.noBorder{
+  & tr, & .ui-panelgrid-cell {
+    border: none;
+    background-color: #e9e9e9;
+  }
+}
+
+.noPointer {
+  cursor: default !important;
+}
+
+.panelInfos {
+  & tr, & .ui-panelgrid-cell {
+    border: none;
+    background-color: #e9e9e9;
+  }
+  input, .ui-selectonemenu {
+    @media (min-width: @MediaTablet) {
+      width: @InputWidth;
+    }
+  }
+}
+.confirmInfosEtu {
+  tr:hover {
+    background-color: #74B1D2;
+    cursor: default;
+  }
+ }

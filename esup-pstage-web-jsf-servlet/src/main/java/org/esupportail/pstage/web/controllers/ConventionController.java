@@ -91,6 +91,7 @@ import org.esupportail.pstagedata.exceptions.DataUpdateException;
 import org.esupportail.pstagedata.exceptions.EtapeAlreadyExistingForCodeException;
 import org.esupportail.pstagedata.exceptions.UfrAlreadyExistingForCodeException;
 import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.primefaces.event.SelectEvent;
 import org.springframework.util.StringUtils;
 
 
@@ -449,13 +450,6 @@ public class ConventionController extends AbstractContextAwareController {
 	private List<ConventionDTO> listeConventionsSelectionnees = new ArrayList<ConventionDTO>();
 
 	/**
-	 * Recherche d'offre en rapport avec la convention par numero (par champs
-	 * autocomplete dans le cas contraire)
-	 */
-	private boolean rechOffreByNum = true;
-
-
-	/**
 	 * Bean constructor.
 	 */
 	public ConventionController() {
@@ -463,6 +457,7 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/* ***************************************************************
+	 * Actions
 	 * Actions
 	 *****************************************************************/
 	/**
@@ -576,15 +571,6 @@ public class ConventionController extends AbstractContextAwareController {
 		return retour;
 	}
 
-	public void goToCreerConventionEtape2() {
-		if (this.numOffreConvention != null
-				&& !this.numOffreConvention.isEmpty()) {
-			this.goToCreerConventionEtape2Etab();
-		} else {
-			getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1DemandeLienOffre");
-		}
-	}
-
 	/**
 	 * @return A String
 	 */
@@ -619,7 +605,7 @@ public class ConventionController extends AbstractContextAwareController {
 		this.convention.setContact(new ContactDTO());
 		this.convention.setSignataire(new ContactDTO());
 		this.convention.setEnseignant(new EnseignantDTO());
-		this.sequenceEtapeEnum = null;
+		sequenceEtapeEnum = SequenceEtapeEnum.etape1;
 
 		this.rechIdentEtudiant = "";
 		this.rechNomEtudiant = "";
@@ -636,7 +622,6 @@ public class ConventionController extends AbstractContextAwareController {
 					.getFrance());
 			return "formulaireCompletion";
 		}
-		sequenceEtapeEnum = SequenceEtapeEnum.etape1;
 
 		return "creerConventionEtape1Etudiant";
 	}
@@ -1026,17 +1011,9 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 			this.ctrlInfosEtuOK = true;
-			// retour = "_creerConventionEtape1Etudiant";
-			getSessionController().setCreationConventionEtape1CurrentPage(
-					"_creerConventionEtape1ConfirmInfosEtu");
-		}
-		// return retour;
-	}
 
-	public String retourConfirmInfosEtu() {
-		getSessionController().setCreationConventionEtape1CurrentPage(
-				"_creerConventionEtape1ConfirmInfosEtu");
-		return "creerConventionEtape1Etudiant";
+			getSessionController().setCreationConventionEtape1CurrentPage("_creerConventionEtape1ConfirmInfosEtu");
+		}
 	}
 
 	/**
@@ -1260,39 +1237,41 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * Etape 02 : Recherche établissement.
-	 *
 	 * @return a String
 	 */
-	public String goToCreerConventionEtape2Etab() {
+	public String retourEtape1Creation(){
+
+		sequenceEtapeEnum = SequenceEtapeEnum.etape1;
+
+		return "creerConventionEtape1Etudiant";
+	}
+
+	/**
+	 * @return a String
+	 */
+	public String goToCreerConventionEtape2Offre() {
 		ajoutInfosEtudiant();
+
+		this.intituleOffreConvention = "";
+		this.numOffreConvention = "";
 		sequenceEtapeEnum = SequenceEtapeEnum.etape2;
 
-		getSessionController().setCreationConventionEtape2CurrentPage(
-				"_creerConventionEtape2Etab");
+		getSessionController().setCreationConventionEtape2CurrentPage("_creerConventionEtape2DemandeLienOffre");
+
 		return "creerConventionEtape2Etab";
 	}
 
 	/**
 	 * @return a String
 	 */
-	public String goToRetourAction() {
-		return this.retourAction;
-	}
-
-	/**
-	 * Etape 01 : Recherche Lien Offre.
-	 *
-	 * @return a String
-	 */
-	public String goToCreerConventionEtape1Offre() {
+	public String goToCreerConventionEtape2Etab() {
 		ajoutInfosEtudiant();
-		this.intituleOffreConvention = "";
-		this.numOffreConvention = "";
+
 		sequenceEtapeEnum = SequenceEtapeEnum.etape2;
-		getSessionController().setCreationConventionEtape1CurrentPage(
-				"_creerConventionEtape1Offre");
-		return "creerConventionEtape1Etudiant";
+
+		getSessionController().setCreationConventionEtape2CurrentPage("_creerConventionEtape2Etab");
+
+		return "creerConventionEtape2Etab";
 	}
 
 	/**
@@ -1303,12 +1282,10 @@ public class ConventionController extends AbstractContextAwareController {
 	public String goToCreerConventionEtape2EtabR() {
 		if (this.retourAction != null) {
 			if (this.retourAction.equals("_creerConventionEtape2Etab")) {
-				getSessionController().setCreationConventionEtape2CurrentPage(
-						this.retourAction);
+				getSessionController().setCreationConventionEtape2CurrentPage(this.retourAction);
 				return "creerConventionEtape2Etab";
-			} else if (this.retourAction.equals("_creerConventionEtape1Offre")) {
-				getSessionController().setCreationConventionEtape1CurrentPage(
-						this.retourAction);
+			} else if (this.retourAction.equals("_creerConventionEtape2Offre")) {
+				getSessionController().setCreationConventionEtape2CurrentPage(this.retourAction);
 				return "creerConventionEtape1Etudiant";
 			} else {
 				return this.retourAction;
@@ -1318,25 +1295,29 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
+	 * @return a String
+	 */
+	public String goToRetourAction() {
+		return this.retourAction;
+	}
+
+	/**
 	 * @return A String
 	 */
 	public String rechercheNumOffre() {
-
-		// if (this.offreMotCle)
-
 		boolean ctrlOK = true;
 		String retour = null;
 		String description = "";
 		int numOffre = 0;
 		if (!StringUtils.hasText(this.numOffreConvention)) {
-			addErrorMessage("formConvention:idOffre",
+			addErrorMessage("formConvention",
 					"CONVENTION.ETAPE1.RECHERCHENUMOFFRE.OBLIGATOIRE");
 			ctrlOK = false;
 		}
 		try {
 			numOffre = Integer.parseInt(this.numOffreConvention);
 		} catch (NumberFormatException e) {
-			addErrorMessage("formConvention:idOffre",
+			addErrorMessage("formConvention",
 					"CONVENTION.ETAPE1.RECHERCHENUMOFFRE.NUMERIQUE");
 			ctrlOK = false;
 		}
@@ -1371,18 +1352,15 @@ public class ConventionController extends AbstractContextAwareController {
 					StructureDTO structureTmp = getStructureDomainService()
 							.getStructureFromId(offre.getIdStructure());
 					if (structureTmp != null) {
-						this.rechercheController
-								.setResultatRechercheStructure(structureTmp);
+						this.rechercheController.setResultatRechercheStructure(structureTmp);
 
-						getSessionController()
-								.setCreationConventionEtape2CurrentPage(
-										"_creerConventionEtape2DetailsEtab");
+						getSessionController().setCreationConventionEtape2CurrentPage("_creerConventionEtape2DetailsEtab");
 						retour = "creerConventionEtape2Etab";
 					}
 				}
 
 			} else {
-				addErrorMessage("formConvention:idOffre",
+				addErrorMessage("formConvention",
 						"CONVENTION.ETAPE1.RECHERCHENUMOFFRE.AUCUNE");
 			}
 		}
@@ -4023,13 +4001,10 @@ public class ConventionController extends AbstractContextAwareController {
 		this.ctrlInfosEtuOK = false;
 		this.ctrlInfosStageOK = false;
 
-		// String retour = null;
-		// getSessionController().setCreationConventionCurrentPage("creerConventionRechercheEtudiant");
 		if ((!StringUtils.hasText(this.rechIdentEtudiant))
 				&& (!StringUtils.hasText(this.rechNomEtudiant))
 				&& (!StringUtils.hasText(this.rechPrenomEtudiant))) {
-			addErrorMessage("formConvention:oblig",
-					"RECHERCHEETU.OBLIGATOIRE.RESPECTER");
+			addErrorMessage("formConvention:test","RECHERCHEETU.OBLIGATOIRE.RESPECTER");
 			numEtuNomPrenomOK = false;
 		}
 		if (StringUtils.hasText(this.rechIdentEtudiant)
@@ -4058,14 +4033,10 @@ public class ConventionController extends AbstractContextAwareController {
 			// recherche par numero etudiant
 			if (StringUtils.hasText(this.rechIdentEtudiant)) {
 				this.listeResultatsRechercheEtudiant = null;
-				System.out.println("appel WS");
-				long t1 = System.currentTimeMillis();
 				this.resultatEtudiantRef = getStudentDataRepositoryDomain().getEtudiantRefByNum(
 								getSessionController().getCodeUniversite(),
 								this.rechIdentEtudiant,
 								null);
-				long t2 = System.currentTimeMillis();
-				System.out.println("fin appel WS : " + (t2-t1) + " ms");
 				if (resultatEtudiantRef != null) {
 					if (resultatEtudiantRef.getAdministrationApogee() != null) {
 						if (!resultatEtudiantRef.getAdministrationApogee()
@@ -4105,8 +4076,7 @@ public class ConventionController extends AbstractContextAwareController {
 								"RECHERCHEETU.INVALIDE");
 					}
 					if (this.listeResultatsRechercheEtudiant.size() == 1) {
-						EtudiantRef etudiantRefTmp = this.listeResultatsRechercheEtudiant
-								.get(0);
+						EtudiantRef etudiantRefTmp = this.listeResultatsRechercheEtudiant.get(0);
 						if (etudiantRefTmp.getAdministrationApogee() != null) {
 							if (!etudiantRefTmp.getAdministrationApogee()
 									.isStatusApogee()
@@ -5073,19 +5043,18 @@ public class ConventionController extends AbstractContextAwareController {
 		List<OffreDTO> result = new ArrayList<OffreDTO>();
 		if (suggest.length() >= 5) {
 			CritereRechercheOffreDTO cro = new CritereRechercheOffreDTO();
-			cro.setIdsCentreGestion(getSessionController()
-					.getCurrentIdsCentresGestion());
+			cro.setIdsCentreGestion(getSessionController().getCurrentIdsCentresGestion());
 			cro.setEstDiffusee(true);
 			cro.setEstSupprimee(false);
-			cro.setDiffusionTerminee(false);
-			cro.setEstAccessERQTH(false);
-			cro.setEstPrioERQTH(false);
 			cro.setIntitule(suggest);
 			result = getOffreDomainService().getOffresFromCriteres(cro);
 			if (result == null)
 				result = new ArrayList<OffreDTO>();
 		}
 		return result;
+	}
+	public void onOffreSelect(SelectEvent event) {
+		this.numOffreConvention = Integer.toString(((OffreDTO) event.getObject()).getIdOffre());
 	}
 
 	/**
@@ -7151,14 +7120,6 @@ public class ConventionController extends AbstractContextAwareController {
 
 	public void setSelMonnaieGratification(String selMonnaieGratification) {
 		this.selMonnaieGratification = selMonnaieGratification;
-	}
-
-	public boolean isRechOffreByNum() {
-		return rechOffreByNum;
-	}
-
-	public void setRechOffreByNum(boolean rechOffreByNum) {
-		this.rechOffreByNum = rechOffreByNum;
 	}
 
 	public boolean isBlocageAucuneInscription() {

@@ -1,19 +1,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid align="center" style="padding-top:20px;">
-		<p:messages />
+    <t:div styleClass="textCenter">
+        <p:messages />
 
-		<t:htmlTag value="center">
-			<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
-				update="opRechercheStructureDataTable, formSelConvention"
-				onclick="PF('validerStructurePanel').hide();" />
-		</t:htmlTag>
-	</h:panelGrid>
+        <p:commandButton value="#{msgs['GENERAL.CLOSE']}" ajax="false"  />
+    </t:div>
 
 </ui:composition>
