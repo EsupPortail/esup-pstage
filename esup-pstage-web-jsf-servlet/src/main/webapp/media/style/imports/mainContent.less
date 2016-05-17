@@ -102,7 +102,7 @@
   }
 }
 
-.ui-inputfield.ui-inputtext.customPstage {
+.ui-inputfield.ui-inputtext {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -129,11 +129,19 @@
   }
 }
 
-.ui-button.customPstage {
+.ui-button {
+  color: @ButtonColors;
+  font-weight: 500;
   display: block;
   width: 100%;
   margin-bottom: 5px;
   padding: 5px 0;
+  font-family: @ButtonFontFamily;
+
+  &:hover {
+    color: @ButtonHoverColors;
+    font-weight: 500;
+  }
 
   @media (min-width: @MediaTablet) {
     display: inline-block;
@@ -143,7 +151,73 @@
   }
 }
 
-.ui-selectonemenu.customPstage {
+.ui-selectonebutton {
+
+  &.customRechercheConvention {
+    width: 100%;
+    box-sizing: border-box;
+    @media (min-width: @MediaTablet) {
+      width: auto;
+    }
+    .ui-button {
+      box-sizing: border-box;
+      width: 50%;
+      @media (min-width: @MediaTablet) {
+        width: auto;
+      }
+      &:first-child {
+        float: left;
+        @media (min-width: @MediaTablet) {
+          float: none;
+        }
+      }
+      &:last-child {
+        float: right;
+        @media (min-width: @MediaTablet) {
+          float: none;
+        }
+      }
+    }
+  }
+
+  .ui-button {
+    color: @ButtonColors;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px 0;
+
+    &:hover {
+      color: @ButtonHoverColors;
+      font-weight: 500;
+    }
+    &.ui-state-active {
+      color: @White;
+      &:hover {
+        color: @White;
+        font-weight: 500;
+      }
+      &.ui-state-active {
+        background: @MainSelectCheckboxBackground;
+      }
+    }
+    @media (min-width: @MediaTablet) {
+      display: inline-block;
+      width: auto;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  @media (min-width: @MediaTablet) {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.ui-selectonemenu {
   border-radius: 0;
   box-shadow: none;
   background: @White;
@@ -162,12 +236,27 @@
   width: 100%;
 }
 
-.ui-selectoneradio.customPstage .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+.ui-tabmenu {
+  .ui-tabmenu-nav {
+    .ui-tabmenuitem {
+      &.ui-state-active {
+        background: @MainSelectCheckboxBackground;
+        color: @White;
+      }
+    }
+  }
+}
+
+.ui-selectoneradio .ui-radiobutton .ui-radiobutton-box.ui-state-active {
   background: @MainSelectRadioBackground;
 }
 
-.ui-chkbox.customPstage .ui-chkbox-box.ui-state-active {
-  background: @MainSelectCheckboxBackground;
+.ui-chkbox .ui-chkbox-box {
+  margin-right: 5px;
+
+  &.ui-state-active {
+    background: @MainSelectCheckboxBackground;
+  }
 }
 
 .ui-state-highlight { /* en attendant de trouver mieux */
@@ -209,6 +298,41 @@
   }
 }
 
+.block {
+  max-width:@BlockSize;
+  &.centerBlock {
+    margin: 0 auto;
+  }
+}
+
+#blackScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 222;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s ease-in-out, visibility 0s .25s;
+  -moz-transition: opacity .25s ease-in-out, visibility 0s .25s;
+  -webkit-transition: opacity .25s ease-in-out, visibility 0s .25s;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .25s ease-in-out, visibility 0s;
+    -moz-transition: opacity .25s ease-in-out, visibility 0s;
+    -webkit-transition: opacity .25s ease-in-out, visibility 0s;
+  }
+
+  @media(min-width: @MediaTablet) {
+    display: none;
+  }
+}
+
 .noBorder{
   & tr, & .ui-panelgrid-cell {
     border: none;
@@ -236,4 +360,4 @@
     background-color: #74B1D2;
     cursor: default;
   }
- }
+}

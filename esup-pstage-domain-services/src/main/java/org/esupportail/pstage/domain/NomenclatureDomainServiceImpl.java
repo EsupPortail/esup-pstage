@@ -11,40 +11,9 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.esupportail.commons.annotations.cache.SessionCache;
-import org.esupportail.pstagedata.domain.dto.AffectationDTO;
-import org.esupportail.pstagedata.domain.dto.AssuranceDTO;
-import org.esupportail.pstagedata.domain.dto.CaisseRegimeDTO;
-import org.esupportail.pstagedata.domain.dto.CiviliteDTO;
-import org.esupportail.pstagedata.domain.dto.ConfidentialiteDTO;
-import org.esupportail.pstagedata.domain.dto.ContratOffreDTO;
-import org.esupportail.pstagedata.domain.dto.CritereGestionDTO;
-import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
-import org.esupportail.pstagedata.domain.dto.EffectifDTO;
-import org.esupportail.pstagedata.domain.dto.FapN1DTO;
-import org.esupportail.pstagedata.domain.dto.FapN2DTO;
-import org.esupportail.pstagedata.domain.dto.FapN3DTO;
-import org.esupportail.pstagedata.domain.dto.FapQualificationDTO;
-import org.esupportail.pstagedata.domain.dto.FapQualificationSimplifieeDTO;
-import org.esupportail.pstagedata.domain.dto.IndemnisationDTO;
-import org.esupportail.pstagedata.domain.dto.LangueConventionDTO;
-import org.esupportail.pstagedata.domain.dto.ModeCandidatureDTO;
-import org.esupportail.pstagedata.domain.dto.ModeValidationStageDTO;
-import org.esupportail.pstagedata.domain.dto.ModeVersGratificationDTO;
-import org.esupportail.pstagedata.domain.dto.NafN1DTO;
-import org.esupportail.pstagedata.domain.dto.NafN5DTO;
-import org.esupportail.pstagedata.domain.dto.NatureTravailDTO;
-import org.esupportail.pstagedata.domain.dto.NiveauCentreDTO;
-import org.esupportail.pstagedata.domain.dto.NiveauFormationDTO;
-import org.esupportail.pstagedata.domain.dto.OrigineStageDTO;
-import org.esupportail.pstagedata.domain.dto.PaysDTO;
-import org.esupportail.pstagedata.domain.dto.StatutJuridiqueDTO;
-import org.esupportail.pstagedata.domain.dto.TempsTravailDTO;
-import org.esupportail.pstagedata.domain.dto.ThemeDTO;
-import org.esupportail.pstagedata.domain.dto.TypeConventionDTO;
-import org.esupportail.pstagedata.domain.dto.TypeOffreDTO;
-import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
-import org.esupportail.pstagedata.domain.dto.UniteDureeDTO;
-import org.esupportail.pstagedata.domain.dto.UniteGratificationDTO;
+import org.esupportail.pstagedata.domain.beans.ModeValidationStage;
+import org.esupportail.pstagedata.domain.beans.Niveau;
+import org.esupportail.pstagedata.domain.dto.*;
 import org.esupportail.pstagedata.exceptions.*;
 import org.esupportail.pstagedata.remote.RemoteServices;
 
@@ -447,7 +416,8 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	 */
 	public ConfidentialiteDTO getConfidentialiteFromCode(String code){
 		ConfidentialiteDTO c = null;
-		for(ConfidentialiteDTO cf : getConfidentialites()){
+		List<ConfidentialiteDTO> l = getConfidentialites();
+		for(ConfidentialiteDTO cf : l){
 			if(cf.getCode().equalsIgnoreCase(code)){
 				c=cf;
 				break;
@@ -987,7 +957,8 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	 */
 	public ModeValidationStageDTO getModeValidationStageDTOFromId(int id) {
 		ModeValidationStageDTO o = null;
-		for(ModeValidationStageDTO oo : getModeValidationStages()){
+		List<ModeValidationStageDTO> l = getModeValidationStages();
+		for(ModeValidationStageDTO oo : l){
 			if(oo.getId()==(id)){
 				o=oo;
 				break;
@@ -1147,7 +1118,8 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	 */
 	public NiveauCentreDTO getNiveauCentreFromId(int id){
 		NiveauCentreDTO n = null;
-		for(NiveauCentreDTO nn : getNiveauxCentre()){
+		List<NiveauCentreDTO> l = getNiveauxCentre();
+		for(NiveauCentreDTO nn : l){
 			if(nn.getId()==(id)){
 				n=nn;
 				break;
@@ -1161,7 +1133,8 @@ public class NomenclatureDomainServiceImpl implements Serializable, Nomenclature
 	 */
 	public NiveauCentreDTO getNiveauCentreFromLibelle(String lib){
 		NiveauCentreDTO n = null;
-		for(NiveauCentreDTO nn : getNiveauxCentre()){
+		List<NiveauCentreDTO> l = getNiveauxCentre();
+		for(NiveauCentreDTO nn : l){
 			if(nn.getLibelle().equalsIgnoreCase(lib)){
 				n=nn;
 				break;

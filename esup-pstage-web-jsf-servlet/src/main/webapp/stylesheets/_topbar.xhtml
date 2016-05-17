@@ -36,14 +36,22 @@
         <ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
     </p:dialog>
 
+    <t:div id="blackScreen"></t:div>
+
     <script type="text/javascript">
         function toggleSidebar() {
             if(document.getElementById("SIDEBAR").style.transform == 'translateX(0%)' || document.getElementById("SIDEBAR").style.transform == "") {
+                document.getElementById("blackScreen").className = 'visible';
                 document.getElementById("SIDEBAR").style.transform = 'translateX(100%)';
-//                document.getElementById("cacheTout").className = 'active';
             } else {
                 document.getElementById("SIDEBAR").style.transform = 'translateX(0%)';
-//                document.getElementById("cacheTout").className = '';
+                document.getElementById("blackScreen").className = '';
+            }
+        }
+
+        document.getElementById("blackScreen").onclick = function(e) {
+            if(document.getElementById("blackScreen").className == 'visible') {
+                toggleSidebar();
             }
         }
     </script>
