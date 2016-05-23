@@ -9,21 +9,25 @@
             <f:facet name="header">
                 <h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
             </f:facet>
-            <h:form id="formRechOffre" style="width:700px;"
+            <h:form id="formRechOffre" styleClass="block centerBlock"
                     onkeypress="if (event.keyCode == 13) { document.getElementById('formRechConvention:rechercherConvention').click(); return false; }">
                 <t:div >
-                    <p:selectOneButton value="#{offreController.rechercheAvancee}">
+                    <p:selectOneButton value="#{offreController.rechercheAvancee}" styleClass="customRecherche">
                         <f:selectItem itemLabel="#{msgs['RECHERCHEOFFRE.RECHERCHESIMPLE']}" itemValue="#{false}" />
                         <f:selectItem itemLabel="#{msgs['RECHERCHEOFFRE.RECHERCHEAVANCEE']}" itemValue="#{true}" />
                         <p:ajax event="change" update="@form" onstart="PF('statusDialog').show();"
                                 oncomplete="PF('statusDialog').hide();"/>
                     </p:selectOneButton>
                     <p:commandButton value="#{msgs['RECHERCHEOFFRE.REINIT']}" ajax="false"
-                                     action="#{offreController.resetRechercheOffre}"
-                                     style="float:right;"/>
+                                     action="#{offreController.resetRechercheOffre}" styleClass="floatRight"/>
                 </t:div>
-                <t:htmlTag value="div" style="height: 5px;" />
+
+                <t:htmlTag value="div" style="height: 10px;" />
+
                 <ui:include src="../_commun/_rechercheOffre.xhtml" />
+
+                <t:htmlTag value="div" style="height: 10px;" />
+
                 <p:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}" update="@form"
                                  action="#{offreController.rechercherOffre}" icon="fa fa-search"/>
                 <p:messages />

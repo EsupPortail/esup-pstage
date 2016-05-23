@@ -80,7 +80,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
 		EtudiantRef etudiantRef = new EtudiantRef();
-		if(!ldapUsersFromFilter.isEmpty()){
+		if(ldapUsersFromFilter != null && !ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
 			if(logger.isInfoEnabled()){
 				logger.info("attributsNames= " +ldapUser.getAttributeNames());
@@ -209,7 +209,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
 		List<EtudiantRef> etudiants = null;
-		if(!etudiantsDansLdap.isEmpty()){
+		if(etudiantsDansLdap != null && !etudiantsDansLdap.isEmpty()){
 			etudiants = new ArrayList<EtudiantRef>(etudiantsDansLdap.size());
 			for(LdapUser user : etudiantsDansLdap){
 				String id = user.getAttribute(ldapAttributes.getLdapStudentId());
@@ -242,7 +242,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			logger.error("Probleme lors de l'appel de getLdapGroupsFromFilter dans "+this.getClass().getSimpleName()+" : ",ldae.getCause());
 		}
 
-		if(!ldapGroups.isEmpty()){
+		if(ldapGroups != null && !ldapGroups.isEmpty()){
 			String etapeCode=null;
 			String etapeLibelle =null;
 			etapes = new LinkedHashMap<String, String>(ldapGroups.size());

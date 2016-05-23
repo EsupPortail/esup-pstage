@@ -737,8 +737,8 @@ public class ConventionController extends AbstractContextAwareController {
 			if (!blocageCreationEtpOrpheline) {
 				// Cas ou l'on n'a qu'une seule composante
 				if (this.etudiantRef.getStudys().size() == 1) {
-					String clef = null;
-					String valeur = null;
+					String clef;
+					String valeur;
 					Iterator<String> i = this.etudiantRef.getStudys().keySet()
 							.iterator();
 					while (i.hasNext()) {
@@ -1007,7 +1007,7 @@ public class ConventionController extends AbstractContextAwareController {
 			// de stage
 			if (selectedAnneeUniv != null) {
 				int anneeInt = Integer.parseInt(selectedAnneeUniv);
-				this.convention.setAnnee((anneeInt + "/" + (anneeInt + 1)));
+				this.convention.setAnnee(anneeInt + "/" + (anneeInt + 1));
 			}
 
 			this.ctrlInfosEtuOK = true;
@@ -1210,7 +1210,7 @@ public class ConventionController extends AbstractContextAwareController {
 			// de stage
 			if (selectedAnneeUniv != null) {
 				int anneeInt = Integer.parseInt(selectedAnneeUniv);
-				this.convention.setAnnee((anneeInt + "/" + (anneeInt + 1)));
+				this.convention.setAnnee(anneeInt + "/" + (anneeInt + 1));
 			}
 			// Fin Ajout modif etape
 
@@ -1307,7 +1307,7 @@ public class ConventionController extends AbstractContextAwareController {
 	public String rechercheNumOffre() {
 		boolean ctrlOK = true;
 		String retour = null;
-		String description = "";
+		String description;
 		int numOffre = 0;
 		if (!StringUtils.hasText(this.numOffreConvention)) {
 			addErrorMessage("formConvention",
@@ -1714,8 +1714,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToConventionRechEtab() {
-		String ret = "conventionEtape2RechEtab";
-		return ret;
+		return "conventionEtape2RechEtab";
 
 	}
 
@@ -1725,8 +1724,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void ajouterEtablissement() {
-		String ret = null;
-		ret = this.etablissementController.ajouterEtablissement();
+		String ret = this.etablissementController.ajouterEtablissement();
 		if (ret != null
 				&& this.etablissementController.getFormStructure() != null) {
 			if (this.convention != null) {
@@ -1754,8 +1752,7 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String ajouterEtablissementModif() {
-		String ret = null;
-		ret = this.etablissementController.ajouterEtablissement();
+		String ret = this.etablissementController.ajouterEtablissement();
 		if (ret != null
 				&& this.etablissementController.getFormStructure() != null) {
 			this.convention.setStructure(this.etablissementController
@@ -1813,18 +1810,15 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToConventionModifEtab() {
-		String ret = null;
-		ret = this.etablissementController.goToModificationEtablissement();
-		ret = "conventionEtape2ModifEtab";
-		return ret;
+//		String ret = this.etablissementController.goToModificationEtablissement();
+		return "conventionEtape2ModifEtab";
 	}
 
 	/**
 	 * @return String
 	 */
 	public void modifierEtablissement() {
-		String ret = null;
-		ret = this.etablissementController.modifierEtablissement();
+		String ret = this.etablissementController.modifierEtablissement();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Iterator<FacesMessage> ifm = fc.getMessages("formModifEtab");
 		while (ifm.hasNext()) {

@@ -709,21 +709,21 @@ public class SessionController extends AbstractDomainAwareBean {
 			} else if(currentURI.toLowerCase().contains("welcome.xhtml")) {
 				setCurrentPage("Home");
 			}
-			System.out.println(currentURI);
-			NavigationHandler a = ctx.getApplication().getNavigationHandler();
-			Map<String, Set<NavigationCase>> b = ((ConfigurableNavigationHandler)a).getNavigationCases();
-			Iterator<Set<NavigationCase>> i = b.values().iterator();
-			while(i.hasNext()) {
-				Iterator<NavigationCase> k = i.next().iterator();
-				while(k.hasNext()) {
-					NavigationCase n = k.next();
-				}
-			}
+//			System.out.println(currentURI);
+//			NavigationHandler a = ctx.getApplication().getNavigationHandler();
+//			Map<String, Set<NavigationCase>> b = ((ConfigurableNavigationHandler)a).getNavigationCases();
+//			Iterator<Set<NavigationCase>> i = b.values().iterator();
+//			while(i.hasNext()) {
+//				Iterator<NavigationCase> k = i.next().iterator();
+//				while(k.hasNext()) {
+//					NavigationCase n = k.next();
+//				}
+//			}
 		}
 	}
 
 	public boolean isCurrentPageHome() {
-		return "Home".equals(getCurrentPage()) || getCurrentPage().isEmpty() || getCurrentPage() == null;
+		return "Home".equals(getCurrentPage()) || getCurrentPage() == null || getCurrentPage().isEmpty();
 	}
 
 	public boolean isCurrentPageConvention() {

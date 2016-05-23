@@ -4,8 +4,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <p:scrollPanel mode="native" style="max-width:750px;">
-        <t:div style="min-width:950px;">
+    <p:scrollPanel mode="native" styleClass="customPstage">
             <ui:repeat value="#{conventionController.sequences}" var="sequence">
                 <p:commandButton value="#{sequence.title}" immediate="true"
                                  rendered="#{sequence.disabled}" disabled="true"
@@ -19,7 +18,6 @@
                     <f:setPropertyActionListener value="#{sequence}" target="#{conventionController.sequenceEtapeEnum}" />
                 </p:commandButton>
             </ui:repeat>
-        </t:div>
       </p:scrollPanel>
 </ui:composition>
 

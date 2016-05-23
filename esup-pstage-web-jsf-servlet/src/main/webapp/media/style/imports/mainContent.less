@@ -106,7 +106,7 @@
   }
 }
 
-.ui-inputfield.ui-inputtext {
+.ui-autocomplete .ui-autocomplete-input.ui-inputfield, .ui-inputfield.ui-inputtext {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -142,7 +142,7 @@
   padding: 5px 0;
   font-family: @ButtonFontFamily;
 
-  &:hover {
+  &:hover, &.ui-state-hover {
     color: @ButtonHoverColors;
     font-weight: 500;
   }
@@ -157,7 +157,7 @@
 
 .ui-selectonebutton {
 
-  &.customRechercheConvention {
+  &.customRecherche {
     width: 100%;
     box-sizing: border-box;
     @media (min-width: @MediaTablet) {
@@ -387,5 +387,18 @@
       padding: .3em 1em;
       font-size: 1.3rem;
     }
+  }
+}
+
+.ui-scrollpanel.customPstage {
+  height: auto;
+  white-space: nowrap;
+  margin: 0 auto 1rem auto;
+  border: 0;
+  text-align: center;
+  width: 100%;
+  & > .ui-button {
+    width: auto;
+    display: inline-block;
   }
 }

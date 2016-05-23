@@ -12,7 +12,7 @@
             <h:form id="formRechConvention" styleClass="block centerBlock"
                     onkeypress="if (event.keyCode == 13) { document.getElementById('formRechConvention:rechercherConvention').click(); return false; }">
                 <t:div>
-                    <p:selectOneButton value="#{conventionController.rechercheAvancee}" styleClass="customRechercheConvention">
+                    <p:selectOneButton value="#{conventionController.rechercheAvancee}" styleClass="customRecherche">
                         <f:selectItem itemLabel="#{msgs['RECHERCHECONVENTION.RECHERCHESIMPLE']}" itemValue="#{false}" />
                         <f:selectItem itemLabel="#{msgs['RECHERCHECONVENTION.RECHERCHEAVANCEE']}" itemValue="#{true}" />
                         <p:ajax event="change" update="@form" onstart="PF('statusDialog').show();"
@@ -20,7 +20,7 @@
                     </p:selectOneButton>
                     <p:commandButton value="#{msgs['RECHERCHECONVENTION.REINIT']}"
                                      action="#{conventionController.resetRechercheConvention}"
-                                     ajax="false" style="float:right;" />
+                                     ajax="false" styleClass="floatRight" />
                 </t:div>
 
                 <t:htmlTag value="div" style="height: 10px;" />
@@ -29,7 +29,7 @@
 
                 <t:htmlTag value="div" style="height:10px;" />
 
-                <p:fieldset toggleable="true" legend="General">
+                <p:fieldset toggleable="false" legend="General">
                     <t:htmlTag value="ul" styleClass="formUL columns-2">
                         <t:div styleClass="column">
                             <t:htmlTag value="li" rendered="#{not empty nomenclatureController.anneesConvention}">

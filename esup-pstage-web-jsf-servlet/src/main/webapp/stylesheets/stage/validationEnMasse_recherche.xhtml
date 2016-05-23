@@ -41,27 +41,12 @@
 									  value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO']}">
 							<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
 						</h:outputText>
-						<!--<h:outputText escape="false"-->
-									  <!--rendered="#{sessionController.validationPedagogique}"-->
-									  <!--value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO_PEDAGO']}">-->
-							<!--<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>-->
-						<!--</h:outputText>-->
 						<t:htmlTag value="span" styleClass="legendLabel">
 							<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
 							<h:outputText value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.INFO_PEDAGO']}" />
 						</t:htmlTag>
-						<!--<t:htmlTag value="div" style="height:10px;" />-->
-						<!--<t:htmlTag value="center">-->
-							<!--<t:htmlTag value="div"-->
-									   <!--style="width: 50%; lineType:beveled; height: 4px;"-->
-									   <!--styleClass="spacer" />-->
-						<!--</t:htmlTag>-->
-						<!--<t:htmlTag value="div" style="height: 20px;" />-->
-						<!--<h:panelGrid>-->
 							<t:div id="panelTuteur" styleClass="mt10"
 								   rendered="#{conventionController.ongletCourant == 1}">
-								<!--<p:outputLabel for="panelTuteur"-->
-											   <!--value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_TUTEUR']}" />-->
 								<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_TUTEUR']}" toggleable="false">
 									<t:htmlTag value="ul" styleClass="formUL columns-2">
 										<t:div styleClass="column">
@@ -92,8 +77,6 @@
 
 							<t:div id="panelUfr" styleClass="mt10"
 								   rendered="#{conventionController.ongletCourant == 2}">
-								<!--<h:outputLabel for="panelUfr"-->
-											   <!--value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_UFR']}" />-->
 								<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_UFR']}" toggleable="false">
 									<p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage" style="width: auto;"
 											value="#{conventionController.critereRechercheConvention.idsUfrs}"
@@ -107,8 +90,6 @@
 
 							<t:div id="panelEtape" styleClass="mt10"
 								   rendered="#{conventionController.ongletCourant == 3}">
-								<!--<h:outputLabel for="panelEtape"-->
-											   <!--value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_ETAPE']}" />-->
 								<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_ETAPE']}" toggleable="false">
 									<p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage" style="width: auto;"
 											value="#{conventionController.critereRechercheConvention.idsEtapes}"
@@ -120,9 +101,6 @@
 											value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.ETAPE_VIDE']}" />
 								</p:fieldset>
 							</t:div>
-						<!--</h:panelGrid>-->
-						<!--<t:htmlTag value="div" style="height:10px;" />-->
-						<!--<t:htmlTag value="center">-->
 						<t:div styleClass="textCenter">
 							<p:commandButton id="recherche" status="statusRechercheMasse" styleClass="mt10"
 											 action="#{conventionController.rechercherMasseConvention}"
@@ -133,14 +111,10 @@
 								</f:facet>
 							</p:ajaxStatus>
 						</t:div>
-						<!--</t:htmlTag>-->
+						<p:messages escape="false" autoUpdate="true"/>
 					</p:fieldset>
 				</h:form>
 			</p:outputPanel>
-			<p:message for="formRechConvention"
-					   style="color:red;font-weight:bold;">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</p:message>
 		</p:panel>
 		<t:div
 				rendered="#{!(welcomeController.superAdmin

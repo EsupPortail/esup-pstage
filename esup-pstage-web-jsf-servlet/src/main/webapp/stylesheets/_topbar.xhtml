@@ -40,11 +40,11 @@
 
     <script type="text/javascript">
         function toggleSidebar() {
-            if(document.getElementById("SIDEBAR").style.transform == 'translateX(0%)' || document.getElementById("SIDEBAR").style.transform == "") {
+            if(document.getElementById("SIDEBAR_CONTAINER").style.transform == 'translateX(0%)' || document.getElementById("SIDEBAR_CONTAINER").style.transform == "") {
                 document.getElementById("blackScreen").className = 'visible';
-                document.getElementById("SIDEBAR").style.transform = 'translateX(100%)';
+                document.getElementById("SIDEBAR_CONTAINER").style.transform = 'translateX(100%)';
             } else {
-                document.getElementById("SIDEBAR").style.transform = 'translateX(0%)';
+                document.getElementById("SIDEBAR_CONTAINER").style.transform = 'translateX(0%)';
                 document.getElementById("blackScreen").className = '';
             }
         }

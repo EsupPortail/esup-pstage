@@ -10,10 +10,8 @@
                 <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
             </f:facet>
             <h:form id="formConvention">
+                <ui:include src="_roadmap.xhtml" />
                 <t:fieldset>
-                    <legend>
-                        <ui:include src="_roadmap.xhtml" />
-                    </legend>
                     <t:div styleClass="mt20 ml30" style="max-width: 800px;">
                         <ui:include
                                 src="/stylesheets/stage/#{sessionController.creationConventionEtape2CurrentPage}.xhtml" />

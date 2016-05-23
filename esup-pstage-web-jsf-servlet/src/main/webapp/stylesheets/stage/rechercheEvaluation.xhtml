@@ -1,174 +1,115 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	
-	template="/stylesheets/_definedStageTemplate.xhtml">
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:p="http://primefaces.org/ui"
+
+				template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['RECHERCHEEVALUATION.TITRE']}" />
 			</f:facet>
-			<h:form id="formRechEval">
-				<!--<h:panelGrid style="width:auto;">-->
+			<h:form id="formRechEval" styleClass="block centerBlock">
+				<ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
 
-					<ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
-					
-					<t:htmlTag value="div" style="height:10px;" />
-
-					<p:fieldset>
-							<!--<h:panelGrid-->
-								<!--columns="2">-->
-						<t:htmlTag value="ul" styleClass="formUL">
-							<t:htmlTag value="li" styleClass="widthAuto">
-								<h:outputLabel
+				<p:fieldset styleClass="mt10">
+					<t:htmlTag value="ul" styleClass="formUL">
+						<t:htmlTag value="li">
+							<h:outputLabel
 									value="#{msgs['RECHERCHEEVALUATION.CENTREGESTION']}"
 									for="centreGestion" />
-								<p:selectOneMenu id="centreGestion" styleClass="customPstage" effect="none"
-									value="#{evaluationController.rechEvalIdCentre}"
-									required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}">
-									<f:selectItems
+							<p:selectOneMenu id="centreGestion" styleClass="customPstage" effect="none"
+											 value="#{evaluationController.rechEvalIdCentre}"
+											 required="true">
+								<f:selectItems
 										value="#{evaluationController.listeItemsCurrentCentresGestionEval}" />
-									<p:ajax  event="valueChange"
-										update="panelCodes" status="statusRecherche"
-										listener="#{evaluationController.updateAffichageListeCodes}" />
-								</p:selectOneMenu>
-							</t:htmlTag>
-							<!--</h:panelGrid>-->
-							<t:htmlTag value="li">
-							<p:message for="centreGestion">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</p:message>
-							</t:htmlTag>
-						<!--<h:panelGrid>-->
-							<!--<t:htmlTag value="div" style="height:10px;" />-->
-							<t:div id="panelCodes">
+								<p:ajax  event="valueChange"
+										 update="panelCodes" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+										 listener="#{evaluationController.updateAffichageListeCodes}" />
+							</p:selectOneMenu>
+						</t:htmlTag>
+						<t:htmlTag value="li">
+							<p:message for="centreGestion"/>
+						</t:htmlTag>
+						<t:div id="panelCodes">
 							<t:htmlTag value="li" rendered="#{evaluationController.etatAffichageRechEval == 1}">
-							<!--<p:outputPanel id="panelCodes">-->
 								<h:outputText
-									value="#{msgs['RECHERCHEEVALUATION.ISETABLISSEMENT']}"
-									escape="false"  />
+										value="#{msgs['RECHERCHEEVALUATION.ISETABLISSEMENT']}"
+										escape="false"  />
 							</t:htmlTag>
-							<!--<t:htmlTag value="li" rendered="#{evaluationController.etatAffichageRechEval == 2 || evaluationController.etatAffichageRechEval == 3}">-->
-								<!--<h:panelGrid columns="3"-->
-									<!--&gt;-->
-									<!--<h:graphicImage id="infoChoixMultiple"-->
-										<!--alt="#{msgs['RECHERCHECONVENTION.ETAPES']}"-->
-										<!--value="../../media/images/information.png">-->
-										<!--<p:tooltip-->
-											<!--value="#{msgs['RECHERCHECONVENTION.ETAPES.AIDE']}" />-->
-									<!--</h:graphicImage>-->
-									<!--<h:outputText style="font-weight:bold; padding:5px;"-->
-										<!--value="#{msgs['RECHERCHEEVALUATION.CHOIX_ETAPE']}" />-->
-									<!--<p:message for="codesEtapes">-->
-										<!--<ui:include src="../_commun/_messageErrorMarker.xhtml" />-->
-									<!--</p:message>-->
-								<!--</h:panelGrid>-->
-							<!--</t:htmlTag>-->
-								<t:htmlTag value="li" styleClass="widthAuto" rendered="#{evaluationController.etatAffichageRechEval == 2}">
-
-									<t:htmlTag value="span" styleClass="legendLabel">
-										<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-										<h:outputText value="#{msgs['RECHERCHEEVALUATION.CHOIX_ETAPE']}" />
-									</t:htmlTag>
-									<p:message for="codesEtapes">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<p:selectManyMenu id="codesEtapes" showCheckbox="true"
-										style="width: auto;" filter="true" filterMatchMode="contains"
-										value="#{conventionController.critereRechercheConvention.idsEtapes}" styleClass="customPstage mt5"
-										requiredMessage="#{requiredMessageController.champObligatoire}"
-										required="true">
-										<f:selectItems
-											value="#{evaluationController.rechEvalListeCodes}" />
-									</p:selectManyMenu>
-								</t:htmlTag>
-							<t:htmlTag value="li" rendered="#{evaluationController.etatAffichageRechEval == 3}">
+							<t:htmlTag value="li" styleClass="widthAuto" rendered="#{evaluationController.etatAffichageRechEval == 2}">
 								<t:htmlTag value="span" styleClass="legendLabel">
 									<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
 									<h:outputText value="#{msgs['RECHERCHEEVALUATION.CHOIX_ETAPE']}" />
 								</t:htmlTag>
-								<p:message for="codesEtapes">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-								<h:selectManyListbox id="codesUfr"
-									style=" padding:10px;"
-									value="#{conventionController.critereRechercheConvention.idsUfrs}"
-
-									requiredMessage="#{requiredMessageController.champObligatoire}"
-									required="true">
+								<p:message for="codesEtapes"/>
+								<p:selectManyMenu id="codesEtapes" showCheckbox="true"
+												  filter="true" filterMatchMode="contains"
+												  value="#{conventionController.critereRechercheConvention.idsEtapes}" styleClass="customPstage mt5"
+												  required="true" style="width: auto;">
 									<f:selectItems
-										value="#{evaluationController.rechEvalListeCodes}" />
-								</h:selectManyListbox>
+											value="#{evaluationController.rechEvalListeCodes}" />
+								</p:selectManyMenu>
+							</t:htmlTag>
+							<t:htmlTag value="li" styleClass="widthAuto" rendered="#{evaluationController.etatAffichageRechEval == 3}">
+								<t:htmlTag value="span" styleClass="legendLabel">
+									<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+									<h:outputText value="#{msgs['RECHERCHEEVALUATION.CHOIX_ETAPE']}" />
+								</t:htmlTag>
+								<p:message for="codesUfr"/>
+								<p:selectManyMenu id="codesUfr" value="#{conventionController.critereRechercheConvention.idsUfrs}"
+												  showCheckbox="true" required="true" filter="true" filterMatchMode="contains"
+												  styleClass="customPstage mt5" style="width: auto;">
+									<f:selectItems
+											value="#{evaluationController.rechEvalListeCodes}" />
+								</p:selectManyMenu>
 							</t:htmlTag>
 							<t:htmlTag value="li" rendered="#{evaluationController.etatAffichageRechEval == 4}">
 								<h:outputText
-									value="#{msgs['RECHERCHEEVALUATION.ISEMPTY']}"
-									style="color:red;"
-									escape="false"  />
+										value="#{msgs['RECHERCHEEVALUATION.ISEMPTY']}" styleClass="fontRed"
+										escape="false"  />
 							</t:htmlTag>
-							</t:div>
-							<!--</p:outputPanel>-->
-						<!--</h:panelGrid>-->
-						</t:htmlTag>
-					</p:fieldset>
-					<t:htmlTag value="div" style="height: 10px;" />
-					<!--<h:panelGrid align="center"-->
-						<!--columns="2" style="padding:10px; padding-bottom:0px;">-->
-						<t:htmlTag value="ul" styleClass="formUL">
-							<t:htmlTag value="li" styleClass="widthAuto">
-						<p:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE.TERMINE.QU']}" for="stageTermine"/>
-							<p:selectOneRadio id="stageTermine" styleClass="customPstage"
-								value="#{conventionController.critereRechercheConvention.dateStage}">
-								<f:selectItem itemValue="#{2}" itemLabel="#{msgs['FORM.OUI']}"/>
-								<f:selectItem itemValue="#{''}" itemLabel="#{msgs['FORM.NON']}"/>
-							</p:selectOneRadio>
-							</t:htmlTag>
-					<!--</h:panelGrid>-->
-					<!--<h:panelGrid align="center"-->
-						<!--columns="2" style="padding:10px; padding-bottom:0px;">	-->
-						<!--<h:panelGrid>						-->
-							<!--<h:panelGrid columns="2">-->
-							<t:htmlTag value="li" styleClass="widthAuto">
+						</t:div>
+					</t:htmlTag>
+				</p:fieldset>
+				<p:fieldset styleClass="mt10 mb10">
+					<t:htmlTag value="ul" styleClass="formUL columns-2">
+						<t:div styleClass="column">
+							<t:htmlTag value="li">
 								<h:outputLabel
-									rendered="#{not empty nomenclatureController.anneesConvention}"
-									value="#{msgs['RECHERCHECONVENTION.ANNEEU']} : " for="anU" />
-								<p:selectOneMenu id="anU" required="true" effect="none" styleClass="customPstage"
-									rendered="#{not empty nomenclatureController.anneesConvention}"
-									value="#{conventionController.critereRechercheConvention.anneeUniversitaire}"
-									requiredMessage="#{requiredMessageController.champObligatoire}">
+										rendered="#{not empty nomenclatureController.anneesConvention}"
+										value="#{msgs['RECHERCHECONVENTION.ANNEEU']} : " for="anU" />
+								<p:selectOneMenu id="anU" required="true" effect="none" styleClass="customPstage mb5"
+												 rendered="#{not empty nomenclatureController.anneesConvention}"
+												 value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
 									<f:selectItem itemValue="" />
 									<f:selectItems
-										value="#{nomenclatureController.anneesConvention}" />
+											value="#{nomenclatureController.anneesConvention}" />
 									<p:ajax  event="valueChange"
-										update="panelCodes" status="statusRecherche"
-										listener="#{evaluationController.updateAffichageListeCodes}" />
+											 update="panelCodes" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+											 listener="#{evaluationController.updateAffichageListeCodes}" />
 								</p:selectOneMenu>
+								<p:message for="anU"/>
 							</t:htmlTag>
-							<!--</h:panelGrid>-->
-							<p:message for="anU">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</p:message>
-						</t:htmlTag>
-						<!--</h:panelGrid>-->
-						<p:commandButton value="#{msgs['FORM.RECHERCHER']}" icon="fa fa-search"
-							action="#{evaluationController.rechercherEvaluation}"
-							status="statusRecherche" />
-					<!--</h:panelGrid>-->
-					<t:htmlTag value="center">
-						<p:ajaxStatus name="statusRecherche">
-							<f:facet name="start">
-								<ui:include src="../_commun/_veuillezPatienter.xhtml" />
-							</f:facet>
-						</p:ajaxStatus>
+						</t:div>
+						<t:div styleClass="column">
+							<t:htmlTag value="li">
+								<p:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE.TERMINE.QU']}" for="stageTermine"/>
+								<p:selectOneRadio id="stageTermine" styleClass="customPstage"
+												  value="#{conventionController.critereRechercheConvention.dateStage}">
+									<f:selectItem itemValue="#{2}" itemLabel="#{msgs['FORM.OUI']}"/>
+									<f:selectItem itemValue="#{''}" itemLabel="#{msgs['FORM.NON']}"/>
+								</p:selectOneRadio>
+							</t:htmlTag>
+						</t:div>
 					</t:htmlTag>
-				<!--</h:panelGrid>-->
+				</p:fieldset>
+				<p:commandButton value="#{msgs['FORM.RECHERCHER']}" icon="fa fa-search"
+								 action="#{evaluationController.rechercherEvaluation}" update="@form"
+								 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+				<p:message for="formRechEval" />
 			</h:form>
-			<p:message for="formRechEval" style="color:red;font-weight:bold;">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</p:message>
 		</p:panel>
 	</ui:define>
 </ui:composition>

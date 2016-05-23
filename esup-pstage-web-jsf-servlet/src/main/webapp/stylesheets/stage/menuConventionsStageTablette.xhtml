@@ -26,7 +26,7 @@
 				<p:commandButton value="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
 								 action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
 								 rendered="#{welcomeController.enseignantTuteur}"
-								 icon="fa fa-list" styleClass="buttonMenuTablet"/>
+								 icon="fa fa-list" styleClass="buttonMenuTablet" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
 			</t:div>
 			<t:div rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
 				<p:commandButton value="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}" styleClass="buttonMenuTablet"

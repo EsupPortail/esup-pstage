@@ -177,7 +177,7 @@
                                 value="#{msgs['CONVENTION.IMPRESSION.CONVENTIONS']}"
                                 action="#{conventionController.editPdfConventionsEnMasseZip}"
                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
-                                style="border:solid 1px; margin-left:5px;" icon="fa fa-print"
+                                style="border:solid 1px;" icon="fa fa-print" styleClass="ml5"
                                 rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer|| welcomeController.reader || welcomeController.enseignant}"/>
                     </t:htmlTag>
 
