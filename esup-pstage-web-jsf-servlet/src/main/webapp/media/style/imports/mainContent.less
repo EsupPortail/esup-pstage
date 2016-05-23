@@ -48,6 +48,19 @@
       background: transparent;
     }
   }
+
+  .ui-tabmenu {
+    .ui-tabmenu-nav {
+      .ui-tabmenuitem {
+        &.ui-state-active {
+          background: @MainSelectCheckboxBackground;
+          & > .ui-menuitem-link {
+            color: @White;
+          }
+        }
+      }
+    }
+  }
 }
 
 
@@ -240,17 +253,6 @@
   width: 100%;
 }
 
-.ui-tabmenu {
-  .ui-tabmenu-nav {
-    .ui-tabmenuitem {
-      &.ui-state-active {
-        background: @MainSelectCheckboxBackground;
-        color: @White;
-      }
-    }
-  }
-}
-
 .ui-selectoneradio .ui-radiobutton .ui-radiobutton-box.ui-state-active {
   background: @MainSelectRadioBackground;
 }
@@ -271,6 +273,16 @@
 
 .columns-2 {
   position: relative;
+
+  &.verticalCenter {
+    display: block;
+    align-items: stretch;
+    @media (min-width: @MediaTablet) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
   & > .column {
     float: none;
     box-sizing: border-box;

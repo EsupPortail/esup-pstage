@@ -47,7 +47,7 @@
         </t:htmlTag>
     </p:fieldset>
     <p:fieldset toggleable="true" legend="Localisation" styleClass="mt10" rendered="#{offreController.rechercheAvancee}">
-        <t:htmlTag value="ul" styleClass="formUL columns-2">
+        <t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter">
             <t:div styleClass="column">
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCOMMUNE']}"
@@ -86,7 +86,7 @@
         </t:htmlTag>
     </p:fieldset>
     <p:fieldset toggleable="true" legend="Informations" styleClass="mt10" rendered="#{offreController.rechercheAvancee}">
-        <t:htmlTag value="ul" styleClass="formUL columns-2">
+        <t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter">
             <t:div styleClass="column">
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.DOMAINEOFFRE']}"
@@ -137,7 +137,7 @@
     </p:fieldset>
 
     <p:fieldset toggleable="false" legend="Divers" styleClass="mt10">
-        <t:htmlTag value="ul" styleClass="formUL columns-2" rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin
+        <t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter" rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin
 			|| welcomeController.admin}">
             <t:div styleClass="column">
                 <t:htmlTag value="li">

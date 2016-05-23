@@ -542,6 +542,12 @@ body {
   padding: 0;
   background: transparent;
 }
+#MAIN_CONTENT .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
+  background: linear-gradient(#2c7094 0%, #16587c 100%);
+}
+#MAIN_CONTENT .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active > .ui-menuitem-link {
+  color: #f9f9f9;
+}
 .legendLabel {
   font-size: 0.8em;
   font-style: italic;
@@ -722,10 +728,6 @@ body {
   border-radius: 0;
   box-shadow: none;
 }
-.ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
-  background: linear-gradient(#2c7094 0%, #16587c 100%);
-  color: #f9f9f9;
-}
 .ui-selectoneradio .ui-radiobutton .ui-radiobutton-box.ui-state-active {
   background: linear-gradient(#2c7094 0%, #16587c 100%);
 }
@@ -743,6 +745,16 @@ body {
 }
 .columns-2 {
   position: relative;
+}
+.columns-2.verticalCenter {
+  display: block;
+  align-items: stretch;
+}
+@media (min-width: 801px) {
+  .columns-2.verticalCenter {
+    display: flex;
+    align-items: center;
+  }
 }
 .columns-2 > .column {
   float: none;
