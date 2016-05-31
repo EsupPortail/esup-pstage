@@ -1780,7 +1780,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	/**
 	 * @return List<SelectItem>
 	 */
-	public List<SelectItem> getTypesStructure(){
+	public List<SelectItem> getTypesStructureItalic(){
 		List<SelectItem> ls = null;
 		List<TypeStructureDTO> l = getNomenclatureDomainService().getTypesStructure();
 		if(l!=null){
@@ -1798,7 +1798,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 	/**
 	 * @return List<SelectItem>
 	 */
-	public List<SelectItem> getTypesStructureDropDown(){
+	public List<SelectItem> getTypesStructure(){
 		List<SelectItem> ls = null;
 		List<TypeStructureDTO> l = getNomenclatureDomainService().getTypesStructure();
 		if(l!=null){
