@@ -79,7 +79,7 @@
 	<!-- 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" /> -->
 	<!-- 		</h:outputText> -->
 	<!-- 	</p:column> -->
-	<p:column>
+	<p:column style="width:35px;">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
 		</f:facet>
@@ -98,13 +98,13 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
 		</f:facet>
-		<t:div>
+		<t:div style="white-space:nowrap;">
 			<h:graphicImage id="flag"
 				rendered="#{not empty varRechercheStructure.pays}"
 				value="/media/images/flags/#{varRechercheStructure.pays.iso2}.png"
 				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 				title="#{varRechercheStructure.pays.libelle}" />
-			<h:outputText value="#{varRechercheStructure.pays.libelle}" styleClass="ml5" />
+			<h:outputText value="#{varRechercheStructure.pays.libelle}" styleClass="ml5" style="white-space: normal;" />
         </t:div>
 	</p:column>
 </ui:composition>

@@ -7,13 +7,13 @@
 
     <p:separator style="height:2px;" styleClass="mt20 mr30 mb20 ml30"/>
 
-    <t:div styleClass="textCenter">
+    <t:div>
         <t:div style="line-height: 26px; display:inline-block; vertical-align:top;">
             <h:outputText styleClass="fontBold"
                           value="#{msgs['RECHERCHEETABLISSEMENT.CHOIX']}" />
         </t:div>
         <p:selectOneMenu required="true" effect="none" styleClass="ml5"
-                         value="#{rechercheController.selectedOnglet}">
+                         value="#{rechercheController.ongletCourant}">
             <f:selectItems value="#{rechercheController.onglets}" />
 
             <p:ajax event="valueChange"

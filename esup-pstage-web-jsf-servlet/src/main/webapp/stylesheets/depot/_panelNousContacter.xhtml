@@ -7,8 +7,7 @@
 		<t:htmlTag value="div" style="height:5px;" />
 		<h:panelGrid columns="2">
 			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
-				title="#{msgs['GENERAL.HELP']}" value="../../media/images/help.png"
-				 />
+				title="#{msgs['GENERAL.HELP']}" value="/media/images/help.png" />
 			<p:commandLink  status="status1" style="color:blue;"
 				action="#{welcomeController.initNousContacter}"
 				oncomplete="PF('nousContacter').show();" update="nousContacter"
@@ -23,13 +22,5 @@
 			<ui:include
 				src="/stylesheets/depot/#{sessionController.nousContacterCurrentPage}.xhtml" />
 		</h:form>
-	</p:dialog>
-	<p:ajaxStatus name="status1" onstart="PF('wait').show();"
-		onsuccess="PF('wait').hide();" />
-	<p:dialog id="wait" widgetVar="wait">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['GENERAL.LOADING']}" />
-		</f:facet>
-		<ui:include src="../_commun/_veuillezPatienter.xhtml" />
 	</p:dialog>
 </ui:composition>

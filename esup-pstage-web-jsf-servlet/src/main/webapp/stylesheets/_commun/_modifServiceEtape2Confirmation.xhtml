@@ -1,17 +1,11 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid align="center">
-		<ui:include src="_confirmationMessages.xhtml" />
+    <p:messages />
 
-		<t:htmlTag value="center">
-			<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
-				onclick="PF('modifService').hide();" />
-		</t:htmlTag>
-	</h:panelGrid>
+    <t:div styleClass="textCenter">
+        <p:commandButton value="#{msgs['GENERAL.CLOSE']}" ajax="false" />
+    </t:div>
 </ui:composition>

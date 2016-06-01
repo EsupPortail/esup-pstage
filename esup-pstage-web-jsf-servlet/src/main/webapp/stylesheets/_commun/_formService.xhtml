@@ -1,162 +1,127 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid>
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:outputLabel for="nomService" value="#{msgs['SERVICE.NOM']} *" />
-		<h:inputText id="nomService"
-			value="#{etablissementController.formService.nom}" size="50"
-			maxlength="50" required="true" converter="#{upperCaseConverter}"
-			requiredMessage="#{requiredMessageController.champObligatoire}"
-			style="text-transform:uppercase;">
-		</h:inputText>
-		<p:message for="nomService" ajaxRendered="false">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</p:message>
-		<h:outputLabel for="memeAdresseStructure"
-			value="#{msgs['SERVICE.MEMEADRESSESTRUCTURE']} " />
-		<h:selectOneRadio id="memeAdresseStructure"
-			value="#{etablissementController.memeAdresseStructure}">
-			<f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
-			<f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
-			<p:ajax event="valueChange" update="adresseService" />
-		</h:selectOneRadio>
-		<p:outputPanel id="adresseService">
-			<h:panelGrid
-				rendered="#{not etablissementController.memeAdresseStructure}"
-				columns="3">
-				<h:panelGrid>
-					<h:outputLabel value="#{msgs['STRUCTURE.VOIE']} *" for="voie" />
-					<h:inputText id="voie"
-						value="#{etablissementController.formService.voie}" size="50"
-						maxlength="200" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}" />
-					<p:message for="voie" ajaxRendered="false">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-					<h:outputLabel for="batimentService"
-						value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']} " />
-					<h:inputText id="batimentService"
-						value="#{etablissementController.formService.batimentResidence}"
-						size="50" maxlength="50" style="text-transform:uppercase;"
-						converter="#{upperCaseConverter}" />
-					<h:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']}"
-						for="telephone" />
-					<h:inputText id="telephone"
-						value="#{etablissementController.formService.telephone}" size="20"
-						maxlength="20">
-					</h:inputText>
-				</h:panelGrid>
-				<h:panelGrid columns="3">
-					<t:htmlTag value="div" style="width: 25px;" />
-					<p:separator style="width:2px; height:124px;" />
-					<t:htmlTag value="div" style="width: 25px;" />
-				</h:panelGrid>
-				<h:panelGrid>
-					<p:outputPanel id="opCodePostal">
-						<h:panelGrid
-							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+    <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
+
+    <t:div styleClass="mt10 mb10">
+        <h:outputText value="#{msgs['SERVICE.NOM']} *" styleClass="fontBold"/>
+        <p:inputText id="nomService" value="#{etablissementController.formService.nom}"
+                     size="50" maxlength="50" required="true"
+                     converter="#{upperCaseConverter}"
+                     style="text-transform:uppercase;"/>
+        <p:message for="nomService" />
+    </t:div>
+
+    <h:outputText value="#{msgs['SERVICE.MEMEADRESSESTRUCTURE']} " styleClass="fontBold" />
+    <p:selectOneRadio id="memeAdresseStructure"
+                      value="#{etablissementController.memeAdresseStructure}" >
+        <f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
+        <f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
+        <p:ajax event="click" update="@form" />
+    </p:selectOneRadio>
+    <p:outputPanel id="adresseService">
+        <t:htmlTag value="ul" styleClass="formUL columns-2"
+                   rendered="#{!etablissementController.memeAdresseStructure}">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText value="#{msgs['STRUCTURE.VOIE']} *" styleClass="fontBold" />
+                    <p:inputText id="voie"
+                                 value="#{etablissementController.formService.voie}" size="50"
+                                 maxlength="200" required="true"
+                                 requiredMessage="#{requiredMessageController.champObligatoire}" />
+                    <p:message for="voie" />
+
+                    <h:outputText styleClass="fontBold"
+                                  value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']} " />
+                    <p:inputText id="batimentService"
+                                 value="#{etablissementController.formService.batimentResidence}"
+                                 size="50" maxlength="50" style="text-transform:uppercase;"
+                                 converter="#{upperCaseConverter}" />
+
+                    <h:outputText value="#{msgs['STRUCTURE.TELEPHONE']}"
+                                  styleClass="fontBold"/>
+                    <p:inputText id="telephone"
+                                 value="#{etablissementController.formService.telephone}" size="20"
+                                 maxlength="20"/>
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li" id="colonneAdresse">
+                    <t:div rendered="#{!sessionController.recupererCommunesDepuisApogee ||
 								(etablissementController.formServiceTmpPays!=beanUtils.france and etablissementController.formServiceTmpPays.cog!=beanUtils.cogFrance
 								and sessionController.recupererCommunesDepuisApogee)}">
-							<h:outputLabel for="codePostal"
-								value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
-								rendered="#{!sessionController.recupererCommunesDepuisApogee and 
+                        <h:outputText  styleClass="fontBold"
+                                       value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
+                                       rendered="#{!sessionController.recupererCommunesDepuisApogee and
 									(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)}" />
-							<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
-								for="codePostal" />
-							<h:inputText id="codePostal"
-								value="#{etablissementController.formService.codePostal}"
-								size="20" maxlength="10"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								required="#{!sessionController.recupererCommunesDepuisApogee and 
-								(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)}">
-							</h:inputText>
-							<p:message for="codePostal" ajaxRendered="false">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</p:message>
-						</h:panelGrid>
-						<h:panelGrid
-							rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
-				and sessionController.recupererCommunesDepuisApogee}">
-							<h:panelGrid>
-								<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
-									for="dynaCodePostal" />
-								<h:inputText id="dynaCodePostal"
-									value="#{etablissementController.formServiceTmpCodePostal}"
-									size="5" maxlength="5" required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}"
-									validatorMessage="#{requiredMessageController.codePostalNonValide}"
-									valueChangeListener="#{etablissementController.formServiceValueCodePostalChanged}">
-									<p:ajax event="valueChange" update="opDynaCommune" />
-								</h:inputText>
-							</h:panelGrid>
-							<p:message for="dynaCodePostal" ajaxRendered="false">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</p:message>
-						</h:panelGrid>
-					</p:outputPanel>
-					<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
-					<p:outputPanel id="opCommune">
-						<h:panelGrid
-							rendered="#{!sessionController.recupererCommunesDepuisApogee ||
-				(etablissementController.formServiceTmpPays!=beanUtils.france and etablissementController.formServiceTmpPays.cog!=beanUtils.cogFrance
-				and sessionController.recupererCommunesDepuisApogee)}">
-							<h:inputText id="commune" style="text-transform:uppercase;"
-								value="#{etablissementController.formService.commune}" size="50"
-								maxlength="200" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								converter="#{sansAccentEnMAJConverter}" />
-							<p:message for="commune" ajaxRendered="false">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</p:message>
-						</h:panelGrid>
-						<h:panelGrid
-							rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
-				and sessionController.recupererCommunesDepuisApogee}">
-							<p:outputPanel id="opDynaCommune">
-								<h:selectOneMenu id="dynaCommune"
-									value="#{etablissementController.formServiceTmpCommuneDTO.codeCommune}"
-									required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}">
-									<f:selectItem itemValue="" />
-									<f:selectItems
-										value="#{etablissementController.formServiceCommunesListening}" />
-									<p:ajax event="valueChange" />
-								</h:selectOneMenu>
-								<p:message for="dynaCommune" ajaxRendered="false">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-							</p:outputPanel>
-						</h:panelGrid>
-					</p:outputPanel>
-					<h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
-					<h:panelGrid columns="2">
-						<p:outputPanel id="opFlag">
-							<t:htmlTag value="div" style="width: 16px;"
-								rendered="#{empty etablissementController.formServiceTmpPays}" />
-							<h:graphicImage id="flag"
-								rendered="#{not empty etablissementController.formServiceTmpPays}"
-								value="../../media/images/flags/#{etablissementController.formServiceTmpPays.iso2}.png"
-								alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-								title="#{etablissementController.formServiceTmpPays.libelle}" />
-						</p:outputPanel>
-						<h:selectOneMenu id="pays"
-							value="#{etablissementController.formServiceTmpPays}"
-							converter="#{paysConverter}" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<f:selectItems value="#{nomenclatureController.pays}" />
-							<p:ajax event="valueChange" update="opFlag" />
-						</h:selectOneMenu>
-					</h:panelGrid>
-					<p:message for="pays" ajaxRendered="false">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</h:panelGrid>
-			</h:panelGrid>
-		</p:outputPanel>
-	</h:panelGrid>
+                        <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']} "
+                                      styleClass="fontBold" />
+
+                        <p:inputText id="codePostal"
+                                     value="#{etablissementController.formService.codePostal}"
+                                     size="20" maxlength="10"
+                                     required="#{!sessionController.recupererCommunesDepuisApogee and
+								        (etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)}"/>
+                        <p:message for="codePostal" />
+                    </t:div>
+                    <t:div rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
+				             and sessionController.recupererCommunesDepuisApogee}">
+                        <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.CODE_POSTAL']} *" />
+                        <p:inputText id="dynaCodePostal"
+                                     value="#{etablissementController.formServiceTmpCodePostal}"
+                                     size="5" maxlength="5" required="true"
+                                     validatorMessage="#{requiredMessageController.codePostalNonValide}"
+                                     valueChangeListener="#{etablissementController.formServiceValueCodePostalChanged}">
+                            <p:ajax event="valueChange" update="opDynaCommune" />
+                        </p:inputText>
+                        <p:message for="dynaCodePostal" />
+                    </t:div>
+
+                    <h:outputText value="#{msgs['STRUCTURE.COMMUNE']} *" styleClass="fontBold" />
+                    <t:div rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+                                (etablissementController.formServiceTmpPays!=beanUtils.france
+                                and etablissementController.formServiceTmpPays.cog!=beanUtils.cogFrance
+                                and sessionController.recupererCommunesDepuisApogee)}">
+                        <p:inputText id="commune" style="text-transform:uppercase;"
+                                     value="#{etablissementController.formService.commune}" size="50"
+                                     maxlength="200" required="true"
+                                     converter="#{sansAccentEnMAJConverter}" />
+                        <p:message for="commune" />
+                    </t:div>
+                    <t:div id="opDynaCommune"
+                           rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
+				            and sessionController.recupererCommunesDepuisApogee}">
+                        <p:selectOneMenu id="dynaCommune"
+                                         value="#{etablissementController.formServiceTmpCommuneDTO.codeCommune}"
+                                         required="true"
+                                         requiredMessage="#{requiredMessageController.champObligatoire}">
+                            <f:selectItem itemValue="" />
+                            <f:selectItems value="#{etablissementController.formServiceCommunesListening}" />
+                            <p:ajax event="valueChange" update="@form"/>
+                        </p:selectOneMenu>
+                        <p:message for="dynaCommune" />
+                    </t:div>
+
+                    <h:outputText value="#{msgs['STRUCTURE.PAYS']} *" styleClass="fontBold"/>
+                    <p:selectOneMenu id="pays" effect="none" var="p"
+                                     value="#{etablissementController.formServiceTmpPays}"
+                                     converter="#{paysConverter}" required="true">
+                        <f:selectItems value="#{nomenclatureController.pays}" var="pays" />
+                        <p:column rendered="#{not empty p}">
+                            <h:graphicImage
+                                    value="/media/images/flags/#{p.iso2}.png"
+                                    alt="    "
+                                    title="#{p.libelle}" /> #{p.libelle}
+                        </p:column>
+                        <p:ajax event="valueChange" update="colonneAdresse" />
+                    </p:selectOneMenu>
+                    <p:message for="pays" />
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </p:outputPanel>
 </ui:composition>

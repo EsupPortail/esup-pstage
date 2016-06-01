@@ -305,11 +305,9 @@ public class EtablissementController extends AbstractContextAwareController {
 	public void reloadContacts() {
 		if (getSessionController().getCurrentManageStructure() != null
 				&& this.idServiceSel > 0) {
-			this.listeContacts = getStructureDomainService()
-					.getContactsFromIdService(
+			this.listeContacts = getStructureDomainService().getContactsFromIdService(
 							this.idServiceSel,
-							getSessionController()
-							.getCurrentIdsCentresGestion(),
+							getSessionController().getCurrentIdsCentresGestion(),
 							getSessionController().getCodeUniversite());
 			if (this.listeContacts != null && !this.listeContacts.isEmpty()) {
 				Collections.sort(this.listeContacts,
@@ -486,17 +484,11 @@ public class EtablissementController extends AbstractContextAwareController {
 				&& StringUtils.hasText(this.formStructure.getNafN5().getCode()) && !StringUtils
 				.hasText(this.formStructure.getActivitePrincipale()))
 				|| ((this.formStructure.getNafN5() == null
-				|| (this.formStructure.getNafN5() != null && this.formStructure
-				.getNafN5().getCode() == null) || (this.formStructure
-						.getNafN5() != null
-						&& this.formStructure.getNafN5().getCode() != null && this.formStructure
-						.getNafN5().getCode().isEmpty())) && StringUtils
-						.hasText(this.formStructure.getActivitePrincipale()))
-						|| (this.formStructure.getNafN5() != null
-						&& this.formStructure.getNafN5().getCode() != null
-						&& StringUtils.hasText(this.formStructure.getNafN5()
-								.getCode()) && StringUtils
-								.hasText(this.formStructure.getActivitePrincipale()))) {
+				|| (this.formStructure.getNafN5() != null && this.formStructure.getNafN5().getCode() == null)
+				|| (this.formStructure.getNafN5() != null && this.formStructure.getNafN5().getCode() != null
+				&& this.formStructure.getNafN5().getCode().isEmpty())) && StringUtils.hasText(this.formStructure.getActivitePrincipale()))
+						|| (this.formStructure.getNafN5() != null && this.formStructure.getNafN5().getCode() != null
+						&& StringUtils.hasText(this.formStructure.getNafN5().getCode()) && StringUtils.hasText(this.formStructure.getActivitePrincipale()))) {
 			nafActiviteOK = true;
 		}
 		if (nafActiviteOK) {
@@ -524,8 +516,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			}
 			retour = "affichageRechercheEtablissement";
 			StructureDTO structureTmp = this.formStructure;
-			structureTmp
-			.setIdEffectif(this.formStructure.getEffectif().getId());
+			structureTmp.setIdEffectif(this.formStructure.getEffectif().getId());
 			structureTmp.setIdPays(this.formStructure.getPays().getId());
 			if (this.statutsJuridiquesListening != null
 					&& this.formStructure.getStatutJuridique() != null)
@@ -540,10 +531,8 @@ public class EtablissementController extends AbstractContextAwareController {
 						.getCode());
 			else
 				structureTmp.setCodeNAF_N5(null);
-			structureTmp.setLoginCreation(getSessionController()
-					.getCurrentLogin());
-			structureTmp.setLoginInfosAJour(getSessionController()
-					.getCurrentLogin());
+			structureTmp.setLoginCreation(getSessionController().getCurrentLogin());
+			structureTmp.setLoginInfosAJour(getSessionController().getCurrentLogin());
 
 			try {
 				structureTmp.setIdStructure(this.getStructureDomainService()
@@ -567,8 +556,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				this.statutsJuridiquesListening = null;
 				this.formStructureTmpCommuneDTO = new CommuneDTO();
 
-				if (getSessionController()
-						.isMailingListEntrMailAvertissementAjoutEtab()
+				if (getSessionController().isMailingListEntrMailAvertissementAjoutEtab()
 						&& StringUtils.hasText(getSessionController()
 								.getMailingListEntr())) {
 					// Envoi mail sur la mailing list entreprise
@@ -633,8 +621,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				if (logger.isInfoEnabled()) {
 					logger.info("Numéro siret invalide pour " + structureTmp);
 				}
-				addErrorMessage("formAjoutEtab",
-						"STRUCTURE.NUM_SIRET.VALIDATION");
+				addErrorMessage("formAjoutEtab","STRUCTURE.NUM_SIRET.VALIDATION");
 				retour = null;
 			}
 		} else {
@@ -762,34 +749,23 @@ public class EtablissementController extends AbstractContextAwareController {
 		if (this.formStructure != null) {
 			this.formStructure = (StructureDTO) this.formStructure.clone();
 			this.formStructureTmpPays = this.formStructure.getPays();
-			this.formStructureTmpTypeStructure = this.formStructure
-					.getTypeStructure();
-			this.formStructureTmpStatutJuridique = this.formStructure
-					.getStatutJuridique();
-			this.formStructureTmpNafN5 = this.formStructure.getNafN5() == null ? new NafN5DTO()
-			: this.formStructure.getNafN5();
-			this.formStructureTmpCodePostal = this.formStructure
-					.getCodePostal();
+			this.formStructureTmpTypeStructure = this.formStructure.getTypeStructure();
+			this.formStructureTmpStatutJuridique = this.formStructure.getStatutJuridique();
+			this.formStructureTmpNafN5 = this.formStructure.getNafN5() == null ? new NafN5DTO() : this.formStructure.getNafN5();
+			this.formStructureTmpCodePostal = this.formStructure.getCodePostal();
 			if (getBeanUtils().isFrance(this.formStructureTmpPays)
 					&& getSessionController().isRecupererCommunesDepuisApogee()) {
-				List<SelectItem> lTmp = majCommunes(""
-						+ this.formStructure.getCodePostal());
+				List<SelectItem> lTmp = majCommunes(""+this.formStructure.getCodePostal());
 				if (lTmp != null && !lTmp.isEmpty()) {
 					this.communesListening = lTmp;
 				} else {
 					this.communesListening = new ArrayList<SelectItem>();
 				}
-				this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain()
-						.getCommuneFromDepartementEtCodeCommune(
-								this.formStructureTmpCodePostal,
-								"" + this.formStructure.getCodeCommune());
+				this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(
+								this.formStructureTmpCodePostal, ""+this.formStructure.getCodeCommune());
 				if (this.formStructureTmpCommuneDTO != null) {
-					this.formStructure
-					.setCommune(this.formStructureTmpCommuneDTO
-							.getLibCommune());
-					this.formStructure
-					.setCodeCommune(this.formStructureTmpCommuneDTO
-							.getCodeCommune());
+					this.formStructure.setCommune(this.formStructureTmpCommuneDTO.getLibCommune());
+					this.formStructure.setCodeCommune(this.formStructureTmpCommuneDTO.getCodeCommune());
 				} else {
 					this.formStructureTmpCommuneDTO = new CommuneDTO();
 				}
@@ -798,8 +774,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			}
 			// Màj de liste des statuts juridiques
 			if (this.formStructure.getTypeStructure() != null) {
-				this.statutsJuridiquesListening = getStatutsJuridiquesFromIdTypeStructure(this.formStructure
-						.getTypeStructure().getId());
+				this.statutsJuridiquesListening = getStatutsJuridiquesFromIdTypeStructure(this.formStructure.getTypeStructure().getId());
 			}
 		}
 		return "modificationEtablissement";
@@ -836,41 +811,35 @@ public class EtablissementController extends AbstractContextAwareController {
 
 		if (nafActiviteOK) {
 			this.formStructure.setPays(this.formStructureTmpPays);
-			this.formStructure
-			.setTypeStructure(this.formStructureTmpTypeStructure);
-			this.formStructure
-			.setStatutJuridique(this.formStructureTmpStatutJuridique);
+			this.formStructure.setTypeStructure(this.formStructureTmpTypeStructure);
+			this.formStructure.setStatutJuridique(this.formStructureTmpStatutJuridique);
 			this.formStructure.setCodePostal(this.formStructureTmpCodePostal);
 			if (getBeanUtils().isFrance(this.formStructureTmpPays)
 					&& getSessionController().isRecupererCommunesDepuisApogee()) {
-				this.formStructure
-				.setCodeCommune(this.formStructureTmpCommuneDTO
-						.getCodeCommune());
+				this.formStructure.setCodeCommune(this.formStructureTmpCommuneDTO.getCodeCommune());
 				// Récupération de la commune pour en avoir le libellé
-				this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain()
-						.getCommuneFromDepartementEtCodeCommune(
+				this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(
 								this.formStructureTmpCodePostal,
 								"" + this.formStructure.getCodeCommune());
 				if (this.formStructureTmpCommuneDTO != null) {
-					this.formStructure
-					.setCommune(this.formStructureTmpCommuneDTO
-							.getLibCommune());
+					this.formStructure.setCommune(this.formStructureTmpCommuneDTO.getLibCommune());
 				}
 			}
 			retour = "affichageRechercheEtablissement";
 			StructureDTO structureTmp = this.formStructure;
 			structureTmp.setIdEffectif(this.formStructure.getEffectif().getId());
 			structureTmp.setIdPays(this.formStructure.getPays().getId());
-			if (this.statutsJuridiquesListening != null
-					&& this.formStructure.getStatutJuridique() != null)
+			if (this.statutsJuridiquesListening != null && this.formStructure.getStatutJuridique() != null) {
 				structureTmp.setIdStatutJuridique(this.formStructure.getStatutJuridique().getId());
-			else
+			} else {
 				structureTmp.setIdStatutJuridique(0);
+			}
 			structureTmp.setIdTypeStructure(this.formStructure.getTypeStructure().getId());
-			if (this.formStructure.getNafN5() != null)
+			if (this.formStructure.getNafN5() != null) {
 				structureTmp.setCodeNAF_N5(this.formStructure.getNafN5().getCode());
-			else
+			} else {
 				structureTmp.setCodeNAF_N5(null);
+			}
 			structureTmp.setDateModif(new Date());
 			structureTmp.setLoginModif(getSessionController().getCurrentLogin());
 			structureTmp.setLoginInfosAJour(getSessionController().getCurrentLogin());
@@ -890,8 +859,7 @@ public class EtablissementController extends AbstractContextAwareController {
 					// Maj recherche
 					if (this.rechercheController.getListeResultatsRechercheStructure() != null
 							&& !this.rechercheController.getListeResultatsRechercheStructure().isEmpty()) {
-						this.rechercheController
-						.setResultatRechercheStructure(structureTmp);
+						this.rechercheController.setResultatRechercheStructure(structureTmp);
 						Iterator<StructureDTO> its = this.rechercheController.getListeResultatsRechercheStructure().iterator();
 						while (its.hasNext()) {
 							StructureDTO s = its.next();
@@ -900,8 +868,7 @@ public class EtablissementController extends AbstractContextAwareController {
 								break;
 							}
 						}
-						this.rechercheController.getListeResultatsRechercheStructure().add(
-								structureTmp);
+						this.rechercheController.getListeResultatsRechercheStructure().add(structureTmp);
 						this.rechercheController.reloadRechercheStructurePaginator();
 					}
 					// this.formStructure=null;
@@ -971,10 +938,11 @@ public class EtablissementController extends AbstractContextAwareController {
 				if (logger.isInfoEnabled()) {
 					logger.info("Numéro siret invalide pour " + structureTmp);
 				}
-				addErrorMessage("formModifEtab",
-						"STRUCTURE.NUM_SIRET.VALIDATION");
+				addErrorMessage("formModifEtab", "STRUCTURE.NUM_SIRET.VALIDATION");
 				retour = null;
 			}
+		} else {
+			addErrorMessage("formModifEtab","STRUCTURE.ERREURAJOUT.NAF");
 		}
 		return retour;
 	}
@@ -1175,17 +1143,14 @@ public class EtablissementController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String ajoutService() {
+	public void ajoutService() {
 		this.formService = new ServiceDTO();
 		if (getSessionController().getCurrentManageStructure() != null) {
-			this.formService.setPays(getSessionController()
-					.getCurrentManageStructure().getPays());
-			this.formServiceTmpPays = getSessionController()
-					.getCurrentManageStructure().getPays();
+			this.formService.setPays(getSessionController().getCurrentManageStructure().getPays());
+			this.formServiceTmpPays = getSessionController().getCurrentManageStructure().getPays();
 		}
 		this.formServiceTmpCodePostal = null;
 		this.formServiceTmpCommuneDTO = new CommuneDTO();
-		return null;
 	}
 
 	/**
@@ -1216,12 +1181,9 @@ public class EtablissementController extends AbstractContextAwareController {
 			if (this.formService.getPays() != null) {
 				this.formService.setIdPays(this.formService.getPays().getId());
 			}
-			this.formService.setLoginCreation(getSessionController()
-					.getCurrentLogin());
-			this.formService.setLoginInfosAJour(getSessionController()
-					.getCurrentLogin());
-			this.formService.setIdStructure(getSessionController()
-					.getCurrentManageStructure().getIdStructure());
+			this.formService.setLoginCreation(getSessionController().getCurrentLogin());
+			this.formService.setLoginInfosAJour(getSessionController().getCurrentLogin());
+			this.formService.setIdStructure(getSessionController().getCurrentManageStructure().getIdStructure());
 			
 			int i = getStructureDomainService().addService(this.formService);
 			this.formService.setIdService(i);
@@ -1364,34 +1326,25 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * Suppression d'un service
 	 */
 	public void supprimerService() {
-		//		String ret = "_supprServiceEtape2Confirmation";
+
 		try {
-			if (getStructureDomainService().deleteService(
-					this.formService.getIdService())) {
+			if (getStructureDomainService().deleteService(this.formService.getIdService())) {
+
 				addInfoMessage(null, "SERVICE.SUPPR.CONFIRMATION");
-				// reloadServices();
+				if (logger.isInfoEnabled()) {
+					logger.info(getSessionController().getCurrentLogin()
+							+ " supprime le service : "
+							+ this.serviceSel
+							+ " de l'établissement : "
+							+ getSessionController().getCurrentManageStructure());
+				}
+
+				reloadServices();
+
 				if (this.listeServices != null && !this.listeServices.isEmpty()) {
-					this.idServiceSel = this.listeServices.get(0)
-							.getIdService();
+					this.idServiceSel = this.listeServices.get(0).getIdService();
 					this.serviceSel = this.listeServices.get(0);
-					Iterator<ServiceDTO> its = this.listeServices.iterator();
-					while (its.hasNext()) {
-						ServiceDTO sTmp = its.next();
-						if (sTmp.getIdService() == this.formService
-								.getIdService()) {
-							its.remove();
-							break;
-						}
-					}
 					reloadContacts();
-					if (logger.isInfoEnabled()) {
-						logger.info(getSessionController().getCurrentLogin()
-								+ " supprime le service : "
-								+ this.serviceSel
-								+ " de l'établissement : "
-								+ getSessionController()
-								.getCurrentManageStructure());
-					}
 					this.formContact = null;
 					this.formService = null;
 				}
@@ -1401,7 +1354,6 @@ public class EtablissementController extends AbstractContextAwareController {
 		} catch (DataDeleteException e) {
 			logger.error("DataDeleteException", e.getCause());
 			getSessionController().setSuppressionServiceCurrentPage("_supprServiceEtape2Confirmation");
-			System.out.println("e.get message : " + e.getMessage());
 			if (e.getMessage().contains("constraint")){
 				addErrorMessage(null, "SERVICE.SUPPR.ERREUR.CONTACT");
 			} else {
@@ -1414,7 +1366,9 @@ public class EtablissementController extends AbstractContextAwareController {
 			logger.error("ServiceDeleteException", e.getCause());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
 		}
+
 		getSessionController().setSuppressionServiceCurrentPage("_supprServiceEtape2Confirmation");
+
 	}
 
 	/**
@@ -1424,8 +1378,7 @@ public class EtablissementController extends AbstractContextAwareController {
 	 */
 	public void valueIdServiceChanged(ValueChangeEvent event) {
 		this.idServiceSel = (Integer) event.getNewValue();
-		this.serviceSel = getStructureDomainService().getServiceFromId(
-				idServiceSel);
+		this.serviceSel = getStructureDomainService().getServiceFromId(idServiceSel);
 		reloadContacts();
 		if (this.listeContacts != null && !this.listeContacts.isEmpty()) {
 			this.contactSel = null;

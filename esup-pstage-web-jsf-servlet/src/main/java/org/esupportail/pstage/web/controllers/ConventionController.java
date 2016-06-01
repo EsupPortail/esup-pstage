@@ -1249,6 +1249,16 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
+	public String retourEtape2Creation(){
+
+		sequenceEtapeEnum = SequenceEtapeEnum.etape2;
+
+		return "creerConventionEtape2Etab";
+	}
+
+	/**
+	 * @return a String
+	 */
 	public String goToCreerConventionEtape2Offre() {
 		ajoutInfosEtudiant();
 
@@ -1448,11 +1458,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 *
 	 * @return a String
 	 */
-	public String goToCreerConventionEtape2CreaEtab() {
+	public void goToCreerConventionEtape2CreaEtab() {
 		this.etablissementController.goToCreationEtablissement();
-		getSessionController().setCreationConventionEtape2CurrentPage(
-				"_creerConventionEtape2CreaEtab");
-		return "creerConventionEtape2Etab";
+		getSessionController().setCreationConventionEtape2CurrentPage("_creerConventionEtape2CreaEtab");
 	}
 
 	/**
@@ -1463,18 +1471,6 @@ public class ConventionController extends AbstractContextAwareController {
 	public String goToConventionEtape2CreaEtab() {
 		this.etablissementController.goToCreationEtablissement();
 		return "conventionEtape2CreaEtab";
-	}
-
-	/**
-	 * @return String
-	 */
-	public String goToCreerConventionEtape2DetailsEtab() {
-		// String ret = "_creerConventionEtape2DetailsEtab";
-
-		getSessionController().setCreationConventionEtape2CurrentPage(
-				"_creerConventionEtape2DetailsEtab");
-		return "creerConventionEtape2Etab";
-		// return ret;
 	}
 
 	/**
@@ -1685,8 +1681,7 @@ public class ConventionController extends AbstractContextAwareController {
 	public String goToConventionModifSignataire() {
 		String retour = null;
 		if (this.convention.getSignataire() != null) {
-			this.convention.setIdSignataire(this.convention.getSignataire()
-					.getId());
+			this.convention.setIdSignataire(this.convention.getSignataire().getId());
 		}
 		ConventionDTO conventionTmp = this.convention;
 		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
@@ -1711,41 +1706,27 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * @return String
-	 */
-	public String goToConventionRechEtab() {
-		String ret = "conventionEtape2RechEtab";
-		return ret;
-
-	}
-
-	/**
 	 * Bouton d'ajout d'un etablissement.
 	 *
 	 * @return String
 	 */
 	public void ajouterEtablissement() {
-		String ret = null;
-		ret = this.etablissementController.ajouterEtablissement();
-		if (ret != null
-				&& this.etablissementController.getFormStructure() != null) {
-			if (this.convention != null) {
-				this.convention.setStructure(this.etablissementController
-						.getFormStructure());
-				getSessionController().setCurrentManageStructure(
-						this.etablissementController.getFormStructure());
-				getSessionController().setMenuGestionEtab(false);
-				this.etablissementController.loadContactsServices();
-				this.etablissementController.setFormStructure(null);
-				this.convention.setIdStructure(this.convention.getStructure()
-						.getIdStructure());
-				// ret = "creerConventionEtape2Etab";
-				getSessionController().setCreationConventionEtape2CurrentPage(
-						"_creerConventionEtape2DetailsEtab");
-			}
-		}
 
-		// return ret;
+		String ret = this.etablissementController.ajouterEtablissement();
+
+		this.recupFacesMessagesEtablissement();
+
+		if (ret != null && this.etablissementController.getFormStructure() != null
+				&& this.convention != null) {
+			this.convention.setStructure(this.etablissementController.getFormStructure());
+			getSessionController().setCurrentManageStructure(this.etablissementController.getFormStructure());
+			getSessionController().setMenuGestionEtab(false);
+			this.etablissementController.loadContactsServices();
+			this.etablissementController.setFormStructure(null);
+			this.convention.setIdStructure(this.convention.getStructure().getIdStructure());
+
+			getSessionController().setCreationConventionEtape2CurrentPage("_creerConventionEtape2DetailsEtab");
+		}
 	}
 
 	/**
@@ -1800,13 +1781,12 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void goToCreerConventionModifEtab() {
-		// String ret = null;
-		// ret = this.etablissementController.goToModificationEtablissement();
+
+		// On effectue les actions de goToModificationEtablissement en ignorant sa chaine de retour
 		this.etablissementController.goToModificationEtablissement();
-		getSessionController().setCreationConventionEtape2CurrentPage(
-				"_creerConventionEtape2ModifEtab");
-		// ret = "_creerConventionEtape2ModifEtab";
-		// return ret;
+
+		getSessionController().setCreationConventionEtape2CurrentPage("_creerConventionEtape2ModifEtab");
+
 	}
 
 	/**
@@ -1823,60 +1803,65 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void modifierEtablissement() {
-		String ret = null;
-		ret = this.etablissementController.modifierEtablissement();
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Iterator<FacesMessage> ifm = fc.getMessages("formModifEtab");
-		while (ifm.hasNext()) {
-			FacesMessage fm = ifm.next();
-			fc.addMessage(
-					"formConvention:formModifEtab",
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, fm
-							.getSummary(), fm.getDetail()));
-			ifm.remove();
-		}
-		ifm = fc.getMessages("formAffEtab");
-		while (ifm.hasNext()) {
-			FacesMessage fm = ifm.next();
-			fc.addMessage("formConvention:formAffEtab",
-					new FacesMessage(fm.getSummary(), fm.getDetail()));
-			ifm.remove();
-		}
-		if (StringUtils.hasText(ret)) {
-			// ret = "_creerConventionEtape2DetailsEtab";
-			getSessionController().setCreationConventionEtape2CurrentPage(
-					"_creerConventionEtape2DetailsEtab");
-		}
-		// return ret;
-	}
 
+		String ret = this.etablissementController.modifierEtablissement();
+
+		this.recupFacesMessagesEtablissement();
+
+		if (StringUtils.hasText(ret)) {
+			getSessionController().setCreationConventionEtape2CurrentPage("_creerConventionEtape2DetailsEtab");
+		}
+	}
 	/**
 	 * @return String
 	 */
 	public String modifierEtablissementDetail() {
-		String ret = null;
-		ret = this.etablissementController.modifierEtablissement();
-		FacesContext fc = FacesContext.getCurrentInstance();
-		Iterator<FacesMessage> ifm = fc.getMessages("formModifEtab");
-		while (ifm.hasNext()) {
-			FacesMessage fm = ifm.next();
-			fc.addMessage(
-					"formConvention:formModifEtab",
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, fm
-							.getSummary(), fm.getDetail()));
-			ifm.remove();
-		}
-		ifm = fc.getMessages("formAffEtab");
-		while (ifm.hasNext()) {
-			FacesMessage fm = ifm.next();
-			fc.addMessage("formConvention:formAffEtab",
-					new FacesMessage(fm.getSummary(), fm.getDetail()));
-			ifm.remove();
-		}
+
+		String ret = this.etablissementController.modifierEtablissement();
+
+		this.recupFacesMessagesEtablissement();
+
 		if (StringUtils.hasText(ret)) {
 			ret = SequenceEtapeEnumSel.etape2.actionEtape();
 		}
 		return ret;
+	}
+
+	private void recupFacesMessagesEtablissement(){
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String sum = "";
+		String detail = "";
+		FacesMessage.Severity severity = null;
+
+		// récupération et affichage des messages générés par l'appel de modifierEtablissement()
+		// (avec à chaque fois retrait des FacesMessages précédents du context afin d'eviter les unhandled FacesMessages)
+		List<FacesMessage> lfm = fc.getMessageList("formModifEtab");
+
+		Iterator<String> itIds = fc.getClientIdsWithMessages();
+		while (itIds.hasNext()) {
+			String idForm = itIds.next();
+			List<FacesMessage> messageList = fc.getMessageList(idForm);
+			if (!messageList.isEmpty()) {
+
+				sum = messageList.get(0).getSummary();
+				detail = messageList.get(0).getDetail();
+
+				if (idForm.equalsIgnoreCase("formAffEtab")){
+					severity = FacesMessage.SEVERITY_INFO;
+				} else {
+					severity = FacesMessage.SEVERITY_ERROR;
+				}
+
+				// censé vider le contenu du facesContext pour eviter les doublons
+				messageList.clear();
+			}
+		}
+
+		// Si on a bien recup un message
+		if (severity != null) {
+			// On ajoute au bon form le message récupéré
+			fc.addMessage("formConvention", new FacesMessage(severity, sum, detail));
+		}
 	}
 
 	/**
@@ -1885,15 +1870,17 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return a String
 	 */
 	public String goToCreerConventionEtape3Service() {
-		getSessionController().setCurrentManageStructure(
-				this.convention.getStructure());
+		getSessionController().setCurrentManageStructure(this.convention.getStructure());
 		getSessionController().setMenuGestionEtab(false);
+
 		this.etablissementController.loadContactsServices();
+
 		sequenceEtapeEnum = SequenceEtapeEnum.etape3;
+
 		if (this.convention.getStructure() != null) {
-			this.convention.setIdStructure(this.convention.getStructure()
-					.getIdStructure());
+			this.convention.setIdStructure(this.convention.getStructure().getIdStructure());
 		}
+
 		return "creerConventionEtape3Service";
 	}
 
@@ -1901,20 +1888,21 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToConventionEtape3ServiceModif() {
+
 		String ret = null;
-		this.convention.setIdService(this.convention.getService()
-				.getIdService());
-		this.etablissementController
-				.setServiceSel(this.convention.getService());
-		this.etablissementController.setIdServiceSel(this.convention
-				.getService().getIdService());
-		getSessionController().setCurrentManageStructure(
-				this.convention.getStructure());
+
+		this.convention.setIdService(this.convention.getService().getIdService());
+		this.etablissementController.setServiceSel(this.convention.getService());
+		this.etablissementController.setIdServiceSel(this.convention.getService().getIdService());
+		getSessionController().setCurrentManageStructure(this.convention.getStructure());
 		getSessionController().setMenuGestionEtab(false);
+
 		// this.etablissementController.loadContactsServices();
 		this.etablissementController.reloadContacts();
+
 		ConventionDTO conventionTmp = this.convention;
 		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
+
 		try {
 			if (this.getConventionDomainService().updateConvention(
 					conventionTmp)) {
@@ -4034,9 +4022,9 @@ public class ConventionController extends AbstractContextAwareController {
 			if (StringUtils.hasText(this.rechIdentEtudiant)) {
 				this.listeResultatsRechercheEtudiant = null;
 				this.resultatEtudiantRef = getStudentDataRepositoryDomain().getEtudiantRefByNum(
-								getSessionController().getCodeUniversite(),
-								this.rechIdentEtudiant,
-								null);
+						getSessionController().getCodeUniversite(),
+						this.rechIdentEtudiant,
+						null);
 				if (resultatEtudiantRef != null) {
 					if (resultatEtudiantRef.getAdministrationApogee() != null) {
 						if (!resultatEtudiantRef.getAdministrationApogee()

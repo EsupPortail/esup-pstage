@@ -1,28 +1,20 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-
-	<h:panelGrid>
-		<h:outputText value="#{msgs['SERVICE.SUPPR.QUESTION']}"
-			escape="false" />
-		<p:dataTable value="#{etablissementController.serviceSel}">
-			<ui:include src="../_commun/_serviceColumns.xhtml" />
-		</p:dataTable>
-		<t:htmlTag value="div" style="height:5px;" />
-		<h:panelGrid columns="3">
-			<p:commandButton
-				action="#{etablissementController.supprimerService}"
-				value="#{msgs['FORM.SUPPRIMER']}"
-				update="@form" />
-<!-- 				update="opService, opActionsService, opContactsDataTable, formSupprService" /> -->
-			<t:htmlTag value="div" style="width: 50px;" />
-			<p:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="PF('supprService').hide();"
-				immediate="true" />
-		</h:panelGrid>
-	</h:panelGrid>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+    <h:outputText value="#{msgs['SERVICE.SUPPR.QUESTION']}"
+                  escape="false" />
+    <p:dataTable value="#{etablissementController.serviceSel}">
+        <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
+    </p:dataTable>
+    <t:div styleClass="textCenter mt20 mb20">
+        <p:commandButton
+                action="#{etablissementController.supprimerService}"
+                value="#{msgs['FORM.SUPPRIMER']}"
+                update="@form" />
+        <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                         onclick="PF('supprService').hide();"
+                         immediate="true" styleClass="ml40" />
+    </t:div>
 </ui:composition>

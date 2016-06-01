@@ -355,11 +355,8 @@ public class WelcomeController extends AbstractContextAwareController {
 	public String connect(){
 		String ret=null;
 		if(StringUtils.hasText(login) && StringUtils.hasText(mdp)){
-			System.out.println("mdp saisi :  " + mdp);
 			ContactDTO tmp = getStructureDomainService().getContactFromLogin(this.login);
-			System.out.println("yes papa ! " + tmp);
 			if(tmp!=null && StringUtils.hasText(tmp.getMdp())){
-				System.out.println("mdp : " + tmp.getMdp());
 				StructureDTO st = getStructureDomainService().getStructureFromIdService(tmp.getIdService());
 				if(st!=null && st.getIdStructure()>0){
 					AccordPartenariatDTO ap = getStructureDomainService().getAccordFromIdStructure(st.getIdStructure());

@@ -1,66 +1,52 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:div
-		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-		<t:aliasBean alias="#{structure}"
-			value="#{rechercheController.resultatRechercheStructure}">
-			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
-		</t:aliasBean>
-		<t:htmlTag value="div" style="height:5px;" />
-		<t:htmlTag value="center">
-			<h:commandButton id="modifEtab"
-				value="#{msgs['FORM.MODIFIER']} les informations"
-				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-				action="#{conventionController.goToCreerConventionModifEtab}"
-				rendered="#{not empty rechercheController.resultatRechercheStructure
-		and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-			welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-			|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-		(!sessionController.autoriserEtudiantAModifierEntreprise 
-			and ((empty rechercheController.resultatRechercheStructure.loginModif and
-			rechercheController.resultatRechercheStructure.loginCreation==sessionController.currentLogin)
-			|| (rechercheController.resultatRechercheStructure.loginModif==sessionController.currentLogin)))))))}">
-				<f:setPropertyActionListener
-					value="#{rechercheController.resultatRechercheStructure}"
-					target="#{etablissementController.formStructure}" />
-			</h:commandButton>
-		</t:htmlTag>
+    <t:aliasBean alias="#{structure}"
+                 value="#{rechercheController.resultatRechercheStructure}">
+        <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+    </t:aliasBean>
 
-		<h:panelGrid id="formAffEtab" align="center">
-			<p:message for="formAffEtab">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-		</h:panelGrid>
-		<t:htmlTag value="div" style="height:20px;" />
+    <t:div styleClass="mt5 ml40">
+        <p:commandButton id="modifEtab" icon="fa fa-edit fz13"
+                         value="#{msgs['FORM.MODIFIER']} ces informations"
+                         action="#{conventionController.goToCreerConventionModifEtab}"
+                         update="@form"
+                         rendered="#{not empty rechercheController.resultatRechercheStructure and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                             || welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+			                 || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise
+			                 || (!sessionController.autoriserEtudiantAModifierEntreprise
+			                    and ((empty rechercheController.resultatRechercheStructure.loginModif and
+			                    rechercheController.resultatRechercheStructure.loginCreation==sessionController.currentLogin)
+			                    || (rechercheController.resultatRechercheStructure.loginModif==sessionController.currentLogin)))))))}">
+            <f:setPropertyActionListener
+                    value="#{rechercheController.resultatRechercheStructure}"
+                    target="#{etablissementController.formStructure}" />
+        </p:commandButton>
+    </t:div>
 
-		<t:htmlTag value="center">
-			<h:commandButton id="selectionEtab"
-				value="#{msgs['OFFRE.SELECTIONETAB']}"
-				alt="#{msgs['OFFRE.SELECTIONETAB']}"
-				title="#{msgs['OFFRE.SELECTIONETAB']}"
-				action="#{conventionController.goToCreerConventionEtape3Service}"
-				rendered="#{not empty rechercheController.resultatRechercheStructure}"
-				style="font-size:14px; border:solid 1px;">
-				<f:setPropertyActionListener
-					value="#{rechercheController.resultatRechercheStructure}"
-					target="#{conventionController.convention.structure}" />
-			</h:commandButton>
-		</t:htmlTag>
+    <t:htmlTag value="div" style="height:15px;" />
 
-		<t:htmlTag value="div" style="height:30px;" />
+    <p:message for="@form" />
 
-		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-			action="#{conventionController.goToCreerConventionEtape2EtabR}"
-			immediate="true">
-			<f:setPropertyActionListener value="#{null}"
-				target="#{rechercheController.resultatRechercheStructure}" />
-		</h:commandButton>
-	</t:div>
+    <t:div styleClass="textCenter mt20">
+        <p:commandButton id="selectionEtab"
+                         value="#{msgs['OFFRE.SELECTIONETAB']}"
+                         alt="#{msgs['OFFRE.SELECTIONETAB']}"
+                         title="#{msgs['OFFRE.SELECTIONETAB']}"
+                         action="#{conventionController.goToCreerConventionEtape3Service}"
+                         rendered="#{not empty rechercheController.resultatRechercheStructure}">
+            <f:setPropertyActionListener
+                    value="#{rechercheController.resultatRechercheStructure}"
+                    target="#{conventionController.convention.structure}" />
+        </p:commandButton>
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     update="@form" immediate="true"
+                     styleClass="mt20 mb20">
+        <f:setPropertyActionListener value="#{conventionController.retourAction}" target="#{sessionController.creationConventionEtape2CurrentPage}" />
+    </p:commandButton>
 </ui:composition>

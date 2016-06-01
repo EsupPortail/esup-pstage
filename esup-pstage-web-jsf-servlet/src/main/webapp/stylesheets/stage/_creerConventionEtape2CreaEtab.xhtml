@@ -1,34 +1,22 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-		<p:panel
-			style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHERCHE.ETAB']}" />
-			</f:facet>
-			<t:htmlTag value="div" style="height: 20px;" />
+    <ui:include src="../_commun/_etablissementForm.xhtml" />
 
-			<ui:include src="../_commun/_etablissementForm.xhtml" />
+    <t:div styleClass="textCenter mt20">
+        <p:commandButton value="#{msgs['FORM.CREER']}"
+                         update="@form"
+                         action="#{conventionController.ajouterEtablissement}" />
+    </t:div>
 
-			<h:panelGrid columns="3">
-				<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-					alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-					immediate="true" action="creerConventionEtape2Etab">
-					<f:setPropertyActionListener value="_creerConventionEtape2Etab" target="#{sessionController.creationConventionEtape2CurrentPage}"/>
-				</h:commandButton>
-				<t:htmlTag value="div" style="width: 20px;" />
-				<p:commandButton value="#{msgs['FORM.CREER']}"
-					update="formConvention"
-					action="#{conventionController.ajouterEtablissement}" />
-			</h:panelGrid>
-			
-			<t:htmlTag value="div" style="height:10px;" />
-		</p:panel>
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     update="@form"
+                     immediate="true" styleClass="mt20 mb20">
+        <f:setPropertyActionListener value="_creerConventionEtape2Etab" target="#{sessionController.creationConventionEtape2CurrentPage}"/>
+    </p:commandButton>
 </ui:composition>
 
 

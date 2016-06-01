@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -61,7 +62,7 @@ public class RechercheController extends AbstractContextAwareController {
 	 **********************************************/
 	/* ** 
 	 * Champs communs
-	 */	
+	 */
 	/**
 	 * Département
 	 */
@@ -72,7 +73,7 @@ public class RechercheController extends AbstractContextAwareController {
 	private PaysDTO rechPays;
 	/* ** 
 	 * Champs onglet 1 : Siren/Siret
-	 */	
+	 */
 	/**
 	 * Numéro Siren
 	 */
@@ -83,14 +84,14 @@ public class RechercheController extends AbstractContextAwareController {
 	private String rechNumeroSiret;
 	/* ** 
 	 * Champs onglet 2 : Raison Sociale (+dep)
-	 */	
+	 */
 	/**
 	 * Raison Sociale
 	 */
 	private String rechRaisonSociale;
 	/* ** 
 	 * Champs onglet 3 : Activité (+dep)
-	 */	
+	 */
 	/**
 	 * Type d'établissement
 	 */
@@ -101,7 +102,7 @@ public class RechercheController extends AbstractContextAwareController {
 	private NafN1DTO rechNafN1;
 	/* ** 
 	 * Champs onglet 4 : Tél./Fax
-	 */	
+	 */
 	/**
 	 * Téléphone
 	 */
@@ -112,7 +113,7 @@ public class RechercheController extends AbstractContextAwareController {
 	private String rechFax;
 	/* ** 
 	 * Champs onglet 7 : Adresse
-	 */	
+	 */
 	/**
 	 * Criteres de recherche par adresse
 	 */
@@ -134,7 +135,7 @@ public class RechercheController extends AbstractContextAwareController {
 	/* ** 
 	 * Champs onglet 5 : Service (+dep)
 	 * pour administrateurs
-	 */	
+	 */
 	/**
 	 * Nom du service
 	 */
@@ -226,6 +227,7 @@ public class RechercheController extends AbstractContextAwareController {
 	 * @return A String
 	 */
 	public String goToRechercheEtablissementStage(){
+		this.afficherBoutonAjoutEtab=false;
 		this.toVerificationStructures = false;
 		this.toStructuresTemFalse=false;
 		this.rechRaisonSociale = "";
@@ -310,15 +312,6 @@ public class RechercheController extends AbstractContextAwareController {
 	/* *********************************************
 		 * Changement d'onglets
 		 **********************************************/
-	private int selectedOnglet;
-
-	public int getSelectedOnglet() {
-		return selectedOnglet;
-	}
-
-	public void setSelectedOnglet(int selectedOnglet) {
-		this.selectedOnglet = selectedOnglet;
-	}
 	public List<SelectItem> getOnglets() {
 		List<SelectItem> ls = new ArrayList<SelectItem>();
 		ls.add(new SelectItem(2,getString("RECHERCHEETABLISSEMENT.ONGLET2")));
@@ -335,119 +328,8 @@ public class RechercheController extends AbstractContextAwareController {
 	}
 
 	public void changeOnglet(){
-		switch (selectedOnglet){
-			case 1:
-				afficherBoutonAjoutEtab=false;
-				resetResultats();
-				this.ongletCourant=1;
-				break;
-			case 2:
-				afficherBoutonAjoutEtab=false;
-				resetResultats();
-				this.ongletCourant=2;
-				break;
-			case 3:
-				afficherBoutonAjoutEtab=false;
-				resetResultats();
-				this.ongletCourant=3;
-				break;
-			case 4:
-				afficherBoutonAjoutEtab=false;
-				resetResultats();
-				this.ongletCourant=4;
-				break;
-			case 5:
-				afficherBoutonAjoutEtab=false;
-				resetResultats();
-				this.ongletCourant=5;
-				break;
-			case 6:
-				afficherBoutonAjoutEtab=false;
-				resetResultats();
-				this.ongletCourant=6;
-				break;
-			case 7:
-				afficherBoutonAjoutEtab=false;
-				resetResultats();
-				this.ongletCourant=7;
-				break;
-		}
-	}
-	/**
-	 * Met à 1 la valeur d' "ongletCourant" pour afficher l'onglet 1:Siren/Siret
-	 * @return String
-	 */
-	public String goToOngletSiret(){
 		afficherBoutonAjoutEtab=false;
 		resetResultats();
-		this.ongletCourant=1;
-		return null;
-	}
-
-	/**
-	 * Met à 2 la valeur d' "ongletCourant" pour afficher l'onglet 2:Raison Sociale
-	 * @return String
-	 */
-	public String goToOngletRaisonSociale(){
-		afficherBoutonAjoutEtab=false;
-		resetResultats();
-		this.ongletCourant=2;
-		return null;
-	}
-
-	/**
-	 * Met à 3 la valeur d' "ongletCourant" pour afficher l'onglet 3:Activité
-	 * @return String
-	 */
-	public String goToOngletActivite(){
-		afficherBoutonAjoutEtab=false;
-		resetResultats();
-		this.ongletCourant=3;
-		return null;
-	}
-
-	/**
-	 * Met à 4 la valeur d' "ongletCourant" pour afficher l'onglet 4:Téléphone/Fax
-	 * @return String
-	 */
-	public String goToOngletTelFax(){
-		afficherBoutonAjoutEtab=false;
-		resetResultats();
-		this.ongletCourant=4;
-		return null;
-	}
-
-	/**
-	 * Met à 5 la valeur d' "ongletCourant" pour afficher l'onglet 5:Service
-	 * @return String
-	 */
-	public String goToOngletService(){
-		afficherBoutonAjoutEtab=false;
-		resetResultats();
-		this.ongletCourant=5;
-		return null;
-	}
-
-	/**
-	 * Met à 6 la valeur d' "ongletCourant" pour afficher l'onglet 6:Accord
-	 * @return String
-	 */
-	public String goToOngletAccord(){
-		afficherBoutonAjoutEtab=false;
-		resetResultats();
-		this.ongletCourant=6;
-		return null;
-	}
-
-	/**
-	 * Met à 7 la valeur d' "ongletCourant" pour afficher l'onglet 7:Adresse
-	 * @return String
-	 */
-	public String goToOngletAdresse(){
-		afficherBoutonAjoutEtab=false;
-		resetResultats();
-		this.ongletCourant=7;
-		return null;
 	}
 
 	/* *********************************************
@@ -457,35 +339,68 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Recherche des établissements par SIRET pour l'onglet 1
 	 * @return String
 	 */
-	public String rechercheEtabSiret(){
+	public void rechercheEtabSiret(){
 		afficherBoutonAjoutEtab=true;
-		if(StringUtils.hasText(this.rechNumeroSiret) && Utils.validateNumSiret(this.rechNumeroSiret)){
-			this.resultatRechercheStructure=null;
-			this.listeResultatsRechercheStructure=new ArrayList<StructureDTO>();
-			StructureDTO result = getStructureDomainService().getStructureFromNumSiret(this.rechNumeroSiret);
-			if(result!=null)this.listeResultatsRechercheStructure.add(result);
-			else this.listeResultatsRechercheStructure=null;
-			checkListeResultats();
+
+		String currentForm;
+		if (FacesContext.getCurrentInstance().getViewRoot().findComponent("formResultatsRechEtab") == null){
+			currentForm = "formConvention";
+		} else {
+			currentForm = "formResultatsRechEtab";
+		}
+
+		if(StringUtils.hasText(this.rechNumeroSiret)){
+			if (Utils.validateNumSiret(this.rechNumeroSiret)) {
+				this.rechNumeroSiren = null;
+				this.resultatRechercheStructure = null;
+				this.listeResultatsRechercheStructure = new ArrayList<StructureDTO>();
+
+				StructureDTO result = getStructureDomainService().getStructureFromNumSiret(this.rechNumeroSiret);
+
+				if (result != null) {
+					this.listeResultatsRechercheStructure.add(result);
+				} else {
+					this.listeResultatsRechercheStructure = null;
+				}
+
+				checkListeResultats();
+			} else {
+				addErrorMessage(currentForm+":rechNumeroSiret","STRUCTURE.NUM_SIRET.VALIDATION");
+			}
 		}else{
 			resetResultats();
+			addErrorMessage(currentForm+":rechNumeroSiret","FORM.CHAMP_OBLIGATOIRE");
 		}
-		return null;
 	}
 
 	/**
 	 * Recherche des établissements par SIREN pour l'onglet 1
 	 * @return String
 	 */
-	public String rechercheEtabSiren(){
-		afficherBoutonAjoutEtab=true;
-		if(StringUtils.hasText(this.rechNumeroSiren) && Utils.validateNumSiren(this.rechNumeroSiren)){
-			this.resultatRechercheStructure=null;
-			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromNumSiren(this.rechNumeroSiren);
-			checkListeResultats();
+	public void rechercheEtabSiren(){
+
+		afficherBoutonAjoutEtab = true;
+
+		String currentForm;
+		if (FacesContext.getCurrentInstance().getViewRoot().findComponent("formResultatsRechEtab") == null){
+			currentForm = "formConvention";
+		} else {
+			currentForm = "formResultatsRechEtab";
+		}
+
+		if(StringUtils.hasText(this.rechNumeroSiren)){
+			if (Utils.validateNumSiren(this.rechNumeroSiren)) {
+				this.rechNumeroSiret = null;
+				this.resultatRechercheStructure = null;
+				this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromNumSiren(this.rechNumeroSiren);
+				checkListeResultats();
+			} else {
+				addErrorMessage(currentForm+":rechNumeroSiret","STRUCTURE.NUM_SIRET.VALIDATION");
+			}
 		}else{
 			resetResultats();
+			addErrorMessage(currentForm+":rechNumeroSiren","FORM.CHAMP_OBLIGATOIRE");
 		}
-		return null;
 	}
 
 	/* *********************************************
@@ -497,10 +412,10 @@ public class RechercheController extends AbstractContextAwareController {
 	 * département optionnel
 	 * @return String
 	 */
-	public String rechercheRaisonSociale(){		
+	public String rechercheRaisonSociale(){
 
 		afficherBoutonAjoutEtab=true;
-		
+
 		if(!StringUtils.hasText(this.rechRaisonSociale)){
 			this.rechRaisonSociale = "";
 		}
@@ -521,9 +436,6 @@ public class RechercheController extends AbstractContextAwareController {
 		checkListeResultats();
 
 		return null;
-
-
-
 	}
 
 	/* *********************************************
@@ -534,18 +446,18 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Recherche par activité
 	 * @return String
 	 */
-	public String rechercheActivite(){
+	public void rechercheActivite(){
 		afficherBoutonAjoutEtab=true;
 		if(this.rechTypeEtablissement!=null || this.rechNafN1!=null){
-			this.resultatRechercheStructure=null;
-			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromTypeStructureNafN1EtDepartement(this.rechTypeEtablissement!=null?this.rechTypeEtablissement.getId():0,
-					this.rechNafN1!=null?this.rechNafN1.getCode():null, this.rechDepartement);
+			this.resultatRechercheStructure = null;
+			this.listeResultatsRechercheStructure = getStructureDomainService().getStructuresFromTypeStructureNafN1EtDepartement(
+					this.rechTypeEtablissement != null ? this.rechTypeEtablissement.getId() : 0,
+					this.rechNafN1 != null ? this.rechNafN1.getCode() : null,
+					this.rechDepartement);
 			checkListeResultats();
 		}else{
 			resetResultats();
 		}
-		
-		return null;
 	}
 
 	/* *********************************************
@@ -556,7 +468,7 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Recherche par téléphone
 	 * @return String
 	 */
-	public String rechercheTel(){
+	public void rechercheTel(){
 		afficherBoutonAjoutEtab=true;
 		if(StringUtils.hasText(this.rechTelephone)){
 			this.resultatRechercheStructure=null;
@@ -564,14 +476,20 @@ public class RechercheController extends AbstractContextAwareController {
 			checkListeResultats();
 		}else{
 			resetResultats();
+			String currentForm;
+			if (FacesContext.getCurrentInstance().getViewRoot().findComponent("formResultatsRechEtab") == null){
+				currentForm = "formConvention";
+			} else {
+				currentForm = "formResultatsRechEtab";
+			}
+			addErrorMessage(currentForm+":rechTelephone","FORM.CHAMP_OBLIGATOIRE");
 		}
-		return null;
 	}
 	/**
 	 * Recherche par fax
 	 * @return String
 	 */
-	public String rechercheFax(){
+	public void rechercheFax(){
 		afficherBoutonAjoutEtab=true;
 		if(StringUtils.hasText(this.rechFax)){
 			this.resultatRechercheStructure=null;
@@ -579,8 +497,14 @@ public class RechercheController extends AbstractContextAwareController {
 			checkListeResultats();
 		}else{
 			resetResultats();
+			String currentForm;
+			if (FacesContext.getCurrentInstance().getViewRoot().findComponent("formResultatsRechEtab") == null){
+				currentForm = "formConvention";
+			} else {
+				currentForm = "formResultatsRechEtab";
+			}
+			addErrorMessage(currentForm+":rechFax","FORM.CHAMP_OBLIGATOIRE");
 		}
-		return null;
 	}
 
 	/* *********************************************
@@ -591,21 +515,27 @@ public class RechercheController extends AbstractContextAwareController {
 	 * Recherche par Adresse
 	 * @return String
 	 */
-	public String rechercheAdresse(){
+	public void rechercheAdresse(){
+
 		afficherBoutonAjoutEtab=true;
+
 		if(this.critereRechercheStructureAdresse!=null &&
 				(StringUtils.hasText(this.critereRechercheStructureAdresse.getRechVoie())
 						|| StringUtils.hasText(this.critereRechercheStructureAdresse.getRechBatimentResidence())
 						|| StringUtils.hasText(this.critereRechercheStructureAdresse.getRechVille())
 						|| StringUtils.hasText(this.critereRechercheStructureAdresse.getCodePostal())
-						|| (this.critereRechercheStructureAdresse.getRechPays()!=null && this.critereRechercheStructureAdresse.getRechPays().getId()>0))){
-			this.resultatRechercheStructure=null;
-			this.listeResultatsRechercheStructure=getStructureDomainService().getStructuresFromAdresse(this.critereRechercheStructureAdresse);
+						|| (this.critereRechercheStructureAdresse.getRechPays() != null && this.critereRechercheStructureAdresse.getRechPays().getId() > 0))){
+			this.resultatRechercheStructure = null;
+			this.listeResultatsRechercheStructure = getStructureDomainService().getStructuresFromAdresse(this.critereRechercheStructureAdresse);
 			checkListeResultats();
 		}else{
 			resetResultats();
+			if (FacesContext.getCurrentInstance().getViewRoot().findComponent("formResultatsRechEtab") == null){
+				addErrorMessage("formConvention", "RECHERCHEETU.OBLIGATOIRE.RESPECTER");
+			} else {
+				addErrorMessage("formResultatsRechEtab", "RECHERCHEETU.OBLIGATOIRE.RESPECTER");
+			}
 		}
-		return null;
 	}
 
 	/* *********************************************
@@ -613,10 +543,10 @@ public class RechercheController extends AbstractContextAwareController {
 	 **********************************************/
 
 	/**
-	 * Recherche par Adresse
+	 * Recherche par Service
 	 * @return String
 	 */
-	public String rechercheService(){
+	public void rechercheService(){
 		afficherBoutonAjoutEtab=true;
 		if(StringUtils.hasText(this.rechNomService)){
 			this.resultatRechercheStructure=null;
@@ -625,7 +555,6 @@ public class RechercheController extends AbstractContextAwareController {
 		}else{
 			resetResultats();
 		}
-		return null;
 	}
 
 	/* *********************************************
@@ -647,28 +576,28 @@ public class RechercheController extends AbstractContextAwareController {
 			}
 		}
 		switch (this.rechTypeAccord) {
-		//Structures avec accord à valider
-		case 0:
-			this.listeResultatsRechercheStructure=getStructureDomainService()
-			.getStructuresAvecAccordAValiderFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
-			checkListeResultats();
-			break;
-			//Structures avec accord validé
-		case 1:
-			this.listeResultatsRechercheStructure=getStructureDomainService()
-			.getStructuresAvecAccordValidesFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
-			checkListeResultats();
-			break;
-			//Structures sans accord
-		case 2:
-			if(StringUtils.hasText(this.rechRaisonSociale)){
+			//Structures avec accord à valider
+			case 0:
 				this.listeResultatsRechercheStructure=getStructureDomainService()
-						.getStructuresSansAccordFromRaisonSociale(this.rechRaisonSociale);
+						.getStructuresAvecAccordAValiderFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
 				checkListeResultats();
-			}
-			break;
-		default:
-			break;
+				break;
+			//Structures avec accord validé
+			case 1:
+				this.listeResultatsRechercheStructure=getStructureDomainService()
+						.getStructuresAvecAccordValidesFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
+				checkListeResultats();
+				break;
+			//Structures sans accord
+			case 2:
+				if(StringUtils.hasText(this.rechRaisonSociale)){
+					this.listeResultatsRechercheStructure=getStructureDomainService()
+							.getStructuresSansAccordFromRaisonSociale(this.rechRaisonSociale);
+					checkListeResultats();
+				}
+				break;
+			default:
+				break;
 		}
 		return null;
 	}
@@ -690,17 +619,23 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	private void checkListeResultats(){
 		if(this.listeResultatsRechercheStructure==null && this.resultatRechercheStructure==null){
-			addInfoMessage("formResultatsRechEtab", "RECHERCHEETABLISSEMENT.AUCUNRESULTAT");
-		}else if(this.listeResultatsRechercheStructure!=null){
+			if (FacesContext.getCurrentInstance().getViewRoot().findComponent("formResultatsRechEtab") == null){
+				addInfoMessage("formConvention", "RECHERCHEETABLISSEMENT.AUCUNRESULTAT");
+			} else {
+				addInfoMessage("formResultatsRechEtab", "RECHERCHEETABLISSEMENT.AUCUNRESULTAT");
+			}
+		} else if (this.listeResultatsRechercheStructure!=null){
 			reloadRechercheStructurePaginator();
 		}
-
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void resetResultats(){
+		if(this.critereRechercheStructureAdresse==null){
+			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
+		}
 		this.listeResultatsRechercheStructure=null;
 		this.resultatRechercheStructure=null;
 	}
@@ -726,7 +661,10 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	public String goToAccordAValider(){
 		String ret="rechercheEtablissement";
-		goToOngletAccord();
+
+		afficherBoutonAjoutEtab=false;
+		resetResultats();
+		this.ongletCourant=6;
 		this.rechTypeAccord=0;
 		this.rechRaisonSociale="%";
 		this.listeResultatsRechercheStructure=getStructureDomainService()
@@ -1088,7 +1026,7 @@ public class RechercheController extends AbstractContextAwareController {
 	 * @param event
 	 */
 	public void valuePaysChanged(ValueChangeEvent event){
-		this.setRechPays((PaysDTO) event.getNewValue());	
+		this.setRechPays((PaysDTO) event.getNewValue());
 		if (this.getRechPays()!=null && this.getRechPays().getId()==82)
 			this.setFrance(true);
 		else

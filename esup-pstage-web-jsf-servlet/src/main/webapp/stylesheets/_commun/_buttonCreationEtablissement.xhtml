@@ -1,21 +1,15 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-
-	<h:panelGrid columns="3"
-		rendered="#{rechercheController.afficherBoutonAjoutEtab}">
-		<h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}" escape="false" />
-		<h:commandLink id="ajoutEtab"
-			action="#{etablissementController.goToCreationEtablissement}">
-			<f:setPropertyActionListener value="#{true}"
-				target="#{etablissementController.memeAdresseStructure}" />
-			<h:graphicImage alt="#{msgs['FORM.CREER']}"
-				value="../../media/images/new.png" />
-			<p:tooltip value="#{msgs['FORM.CREER']}" />
-		</h:commandLink>
-	</h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}" escape="false" />
+    <p:commandButton id="ajoutEtab" styleClass="ml5"
+                     icon="fa fa-plus fz13"
+                     value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
+                     action="#{etablissementController.goToCreationEtablissement}">
+        <f:setPropertyActionListener value="#{true}"
+                                     target="#{etablissementController.memeAdresseStructure}" />
+        <p:tooltip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
+    </p:commandButton>
 </ui:composition>

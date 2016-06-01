@@ -9,105 +9,102 @@
             <ui:include src="./_menu.xhtml" />
         </h:panelGrid>
         <t:div rendered="#{sessionController.adminPageAuthorized or sessionController.pageAuthorized}">
-                <p:panel>
-                    <f:facet name="header">
-                        <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
-                    </f:facet>
-                    <h:form id="formResultatsRechEtab">
-                        <ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
+            <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
+                </f:facet>
+                <h:form id="formResultatsRechEtab">
+                    <ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 
-                        <ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
+                    <ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
 
-                        <p:message for="formResultatsRechEtab" />
+                    <p:message for="formResultatsRechEtab" />
 
-                        <t:div styleClass="mt10 mb10"
-                               rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant!=6}">
-                            <ui:include src="../_commun/_buttonCreationEtablissement.xhtml" />
-                        </t:div>
+                    <t:div styleClass="mt10 mb10"
+                           rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant!=6}">
+                        <ui:include src="../_commun/_buttonCreationEtablissement.xhtml" />
+                    </t:div>
 
-                        <p:outputPanel id="opRechercheStructureDataTable">
-                            <t:div rendered="#{not empty rechercheController.listeResultatsRechercheStructure and not empty rechercheController.rechercheStructurePaginator}">
-                                <ui:include src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
-                                <p:dataTable id="rechercheStructureDataTable" style="width:600px;"
-                                             value="#{rechercheController.rechercheStructurePaginator.liste}"
-                                             var="varRechercheStructure" rows="10" rowHover="true"
-                                             rowStyleClass="noPointer" paginator="true"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="5,10,15,20"
-                                             rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}">
+                    <p:outputPanel id="opRechercheStructureDataTable">
+                        <t:div rendered="#{not empty rechercheController.listeResultatsRechercheStructure and not empty rechercheController.rechercheStructurePaginator}">
+                            <ui:include src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
+                            <p:dataTable id="rechercheStructureDataTable"
+                                         value="#{rechercheController.rechercheStructurePaginator.liste}"
+                                         var="varRechercheStructure" rows="10" rowHover="true"
+                                         rowStyleClass="noPointer" paginator="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15,20"
+                                         rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}">
 
-                                    <ui:include src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+                                <ui:include src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 
-                                    <ui:include src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
+                                <ui:include src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
 
-                                    <p:column rendered="#{sessionController.adminPageAuthorized and not empty rechercheController.ongletCourant}">
-                                        <h:commandButton id="gererEtablissement"
-                                                         value="#{msgs['STRUCTURE.GERER']}"
-                                                         action="#{welcomeController.goToGererStructure}"
-                                                         image="../../media/images/door_open.png"
-                                                         alt="#{msgs['STRUCTURE.GERER']}"
-                                                         title="#{msgs['STRUCTURE.GERER']}">
-                                            <f:setPropertyActionListener value="#{true}"
-                                                                         target="#{sessionController.menuGestionEtab}" />
-                                            <f:setPropertyActionListener value="#{varRechercheStructure}"
-                                                                         target="#{sessionController.currentManageStructure}" />
-                                            <p:tooltip for="gererEtablissement" value="#{msgs['STRUCTURE.GERER']}" />
-                                        </h:commandButton>
-                                    </p:column>
-                                    <p:column rendered="#{sessionController.adminPageAuthorized and
+                                <p:column rendered="#{sessionController.adminPageAuthorized and not empty rechercheController.ongletCourant}">
+                                    <p:commandLink id="gererEtablissement"
+                                                   action="#{welcomeController.goToGererStructure}">
+                                        <t:htmlTag value="i" styleClass="fa fa-hand-o-right fz13 fontBlue2" />
+                                        <f:setPropertyActionListener value="#{true}"
+                                                                     target="#{sessionController.menuGestionEtab}" />
+                                        <f:setPropertyActionListener value="#{varRechercheStructure}"
+                                                                     target="#{sessionController.currentManageStructure}" />
+                                        <p:tooltip for="gererEtablissement" value="#{msgs['STRUCTURE.GERER']}" />
+                                    </p:commandLink>
+                                </p:column>
+                                <p:column rendered="#{sessionController.adminPageAuthorized and
                                             not empty rechercheController.ongletCourant
                                             and rechercheController.ongletCourant==6
                                             and not empty varRechercheStructure.accordPartenariat}">
-                                        <h:panelGrid columns="3" cellspacing="5">
-                                            <h:commandButton id="validerAccord"
-                                                             value="#{msgs['FORM.VALIDER']}"
-                                                             action="#{adminController.goToValidationAccord}"
-                                                             image="../../media/images/tick.png"
-                                                             alt="#{msgs['FORM.VALIDER']}"
-                                                             title="#{msgs['FORM.VALIDER']}"
-                                                             rendered="#{not varRechercheStructure.accordPartenariat.estValide}">
-                                                <f:setPropertyActionListener
-                                                        value="#{varRechercheStructure}"
-                                                        target="#{adminController.structureAccordAValider}" />
-                                                <p:tooltip value="#{msgs['FORM.VALIDER']}" />
-                                            </h:commandButton>
-                                            <h:commandButton id="consulterAccord"
-                                                             value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-                                                             action="#{adminController.goToConsulterAccord}"
-                                                             image="../../media/images/see.png"
-                                                             alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-                                                             title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-                                                             rendered="#{varRechercheStructure.accordPartenariat.estValide}">
-                                                <f:setPropertyActionListener
-                                                        value="#{varRechercheStructure}"
-                                                        target="#{adminController.structureAccord}" />
-                                                <p:tooltip value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
-                                                           rendered="#{varRechercheStructure.accordPartenariat.estValide}" />
-                                            </h:commandButton>
-                                            <p:commandLink  id="supprimerAccord"
-                                                            oncomplete="PF('supprimerAccordPanel').show();"
-                                                            update="supprimerAccordPanel">
-                                                <h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-                                                                title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
-                                                                value="../../media/images/see_block.png" />
-                                                <f:setPropertyActionListener
-                                                        value="#{varRechercheStructure}"
-                                                        target="#{adminController.accordASupprimer}" />
-                                                <f:setPropertyActionListener value="_supprAccordEtape1"
-                                                                             target="#{sessionController.suppressionAccordCurrentPage}" />
-                                                <p:tooltip value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
-                                            </p:commandLink>
-                                        </h:panelGrid>
-                                    </p:column>
-                                </p:dataTable>
-                            </t:div>
-                        </p:outputPanel>
-                    </h:form>
-                </p:panel>
-                <ui:include src="_panelSupprAccord.xhtml" />
-                <ui:include src="../_commun/_panelSupprStructure.xhtml" />
-                <ui:include src="_panelNousContacter.xhtml" />
-                <ui:include src="../stage/_panel_validStructure.xhtml" />
+                                    <h:panelGrid columns="3" cellspacing="5">
+                                        <h:commandButton id="validerAccord"
+                                                         value="#{msgs['FORM.VALIDER']}"
+                                                         action="#{adminController.goToValidationAccord}"
+                                                         image="../../media/images/tick.png"
+                                                         alt="#{msgs['FORM.VALIDER']}"
+                                                         title="#{msgs['FORM.VALIDER']}"
+                                                         rendered="#{not varRechercheStructure.accordPartenariat.estValide}">
+                                            <f:setPropertyActionListener
+                                                    value="#{varRechercheStructure}"
+                                                    target="#{adminController.structureAccordAValider}" />
+                                            <p:tooltip value="#{msgs['FORM.VALIDER']}" />
+                                        </h:commandButton>
+                                        <h:commandButton id="consulterAccord"
+                                                         value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+                                                         action="#{adminController.goToConsulterAccord}"
+                                                         image="/media/images/see.png"
+                                                         alt="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+                                                         title="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+                                                         rendered="#{varRechercheStructure.accordPartenariat.estValide}">
+                                            <f:setPropertyActionListener
+                                                    value="#{varRechercheStructure}"
+                                                    target="#{adminController.structureAccord}" />
+                                            <p:tooltip value="#{msgs['ACCORD.CONSULTATION.BUTTON']}"
+                                                       rendered="#{varRechercheStructure.accordPartenariat.estValide}" />
+                                        </h:commandButton>
+                                        <p:commandLink  id="supprimerAccord"
+                                                        oncomplete="PF('supprimerAccordPanel').show();"
+                                                        update="supprimerAccordPanel">
+                                            <h:graphicImage alt="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+                                                            title="#{msgs['ACCORD.SUPPRESSION.BUTTON']}"
+                                                            value="../../media/images/see_block.png" />
+                                            <f:setPropertyActionListener
+                                                    value="#{varRechercheStructure}"
+                                                    target="#{adminController.accordASupprimer}" />
+                                            <f:setPropertyActionListener value="_supprAccordEtape1"
+                                                                         target="#{sessionController.suppressionAccordCurrentPage}" />
+                                            <p:tooltip value="#{msgs['ACCORD.SUPPRESSION.BUTTON']}" />
+                                        </p:commandLink>
+                                    </h:panelGrid>
+                                </p:column>
+                            </p:dataTable>
+                        </t:div>
+                    </p:outputPanel>
+                </h:form>
+            </p:panel>
+            <ui:include src="_panelSupprAccord.xhtml" />
+            <ui:include src="../_commun/_panelSupprStructure.xhtml" />
+            <ui:include src="_panelNousContacter.xhtml" />
+            <ui:include src="../stage/_panel_validStructure.xhtml" />
         </t:div>
     </ui:define>
 </ui:composition>

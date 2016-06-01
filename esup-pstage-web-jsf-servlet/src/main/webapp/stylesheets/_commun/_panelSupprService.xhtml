@@ -2,16 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:p="http://primefaces.org/ui">
 
-	<p:dialog id="supprService" widgetVar="supprService">
+	<p:dialog id="supprService" widgetVar="supprService" resizable="false" modal="true" closable="false">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['SERVICE.SUPPR']}" />
 		</f:facet>
-		<h:form id="formSupprService">
-			<ui:include
-				src="/stylesheets/_commun/#{sessionController.suppressionServiceCurrentPage}.xhtml" />
+		<h:form id="formSupprService" style="max-width:1000px;">
+			<ui:include src="/stylesheets/_commun/#{sessionController.suppressionServiceCurrentPage}.xhtml" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

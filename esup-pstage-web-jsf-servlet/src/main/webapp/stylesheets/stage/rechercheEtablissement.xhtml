@@ -11,40 +11,40 @@
             </f:facet>
             <h:form id="formResultatsRechEtab">
 
-                <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
+                <t:div styleClass="mt20 ml30" style="max-width: 800px;">
+                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 
-                <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />
 
-                <p:message for="formResultatsRechEtab"/>
-
-                <t:div styleClass="mt10 mb10" rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-                    <ui:include src="/stylesheets/_commun/_buttonCreationEtablissement.xhtml" />
-                </t:div>
-
-                <p:outputPanel id="opRechercheStructureDataTable">
-                    <t:div rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
-
-                        <ui:include src="/stylesheets/_commun/_rechercheEtablissementNbResultats.xhtml" />
-
-                        <t:htmlTag value="div" style="height:10px;" />
-
-                        <p:dataTable id="rechercheStructureDataTable"
-                                     value="#{rechercheController.listeResultatsRechercheStructure}"
-                                     var="varRechercheStructure" rows="15" rowHover="true"
-                                     rowStyleClass="noPointer" paginator="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15,20">
-
-                            <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-
-                            <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
-
-                        </p:dataTable>
+                    <t:div styleClass="mt10 mb20" rendered="#{rechercheController.afficherBoutonAjoutEtab and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+                        <ui:include src="/stylesheets/_commun/_buttonCreationEtablissement.xhtml" />
                     </t:div>
-                </p:outputPanel>
+
+                    <p:outputPanel id="opRechercheStructureDataTable">
+                        <t:div rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
+
+                            <ui:include src="/stylesheets/_commun/_rechercheEtablissementNbResultats.xhtml" />
+
+                            <t:htmlTag value="div" style="height:20px;" />
+
+                            <p:dataTable id="rechercheStructureDataTable"
+                                         value="#{rechercheController.listeResultatsRechercheStructure}"
+                                         var="varRechercheStructure" rows="15" rowHover="true"
+                                         rowStyleClass="noPointer" paginator="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15,20">
+
+                                <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+
+                                <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
+
+                            </p:dataTable>
+                        </t:div>
+                    </p:outputPanel>
+                </t:div>
             </h:form>
         </p:panel>
         <ui:include src="_panel_validStructure.xhtml" />
-        <ui:include src="../_commun/_panelSupprStructure.xhtml" />
+        <ui:include src="/stylesheets/_commun/_panelSupprStructure.xhtml" />
     </ui:define>
 </ui:composition>

@@ -5,8 +5,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <p:column rendered="#{(sessionController.adminPageAuthorized || welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
-              style="background-color:#A5A5A5;" styleClass="textCenter">
+    <p:column rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
+              style="background-color:#A5A5A5; width:110px;" styleClass="textCenter">
         <f:facet name="header">
             <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
         </f:facet>
@@ -17,7 +17,7 @@
                 <f:setPropertyActionListener value="#{varRechercheStructure}"
                                              target="#{rechercheController.resultatRechercheStructure}" />
                 <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
-                <p:tooltip for="detailStructure" value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
+                <p:tooltip for="detailStructure" value="#{msgs['FORM.CONSULTER']}" />
             </p:commandLink>
             <p:commandLink id="modifierStructure" styleClass="mr5 ml5"
                            action="#{etablissementController.goToModificationEtablissement}"

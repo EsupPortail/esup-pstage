@@ -3,7 +3,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:t="http://myfaces.apache.org/tomahawk"
                 xmlns:p="http://primefaces.org/ui">
-    <h:panelGrid columns="2" style="font-weight:bold;">
+    <h:panelGrid columns="2" styleClass="fontBold mt20">
         <h:graphicImage id="imgInfoAccueil"
                         alt="#{msgs['CENTRE.AJOUT_CENTRE.ACCUEIL']}"
                         value="/media/images/information.png" />
@@ -12,7 +12,7 @@
 
     <t:htmlTag value="div" style="height: 15px;" />
 
-    <ui:include src="/_commun/_champsObligatoires.xhtml" />
+    <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 
     <h:panelGrid columns="3">
         <t:div id="divNom">
@@ -49,7 +49,7 @@
 
     <t:fieldset>
         <legend>
-            <h:outputText value="#{msgs['CENTRE.COORDONNEES']}" />
+            <h:outputText value="#{msgs['GENERAL.COORDONNEES']}" />
         </legend>
         <h:panelGrid columns="3">
             <t:htmlTag id="panelVoie" value="ul" styleClass="formUL">
@@ -158,20 +158,16 @@
             <h:outputText value="#{msgs['CENTRE.PARAMETRAGE']}" />
         </legend>
 
-        <h:panelGrid rendered="#{centreController.confidentialiteAffichable}">
-            <t:htmlTag value="div" style="height: 5px;" />
-
+        <t:div rendered="#{centreController.confidentialiteAffichable}" styleClass="mt5">
             <p:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']}"
                            for="confidentialite" />
-            <h:panelGrid>
-                <h:selectOneMenu id="confidentialite"
-                                 value="#{centreController.centre.confidentialite}" required="true"
-                                 converter="#{confidentialiteConverter}"
-                                 requiredMessage="#{requiredMessageController.champObligatoire}">
-                    <f:selectItems value="#{centreController.confidentialites}" />
-                </h:selectOneMenu>
-            </h:panelGrid>
-        </h:panelGrid>
+            <p:selectOneMenu id="confidentialite"
+                             value="#{centreController.centre.confidentialite}" required="true"
+                             converter="#{confidentialiteConverter}"
+                             requiredMessage="#{requiredMessageController.champObligatoire}">
+                <f:selectItems value="#{centreController.confidentialites}" />
+            </p:selectOneMenu>
+        </t:div>
 
         <t:htmlTag value="div" style="height: 5px;" />
 
@@ -260,7 +256,7 @@
 
         <p:separator style="width:10%;" />
 
-        <h:outputText value="#{msgs['GENERAL.FACULTATIF']}" escape="false" />
+        <h:outputText value="#{msgs['GENERAL.FACULTATIF']}:" escape="false" style="text-decoration:underline;"/>
 
         <t:htmlTag value="div" style="height: 5px;" />
 

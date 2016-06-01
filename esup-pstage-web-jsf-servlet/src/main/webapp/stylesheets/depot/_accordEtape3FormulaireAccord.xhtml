@@ -114,16 +114,9 @@
 				</h:panelGrid>
 			</h:panelGrid>
 		</h:panelGrid>
-		<h:panelGrid columns="2"
-			>
-			<h:outputLabel value="#{msgs['STRUCTURE.CODE_NAF']} *" for="ape" />
-			<h:outputText value="#{msgs['STRUCTURE.CODE_NAF.AIDE']}"
-				escape="false" />
-		</h:panelGrid>
-		<h:panelGrid
-			>
-			<h:panelGrid columns="4"
-				>
+        <h:outputLabel value="#{msgs['STRUCTURE.CODE_NAF']} *" for="ape" />
+		<h:panelGrid>
+			<h:panelGrid columns="4">
 				<h:graphicImage id="infoApe" alt="#{msgs['INFOSBULLES.CODE_APE']}"
 					value="../../media/images/information.png">
 					<p:tooltip value="#{msgs['INFOSBULLES.CODE_APE']}"/>
@@ -149,9 +142,7 @@
 						value="#{accordController.accord.structure.nafN5.libelle}" />
 				</p:outputPanel>
 			</h:panelGrid>
-			<p:message for="ape">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</p:message>
+			<p:message for="ape"/>
 		</h:panelGrid>
 		<t:div id="arrows">
 			<h:panelGrid columns="4"

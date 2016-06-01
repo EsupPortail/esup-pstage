@@ -1,425 +1,379 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid>
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columns="3">
-			<h:panelGrid>
-				<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
-					for="raisonSociale" />
-				<h:panelGrid columns="2">
-					<h:graphicImage id="imgInfo"
-						alt="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
-						value="../../media/images/information.png">
-						<p:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
-					</h:graphicImage>
-					<h:inputText id="raisonSociale" style="text-transform:uppercase;"
-						value="#{etablissementController.formStructure.raisonSociale}"
-						size="50" maxlength="150" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}"
-						converter="#{sansAccentEnMAJConverter}">
-						<p:ajax event="blur" />
-					</h:inputText>
-				</h:panelGrid>
-				<p:message for="raisonSociale">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-				<!-- 				<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" /> -->
-				<!-- 				<h:inputText id="groupe" style="text-transform:uppercase;" -->
-				<!-- 					value="#{etablissementController.formStructure.groupe}" size="50" -->
-				<!-- 					maxlength="50" converter="#{sansAccentEnMAJConverter}" /> -->
-				<!-- 				<p:message for="groupe"> -->
-				<!-- 					<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
-				<!-- 				</p:message> -->
-				<h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *"
-					for="effectif" />
-				<h:selectOneMenu id="effectif"
-					value="#{etablissementController.formStructure.effectif}"
-					converter="#{effectifConverter}" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<f:selectItem itemValue="" />
-					<f:selectItems value="#{nomenclatureController.effectifs}" />
-					<p:ajax event="valueChange" />
-				</h:selectOneMenu>
-				<p:message for="effectif">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-			</h:panelGrid>
-			<h:panelGrid columns="3">
-				<t:htmlTag value="div" style="width: 25px;" />
-				<p:separator style="width:2px; height: 125px;" />
-				<t:htmlTag value="div" style="width: 25px;" />
-			</h:panelGrid>
-			<h:panelGrid>
-				<h:panelGrid id="olSiret" columns="2">
-					<h:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']}" for="siret" />
-					<h:outputLabel value=" *" for="siret"
-						rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
-						and etablissementController.formStructureTmpTypeStructure.siretObligatoire}" />
-				</h:panelGrid>
-				<h:panelGrid columns="2">
-					<h:graphicImage id="infoNumsiret"
-						alt="#{msgs['INFOSBULLES.NUMERO_SIRET']}"
-						value="../../media/images/information.png">
-						<p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" />
-					</h:graphicImage>
-					<h:inputText id="siret"
-						value="#{etablissementController.formStructure.numeroSiret}"
-						size="20" maxlength="14"
-						required="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
+    <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
+
+    <p:fieldset legend="General" styleClass="mt10">
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']} * " styleClass="fontBold">
+                        <t:htmlTag id="infoRs" value="i"
+                                   styleClass="fa fa-info-circle fz13 fontBlue1"
+                                   style="padding: 0 5px; cursor:help;">
+                            <p:tooltip value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"
+                                       for="infoRs" />
+                        </t:htmlTag>
+                    </h:outputText>
+                    <p:inputText id="raisonSociale" style="text-transform:uppercase;"
+                                 value="#{etablissementController.formStructure.raisonSociale}"
+                                 size="50" maxlength="150" required="true"
+                                 requiredMessage="#{requiredMessageController.champObligatoire}"
+                                 converter="#{sansAccentEnMAJConverter}">
+                        <p:ajax event="blur" update="msgRaisonSociale" />
+                    </p:inputText>
+                    <p:message id="msgRaisonSociale" for="raisonSociale"/>
+
+                    <t:htmlTag value="div" style="height:15px;" />
+
+                    <h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *" styleClass="fontBold"
+                                   for="effectif"/>
+                    <p:selectOneMenu id="effectif" effect="none"
+                                     value="#{etablissementController.formStructure.effectif}"
+                                     converter="#{effectifConverter}" required="true"
+                                     requiredMessage="#{requiredMessageController.champObligatoire}">
+                        <f:selectItem itemValue="" />
+                        <f:selectItems value="#{nomenclatureController.effectifs}" />
+                        <p:ajax event="valueChange" update="msgEffectif" />
+                    </p:selectOneMenu>
+                    <p:message id="msgEffectif" for="effectif"/>
+                </t:htmlTag>
+            </t:div>
+
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <t:div id="olSiret">
+                        <h:outputText value="#{msgs['STRUCTURE.NUM_SIRET']}" styleClass="fontBold">
+                            <t:htmlTag id="infoSiret" value="i"
+                                       styleClass="fa fa-info-circle fz13 fontBlue1"
+                                       style="padding: 0 5px; cursor:help;">
+                                <p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" escape="false"
+                                           for="infoSiret" />
+                            </t:htmlTag>
+                        </h:outputText>
+                        <h:outputText value=" *" rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france
+                                        || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
+						                and etablissementController.formStructureTmpTypeStructure.siretObligatoire}" />
+                    </t:div>
+                    <t:div>
+                        <p:inputText id="siret"
+                                     value="#{etablissementController.formStructure.numeroSiret}"
+                                     size="20" maxlength="14"
+                                     required="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
 						and etablissementController.formStructureTmpTypeStructure.siretObligatoire}"
-						requiredMessage="#{requiredMessageController.champObligatoire}"
-						validatorMessage="#{requiredMessageController.numeroSiretNonValide}"
-						readonly="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
-						<f:validator binding="#{numSiretValidator}" />
-						<p:ajax event="blur" />
-					</h:inputText>
-				</h:panelGrid>
-				<p:message for="siret">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-				<p:commandButton
-					action="#{welcomeController.nousContacterModifSiret}"
-					rendered="#{sessionController.pageAuthorized and sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure and
-			(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}"
-					value="#{msgs['STRUCTURE.DEMANDE_MODIFSIRET']}"
-					oncomplete="PF('nousContacter').show();" update="nousContacter" />
-				<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}"
-					escape="false" />
-				<p:outputPanel id="opSiretOblig">
-					<h:panelGrid columns="2"
-						rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
-						and etablissementController.formStructureTmpTypeStructure.siretObligatoire}">
-						<h:graphicImage id="arrow"
-							value="../../media/images/arrow_turn_up.png"
-							alt="#{msgs['GENERAL.ARROW_UP']}"
-							title="#{msgs['GENERAL.ARROW_UP']}" />
-						<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}" />
-					</h:panelGrid>
-				</p:outputPanel>
-				<h:panelGrid>
-					<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
-						for="typeStructure" />
-					<h:selectOneMenu id="typeStructure"
-						value="#{etablissementController.formStructureTmpTypeStructure}"
-						converter="#{typeStructureConverter}" required="true"
-						valueChangeListener="#{etablissementController.valueTypeStructureChanged}"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<f:selectItem itemValue="" />
-						<f:selectItems value="#{nomenclatureController.typesStructure}" />
-						<p:ajax event="valueChange"
-							update="opStatutJuridique, siret, olSiret" />
-					</h:selectOneMenu>
-					<p:message for="typeStructure">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-					<p:outputPanel id="opStatutJuridique">
-						<h:panelGrid
-							rendered="#{!empty etablissementController.statutsJuridiquesListening
-							and !empty etablissementController.formStructureTmpTypeStructure}">
-							<h:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']} *"
-								for="statutJuridique" />
-							<h:selectOneMenu id="statutJuridique"
-								value="#{etablissementController.formStructureTmpStatutJuridique}"
-								converter="#{statutJuridiqueConverter}" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<f:selectItem itemValue="" />
-								<f:selectItems
-									value="#{etablissementController.statutsJuridiquesListening}" />
-								<p:ajax event="blur" />
-							</h:selectOneMenu>
-							<p:message for="statutJuridique">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</p:message>
-						</h:panelGrid>
-					</p:outputPanel>
-				</h:panelGrid>
-			</h:panelGrid>
-		</h:panelGrid>
-		<h:panelGrid columns="2">
-			<h:outputLabel value="#{msgs['STRUCTURE.CODE_NAF']} *" for="ape" />
-			<h:outputText value="#{msgs['STRUCTURE.CODE_NAF.AIDE']}"
-				escape="false" />
-		</h:panelGrid>
-		<h:panelGrid columns="4">
-			<h:graphicImage id="infoApe" alt="#{msgs['INFOSBULLES.CODE_APE']}"
-				value="../../media/images/information.png">
-				<p:tooltip value="#{msgs['INFOSBULLES.CODE_APE']}" />
-			</h:graphicImage>
-			<h:inputText id="ape" style="text-transform:uppercase;"
-				value="#{etablissementController.formStructureTmpNafN5.code}"
-				validatorMessage="#{requiredMessageController.codeNafNonValide}"
-				valueChangeListener="#{etablissementController.valueCodeNafChanged}"
-				converter="#{codNafN5Converter}" size="20" maxlength="6">
-				<f:validator binding="#{codeNAFValidator}" />
-				<p:ajax event="blur" update="opLibelleAPE" />
-			</h:inputText>
-			<t:htmlTag value="div" style="width: 20px;" />
-			<p:outputPanel id="opLibelleAPE">
-				<h:panelGrid columns="2">
-					<h:graphicImage
-						rendered="#{!empty etablissementController.formStructureTmpNafN5.libelle}"
-						value="../../media/images/tick.png" alt="Valide" title="Valide" />
-					<h:outputText
-						rendered="#{!empty etablissementController.formStructureTmpNafN5.libelle}"
-						value="#{etablissementController.formStructureTmpNafN5.libelle}" />
-				</h:panelGrid>
-			</p:outputPanel>
-		</h:panelGrid>
-		<p:message for="ape">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-		</p:message>
-		<t:div id="arrows">
-			<h:panelGrid columns="4"
-				rendered="#{!etablissementController.codeNafObligatoire ||
+                                     requiredMessage="#{requiredMessageController.champObligatoire}"
+                                     validatorMessage="#{requiredMessageController.numeroSiretNonValide}"
+                                     readonly="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
+                            <f:validator binding="#{numSiretValidator}" />
+                            <p:ajax event="blur" update="msgSiret"/>
+                        </p:inputText>
+                        <p:message id="msgSiret" for="siret"/>
+                        <p:commandButton
+                                action="#{welcomeController.nousContacterModifSiret}"
+                                rendered="#{sessionController.pageAuthorized and sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure and
+			                        (etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}"
+                                value="#{msgs['STRUCTURE.DEMANDE_MODIFSIRET']}"
+                                oncomplete="PF('nousContacter').show();" update="nousContacter" />
+                        <p:outputPanel id="opSiretOblig">
+                            <t:div rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
+						                    and etablissementController.formStructureTmpTypeStructure.siretObligatoire}">
+                                <h:graphicImage id="arrow" alt="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}"
+                                                value="/media/images/arrow_turn_up.png" />
+                                <h:outputText styleClass="ml5" value="#{msgs['STRUCTURE.NUM_SIRET.OBLIGATOIRE']}" />
+                            </t:div>
+                        </p:outputPanel>
+
+                        <t:htmlTag value="div" style="height:15px;" />
+
+                        <h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *" styleClass="fontBold"
+                                       for="typeStructure" />
+                        <p:selectOneMenu id="typeStructure" effect="none"
+                                         value="#{etablissementController.formStructureTmpTypeStructure}"
+                                         converter="#{typeStructureConverter}" required="true"
+                                         valueChangeListener="#{etablissementController.valueTypeStructureChanged}"
+                                         requiredMessage="#{requiredMessageController.champObligatoire}">
+                            <f:selectItem itemValue="" />
+                            <f:selectItems value="#{nomenclatureController.typesStructure}" />
+                            <p:ajax event="valueChange"
+                                    update="opStatutJuridique, siret, olSiret, msgTypeStructure" />
+                        </p:selectOneMenu>
+                        <p:message id="msgTypeStructure" for="typeStructure"/>
+
+                        <t:htmlTag value="div" style="height:15px;" />
+
+                        <p:outputPanel id="opStatutJuridique">
+                            <t:div rendered="#{not empty etablissementController.statutsJuridiquesListening
+							            and not empty etablissementController.formStructureTmpTypeStructure}">
+                                <h:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']} *"
+                                               styleClass="fontBold"
+                                               for="statutJuridique" />
+                                <p:selectOneMenu id="statutJuridique" effect="none"
+                                                 value="#{etablissementController.formStructureTmpStatutJuridique}"
+                                                 converter="#{statutJuridiqueConverter}" required="true">
+                                    <f:selectItem itemValue="" />
+                                    <f:selectItems
+                                            value="#{etablissementController.statutsJuridiquesListening}" />
+                                    <p:ajax event="valueChange" update="msgStatutJuridique" />
+                                </p:selectOneMenu>
+                                <p:message id="msgStatutJuridique" for="statutJuridique"/>
+                            </t:div>
+                        </p:outputPanel>
+                    </t:div>
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </p:fieldset>
+
+    <t:htmlTag value="div" style="height:10px;" />
+
+    <p:fieldset legend="#{msgs['STRUCTURE.ACTIVITE']}">
+        <t:div id="arrows" styleClass="textCenter fontBold mt5 mb20"
+               rendered="#{!etablissementController.codeNafObligatoire ||
 				(etablissementController.formStructureTmpPays!=beanUtils.france and etablissementController.formStructureTmpPays.cog!=beanUtils.cogFrance)}">
-				<t:htmlTag value="div" style="width: 20px;" />
-				<h:graphicImage
-					value="../../media/images/arrow_turn_up_and_down.png"
-					alt="#{msgs['GENERAL.ARROW_UP_DOWN']}"
-					title="#{msgs['GENERAL.ARROW_UP_DOWN']}" />
-				<t:htmlTag value="div" style="width: 5px;" />
-				<h:outputText value="#{msgs['STRUCTURE.CODE_NAF.OBLIGATOIRE']}" />
-			</h:panelGrid>
-		</t:div>
-		<h:panelGrid id="olActprinc" columns="2">
-			<h:outputLabel value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"
-				for="actprinc" />
-			<h:outputLabel value=" *" for="actprinc"
-				rendered="#{!etablissementController.codeNafObligatoire ||
-			(etablissementController.formStructureTmpPays!=beanUtils.france and etablissementController.formStructureTmpPays.cog!=beanUtils.cogFrance)}" />
-		</h:panelGrid>
-		<h:panelGrid>
-			<h:inputTextarea id="actprinc"
-				value="#{etablissementController.formStructure.activitePrincipale}"
-				width="400" height="200" />
-			<p:message for="actprinc">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-		</h:panelGrid>
-		<h:outputText value="#{msgs['STRUCTURE.ADRESSE']}" />
-		<h:panelGrid columns="3">
-			<h:panelGrid>
-				<h:outputLabel value="#{msgs['STRUCTURE.VOIE']} *" for="voie" />
-				<h:panelGrid>
-					<h:inputText id="voie"
-						value="#{etablissementController.formStructure.voie}" size="50"
-						maxlength="200" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<p:ajax event="blur" />
-					</h:inputText>
-					<p:message for="voie">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</h:panelGrid>
-				<h:outputLabel value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']} "
-					for="batimentResidence" />
-				<h:panelGrid>
-					<h:inputText id="batimentResidence"
-						value="#{etablissementController.formStructure.batimentResidence}"
-						size="50" maxlength="200">
-					</h:inputText>
-					<p:message for="batimentResidence">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</h:panelGrid>
-				<h:outputLabel value="#{msgs['STRUCTURE.CEDEX']} " for="cedex" />
-				<h:panelGrid>
-					<h:inputText id="cedex"
-						value="#{etablissementController.formStructure.libCedex}"
-						size="30" maxlength="28"
-						requiredMessage="#{requiredMessageController.champObligatoire}" />
-					<p:message for="cedex">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</h:panelGrid>
-			</h:panelGrid>
-			<h:panelGrid columns="3">
-				<t:htmlTag value="div" style="width:25px;" />
-				<p:separator style="width:2px; height:125px;" />
-				<t:htmlTag value="div" style="width:25px;" />
-			</h:panelGrid>
-			<h:panelGrid>
-				<p:outputPanel id="opCodePostal">
-					<h:panelGrid
-						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
-				(etablissementController.formStructureTmpPays!=beanUtils.france and etablissementController.formStructureTmpPays.cog!=beanUtils.cogFrance
-				and sessionController.recupererCommunesDepuisApogee)}">
-						<h:panelGrid columns="2">
-							<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} "
-								for="codePostal" />
-							<h:outputLabel value=" *" for="codePostal"
-								rendered="#{!sessionController.recupererCommunesDepuisApogee and 
-								(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}" />
-						</h:panelGrid>
-						<h:inputText id="codePostal"
-							value="#{etablissementController.formStructureTmpCodePostal}"
-							size="20" maxlength="10"
-							requiredMessage="#{requiredMessageController.champObligatoire}"
-							required="#{!sessionController.recupererCommunesDepuisApogee and 
-								(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}">
-							<p:ajax event="blur" />
-						</h:inputText>
-						<p:message for="codePostal">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-					</h:panelGrid>
-					<h:panelGrid
-						rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
-				and sessionController.recupererCommunesDepuisApogee}">
-						<h:panelGrid>
-							<h:outputLabel value="#{msgs['STRUCTURE.CODE_POSTAL']} *"
-								for="dynaCodePostal" />
-							<h:inputText id="dynaCodePostal"
-								value="#{etablissementController.formStructureTmpCodePostal}"
-								size="5" maxlength="5" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}"
-								validatorMessage="#{requiredMessageController.codePostalNonValide}"
-								valueChangeListener="#{etablissementController.valueCodePostalChanged}">
-								<f:validator binding="#{codePostalValidator}" />
-								<p:ajax event="valueChange" update="opDynaCommune" />
-							</h:inputText>
-						</h:panelGrid>
-						<p:message for="dynaCodePostal" />
-					</h:panelGrid>
-				</p:outputPanel>
-				<h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
-				<p:outputPanel id="opCommune">
-					<h:panelGrid
-						rendered="#{!sessionController.recupererCommunesDepuisApogee ||
-				(etablissementController.formStructureTmpPays!=beanUtils.france and etablissementController.formStructureTmpPays.cog!=beanUtils.cogFrance
-				and sessionController.recupererCommunesDepuisApogee)}">
-						<h:inputText id="commune" style="text-transform:uppercase;"
-							value="#{etablissementController.formStructure.commune}"
-							size="50" maxlength="200" required="true"
-							converter="#{sansAccentEnMAJConverter}"
-							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<p:ajax event="blur" />
-						</h:inputText>
-						<p:message for="commune">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-					</h:panelGrid>
-					<h:panelGrid
-						rendered="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
-				and sessionController.recupererCommunesDepuisApogee}">
-						<p:outputPanel id="opDynaCommune">
-							<h:selectOneMenu id="dynaCommune"
-								value="#{etablissementController.formStructureTmpCommuneDTO.codeCommune}"
-								required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<f:selectItem itemValue="" />
-								<f:selectItems
-									value="#{etablissementController.communesListening}" />
-								<p:ajax event="valueChange" />
-							</h:selectOneMenu>
-							<p:message for="dynaCommune">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</p:message>
-						</p:outputPanel>
-						<!-- 							<p:ajaxStatus for="dynaR"> -->
-						<!-- 								<f:facet name="start"> -->
-						<!-- 									<h:graphicImage value="../../media/images/ajax_process.gif" /> -->
-						<!-- 								</f:facet> -->
-						<!-- 							</p:ajaxStatus> -->
-					</h:panelGrid>
-				</p:outputPanel>
-				<t:panelGrid>
-					<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="paysNC" />
-					<h:panelGrid columns="3">
-						<p:outputPanel id="opFlagNC">
-							<t:htmlTag value="div" style="width: 16px;"
-								rendered="#{empty etablissementController.formStructureTmpPays}" />
-							<h:graphicImage id="flagNC"
-								rendered="#{not empty etablissementController.formStructureTmpPays and not empty etablissementController.formStructureTmpPays.iso2}"
-								value="../../media/images/flags/#{etablissementController.formStructureTmpPays.iso2}.png"
-								alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-								title="#{etablissementController.formStructureTmpPays.libelle}" />
-						</p:outputPanel>
-						<t:htmlTag value="div" style="width:5px;" />
-						<h:selectOneMenu id="paysNC" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}"
-							value="#{etablissementController.formStructureTmpPays}"
-							converter="#{paysConverter}">
-							<p:ajax event="change"
-								update="opFlagNC, opSiretOblig, opCodePostal, opCommune, olSiret, siret, arrows, olActprinc" />
-							<f:selectItem itemValue="" />
-							<f:selectItems value="#{nomenclatureController.pays}" />
-						</h:selectOneMenu>
-					</h:panelGrid>
-					<p:message for="paysNC" />
-				</t:panelGrid>
-			</h:panelGrid>
-		</h:panelGrid>
-		<h:panelGrid columns="3">
-			<h:panelGrid>
-				<h:panelGrid columns="2">
-					<h:outputLabel value="#{msgs['STRUCTURE.MAIL']} " for="mail" />
-					<h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
-				</h:panelGrid>
-				<h:panelGrid>
-					<h:inputText id="mail"
-						value="#{etablissementController.formStructure.mail}" size="50"
-						validatorMessage="#{requiredMessageController.adresseMailNonValide}"
-						maxlength="50">
-						<f:validator binding="#{mailValidator}" />
-						<p:ajax event="blur" />
-					</h:inputText>
-					<p:message for="mail">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</h:panelGrid>
-				<h:panelGrid columns="2">
-					<h:outputLabel value="#{msgs['STRUCTURE.SITEWEB']} " for="siteWeb" />
-					<h:outputText value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
-						escape="false" />
-				</h:panelGrid>
-				<h:panelGrid>
-					<h:inputText id="siteWeb"
-						value="#{etablissementController.formStructure.siteWeb}" size="50"
-						validatorMessage="#{requiredMessageController.siteWebNonValide}"
-						maxlength="200">
-						<f:validator binding="#{siteWebValidator}" />
-						<p:ajax event="blur" />
-					</h:inputText>
-					<p:message for="siteWeb">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</h:panelGrid>
-			</h:panelGrid>
-			<h:panelGrid columns="3">
-				<t:htmlTag value="div" style="width: 25px;" />
-				<p:separator style="width:2px; height:125px;" />
-				<t:htmlTag value="div" style="width: 25px;" />
-			</h:panelGrid>
-			<h:panelGrid>
-				<h:outputLabel value="#{msgs['STRUCTURE.TELEPHONE']} *"
-					for="telephone" />
-				<h:panelGrid>
-					<h:inputText id="telephone"
-						value="#{etablissementController.formStructure.telephone}"
-						size="20" maxlength="20" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<p:ajax event="blur" />
-					</h:inputText>
-					<p:message for="telephone">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</h:panelGrid>
-				<h:outputLabel value="#{msgs['STRUCTURE.FAX']} " for="fax" />
-				<h:panelGrid>
-					<h:inputText id="fax"
-						value="#{etablissementController.formStructure.fax}" size="20"
-						maxlength="20" />
-					<p:message for="fax">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</h:panelGrid>
-			</h:panelGrid>
-		</h:panelGrid>
-	</h:panelGrid>
+            <t:htmlTag value="i"
+                       styleClass="fa fa-arrow-down fz13 fontBlue1"
+                       style="padding: 0 5px;"/>
+            <h:outputText value="#{msgs['STRUCTURE.CODE_NAF.OBLIGATOIRE']}" />
+            <t:htmlTag value="i"
+                       styleClass="fa fa-arrow-down fz13 fontBlue1"
+                       style="padding: 0 5px;"/>
+        </t:div>
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText value="#{msgs['STRUCTURE.CODE_NAF']} *" styleClass="fontBold">
+                        <t:htmlTag id="infoApe" value="i"
+                                   styleClass="fa fa-info-circle fz13 fontBlue1"
+                                   style="padding: 0 5px; cursor:help;">
+                            <p:tooltip value="#{msgs['INFOSBULLES.CODE_APE']}"
+                                       for="infoApe" escape="false" />
+                        </t:htmlTag>
+                    </h:outputText>
+                    <p:inputText id="ape" style="text-transform:uppercase;"
+                                 value="#{etablissementController.formStructureTmpNafN5.code}"
+                                 validatorMessage="#{requiredMessageController.codeNafNonValide}"
+                                 valueChangeListener="#{etablissementController.valueCodeNafChanged}"
+                                 converter="#{codNafN5Converter}" size="20" maxlength="6">
+                        <f:validator binding="#{codeNAFValidator}" />
+                        <p:ajax event="blur" update="opLibelleAPE, msgApe" />
+                    </p:inputText>
+
+                    <p:outputPanel id="opLibelleAPE">
+                        <t:htmlTag value="i"
+                                   styleClass="fa fa-check fz16 fontBlue2"
+                                   rendered="#{not empty etablissementController.formStructureTmpNafN5.libelle}"/>
+                        <h:outputText value="#{etablissementController.formStructureTmpNafN5.libelle}"
+                                      styleClass="ml5"
+                                      rendered="#{not empty etablissementController.formStructureTmpNafN5.libelle}" />
+                    </p:outputPanel>
+                    <p:message id="msgApe" for="ape"/>
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <t:div id="olActprinc">
+                        <h:outputText value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"
+                                      for="actprinc" styleClass="fontBold" />
+                        <h:outputText value=" *" for="actprinc"
+                                      rendered="#{!etablissementController.codeNafObligatoire ||
+			            (etablissementController.formStructureTmpPays!=beanUtils.france and etablissementController.formStructureTmpPays.cog!=beanUtils.cogFrance)}" />
+                    </t:div>
+                    <p:inputTextarea id="actprinc"
+                                     value="#{etablissementController.formStructure.activitePrincipale}"/>
+                    <p:message for="actprinc" />
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </p:fieldset>
+
+    <t:htmlTag value="div" style="height:10px;" />
+
+    <p:fieldset legend="#{msgs['GENERAL.COORDONNEES']}">
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText value="#{msgs['STRUCTURE.VOIE']} *" styleClass="fontBold" />
+                    <p:inputText id="voie"
+                                 value="#{etablissementController.formStructure.voie}" size="50"
+                                 maxlength="200" required="true"
+                                 requiredMessage="#{requiredMessageController.champObligatoire}">
+                        <p:ajax event="blur" update="msgVoie"/>
+                    </p:inputText>
+                    <p:message id="msgVoie" for="voie"/>
+
+                    <t:htmlTag value="div" style="height:15px;" />
+
+                    <h:outputText value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']} " styleClass="fontBold" />
+                    <p:inputText id="batimentResidence"
+                                 value="#{etablissementController.formStructure.batimentResidence}"
+                                 size="50" maxlength="200"/>
+                    <p:message for="batimentResidence"/>
+
+                    <t:htmlTag value="div" style="height:15px;" />
+
+                    <h:outputText value="#{msgs['STRUCTURE.CEDEX']} " styleClass="fontBold" />
+                    <p:inputText id="cedex"
+                                 value="#{etablissementController.formStructure.libCedex}"
+                                 size="30" maxlength="28"
+                                 requiredMessage="#{requiredMessageController.champObligatoire}" />
+                    <p:message for="cedex"/>
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+
+                    <p:outputPanel id="opCodePostal">
+                        <t:div rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+				(sessionController.recupererCommunesDepuisApogee and etablissementController.formStructureTmpPays != beanUtils.france
+				and etablissementController.formStructureTmpPays.cog != beanUtils.cogFrance)}">
+                            <t:div>
+                                <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']} " styleClass="fontBold" />
+                                <h:outputText value=" *" for="codePostal"
+                                              rendered="#{!sessionController.recupererCommunesDepuisApogee and
+								    (etablissementController.formStructureTmpPays==beanUtils.france
+								    || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}" />
+                            </t:div>
+                            <p:inputText id="codePostal"
+                                         value="#{etablissementController.formStructureTmpCodePostal}"
+                                         size="20" maxlength="10"
+                                         required="#{!sessionController.recupererCommunesDepuisApogee and
+								    (etablissementController.formStructureTmpPays==beanUtils.france
+								    || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}">
+                                <p:ajax event="blur" update="msgCodePostal" />
+                            </p:inputText>
+                            <p:message id="msgCodePostal" for="codePostal"/>
+                        </t:div>
+                        <t:div rendered="#{sessionController.recupererCommunesDepuisApogee
+                            and (etablissementController.formStructureTmpPays==beanUtils.france
+                            || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}">
+                            <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']} *" styleClass="fontBold"
+                                          for="dynaCodePostal" />
+                            <p:inputText id="dynaCodePostal"
+                                         value="#{etablissementController.formStructureTmpCodePostal}"
+                                         size="5" maxlength="5" required="true"
+                                         validatorMessage="#{requiredMessageController.codePostalNonValide}"
+                                         valueChangeListener="#{etablissementController.valueCodePostalChanged}">
+                                <f:validator binding="#{codePostalValidator}" />
+                                <p:ajax event="valueChange" update="opDynaCommune, msgDynaCodePostal" />
+                            </p:inputText>
+                            <p:message id="msgDynaCodePostal" for="dynaCodePostal" />
+                        </t:div>
+                    </p:outputPanel>
+
+                    <t:htmlTag value="div" style="height:15px;" />
+
+                    <h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" styleClass="fontBold" for="commune" />
+                    <p:outputPanel id="opCommune">
+                        <t:div rendered="#{!sessionController.recupererCommunesDepuisApogee ||
+                            (etablissementController.formStructureTmpPays != beanUtils.france
+                            and etablissementController.formStructureTmpPays.cog != beanUtils.cogFrance
+                            and sessionController.recupererCommunesDepuisApogee)}">
+                            <p:inputText id="commune" style="text-transform:uppercase;"
+                                         value="#{etablissementController.formStructure.commune}"
+                                         size="50" maxlength="200" required="true"
+                                         converter="#{sansAccentEnMAJConverter}"
+                                         requiredMessage="#{requiredMessageController.champObligatoire}">
+                                <p:ajax event="blur" update="msgCommune" />
+                            </p:inputText>
+                            <p:message id="msgCommune" for="commune"/>
+                        </t:div>
+                        <t:div id="opDynaCommune"
+                               rendered="#{sessionController.recupererCommunesDepuisApogee and
+                               (etablissementController.formStructureTmpPays==beanUtils.france
+                               || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}">
+                            <p:selectOneMenu id="dynaCommune" effect="none"
+                                             value="#{etablissementController.formStructureTmpCommuneDTO.codeCommune}"
+                                             required="true">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems
+                                        value="#{etablissementController.communesListening}" />
+                                <p:ajax event="valueChange" update="msgDynaCommune" />
+                            </p:selectOneMenu>
+                            <p:message id="msgDynaCommune" for="dynaCommune"/>
+                        </t:div>
+                    </p:outputPanel>
+
+                    <t:htmlTag value="div" style="height:15px;" />
+
+                    <h:outputText value="#{msgs['STRUCTURE.PAYS']} * " styleClass="fontBold" />
+                    <h:panelGrid id="opFlagNC" columns="2">
+                        <h:graphicImage id="flagNC"
+                                        rendered="#{not empty etablissementController.formStructureTmpPays and not empty etablissementController.formStructureTmpPays.iso2}"
+                                        value="/media/images/flags/#{etablissementController.formStructureTmpPays.iso2}.png"
+                                        alt="    " />
+                        <p:selectOneMenu id="paysNC" required="true" effect="none"
+                                         requiredMessage="#{requiredMessageController.champObligatoire}"
+                                         value="#{etablissementController.formStructureTmpPays}"
+                                         converter="#{paysConverter}">
+                            <p:ajax event="valueChange"
+                                    update="opFlagNC, opSiretOblig, opCodePostal, opCommune, olSiret, siret, arrows, olActprinc, msgPaysNC" />
+                            <f:selectItem itemValue="" />
+                            <f:selectItems value="#{nomenclatureController.pays}" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <p:message id="msgPaysNC" for="paysNC" />
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+
+        <p:separator style="height:2px;" styleClass="mt30 mr30 mb20 ml30 clearFloat"/>
+
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText value="#{msgs['STRUCTURE.MAIL']} " styleClass="fontBold" />
+                    <h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
+                    <p:inputText id="mail"
+                                 value="#{etablissementController.formStructure.mail}" size="50"
+                                 validatorMessage="#{requiredMessageController.adresseMailNonValide}"
+                                 maxlength="50">
+                        <f:validator binding="#{mailValidator}" />
+                        <p:ajax event="blur" update="msgMail"/>
+                    </p:inputText>
+                    <p:message id="msgMail" for="mail"/>
+
+                    <t:htmlTag value="div" style="height:15px;" />
+
+                    <h:outputText value="#{msgs['STRUCTURE.SITEWEB']} " styleClass="fontBold"/>
+                    <h:outputText value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
+                                  escape="false" />
+                    <p:inputText id="siteWeb"
+                                 value="#{etablissementController.formStructure.siteWeb}" size="50"
+                                 validatorMessage="#{requiredMessageController.siteWebNonValide}"
+                                 maxlength="200">
+                        <f:validator binding="#{siteWebValidator}" />
+                        <p:ajax event="blur" update="msgSiteWeb"/>
+                    </p:inputText>
+                    <p:message id="msgSiteWeb" for="siteWeb"/>
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText value="#{msgs['STRUCTURE.TELEPHONE']} *" styleClass="fontBold"/>
+                    <p:inputText id="telephone"
+                                 value="#{etablissementController.formStructure.telephone}"
+                                 size="20" maxlength="20" required="true">
+                        <p:ajax event="blur" update="msgTel"/>
+                    </p:inputText>
+                    <p:message id="msgTel" for="telephone"/>
+
+                    <t:htmlTag value="div" style="height:15px;" />
+
+                    <h:outputText value="#{msgs['STRUCTURE.FAX']} " styleClass="fontBold" />
+                    <p:inputText id="fax"
+                                 value="#{etablissementController.formStructure.fax}" size="20"
+                                 maxlength="20" />
+                    <p:message for="fax"/>
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </p:fieldset>
+
+    <t:htmlTag value="div" style="height:10px;" />
+
+    <p:message for="@form" />
 </ui:composition>

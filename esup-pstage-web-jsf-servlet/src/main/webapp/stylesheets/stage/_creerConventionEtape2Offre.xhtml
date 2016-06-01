@@ -12,7 +12,7 @@
         <h:outputText value="#{msgs['CONVENTION.MINIRECHNUMOFFRE.TITRE']}" escape="false" />
         <t:div styleClass="mt5 ml5">
             <p:autoComplete minQueryLength="5" itemValue="#{rechOffre}"
-                            completeMethod="#{rechercheController.selectedOnglet}"
+                            completeMethod="#{conventionController.suggestOffre}"
                             converter="#{offreConverter}"
                             var="rechOffre" forceSelection="true">
                 <p:ajax event="itemSelect" listener="#{conventionController.onOffreSelect}" update="@form"/>

@@ -25,8 +25,8 @@
 				icon="fa fa-gear" action="#{centreController.goToListeCritere}"
 				update="divConsultation,@form" onstart="PF('statusDialog').show()"
 				oncomplete="PF('statusDialog').hide()"
-				rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEtablissement
-					and centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
+				disabled="#{centreController.centre.niveauCentre.libelle == beanUtils.libelleEtablissement
+					or centreController.centre.niveauCentre.libelle == beanUtils.libelleEntreprise}">
 				<f:setPropertyActionListener value="2"
 					target="#{centreController.indexMenu}" />
 			</p:menuitem>

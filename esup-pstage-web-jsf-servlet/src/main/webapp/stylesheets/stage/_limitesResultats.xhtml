@@ -5,16 +5,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
     <p:fieldset toggleable="false">
-        <h:panelGrid
-                columns="2">
+
+        <h:panelGrid columns="2">
             <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontYellow"/>
             <h:outputText escape="false"
                           value="#{msgs['RECHERCHECONVENTION.LIMITE.WARN']}" />
         </h:panelGrid>
-        <t:div>
+        <t:div styleClass="mt5 ml20">
             <h:outputText style="font-weight: bold; float:left;" value="Limites maximales de resultats :" />
-            <h:panelGrid
-                    id="limites" columns="3" style="padding-left:10px;">
+            <h:panelGrid id="limites" columns="3" style="padding-left:10px;">
                 <h:outputText
                         value="#{msgs['RECHERCHECONVENTION.LIMITE.RECHERCHE']}" />
                 <p:inputText id="limiteRecherche"

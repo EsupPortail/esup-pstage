@@ -3,7 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
-    <t:div rendered="#{rechercheController.resultatRechercheSize gt 1 and rechercheController.resultatRechercheSize lt 200}">
+    <t:div rendered="#{rechercheController.resultatRechercheSize ge 1 and rechercheController.resultatRechercheSize lt 200}">
         <t:htmlTag value="i" styleClass="fa fa-building-o fz13 fontBlue2"/>
         <h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}" escape="false" styleClass="ml5">
             <f:param value="#{rechercheController.resultatRechercheSize}" />

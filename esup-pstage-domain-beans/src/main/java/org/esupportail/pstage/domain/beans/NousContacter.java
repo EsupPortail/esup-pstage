@@ -55,7 +55,7 @@ public class NousContacter implements Serializable{
 	public boolean isNull(){
 		return this.contact==null||this.contact.getMail()==null||
 		this.contact.getPrenom()==null||this.contact.getNom()==null||this.sujet==null||
-		this.message==null|this.codePostal==null||this.pays==null;
+		this.message==null||this.codePostal==null||this.pays==null;
 	}
 	
 	/**

@@ -1200,7 +1200,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 			for(CaisseRegimeDTO o : l){
 				String lib="";
 				lib+=o.getCode() + " - " + o.getLibelle();
-				lib+=(o.getInfoCaisse()!=null && !o.getInfoCaisse().isEmpty())?" ( <i>" + o.getInfoCaisse() + "</i> )":"";
+				lib+=(o.getInfoCaisse()!=null && !o.getInfoCaisse().isEmpty())?" (" + o.getInfoCaisse() + ")":"";
 				ls.add(new SelectItem(o,lib));
 			}
 		}
@@ -1260,7 +1260,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		if(l!=null){
 			ls = new ArrayList<SelectItem>();
 			for(ContratOffreDTO o : l){
-				String lib = o.getLibelle() + " ( <i>TypeOffre: " + o.getTypeOffre().getLibelle() + " </i>)";
+				String lib = o.getLibelle() + " (TypeOffre: " + o.getTypeOffre().getLibelle() + ")";
 				ls.add(new SelectItem(o,lib));
 			}
 		}
@@ -1677,7 +1677,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 		if(l!=null){
 			ls = new ArrayList<SelectItem>();
 			for(StatutJuridiqueDTO o : l){
-				String lib = o.getLibelle() + " ( <i>TypeStructure: " + o.getTypeStructure().getLibelle() + "</i> )";
+				String lib = o.getLibelle() + " (TypeStructure: " + o.getTypeStructure().getLibelle() + ")";
 				ls.add(new SelectItem(o,lib));
 			}
 		}
@@ -1787,7 +1787,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 			ls = new ArrayList<SelectItem>();
 			for(TypeStructureDTO o : l){
 				String lib="";
-				lib+=o.getLibelle() + " ( <i>SIRET " + (o.isSiretObligatoire() ? "Obligatoire" : "Non obligatoire") + " </i>)";
+				lib+=o.getLibelle() + " (SIRET " + (o.isSiretObligatoire() ? "Obligatoire" : "Non obligatoire") + ")";
 				ls.add(new SelectItem(o,lib));
 			}
 		}
@@ -1805,7 +1805,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 			ls = new ArrayList<SelectItem>();
 			for(TypeStructureDTO o : l){
 				String lib="";
-				lib+=o.getLibelle() + " ( SIRET " + (o.isSiretObligatoire() ? "Obligatoire" : "Non obligatoire") + " )";
+				lib+=o.getLibelle() + " (SIRET " + (o.isSiretObligatoire() ? "Obligatoire" : "Non obligatoire") + ")";
 				ls.add(new SelectItem(o,lib));
 			}
 		}

@@ -70,8 +70,6 @@
 				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
 			</p:message>
 		</h:panelGrid>
-		<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET.AIDE']}"
-			escape="false" />
 		<p:outputPanel id="opSiretOblig">
 			<h:panelGrid columns="3"
 				rendered="#{(accordController.preAccord.structure.pays==beanUtils.france || accordController.preAccord.structure.pays.cog==beanUtils.cogFrance)

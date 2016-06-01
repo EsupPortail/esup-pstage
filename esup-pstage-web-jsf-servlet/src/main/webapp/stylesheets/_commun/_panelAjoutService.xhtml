@@ -2,16 +2,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:p="http://primefaces.org/ui">
 
-	<p:dialog id="ajoutService" widgetVar="ajoutService">
+	<p:dialog id="ajoutService" widgetVar="ajoutService" resizable="false" modal="true" closable="false">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['SERVICE.AJOUT']}" />
 		</f:facet>
 		<h:form id="formAjoutService">
-			<ui:include
-				src="/stylesheets/_commun/#{sessionController.ajoutServiceCurrentPage}.xhtml" />
+			<ui:include src="/stylesheets/_commun/#{sessionController.ajoutServiceCurrentPage}.xhtml" />
 		</h:form>
 	</p:dialog>
 </ui:composition>
