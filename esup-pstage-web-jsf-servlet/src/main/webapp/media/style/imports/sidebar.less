@@ -1,7 +1,7 @@
 @import "commun/variables";
 
-#SIDEBAR {
-
+#SIDEBAR_CONTAINER {
+  overflow: hidden;
   position: fixed;
   width: @SidebarPhoneWidth;
   margin: 0;
@@ -20,6 +20,22 @@
   transition: transform 0.7s;
 
   @media (min-width: @MediaTablet) {
+    width: @SidebarTabletWidth;
+    left: 0;
+    top: 0;
+    -webkit-transition: transform 0s !important;
+    -moz-transition: transform 0s !important;
+    -ms-transition: transform 0s !important;
+    -o-transition: transform 0s !important;
+    transition: transform 0s !important;
+    -webkit-transform: translateX(0%) !important;
+    -moz-transform: translateX(0%) !important;
+    -ms-transform: translateX(0%) !important;
+    -o-transform: translateX(0%) !important;
+    transform: translateX(0%) !important;
+  }
+
+  @media (min-width: @MediaPC) {
     width: @SidebarPCWidth;
     left: 0;
     top: 0;
@@ -35,187 +51,241 @@
     transform: translateX(0%) !important;
   }
 
-  #SIDEBAR_LOGO {
-    display: none;
 
-    @media (min-width: @MediaTablet) {
-      display: block;
-    }
-
-    height: 100px;
+  #SIDEBAR {
+    overflow-y: scroll;
+    width: @SidebarPhoneWidth + 17;
+    height: 100%;
     margin: 0;
     padding: 0;
-    background: @LogoBackground;
-    border-bottom: 1px solid @Blue2;
+    z-index: 500;
+    border: 0;
 
-    img {
-      height: 90px;
-      padding: 5px 0;
-      margin: 0 0 0 150px;
-      -webkit-transform: translateX(-50%);
-      -moz-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-      -o-transform: translateX(-50%);
-      transform: translateX(-50%);
+    @media (min-width: @MediaTablet) {
+      width: @SidebarTabletWidth + 17;
     }
-  }
 
-  #SIDEBAR_MENU {
-    height: auto;
-    overflow: hidden;
-    padding-top: 10px;
+    @media (min-width: @MediaPC) {
+      width: @SidebarPCWidth + 17;
+    }
 
-    .ui-button.customPstage {
-      width: 100%;
-      border: 0;
-      background: transparent;
-      box-sizing: border-box;
-      padding: 0;
-      height: @SidebarItemHeightPhone;
-      color: @White;
-      margin: 0;
-      text-align: left;
-      font-weight: bold;
-      font-family: @FontFamily;
+    #SIDEBAR_LOGO {
+      display: none;
 
       @media (min-width: @MediaTablet) {
-        height: @SidebarItemHeightPC;
-        margin: 0 0 10px 0;
+        display: block;
       }
 
-      &:hover {
-        font-weight: bold;
-        & > * {
-          text-shadow: 2px 2px 2px @Black;
+      height: 100px;
+      margin: 0;
+      padding: 0;
+      background: @LogoBackground;
+      border-bottom: 1px solid @Blue2;
+
+      img { // pas utilisé sur phone donc tablet first
+        height: 90px;
+        padding: 5px 0;
+        margin: 0 0 0 (@SidebarTabletWidth / 2);
+        @media (min-width: @MediaPC) {
+          margin: 0 0 0 (@SidebarPCWidth / 2);
         }
-      }
-
-      &:active > * {
-        text-shadow: 2px 2px 2px @HalfBlack;
-      }
-
-      &.selected {
-        background: @Blue2;
-        border-radius: 0;
-      }
-
-      &:last-child {
-        padding-left: 27px;
-      }
-
-      & > * {
-        text-shadow: 2px 2px 2px @HalfBlack;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transform: translateX(-50%);
       }
     }
 
-    .ui-panelmenu.customPstage {
-      width: 100%;
-      border: 0;
-      background: transparent;
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    #SIDEBAR_MENU {
+      height: auto;
+      overflow: hidden;
+      padding-top: 10px;
 
-      .ui-panelmenu-header {
+      .ui-button.customPstage {
+        width: 100%;
         border: 0;
         background: transparent;
         box-sizing: border-box;
-        margin: 0;
+        padding: 0;
         height: @SidebarItemHeightPhone;
+        color: @White;
+        margin: 0;
+        text-align: left;
+        font-weight: bold;
+        font-family: @FontFamily;
 
-        @media (min-width: @MediaTablet) {
+        @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+          height: @SidebarItemHeightTablet;
+          margin: 0 0 10px 0;
+          padding: 0;
+        }
+
+        @media (min-width: @MediaPC) {
           height: @SidebarItemHeightPC;
           margin: 0 0 10px 0;
         }
 
-        *:first-child {
-          background: transparent;
-          font-family: FontAwesome;
-          text-indent: 0;
-
-          &:before {
-            content: "\f054";
+        & > .ui-button-icon-left {
+          @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+            //width: @SidebarItemHeightTablet;
+            height: @SidebarItemHeightTablet;
+            font-size: (@SidebarTabletWidth / 2) - 10;
+            margin: 0;
+            padding: 0;
+            top: 3px;
+            left: 0;
+            text-align: center;
+            width: 100%;
           }
         }
 
-        &:hover > * {
-          text-shadow: 2px 2px 2px @Black;
+        & > .ui-button-text {
+          display: block;
+          @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+            font-size: 0.8em;
+            margin-top: 40px;
+            padding: 0;
+            width: @SidebarTabletWidth * 0.90;
+            margin-left: (@SidebarTabletWidth - (@SidebarTabletWidth * 0.90)) / 2;
+            text-align: center;
+          }
+        }
+
+        &:hover {
+          font-weight: bold;
+          & > * {
+            text-shadow: 2px 2px 2px @Black;
+          }
         }
 
         &:active > * {
           text-shadow: 2px 2px 2px @HalfBlack;
         }
 
-        &.ui-state-active *:first-child:before {
-          content: "\f078";
+        &.selected {
+          background: @Blue2;
+          border-radius: 0;
+        }
+
+        &:last-child {
+          padding-left: 27px;
         }
 
         & > * {
-          color: @White;
           text-shadow: 2px 2px 2px @HalfBlack;
-        }
-
-        a {
-          line-height: @SidebarItemHeightPhone;
-          padding: 0 0 0 27px;
-
-          @media (min-width: @MediaTablet) {
-            line-height: @SidebarItemHeightPC;
-          }
-
-          &:active {
-            border: 0;
-          }
         }
       }
 
-      .ui-panelmenu-content {
+      .ui-panelmenu.customPstage {
+        width: 100%;
         border: 0;
+        background: transparent;
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
-        background: transparent;
 
-        .ui-menu-list {
-          padding-left: 15px;
-          margin-bottom: 10px;
+        .ui-panelmenu-header {
+          border: 0;
+          background: transparent;
+          box-sizing: border-box;
+          margin: 0;
+          height: @SidebarItemHeightPhone;
 
-          .ui-menuitem {
-            margin: 0;
-            padding: 0;
+          @media (min-width: @MediaTablet) {
+            height: @SidebarItemHeightPC;
+            margin: 0 0 10px 0;
+          }
 
-            & > .ui-menuitem-link {
+          *:first-child {
+            background: transparent;
+            font-family: FontAwesome;
+            text-indent: 0;
+
+            &:before {
+              content: "\f054";
+            }
+          }
+
+          &:hover > * {
+            text-shadow: 2px 2px 2px @Black;
+          }
+
+          &:active > * {
+            text-shadow: 2px 2px 2px @HalfBlack;
+          }
+
+          &.ui-state-active *:first-child:before {
+            content: "\f078";
+          }
+
+          & > * {
+            color: @White;
+            text-shadow: 2px 2px 2px @HalfBlack;
+          }
+
+          a {
+            line-height: @SidebarItemHeightPhone;
+            padding: 0 0 0 27px;
+
+            @media (min-width: @MediaTablet) {
+              line-height: @SidebarItemHeightPC;
+            }
+
+            &:active {
               border: 0;
-              line-height: (@SidebarItemHeightPhone * 0.75);
-              padding-top: 0;
-              padding-right: 0;
-              padding-bottom: 0;
-              height: (@SidebarItemHeightPhone * 0.75);
+            }
+          }
+        }
 
-              @media (min-width: @MediaTablet) {
-                height: (@SidebarItemHeightPC * 0.92);
-                line-height: (@SidebarItemHeightPC * 0.92);
-              }
+        .ui-panelmenu-content {
+          border: 0;
+          margin: 0;
+          padding: 0;
+          background: transparent;
 
-              & > * {
-                color: @White;
-                text-shadow: 2px 2px 2px @HalfBlack;
-              }
+          .ui-menu-list {
+            padding-left: 15px;
+            margin-bottom: 10px;
 
-              &.selected {
-                background: @Blue2;
-                border-radius: 0;
-              }
+            .ui-menuitem {
+              margin: 0;
+              padding: 0;
 
-              &:active > * {
-                text-shadow: 2px 2px 2px @HalfBlack;
-              }
-
-              &:hover {
-                background: transparent;
+              & > .ui-menuitem-link {
                 border: 0;
+                line-height: (@SidebarItemHeightPhone * 0.75);
+                padding-top: 0;
+                padding-right: 0;
+                padding-bottom: 0;
+                height: (@SidebarItemHeightPhone * 0.75);
+
+                @media (min-width: @MediaTablet) {
+                  height: (@SidebarItemHeightPC * 0.92);
+                  line-height: (@SidebarItemHeightPC * 0.92);
+                }
 
                 & > * {
-                  text-shadow: 2px 2px 2px @Black;
+                  color: @White;
+                  text-shadow: 2px 2px 2px @HalfBlack;
+                }
+
+                &.selected {
+                  background: @Blue2;
+                  border-radius: 0;
+                }
+
+                &:active > * {
+                  text-shadow: 2px 2px 2px @HalfBlack;
+                }
+
+                &:hover, &.ui-state-hover {
+                  background: transparent;
+                  border: 0;
+
+                  & > * {
+                    text-shadow: 2px 2px 2px @Black;
+                  }
                 }
               }
             }

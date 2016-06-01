@@ -75,7 +75,7 @@ StudentComponentRepositoryDao {
 			logger.error("Probleme pendant l'appel de getLdapGroupsFromFilter dans la classe "+this.getClass().getSimpleName()+" : ",ldae.getCause());
 		}
 
-		if(!ldapGroups.isEmpty()){
+		if(ldapGroups != null && !ldapGroups.isEmpty()){
 
 			String compCode=null;
 			String compLibelle =null;

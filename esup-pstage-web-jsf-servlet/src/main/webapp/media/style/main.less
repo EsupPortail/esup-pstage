@@ -21,7 +21,31 @@ body {
 	}
 }
 
-.noPointer {
+.tabletOnly {
+	display: none !important;
+	@media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+		display: block !important;
+	}
+}
+
+.PCOnly {
+	display: none;
+	@media (min-width: @MediaPC) {
+		display: block !important;
+	}
+}
+
+.noTablet {
+	display: block !important;
+	@media (min-width: @MediaTablet) {
+		display: none !important;
+	}
+	@media (min-width: @MediaPC) {
+		display: block !important;
+	}
+}
+
+.nopointer {
 	cursor: default !important;
 }
 

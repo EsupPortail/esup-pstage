@@ -5,11 +5,11 @@
 package org.esupportail.pstage.web.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.application.NavigationCase;
+import javax.faces.application.NavigationHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
@@ -17,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.config.element.NavigationRule;
 import org.esupportail.commons.utils.Assert;
 import org.esupportail.commons.utils.ContextUtils;
 import org.esupportail.commons.utils.strings.StringUtils;
@@ -367,6 +368,11 @@ public class SessionController extends AbstractDomainAwareBean {
 	private boolean courrierRemerciement;
 
 	/**
+	 * Page actuellement (en ce moment) utilisé
+	 */
+	private String currentPage;
+
+	/**
 	 * Map contenant les droits d'acces aux fiches d'evaluation du personnel en fonction de l'id d'un centre
 	 */
 	private Map<Integer, Boolean> droitsEvaluationEtudiantMap = new HashMap<Integer,Boolean>();
@@ -692,6 +698,36 @@ public class SessionController extends AbstractDomainAwareBean {
 		}
 
 		return getIsServlet()&& getCurrentUser() != null; 
+	}
+
+	public void resetCurrentPage() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		if(ctx != null && ctx.getViewRoot() != null) {
+			String currentURI = ctx.getViewRoot().getViewId();
+			if(currentURI.toLowerCase().contains("convention")) {
+				setCurrentPage("Convention");
+			} else if(currentURI.toLowerCase().contains("welcome.xhtml")) {
+				setCurrentPage("Home");
+			}
+//			System.out.println(currentURI);
+//			NavigationHandler a = ctx.getApplication().getNavigationHandler();
+//			Map<String, Set<NavigationCase>> b = ((ConfigurableNavigationHandler)a).getNavigationCases();
+//			Iterator<Set<NavigationCase>> i = b.values().iterator();
+//			while(i.hasNext()) {
+//				Iterator<NavigationCase> k = i.next().iterator();
+//				while(k.hasNext()) {
+//					NavigationCase n = k.next();
+//				}
+//			}
+		}
+	}
+
+	public boolean isCurrentPageHome() {
+		return "Home".equals(getCurrentPage()) || getCurrentPage() == null || getCurrentPage().isEmpty();
+	}
+
+	public boolean isCurrentPageConvention() {
+		return "Convention".equals(getCurrentPage());
 	}
 
 	/**
@@ -2529,4 +2565,11 @@ public class SessionController extends AbstractDomainAwareBean {
 		this.nomenclatureCurrentPage = nomenclatureCurrentPage;
 	}
 
+	public String getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(String currentPage) {
+		this.currentPage = currentPage;
+	}
 }

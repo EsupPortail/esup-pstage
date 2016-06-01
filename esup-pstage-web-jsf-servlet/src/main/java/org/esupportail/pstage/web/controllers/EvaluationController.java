@@ -1488,7 +1488,7 @@ public class EvaluationController extends AbstractContextAwareController {
 						try {
 							Thread.sleep(300);
 						} catch (InterruptedException e) {
-							e.printStackTrace();
+							logger.warn(e);
 						}
 					}
 				}
@@ -1527,7 +1527,7 @@ public class EvaluationController extends AbstractContextAwareController {
 						try {
 							Thread.sleep(300);
 						} catch (InterruptedException e) {
-							e.printStackTrace();
+							logger.warn(e);
 						}
 					}
 				}
@@ -1567,7 +1567,7 @@ public class EvaluationController extends AbstractContextAwareController {
 						try {
 							Thread.sleep(300);
 						} catch (InterruptedException e) {
-							e.printStackTrace();
+							logger.warn(e);
 						}
 					}
 				}

@@ -1,0 +1,45 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:p="http://primefaces.org/ui"
+				template="/stylesheets/_definedStageTemplate.xhtml">
+
+	<ui:define name="content">
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['MENUSTAGE.GESTIONETAB']}" />
+			</f:facet>
+			<p:commandButton value="#{msgs['MENUSTAGE.RECHETAB']}"
+							 action="#{rechercheController.goToRechercheEtablissementStage}" icon="fa fa-search"
+							 styleClass="buttonMenuTablet">
+				<f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+				<f:setPropertyActionListener value="#{null}"
+											 target="#{sessionController.currentManageStructure}"/>
+				<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+				<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+			</p:commandButton>
+			<p:commandButton value="#{msgs['MENUSTAGE.RECHETAB.AVERIFIER']}"
+							 action="#{rechercheController.goToEtablissementsAVerifier}"
+							 rendered="#{sessionController.moderationStructures and (welcomeController.superAdmin || welcomeController.writer || welcomeController.admin)}"
+							 icon="fa fa-check" styleClass="buttonMenuTablet"  onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+				<f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
+				<f:setPropertyActionListener value="#{null}"
+											 target="#{sessionController.currentManageStructure}"/>
+				<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+				<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+			</p:commandButton>
+			<p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET8']}"
+						action="#{rechercheController.rechercheTemoinFalse}"
+						rendered="#{welcomeController.superAdmin}" styleClass="buttonMenuTablet"
+						icon="fa fa-times" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+				<f:setPropertyActionListener value="#{null}" target="#{sessionController.currentManageStructure}"/>
+				<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
+				<f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
+			</p:commandButton>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+
+
+

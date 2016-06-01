@@ -1,0 +1,42 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:p="http://primefaces.org/ui"
+				template="/stylesheets/_definedStageTemplate.xhtml">
+
+	<ui:define name="content">
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['MENUSTAGE.GESTIONCONVENTION']}" />
+			</f:facet>
+			<t:div rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant)}">
+				<p:commandButton value="#{msgs['MENUSTAGE.RECHCONVENTION']}"
+								 action="#{conventionController.goToRechercheConvention}"
+								 rendered="#{welcomeController.personnel || welcomeController.superAdmin }"
+								 icon="fa fa-search" styleClass="buttonMenuTablet"/>
+				<p:commandButton value="#{msgs['MENUSTAGE.CREERCONVENTION']}"
+								 action="#{conventionController.goToCreerConvention}"
+								 rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}"
+								 icon="fa fa-plus" styleClass="buttonMenuTablet"/>
+				<p:commandButton value="#{msgs['MENUSTAGE.VALIDERENMASSE']}"
+								 action="#{conventionController.goToValiderEnMasse}"
+								 rendered="#{welcomeController.superAdmin || welcomeController.writer || welcomeController.admin}"
+								 icon="fa fa-check" styleClass="buttonMenuTablet"/>
+				<p:commandButton value="#{msgs['MENUSTAGE.RECHCONVENTION.ENSEIGNANTTUTEUR']}"
+								 action="#{conventionController.goToRechercheConventionEnseignantTuteur}"
+								 rendered="#{welcomeController.enseignantTuteur}"
+								 icon="fa fa-list" styleClass="buttonMenuTablet" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+			</t:div>
+			<t:div rendered="#{sessionController.utilisationStage and welcomeController.etudiant}">
+				<p:commandButton value="#{msgs['MENUSTAGE.RECHCONVENTION.ETU']}" styleClass="buttonMenuTablet"
+								 action="#{conventionController.goToRechercheConventionEtu}" icon="fa fa-search" />
+				<p:commandButton value="#{msgs['MENUSTAGE.CREERCONVENTION']}" styleClass="buttonMenuTablet"
+								 action="#{conventionController.goToCreerConvention}" icon="fa fa-plus" />
+			</t:div>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+
+
+

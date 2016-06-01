@@ -29,7 +29,7 @@
             <p:selectOneMenu id="typeStructureContrat" value="#{nomenclatureController.statutJuridique.typeStructure}"
                              converter="#{typeStructureConverter}" required="true"
                              requiredMessage="#{requiredMessageController.champObligatoire}">
-                <f:selectItems value="#{nomenclatureController.typesStructureDropDown}" itemLabelEscaped="true"/>
+                <f:selectItems value="#{nomenclatureController.typesStructure}" itemLabelEscaped="true"/>
                 <p:ajax event="valueChange" update="msgTypeStructure"/>
             </p:selectOneMenu>
             <p:message id="msgTypeStructure" for="typeStructureContrat"/>

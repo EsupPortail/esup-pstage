@@ -58,7 +58,7 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	/**
 	 * liste des Elps.
 	 */
-	public List<ElementPedagogique> listeELPs = new ArrayList<ElementPedagogique>();
+	private List<ElementPedagogique> listeELPs = new ArrayList<ElementPedagogique>();
 	
 	/**
 	 * le code Elp 
@@ -125,7 +125,7 @@ public class EtudiantRef extends EtudiantDTO implements Serializable{
 	/**
 	 * liste etape - version etape inscriptions
 	 */
-	public List<EtapeInscription> listeEtapeInscriptions;
+	private List<EtapeInscription> listeEtapeInscriptions;
 	
 	/**
 	 * Affiliation a la securite sociale

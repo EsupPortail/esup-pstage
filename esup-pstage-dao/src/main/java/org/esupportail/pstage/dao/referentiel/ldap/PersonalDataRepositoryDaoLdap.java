@@ -72,7 +72,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
 		EnseignantDTO enseignant = new EnseignantDTO();
-		if(!ldapUsersFromFilter.isEmpty()){
+		if(ldapUsersFromFilter != null && !ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
 			if(logger.isInfoEnabled()){
 				logger.info("attributsNames= " +ldapUser.getAttributeNames());
@@ -338,7 +338,7 @@ public class PersonalDataRepositoryDaoLdap  implements PersonalDataRepositoryDao
 			errorldap(ldae,"getLdapUsersFromFilter");
 		}
 		PersonnelCentreGestionDTO personnelCentreGestion = new PersonnelCentreGestionDTO();
-		if(!ldapUsersFromFilter.isEmpty()){
+		if(ldapUsersFromFilter != null && !ldapUsersFromFilter.isEmpty()){
 			LdapUser ldapUser = ldapUsersFromFilter.get(0);
 			if(logger.isInfoEnabled()){
 				logger.info("attributsNames= " +ldapUser.getAttributeNames());

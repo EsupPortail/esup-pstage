@@ -4,7 +4,11 @@
   margin: @TopbarPhoneHeight 0 0 0;
   padding: @MainContentPhonePadding;
 
-  @media (min-width: @MediaTablet) {
+  @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+    margin: 0 0 0 @SidebarTabletWidth;
+    padding: @MainContentPCPadding;
+  }
+  @media (min-width: @MediaPC) {
     margin: 0 0 0 @SidebarPCWidth;
     padding: @MainContentPCPadding;
   }
@@ -32,9 +36,9 @@
       color: @MainPanelTitleFontColor;
       text-align: left;
 
-      //@media (min-width: @MediaTablet) {
-      //  text-align: center;
-      //}
+      @media (min-width: @MediaTablet) {
+        text-align: center;
+      }
     }
 
     .ui-panel-content {
@@ -42,6 +46,19 @@
       margin: 0;
       padding: 0;
       background: transparent;
+    }
+  }
+
+  .ui-tabmenu {
+    .ui-tabmenu-nav {
+      .ui-tabmenuitem {
+        &.ui-state-active {
+          background: @MainSelectCheckboxBackground;
+          & > .ui-menuitem-link {
+            color: @White;
+          }
+        }
+      }
     }
   }
 }
@@ -102,7 +119,7 @@
   }
 }
 
-.ui-inputfield.ui-inputtext {
+.ui-autocomplete .ui-autocomplete-input.ui-inputfield, .ui-inputfield.ui-inputtext {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -138,7 +155,7 @@
   padding: 5px 0;
   font-family: @ButtonFontFamily;
 
-  &:hover {
+  &:hover, &.ui-state-hover {
     color: @ButtonHoverColors;
     font-weight: 500;
   }
@@ -153,7 +170,7 @@
 
 .ui-selectonebutton {
 
-  &.customRechercheConvention {
+  &.customRecherche {
     width: 100%;
     box-sizing: border-box;
     @media (min-width: @MediaTablet) {
@@ -236,17 +253,6 @@
   width: 100%;
 }
 
-.ui-tabmenu {
-  .ui-tabmenu-nav {
-    .ui-tabmenuitem {
-      &.ui-state-active {
-        background: @MainSelectCheckboxBackground;
-        color: @White;
-      }
-    }
-  }
-}
-
 .ui-selectoneradio .ui-radiobutton .ui-radiobutton-box.ui-state-active {
   background: @MainSelectRadioBackground;
 }
@@ -267,6 +273,16 @@
 
 .columns-2 {
   position: relative;
+
+  &.verticalCenter {
+    display: block;
+    align-items: stretch;
+    @media (min-width: @MediaTablet) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
   & > .column {
     float: none;
     box-sizing: border-box;
@@ -279,7 +295,8 @@
       float: left;
       width: 50%;
     }
-    @media (max-width: (@SidebarPCWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
+
+    @media (max-width: (@SidebarTabletWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
       float: none;
       width: 100%;
     }
@@ -359,5 +376,41 @@
   tr:hover {
     background-color: #74B1D2;
     cursor: default;
+  }
+}
+
+.ui-button {
+  &.buttonMenuTablet {
+    height: @SidebarItemHeightTablet;
+    width: 100%;
+    margin-bottom: 1rem;
+    .ui-button-icon-left {
+      position: relative;
+      display: block;
+      margin: 0;
+      width: 100%;
+      padding: 0;
+      top: initial;
+      left: initial;
+      font-size: 2rem;
+      height: 2rem;
+    }
+    .ui-button-text {
+      padding: .3em 1em;
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.ui-scrollpanel.customPstage {
+  height: auto;
+  white-space: nowrap;
+  margin: 0 auto 1rem auto;
+  border: 0;
+  text-align: center;
+  width: 100%;
+  & > .ui-button {
+    width: auto;
+    display: inline-block;
   }
 }

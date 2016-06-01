@@ -377,13 +377,15 @@
 						</p:column>
 					</p:dataTable>
 					<t:htmlTag value="div" style="height:30px;" />
-					<h:panelGrid columns="3" align="center">
-						<t:htmlTag value="center"
-							rendered="#{welcomeController.superAdmin
+					<!--<h:panelGrid columns="3" align="center">-->
+					<t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter block centerBlock">
+						<t:div styleClass="column textCenter">
+						<!--<t:htmlTag value="center">-->
+							<p:commandButton
+									rendered="#{welcomeController.superAdmin
 							|| (not empty sessionController.droitsEvaluationEtudiantMap
 							|| not empty sessionController.droitsEvaluationEnseignantMap
-							|| not empty sessionController.droitsEvaluationEntrepriseMap)}">
-							<p:commandButton 
+							|| not empty sessionController.droitsEvaluationEntrepriseMap)}"
 								style="font-size:16px; font-weight:bold; border-color:green;"
 								value="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL']}"
 								action="#{evaluationController.avantEnvoiMailEval}"
@@ -392,105 +394,93 @@
 								<f:setPropertyActionListener value="_envoiMailEval_etape1"
 									target="#{sessionController.envoiMailEvalCurrentPage}" />
 							</p:commandButton>
-						</t:htmlTag>
+						<!--</t:htmlTag>-->
+</t:div>
+						<!--<h:panelGrid columns="3"-->
+							<!--rendered="#{not empty evaluationController.rechEvalIdCentre-->
+						<!--and (welcomeController.superAdmin-->
+						<!--|| (sessionController.droitsEvaluationEtudiantMap[evaluationController.rechEvalIdCentre]-->
+						<!--|| not empty sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre]-->
+						<!--|| not empty sessionController.droitsEvaluationEntrepriseMap[evaluationController.rechEvalIdCentre]))}">-->
+							<!--<t:htmlTag value="div" style="width:25px;" />-->
+							<!--<p:separator style="width:2px; height:100px;" />-->
+							<!--<t:htmlTag value="div" style="width:25px;" />-->
+						<!--</h:panelGrid>-->
 
-						<h:panelGrid columns="3"
+						<t:div styleClass="column">
+						<p:fieldset style="width:300px; margin: 0 auto;"
 							rendered="#{not empty evaluationController.rechEvalIdCentre
 						and (welcomeController.superAdmin
 						|| (sessionController.droitsEvaluationEtudiantMap[evaluationController.rechEvalIdCentre]
 						|| not empty sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre]
 						|| not empty sessionController.droitsEvaluationEntrepriseMap[evaluationController.rechEvalIdCentre]))}">
-							<t:htmlTag value="div" style="width:25px;" />
-							<p:separator style="width:2px; height:100px;" />
-							<t:htmlTag value="div" style="width:25px;" />
-						</h:panelGrid>
-
-						<t:fieldset style="width:300px;"
-							rendered="#{not empty evaluationController.rechEvalIdCentre
-						and (welcomeController.superAdmin
-						|| (sessionController.droitsEvaluationEtudiantMap[evaluationController.rechEvalIdCentre]
-						|| not empty sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre]
-						|| not empty sessionController.droitsEvaluationEntrepriseMap[evaluationController.rechEvalIdCentre]))}">
-							<legend>
-								<h:panelGrid columns="2">
-									<h:graphicImage id="exportExcel" alt="Excel"
-										value="../../media/images/excelSmall.png" />
-									<h:outputLabel style="padding:5px;" value="Export Excel"
-										for="exportExcel" />
-								</h:panelGrid>
-							</legend>
-							<h:panelGrid align="center">
+							<f:facet name="legend">
+								<t:htmlTag value="i" styleClass="fa fa-file-excel-o mr5"/>
+								<h:outputText value="Export Excel"/>
+							</f:facet>
+							<t:div styleClass="textCenter">
 								<h:panelGrid columns="2" style="padding:10px;"
 									rendered="#{empty conventionController.convention.ficheEvaluation || !conventionController.convention.ficheEvaluation.validationEtudiant}">
-									<h:graphicImage value="../../media/images/warn.png"
-										alt="#{msgs['GENERAL.WARNING']}"
-										title="#{msgs['GENERAL.WARNING']}" />
+									<t:htmlTag value="i" styleClass="fa fa-warning fontYellow fz13"/>
 									<h:outputFormat escape="false"
 										value="#{msgs['CONVENTION.ETAPE13.FICHE_ETUDIANT_VIDE']}">
 										<f:param value="#{evaluationController.rechEvalIdCentre}" />
 									</h:outputFormat>
 								</h:panelGrid>
-								<t:htmlTag value="center"
-									rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEtudiant
-								and (welcomeController.superAdmin || sessionController.droitsEvaluationEtudiantMap[evaluationController.rechEvalIdCentre])}">
-									<h:commandButton id="extractionEtudiant"
+									<p:commandButton id="extractionEtudiant" style="width: 60%;"
+													 rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEtudiant
+								and (welcomeController.superAdmin || sessionController.droitsEvaluationEtudiantMap[evaluationController.rechEvalIdCentre])}"
 										value="#{msgs['RECHERCHEEVALUATION.EXPORT_ETUDIANT']}"
 										action="#{evaluationController.exportFichesEtudiantColumn}">
 
 										<p:tooltip
 											value="#{msgs['RECHERCHEEVALUATION.EXPORT_ETUDIANT.TOOLTIP']}" />
-									</h:commandButton>
+									</p:commandButton>
 									<t:htmlTag value="div" style="height: 5px;" />
-								</t:htmlTag>
 
 								<h:panelGrid columns="2" style="padding:10px;"
 									rendered="#{empty conventionController.convention.ficheEvaluation || !conventionController.convention.ficheEvaluation.validationEnseignant}">
-									<h:graphicImage value="../../media/images/warn.png"
-										alt="#{msgs['GENERAL.WARNING']}"
-										title="#{msgs['GENERAL.WARNING']}" />
+									<t:htmlTag value="i" styleClass="fa fa-warning fontYellow fz13"/>
 									<h:outputFormat escape="false"
 										value="#{msgs['CONVENTION.ETAPE13.FICHE_ENSEIGNANT_VIDE']}">
 										<f:param value="#{evaluationController.rechEvalIdCentre}" />
 									</h:outputFormat>
 								</h:panelGrid>
-								<t:htmlTag value="center"
-									rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEnseignant
-								and (welcomeController.superAdmin || sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre])}">
-									<h:commandButton id="extractionEnseignant"
+									<p:commandButton id="extractionEnseignant" style="width: 60%;"
 										value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENSEIGNANT']}"
-										style="display:inline;"
+													 rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEnseignant
+								and (welcomeController.superAdmin || sessionController.droitsEvaluationEnseignantMap[evaluationController.rechEvalIdCentre])}"
 										action="#{evaluationController.exportFichesEnseignantColumn}">
 										<p:tooltip
 											value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENSEIGNANT.TOOLTIP']}" />
-									</h:commandButton>
+									</p:commandButton>
 									<t:htmlTag value="div" style="height: 5px;" />
-								</t:htmlTag>
 
 								<h:panelGrid columns="2" style="padding:10px;"
 									rendered="#{empty conventionController.convention.ficheEvaluation || !conventionController.convention.ficheEvaluation.validationEntreprise}">
-									<h:graphicImage value="../../media/images/warn.png"
-										alt="#{msgs['GENERAL.WARNING']}"
-										title="#{msgs['GENERAL.WARNING']}" />
+									<t:htmlTag value="i" styleClass="fa fa-warning fontYellow fz13"/>
 									<h:outputFormat escape="false"
 										value="#{msgs['CONVENTION.ETAPE13.FICHE_ENTREPRISE_VIDE']}">
 										<f:param value="#{evaluationController.rechEvalIdCentre}" />
 									</h:outputFormat>
 								</h:panelGrid>
-								<h:commandButton id="extractionEntreprise"
+								<p:commandButton id="extractionEntreprise" style="width: 60%;"
 									rendered="#{not empty conventionController.convention.ficheEvaluation and conventionController.convention.ficheEvaluation.validationEntreprise
 								and (welcomeController.superAdmin || sessionController.droitsEvaluationEntrepriseMap[evaluationController.rechEvalIdCentre])}"
 									value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENTREPRISE']}"
 									action="#{evaluationController.exportFichesEntrepriseColumn}">
 									<p:tooltip
 										value="#{msgs['RECHERCHEEVALUATION.EXPORT_ENTREPRISE.TOOLTIP']}" />
-								</h:commandButton>
-							</h:panelGrid>
+								</p:commandButton>
 							<t:htmlTag value="div" style="height:5px;" />
-						</t:fieldset>
-					</h:panelGrid>
+							</t:div>
+						</p:fieldset>
+						</t:div>
+					</t:htmlTag>
+					<!--</h:panelGrid>-->
 				</t:div>
-				<t:htmlTag value="div" style="height: 30px;" />
-				<h:commandButton value="#{msgs['GENERAL.RETOUR']}"
+				<t:htmlTag value="div" style="height: 30px;" styleClass="clearFloat"/>
+				<p:commandButton value="#{msgs['GENERAL.RETOUR']}"
 					action="rechercheEvaluation"
 					rendered="#{welcomeController.superAdmin
 					|| not empty sessionController.droitsEvaluationEtudiantMap

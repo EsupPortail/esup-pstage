@@ -4,7 +4,7 @@
 
     <t:div id="TOPBAR">
         <p:commandButton id="TOPBAR_MENU_BUTTON" styleClass="phoneOnly" icon="fa fa-navicon" onclick="toggleSidebar();"/>
-        <p:graphicImage id="TOPBAR_LOGO" value="#{sessionController.mediaPath}/images/logo.png" styleClass="phoneOnly"/>
+        <p:graphicImage id="TOPBAR_LOGO" value="#{sessionController.mediaPath}/images/logoTablet.png" styleClass="phoneOnly"/>
         <t:div id="TOPBAR_TITLE">
             <t:htmlTag value="h1">
                 <h:outputText value="#{msgs['APPLICATION.BIG_TITLE']}"/>
@@ -36,11 +36,11 @@
 
     <script type="text/javascript">
         function toggleSidebar() {
-            if(document.getElementById("SIDEBAR").style.transform == 'translateX(0%)' || document.getElementById("SIDEBAR").style.transform == "") {
+            if(document.getElementById("SIDEBAR_CONTAINER").style.transform == 'translateX(0%)' || document.getElementById("SIDEBAR_CONTAINER").style.transform == "") {
                 document.getElementById("blackScreen").className = 'visible';
-                document.getElementById("SIDEBAR").style.transform = 'translateX(100%)';
+                document.getElementById("SIDEBAR_CONTAINER").style.transform = 'translateX(100%)';
             } else {
-                document.getElementById("SIDEBAR").style.transform = 'translateX(0%)';
+                document.getElementById("SIDEBAR_CONTAINER").style.transform = 'translateX(0%)';
                 document.getElementById("blackScreen").className = '';
             }
         }

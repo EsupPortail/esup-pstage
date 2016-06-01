@@ -1,0 +1,40 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:p="http://primefaces.org/ui"
+				template="/stylesheets/_definedStageTemplate.xhtml">
+
+	<ui:define name="content">
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['MENUSTAGE.EVALUATION']}" />
+			</f:facet>
+			<t:div rendered="#{sessionController.utilisationStage
+				and (welcomeController.superAdmin
+						|| not empty sessionController.droitsEvaluationEtudiantMap
+						|| not empty sessionController.droitsEvaluationEnseignantMap
+						|| not empty sessionController.droitsEvaluationEntrepriseMap
+						|| welcomeController.enseignantTuteur
+						|| welcomeController.etudiant)}">
+				<p:commandButton value="#{msgs['RECHERCHEEVALUATION.TITRE']}"
+							action="#{evaluationController.goToRechercheEval}" rendered="#{welcomeController.superAdmin
+					|| not empty sessionController.droitsEvaluationEtudiantMap
+					|| not empty sessionController.droitsEvaluationEnseignantMap
+                    || not empty sessionController.droitsEvaluationEntrepriseMap}" icon="fa fa-search"
+							styleClass="buttonMenuTablet"/>
+				<p:commandButton value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
+							action="#{evaluationController.goToRechercheEvalEns}"
+							rendered="#{welcomeController.enseignantTuteur}" icon="fa fa-list"
+							styleClass="buttonMenuTablet"/>
+				<p:commandButton value="#{msgs['MENUSTAGE.EVALUATION.VISUALISER']}"
+							action="#{evaluationController.goToRechercheEvalEtu}"
+							rendered="#{welcomeController.etudiant}" icon="fa fa-list"
+							styleClass="buttonMenuTablet"/>
+			</t:div>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+
+
+

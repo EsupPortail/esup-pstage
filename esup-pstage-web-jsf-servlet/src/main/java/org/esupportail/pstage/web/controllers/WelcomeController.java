@@ -164,6 +164,22 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 
+	public String goToMenuConventionsStageTablette() {
+		return "menuConventionsStageTablette";
+	}
+
+	public String goToMenuEtablissementsAccueilTablette() {
+		return "menuEtablissementsAccueilTablette";
+	}
+
+	public String goToMenuOffresTablette() {
+		return "menuOffresTablette";
+	}
+
+	public String goToMenuEvaluationsStagesTablette() {
+		return "menuEvaluationsStagesTablette";
+	}
+
 	/**
 	 * Envoi vers la 1ére étape de récupération d'un mot de passe
 	 * @return A String
