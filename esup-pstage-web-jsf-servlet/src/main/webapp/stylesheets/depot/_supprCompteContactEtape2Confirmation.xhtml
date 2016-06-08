@@ -1,11 +1,7 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
+	xmlns:p="http://primefaces.org/ui">
 
-	<ui:include src="../_commun/_confirmationMessages.xhtml" />
+	<p:messages />
 
 	<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
 		action="_supprCompteContactEtape1"

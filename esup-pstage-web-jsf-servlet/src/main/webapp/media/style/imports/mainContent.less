@@ -296,9 +296,10 @@
       width: 50%;
     }
 
-    @media (max-width: (@SidebarTabletWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
+    @media (max-width: (@SidebarPCWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
       float: none;
       width: 100%;
+      padding: 5px;
     }
   }
 }
@@ -372,7 +373,7 @@
     }
   }
 }
-.confirmInfosEtu {
+.blueHover {
   tr:hover {
     background-color: #74B1D2;
     cursor: default;

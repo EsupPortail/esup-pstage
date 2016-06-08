@@ -51,7 +51,7 @@
 							target="#{etablissementController.formService}" />
 						<f:setPropertyActionListener value="#{false}"
 							target="#{etablissementController.afficherSelectionCentreContact}" />
-						<f:setPropertyActionListener value="_modifServiceEtape1"
+						<f:setPropertyActionListener value="_modifServiceEtape0"
 							target="#{sessionController.modifServiceCurrentPage}" />
 						<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 							value="../../media/images/edit.png" />
@@ -68,7 +68,7 @@
 				update="ajoutService">
 				<f:setPropertyActionListener value="#{true}"
 					target="#{etablissementController.memeAdresseStructure}" />
-				<f:setPropertyActionListener value="_ajoutServiceEtape1"
+				<f:setPropertyActionListener value="_ajoutServiceEtape0"
 					target="#{sessionController.ajoutServiceCurrentPage}" />
 				<h:graphicImage alt="#{msgs['FORM.CREER']}"
 					value="../../media/images/new.png" />

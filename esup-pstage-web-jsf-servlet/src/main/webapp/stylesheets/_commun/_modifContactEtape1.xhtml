@@ -1,22 +1,15 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<ui:include src="_formContact.xhtml" />
-	<t:htmlTag value="div" style="height: 20px;" />
-	<h:panelGrid columns="3" align="center">
+
+    <t:div styleClass="clearFloat textCenter mt20 mb20">
 		<p:commandButton action="#{etablissementController.modifierContact}"
 			value="#{msgs['FORM.MODIFIER']}"
 			update="@form" />
-<!-- 			update="opContactsDataTable, formModifContact" /> -->
-
-		<t:htmlTag value="div" style="width:50px;" />
-
-		<p:commandButton value="#{msgs['FORM.ANNULER']}"
+		<p:commandButton value="#{msgs['FORM.ANNULER']}" styleClass="ml40"
 			onclick="PF('modifContact').hide();" immediate="true" />
-	</h:panelGrid>
+    </t:div>
 </ui:composition>

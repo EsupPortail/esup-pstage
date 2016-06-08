@@ -770,10 +770,11 @@ body {
     width: 50%;
   }
 }
-@media (max-width: 840px) {
+@media (max-width: 1040px) {
   .columns-2 > .column {
     float: none;
     width: 100%;
+    padding: 5px;
   }
 }
 .ui-selectmanymenu.customPstage li {
@@ -835,7 +836,7 @@ body {
     width: 320px;
   }
 }
-.confirmInfosEtu tr:hover {
+.blueHover tr:hover {
   background-color: #74B1D2;
   cursor: default;
 }

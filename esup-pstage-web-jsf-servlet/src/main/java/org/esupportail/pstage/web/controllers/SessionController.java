@@ -473,7 +473,7 @@ public class SessionController extends AbstractDomainAwareBean {
 	/**
 	 * MODIF SERVICE
 	 */
-	private String modifServiceCurrentPage = "_modifServiceEtape1";
+	private String modifServiceCurrentPage = "_modifServiceEtape0";
 	/**
 	 * SUPPRESSION SERVICE
 	 */

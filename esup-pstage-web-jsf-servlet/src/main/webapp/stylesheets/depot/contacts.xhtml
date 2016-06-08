@@ -49,7 +49,7 @@
 										target="#{etablissementController.memeAdresseStructure}" />
 									<f:setPropertyActionListener value="#{false}"
 										target="#{etablissementController.afficherSelectionCentreContact}" />
-									<f:setPropertyActionListener value="_ajoutServiceEtape1"
+									<f:setPropertyActionListener value="_ajoutServiceEtape0"
 										target="#{sessionController.ajoutServiceCurrentPage}" />
 									<h:graphicImage alt="#{msgs['FORM.CREER']}"
 										value="../../media/images/new.png" />
@@ -78,7 +78,7 @@
 												target="#{etablissementController.formService}" />
 											<f:setPropertyActionListener value="#{false}"
 												target="#{etablissementController.afficherSelectionCentreContact}" />
-											<f:setPropertyActionListener value="_modifServiceEtape1"
+											<f:setPropertyActionListener value="_modifServiceEtape0"
 												target="#{sessionController.modifServiceCurrentPage}" />
 											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 												value="../../media/images/edit.png" />
@@ -152,8 +152,7 @@
 									value="#{etablissementController.listeContacts}"
 									rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
-								and not empty etablissementController.listeContacts}"
-									ajaxKeys="#{etablissement.keysContacts}">
+								and not empty etablissementController.listeContacts}">
 									<p:column>
 										<f:facet name="header">
 											<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"

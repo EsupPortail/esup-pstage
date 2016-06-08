@@ -4,12 +4,12 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:dialog id="ajoutService" widgetVar="ajoutService" resizable="false" modal="true" closable="false">
+	<p:dialog id="ajoutService" widgetVar="ajoutService" resizable="false" modal="true">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['SERVICE.AJOUT']}" />
 		</f:facet>
 		<h:form id="formAjoutService">
-			<ui:include src="/stylesheets/_commun/#{sessionController.ajoutServiceCurrentPage}.xhtml" />
+            <ui:include src="/stylesheets/_commun/#{sessionController.ajoutServiceCurrentPage}.xhtml" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

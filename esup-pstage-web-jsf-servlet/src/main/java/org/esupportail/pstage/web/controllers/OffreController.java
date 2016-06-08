@@ -609,7 +609,6 @@ public class OffreController extends AbstractContextAwareController {
 							this.formOffre.setIdOffre(idOffreAjoutee);
 							this.formOffre.setDateCreation(new Date());
 							this.formOffre.setLoginCreation(getSessionController().getCurrentLogin());
-							//						ret="_creationOffreEtape4Confirmation";
 							getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape4Confirmation");
 							getSessionController().setCreationOffreCurrentPage("_creationOffreEtape4Confirmation");
 							addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
@@ -631,7 +630,6 @@ public class OffreController extends AbstractContextAwareController {
 						this.formOffre.setIdOffre(idOffreAjoutee);
 						this.formOffre.setDateCreation(new Date());
 						this.formOffre.setLoginCreation(getSessionController().getCurrentLogin());
-						//					ret="_creationOffreEtape4Confirmation";
 						getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape4Confirmation");
 						getSessionController().setCreationOffreCurrentPage("_creationOffreEtape4Confirmation");
 						addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
@@ -684,7 +682,7 @@ public class OffreController extends AbstractContextAwareController {
 					this.formOffre.setIdOffre(idOffreAjoutee);
 					this.formOffre.setDateCreation(new Date());
 					this.formOffre.setLoginCreation(getSessionController().getCurrentLogin());
-					//					ret="_creationOffreEtape4Confirmation";
+
 					getSessionController().setCreationOffreStageCurrentPage("_creationOffreEtape4Confirmation");
 					getSessionController().setCreationOffreCurrentPage("_creationOffreEtape4Confirmation");
 					addInfoMessage(null, "OFFRE.CREATION.CONFIRMATION", this.formOffre.getIdOffre());
@@ -1267,10 +1265,8 @@ public class OffreController extends AbstractContextAwareController {
 	 * Suppression d'une offre
 	 */
 	public void supprimerOffre(){
-		//		String ret=null;
 		try{
-			//			ret="_supprOffreEtape2Confirmation";
-			getSessionController().setSuppressionOffreCurrentPage("_supprOffreEtape2Confirmation");
+			getSessionController().setSuppressionOffreCurrentPage("_confirmationDialog");
 			if(getOffreDomainService().deleteOffreLogique(this.currentOffre.getIdOffre())){
 				//Maj listes
 				if(this.listeOffres!=null && ((ArrayList<OffreDTO>)this.listeOffres).contains(this.currentOffre)){
@@ -1288,7 +1284,6 @@ public class OffreController extends AbstractContextAwareController {
 			logger.error(e.getCause());
 			addErrorMessage(null, "OFFRE.SUPPR.ERREUR");
 		}
-		//		return ret;
 	}
 
 	/**
@@ -1337,9 +1332,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void diffuserOffre(){
-		//		String ret=null;
-		//		ret="_diffusionOffreEtape2Confirmation";
-		getSessionController().setDiffusionOffreCurrentPage("_diffusionOffreEtape2Confirmation");
+		getSessionController().setDiffusionOffreCurrentPage("_confirmationDialog");
 		if(this.currentOffre!=null && this.currentOffre.getIdOffre()>0){
 			try{
 				int x = (this.dureeDiffusion - 1);
@@ -1413,7 +1406,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String diffuserOffreOld(){
-		String ret="_diffusionOffreEtape2Confirmation";
+		String ret="_confirmationDialog";
 		if(this.currentOffre!=null){
 			try{
 				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -1462,7 +1455,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String diffuserOffre1AnOld(){
-		String ret="_diffusionOffreEtape2Confirmation";
+		String ret="_confirmationDialog";
 		if(this.currentOffre!=null){
 			try{
 				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -1505,9 +1498,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * Arrêt de la diffusion de l'offre actuellement sélectionnée
 	 */
 	public void stopDiffusionOffre(){
-		//		String ret=null;
-		//		ret="_stopDiffusionOffreEtape2Confirmation";
-		getSessionController().setStopDiffusionOffreCurrentPage("_stopDiffusionOffreEtape2Confirmation");
+		getSessionController().setStopDiffusionOffreCurrentPage("_confirmationDialog");
 		if(this.currentOffre!=null){
 			try{
 				getOffreDomainService().updateStopDiffusionOffre(this.currentOffre.getIdOffre(), getSessionController().getCurrentLogin());
@@ -1539,9 +1530,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * Indiquer l'offre comme pourvue
 	 */
 	public void offrePourvue(){
-		//		String ret=null;
-		//		ret="_offrePourvueEtape2Confirmation";
-		getSessionController().setOffrePourvueCurrentPage("_offrePourvueEtape2Confirmation");
+		getSessionController().setOffrePourvueCurrentPage("_confirmationDialog");
 		if(this.currentOffre!=null){
 			try{
 				getOffreDomainService().updateOffrePourvue(this.currentOffre.getIdOffre(), !this.currentOffre.isEstPourvue());
@@ -1743,8 +1732,9 @@ public class OffreController extends AbstractContextAwareController {
 	 * Action de diffusion de l'offre aux centres sélectionnés
 	 */
 	public void diffusionCentreOffre(){
-		//		String ret="_diffusionCentreOffreEtape2Confirmation";
-		getSessionController().setDiffusionCentreOffreCurrentPage("_diffusionCentreOffreEtape2Confirmation");
+
+		getSessionController().setDiffusionCentreOffreCurrentPage("_confirmationDialog");
+
 		if(this.currentOffre!=null){
 			if(this.idCentreEtablissementSelect==0 || this.listesCentreGestionUniversiteADiffuser==null
 					|| this.listesCentreGestionUniversiteADiffuser.isEmpty()){
@@ -1777,7 +1767,6 @@ public class OffreController extends AbstractContextAwareController {
 				}
 			}
 		}
-		//		return ret;
 	}
 
 	/**
@@ -1785,8 +1774,7 @@ public class OffreController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public void transfererOffre(){
-		//		String ret = "_transfertOffreEtape2Confirmation";
-		getSessionController().setTransfertOffreCurrentPage("_transfertOffreEtape2Confirmation");
+		getSessionController().setTransfertOffreCurrentPage("_confirmationDialog");
 		if(this.currentOffre!=null){
 			try{
 				CentreGestionDTO cgEntr = getCentreGestionDomainService().getCentreEntreprise();

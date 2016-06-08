@@ -5,8 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/stylesheets/_definedStageTemplate.xhtml">
     <f:metadata>
-        <f:viewParam name="id"
-                     value="#{conventionController.numOffreConvention}" />
+        <f:viewParam name="id" value="#{conventionController.numOffreConvention}" />
     </f:metadata>
     <ui:define name="content">
         <p:panel>
@@ -16,23 +15,22 @@
             <h:form id="formConvention">
                 <ui:include src="_roadmap.xhtml" />
                 <t:fieldset>
-                    <!--<legend>-->
-                    <!--</legend>-->
-                    <t:div styleClass="mt20 ml30">
+                    <t:div styleClass="mt20 ml30" style="max-width: 900px;">
                         <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-                    <h:outputText value="#{msgs['CONVENTION.CONSIGNES']}"
-                                  styleClass="ml5" escape="false"/>
-                    <h:outputText value="#{msgs['CONVENTION.CONSIGNES1']}"
-                                  escape="false"/>
-                    <h:outputText value="#{msgs['CONVENTION.CONSIGNES2']}"
-                                  escape="false"/>
-                    <t:div styleClass="ml40 mt20 mb20">
-                        <p:commandButton value="#{msgs['FORM.NEXT']}" ajax="false"
-                                         action="#{conventionController.goToCreerConventionRechEtu}"/>
-                    </t:div>
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNES']}"
+                                      styleClass="ml5" escape="false"/>
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNES1']}"
+                                      escape="false"/>
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNES2']}"
+                                      escape="false"/>
+                        <t:div styleClass="ml40 mt20 mb20">
+                            <p:commandButton value="#{msgs['FORM.NEXT']}" ajax="false"
+                                             action="#{conventionController.goToCreerConventionRechEtu}"/>
+                        </t:div>
                     </t:div>
                 </t:fieldset>
             </h:form>
         </p:panel>
+        <t:htmlTag value="div" style="height:300px;"/>
     </ui:define>
 </ui:composition>

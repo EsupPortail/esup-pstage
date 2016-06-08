@@ -713,7 +713,7 @@ public class ConventionController extends AbstractContextAwareController {
 		this.choixEtape = false;
 		this.blocageAucuneInscription = false;
 		this.blocageCreationEtpOrpheline = false;
-		this.listeELPEtapes = new ArrayList<ElementPedagogique>();
+		this.listeELPEtapes = new ArrayList<>();
 
 		if (this.selectedAnneeUniv != null && !this.selectedAnneeUniv.isEmpty()) {
 			ApogeeMap apogeeMap = getStudentDataRepositoryDomain().getEtapesByEtudiantAndAnnee(
@@ -1256,6 +1256,25 @@ public class ConventionController extends AbstractContextAwareController {
 		return "creerConventionEtape2Etab";
 	}
 
+	/**
+	 * @return a String
+	 */
+	public String retourEtape3Creation(){
+
+		sequenceEtapeEnum = SequenceEtapeEnum.etape3;
+
+		return "creerConventionEtape3Service";
+	}
+
+	/**
+	 * @return a String
+	 */
+	public String retourEtape4Creation(){
+
+		sequenceEtapeEnum = SequenceEtapeEnum.etape4;
+
+		return "creerConventionEtape4Contact";
+	}
 	/**
 	 * @return a String
 	 */
@@ -1935,17 +1954,20 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public String goToCreerConventionEtape4Contact() {
 		String retour = "creerConventionEtape4Contact";
+
 		// this.etablissementController.loadContactsServices();
 		this.etablissementController.reloadContacts();
 		sequenceEtapeEnum = SequenceEtapeEnum.etape4;
-		// si etudiant et cg centreGestion.saisieTuteurProParEtudiant est false
+
+		// si etudiant et centreGestion.saisieTuteurProParEtudiant false
+		// on passe direct à l'étape suivante
 		if (this.getSessionController().getCurrentAuthEtudiant() != null) {
-			if (!this.convention.getCentreGestion()
-					.getSaisieTuteurProParEtudiant()) {
+			if (!this.convention.getCentreGestion().getSaisieTuteurProParEtudiant()) {
 				this.convention.setContact(null);
 				retour = goToCreerConventionEtape5Stage();
 			}
 		}
+
 		return retour;
 	}
 
@@ -2149,31 +2171,27 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return A String
 	 */
 	public String goToCreerConventionEtape5Stage() {
+
 		// this.convention.setNbHeuresHebdo("35.00");
 		this.convention.setNbJoursHebdo("5");
 		this.convention.setQuotiteTravail(100);
 		this.ctrlInfosStageOK = false;
-		getSessionController().setCreationConventionEtape5CurrentPage(
-				"_creerConventionEtape5Stage");
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("goToCreerConventionEtape5Stage ");
 			if (this.convention.getContact() != null) {
-				logger.debug("this.convention.getContact() "
-						+ this.convention.getContact().getId());
+				logger.debug("this.convention.getContact() "+ this.convention.getContact().getId());
 			}
 			if (this.convention.getService() != null) {
-				logger.debug("this.convention.getService() "
-						+ this.convention.getService().getIdService());
+				logger.debug("this.convention.getService() " + this.convention.getService().getIdService());
 			}
 		}
+
 		sequenceEtapeEnum = SequenceEtapeEnum.etape5;
-		if (this.convention.getContact() != null) {
-			this.convention.setIdContact(this.convention.getContact().getId());
-		}
+		getSessionController().setCreationConventionEtape5CurrentPage("_creerConventionEtape5Stage");
 
 		this.selLangueConvention = new LangueConventionDTO();
 		this.selLangueConvention.setCode("fr");
-
 		if (this.convention.getService() != null) {
 			this.convention.setIdService(this.convention.getService().getIdService());
 
@@ -2181,8 +2199,12 @@ public class ConventionController extends AbstractContextAwareController {
 				this.selLangueConvention.setCode("fo");
 			}
 		}
+		if (this.convention.getContact() != null) {
+			this.convention.setIdContact(this.convention.getContact().getId());
+		}
 
 		selAnneeUniversitaire = null;
+
 		return "creerConventionEtape5Stage";
 	}
 

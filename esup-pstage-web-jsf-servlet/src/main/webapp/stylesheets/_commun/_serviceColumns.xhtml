@@ -23,7 +23,7 @@
         <h:outputText
                 value="#{etablissementController.serviceSel.batimentResidence}" />
     </p:column>
-    <p:column style="width:35px;">
+    <p:column>
         <f:facet name="header">
             <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
         </f:facet>
@@ -45,7 +45,7 @@
                             value="/media/images/flags/#{etablissementController.serviceSel.pays.iso2}.png"
                             alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
                             title="#{etablissementController.serviceSel.pays.libelle}" />
-            <h:outputText value="#{etablissementController.serviceSel.pays.libelle}" styleClass="ml5" style="white-space: normal;"/>
+            <h:outputText value="#{etablissementController.serviceSel.pays.libelle}" styleClass="ml5" style="white-space:normal;" />
         </t:div>
     </p:column>
     <p:column>

@@ -1,138 +1,140 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:t="http://myfaces.apache.org/tomahawk"
-                xmlns:p="http://primefaces.org/ui"
-                template="/stylesheets/_definedStageTemplate.xhtml">
-    <ui:define name="content">
-        <p:panel>
-            <f:facet name="header">
-                <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
-            </f:facet>
-            <h:form id="formConvention">
-                <ui:include src="_roadmap.xhtml" />
-                <t:fieldset>
-                    <t:div styleClass="mt20 ml30" style="max-width: 900px;">
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:p="http://primefaces.org/ui"
+				template="/stylesheets/_definedStageTemplate.xhtml">
+	<ui:define name="content">
+		<p:panel>
+			<f:facet name="header">
+				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+			</f:facet>
+			<h:form id="formConvention">
+				<ui:include src="_roadmap.xhtml" />
+				<t:fieldset>
+					<t:div styleClass="mt20 ml30" style="max-width:900px;">
 
-                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
-                        <h:outputText value="#{msgs['CONVENTION.ETAPE3.CHOIXSERVICE.DEMANDE']}" styleClass="ml5" />
+						<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+						<h:outputText value="#{msgs['CONVENTION.ETAPE3.CHOIXSERVICE.DEMANDE']}" styleClass="ml5" escape="false"/>
 
-                        <t:htmlTag value="div" style="height: 15px;" />
+						<t:htmlTag value="div" style="height: 15px;" />
 
-                        <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
-                                      rendered="#{empty sessionController.currentManageStructure}" />
-                        <h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
-                                      rendered="#{empty etablissementController.listeServices}"
-                                      escape="false" />
+						<h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+									  rendered="#{empty sessionController.currentManageStructure}" />
 
-                        <t:div>
-                            <h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
-                                          escape="false"
-                                          rendered="#{not empty etablissementController.listeServices}" />
-                            <p:selectOneMenu id="sOMService"
-                                             value="#{etablissementController.idServiceSel}"
-                                             converter="#{intConverter}"
-                                             valueChangeListener="#{etablissementController.valueIdServiceChanged}"
-                                             rendered="#{not empty etablissementController.listeServices}">
-                                <f:selectItems value="#{etablissementController.servicesItems}" />
-                                <p:ajax event="valueChange" update="actionsService" />
-                            </p:selectOneMenu>
-                        </t:div>
-                        <t:div styleClass="mt10 ml40">
-                            <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-                            <p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="ml5"
-                                             value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
-                                             rendered="#{not empty etablissementController.idServiceSel}"
-                                             action="#{etablissementController.ajoutService}"
-                                             oncomplete="PF('ajoutService').show();"
-                                             update="ajoutService">
-                                <f:setPropertyActionListener value="#{true}"
-                                                             target="#{etablissementController.memeAdresseStructure}" />
-                                <f:setPropertyActionListener value="_ajoutServiceEtape1"
-                                                             target="#{sessionController.ajoutServiceCurrentPage}" />
-                            </p:commandButton>
-                        </t:div>
+						<t:div rendered="#{empty etablissementController.listeServices}"
+							   styleClass="fontRed">
+							<t:htmlTag value="i" styleClass="fa fa-ban"/>
+							<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
+										  styleClass="ml5" escape="false" />
+						</t:div>
+						<t:div rendered="#{not empty etablissementController.listeServices}">
+							<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
+										  escape="false" />
+							<p:selectOneMenu id="sOMService" styleClass="mt5"
+											 value="#{etablissementController.idServiceSel}"
+											 converter="#{intConverter}"
+											 valueChangeListener="#{etablissementController.valueIdServiceChanged}">
+								<f:selectItems value="#{etablissementController.servicesItems}" />
+								<p:ajax event="valueChange" update="actionsService" />
+							</p:selectOneMenu>
+						</t:div>
 
-                        <t:htmlTag value="div" style="height: 20px;" />
+						<t:div id="actionsService" styleClass="mt10"
+							   rendered="#{not empty etablissementController.listeServices}">
+							<h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
+										  escape="false" />
+							<p:dataTable value="#{etablissementController.serviceSel}" var="service"
+										 rows="5" rowHover="true" rowStyleClass="noPointer"
+										 paginator="true" paginatorAlwaysVisible="false"
+										 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										 rowsPerPageTemplate="5,10,15,20" styleClass="mt5">
 
-                        <t:div id="actionsService">
-                            <h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
-                                          escape="false"
-                                          rendered="#{not empty etablissementController.serviceSel}" />
-                            <p:dataTable styleClass="mt10"
-                                         value="#{etablissementController.serviceSel}"
-                                         rendered="#{not empty etablissementController.serviceSel}">
+								<ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
 
-                                <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
-
-                                <p:column style="background-color:#A5A5A5;" styleClass="textCenter">
-                                    <f:facet name="header">
-                                        <t:div>
-                                            <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
-                                            <h:outputText value="#{msgs['GENERAL.ACTIONS']}" styleClass="ml5"/>
-                                        </t:div>
-                                    </f:facet>
-                                    <p:commandLink id="modif" update="modifService"
-                                                   oncomplete="PF('modifService').show();"
-                                                   rendered="#{not empty etablissementController.idServiceSel
-                                            and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								<p:column style="background-color:#A5A5A5; width:100px;" styleClass="textCenter">
+									<f:facet name="header">
+										<t:div>
+											<t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
+											<h:outputText value="#{msgs['GENERAL.ACTIONS']}" styleClass="ml5"/>
+										</t:div>
+									</f:facet>
+									<p:commandLink id="modif" oncomplete="PF('modifService').show();"
+												   update="modifService"
+												   rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
                                             welcomeController.admin || welcomeController.personnel || welcomeController.writer)
                                             || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
                                             (!sessionController.autoriserEtudiantAModifierEntreprise
-                                            and ((empty etablissementController.serviceSel.loginModif and
-                                            etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
-                                            || (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}">
-                                        <f:setPropertyActionListener value="#{false}"
-                                                                     target="#{etablissementController.memeAdresseStructure}" />
-                                        <f:setPropertyActionListener value="#{etablissementController.serviceSel}"
-                                                                     target="#{etablissementController.formService}" />
-                                        <f:setPropertyActionListener value="#{etablissementController.serviceSel.pays}"
-                                                                     target="#{etablissementController.formService.pays}" />
-                                        <f:setPropertyActionListener value="_modifServiceEtape1"
-                                                                     target="#{sessionController.modifServiceCurrentPage}" />
-                                        <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
-                                        <p:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
-                                    </p:commandLink>
-                                    <p:commandLink id="suppr" update="supprService"
-                                                   oncomplete="PF('supprService').show();"
-                                                   rendered="#{not empty etablissementController.idServiceSel
-                                            and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+                                            and ((empty service.loginModif and service.loginCreation==sessionController.currentLogin)
+                                            || (service.loginModif==sessionController.currentLogin)))))))}">
+										<f:setPropertyActionListener value="_modifServiceEtape0"
+																	 target="#{sessionController.modifServiceCurrentPage}" />
+										<f:setPropertyActionListener value="#{false}"
+																	 target="#{etablissementController.memeAdresseStructure}" />
+										<f:setPropertyActionListener value="#{service}"
+																	 target="#{etablissementController.formService}" />
+										<f:setPropertyActionListener value="#{service.codePostal}"
+																	 target="#{etablissementController.formServiceTmpCodePostal}" />
+										<f:setPropertyActionListener value="#{service.codeCommune}"
+																	 target="#{etablissementController.formServiceTmpCommuneDTO.codeCommune}" />
+										<f:setPropertyActionListener value="#{service.pays}"
+																	 target="#{etablissementController.formServiceTmpPays}" />
+										<t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
+										<p:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
+									</p:commandLink>
+
+									<p:commandLink id="suppr" update="supprService"
+												   oncomplete="PF('supprService').show();"
+												   rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
                                             welcomeController.admin || welcomeController.personnel || welcomeController.writer)
                                             || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
                                             (!sessionController.autoriserEtudiantAModifierEntreprise
-                                            and ((empty etablissementController.serviceSel.loginModif and
-                                            etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
-                                            || (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}">
-                                        <f:setPropertyActionListener value="#{etablissementController.serviceSel}"
-                                                                     target="#{etablissementController.formService}" />
-                                        <f:setPropertyActionListener value="_supprServiceEtape1"
-                                                                     target="#{sessionController.suppressionServiceCurrentPage}" />
-                                        <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
-                                        <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
-                                    </p:commandLink>
+                                            and ((empty service.loginModif and
+                                            service.loginCreation==sessionController.currentLogin)
+                                            || (service.loginModif==sessionController.currentLogin)))))))}">
+										<f:setPropertyActionListener value="#{service}"
+																	 target="#{etablissementController.formService}" />
+										<f:setPropertyActionListener value="_supprServiceEtape1"
+																	 target="#{sessionController.suppressionServiceCurrentPage}" />
+										<t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
+										<p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+									</p:commandLink>
 
-                                    <p:commandButton id="selC" style="color:green;"
-                                                     value="#{msgs['FORM.SELECTIONNER']}"
-                                                     rendered="#{not empty etablissementController.idServiceSel}"
-                                                     action="#{conventionController.goToCreerConventionEtape4Contact}">
-                                        <f:setPropertyActionListener
-                                                value="#{etablissementController.serviceSel}"
-                                                target="#{conventionController.convention.service}" />
-                                    </p:commandButton>
-                                </p:column>
-                            </p:dataTable>
+									<p:commandButton id="selC" styleClass="fontBlue2"
+													 value="#{msgs['FORM.SELECTIONNER']}"
+													 action="#{conventionController.goToCreerConventionEtape4Contact}">
+										<f:setPropertyActionListener
+												value="#{service}"
+												target="#{conventionController.convention.service}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</t:div>
 
-                            <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
-                                             action="#{conventionController.retourEtape2Creation}"
-                                             immediate="true"
-                                             styleClass="mt30 mb20"/>
-                        </t:div>
-                    </t:div>
-                </t:fieldset>
-            </h:form>
-            <ui:include src="../_commun/_panelAjoutService.xhtml" />
-            <ui:include src="../_commun/_panelModifService.xhtml" />
-            <ui:include src="../_commun/_panelSupprService.xhtml" />
-        </p:panel>
-    </ui:define>
+						<t:div styleClass="mt20 ml40">
+							<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" styleClass="fontBold"/>
+							<p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="ml5"
+											 value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
+											 action="#{etablissementController.ajoutService}"
+											 oncomplete="PF('ajoutService').show();"
+											 update="ajoutService">
+								<f:setPropertyActionListener value="#{true}"
+															 target="#{etablissementController.memeAdresseStructure}" />
+								<f:setPropertyActionListener value="_ajoutServiceEtape0"
+															 target="#{sessionController.ajoutServiceCurrentPage}" />
+							</p:commandButton>
+						</t:div>
+
+						<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+										 action="#{conventionController.retourEtape2Creation}"
+										 immediate="true"
+										 styleClass="mt30 mb20"/>
+					</t:div>
+				</t:fieldset>
+			</h:form>
+			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelSupprService.xhtml" />
+		</p:panel>
+	</ui:define>
 </ui:composition>

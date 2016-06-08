@@ -171,6 +171,10 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 			etudiantRef.setStudys(mapEtudes);
 		}
 
+		List<String> listeAnneesUniv = new ArrayList<String>();
+		listeAnneesUniv.add("2015");
+		etudiantRef.setListeAnneesUniv(listeAnneesUniv);
+
 		AdministrationApogee adminApogee = new AdministrationApogee();
 		adminApogee.setStatusApogee(false);
 		adminApogee.setRaison("");
@@ -245,7 +249,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 		if(ldapGroups != null && !ldapGroups.isEmpty()){
 			String etapeCode=null;
 			String etapeLibelle =null;
-			etapes = new LinkedHashMap<String, String>(ldapGroups.size());
+			etapes = new LinkedHashMap<>(ldapGroups.size());
 
 			//on formate pour la map
 			for(LdapGroup group : ldapGroups){
@@ -305,7 +309,7 @@ public class StudentDataRepositoryDaoLdap implements StudentDataRepositoryDao {
 	}
 
 	/**
-	 * @param ldapGroupServiceSpecial the ldapGroupServiceSpecial to set
+	 * @param ldapGroupService the ldapGroupService to set
 	 */
 	public void setLdapGroupServiceSpecial(LdapGroupService ldapGroupService) {
 		this.ldapGroupServiceSpecial = ldapGroupService;

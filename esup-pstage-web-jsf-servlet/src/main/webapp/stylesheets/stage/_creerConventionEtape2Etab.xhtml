@@ -21,7 +21,7 @@
 
                 <ui:include src="/stylesheets/_commun/_rechercheEtablissementNbResultats.xhtml" />
 
-                <p:dataTable id="rechercheStructureDataTable" styleClass="mt10 mb10"
+                <p:dataTable id="rechercheStructureDataTable" styleClass="mt10"
                              value="#{rechercheController.rechercheStructurePaginator.liste}"
                              var="varRechercheStructure" rows="10" rowHover="true"
                              rowStyleClass="noPointer" paginator="true"
@@ -38,7 +38,7 @@
                                 <h:outputText value="#{msgs['CONVENTION.CHOIX']}" styleClass="ml5"/>
                             </t:div>
                         </f:facet>
-                        <p:commandButton id="selectionEtab" style="color:green;"
+                        <p:commandButton id="selectionEtab" styleClass="fontBlue2"
                                          value="#{msgs['FORM.SELECTIONNER']}"
                                          update="@form">
                             <f:setPropertyActionListener value="#{varRechercheStructure}"
@@ -53,7 +53,8 @@
             </t:div>
         </p:outputPanel>
 
-        <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant != 6 and rechercheController.afficherBoutonAjoutEtab}">
+        <t:div styleClass="mt20 ml40"
+               rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant != 6 and rechercheController.afficherBoutonAjoutEtab}">
             <h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}" escape="false" />
             <p:commandButton styleClass="ml5" icon="fa fa-plus fz13"
                              value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"

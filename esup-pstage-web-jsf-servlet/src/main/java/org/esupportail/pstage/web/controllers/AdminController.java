@@ -245,8 +245,7 @@ public class AdminController extends AbstractContextAwareController {
 							}
 							this.formAdminStructure.setEppn(null);
 							getAdminDomainService().addAdminStructure(this.formAdminStructure);
-//							ret="_ajoutAdministrateurEtape2Confirmation";
-							getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+							getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 							ok=true;
 						}else{
 							addErrorMessage("formAdminStructure:mdpAdmin", "ADMINSTRUCTURE.MDP_CONFIRMATION.VALIDATION");
@@ -263,8 +262,7 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setMdp(null);
 						this.formAdminStructure.setEppn(null);
 						getAdminDomainService().addAdminStructure(this.formAdminStructure);
-//						ret="_ajoutAdministrateurEtape2Confirmation";
-						getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+						getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 						ok=true;
 					}
 					break;
@@ -278,8 +276,7 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setLogin(null);
 						this.formAdminStructure.setMdp(null);
 						getAdminDomainService().addAdminStructure(this.formAdminStructure);
-//						ret="_ajoutAdministrateurEtape2Confirmation";
-						getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+						getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 						ok=true;
 					}
 					break;
@@ -292,22 +289,19 @@ public class AdminController extends AbstractContextAwareController {
 					logger.info("DataAddException ",d.getCause());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
-//				ret="_ajoutAdministrateurEtape2Confirmation";
-				getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+				getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 			}catch (WebServiceDataBaseException w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.getCause());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
-//				ret="_ajoutAdministrateurEtape2Confirmation";
-				getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+				getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 			}catch (AdminStructureAccountException aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.getCause());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
-//				ret="_ajoutAdministrateurEtape2Confirmation";
-				getSessionController().setCreationAdminStructureCurrentPage("_ajoutAdministrateurEtape2Confirmation");
+				getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");

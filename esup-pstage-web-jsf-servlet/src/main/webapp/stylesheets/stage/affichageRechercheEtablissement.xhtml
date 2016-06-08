@@ -14,7 +14,13 @@
 			<h:form id="formAffEtab">
 				<h:panelGrid columns="2" align="center">
 					<h:column>
-						<ui:include src="../_commun/_confirmationImagesPermanentes.xhtml" />
+                        <h:graphicImage alt="#{msgs['GENERAL.OK']}"
+                                        title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
+                                        rendered="#{facesContext.maximumSeverity == 'Info'}" />
+                        <h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
+                                        title="#{msgs['GENERAL.WARNING']}"
+                                        value="../../media/images/warning_50px.png"
+                                        rendered="#{facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn'}" />
 					</h:column>
 					<h:column>
 						<p:message for="formAffEtab">

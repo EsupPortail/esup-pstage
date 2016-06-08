@@ -23,6 +23,24 @@
 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
 				<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
 			</p:dialog>
+            <p:ajaxExceptionHandler type="javax.faces.application.ViewExpiredException"
+                                    update="exceptionDialog"
+                                    onexception="PF('exceptionDialog').show();" />
+
+            <p:ajaxExceptionHandler type="java.lang.NullPointerException"
+                                    update="exceptionDialog"
+                                    onexception="PF('exceptionDialog').show();" />
+
+            <p:dialog id="exceptionDialog" header="Exception '#{pfExceptionHandler.type}' occured!" widgetVar="exceptionDialog"
+                      height="500px">
+                Message:  <br/>
+                StackTrace: <h:outputText value="#{pfExceptionHandler.formattedStackTrace}" escape="false" /> <br />
+
+                <p:button onclick="document.location.href = document.location.href;"
+                          value="Reload!"
+                          rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" />
+            </p:dialog>
+
 			<ui:insert name="sidebar" />
 			<ui:insert name="topbar" />
 			<t:div id="MAIN_CONTENT">

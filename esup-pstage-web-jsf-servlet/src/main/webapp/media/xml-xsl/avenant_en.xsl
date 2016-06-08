@@ -191,11 +191,23 @@
 									signatory to the Convention) :
 								</fo:inline>
 								<xsl:choose>
-									<xsl:when test="convention/nom-signataire-composante">
-										<xsl:value-of select="convention/nom-signataire-composante" />
+									<xsl:when test="convention/centre-gestion/nom-viseur">
+										Delegated,
+										<fo:inline font-weight="bold">
+											<xsl:call-template name="start_upper">
+												<xsl:with-param name="prenom">
+													<xsl:value-of select="convention/centre-gestion/prenom-viseur" />
+												</xsl:with-param>
+											</xsl:call-template>
+											<xsl:text> </xsl:text>
+											<xsl:value-of
+													select="translate(convention/centre-gestion/nom-viseur,$lowers,$uppers)" />
+										</fo:inline>
 									</xsl:when>
 									<xsl:otherwise>
-
+										<fo:inline font-weight="bold">
+											<xsl:value-of select="convention/nom-signataire-composante" />
+										</fo:inline>
 									</xsl:otherwise>
 								</xsl:choose>
 							</fo:block>

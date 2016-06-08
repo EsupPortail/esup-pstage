@@ -3,11 +3,10 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
+
     <h:outputText value="#{msgs['SERVICE.SUPPR.QUESTION']}"
                   escape="false" />
-    <p:dataTable value="#{etablissementController.serviceSel}">
-        <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
-    </p:dataTable>
+
     <t:div styleClass="textCenter mt20 mb20">
         <p:commandButton
                 action="#{etablissementController.supprimerService}"

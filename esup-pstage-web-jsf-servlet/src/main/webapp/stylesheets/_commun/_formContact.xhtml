@@ -1,118 +1,89 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:panelGrid
-		rendered="#{not empty etablissementController.formContact}">
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
-		<t:panelGrid columns="3">
-			<t:panelGroup colspan="3">
-				<t:panelGrid align="center">
-					<h:outputLabel value="#{msgs['CONTACT.GESTION.CENTREGESTION']} *"
-						for="centreGestion"
-						rendered="#{etablissementController.afficherSelectionCentreContact}" />
-					<h:selectOneMenu id="centreGestion"
-						value="#{etablissementController.formContact.idCentreGestion}"
-						required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}"
-						rendered="#{etablissementController.afficherSelectionCentreContact}"
-						style="width:300px;">
-						<f:selectItem itemValue="" />
-						<f:selectItems
-							value="#{offreController.listeItemsCurrentCentresGestion}" />
-						<p:ajax event="valueChange" />
-					</h:selectOneMenu>
-					<p:message for="centreGestion" ajaxRendered="false">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</t:panelGrid>
-			</t:panelGroup>
-			<t:panelGrid>
-				<t:panelGrid columns="2" style="margin-left:auto;margin-right:auto;">
-					<h:outputLabel value="#{msgs['CONTACT.CIVILITE']} *" for="civilite" />
-					<h:selectOneMenu id="civilite"
-						value="#{etablissementController.formContact.civilite}"
-						converter="#{civiliteConverter}" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}">
-						<f:selectItem itemValue="" />
-						<f:selectItems value="#{nomenclatureController.civilites}" />
-						<p:ajax event="valueChange" />
-					</h:selectOneMenu>
-					<t:panelGroup colspan="2">
-						<p:message for="civilite" ajaxRendered="false">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-					</t:panelGroup>
-				</t:panelGrid>
-				<h:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
-				<h:inputText id="nom" style="text-transform:uppercase;"
-					value="#{etablissementController.formContact.nom}" size="50"
-					maxlength="50" required="true" converter="#{upperCaseConverter}"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-				</h:inputText>
-				<p:message for="nom" ajaxRendered="false">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-				<h:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
-				<h:inputText id="prenom" style="text-transform:capitalize;"
-					value="#{etablissementController.formContact.prenom}" size="50"
-					maxlength="50" required="true"
-					converter="#{premiereLettreMAJConverter}"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-				</h:inputText>
-				<p:message for="prenom" ajaxRendered="false">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-				<h:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
-				<h:inputText id="fonction" size="50" maxlength="100"
-					value="#{etablissementController.formContact.fonction}" />
-				<p:message for="fonction" ajaxRendered="false">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-			</t:panelGrid>
-			<t:panelGrid columns="3">
-				<t:htmlTag value="div" style="width: 25px;" />
-				<p:separator style="height: 200px;" />
-				<t:htmlTag value="div" style="width: 25px;" />
-			</t:panelGrid>
-			<t:panelGrid>
-				<t:panelGrid columns="2">
-					<h:graphicImage alt="arrow"
-						value="../../media/images/arrow_turn_down.png" />
-					<h:outputText id="msg1o3"
-						value="#{msgs['CONTACT.GESTION.UNDESTROIS']} " />
-				</t:panelGrid>
-				<t:htmlTag value="div" style="height: 5px;" />
+    <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 
-				<h:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} " />
-				<h:inputText id="telC" size="20" maxlength="20"
-					value="#{etablissementController.formContact.tel}" />
+    <t:div styleClass="textCenter"
+           rendered="#{etablissementController.afficherSelectionCentreContact}">
+        <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.GESTION.CENTREGESTION']} *" />
+        <p:selectOneMenu id="centreGestion" styleClass="ml5"
+                         value="#{etablissementController.formContact.idCentreGestion}"
+                         required="true">
+            <f:selectItem itemValue="" />
+            <f:selectItems value="#{offreController.listeItemsCurrentCentresGestion}" />
+            <p:ajax event="valueChange" update="@form"/>
+        </p:selectOneMenu>
+        <p:message for="centreGestion" />
+    </t:div>
 
-				<h:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
-				<h:inputText id="faxC" size="20" maxlength="20"
-					value="#{etablissementController.formContact.fax}" />
+    <t:htmlTag value="ul" styleClass="formUL columns-2 mt15">
+        <t:div styleClass="column">
+            <t:htmlTag value="li">
+                <t:div>
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.CIVILITE']} *" />
+                    <p:selectOneMenu id="civilite" effect="none"
+                                     value="#{etablissementController.formContact.civilite}"
+                                     converter="#{civiliteConverter}" required="true"
+                                     requiredMessage="#{requiredMessageController.champObligatoire}">
+                        <f:selectItem itemValue="" />
+                        <f:selectItems value="#{nomenclatureController.civilites}" />
+                        <p:ajax event="valueChange" update="msgCiv" />
+                    </p:selectOneMenu>
+                    <p:message id="msgCiv" for="civilite" />
+                </t:div>
 
-				<h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
-				<h:inputText id="mailC"
-					value="#{etablissementController.formContact.mail}" size="50"
-					maxlength="50" required="true"
-					validatorMessage="#{requiredMessageController.adresseMailNonValide}">
-					<f:validator binding="#{mailValidator}" />
-				</h:inputText>
-				<p:message for="mailC" ajaxRendered="false">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-				<h:outputText style="color:orange;"
-					value="#{msgs['CONTACT.GESTION.SANSMAILIMPOSSIBLE']}"
-					rendered="#{not empty etablissementController.formContact.login
+                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.NOM']} *" />
+                <p:inputText id="nom" style="text-transform:uppercase;"
+                             value="#{etablissementController.formContact.nom}" size="50"
+                             maxlength="50" required="true" converter="#{upperCaseConverter}"/>
+                <p:message for="nom"/>
+
+                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.PRENOM']} *" />
+                <p:inputText id="prenom" style="text-transform:capitalize;"
+                             value="#{etablissementController.formContact.prenom}" size="50"
+                             maxlength="50" required="true"
+                             converter="#{premiereLettreMAJConverter}"/>
+                <p:message for="prenom"/>
+
+                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.FONCTION']} " />
+                <p:inputText id="fonction" size="50" maxlength="100"
+                             value="#{etablissementController.formContact.fonction}" />
+                <p:message for="fonction"/>
+            </t:htmlTag>
+        </t:div>
+        <t:div styleClass="column">
+            <t:htmlTag value="li">
+                <h:graphicImage alt="arrow"
+                                value="/media/images/arrow_turn_down.png" />
+                <h:outputText id="msg1o3" value="#{msgs['CONTACT.GESTION.UNDESTROIS']} " />
+                <p:message for="msg1o3"/>
+
+                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.TELEPHONE']} " />
+                <p:inputText id="telC" size="20" maxlength="20"
+                             value="#{etablissementController.formContact.tel}" />
+
+                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.FAX']} " />
+                <p:inputText id="faxC" size="20" maxlength="20"
+                             value="#{etablissementController.formContact.fax}" />
+
+                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.MAIL']} *" />
+                <p:inputText id="mailC"
+                             value="#{etablissementController.formContact.mail}" size="50"
+                             maxlength="50" required="true"
+                             validatorMessage="#{requiredMessageController.adresseMailNonValide}">
+                    <f:validator binding="#{mailValidator}" />
+                </p:inputText>
+                <p:message for="mailC"/>
+
+                <h:outputText style="color:orange;"
+                              value="#{msgs['CONTACT.GESTION.SANSMAILIMPOSSIBLE']}"
+                              rendered="#{not empty etablissementController.formContact.login
 				and not empty etablissementController.formContact.mdp}" />
-				<p:message for="msg1o3" ajaxRendered="false">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-			</t:panelGrid>
-		</t:panelGrid>
-	</t:panelGrid>
+            </t:htmlTag>
+        </t:div>
+    </t:htmlTag>
 </ui:composition>
