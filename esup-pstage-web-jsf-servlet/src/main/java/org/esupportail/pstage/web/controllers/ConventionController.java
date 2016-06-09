@@ -1275,6 +1275,17 @@ public class ConventionController extends AbstractContextAwareController {
 
 		return "creerConventionEtape4Contact";
 	}
+
+	/**
+	 * @return a String
+	 */
+	public String retourEtape5Creation(){
+
+		this.ctrlInfosStageOK = false;
+		sequenceEtapeEnum = SequenceEtapeEnum.etape5;
+
+		return "creerConventionEtape5Stage";
+	}
 	/**
 	 * @return a String
 	 */
@@ -2209,35 +2220,23 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
-	 *
-	 */
-	public void goToCreerConventionEtape5StageR() {
-		this.ctrlInfosStageOK = false;
-		getSessionController().setCreationConventionEtape5CurrentPage(
-				"_creerConventionEtape5Stage");
-		// return "_creerConventionEtape5Stage";
-	}
-
-	/**
 	 * @return A String
 	 */
-	public String goToCreerConventionEtape6RespPedago() {
+	public String goToCreerConventionEtape6RechEnseignant() {
+
 		sequenceEtapeEnum = SequenceEtapeEnum.etape6;
-		getSessionController().setCreationConventionEtape6CurrentPage(
-				"_creerConventionEtape6RechEnseignant");
+
+		getSessionController().setCreationConventionEtape6CurrentPage("_creerConventionEtape6RechEnseignant");
+
 		return "creerConventionEtape6Enseignant";
 	}
 
 	/**
-	 *
+	 * Passage au detail de l'enseignant
+	 * soit depuis la liste de resultat, soit directement depuis la recherche (si un seul resultat)
 	 */
 	public void goToCreerConventionEtape6Enseignant() {
-		sequenceEtapeEnum = SequenceEtapeEnum.etape6;
-		this.convention.setEnseignant(this.resultatEnseignant);
-		checkSurchargeTuteur();
-		// return "_creerConventionEtape6Enseignant";
-		getSessionController().setCreationConventionEtape6CurrentPage(
-				"_creerConventionEtape6Enseignant");
+
 	}
 
 	/**
@@ -4148,23 +4147,17 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String rechercheEnseignantCrea() {
+	public void rechercheEnseignantCrea() {
 		this.listeResultatsRechercheEnseignant = null;
 		this.resultatEnseignant = null;
-		String nomForm = "formConvention";
-		rechercheEnseignant(nomForm);
+
+		this.rechercheEnseignant("formConvention");
+
 		if (this.resultatEnseignant != null) {
-			goToCreerConventionEtape6Enseignant();
-		}
-		if (this.listeResultatsRechercheEnseignant != null) {
-			getSessionController().setCreationConventionEtape6CurrentPage(
-					"_creerConventionEtape6ListeEnseignant");
-		}
-		if (getSessionController().getCreationConventionEtape6CurrentPage()
-				.equals("_creerConventionEtape6RechEnseignant")) {
-			return null;
-		} else {
-			return "creerConventionEtape6Enseignant";
+			checkSurchargeTuteur();
+			getSessionController().setCreationConventionEtape6CurrentPage("_creerConventionEtape6Enseignant");
+		} else if (this.listeResultatsRechercheEnseignant != null) {
+			getSessionController().setCreationConventionEtape6CurrentPage("_creerConventionEtape6ListeEnseignant");
 		}
 	}
 
@@ -4333,17 +4326,15 @@ public class ConventionController extends AbstractContextAwareController {
 			if (StringUtils.hasText(selCodeAffectationEnseignant)) {
 				codeAffec = selCodeAffectationEnseignant;
 			}
-			this.listeResultatsRechercheEnseignant = getPersonalDataRepositoryDomain()
-					.getEnseignantsByName(
-							getSessionController().getCodeUniversite(),
-							this.rechNomEnseignant, this.rechPrenomEnseignant,
-							codeAffec);
+			this.listeResultatsRechercheEnseignant = getPersonalDataRepositoryDomain().getEnseignantsByName(
+					getSessionController().getCodeUniversite(),
+					this.rechNomEnseignant, this.rechPrenomEnseignant,
+					codeAffec);
 
-			if (this.listeResultatsRechercheEnseignant == null
-					|| this.listeResultatsRechercheEnseignant.isEmpty()) {
-				addErrorMessage(nomForm + ":information",
-						"RECHERCHEENSEIGNANT.INVALIDE");
+			if (this.listeResultatsRechercheEnseignant == null || this.listeResultatsRechercheEnseignant.isEmpty()) {
+				addErrorMessage(nomForm,"RECHERCHEENSEIGNANT.INVALIDE");
 			}
+
 			checkListeResultatsEnseigant();
 		}
 	}
@@ -4776,27 +4767,26 @@ public class ConventionController extends AbstractContextAwareController {
 		if ((this.listeResultatsRechercheEnseignant != null)
 				&& (!this.listeResultatsRechercheEnseignant.isEmpty())) {
 			if (this.listeResultatsRechercheEnseignant.size() == 1) {
-				this.resultatEnseignant = this.listeResultatsRechercheEnseignant
-						.get(0);
-				if (StringUtils
-						.hasText(resultatEnseignant.getCodeAffectation())) {
-					AffectationDTO affecDTO = rechAffec(resultatEnseignant
-							.getCodeAffectation());
+
+				this.resultatEnseignant = this.listeResultatsRechercheEnseignant.get(0);
+
+				if (StringUtils.hasText(resultatEnseignant.getCodeAffectation())) {
+					AffectationDTO affecDTO = rechAffec(resultatEnseignant.getCodeAffectation());
 					if (affecDTO != null) {
 						this.resultatEnseignant.setAffectation(affecDTO);
 					}
 				}
-				this.resultatEnseignant
-						.setCivilite(getNomenclatureDomainService()
-								.getCiviliteFromId(
-										this.resultatEnseignant.getIdCivilite()));
+				this.resultatEnseignant.setCivilite(getNomenclatureDomainService().getCiviliteFromId(
+						this.resultatEnseignant.getIdCivilite()));
+
 				this.listeResultatsRechercheEnseignant = null;
+
 				reloadRechercheEnseignantPaginator();
+
 			} else {
 				// transform liste enseignant en enseignantDTO
 				this.listeEnseignant = new ArrayList<EnseignantDTO>();
-				for (Iterator<EnseignantDTO> iter = this.listeResultatsRechercheEnseignant
-						.iterator(); iter.hasNext();) {
+				for (Iterator<EnseignantDTO> iter = this.listeResultatsRechercheEnseignant.iterator(); iter.hasNext();) {
 					EnseignantDTO enseignantDTO = iter.next();
 					if (StringUtils.hasText(enseignantDTO.getCodeAffectation())) {
 						AffectationDTO affecDTO = rechAffec(enseignantDTO
@@ -4805,8 +4795,7 @@ public class ConventionController extends AbstractContextAwareController {
 							enseignantDTO.setAffectation(affecDTO);
 						}
 					}
-					enseignantDTO.setCivilite(getNomenclatureDomainService()
-							.getCiviliteFromId(enseignantDTO.getIdCivilite()));
+					enseignantDTO.setCivilite(getNomenclatureDomainService().getCiviliteFromId(enseignantDTO.getIdCivilite()));
 					this.listeEnseignant.add(enseignantDTO);
 				}
 				reloadRechercheEnseignantPaginator();
@@ -5848,12 +5837,10 @@ public class ConventionController extends AbstractContextAwareController {
 		this.surchargeTuteur = false;
 		Integer limiteSurcharge = getSessionController().getSurchargeTuteur();
 		if (limiteSurcharge != null) {
-			Integer nbConventions = getEnseignantDomainService()
-					.getNombreConventionByEnseignantByAnnee(
-							this.convention.getEnseignant().getUidEnseignant(),
-							getSessionController().getCodeUniversite(),
-							getBeanUtils().getAnneeUniversitaireCourante(
-									new Date()));
+			Integer nbConventions = getEnseignantDomainService().getNombreConventionByEnseignantByAnnee(
+					this.resultatEnseignant.getUidEnseignant(),
+					getSessionController().getCodeUniversite(),
+					getBeanUtils().getAnneeUniversitaireCourante(new Date()));
 			if (nbConventions > limiteSurcharge) {
 				this.surchargeTuteur = true;
 			}

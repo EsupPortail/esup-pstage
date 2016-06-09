@@ -13,8 +13,8 @@
                  var="etudiantRef" rows="5" rowHover="true"
                  rowStyleClass="noPointer" paginator="true"
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 paginatorAlwaysVisible="false">
-        <p:column style="width:25%;">
+                 rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false">
+        <p:column style="width:55px;">
             <f:facet name="header">
                 <h:outputText value="#{msgs['CONVENTION.NUMETUDIANT']}" />
             </f:facet>
@@ -22,22 +22,20 @@
                 <h:outputText value="#{etudiantRef.numEtudiant}" />
             </t:htmlTag>
         </p:column>
-        <p:column style="width:50%;">
+        <p:column>
             <f:facet name="header">
                 <h:outputText value="#{msgs['CONVENTION.NOM']} / #{msgs['CONVENTION.PRENOM']}" />
             </f:facet>
             <h:outputText value="#{etudiantRef.nom} #{etudiantRef.nomMarital} " styleClass="fontBold"/>
             <h:outputText value=" #{etudiantRef.prenom}" />
         </p:column>
-        <p:column style="width:25%;">
-            <t:htmlTag value="center">
-                <p:commandButton id="voir" value="#{msgs['FORM.SELECTIONNER']}" icon="fa fa-check"
-                                 action="#{conventionController.goToChoixEtapeEtudiant}"
-                                 update="@form">
-                    <f:setPropertyActionListener value="#{etudiantRef}"
-                                                 target="#{conventionController.resultatEtudiantRef}" />
-                </p:commandButton>
-            </t:htmlTag>
+        <p:column style="width:120px; background-color:#A5A5A5;" styleClass="textCenter">
+            <p:commandButton value="#{msgs['FORM.SELECTIONNER']}" icon="fa fa-check"
+                             action="#{conventionController.goToChoixEtapeEtudiant}"
+                             update="@form">
+                <f:setPropertyActionListener value="#{etudiantRef}"
+                                             target="#{conventionController.resultatEtudiantRef}" />
+            </p:commandButton>
         </p:column>
     </p:dataTable>
     <p:commandButton value="#{msgs['CONVENTION.RECHERCHER.AUTREETU']}"

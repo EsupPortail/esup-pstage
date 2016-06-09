@@ -1,19 +1,23 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
-			</f:facet>
-			<h:form id="formConvention">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+            </f:facet>
+            <h:form id="formConvention">
                 <ui:include src="_roadmap.xhtml" />
-				<ui:include src="/stylesheets/stage/#{sessionController.creationConventionEtape6CurrentPage}.xhtml" />
-			</h:form>
-		</p:panel>
-	</ui:define>
+                <t:fieldset>
+                    <t:div styleClass="mt20 ml30" style="max-width: 900px;">
+                        <ui:include src="/stylesheets/stage/#{sessionController.creationConventionEtape6CurrentPage}.xhtml" />
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+        <t:htmlTag value="div" style="height:300px;"/>
+    </ui:define>
 </ui:composition>

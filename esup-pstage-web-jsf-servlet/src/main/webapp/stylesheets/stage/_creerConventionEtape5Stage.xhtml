@@ -15,11 +15,13 @@
             <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
         </t:div>
     </p:outputPanel>
+
     <t:div styleClass="clearFloat textCenter">
         <p:commandButton
                 action="#{conventionController.goToCreerConventionCtrlStage}"
                 value="#{msgs['FORM.VALIDER']}" update="opFCE,@form"/>
     </t:div>
+
     <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
                      action="#{conventionController.retourEtape4Creation}"
                      immediate="true"

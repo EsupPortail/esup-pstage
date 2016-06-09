@@ -64,8 +64,7 @@ public class PaysConverter implements Serializable, Converter {
 			final FacesContext context, 
 			final UIComponent component, 
 			final String value) {
-		if (!StringUtils.hasText(value)
-				|| !Utils.isNumber(value)) {
+		if (!StringUtils.hasText(value) || !Utils.isNumber(value)) {
 			return null;
 		}
 		return getNomenclatureDomainService().getPaysFromId(Utils.convertStringToInt(value));

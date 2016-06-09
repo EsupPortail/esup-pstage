@@ -1658,7 +1658,8 @@ public class NomenclatureController extends AbstractContextAwareController {
 		List<SelectItem> ls = null;
 		List<PaysDTO> l = getNomenclatureDomainService().getPays();
 		if(l!=null){
-			ls = new ArrayList<SelectItem>();
+			ls = new ArrayList<>();
+			ls.add(new SelectItem("",""));
 			for(PaysDTO o : l){
 				ls.add(new SelectItem(o,o.getLibelle()));
 			}

@@ -2,9 +2,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:p="http://primefaces.org/ui">
 
 	<p:column>
 		<f:facet name="header">
@@ -12,7 +10,6 @@
 				value="#{msgs['CONVENTION.CIVILITE']}" />
 		</f:facet>
 		<h:outputText value="#{enseignant.civilite.libelle}" />
-		<t:htmlTag value="div" style="height: 5px;" />
 	</p:column>
 	<p:column>
 		<f:facet name="header">
@@ -20,7 +17,6 @@
 				value="#{msgs['CONVENTION.NOM']}" />
 		</f:facet>
 		<h:outputText value="#{enseignant.nom}" />
-		<t:htmlTag value="div" style="height: 5px;" />
 	</p:column>
 	<p:column>
 		<f:facet name="header">
@@ -28,7 +24,6 @@
 				value="#{msgs['CONVENTION.PRENOM']}" />
 		</f:facet>
 		<h:outputText value="#{enseignant.prenom}" />
-		<t:htmlTag value="div" style="height: 5px;" />
 	</p:column>
 	<p:column>
 		<f:facet name="header">
@@ -36,14 +31,12 @@
 				value="#{msgs['CONVENTION.MAIL']}" />
 		</f:facet>
 		<h:outputText value="#{enseignant.mail}" />
-		<t:htmlTag value="div" style="height: 5px;" />
 	</p:column>
 	<p:column>
 		<f:facet name="header">
-			<h:outputText 
+			<h:outputText
 				value="#{msgs['CONVENTION.DEPARTEMENT']}" />
 		</f:facet>
-		<h:outputText
-			value="#{enseignant.codeAffectation} - #{enseignant.affectation.libelle}" />
+		<h:outputText value="#{enseignant.codeAffectation} - #{enseignant.affectation.libelle}" />
 	</p:column>
 </ui:composition>
