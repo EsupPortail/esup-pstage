@@ -787,7 +787,7 @@ body {
 .block {
   max-width: 900px;
 }
-.block.centerBlock {
+.centerBlock {
   margin: 0 auto;
 }
 #blackScreen {

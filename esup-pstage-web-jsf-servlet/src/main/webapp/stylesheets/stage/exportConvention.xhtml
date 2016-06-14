@@ -10,48 +10,41 @@
 			<f:facet name="header">
 				<h:outputText value="#{msgs['EXPORTCONVENTION.TITRE']}" />
 			</f:facet>
-			<h:form id="formRechConvention">
-				<h:panelGrid style="width:auto;">
-					<h:outputLabel value="#{msgs['EXPORTCONVENTION.CRITERES']}"
-								   for="formRechConvention" />
-					<t:htmlTag value="div" style="height:5px;" />
-					<h:outputLabel for="formRechConvention"
+			<h:form id="formRechConvention" styleClass="block centerBlock textCenter" style="max-width: 600px;">
+				<t:htmlTag value="span" styleClass="legendLabel">
+					<t:htmlTag value="i" styleClass="fa fa-info-circle fz16 fontBlue2"/>
+					<h:outputText value="#{msgs['EXPORTCONVENTION.CRITERES']}" />
+				</t:htmlTag>
+				<t:div style="max-width: 80%;" styleClass="centerBlock mt20 textLeft">
+					<p:outputLabel for="formRechConvention"
 								   value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
 					<p:pickList converter="#{exportConventionColonnes}"
-								var="critConv" itemValue="#{critConv}"
+								var="critConv" itemValue="#{critConv}" styleClass="mt5"
 								showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
 								value="#{exportController.conventionColonnesChoisies}">
-						<!--<f:selectItems value="#{exportController.conventionColonnes}" />-->
 						<p:column>
 							#{msgs[critConv]}
 						</p:column>
 					</p:pickList>
-
-					<t:htmlTag value="div" style="height:10px;" />
-
-					<h:outputLabel for="formRechConvention"
+				</t:div>
+				<t:div style="max-width: 80%;" styleClass="centerBlock mt25 mb20 textLeft">
+					<p:outputLabel for="formRechConvention"
 								   value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
 					<p:pickList converter="#{conventionEntrepriseColonnesChoisies}"
-								var="critEtab" itemValue="#{critEtab}"
+								var="critEtab" itemValue="#{critEtab}" styleClass="mt5"
 								showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
 								value="#{exportController.conventionEntrepriseColonnesChoisies}">
-						<!--<f:selectItems-->
-						<!--value="#{exportController.conventionEntrepriseColonnes}" />-->
 						<p:column>
 							#{msgs[critEtab]}
 						</p:column>
 					</p:pickList>
-					<t:htmlTag value="div" style="height:20px;" />
-					<h:panelGrid columns="3">
-						<h:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
-										 action="#{conventionController.goToRetourAction}"
-										 immediate="true" />
-						<t:htmlTag value="div" style="width:150px; display:inline;" />
-						<h:commandButton
-								value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
-								action="#{exportController.goToExportConvention}" />
-					</h:panelGrid>
-				</h:panelGrid>
+				</t:div>
+				<p:commandButton id="back" value="#{msgs['FORM.ANNULERETRETOUR']}"
+								 action="#{conventionController.goToRetourAction}" update="@form"
+								 immediate="true" styleClass="floatLeft"/>
+				<p:commandButton ajax="false" styleClass="floatRight" icon="fa fa-file-excel-o"
+								 value="#{msgs['RECHERCHECONVENTION.TELECHARGEMENT']}"
+								 action="#{exportController.goToExportConvention}" />
 			</h:form>
 			<p:message for="formRechConvention" showDetail="true" />
 		</p:panel>

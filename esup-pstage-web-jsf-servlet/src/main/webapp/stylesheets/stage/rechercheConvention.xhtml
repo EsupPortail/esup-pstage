@@ -404,7 +404,8 @@
 
                 <p:commandButton id="exportExcel" styleClass="floatRight"
                                  value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
-                                 icon="fa fa-file-excel-o"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                 icon="fa fa-file-excel-o" update="@form"
                                  action="#{exportController.rechercherConvention}">
                     <f:setPropertyActionListener
                             value="#{conventionController.critereRechercheConvention}"
