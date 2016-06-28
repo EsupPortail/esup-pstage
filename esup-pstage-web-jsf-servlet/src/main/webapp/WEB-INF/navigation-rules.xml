@@ -707,11 +707,6 @@
 			<to-view-id>/stylesheets/stage/creerConventionEtape8Recap.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		<navigation-case>
-			<from-outcome>creerConventionEtape9Impression</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape9Impression.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
 	</navigation-rule>
 	
 	<!-- navigation pour SequenceEtapeEnumSel -->
@@ -1196,14 +1191,6 @@
 		</navigation-case>
 	</navigation-rule>
 
-	<navigation-rule>
-		<display-name>_creerConventionEtape9Impression</display-name>
-		<from-view-id>/stylesheets/stage/_impressionConvention.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>creerConventionEtape9Impression</from-outcome>
-			<to-view-id>/stylesheets/stage/creerConventionEtape9Impression.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
 	
 	<!-- Recherche entreprise -->
 	<navigation-rule>

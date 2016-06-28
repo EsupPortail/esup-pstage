@@ -5,9 +5,9 @@
 	developers. -->
 
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-	version="2.0">
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+			  version="2.0">
 
 	<application>
 		<el-resolver>org.esupportail.commons.jsf.ResourceBundleFacesELResolver</el-resolver>
@@ -19,12 +19,12 @@
 		<message-bundle>properties/i18n/bundles/Messages</message-bundle>
 
 	</application>
-	
+
 	<!-- ajout pour gerer les dates de fin de diffusion d'offre -->
 	<managed-bean>
-	    <managed-bean-name>currentDateBean</managed-bean-name>
-	    <managed-bean-class>java.util.Date</managed-bean-class>
-	    <managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-name>currentDateBean</managed-bean-name>
+		<managed-bean-class>java.util.Date</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 
 </faces-config>

@@ -1,12 +1,20 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
-    <p:panelGrid id="table" styleClass="noBorder">
+
+    <t:htmlTag value="i" styleClass="fa fa-navicon fz13 fontBlue2"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE8.NAVIGATION']}" styleClass="fz16 ml5 fontBold fontBlue2"/>
+
+    <!--<t:fieldset legend="Etudiant">-->
+    <!---->
+    <!--</t:fieldset>-->
+    <p:panelGrid styleClass="mt15 panelInfos blueHover">
         <p:row rendered="#{not empty conventionController.convention.idConvention}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.NUMEROCONVENTION']}" />
             </p:column>
             <p:column>
@@ -16,7 +24,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.ANNEE']}" />
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ANNEE']}" />
             </p:column>
             <p:column>
                 <h:outputText id="annee"
@@ -25,7 +33,15 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.LANGUECONVENTION']}" />
+            </p:column>
+            <p:column>
+                <h:outputText value="#{conventionController.convention.langueConvention.libelle}" />
+            </p:column>
+        </p:row>
+        <p:row rendered="#{not empty conventionController.convention.idConvention}">
+            <p:column style="text-align:right;">
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.VALIDER']}" />
             </p:column>
             <p:column rendered="#{!conventionController.convention.validationConvention}">
@@ -37,7 +53,7 @@
         </p:row>
         <p:row rendered="#{conventionController.nbAvenant gt 0}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.AVENANT.NB']}" />
             </p:column>
             <p:column>
@@ -46,8 +62,13 @@
             </p:column>
         </p:row>
         <p:row>
+            <p:column colspan="2">
+                <p:separator style="width:50%; height:2px;"/>
+            </p:column>
+        </p:row>
+        <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.NUMETUDIANT']}" />
             </p:column>
             <p:column>
@@ -57,7 +78,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.NOM']}" />
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.NOM']}" />
             </p:column>
             <p:column>
                 <h:outputText id="nom1"
@@ -66,7 +87,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.PRENOM']}" />
             </p:column>
             <p:column>
@@ -76,64 +97,27 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
-                              value="#{msgs['CONVENTION.VOTREETAPE']}" />
-            </p:column>
-            <p:column>
-                <h:outputText id="etape1"
-                              value="#{conventionController.convention.etape.code} - #{conventionController.convention.etape.libelle}" />
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.VOTREUFR']}" />
-            </p:column>
-            <p:column>
-                <h:outputText id="ufr1"
-                              value="#{conventionController.convention.ufr.code} - #{conventionController.convention.ufr.libelle}" />
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.ELP']}" />
-            </p:column>
-            <p:column>
-                <h:outputText id="elp"
-                              value="#{conventionController.convention.codeElp} - #{conventionController.convention.creditECTS} #{msgs['CONVENTION.CREDITS']}" />
-            </p:column>
-        </p:row>
-        <p:row rendered="#{welcomeController.personnel}">
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
-                              value="#{msgs['CONVENTION.NOMCENTRE']}" />
-            </p:column>
-            <p:column>
-                <h:outputText id="centre"
-                              value="#{conventionController.convention.idCentreGestion}" />
-            </p:column>
-        </p:row>
-
-        <p:row>
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.ETU.ADRESSE']}" />
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.ADRESSE']}" />
             </p:column>
             <p:column>
                 <h:outputText id="mainAddress1"
                               value="#{conventionController.convention.adresseEtudiant}" />
+                <t:div>
+                    <h:outputText
+                            value="#{conventionController.convention.codePostalEtudiant} #{conventionController.convention.villeEtudiant} #{conventionController.convention.paysEtudiant}" />
+                </t:div>
             </p:column>
         </p:row>
+        <!--<p:row>-->
+        <!--<p:column style="text-align:right;">-->
+        <!--<h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}" />-->
+        <!--</p:column>-->
+        <!--<p:column>-->
+        <!--</p:column>-->
+        <!--</p:row>-->
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.ETU.CODEPOSTAL']}" />
-            </p:column>
-            <p:column>
-                <h:outputText
-                        value="#{conventionController.convention.codePostalEtudiant} - #{conventionController.convention.villeEtudiant} - #{conventionController.convention.paysEtudiant}" />
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.ETU.TELEPHONE']}" />
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.TELEPHONE']}" />
             </p:column>
             <p:column>
                 <h:outputText
@@ -142,7 +126,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.ETU.TELEPHONE.PORTABLE']}" />
             </p:column>
             <p:column>
@@ -151,7 +135,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.ETU.MAILINSTITU']}" />
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.MAILINSTITU']}" />
             </p:column>
             <p:column>
                 <h:outputText value="#{conventionController.convention.etudiant.mail}" />
@@ -159,31 +143,114 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.ETU.MAILPERSO']}" />
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.MAILPERSO']}" />
             </p:column>
             <p:column>
                 <h:outputText value="#{conventionController.convention.courrielPersoEtudiant}" />
             </p:column>
         </p:row>
         <p:row>
+            <p:column colspan="2">
+                <p:separator style="width:50%; height:2px;"/>
+            </p:column>
+        </p:row>
+        <!--<p:row>-->
+        <!--<p:column style="text-align:right;">-->
+        <!--<h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.AFFILSS']}"/>-->
+        <!--</p:column>-->
+        <!--<p:column>-->
+        <!--<h:outputText value="#{conventionController.convention.assurance.libelle}" />-->
+        <!--</p:column>-->
+        <!--</p:row>-->
+        <!--<p:row>-->
+        <!--<p:column style="text-align:right;">-->
+        <!--<h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETU.CPAM']}" />-->
+        <!--</p:column>-->
+        <!--<p:column>-->
+        <!--<h:outputText value="#{conventionController.convention.caisseRegime.libelle}" />-->
+        <!--</p:column>-->
+        <!--</p:row>-->
+        <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.ETU.AFFILSS']}"/>
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.VOTREUFR']}" />
             </p:column>
             <p:column>
-                <h:outputText value="#{conventionController.convention.assurance.libelle}" />
+                <h:outputText id="ufr1"
+                              value="#{conventionController.convention.ufr.code} - #{conventionController.convention.ufr.libelle}" />
             </p:column>
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.ETU.CPAM']}" />
+                <h:outputText styleClass="fontBold"
+                              value="#{msgs['CONVENTION.VOTREETAPE']}" />
             </p:column>
             <p:column>
-                <h:outputText value="#{conventionController.convention.caisseRegime.libelle}" />
+                <h:outputText id="etape1"
+                              value="#{conventionController.convention.etape.code} - #{conventionController.convention.etape.libelle}" />
+            </p:column>
+        </p:row>
+        <p:row rendered="#{not empty conventionController.convention.codeElp or not empty conventionController.convention.creditECTS}">
+            <p:column style="text-align:right;">
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ELP']}" />
+            </p:column>
+            <p:column>
+                <h:outputText id="elp"
+                              value="#{conventionController.convention.codeElp} - #{conventionController.convention.creditECTS} #{msgs['CONVENTION.CREDITS']}" />
             </p:column>
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.TYPECONVENTION']}" />
+                <h:outputText styleClass="fontBold"
+                              value="#{msgs['CONVENTION.NOMCENTRE']}" />
+            </p:column>
+            <p:column>
+                <h:outputText id="centre"
+                              value="#{conventionController.convention.idCentreGestion} - #{conventionController.convention.centreGestion.nomCentre}" />
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column style="text-align:right;">
+                <h:outputText styleClass="fontBold"
+                              value="#{msgs['CONVENTION.ADRESSECENTRE']}" />
+            </p:column>
+            <p:column>
+                <h:outputText value="#{conventionController.convention.centreGestion.batimentResidence}
+				#{conventionController.convention.centreGestion.voie}" />
+                <t:div>
+                    <h:outputText value="#{conventionController.convention.centreGestion.codePostal}
+				#{conventionController.convention.centreGestion.commune} " />
+                </t:div>
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column style="text-align:right;">
+                <h:outputText styleClass="fontBold"
+                              value="#{msgs['CONVENTION.MAILCENTRE']}" />
+            </p:column>
+            <p:column>
+                <h:outputText id="mailCG1"
+                              value="#{conventionController.convention.centreGestion.mail} " />
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column style="text-align:right;">
+                <h:outputText styleClass="fontBold"
+                              value="#{msgs['CONVENTION.TELFAXCENTRE']}" />
+            </p:column>
+            <p:column>
+                <h:outputText
+                        value="#{msgs['CONVENTION.TELCENTRE']} #{conventionController.convention.centreGestion.telephone}
+				- #{msgs['CONVENTION.FAXCENTRE']} #{conventionController.convention.centreGestion.fax} " />
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column colspan="2">
+                <p:separator style="width:50%; height:2px;"/>
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column style="text-align:right;">
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.TYPECONVENTION']}" />
             </p:column>
             <p:column>
                 <h:outputText id="typeConvention1"
@@ -192,15 +259,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.LANGUECONVENTION']}" />
-            </p:column>
-            <p:column>
-                <h:outputText value="#{conventionController.convention.langueConvention.libelle}" />
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.THEME']}" />
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.THEME']}" />
             </p:column>
             <p:column>
                 <h:outputText id="theme1"
@@ -209,7 +268,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.SUJET']}" />
             </p:column>
             <p:column>
@@ -219,7 +278,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.FONCTION']}" />
             </p:column>
             <p:column style="word-break:break-all; white-space:normal;">
@@ -229,7 +288,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.COMPETENCES']}" />
             </p:column>
             <p:column style="word-break:break-all; white-space:normal;">
@@ -238,9 +297,9 @@
                               escape="false" />
             </p:column>
         </p:row>
-        <p:row>
+        <p:row rendered="#{not empty conventionController.convention.details}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.DETAILS']}" />
             </p:column>
             <p:column>
@@ -249,8 +308,13 @@
             </p:column>
         </p:row>
         <p:row>
+            <p:column colspan="2">
+                <p:separator style="width:50%; height:2px;"/>
+            </p:column>
+        </p:row>
+        <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
             </p:column>
             <p:column>
@@ -261,7 +325,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.FINSTAGE']}" />
             </p:column>
             <p:column>
@@ -272,7 +336,7 @@
         </p:row>
         <p:row rendered="#{conventionController.convention.interruptionStage == false}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.INTERRUPTION']}" />
             </p:column>
             <p:column>
@@ -281,7 +345,7 @@
         </p:row>
         <p:row rendered="#{conventionController.convention.interruptionStage == true}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.INTERRUPTION']}" />
             </p:column>
             <p:column>
@@ -290,7 +354,7 @@
         </p:row>
         <p:row rendered="#{conventionController.convention.interruptionStage }">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}" />
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPDEBSTAGE']}" />
             </p:column>
             <p:column>
                 <h:outputText value="#{conventionController.convention.dateDebutInterruption}">
@@ -300,7 +364,7 @@
         </p:row>
         <p:row rendered="#{conventionController.convention.interruptionStage}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;" value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}" />
+                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.INTERRUPFINSTAGE']}" />
             </p:column>
             <p:column>
                 <h:outputText value="#{conventionController.convention.dateFinInterruption}">
@@ -310,7 +374,7 @@
         </p:row>
         <!-- 		<p:row> -->
         <!-- 			<p:column> -->
-        <!-- 				<h:outputText style="font-weight:bold;" for="dureeStage1" -->
+        <!-- 				<h:outputText styleClass="fontBold" for="dureeStage1" -->
         <!-- 					value="#{msgs['CONVENTION.DUREESTAGE.INFO']}" /> -->
         <!-- 			</p:column> -->
         <!-- 			<p:column> -->
@@ -320,7 +384,7 @@
         <!-- 		</p:row> -->
         <p:row rendered="#{not empty conventionController.convention.dureeExceptionnelle}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.DUREEEXCEPT.INFO']}" />
             </p:column>
             <p:column>
@@ -347,7 +411,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
             </p:column>
             <p:column>
@@ -356,7 +420,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.TEMPSTRAVAIL']}" />
             </p:column>
             <p:column>
@@ -366,7 +430,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.INFO']}" />
             </p:column>
             <p:column>
@@ -377,7 +441,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.NBHEURESHEBDO.INFO']}" />
             </p:column>
             <p:column>
@@ -387,7 +451,7 @@
         </p:row>
         <!-- 		<p:row> -->
         <!-- 			<p:column> -->
-        <!-- 				<h:outputText style="font-weight:bold;" for="quotiteTravail1" -->
+        <!-- 				<h:outputText styleClass="fontBold" for="quotiteTravail1" -->
         <!-- 					value="#{msgs['CONVENTION.QUOTITETRAVAIL']}" /> -->
         <!-- 			</p:column> -->
         <!-- 			<p:column> -->
@@ -397,7 +461,7 @@
         <!-- 		</p:row> -->
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.NBCONGES']}" />
             </p:column>
             <p:column>
@@ -406,8 +470,13 @@
             </p:column>
         </p:row>
         <p:row>
+            <p:column colspan="2">
+                <p:separator style="width:50%; height:2px;"/>
+            </p:column>
+        </p:row>
+        <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.INDEMNISATION']}" />
             </p:column>
             <p:column>
@@ -418,7 +487,7 @@
         <p:row
                 rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.MTGRATIFICATION']}" />
             </p:column>
             <p:column>
@@ -429,7 +498,7 @@
         <p:row
                 rendered="#{conventionController.convention.indemnisation.libelle==beanUtils.indemnisationOui}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.MODEVERSGRAT']}" />
             </p:column>
             <p:column>
@@ -438,8 +507,13 @@
             </p:column>
         </p:row>
         <p:row>
+            <p:column colspan="2">
+                <p:separator style="width:50%; height:2px;"/>
+            </p:column>
+        </p:row>
+        <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.ORIGINESTAGE']}" />
             </p:column>
             <p:column>
@@ -449,7 +523,7 @@
         </p:row>
         <p:row rendered="#{conventionController.booltemConfSujetTeme == true}">
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
             </p:column>
             <p:column>
@@ -458,7 +532,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.TEMCONFSUJET']}"
                               rendered="#{conventionController.booltemConfSujetTeme == false}" />
             </p:column>
@@ -469,7 +543,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.MODESUIVI']}" />
             </p:column>
             <p:column>
@@ -480,7 +554,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.AVANTAGESNATURE.INFO']}" />
             </p:column>
             <p:column>
@@ -491,7 +565,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.NATURETRAVAIL']}" />
             </p:column>
             <p:column>
@@ -501,7 +575,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
             </p:column>
             <p:column>
@@ -511,7 +585,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.TRAVAILNUITFERIE.INFO']}" />
             </p:column>
             <p:column>
@@ -521,8 +595,13 @@
             </p:column>
         </p:row>
         <p:row>
+            <p:column colspan="2">
+                <p:separator style="width:50%; height:2px;"/>
+            </p:column>
+        </p:row>
+        <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.ENSEIGNANT']}" />
             </p:column>
             <p:column>
@@ -533,8 +612,13 @@
             </p:column>
         </p:row>
         <p:row>
+            <p:column colspan="2">
+                <p:separator style="width:50%; height:2px;"/>
+            </p:column>
+        </p:row>
+        <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.STRUCTURE']}" />
             </p:column>
             <p:column>
@@ -545,7 +629,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.SERVICE']}" />
             </p:column>
             <p:column>
@@ -556,7 +640,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.CONTACT']}" />
             </p:column>
             <p:column>
@@ -568,7 +652,7 @@
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.CONTACT.COORD']}" />
             </p:column>
             <p:column>
@@ -588,7 +672,7 @@
 
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
+                <h:outputText styleClass="fontBold"
                               value="#{msgs['CONVENTION.SIGNATAIRE']}" />
             </p:column>
             <p:column>
@@ -596,50 +680,6 @@
                         value="#{conventionController.convention.signataire.civilite.libelle}
 								#{conventionController.convention.signataire.nom} #{conventionController.convention.signataire.prenom}
 								#{conventionController.convention.signataire.fonction}" />
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
-                              value="#{msgs['CONVENTION.NOMCENTRE']}" />
-            </p:column>
-            <p:column>
-                <h:outputText id="nomCG1"
-                              value="#{conventionController.convention.centreGestion.nomCentre} " />
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
-                              value="#{msgs['CONVENTION.ADRESSECENTRE']}" />
-            </p:column>
-            <p:column>
-                <h:outputText id="adresseCG1"
-                              value="#{conventionController.convention.centreGestion.batimentResidence}
-				#{conventionController.convention.centreGestion.voie}
-				#{conventionController.convention.centreGestion.codePostal}
-				#{conventionController.convention.centreGestion.commune} " />
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
-                              value="#{msgs['CONVENTION.MAILCENTRE']}" />
-            </p:column>
-            <p:column>
-                <h:outputText id="mailCG1"
-                              value="#{conventionController.convention.centreGestion.mail} " />
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column style="text-align:right;">
-                <h:outputText style="font-weight:bold;"
-                              value="#{msgs['CONVENTION.TELFAXCENTRE']}" />
-            </p:column>
-            <p:column>
-                <h:outputText
-                        value="#{msgs['CONVENTION.TELCENTRE']} #{conventionController.convention.centreGestion.telephone}
-				- #{msgs['CONVENTION.FAXCENTRE']} #{conventionController.convention.centreGestion.fax} " />
             </p:column>
         </p:row>
     </p:panelGrid>

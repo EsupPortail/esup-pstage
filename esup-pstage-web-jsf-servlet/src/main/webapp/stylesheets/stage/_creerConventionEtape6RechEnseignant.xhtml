@@ -8,30 +8,28 @@
     <ui:include src="/stylesheets/stage/_formRechEnseignant.xhtml" />
 
     <t:div styleClass="ml40">
-        <p:commandButton value="#{msgs['FORM.RECHERCHER']}"
+        <p:commandButton id="confirmForm" value="#{msgs['FORM.RECHERCHER']}"
                          action="#{conventionController.rechercheEnseignantCrea}"
                          styleClass="mt20 ml30" update="formConvention"
                          onstart="PF('statusDialog').show();"
                          oncomplete="PF('statusDialog').hide();" />
     </t:div>
 
-    <t:htmlTag value="div" style="height: 20px;" />
-
-    <t:div rendered="#{!conventionController.convention.centreGestion.presenceTuteurEns}">
+    <t:div rendered="#{!conventionController.convention.centreGestion.presenceTuteurEns}"
+           styleClass="textCenter mt20 mb20">
         <h:outputText value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE']}"
                       escape="false" />
         <p:commandLink id="passeretape"
                        action="#{conventionController.goToCreerConventionEtape7Signataire}">
             <f:setPropertyActionListener value="#{null}"
                                          target="#{conventionController.convention.enseignant}" />
-            <h:outputText
-                    value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}"
+            <h:outputText value="#{msgs['CONVENTION.ETAPE6.PASSERETAPE.SUIVANTE']}"
                     escape="false" />
         </p:commandLink>
     </t:div>
 
     <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
-                     action="#{conventionController.retourEtape5Creation}"
+                     action="#{conventionController.retourCreationEtape5}"
                      immediate="true"
                      styleClass="mt30 mb20"/>
 

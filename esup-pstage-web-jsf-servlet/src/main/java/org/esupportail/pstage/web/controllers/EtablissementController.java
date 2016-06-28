@@ -721,10 +721,9 @@ public class EtablissementController extends AbstractContextAwareController {
 	public List<SelectItem> majCommunes(String codePostal) {
 		List<SelectItem> l = null;
 		if (codePostal.length() == 5) {
-			List<CommuneDTO> ls = getGeographieRepositoryDomain()
-					.getCommuneFromDepartement(codePostal);
+			List<CommuneDTO> ls = getGeographieRepositoryDomain().getCommuneFromDepartement(codePostal);
 			if (ls != null) {
-				l = new ArrayList<SelectItem>();
+				l = new ArrayList<>();
 				for (CommuneDTO c : ls) {
 					l.add(new SelectItem(c.getCodeCommune(), c.getLibCommune()));
 				}
@@ -1234,10 +1233,13 @@ public class EtablissementController extends AbstractContextAwareController {
 				if (lTmp != null && !lTmp.isEmpty()) {
 					this.formServiceCommunesListening = lTmp;
 				} else {
-					this.formServiceCommunesListening = new ArrayList<SelectItem>();
+					this.formServiceCommunesListening = new ArrayList<>();
 				}
+				System.out.println("codepostal : " + this.formServiceTmpCodePostal);
+				System.out.println("codeCommune : " + this.formService.getCodeCommune());
 				this.formServiceTmpCommuneDTO = getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(
 						this.formServiceTmpCodePostal,this.formService.getCodeCommune());
+				System.out.println("result : " + this.formServiceTmpCommuneDTO);
 				if (this.formServiceTmpCommuneDTO != null) {
 					this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());
 					this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());
@@ -1246,8 +1248,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				}
 			}
 		}
-		getSessionController().setModifServiceCurrentPage("_modifServiceEtape1");
-		// return "_modifServiceEtape1";
+		getSessionController().setModifServiceCurrentPage("_modifServiceEtape0");
 	}
 
 	/**

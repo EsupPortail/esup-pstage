@@ -23,6 +23,7 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewExpiredException;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.mail.Message;
@@ -1076,15 +1077,20 @@ public class ConventionController extends AbstractContextAwareController {
 		}
 		if (ctrlInfosOK) {
 			// renseignements des zones de selection
-			if (selAssurance != null) {
-				this.convention.setAssurance(selAssurance);
-				this.convention.setIdAssurance(selAssurance.getId());
 
-			}
-			if (selCaisseRegime != null) {
-				this.convention.setCaisseRegime(selCaisseRegime);
-				this.convention.setCodeCaisse(selCaisseRegime.getCode());
-			}
+			// Retrait des infos caisse régime et assurance
+//			if (selAssurance != null) {
+//				this.convention.setAssurance(selAssurance);
+//				this.convention.setIdAssurance(selAssurance.getId());
+//
+//			}
+//			if (selCaisseRegime != null) {
+//				this.convention.setCaisseRegime(selCaisseRegime);
+//				this.convention.setCodeCaisse(selCaisseRegime.getCode());
+//			}
+			this.convention.setIdAssurance(0);
+			this.convention.setCodeCaisse("");
+
 			EtudiantDTO etudiantTmp = this.convention.getEtudiant();
 			etudiantTmp.setLoginModif(getSessionController().getCurrentLogin());
 			try {
@@ -1103,8 +1109,7 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 			ConventionDTO conventionTmp = this.convention;
-			conventionTmp.setLoginModif(getSessionController()
-					.getCurrentLogin());
+			conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 
 			// Ajout possibilite de modif etape
 			if (this.etudiantRef.getTheCodeEtape() != null
@@ -1239,7 +1244,7 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String retourEtape1Creation(){
+	public String retourCreationEtape1(){
 
 		sequenceEtapeEnum = SequenceEtapeEnum.etape1;
 
@@ -1249,7 +1254,7 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String retourEtape2Creation(){
+	public String retourCreationEtape2(){
 
 		sequenceEtapeEnum = SequenceEtapeEnum.etape2;
 
@@ -1259,7 +1264,7 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String retourEtape3Creation(){
+	public String retourCreationEtape3(){
 
 		sequenceEtapeEnum = SequenceEtapeEnum.etape3;
 
@@ -1269,7 +1274,7 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String retourEtape4Creation(){
+	public String retourCreationEtape4(){
 
 		sequenceEtapeEnum = SequenceEtapeEnum.etape4;
 
@@ -1279,12 +1284,22 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return a String
 	 */
-	public String retourEtape5Creation(){
+	public String retourCreationEtape5(){
 
 		this.ctrlInfosStageOK = false;
 		sequenceEtapeEnum = SequenceEtapeEnum.etape5;
 
 		return "creerConventionEtape5Stage";
+	}
+
+	/**
+	 * @return a String
+	 */
+	public String retourCreationEtape6(){
+
+		sequenceEtapeEnum = SequenceEtapeEnum.etape6;
+
+		return "creerConventionEtape6Enseignant";
 	}
 	/**
 	 * @return a String
@@ -1445,17 +1460,19 @@ public class ConventionController extends AbstractContextAwareController {
 		this.convention.setTelEtudiant(this.etudiantRef.getTel());
 		this.convention.setTelPortableEtudiant(this.etudiantRef
 				.getPortablePhone());
-		if (this.etudiantRef.getTheAssurance() != null) {
-			this.convention.setAssurance(this.etudiantRef.getTheAssurance());
-			this.convention.setIdAssurance(this.etudiantRef.getTheAssurance()
-					.getId());
-		}
-		if (this.etudiantRef.getTheCaisseRegime() != null) {
-			this.convention.setCaisseRegime(this.etudiantRef
-					.getTheCaisseRegime());
-			this.convention.setCodeCaisse(this.etudiantRef.getTheCaisseRegime()
-					.getCode());
-		}
+
+		// Retrait des infos caisse régime et assurance
+//		if (this.etudiantRef.getTheAssurance() != null) {
+//			this.convention.setAssurance(this.etudiantRef.getTheAssurance());
+//			this.convention.setIdAssurance(this.etudiantRef.getTheAssurance().getId());
+//		}
+//		if (this.etudiantRef.getTheCaisseRegime() != null) {
+//			this.convention.setCaisseRegime(this.etudiantRef.getTheCaisseRegime());
+//			this.convention.setCodeCaisse(this.etudiantRef.getTheCaisseRegime().getCode());
+//		}
+		this.convention.setIdAssurance(0);
+		this.convention.setCodeCaisse("");
+
 		if (this.etudiantRef.getTheCodeElp() != null) {
 			this.convention.setCodeElp(this.etudiantRef.getTheCodeElp());
 		}
@@ -1997,8 +2014,7 @@ public class ConventionController extends AbstractContextAwareController {
 			// renseignements des zones de selection
 			rensInfosSelecStage();
 			// retour = "_creerConventionEtape5ConfirmInfosStage";
-			getSessionController().setCreationConventionEtape5CurrentPage(
-					"_creerConventionEtape5ConfirmInfosStage");
+			getSessionController().setCreationConventionEtape5CurrentPage("_creerConventionEtape5ConfirmInfosStage");
 		}
 		// return retour;
 	}
@@ -2302,15 +2318,14 @@ public class ConventionController extends AbstractContextAwareController {
 		this.conventionCree = false;
 		ConventionDTO conventionTmp = this.convention;
 
-		if (this.convention.getIdModeVersGratification() == null)
+		if (this.convention.getIdModeVersGratification() == null) {
 			this.convention.setIdModeVersGratification(0);
+		}
 
 		// creation etape
 		try {
-			this.convention.getEtape().setCodeUniversite(
-					getSessionController().getCodeUniversite());
-			int idEtape = this.getConventionDomainService().addEtape(
-					this.convention.getEtape());
+			this.convention.getEtape().setCodeUniversite(getSessionController().getCodeUniversite());
+			int idEtape = this.getConventionDomainService().addEtape(this.convention.getEtape());
 			if (logger.isInfoEnabled()) {
 				logger.info("Ajout etape : " + this.convention.getEtape()
 						+ ", id etape ajout : " + idEtape);
@@ -4154,6 +4169,7 @@ public class ConventionController extends AbstractContextAwareController {
 		this.rechercheEnseignant("formConvention");
 
 		if (this.resultatEnseignant != null) {
+			this.convention.setEnseignant(this.resultatEnseignant);
 			checkSurchargeTuteur();
 			getSessionController().setCreationConventionEtape6CurrentPage("_creerConventionEtape6Enseignant");
 		} else if (this.listeResultatsRechercheEnseignant != null) {
@@ -5838,7 +5854,7 @@ public class ConventionController extends AbstractContextAwareController {
 		Integer limiteSurcharge = getSessionController().getSurchargeTuteur();
 		if (limiteSurcharge != null) {
 			Integer nbConventions = getEnseignantDomainService().getNombreConventionByEnseignantByAnnee(
-					this.resultatEnseignant.getUidEnseignant(),
+					this.convention.getEnseignant().getUidEnseignant(),
 					getSessionController().getCodeUniversite(),
 					getBeanUtils().getAnneeUniversitaireCourante(new Date()));
 			if (nbConventions > limiteSurcharge) {

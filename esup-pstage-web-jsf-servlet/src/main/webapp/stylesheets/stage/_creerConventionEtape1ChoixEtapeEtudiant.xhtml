@@ -294,8 +294,7 @@
             <h:outputText styleClass="ml5 fontRed fz16"
                           value="#{msgs['CONVENTION.CREERCONVENTION.AUCUNE_INSCRIPTION']}" />
         </t:div>
-        <p:commandButton value="#{msgs['FORM.NEXT']}"
-                         id="validerChoixEtape" update="@form"
+        <p:commandButton id="confirmForm" value="#{msgs['FORM.NEXT']}" update="@form"
                          action="#{conventionController.goToCreerConventionCtrlInfosEtu}"
                          rendered="#{not empty conventionController.listeAnneesUniv}" />
     </t:div>

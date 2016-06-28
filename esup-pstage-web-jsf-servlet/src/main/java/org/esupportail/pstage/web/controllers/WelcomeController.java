@@ -139,7 +139,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	 */
 	@Override
 	public void reset() {
-		super.reset();	
+		super.reset();
 	}
 
 	/**
@@ -208,7 +208,7 @@ public class WelcomeController extends AbstractContextAwareController {
 				}else{
 					//					ret="_motDePassePerduEtape3Confirmation";
 					getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
-					ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu, 
+					ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu,
 							ls.get(0).getIdStructure());
 					if(c!=null){
 						InternetAddress cIA;
@@ -216,11 +216,11 @@ public class WelcomeController extends AbstractContextAwareController {
 							cIA = new InternetAddress(c.getMail());
 							cIA.validate();
 							getSmtpService().send(
-									cIA, 
+									cIA,
 									getString("MAIL.RECAPIDENTS.SUJET", getSessionController().getApplicationNameEntreprise()),
 									getString("MAIL.RECAPIDENTS.MESSAGE", c.getLogin(), getBlowfishUtils().decode(c.getMdp()),getSessionController().getApplicationNameEntreprise()),
 									""
-									);
+							);
 							if(logger.isInfoEnabled()){
 								logger.info("Recuperation de mot de passe pour : "+c);
 							}
@@ -252,7 +252,7 @@ public class WelcomeController extends AbstractContextAwareController {
 		//		String ret="_motDePassePerduEtape3Confirmation";
 		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 		if(this.structureSelectionneeMotDePassePerdu!=null){
-			ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu, 
+			ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu,
 					this.structureSelectionneeMotDePassePerdu.getIdStructure());
 			if(c!=null){
 				InternetAddress cIA;
@@ -260,11 +260,11 @@ public class WelcomeController extends AbstractContextAwareController {
 					cIA = new InternetAddress(c.getMail());
 					cIA.validate();
 					getSmtpService().send(
-							cIA, 
+							cIA,
 							getString("MAIL.RECAPIDENTS.SUJET", getSessionController().getApplicationNameEntreprise()),
 							getString("MAIL.RECAPIDENTS.MESSAGE", c.getLogin(), getBlowfishUtils().decode(c.getMdp()),getSessionController().getApplicationNameEntreprise()),
 							""
-							);
+					);
 					if(logger.isInfoEnabled()){
 						logger.info("Recuperation de mot de passe pour : "+c);
 					}
@@ -284,7 +284,7 @@ public class WelcomeController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void nousContacter(){
 		//		String retour="_nousContacterEtape2";
@@ -293,15 +293,15 @@ public class WelcomeController extends AbstractContextAwareController {
 			addInfoMessage(null, "GENERAL.NOUS_CONTACTER.CONFIRMATION");
 			if(StringUtils.hasText(getSessionController().getMailingListEntr())){
 				getSmtpService().send(
-						getSessionController().getMailingListEntrIA(), 
+						getSessionController().getMailingListEntrIA(),
 						getString("MAIL.ADMIN.NOUSCONTACTER.SUJET", getSessionController().getApplicationNameEntreprise(), getSessionController().getNousContacter().getCodePostal()+" - "+getSessionController().getNousContacter().getPays().getLibelle())+" : "+getSessionController().getNousContacter().getSujet(),
-						getString("MAIL.ADMIN.NOUSCONTACTER.MESSAGE", getSessionController().getApplicationNameEntreprise(), 
+						getString("MAIL.ADMIN.NOUSCONTACTER.MESSAGE", getSessionController().getApplicationNameEntreprise(),
 								getFacesInfoMessage("CONTACT.NOM").getSummary()+" : "+getSessionController().getNousContacter().getContact().getNom()+" - "+getFacesInfoMessage("CONTACT.PRENOM").getSummary()+" : "+getSessionController().getNousContacter().getContact().getPrenom()
-								+" - "+getFacesInfoMessage("CONTACT.MAIL").getSummary()+" : "+getSessionController().getNousContacter().getContact().getMail(),
+										+" - "+getFacesInfoMessage("CONTACT.MAIL").getSummary()+" : "+getSessionController().getNousContacter().getContact().getMail(),
 								getSessionController().getNousContacter().getSujet(),
 								getSessionController().getNousContacter().getMessage()),
-								""
-						);
+						""
+				);
 			}
 			getSessionController().setNousContacter(new NousContacter());
 		}
@@ -659,7 +659,7 @@ public class WelcomeController extends AbstractContextAwareController {
 
 					if(getSessionController().getCurrentCentresGestion()!=null && !getSessionController().getCurrentCentresGestion().isEmpty()){
 						// Ajout des droits pour le centre entreprise (artois) si la personne est superadmin ou adminStructure
-						if ((getSessionController().isSuperAdminPageAuthorized() 
+						if ((getSessionController().isSuperAdminPageAuthorized()
 								|| getAdminDomainService().getAdminStructureFromLogin(getSessionController().getCurrentLogin()) != null)
 								&& getCentreGestionDomainService().getCentreEntreprise() != null
 								&& !getSessionController().getCurrentCentresGestion().contains(getCentreGestionDomainService().getCentreEntreprise())){
@@ -689,7 +689,7 @@ public class WelcomeController extends AbstractContextAwareController {
 
 								getSessionController().setCurrentAuthPersonnel(p);
 							}
-						}	
+						}
 					}
 
 					if (faculty.contains(userAffiliation)){
@@ -710,13 +710,13 @@ public class WelcomeController extends AbstractContextAwareController {
 								getSessionController().setCurrentAuthEnseignant(en);
 							}
 						}
-					} 
+					}
 				} else if (StringUtils.hasText(userAffiliation) && student.contains(userAffiliation)){
 					// Sinon, si c'est un étudiant
 					// Il existe forcement dans le Ldap donc on appel getEtudiantRef a partir de son uid
 					EtudiantRef e = getStudentDataRepositoryDomain().getEtudiantRef(getSessionController().getCodeUniversite(),
 							getSessionController().getCurrentStageCasUser().getId());
-					
+
 					if (e != null){
 						// Si la liste des annees d'inscription est vide, aucune inscription admin pour l'etudiant, il ne peut donc creer de convention
 						if (e.getListeAnneesUniv() == null || e.getListeAnneesUniv().isEmpty()){
@@ -735,7 +735,7 @@ public class WelcomeController extends AbstractContextAwareController {
 						 */
 						CentreGestionDTO tmp = new CentreGestionDTO();
 						CentreGestionDTO cgEtab = getCentreGestionDomainService().getCentreEtablissement(getSessionController().getCodeUniversite());
-						
+
 						if (getSessionController().getCritereGestion().equals(DonneesStatic.CG_UFR)) {
 							// On recupere la liste des ufr de l'etudiant et on vérifie si elles sont gerees par un centre
 							// Si c'est le cas et que ce centre n'est pas déjà dans la liste CurrentCentresGestion, on l'y ajoute
@@ -785,10 +785,10 @@ public class WelcomeController extends AbstractContextAwareController {
 									}
 								}
 							}
-							if (e.getStudysKey() != null 
-								&& e.getStudysKey().isEmpty() 
-								&& e.getListeEtapeInscriptions() != null 
-								&& e.getListeEtapeInscriptions().isEmpty()) {
+							if (e.getStudysKey() != null
+									&& e.getStudysKey().isEmpty()
+									&& e.getListeEtapeInscriptions() != null
+									&& e.getListeEtapeInscriptions().isEmpty()) {
 								// par default, on met le centre etablissement
 								getSessionController().getCurrentCentresGestion().add(cgEtab);
 							}
@@ -810,7 +810,7 @@ public class WelcomeController extends AbstractContextAwareController {
 			}
 		}
 		if (logger.isDebugEnabled())
-			logger.debug("Resume des informations recuperees a la connexion : " + 
+			logger.debug("Resume des informations recuperees a la connexion : " +
 					"\nCurrentAuthAdminStructure : " + getSessionController().getCurrentAuthAdminStructure() +
 					"\nCurrentAuthContact : " + getSessionController().getCurrentAuthContact() +
 					"\nCurrentAuthEtudiant : " + getSessionController().getCurrentAuthEtudiant() +
@@ -1011,7 +1011,7 @@ public class WelcomeController extends AbstractContextAwareController {
 		return ret;
 	}
 	/**
-	 * 
+	 *
 	 */
 	public void disconnectLight(){
 		getSessionController().setCurrentAuthAdminStructure(null);
@@ -1043,7 +1043,7 @@ public class WelcomeController extends AbstractContextAwareController {
 		getSessionController().setNotAdminEntrepriseViaCasShibb(false);
 		getSessionController().setCurrentAuthEtudiant(null);
 		getSessionController().setCurrentAuthEnseignant(null);
-		getSessionController().setCurrentAuthPersonnel(null);	
+		getSessionController().setCurrentAuthPersonnel(null);
 		getSessionController().setCurrentCentresGestion(null);
 		getSessionController().setCurrentStageCasUser(null);
 		getSessionController().setCentreGestionRattachement(null);

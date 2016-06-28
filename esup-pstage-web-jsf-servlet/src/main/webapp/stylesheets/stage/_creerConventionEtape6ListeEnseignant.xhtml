@@ -23,6 +23,8 @@
                 <f:setPropertyActionListener value="_creerConventionEtape6Enseignant"
                                              target="#{sessionController.creationConventionEtape6CurrentPage}" />
                 <f:setPropertyActionListener value="#{enseignant}"
+                                             target="#{conventionController.convention.enseignant}" />
+                <f:setPropertyActionListener value="#{enseignant}"
                                              target="#{conventionController.resultatEnseignant}" />
             </p:commandButton>
         </p:column>

@@ -12,8 +12,8 @@
 		<f:facet name="first">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
-			<meta name="viewport" content="width=device-width, initial-scale=1"/>
-			<meta name="theme-color" content="#2C7094"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <meta name="theme-color" content="#2C7094"/>
 		</f:facet>
 		<title><h:outputText value="#{applicationService.name}" /></title>
 		<link rel="stylesheet" type="text/css"
@@ -29,19 +29,16 @@
                                     update="exceptionDialog"
                                     onexception="PF('exceptionDialog').show();" />
 
-            <p:ajaxExceptionHandler type="java.lang.NullPointerException"
-                                    update="exceptionDialog"
-                                    onexception="PF('exceptionDialog').show();" />
+        <p:dialog id="exceptionDialog" header="La page renvoie une erreur '#{pfExceptionHandler.type}'" widgetVar="exceptionDialog"
+                  resizable="false" modal="true">
+            <h:outputText styleClass="mt20 mb20" value="#{msgs['EXCEPTION.SESSIONEXPIREE']}" />
 
-            <p:dialog id="exceptionDialog" header="Exception '#{pfExceptionHandler.type}' occured!" widgetVar="exceptionDialog"
-                      height="500px">
-                Message:  <br/>
-                StackTrace: <h:outputText value="#{pfExceptionHandler.formattedStackTrace}" escape="false" /> <br />
-
-                <p:button onclick="document.location.href = document.location.href;"
-                          value="Reload!"
-                          rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" />
-            </p:dialog>
+            <t:div styleClass="textCenter">
+                <p:commandButton action="accueilStage"
+                                 value="Relancer l'application" styleClass="mb20"
+                                 rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" />
+            </t:div>
+        </p:dialog>
 
 			<ui:insert name="sidebar" />
 			<ui:insert name="topbar" />

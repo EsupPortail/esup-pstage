@@ -75,7 +75,7 @@
         </p:outputPanel>
 
         <t:div styleClass="mt20 textCenter">
-            <p:commandButton update="@form"
+            <p:commandButton id="confirmForm" update="@form"
                              action="#{rechercheController.rechercheRaisonSociale}"
                              value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
                              onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>

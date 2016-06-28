@@ -9,33 +9,23 @@
             <f:facet name="header">
                 <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
             </f:facet>
-            <h:form id="formConvention">
+            <h:form id="formConvention"
+                    onkeypress="if (event.keyCode == 13) { document.getElementById('formConvention:confirmForm').click(); return false; }">
                 <ui:include src="_roadmap.xhtml" />
-                <p:panel
-                        style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-                    <f:facet name="header">
-                        <h:outputText value="#{msgs['CONVENTION.ETAPE8.RECAP']}" />
-                    </f:facet>
+                <t:fieldset>
+                    <t:div styleClass="mt20 ml30" style="max-width: 900px;">
 
-                    <t:htmlTag value="div" style="height: 10px;" />
+                        <ui:include src="/stylesheets/stage/_recapConvention.xhtml" />
 
-                    <p:messages />
+                        <t:div styleClass="textCenter mt20 mb30">
+                            <p:commandButton value="#{msgs['FORM.CREER']}"
+                                             action="#{conventionController.goToAjouterConvention}" />
+                        </t:div>
 
-                    <ui:include src="/stylesheets/stage/_recapConvention.xhtml" />
-
-                    <t:htmlTag value="div" style="height:20px;" />
-
-                    <t:htmlTag value="center">
-                        <p:commandButton value="#{msgs['FORM.CREER']}"
-                                         style="font-size:14px;"
-                                         action="#{conventionController.goToAjouterConvention}" />
-                    </t:htmlTag>
-
-                    <t:htmlTag value="div" style="height:30px;" />
-
-                    <p:commandButton value="#{msgs['FORM.CANCEL']}" immediate="true"
-                                     action="#{conventionController.goToCreerConventionEtape7Signataire}" />
-                </p:panel>
+                        <p:commandButton value="#{msgs['FORM.CANCEL']}" immediate="true"
+                                         action="#{conventionController.goToCreerConventionEtape7Signataire}" />
+                    </t:div>
+                </t:fieldset>
             </h:form>
         </p:panel>
     </ui:define>

@@ -17,13 +17,13 @@
     </p:outputPanel>
 
     <t:div styleClass="clearFloat textCenter">
-        <p:commandButton
+        <p:commandButton id="confirmForm"
                 action="#{conventionController.goToCreerConventionCtrlStage}"
                 value="#{msgs['FORM.VALIDER']}" update="opFCE,@form"/>
     </t:div>
 
     <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
-                     action="#{conventionController.retourEtape4Creation}"
+                     action="#{conventionController.retourCreationEtape4}"
                      immediate="true"
                      styleClass="mt30 mb20"/>
 </ui:composition>
