@@ -5,21 +5,14 @@
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="formFicheEvaluation"
 		style="padding-top:15px; padding-bottom:20px;">
-		<fieldset>
-			<legend>
-				<h:graphicImage id="warn" alt="#{msgs['GENERAL.WARNING']}"
-					title="#{msgs['GENERAL.WARNING']}"
-					value="/media/images/warning_20px.png" />
-				<h:outputLabel style="padding-left:5px; padding-right:5px;"
-					for="warn" value="Attention" />
-			</legend>
+		<p:fieldset legend="#{msgs['GENERAL.WARNING']}" styleClass="legendWarning">
 			<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.ALERTE']}"
 				escape="false" />
-		</fieldset>
+		</p:fieldset>
 
 		<t:htmlTag value="div" style="height:15px;" />
 
-		<fieldset>
+		<p:fieldset>
 			<legend>
 				<h:outputLabel for="gridFiches"
 					value="#{msgs['CENTRE.FICHE_EVALUATION.EDIT']}" />
@@ -132,6 +125,6 @@
 					</h:panelGrid>
 				</h:column>
 			</h:panelGrid>
-		</fieldset>
+		</p:fieldset>
 	</h:form>
 </ui:composition>

@@ -17,91 +17,62 @@
 
         <t:htmlTag value="div" style="height: 10px;" />
 
-        <t:fieldset>
-            <legend>
-                <h:outputLabel value="#{msgs['GENERAL.COORDONNEES']}" for="voie" />
-            </legend>
-            <h:panelGrid columns="3" style="width:100%;">
-                <t:htmlTag value="ul" styleClass="formUL">
-                    <t:htmlTag value="li">
-                        <h:outputLabel value="#{msgs['CENTRE.VOIE']} " for="voie"
-                                       rendered="#{not empty centreController.centre.voie}" />
-                        <h:outputText id="voie" value="#{centreController.centre.voie}"
-                                      rendered="#{not empty centreController.centre.voie}" />
-                    </t:htmlTag>
-                    <t:htmlTag value="li">
-                        <h:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']} "
-                                       for="batimentResidence" />
-                        <h:outputText id="batimentResidence"
-                                      value="#{centreController.centre.batimentResidence}" />
-                    </t:htmlTag>
+        <p:fieldset legend="#{msgs['GENERAL.COORDONNEES']}" styleClass="mb10">
+                <t:htmlTag value="ul" styleClass="formUL columns-2">
+                    <t:div styleClass="column">
+                        <t:htmlTag value="li">
+                            <h:outputLabel value="#{msgs['CENTRE.VOIE']} " for="voie"
+                                           rendered="#{not empty centreController.centre.voie}" />
+                            <h:outputText id="voie" value="#{centreController.centre.voie}"
+                                          rendered="#{not empty centreController.centre.voie}" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <h:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']} "
+                                           for="batimentResidence" />
+                            <h:outputText id="batimentResidence"
+                                          value="#{centreController.centre.batimentResidence}" />
+                        </t:htmlTag>
+
+                        <t:htmlTag value="li">
+                            <h:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} "
+                                           for="codePostal" />
+                            <h:outputText id="codePostal"
+                                          value="#{centreController.centre.codePostal}" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <h:outputLabel value="#{msgs['CENTRE.COMMUNE']} " for="commune" />
+                            <h:outputText id="commune"
+                                          value="#{centreController.centre.commune}" />
+                        </t:htmlTag>
+                    </t:div>
+
+                    <t:div styleClass="column">
+                        <t:htmlTag value="li"
+                                   rendered="#{not empty centreController.centre.mail}">
+                            <h:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail" />
+                            <h:outputText id="mail" value="#{centreController.centre.mail}" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li"
+                                   rendered="#{not empty centreController.centre.siteWeb}">
+                            <h:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb" />
+                            <h:outputText id="siteWeb"
+                                          value="#{centreController.centre.siteWeb}" />
+                        </t:htmlTag>
+
+                        <t:htmlTag value="li" rendered="#{not empty centreController.centre.telephone}">
+                            <h:outputLabel value="#{msgs['CENTRE.TEL']} " for="telephone"/>
+                            <h:outputText id="telephone"
+                                          value="#{centreController.centre.telephone}" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li" rendered="#{not empty centreController.centre.fax}" >
+                            <h:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax"/>
+                            <h:outputText id="fax" value="#{centreController.centre.fax}" />
+                        </t:htmlTag>
+                    </t:div>
                 </t:htmlTag>
+        </p:fieldset>
 
-                <p:separator style="height:100px; width:2px; margin:0 30px;" />
-
-                <t:htmlTag value="ul" styleClass="formUL">
-                    <t:htmlTag value="li">
-                        <h:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} "
-                                       for="codePostal" />
-                        <h:outputText id="codePostal"
-                                      value="#{centreController.centre.codePostal}" />
-
-                        <h:outputLabel value="#{msgs['CENTRE.COMMUNE']} " for="commune" />
-                        <h:outputText id="commune"
-                                      value="#{centreController.centre.commune}" />
-                    </t:htmlTag>
-                </t:htmlTag>
-            </h:panelGrid>
-
-            <h:panelGrid columns="3" style="width:100%;">
-                <t:htmlTag value="ul" styleClass="formUL"
-                           rendered="#{not empty centreController.centre.mail
-											|| not empty centreController.centre.siteWeb}">
-                    <t:htmlTag value="li"
-                               rendered="#{not empty centreController.centre.mail}">
-                        <h:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail" />
-                        <h:outputText id="mail" value="#{centreController.centre.mail}" />
-                    </t:htmlTag>
-                    <t:htmlTag value="li"
-                               rendered="#{not empty centreController.centre.siteWeb}">
-                        <h:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb" />
-                        <h:outputText id="siteWeb"
-                                      value="#{centreController.centre.siteWeb}" />
-                    </t:htmlTag>
-                </t:htmlTag>
-
-                <p:separator style="height:100px; width:2px; margin:0 30px;"
-                             rendered="#{(not empty centreController.centre.mail
-											|| not empty centreController.centre.siteWeb)
-											and (not empty centreController.centre.fax 
-											|| not empty centreController.centre.telephone)}" />
-
-                <t:htmlTag value="ul" styleClass="formUL"
-                           rendered="#{not empty centreController.centre.telephone
-											|| not empty centreController.centre.fax}">
-                    <t:htmlTag value="li" rendered="#{not empty centreController.centre.telephone}">
-                        <h:outputLabel value="#{msgs['CENTRE.TEL']} " for="telephone"/>
-                        <h:outputText id="telephone"
-                                      value="#{centreController.centre.telephone}" />
-                    </t:htmlTag>
-                    <t:htmlTag value="li" rendered="#{not empty centreController.centre.fax}" >
-                        <h:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax"/>
-                        <h:outputText id="fax" value="#{centreController.centre.fax}" />
-                    </t:htmlTag>
-                </t:htmlTag>
-            </h:panelGrid>
-        </t:fieldset>
-
-        <t:htmlTag value="div" style="height: 10px;" />
-
-        <t:fieldset>
-            <legend>
-                <h:outputLabel value="#{msgs['CENTRE.PARAMETRAGE']}"
-                               for="confidentialite" />
-            </legend>
-
-            <t:htmlTag value="div" style="height:10px;" />
-
+        <p:fieldset legend="#{msgs['CENTRE.PARAMETRAGE']}">
             <h:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']} : "
                            rendered="#{centreController.centre.confidentialite != null}"
                            for="confidentialite" />
@@ -229,7 +200,7 @@
                               value="#{centreController.centre.qualiteViseur}"
                               rendered="#{not empty centreController.centre.qualiteViseur}" />
             </h:panelGrid>
-        </t:fieldset>
+        </p:fieldset>
 
         <t:htmlTag value="div" style="height:10px;" />
 
