@@ -169,7 +169,7 @@
                                          value="#{conventionController.convention.dureeExceptionnelle}"
                                          required="true">
                                 <f:validateLength maximum="4" />
-                                <f:validateLongRange minimum="1" maximum="9999" />
+                                <f:validateLongRange for="dureeExceptionnelle" minimum="1" maximum="9999" />
                                 <p:ajax event="blur" update="alerte6mois, msgDureeExcept" />
                             </p:inputText>
                             <p:message id="msgDureeExcept" for="dureeExceptionnelle"/>

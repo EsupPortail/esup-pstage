@@ -33,7 +33,7 @@
 									value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
 							</t:htmlTag>
 						</f:facet>
-						<center>
+						<t:div styleClass="textCenter">
 							<h:graphicImage id="appartenance1" alt="#{msgs['FORM.OUI']}"
 								rendered="#{sessionController.droitsAccesMap[centre.idCentreGestion] != null}"
 								value="/media/images/tick.png">
@@ -45,7 +45,7 @@
 								<p:tooltip
 									value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE.NON']}" for="appartenance2"/>
 							</t:htmlTag>
-						</center>
+                        </t:div>
 					</p:column>
 
 					<p:column width="35px;" sortBy="#{centre.idCentreGestion}">

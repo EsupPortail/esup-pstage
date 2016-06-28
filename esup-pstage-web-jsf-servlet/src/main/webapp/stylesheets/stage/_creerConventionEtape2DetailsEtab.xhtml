@@ -33,9 +33,7 @@
 
     <t:div styleClass="textCenter mt20">
         <p:commandButton id="selectionEtab"
-                         value="#{msgs['OFFRE.SELECTIONETAB']}"
-                         alt="#{msgs['OFFRE.SELECTIONETAB']}"
-                         title="#{msgs['OFFRE.SELECTIONETAB']}"
+                         value="#{msgs['FORM.SELECTIONNERCONTINUER']}"
                          action="#{conventionController.goToCreerConventionEtape3Service}"
                          rendered="#{not empty rechercheController.resultatRechercheStructure}">
             <f:setPropertyActionListener

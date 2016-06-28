@@ -43,11 +43,11 @@
             </t:htmlTag>
         </t:div>
         <t:div styleClass="clearFloat textCenter">
-            <p:commandButton id="test" value="#{msgs['FORM.RECHERCHER']}" update="@form"
+            <p:commandButton id="confirmForm" value="#{msgs['FORM.RECHERCHER']}" update="@form"
                              action="#{conventionController.rechercheEtudiant}"
                              onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
-                             styleClass="mt10 mb5" icon="fa fa-search"/>
-            <p:message for="test" />
+                             styleClass="mt10 mb5 nextPage" icon="fa fa-search"/>
+            <p:message for="confirmForm" />
         </t:div>
     </t:htmlTag>
     <p:commandButton value="#{msgs['FORM.PREVIOUS']}"

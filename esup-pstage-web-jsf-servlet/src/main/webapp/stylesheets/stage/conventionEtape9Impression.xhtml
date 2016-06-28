@@ -1,9 +1,7 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui"
-	
 	template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<ui:include src="_roadmapSel.xhtml" />
@@ -13,8 +11,7 @@
 					value="#{msgs['CONVENTION.TITRE.IMPRESSION']} #{conventionController.convention.idConvention}" />
 			</f:facet>
 			<h:form id="formSelConvention">
-				<ui:include
-					src="/stylesheets/stage/_impressionConvention.xhtml" />
+				<ui:include src="/stylesheets/stage/_impressionConvention.xhtml" />
 			</h:form>
 		</p:panel>
 	</ui:define>

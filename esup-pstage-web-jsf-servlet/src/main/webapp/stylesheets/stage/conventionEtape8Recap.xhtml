@@ -5,119 +5,93 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/stylesheets/_definedStageTemplate.xhtml">
     <ui:define name="content">
-        <ui:include src="_roadmapSel.xhtml" />
         <p:panel>
             <f:facet name="header">
-                <h:outputText
-                        value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
             </f:facet>
             <h:form id="formSelConvention">
-                <h:outputText value="#{msgs['CONVENTION.ETAPE8.NAVIGATION']} " />
-                <h:panelGrid columns="3"
-                             rendered="#{conventionController.conventionCree}">
-                    <h:graphicImage alt="#{msgs['GENERAL.OK']}"
-                                    title="#{msgs['GENERAL.OK']}"
-                                    value="../../media/images/valid.png" />
-                    <h:outputText id="confirmCreationConvention"
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:div rendered="#{conventionController.conventionCree}" styleClass="mt10">
+                    <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2" />
+                    <h:outputText id="confirmCreationConvention" styleClass="fontBold"
                                   rendered="#{!welcomeController.etudiant}"
                                   value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}" />
-                    <h:outputText id="confirmCreationConventionEtu"
+                    <h:outputText id="confirmCreationConventionEtu" styleClass="fontBold"
                                   rendered="#{welcomeController.etudiant}"
                                   value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION.ETUDIANT']}" />
-                </h:panelGrid>
+                </t:div>
 
                 <t:htmlTag value="div" style="height: 10px;" />
 
-                <h:panelGrid columns="2">
-                    <p:commandLink id="editrecap"
-                                   action="#{conventionController.editPdfRecap}">
-                        <h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-                                        value="../../media/images/printer.png" />
-                        <t:htmlTag value="div" style="display: inline; margin: 4px;" />
-                        <h:outputText
-                                value="#{msgs['CONVENTION.IMPRESSION.RECAP.DEMANDE']}"
-                                escape="false" />
-                    </p:commandLink>
-                    <p:commandLink id="impression" action="conventionEtape9Impression">
-                        <h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-                                        value="../../media/images/printer.png" />
-                        <t:htmlTag value="div" style="display: inline; margin: 4px;" />
-                        <h:outputText
-                                value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.DEMANDE']}"
-                                escape="false" />
-                    </p:commandLink>
-                </h:panelGrid>
+                <t:div>
+                    <p:commandButton id="editrecap" escape="false"
+                                     value="#{msgs['CONVENTION.IMPRESSION.RECAP.DEMANDE']}"
+                                     icon="fa fa-print"
+                                     action="#{conventionController.editPdfRecap}" />
+                    <p:commandButton id="impression" action="conventionEtape9Impression"
+                                     value="#{msgs['CONVENTION.IMPRESSION.CONVENTION.DEMANDE']}"
+                                     icon="fa fa-print" />
+                </t:div>
 
-                <p:commandLink action="#{conventionController.editPdfRemerciement}"
-                               rendered="#{sessionController.courrierRemerciement
-		and conventionController.convention.validationConvention}">
-                    <h:graphicImage alt="#{msgs['FORM.IMPRIMER']}"
-                                    value="../../media/images/printer.png" />
-                    <t:htmlTag value="div" style="display:inline; margin:4px;" />
-                    <h:outputText
-                            value="#{msgs['CONVENTION.IMPRESSION.REMERCIEMENT.DEMANDE']}"
-                            escape="false" />
-                </p:commandLink>
+                <p:commandButton value="#{msgs['CONVENTION.IMPRESSION.REMERCIEMENT.DEMANDE']}"
+                                 action="#{conventionController.editPdfRemerciement}"
+                                 icon="fa fa-print"
+                                 rendered="#{sessionController.courrierRemerciement
+		                    and conventionController.convention.validationConvention}"/>
 
                 <t:htmlTag value="div" style="height: 10px;" />
 
                 <ui:include src="/stylesheets/stage/_recapConvention.xhtml" />
 
-                <t:div rendered="#{conventionController.retourListe}">
-                    <t:htmlTag value="div" style="height: 20px;" />
+                <t:div rendered="#{conventionController.retourListe}" styleClass="mt20">
                     <p:commandButton ajax="false"
-                            value="#{msgs['RECHERCHECONVENTION.RETOURLISTE']}"
-                            action="#{conventionController.goToRetourAction}" />
+                                     value="#{msgs['RECHERCHECONVENTION.RETOURLISTE']}"
+                                     action="#{conventionController.goToRetourAction}" />
                 </t:div>
-                <t:div style="float:right;"
-                             rendered="#{welcomeController.superAdmin
-			|| welcomeController.etudiant
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
+                <t:div rendered="#{welcomeController.superAdmin
+                        || welcomeController.etudiant
+                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
                     <p:commandLink id="suppr"
                                    oncomplete="PF('supprConvention').show();"
                                    disabled="#{conventionController.conventionValide}">
-                        <h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-                                        value="../../media/images/delete.png"
-                                        rendered="#{!conventionController.conventionValide}" />
+                        <t:htmlTag value="i" styleClass="fa fa-trash fz13" />
                         <h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
                                       escape="false"
                                       rendered="#{!conventionController.conventionValide}" />
                         <h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-                                        value="../../media/images/delete_block.png"
+                                        value="/media/images/delete_block.png"
                                         rendered="#{conventionController.conventionValide}" />
                         <h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
                                       escape="false"
                                       rendered="#{conventionController.conventionValide}" />
-                        <p:tooltip
-                                rendered="#{conventionController.conventionValide
-				|| conventionController.nbAvenant gt 0}"
-                                value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}" />
+                        <p:tooltip for="suppr"
+                                   value="#{msgs['CONVENTION.SUPPRESSION.IMPOSSIBLE']}"
+                                   rendered="#{conventionController.conventionValide || conventionController.nbAvenant gt 0}" />
                     </p:commandLink>
                     <t:aliasBean alias="#{objet}"
                                  value="#{conventionController.convention}">
-                        <ui:include src="../_commun/_updateInfos.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
                     </t:aliasBean>
                 </t:div>
 
-                <p:dialog id="supprConvention" widgetVar="supprConvention">
+                <p:dialog id="supprConvention" widgetVar="supprConvention" resizable="false">
                     <f:facet name="header">
                         <h:outputText value="#{msgs['CONVENTION.SUPPRESSION']}" />
                     </f:facet>
                     <h:outputText value="#{msgs['CONVENTION.SUPPRESSION.DEMANDE']}"
                                   escape="false" />
 
-                    <t:htmlTag value="div" style="height: 20px;" />
-                    <h:panelGrid columns="3">
+                    <t:div styleClass="mt20 mb20 textCenter">
                         <p:commandButton value="#{msgs['FORM.OUI']}"
                                          oncomplete="PF('supprConvention').hide();"
-                                         action="#{conventionController.goToSuppConvention}">
-                        </p:commandButton>
-                        <t:htmlTag value="div" style="width: 150px;" />
+                                         action="#{conventionController.goToSuppConvention}"/>
 
                         <p:commandButton value="#{msgs['FORM.NON']}" immediate="true"
-                                         oncomplete="PF('supprConvention').hide();" />
-                    </h:panelGrid>
+                                         oncomplete="PF('supprConvention').hide();"
+                                         styleClass="ml40"/>
+                    </t:div>
                 </p:dialog>
 
                 <t:htmlTag value="div" style="height: 10px;" />

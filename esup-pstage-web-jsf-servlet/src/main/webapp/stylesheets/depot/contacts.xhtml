@@ -139,7 +139,7 @@
 									oncomplete="PF('ajoutContact').show();"
 									action="#{etablissementController.ajoutContact}"
 									update="ajoutContact">
-									<f:setPropertyActionListener value="_ajoutContactEtape1"
+									<f:setPropertyActionListener value="_ajoutContactEtape0"
 										target="#{sessionController.ajoutContactCurrentPage}" />
 									<h:graphicImage alt="#{msgs['FORM.CREER']}"
 										value="../../media/images/new.png" />
@@ -279,10 +279,10 @@
 													target="#{etablissementController.currentRowContact}" />
 												<f:setPropertyActionListener value="#{contact}"
 													target="#{etablissementController.formContact}" />
-												<f:setPropertyActionListener value="_modifContactEtape1"
+												<f:setPropertyActionListener value="_modifContactEtape0"
 													target="#{sessionController.modifContactCurrentPage}" />
 												<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-													value="../../media/images/edit.png" />
+													value="/media/images/edit.png" />
 												<p:tooltip>
 													<h:panelGrid>
 														<h:outputLabel for="modifC"

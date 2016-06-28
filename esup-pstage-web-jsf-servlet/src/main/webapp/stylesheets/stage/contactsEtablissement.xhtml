@@ -150,7 +150,7 @@
 									value="../../media/images/new.png" />
 								<f:setPropertyActionListener value="#{true}"
 									target="#{etablissementController.afficherSelectionCentreContact}" />
-								<f:setPropertyActionListener value="_ajoutContactEtape1"
+								<f:setPropertyActionListener value="_ajoutContactEtape0"
 									target="#{sessionController.ajoutContactCurrentPage}" />
 								<p:tooltip value="#{msgs['FORM.CREER']}" />
 							</p:commandLink>
@@ -250,7 +250,7 @@
 									<f:setPropertyActionListener
 										value="#{etablissementController.currentCentresGestionContainsCentreContact}"
 										target="#{etablissementController.afficherSelectionCentreContact}" />
-									<f:setPropertyActionListener value="_modifContactEtape1"
+									<f:setPropertyActionListener value="_modifContactEtape0"
 										target="#{sessionController.modifContactCurrentPage}" />
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
 										value="../../media/images/edit.png" />

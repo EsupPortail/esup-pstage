@@ -11,11 +11,7 @@
     <t:div rendered="#{not empty structure}">
         <t:htmlTag value="i" styleClass="fa fa-building fz13 fontBlue2"/>
         <h:outputText value="#{msgs['STRUCTURE.INFOS']} : " styleClass="fontBold fontBlue2 fz13 ml5" escape="false"/>
-        <!--<p:panel rendered="#{not empty structure}">-->
-        <!--<f:facet name="header">-->
-        <!--<h:outputText value="#{msgs['STRUCTURE.INFOS']}" />-->
-        <!--</f:facet>-->
-        <h:panelGrid columns="2" styleClass="ml40" cellspacing="5">
+        <h:panelGrid columns="2" styleClass="ml40 blueHover" cellspacing="5">
             <h:outputText styleClass="fontBold"
                           value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
             <h:outputText id="raisonSociale" value="#{structure.raisonSociale}" />
