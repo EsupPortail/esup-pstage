@@ -651,7 +651,9 @@ body {
   width: auto !important;
 }
 .ui-autocomplete .ui-autocomplete-input.ui-inputfield,
-.ui-inputfield.ui-inputtext {
+.ui-inputfield.ui-inputtext,
+.ui-inputfield.ui-widget,
+.ui-inputfield.ui-inputtextarea {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -666,7 +668,9 @@ body {
   width: 100%;
 }
 .ui-autocomplete .ui-autocomplete-input.ui-inputfield:focus,
-.ui-inputfield.ui-inputtext:focus {
+.ui-inputfield.ui-inputtext:focus,
+.ui-inputfield.ui-widget:focus,
+.ui-inputfield.ui-inputtextarea:focus {
   -webkit-box-shadow: 0px 0px 4px #2c7094;
   -moz-box-shadow: 0px 0px 4px #2c7094;
   box-shadow: 0px 0px 4px #2c7094;
@@ -832,6 +836,14 @@ body {
     float: left;
     width: 50%;
   }
+  .columns-2 > .column.column-1 {
+    width: 33.333333333333336%;
+    line-height: 27px;
+  }
+  .columns-2 > .column.column-2 {
+    width: 66.66666666666667%;
+    line-height: 27px;
+  }
 }
 @media (max-device-width: 1040px) {
   .columns-2 > .column {
@@ -946,6 +958,7 @@ body {
 select.customPstage {
   margin: 0px;
   width: 100%;
+  min-width: 70px;
   border: 1px solid #A5A5A5;
   cursor: pointer;
   padding: 5px;

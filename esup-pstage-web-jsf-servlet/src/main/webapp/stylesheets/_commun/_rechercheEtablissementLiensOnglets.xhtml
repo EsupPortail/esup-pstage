@@ -5,23 +5,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <p:separator style="height:2px;" styleClass="mt20 mr30 mb20 ml30"/>
-
-    <t:div>
-        <t:div style="line-height: 26px; display:inline-block; vertical-align:top;">
-            <h:outputText styleClass="fontBold"
-                          value="#{msgs['RECHERCHEETABLISSEMENT.CHOIX']}" />
-        </t:div>
-        <p:selectOneMenu required="true" effect="none" styleClass="ml5"
+    <p:fieldset legend="#{msgs['RECHERCHEETABLISSEMENT.CHOIX']}">
+        <h:selectOneMenu required="true" effect="none" styleClass="customPstage"
                          value="#{rechercheController.ongletCourant}">
             <f:selectItems value="#{rechercheController.onglets}" />
 
             <p:ajax event="valueChange"
                     listener="#{rechercheController.changeOnglet}"
                     update="@form" />
-        </p:selectOneMenu>
-    </t:div>
-
-    <p:separator style="height:2px;" styleClass="mt20 mr30 mb20 ml30 clearFloat"/>
+        </h:selectOneMenu>
+    </p:fieldset>
 
 </ui:composition>

@@ -13,7 +13,7 @@
 				<p:tooltip value="#{msgs['STRUCTURE.MODERATION.HEADER']}"/>
 			</h:outputText>
 		</f:facet>
-		<t:htmlTag value="center"
+		<t:htmlTag value="span"
 			rendered="#{!(welcomeController.superAdmin and varRechercheStructure.temEnServStructure != 'O')}">
 			<h:outputText id="verification1" alt="#{msgs['FORM.OUI']}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
@@ -37,7 +37,7 @@
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
 			</h:outputText>
 		</t:htmlTag>
-		<t:htmlTag value="center"
+		<t:htmlTag value="span"
 			rendered="#{welcomeController.superAdmin and varRechercheStructure.temEnServStructure != 'O'}">
 			<h:outputText id="deleted" alt="#{msgs['GENERAL.SUPPRIME']}"
 				value="#{msgs['GENERAL.SUPPRIME']}"
@@ -79,7 +79,7 @@
 	<!-- 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" /> -->
 	<!-- 		</h:outputText> -->
 	<!-- 	</p:column> -->
-	<p:column style="width:35px;">
+	<p:column>
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
 		</f:facet>
@@ -98,13 +98,13 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
 		</f:facet>
-		<t:div style="white-space:nowrap;">
+		<t:htmlTag value="span" style="white-space:nowrap;">
 			<h:graphicImage id="flag"
 				rendered="#{not empty varRechercheStructure.pays}"
 				value="/media/images/flags/#{varRechercheStructure.pays.iso2}.png"
 				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
 				title="#{varRechercheStructure.pays.libelle}" />
 			<h:outputText value="#{varRechercheStructure.pays.libelle}" styleClass="ml5" style="white-space: normal;" />
-        </t:div>
+        </t:htmlTag>
 	</p:column>
 </ui:composition>
