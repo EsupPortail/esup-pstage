@@ -1,59 +1,50 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE2.ETAB']}" />
-					</f:facet>
-					<t:htmlTag value="div" style="height: 10px;" />
-					<h:panelGrid columns="2" align="center">
-						<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-							title="#{msgs['GENERAL.WARNING']}"
-							value="../../media/images/warning_20px.png" />
-						<h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.INFO']}"
-							escape="false" />
-					</h:panelGrid>
-					<h:panelGrid>
-						<p:messages />
-						<h:panelGrid>
-							<h:outputText value=" " id="formModifEtab" />
-							<p:message for="formModifEtab">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-							</p:message>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
 
-							<h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
-								rendered="#{empty etablissementController.formStructure}" />
-							<t:div
-								rendered="#{not empty etablissementController.formStructure}">
-								<ui:include src="../_commun/_etablissementForm.xhtml" />
-							</t:div>
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
-							<h:panelGrid>
+                        <t:div styleClass="textCenter mt10 mb10 fz13">
+                            <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed" />
+                            <h:outputText value="#{msgs['CONVENTION.MODIF.ETAB.INFO']}" styleClass="fontBold ml5" escape="false" />
+                        </t:div>
 
-								<t:htmlTag value="div" style="width:20px;" />
-								<p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
-									action="#{conventionController.modifierEtablissementDetail}"
-									alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-									rendered="#{not empty etablissementController.formStructure}">
-									<f:setPropertyActionListener
-										value="#{etablissementController.formStructure}"
-										target="#{conventionController.convention.structure}" />
-								</p:commandButton>
-							</h:panelGrid>
-						</h:panelGrid>
-					</h:panelGrid>
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-	</ui:define>
+                        <p:messages />
+
+                        <h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
+                                      rendered="#{empty etablissementController.formStructure}" />
+
+                        <t:div rendered="#{not empty etablissementController.formStructure}">
+                            <ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
+                        </t:div>
+
+                        <t:div styleClass="textCenter mt10">
+                            <p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
+                                             action="#{conventionController.modifierEtablissementDetail}"
+                                             rendered="#{not empty etablissementController.formStructure}">
+                                <f:setPropertyActionListener value="#{etablissementController.formStructure}"
+                                                             target="#{conventionController.convention.structure}" />
+                            </p:commandButton>
+                        </t:div>
+
+                        <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                                         action="conventionEtape2Etab"
+                                         immediate="true"
+                                         styleClass="mb20"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

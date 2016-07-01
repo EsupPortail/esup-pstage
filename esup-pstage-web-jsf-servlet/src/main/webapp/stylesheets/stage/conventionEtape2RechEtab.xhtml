@@ -5,82 +5,77 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/stylesheets/_definedStageTemplate.xhtml">
     <ui:define name="content">
-        <ui:include src="_roadmapSel.xhtml" />
         <p:panel>
             <f:facet name="header">
-                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
             </f:facet>
             <h:form id="formSelConvention">
-                <h:panelGrid
-                        style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-                    <p:panel>
-                        <f:facet name="header">
-                            <h:outputText value="#{msgs['CONVENTION.ETAPE2.RECHETAB']}" />
-                        </f:facet>
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div id="formResultatsRechEtab" styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
                         <t:htmlTag value="div" style="height: 10px;" />
 
-                        <ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 
-                        <ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />
 
-                        <h:panelGrid id="formResultatsRechEtab">
-                            <t:div
-                                    rendered="#{not empty rechercheController.ongletCourant
+                        <t:div rendered="#{not empty rechercheController.ongletCourant
                                 and rechercheController.ongletCourant!=6
                                 and rechercheController.afficherBoutonAjoutEtab}">
-                                <h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}"
-                                              escape="false"/>
-                                <p:commandButton id="ajoutEtab"
-                                                 value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
-                                                 icon="fa fa-plus fz13"
-                                                 action="#{conventionController.goToConventionEtape2CreaEtab}">
-                                    <p:tooltip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
-                                </p:commandButton>
-                            </t:div>
+                            <h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}"
+                                          escape="false"/>
+                            <p:commandButton id="ajoutEtab"
+                                             value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
+                                             icon="fa fa-plus fz13" styleClass="ml5"
+                                             action="#{conventionController.goToConventionEtape2CreaEtab}"/>
+                        </t:div>
 
-                            <t:htmlTag value="div" style="height: 20px;" />
+                        <t:htmlTag value="div" style="height: 20px;" />
 
-                            <p:message for="formResultatsRechEtab"/>
+                        <p:message for="formResultatsRechEtab"/>
 
-                            <p:outputPanel id="opRechercheStructureDataTable">
-                                <t:div rendered="#{not empty rechercheController.listeResultatsRechercheStructure
+                        <p:outputPanel id="opRechercheStructureDataTable">
+                            <t:div rendered="#{not empty rechercheController.listeResultatsRechercheStructure
 					                and not empty rechercheController.rechercheStructurePaginator}">
 
-                                    <ui:include src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
+                                <ui:include src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
 
-                                    <p:dataTable id="rechercheStructureDataTable"
-                                               style="width:600px;"
-                                               value="#{rechercheController.rechercheStructurePaginator.liste}"
-                                               var="varRechercheStructure" rows="15" rowHover="true"
-                                               rowStyleClass="noPointer" paginator="true"
-                                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                               rowsPerPageTemplate="5,10,15,20"
-                                               rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}">
-                                        <ui:include
-                                                src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-                                        <p:column>
-                                            <p:commandButton id="selectionEtab"
-                                                           value="#{msgs['FORM.SELECTIONNER']}"
-                                                           action="#{conventionController.goToConventionEtape2DetailsEtab}"
-                                                           image="../../media/images/tick.png"
-                                                           alt="#{msgs['FORM.SELECTIONNER']}"
-                                                           title="#{msgs['FORM.SELECTIONNER']}">
-                                                <f:setPropertyActionListener
-                                                        value="#{varRechercheStructure}"
-                                                        target="#{rechercheController.resultatRechercheStructure}" />
-                                                <f:setPropertyActionListener
-                                                        value="#{varRechercheStructure}"
-                                                        target="#{conventionController.convention.structure}" />
-                                                <p:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
-                                            </p:commandButton>
-                                        </p:column>
-                                    </p:dataTable>
-                                </t:div>
-                            </p:outputPanel>
-                        </h:panelGrid>
-                    </p:panel>
-                </h:panelGrid>
+                                <p:dataTable id="rechercheStructureDataTable" styleClass="mt10"
+                                             value="#{rechercheController.rechercheStructurePaginator.liste}"
+                                             var="varRechercheStructure" rows="10" rowHover="true"
+                                             rowStyleClass="noPointer" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15,20"
+                                             rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}">
+
+                                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+
+                                    <p:column style="background-color:#A5A5A5;" styleClass="textCenter">
+                                        <f:facet name="header">
+                                            <t:div>
+                                                <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
+                                                <h:outputText value="#{msgs['CONVENTION.CHOIX']}" styleClass="ml5"/>
+                                            </t:div>
+                                        </f:facet>
+                                        <p:commandButton id="selectionEtab"
+                                                         value="#{msgs['FORM.SELECTIONNER']}"
+                                                         action="#{conventionController.goToConventionEtape2DetailsEtab}"
+                                                         icon="fa fa-check">
+                                            <f:setPropertyActionListener
+                                                    value="#{varRechercheStructure}"
+                                                    target="#{rechercheController.resultatRechercheStructure}" />
+                                            <f:setPropertyActionListener
+                                                    value="#{varRechercheStructure}"
+                                                    target="#{conventionController.convention.structure}" />
+                                        </p:commandButton>
+                                    </p:column>
+                                </p:dataTable>
+                            </t:div>
+                        </p:outputPanel>
+                    </t:div>
+                </t:fieldset>
             </h:form>
         </p:panel>
     </ui:define>

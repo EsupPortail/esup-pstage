@@ -2,38 +2,28 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:div rendered="#{not empty objet}">
-		<h:panelGrid columns="2" style="font-size:11px;"
-			rendered="#{not empty objet.dateCreation}">
+	<t:div rendered="#{not empty objet}" style="font-size:11px;">
+		<t:div rendered="#{not empty objet.dateCreation}">
 			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.CREELE']}"/>
 			<h:outputText value="#{objet.dateCreation}">
 				<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
 			</h:outputText>
-		</h:panelGrid>
-		<h:panelGrid columns="2" style="margin-left:20px;">
-			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
-				rendered="#{not empty objet.loginCreation}"/>
-			<h:outputText escape="false" value="#{objet.loginCreation}"
-				rendered="#{not empty objet.loginCreation}"/>
-		</h:panelGrid>
-		<t:htmlTag value="div" style="height: 5px;" />
-		<h:panelGrid columns="2" style="font-size:11px;"
-			rendered="#{not empty objet}">
-			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.MODIFIELE']}"
-				rendered="#{not empty objet.dateModif}" />
-			<h:outputText value="#{objet.dateModif}"
-				rendered="#{not empty objet.dateModif}">
+		</t:div>
+		<t:div rendered="#{not empty objet.loginCreation}">
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"/>
+			<h:outputText escape="false" value="#{objet.loginCreation}"/>
+		</t:div>
+		<t:div rendered="#{not empty objet.dateModif}">
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.MODIFIELE']}" />
+			<h:outputText value="#{objet.dateModif}">
 				<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
 			</h:outputText>
-		</h:panelGrid>
-		<h:panelGrid columns="2" style="margin-left:20px;">
-			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"
-				rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
-			<h:outputText value="#{objet.loginModif}"
-				rendered="#{not empty objet.dateModif and not empty objet.loginModif}" />
-		</h:panelGrid>
+		</t:div>
+		<t:div rendered="#{not empty objet.dateModif and not empty objet.loginModif}">
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}" />
+			<h:outputText value="#{objet.loginModif}" />
+		</t:div>
 	</t:div>
 </ui:composition>

@@ -1,17 +1,17 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
     <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
                   rendered="#{empty structure}" />
 
     <t:div rendered="#{not empty structure}">
-        <t:htmlTag value="i" styleClass="fa fa-building fz13 fontBlue2"/>
-        <h:outputText value="#{msgs['STRUCTURE.INFOS']} : " styleClass="fontBold fontBlue2 fz13 ml5" escape="false"/>
-        <h:panelGrid columns="2" styleClass="ml40 blueHover" cellspacing="5">
+
+        <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+        <h:outputText value="#{msgs['STRUCTURE.INFOS']} : " styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+
+        <h:panelGrid columns="2" style="border: solid 1px;" styleClass="mt5 ml20 blueHover" cellspacing="5">
             <h:outputText styleClass="fontBold"
                           value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
             <h:outputText id="raisonSociale" value="#{structure.raisonSociale}" />
@@ -109,6 +109,5 @@
                           rendered="#{not empty structure.activitePrincipale}"
                           value="#{structure.activitePrincipale}" escape="false" />
         </h:panelGrid>
-        <!--</p:panel>-->
     </t:div>
 </ui:composition>

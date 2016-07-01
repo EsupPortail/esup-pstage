@@ -1,42 +1,38 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid id="formAjoutEtab">
-					<p:panel>
-						<f:facet name="header">
-							<h:outputText value="#{msgs['CONVENTION.ETAPE2.CREATION.ETAB']}" />
-						</f:facet>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
 
-						<t:htmlTag value="div" style="height:20px;" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
-						<h:outputText
-							value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
+                        <h:outputText
+                                value="#{msgs['CONVENTION.ETAPE2.CHOIXETAB.DEMANDE']}" />
 
-						<t:htmlTag value="div" style="height:20px;" />
+                        <t:htmlTag value="div" style="height:20px;" />
 
-						<p:message for="formAjoutEtab">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
-						</p:message>
+                        <p:message for="formAjoutEtab">
+                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                        </p:message>
 
-						<ui:include src="../_commun/_etablissementForm.xhtml" />
+                        <ui:include src="../_commun/_etablissementForm.xhtml" />
 
-						<h:panelGrid>
-							<p:commandButton value="#{msgs['FORM.CREER']}"
-								action="#{conventionController.ajouterEtablissementModif}" />
-						</h:panelGrid>
-					</p:panel>
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-	</ui:define>
+                        <h:panelGrid>
+                            <p:commandButton value="#{msgs['FORM.CREER']}"
+                                             action="#{conventionController.ajouterEtablissementModif}" />
+                        </h:panelGrid>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>
