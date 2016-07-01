@@ -9,8 +9,8 @@
 
 .generate-margins-by(@by, @n, @i: 0) when (@i =< (@by * @n)) {
   .mt@{i} { margin-top: ~"@{i}px" !important; }
-  .ml@{i} { margin-left: 0 !important; @media (min-width: @MediaTablet) { margin-left: ~"@{i}px" !important;}}
-  .mr@{i} { margin-right: 0 !important; @media (min-width: @MediaTablet) { margin-right: ~"@{i}px" !important;}}
+  .ml@{i} { margin-left: 0 !important; @media (min-device-width: @MediaTablet) { margin-left: ~"@{i}px" !important;}}
+  .mr@{i} { margin-right: 0 !important; @media (min-device-width: @MediaTablet) { margin-right: ~"@{i}px" !important;}}
   .mb@{i} { margin-bottom: ~"@{i}px" !important; }
   .generate-margins-by(@by, @n, (@i + @by));
 }
@@ -18,7 +18,7 @@
 .floatLeft {
   float: none;
 
-  @media (min-width: @MediaTablet) {
+  @media (min-device-width: @MediaTablet) {
     float: left;
   }
 }
@@ -26,7 +26,7 @@
 .floatRight {
   float: none;
 
-  @media (min-width: @MediaTablet) {
+  @media (min-device-width: @MediaTablet) {
     float: right;
   }
 }

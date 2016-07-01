@@ -11,7 +11,7 @@
             </f:facet>
             <h:form id="formResultatsRechEtab">
 
-                <t:div styleClass="mt20 ml30" style="max-width: 800px;">
+                <t:div styleClass="mt20 ml30 block">
                     <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 
                     <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />
@@ -27,10 +27,10 @@
 
                             <t:htmlTag value="div" style="height:20px;" />
 
-                            <p:dataTable id="rechercheStructureDataTable"
+                            <p:dataTable id="rechercheStructureDataTable" reflow="true"
                                          value="#{rechercheController.listeResultatsRechercheStructure}"
                                          var="varRechercheStructure" rows="15" rowHover="true"
-                                         rowStyleClass="noPointer" paginator="true"
+                                         rowStyleClass="noPointer" paginator="true" tableStyle="table-layout: auto;"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="5,10,15,20">
 

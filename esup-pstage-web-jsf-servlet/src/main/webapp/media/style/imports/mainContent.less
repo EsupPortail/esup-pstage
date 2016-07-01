@@ -4,11 +4,11 @@
   margin: @TopbarPhoneHeight 0 0 0;
   padding: @MainContentPhonePadding;
 
-  @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+  @media (min-device-width: @MediaTablet) and (max-device-width: @MediaPC) {
     margin: 0 0 0 @SidebarTabletWidth;
     padding: @MainContentPCPadding;
   }
-  @media (min-width: @MediaPC) {
+  @media (min-device-width: @MediaPC) {
     margin: 0 0 0 @SidebarPCWidth;
     padding: @MainContentPCPadding;
   }
@@ -36,7 +36,7 @@
       color: @MainPanelTitleFontColor;
       text-align: left;
 
-      @media (min-width: @MediaTablet) {
+      @media (min-device-width: @MediaTablet) {
         text-align: center;
       }
     }
@@ -49,12 +49,12 @@
     }
   }
 
-  .ui-tabmenu {
-    .ui-tabmenu-nav {
-      .ui-tabmenuitem {
+  .ui-tabmenu, .ui-tabs {
+    .ui-tabmenu-nav, .ui-tabs-nav {
+      .ui-tabmenuitem, li {
         &.ui-state-active {
           background: @MainSelectCheckboxBackground;
-          & > .ui-menuitem-link {
+          & > .ui-menuitem-link, a {
             color: @White;
           }
         }
@@ -97,7 +97,7 @@
     width: 100%;
     box-sizing: border-box;
 
-    @media (min-width: @MediaTablet) {
+    @media (min-device-width: @MediaTablet) {
       width: @InputWidth;
     }
   }
@@ -106,7 +106,7 @@
     width: 100%;
     margin: 0 auto 15px auto;
     //margin-bottom: 15px;
-    @media (min-width: @MediaTablet) {
+    @media (min-device-width: @MediaTablet) {
       width: @InputWidth;
     }
 
@@ -119,7 +119,7 @@
   }
 }
 
-.ui-autocomplete .ui-autocomplete-input.ui-inputfield, .ui-inputfield.ui-inputtext {
+.ui-autocomplete .ui-autocomplete-input.ui-inputfield, .ui-inputfield.ui-inputtext, .ui-inputfield.ui-widget, .ui-inputfield.ui-inputtextarea {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -141,7 +141,7 @@
 
   width: 100%;
 
-  @media (min-width: @MediaTablet) {
+  @media (min-device-width: @MediaTablet) {
 
   }
 }
@@ -160,7 +160,7 @@
     font-weight: 500;
   }
 
-  @media (min-width: @MediaTablet) {
+  @media (min-device-width: @MediaTablet) {
     display: inline-block;
     width: auto;
     margin: 0;
@@ -173,24 +173,24 @@
   &.customRecherche {
     width: 100%;
     box-sizing: border-box;
-    @media (min-width: @MediaTablet) {
+    @media (min-device-width: @MediaTablet) {
       width: auto;
     }
     .ui-button {
       box-sizing: border-box;
       width: 50%;
-      @media (min-width: @MediaTablet) {
+      @media (min-device-width: @MediaTablet) {
         width: auto;
       }
       &:first-child {
         float: left;
-        @media (min-width: @MediaTablet) {
+        @media (min-device-width: @MediaTablet) {
           float: none;
         }
       }
       &:last-child {
         float: right;
-        @media (min-width: @MediaTablet) {
+        @media (min-device-width: @MediaTablet) {
           float: none;
         }
       }
@@ -219,14 +219,14 @@
         background: @MainSelectCheckboxBackground;
       }
     }
-    @media (min-width: @MediaTablet) {
+    @media (min-device-width: @MediaTablet) {
       display: inline-block;
       width: auto;
       margin: 0;
       padding: 0;
     }
   }
-  @media (min-width: @MediaTablet) {
+  @media (min-device-width: @MediaTablet) {
     display: inline-block;
     width: auto;
     margin: 0;
@@ -239,6 +239,18 @@
   box-shadow: none;
   background: @White;
   border: 1px solid @Gray;
+
+  .ui-helper-hidden-accessible { // a retirer, inutile si on repasse tout en h:selectOneMenu au lieu de p:selectOneMenu
+    min-width: 100%;
+    min-height: 100%;
+
+    & > select {
+      position: absolute;
+      z-index: 4000;
+      min-width: 100%;
+      min-height: 100%;
+    }
+  }
 
   .ui-selectonemenu-trigger {
     border-left: 1px solid @Gray;
@@ -277,7 +289,7 @@
   &.verticalCenter {
     display: block;
     align-items: stretch;
-    @media (min-width: @MediaTablet) {
+    @media (min-device-width: @MediaTablet) {
       display: flex;
       align-items: center;
     }
@@ -291,12 +303,21 @@
     margin: 0;
     padding: 0;
 
-    @media (min-width: @MediaTablet) {
+    @media (min-device-width: @MediaTablet) {
       float: left;
       width: 50%;
+
+      &.column-1 {
+        width: 100% * 1/3;
+        line-height: 27px;
+      }
+      &.column-2 {
+        width: 100% * 2/3;
+        line-height: 27px;
+      }
     }
 
-    @media (max-width: (@SidebarPCWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
+    @media (max-device-width: (@SidebarPCWidth + @InputWidth * 2 + extract(@MainContentPCPadding, 2) + extract(@MainContentPCPadding, 4) + 60px)) { // empecher interpolation des input dans les 2 columns
       float: none;
       width: 100%;
       padding: 5px;
@@ -318,9 +339,10 @@
 
 .block {
   max-width:@BlockSize;
-  &.centerBlock {
-    margin: 0 auto;
-  }
+}
+
+.centerBlock {
+  margin: 0 auto;
 }
 
 #blackScreen {
@@ -346,7 +368,7 @@
     -webkit-transition: opacity .25s ease-in-out, visibility 0s;
   }
 
-  @media(min-width: @MediaTablet) {
+  @media(min-device-width: @MediaTablet) {
     display: none;
   }
 }
@@ -368,7 +390,7 @@
     background-color: #e9e9e9;
   }
   input, .ui-selectonemenu {
-    @media (min-width: @MediaTablet) {
+    @media (min-device-width: @MediaTablet) {
       width: @InputWidth;
     }
   }
@@ -415,3 +437,53 @@
     display: inline-block;
   }
 }
+
+.ui-dialog {
+  @media (max-device-width: @MediaTablet) {
+    height: 100% !important;
+    width: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+
+ select.customPstage {
+   margin: 0px;
+   width: 100%;
+   min-width: 70px; // width dropdown.png * 3 ~~
+   border: 1px solid #A5A5A5;
+   cursor: pointer;
+   padding: 5px;
+   font-family: inherit;
+   font-size: 1em;
+   box-sizing: border-box;
+   line-height: normal;
+   color: #222222;
+   -webkit-appearance: none;
+   -webkit-border-radius: 0px;
+   -moz-appearance: none;
+   -ms-appearance: none;
+   appearance: none;
+   height: 27px;
+   background: url('../images/dropdown.png') no-repeat 100% 50% #ffffff;
+   background-size: 23px 25px;
+
+   &::-ms-expand {
+     display: none;
+   }
+ }
+
+ .ui-fieldset {
+   &.legendWarning {
+     .ui-fieldset-legend {
+       font-family: FontAwesome;
+       font-size: 1.3rem;
+       color: @Red;
+       &:before {
+         content: "\f071";
+         margin-right: 0.5em;
+       }
+     }
+   }
+ }

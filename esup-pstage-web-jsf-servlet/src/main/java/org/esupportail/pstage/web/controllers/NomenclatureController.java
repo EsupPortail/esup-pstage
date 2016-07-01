@@ -1788,7 +1788,7 @@ public class NomenclatureController extends AbstractContextAwareController {
 			ls = new ArrayList<SelectItem>();
 			for(TypeStructureDTO o : l){
 				String lib="";
-				lib+=o.getLibelle() + " (SIRET " + (o.isSiretObligatoire() ? "Obligatoire" : "Non obligatoire") + ")";
+				lib+=o.getLibelle() + " <i>(SIRET " + (o.isSiretObligatoire() ? "Obligatoire" : "Non obligatoire") + ")</i>";
 				ls.add(new SelectItem(o,lib));
 			}
 		}

@@ -19,7 +19,7 @@
   -o-transition: transform 0.7s;
   transition: transform 0.7s;
 
-  @media (min-width: @MediaTablet) {
+  @media (min-device-width: @MediaTablet) {
     width: @SidebarTabletWidth;
     left: 0;
     top: 0;
@@ -35,7 +35,7 @@
     transform: translateX(0%) !important;
   }
 
-  @media (min-width: @MediaPC) {
+  @media (min-device-width: @MediaPC) {
     width: @SidebarPCWidth;
     left: 0;
     top: 0;
@@ -61,18 +61,18 @@
     z-index: 500;
     border: 0;
 
-    @media (min-width: @MediaTablet) {
+    @media (min-device-width: @MediaTablet) {
       width: @SidebarTabletWidth + 17;
     }
 
-    @media (min-width: @MediaPC) {
+    @media (min-device-width: @MediaPC) {
       width: @SidebarPCWidth + 17;
     }
 
     #SIDEBAR_LOGO {
       display: none;
 
-      @media (min-width: @MediaTablet) {
+      @media (min-device-width: @MediaTablet) {
         display: block;
       }
 
@@ -86,7 +86,7 @@
         height: 90px;
         padding: 5px 0;
         margin: 0 0 0 (@SidebarTabletWidth / 2);
-        @media (min-width: @MediaPC) {
+        @media (min-device-width: @MediaPC) {
           margin: 0 0 0 (@SidebarPCWidth / 2);
         }
         -webkit-transform: translateX(-50%);
@@ -115,19 +115,19 @@
         font-weight: bold;
         font-family: @FontFamily;
 
-        @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+        @media (min-device-width: @MediaTablet) and (max-device-width: @MediaPC) {
           height: @SidebarItemHeightTablet;
           margin: 0 0 10px 0;
           padding: 0;
         }
 
-        @media (min-width: @MediaPC) {
+        @media (min-device-width: @MediaPC) {
           height: @SidebarItemHeightPC;
           margin: 0 0 10px 0;
         }
 
         & > .ui-button-icon-left {
-          @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+          @media (min-device-width: @MediaTablet) and (max-device-width: @MediaPC) {
             //width: @SidebarItemHeightTablet;
             height: @SidebarItemHeightTablet;
             font-size: (@SidebarTabletWidth / 2) - 10;
@@ -136,13 +136,13 @@
             top: 3px;
             left: 0;
             text-align: center;
-            width: 100%;
+            width: 85%;
           }
         }
 
         & > .ui-button-text {
           display: block;
-          @media (min-width: @MediaTablet) and (max-width: @MediaPC) {
+          @media (min-device-width: @MediaTablet) and (max-device-width: @MediaPC) {
             font-size: 0.8em;
             margin-top: 40px;
             padding: 0;
@@ -192,7 +192,7 @@
           margin: 0;
           height: @SidebarItemHeightPhone;
 
-          @media (min-width: @MediaTablet) {
+          @media (min-device-width: @MediaTablet) {
             height: @SidebarItemHeightPC;
             margin: 0 0 10px 0;
           }
@@ -228,7 +228,7 @@
             line-height: @SidebarItemHeightPhone;
             padding: 0 0 0 27px;
 
-            @media (min-width: @MediaTablet) {
+            @media (min-device-width: @MediaTablet) {
               line-height: @SidebarItemHeightPC;
             }
 
@@ -260,7 +260,7 @@
                 padding-bottom: 0;
                 height: (@SidebarItemHeightPhone * 0.75);
 
-                @media (min-width: @MediaTablet) {
+                @media (min-device-width: @MediaTablet) {
                   height: (@SidebarItemHeightPC * 0.92);
                   line-height: (@SidebarItemHeightPC * 0.92);
                 }
@@ -292,6 +292,43 @@
           }
         }
       }
+
+      .menuSidebarPhone {
+        font-size: 13px;
+        //margin: 0 0 0 .5em;
+        h3 {
+          font-size: 13px;
+          color: @White;
+          text-shadow: 2px 2px 2px @HalfBlack;
+        }
+        button.customPstage {
+          opacity: 1;
+          &:active, &:focus {
+            text-shadow: 2px 2px 2px @HalfBlack;
+          }
+        }
+        ul {
+          padding: 0 1em 0 2.1em;
+          list-style: none;
+          margin: 0;
+          //padding:0;
+          //padding: .3em 1em .3em 2.1em;
+          li {
+            a {
+              text-decoration: none;
+              color: @White;
+              text-shadow: 2px 2px 2px @HalfBlack;
+              font-size: 13px;
+              height: @SidebarItemHeightPhone;
+              line-height: @SidebarItemHeightPhone;
+              &:before {
+                margin: 0 .5em 0 0;
+              }
+            }
+          }
+        }
+      }
+
     }
   }
 }

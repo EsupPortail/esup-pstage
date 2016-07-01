@@ -99,8 +99,7 @@
 							update="detailPersonnel">
 							<f:setPropertyActionListener value="#{personnel}"
 								target="#{centreController.personnel}" />
-							<h:graphicImage alt="#{msgs['FORM.CONSULTER']}"
-								value="/media/images/zoom.png" />
+							<t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
 							<p:tooltip for="see" value="#{msgs['FORM.CONSULTER']}" />
 						</p:commandLink>
 
@@ -111,8 +110,7 @@
 							update="suppressionPersonnel" style="padding-left:5px;">
 							<f:setPropertyActionListener value="#{personnel}"
 								target="#{centreController.personnel}" />
-							<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-								value="/media/images/delete.png" />
+							<t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontDarkGray"/>
 							<p:tooltip for="delete" value="#{msgs['FORM.SUPPRIMER']}" />
 						</p:commandLink>
 					</t:htmlTag>

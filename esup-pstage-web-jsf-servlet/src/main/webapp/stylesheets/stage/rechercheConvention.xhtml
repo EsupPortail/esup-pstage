@@ -34,16 +34,17 @@
                         <t:div styleClass="column">
                             <t:htmlTag value="li" rendered="#{not empty nomenclatureController.anneesConvention}">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.ANNEEU']}" for="anU" />
-                                <p:selectOneMenu id="anU" effect="none" value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
+                                <h:selectOneMenu id="anU" styleClass="customPstage" effect="none" value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.anneesConvention}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">
+
                                 <p:outputLabel
                                         value="#{msgs['RECHERCHECONVENTION.NUMCONVENTION']}"
                                         for="numConvention" />
-                                <p:inputText id="numConvention"
+                                <p:inputText id="numConvention" type="tel"
                                              value="#{conventionController.critereRechercheConvention.idConvention}"
                                              size="10" maxlength="10" />
                             </t:htmlTag>
@@ -92,74 +93,74 @@
                             <t:htmlTag value="li">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.TYPECONV']}"
                                                for="typeConv" />
-                                <p:selectOneMenu id="typeConv" effect="none"
+                                <h:selectOneMenu id="typeConv" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.typeConvention}"
                                                  converter="#{typeConventionConverter}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.typeConventions}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.THEME']}"
                                                for="theme" />
-                                <p:selectOneMenu id="theme" effect="none"
+                                <h:selectOneMenu id="theme" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.theme}"
                                                  converter="#{themeConverter}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.themes}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE']}"
                                                for="dateStage" />
-                                <p:selectOneMenu id="dateStage" effect="none"
+                                <h:selectOneMenu id="dateStage" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.dateStage}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.datesStage}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.TEMPSTRAVAIL']}"
                                                for="tpsT" />
-                                <p:selectOneMenu id="tpsT" effect="none"
+                                <h:selectOneMenu id="tpsT" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.tempsTravail}"
                                                  converter="#{tempsTravailConverter}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.tempsTravail}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                         </t:div>
                         <t:div styleClass="column">
                             <t:htmlTag value="li">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.NBJH']}"
                                                for="nbJH" />
-                                <p:selectOneMenu id="nbJH" effect="none"
+                                <h:selectOneMenu id="nbJH" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.nbJoursHebdo}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{conventionController.nbJoursHebdoItems}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.GRAT']}"
                                                for="grat" />
-                                <p:selectOneMenu id="grat" effect="none"
+                                <h:selectOneMenu id="grat" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.indemnisation}"
                                                  converter="#{indemnisationConverter}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.indemnisations}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">
                                 <p:outputLabel
                                         value="#{msgs['RECHERCHECONVENTION.LANGUEIMPRESSION']}"
                                         for="langue" />
-                                <p:selectOneMenu id="langue" effect="none"
+                                <h:selectOneMenu id="langue" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.langueConvention}"
                                                  converter="#{langueConventionConverter}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems
                                             value="#{nomenclatureController.langueConventions}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.VALIDEE']}"
@@ -293,7 +294,7 @@
                                                    for="infoNumsiret" />
                                     </t:htmlTag>
                                 </p:outputLabel>
-                                <p:inputText id="numSiret"
+                                <p:inputText id="numSiret" type="tel"
                                              value="#{conventionController.critereRechercheConvention.numeroSiret}"
                                              size="20" maxlength="14" />
                             </t:htmlTag>
@@ -301,34 +302,34 @@
                                 <p:outputLabel
                                         value="#{msgs['RECHERCHECONVENTION.TYPESTATUTSTRUCTURE']}"
                                         for="typeStatut" />
-                                <p:selectOneMenu id="typeStatut" effect="none"
+                                <h:selectOneMenu id="typeStatut" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.rechTypeOuStatut}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems
                                             value="#{conventionController.rechTypesStatutsStructure}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                         </t:div>
                         <t:div styleClass="column">
                             <t:htmlTag value="li">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.EFFECTIF']}"
                                                for="effectif" />
-                                <p:selectOneMenu id="effectif" effect="none"
+                                <h:selectOneMenu id="effectif" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.effectif}"
                                                  converter="#{effectifConverter}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.effectifs}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.NAFN1']}"
                                                for="nafN1" />
-                                <p:selectOneMenu id="nafN1" effect="none"
+                                <h:selectOneMenu id="nafN1" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.nafN1}"
                                                  converter="#{nafN1Converter}">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.nafN1}" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                         </t:div>
                     </t:htmlTag>
@@ -358,7 +359,7 @@
                             <t:htmlTag value="li" rendered="#{!conventionController.estEtrangere}">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']} : "
                                                for="pays" />
-                                <p:selectOneMenu id="pays" effect="none"
+                                <h:selectOneMenu id="pays" effect="none" styleClass="customPstage"
                                                  value="#{conventionController.critereRechercheConvention.pays}"
                                                  converter="#{paysConverter}"
                                                  var="p" filter="true" filterMatchMode="startsWith">
@@ -370,7 +371,7 @@
                                                 alt="    "
                                                 title="#{p.libelle}" /> #{p.libelle}
                                     </p:column>
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                             </t:htmlTag>
                             <t:htmlTag value="li" rendered="#{!conventionController.estEtrangere}">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.COMMUNE']}"
@@ -404,7 +405,8 @@
 
                 <p:commandButton id="exportExcel" styleClass="floatRight"
                                  value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
-                                 icon="fa fa-file-excel-o"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                 icon="fa fa-file-excel-o" update="@form"
                                  action="#{exportController.rechercherConvention}">
                     <f:setPropertyActionListener
                             value="#{conventionController.critereRechercheConvention}"

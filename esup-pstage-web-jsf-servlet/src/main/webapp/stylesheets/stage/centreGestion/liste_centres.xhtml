@@ -18,8 +18,7 @@
 			</t:div>
 			<h:form id="formListeCentre" style="font-size:0.8em;">
 				<t:div style="overflow-x: auto;">
-				<p:dataTable id="listeCentres"
-							 style="min-width: 700px;"
+				<p:dataTable id="listeCentres" reflow="true" tableStyle="table-layout: auto;"
 					value="#{centreController.centresGestion}" var="centre" rows="10"
 					rowHover="true" rowStyleClass="noPointer" paginator="true"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -52,79 +51,57 @@
 						<f:facet name="header">
 							<h:outputText value="#{msgs['CENTRE.NUMCG']}" />
 						</f:facet>
-						<t:htmlTag value="center">
 							<h:outputText value="#{centre.idCentreGestion}"
 								style="font-weight:bold;" />
-						</t:htmlTag>
 					</p:column>
 
 					<p:column sortBy="#{centre.nomCentre}">
 						<f:facet name="header">
-							<t:htmlTag value="center">
 								<h:outputText style="font-weight:bold;"
 									value="#{msgs['CENTRE.LISTE_CENTRE.NOM']}" />
-							</t:htmlTag>
 						</f:facet>
-						<t:htmlTag value="center">
 							<h:outputText value="#{centre.nomCentre}" />
-						</t:htmlTag>
 					</p:column>
 
 					<p:column sortBy="#{centre.niveauCentre.libelle}">
 						<f:facet name="header">
-							<t:htmlTag value="center">
 								<h:outputText style="font-weight:bold;"
 									value="#{msgs['CENTRE.LISTE_CENTRE.CRITERE']}" />
-							</t:htmlTag>
 						</f:facet>
-						<t:htmlTag value="center">
 							<h:outputText value="#{centre.niveauCentre.libelle}" />
-						</t:htmlTag>
 					</p:column>
 
 					<p:column sortBy="#{centre.presenceTuteurPro}">
 						<f:facet name="header">
-							<t:htmlTag value="center">
 								<h:outputText style="font-weight:bold;"
 									value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_PRO']}" />
-							</t:htmlTag>
 						</f:facet>
-						<t:htmlTag value="center">
 							<h:outputText rendered="#{centre.presenceTuteurPro}"
 								value="#{msgs['FORM.OUI']}" />
 							<h:outputText rendered="#{!centre.presenceTuteurPro}"
 								value="#{msgs['FORM.NON']}" />
-						</t:htmlTag>
 					</p:column>
 
 					<p:column sortBy="#{centre.presenceTuteurEns}">
 						<f:facet name="header">
-							<t:htmlTag value="center">
 								<h:outputText style="font-weight:bold;"
 									value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_ENS']}" />
-							</t:htmlTag>
 						</f:facet>
-						<t:htmlTag value="center">
 							<h:outputText rendered="#{centre.presenceTuteurEns}"
 								value="#{msgs['FORM.OUI']}" />
 							<h:outputText rendered="#{!centre.presenceTuteurEns}"
 								value="#{msgs['FORM.NON']}" />
-						</t:htmlTag>
 					</p:column>
 
 					<p:column sortBy="#{centre.saisieTuteurProParEtudiant}">
 						<f:facet name="header">
-							<t:htmlTag value="center">
 								<h:outputText style="font-weight:bold;"
 									value="#{msgs['CENTRE.LISTE_CENTRE.SAISIE_TUTEUR_PRO']}" />
-							</t:htmlTag>
 						</f:facet>
-						<t:htmlTag value="center">
 							<h:outputText rendered="#{centre.saisieTuteurProParEtudiant}"
 								value="#{msgs['FORM.OUI']}" />
 							<h:outputText rendered="#{!centre.saisieTuteurProParEtudiant}"
 								value="#{msgs['FORM.NON']}" />
-						</t:htmlTag>
 					</p:column>
 
 					<!-- 						<p:column sortBy="#{centre.choixAnneeAvantDebutAnnee}"> -->
@@ -152,14 +129,10 @@
 
 					<p:column sortBy="#{centre.confidentialite.libelle}">
 						<f:facet name="header">
-							<t:htmlTag value="center">
 								<h:outputText style="font-weight:bold;"
 									value="#{msgs['CENTRE.LISTE_CENTRE.CONFIDENTIALITE']}" />
-							</t:htmlTag>
 						</f:facet>
-						<t:htmlTag value="center">
 							<h:outputText value="#{centre.confidentialite.libelle}" />
-						</t:htmlTag>
 					</p:column>
 
 					<p:column width="50px;">
@@ -167,7 +140,6 @@
 							<h:outputText style="white-space:normal;"
 								value="#{msgs['CENTRE.LISTE_CENTRE.ACTIONS']}" />
 						</f:facet>
-						<t:htmlTag value="center">
 							<h:commandLink id="see"
 								action="#{centreController.goToVoirCentre}">
 								<f:setPropertyActionListener value="#{centre}"
@@ -193,7 +165,6 @@
 								<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="delete" />
 							</p:commandLink>
 
-						</t:htmlTag>
 					</p:column>
 				</p:dataTable>
 				</t:div>
