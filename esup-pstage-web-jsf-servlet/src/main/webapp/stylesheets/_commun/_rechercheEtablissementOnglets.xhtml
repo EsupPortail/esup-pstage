@@ -92,44 +92,44 @@
         <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant==3}">
             <t:htmlTag value="ul" styleClass="formUL columns-2 verticalCenter mt15">
                 <t:div styleClass="column">
-                <t:htmlTag value="li">
-                    <h:outputLabel for="rechTypeStructure"
-                                   value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.TYPESTRUCTURE']}" />
-                    <h:selectOneMenu id="rechTypeStructure" required="true" styleClass="customPstage"
-                                     value="#{rechercheController.rechTypeEtablissement}"
-                                     converter="#{typeStructureConverter}">
-                        <f:selectItems value="#{nomenclatureController.typesStructure}" />
-                    </h:selectOneMenu>
-                    <p:message for="rechTypeStructure"/>
-                </t:htmlTag>
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechTypeStructure"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.TYPESTRUCTURE']}" />
+                        <h:selectOneMenu id="rechTypeStructure" required="true" styleClass="customPstage"
+                                         value="#{rechercheController.rechTypeEtablissement}"
+                                         converter="#{typeStructureConverter}">
+                            <f:selectItems value="#{nomenclatureController.typesStructure}" />
+                        </h:selectOneMenu>
+                        <p:message for="rechTypeStructure"/>
+                    </t:htmlTag>
 
-                <t:htmlTag value="li">
-                    <h:outputLabel for="rechNafN1"
-                                   value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.SECTEURACTIVITE']}" />
-                    <h:selectOneMenu id="rechNafN1" required="true" styleClass="customPstage"
-                                     value="#{rechercheController.rechNafN1}"
-                                     converter="#{nafN1Converter}">
-                        <f:selectItems value="#{nomenclatureController.nafN1}" />
-                    </h:selectOneMenu>
-                    <p:message for="rechNafN1"/>
-                </t:htmlTag>
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechNafN1"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.SECTEURACTIVITE']}" />
+                        <h:selectOneMenu id="rechNafN1" required="true" styleClass="customPstage"
+                                         value="#{rechercheController.rechNafN1}"
+                                         converter="#{nafN1Converter}">
+                            <f:selectItems value="#{nomenclatureController.nafN1}" />
+                        </h:selectOneMenu>
+                        <p:message for="rechNafN1"/>
+                    </t:htmlTag>
                 </t:div>
                 <t:div styleClass="column">
-                <t:htmlTag value="li">
-                    <h:outputLabel for="rechDepartement3" escape="false"
-                                   value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
-                    <p:inputText id="rechDepartement3" size="2" maxlength="2"
-                                 value="#{rechercheController.rechDepartement}"
-                                 converter="#{sansAccentEnMAJConverter}" />
-                    <p:message for="rechDepartement3"/>
-                </t:htmlTag>
+                    <t:htmlTag value="li">
+                        <h:outputLabel for="rechDepartement3" escape="false"
+                                       value="#{msgs['RECHERCHEETABLISSEMENT.DEPARTEMENT']}" />
+                        <p:inputText id="rechDepartement3" size="2" maxlength="2"
+                                     value="#{rechercheController.rechDepartement}"
+                                     converter="#{sansAccentEnMAJConverter}" />
+                        <p:message for="rechDepartement3"/>
+                    </t:htmlTag>
                 </t:div>
             </t:htmlTag>
 
             <t:div styleClass="textCenter clearFloat">
-            <p:commandButton action="#{rechercheController.rechercheActivite}"
-                             value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-                             update="@form" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                <p:commandButton action="#{rechercheController.rechercheActivite}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 update="@form" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
             </t:div>
         </t:div>
 
@@ -137,19 +137,19 @@
 
             <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.TEL']}" styleClass="fontBold"/>
             <t:htmlTag value="ul" styleClass="formUL">
-                    <p:commandButton action="#{rechercheController.rechercheTel}"
-                                     value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-                                     update="@form" styleClass="ml5 floatRight"
-                                     onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
-                    <t:div style="overflow: hidden;">
+                <p:commandButton action="#{rechercheController.rechercheTel}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 update="@form" styleClass="ml5 floatRight"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                <t:div style="overflow: hidden;">
                     <p:inputText id="rechTelephone" size="20" maxlength="20"
                                  value="#{rechercheController.rechTelephone}"/>
                     <p:message for="rechTelephone" />
-                    </t:div>
+                </t:div>
             </t:htmlTag>
             <p:separator styleClass="mt20 mb20"/>
 
-                    <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}" styleClass="fontBold"/>
+            <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}" styleClass="fontBold"/>
             <t:htmlTag value="ul" styleClass="formUL">
                 <p:commandButton action="#{rechercheController.rechercheFax}"
                                  value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
@@ -160,7 +160,7 @@
                                  value="#{rechercheController.rechFax}"/>
                     <p:message for="rechFax" />
                 </t:div>
-</t:htmlTag>
+            </t:htmlTag>
         </t:div>
         <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant==7}">
 

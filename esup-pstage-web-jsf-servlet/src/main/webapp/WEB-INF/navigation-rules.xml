@@ -741,6 +741,11 @@
 			<redirect />
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>conventionEtape2ModifEtabService</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionEtape2ModifEtabService.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>conventionEtape2ModifEtabServiceContact</from-outcome>
 			<to-view-id>/stylesheets/stage/conventionEtape2ModifEtabServiceContact.xhtml</to-view-id>
 			<redirect />

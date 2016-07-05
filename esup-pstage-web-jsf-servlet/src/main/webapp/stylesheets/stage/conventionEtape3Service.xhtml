@@ -53,7 +53,7 @@
 								<f:setPropertyActionListener value="_ajoutServiceEtape0"
 									target="#{sessionController.ajoutServiceCurrentPage}" />
 								<h:graphicImage alt="#{msgs['FORM.CREER']}"
-									value="../../media/images/new.png" />
+									value="/media/images/new.png" />
 								<p:tooltip value="#{msgs['FORM.CREER']}" />
 							</p:commandLink>
 						</h:panelGrid>
@@ -65,7 +65,7 @@
 							rendered="#{not empty etablissementController.serviceSel}" />
 						<p:dataTable value="#{etablissementController.serviceSel}"
 							rendered="#{not empty etablissementController.serviceSel}">
-							<ui:include src="../_commun/_serviceColumns.xhtml" />
+							<ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
 							<p:column>
 								<p:commandLink id="modif"
 									rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
@@ -89,7 +89,7 @@
 									<f:setPropertyActionListener value="_modifServiceEtape0"
 										target="#{sessionController.modifServiceCurrentPage}" />
 									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-										value="../../media/images/edit.png" />
+										value="/media/images/edit.png" />
 									<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
 								</p:commandLink>
 
@@ -100,7 +100,7 @@
 						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
 									oncomplete="PF('demandeConfirmModifService').show();"
-									update="opActionsService">
+									update="@form">
 									<f:setPropertyActionListener
 										value="#{etablissementController.serviceSel}"
 										target="#{etablissementController.formService}" />
@@ -121,7 +121,7 @@
 							<h:panelGrid columns="2" align="center">
 								<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
 									title="#{msgs['GENERAL.WARNING']}"
-									value="../../media/images/warning_50px.png" />
+									value="/media/images/warning_50px.png" />
 								<h:outputText
 									value="#{msgs['CONVENTION.MODIF.SERVICE.QUESTION']}"
 									escape="false" />

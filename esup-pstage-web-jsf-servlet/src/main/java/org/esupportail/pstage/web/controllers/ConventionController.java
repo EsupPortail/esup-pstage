@@ -292,9 +292,18 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	private int idSignataireSel;
 	/**
-	 * Contact selectionne - convention signatraire.
+	 * Contact selectionne - convention signataire.
 	 */
 	private ContactDTO signataireSel;
+
+	/**
+	 * Service selectionne pour la modification du service de la convention
+	 */
+	private ServiceDTO serviceSel;
+	/**
+	 * Contact selectionne pour la modification du contact de la convention
+	 */
+	private ContactDTO contactSel;
 	/**
 	 * LangueConvention selectionnee.
 	 */
@@ -1516,83 +1525,89 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return a String
 	 */
 	public String goToConventionEtape2CreaEtab() {
+
 		this.etablissementController.goToCreationEtablissement();
+
 		return "conventionEtape2CreaEtab";
 	}
 
 	/**
+	 * 1ere etape de modif de l'etablissement de la convention : le service
 	 * @return String
 	 */
-	public String goToConventionEtape2DetailsEtab() {
-		String retour = "conventionEtape2ModifEtabServiceContact";
-		getSessionController().setCurrentManageStructure(
-				this.convention.getStructure());
-		getSessionController().setMenuGestionEtab(false);
+	public String goToConventionModifEtabService() {
+		String retour = "conventionEtape2ModifEtabService";
+
+		// On retient la structure selectionnee dans CurrentManageStructure
+		// pour qu'elle ne soit changee sur la convention qu'une fois que le
+		// contact ET le signataire ont été modifies
+		getSessionController().setCurrentManageStructure(this.convention.getStructure());
+
+		// On charge la liste des services/contacts
 		this.etablissementController.loadContactsServices();
-		if (this.convention.getStructure() != null) {
-			this.convention.setIdStructure(this.convention.getStructure()
-					.getIdStructure());
-		}
+		// On reinitialise le service selectionne en vue de l'etape suivante
+		this.serviceSel = null;
+
 		return retour;
 	}
 
 	/**
+	 * 2eme etape de modif de l'etablissement de la convention : le contact
 	 * @return String
 	 */
 	public String goToConventionModifEtabServiceContact() {
-		String retour = null;
-		if (this.convention.getStructure() != null) {
-			this.convention.setIdStructure(this.convention.getStructure()
-					.getIdStructure());
-		}
-		if (this.convention.getService() != null) {
-			this.convention.setIdService(this.convention.getService()
-					.getIdService());
-		}
-		if (this.convention.getContact() != null) {
-			this.convention.setIdContact(this.convention.getContact().getId());
-		}
-		// remise à zéro du signataire
-		this.convention.setSignataire(new ContactDTO());
-		this.convention.setIdSignataire(0);
-		ConventionDTO conventionTmp = this.convention;
-		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
-		try {
-			if (this.getConventionDomainService().updateConvention(
-					conventionTmp)) {
-				this.alerteMailModifConvention(" l'établissement d'accueil ");
+		String retour = "conventionEtape2ModifEtabServiceContact";
 
-				// retour=sequenceEtapeEnumSel.etape2.actionEtape();
-				retour = "conventionEtape2ModifEtabServiceSignataire";
-				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
-			}
-		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.getCause());
-			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
-		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.getCause());
-			addErrorMessage(null,
-					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-					we.getMessage());
-		}
+		// On reinitialise les services/contacts selectionnes en vue de l'etape suivante
+		this.contactSel = null;
+
 		return retour;
 	}
 
 	/**
+	 * 3eme etape de modif de l'etablissement de la convention : le signataire
 	 * @return String
 	 */
 	public String goToConventionModifEtabServiceSignataire() {
+		String retour = "conventionEtape2ModifEtabServiceSignataire";
+
+		// On reinitialise les services/contacts selectionnes en vue de l'etape suivante
+		this.signataireSel = null;
+
+		return retour;
+	}
+
+	/**
+	 * Etape finale de modif de l'etablissement de la convention : application des changements en base
+	 * @return String
+	 */
+	public String modifierEtablissementConvention() {
 		String retour = null;
-		if (this.convention.getSignataire() != null) {
-			this.convention.setIdSignataire(this.convention.getSignataire()
-					.getId());
+
+		// On applique toutes les modifs sur la convention
+		if (getSessionController().getCurrentManageStructure() != null) {
+			this.convention.setStructure(getSessionController().getCurrentManageStructure());
+			this.convention.setIdStructure(getSessionController().getCurrentManageStructure().getIdStructure());
+		}
+		if (this.serviceSel != null){
+			this.convention.setService(this.serviceSel);
+			this.convention.setIdService(this.serviceSel.getIdService());
+		}
+		if (this.contactSel != null) {
+			this.convention.setContact(this.contactSel);
+			this.convention.setIdContact(this.contactSel.getId());
+		}
+		if (this.signataireSel != null) {
+			this.convention.setSignataire(this.signataireSel);
+			this.convention.setIdSignataire(this.signataireSel.getId());
 		}
 		ConventionDTO conventionTmp = this.convention;
 		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 		try {
-			if (this.getConventionDomainService().updateConvention(
-					conventionTmp)) {
+			// Update en base
+			if (this.getConventionDomainService().updateConvention(conventionTmp)) {
 				retour = SequenceEtapeEnumSel.etape2.actionEtape();
+				this.alerteMailModifConvention(" l'établissement d'accueil ");
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
 			}
 		} catch (DataUpdateException ae) {
@@ -7098,5 +7113,21 @@ public class ConventionController extends AbstractContextAwareController {
 
 	public void setSequenceEtapeEnum(SequenceEtapeEnum sequenceEtapeEnum) {
 		this.sequenceEtapeEnum = sequenceEtapeEnum;
+	}
+
+	public ContactDTO getContactSel() {
+		return contactSel;
+	}
+
+	public void setContactSel(ContactDTO contactSel) {
+		this.contactSel = contactSel;
+	}
+
+	public ServiceDTO getServiceSel() {
+		return serviceSel;
+	}
+
+	public void setServiceSel(ServiceDTO serviceSel) {
+		this.serviceSel = serviceSel;
 	}
 }
