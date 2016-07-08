@@ -6,7 +6,7 @@
 	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 	<h:panelGrid >
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
+		<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 		<h:outputLabel for="mdp"
 			value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.MDPACTUEL']} *" />
 		<h:inputSecret id="mdp" size="12" maxlength="12"
@@ -16,7 +16,7 @@
 			<p:ajax event="blur" />
 		</h:inputSecret>
 		<p:message for="mdp">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 		</p:message>
 		<h:panelGrid columns="2" style="font-size:11px;">
 			<h:graphicImage
@@ -36,7 +36,7 @@
 			<p:ajax event="blur" />
 		</h:inputSecret>
 		<p:message for="mdpNew">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 		</p:message>
 		<h:outputLabel for="mdpConfirm"
 			value="#{msgs['CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.NOUVEAUMDPCONFIRM']} *" />
@@ -48,7 +48,7 @@
 			<p:ajax event="blur" />
 		</h:inputSecret>
 		<p:message for="mdpConfirm">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 		</p:message>
 	</h:panelGrid>
 	<p:commandButton

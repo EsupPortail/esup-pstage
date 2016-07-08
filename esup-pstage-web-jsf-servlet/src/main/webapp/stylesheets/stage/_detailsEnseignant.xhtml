@@ -8,13 +8,13 @@
                   escape="false" />
 
     <t:div rendered="#{not empty conventionController.convention.enseignant}">
-        <t:htmlTag value="i" styleClass="fa fa-user fz13 fontBlue2"/>
-        <h:outputText value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']} " styleClass="fontBold fontBlue2 fz13 ml5" escape="false"/>
 
         <h:panelGrid columns="2" styleClass="ml40 blueHover" cellspacing="5">
 
-            <h:outputText value="#{msgs['CONVENTION.CIVILITE']}" styleClass="fontBold"/>
-            <h:outputText value="#{conventionController.convention.enseignant.civilite.libelle}" />
+            <h:outputText value="#{msgs['CONVENTION.CIVILITE']}" styleClass="fontBold"
+                          rendered="#{not empty conventionController.convention.enseignant.civilite}"/>
+            <h:outputText value="#{conventionController.convention.enseignant.civilite.libelle}"
+                          rendered="#{not empty conventionController.convention.enseignant.civilite}" />
 
             <h:outputText value="#{msgs['CONVENTION.NOM']}" styleClass="fontBold" />
             <h:outputText value="#{conventionController.convention.enseignant.nom}" />
@@ -25,8 +25,10 @@
             <!--<h:outputText value="#{msgs['CONVENTION.TYPE']}" styleClass="fontBold" />-->
             <!--<h:outputText value="#{conventionController.convention.enseignant.typePersonne}" />-->
 
-            <h:outputText value="#{msgs['CONVENTION.DEPARTEMENT']}" styleClass="fontBold" />
-            <h:outputText value="#{conventionController.convention.enseignant.codeAffectation} - #{conventionController.convention.enseignant.affectation.libelle}" />
+            <h:outputText value="#{msgs['CONVENTION.DEPARTEMENT']}" styleClass="fontBold"
+                          rendered="#{not empty conventionController.convention.enseignant.codeAffectation}"/>
+            <h:outputText value="#{conventionController.convention.enseignant.codeAffectation} - #{conventionController.convention.enseignant.affectation.libelle}"
+                          rendered="#{not empty conventionController.convention.enseignant.codeAffectation}" />
 
             <h:outputText value="#{msgs['CONTACT.TELEPHONE']}" styleClass="fontBold" />
             <h:outputText value="#{conventionController.convention.enseignant.tel}" />

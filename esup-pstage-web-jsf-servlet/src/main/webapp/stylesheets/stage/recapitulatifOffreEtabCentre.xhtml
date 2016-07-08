@@ -87,7 +87,7 @@
                                                    rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
                                     </h:commandLink>
                                 </legend>
-                                <ui:include src="../_commun/_detailsOffreEtab.xhtml" />
+                                <ui:include src="/stylesheets/_commun/_detailsOffreEtab.xhtml" />
                             </fieldset>
 
                             <t:htmlTag value="div" style="height: 20px;" />
@@ -118,7 +118,7 @@
                                                    rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
                                     </h:commandLink>
                                 </legend>
-                                <ui:include src="../_commun/_detailsOffre.xhtml" />
+                                <ui:include src="/stylesheets/_commun/_detailsOffre.xhtml" />
                             </fieldset>
 
                             <t:htmlTag value="div" style="height: 20px;" />
@@ -152,7 +152,7 @@
                                                        rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
                                         </h:commandLink>
                                     </legend>
-                                    <ui:include src="../_commun/_detailsOffreFichier.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_detailsOffreFichier.xhtml" />
                                 </fieldset>
                             </t:div>
 
@@ -187,7 +187,7 @@
                                         </h:commandLink>
 
                                     </legend>
-                                    <ui:include src="../_commun/_detailsOffreContacts.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_detailsOffreContacts.xhtml" />
                                 </fieldset>
                             </t:div>
                             <!-- 							</p:outputPanel> -->
@@ -199,7 +199,7 @@
                                     <legend>
                                         <h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
                                     </legend>
-                                    <ui:include src="../_commun/_detailsOffreDiffusion.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_detailsOffreDiffusion.xhtml" />
                                 </fieldset>
                             </t:div>
                             <p:outputPanel ajaxRendered="true">
@@ -248,7 +248,7 @@
                                 <h:panelGrid style="float:right;">
                                     <t:aliasBean alias="#{objet}"
                                                  value="#{offreController.currentOffre}">
-                                        <ui:include src="../_commun/_updateInfos.xhtml" />
+                                        <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
                                     </t:aliasBean>
                                 </h:panelGrid>
                             </p:outputPanel>
@@ -264,10 +264,10 @@
                                         rendered="#{!offreController.currentOffre.cacherEtablissement}">
                                     <h:outputText
                                             value="#{msgs['RECHERCHEOFFRE.RECAPETUDIANT.ETAB']} " />
-                                    <ui:include src="../_commun/_detailsOffreEtab.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_detailsOffreEtab.xhtml" />
                                     <t:htmlTag value="div" style="height: 10px;" />
                                 </t:div>
-                                <ui:include src="../_commun/_detailsOffreEtudiant.xhtml" />
+                                <ui:include src="/stylesheets/_commun/_detailsOffreEtudiant.xhtml" />
                             </h:panelGrid>
                         </t:div>
                     </t:div>
@@ -283,12 +283,12 @@
                     </h:panelGrid>
                 </h:form>
             </h:panelGrid>
-            <ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
-            <ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
-            <ui:include src="../_commun/_panelOffrePourvue.xhtml" />
-            <ui:include src="../_commun/_panelTransfertOffre.xhtml" />
-            <ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
-            <ui:include src="../_commun/_panelSupprOffre.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelDiffusionOffre.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelStopDiffusionOffre.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelOffrePourvue.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelTransfertOffre.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelDiffusionCentreOffre.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
         </p:panel>
     </ui:define>
 </ui:composition>

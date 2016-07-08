@@ -29,7 +29,7 @@
 								rowsPerPageTemplate="5,10,15,20"
 								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 								<ui:include
-									src="../_commun/_rechercheOffreResultatsColumns.xhtml" />
+									src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
 								<p:column>
 									<h:commandLink id="recap"
 										action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
@@ -48,7 +48,7 @@
 								rowsPerPageTemplate="5,10,15,20"
 								rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
 								<ui:include
-									src="../_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
+									src="/stylesheets/_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
 								<p:column>
 									<h:commandLink id="recap"
 										action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
@@ -71,7 +71,7 @@
 					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}">
 				</h:commandButton>
 			</h:form>
-			<ui:include src="../_commun/_panelSupprOffre.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
 		</p:panel>
 	</ui:define>
 </ui:composition>

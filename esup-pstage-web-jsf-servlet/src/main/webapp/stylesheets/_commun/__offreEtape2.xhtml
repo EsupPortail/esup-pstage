@@ -6,7 +6,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<h:panelGrid>
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
+		<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 		<h:panelGrid columns="3"
 			rendered="#{offreController.formOffre.idOffre gt 0}"
 			style="float:right;">
@@ -93,12 +93,12 @@
 							</h:selectOneMenu>
 							<t:panelGroup colspan="3">
 								<p:message for="moisMission">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 								</p:message>
 							</t:panelGroup>
 							<t:panelGroup colspan="2">
 								<p:message for="anneeMission">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 								</p:message>
 							</t:panelGroup>
 						</h:panelGrid>
@@ -113,7 +113,7 @@
 								 />
 						</h:inputText>
 						<p:message for="precisionDebutMission">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</h:panelGrid>
 				</p:outputPanel>
@@ -212,7 +212,7 @@
 							<p:ajax event="blur" />
 						</h:inputText>
 						<p:message for="codePostal">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</h:panelGrid>
 					<h:panelGrid
@@ -233,7 +233,7 @@
 							</h:panelGrid>
 						</p:outputPanel>
 						<p:message for="dynaCodePostal">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</h:panelGrid>
 				</p:outputPanel>
@@ -251,7 +251,7 @@
 							<p:ajax event="blur" />
 						</h:inputText>
 						<p:message for="commune">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</h:panelGrid>
 					<h:panelGrid
@@ -267,7 +267,7 @@
 								<p:ajax event="valueChange" />
 							</h:selectOneMenu>
 							<p:message for="dynaCommune">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 							</p:message>
 						</p:outputPanel>
 					</h:panelGrid>
@@ -293,7 +293,7 @@
 					</h:selectOneMenu>
 				</h:panelGrid>
 				<p:message for="pays">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 				</p:message>
 				<h:panelGrid rendered="#{!offreController.avecFichierOuLien}">
 					<t:htmlTag value="div" style="height: 20px;" />
@@ -307,7 +307,7 @@
 							update="opPrecisionsIndemnite" />
 					</h:selectOneRadio>
 					<p:message for="indemnite">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
 					<p:outputPanel id="opPrecisionsIndemnite">
 						<h:panelGrid>
@@ -325,7 +325,7 @@
 								<p:ajax event="blur" />
 							</h:inputText>
 							<p:message for="precisionsIndemnite">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 							</p:message>
 						</h:panelGrid>
 					</p:outputPanel>
@@ -335,7 +335,7 @@
 						maxlength="200">
 					</h:inputText>
 					<p:message for="avantages">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
 					<t:htmlTag value="div" style="height: 50px;" />
 					<h:outputLabel value="#{msgs['OFFRE.NIVEAUFORMATION']} *"
@@ -349,7 +349,7 @@
 						<p:ajax event="valueChange" />
 					</h:selectOneMenu>
 					<p:message for="niveauFormation">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
 					<h:outputLabel value="#{msgs['OFFRE.COMPSOUHAITEES']}"
 						for="compSouhaitees" />
@@ -357,7 +357,7 @@
 						style="width:300px; height:200px;"
 						value="#{offreController.formOffre.competences}" />
 					<p:message for="compSouhaitees">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
 				</h:panelGrid>
 			</h:panelGrid>
@@ -378,7 +378,7 @@
 					<p:ajax event="valueChange" />
 				</h:selectOneRadio>
 				<p:message for="deplacement">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 				</p:message>
 				<h:outputLabel value="#{msgs['OFFRE.PERMIS']} *" for="permis" />
 				<h:selectOneRadio id="permis"
@@ -389,7 +389,7 @@
 					<p:ajax event="valueChange" />
 				</h:selectOneRadio>
 				<p:message for="permis">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 				</p:message>
 				<t:htmlTag value="div" style="height: 90px;" />
 				<h:panelGrid columns="3">
@@ -406,7 +406,7 @@
 								 />
 						</h:selectOneMenu>
 						<p:message for="tempsTravail">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</h:panelGrid>
 					<t:htmlTag value="div" style="width: 20px;" />
@@ -431,7 +431,7 @@
 								<h:outputText value="%" />
 							</h:panelGrid>
 							<p:message for="quotiteTravail">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 							</p:message>
 						</h:panelGrid>
 					</p:outputPanel>
@@ -443,7 +443,7 @@
 					size="50" maxlength="200">
 				</h:inputText>
 				<p:message for="comTpsTravail">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 				</p:message>
 				<t:htmlTag value="div" style="height: 40px;" />
 				<h:outputLabel value="#{msgs['OFFRE.MODECANDIDATURE']} *"
@@ -457,13 +457,13 @@
 					<p:ajax event="blur" />
 				</h:selectManyListbox>
 				<p:message for="modeCand">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 				</p:message>
 				<h:outputLabel value="#{msgs['OFFRE.COMOBS']}" for="comobs" />
 				<h:inputTextarea id="comobs" style="height:200px; width:300px;"
 					value="#{offreController.formOffre.observations}" />
 				<p:message for="comobs">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 				</p:message>
 			</h:panelGrid>
 		</h:panelGrid>
@@ -502,7 +502,7 @@
 						<f:selectItems value="#{offreController.dureesDiffusion}" />
 					</h:selectOneMenu>
 					<p:message for="dureeDiffusion">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
 				</h:panelGrid>
 			</h:panelGrid>

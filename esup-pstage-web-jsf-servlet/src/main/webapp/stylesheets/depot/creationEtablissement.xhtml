@@ -17,9 +17,9 @@
 					<h:form id="formAjoutEtab"
 						rendered="#{not empty etablissementController.formStructure}">
 						<p:message for="formAjoutEtab">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
-						<ui:include src="../_commun/_etablissementForm.xhtml" />
+						<ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
 						<h:panelGrid columns="3">
 							<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 								action="#{rechercheController.goToRechercheEtablissement}"

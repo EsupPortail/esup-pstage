@@ -1,145 +1,79 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<f:facet name="header">
-					<h:outputText value="#{msgs['CONVENTION.ETAPE3.SERVICE.INFO']}" />
-				</f:facet>
-				<t:htmlTag value="div" style="height: 20px;" />
-				<h:panelGrid>
-					<h:outputText
-						value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
-						rendered="#{empty sessionController.currentManageStructure}" />
-					<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
-						rendered="#{empty etablissementController.listeServices}"
-						escape="false" />
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
 
-					<p:outputPanel id="opService"
-						rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
-		and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}">
-						<h:panelGrid columns="2">
-							<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
-								escape="false"
-								rendered="#{not empty etablissementController.listeServices}" />
-							<h:selectOneMenu id="sOMService"
-								value="#{etablissementController.idServiceSel}"
-								converter="#{intConverter}"
-								valueChangeListener="#{etablissementController.valueIdServiceChanged}"
-								rendered="#{not empty etablissementController.listeServices}">
-								<f:selectItems value="#{etablissementController.servicesItems}" />
-								<p:ajax event="valueChange" update="opActionsService" />
-							</h:selectOneMenu>
-						</h:panelGrid>
-						<h:panelGrid columns="3">
-							<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}"
-								escape="false" />
-							<p:commandLink id="ajout" oncomplete="PF('ajoutService').show();"
-								action="#{etablissementController.ajoutService}"
-								update="ajoutService">
-								<f:setPropertyActionListener value="#{true}"
-									target="#{etablissementController.memeAdresseStructure}" />
-								<f:setPropertyActionListener value="_ajoutServiceEtape0"
-									target="#{sessionController.ajoutServiceCurrentPage}" />
-								<h:graphicImage alt="#{msgs['FORM.CREER']}"
-									value="/media/images/new.png" />
-								<p:tooltip value="#{msgs['FORM.CREER']}" />
-							</p:commandLink>
-						</h:panelGrid>
-					</p:outputPanel>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<p:outputPanel id="opActionsService">
-						<h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
-							escape="false"
-							rendered="#{not empty etablissementController.serviceSel}" />
-						<p:dataTable value="#{etablissementController.serviceSel}"
-							rendered="#{not empty etablissementController.serviceSel}">
-							<ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
-							<p:column>
-								<p:commandLink id="modif"
-									rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
-						and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
-						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-						|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-						(!sessionController.autoriserEtudiantAModifierEntreprise 
-						and ((empty etablissementController.serviceSel.loginModif and
-						etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
-						|| (etablissementController.serviceSel.loginModif==sessionController.currentLogin)))))))}"
-									oncomplete="PF('modifService').show();" update="modifService">
-									<f:setPropertyActionListener value="#{false}"
-										target="#{etablissementController.memeAdresseStructure}" />
-									<f:setPropertyActionListener
-										value="#{etablissementController.serviceSel}"
-										target="#{etablissementController.formService}" />
-									<f:setPropertyActionListener
-										value="#{etablissementController.serviceSel}"
-										target="#{conventionController.convention.service}" />
-									<f:setPropertyActionListener value="_modifServiceEtape0"
-										target="#{sessionController.modifServiceCurrentPage}" />
-									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-										value="/media/images/edit.png" />
-									<p:tooltip value="#{msgs['FORM.MODIFIER']}" />
-								</p:commandLink>
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
-								<p:commandButton id="selectionService"
-									value="#{msgs['FORM.SELECTIONNER']}" style="color:green;"
-									rendered="#{not empty etablissementController.idServiceSel and !conventionController.conventionValide
-						and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-						|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
-									oncomplete="PF('demandeConfirmModifService').show();"
-									update="@form">
-									<f:setPropertyActionListener
-										value="#{etablissementController.serviceSel}"
-										target="#{etablissementController.formService}" />
-									<f:setPropertyActionListener
-										value="#{etablissementController.serviceSel}"
-										target="#{conventionController.convention.service}" />
-									<p:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
-								</p:commandButton>
-							</p:column>
-						</p:dataTable>
+                        <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE3.SERVICE']}"
+                                      styleClass="fontBold fontBlue2 fz16 ml5"
+                                      escape="false"/>
 
-						<p:dialog id="demandeConfirmModifService"
-							widgetVar="demandeConfirmModifService">
-							<f:facet name="header">
-								<h:outputText
-									value="#{msgs['CONVENTION.MODIF.SERVICE.DEMANDE']}" />
-							</f:facet>
-							<h:panelGrid columns="2" align="center">
-								<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-									title="#{msgs['GENERAL.WARNING']}"
-									value="/media/images/warning_50px.png" />
-								<h:outputText
-									value="#{msgs['CONVENTION.MODIF.SERVICE.QUESTION']}"
-									escape="false" />
-							</h:panelGrid>
-							<h:panelGrid columns="3">
-								<p:commandButton value="#{msgs['FORM.OUI']}"
-									oncomplete="PF('demandeConfirmModifService').hide();"
-									action="#{conventionController.goToConventionEtape3ServiceModif}" />
-								<t:htmlTag value="div" style="width: 100px;" />
-								<p:commandButton value="#{msgs['FORM.NON']}"
-									onclick="PF('demandeConfirmModifService').hide();" />
-							</h:panelGrid>
-						</p:dialog>
-					</p:outputPanel>
-				</h:panelGrid>
-			</h:form>
-			<ui:include src="../_commun/_panelAjoutService.xhtml" />
-			<ui:include src="../_commun/_panelModifService.xhtml" />
-		</p:panel>
-	</ui:define>
+                        <t:htmlTag value="div" style="height: 5px;" />
+
+                        <t:div styleClass="ml20">
+                            <t:div rendered="#{empty etablissementController.listeServices}"
+                                   styleClass="fontRed">
+                                <t:htmlTag value="i" styleClass="fa fa-ban"/>
+                                <h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
+                                              styleClass="ml5" escape="false" />
+                            </t:div>
+
+                            <t:div id="actionsService"
+                                   rendered="#{not empty etablissementController.listeServices}">
+                                <p:dataTable value="#{etablissementController.serviceSel}" var="service"
+                                             rowStyleClass="noPointer" styleClass="mt5">
+
+                                    <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
+
+                                </p:dataTable>
+
+                                <t:div styleClass="textCenter mt10">
+                                    <p:commandButton id="selC" styleClass="fontBlue2"
+                                                     value="#{msgs['CONVENTION.MODIF.SERVICE.BOUTON']}"
+                                                     oncomplete="PF('demandeConfirmModifService').show();"/>
+                                </t:div>
+
+                                <p:dialog id="demandeConfirmModifService"
+                                          widgetVar="demandeConfirmModifService"
+                                          resizable="false">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONVENTION.MODIF.SERVICE.DEMANDE']}" />
+                                    </f:facet>
+
+                                    <t:htmlTag value="div" style="height: 10px;" />
+
+                                    <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed fz13" />
+                                    <h:outputText value="#{msgs['CONVENTION.MODIF.SERVICE.QUESTION']}"
+                                                  styleClass="ml5"
+                                                  escape="false" />
+
+                                    <t:div styleClass="textCenter">
+                                        <p:commandButton value="#{msgs['FORM.OUI']}"
+                                                         oncomplete="PF('demandeConfirmModifService').hide();"
+                                                         action="#{conventionController.goToConventionEtape3ServiceModif}" />
+                                        <p:commandButton value="#{msgs['FORM.NON']}" styleClass="mt20 mb20 ml40"
+                                                         onclick="PF('demandeConfirmModifService').hide();" />
+                                    </t:div>
+                                </p:dialog>
+                            </t:div>
+                        </t:div>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

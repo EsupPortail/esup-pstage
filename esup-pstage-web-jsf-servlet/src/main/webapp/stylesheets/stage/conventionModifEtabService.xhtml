@@ -19,6 +19,7 @@
                         <h:outputText value="#{msgs['CONVENTION.ETAPE2.MODIFSERVICE']}"
                                       styleClass="fontBold fontBlue2 fz16 ml5"
                                       escape="false"/>
+
                         <t:htmlTag value="div" style="height: 10px;" />
 
                         <t:div styleClass="ml20">
@@ -76,23 +77,6 @@
                                             <p:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
                                         </p:commandLink>
 
-                                        <p:commandLink id="suppr" update="supprService"
-                                                       oncomplete="PF('supprService').show();"
-                                                       rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-                                            welcomeController.admin || welcomeController.personnel || welcomeController.writer)
-                                            || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-                                            (!sessionController.autoriserEtudiantAModifierEntreprise
-                                            and ((empty service.loginModif and
-                                            service.loginCreation==sessionController.currentLogin)
-                                            || (service.loginModif==sessionController.currentLogin)))))))}">
-                                            <f:setPropertyActionListener value="#{service}"
-                                                                         target="#{etablissementController.formService}" />
-                                            <f:setPropertyActionListener value="_supprServiceEtape1"
-                                                                         target="#{sessionController.suppressionServiceCurrentPage}" />
-                                            <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
-                                            <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
-                                        </p:commandLink>
-
                                         <p:commandButton id="selC" styleClass="fontBlue2"
                                                          value="#{msgs['FORM.SELECTIONNER']}"
                                                          action="#{conventionController.goToConventionModifEtabServiceContact}">
@@ -120,7 +104,7 @@
                         </t:div>
 
                         <p:commandButton value="#{msgs['GENERAL.RETOUR']}"
-                                         action="conventionEtape2RechEtab"
+                                         action="#{conventionController.goToRetourAction}"
                                          immediate="true" styleClass="mt20"/>
                     </t:div>
                 </t:fieldset>

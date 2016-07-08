@@ -17,7 +17,10 @@
 		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 		<t:aliasBean alias="#{structure}"
 			value="#{offreController.currentOffre.structure}">
-			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+            <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+            <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+
+			<ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
 		</t:aliasBean>
 		<h:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
 			action="#{offreController.goToModificationOffreModifEtab}"
@@ -29,7 +32,7 @@
 		</h:commandButton>
 		<h:panelGrid id="formAffEtab" align="center">
 			<p:message for="formAffEtab">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 			</p:message>
 			<t:htmlTag value="div" style="height:10px;"/>
 		</h:panelGrid>

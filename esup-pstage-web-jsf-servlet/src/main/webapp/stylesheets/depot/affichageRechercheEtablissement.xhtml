@@ -28,7 +28,7 @@
 							</h:column>
 							<h:column>
 								<p:message for="formAffEtab">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 								</p:message>
 							</h:column>
 						</h:panelGrid>
@@ -46,7 +46,7 @@
 								rendered="#{sessionController.adminPageAuthorized}">
 								<t:aliasBean alias="#{objet}"
 									value="#{rechercheController.resultatRechercheStructure}">
-									<ui:include src="../_commun/_updateInfos.xhtml" />
+									<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
 								</t:aliasBean>
 							</h:panelGrid>
 						</p:outputPanel>
@@ -60,7 +60,7 @@
 				</p:panel>
 				<ui:include src="_panelNousContacter.xhtml" />
 				<ui:include src="_panelSupprAccord.xhtml" />
-				<ui:include src="../_commun/_panelSupprStructure.xhtml" />
+				<ui:include src="/stylesheets/_commun/_panelSupprStructure.xhtml" />
 			</h:panelGrid>
 		</t:div>
 	</ui:define>

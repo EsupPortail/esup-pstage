@@ -5,165 +5,150 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/stylesheets/_definedStageTemplate.xhtml">
     <ui:define name="content">
-        <ui:include src="_roadmapSel.xhtml" />
         <p:panel>
             <f:facet name="header">
-                <h:outputText
-                        value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
             </f:facet>
             <h:form id="formSelConvention">
-                <h:panelGrid>
-                    <f:facet name="header">
-                        <h:outputText value="#{msgs['CONVENTION.ETAPE4.CONTACT.INFO']}" />
-                    </f:facet>
-                    <t:htmlTag value="div" style="height: 20px;" />
-                    <h:panelGrid>
-                        <p:messages />
-                        <h:panelGrid
-                                rendered="#{not empty conventionController.convention.contact and conventionController.convention.contact.id > 0}">
-                            <h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
-                                          escape="false" />
-                            <t:htmlTag value="div" style="width: 50px;" />
-                            <p:dataTable value="#{conventionController.convention.contact}">
-                                <f:facet name="header">
-                                    <p:columnGroup>
-                                        <p:column>
-                                            <h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
-                                                            title="#{msgs['CONTACT.CIVILITE']}"
-                                                            value="../../media/images/user_gray.png" />
-                                        </p:column>
-                                        <p:column>
-                                            <h:outputText value="#{msgs['CONTACT.NOM']}" />
-                                        </p:column>
-                                        <p:column>
-                                            <h:outputText value="#{msgs['CONTACT.PRENOM']}" />
-                                        </p:column>
-                                        <p:column>
-                                            <h:outputText value="#{msgs['CONTACT.FONCTION']}" />
-                                        </p:column>
-                                        <p:column>
-                                            <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
-                                        </p:column>
-                                    </p:columnGroup>
-                                </f:facet>
-                                <p:column>
-                                    <h:outputText id="civC"
-                                                  value="#{conventionController.convention.contact.civilite.libelle}" />
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+
+                        <t:htmlTag value="i" styleClass="fa fa-user fz16 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+                                      styleClass="fontBold fontBlue2 fz16 ml5"
+                                      escape="false"/>
+                        <t:div styleClass="mt5 ml20">
+                            <p:dataTable
+                                    value="#{conventionController.convention.contact}" var="contact"
+                                    rowStyleClass="noPointer" styleClass="mt10">
+                                <p:column style="width:20px;">
+                                    <f:facet name="header">
+                                        <t:htmlTag id="civiliteHeader" value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer">
+                                            <p:tooltip for="civiliteHeader" value="#{msgs['CONTACT.CIVILITE']}"/>
+                                        </t:htmlTag>
+                                    </f:facet>
+                                    <h:outputText id="civC" value="#{contact.civilite.libelle}" />
                                 </p:column>
                                 <p:column>
-                                    <h:outputText id="nomC"
-                                                  value="#{conventionController.convention.contact.nom}" />
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONTACT.NOM']}" />
+                                    </f:facet>
+                                    <h:outputText id="nomC" value="#{contact.nom}" />
                                 </p:column>
                                 <p:column>
-                                    <h:outputText id="prenomC"
-                                                  value="#{conventionController.convention.contact.prenom}" />
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONTACT.PRENOM']}" />
+                                    </f:facet>
+                                    <h:outputText id="prenomC" value="#{contact.prenom}" />
                                 </p:column>
                                 <p:column>
-                                    <h:outputText id="fonctionC"
-                                                  value="#{conventionController.convention.contact.fonction}" />
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONTACT.FONCTION']}" />
+                                    </f:facet>
+                                    <h:outputText id="fonctionC" value="#{contact.fonction}" />
                                 </p:column>
-                                <p:column>
-                                    <h:panelGrid>
-                                        <h:panelGrid columns="2">
-                                            <h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-                                                            title="#{msgs['CONTACT.TELEPHONE']}"
-                                                            value="../../media/images/phone.png" />
-                                            <h:outputText id="telC"
-                                                          value="#{conventionController.convention.contact.tel}" />
-                                        </h:panelGrid>
-                                        <h:panelGrid columns="2">
-                                            <h:graphicImage alt="#{msgs['CONTACT.FAX']}"
-                                                            title="#{msgs['CONTACT.FAX']}"
-                                                            value="../../media/images/printer.png" />
-                                            <h:outputText id="faxC"
-                                                          value="#{conventionController.convention.contact.fax}" />
-                                        </h:panelGrid>
-                                        <h:panelGrid columns="2">
-                                            <h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-                                                            title="#{msgs['CONTACT.MAIL']}"
-                                                            value="../../media/images/email.png" />
-                                            <h:outputText id="mailC"
-                                                          value="#{conventionController.convention.contact.mail}" />
-                                        </h:panelGrid>
-                                    </h:panelGrid>
+                                <p:column style="word-break: break-all;">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
+                                    </f:facet>
+                                    <t:div rendered="#{not empty contact.tel}">
+                                        <b>Tel : </b>
+                                        <h:outputText id="telC" value="#{contact.tel}" />
+                                    </t:div>
+                                    <t:div rendered="#{not empty contact.fax}">
+                                        <b>Fax : </b>
+                                        <h:outputText id="faxC" value="#{contact.fax}" />
+                                    </t:div>
+                                    <t:div rendered="#{not empty contact.mail}">
+                                        <b>Mail : </b>
+                                        <h:outputText id="mailC" value="#{contact.mail}" />
+                                    </t:div>
                                 </p:column>
                             </p:dataTable>
-                        </h:panelGrid>
-                        <h:panelGrid
-                                rendered="#{empty conventionController.convention.contact || conventionController.convention.contact.id == 0}">
-                            <h:outputText value="#{msgs['CONTACT.AUCUNCONTACT']}"
-                                          escape="false" />
-                            <t:htmlTag value="div" style="width: 50px;" />
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid columns="2">
 
-                        <p:commandButton oncomplete="PF('modifContact').show();"
-                                         update="modifContact" value="#{msgs['FORM.MODIFIER']}"
-                                         rendered="#{not empty conventionController.convention.contact and !conventionController.conventionValide
-								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized 
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
+                            <h:outputText value="#{msgs['CONTACT.AUCUNCONTACT']}"
+                                          rendered="#{empty conventionController.convention.contact || conventionController.convention.contact.id == 0}"
+                                          escape="false" />
+
+                            <t:div styleClass="textCenter mt15">
+                                <p:commandButton oncomplete="PF('modifContact').show();"
+                                                 update="modifContact" value="#{msgs['FORM.MODIFIER']} les informations de ce contact"
+                                                 rendered="#{not empty conventionController.convention.contact and !conventionController.conventionValide
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
 								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-								(!sessionController.autoriserEtudiantAModifierEntreprise 
+								(!sessionController.autoriserEtudiantAModifierEntreprise
 								and ((empty conventionController.convention.contact.loginModif and
 								conventionController.convention.contact.loginCreation==sessionController.currentLogin)
 								|| (conventionController.convention.contact.loginModif==sessionController.currentLogin)))))))}">
-                            <f:setPropertyActionListener
-                                    value="#{conventionController.convention.contact}"
-                                    target="#{etablissementController.formContact}" />
-                            <f:setPropertyActionListener value="#{false}"
-                                                         target="#{etablissementController.afficherSelectionCentreContact}" />
-                            <f:setPropertyActionListener value="_modifContactEtape0"
-                                                         target="#{sessionController.modifContactCurrentPage}" />
-                        </p:commandButton>
+                                    <f:setPropertyActionListener
+                                            value="#{conventionController.convention.contact}"
+                                            target="#{etablissementController.formContact}" />
+                                    <f:setPropertyActionListener value="#{false}"
+                                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
+                                    <f:setPropertyActionListener value="_modifContactEtape0"
+                                                                 target="#{sessionController.modifContactCurrentPage}" />
+                                </p:commandButton>
 
-                        <p:commandButton update="selectServiceContact"
-                                         oncomplete="PF('selectServiceContact').show();"
-                                         rendered="#{!conventionController.conventionValide
+                                <p:commandButton update="selectServiceContact"
+                                                 oncomplete="PF('selectServiceContact').show();"
+                                                 styleClass="ml20"
+                                                 rendered="#{!conventionController.conventionValide
 		                        and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 		                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
 		                        || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
-                                         value="#{msgs['CONVENTION.ETAPE4.MODIF.CONTACT']}">
-                            <f:setPropertyActionListener value="#{0}"
-                                                         target="#{etablissementController.idContactSel}" />
-                            <f:setPropertyActionListener value="#{null}"
-                                                         target="#{etablissementController.contactSel}" />
-                            <f:setPropertyActionListener
-                                    value="#{conventionController.convention.service.idService}"
-                                    target="#{etablissementController.idServiceSel}" />
-                            <f:setPropertyActionListener
-                                    value="#{conventionController.convention.service}"
-                                    target="#{etablissementController.serviceSel}" />
-                            <f:setPropertyActionListener value="#{false}"
-                                                         target="#{etablissementController.afficherSelectionCentreContact}" />
-                        </p:commandButton>
+                                                 value="#{msgs['CONVENTION.ETAPE4.MODIF.CONTACT']}">
+                                    <f:setPropertyActionListener value="#{0}"
+                                                                 target="#{etablissementController.idContactSel}" />
+                                    <f:setPropertyActionListener value="#{null}"
+                                                                 target="#{etablissementController.contactSel}" />
+                                    <f:setPropertyActionListener
+                                            value="#{conventionController.convention.service.idService}"
+                                            target="#{etablissementController.idServiceSel}" />
+                                    <f:setPropertyActionListener
+                                            value="#{conventionController.convention.service}"
+                                            target="#{etablissementController.serviceSel}" />
+                                    <f:setPropertyActionListener value="#{false}"
+                                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
+                                </p:commandButton>
+                            </t:div>
 
-                        <p:dialog id="selectServiceContact"
-                                  widgetVar="selectServiceContact">
-                            <ui:include src="../_commun/_subPanelSelectContact.xhtml" />
-                            <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-                                             oncomplete="PF('selectServiceContact').hide();"
-                                             action="#{conventionController.goToConventionModifContact}">
-                                <f:setPropertyActionListener
-                                        value="#{etablissementController.serviceSel}"
-                                        target="#{conventionController.convention.service}" />
-                                <f:setPropertyActionListener
-                                        value="#{etablissementController.contactSel}"
-                                        target="#{conventionController.convention.contact}" />
-                            </p:commandButton>
-                            <t:htmlTag value="div" style="width: 150px; display: inline;" />
-                            <p:commandButton value="#{msgs['FORM.CANCEL']}"
-                                             onclick="PF('selectServiceContact').hide();" />
-                        </p:dialog>
+                            <p:dialog id="selectServiceContact"
+                                      widgetVar="selectServiceContact"
+                                      resizable="false">
 
-                    </h:panelGrid>
-                </h:panelGrid>
+                                <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml" />
+
+                                <t:htmlTag value="div" style="height: 10px;" />
+
+                                <t:div styleClass="textCenter">
+                                    <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+                                                     oncomplete="PF('selectServiceContact').hide();"
+                                                     action="#{conventionController.goToConventionModifContact}"
+                                                     update="@form">
+                                        <f:setPropertyActionListener
+                                                value="#{etablissementController.serviceSel}"
+                                                target="#{conventionController.convention.service}" />
+                                        <f:setPropertyActionListener
+                                                value="#{etablissementController.contactSel}"
+                                                target="#{conventionController.convention.contact}" />
+                                    </p:commandButton>
+                                </t:div>
+
+                                <p:commandButton value="#{msgs['FORM.CANCEL']}" styleClass="mt10"
+                                                 onclick="PF('selectServiceContact').hide();" />
+                            </p:dialog>
+                        </t:div>
+                    </t:div>
+                </t:fieldset>
             </h:form>
-            <ui:include src="../_commun/_panelAjoutContact.xhtml" />
-            <ui:include src="../_commun/_panelModifContact.xhtml" />
-            <ui:include src="../_commun/_panelAjoutService.xhtml" />
-            <ui:include src="../_commun/_panelModifService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
         </p:panel>
     </ui:define>
 </ui:composition>

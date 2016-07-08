@@ -1,34 +1,38 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE6.ENSEIGNANT']}" />
-					</f:facet>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<p:messages />
-					<ui:include src="/stylesheets/stage/_detailsEnseignant.xhtml" />
-					<h:commandButton id="modifEnseigant"
-						value="#{msgs['CONVENTION.ETAPE6.MODIF.ENSEIGNANT']}"
-						action="#{conventionController.goToConventionModifEnseignant}"
-						alt="#{msgs['CONVENTION.ETAPE6.MODIF.ENSEIGNANT']}"
-						title="#{msgs['FORM.MODIFIER']}"
-						rendered="#{!conventionController.conventionValide and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+
+                        <t:htmlTag value="i" styleClass="fa fa-user fz13 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE6.ENSEIGNANT']} " styleClass="fontBold fontBlue2 fz13 ml5" escape="false"/>
+
+                        <ui:include src="/stylesheets/stage/_detailsEnseignant.xhtml" />
+
+                        <p:commandButton id="modifEnseigant"
+                                         value="#{msgs['CONVENTION.ETAPE6.MODIF.ENSEIGNANT']}"
+                                         action="#{conventionController.goToConventionModifEnseignant}"
+                                         styleClass="mt10 ml40"
+                                         rendered="#{!conventionController.conventionValide and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-	</ui:define>
+
+                        <p:messages />
+
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

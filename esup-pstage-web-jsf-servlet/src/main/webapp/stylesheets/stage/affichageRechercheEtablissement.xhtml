@@ -24,7 +24,7 @@
 					</h:column>
 					<h:column>
 						<p:message for="formAffEtab">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</h:column>
 				</h:panelGrid>
@@ -38,19 +38,21 @@
 						style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 						<t:aliasBean alias="#{structure}"
 							value="#{rechercheController.resultatRechercheStructure}">
+                            <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+                            <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
 							<ui:include
-								src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+								src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
 						</t:aliasBean>
 						<p:toolbar height="26" itemSeparator="none">
 							<ui:include
-								src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+								src="/stylesheets/_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
 						</p:toolbar>
 					</t:div>
 					<h:panelGrid style="float:right;"
 						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 						<t:aliasBean alias="#{objet}"
 							value="#{rechercheController.resultatRechercheStructure}">
-							<ui:include src="../_commun/_updateInfos.xhtml" />
+							<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
 						</t:aliasBean>
 					</h:panelGrid>
 				</p:outputPanel>
@@ -62,7 +64,7 @@
 					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
 			</h:form>
 		</p:panel>
-		<ui:include src="../_commun/_panelSupprStructure.xhtml" />
+		<ui:include src="/stylesheets/_commun/_panelSupprStructure.xhtml" />
 		<ui:include src="./_panel_validStructure.xhtml" />
 	</ui:define>
 </ui:composition>

@@ -11,7 +11,7 @@
 					<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
 				</f:facet>
 				<h:form id="formRechOffre">
-					<ui:include src="../_commun/_rechercheOffre.xhtml" />
+					<ui:include src="/stylesheets/_commun/_rechercheOffre.xhtml" />
 					<h:panelGrid columns="5">
 						<h:commandButton value="#{msgs['RECHERCHEOFFRE.RECHERCHER']}"
 							action="#{offreController.rechercherOffrePublic}">
@@ -41,7 +41,7 @@
 				</h:form>
 				<p:message for="formRechOffre"
 					style="color:red;font-weight:bold;">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 				</p:message>
 			</p:panel>
 		</h:panelGrid>

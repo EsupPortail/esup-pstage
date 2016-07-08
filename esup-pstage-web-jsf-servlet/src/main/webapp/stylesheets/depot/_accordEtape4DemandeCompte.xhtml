@@ -18,7 +18,10 @@
 			style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 			<t:aliasBean alias="#{structure}"
 				value="#{accordController.accord.structure}">
-				<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+                <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+                <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+
+				<ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
 			</t:aliasBean>
 		</t:div>
 		<t:panelGroup colspan="2"
@@ -31,7 +34,7 @@
 		</h2>
 		<h:panelGrid columns="2" align="center">
 			<h:panelGrid>
-				<ui:include src="../_commun/_champsObligatoires.xhtml" />
+				<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 				<h:panelGrid columns="3">
 					<h:panelGrid>
 						<h:panelGrid columns="2"
@@ -48,7 +51,7 @@
 							</h:selectOneMenu>
 							<t:panelGroup colspan="2">
 								<p:message for="civilite">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 								</p:message>
 							</t:panelGroup>
 						</h:panelGrid>
@@ -61,7 +64,7 @@
 							<p:ajax event="blur" />
 						</h:inputText>
 						<p:message for="nom">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 						<h:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
 						<h:inputText id="prenom" style="text-transform:capitalize;"
@@ -72,13 +75,13 @@
 							<p:ajax event="blur" />
 						</h:inputText>
 						<p:message for="prenom">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 						<h:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
 						<h:inputText id="fonction" size="50" maxlength="100"
 							value="#{accordController.contactDemandeCompte.fonction}" />
 						<p:message for="fonction">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 						<h:outputLabel for="nomService" value="#{msgs['SERVICE.NOM']} *" />
 						<h:inputText id="nomService" style="text-transform:uppercase;"
@@ -89,7 +92,7 @@
 							<p:ajax event="blur" />
 						</h:inputText>
 						<p:message for="nomService">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</h:panelGrid>
 					<h:panelGrid columns="3">
@@ -107,13 +110,13 @@
 							<p:ajax event="blur" />
 						</h:inputText>
 						<p:message for="telC">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 						<h:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
 						<h:inputText id="faxC" size="20" maxlength="20"
 							value="#{accordController.contactDemandeCompte.fax}" />
 						<p:message for="faxC">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 						<h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
 						<h:inputText id="mailC"
@@ -125,7 +128,7 @@
 							<p:ajax event="blur" />
 						</h:inputText>
 						<p:message for="mailC">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 						<h:outputLabel for="mailConfirmation"
 							value="#{msgs['CONTACT.MAIL_CONFIRMATION']} *" />
@@ -138,7 +141,7 @@
 							<p:ajax event="blur" />
 						</h:inputText>
 						<p:message for="mailConfirmation">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</h:panelGrid>
 				</h:panelGrid>

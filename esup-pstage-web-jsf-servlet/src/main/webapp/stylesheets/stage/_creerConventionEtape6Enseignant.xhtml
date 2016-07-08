@@ -5,6 +5,9 @@
                 xmlns:t="http://myfaces.apache.org/tomahawk"
                 xmlns:p="http://primefaces.org/ui">
 
+    <t:htmlTag value="i" styleClass="fa fa-user fz13 fontBlue2"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']} " styleClass="fontBold fontBlue2 fz13 ml5" escape="false"/>
+
     <ui:include src="/stylesheets/stage/_detailsEnseignant.xhtml" />
 
     <t:div styleClass="mt5 textCenter" rendered="#{conventionController.surchargeTuteur}">

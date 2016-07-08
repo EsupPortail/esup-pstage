@@ -40,7 +40,7 @@
                                              rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
                                              tableStyle="table-layout: auto;" reflow="true"
                                              rendered="#{not empty etablissementController.listeContacts}">
-                                    <p:column style="width:20px;">
+                                    <p:column>
                                         <f:facet name="header">
                                             <t:htmlTag id="civiliteHeader" value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer">
                                                 <p:tooltip for="civiliteHeader" value="#{msgs['CONTACT.CIVILITE']}"/>
@@ -66,7 +66,7 @@
                                         </f:facet>
                                         <h:outputText id="fonctionC" value="#{contact.fonction}" />
                                     </p:column>
-                                    <p:column style="word-break: break-all;">
+                                    <p:column >
                                         <f:facet name="header">
                                             <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
                                         </f:facet>
@@ -84,7 +84,7 @@
                                         </t:div>
                                     </p:column>
 
-                                    <p:column style="background-color:#A5A5A5; width:100px;" styleClass="textCenter"
+                                    <p:column style="background-color:#A5A5A5;" styleClass="textCenter"
                                               rendered="#{(sessionController.adminPageAuthorized
                                     or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
                                     or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
@@ -100,6 +100,7 @@
                                             <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
                                             <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                                         </f:facet>
+                                        <t:div>
                                         <p:commandLink id="modifC"
                                                        rendered="#{not empty etablissementController.listeContacts}"
                                                        oncomplete="PF('modifContact').show();" update="modifContact">
@@ -122,6 +123,7 @@
                                             <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
                                             <p:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
                                         </p:commandLink>
+                                        </t:div>
                                         <p:commandButton  id="selC" styleClass="fontBlue2"
                                                           value="#{msgs['FORM.SELECTIONNER']}"
                                                           rendered="#{not empty etablissementController.listeContacts}"
@@ -204,7 +206,7 @@
                         </t:div>
 
                         <p:commandButton value="#{msgs['GENERAL.RETOUR']}"
-                                         action="conventionEtape2ModifEtabService"
+                                         action="conventionModifEtabService"
                                          immediate="true" styleClass="mt20"/>
                     </t:div>
                 </t:fieldset>

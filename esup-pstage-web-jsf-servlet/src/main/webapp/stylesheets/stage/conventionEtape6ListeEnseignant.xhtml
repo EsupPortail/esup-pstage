@@ -1,52 +1,53 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-					<p:panel>
-						<f:facet name="header">
-							<h:outputText
-								value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
-						</f:facet>
-						<t:htmlTag value="div" style="height: 20px;" />
-						<h:outputText
-							value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}" />
-						<t:htmlTag value="br" />
-						<p:dataTable style="width:483px;"
-							value="#{conventionController.listeEnseignant}" var="enseignant"
-							rows="10" rowHover="true" rowStyleClass="noPointer"
-							paginator="true"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15,20">
-							<ui:include
-								src="/stylesheets/stage/_listeEnseignantsColumns.xhtml" />
-							<p:column>
-								<p:commandLink id="add"
-									action="#{conventionController.goToConventionEtape6ValidEnseignant}">
-									<f:setPropertyActionListener value="#{enseignant}"
-										target="#{conventionController.resultatEnseignant}" />
-									<h:graphicImage alt="#{msgs['FORM.CONFIRMER']}"
-										value="../../media/images/zoom.png" />
-								</p:commandLink>
-							</p:column>
-						</p:dataTable>
-						<p:commandButton
-							action="#{conventionController.goToConventionModifEnseignant}"
-							value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
-							immediate="true"/>
-					</p:panel>
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+
+                        <t:htmlTag value="i" styleClass="fa fa-navicon fz16 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}"
+                                      styleClass="fontBold fontBlue2 fz16 ml5" escape="false" />
+
+                        <p:dataTable value="#{conventionController.listeEnseignant}" var="enseignant"
+                                     rows="10" rowHover="true" rowStyleClass="noPointer"
+                                     paginator="true" paginatorAlwaysVisible="false"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15,20" styleClass="mt10 ml20"
+                                     tableStyle="table-layout: auto;" reflow="true">
+
+                            <ui:include src="/stylesheets/stage/_listeEnseignantsColumns.xhtml" />
+
+                            <p:column style="width:120px; background-color:#A5A5A5;" styleClass="textCenter">
+                                <f:facet name="header">
+                                    <h:outputText
+                                            value="#{msgs['CONVENTION.PRENOM']}" />
+                                </f:facet>
+                                <p:commandButton id="add" icon="fa fa-check"
+                                                 value="#{msgs['FORM.SELECTIONNER']}"
+                                                 action="#{conventionController.goToConventionEtape6ValidEnseignant}">
+                                    <f:setPropertyActionListener value="#{enseignant}"
+                                                                 target="#{conventionController.resultatEnseignant}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:commandButton
+                                action="#{conventionController.goToConventionModifEnseignant}"
+                                value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
+                                immediate="true" styleClass="mt20" icon="fa fa-angle-left"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

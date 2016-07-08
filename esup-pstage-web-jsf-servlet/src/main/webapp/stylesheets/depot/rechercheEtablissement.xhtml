@@ -14,20 +14,20 @@
                     <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.TITRE']}" />
                 </f:facet>
                 <h:form id="formResultatsRechEtab">
-                    <ui:include src="../_commun/_rechercheEtablissementLiensOnglets.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
 
-                    <ui:include src="../_commun/_rechercheEtablissementOnglets.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />
 
                     <p:message for="formResultatsRechEtab" />
 
                     <t:div styleClass="mt10 mb10"
                            rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant!=6}">
-                        <ui:include src="../_commun/_buttonCreationEtablissement.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_buttonCreationEtablissement.xhtml" />
                     </t:div>
 
                     <p:outputPanel id="opRechercheStructureDataTable">
                         <t:div rendered="#{not empty rechercheController.listeResultatsRechercheStructure and not empty rechercheController.rechercheStructurePaginator}">
-                            <ui:include src="../_commun/_rechercheEtablissementNbResultats.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_rechercheEtablissementNbResultats.xhtml" />
                             <p:dataTable id="rechercheStructureDataTable"
                                          value="#{rechercheController.rechercheStructurePaginator.liste}"
                                          var="varRechercheStructure" rows="10" rowHover="true"
@@ -36,9 +36,9 @@
                                          rowsPerPageTemplate="5,10,15,20"
                                          rendered="#{not empty rechercheController.rechercheStructurePaginator.liste}">
 
-                                <ui:include src="../_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+                                <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 
-                                <ui:include src="../_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
+                                <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumnsButtons.xhtml" />
 
                                 <p:column rendered="#{sessionController.adminPageAuthorized and not empty rechercheController.ongletCourant}">
                                     <p:commandLink id="gererEtablissement"
@@ -102,7 +102,7 @@
                 </h:form>
             </p:panel>
             <ui:include src="_panelSupprAccord.xhtml" />
-            <ui:include src="../_commun/_panelSupprStructure.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelSupprStructure.xhtml" />
             <ui:include src="_panelNousContacter.xhtml" />
             <ui:include src="../stage/_panel_validStructure.xhtml" />
         </t:div>

@@ -71,7 +71,7 @@
 							</h:inputTextarea>
 							<h:outputText />
 							<p:message for="textSujet">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 							</p:message>
 						</h:panelGrid>
 					</h:panelGrid>
@@ -100,7 +100,7 @@
 
 					<h:outputText id="erreurPeriode" value="" />
 					<p:message for="erreurPeriode">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
 
 					<!-- periode de stage intial : du   au   -->
@@ -135,7 +135,7 @@
 									required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}" />
 								<p:message for="dateDebutStage">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 								</p:message>
 								<h:outputText
 									value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_STAGE']}" />
@@ -147,7 +147,7 @@
 									required="true"
 									requiredMessage="#{requiredMessageController.champObligatoire}" />
 								<p:message for="dateFinStage">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 								</p:message>
 							</h:panelGrid>
 
@@ -166,7 +166,7 @@
 								</h:panelGrid>
 								<h:outputText id="erreurInterruption" value="" />
 								<p:message for="erreurInterruption">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 								</p:message>
 								<h:panelGrid
 									rendered="#{avenantController.avenant.interruptionStage}">
@@ -203,7 +203,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="dateDebutInterruptionStage">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 
 										<h:outputText
@@ -216,7 +216,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="dateFinInterruptionStage">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -296,7 +296,7 @@
 									</h:selectOneMenu>
 								</h:panelGrid>
 								<p:message for="gratification">
-									<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 								</p:message>
 							</h:panelGrid>
 						</h:panelGrid>
@@ -322,7 +322,7 @@
 					<t:div rendered="#{avenantController.avenant.modificationLieu}">
 						<h:outputText id="erreurService" value="" />
 						<p:message for="erreurService">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 						<t:htmlTag value="div" style="height: 10px;" />
 						<h:panelGrid rendered="#{empty avenantController.listeServices}"
@@ -456,7 +456,7 @@
 						<t:htmlTag value="center">
 							<p:ajaxStatus name="statusTuteurpro">
 								<f:facet name="start">
-									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+									<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
 								</f:facet>
 							</p:ajaxStatus>
 						</t:htmlTag>
@@ -466,7 +466,7 @@
 							rendered="#{avenantController.avenant.modificationSalarie || conventionController.convention.idService != etablissementController.serviceSel.idService}">
 							<h:outputText id="erreurSalarie" value="" />
 							<p:message for="erreurSalarie">
-								<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+								<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 							</p:message>
 							<h:panelGrid rendered="#{empty avenantController.listeSalaries}"
 								align="center">
@@ -622,7 +622,7 @@
 					rendered="#{avenantController.avenant.modificationEnseignant}">
 					<h:outputText value="" id="erreurEnseignant" />
 					<p:message for="erreurEnseignant">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
 					<h:panelGrid columns="2">
 						<t:htmlTag value="div" style="width:10px;" />
@@ -672,7 +672,7 @@
 				<t:div rendered="#{avenantController.modificationTexteLibre}">
 					<h:outputText value="" id="erreurTexteLibre" />
 					<p:message for="erreurTexteLibre">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
 
 					<h:panelGrid columns="2">
@@ -702,7 +702,7 @@
 
 				<h:outputText id="erreurDateRupture" value="" />
 				<p:message for="erreurDateRupture">
-					<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 				</p:message>
 
 				<h:panelGrid columns="3">
@@ -732,7 +732,7 @@
 						requiredMessage="#{requiredMessageController.champObligatoire}" />
 					<!-- 					<h:outputText id="erreurDateRupture" value="" /> -->
 					<p:message for="dateRupture">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
 				</h:panelGrid>
 

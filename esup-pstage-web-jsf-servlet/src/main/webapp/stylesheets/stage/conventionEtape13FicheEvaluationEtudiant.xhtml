@@ -45,7 +45,7 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.1.3']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseI1">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -69,7 +69,7 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.2.5']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseI2">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -91,7 +91,7 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.3.4']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseI3">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -113,7 +113,7 @@
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
 										<p:message for="reponseI4a">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 
 										<h:outputText
@@ -127,7 +127,7 @@
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
 										<p:message for="reponseI4b">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 
 										<h:outputText
@@ -141,7 +141,7 @@
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
 										<p:message for="reponseI4c">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 
 										<h:outputText
@@ -155,7 +155,7 @@
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
 										<p:message for="reponseI4d">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -174,7 +174,7 @@
 									<!-- 										<f:selectItems value="#{nomenclatureController.origineStages}" /> -->
 									<!-- 									</h:selectOneMenu> -->
 									<!-- 									<p:message for="origineStage"> -->
-									<!-- 										<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+									<!-- 										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" /> -->
 									<!-- 									</p:message> -->
 								</h:panelGrid>
 
@@ -196,7 +196,7 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.6.4']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseI6">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -216,7 +216,7 @@
 												update="questionEtudiantI7" />
 										</h:selectOneRadio>
 										<p:message for="reponseI7">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 										<t:htmlTag value="div"
 											rendered="#{conventionController.convention.reponseEvaluation.reponseEtuI7}">
@@ -239,7 +239,7 @@
 													update="questionEtudiantI7" />
 											</h:selectOneRadio>
 											<p:message for="reponseI7a">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 											<t:htmlTag value="div"
 												rendered="#{conventionController.convention.reponseEvaluation.reponseEtuI7bis1 == 3}">
@@ -254,7 +254,7 @@
 														itemLabel="#{msgs['FORM.NON']}" />
 												</h:selectOneRadio>
 												<p:message for="reponseI7bis1a">
-													<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+													<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 												</p:message>
 											</t:htmlTag>
 											<t:htmlTag value="div"
@@ -264,7 +264,7 @@
 													required="true"
 													requiredMessage="#{requiredMessageController.champObligatoire}" />
 												<p:message for="reponseI7bis1b">
-													<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+													<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 												</p:message>
 											</t:htmlTag>
 										</t:htmlTag>
@@ -281,7 +281,7 @@
 													itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.I.7.NON.2']}" />
 											</h:selectOneRadio>
 											<p:message for="reponseI7b">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 										</t:htmlTag>
 									</h:panelGrid>
@@ -301,7 +301,7 @@
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseI8">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 							</h:panelGrid>
@@ -413,7 +413,7 @@
 											update="questionEtudiantII1" />
 									</h:selectOneRadio>
 									<p:message for="reponseII1">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuII1 == 4
@@ -425,7 +425,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseII1bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -452,7 +452,7 @@
 											update="questionEtudiantII2" />
 									</h:selectOneRadio>
 									<p:message for="reponseII2">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuII2 == 4
@@ -464,7 +464,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseII2bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -491,7 +491,7 @@
 											update="questionEtudiantII3" />
 									</h:selectOneRadio>
 									<p:message for="reponseII3">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuII3 == 4
@@ -503,7 +503,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseII3bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -528,7 +528,7 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseII4">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -548,7 +548,7 @@
 												update="questionEtudiantII5" />
 										</h:selectOneRadio>
 										<p:message for="reponseII5">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 										<t:htmlTag value="div"
 											rendered="#{conventionController.convention.reponseEvaluation.reponseEtuII5}">
@@ -565,7 +565,7 @@
 													itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.II.5.OUI.3']}" />
 											</h:selectOneRadio>
 											<p:message for="reponseII5a">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 											<h:outputText value="b) Avec autonomie ?"
 												style="font-style:italic" />
@@ -577,7 +577,7 @@
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
 											<p:message for="reponseII5b">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 										</t:htmlTag>
 									</h:panelGrid>
@@ -597,7 +597,7 @@
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseII6">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 							</h:panelGrid>
@@ -616,7 +616,7 @@
 												requiredMessage="#{requiredMessageController.champObligatoire}"
 												rendered="#{questionSup.typeQuestion == 'TXT'}" />
 											<p:message for="repSupII1">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 											<h:selectOneRadio id="repSupII2" required="true"
 												value="#{questionSup.reponseSupplementaire.reponseBool}"
@@ -627,7 +627,7 @@
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
 											<p:message for="repSupII2">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 										</h:panelGrid>
 										<h:selectOneRadio style="margin-left:10px;" id="repSupII3"
@@ -646,7 +646,7 @@
 												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
 										</h:selectOneRadio>
 										<p:message for="repSupII3">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</p:panel>
 								</ui:repeat>
@@ -724,7 +724,7 @@
 											update="questionEtudiantIII1" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII1">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII1}">
@@ -735,7 +735,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseIII1bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -756,7 +756,7 @@
 											update="questionEtudiantIII2" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII2">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<t:htmlTag value="div"
 										rendered="#{!conventionController.convention.reponseEvaluation.reponseEtuIII2}">
@@ -765,7 +765,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseIII2bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</t:htmlTag>
 								</h:panelGrid>
@@ -788,7 +788,7 @@
 								<!-- 											update="questionEtudiantIII3" /> -->
 								<!-- 									</h:selectOneRadio> -->
 								<!-- 									<p:message for="reponseIII3"> -->
-								<!-- 										<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+								<!-- 										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" /> -->
 								<!-- 									</p:message> -->
 								<!-- 									<t:htmlTag value="div" -->
 								<!-- 										rendered="#{!conventionController.convention.reponseEvaluation.reponseEtuIII3}"> -->
@@ -797,7 +797,7 @@
 								<!-- 											required="true" -->
 								<!-- 											requiredMessage="#{requiredMessageController.champObligatoire}" /> -->
 								<!-- 										<p:message for="reponseIII3bis"> -->
-								<!-- 											<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+								<!-- 											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" /> -->
 								<!-- 										</p:message> -->
 								<!-- 									</t:htmlTag> -->
 								<!-- 								</h:panelGrid> -->
@@ -824,7 +824,7 @@
 											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.4.6']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII4">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -845,7 +845,7 @@
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
 										<p:message for="reponseIII5a">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 										<h:outputText
 											value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.REPONSES.III.5.2']}" />
@@ -860,7 +860,7 @@
 												update="questionEtudiantIII5" />
 										</h:selectOneRadio>
 										<p:message for="reponseIII5b">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 
 										<t:panelGroup
@@ -871,7 +871,7 @@
 												required="true"
 												requiredMessage="#{requiredMessageController.champObligatoire}" />
 											<p:message for="reponseIII5bis">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 										</t:panelGroup>
 
@@ -886,7 +886,7 @@
 												itemLabel="#{msgs['FORM.NON']}" />
 										</h:selectOneRadio>
 										<p:message for="reponseIII5c">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</t:panelGrid>
 								</h:panelGrid>
@@ -913,7 +913,7 @@
 											update="questionEtudiantIII6" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII6">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII6 == 4
@@ -925,7 +925,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseIII6bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -952,7 +952,7 @@
 											update="questionEtudiantIII7" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII7">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII7 == 4
@@ -964,7 +964,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseIII7bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -985,7 +985,7 @@
 											update="questionEtudiantIII8" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII8">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<t:htmlTag value="div"
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII8}">
@@ -996,7 +996,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseIII8bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</t:htmlTag>
 								</h:panelGrid>
@@ -1017,7 +1017,7 @@
 											update="questionEtudiantIII9" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII9">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<t:htmlTag value="div"
 										rendered="#{!conventionController.convention.reponseEvaluation.reponseEtuIII9}">
@@ -1026,7 +1026,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseIII9bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</t:htmlTag>
 								</h:panelGrid>
@@ -1045,7 +1045,7 @@
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII10">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -1063,7 +1063,7 @@
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII11">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -1081,7 +1081,7 @@
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII12">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -1101,7 +1101,7 @@
 								<!-- 											itemLabel="#{msgs['FORM.NON']}" /> -->
 								<!-- 									</h:selectOneRadio> -->
 								<!-- 									<p:message for="reponseIII13"> -->
-								<!-- 										<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+								<!-- 										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" /> -->
 								<!-- 									</p:message> -->
 								<!-- 								</h:panelGrid> -->
 
@@ -1119,7 +1119,7 @@
 											itemLabel="#{msgs['FORM.NON']}" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII14">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 								</h:panelGrid>
 
@@ -1146,7 +1146,7 @@
 											update="questionEtudiantIII15" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII15">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII15 == 4
@@ -1158,7 +1158,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseIII15bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -1186,7 +1186,7 @@
 											update="questionEtudiantIII16" />
 									</h:selectOneRadio>
 									<p:message for="reponseIII16">
-										<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 									</p:message>
 									<h:panelGrid
 										rendered="#{conventionController.convention.reponseEvaluation.reponseEtuIII16 == 4
@@ -1198,7 +1198,7 @@
 											required="true"
 											requiredMessage="#{requiredMessageController.champObligatoire}" />
 										<p:message for="reponseIII16bis">
-											<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 										</p:message>
 									</h:panelGrid>
 								</h:panelGrid>
@@ -1218,7 +1218,7 @@
 												requiredMessage="#{requiredMessageController.champObligatoire}"
 												rendered="#{questionSup.typeQuestion == 'TXT'}" />
 											<p:message for="repSupIII1">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 											<h:selectOneRadio id="repSupIII2" required="true"
 												value="#{questionSup.reponseSupplementaire.reponseBool}"
@@ -1229,7 +1229,7 @@
 													itemLabel="#{msgs['FORM.NON']}" />
 											</h:selectOneRadio>
 											<p:message for="repSupIII2">
-												<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 											</p:message>
 										</h:panelGrid>
 										<h:selectOneRadio style="margin-left:10px;" id="repSupIII3"

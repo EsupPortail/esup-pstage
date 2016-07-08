@@ -9,7 +9,7 @@
 		rendered="#{empty offreController.formOffre.structure}" />
 	<h:panelGrid
 		rendered="#{not empty offreController.formOffre.structure}">
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
+		<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 		<h:panelGrid columns="3"
 			rendered="#{offreController.formOffre.idOffre>0}"
 			style="float:right;">

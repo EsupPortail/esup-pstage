@@ -28,7 +28,7 @@
 		rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}">
 		<t:aliasBean alias="#{objet}"
 			value="#{centreController.centreEntreprise}">
-			<ui:include src="../_commun/_updateInfos.xhtml" />
+			<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
 		</t:aliasBean>
 	</h:panelGrid>
 	<h:panelGrid rendered="#{empty centreController.centreEntreprise}">

@@ -147,7 +147,7 @@
 						</p:commandButton>
 						<p:dialog id="selectServiceSignataire"
 							widgetVar="selectServiceSignataire">
-							<ui:include src="../_commun/_subPanelSelectContact.xhtml" />
+							<ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml" />
 							<p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
 								oncomplete="PF('selectServiceSignataire').hide();"
 								action="#{conventionController.goToConventionModifSignataire}">
@@ -162,10 +162,10 @@
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:form>
-			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="../_commun/_panelModifContact.xhtml" />
-			<ui:include src="../_commun/_panelAjoutService.xhtml" />
-			<ui:include src="../_commun/_panelModifService.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
 		</p:panel>
 	</ui:define>
 </ui:composition>

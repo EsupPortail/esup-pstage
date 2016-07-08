@@ -1,47 +1,44 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid>
-					<p:panel>
-						<f:facet name="header">
-							<h:outputText
-								value="#{msgs['CONVENTION.ETAPE6.RECHERCHE.ENSEIGNANT']}" />
-						</f:facet>
-						<t:htmlTag value="div" style="height: 20px;" />
-						<h:outputText
-							value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']}" />
-						<t:htmlTag value="br" />
-						<ui:include
-							src="/stylesheets/stage/_detailsEnseignant.xhtml" />
-						<h:panelGrid columns="3">
-							<p:commandButton
-								action="#{conventionController.goToConventionModifEnseignant}"
-								value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
-								immediate="true">
-							</p:commandButton>
-							<p:commandButton
-								action="#{conventionController.goToConventionEtape6listeEnseignant}"
-								value="#{msgs['CONVENTION.REVENIR.LISTE.ENSEIGNANT']}"
-								rendered="#{conventionController.enseignantTrouves}">
-							</p:commandButton>
-							<p:commandButton
-								action="#{conventionController.goToEnseignantValid}"
-								value="#{msgs['FORM.VALIDER']}">
-							</p:commandButton>
-						</h:panelGrid>
-					</p:panel>
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+
+                        <t:htmlTag value="i" styleClass="fa fa-user fz13 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE6.CHOIXENSEIGNANT.DEMANDE']} " styleClass="fontBold fontBlue2 fz13 ml5" escape="false"/>
+
+                        <ui:include src="/stylesheets/stage/_detailsEnseignant.xhtml" />
+
+                        <p:commandButton styleClass="mt5 ml40"
+                                value="#{msgs['FORM.VALIDER']} le changement"
+                                action="#{conventionController.goToEnseignantValid}"/>
+
+                        <t:div styleClass="mt20">
+                            <p:commandButton
+                                    value="#{msgs['CONVENTION.REVENIR.LISTE.ENSEIGNANT']}"
+                                    action="#{conventionController.goToConventionEtape6listeEnseignant}"
+                                    icon="fa fa-angle-left"
+                                    rendered="#{conventionController.enseignantTrouves}"/>
+                            <p:commandButton
+                                    value="#{msgs['CONVENTION.RECHERCHER.AUTREENSEIGNANT']}"
+                                    action="#{conventionController.goToConventionModifEnseignant}"
+                                    icon="fa fa-angle-double-left" styleClass="ml10" immediate="true"/>
+                        </t:div>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

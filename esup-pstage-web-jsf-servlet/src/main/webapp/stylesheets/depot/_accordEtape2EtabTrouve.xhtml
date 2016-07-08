@@ -108,7 +108,10 @@
 				style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 				<t:aliasBean alias="#{structure}"
 					value="#{accordController.structureExistante}">
-					<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+                    <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+                    <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+
+					<ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
 				</t:aliasBean>
 			</t:div>
 			<t:panelGroup colspan="2"

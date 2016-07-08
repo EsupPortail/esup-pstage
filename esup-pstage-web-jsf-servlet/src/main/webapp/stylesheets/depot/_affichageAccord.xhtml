@@ -30,7 +30,7 @@
                         </h:inputText>
                     </h:panelGrid>
                     <p:message for="raisonSociale">
-                        <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                     </p:message>
                     <!-- 					<h:outputLabel value="#{msgs['STRUCTURE.GROUPE']}" for="groupe" /> -->
                     <!-- 					<h:inputText id="groupe" style="text-transform:uppercase;" -->
@@ -39,7 +39,7 @@
                     <!-- 						<f:converter binding="#{sansAccentEnMAJConverter}" /> -->
                     <!-- 					</h:inputText> -->
                     <!-- 					<p:message for="groupe"> -->
-                    <!-- 						<ui:include src="../_commun/_messageErrorMarker.xhtml" /> -->
+                    <!-- 						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" /> -->
                     <!-- 					</p:message> -->
                     <h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *"
                                    for="effectif" />
@@ -53,7 +53,7 @@
                         <p:ajax event="blur" />
                     </h:selectOneMenu>
                     <p:message for="effectif">
-                        <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                     </p:message>
                 </h:panelGrid>
 
@@ -70,7 +70,7 @@
                                      value="#{adminController.structureAccord.numeroSiret}" size="20"
                                      maxlength="14" disabled="true" />
                         <p:message for="siret">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                     <h:panelGrid>
@@ -87,7 +87,7 @@
                             <p:ajax event="valueChange" update="opStatutJuridique" />
                         </h:selectOneMenu>
                         <p:message for="typeStructure">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                         <p:outputPanel id="opStatutJuridique">
                             <h:panelGrid
@@ -106,7 +106,7 @@
                                     <p:ajax event="blur" />
                                 </h:selectOneMenu>
                                 <p:message for="statutJuridique">
-                                    <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                                 </p:message>
                             </h:panelGrid>
                         </p:outputPanel>
@@ -164,7 +164,7 @@
                 <h:outputText id="actprinc" escape="false"
                               value="#{adminController.structureAccord.activitePrincipale}" />
                 <p:message for="actprinc">
-                    <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                 </p:message>
             </h:panelGrid>
             <h:outputText value="#{msgs['STRUCTURE.ADRESSE']}" />
@@ -180,7 +180,7 @@
                             <p:ajax event="blur" />
                         </h:inputText>
                         <p:message for="voie">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                     <h:outputLabel value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']} "
@@ -194,7 +194,7 @@
                             <p:ajax event="blur" />
                         </h:inputText>
                         <p:message for="batimentResidence">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                     <h:outputLabel value="#{msgs['STRUCTURE.CEDEX']} " for="cedex" />
@@ -205,7 +205,7 @@
                                      requiredMessage="#{requiredMessageController.champObligatoire}"
                                      disabled="true" />
                         <p:message for="cedex">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                     <h:outputLabel value="#{msgs['STRUCTURE.PAYS']} *" for="pays" />
@@ -226,7 +226,7 @@
                             </h:selectOneMenu>
                         </h:panelGrid>
                         <p:message for="pays">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                 </h:panelGrid>
@@ -247,7 +247,7 @@
                             <p:ajax event="blur" />
                         </h:inputText>
                         <p:message for="codePostal">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                     <h:outputLabel value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
@@ -261,7 +261,7 @@
                             <p:ajax event="blur" />
                         </h:inputText>
                         <p:message for="commune">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                 </h:panelGrid>
@@ -282,7 +282,7 @@
                             <p:ajax event="blur" />
                         </h:inputText>
                         <p:message for="mail">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                     <h:panelGrid columns="2">
@@ -299,7 +299,7 @@
                             <p:ajax event="blur" />
                         </h:inputText>
                         <p:message for="siteWeb">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                 </h:panelGrid>
@@ -320,7 +320,7 @@
                             <p:ajax event="blur" />
                         </h:inputText>
                         <p:message for="telephone">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                     <h:outputLabel value="#{msgs['STRUCTURE.FAX']} " for="fax" />
@@ -329,7 +329,7 @@
                                      value="#{adminController.structureAccord.fax}" size="20"
                                      maxlength="20" disabled="true" />
                         <p:message for="fax">
-                            <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                         </p:message>
                     </h:panelGrid>
                 </h:panelGrid>
@@ -358,7 +358,7 @@
                         </h:selectOneMenu>
                         <t:panelGroup colspan="2">
                             <p:message for="civilite">
-                                <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                                <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                             </p:message>
                         </t:panelGroup>
                     </h:panelGrid>
@@ -372,7 +372,7 @@
                         <p:ajax event="blur" />
                     </h:inputText>
                     <p:message for="nom">
-                        <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                     </p:message>
                     <h:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
                     <h:inputText id="prenom" style="text-transform:capitalize;"
@@ -384,14 +384,14 @@
                         <p:ajax event="blur" />
                     </h:inputText>
                     <p:message for="prenom">
-                        <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                     </p:message>
                     <h:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
                     <h:inputText id="fonction" size="50" maxlength="100"
                                  value="#{adminController.structureAccord.accordPartenariat.contact.fonction}"
                                  disabled="true" />
                     <p:message for="fonction">
-                        <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                     </p:message>
                 </h:panelGrid>
                 <h:panelGrid columns="3">
@@ -410,14 +410,14 @@
                         <p:ajax event="blur" />
                     </h:inputText>
                     <p:message for="telC">
-                        <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                     </p:message>
                     <h:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
                     <h:inputText id="faxC" size="20" maxlength="20"
                                  value="#{adminController.structureAccord.accordPartenariat.contact.fax}"
                                  disabled="true" />
                     <p:message for="faxC">
-                        <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                     </p:message>
                     <h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
                     <h:inputText id="mailC"
@@ -430,7 +430,7 @@
                         <p:ajax event="blur" />
                     </h:inputText>
                     <p:message for="mailC">
-                        <ui:include src="../_commun/_messageErrorMarker.xhtml" />
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
                     </p:message>
                 </h:panelGrid>
             </h:panelGrid>
@@ -460,15 +460,11 @@
         <h:panelGrid columns="3">
             <t:htmlTag value="div" style="width: 20px;" />
             <p:outputPanel id="opFCE">
-                <h:panelGrid columns="3"
-                             rendered="#{facesContext.maximumSeverity != null}">
-                    <h:graphicImage value="../../media/images/arrow_up.png"
-                                    alt="#{msgs['GENERAL.ARROW_UP']}"
-                                    title="#{msgs['GENERAL.ARROW_UP']}" />
-                    <h:graphicImage value="../../media/images/arrow_up.png"
-                                    alt="#{msgs['GENERAL.ARROW_UP']}"
-                                    title="#{msgs['GENERAL.ARROW_UP']}" />
-                </h:panelGrid>
+                <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
+                    <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                    <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+                    <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                </t:div>
             </p:outputPanel>
         </h:panelGrid>
         <h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"

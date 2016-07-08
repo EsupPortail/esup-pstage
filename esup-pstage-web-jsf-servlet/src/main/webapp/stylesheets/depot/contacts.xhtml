@@ -65,7 +65,7 @@
 							<t:htmlTag value="center">
 								<p:dataTable value="#{etablissementController.serviceSel}"
 									rendered="#{not empty etablissementController.serviceSel}">
-									<ui:include src="../_commun/_serviceColumns.xhtml" />
+									<ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
 									<p:column>
 										<p:commandLink  id="modif"
 											rendered="#{not empty etablissementController.idServiceSel}"
@@ -89,7 +89,7 @@
 														<t:htmlTag value="br" />
 														<t:aliasBean alias="#{objet}"
 															value="#{etablissementController.serviceSel}">
-															<ui:include src="../_commun/_updateInfos.xhtml" />
+															<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
 														</t:aliasBean>
 													</t:div>
 												</h:panelGrid>
@@ -290,7 +290,7 @@
 														<t:div rendered="#{sessionController.adminPageAuthorized}">
 															<t:htmlTag value="br" />
 															<t:aliasBean alias="#{objet}" value="#{contact}">
-																<ui:include src="../_commun/_updateInfos.xhtml" />
+																<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
 															</t:aliasBean>
 														</t:div>
 													</h:panelGrid>
@@ -379,12 +379,12 @@
 							</t:htmlTag>
 						</p:outputPanel>
 					</h:form>
-					<ui:include src="../_commun/_panelAjoutService.xhtml" />
-					<ui:include src="../_commun/_panelModifService.xhtml" />
-					<ui:include src="../_commun/_panelSupprService.xhtml" />
-					<ui:include src="../_commun/_panelAjoutContact.xhtml" />
-					<ui:include src="../_commun/_panelModifContact.xhtml" />
-					<ui:include src="../_commun/_panelSupprContact.xhtml" />
+					<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+					<ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+					<ui:include src="/stylesheets/_commun/_panelSupprService.xhtml" />
+					<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+					<ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+					<ui:include src="/stylesheets/_commun/_panelSupprContact.xhtml" />
 					<ui:include src="_panelCreationCompteContact.xhtml" />
 					<ui:include src="_panelSupprCompteContact.xhtml" />
 					<ui:include src="_panelResetMdpContact.xhtml" />

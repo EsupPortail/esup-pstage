@@ -12,7 +12,7 @@
 				<h:form id="formRechOffre">
 					<t:div
 						rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
-						<ui:include src="../_commun/_rechercheOffreNbResultats.xhtml" />
+						<ui:include src="/stylesheets/_commun/_rechercheOffreNbResultats.xhtml" />
 						<p:dataTable id="rechercheOffreDataTable"
 							value="#{offreController.rechercheOffrePaginator.visibleItems}"
 							var="offre" rows="15" rowHover="true" rowStyleClass="noPointer"
@@ -20,7 +20,7 @@
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							rowsPerPageTemplate="5,10,15,20">
 							<ui:include
-								src="../_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
+								src="/stylesheets/_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
 							<p:column>
 								<h:commandLink id="recap"
 									action="#{offreController.goToRecapitulatifOffrePublic}">

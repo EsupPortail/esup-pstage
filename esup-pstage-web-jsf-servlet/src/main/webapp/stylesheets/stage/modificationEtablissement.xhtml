@@ -16,9 +16,9 @@
 			<t:div rendered="#{not empty etablissementController.formStructure}">
 				<h:form id="formModifEtab">
 					<p:message for="formModifEtab">
-						<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 					</p:message>
-					<ui:include src="../_commun/_etablissementForm.xhtml" />
+					<ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
 					<h:panelGrid columns="3">
 						<h:commandButton value="#{msgs['FORM.MODIFIER']}"
 							action="#{etablissementController.modifierEtablissement}"/>

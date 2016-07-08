@@ -50,7 +50,7 @@
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,15,20">
 
-                                    <ui:include src="../_commun/_rechercheOffreResultatsColumns.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
 
                                     <p:column>
                                         <h:commandLink id="recap"
@@ -82,7 +82,7 @@
                                                 <t:div rendered="#{sessionController.adminPageAuthorized}">
                                                     <t:htmlTag value="br" />
                                                     <t:aliasBean alias="#{objet}" value="#{offre}">
-                                                        <ui:include src="../_commun/_updateInfos.xhtml" />
+                                                        <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
                                                     </t:aliasBean>
                                                 </t:div>
                                             </p:tooltip>
@@ -104,7 +104,7 @@
                             </t:div>
                         </p:outputPanel>
                     </h:form>
-                    <ui:include src="../_commun/_panelSupprOffre.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
                 </p:panel>
                 <ui:include src="_panelNousContacter.xhtml" />
             </h:panelGrid>

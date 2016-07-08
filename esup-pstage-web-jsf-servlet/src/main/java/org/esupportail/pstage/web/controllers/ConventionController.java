@@ -1536,19 +1536,21 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToConventionModifEtabService() {
-		String retour = "conventionEtape2ModifEtabService";
+
+		this.retourAction = "conventionEtape2RechEtab";
 
 		// On retient la structure selectionnee dans CurrentManageStructure
 		// pour qu'elle ne soit changee sur la convention qu'une fois que le
 		// contact ET le signataire ont été modifies
 		getSessionController().setCurrentManageStructure(this.convention.getStructure());
+		getSessionController().setMenuGestionEtab(false);
 
 		// On charge la liste des services/contacts
 		this.etablissementController.loadContactsServices();
 		// On reinitialise le service selectionne en vue de l'etape suivante
 		this.serviceSel = null;
 
-		return retour;
+		return "conventionModifEtabService";
 	}
 
 	/**
@@ -1556,12 +1558,11 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToConventionModifEtabServiceContact() {
-		String retour = "conventionEtape2ModifEtabServiceContact";
 
 		// On reinitialise les services/contacts selectionnes en vue de l'etape suivante
 		this.contactSel = null;
 
-		return retour;
+		return "conventionModifEtabServiceContact";
 	}
 
 	/**
@@ -1569,12 +1570,11 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String goToConventionModifEtabServiceSignataire() {
-		String retour = "conventionEtape2ModifEtabServiceSignataire";
 
 		// On reinitialise les services/contacts selectionnes en vue de l'etape suivante
 		this.signataireSel = null;
 
-		return retour;
+		return "conventionModifEtabServiceSignataire";
 	}
 
 	/**
@@ -1584,31 +1584,45 @@ public class ConventionController extends AbstractContextAwareController {
 	public String modifierEtablissementConvention() {
 		String retour = null;
 
+		String infoModif = "";
+		System.out.println("currentManagedStructure : " + getSessionController().getCurrentManageStructure());
+		System.out.println("serviceSel : " + serviceSel);
+		System.out.println("contactSel : " + contactSel);
+		System.out.println("signataireSel : " + signataireSel);
 		// On applique toutes les modifs sur la convention
 		if (getSessionController().getCurrentManageStructure() != null) {
+			infoModif = " l'établissement d'accueil - ";
 			this.convention.setStructure(getSessionController().getCurrentManageStructure());
 			this.convention.setIdStructure(getSessionController().getCurrentManageStructure().getIdStructure());
 		}
 		if (this.serviceSel != null){
+			infoModif += " le service d'accueil - ";
 			this.convention.setService(this.serviceSel);
 			this.convention.setIdService(this.serviceSel.getIdService());
 		}
 		if (this.contactSel != null) {
+			infoModif += " le tuteur professionnel ";
 			this.convention.setContact(this.contactSel);
 			this.convention.setIdContact(this.contactSel.getId());
 		}
 		if (this.signataireSel != null) {
+			// Si le contact est aussi modifie, on ajoute un tiret
+			if (this.contactSel != null){
+				infoModif += " -";
+			}
+			infoModif += " le signataire ";
 			this.convention.setSignataire(this.signataireSel);
 			this.convention.setIdSignataire(this.signataireSel.getId());
 		}
+
 		ConventionDTO conventionTmp = this.convention;
 		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 		try {
 			// Update en base
 			if (this.getConventionDomainService().updateConvention(conventionTmp)) {
 				retour = SequenceEtapeEnumSel.etape2.actionEtape();
-				this.alerteMailModifConvention(" l'établissement d'accueil ");
-				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
+				this.alerteMailModifConvention(infoModif);
+				addInfoMessage(null, "CONVENTION.MODIF.CONFIRMATION");
 			}
 		} catch (DataUpdateException ae) {
 			logger.error("DataUpdateException", ae.getCause());
@@ -1620,49 +1634,6 @@ public class ConventionController extends AbstractContextAwareController {
 					we.getMessage());
 		}
 
-		return retour;
-	}
-
-	/**
-	 * @return String
-	 */
-	public String goToConventionModifServiceContact() {
-		String retour = null;
-		if (this.convention.getService() != null) {
-			this.convention.setIdService(this.convention.getService()
-					.getIdService());
-		}
-		if (this.convention.getContact() != null) {
-			this.convention.setIdContact(this.convention.getContact().getId());
-		}
-		this.etablissementController
-				.setServiceSel(this.convention.getService());
-		this.etablissementController.setIdServiceSel(this.convention
-				.getService().getIdService());
-		getSessionController().setCurrentManageStructure(
-				this.convention.getStructure());
-		getSessionController().setMenuGestionEtab(false);
-		// remise a zero du signataire
-		this.convention.setSignataire(new ContactDTO());
-		this.convention.setIdSignataire(0);
-		ConventionDTO conventionTmp = this.convention;
-		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
-		try {
-			if (this.getConventionDomainService().updateConvention(
-					conventionTmp)) {
-				this.alerteMailModifConvention(" le service d'accueil ");
-				retour = "conventionEtape3ModifServiceSignataire";
-				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
-			}
-		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.getCause());
-			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
-		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.getCause());
-			addErrorMessage(null,
-					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-					we.getMessage());
-		}
 		return retour;
 	}
 
@@ -1672,24 +1643,19 @@ public class ConventionController extends AbstractContextAwareController {
 	public String goToConventionModifContact() {
 		String retour = null;
 		if (this.convention.getService() != null) {
-			this.convention.setIdService(this.convention.getService()
-					.getIdService());
+			this.convention.setIdService(this.convention.getService().getIdService());
 		}
 		if (this.convention.getContact() != null) {
 			this.convention.setIdContact(this.convention.getContact().getId());
 		}
-		this.etablissementController
-				.setServiceSel(this.convention.getService());
-		this.etablissementController.setIdServiceSel(this.convention
-				.getService().getIdService());
-		getSessionController().setCurrentManageStructure(
-				this.convention.getStructure());
+		this.etablissementController.setServiceSel(this.convention.getService());
+		this.etablissementController.setIdServiceSel(this.convention.getService().getIdService());
+		getSessionController().setCurrentManageStructure(this.convention.getStructure());
 		getSessionController().setMenuGestionEtab(false);
 		ConventionDTO conventionTmp = this.convention;
 		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 		try {
-			if (this.getConventionDomainService().updateConvention(
-					conventionTmp)) {
+			if (this.getConventionDomainService().updateConvention(conventionTmp)) {
 				this.alerteMailModifConvention(" le tuteur professionnel ");
 				retour = SequenceEtapeEnumSel.etape4.actionEtape();
 				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
@@ -1703,37 +1669,6 @@ public class ConventionController extends AbstractContextAwareController {
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
 		}
-		return retour;
-	}
-
-	/**
-	 * @return String
-	 */
-	public String goToConventionModifServiceSignataire() {
-		String retour = null;
-		if (this.convention.getSignataire() != null) {
-			this.convention.setIdSignataire(this.convention.getSignataire()
-					.getId());
-		}
-		ConventionDTO conventionTmp = this.convention;
-		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
-		try {
-			if (this.getConventionDomainService().updateConvention(
-					conventionTmp)) {
-				this.alerteMailModifConvention(" le signataire ");
-				retour = SequenceEtapeEnumSel.etape3.actionEtape();
-				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
-			}
-		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.getCause());
-			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
-		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.getCause());
-			addErrorMessage(null,
-					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-					we.getMessage());
-		}
-
 		return retour;
 	}
 
@@ -1768,13 +1703,6 @@ public class ConventionController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * @return String
-	 */
-	public String goToConventionRechEtab() {
-		return "conventionEtape2RechEtab";
-	}
-
-	/**
 	 * Bouton d'ajout d'un etablissement.
 	 *
 	 * @return String
@@ -1804,45 +1732,25 @@ public class ConventionController extends AbstractContextAwareController {
 	 * @return String
 	 */
 	public String ajouterEtablissementModif() {
-		String ret = this.etablissementController.ajouterEtablissement();
-		if (ret != null
-				&& this.etablissementController.getFormStructure() != null) {
-			this.convention.setStructure(this.etablissementController
-					.getFormStructure());
-			getSessionController().setCurrentManageStructure(
-					this.etablissementController.getFormStructure());
-			getSessionController().setMenuGestionEtab(false);
-			this.etablissementController.loadContactsServices();
-			this.etablissementController.setFormStructure(null);
-			this.convention.setIdStructure(this.convention.getStructure()
-					.getIdStructure());
 
-			ConventionDTO conventionTmp = this.convention;
-			conventionTmp.setLoginModif(getSessionController()
-					.getCurrentLogin());
-			try {
-				if (this.getConventionDomainService().updateConvention(
-						conventionTmp)) {
-					this.alerteMailModifConvention(" l'établissement d'accueil ");
-					ret = SequenceEtapeEnumSel.etape2.actionEtape();
-					addInfoMessage(null,
-							"CONVENTION.CREERCONVENTION.CONFIRMATION");
-				}
-			} catch (DataUpdateException ae) {
-				logger.error("DataUpdateException", ae.getCause());
-				addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
-				ret = null;
-			} catch (WebServiceDataBaseException we) {
-				logger.error("WebServiceDataBaseException ",
-						we.getCause());
-				addErrorMessage(null,
-						"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-						we.getMessage());
-				ret = null;
-			}
-			ret = SequenceEtapeEnumSel.etape2.actionEtape();
+//		this.retourAction = "conventionEtape2RechEtab";
+
+		String ret = this.etablissementController.ajouterEtablissement();
+
+		this.recupFacesMessagesEtablissement();
+
+		if (ret != null && this.etablissementController.getFormStructure() != null) {
+			// On met l'etablissement ajouté dans le resultat de recherche
+			// pour pouvoir afficher la page de recherche a la suite de l'ajout
+			List<StructureDTO> struct = new ArrayList<>();
+			struct.add(this.etablissementController.getFormStructure());
+			this.rechercheController.setListeResultatsRechercheStructure(struct);
+			this.rechercheController.reloadRechercheStructurePaginator();
+
+			return "conventionEtape2RechEtab";
+		} else {
+			return null;
 		}
-		return ret;
 	}
 
 	/**
@@ -1956,39 +1864,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public String goToConventionEtape3ServiceModif() {
 
-		String ret = null;
+		this.retourAction = "conventionEtape3Service";
 
-		this.convention.setIdService(this.convention.getService().getIdService());
-		this.etablissementController.setServiceSel(this.convention.getService());
-		this.etablissementController.setIdServiceSel(this.convention.getService().getIdService());
-		getSessionController().setCurrentManageStructure(this.convention.getStructure());
-		getSessionController().setMenuGestionEtab(false);
-
-		// this.etablissementController.loadContactsServices();
-		this.etablissementController.reloadContacts();
-
-		ConventionDTO conventionTmp = this.convention;
-		conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
-
-		try {
-			if (this.getConventionDomainService().updateConvention(
-					conventionTmp)) {
-				this.alerteMailModifConvention(" le service d'accueil ");
-				// ret=sequenceEtapeEnumSel.etape3.actionEtape();
-				ret = "conventionEtape3ModifServiceContact";
-				addInfoMessage(null, "CONVENTION.CREERCONVENTION.CONFIRMATION");
-			}
-		} catch (DataUpdateException ae) {
-			logger.error("DataUpdateException", ae.getCause());
-			addErrorMessage(null, "CONVENTION.CREERCONVENTION.ERREURAJOUT");
-		} catch (WebServiceDataBaseException we) {
-			logger.error("WebServiceDataBaseException ", we.getCause());
-			addErrorMessage(null,
-					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
-					we.getMessage());
-		}
-
-		return ret;
+		return "conventionModifEtabService";
 	}
 
 	/**
@@ -2634,10 +2512,8 @@ public class ConventionController extends AbstractContextAwareController {
 			}
 
 		}
-		conventionTmp.setCodeUniversiteEtape(getSessionController()
-				.getCodeUniversite());
-		conventionTmp.setCodeUniversiteUFR(getSessionController()
-				.getCodeUniversite());
+		conventionTmp.setCodeUniversiteEtape(getSessionController().getCodeUniversite());
+		conventionTmp.setCodeUniversiteUFR(getSessionController().getCodeUniversite());
 		try {
 			int idConvention = this.getConventionDomainService().addConvention(
 					conventionTmp);
@@ -3844,11 +3720,9 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String goToConventionModifStage() {
-		String ret = null;
-		ret = "conventionEtape5ModifStage";
-		return ret;
-	}
+//	public String goToConventionModifStage() {
+//		return "conventionEtape5ModifStage";
+//	}
 
 	/**
 	 * @return String
@@ -5515,15 +5389,11 @@ public class ConventionController extends AbstractContextAwareController {
 
 				if (conventionTmp.isSelected()) {
 
-					conventionTmp = getConventionDomainService()
-							.getConventionFromId(
-									conventionTmp.getIdConvention());
+					conventionTmp = getConventionDomainService().getConventionFromId(conventionTmp.getIdConvention());
 					conventionTmp.setValidationConvention(true);
-					conventionTmp.setLoginValidation(getSessionController()
-							.getCurrentLogin());
+					conventionTmp.setLoginValidation(getSessionController().getCurrentLogin());
 					conventionTmp.setDateValidation(new Date());
-					if (!this.getConventionDomainService().updateConvention(
-							conventionTmp)) {
+					if (!this.getConventionDomainService().updateConvention(conventionTmp)) {
 						addErrorMessage(null,
 								"CONVENTION.VALIDATION_EN_MASSE.ERREUR",
 								conventionTmp.getIdConvention());
@@ -5534,14 +5404,12 @@ public class ConventionController extends AbstractContextAwareController {
 							String text = getString(
 									"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION",
 									conventionTmp.getIdConvention(),
-									getSessionController().getCurrentUser()
-											.getDisplayName());
+									getSessionController().getCurrentUser().getDisplayName());
 							String sujet = getString(
 									"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION.SUJET",
 									conventionTmp.getIdConvention());
 
-							String mail = getEtudiantDomainService()
-									.getEtudiantFromId(conventionTmp.getIdEtudiant()).getMail();
+							String mail = getEtudiantDomainService().getEtudiantFromId(conventionTmp.getIdEtudiant()).getMail();
 							if (conventionTmp.getCourrielPersoEtudiant() != null
 									&& !conventionTmp.getCourrielPersoEtudiant().isEmpty()) {
 								mail = conventionTmp.getCourrielPersoEtudiant();
@@ -5637,10 +5505,8 @@ public class ConventionController extends AbstractContextAwareController {
 			// pédagogique
 			List<Integer> idsCentresSansVP = new ArrayList<Integer>();
 			List<Integer> idsCentresAvecVP = new ArrayList<Integer>();
-			for (int idCg : getSessionController()
-					.getCurrentIdsCentresGestion()) {
-				if (getCentreGestionDomainService().getCentreGestion(idCg)
-						.isValidationPedagogique()) {
+			for (int idCg : getSessionController().getCurrentIdsCentresGestion()) {
+				if (getCentreGestionDomainService().getCentreGestion(idCg).isValidationPedagogique()) {
 					idsCentresAvecVP.add(idCg);
 				} else {
 					idsCentresSansVP.add(idCg);
@@ -5651,32 +5517,24 @@ public class ConventionController extends AbstractContextAwareController {
 			this.critereRechercheConvention.setEstVerifiee(true);
 			this.critereRechercheConvention.setIdsCentreGestion(idsCentresAvecVP);
 
-			this.resultatsRechercheConvention = getConventionDomainService()
-					.getConventionsFromCriteres(this.critereRechercheConvention);
+			this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
 			if (this.resultatsRechercheConvention == null) {
 				this.resultatsRechercheConvention = new ArrayList<ConventionDTO>();
 			}
 
 			// Deuxieme recherche pour les autres centre
 			this.critereRechercheConvention.setEstVerifiee(null);
-			this.critereRechercheConvention
-					.setIdsCentreGestion(idsCentresSansVP);
+			this.critereRechercheConvention.setIdsCentreGestion(idsCentresSansVP);
 
 			List<ConventionDTO> listeSansVP = getConventionDomainService()
 					.getConventionsFromCriteres(this.critereRechercheConvention);
 			if (listeSansVP != null) {
-				this.resultatsRechercheConvention
-						.addAll(getConventionDomainService()
-								.getConventionsFromCriteres(
-										this.critereRechercheConvention));
+				this.resultatsRechercheConvention.addAll(getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention));
 			}
 		} else {
-			this.critereRechercheConvention
-					.setIdsCentreGestion(getSessionController()
-							.getCurrentIdsCentresGestion());
+			this.critereRechercheConvention.setIdsCentreGestion(getSessionController().getCurrentIdsCentresGestion());
 
-			this.resultatsRechercheConvention = getConventionDomainService()
-					.getConventionsFromCriteres(this.critereRechercheConvention);
+			this.resultatsRechercheConvention = getConventionDomainService().getConventionsFromCriteres(this.critereRechercheConvention);
 		}
 		if (!checkListeResultats()) {
 			ret = null;
@@ -5691,13 +5549,11 @@ public class ConventionController extends AbstractContextAwareController {
 		try {
 			ConventionDTO conventionTmp = new ConventionDTO();
 
-			conventionTmp = getConventionDomainService().getConventionFromId(
-					this.convention.getIdConvention());
-			conventionTmp.setLoginModif(getSessionController()
-					.getCurrentLogin());
+			conventionTmp = getConventionDomainService().getConventionFromId(this.convention.getIdConvention());
+			conventionTmp.setLoginModif(getSessionController().getCurrentLogin());
 			conventionTmp.setDateModif(new Date());
-			conventionTmp.setCommentaireStage(this.convention
-					.getCommentaireStage());
+			conventionTmp.setCommentaireStage(this.convention.getCommentaireStage());
+
 			if (!this.getConventionDomainService().updateConvention(
 					conventionTmp)) {
 				addErrorMessage("formCommentaire",
@@ -5752,9 +5608,7 @@ public class ConventionController extends AbstractContextAwareController {
 				// Envoi d'une alerte à l'enseignant référent s'il est renseigné
 				// dans la convention et si telle est la configuration
 				if (getSessionController().isAvertissementTuteurPedago()) {
-					EnseignantDTO tmp = getEnseignantDomainService()
-							.getEnseignantFromId(
-									this.convention.getIdEnseignant());
+					EnseignantDTO tmp = getEnseignantDomainService().getEnseignantFromId(this.convention.getIdEnseignant());
 					if (tmp != null && tmp.getId() != 0
 							&& tmp.getMail() != null
 							&& !tmp.getMail().isEmpty())
@@ -5765,8 +5619,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 				// Envoi d'une alerte aux personnels du centre gestion
 				// configurés pour les recevoir
-				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService()
-						.getPersonnelCentreGestionList(
+				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(
 								this.convention.getIdCentreGestion());
 
 				if (listePersonnels != null) {
@@ -5774,10 +5627,9 @@ public class ConventionController extends AbstractContextAwareController {
 						if (personnel.isAlertesMail()) {
 							if (personnel.getMail() != null
 									&& !personnel.getMail().isEmpty()) {
-								getSmtpService()
-										.send(new InternetAddress(
-														personnel.getMail()), sujet,
-												text, text);
+								getSmtpService().send(new InternetAddress(
+										personnel.getMail()), sujet,
+										text, text);
 							}
 						}
 					}

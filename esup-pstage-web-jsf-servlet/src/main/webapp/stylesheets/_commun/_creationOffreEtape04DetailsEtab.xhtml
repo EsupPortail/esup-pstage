@@ -3,7 +3,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<t:div
@@ -11,7 +10,12 @@
 		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
 		<t:aliasBean alias="#{structure}"
 			value="#{rechercheController.resultatRechercheStructure}">
-			<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+
+            <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+            <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+
+			<ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+
 		</t:aliasBean>
 		<p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
 			action="#{offreController.goToCreationOffreModifEtab}"
@@ -26,7 +30,7 @@
 		<h:panelGrid align="center">
 			<h:outputText value=" " id="formAffEtab" />
 			<p:message for="formAffEtab">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 			</p:message>
 		</h:panelGrid>
 		<h:panelGrid

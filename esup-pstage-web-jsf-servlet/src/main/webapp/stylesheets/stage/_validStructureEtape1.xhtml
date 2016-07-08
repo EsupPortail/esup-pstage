@@ -1,10 +1,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:h="http://java.sun.com/jsf/html">
 
     <t:aliasBean alias="#{structure}"
                  value="#{etablissementController.formStructure}">
+        <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+        <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
         <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
     </t:aliasBean>
 

@@ -1,35 +1,34 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE6.ENSEIGNANT']}" />
-					</f:facet>
-					<h:panelGrid>
-						<ui:include
-							src="/stylesheets/stage/_formRechEnseignant.xhtml" />
-					</h:panelGrid>
-					<h:panelGrid>
-						<h:commandButton id="rechEnseignant"
-							value="#{msgs['FORM.RECHERCHER']}"
-							action="#{conventionController.rechercheEnseignantModif}"
-							alt="#{msgs['FORM.RECHERCHER']}"
-							title="#{msgs['FORM.RECHERCHER']}">
-						</h:commandButton>
-					</h:panelGrid>
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+
+                        <ui:include src="/stylesheets/stage/_formRechEnseignant.xhtml" />
+
+                        <t:div styleClass="ml40 mt10 mb10">
+                            <p:commandButton id="rechEnseignant"
+                                             value="#{msgs['FORM.RECHERCHER']}"
+                                             action="#{conventionController.rechercheEnseignantModif}"/>
+                        </t:div>
+
+                        <p:commandButton value="#{msgs['GENERAL.RETOUR']}"
+                                         action="conventionEtape6Enseignant"
+                                         immediate="true" styleClass="mt20"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>
