@@ -19,7 +19,7 @@
 							<h:outputLabel
 									value="#{msgs['RECHERCHEEVALUATION.CENTREGESTION']}"
 									for="centreGestion" />
-							<p:selectOneMenu id="centreGestion" styleClass="customPstage" effect="none"
+							<h:selectOneMenu id="centreGestion" styleClass="customPstage" effect="none"
 											 value="#{evaluationController.rechEvalIdCentre}"
 											 required="true">
 								<f:selectItems
@@ -27,7 +27,7 @@
 								<p:ajax  event="valueChange"
 										 update="panelCodes" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
 										 listener="#{evaluationController.updateAffichageListeCodes}" />
-							</p:selectOneMenu>
+							</h:selectOneMenu>
 						</t:htmlTag>
 						<t:htmlTag value="li">
 							<p:message for="centreGestion"/>
@@ -80,7 +80,7 @@
 								<h:outputLabel
 										rendered="#{not empty nomenclatureController.anneesConvention}"
 										value="#{msgs['RECHERCHECONVENTION.ANNEEU']} : " for="anU" />
-								<p:selectOneMenu id="anU" required="true" effect="none" styleClass="customPstage mb5"
+								<h:selectOneMenu id="anU" required="true" effect="none" styleClass="customPstage mb5"
 												 rendered="#{not empty nomenclatureController.anneesConvention}"
 												 value="#{conventionController.critereRechercheConvention.anneeUniversitaire}">
 									<f:selectItem itemValue="" />
@@ -89,7 +89,7 @@
 									<p:ajax  event="valueChange"
 											 update="panelCodes" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
 											 listener="#{evaluationController.updateAffichageListeCodes}" />
-								</p:selectOneMenu>
+								</h:selectOneMenu>
 								<p:message for="anU"/>
 							</t:htmlTag>
 						</t:div>

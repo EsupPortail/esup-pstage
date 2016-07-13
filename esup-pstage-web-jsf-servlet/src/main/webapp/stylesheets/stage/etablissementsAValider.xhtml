@@ -13,21 +13,20 @@
                 <p:outputPanel id="opRechercheStructureDataTable">
                     <t:div rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
                         <t:div>
-                            <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                            <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2 mrf5"/>
                             <h:outputText value="#{msgs['STRUCTURE.MODERATION.INFORMATION']}" escape="false" />
                         </t:div>
-                        <t:htmlTag value="div" style="height:10px;" />
-                        <p:dataTable id="rechercheStructureDataTable"
+                        <p:dataTable id="rechercheStructureDataTable" styleClass="mt10" filterDelay="200"
                                      value="#{rechercheController.listeResultatsRechercheStructure}"
-                                     var="varRechercheStructure" rows="15" rowHover="true"
-                                     rowStyleClass="noPointer" paginator="true"
+                                     var="varRechercheStructure" rows="15" rowHover="true" reflow="true"
+                                     rowStyleClass="noPointer" paginator="true" tableStyle="table-layout: auto;"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15,20">
                             <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
 
                             <p:column
                                     rendered="#{(sessionController.adminPageAuthorized || welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
-                                    style="width:50px; background-color:#A5A5A5;" styleClass="textCenter">
+                                    style="background-color:#A5A5A5;" styleClass="textCenter">
                                 <f:facet name="header">
                                     <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                                 </f:facet>

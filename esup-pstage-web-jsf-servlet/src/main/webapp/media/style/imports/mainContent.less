@@ -295,13 +295,30 @@
     }
   }
 
-  & > .column {
+  .row {
+    clear: both;
+  }
+
+  & > .row > .column, & > .column {
     float: none;
     box-sizing: border-box;
     width: 100%;
     display: inline-block;
     margin: 0;
     padding: 0;
+
+    &.forceColumn {
+      width: 50%;
+    }
+
+    &.widthAuto {
+      & > li {
+        width: auto !important;
+        input, .ui-selectonemenu {
+          width: auto !important;
+        }
+      }
+    }
 
     @media (min-device-width: @MediaTablet) {
       float: left;

@@ -1,21 +1,18 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:t="http://myfaces.apache.org/tomahawk">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" xmlns:t="http://myfaces.apache.org/tomahawk">
     <p:fieldset toggleable="false" legend="General">
         <t:htmlTag value="ul" styleClass="formUL columns-2">
             <t:div styleClass="column">
                 <t:htmlTag value="li">
                     <p:outputLabel rendered="#{not empty nomenclatureController.anneesUnivOffres}"
                                    value="#{msgs['RECHERCHEOFFRE.ANNEEU']}" for="anU" />
-                    <p:selectOneMenu id="anU" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="anU" effect="none" styleClass="customPstage"
                                      rendered="#{not empty nomenclatureController.anneesUnivOffres}"
                                      value="#{offreController.critereRechercheOffre.anneeUniversitaire}">
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{nomenclatureController.anneesUnivOffres}" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                 </t:htmlTag>
                 <t:htmlTag value="li">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.NUMOFFRE']}"
@@ -37,11 +34,11 @@
                 <t:htmlTag value="li">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPEOFFRE']}"
                                    for="typeContratOffre" />
-                    <p:selectOneMenu id="typeContratOffre" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="typeContratOffre" effect="none" styleClass="customPstage"
                                      value="#{offreController.rechTypeOuContrat}">
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{offreController.rechTypesContratsOffre}" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                 </t:htmlTag>
             </t:div>
         </t:htmlTag>
@@ -75,12 +72,12 @@
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUPAYS']}"
                                    for="lieuPays" />
-                    <p:selectOneMenu id="lieuPays" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="lieuPays" effect="none" styleClass="customPstage"
                                      value="#{offreController.critereRechercheOffre.lieuPays}"
                                      converter="#{paysConverter}" >
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{nomenclatureController.pays}" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                 </t:htmlTag>
             </t:div>
         </t:htmlTag>
@@ -91,34 +88,34 @@
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.DOMAINEOFFRE']}"
                                    for="fapN1" />
-                    <p:selectOneMenu id="fapN1" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="fapN1" effect="none" styleClass="customPstage"
                                      value="#{offreController.critereRechercheOffre.fapN1}"
                                      converter="#{fapN1Converter}">
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{nomenclatureController.fapN1}" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                 </t:htmlTag>
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.SECTEURACTIVITE']}"
                                    for="nafN1" />
-                    <p:selectOneMenu id="nafN1" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="nafN1" effect="none" styleClass="customPstage"
                                      value="#{offreController.critereRechercheOffre.nafN1}"
                                      converter="#{nafN1Converter}">
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{nomenclatureController.nafN1}" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                 </t:htmlTag>
             </t:div>
             <t:div styleClass="column">
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.NIVEAUFORMATION']}"
                                    for="niveauForm" />
-                    <p:selectOneMenu id="niveauForm" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="niveauForm" effect="none" styleClass="customPstage"
                                      value="#{offreController.critereRechercheOffre.niveauFormation}"
                                      converter="#{niveauFormationConverter}">
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{nomenclatureController.niveauxFormation}" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                 </t:htmlTag>
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.MOTSCLES']}"
@@ -143,12 +140,12 @@
                 <t:htmlTag value="li">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPESTRUCTURE']}"
                                    for="typeStructure" />
-                    <p:selectOneMenu id="typeStructure" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="typeStructure" effect="none" styleClass="customPstage"
                                      value="#{offreController.critereRechercheOffre.typeStructure}"
                                      converter="#{typeStructureConverter}">
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{nomenclatureController.typesStructure}" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                 </t:htmlTag>
                 <t:htmlTag value="li"
                            rendered="#{!sessionController.pageAuthorized and !sessionController.adminPageAuthorized}">

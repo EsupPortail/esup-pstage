@@ -44,7 +44,7 @@
 				style="border:0; color:purple;" escape="false"/>
 		</t:htmlTag>
 	</p:column>
-	<p:column>
+	<p:column filterBy="#{varRechercheStructure.raisonSociale}" filterMatchMode="contains" sortBy="#{varRechercheStructure.raisonSociale}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
 		</f:facet>
@@ -58,13 +58,13 @@
 			<p:tooltip value="#{msgs['STRUCTURE.AVECACCORD']}" />
 		</h:graphicImage>
 	</p:column>
-	<p:column>
+	<p:column filterBy="#{varRechercheStructure.numeroSiret}" filterMatchMode="contains">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET']}" />
 		</f:facet>
 		<h:outputText value="#{varRechercheStructure.numeroSiret}" />
 	</p:column>
-	<p:column>
+	<p:column filterBy="#{varRechercheStructure.voie}" filterMatchMode="contains">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.VOIE']}" />
 		</f:facet>
@@ -79,13 +79,13 @@
 	<!-- 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" /> -->
 	<!-- 		</h:outputText> -->
 	<!-- 	</p:column> -->
-	<p:column>
+	<p:column filterBy="#{varRechercheStructure.codePostal}" filterMatchMode="contains" sortBy="#{varRechercheStructure.codePostal}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
 		</f:facet>
 		<h:outputText value="#{varRechercheStructure.codePostal}" />
 	</p:column>
-	<p:column>
+	<p:column filterBy="#{varRechercheStructure.commune}" filterMatchMode="contains" sortBy="#{varRechercheStructure.commune}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
 		</f:facet>
@@ -94,7 +94,7 @@
 			<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 		</h:outputText>
 	</p:column>
-	<p:column>
+	<p:column filterBy="#{varRechercheStructure.pays.libelle}" filterMatchMode="contains" sortBy="#{varRechercheStructure.pays.libelle}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
 		</f:facet>
