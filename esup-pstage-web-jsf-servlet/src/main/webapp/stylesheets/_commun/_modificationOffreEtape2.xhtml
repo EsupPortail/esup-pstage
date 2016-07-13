@@ -7,7 +7,7 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 
-	<ui:include src="../_commun/__offreEtape2.xhtml" />
+	<ui:include src="/stylesheets/_commun/__offreEtape2.xhtml" />
 
 	<h:panelGrid columns="3">
 		<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
@@ -28,16 +28,11 @@
 			alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"/>
 	</h:panelGrid>
 	<t:htmlTag value="div" style="height: 10px;" />
-	<p:outputPanel id="opFCE">
-		<h:panelGrid columns="3"
-			rendered="#{facesContext.maximumSeverity != null}">
-			<h:graphicImage value="../../media/images/arrow_up.png"
-				alt="#{msgs['GENERAL.ARROW_UP']}"
-				title="#{msgs['GENERAL.ARROW_UP']}" />
-			<h:outputText value="#{msgs['FORM.FORMERROR']}" />
-			<h:graphicImage value="../../media/images/arrow_up.png"
-				alt="#{msgs['GENERAL.ARROW_UP']}"
-				title="#{msgs['GENERAL.ARROW_UP']}" />
-		</h:panelGrid>
-	</p:outputPanel>
+    <p:outputPanel id="opFCE">
+        <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
+            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+            <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+        </t:div>
+    </p:outputPanel>
 </ui:fragment>

@@ -22,7 +22,7 @@
 							action="#{avenantController.goToModifAvenantPage2}" />
 						<h:outputText id="erreurModification" value="" />
 						<p:message for="erreurModification">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</h:panelGrid>
 				</h:panelGrid>
@@ -37,8 +37,8 @@
 
 				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>
-			<ui:include src="../_commun/_panelAjoutService.xhtml" />
-			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
 			<ui:include src="./_panel_rechEnseignantAvenant.xhtml" />
 		</p:panel>
 		<t:div rendered="#{conventionController.convention == null}">

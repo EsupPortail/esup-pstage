@@ -9,13 +9,13 @@
 	<h:panelGrid>
 		<h:outputText value=" " id="formModifEtab" />
 		<p:message for="formModifEtab">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 		</p:message>
 
 		<h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
 			rendered="#{empty etablissementController.formStructure}" />
 		<t:div rendered="#{not empty etablissementController.formStructure}">
-			<ui:include src="../_commun/_etablissementForm.xhtml" />
+			<ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
 		</t:div>
 
 		<h:panelGrid columns="5">
@@ -36,18 +36,13 @@
 				<p:ajax event="click" update="opFCE" />
 			</p:commandButton>
 			<t:htmlTag value="div" style="width: 20px;" />
-			<p:outputPanel id="opFCE">
-				<h:panelGrid  columns="3"
-					rendered="#{facesContext.maximumSeverity != null}">
-					<h:graphicImage value="../../media/images/arrow_up.png"
-						alt="#{msgs['GENERAL.ARROW_UP']}"
-						title="#{msgs['GENERAL.ARROW_UP']}" />
-					<h:outputText value="#{msgs['FORM.FORMERROR']}" />
-					<h:graphicImage value="../../media/images/arrow_up.png"
-						alt="#{msgs['GENERAL.ARROW_UP']}"
-						title="#{msgs['GENERAL.ARROW_UP']}" />
-				</h:panelGrid>
-			</p:outputPanel>
+            <p:outputPanel id="opFCE">
+                <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
+                    <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                    <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+                    <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                </t:div>
+            </p:outputPanel>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>

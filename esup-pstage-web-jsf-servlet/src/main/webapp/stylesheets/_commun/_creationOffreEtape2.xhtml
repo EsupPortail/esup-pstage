@@ -1,39 +1,34 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
 
-	<ui:include src="__offreEtape2.xhtml" />
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="5">
-		<h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-			immediate="true">
-			<f:setPropertyActionListener value="_creationOffreEtape1"
-				target="#{sessionController.creationOffreCurrentPage}" />
-			<f:setPropertyActionListener value="_creationOffreEtape1"
-				target="#{sessionController.creationOffreStageCurrentPage}" />
-		</h:commandButton>
-		<t:htmlTag value="div" style="width: 20px;" />
-		<p:commandButton value="#{msgs['FORM.NEXT']}"
-			action="#{offreController.goToCreationOffreEtape3}"
-			alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"
-			update="formCreationOffre, opFCE" />
-		<t:htmlTag value="div" style="width: 20px;" />
-		<p:outputPanel id="opFCE">
-			<h:panelGrid columns="3"
-				rendered="#{facesContext.maximumSeverity != null}">
-				<h:graphicImage value="../../media/images/arrow_up.png"
-					alt="#{msgs['GENERAL.ARROW_UP']}"
-					title="#{msgs['GENERAL.ARROW_UP']}" />
-				<h:outputText value="#{msgs['FORM.FORMERROR']}" />
-				<h:graphicImage value="../../media/images/arrow_up.png"
-					alt="#{msgs['GENERAL.ARROW_UP']}"
-					title="#{msgs['GENERAL.ARROW_UP']}" />
-			</h:panelGrid>
-		</p:outputPanel>
-	</h:panelGrid>
+    <ui:include src="__offreEtape2.xhtml" />
+
+    <h:panelGrid columns="5">
+        <h:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                         alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
+                         immediate="true">
+            <f:setPropertyActionListener value="_creationOffreEtape1"
+                                         target="#{sessionController.creationOffreCurrentPage}" />
+            <f:setPropertyActionListener value="_creationOffreEtape1"
+                                         target="#{sessionController.creationOffreStageCurrentPage}" />
+        </h:commandButton>
+        <t:htmlTag value="div" style="width: 20px;" />
+        <p:commandButton value="#{msgs['FORM.NEXT']}"
+                         action="#{offreController.goToCreationOffreEtape3}"
+                         alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"
+                         update="formCreationOffre, opFCE" />
+        <t:htmlTag value="div" style="width: 20px;" />
+        <p:outputPanel id="opFCE">
+            <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
+                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+            </t:div>
+        </p:outputPanel>
+    </h:panelGrid>
 </ui:composition>

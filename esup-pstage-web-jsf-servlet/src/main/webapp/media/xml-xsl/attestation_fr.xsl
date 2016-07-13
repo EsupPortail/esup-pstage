@@ -54,6 +54,7 @@
 			margin-bottom="1.09cm" font-family="Times New Roman,serif"
 			padding-top="1.5cm">
 			<fo:block text-align="center">
+				<xsl:value-of select="avenant/motifAvenant" />
 				<fo:inline hyphenate="false" language="fr" country="FR"
 					font-weight="bold" font-size="18pt">
 					ATTESTATION DE STAGE

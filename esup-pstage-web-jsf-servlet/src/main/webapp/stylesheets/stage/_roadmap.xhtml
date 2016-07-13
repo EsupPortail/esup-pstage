@@ -1,23 +1,21 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:t="http://myfaces.apache.org/tomahawk">
-
+                xmlns:f="http://java.sun.com/jsf/core">
     <p:scrollPanel mode="native" styleClass="customPstage">
-            <ui:repeat value="#{conventionController.sequences}" var="sequence">
-                <p:commandButton value="#{sequence.title}" immediate="true"
-                                 rendered="#{sequence.disabled}" disabled="true"
-                                 action="#{sequence.actionEtape}" update="@form"
-                                 style="color: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? '#2C7094' : 'black'};
+        <ui:repeat value="#{conventionController.sequences}" var="sequence">
+            <p:commandButton value="#{sequence.title}" immediate="true"
+                             rendered="#{sequence.disabled}" disabled="true"
+                             action="#{sequence.actionEtape}" update="@form"
+                             style="color: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? '#2C7094' : 'black'};
                     opacity: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? 1 : .35};"/>
-                <p:commandButton value="#{sequence.title}" immediate="true"
-                                 rendered="#{!sequence.disabled}" disabled="false"
-                                 action="#{sequence.actionEtape}" update="@form"
-                                 style="color: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? '#2C7094' : 'black'};">
-                    <f:setPropertyActionListener value="#{sequence}" target="#{conventionController.sequenceEtapeEnum}" />
-                </p:commandButton>
-            </ui:repeat>
-      </p:scrollPanel>
+            <p:commandButton value="#{sequence.title}" immediate="true"
+                             rendered="#{!sequence.disabled}" disabled="false"
+                             action="#{sequence.actionEtape}" update="@form"
+                             style="color: #{conventionController.sequenceEtapeEnum.numEtape == sequence.numEtape ? '#2C7094' : 'black'};">
+                <f:setPropertyActionListener value="#{sequence}" target="#{conventionController.sequenceEtapeEnum}" />
+            </p:commandButton>
+        </ui:repeat>
+    </p:scrollPanel>
 </ui:composition>
 

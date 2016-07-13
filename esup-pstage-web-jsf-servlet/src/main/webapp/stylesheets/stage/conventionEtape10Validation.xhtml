@@ -1,288 +1,256 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE10.VALIDATION']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<t:htmlTag value="div" style="height:10px;" />
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
 
-				<t:div
-					rendered="#{sessionController.validationPedagogique 
-		and (conventionController.convention.centreGestion.validationPedagogique or conventionController.convention.validationPedagogique)
-		and !conventionController.convention.validationConvention}">
-					<fieldset>
-						<legend>
-							<h:outputText
-								style="font-size:12px; font-weight:bold;"
-								value="#{msgs['CONVENTION.ETAPE10.VALIDATION_PEDAGOGIQUE']}" />
-						</legend>
-						<h:panelGrid>
-							<p:messages />
-							<h:outputText
-								value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.INFO']}"
-								escape="false" />
-							<t:htmlTag value="div" style="height:5px;" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
-							<h:outputText value="#{msgs['GENERAL.RAPPEL']}" />
-							<h:panelGrid columns="2" style="border: solid 1px; padding:5px;">
-								<h:outputLabel for="etu"
-									value="#{msgs['RECHERCHECONVENTION.ETUDIANT']} : " />
-								<h:outputText id="etu"
-									value="	#{conventionController.convention.etudiant.nom}  #{conventionController.convention.etudiant.nomMarital}   
-						#{conventionController.convention.etudiant.prenom}" />
+                        <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.VALIDATION.HEADER']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
 
-								<h:outputLabel for="dateDebutStage1"
-									value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
-								<h:outputText id="dateDebutStage1"
-									value="#{conventionController.convention.dateDebutStage}">
-									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-								</h:outputText>
-								<h:outputLabel for="dateFinStage1"
-									value="#{msgs['CONVENTION.FINSTAGE']}" />
-								<h:outputText id="dateFinStage1"
-									value="#{conventionController.convention.dateFinStage}">
-									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-								</h:outputText>
+                        <t:htmlTag value="div" style="height:10px;"/>
 
-								<h:outputLabel for="sujetStage1"
-									value="#{msgs['CONVENTION.SUJET']}" />
-								<h:outputText id="sujetStage1"
-									value="#{conventionController.convention.sujetStage}"
-									escape="false" />
+                        <h:panelGrid columns="2" style="border: solid 1px;" cellspacing="5" styleClass="blueHover ml20" >
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
+                            <h:outputText id="etu"
+                                          value="#{conventionController.convention.etudiant.nom}  #{conventionController.convention.etudiant.nomMarital}
+						                #{conventionController.convention.etudiant.prenom}" />
 
-								<h:outputLabel for="fonctionsEtTaches1"
-									value="#{msgs['CONVENTION.FONCTION']}" />
-								<h:outputText id="fonctionsEtTaches1"
-									value="#{conventionController.convention.fonctionsEtTaches}"
-									escape="false" />
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.DEBUTSTAGE']}" />
+                            <h:outputText id="dateDebutStage1"
+                                          value="#{conventionController.convention.dateDebutStage}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.FINSTAGE']}" />
+                            <h:outputText id="dateFinStage1"
+                                          value="#{conventionController.convention.dateFinStage}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
 
-								<h:outputLabel for="modeValidationStage1"
-									value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
-								<h:outputText id="modeValidationStage1"
-									value="#{conventionController.convention.modeValidationStage.libelle}" />
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.SUJET']}" />
+                            <h:outputText id="sujetStage1"
+                                          value="#{conventionController.convention.sujetStage}"
+                                          escape="false" />
 
-								<h:outputLabel for="structure1"
-									value="#{msgs['CONVENTION.STRUCTURE']}" />
-								<h:outputText id="structure1"
-									value="#{conventionController.convention.structure.raisonSociale} 
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.FONCTION']}" />
+                            <t:div style="word-break: break-all;">
+                                <h:outputText id="fonctionsEtTaches1"
+                                              value="#{conventionController.convention.fonctionsEtTaches}"
+                                              escape="false" />
+                            </t:div>
+
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.MODEVALIDSTAGE']}" />
+                            <h:outputText id="modeValidationStage1"
+                                          value="#{conventionController.convention.modeValidationStage.libelle}" />
+
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.STRUCTURE']}" />
+                            <h:outputText id="structure1"
+                                          value="#{conventionController.convention.structure.raisonSociale}
 								#{conventionController.convention.structure.commune} #{conventionController.convention.structure.pays.libelle}" />
 
-								<h:outputLabel for="service1"
-									value="#{msgs['CONVENTION.SERVICE']}" />
-								<h:outputText id="service1"
-									value="#{conventionController.convention.service.nom} 
-								#{conventionController.convention.service.commune} #{conventionController.convention.service.pays.libelle}" />
-							</h:panelGrid>
-							<t:htmlTag value="div" style="height: 5px;"
-								rendered="#{!conventionController.convention.validationPedagogique}" />
-							<h:panelGrid
-								rendered="#{!conventionController.convention.validationPedagogique}">
-								<h:outputText
-									value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.NONVERIF']}"
-									escape="false" />
-								<h:column>
-									<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-										title="#{msgs['GENERAL.WARNING']}"
-										value="../../media/images/warning_20px.png" />
-									<h:outputText style="padding:5px;"
-										value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ATTENTION']}"
-										escape="false" />
-								</h:column>
-							</h:panelGrid>
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.SERVICE']}" />
+                            <h:outputText id="service1"
+                                          value="#{conventionController.convention.service.nom} #{conventionController.convention.service.commune} #{conventionController.convention.service.pays.libelle}" />
+                        </h:panelGrid>
 
-							<t:htmlTag value="div" style="height: 5px;"
-								rendered="#{conventionController.convention.validationPedagogique}" />
-							<h:panelGrid
-								rendered="#{conventionController.convention.validationPedagogique}">
-								<h:column>
-									<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-										title="#{msgs['GENERAL.OK']}"
-										value="../../media/images/tick.png" />
-									<h:outputText
-										value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIF']}"
-										escape="false"
-										rendered="#{conventionController.convention.validationPedagogique}" />
-								</h:column>
-							</h:panelGrid>
-						</h:panelGrid>
-						<h:panelGrid
-							rendered="#{welcomeController.superAdmin 
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
-			|| (not empty sessionController.currentAuthEnseignant
-			and not empty conventionController.convention.enseignant
-			and sessionController.currentAuthEnseignant.uidEnseignant == conventionController.convention.enseignant.uidEnseignant)}">
-							<p:commandButton
-								oncomplete="PF('demandeConfirmVerifConvention').show();"
-								value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIFIER']}"
-								alt="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIFIER']}"
-								rendered="#{!conventionController.convention.validationPedagogique}" />
+                        <t:htmlTag value="div" style="height: 10px;" />
 
-							<p:commandButton
-								oncomplete="PF('demandeConfirmUnVerifConvention').show();"
-								value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ANNULER_VERIF']}"
-								alt="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ANNULER_VERIF']}"
-								rendered="#{conventionController.convention.validationPedagogique}" />
-							<p:dialog id="demandeConfirmVerifConvention"
-								widgetVar="demandeConfirmVerifConvention">
-								<f:facet name="header">
-									<h:outputText
-										value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.DEMANDE']}" />
-								</f:facet>
-								<t:htmlTag value="div" style="height: 5px;" />
-								<h:panelGrid align="center" columns="3">
-									<p:commandButton value="#{msgs['FORM.OUI']}"
-										oncomplete="PF('demandeConfirmVerifConvention').hide();"
-										action="#{conventionController.goToConventionVerification}" />
-									<t:htmlTag value="div" style="width:100px;" />
-									<h:commandButton value="#{msgs['FORM.NON']}"
-										onclick="PF('demandeConfirmVerifConvention').hide();" />
-								</h:panelGrid>
-								<t:htmlTag value="div" style="height: 5px;" />
-							</p:dialog>
-							<p:dialog id="demandeConfirmUnVerifConvention"
-								widgetVar="demandeConfirmUnVerifConvention">
-								<f:facet name="header">
-									<h:outputText
-										value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.DEMANDE_UNVERIF']}" />
-								</f:facet>
-								<t:htmlTag value="div" style="height:5px;" />
-								<h:panelGrid align="center" columns="3">
-									<p:commandButton value="#{msgs['FORM.OUI']}"
-										oncomplete="PF('demandeConfirmUnVerifConvention').hide();"
-										action="#{conventionController.goToConventionUnVerification}"
-                                        ajax="false"/>
-									<t:htmlTag value="div" style="width:100px;" />
-									<p:commandButton value="#{msgs['FORM.NON']}"
-										onclick="PF('demandeConfirmUnVerifConvention').hide();" />
-								</h:panelGrid>
-								<t:htmlTag value="div" style="height:5px;" />
-							</p:dialog>
-						</h:panelGrid>
-					</fieldset>
-				</t:div>
+                        <p:fieldset id="verificationConvention"
+                                    legend="#{msgs['CONVENTION.ETAPE10.VALIDATION_PEDAGOGIQUE']}"
+                                    rendered="#{sessionController.validationPedagogique
+                            and (conventionController.convention.centreGestion.validationPedagogique or conventionController.convention.validationPedagogique)
+                            and !conventionController.convention.validationConvention}">
 
-				<t:htmlTag value="div" style="height: 10px;" />
+                            <t:htmlTag value="div" style="height:10px;"/>
 
-				<t:div
-					rendered="#{!sessionController.validationPedagogique || conventionController.convention.validationConvention
-	|| (sessionController.validationPedagogique and !conventionController.convention.centreGestion.validationPedagogique)
-	|| (sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique and conventionController.convention.validationPedagogique)}">
-					<fieldset>
-						<legend>
-							<h:outputText
-								style="font-size:12px; font-weight:bold;"
-								value="#{msgs['CONVENTION.ETAPE10.VALIDATION']}" />
-						</legend>
-						<p:messages />
-						<h:panelGrid>
-							<h:outputText value="#{msgs['CONVENTION.VALIDATION.INFO']}" />
-							<t:htmlTag value="div" style="height: 5px;" />
-							<h:outputText
-								value="#{msgs['CONVENTION.NUMEROCONVENTION']} : #{conventionController.convention.idConvention}, 
-					#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}   
-					#{conventionController.convention.etudiant.prenom}" />
+                            <h:outputText value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.INFO']}"
+                                          escape="false" />
 
-							<t:htmlTag value="div" style="height: 5px;"
-								rendered="#{!conventionController.convention.validationConvention}" />
-							<h:panelGrid
-								rendered="#{!conventionController.convention.validationConvention}">
-								<h:outputText value="#{msgs['CONVENTION.VALIDATION.NONVALIDE']}"
-									escape="false" />
-								<h:column>
-									<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-										title="#{msgs['GENERAL.WARNING']}"
-										value="../../media/images/warning_20px.png" />
-									<h:outputText style="padding:5px;"
-										value="#{msgs['CONVENTION.VALIDATION.ATTENTION']}"
-										escape="false" />
-								</h:column>
-							</h:panelGrid>
+                            <t:div rendered="#{!conventionController.convention.validationPedagogique}" styleClass="textCenter fontRed fontBold" style="padding:10px;">
+                                <t:htmlTag value="i" styleClass="fa fa-remove fz16" />
+                                <h:outputText value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.NONVERIF']}"
+                                              escape="false" styleClass="fz13 ml5 fontBold"/>
+                            </t:div>
 
-							<t:htmlTag value="div" style="height: 5px;"
-								rendered="#{conventionController.convention.validationConvention}" />
-							<h:panelGrid
-								rendered="#{conventionController.convention.validationConvention}">
-								<h:column>
-									<h:panelGrid columns="3">
-										<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-											title="#{msgs['GENERAL.OK']}"
-											value="../../media/images/tick.png" />
-										<h:outputFormat escape="false"
-											value="#{msgs['CONVENTION.VALIDATION.VALIDE']}">
-											<f:param
-												value="#{conventionController.convention.loginValidation}" />
-										</h:outputFormat>
-										<h:outputText style="font-style:italic;"
-											value="#{conventionController.convention.dateValidation}">
-											<f:convertDateTime pattern="dd MMM yyyy hh:mm" timeZone="CET" />
-										</h:outputText>
-									</h:panelGrid>
-								</h:column>
-							</h:panelGrid>
-						</h:panelGrid>
-						<h:panelGrid
-							rendered="#{welcomeController.superAdmin 
-				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-				|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
+                            <t:div rendered="#{conventionController.convention.validationPedagogique}" styleClass="textCenter fontBlue2 fontBold" style="padding:10px;">
+                                <t:htmlTag value="i" styleClass="fa fa-check fz16" />
+                                <h:outputText value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIF']}"
+                                              escape="false" styleClass="fz13 ml5" />
+                            </t:div>
 
-							<p:commandButton
-								oncomplete="PF('demandeConfirmValidConvention').show();"
-								value="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
-								alt="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
-								rendered="#{!conventionController.convention.validationConvention}" />
-							<p:commandButton
-								oncomplete="PF('demandeConfirmInValidConvention').show();"
-								value="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
-								alt="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
-								rendered="#{conventionController.convention.validationConvention}" />
+                            <t:div styleClass="textCenter mb20"
+                                   rendered="#{welcomeController.superAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture
+                                || (not empty sessionController.currentAuthEnseignant
+                                and not empty conventionController.convention.enseignant
+                                and sessionController.currentAuthEnseignant.uidEnseignant == conventionController.convention.enseignant.uidEnseignant)}">
+                                <p:commandButton oncomplete="PF('demandeConfirmVerifConvention').show();"
+                                                 value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.VERIFIER']}"
+                                                 rendered="#{!conventionController.convention.validationPedagogique}" />
 
-							<p:dialog id="demandeConfirmValidConvention"
-								widgetVar="demandeConfirmValidConvention">
-								<f:facet name="header">
-									<h:outputText value="#{msgs['CONVENTION.VALIDATION.DEMANDE']}" />
-								</f:facet>
-								<t:htmlTag value="div" style="height: 5px;" />
-								<h:panelGrid align="center" columns="3">
-									<p:commandButton value="#{msgs['FORM.OUI']}"
-										oncomplete="PF('demandeConfirmValidConvention').hide();"
-										action="#{conventionController.goToConventionValidation}" />
-									<t:htmlTag value="div" style="width:100px;" />
-									<h:commandButton value="#{msgs['FORM.NON']}"
-										onclick="PF('demandeConfirmValidConvention').hide();" />
-								</h:panelGrid>
-								<t:htmlTag value="div" style="height: 5px;" />
-							</p:dialog>
-							<p:dialog id="demandeConfirmInValidConvention"
-								widgetVar="demandeConfirmInValidConvention">
-								<f:facet name="header">
-									<h:outputText
-										value="#{msgs['CONVENTION.INVALIDATION.DEMANDE']}" />
-								</f:facet>
-								<t:htmlTag value="div" style="height: 5px;" />
-								<h:panelGrid align="center" columns="3">
-									<p:commandButton value="#{msgs['FORM.OUI']}"
-										oncomplete="PF('demandeConfirmInValidConvention').hide();"
-										action="#{conventionController.goToConventionInValidation}"
-                                        ajax="false"/>
-									<t:htmlTag value="div" style="width:100px;" />
-									<p:commandButton value="#{msgs['FORM.NON']}"
-										onclick="PF('demandeConfirmInValidConvention').hide();" />
-								</h:panelGrid>
-								<t:htmlTag value="div" style="height: 5px;" />
-							</p:dialog>
-						</h:panelGrid>
-					</fieldset>
-				</t:div>
-			</h:form>
-		</p:panel>
-	</ui:define>
+                                <p:commandButton oncomplete="PF('demandeConfirmUnVerifConvention').show();"
+                                                 value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ANNULER_VERIF']}"
+                                                 rendered="#{conventionController.convention.validationPedagogique}" />
+                            </t:div>
+
+                            <p:message for="verificationConvention" />
+
+                            <p:dialog id="demandeConfirmVerifConvention"
+                                      widgetVar="demandeConfirmVerifConvention"
+                                      resizable="false">
+                                <f:facet name="header">
+                                    <h:outputText
+                                            value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.DEMANDE']}" />
+                                </f:facet>
+
+                                <t:htmlTag value="div" style="height:15px;" />
+
+                                <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed fz13" />
+                                <h:outputText styleClass="ml5 fontBold"
+                                              value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.ATTENTION']}"
+                                              escape="false" />
+
+                                <t:htmlTag value="div" style="height:15px;" />
+
+                                <t:div styleClass="textCenter mb20">
+                                    <p:commandButton value="#{msgs['FORM.OUI']}"
+                                                     update="@form"
+                                                     oncomplete="PF('demandeConfirmVerifConvention').hide();"
+                                                     action="#{conventionController.goToConventionVerification}" />
+                                    <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                                                     onclick="PF('demandeConfirmVerifConvention').hide();" />
+                                </t:div>
+                            </p:dialog>
+
+                            <p:dialog id="demandeConfirmUnVerifConvention"
+                                      widgetVar="demandeConfirmUnVerifConvention"
+                                      resizable="false">
+                                <f:facet name="header">
+                                    <h:outputText
+                                            value="#{msgs['CONVENTION.VALIDATION_PEDAGOGIQUE.DEMANDE_UNVERIF']}" />
+                                </f:facet>
+
+                                <t:htmlTag value="div" style="height:15px;" />
+
+                                <t:div styleClass="textCenter mb20">
+                                    <p:commandButton value="#{msgs['FORM.OUI']}"
+                                                     update="@form"
+                                                     oncomplete="PF('demandeConfirmUnVerifConvention').hide();"
+                                                     action="#{conventionController.goToConventionUnVerification}" />
+                                    <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                                                     onclick="PF('demandeConfirmUnVerifConvention').hide();" />
+                                </t:div>
+                            </p:dialog>
+                        </p:fieldset>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <p:fieldset id="validationConvention"
+                                    legend="#{msgs['CONVENTION.ETAPE10.VALIDATION']}"
+                                    rendered="#{!sessionController.validationPedagogique || conventionController.convention.validationConvention
+                        || (sessionController.validationPedagogique and !conventionController.convention.centreGestion.validationPedagogique)
+                        || (sessionController.validationPedagogique and conventionController.convention.centreGestion.validationPedagogique and conventionController.convention.validationPedagogique)}">
+
+                            <t:htmlTag value="div" style="height: 10px;" />
+
+                            <h:outputText value="#{msgs['CONVENTION.VALIDATION.INFO']}" escape="false"/>
+
+                            <t:div rendered="#{!conventionController.convention.validationConvention}" styleClass="textCenter fontRed fontBold" style="padding:10px;">
+                                <t:htmlTag value="i" styleClass="fa fa-remove fz16" />
+                                <h:outputText value="#{msgs['CONVENTION.VALIDATION.NONVALIDE']}"
+                                              escape="false" styleClass="fz13 ml5"/>
+                            </t:div>
+                            <t:div rendered="#{conventionController.convention.validationConvention}" styleClass="textCenter fontBlue2 fontBold fz13" style="padding:10px;">
+                                <t:htmlTag value="i" styleClass="fa fa-check fz16" />
+                                <h:outputFormat value="#{msgs['CONVENTION.VALIDATION.VALIDE']} "
+                                                escape="false" styleClass="ml5">
+                                    <f:param value="#{conventionController.convention.loginValidation}" />
+                                </h:outputFormat>
+                                <h:outputText style="font-style:italic;"
+                                              value="#{conventionController.convention.dateValidation}">
+                                    <f:convertDateTime pattern="dd MMM yyyy hh:mm" timeZone="CET" />
+                                </h:outputText>
+                            </t:div>
+
+                            <t:div styleClass="textCenter mb20"
+                                   rendered="#{welcomeController.superAdmin
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
+                                <p:commandButton oncomplete="PF('demandeConfirmValidConvention').show();"
+                                                 value="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
+                                                 rendered="#{!conventionController.convention.validationConvention}" />
+                                <p:commandButton oncomplete="PF('demandeConfirmInValidConvention').show();"
+                                                 value="#{msgs['CONVENTION.VALIDATION.ANNULER.VALIDATION']}"
+                                                 rendered="#{conventionController.convention.validationConvention}" />
+                            </t:div>
+
+                            <p:message for="validationConvention" />
+
+                            <p:dialog id="demandeConfirmValidConvention"
+                                      widgetVar="demandeConfirmValidConvention"
+                                      resizable="false">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs['CONVENTION.VALIDATION.DEMANDE']}" />
+                                </f:facet>
+
+                                <t:htmlTag value="div" style="height: 15px;" />
+
+                                <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed fz13" />
+                                <h:outputText styleClass="ml5 fontBold"
+                                              value="#{msgs['CONVENTION.VALIDATION.ATTENTION']}"
+                                              escape="false" />
+
+                                <t:htmlTag value="div" style="height: 15px;" />
+
+                                <t:div styleClass="textCenter mb20">
+                                    <p:commandButton value="#{msgs['FORM.OUI']}"
+                                                     update="@form"
+                                                     oncomplete="PF('demandeConfirmValidConvention').hide();"
+                                                     action="#{conventionController.goToConventionValidation}" />
+                                    <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                                                     onclick="PF('demandeConfirmValidConvention').hide();" />
+                                </t:div>
+                            </p:dialog>
+
+                            <p:dialog id="demandeConfirmInValidConvention"
+                                      widgetVar="demandeConfirmInValidConvention"
+                                      resizable="false">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs['CONVENTION.INVALIDATION.DEMANDE']}" />
+                                </f:facet>
+                                <t:htmlTag value="div" style="height: 15px;" />
+                                <t:div styleClass="textCenter mb20">
+                                    <p:commandButton value="#{msgs['FORM.OUI']}"
+                                                     update="@form"
+                                                     oncomplete="PF('demandeConfirmInValidConvention').hide();"
+                                                     action="#{conventionController.goToConventionInValidation}"/>
+                                    <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                                                     onclick="PF('demandeConfirmInValidConvention').hide();" />
+                                </t:div>
+                            </p:dialog>
+                        </p:fieldset>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

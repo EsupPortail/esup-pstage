@@ -3,7 +3,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<p:column rendered="#{sessionController.moderationStructures}">
@@ -19,21 +18,21 @@
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
 				rendered="#{varRechercheStructure.estValidee == 1}"
 				style="border:0; color:green;" escape="false">
-				<p:tooltip
+				<p:tooltip for="verification1"
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
 			</h:outputText>
 			<h:outputText id="verification2" alt="#{msgs['FORM.NON']}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
 				rendered="#{varRechercheStructure.estValidee == 2}"
 				style="border:0; color:red;" escape="false">
-				<p:tooltip
+				<p:tooltip for="verification2"
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
 			</h:outputText>
 			<h:outputText id="verification3" alt="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
 				value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
 				rendered="#{varRechercheStructure.estValidee == 0}"
 				style="border:0; color:grey;" escape="false">
-				<p:tooltip
+				<p:tooltip for="verification3"
 					value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
 			</h:outputText>
 		</t:htmlTag>

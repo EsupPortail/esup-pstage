@@ -6,7 +6,7 @@
 	>
 	<h:panelGrid 
 		>
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
+		<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 
 		<h:outputLabel for="nomCentre"
 			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} *" />
@@ -17,7 +17,7 @@
 			<p:ajax event="blur" />
 		</h:inputText>
 		<p:message for="nomCentre">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 		</p:message>
 
 		<h:outputLabel for="confidentialite"
@@ -32,7 +32,7 @@
 				value="#{nomenclatureController.confidentialitesSansConfEtab}" />
 		</h:selectOneMenu>
 		<p:message for="confidentialite">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 		</p:message>
 
 		<h:outputLabel for="telCentre"

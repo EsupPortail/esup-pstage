@@ -936,7 +936,7 @@ body {
     width: 320px;
   }
 }
-.blueHover tr:hover {
+.blueHover tbody > tr:hover {
   background-color: #74B1D2;
   cursor: default;
 }

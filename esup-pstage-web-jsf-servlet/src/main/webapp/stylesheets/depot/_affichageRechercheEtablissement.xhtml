@@ -5,12 +5,16 @@
 	xmlns:p="http://primefaces.org/ui">
 	<t:aliasBean alias="#{structure}"
 		value="#{rechercheController.resultatRechercheStructure}">
-		<ui:include src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+        <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+        <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+		<ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
 	</t:aliasBean>
 	<p:outputPanel id="opAffAccord" ajaxRendered="true">
 		<p:toolbar height="26" itemSeparator="none">
+            <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+            <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
 			<ui:include
-				src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+				src="/stylesheets/_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
 		</p:toolbar>
 
 		<t:htmlTag value="div" style="height:5px;" />

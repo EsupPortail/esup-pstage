@@ -741,13 +741,18 @@
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>conventionEtape2ModifEtabServiceContact</from-outcome>
-			<to-view-id>/stylesheets/stage/conventionEtape2ModifEtabServiceContact.xhtml</to-view-id>
+			<from-outcome>conventionModifEtabService</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionModifEtabService.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>conventionEtape2ModifEtabServiceSignataire</from-outcome>
-			<to-view-id>/stylesheets/stage/conventionEtape2ModifEtabServiceSignataire.xhtml</to-view-id>
+			<from-outcome>conventionModifEtabServiceContact</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionModifEtabServiceContact.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>conventionModifEtabServiceSignataire</from-outcome>
+			<to-view-id>/stylesheets/stage/conventionModifEtabServiceSignataire.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>
@@ -758,16 +763,6 @@
 		<navigation-case>
 			<from-outcome>conventionEtape3Service</from-outcome>
 			<to-view-id>/stylesheets/stage/conventionEtape3Service.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>conventionEtape3ModifServiceContact</from-outcome>
-			<to-view-id>/stylesheets/stage/conventionEtape3ModifServiceContact.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>conventionEtape3ModifServiceSignataire</from-outcome>
-			<to-view-id>/stylesheets/stage/conventionEtape3ModifServiceSignataire.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 		<navigation-case>

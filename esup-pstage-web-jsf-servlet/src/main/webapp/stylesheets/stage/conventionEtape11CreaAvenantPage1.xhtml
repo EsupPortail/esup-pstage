@@ -23,12 +23,12 @@
 							action="#{avenantController.goToCreaAvenantPage2}" />
 						<h:outputText id="erreurCreation" value="" />
 						<p:message for="erreurCreation">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 						<t:htmlTag value="center">
 							<p:ajaxStatus name="statusCreaAvenant">
 								<f:facet name="start">
-									<ui:include src="../_commun/_veuillezPatienter.xhtml" />
+									<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
 								</f:facet>
 							</p:ajaxStatus>
 						</t:htmlTag>
@@ -45,8 +45,8 @@
 
 				<t:htmlTag value="div" style="height: 20px;" />
 			</h:form>
-			<ui:include src="../_commun/_panelAjoutService.xhtml" />
-			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
 			<ui:include src="./_panel_rechEnseignantAvenant.xhtml" />
 		</p:panel>
 		<t:div rendered="#{conventionController.convention == null}">

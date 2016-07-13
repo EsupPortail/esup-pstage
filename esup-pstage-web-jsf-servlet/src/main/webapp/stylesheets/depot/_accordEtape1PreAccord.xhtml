@@ -9,7 +9,7 @@
 		style="font-size:14px" />
 	<h:panelGrid
 		>
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
+		<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 		<h:outputLabel value="#{msgs['STRUCTURE.RAISON_SOCIALE']} * "
 			for="raisonSociale" />
 		<h:panelGrid columns="4">
@@ -27,7 +27,7 @@
 			</h:inputText>
 			<t:htmlTag value="div" style="width: 5px;" />
 			<p:message for="raisonSociale">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 			</p:message>
 		</h:panelGrid>
 		<h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *"
@@ -42,7 +42,7 @@
 			<p:ajax event="valueChange" update="siret, olSiret"  />
 		</h:selectOneMenu>
 		<p:message for="typeStructure">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 		</p:message>
 		<h:panelGrid id="olSiret" columns="2">
 			<h:outputLabel value="#{msgs['STRUCTURE.NUM_SIRET']}" for="siret" />
@@ -67,7 +67,7 @@
 			</h:inputText>
 			<t:htmlTag value="div" style="width: 10px;" />
 			<p:message for="siret" id="rmS">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 			</p:message>
 		</h:panelGrid>
 		<p:outputPanel id="opSiretOblig">
@@ -103,7 +103,7 @@
 			</h:selectOneMenu>
 			<t:htmlTag value="div" style="width: 10px;" />
 			<p:message for="pays">
-				<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 			</p:message>
 		</h:panelGrid>
 	</h:panelGrid>

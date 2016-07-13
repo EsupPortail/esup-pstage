@@ -6,7 +6,7 @@
 	>
 	<h:panelGrid
 		>
-		<ui:include src="../_commun/_champsObligatoires.xhtml" />
+		<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
 		<h:outputLabel for="mdpoMail"
 			value="#{msgs['MOTDEPASSEPERDU.MAIL']} *" />
 		<h:inputText id="mdpoMail" size="50" maxlength="50"
@@ -17,7 +17,7 @@
 			<p:ajax event="blur" />
 		</h:inputText>
 		<p:message for="mdpoMail">
-			<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 		</p:message>
 		<h:panelGrid columns="3">
 			<p:commandButton value="#{msgs['GENERAL.RETOUR']}" action="welcome"

@@ -1,0 +1,219 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+
+                        <t:htmlTag value="i" styleClass="fa fa-user fz16 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE2.MODIFSERVICECONTACT']}"
+                                      styleClass="fontBold fontBlue2 fz16 ml5"
+                                      escape="false"/>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <t:div styleClass="ml20">
+                            <p:outputPanel id="opContactsDataTable"
+                                           rendered="#{conventionController.saisieTuteurProParEtudiant}">
+
+                                <t:div rendered="#{empty etablissementController.listeContacts}" styleClass="fontRed">
+                                    <t:htmlTag value="i" styleClass="fa fa-ban"/>
+                                    <h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
+                                                  styleClass="ml5" escape="false" />
+                                </t:div>
+
+                                <p:dataTable id="contactsDataTable"
+                                             value="#{etablissementController.listeContacts}" var="contact"
+                                             rowKey="rowContact" rows="5" rowHover="true"
+                                             rowStyleClass="noPointer" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
+                                             tableStyle="table-layout: auto;" reflow="true"
+                                             rendered="#{not empty etablissementController.listeContacts}">
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <t:htmlTag id="civiliteHeader" value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer">
+                                                <p:tooltip for="civiliteHeader" value="#{msgs['CONTACT.CIVILITE']}"/>
+                                            </t:htmlTag>
+                                        </f:facet>
+                                        <h:outputText id="civC" value="#{contact.civilite.libelle}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgs['CONTACT.NOM']}" />
+                                        </f:facet>
+                                        <h:outputText id="nomC" value="#{contact.nom}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgs['CONTACT.PRENOM']}" />
+                                        </f:facet>
+                                        <h:outputText id="prenomC" value="#{contact.prenom}" />
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgs['CONTACT.FONCTION']}" />
+                                        </f:facet>
+                                        <h:outputText id="fonctionC" value="#{contact.fonction}" />
+                                    </p:column>
+                                    <p:column >
+                                        <f:facet name="header">
+                                            <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
+                                        </f:facet>
+                                        <t:div rendered="#{not empty contact.tel}">
+                                            <b>Tel : </b>
+                                            <h:outputText id="telC" value="#{contact.tel}" />
+                                        </t:div>
+                                        <t:div rendered="#{not empty contact.fax}">
+                                            <b>Fax : </b>
+                                            <h:outputText id="faxC" value="#{contact.fax}" />
+                                        </t:div>
+                                        <t:div rendered="#{not empty contact.mail}">
+                                            <b>Mail : </b>
+                                            <h:outputText id="mailC" value="#{contact.mail}" />
+                                        </t:div>
+                                    </p:column>
+
+                                    <p:column style="background-color:#A5A5A5;" styleClass="textCenter"
+                                              rendered="#{(sessionController.adminPageAuthorized
+                                    or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
+                                    or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
+                                    or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id))
+                                    and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+                                    welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+                                    || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+                                    (!sessionController.autoriserEtudiantAModifierEntreprise
+                                    and ((empty contact.loginModif and
+                                    contact.loginCreation==sessionController.currentLogin)
+                                    || (contact.loginModif==sessionController.currentLogin)))))))}">
+                                        <f:facet name="header">
+                                            <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
+                                            <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
+                                        </f:facet>
+                                        <t:div>
+                                        <p:commandLink id="modifC"
+                                                       rendered="#{not empty etablissementController.listeContacts}"
+                                                       oncomplete="PF('modifContact').show();" update="modifContact">
+                                            <f:setPropertyActionListener value="#{contact}"
+                                                                         target="#{etablissementController.formContact}" />
+                                            <f:setPropertyActionListener value="#{false}"
+                                                                         target="#{etablissementController.afficherSelectionCentreContact}" />
+                                            <f:setPropertyActionListener value="_modifContactEtape0"
+                                                                         target="#{sessionController.modifContactCurrentPage}" />
+                                            <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
+                                            <p:tooltip for="modifC" value="#{msgs['FORM.MODIFIER']}" />
+                                        </p:commandLink>
+                                        <p:commandLink  id="supprC"
+                                                        rendered="#{not empty etablissementController.listeContacts}"
+                                                        oncomplete="PF('supprContact').show();" update="supprContact">
+                                            <f:setPropertyActionListener value="#{contact}"
+                                                                         target="#{etablissementController.formContact}" />
+                                            <f:setPropertyActionListener value="_supprContactEtape1"
+                                                                         target="#{sessionController.suppressionContactCurrentPage}" />
+                                            <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
+                                            <p:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
+                                        </p:commandLink>
+                                        </t:div>
+                                        <p:commandButton  id="selC" styleClass="fontBlue2"
+                                                          value="#{msgs['FORM.SELECTIONNER']}"
+                                                          rendered="#{not empty etablissementController.listeContacts}"
+                                                          action="#{conventionController.goToConventionModifEtabServiceSignataire}"
+                                                          update="formSelConvention">
+                                            <f:setPropertyActionListener value="#{contact}"
+                                                                         target="#{conventionController.contactSel}" />
+                                            <p:tooltip value="#{msgs['CONVENTION.SELECCONTACT']}" />
+                                        </p:commandButton>
+                                    </p:column>
+                                    <p:column styleClass="textCenter" rendered="#{!(sessionController.adminPageAuthorized
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
+								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id))
+								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+								welcomeController.admin || welcomeController.personnel || welcomeController.writer)
+								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+								(!sessionController.autoriserEtudiantAModifierEntreprise
+								and ((empty contact.loginModif and
+								contact.loginCreation==sessionController.currentLogin)
+								|| (contact.loginModif==sessionController.currentLogin)))))))}">
+                                        <f:facet name="header">
+                                            <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
+                                            <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
+                                        </f:facet>
+                                        <p:commandLink id="modifBlock" disabled="true">
+                                            <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2" style="opacity:.50;"/>
+                                            <p:tooltip for="modifBlock" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
+                                        </p:commandLink>
+                                    </p:column>
+                                </p:dataTable>
+                                <t:div styleClass="mt20 ml40"
+                                       rendered="#{not empty etablissementController.serviceSel
+									and not empty etablissementController.listeServices}">
+                                    <h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}" styleClass="fontBold" />
+                                    <p:commandButton id="ajoutC" icon="fa fa-plus fz13" styleClass="ml5"
+                                                     value="#{msgs['CONTACT.GESTION.AJOUT.CREER_2']}"
+                                                     action="#{etablissementController.ajoutContact}"
+                                                     oncomplete="PF('ajoutContact').show();"
+                                                     update="ajoutContact">
+                                        <f:setPropertyActionListener value="#{false}"
+                                                                     target="#{etablissementController.afficherSelectionCentreContact}" />
+                                        <f:setPropertyActionListener value="_ajoutContactEtape0"
+                                                                     target="#{sessionController.ajoutContactCurrentPage}" />
+                                    </p:commandButton>
+                                </t:div>
+                            </p:outputPanel>
+
+                            <t:htmlTag value="div" style="height: 20px;" />
+
+                            <t:div rendered="#{!conventionController.convention.centreGestion.presenceTuteurPro and conventionController.saisieTuteurProParEtudiant
+                                and empty conventionController.convention.idContact}">
+                                <h:outputText value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE']}"
+                                              escape="false" />
+                                <p:commandLink  id="passeretape"
+                                                action="#{conventionController.goToConventionModifEtabServiceSignataire}">
+                                    <f:setPropertyActionListener value="#{null}"
+                                                                 target="#{conventionController.contactSel}" />
+                                    <h:outputText value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}"
+                                                  escape="false" />
+                                </p:commandLink>
+                            </t:div>
+
+                            <t:div rendered="#{!conventionController.saisieTuteurProParEtudiant
+                                and empty conventionController.convention.idContact}">
+                                <h:outputText
+                                        value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SAISIETUTEURPRONON']}"
+                                        escape="false" />
+                                <p:commandLink  id="passeretape2"
+                                                action="#{conventionController.goToConventionModifEtabServiceSignataire}">
+                                    <f:setPropertyActionListener value="#{null}"
+                                                                 target="#{conventionController.contactSel}" />
+                                    <h:outputText
+                                            value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}"
+                                            escape="false" />
+                                    <p:tooltip for="passeretape2" escape="false"
+                                               value="#{msgs['CONVENTION.ETAPE4.PASSERETAPE.SUIVANTE']}" />
+                                </p:commandLink>
+                            </t:div>
+                        </t:div>
+
+                        <p:commandButton value="#{msgs['GENERAL.RETOUR']}"
+                                         action="conventionModifEtabService"
+                                         immediate="true" styleClass="mt20"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelSupprContact.xhtml" />
+        </p:panel>
+    </ui:define>
+</ui:composition>

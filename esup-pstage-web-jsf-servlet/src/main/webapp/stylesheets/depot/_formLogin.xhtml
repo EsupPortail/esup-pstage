@@ -6,7 +6,7 @@
 	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 	<p:message for="connexion">
-		<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+		<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 	</p:message>
 	<h:form id="connexion">
 		<h:panelGrid columns="2" align="center"
@@ -22,7 +22,7 @@
 					</h:inputText>
 					<t:panelGroup colspan="2">
 						<p:message for="login">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</t:panelGroup>
 					<h:outputLabel for="pswd" value="#{msgs['CONTACT.MDP']}" />
@@ -34,7 +34,7 @@
 					</h:inputSecret>
 					<t:panelGroup colspan="2">
 						<p:message for="pswd">
-							<ui:include src="../_commun/_messageErrorMarker.xhtml" />
+							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
 						</p:message>
 					</t:panelGroup>
 				</t:panelGrid>

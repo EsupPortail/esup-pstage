@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <t:div styleClass="mt20 ml40">
+    <t:div styleClass="mt10 ml40">
         <h:outputText styleClass="fontBold"
                       value="#{msgs['CONVENTION.LANGUECONVENTION']}" />
         #{conventionController.convention.langueConvention.libelle}
@@ -139,7 +139,7 @@
                       value="#{conventionController.convention.nbConges}" />
 
         <h:outputText styleClass="fontBold"
-                      value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.INFO']}" />
+                      value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.RECAP']}" />
         <h:outputText id="commentaireDureeTravail1"
                       value="#{conventionController.convention.commentaireDureeTravail}"
                       escape="false" />

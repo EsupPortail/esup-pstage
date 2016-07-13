@@ -8,9 +8,6 @@
     <t:htmlTag value="i" styleClass="fa fa-navicon fz13 fontBlue2"/>
     <h:outputText value="#{msgs['CONVENTION.ETAPE8.NAVIGATION']}" styleClass="fz16 ml5 fontBold fontBlue2"/>
 
-    <!--<t:fieldset legend="Etudiant">-->
-    <!---->
-    <!--</t:fieldset>-->
     <p:panelGrid styleClass="mt15 panelInfos blueHover">
         <p:row rendered="#{not empty conventionController.convention.idConvention}">
             <p:column style="text-align:right;">
@@ -63,7 +60,7 @@
         </p:row>
         <p:row>
             <p:column colspan="2">
-                <p:separator style="width:50%; height:2px;"/>
+                <p:separator style="height:2px;" styleClass="mr30 ml10"/>
             </p:column>
         </p:row>
         <p:row>
@@ -151,7 +148,7 @@
         </p:row>
         <p:row>
             <p:column colspan="2">
-                <p:separator style="width:50%; height:2px;"/>
+                <p:separator style="height:2px;" styleClass="mr30 ml10"/>
             </p:column>
         </p:row>
         <!--<p:row>-->
@@ -245,7 +242,7 @@
         </p:row>
         <p:row>
             <p:column colspan="2">
-                <p:separator style="width:50%; height:2px;"/>
+                <p:separator style="height:2px;" styleClass="mr30 ml10"/>
             </p:column>
         </p:row>
         <p:row>
@@ -309,7 +306,7 @@
         </p:row>
         <p:row>
             <p:column colspan="2">
-                <p:separator style="width:50%; height:2px;"/>
+                <p:separator style="height:2px;" styleClass="mr30 ml10"/>
             </p:column>
         </p:row>
         <p:row>
@@ -412,7 +409,7 @@
         <p:row>
             <p:column style="text-align:right;">
                 <h:outputText styleClass="fontBold"
-                              value="#{msgs['CONVENTION.NBJOURSHEBDO']}" />
+                              value="#{msgs['CONVENTION.NBJOURSHEBDO.RECAP']}" />
             </p:column>
             <p:column>
                 <h:outputText value="#{conventionController.convention.nbJoursHebdo}" />
@@ -431,7 +428,7 @@
         <p:row>
             <p:column style="text-align:right;">
                 <h:outputText styleClass="fontBold"
-                              value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.INFO']}" />
+                              value="#{msgs['CONVENTION.COMMENTDUREETRAVAIL.RECAP']}" />
             </p:column>
             <p:column>
                 <h:outputText
@@ -471,7 +468,7 @@
         </p:row>
         <p:row>
             <p:column colspan="2">
-                <p:separator style="width:50%; height:2px;"/>
+                <p:separator style="height:2px;" styleClass="mr30 ml10"/>
             </p:column>
         </p:row>
         <p:row>
@@ -508,7 +505,7 @@
         </p:row>
         <p:row>
             <p:column colspan="2">
-                <p:separator style="width:50%; height:2px;"/>
+                <p:separator style="height:2px;" styleClass="mr30 ml10"/>
             </p:column>
         </p:row>
         <p:row>
@@ -521,24 +518,14 @@
                         value="#{conventionController.convention.origineStage.libelle}" />
             </p:column>
         </p:row>
-        <p:row rendered="#{conventionController.booltemConfSujetTeme == true}">
-            <p:column style="text-align:right;">
-                <h:outputText styleClass="fontBold"
-                              value="#{msgs['CONVENTION.TEMCONFSUJET']}" />
-            </p:column>
-            <p:column>
-                <h:outputText value="#{msgs['FORM.OUI']}" />
-            </p:column>
-        </p:row>
         <p:row>
             <p:column style="text-align:right;">
                 <h:outputText styleClass="fontBold"
-                              value="#{msgs['CONVENTION.TEMCONFSUJET']}"
-                              rendered="#{conventionController.booltemConfSujetTeme == false}" />
+                              value="#{msgs['CONVENTION.TEMCONFSUJET.RECAP']}" />
             </p:column>
             <p:column>
-                <h:outputText value="#{msgs['FORM.NON']}"
-                              rendered="#{conventionController.booltemConfSujetTeme == false}" />
+                <h:outputText value="#{msgs['FORM.OUI']}" rendered="#{conventionController.booltemConfSujetTeme}" />
+                <h:outputText value="#{msgs['FORM.NON']}" rendered="#{!conventionController.booltemConfSujetTeme}" />
             </p:column>
         </p:row>
         <p:row>
@@ -566,7 +553,7 @@
         <p:row>
             <p:column style="text-align:right;">
                 <h:outputText styleClass="fontBold"
-                              value="#{msgs['CONVENTION.NATURETRAVAIL']}" />
+                              value="#{msgs['CONVENTION.NATURETRAVAIL.RECAP']}" />
             </p:column>
             <p:column>
                 <h:outputText id="natureTravail1"
@@ -596,13 +583,13 @@
         </p:row>
         <p:row>
             <p:column colspan="2">
-                <p:separator style="width:50%; height:2px;"/>
+                <p:separator style="height:2px;" styleClass="mr30 ml10"/>
             </p:column>
         </p:row>
         <p:row>
             <p:column style="text-align:right;">
-                <h:outputText styleClass="fontBold"
-                              value="#{msgs['CONVENTION.ENSEIGNANT']}" />
+                <h:outputText value="#{msgs['CONVENTION.ENSEIGNANT']}"
+                              styleClass="fontBold" />
             </p:column>
             <p:column>
                 <h:outputText
@@ -613,7 +600,7 @@
         </p:row>
         <p:row>
             <p:column colspan="2">
-                <p:separator style="width:50%; height:2px;"/>
+                <p:separator style="height:2px;" styleClass="mr30 ml10"/>
             </p:column>
         </p:row>
         <p:row>
@@ -656,17 +643,15 @@
                               value="#{msgs['CONVENTION.CONTACT.COORD']}" />
             </p:column>
             <p:column>
-                <h:outputText
-                        value="Mail : #{conventionController.convention.contact.mail} "
-                        rendered="#{conventionController.convention.contact.mail!=''}" />
-                <br />
-                <h:outputText
-                        value="Tel : #{conventionController.convention.contact.tel} "
-                        rendered="#{conventionController.convention.contact.tel!=''}" />
-                <br />
-                <h:outputText
-                        value="Fax : #{conventionController.convention.contact.fax}"
-                        rendered="#{conventionController.convention.contact.fax!=''}" />
+                <t:div rendered="#{conventionController.convention.contact.mail != ''}">
+                    <h:outputText value="Mail : #{conventionController.convention.contact.mail} " />
+                </t:div>
+                <t:div rendered="#{conventionController.convention.contact.tel != ''}">
+                    <h:outputText value="Tel : #{conventionController.convention.contact.tel} " />
+                </t:div>
+                <t:div rendered="#{conventionController.convention.contact.fax != ''}">
+                    <h:outputText value="Fax : #{conventionController.convention.contact.fax}" />
+                </t:div>
             </p:column>
         </p:row>
 

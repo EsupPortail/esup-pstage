@@ -12,7 +12,7 @@
 			<h:form id="formRechOffre">
 				<t:div
 					rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
-					<ui:include src="../_commun/_rechercheOffreNbResultats.xhtml" />
+					<ui:include src="/stylesheets/_commun/_rechercheOffreNbResultats.xhtml" />
 					<p:dataTable id="rechercheOffreDataTable" styleClass="mt20 mb20"
 						value="#{offreController.rechercheOffrePaginator.liste}"
 						var="offre" rowKey="rowOffre" rows="10" rowHover="true"
@@ -20,7 +20,7 @@
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15,20"
 						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-						<ui:include src="../_commun/_rechercheOffreResultatsColumns.xhtml" />
+						<ui:include src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
 						<p:column>
 							<h:commandLink id="recap"
 								action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
@@ -40,7 +40,7 @@
 						rowsPerPageTemplate="5,10,15,20"
 						rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
 						<ui:include
-							src="../_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
+							src="/stylesheets/_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
 						<p:column>
 							<h:commandLink id="recap"
 								action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
@@ -60,7 +60,7 @@
 						action="#{offreController.goToRechercheOffreStage}" />
 				<!--</h:panelGrid>-->
 			</h:form>
-			<ui:include src="../_commun/_panelSupprOffre.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
 		</p:panel>
 	</ui:define>
 </ui:composition>

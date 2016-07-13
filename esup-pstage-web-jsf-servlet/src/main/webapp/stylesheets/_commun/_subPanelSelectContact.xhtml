@@ -14,8 +14,10 @@
                       escape="false" />
 
         <t:div rendered="#{not empty etablissementController.listeServices}">
+
             <h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
                           escape="false" />
+
             <p:selectOneMenu id="sOMService"
                              value="#{etablissementController.idServiceSel}"
                              converter="#{intConverter}"
@@ -24,6 +26,8 @@
                 <p:ajax event="valueChange"
                         update="opContactsDataTable, opActionsService" />
             </p:selectOneMenu>
+
+            <t:htmlTag value="div" style="height:5px;"/>
 
             <p:outputPanel id="opActionsService">
                 <p:commandLink id="modif" oncomplete="PF('modifService').show();"
@@ -38,36 +42,42 @@
                         and ((empty etablissementController.serviceSel.loginModif and
                         etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
                         || (etablissementController.serviceSel.loginModif==sessionController.currentLogin))))))))}">
-                    <f:setPropertyActionListener value="#{false}"
-                                                 target="#{etablissementController.memeAdresseStructure}" />
-                    <f:setPropertyActionListener value="#{etablissementController.serviceSel}"
-                                                 target="#{etablissementController.formService}" />
-                    <f:setPropertyActionListener value="#{false}"
-                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
-                    <f:setPropertyActionListener value="_modifServiceEtape0"
-                                                 target="#{sessionController.modifServiceCurrentPage}" />
-                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
-                    <p:tooltip for="modif" value="#{msgs['FORM.MODIFIER']} ce service" />
+                    <f:setPropertyActionListener
+                            value="#{false}"
+                            target="#{etablissementController.memeAdresseStructure}" />
+                    <f:setPropertyActionListener
+                            value="#{etablissementController.serviceSel}"
+                            target="#{etablissementController.formService}" />
+                    <f:setPropertyActionListener
+                            value="#{false}"
+                            target="#{etablissementController.afficherSelectionCentreContact}" />
+                    <f:setPropertyActionListener
+                            value="_modifServiceEtape0"
+                            target="#{sessionController.modifServiceCurrentPage}" />
+                    <t:htmlTag value="i" styleClass="fa fa-edit fontBlue2"/>
+                    <h:outputText value="#{msgs['FORM.MODIFIERDONNEES']} du service choisi" style="font-size:11px;" />
                 </p:commandLink>
             </p:outputPanel>
         </t:div>
 
-        <t:div rendered="#{empty offreController.centreGestionDepotAnonyme}">
+        <t:div styleClass="mt5">
             <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
             <p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="ml5"
                              value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
                              action="#{etablissementController.ajoutService}"
                              oncomplete="PF('ajoutService').show();"
                              update="ajoutService">
-                <f:setPropertyActionListener value="#{true}"
-                                             target="#{etablissementController.memeAdresseStructure}" />
-                <f:setPropertyActionListener value="_ajoutServiceEtape0"
-                                             target="#{sessionController.ajoutServiceCurrentPage}" />
+                <f:setPropertyActionListener
+                        value="#{true}"
+                        target="#{etablissementController.memeAdresseStructure}" />
+                <f:setPropertyActionListener
+                        value="_ajoutServiceEtape0"
+                        target="#{sessionController.ajoutServiceCurrentPage}" />
             </p:commandButton>
         </t:div>
     </p:outputPanel>
 
-    <p:separator style="width:100%; height:2px;" styleClass="mt5 mb5" />
+    <p:separator style="width:100%; height:2px;" styleClass="mt10 mb10" />
 
     <p:outputPanel id="opContactsDataTable">
         <t:div rendered="#{not empty etablissementController.listeContacts}">
@@ -89,20 +99,22 @@
 					and not empty etablissementController.listeServices
 					and empty etablissementController.listeContacts}"
                       escape="false" />
-        <t:div rendered="#{empty offreController.centreGestionDepotAnonyme}">
+        <t:div styleClass="mt5"
+               rendered="#{not empty etablissementController.serviceSel
+                    and not empty etablissementController.listeServices}">
             <h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
-                          escape="false"
-                          rendered="#{not empty etablissementController.serviceSel
-								and not empty etablissementController.listeServices}" />
+                          escape="false" />
             <p:commandButton id="ajoutC" icon="fa fa-plus fz13" styleClass="ml5"
                              value="#{msgs['CONTACT.GESTION.AJOUT.CREER_2']}"
                              action="#{etablissementController.ajoutContact}"
                              oncomplete="PF('ajoutContact').show();"
                              update="ajoutContact">
-                <f:setPropertyActionListener value="#{false}"
-                                             target="#{etablissementController.afficherSelectionCentreContact}" />
-                <f:setPropertyActionListener value="_ajoutContactEtape0"
-                                             target="#{sessionController.ajoutContactCurrentPage}" />
+                <f:setPropertyActionListener
+                        value="#{false}"
+                        target="#{etablissementController.afficherSelectionCentreContact}" />
+                <f:setPropertyActionListener
+                        value="_ajoutContactEtape0"
+                        target="#{sessionController.ajoutContactCurrentPage}" />
             </p:commandButton>
         </t:div>
     </p:outputPanel>

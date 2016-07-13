@@ -59,7 +59,7 @@
                                         <p:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
                                     </h:commandLink>
                                 </legend>
-                                <ui:include src="../_commun/_detailsOffre.xhtml" />
+                                <ui:include src="/stylesheets/_commun/_detailsOffre.xhtml" />
                             </fieldset>
                             <t:htmlTag value="br" />
                             <t:htmlTag value="div" style="height:10px;" />
@@ -82,7 +82,7 @@
                                             <p:tooltip value="#{msgs['FORM.MODIFIER']}" />
                                         </h:commandLink>
                                     </legend>
-                                    <ui:include src="../_commun/_detailsOffreFichier.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_detailsOffreFichier.xhtml" />
                                 </fieldset>
                             </t:div>
                             <t:div
@@ -103,7 +103,7 @@
                                             <p:tooltip value="#{msgs['FORM.MODIFIER']}" />
                                         </h:commandLink>
                                     </legend>
-                                    <ui:include src="../_commun/_detailsOffreContacts.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_detailsOffreContacts.xhtml" />
                                 </fieldset>
                             </t:div>
                             <t:div>
@@ -111,7 +111,7 @@
                                     <legend>
                                         <h:outputText value="#{msgs['OFFRE.DIFFUSION']}" />
                                     </legend>
-                                    <ui:include src="../_commun/_detailsOffreDiffusion.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_detailsOffreDiffusion.xhtml" />
                                 </fieldset>
                             </t:div>
                             <t:htmlTag value="br" />
@@ -134,7 +134,7 @@
                             <h:panelGrid style="float:right;">
                                 <t:aliasBean alias="#{objet}"
                                              value="#{offreController.currentOffre}">
-                                    <ui:include src="../_commun/_updateInfos.xhtml" />
+                                    <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
                                 </t:aliasBean>
                             </h:panelGrid>
                         </t:div>
@@ -147,11 +147,11 @@
                             </h:commandButton>
                         </h:panelGrid>
                     </h:form>
-                    <ui:include src="../_commun/_panelDiffusionOffre.xhtml" />
-                    <ui:include src="../_commun/_panelStopDiffusionOffre.xhtml" />
-                    <ui:include src="../_commun/_panelOffrePourvue.xhtml" />
-                    <ui:include src="../_commun/_panelDiffusionCentreOffre.xhtml" />
-                    <ui:include src="../_commun/_panelSupprOffre.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_panelDiffusionOffre.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_panelStopDiffusionOffre.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_panelOffrePourvue.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_panelDiffusionCentreOffre.xhtml" />
+                    <ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
                 </p:panel>
                 <ui:include src="_panelNousContacter.xhtml" />
             </h:panelGrid>
