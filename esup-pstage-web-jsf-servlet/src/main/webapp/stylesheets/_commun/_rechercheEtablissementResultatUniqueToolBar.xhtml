@@ -5,38 +5,31 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:toolbarGroup
-		rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin}">
-		<h:commandLink id="modifierStructure"
-			action="#{etablissementController.goToModificationEtablissement}"
+	<t:div rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin}">
+		<p:commandButton id="modifierStructure" icon="fa fa-pencil" value="#{msgs['FORM.MODIFIER']}"
+			action="#{etablissementController.goToModificationEtablissement}" styleClass="floatLeft"
 			rendered="#{not empty rechercheController.ongletCourant
 				and ((empty rechercheController.resultatRechercheStructure.accordPartenariat)
 				or (rechercheController.ongletCourant==6 and 
 				not empty rechercheController.resultatRechercheStructure.accordPartenariat
 				and rechercheController.resultatRechercheStructure.accordPartenariat.estValide))}">
-			<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-				title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png" />
-			<h:outputText value="#{msgs['FORM.MODIFIER']}" />
 			<f:setPropertyActionListener
 				value="#{rechercheController.resultatRechercheStructure}"
 				target="#{etablissementController.formStructure}" />
 			<f:setPropertyActionListener value="#{true}"
 				target="#{etablissementController.modificationEtabBoutonAnnuler}" />
-		</h:commandLink>
-		<p:commandLink id="supprimerStructure"
-			oncomplete="PF('supprimerStructurePanel').show();"
+		</p:commandButton>
+		<p:commandButton id="supprimerStructure" icon="fa fa-trash-o" value="#{msgs['FORM.SUPPRIMER']}"
+			oncomplete="PF('supprimerStructurePanel').show();" styleClass="floatRight"
 			update="supprimerStructurePanel"
 			rendered="#{not empty rechercheController.ongletCourant 
 				and empty rechercheController.resultatRechercheStructure.accordPartenariat}">
-			<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-				title="#{msgs['FORM.SUPPRIMER']}"
-				value="../../media/images/delete.png" />
-			<h:outputText value="#{msgs['FORM.SUPPRIMER']}" />
 			<f:setPropertyActionListener
 				value="#{rechercheController.resultatRechercheStructure}"
 				target="#{etablissementController.formStructure}" />
 			<f:setPropertyActionListener value="_supprStructureEtape1"
 				target="#{sessionController.suppressionStructureCurrentPage}" />
-		</p:commandLink>
-	</p:toolbarGroup>
+		</p:commandButton>
+	</t:div>
+	<t:div styleClass="clearFloat"/>
 </ui:composition>

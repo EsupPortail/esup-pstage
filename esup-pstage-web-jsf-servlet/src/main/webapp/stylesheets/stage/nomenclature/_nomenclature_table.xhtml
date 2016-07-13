@@ -13,31 +13,28 @@
 			rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false">
 			<p:column style="padding:5px;"
 				headerText="#{msgs['NOMENCLATURES.TABLE.HEADER']}">
-				<h:graphicImage id="deleted${idNomenclature}"
-					rendered="#{varDataTable.value.temEnServ == 'N'}"
-					alt="#{msgs['FORM.SUPPRIMEE']}"
-					value="/media/images/exclamation.png"
-					style="padding-right:5px;">
+				<t:htmlTag value="i" id="deleted${idNomenclature}" style="padding-right: 5px"
+						   styleClass="fa fa-exclamation-circle fontRed fz16" rendered="#{varDataTable.value.temEnServ == 'N'}">
 					<p:tooltip value="#{msgs['FORM.SUPPRIMEE']}"
-						for="deleted${idNomenclature}" />
-				</h:graphicImage>
+							   for="deleted${idNomenclature}" />
+				</t:htmlTag>
 				<p:commandLink id="delete${idNomenclature}"
 					oncomplete="PF('suppression${idNomenclature}').show();"
 					update="suppression#{idNomenclature}"
 					disabled="#{varDataTable.value.temEnServ == 'N'}">
 					<f:setPropertyActionListener value="#{varDataTable.value}"
 						target="${controllerTarget}" />
-					<h:graphicImage alt="delete" value="/media/images/delete.png" />
+					<t:htmlTag value="i" styleClass="fa fa-trash-o fz16"/>
 					<p:tooltip value="#{msgs['FORM.SUPPRIMER']}"
 						for="delete${idNomenclature}" />
 				</p:commandLink>
 				<p:commandLink id="update${idNomenclature}"
 					oncomplete="PF('popupModif${idNomenclature}').show();"
-					style="padding:5px;" update="popupModif${idNomenclature}"
+					style="padding:0px 5px;" update="popupModif${idNomenclature}"
 					disabled="#{varDataTable.value.temEnServ == 'N'}">
 					<f:setPropertyActionListener value="#{varDataTable.value}"
 						target="${controllerTarget}" />
-					<h:graphicImage alt="modifier" value="/media/images/edit.png" />
+					<t:htmlTag value="i" styleClass="fa fa-pencil fz16"/>
 					<p:tooltip value="#{msgs['FORM.MODIFIER']}"
 						for="update${idNomenclature}" />
 				</p:commandLink>
@@ -54,9 +51,8 @@
 					style="padding:5px;" update="popupReactivate${idNomenclature}">
 					<f:setPropertyActionListener value="#{varDataTable.value}"
 						target="${controllerTarget}" />
-					<h:graphicImage rendered="#{varDataTable.value.temEnServ == 'N'}"
-						alt="#{msgs['FORM.REACTIVER']}"
-						value="/media/images/arrow_refresh.png" style="float:right;" />
+					<t:htmlTag value="i" rendered="#{varDataTable.value.temEnServ == 'N'}" styleClass="fa fa-refresh fz16 fontGreen"
+							   style="float:right;"/>
 					<p:tooltip value="#{msgs['FORM.REACTIVER']}"
 						for="reactivate${idNomenclature}" />
 				</p:commandLink>

@@ -5218,6 +5218,12 @@ public class ConventionController extends AbstractContextAwareController {
 		return anneeUniversitaire;
 	}
 
+	public int sortyByNbAvenant(Object nbAvenant1, Object nbAvenant2) {
+		int nb1 = (int) nbAvenant1;
+		int nb2 = (int) nbAvenant2;
+		return (nb1 == nb2) ? 0 : (nb1 > nb2) ? 1 : -1;
+	}
+
 	/**
 	 * @return isChoixAnneeUniv
 	 */

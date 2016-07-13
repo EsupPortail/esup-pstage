@@ -1,67 +1,47 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:p="http://primefaces.org/ui"
+				template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<p:panel>
 			<f:facet name="header">
 				<h:outputText
-					value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']}" />
+						value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']}" />
 			</f:facet>
 			<ui:include src="_menuGestionEtab.xhtml" />
-			<h:form id="formAffEtab">
-				<h:panelGrid columns="2" align="center">
-					<h:column>
-                        <h:graphicImage alt="#{msgs['GENERAL.OK']}"
-                                        title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
-                                        rendered="#{facesContext.maximumSeverity == 'Info'}" />
-                        <h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-                                        title="#{msgs['GENERAL.WARNING']}"
-                                        value="../../media/images/warning_50px.png"
-                                        rendered="#{facesContext.maximumSeverity == 'Error' || facesContext.maximumSeverity == 'Warn'}" />
-					</h:column>
-					<h:column>
-						<p:message for="formAffEtab">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-					</h:column>
-				</h:panelGrid>
-				<p:outputPanel id="opAffEtab">
-					<t:div
-						rendered="#{empty rechercheController.resultatRechercheStructure}">
-						<h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
-					</t:div>
-					<t:div
-						rendered="#{not empty rechercheController.resultatRechercheStructure}"
-						style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-						<t:aliasBean alias="#{structure}"
-							value="#{rechercheController.resultatRechercheStructure}">
-                            <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
-                            <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
-							<ui:include
-								src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
-						</t:aliasBean>
-						<p:toolbar height="26" itemSeparator="none">
-							<ui:include
-								src="/stylesheets/_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
-						</p:toolbar>
-					</t:div>
-					<h:panelGrid style="float:right;"
-						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-						<t:aliasBean alias="#{objet}"
-							value="#{rechercheController.resultatRechercheStructure}">
-							<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
-						</t:aliasBean>
-					</h:panelGrid>
-				</p:outputPanel>
+			<t:div styleClass="clearFloat"/>
+			<h:form id="formAffEtab" styleClass="block centerBlock mt15">
+				<!--<p:fieldset>-->
+					<p:outputPanel id="opAffEtab">
+						<t:div rendered="#{empty rechercheController.resultatRechercheStructure}">
+							<h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
+						</t:div>
+						<t:div rendered="#{not empty rechercheController.resultatRechercheStructure}">
+								<!--style="width:450px;position:relative;margin-left:auto;margin-right:auto;">-->
+							<t:aliasBean alias="#{structure}"
+										 value="#{rechercheController.resultatRechercheStructure}">
+								<ui:include
+										src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+							</t:aliasBean>
+								<ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+						</t:div>
+						<h:panelGrid style="float:right;"
+									 rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+							<t:aliasBean alias="#{objet}"
+										 value="#{rechercheController.resultatRechercheStructure}">
+								<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+							</t:aliasBean>
+						</h:panelGrid>
+					</p:outputPanel>
+				<!--</p:fieldset>-->
 				<t:htmlTag value="br" />
 				<t:htmlTag value="div" style="height: 30px;" />
-				<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-					action="#{rechercheController.goToRechercheEtablissementStage}"
-					alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
+				<p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+								 action="#{rechercheController.goToRechercheEtablissementStage}"
+								 alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+								 title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
 			</h:form>
 		</p:panel>
 		<ui:include src="/stylesheets/_commun/_panelSupprStructure.xhtml" />

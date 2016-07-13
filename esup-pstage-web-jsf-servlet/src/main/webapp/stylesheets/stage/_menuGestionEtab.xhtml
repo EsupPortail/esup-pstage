@@ -1,48 +1,32 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid align="center">
-		<h:form>
-			<p:toolbar height="34" itemSeparator="line"
-				rendered="#{not empty rechercheController.resultatRechercheStructure}">
-				<p:toolbarGroup>
-					<h:commandLink
-						action="#{rechercheController.goToAffichageRechercheEtablissement}">
-						<h:graphicImage alt="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}"
-							title="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}"
-							value="../../media/images/card.png" />
-						<h:outputText value=" #{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}" />
-					</h:commandLink>
-				</p:toolbarGroup>
-				<p:toolbarGroup>
-					<h:commandLink
-						action="#{etablissementController.goToContactsEtablissement}">
-						<h:graphicImage alt="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}"
-							title="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}"
-							value="../../media/images/book_open.png" />
-						<h:outputText value=" #{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}" />
-						<f:setPropertyActionListener
+	<h:form styleClass="block centerBlock">
+		<t:htmlTag value="ul" styleClass="formUL columns-2">
+			<t:div styleClass="column column-1 textCenter">
+				<p:commandButton action="#{rechercheController.goToAffichageRechercheEtablissement}" style="min-width: 90%;"
+								 value="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}" icon="fa fa-list-alt"/>
+			</t:div>
+			<t:div styleClass="column column-1 textCenter">
+				<p:commandButton action="#{etablissementController.goToContactsEtablissement}" style="min-width: 90%;"
+								value="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}" icon="fa fa-book">
+					<f:setPropertyActionListener
 							value="#{rechercheController.resultatRechercheStructure}"
 							target="#{sessionController.currentManageStructure}" />
-					</h:commandLink>
-				</p:toolbarGroup>
-				<p:toolbarGroup>
-					<h:commandLink action="#{offreController.goToOffresEtablissement}">
-						<h:graphicImage alt="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}"
-							title="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}"
-							value="../../media/images/list.png" />
-						<h:outputText value=" #{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}" />
-						<f:setPropertyActionListener
+				</p:commandButton>
+			</t:div>
+			<t:div styleClass="column column-1 textCenter">
+				<p:commandButton action="#{offreController.goToOffresEtablissement}" style="min-width: 90%;"
+								value="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}" icon="fa fa-list">
+					<f:setPropertyActionListener
 							value="#{rechercheController.resultatRechercheStructure}"
 							target="#{sessionController.currentManageStructure}" />
-					</h:commandLink>
-				</p:toolbarGroup>
-			</p:toolbar>
-		</h:form>
-		<t:htmlTag value="div" style="height: 20px;" />
-	</h:panelGrid>
+				</p:commandButton>
+			</t:div>
+		</t:htmlTag>
+	</h:form>
 </ui:composition>

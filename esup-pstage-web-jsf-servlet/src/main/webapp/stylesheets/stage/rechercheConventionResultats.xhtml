@@ -39,14 +39,14 @@
                                  rowsPerPageTemplate="5,10,15,20" reflow="true"
                                  rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader || welcomeController.etudiant || welcomeController.enseignantTuteur}">
 
-                        <p:column sortBy="#{convention.idConvention}">
+                        <p:column filterBy="#{convention.idConvention}" sortBy="#{convention.idConvention}">
                             <f:facet name="header">
                                 <h:outputText
                                         value="#{msgs['RECHERCHECONVENTION.ID']}" />
                             </f:facet>
                                 <h:outputText value="#{convention.idConvention}" />
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{convention.etudiant.nom}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
                             </f:facet>
@@ -55,7 +55,7 @@
                                 <h:outputText style="padding-left:4px;" value="#{convention.etudiant.nom}" />
                             </t:htmlTag>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{convention.structure.raisonSociale}" filterMatchMode="contains" sortBy="#{convention.structure.raisonSociale}">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAB']}" />
                             </f:facet>
@@ -80,7 +80,7 @@
                                 <f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{convention.ufr.libelle}" filterMatchMode="contains" sortBy="#{convention.ufr.libelle}">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.UFR']}" />
                             </f:facet>
@@ -89,7 +89,7 @@
                                 <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{convention.etape.libelle}" filterMatchMode="contains" sortBy="#{convention.etape.libelle}">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPE']}" />
                             </f:facet>
@@ -98,7 +98,7 @@
                                 <f:converter binding="#{limitCharactersShownUpTo50Converter}" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{convention.validationConvention}">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
                             </f:facet>
@@ -108,7 +108,7 @@
                                               rendered="#{convention.validationConvention == true}" />
                         </p:column>
 
-                        <p:column>
+                        <p:column sortBy="#{convention.nbAvenant}" sortFunction="#{conventionController.sortyByNbAvenant}">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.AVENANT']}" />
                             </f:facet>

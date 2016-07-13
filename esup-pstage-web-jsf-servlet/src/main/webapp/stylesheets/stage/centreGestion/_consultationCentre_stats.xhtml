@@ -76,42 +76,40 @@
 					<t:htmlTag value="div" style="height:10px;" />
 
 					<h:panelGrid columns="2">
-						<h:graphicImage alt="#{msgs['OFFRES.STATS.INFOS']}"
-							value="/media/images/information.png" />
+						<t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
 						<h:outputText value="#{msgs['OFFRES.STATS.INFOS']}" />
 					</h:panelGrid>
 
 					<t:htmlTag value="div" style="height:10px;" />
 
-					<h:panelGrid align="center" columns="3">
-						<h:panelGrid>
+					<t:htmlTag value="ul" styleClass="formUL columns-2">
+						<t:div styleClass="column">
+							<t:htmlTag value="li">
 							<h:outputText value="#{msgs['OFFRES.STATS.CRITERE.UN']}" />
-							<h:selectOneMenu
+							<h:selectOneMenu styleClass="customPstage"
 								value="#{statistiquesOffresController.critereUnLib}"
 								id="idListeStatsOffresCriteres1">
 								<f:selectItems
 									value="#{statistiquesOffresController.firstLevelStatCriteriaForOffer}" />
 							</h:selectOneMenu>
-						</h:panelGrid>
-						<h:panelGrid columns="3">
-							<p:spacer width="30" />
-							<p:separator style="height:50px;" />
-							<p:spacer width="30" />
-						</h:panelGrid>
-						<h:panelGrid>
+							</t:htmlTag>
+						</t:div>
+						<t:div styleClass="column">
+							<t:htmlTag value="li">
 							<h:outputText value="#{msgs['OFFRES.STATS.CRITERE.DEUX']}" />
-							<h:selectOneMenu
+							<h:selectOneMenu styleClass="customPstage"
 								value="#{statistiquesOffresController.critereDeuxLib}"
 								id="idListeStatsOffresCriteres2">
 								<f:selectItems
 									value="#{statistiquesOffresController.secondLevelStatCriteriaForOffer}" />
 							</h:selectOneMenu>
-						</h:panelGrid>
-					</h:panelGrid>
+							</t:htmlTag>
+						</t:div>
+					</t:htmlTag>
 					<h:panelGrid align="center" style="padding:5px;">
 						<h:outputText value="#{msgs['CONVENTION.ANNEE']} : " />
 						<t:htmlTag value="center">
-							<h:selectOneMenu
+							<h:selectOneMenu styleClass="customPstage"
 								value="#{statistiquesOffresController.annee_scolaire}">
 								<f:selectItems
 									value="#{statistiquesOffresController.anneesOffres}" />

@@ -33,23 +33,19 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.ETABLISSEMENT']}" />
 		</f:facet>
-		<t:div>
 			<h:outputText value="#{offre.structure.raisonSociale}"
 				title="#{offre.structure.raisonSociale}">
 				<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
 			</h:outputText>
-		</t:div>
 	</p:column>
 	<p:column sortBy="#{offre.centreGestion.nomCentre}"
 		rendered="#{welcomeController.personnel || welcomeController.etudiant || welcomeController.enseignant}">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.GESTION.CENTREGESTION']}" />
 		</f:facet>
-		<t:div>
 			<h:outputText value="#{offre.centreGestion.nomCentre}"
 				title="#{offre.centreGestion.nomCentre}">
 			</h:outputText>
-		</t:div>
 	</p:column>
 	<p:column sortBy="#{offre.dateCreation}">
 		<f:facet name="header">
@@ -78,7 +74,8 @@
 			rendered="#{(offre.estDiffusee and offre.estSupprimee)||(!offre.estDiffusee and offre.estSupprimee)}"
 			style="color:purple;font-weight:bold;" />
 			
-		<t:htmlTag value="br" />
+		<!--<t:htmlTag value="br" />-->
+		<h:outputText value=" "/>
 		
 		<!-- pour les offres encore diffusees (vert)-->
 		<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
@@ -109,9 +106,9 @@
 		</f:facet>
 		<h:outputText value="#{msgs['FORM.OUI']} /"
 			rendered="#{offre.avecFichier || offre.avecLien}" />
-		<t:htmlTag value="i" styleClass="fa fa-link fz13 fontDarkGray ml5" id="imageLien" rendered="#{offre.avecLien}"/>
+		<t:htmlTag value="i" styleClass="fa fa-link fz16 fontDarkGray mlf5" id="imageLien" rendered="#{offre.avecLien}"/>
 		<p:tooltip for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
-		<t:htmlTag value="i" styleClass="fa fa-file-text fz13 fontBlue2 ml5" id="imageFichier" rendered="#{offre.avecFichier}"/>
+		<t:htmlTag value="i" styleClass="fa fa-file-text fz16 fontBlue2 mlf5" id="imageFichier" rendered="#{offre.avecFichier}"/>
 		<p:tooltip for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
 		<h:outputText value="#{msgs['FORM.NON']}"
 			rendered="#{!(offre.avecFichier || offre.avecLien)}" />

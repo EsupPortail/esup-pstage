@@ -55,7 +55,7 @@
 								style="font-weight:bold;" />
 					</p:column>
 
-					<p:column sortBy="#{centre.nomCentre}">
+					<p:column filterBy="#{centre.nomCentre}" filterMatchMode="contains" sortBy="#{centre.nomCentre}">
 						<f:facet name="header">
 								<h:outputText style="font-weight:bold;"
 									value="#{msgs['CENTRE.LISTE_CENTRE.NOM']}" />

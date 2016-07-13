@@ -1,311 +1,454 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:p="http://primefaces.org/ui"
+				template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
 		<p:panel>
 			<f:facet name="header">
 				<h:outputText value="#{msgs['CONTACT.GESTION']}" />
 			</f:facet>
 			<ui:include src="_menuGestionEtab.xhtml" />
-			<h:form>
-				<h:outputText
-					value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
-					rendered="#{empty sessionController.currentManageStructure}" />
-				<h:panelGrid align="center"
-					rendered="#{not empty sessionController.currentManageStructure}">
-					<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
-						rendered="#{empty etablissementController.listeServices}"
-						escape="false" />
-					<p:outputPanel id="opService">
-						<h:panelGrid columns="2">
-							<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
-								escape="false"
-								rendered="#{not empty etablissementController.listeServices}" />
-							<h:selectOneMenu id="sOMService"
-								value="#{etablissementController.idServiceSel}"
-								converter="#{intConverter}"
-								valueChangeListener="#{etablissementController.valueIdServiceChanged}"
-								rendered="#{not empty etablissementController.listeServices}">
-								<f:selectItems value="#{etablissementController.servicesItems}" />
-								<p:ajax event="valueChange"
-									update="opContactsDataTable, opActionsService" />
-							</h:selectOneMenu>
-						</h:panelGrid>
-						<h:panelGrid columns="3"
-							rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-							<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}"
-								escape="false" />
-							<p:commandLink  id="ajout"
-								oncomplete="PF('ajoutService').show();"
-								action="#{etablissementController.ajoutService}"
-								update="ajoutService">
-								<f:setPropertyActionListener value="#{true}"
-									target="#{etablissementController.memeAdresseStructure}" />
-								<f:setPropertyActionListener value="_ajoutServiceEtape0"
-									target="#{sessionController.ajoutServiceCurrentPage}" />
-								<h:graphicImage alt="#{msgs['FORM.CREER']}"
-									value="../../media/images/new.png" />
-								<p:tooltip value="#{msgs['FORM.CREER']}" />
-							</p:commandLink>
-						</h:panelGrid>
-					</p:outputPanel>
+			<t:div styleClass="clearFloat"/>
+			<h:form styleClass="block centerBlock mt15">
+				<p:fieldset legend="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}">
+					<h:outputText
+							value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+							rendered="#{empty sessionController.currentManageStructure}" />
+					<t:div rendered="#{not empty sessionController.currentManageStructure}">
+						<h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
+									  rendered="#{empty etablissementController.listeServices}"
+									  escape="false" />
+						<p:outputPanel id="opService">
+							<h:panelGrid columns="2">
+								<h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
+											  escape="false"
+											  rendered="#{not empty etablissementController.listeServices}" />
+								<h:selectOneMenu id="sOMService" styleClass="customPstage"
+												 value="#{etablissementController.idServiceSel}"
+												 converter="#{intConverter}"
+												 valueChangeListener="#{etablissementController.valueIdServiceChanged}"
+												 rendered="#{not empty etablissementController.listeServices}">
+									<f:selectItems value="#{etablissementController.servicesItems}" />
+									<p:ajax event="valueChange"
+											update="opContactsDataTable, opActionsService" />
+								</h:selectOneMenu>
+							</h:panelGrid>
+							<h:panelGrid columns="3"
+										 rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+								<h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}"
+											  escape="false" />
+								<p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="mlf5"
+												 value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
+												 action="#{etablissementController.ajoutService}"
+												 oncomplete="PF('ajoutService').show();"
+												 update="ajoutService">
+									<f:setPropertyActionListener value="#{true}"
+																 target="#{etablissementController.memeAdresseStructure}" />
+									<f:setPropertyActionListener value="_ajoutServiceEtape0"
+																 target="#{sessionController.ajoutServiceCurrentPage}" />
+								</p:commandButton>
+							</h:panelGrid>
+						</p:outputPanel>
 
-					<t:htmlTag value="div" style="height: 20px;" />
+						<t:htmlTag value="div" style="height: 20px;" />
 
-					<!-- Probleme  -->
-					<p:outputPanel id="opActionsService">
-						<h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
-							escape="false"
-							rendered="#{not empty etablissementController.serviceSel}" />
-						<p:dataTable value="#{etablissementController.serviceSel}"
-							rendered="#{not empty etablissementController.serviceSel}">
-							<ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
-							<p:column
-								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-								<p:commandLink  id="modif"
-									rendered="#{not empty etablissementController.idServiceSel}"
-									oncomplete="PF('modifService').show();" update="modifService">
-									<f:setPropertyActionListener value="#{false}"
-										target="#{etablissementController.memeAdresseStructure}" />
-									<f:setPropertyActionListener
-										value="#{etablissementController.serviceSel}"
-										target="#{etablissementController.formService}" />
-									<f:setPropertyActionListener value="_modifServiceEtape0"
-										target="#{sessionController.modifServiceCurrentPage}" />
-									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-										value="../../media/images/edit.png" />
-									<p:tooltip>
-										<h:panelGrid>
-											<t:htmlTag value="em">
-												<h:outputText value="#{msgs['FORM.MODIFIER']}" />
-											</t:htmlTag>
-											<!-- <t:div -->
-											<t:htmlTag value="div"
-												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-												<!-- 												<t:htmlTag value="br" /> -->
-												<t:aliasBean alias="#{objet}"
-													value="#{etablissementController.serviceSel}">
-													<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
-												</t:aliasBean>
-											</t:htmlTag>
-											<!-- </t:div> -->
-										</h:panelGrid>
-									</p:tooltip>
-								</p:commandLink>
+						<!-- Probleme  -->
+						<p:outputPanel id="opActionsService">
+							<h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
+										  escape="false"
+										  rendered="#{not empty etablissementController.serviceSel}" />
+							<p:dataTable value="#{etablissementController.serviceSel}" tableStyle="table-layout: auto;" reflow="true"
+										 rendered="#{not empty etablissementController.serviceSel}">
+								<ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
+								<p:column
+										rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+									<p:commandLink  id="modif"
+													rendered="#{not empty etablissementController.idServiceSel}"
+													oncomplete="PF('modifService').show();" update="modifService">
+										<f:setPropertyActionListener value="#{false}"
+																	 target="#{etablissementController.memeAdresseStructure}" />
+										<f:setPropertyActionListener
+												value="#{etablissementController.serviceSel}"
+												target="#{etablissementController.formService}" />
+										<f:setPropertyActionListener value="_modifServiceEtape0"
+																	 target="#{sessionController.modifServiceCurrentPage}" />
+										<!--<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"-->
+														<!--value="../../media/images/edit.png" />-->
+										<t:htmlTag value="i" styleClass="fa fa-pencil fz16 mrf10"/>
+										<p:tooltip>
+											<h:panelGrid>
+												<t:htmlTag value="em">
+													<h:outputText value="#{msgs['FORM.MODIFIER']}" />
+												</t:htmlTag>
+												<!-- <t:div -->
+												<t:htmlTag value="div"
+														   rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+													<!-- 												<t:htmlTag value="br" /> -->
+													<t:aliasBean alias="#{objet}"
+																 value="#{etablissementController.serviceSel}">
+														<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+													</t:aliasBean>
+												</t:htmlTag>
+												<!-- </t:div> -->
+											</h:panelGrid>
+										</p:tooltip>
+									</p:commandLink>
 
-								<t:htmlTag value="div" style="display: inline; margin: 4px;" />
+									<!--<t:htmlTag value="div" style="display: inline; margin: 4px;" />-->
 
-								<p:commandLink  id="suppr"
-									rendered="#{not empty etablissementController.idServiceSel}"
-									oncomplete="PF('supprService').show();" update="supprService">
-									<f:setPropertyActionListener value="#{false}"
-										target="#{etablissementController.memeAdresseStructure}" />
-									<f:setPropertyActionListener
-										value="#{etablissementController.serviceSel}"
-										target="#{etablissementController.formService}" />
-									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-										value="../../media/images/delete.png" />
-									<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-								</p:commandLink>
+									<p:commandLink  id="suppr"
+													rendered="#{not empty etablissementController.idServiceSel}"
+													oncomplete="PF('supprService').show();" update="supprService">
+										<f:setPropertyActionListener value="#{false}"
+																	 target="#{etablissementController.memeAdresseStructure}" />
+										<f:setPropertyActionListener
+												value="#{etablissementController.serviceSel}"
+												target="#{etablissementController.formService}" />
+										<!--<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"-->
+														<!--value="../../media/images/delete.png" />-->
+										<t:htmlTag value="i" styleClass="fa fa-trash-o fz16"/>
+										<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+									</p:commandLink>
 
-							</p:column>
-						</p:dataTable>
-					</p:outputPanel>
-					<!-- Probleme  -->
+								</p:column>
+							</p:dataTable>
+						</p:outputPanel>
+						<!-- Probleme  -->
 
-					<t:htmlTag value="div" style="height: 20px;" />
+						<t:htmlTag value="div" style="height: 20px;" />
 
-					<p:outputPanel id="opContactsDataTable">
+						<p:outputPanel id="opContactsDataTable">
 
-						<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
-							rendered="#{not empty etablissementController.serviceSel
+							<h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
+										  rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
 								and empty etablissementController.listeContacts
 								and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
-							escape="false" />
-						<t:htmlTag value="em"
-							rendered="#{not empty etablissementController.serviceSel
+										  escape="false" />
+							<t:htmlTag value="em"
+									   rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
 								and not empty etablissementController.listeContacts
 								and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
-							<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTS']}" />
-						</t:htmlTag>
+								<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTS']}" />
+							</t:htmlTag>
 
-						<h:panelGrid columns="2"
-							rendered="#{not empty etablissementController.serviceSel
+							<h:panelGrid columns="2"
+										 rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices
 									and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
-							<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
-								escape="false" />
-							<p:commandLink  id="ajoutC"
-								rendered="#{not empty etablissementController.serviceSel
-									and not empty etablissementController.listeServices}"
-								oncomplete="PF('ajoutContact').show();"
-								action="#{etablissementController.ajoutContact}"
-								update="ajoutContact">
-								<h:graphicImage alt="#{msgs['FORM.CREER']}"
-									value="../../media/images/new.png" />
-								<f:setPropertyActionListener value="#{true}"
-									target="#{etablissementController.afficherSelectionCentreContact}" />
-								<f:setPropertyActionListener value="_ajoutContactEtape0"
-									target="#{sessionController.ajoutContactCurrentPage}" />
-								<p:tooltip value="#{msgs['FORM.CREER']}" />
-							</p:commandLink>
-						</h:panelGrid>
+								<h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
+											  escape="false" />
+								<p:commandButton id="ajoutC" rendered="#{not empty etablissementController.serviceSel
+									and not empty etablissementController.listeServices}" icon="fa fa-plus fz13" styleClass="mlf5"
+												 value="#{msgs['CONTACT.GESTION.AJOUT.CREER_2']}"
+												 action="#{etablissementController.ajoutContact}"
+												 oncomplete="PF('ajoutContact').show();"
+												 update="ajoutContact">
+									<f:setPropertyActionListener value="#{false}"
+																 target="#{etablissementController.afficherSelectionCentreContact}" />
+									<f:setPropertyActionListener value="_ajoutContactEtape0"
+																 target="#{sessionController.ajoutContactCurrentPage}" />
+								</p:commandButton>
+							</h:panelGrid>
 
-						<p:dataTable id="contactsDataTable" style="width:600px;"
-							value="#{etablissementController.listeContacts}" var="contact"
-							rowKey="rowContact" rows="10" rowHover="true"
-							rowStyleClass="noPointer" paginator="true"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15,20"
-							rendered="#{not empty etablissementController.serviceSel
+							<p:dataTable id="contactsDataTable" tableStyle="table-layout: auto;" reflow="true"
+										 value="#{etablissementController.listeContacts}" var="contact"
+										 rowKey="rowContact" rows="10" rowHover="true"
+										 rowStyleClass="noPointer" paginator="true"
+										 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										 rowsPerPageTemplate="5,10,15,20"
+										 rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
 								and not empty etablissementController.listeContacts}">
-							<f:facet name="header">
-								<p:columnGroup>
-									<p:column>
+								<!--<f:facet name="header">-->
+								<!--<p:columnGroup>-->
+								<p:column>
+									<f:facet name="header">
 										<h:outputText value="#{msgs['CONTACT.CG']}" />
-									</p:column>
-									<p:column>
-										<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
-											title="#{msgs['CONTACT.CIVILITE']}"
-											value="../../media/images/user_gray.png" />
-									</p:column>
-									<p:column>
+									</f:facet>
+									<h:outputText id="cgC"
+												  value="#{contact.centreGestion.nomCentre}"
+												  rendered="#{not empty contact.centreGestion}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<!--<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"-->
+														<!--title="#{msgs['CONTACT.CIVILITE']}"-->
+														<!--value="../../media/images/user_gray.png" />-->
+										<t:htmlTag value="i" styleClass="fa fa-user fz16"/>
+									</f:facet>
+									<h:outputText id="civC" value="#{contact.civilite.libelle}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
 										<h:outputText value="#{msgs['CONTACT.NOM']}" />
-									</p:column>
-									<p:column>
+									</f:facet>
+									<h:outputText id="nomC" value="#{contact.nom}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
 										<h:outputText value="#{msgs['CONTACT.PRENOM']}" />
-									</p:column>
-									<p:column>
+									</f:facet>
+									<h:outputText id="prenomC" value="#{contact.prenom}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
 										<h:outputText value="#{msgs['CONTACT.FONCTION']}" />
-									</p:column>
-									<p:column>
-										<h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
-									</p:column>
-									<p:column colspan="2"
-										rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-										<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
-									</p:column>
-								</p:columnGroup>
-							</f:facet>
-							<p:column>
-								<h:outputText id="cgC"
-									value="#{contact.centreGestion.nomCentre}"
-									rendered="#{not empty contact.centreGestion}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="civC" value="#{contact.civilite.libelle}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="nomC" value="#{contact.nom}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="prenomC" value="#{contact.prenom}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="fonctionC" value="#{contact.fonction}" />
-							</p:column>
-							<p:column>
-								<h:panelGrid>
-									<h:panelGrid columns="2" style="font-size:12px;">
-										<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-											title="#{msgs['CONTACT.TELEPHONE']}"
-											value="../../media/images/phone.png" />
-										<h:outputText id="telC" value="#{contact.tel}" />
-									</h:panelGrid>
-									<h:panelGrid columns="2" style="font-size:12px;">
-										<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
-											title="#{msgs['CONTACT.FAX']}"
-											value="../../media/images/printer.png" />
-										<h:outputText id="faxC" value="#{contact.fax}" />
-									</h:panelGrid>
-									<h:panelGrid columns="2" style="font-size:12px;">
-										<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-											title="#{msgs['CONTACT.MAIL']}"
-											value="../../media/images/email.png" />
-										<h:outputText id="mailC" value="#{contact.mail}" />
-									</h:panelGrid>
-								</h:panelGrid>
-							</p:column>
+									</f:facet>
+									<h:outputText id="fonctionC" value="#{contact.fonction}" />
+								</p:column>
+								<!--<p:column>-->
+									<!--<f:facet name="header">-->
+										<!--<h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />-->
+									<!--</f:facet>-->
 
-							<!-- modif contact -->
-							<p:column
-								rendered="#{sessionController.adminPageAuthorized 
+
+									<!--<h:panelGrid>-->
+									<!--<h:panelGrid columns="2" style="font-size:12px;">-->
+									<!--<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"-->
+									<!--title="#{msgs['CONTACT.TELEPHONE']}"-->
+									<!--value="../../media/images/phone.png" />-->
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Téléphone"/>
+									</f:facet>
+									<h:outputText id="telC" value="#{contact.tel}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Fax"/>
+									</f:facet>
+									<h:outputText id="faxC" value="#{contact.fax}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Mail"/>
+									</f:facet>
+									<h:outputText id="mailC" value="#{contact.mail}" />
+								</p:column>
+									<!--<t:htmlTag value="ul" styleClass="formUL columns-2">-->
+										<!--<t:div styleClass="column column-1">-->
+											<!--<t:htmlTag value="span">-->
+												<!--<h:outputText value="Téléphone" styleClass="fontItalic"/>-->
+											<!--</t:htmlTag>-->
+											<!--<t:htmlTag value="span">-->
+												<!--<h:outputText value="Fax" styleClass="fontItalic"/>-->
+											<!--</t:htmlTag>-->
+										<!--<t:htmlTag value="span">-->
+												<!--<h:outputText value="Mail" styleClass="fontItalic"/>-->
+										<!--</t:htmlTag>-->
+										<!--</t:div>-->
+										<!--<t:div styleClass="column column-2">-->
+											<!--<t:htmlTag value="span">-->
+												<!--<h:outputText id="telC" value="#{contact.tel}" />-->
+											<!--</t:htmlTag>-->
+											<!--<t:htmlTag value="span">-->
+												<!--<h:outputText id="faxC" value="#{contact.fax}" />-->
+											<!--</t:htmlTag>-->
+											<!--<t:htmlTag value="span">-->
+												<!--<h:outputText id="mailC" value="#{contact.mail}" />-->
+											<!--</t:htmlTag>-->
+										<!--</t:div>-->
+
+
+										<!--</h:panelGrid>-->
+										<!--<h:panelGrid columns="2" style="font-size:12px;">-->
+										<!--<h:graphicImage alt="#{msgs['CONTACT.FAX']}"-->
+										<!--title="#{msgs['CONTACT.FAX']}"-->
+										<!--value="../../media/images/printer.png" />-->
+
+
+										<!--</h:panelGrid>-->
+										<!--<h:panelGrid columns="2" style="font-size:12px;">-->
+										<!--<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"-->
+										<!--title="#{msgs['CONTACT.MAIL']}"-->
+										<!--value="../../media/images/email.png" />-->
+
+									<!--</t:htmlTag>-->
+									<!--</h:panelGrid>-->
+									<!--</h:panelGrid>-->
+
+
+								<!--</p:column>-->
+
+
+								<!--rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"-->
+								<p:column colspan="2" rendered="#{sessionController.adminPageAuthorized
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id)}">
-								<p:commandLink  id="modifC"
-									rendered="#{not empty etablissementController.serviceSel
+									<f:facet name="header">
+										<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
+									</f:facet>
+									<p:commandLink  id="modifC"
+													rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
-									oncomplete="PF('modifContact').show();" update="modifContact">
-									<f:setPropertyActionListener value="#{rowContact}"
-										target="#{etablissementController.currentRowContact}" />
-									<f:setPropertyActionListener value="#{contact}"
-										target="#{etablissementController.formContact}" />
-									<f:setPropertyActionListener
-										value="#{etablissementController.currentCentresGestionContainsCentreContact}"
-										target="#{etablissementController.afficherSelectionCentreContact}" />
-									<f:setPropertyActionListener value="_modifContactEtape0"
-										target="#{sessionController.modifContactCurrentPage}" />
-									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-										value="../../media/images/edit.png" />
+													oncomplete="PF('modifContact').show();" update="modifContact">
+										<f:setPropertyActionListener value="#{rowContact}"
+																	 target="#{etablissementController.currentRowContact}" />
+										<f:setPropertyActionListener value="#{contact}"
+																	 target="#{etablissementController.formContact}" />
+										<f:setPropertyActionListener
+												value="#{etablissementController.currentCentresGestionContainsCentreContact}"
+												target="#{etablissementController.afficherSelectionCentreContact}" />
+										<f:setPropertyActionListener value="_modifContactEtape0"
+																	 target="#{sessionController.modifContactCurrentPage}" />
+										<!--<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"-->
+														<!--value="../../media/images/edit.png" />-->
+										<t:htmlTag value="i" styleClass="fa fa-pencil fz16 mrf10"/>
 
-									<p:tooltip>
-										<h:panelGrid>
-											<t:htmlTag value="em">
-												<h:outputText value="#{msgs['FORM.MODIFIER']}" />
-											</t:htmlTag>
-											<t:htmlTag value="div"
-												rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-												<t:htmlTag value="br" />
-												<t:aliasBean alias="#{objet}" value="#{contact}">
-													<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
-												</t:aliasBean>
-											</t:htmlTag>
-										</h:panelGrid>
-									</p:tooltip>
+										<p:tooltip>
+											<h:panelGrid>
+												<t:htmlTag value="em">
+													<h:outputText value="#{msgs['FORM.MODIFIER']}" />
+												</t:htmlTag>
+												<t:htmlTag value="div"
+														   rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+													<t:htmlTag value="br" />
+													<t:aliasBean alias="#{objet}" value="#{contact}">
+														<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+													</t:aliasBean>
+												</t:htmlTag>
+											</h:panelGrid>
+										</p:tooltip>
 
-								</p:commandLink>
+									</p:commandLink>
 
 
-								<!-- supp contact -->
-								<p:commandLink  id="supprC"
-									rendered="#{not empty etablissementController.serviceSel
+									<!-- supp contact -->
+									<p:commandLink  id="supprC"
+													rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}"
-									oncomplete="PF('supprContact').show();" update="supprContact">
-									<f:setPropertyActionListener value="#{contact}"
-										target="#{etablissementController.formContact}" />
-									<f:setPropertyActionListener value="_supprContactEtape1"
-										target="#{sessionController.suppressionContactCurrentPage}" />
-									<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-										value="../../media/images/delete.png" />
-									<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-								</p:commandLink>
-							</p:column>
+													oncomplete="PF('supprContact').show();" update="supprContact">
+										<f:setPropertyActionListener value="#{contact}"
+																	 target="#{etablissementController.formContact}" />
+										<f:setPropertyActionListener value="_supprContactEtape1"
+																	 target="#{sessionController.suppressionContactCurrentPage}" />
+										<!--<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"-->
+														<!--value="../../media/images/delete.png" />-->
+										<t:htmlTag value="i" styleClass="fa fa-trash-o fz16"/>
+										<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+									</p:commandLink>
+								</p:column>
+								<!--</p:columnGroup>-->
+								<!--</f:facet>-->
+								<!--<p:column>-->
+								<!--<h:outputText id="cgC"-->
+								<!--value="#{contact.centreGestion.nomCentre}"-->
+								<!--rendered="#{not empty contact.centreGestion}" />-->
+								<!--</p:column>-->
+								<!--<p:column>-->
+								<!--<h:outputText id="civC" value="#{contact.civilite.libelle}" />-->
+								<!--</p:column>-->
+								<!--<p:column>-->
+								<!--<h:outputText id="nomC" value="#{contact.nom}" />-->
+								<!--</p:column>-->
+								<!--<p:column>-->
+								<!--<h:outputText id="prenomC" value="#{contact.prenom}" />-->
+								<!--</p:column>-->
+								<!--<p:column>-->
+								<!--<h:outputText id="fonctionC" value="#{contact.fonction}" />-->
+								<!--</p:column>-->
+								<!--<p:column>-->
+								<!--<h:panelGrid>-->
+								<!--<h:panelGrid columns="2" style="font-size:12px;">-->
+								<!--<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"-->
+								<!--title="#{msgs['CONTACT.TELEPHONE']}"-->
+								<!--value="../../media/images/phone.png" />-->
+								<!--<h:outputText id="telC" value="#{contact.tel}" />-->
+								<!--</h:panelGrid>-->
+								<!--<h:panelGrid columns="2" style="font-size:12px;">-->
+								<!--<h:graphicImage alt="#{msgs['CONTACT.FAX']}"-->
+								<!--title="#{msgs['CONTACT.FAX']}"-->
+								<!--value="../../media/images/printer.png" />-->
+								<!--<h:outputText id="faxC" value="#{contact.fax}" />-->
+								<!--</h:panelGrid>-->
+								<!--<h:panelGrid columns="2" style="font-size:12px;">-->
+								<!--<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"-->
+								<!--title="#{msgs['CONTACT.MAIL']}"-->
+								<!--value="../../media/images/email.png" />-->
+								<!--<h:outputText id="mailC" value="#{contact.mail}" />-->
+								<!--</h:panelGrid>-->
+								<!--</h:panelGrid>-->
+								<!--</p:column>-->
 
-							<p:column
-								rendered="#{(not empty contact.login and not empty contact.mdp)
+								<!-- modif contact -->
+								<!--<p:column-->
+								<!--rendered="#{sessionController.adminPageAuthorized -->
+								<!--or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty contact.login and empty contact.mdp)-->
+								<!--or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)-->
+								<!--or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id)}">-->
+								<!--<p:commandLink  id="modifC"-->
+								<!--rendered="#{not empty etablissementController.serviceSel-->
+								<!--and not empty etablissementController.listeServices}"-->
+								<!--oncomplete="PF('modifContact').show();" update="modifContact">-->
+								<!--<f:setPropertyActionListener value="#{rowContact}"-->
+								<!--target="#{etablissementController.currentRowContact}" />-->
+								<!--<f:setPropertyActionListener value="#{contact}"-->
+								<!--target="#{etablissementController.formContact}" />-->
+								<!--<f:setPropertyActionListener-->
+								<!--value="#{etablissementController.currentCentresGestionContainsCentreContact}"-->
+								<!--target="#{etablissementController.afficherSelectionCentreContact}" />-->
+								<!--<f:setPropertyActionListener value="_modifContactEtape0"-->
+								<!--target="#{sessionController.modifContactCurrentPage}" />-->
+								<!--<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"-->
+								<!--value="../../media/images/edit.png" />-->
+
+								<!--<p:tooltip>-->
+								<!--<h:panelGrid>-->
+								<!--<t:htmlTag value="em">-->
+								<!--<h:outputText value="#{msgs['FORM.MODIFIER']}" />-->
+								<!--</t:htmlTag>-->
+								<!--<t:htmlTag value="div"-->
+								<!--rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">-->
+								<!--<t:htmlTag value="br" />-->
+								<!--<t:aliasBean alias="#{objet}" value="#{contact}">-->
+								<!--<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />-->
+								<!--</t:aliasBean>-->
+								<!--</t:htmlTag>-->
+								<!--</h:panelGrid>-->
+								<!--</p:tooltip>-->
+
+								<!--</p:commandLink>-->
+
+
+								<!--&lt;!&ndash; supp contact &ndash;&gt;-->
+								<!--<p:commandLink  id="supprC"-->
+								<!--rendered="#{not empty etablissementController.serviceSel-->
+								<!--and not empty etablissementController.listeServices}"-->
+								<!--oncomplete="PF('supprContact').show();" update="supprContact">-->
+								<!--<f:setPropertyActionListener value="#{contact}"-->
+								<!--target="#{etablissementController.formContact}" />-->
+								<!--<f:setPropertyActionListener value="_supprContactEtape1"-->
+								<!--target="#{sessionController.suppressionContactCurrentPage}" />-->
+								<!--<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"-->
+								<!--value="../../media/images/delete.png" />-->
+								<!--<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />-->
+								<!--</p:commandLink>-->
+								<!--</p:column>-->
+
+								<p:column
+										rendered="#{(not empty contact.login and not empty contact.mdp)
 										and (welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
-								<p:commandLink  id="modifBlock" disabled="true">
-									<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-										value="../../media/images/edit_block.png" />
-									<p:tooltip value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
-								</p:commandLink>
-							</p:column>
-						</p:dataTable>
-					</p:outputPanel>
-				</h:panelGrid>
+									<p:commandLink  id="modifBlock" disabled="true">
+										<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
+														value="../../media/images/edit_block.png" />
+										<p:tooltip value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}" />
+									</p:commandLink>
+								</p:column>
+							</p:dataTable>
+						</p:outputPanel>
+					</t:div>
+				</p:fieldset>
 				<t:htmlTag value="br" />
 				<t:htmlTag value="div" style="height: 20px;" />
-				<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-					action="#{rechercheController.goToRechercheEtablissementStage}"
-					alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
+				<p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+								 action="#{rechercheController.goToRechercheEtablissementStage}"
+								 alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+								 title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
 			</h:form>
 
 			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />

@@ -10,21 +10,20 @@
 				<h:outputText value="#{msgs['OFFRE.GESTION']}" />
 			</f:facet>
 			<ui:include src="_menuGestionEtab.xhtml" />
-			<h:form>
+			<t:div styleClass="clearFloat"/>
+			<h:form styleClass="block centerBlock mt15">
+				<p:fieldset legend="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']}">
 				<h:outputText
 					value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
 					rendered="#{empty sessionController.currentManageStructure}" />
-				<h:panelGrid align="center"
-					rendered="#{not empty sessionController.currentManageStructure}">
+				<t:div rendered="#{not empty sessionController.currentManageStructure}">
 					<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNE']}"
 						rendered="#{empty offreController.listeOffres}" escape="false" />
 					<p:outputPanel id="opOffresDataTable">
 						<t:div rendered="#{not empty offreController.listeOffres}">
-							<h:outputText value="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']} "
-								escape="false" />
 							<p:dataTable value="#{offreController.listeOffres}" var="offre"
-								rowKey="rowOffre" rows="15" rowHover="true"
-								rowStyleClass="noPointer" paginator="true"
+								rowKey="rowOffre" rows="15" rowHover="true" tableStyle="table-layout: auto;"
+								rowStyleClass="noPointer" paginator="true" reflow="true"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="5,10,15,20"
 								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
@@ -33,8 +32,7 @@
 								<p:column>
 									<h:commandLink id="recap"
 										action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
-										<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-											value="../../media/images/document.png" />
+										<t:htmlTag value="i" styleClass="fa fa-file-text-o fz16"/>
 										<f:setPropertyActionListener value="#{offre}"
 											target="#{offreController.currentOffre}" />
 										<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
@@ -52,8 +50,7 @@
 								<p:column>
 									<h:commandLink id="recap"
 										action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
-										<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-											value="../../media/images/document.png" />
+										<t:htmlTag value="i" styleClass="fa fa-file-text-o fz16"/>
 										<f:setPropertyActionListener value="#{offre}"
 											target="#{offreController.currentOffre}" />
 										<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
@@ -62,14 +59,15 @@
 							</p:dataTable>
 						</t:div>
 					</p:outputPanel>
-				</h:panelGrid>
+				</t:div>
+				</p:fieldset>
 				<t:htmlTag value="br" />
 				<t:htmlTag value="div" style="height: 20px;" />
-				<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+				<p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 					action="#{rechercheController.goToRechercheEtablissementStage}"
 					alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
 					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}">
-				</h:commandButton>
+				</p:commandButton>
 			</h:form>
 			<ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
 		</p:panel>
