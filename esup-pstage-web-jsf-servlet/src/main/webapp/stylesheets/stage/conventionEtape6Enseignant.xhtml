@@ -23,7 +23,7 @@
                         <p:commandButton id="modifEnseigant"
                                          value="#{msgs['CONVENTION.ETAPE6.MODIF.ENSEIGNANT']}"
                                          action="#{conventionController.goToConventionModifEnseignant}"
-                                         styleClass="mt10 ml40"
+                                         styleClass="mt15 ml40"
                                          rendered="#{!conventionController.conventionValide and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
 							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />

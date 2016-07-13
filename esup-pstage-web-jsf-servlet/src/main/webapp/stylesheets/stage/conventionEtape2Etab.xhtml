@@ -22,7 +22,7 @@
                             <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
                         </t:aliasBean>
 
-                        <t:htmlTag value="div" style="height:10px;" />
+                        <t:htmlTag value="div" style="height:15px;" />
 
                         <t:div styleClass="ml20">
                             <p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']} ces informations"
@@ -50,7 +50,7 @@
                                         || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}" />
                         </t:div>
 
-                        <t:htmlTag value="div" style="height:20px;" />
+                        <t:htmlTag value="div" style="height:15px;" />
 
                         <t:div rendered="#{conventionController.convention.structure.temEnServStructure == 'O'}">
                             <h:outputText value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.ETAT']}" />

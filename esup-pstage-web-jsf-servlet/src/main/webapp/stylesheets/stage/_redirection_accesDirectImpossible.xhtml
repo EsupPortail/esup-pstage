@@ -1,31 +1,28 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
-	<h:panelGrid style="width:800px;">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['GENERAL.REDIRECTION']}" />
-			</f:facet>
-			<t:htmlTag value="center">
-				<h:form>
-					<h:panelGrid>
-						<h:outputText value="#{msgs['CENTRE.REDIRECTION_2']}" />
-						<h:outputText value="#{msgs['CENTRE.REDIRECTION_2exemple']}" />
-					</h:panelGrid>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+    <p:panel>
+        <h:form style="max-width:800px;">
+            <p:fieldset legend="#{msgs['GENERAL.REDIRECTION']}">
+                <t:div styleClass="textCenter">
+                    <t:div>
+                        <h:outputText value="#{msgs['CENTRE.REDIRECTION_2']}" />
+                    </t:div>
+                    <t:div styleClass="mt10">
+                        <h:outputText value="#{msgs['CENTRE.REDIRECTION_2exemple']}" />
+                    </t:div>
 
-					<t:htmlTag value="div" style="height:20px;" />
-					
-					<t:htmlTag value="center">
-						<p:commandButton id="home"
-							value="#{msgs['CENTRE.RETOUR_ACCUEIL']}"
-							action="#{centreController.goToAccueil}"
-							immediate="true" />
-					</t:htmlTag>
-				</h:form>
-			</t:htmlTag>
-		</p:panel>
-	</h:panelGrid>
+                    <t:htmlTag value="div" style="height:20px;" />
+
+                    <t:div styleClass="textCenter">
+                        <p:commandButton id="home" value="#{msgs['CENTRE.RETOUR_ACCUEIL']}"
+                                         action="#{centreController.goToAccueil}"
+                                         immediate="true" />
+                    </t:div>
+                </t:div>
+            </p:fieldset>
+        </h:form>
+    </p:panel>
 </ui:composition>

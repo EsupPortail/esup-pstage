@@ -1,762 +1,694 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:htmlTag value="div" style="height: 15px;" />
+    <t:htmlTag value="div" style="height: 15px;" />
 
-	<h:outputLabel for="titre"
-		value="#{msgs['CONVENTION.ETAPE11.TITRE']} *" />
-	<h:panelGrid columns="2">
-		<h:inputText id="titre" required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}"
-			value="#{avenantController.avenant.titreAvenant}">
-			<p:ajax event="blur" update="msgTitre" />
-		</h:inputText>
-		<p:message id="msgTitre" for="titre" />
-	</h:panelGrid>
+    <h:outputText styleClass="fontBold"
+                  value="#{msgs['CONVENTION.ETAPE11.TITRE']} *" />
+    <t:div>
+        <p:inputText id="titre" required="true" styleClass="mt5"
+                     value="#{avenantController.avenant.titreAvenant}">
+            <p:ajax event="blur" update="msgTitre" />
+        </p:inputText>
+        <p:message id="msgTitre" for="titre" />
+    </t:div>
 
-	<t:htmlTag value="div" style="height: 15px;" />
+    <t:htmlTag value="div" style="height: 15px;" />
 
-	<!-- Rupture -->
-	<h:panelGrid columns="2">
-		<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.RUPTURE']}"
-			for="rupture" />
-		<h:selectOneRadio id="rupture"
-			value="#{avenantController.avenant.rupture}">
-			<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-			<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-			<p:ajax  event="click" update="modificationsAvenant" />
-			<!-- Après choix oui ou non, execute 'modificationsAvenant', il choisira le block 1 ou 2 selon le choix-->
-		</h:selectOneRadio>
-	</h:panelGrid>
+    <!-- Rupture -->
+    <t:div styleClass="verticalAlignDiv">
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.RUPTURE']} ?"/>
+        <p:selectOneRadio id="rupture" styleClass="ml5"
+                          value="#{avenantController.avenant.rupture}">
+            <f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+            <f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+            <p:ajax event="click" update="modificationsAvenant" />
+        </p:selectOneRadio>
+    </t:div>
 
+    <!--  	barre grise debut block   -->
+    <t:div styleClass="textCenter clearFloat">
+        <t:htmlTag value="div" style="height: 10px;" />
+        <p:separator style="width:400px; height:2px;" />
+        <t:htmlTag value="div" style="height: 20px;" />
+    </t:div>
 
-	<p:outputPanel id="modificationsAvenant">
+    <p:outputPanel id="modificationsAvenant">
 
-		<!-- Block 1: Cas où Rupture non -->
-		<h:panelGrid rendered="#{!avenantController.avenant.rupture}">
+        <!-- Block 1: Cas où Rupture non -->
+        <t:div rendered="#{!avenantController.avenant.rupture}">
 
+            <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+            <h:outputText value="#{msgs['CONVENTION.ETAPE11.MODIF.INFO']}"
+                          styleClass="fontBold"/>
 
-			<!-- Sujet du stage -->
-			<t:div id="divSujet">
-				<h:panelGrid columns="2">
-					<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.MODIF_SUJET']}"
-						for="sujet" />
-					<h:selectOneRadio id="sujet"
-						value="#{avenantController.avenant.modificationSujet}">
-						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<p:ajax  event="click" update="divSujet" />
-					</h:selectOneRadio>
-				</h:panelGrid>
+            <t:htmlTag value="div" style="height: 20px;" />
 
-				<!-- Nouveau sujet de stage -->
-				<t:div rendered="#{avenantController.avenant.modificationSujet}">
-					<t:htmlTag value="div" style="height: 10px;" />
-					<h:panelGrid columns="2">
-						<t:htmlTag value="div" style="width: 10px;" />
-						<h:panelGrid columns="2">
-							<h:outputText value="#{msgs['CONVENTION.ETAPE11.INIT_SUJET']}" />
-							<h:outputText
-								value="#{conventionController.convention.sujetStage}"
-								escape="false" />
-							<h:outputText value="#{msgs['CONVENTION.ETAPE11.NEW_SUJET']}" />
-							<h:inputTextarea required="true" id="textSujet"
-								value="#{avenantController.avenant.sujetStage}"
-								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<p:ajax event="blur" />
-							</h:inputTextarea>
-							<h:outputText />
-							<p:message for="textSujet">
-								<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-							</p:message>
-						</h:panelGrid>
-					</h:panelGrid>
-				</t:div>
-			</t:div>
+            <!-- Sujet du stage -->
+            <t:div id="divSujet">
+                <t:div styleClass="verticalAlignDiv">
+                    <p:selectBooleanCheckbox id="sujet"
+                                             value="#{avenantController.avenant.modificationSujet}">
+                        <p:ajax event="valueChange" update="divSujet" />
+                    </p:selectBooleanCheckbox>
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.MODIF_SUJET']}" />
+                </t:div>
 
+                <!-- Nouveau sujet de stage -->
+                <t:div styleClass="ml20 mt10"
+                       rendered="#{avenantController.avenant.modificationSujet}">
+                    <h:outputText style="font-style: italic;" value="#{msgs['CONVENTION.ETAPE11.INIT_SUJET']}" />
+                    <t:div>
+                        <h:outputText value="#{conventionController.convention.sujetStage}"
+                                      escape="false" styleClass="mt5"/>
+                    </t:div>
+                    <t:div styleClass="mt5">
+                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.NEW_SUJET']}" />
+                        <p:inputTextarea id="textSujet" required="true" styleClass="mt5"
+                                         value="#{avenantController.avenant.sujetStage}">
+                            <p:ajax event="blur" update="msgTextSujet"/>
+                        </p:inputTextarea>
+                        <p:message id="msgTextSujet" for="textSujet"/>
+                    </t:div>
+                </t:div>
+            </t:div>
 
+            <!-- Periode de stage -->
+            <t:div id="divPeriode" styleClass="mt10">
+                <!-- Ecrire : Modification de la période de stage : O oui O non -->
+                <t:div styleClass="verticalAlignDiv">
+                    <p:selectBooleanCheckbox id="periode"
+                                             value="#{avenantController.avenant.modificationPeriode}">
+                        <p:ajax event="valueChange" update="@form" />
+                    </p:selectBooleanCheckbox>
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.MODIF_PERIODE']}"/>
+                </t:div>
 
-			<!-- Periode de stage -->
-			<t:div id="divPeriode">
+                <!-- Saisie periode -->
+                <t:div styleClass="ml20" rendered="#{avenantController.avenant.modificationPeriode}">
+                    <h:outputText id="erreurPeriode" value="" />
+                    <p:message for="erreurPeriode" />
 
-				<!-- Ecrire : Modification de la période de stage : O oui O non -->
-				<h:panelGrid columns="2">
-					<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.MODIF_PERIODE']}"
-						for="periode" />
-					<h:selectOneRadio id="periode"
-						value="#{avenantController.avenant.modificationPeriode}">
-						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<p:ajax  event="click" update="divPeriode" />
-					</h:selectOneRadio>
-				</h:panelGrid>
+                    <!-- periode de stage intial : du   au   -->
+                    <t:div>
+                        <t:htmlTag value="div" style="width: 10px;" />
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.INIT_PERIODE']}" />
+                            <h:panelGrid columns="4">
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
+                                <h:outputText
+                                        value="#{conventionController.convention.dateDebutStage}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                </h:outputText>
+                                <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
+                                <h:outputText
+                                        value="#{conventionController.convention.dateFinStage}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                </h:outputText>
+                            </h:panelGrid>
+                        </h:panelGrid>
 
-				<!-- Saisie periode -->
-				<t:div rendered="#{avenantController.avenant.modificationPeriode}">
+                        <!-- Bloc periode stage, nouvelle date debut et fin stage-->
+                        <h:panelGrid columns="3">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_STAGE']}" />
+                            <p:calendar id="dateDebutStage"
+                                        value="#{avenantController.avenant.dateDebutStage}"
+                                        locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                        showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                        style="width:200px" required="true"/>
+                            <p:message for="dateDebutStage" />
 
-					<h:outputText id="erreurPeriode" value="" />
-					<p:message for="erreurPeriode">
-						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-					</p:message>
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_STAGE']}" />
+                            <p:calendar id="dateFinStage"
+                                        value="#{avenantController.avenant.dateFinStage}"
+                                        locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                        showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                        style="width:200px" required="true" />
+                            <p:message for="dateFinStage"/>
+                        </h:panelGrid>
 
-					<!-- periode de stage intial : du   au   -->
-					<h:panelGrid columns="2">
-						<t:htmlTag value="div" style="width: 10px;" />
-						<h:panelGrid>
-							<h:panelGrid columns="2">
-								<h:outputText value="#{msgs['CONVENTION.ETAPE11.INIT_PERIODE']}" />
-								<h:panelGrid columns="4">
-									<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
-									<h:outputText
-										value="#{conventionController.convention.dateDebutStage}">
-										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-									</h:outputText>
-									<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
-									<h:outputText
-										value="#{conventionController.convention.dateFinStage}">
-										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-									</h:outputText>
-								</h:panelGrid>
-							</h:panelGrid>
+                        <!-- interruption stage (y/n)  -->
+                        <t:div id="divInterruption">
+                            <t:div>
+                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION']}" />
+                                <p:selectOneRadio value="#{avenantController.avenant.interruptionStage}"
+                                                  styleClass="ml5">
+                                    <f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+                                    <f:selectItem itemLabel="#{msgs['FORM.NON']}"
+                                                  itemValue="false" />
+                                    <p:ajax  event="click" update="divInterruption" />
+                                </p:selectOneRadio>
+                            </t:div>
+                            <p:message for="divInterruption" />
+                            <t:div rendered="#{avenantController.avenant.interruptionStage}">
+                                <t:div>
+                                    <h:outputText value="#{msgs['CONVENTION.ETAPE11.INIT_INTERRUPTION']}" />
 
-							<!-- Bloc periode stage, nouvelle date debut et fin stage-->
-							<h:panelGrid columns="3">
-								<h:outputText
-									value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_STAGE']}" />
-								<p:calendar id="dateDebutStage"
-									value="#{avenantController.avenant.dateDebutStage}"
-									locale="#{sessionController.locale}" popup="true"
-									datePattern="dd/MM/yyyy" showApplyButton="false"
-									cellWidth="24px" cellHeight="22px" style="width:200px"
-									required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}" />
-								<p:message for="dateDebutStage">
-									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-								<h:outputText
-									value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_STAGE']}" />
-								<p:calendar id="dateFinStage"
-									value="#{avenantController.avenant.dateFinStage}"
-									locale="#{sessionController.locale}" popup="true"
-									datePattern="dd/MM/yyyy" showApplyButton="false"
-									cellWidth="24px" cellHeight="22px" style="width:200px"
-									required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}" />
-								<p:message for="dateFinStage">
-									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-							</h:panelGrid>
+                                    <t:div rendered="#{conventionController.convention.interruptionStage}">
+                                        <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
 
-							<!-- interruption stage (y/n)  -->
-							<t:div id="divInterruption">
-								<h:panelGrid columns="2">
-									<h:outputText
-										value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION']}" />
-									<h:selectOneRadio
-										value="#{avenantController.avenant.interruptionStage}">
-										<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-										<f:selectItem itemLabel="#{msgs['FORM.NON']}"
-											itemValue="false" />
-										<p:ajax  event="click" update="divInterruption" />
-									</h:selectOneRadio>
-								</h:panelGrid>
-								<h:outputText id="erreurInterruption" value="" />
-								<p:message for="erreurInterruption">
-									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-								<h:panelGrid
-									rendered="#{avenantController.avenant.interruptionStage}">
-									<h:panelGrid columns="2">
-										<h:outputText
-											value="#{msgs['CONVENTION.ETAPE11.INIT_INTERRUPTION']}" />
-										<h:panelGrid columns="4"
-											rendered="#{conventionController.convention.interruptionStage}">
-											<h:outputText
-												value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
-											<h:outputText
-												value="#{conventionController.convention.dateDebutInterruption}">
-												<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-											</h:outputText>
-											<h:outputText
-												value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
-											<h:outputText
-												value="#{conventionController.convention.dateFinInterruption}">
-												<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-											</h:outputText>
-										</h:panelGrid>
-										<h:outputText
-											rendered="#{!conventionController.convention.interruptionStage}"
-											value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION_NULLE']}" />
-									</h:panelGrid>
-									<h:panelGrid columns="3">
-										<h:outputText
-											value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_INTERRUPTION']}" />
-										<p:calendar id="dateDebutInterruptionStage"
-											value="#{avenantController.avenant.dateDebutInterruption}"
-											locale="#{sessionController.locale}" popup="true"
-											datePattern="dd/MM/yyyy" showApplyButton="false"
-											cellWidth="24px" cellHeight="22px" style="width:200px"
-											required="true"
-											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<p:message for="dateDebutInterruptionStage">
-											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-										</p:message>
+                                        <h:outputText value="#{conventionController.convention.dateDebutInterruption}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                        </h:outputText>
 
-										<h:outputText
-											value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_INTERRUPTION']}" />
-										<p:calendar id="dateFinInterruptionStage"
-											value="#{avenantController.avenant.dateFinInterruption}"
-											locale="#{sessionController.locale}" popup="true"
-											datePattern="dd/MM/yyyy" showApplyButton="false"
-											cellWidth="24px" cellHeight="22px" style="width:200px"
-											required="true"
-											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<p:message for="dateFinInterruptionStage">
-											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-										</p:message>
-									</h:panelGrid>
-								</h:panelGrid>
-							</t:div>
-						</h:panelGrid>
-					</h:panelGrid>
-				</t:div>
-			</t:div>
+                                        <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
 
-			<!-- Montant gratification -->
-			<t:div id="divGratif">
-				<h:panelGrid columns="2">
-					<h:outputLabel
-						value="#{msgs['CONVENTION.ETAPE11.MODIF_GRATIFICATION']}"
-						for="montantGratification" />
-					<h:selectOneRadio id="montantGratification"
-						value="#{avenantController.avenant.modificationMontantGratification}">
-						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<p:ajax  event="click" update="divGratif" />
-					</h:selectOneRadio>
-				</h:panelGrid>
-				<t:div
-					rendered="#{avenantController.avenant.modificationMontantGratification}">
-					<h:panelGrid columns="2">
-						<t:htmlTag value="div" style="width: 10px;" />
-						<h:panelGrid columns="2">
-							<h:outputText
-								value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
-							<h:outputText
-								value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} #{conventionController.convention.uniteGratification.libelle} par #{conventionController.convention.uniteDureeGratification.libelle}" />
-							<h:outputText
-								value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
+                                        <h:outputText value="#{conventionController.convention.dateFinInterruption}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                        </h:outputText>
+                                    </t:div>
+                                    <h:outputText value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION_NULLE']}"
+                                                  rendered="#{!conventionController.convention.interruptionStage}" />
+                                </t:div>
+                                <t:div>
+                                    <h:outputText value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_INTERRUPTION']}" />
+                                    <p:calendar id="dateDebutInterruptionStage"
+                                                value="#{avenantController.avenant.dateDebutInterruption}"
+                                                locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                                showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                                style="width:200px" required="true"/>
+                                    <p:message for="dateDebutInterruptionStage"/>
+                                </t:div>
+                                <t:div>
+                                    <h:outputText value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_INTERRUPTION']}" />
+                                    <p:calendar id="dateFinInterruptionStage"
+                                                value="#{avenantController.avenant.dateFinInterruption}"
+                                                locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                                showApplyButton="false" cellWidth="24px" cellHeight="22px"
+                                                style="width:200px" required="true"/>
+                                    <p:message for="dateFinInterruptionStage"/>
+                                </t:div>
+                            </t:div>
+                        </t:div>
 
-							<h:panelGrid columns="5">
-								<h:inputText id="gratification" size="4" required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}"
-									validatorMessage="#{requiredMessageController.mtGratificationNonValide}"
-									value="#{avenantController.avenant.montantGratification}">
-									<f:validator binding="#{mtGratificationValidator}" />
-									<p:ajax event="blur" />
-								</h:inputText>
+                    </t:div>
+                </t:div>
+            </t:div>
 
-								<h:panelGrid>
-									<h:selectOneMenu
-										value="#{avenantController.selMonnaieGratification}">
-										<p:ajax event="valueChange" update="newMonnaieGratification" />
-										<f:selectItem itemValue="euros" />
-										<f:selectItem itemValue="autre" />
-									</h:selectOneMenu>
+            <!-- Montant gratification -->
+            <t:div id="divGratif">
+                <h:panelGrid columns="2">
+                    <h:outputLabel
+                            value="#{msgs['CONVENTION.ETAPE11.MODIF_GRATIFICATION']}"
+                            for="montantGratification" />
+                    <p:selectOneRadio id="montantGratification"
+                                      value="#{avenantController.avenant.modificationMontantGratification}">
+                        <f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+                        <f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+                        <p:ajax  event="click" update="divGratif" />
+                    </p:selectOneRadio>
+                </h:panelGrid>
+                <t:div rendered="#{avenantController.avenant.modificationMontantGratification}">
+                    <h:panelGrid columns="2">
+                        <t:htmlTag value="div" style="width: 10px;" />
+                        <h:panelGrid columns="2">
+                            <h:outputText
+                                    value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
+                            <h:outputText
+                                    value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} #{conventionController.convention.uniteGratification.libelle} par #{conventionController.convention.uniteDureeGratification.libelle}" />
+                            <h:outputText
+                                    value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
 
-									<p:outputPanel id="newMonnaieGratification">
-										<h:outputText
-											rendered="#{avenantController.selMonnaieGratification=='autre'}"
-											value="Devise : " />
-										<h:inputText id="autreMonnaie" size="10"
-											rendered="#{avenantController.selMonnaieGratification=='autre'}"
-											value="#{avenantController.avenant.monnaieGratification}" />
-									</p:outputPanel>
+                            <h:panelGrid columns="5">
+                                <h:inputText id="gratification" size="4" required="true"
+                                             validatorMessage="#{requiredMessageController.mtGratificationNonValide}"
+                                             value="#{avenantController.avenant.montantGratification}">
+                                    <f:validator binding="#{mtGratificationValidator}" />
+                                    <p:ajax event="blur" />
+                                </h:inputText>
 
-								</h:panelGrid>
+                                <h:panelGrid>
+                                    <h:selectOneMenu
+                                            value="#{avenantController.selMonnaieGratification}">
+                                        <p:ajax event="valueChange" update="newMonnaieGratification" />
+                                        <f:selectItem itemValue="euros" />
+                                        <f:selectItem itemValue="autre" />
+                                    </h:selectOneMenu>
+
+                                    <p:outputPanel id="newMonnaieGratification">
+                                        <h:outputText
+                                                rendered="#{avenantController.selMonnaieGratification=='autre'}"
+                                                value="Devise : " />
+                                        <h:inputText id="autreMonnaie" size="10"
+                                                     rendered="#{avenantController.selMonnaieGratification=='autre'}"
+                                                     value="#{avenantController.avenant.monnaieGratification}" />
+                                    </p:outputPanel>
+
+                                </h:panelGrid>
 
 
-								<h:selectOneMenu id="uniteGratification"
-									value="#{avenantController.avenant.uniteGratification}"
-									converter="#{uniteGratificationConverter}">
-									<f:selectItems
-										value="#{nomenclatureController.uniteGratifications}" />
-								</h:selectOneMenu>
-								<h:outputText value=" par " />
-								<h:panelGrid>
-									<h:selectOneMenu id="uniteDureeGratification"
-										value="#{avenantController.avenant.uniteDureeGratification}"
-										converter="#{uniteDureeConverter}">
-										<f:selectItem itemValue="" />
-										<f:selectItems value="#{nomenclatureController.unitesDurees}" />
-									</h:selectOneMenu>
-								</h:panelGrid>
-								<p:message for="gratification">
-									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-							</h:panelGrid>
-						</h:panelGrid>
-					</h:panelGrid>
-				</t:div>
-			</t:div>
+                                <h:selectOneMenu id="uniteGratification"
+                                                 value="#{avenantController.avenant.uniteGratification}"
+                                                 converter="#{uniteGratificationConverter}">
+                                    <f:selectItems
+                                            value="#{nomenclatureController.uniteGratifications}" />
+                                </h:selectOneMenu>
+                                <h:outputText value=" par " />
+                                <h:panelGrid>
+                                    <h:selectOneMenu id="uniteDureeGratification"
+                                                     value="#{avenantController.avenant.uniteDureeGratification}"
+                                                     converter="#{uniteDureeConverter}">
+                                        <f:selectItem itemValue="" />
+                                        <f:selectItems value="#{nomenclatureController.unitesDurees}" />
+                                    </h:selectOneMenu>
+                                </h:panelGrid>
+                                <p:message for="gratification">
+                                    <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
+                                </p:message>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </t:div>
+            </t:div>
 
-			<!-- Lieu du stage -->
-			<t:div>
-				<p:outputPanel id="opActionsService">
-					<h:panelGrid columns="2">
-						<h:outputLabel value="#{msgs['CONVENTION.ETAPE11.MODIF_LIEU']}"
-							for="lieu" />
-						<h:selectOneRadio id="lieu"
-							value="#{avenantController.avenant.modificationLieu}">
-							<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-							<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-							<p:ajax  event="click"
-								listener="#{avenantController.updateLieu}"
-								update="opActionsService" />
-						</h:selectOneRadio>
-					</h:panelGrid>
-					<t:div rendered="#{avenantController.avenant.modificationLieu}">
-						<h:outputText id="erreurService" value="" />
-						<p:message for="erreurService">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<t:htmlTag value="div" style="height: 10px;" />
-						<h:panelGrid rendered="#{empty avenantController.listeServices}"
-							align="center">
-							<h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.VIDE']}" />
-						</h:panelGrid>
-						<h:panelGrid
-							rendered="#{not empty avenantController.listeServices}">
-							<h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.LISTE']}" />
-							<t:htmlTag value="div" style="height: 10px;" />
-							<p:dataTable id="opService"
-								style="width:483px; border-right:1px solid #C0C0C0;"
-								value="#{avenantController.listeServices}" var="service"
-								rows="20" rowHover="true" rowStyleClass="noPointer"
-								paginator="true"
-								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15,20">
+            <!-- Lieu du stage -->
+            <t:div>
+                <t:div styleClass="verticalAlignDiv">
+                    <p:selectBooleanCheckbox id="lieu"
+                                             value="#{avenantController.avenant.modificationLieu}">
+                        <p:ajax event="valueChange"
+                                listener="#{avenantController.updateLieu}"
+                                update="opActionsService"
+                                onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                    </p:selectBooleanCheckbox>
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.MODIF_LIEU']}" />
+                </t:div>
+                <p:outputPanel id="opActionsService">
+                    <t:div rendered="#{avenantController.avenant.modificationLieu}">
+                        <h:outputText id="erreurService" value="" />
+                        <p:message for="erreurService"/>
 
-								<p:column>
-									<f:facet name="header">
-										<h:outputText
-											value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<t:div
-											rendered="#{service.idService == etablissementController.serviceSel.idService}">
-											<h:graphicImage id="lieuChoisi" alt="#{msgs['GENERAL.OK']}"
-												value="../../media/images/tick.png">
-												<p:tooltip
-													value="#{msgs['CONVENTION.ETAPE11.LIEU.SELECTIONNE']}" />
-											</h:graphicImage>
-										</t:div>
-										<t:div
-											rendered="#{service.idService != etablissementController.serviceSel.idService}">
-											<p:commandLink id="lieuDispo" action="return null;"
-												update="opActionsService" >
-												<h:graphicImage id="appartenance" alt="#{msgs['FORM.NON']}"
-													value="../../media/images/cross.png" />
-												<f:setPropertyActionListener value="#{service}"
-													target="#{etablissementController.serviceSel}" />
-												<f:setPropertyActionListener
-													value="#{conventionController.convention.contact}"
-													target="#{etablissementController.contactSel}" />
-												<p:tooltip value="#{msgs['CONVENTION.ETAPE11.LIEU.CHOIX']}" />
-											</p:commandLink>
-										</t:div>
-									</t:htmlTag>
-								</p:column>
+                        <t:htmlTag value="div" style="height: 10px;" />
 
-								<p:column sortBy="#{service.nom}">
-									<f:facet name="header">
-										<h:outputText
-											value="#{msgs['CONVENTION.ETAPE11.LIEU.NOM']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{service.nom}" />
-									</t:htmlTag>
-								</p:column>
+                        <t:div styleClass="textCenter"
+                               rendered="#{empty avenantController.listeServices}">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.VIDE']}" />
+                        </t:div>
+                        <t:div rendered="#{not empty avenantController.listeServices}">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.LISTE']}" />
+                            <t:htmlTag value="div" style="height: 10px;" />
+                            <p:dataTable id="opService"
+                                         value="#{avenantController.listeServices}" var="service"
+                                         rows="5" rowHover="true" rowStyleClass="noPointer" paginator="true"
+                                         tableStyle="table-layout: auto;" reflow="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15,20">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText
+                                                value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+                                    </f:facet>
+                                    <t:htmlTag value="center">
+                                        <t:div rendered="#{service.idService == etablissementController.serviceSel.idService}">
+                                            <t:htmlTag id="lieuChoisi" value="i" styleClass="fa fa-check fz16 fontBlue2" />
+                                            <p:tooltip for="lieuChoisi" value="#{msgs['CONVENTION.ETAPE11.LIEU.SELECTIONNE']}" />
+                                        </t:div>
+                                        <t:div rendered="#{service.idService != etablissementController.serviceSel.idService}">
+                                            <p:commandLink id="lieuDispo"
+                                                           update="opService" >
+                                                <t:htmlTag id="appartenance" value="i" styleClass="fa fa-remove fz16 fontRed" />
+                                                <f:setPropertyActionListener value="#{service}"
+                                                                             target="#{etablissementController.serviceSel}" />
+                                                <f:setPropertyActionListener
+                                                        value="#{conventionController.convention.contact}"
+                                                        target="#{etablissementController.contactSel}" />
+                                                <p:tooltip value="#{msgs['CONVENTION.ETAPE11.LIEU.CHOIX']}" />
+                                            </p:commandLink>
+                                        </t:div>
+                                    </t:htmlTag>
+                                </p:column>
 
-								<p:column sortBy="#{service.voie}">
-									<f:facet name="header">
-										<h:outputText
-											value="#{msgs['CONVENTION.ETAPE11.LIEU.ADRESSE']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{service.voie}" />
-									</t:htmlTag>
-								</p:column>
+                                <p:column sortBy="#{service.nom}">
+                                    <f:facet name="header">
+                                        <h:outputText
+                                                value="#{msgs['CONVENTION.ETAPE11.LIEU.NOM']}" />
+                                    </f:facet>
+                                    <t:htmlTag value="center">
+                                        <h:outputText value="#{service.nom}" />
+                                    </t:htmlTag>
+                                </p:column>
 
-								<p:column sortBy="#{service.codePostal}">
-									<f:facet name="header">
-										<h:outputText
-											value="#{msgs['CONVENTION.ETAPE11.LIEU.CODE_POSTAL']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{service.codePostal}" />
-									</t:htmlTag>
-								</p:column>
+                                <p:column sortBy="#{service.voie}">
+                                    <f:facet name="header">
+                                        <h:outputText
+                                                value="#{msgs['CONVENTION.ETAPE11.LIEU.ADRESSE']}" />
+                                    </f:facet>
+                                    <t:htmlTag value="center">
+                                        <h:outputText value="#{service.voie}" />
+                                    </t:htmlTag>
+                                </p:column>
 
-								<p:column sortBy="#{service.commune}">
-									<f:facet name="header">
-										<h:outputText
-											value="#{msgs['CONVENTION.ETAPE11.LIEU.VILLE']}" />
-									</f:facet>
-									<t:htmlTag value="center">
-										<h:outputText value="#{service.commune}" />
-									</t:htmlTag>
-								</p:column>
-							</p:dataTable>
-						</h:panelGrid>
+                                <p:column sortBy="#{service.codePostal}">
+                                    <f:facet name="header">
+                                        <h:outputText
+                                                value="#{msgs['CONVENTION.ETAPE11.LIEU.CODE_POSTAL']}" />
+                                    </f:facet>
+                                    <t:htmlTag value="center">
+                                        <h:outputText value="#{service.codePostal}" />
+                                    </t:htmlTag>
+                                </p:column>
 
-						<t:htmlTag value="div" style="height: 10px;" />
+                                <p:column sortBy="#{service.commune}">
+                                    <f:facet name="header">
+                                        <h:outputText
+                                                value="#{msgs['CONVENTION.ETAPE11.LIEU.VILLE']}" />
+                                    </f:facet>
+                                    <t:htmlTag value="center">
+                                        <h:outputText value="#{service.commune}" />
+                                    </t:htmlTag>
+                                </p:column>
+                            </p:dataTable>
+                        </t:div>
 
-						<h:panelGrid columns="2">
-							<h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.MSG_ADD']}" />
-							<p:commandButton id="addService" 
-								value="#{msgs['CONVENTION.ETAPE11.LIEU.ADD']}"
-								oncomplete="PF('ajoutService').show();"
-								action="#{etablissementController.ajoutService}"
-								update="ajoutService">
-								<f:setPropertyActionListener value="#{true}"
-									target="#{etablissementController.memeAdresseStructure}" />
-								<f:setPropertyActionListener value="_ajoutServiceEtape0"
-									target="#{sessionController.ajoutServiceCurrentPage}" />
-							</p:commandButton>
-						</h:panelGrid>
-					</t:div>
+                        <t:htmlTag value="div" style="height: 10px;" />
 
-					<h:panelGrid>
-						<h:panelGrid columns="2">
-							<h:outputLabel
-								value="#{msgs['CONVENTION.ETAPE11.MODIF_SALARIE']}"
-								for="salarie" />
-							<h:panelGrid
-								rendered="#{conventionController.convention.idService == etablissementController.serviceSel.idService}">
-								<h:selectOneRadio id="salarie"
-									value="#{avenantController.avenant.modificationSalarie}">
-									<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-									<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-									<p:ajax  event="click" update="opActionsService"
-										status="statusTuteurpro"
-										listener="#{avenantController.updateContact}" />
-								</h:selectOneRadio>
-							</h:panelGrid>
-							<h:panelGrid
-								rendered="#{conventionController.convention.idService != etablissementController.serviceSel.idService}">
-								<h:outputText
-									value="#{msgs['CONVENTION.ETAPE11.SALARIE.AVERTISSEMENT']}" />
-							</h:panelGrid>
-						</h:panelGrid>
-						<t:htmlTag value="center">
-							<p:ajaxStatus name="statusTuteurpro">
-								<f:facet name="start">
-									<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
-								</f:facet>
-							</p:ajaxStatus>
-						</t:htmlTag>
-					</h:panelGrid>
-					<p:outputPanel id="opContactsDataTable">
-						<t:div
-							rendered="#{avenantController.avenant.modificationSalarie || conventionController.convention.idService != etablissementController.serviceSel.idService}">
-							<h:outputText id="erreurSalarie" value="" />
-							<p:message for="erreurSalarie">
-								<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-							</p:message>
-							<h:panelGrid rendered="#{empty avenantController.listeSalaries}"
-								align="center">
-								<h:outputText value="#{msgs['CONVENTION.ETAPE11.SALARIE.VIDE']}" />
-							</h:panelGrid>
-							<h:panelGrid
-								rendered="#{not empty avenantController.listeSalaries}">
-								<h:outputText
-									value="#{msgs['CONVENTION.ETAPE11.SALARIE.LISTE']}" />
+                        <h:panelGrid columns="2">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.MSG_ADD']}" />
+                            <p:commandButton id="addService"
+                                             value="#{msgs['CONVENTION.ETAPE11.LIEU.ADD']}"
+                                             oncomplete="PF('ajoutService').show();"
+                                             action="#{etablissementController.ajoutService}"
+                                             update="ajoutService">
+                                <f:setPropertyActionListener value="#{true}"
+                                                             target="#{etablissementController.memeAdresseStructure}" />
+                                <f:setPropertyActionListener value="_ajoutServiceEtape0"
+                                                             target="#{sessionController.ajoutServiceCurrentPage}" />
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </t:div>
 
-								<t:htmlTag value="div" style="height: 10px;" />
+                    <h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel
+                                    value="#{msgs['CONVENTION.ETAPE11.MODIF_SALARIE']}"
+                                    for="salarie" />
+                            <h:panelGrid
+                                    rendered="#{conventionController.convention.idService == etablissementController.serviceSel.idService}">
+                                <p:selectOneRadio id="salarie"
+                                                  value="#{avenantController.avenant.modificationSalarie}">
+                                    <f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+                                    <f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+                                    <p:ajax  event="click" update="opActionsService"
+                                             status="statusTuteurpro"
+                                             listener="#{avenantController.updateContact}" />
+                                </p:selectOneRadio>
+                            </h:panelGrid>
+                            <h:panelGrid
+                                    rendered="#{conventionController.convention.idService != etablissementController.serviceSel.idService}">
+                                <h:outputText
+                                        value="#{msgs['CONVENTION.ETAPE11.SALARIE.AVERTISSEMENT']}" />
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <p:outputPanel id="opContactsDataTable">
+                        <t:div
+                                rendered="#{avenantController.avenant.modificationSalarie || conventionController.convention.idService != etablissementController.serviceSel.idService}">
 
-								<p:dataTable id="contactsDataTable"
-									style="width:483; border-right:1px solid #C0C0C0;"
-									value="#{avenantController.listeSalaries}" var="salarie"
-									rows="20" rowHover="true" rowStyleClass="noPointer"
-									paginator="true"
-									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-									rowsPerPageTemplate="5,10,15,20">
-									<p:column>
-										<f:facet name="header">
-											<h:outputText
-												value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
-										</f:facet>
-										<t:htmlTag value="center">
-											<t:div
-												rendered="#{salarie.id == etablissementController.contactSel.id}">
-												<h:graphicImage id="salarieChoisi"
-													alt="#{msgs['GENERAL.OK']}"
-													value="../../media/images/tick.png">
-													<p:tooltip
-														value="#{msgs['CONVENTION.ETAPE11.SALARIE.SELECTIONNE']}" />
-												</h:graphicImage>
-											</t:div>
-											<t:div
-												rendered="#{salarie.id != etablissementController.contactSel.id}">
-												<p:commandLink id="salarieDispo" action="return null;"
-													status="statusTuteurpro" update="opActionsService"
-													>
-													<h:graphicImage id="appartenance2"
-														alt="#{msgs['FORM.NON']}"
-														value="../../media/images/cross.png" />
-													<f:setPropertyActionListener value="#{salarie}"
-														target="#{etablissementController.contactSel}" />
-													<p:tooltip value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
-												</p:commandLink>
-											</t:div>
-										</t:htmlTag>
-									</p:column>
+                            <h:outputText id="erreurSalarie" value="" />
+                            <p:message for="erreurSalarie"/>
 
-									<p:column sortBy="#{salarie.civilite.libelle}">
-										<f:facet name="header">
-											<h:outputText
-												value="#{msgs['CONTACT.CIVILITE']}" />
-										</f:facet>
-										<t:htmlTag value="center">
-											<h:outputText value="#{salarie.civilite.libelle}" />
-										</t:htmlTag>
-									</p:column>
+                            <t:div styleClass="textCenter" rendered="#{empty avenantController.listeSalaries}">
+                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.SALARIE.VIDE']}" />
+                            </t:div>
+                            <t:div rendered="#{not empty avenantController.listeSalaries}">
+                                <h:outputText
+                                        value="#{msgs['CONVENTION.ETAPE11.SALARIE.LISTE']}" />
 
-									<p:column sortBy="#{salarie.nom}">
-										<f:facet name="header">
-											<h:outputText
-												value="#{msgs['CONTACT.NOM']}" />
-										</f:facet>
-										<t:htmlTag value="center">
-											<h:outputText value="#{salarie.nom}" />
-										</t:htmlTag>
-									</p:column>
+                                <t:htmlTag value="div" style="height: 10px;" />
 
-									<p:column sortBy="#{salarie.prenom}">
-										<f:facet name="header">
-											<h:outputText
-												value="#{msgs['CONTACT.PRENOM']}" />
-										</f:facet>
-										<t:htmlTag value="center">
-											<h:outputText value="#{salarie.prenom}" />
-										</t:htmlTag>
-									</p:column>
+                                <p:dataTable id="contactsDataTable"
+                                             style="width:483px; border-right:1px solid #C0C0C0;"
+                                             value="#{avenantController.listeSalaries}" var="salarie"
+                                             rows="20" rowHover="true" rowStyleClass="noPointer"
+                                             paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15,20">
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <t:div
+                                                    rendered="#{salarie.id == etablissementController.contactSel.id}">
+                                                <h:graphicImage id="salarieChoisi"
+                                                                alt="#{msgs['GENERAL.OK']}"
+                                                                value="../../media/images/tick.png">
+                                                    <p:tooltip
+                                                            value="#{msgs['CONVENTION.ETAPE11.SALARIE.SELECTIONNE']}" />
+                                                </h:graphicImage>
+                                            </t:div>
+                                            <t:div rendered="#{salarie.id != etablissementController.contactSel.id}">
+                                                <p:commandLink id="salarieDispo" action="return null;"
+                                                               status="statusTuteurpro" update="opActionsService">
+                                                    <h:graphicImage id="appartenance2"
+                                                                    alt="#{msgs['FORM.NON']}"
+                                                                    value="/media/images/cross.png" />
+                                                    <f:setPropertyActionListener value="#{salarie}"
+                                                                                 target="#{etablissementController.contactSel}" />
+                                                    <p:tooltip value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+                                                </p:commandLink>
+                                            </t:div>
+                                        </t:htmlTag>
+                                    </p:column>
 
-									<p:column sortBy="#{salarie.fonction}">
-										<f:facet name="header">
-											<h:outputText
-												value="#{msgs['CONTACT.FONCTION']}" />
-										</f:facet>
-										<t:htmlTag value="center">
-											<h:outputText value="#{salarie.fonction}" />
-										</t:htmlTag>
-									</p:column>
+                                    <p:column sortBy="#{salarie.civilite.libelle}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONTACT.CIVILITE']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <h:outputText value="#{salarie.civilite.libelle}" />
+                                        </t:htmlTag>
+                                    </p:column>
 
-									<p:column sortBy="#{salarie.tel}">
-										<f:facet name="header">
-											<h:outputText
-												value="#{msgs['CONVENTION.ETAPE11.SALARIE.TEL_FAX']}" />
-										</f:facet>
-										<h:panelGrid align="center">
-											<h:outputText
-												value="#{msgs['CONVENTION.ETAPE11.SALARIE.TEL']}#{salarie.tel}" />
-											<h:outputText
-												value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}#{salarie.fax}" />
-										</h:panelGrid>
-									</p:column>
+                                    <p:column sortBy="#{salarie.nom}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONTACT.NOM']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <h:outputText value="#{salarie.nom}" />
+                                        </t:htmlTag>
+                                    </p:column>
 
-									<p:column sortBy="#{salarie.mail}">
-										<f:facet name="header">
-											<h:outputText
-												value="#{msgs['CONTACT.MAIL']}" />
-										</f:facet>
-										<t:htmlTag value="center">
-											<h:outputText value="#{salarie.mail}" />
-										</t:htmlTag>
-									</p:column>
-								</p:dataTable>
-							</h:panelGrid>
+                                    <p:column sortBy="#{salarie.prenom}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONTACT.PRENOM']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <h:outputText value="#{salarie.prenom}" />
+                                        </t:htmlTag>
+                                    </p:column>
 
-							<t:htmlTag value="div" style="height: 10px;" />
+                                    <p:column sortBy="#{salarie.fonction}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONTACT.FONCTION']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <h:outputText value="#{salarie.fonction}" />
+                                        </t:htmlTag>
+                                    </p:column>
 
-							<h:panelGrid columns="2">
-								<h:outputText
-									value="#{msgs['CONVENTION.ETAPE11.SALARIE.MSG_ADD']}" />
-								<p:commandButton id="addSalarie" 
-									value="#{msgs['CONVENTION.ETAPE11.SALARIE.ADD']}"
-									action="#{avenantController.ajoutContact}"
-									oncomplete="PF('ajoutContact').show();" update="ajoutContact">
-									<f:setPropertyActionListener value="_ajoutContactEtape0"
-										target="#{sessionController.ajoutContactCurrentPage}" />
-									<f:setPropertyActionListener value="#{false}"
-										target="#{etablissementController.afficherSelectionCentreContact}" />
-									<f:setPropertyActionListener
-										value="#{etablissementController.serviceSel.idService}"
-										target="#{etablissementController.idServiceSel}" />
-								</p:commandButton>
-							</h:panelGrid>
-						</t:div>
-					</p:outputPanel>
-				</p:outputPanel>
-			</t:div>
+                                    <p:column sortBy="#{salarie.tel}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONVENTION.ETAPE11.SALARIE.TEL_FAX']}" />
+                                        </f:facet>
+                                        <h:panelGrid align="center">
+                                            <h:outputText
+                                                    value="#{msgs['CONVENTION.ETAPE11.SALARIE.TEL']}#{salarie.tel}" />
+                                            <h:outputText
+                                                    value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET4.FAX']}#{salarie.fax}" />
+                                        </h:panelGrid>
+                                    </p:column>
 
-			<!-- Enseignant référent -->
-			<t:div id="divEnseignant">
-				<h:panelGrid columns="2">
-					<h:outputLabel
-						value="#{msgs['CONVENTION.ETAPE11.MODIF_ENSEIGNANT']}"
-						for="enseignant" />
-					<h:selectOneRadio id="enseignant"
-						value="#{avenantController.avenant.modificationEnseignant}">
-						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<p:ajax  event="click" update="divEnseignant" />
-					</h:selectOneRadio>
-				</h:panelGrid>
-				<t:div
-					rendered="#{avenantController.avenant.modificationEnseignant}">
-					<h:outputText value="" id="erreurEnseignant" />
-					<p:message for="erreurEnseignant">
-						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-					<h:panelGrid columns="2">
-						<t:htmlTag value="div" style="width:10px;" />
-						<t:div>
-							<h:panelGrid columns="2">
-								<h:outputText
-									value="#{msgs['CONVENTION.ETAPE11.INIT_ENSEIGNANT']}" />
-								<h:outputText
-									value="#{conventionController.convention.enseignant.prenom} #{conventionController.convention.enseignant.nom}" />
-							</h:panelGrid>
+                                    <p:column sortBy="#{salarie.mail}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONTACT.MAIL']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <h:outputText value="#{salarie.mail}" />
+                                        </t:htmlTag>
+                                    </p:column>
+                                </p:dataTable>
+                            </t:div>
 
-							<h:panelGrid columns="2">
-								<h:outputText
-									value="#{msgs['CONVENTION.ETAPE11.NEW_ENSEIGNANT']}" />
-								<h:outputText style="color:green;"
-									value="#{avenantController.avenant.enseignant.prenom} #{avenantController.avenant.enseignant.nom}" />
-							</h:panelGrid>
+                            <t:htmlTag value="div" style="height: 10px;" />
 
-							<t:htmlTag value="div" style="height: 10px;" />
-							<h:panelGrid>
-								<p:commandButton id="search" 
-									value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RECHERCHE.BOUTON']}"
-									oncomplete="PF('rechEnseignantAvenant').show();"
-									action="#{avenantController.avantRechercheEnseignant}"
-									update="rechEnseignantAvenant" />
-							</h:panelGrid>
-						</t:div>
-					</h:panelGrid>
-				</t:div>
-			</t:div>
+                            <h:panelGrid columns="2">
+                                <h:outputText
+                                        value="#{msgs['CONVENTION.ETAPE11.SALARIE.MSG_ADD']}" />
+                                <p:commandButton id="addSalarie"
+                                                 value="#{msgs['CONVENTION.ETAPE11.SALARIE.ADD']}"
+                                                 action="#{avenantController.ajoutContact}"
+                                                 oncomplete="PF('ajoutContact').show();" update="ajoutContact">
+                                    <f:setPropertyActionListener value="_ajoutContactEtape0"
+                                                                 target="#{sessionController.ajoutContactCurrentPage}" />
+                                    <f:setPropertyActionListener value="#{false}"
+                                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
+                                    <f:setPropertyActionListener
+                                            value="#{etablissementController.serviceSel.idService}"
+                                            target="#{etablissementController.idServiceSel}" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </t:div>
+                    </p:outputPanel>
+                </p:outputPanel>
+            </t:div>
 
-			<t:htmlTag value="div" style="height:5px;" />
+            <!-- Enseignant référent -->
+            <t:div id="divEnseignant">
+                <h:panelGrid columns="2">
+                    <h:outputLabel
+                            value="#{msgs['CONVENTION.ETAPE11.MODIF_ENSEIGNANT']}"
+                            for="enseignant" />
+                    <p:selectOneRadio id="enseignant"
+                                      value="#{avenantController.avenant.modificationEnseignant}">
+                        <f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+                        <f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+                        <p:ajax  event="click" update="divEnseignant" />
+                    </p:selectOneRadio>
+                </h:panelGrid>
+                <t:div
+                        rendered="#{avenantController.avenant.modificationEnseignant}">
+                    <h:outputText value="" id="erreurEnseignant" />
+                    <p:message for="erreurEnseignant">
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
+                    </p:message>
+                    <h:panelGrid columns="2">
+                        <t:htmlTag value="div" style="width:10px;" />
+                        <t:div>
+                            <h:panelGrid columns="2">
+                                <h:outputText
+                                        value="#{msgs['CONVENTION.ETAPE11.INIT_ENSEIGNANT']}" />
+                                <h:outputText
+                                        value="#{conventionController.convention.enseignant.prenom} #{conventionController.convention.enseignant.nom}" />
+                            </h:panelGrid>
 
-			<!-- Autre modification -->
-			<t:div id="divTexteLibre">
-				<h:panelGrid columns="2">
-					<h:outputLabel
-						value="#{msgs['CONVENTION.ETAPE11.MODIF_TEXTELIBRE']}"
-						for="texteLibre" />
-					<h:selectOneRadio id="texteLibre"
-						value="#{avenantController.modificationTexteLibre}">
-						<f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
-						<f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
-						<p:ajax  event="click" update="divTexteLibre" />
-					</h:selectOneRadio>
-				</h:panelGrid>
-				<t:div rendered="#{avenantController.modificationTexteLibre}">
-					<h:outputText value="" id="erreurTexteLibre" />
-					<p:message for="erreurTexteLibre">
-						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-					</p:message>
+                            <h:panelGrid columns="2">
+                                <h:outputText
+                                        value="#{msgs['CONVENTION.ETAPE11.NEW_ENSEIGNANT']}" />
+                                <h:outputText style="color:green;"
+                                              value="#{avenantController.avenant.enseignant.prenom} #{avenantController.avenant.enseignant.nom}" />
+                            </h:panelGrid>
 
-					<h:panelGrid columns="2">
-						<t:htmlTag value="div" style="width:10px;" />
-						<t:div>
-							<h:outputLabel for="motif"
-								value="#{msgs['CONVENTION.ETAPE11.MOTIF']} *" />
-							<h:panelGrid columns="2">
-								<h:inputTextarea style="width:200px;" id="motif" required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}"
-									value="#{avenantController.avenant.motifAvenant}">
-									<p:ajax event="blur" update="msgMotif" />
-								</h:inputTextarea>
-								<p:message id="msgMotif" for="motif" />
-							</h:panelGrid>
-						</t:div>
-					</h:panelGrid>
-				</t:div>
-			</t:div>
-		</h:panelGrid>
+                            <t:htmlTag value="div" style="height: 10px;" />
+                            <h:panelGrid>
+                                <p:commandButton id="search"
+                                                 value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RECHERCHE.BOUTON']}"
+                                                 oncomplete="PF('rechEnseignantAvenant').show();"
+                                                 action="#{avenantController.avantRechercheEnseignant}"
+                                                 update="rechEnseignantAvenant" />
+                            </h:panelGrid>
+                        </t:div>
+                    </h:panelGrid>
+                </t:div>
+            </t:div>
 
+            <t:htmlTag value="div" style="height:5px;" />
 
-		<!-- Block 2 :Cas où Rupture oui -->
-		<h:panelGrid rendered="#{avenantController.avenant.rupture}">
+            <!-- Autre modification -->
+            <t:div id="divTexteLibre">
+                <h:panelGrid columns="2">
+                    <h:outputLabel
+                            value="#{msgs['CONVENTION.ETAPE11.MODIF_TEXTELIBRE']}"
+                            for="texteLibre" />
+                    <p:selectOneRadio id="texteLibre"
+                                      value="#{avenantController.modificationTexteLibre}">
+                        <f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+                        <f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+                        <p:ajax  event="click" update="divTexteLibre" />
+                    </p:selectOneRadio>
+                </h:panelGrid>
+                <t:div rendered="#{avenantController.modificationTexteLibre}">
+                    <h:outputText value="" id="erreurTexteLibre" />
+                    <p:message for="erreurTexteLibre">
+                        <ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
+                    </p:message>
 
-			<t:div id="divDateRupture">
+                    <h:panelGrid columns="2">
+                        <t:htmlTag value="div" style="width:10px;" />
+                        <t:div>
+                            <h:outputLabel for="motif"
+                                           value="#{msgs['CONVENTION.ETAPE11.MOTIF']} *" />
+                            <h:panelGrid columns="2">
+                                <p:inputTextarea style="width:200px;" id="motif" required="true"
+                                                 requiredMessage="#{requiredMessageController.champObligatoire}"
+                                                 value="#{avenantController.avenant.motifAvenant}">
+                                    <p:ajax event="blur" update="msgMotif" />
+                                </p:inputTextarea>
+                                <p:message id="msgMotif" for="motif" />
+                            </h:panelGrid>
+                        </t:div>
+                    </h:panelGrid>
+                </t:div>
+            </t:div>
+        </t:div>
 
-				<h:outputText id="erreurDateRupture" value="" />
-				<p:message for="erreurDateRupture">
-					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-				</p:message>
+        <!-- Block 2 : Cas où Rupture -->
+        <t:div id="divDateRupture" rendered="#{avenantController.avenant.rupture}">
+            <t:htmlTag value="ul" styleClass="formUL columns-2 mt10">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <t:div>
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']} *"
+                                          styleClass="fontBold"/>
+                            <t:htmlTag value="div" style="height:5px;" />
+                            <p:calendar id="dateRupture"
+                                        value="#{avenantController.avenant.dateRupture}"
+                                        locale="#{sessionController.locale}"
+                                        required="true" styleClass="ml5"/>
+                            <p:message id="msgDateRupture" for="dateRupture" />
+                        </t:div>
+                        <t:div style="font-style: italic;" styleClass="mt5 textCenter">
+                            <t:htmlTag value="i" styleClass="fa fa-info-circle fz13"/>
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.PERIODE.INFO']}" />
+                            <br />
+                            <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
 
-				<h:panelGrid columns="3">
+                            <h:outputText value="#{conventionController.convention.dateDebutStage}"
+                                          styleClass="ml5 mr5">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
 
-					<h:outputText value="#{msgs['CONVENTION.ETAPE11.PERIODE']}" />
-					<h:panelGrid columns="4">
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
-						<h:outputText
-							value="#{conventionController.convention.dateDebutStage}">
-							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-						</h:outputText>
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
-						<h:outputText
-							value="#{conventionController.convention.dateFinStage}">
-							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-						</h:outputText>
-					</h:panelGrid>
-				</h:panelGrid>
+                            <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
 
-				<h:panelGrid columns="3">
-					<h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']}" />
-					<p:calendar id="dateRupture"
-						value="#{avenantController.avenant.dateRupture}"
-						locale="#{sessionController.locale}" popup="true"
-						datePattern="dd/MM/yyyy" showApplyButton="false" cellWidth="24px"
-						cellHeight="22px" style="width:200px" required="true"
-						requiredMessage="#{requiredMessageController.champObligatoire}" />
-					<!-- 					<h:outputText id="erreurDateRupture" value="" /> -->
-					<p:message for="dateRupture">
-						<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-					</p:message>
-				</h:panelGrid>
-
-				<h:panelGrid columns="2">
-					<h:outputText for="commentaireRupture"
-						value="#{msgs['CONVENTION.ETAPE11.RUPTURE.COMMENTAIRE']}" />
-					<h:inputTextarea style="width:200px;" id="commentaireRupture"
-						value="#{avenantController.avenant.commentaireRupture}">
-						<p:ajax event="blur" update="msgComRupture" />
-					</h:inputTextarea>
-					<p:message id="msgComRupture" for="commentaireRupture" />
-				</h:panelGrid>
-			</t:div>
-		</h:panelGrid>
-
-	</p:outputPanel>
+                            <h:outputText value="#{conventionController.convention.dateFinStage}"
+                                          styleClass="ml5">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
+                        </t:div>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <t:div>
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE.COMMENTAIRE']}"
+                                          styleClass="fontBold" />
+                        </t:div>
+                        <p:inputTextarea  id="commentaireRupture" styleClass="mt5"
+                                          value="#{avenantController.avenant.commentaireRupture}"/>
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
+        </t:div>
+    </p:outputPanel>
 
 
-	<!--  	barre grise fin block   -->
-	<h:panelGrid align="center">
-		<t:htmlTag value="div" style="height: 20px;" />
-		<p:separator style="width:400px; height:3px;" />
-		<t:htmlTag value="div" style="height: 20px;" />
-	</h:panelGrid>
+    <!--  	barre grise fin block   -->
+    <t:div styleClass="textCenter clearFloat">
+        <t:htmlTag value="div" style="height: 20px;" />
+        <p:separator style="width:400px; height:2px;" />
+        <t:htmlTag value="div" style="height: 20px;" />
+    </t:div>
 
 
 

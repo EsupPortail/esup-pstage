@@ -1,171 +1,147 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formSelConvention">
-				<h:panelGrid>
-					<f:facet name="header">
-						<h:outputFormat
-							value="#{msgs['CONVENTION.ETAPE7.SIGNATAIRE.INFO']}">
-							<f:param
-								value="#{conventionController.convention.structure.raisonSociale}" />
-						</h:outputFormat>
-					</f:facet>
-					<t:htmlTag value="div" style="height: 20px;" />
-					<h:outputText value="" />
-					<p:messages />
-					<h:panelGrid
-						rendered="#{not empty conventionController.convention.signataire and conventionController.convention.signataire.id gt 0}">
-						<h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
-							escape="false" />
-						<t:htmlTag value="div" style="width: 50px;" />
-						<p:dataTable value="#{conventionController.convention.signataire}">
-							<f:facet name="header">
-								<p:columnGroup>
-									<p:column>
-										<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
-											title="#{msgs['CONTACT.CIVILITE']}"
-											value="../../media/images/user_gray.png" />
-									</p:column>
-									<p:column>
-										<h:outputText value="#{msgs['CONTACT.NOM']}" />
-									</p:column>
-									<p:column>
-										<h:outputText value="#{msgs['CONTACT.PRENOM']}" />
-									</p:column>
-									<p:column>
-										<h:outputText value="#{msgs['CONTACT.FONCTION']}" />
-									</p:column>
-									<p:column>
-										<h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
-									</p:column>
-								</p:columnGroup>
-							</f:facet>
-							<p:column>
-								<h:outputText id="civC"
-									value="#{conventionController.convention.signataire.civilite.libelle}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="nomC"
-									value="#{conventionController.convention.signataire.nom}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="prenomC"
-									value="#{conventionController.convention.signataire.prenom}" />
-							</p:column>
-							<p:column>
-								<h:outputText id="fonctionC"
-									value="#{conventionController.convention.signataire.fonction}" />
-							</p:column>
-							<p:column>
-								<h:panelGrid>
-									<h:panelGrid columns="2">
-										<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-											title="#{msgs['CONTACT.TELEPHONE']}"
-											value="../../media/images/phone.png" />
-										<h:outputText id="telC"
-											value="#{conventionController.convention.signataire.tel}" />
-									</h:panelGrid>
-									<h:panelGrid columns="2">
-										<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
-											title="#{msgs['CONTACT.FAX']}"
-											value="../../media/images/printer.png" />
-										<h:outputText id="faxC"
-											value="#{conventionController.convention.signataire.fax}" />
-									</h:panelGrid>
-									<h:panelGrid columns="2">
-										<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-											title="#{msgs['CONTACT.MAIL']}"
-											value="../../media/images/email.png" />
-										<h:outputText id="mailC"
-											value="#{conventionController.convention.signataire.mail}" />
-									</h:panelGrid>
-								</h:panelGrid>
-							</p:column>
-						</p:dataTable>
-					</h:panelGrid>
-					<h:panelGrid
-						rendered="#{empty conventionController.convention.signataire || conventionController.convention.signataire.id == 0}">
-						<h:outputText value="#{msgs['CONTACT.AUCUNSIGNATAIRE']}"
-							escape="false" />
-						<t:htmlTag value="div" style="width: 50px;" />
-					</h:panelGrid>
-					<h:panelGrid columns="2">
-						<p:commandButton oncomplete="PF('modifContact').show();"
-							update="modifContact" value="#{msgs['FORM.MODIFIER']}"
-							rendered="#{(not empty conventionController.convention.signataire and !conventionController.conventionValide)
-									and (sessionController.adminPageAuthorized 
-								or ((welcomeController.superAdmin || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-								and empty conventionController.convention.signataire.login and empty conventionController.convention.signataire.mdp)
-								or (sessionController.pageAuthorized and empty conventionController.convention.signataire.login and empty conventionController.convention.signataire.mdp)
-								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==conventionController.convention.signataire.id))
-								and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized 
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-								|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-								|| (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
-								(!sessionController.autoriserEtudiantAModifierEntreprise 
-								and ((empty conventionController.convention.signataire.loginModif and
-								conventionController.convention.signataire.loginCreation==sessionController.currentLogin)
-								|| (conventionController.convention.signataire.loginModif==sessionController.currentLogin)))))))}">
-							<f:setPropertyActionListener
-								value="#{conventionController.convention.signataire}"
-								target="#{etablissementController.formContact}" />
-							<f:setPropertyActionListener value="#{false}"
-								target="#{etablissementController.afficherSelectionCentreContact}" />
-							<f:setPropertyActionListener value="_modifContactEtape0"
-								target="#{sessionController.modifContactCurrentPage}" />
-						</p:commandButton>
-						<p:commandButton
-							oncomplete="PF('selectServiceSignataire').show();"
-							rendered="#{!conventionController.conventionValide 
-								 and (welcomeController.superAdmin || welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
-							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin 
-							|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}"
-							value="#{msgs['CONVENTION.ETAPE7.MODIF.SIGNATAIRE']}">
-							<f:setPropertyActionListener value="#{0}"
-								target="#{etablissementController.idContactSel}" />
-							<f:setPropertyActionListener value="#{null}"
-								target="#{etablissementController.contactSel}" />
-							<f:setPropertyActionListener
-								value="#{conventionController.convention.service.idService}"
-								target="#{etablissementController.idServiceSel}" />
-							<f:setPropertyActionListener
-								value="#{conventionController.convention.service}"
-								target="#{etablissementController.serviceSel}" />
-							<f:setPropertyActionListener value="#{false}"
-								target="#{etablissementController.afficherSelectionCentreContact}" />
-						</p:commandButton>
-						<p:dialog id="selectServiceSignataire"
-							widgetVar="selectServiceSignataire">
-							<ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml" />
-							<p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
-								oncomplete="PF('selectServiceSignataire').hide();"
-								action="#{conventionController.goToConventionModifSignataire}">
-								<f:setPropertyActionListener
-									value="#{etablissementController.contactSel}"
-									target="#{conventionController.convention.signataire}" />
-							</p:commandButton>
-							<t:htmlTag value="div" style="width: 100px; display: inline;" />
-							<p:commandButton value="#{msgs['FORM.CANCEL']}"
-								onclick="PF('selectServiceSignataire').hide();" />
-						</p:dialog>
-					</h:panelGrid>
-				</h:panelGrid>
-			</h:form>
-			<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
-		</p:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formSelConvention">
+                <ui:include src="_roadmapSel.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+                        <t:htmlTag value="i" styleClass="fa fa-user fz16 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE7.HEADER']}"
+                                      styleClass="fontBold fontBlue2 fz16 ml5"
+                                      escape="false"/>
+
+                        <t:div rendered="#{empty conventionController.convention.signataire || conventionController.convention.signataire.id == 0}">
+                            <h:outputText value="#{msgs['CONTACT.AUCUNSIGNATAIRE']}"
+                                          escape="false" />
+                            <t:htmlTag value="div" style="width: 50px;" />
+                        </t:div>
+
+                        <t:div styleClass="mt5 ml20"
+                               rendered="#{not empty conventionController.convention.signataire and conventionController.convention.signataire.id gt 0}">
+                            <p:dataTable value="#{conventionController.convention.signataire}" var="signataire"
+                                         rowStyleClass="noPointer" styleClass="mt10"
+                                         tableStyle="table-layout: auto;" reflow="true">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <t:htmlTag id="civiliteHeader" value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer">
+                                            <p:tooltip for="civiliteHeader" value="#{msgs['CONTACT.CIVILITE']}"/>
+                                        </t:htmlTag>
+                                    </f:facet>
+                                    <h:outputText id="civC" value="#{signataire.civilite.libelle}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONTACT.NOM']}" />
+                                    </f:facet>
+                                    <h:outputText id="nomC" value="#{signataire.nom}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONTACT.PRENOM']}" />
+                                    </f:facet>
+                                    <h:outputText id="prenomC" value="#{signataire.prenom}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONTACT.FONCTION']}" />
+                                    </f:facet>
+                                    <h:outputText id="fonctionC" value="#{signataire.fonction}" />
+                                </p:column>
+                                <p:column style="word-break: break-all;">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
+                                    </f:facet>
+                                    <t:div rendered="#{not empty signataire.tel}">
+                                        <b>Tel : </b>
+                                        <h:outputText id="telC" value="#{signataire.tel}" />
+                                    </t:div>
+                                    <t:div rendered="#{not empty signataire.fax}">
+                                        <b>Fax : </b>
+                                        <h:outputText id="faxC" value="#{signataire.fax}" />
+                                    </t:div>
+                                    <t:div rendered="#{not empty signataire.mail}">
+                                        <b>Mail : </b>
+                                        <h:outputText id="mailC" value="#{signataire.mail}" />
+                                    </t:div>
+                                </p:column>
+                            </p:dataTable>
+
+                            <t:div styleClass="textCenter mt15">
+                                <p:commandButton value="#{msgs['FORM.MODIFIER']} les informations de ce contact"
+                                                 oncomplete="PF('modifContact').show();" update="modifContact"
+                                                 rendered="#{not empty conventionController.convention.signataire and !conventionController.conventionValide
+                                    and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+                                    || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
+                                    (!sessionController.autoriserEtudiantAModifierEntreprise
+                                    and ((empty conventionController.convention.contact.loginModif and
+                                    conventionController.convention.contact.loginCreation==sessionController.currentLogin)
+                                    || (conventionController.convention.contact.loginModif==sessionController.currentLogin)))))))}">
+                                    <f:setPropertyActionListener
+                                            value="#{conventionController.convention.signataire}"
+                                            target="#{etablissementController.formContact}" />
+                                    <f:setPropertyActionListener value="#{false}"
+                                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
+                                    <f:setPropertyActionListener value="_modifContactEtape0"
+                                                                 target="#{sessionController.modifContactCurrentPage}" />
+                                </p:commandButton>
+                                <p:commandButton
+                                        value="#{msgs['CONVENTION.ETAPE7.MODIF.SIGNATAIRE']}"
+                                        oncomplete="PF('selectServiceSignataire').show();"
+                                        styleClass="ml20"
+                                        rendered="#{!conventionController.conventionValide
+                                    and (welcomeController.superAdmin || welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)}">
+                                    <f:setPropertyActionListener value="#{0}"
+                                                                 target="#{etablissementController.idContactSel}" />
+                                    <f:setPropertyActionListener value="#{null}"
+                                                                 target="#{etablissementController.contactSel}" />
+                                    <f:setPropertyActionListener
+                                            value="#{conventionController.convention.service.idService}"
+                                            target="#{etablissementController.idServiceSel}" />
+                                    <f:setPropertyActionListener
+                                            value="#{conventionController.convention.service}"
+                                            target="#{etablissementController.serviceSel}" />
+                                    <f:setPropertyActionListener value="#{false}"
+                                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
+                                </p:commandButton>
+                                <p:dialog id="selectServiceSignataire"
+                                          widgetVar="selectServiceSignataire"
+                                          resizable="false">
+
+                                    <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml" />
+
+                                    <t:div styleClass="textCenter mt20 mb20">
+                                        <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+                                                         action="#{conventionController.goToConventionModifSignataire}"
+                                                         oncomplete="PF('selectServiceSignataire').hide();"
+                                                         update="@form">
+                                            <f:setPropertyActionListener value="#{etablissementController.contactSel}"
+                                                                         target="#{conventionController.convention.signataire}" />
+                                        </p:commandButton>
+                                        <p:commandButton value="#{msgs['FORM.CANCEL']}"
+                                                         onclick="PF('selectServiceSignataire').hide();" />
+                                    </t:div>
+                                </p:dialog>
+                            </t:div>
+                        </t:div>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

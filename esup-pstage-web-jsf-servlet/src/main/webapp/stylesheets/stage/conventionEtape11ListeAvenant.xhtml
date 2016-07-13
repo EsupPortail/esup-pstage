@@ -1,168 +1,169 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel rendered="#{conventionController.convention != null}">
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE11.LISTE']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formListeAvenant">
-				<h:panelGrid align="center"
-					rendered="#{avenantController.listeAvenantVide and !welcomeController.etudiant}">
-					<h:outputText value="#{msgs['CONVENTION.ETAPE11.VIDE']}" />
-				</h:panelGrid>
-				<h:panelGrid
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;"
-					rendered="#{!avenantController.listeAvenantVide and conventionController.convention.validationConvention}">
-					<p:outputPanel>
-						<t:htmlTag value="div" style="height: 15px;" />
-						<p:dataTable id="listeAvenant"
-							style="border-right:1px solid #C0C0C0; margin: 0 auto;"
-							value="#{avenantController.listeAvenants}" var="avenant" rows="5"
-							rowHover="true" rowStyleClass="noPointer" paginator="true"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15,20">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formListeAvenant"
+                    rendered="#{conventionController.convention != null}">
+                <ui:include src="_roadmapSel.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
-							<p:column sortBy="#{avenant.idAvenant}">
-								<f:facet name="header">
-									<h:outputText value="#{msgs['CONVENTION.ETAPE11.ID']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText value="#{avenant.idAvenant}" />
-								</t:htmlTag>
-							</p:column>
+                        <t:htmlTag value="i" styleClass="fa fa-file-text fz16 fontBlue2"/>
+                        <h:outputText value="#{msgs['EXPORTCONVENTION.AVENANT']}"
+                                      styleClass="fontBold fontBlue2 fz16 ml5" escape="false" />
 
-							<p:column sortBy="#{avenant.titreAvenant}">
-								<f:facet name="header">
-									<h:outputText value="#{msgs['CONVENTION.ETAPE11.TITRE']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText value="#{avenant.titreAvenant}" />
-								</t:htmlTag>
-							</p:column>
+                        <t:div styleClass="mt15"
+                               rendered="#{!avenantController.listeAvenantVide and conventionController.convention.validationConvention}">
+                            <p:dataTable id="listeAvenant"
+                                         value="#{avenantController.listeAvenants}" var="avenant" rows="5"
+                                         rowHover="true" rowStyleClass="noPointer" paginator="true"
+                                         tableStyle="table-layout: auto;" reflow="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false">
+                                <p:column sortBy="#{avenant.idAvenant}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONVENTION.ETAPE11.ID']}" />
+                                    </f:facet>
+                                    <t:div styleClass="textCenter">
+                                        <h:outputText value="#{avenant.idAvenant}" />
+                                    </t:div>
+                                </p:column>
 
-							<p:column>
-								<f:facet name="header">
-									<h:outputText value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:panelGrid columns="2" rendered="#{avenant.rupture}">
-										<h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE']} :" />
-										<h:outputText value="#{avenant.dateRupture}">
-											<f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
-										</h:outputText>
-									</h:panelGrid>
-									<h:panelGrid rendered="#{!avenant.rupture}">
-										<h:outputText rendered="#{avenant.modificationSujet}"
-											value="#{msgs['CONVENTION.ETAPE11.SUJET']}" />
-										<h:outputText rendered="#{avenant.modificationPeriode}"
-											value="#{msgs['CONVENTION.ETAPE11.PERIODE']}" />
-										<h:outputText rendered="#{avenant.modificationLieu}"
-											value="#{msgs['CONVENTION.ETAPE11.LIEU']}" />
-										<h:outputText rendered="#{avenant.modificationSalarie}"
-											value="#{msgs['CONVENTION.ETAPE11.SALARIE']}" />
-										<h:outputText rendered="#{avenant.modificationEnseignant}"
-											value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT']}" />
-										<h:outputText
-											rendered="#{avenant.modificationMontantGratification}"
-											value="#{msgs['CONVENTION.ETAPE11.MONTANT_GRATIFICATION']}" />
-										<h:outputText escape="false"
-											rendered="#{not empty avenant.motifAvenant}"
-											value="- Autre (texte libre)" />
-									</h:panelGrid>
-								</t:htmlTag>
-							</p:column>
+                                <p:column sortBy="#{avenant.titreAvenant}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONVENTION.ETAPE11.TITRE']}" />
+                                    </f:facet>
+                                    <t:div styleClass="textCenter">
+                                        <h:outputText value="#{avenant.titreAvenant}" />
+                                    </t:div>
+                                </p:column>
 
-							<p:column sortBy="#{avenant.validationAvenant}">
-								<f:facet name="header">
-									<h:outputText value="#{msgs['CONVENTION.ETAPE11.VALIDATION']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:outputText rendered="#{avenant.validationAvenant}"
-										value="#{msgs['FORM.OUI']}" />
-									<h:outputText rendered="#{!avenant.validationAvenant}"
-										value="#{msgs['FORM.NON']}" />
-								</t:htmlTag>
-							</p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONVENTION.ETAPE11.TYPE']}" />
+                                    </f:facet>
+                                    <t:div styleClass="textCenter">
+                                        <t:div rendered="#{avenant.rupture}">
+                                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE']} :" />
+                                            <h:outputText value="#{avenant.dateRupture}" styleClass="ml5">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                                            </h:outputText>
+                                        </t:div>
+                                        <t:div rendered="#{!avenant.rupture}">
+                                            <t:div>
+                                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.SUJET']}"
+                                                              rendered="#{avenant.modificationSujet}" />
+                                            </t:div>
+                                            <t:div>
+                                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.PERIODE']}"
+                                                              rendered="#{avenant.modificationPeriode}" />
+                                            </t:div>
+                                            <t:div>
+                                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU']}"
+                                                              rendered="#{avenant.modificationLieu}" />
+                                            </t:div>
+                                            <t:div>
+                                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.SALARIE']}"
+                                                              rendered="#{avenant.modificationSalarie}" />
+                                            </t:div>
+                                            <t:div>
+                                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT']}"
+                                                              rendered="#{avenant.modificationEnseignant}" />
+                                            </t:div>
+                                            <t:div>
+                                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.MONTANT_GRATIFICATION']}"
+                                                              rendered="#{avenant.modificationMontantGratification}" />
+                                            </t:div>
+                                            <t:div>
+                                                <h:outputText value="- Autre (texte libre)" escape="false"
+                                                              rendered="#{not empty avenant.motifAvenant}" />
+                                            </t:div>
+                                        </t:div>
+                                    </t:div>
+                                </p:column>
 
-							<p:column
-								rendered="#{welcomeController.superAdmin || welcomeController.etudiant
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
-								<f:facet name="header">
-									<h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
-								</f:facet>
-								<t:htmlTag value="center">
-									<h:commandLink id="see"
-										action="#{avenantController.goToDetailAvenant}">
-										<f:setPropertyActionListener value="#{avenant}"
-											target="#{avenantController.avenant}" />
-										<h:graphicImage alt="#{msgs['FORM.VOIR']}"
-											value="../../media/images/zoom.png" />
-										<p:tooltip value="#{msgs['FORM.CONSULTER']}" />
-									</h:commandLink>
-									<p:commandLink rendered="#{!avenant.validationAvenant}"
-										oncomplete="PF('suppressionAvenant').show();"
-										update="suppressionAvenant">
-										<f:setPropertyActionListener value="#{avenant}"
-											target="#{avenantController.avenant}" />
-										<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}" id="delete"
-											value="../../media/images/delete.png" />
-										<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-									</p:commandLink>
-								</t:htmlTag>
-							</p:column>
-						</p:dataTable>
+                                <p:column sortBy="#{avenant.validationAvenant}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['CONVENTION.ETAPE11.VALIDATION']}" />
+                                    </f:facet>
+                                    <t:div styleClass="textCenter">
+                                        <h:outputText value="#{msgs['FORM.OUI']}"
+                                                      rendered="#{avenant.validationAvenant}" />
+                                        <h:outputText value="#{msgs['FORM.NON']}"
+                                                      rendered="#{!avenant.validationAvenant}" />
+                                    </t:div>
+                                </p:column>
 
-						<t:htmlTag value="div" style="height: 10px;" />
-						<h:panelGrid columns="2" align="center">
-							<h:graphicImage id="warn" alt="#{msgs['GENERAL.WARNING']}"
-								title="#{msgs['GENERAL.WARNING']}"
-								value="../../media/images/warning_20px.png" />
-							<h:outputLabel for="warn"
-								value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.RAPPEL']}" />
-						</h:panelGrid>
-					</p:outputPanel>
+                                <p:column style="background-color: #A5A5A5;"
+                                          rendered="#{welcomeController.superAdmin || welcomeController.etudiant
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                                    || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
+                                    </f:facet>
+                                    <t:div styleClass="textCenter">
+                                        <p:commandLink id="see"
+                                                       action="#{avenantController.goToDetailAvenant}">
+                                            <f:setPropertyActionListener value="#{avenant}"
+                                                                         target="#{avenantController.avenant}" />
+                                            <t:htmlTag value="i" styleClass="fa fa-search fz16" />
+                                            <p:tooltip for="see" value="#{msgs['FORM.CONSULTER']}" />
+                                        </p:commandLink>
+                                        <p:commandLink id="delete" rendered="#{!avenant.validationAvenant}"
+                                                       oncomplete="PF('suppressionAvenant').show();"
+                                                       styleClass="ml5"
+                                                       update="suppressionAvenant">
+                                            <f:setPropertyActionListener value="#{avenant}"
+                                                                         target="#{avenantController.avenant}" />
+                                            <t:htmlTag value="i" styleClass="fa fa-trash fz16" />
+                                            <p:tooltip for="delete" value="#{msgs['FORM.SUPPRIMER']}" />
+                                        </p:commandLink>
+                                    </t:div>
+                                </p:column>
+                            </p:dataTable>
 
-					<t:htmlTag value="div" style="height: 5px;" />
-				</h:panelGrid>
-				<h:panelGrid align="center"
-					rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-			and conventionController.convention.validationConvention}">
-					<h:panelGrid columns="2" align="center">
-						<h:outputText value="#{msgs['CONVENTION.ETAPE11.CREATION']}"
-							escape="false" />
-						<h:commandLink id="add"
-							action="#{avenantController.goToCreaAvenantPage1}">
-							<h:graphicImage alt="#{msgs['CONVENTION.ETAPE11.AJOUTER']}"
-								value="../../media/images/new.png" />
-							<p:tooltip value="#{msgs['CONVENTION.ETAPE11.AJOUTER']}" />
-						</h:commandLink>
-					</h:panelGrid>
-				</h:panelGrid>
-				<h:panelGrid columns="2" align="center"
-					rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
-			|| sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
-			and !conventionController.convention.validationConvention}">
-					<h:graphicImage id="warn2" alt="#{msgs['GENERAL.WARNING']}"
-						title="#{msgs['GENERAL.WARNING']}"
-						value="../../media/images/warning_20px.png" />
-					<h:outputLabel for="warn2"
-						value="#{msgs['CONVENTION.ETAPE11.INVALIDE']}" />
-				</h:panelGrid>
-			</h:form>
-			<ui:include src="./_panel_suppressionAvenant.xhtml" />
-		</p:panel>
-		<t:div rendered="#{conventionController.convention == null}">
-			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
-		</t:div>
-	</ui:define>
+                            <t:div styleClass="textCenter mt10 mb10 fontRed">
+                                <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz16" />
+                                <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.RAPPEL']}" />
+                            </t:div>
+                        </t:div>
+                        <t:div styleClass="textCenter mt15"
+                               rendered="#{conventionController.convention.validationConvention and avenantController.listeAvenantVide and !welcomeController.etudiant}">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.VIDE']}"
+                                          styleClass="fontBold"/>
+                        </t:div>
+                        <t:div styleClass="textCenter mt15"
+                               rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
+                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+                            and conventionController.convention.validationConvention}">
+                            <p:commandButton id="add" icon="fa fa-plus fz13"
+                                             value="#{msgs['CONVENTION.ETAPE11.CREATION']}"
+                                             action="#{avenantController.goToCreaAvenantPage1}"/>
+                        </t:div>
+                        <t:div styleClass="textCenter fontRed mt15"
+                               rendered="#{(welcomeController.superAdmin || welcomeController.etudiant
+                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
+                            || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture)
+                            and !conventionController.convention.validationConvention}">
+                            <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz16" />
+                            <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.ETAPE11.INVALIDE']}" />
+                        </t:div>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="./_panel_suppressionAvenant.xhtml" />
+            <t:div style="max-width: 900px;"
+                   rendered="#{conventionController.convention == null}">
+                <ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+            </t:div>
+        </p:panel>
+    </ui:define>
 </ui:composition>

@@ -17,8 +17,6 @@
 
                         <ui:include src="/stylesheets/stage/_formStage.xhtml" />
 
-                        <p:messages />
-
                         <p:outputPanel id="opFCE">
                             <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
                                 <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
@@ -31,9 +29,8 @@
                             <p:commandButton id="modifStage"
                                              value="#{msgs['FORM.MODIFIER']}"
                                              action="#{conventionController.modifierStageDetail}"
-                                             alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
                                              rendered="#{not empty conventionController.convention}"
-                                             update="opFCE" />
+                                             update="@form" />
                         </t:div>
 
                         <p:commandButton value="#{msgs['GENERAL.RETOUR']}"

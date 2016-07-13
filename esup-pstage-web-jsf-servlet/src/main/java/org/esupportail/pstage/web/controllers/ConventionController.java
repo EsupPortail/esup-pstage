@@ -4278,6 +4278,8 @@ public class ConventionController extends AbstractContextAwareController {
 		ConventionDTO conventionTmp = new ConventionDTO();
 		conventionTmp.setIdConvention(this.convention.getIdConvention());
 		conventionTmp.setValidationConvention(true);
+		// on recupere la validation pedagogique si elle est activee
+		conventionTmp.setValidationPedagogique(this.convention.isValidationPedagogique());
 		conventionTmp.setLoginValidation(getSessionController().getCurrentLogin());
 //		conventionTmp.setDateValidation(new Date()); date deja gere par le current_timestamp cote pstagedata
 		try {
@@ -4288,9 +4290,7 @@ public class ConventionController extends AbstractContextAwareController {
 				// l'activation ou non de la validation pedagogique (pas d'envoi
 				// si c'est le cas)
 				if (getSessionController().isAvertissementEtudiantConvention()
-						&& (!getSessionController().isValidationPedagogique() || (getSessionController()
-						.isValidationPedagogique() && !this.convention
-						.getCentreGestion().isValidationPedagogique()))) {
+						&& (!getSessionController().isValidationPedagogique() || (getSessionController().isValidationPedagogique() && !this.convention.getCentreGestion().isValidationPedagogique()))) {
 					this.sendMailEtudiantValidationConvention();
 				}
 				addInfoMessage("formSelConvention:validationConvention", "CONVENTION.VALIDER.CONFIRMATION",
@@ -4332,6 +4332,9 @@ public class ConventionController extends AbstractContextAwareController {
 		conventionTmp.setIdConvention(this.convention.getIdConvention());
 		conventionTmp.setLoginValidation(getSessionController().getCurrentLogin());
 		conventionTmp.setDateValidation(new Date());
+		conventionTmp.setValidationConvention(false);
+		// on recupere la validation pedagogique si elle est activee
+		conventionTmp.setValidationPedagogique(this.convention.isValidationPedagogique());
 		try {
 			if (this.getConventionDomainService().updateConventionValidation(
 					conventionTmp)) {

@@ -72,7 +72,7 @@
                         <p:commandButton id="modifEtudiant" value="#{msgs['FORM.MODIFIER']}"
                                          action="#{conventionController.goToConventionModifEtudiant}"
                                          onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
-                                         styleClass="mt20 ml20"
+                                         styleClass="mt15 ml20"
                                          rendered="#{not empty conventionController.convention.etudiant and !conventionController.conventionValide
                                 and (welcomeController.etudiant || sessionController.adminPageAuthorized || sessionController.pageAuthorized
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin

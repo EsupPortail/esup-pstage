@@ -7,7 +7,7 @@
     <t:htmlTag value="i" styleClass="fa fa-info-circle fz16 fontBlue2"/>
     <h:outputText value="#{msgs['CONVENTION.ETAPE9.IMPRESSION']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
 
-    <h:panelGrid columns="2" styleClass="mt10 ml20"
+    <h:panelGrid columns="2" styleClass="mt10 ml20 textCenter"
                  style="border:solid 1px;" cellspacing="5">
         <h:outputText styleClass="fontBold" value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
         <h:outputText value="#{conventionController.convention.etudiant.nom}   #{conventionController.convention.etudiant.nomMarital}   #{conventionController.convention.etudiant.prenom}" />

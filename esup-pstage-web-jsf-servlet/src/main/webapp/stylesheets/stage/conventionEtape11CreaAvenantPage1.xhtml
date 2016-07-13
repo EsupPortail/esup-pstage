@@ -1,56 +1,45 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel rendered="#{conventionController.convention != null}">
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE11.CREA']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formCreaAvenantPage1">
-				<h:panelGrid
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formCreaAvenant">
+                <ui:include src="_roadmapSel.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
-					<ui:include src="/stylesheets/stage/_formAvenantPage1.xhtml" />
+                        <ui:include src="/stylesheets/stage/_formAvenantPage1.xhtml" />
 
-					<h:panelGrid align="center">
-						<p:commandButton value="#{msgs['CONVENTION.ETAPE11.CREER']}"
-							status="statusCreaAvenant"
-							action="#{avenantController.goToCreaAvenantPage2}" />
-						<h:outputText id="erreurCreation" value="" />
-						<p:message for="erreurCreation">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<t:htmlTag value="center">
-							<p:ajaxStatus name="statusCreaAvenant">
-								<f:facet name="start">
-									<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
-								</f:facet>
-							</p:ajaxStatus>
-						</t:htmlTag>
-					</h:panelGrid>
-				</h:panelGrid>
+                        <t:div styleClass="textCenter">
+                            <p:commandButton value="#{msgs['CONVENTION.ETAPE11.CREER']}"
+                                             action="#{avenantController.goToCreaAvenantPage2}"
+                                             update="@form"/>
+                        </t:div>
 
-				<t:htmlTag value="div" style="height:10px;" />
+                        <t:htmlTag value="div" style="height:10px;" />
 
-				<h:commandButton id="retour" style="float:left;"
-					value="#{msgs['GENERAL.RETOUR']}" immediate="true"
-					action="#{avenantController.goToListeAvenant}">
-					<p:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
-				</h:commandButton>
+                        <p:message for="formCreaAvenant" />
 
-				<t:htmlTag value="div" style="height: 20px;" />
-			</h:form>
-			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="./_panel_rechEnseignantAvenant.xhtml" />
-		</p:panel>
-		<t:div rendered="#{conventionController.convention == null}">
-			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
-		</t:div>
-	</ui:define>
+                        <t:htmlTag value="div" style="height:10px;" />
+
+                        <p:commandButton id="retour" styleClass="mt20"
+                                         value="#{msgs['GENERAL.RETOUR']}" immediate="true"
+                                         action="#{avenantController.goToListeAvenant}"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="./_panel_rechEnseignantAvenant.xhtml" />
+        </p:panel>
+        <t:div rendered="#{conventionController.convention == null}">
+            <ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

@@ -115,7 +115,7 @@ public class AvenantController extends AbstractContextAwareController {
 	 * @return boolean
 	 */
 	public boolean listeAvenantVide(){
-		if ((getAvenantDomainService().getNombreAvenant(conventionController.getConvention().getIdConvention())) > 0){
+		if (conventionController.getConvention() != null && (getAvenantDomainService().getNombreAvenant(conventionController.getConvention().getIdConvention()) > 0)){
 			return false;
 		}
 		return true;
@@ -143,6 +143,8 @@ public class AvenantController extends AbstractContextAwareController {
 		etablissementController.setContactSel(conventionController.getConvention().getContact());
 		this.avenant = new AvenantDTO();
 
+
+
 		return "conventionEtape11CreaAvenantPage1";
 	}
 
@@ -162,7 +164,7 @@ public class AvenantController extends AbstractContextAwareController {
 	 */
 	public String goToCreaAvenantPage2(){
 		if (logger.isDebugEnabled()) {
-			logger.debug("AvenantController:: goToCreaAvenantPage2");
+			logger.debug("AvenantController - goToCreaAvenantPage2");
 		}
 		if(!this.avenant.isRupture()){
 			if (this.avenant.isModificationPeriode()){
@@ -246,21 +248,19 @@ public class AvenantController extends AbstractContextAwareController {
 		}
 		else{
 			// cas où il y a rupture, rentrer seulement la date de rupture
-
-			java.util.Date dateDebutStage=conventionController.getConvention().getDateDebutStage();
+			java.util.Date dateDebutStage = conventionController.getConvention().getDateDebutStage();
 			java.util.Date dateFinStage = conventionController.getConvention().getDateFinStage();
 			java.util.Date dateRupture = this.avenant.getDateRupture();
+
 			if (dateRupture != null){
-				if (dateRupture.before(dateDebutStage) 
-						|| dateRupture.after(dateFinStage)){
+				if (dateRupture.before(dateDebutStage) || dateRupture.after(dateFinStage)){
 					// Si la date de debut d'interruption est inferieure a la date de debut du stage, ou superieure aux dates de fin d'interruption ou de stage
 					// ou si la date de fin d'interruption est superieure a la date de fin de stage, ou inferieure aux dates de debut d'interruption ou de stage
-					addErrorMessage("formCreaAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
+					addErrorMessage("formCreaAvenant", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
 					return null;
 				}
-			}
-			else {
-				addErrorMessage("formCreaAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
+			} else {
+				addErrorMessage("formCreaAvenant", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
 				return null;
 			}
 		}
@@ -413,12 +413,12 @@ public class AvenantController extends AbstractContextAwareController {
 						|| dateRupture.after(dateFinStage)){
 					// Si la date de debut d'interruption est inferieure a la date de debut du stage, ou superieure aux dates de fin d'interruption ou de stage
 					// ou si la date de fin d'interruption est superieure a la date de fin de stage, ou inferieure aux dates de debut d'interruption ou de stage
-					addErrorMessage("formModifAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
+					addErrorMessage("formModifAvenantPage1:divDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE");
 					return null;
 				}
 			}
 			else {
-				addErrorMessage("formModifAvenantPage1:erreurDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
+				addErrorMessage("formModifAvenantPage1:divDateRupture", "CONVENTION.ETAPE11.ERREUR_DATE_RUPTURE2");
 				return null;
 			}
 		}

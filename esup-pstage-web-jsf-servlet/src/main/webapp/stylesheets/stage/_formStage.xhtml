@@ -97,7 +97,6 @@
                     <p:message for="dateDebutStage"/>
                 </t:htmlTag>
                 <t:htmlTag value="li">
-
                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.FINSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
                     <p:calendar id="dateFinStage"
                                 value="#{conventionController.convention.dateFinStage}"
@@ -252,7 +251,7 @@
     </p:fieldset>
 
     <p:fieldset legend="#{msgs['CONVENTION.ETAPE5.CHOIXSTAGE.GRATIFICATION']}" styleClass="mt10">
-        <t:div style="display: flex; align-items: center;" styleClass="ml40">
+        <t:div styleClass="ml40 verticalAlignDiv">
             <t:htmlTag id="infoGratification" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
                 <p:tooltip for="infoGratification" value="#{msgs['INFOSBULLES.GRATIFICATION']}" escape="false"/>
             </t:htmlTag>
@@ -278,7 +277,7 @@
                         <t:htmlTag value="li">
                             <h:outputText value="#{msgs['CONVENTION.SIMTGRATIFICATION']}"
                                           styleClass="fontBold" style="white-space: nowrap;"/>
-                            <t:div style="display: flex; align-items: center;" styleClass="mt5">
+                            <t:div styleClass="mt5 verticalAlignDiv">
                                 <p:inputText id="montantGratification" size="4" style="width:auto;" styleClass="ml5"
                                              required="true"
                                              value="#{conventionController.convention.montantGratification}"
@@ -305,7 +304,7 @@
 
                             <h:outputText value="Monnaie utilisee pour le paiement "
                                           styleClass="fontBold" />
-                            <t:div style="display: flex; align-items: center;" styleClass="mt5">
+                            <t:div styleClass="mt5 verticalAlignDiv">
                                 <h:selectOneMenu id="monnaieGratification" effect="none"
                                                  value="#{conventionController.selMonnaieGratification}"
                                                  style="width: auto;" styleClass="ml5 customPstage">
@@ -327,7 +326,7 @@
                         <t:htmlTag value="li">
                             <h:outputText value="#{msgs['CONVENTION.MODEVERSGRAT']} *" style="white-space: nowrap;"
                                           styleClass="fontBold"/>
-                            <t:div styleClass="mt5" style="display: flex; align-items: center;">
+                            <t:div styleClass="mt5 verticalAlignDiv">
                                 <h:selectOneMenu id="modeVersGratification" effect="none" styleClass="ml5 customPstage"
                                                  value="#{conventionController.selModeVersGratification}"
                                                  converter="#{modeVersGratificationConverter}">

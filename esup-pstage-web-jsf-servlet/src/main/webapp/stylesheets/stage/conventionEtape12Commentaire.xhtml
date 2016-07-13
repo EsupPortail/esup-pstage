@@ -13,8 +13,12 @@
 			</f:facet>
 			<h:form id="formCommentaire">
 				<t:htmlTag value="div" style="height: 20px;" />
+                <t:htmlTag value="i" styleClass="fa fa-comment fz16 fontBlue2"/>
+                <h:outputText value="Commentaire(s) sur le stage"
+                              styleClass="fontBold fontBlue2 fz16 ml5" />
+
 				<h:outputLabel for="divCommentaire"
-					value="Commentaire sur le stage : " />
+					value="Commentaire sur le stage" />
 				<t:div
 					rendered="#{welcomeController.etudiant || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitLecture}">
 					<h:outputText

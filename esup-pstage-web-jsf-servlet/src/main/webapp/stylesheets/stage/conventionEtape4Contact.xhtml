@@ -16,13 +16,15 @@
                     <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
                         <t:htmlTag value="i" styleClass="fa fa-user fz16 fontBlue2"/>
-                        <h:outputText value="#{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE4.HEADER']}"
                                       styleClass="fontBold fontBlue2 fz16 ml5"
                                       escape="false"/>
+
                         <t:div styleClass="mt5 ml20">
                             <p:dataTable
                                     value="#{conventionController.convention.contact}" var="contact"
-                                    rowStyleClass="noPointer" styleClass="mt10">
+                                    rowStyleClass="noPointer" styleClass="mt10"
+                                    tableStyle="table-layout: auto;" reflow="true">
                                 <p:column style="width:20px;">
                                     <f:facet name="header">
                                         <t:htmlTag id="civiliteHeader" value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer">

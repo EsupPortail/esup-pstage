@@ -988,6 +988,10 @@ select.customPstage::-ms-expand {
   content: "\f071";
   margin-right: 0.5em;
 }
+.verticalAlignDiv {
+  display: flex;
+  align-items: center;
+}
 .fz16 {
   font-size: 1.6rem;
 }
