@@ -61,7 +61,7 @@
 										  rendered="#{not empty etablissementController.serviceSel}" />
 							<p:dataTable value="#{etablissementController.serviceSel}" tableStyle="table-layout: auto;" reflow="true"
 										 rendered="#{not empty etablissementController.serviceSel}">
-								<ui:include src="../_commun/_serviceColumns.xhtml" />
+								<ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
 								<p:column
 										rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 									<p:commandLink  id="modif"
@@ -88,7 +88,7 @@
 													<!-- 												<t:htmlTag value="br" /> -->
 													<t:aliasBean alias="#{objet}"
 																 value="#{etablissementController.serviceSel}">
-														<ui:include src="../_commun/_updateInfos.xhtml" />
+														<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
 													</t:aliasBean>
 												</t:htmlTag>
 												<!-- </t:div> -->
@@ -309,7 +309,7 @@
 														   rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 													<t:htmlTag value="br" />
 													<t:aliasBean alias="#{objet}" value="#{contact}">
-														<ui:include src="../_commun/_updateInfos.xhtml" />
+														<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
 													</t:aliasBean>
 												</t:htmlTag>
 											</h:panelGrid>
@@ -406,7 +406,7 @@
 								<!--rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">-->
 								<!--<t:htmlTag value="br" />-->
 								<!--<t:aliasBean alias="#{objet}" value="#{contact}">-->
-								<!--<ui:include src="../_commun/_updateInfos.xhtml" />-->
+								<!--<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />-->
 								<!--</t:aliasBean>-->
 								<!--</t:htmlTag>-->
 								<!--</h:panelGrid>-->
@@ -451,12 +451,12 @@
 								 title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
 			</h:form>
 
-			<ui:include src="../_commun/_panelAjoutService.xhtml" />
-			<ui:include src="../_commun/_panelModifService.xhtml" />
-			<ui:include src="../_commun/_panelSupprService.xhtml" />
-			<ui:include src="../_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="../_commun/_panelModifContact.xhtml" />
-			<ui:include src="../_commun/_panelSupprContact.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelSupprService.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+			<ui:include src="/stylesheets/_commun/_panelSupprContact.xhtml" />
 		</p:panel>
 	</ui:define>
 </ui:composition>

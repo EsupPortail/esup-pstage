@@ -23,15 +23,15 @@
 							<t:aliasBean alias="#{structure}"
 										 value="#{rechercheController.resultatRechercheStructure}">
 								<ui:include
-										src="../_commun/_rechercheEtablissementAffichage.xhtml" />
+										src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
 							</t:aliasBean>
-								<ui:include src="../_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+								<ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
 						</t:div>
 						<h:panelGrid style="float:right;"
 									 rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
 							<t:aliasBean alias="#{objet}"
 										 value="#{rechercheController.resultatRechercheStructure}">
-								<ui:include src="../_commun/_updateInfos.xhtml" />
+								<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
 							</t:aliasBean>
 						</h:panelGrid>
 					</p:outputPanel>
@@ -44,7 +44,7 @@
 								 title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
 			</h:form>
 		</p:panel>
-		<ui:include src="../_commun/_panelSupprStructure.xhtml" />
+		<ui:include src="/stylesheets/_commun/_panelSupprStructure.xhtml" />
 		<ui:include src="./_panel_validStructure.xhtml" />
 	</ui:define>
 </ui:composition>
