@@ -1585,10 +1585,7 @@ public class ConventionController extends AbstractContextAwareController {
 		String retour = null;
 
 		String infoModif = "";
-		System.out.println("currentManagedStructure : " + getSessionController().getCurrentManageStructure());
-		System.out.println("serviceSel : " + serviceSel);
-		System.out.println("contactSel : " + contactSel);
-		System.out.println("signataireSel : " + signataireSel);
+
 		// On applique toutes les modifs sur la convention
 		if (getSessionController().getCurrentManageStructure() != null) {
 			infoModif = " l'établissement d'accueil - ";
@@ -4051,12 +4048,18 @@ public class ConventionController extends AbstractContextAwareController {
 	 *
 	 */
 	public void rechercheEnseignantAvenant() {
-		String nomForm = "formRechEnseignant";
+		String nomForm = "formRechEnseignantAvenant";
 
 		this.resultatEnseignant = new EnseignantDTO();
-		this.listeEnseignant = new ArrayList<EnseignantDTO>();
-		this.listeResultatsRechercheEnseignant = new ArrayList<EnseignantDTO>();
+		this.listeEnseignant = new ArrayList<>();
+		this.listeResultatsRechercheEnseignant = new ArrayList<>();
 		rechercheEnseignant(nomForm);
+
+		// Si un seul resultat, on le remet dans la liste
+		// (pas d'affichage unique dans la popup avenant)
+		if (this.resultatEnseignant != null){
+			this.listeEnseignant.add(this.resultatEnseignant);
+		}
 	}
 
 	/**
@@ -4177,9 +4180,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public void rechercheEnseignant(final String nomForm) {
 		boolean NomPrenomEnseigOK = true;
-		if ((!StringUtils.hasText(this.rechNomEnseignant))
-				&& (!StringUtils.hasText(this.rechPrenomEnseignant))) {
-			addErrorMessage(nomForm + ":nom", "RECHERCHEENSEIGNANT.OBLIGATOIRE");
+		if (!StringUtils.hasText(this.rechNomEnseignant)
+				&& !StringUtils.hasText(this.rechPrenomEnseignant)) {
+			addErrorMessage(nomForm, "RECHERCHEENSEIGNANT.OBLIGATOIRE");
 			NomPrenomEnseigOK = false;
 		}
 		if (NomPrenomEnseigOK) {
@@ -4355,8 +4358,7 @@ public class ConventionController extends AbstractContextAwareController {
 
 	private void sendMailEtudiantValidationConvention() {
 		try {
-			String text = getString(
-					"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION",
+			String text = getString("ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION",
 					this.convention.getIdConvention(), getSessionController()
 							.getCurrentUser().getDisplayName());
 			String sujet = getString(
@@ -5563,15 +5565,28 @@ public class ConventionController extends AbstractContextAwareController {
 			conventionTmp.setDateModif(new Date());
 			conventionTmp.setCommentaireStage(this.convention.getCommentaireStage());
 
-			if (!this.getConventionDomainService().updateConvention(
-					conventionTmp)) {
+			if (!this.getConventionDomainService().updateConvention(conventionTmp)) {
 				addErrorMessage("formCommentaire",
 						"CONVENTION.CREERCONVENTION.ERREURAJOUT",
 						conventionTmp.getIdConvention());
 			} else {
-				this.alerteMailModifConvention(" le champs Commentaire ");
-				addInfoMessage("formCommentaire",
-						"CONVENTION.VALIDATION_COMMENTAIRE");
+				addInfoMessage("formCommentaire", "CONVENTION.VALIDATION_COMMENTAIRE");
+				// Alerte aux personnels
+				this.alerteMailModifConvention(" le champ Commentaire ");
+
+				// Mail à l'étudiant
+				String mailEtu = this.convention.getEtudiant().getMail();
+				if (this.convention.getCourrielPersoEtudiant() != null
+						&& !this.convention.getCourrielPersoEtudiant().isEmpty()) {
+					mailEtu = this.convention.getCourrielPersoEtudiant();
+				}
+
+				String sujet = getString("CONVENTION.ETAPE12.SUJET_MAIL_ETUDIANT", this.convention.getIdConvention());
+				String text = getString("CONVENTION.ETAPE12.TEXT_MAIL_ETUDIANT",getSessionController().getCurrentUser().getDisplayName(),
+						this.convention.getIdConvention(),
+						this.convention.getDateCreation());
+
+				getSmtpService().send(new InternetAddress(mailEtu), sujet, text, text);
 			}
 		} catch (DataUpdateException ae) {
 			logger.error("DataUpdateException", ae.getCause());
@@ -5582,6 +5597,9 @@ public class ConventionController extends AbstractContextAwareController {
 			addErrorMessage("formCommentaire",
 					"CONVENTION.CREERCONVENTION.CONVENTION.ERREUR",
 					we.getMessage());
+		} catch (AddressException ade) {
+			logger.error("AddressException", ade.getCause());
+			addErrorMessage("formCommentaire", "GENERAL.ERREUR_MAIL");
 		} catch (Exception e) {
 			logger.error("Exception ", e.getCause());
 			addErrorMessage("formCommentaire",
@@ -5595,15 +5613,10 @@ public class ConventionController extends AbstractContextAwareController {
 			// Si c'est un étudiant qui modifie la convention et qu'on est
 			// configurés en alertes mail pour les tuteurs et gestionnaires
 			// ou si la modif porte sur le champs commentaire
-			if ((getSessionController().getCurrentAuthEtudiant() != null || modif
-					.equalsIgnoreCase(" le champs Commentaire "))
-					&& getSessionController()
-					.isAvertissementPersonnelModifConvention()) {
-				String text = getString(
-						"ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_MODIF_CONVENTION",
-						getSessionController().getCurrentUser()
-								.getDisplayName(), modif, this.convention
-								.getIdConvention());
+			if ((getSessionController().getCurrentAuthEtudiant() != null || modif.equalsIgnoreCase(" le champs Commentaire "))
+					&& getSessionController().isAvertissementPersonnelModifConvention()) {
+				String text = getString("ALERTES_MAIL.AVERTISSEMENT_PERSONNEL_MODIF_CONVENTION",
+						getSessionController().getCurrentUser().getDisplayName(), modif, this.convention.getIdConvention());
 
 				String libelleEtape = "";
 				if (this.convention.getEtape() != null
@@ -5629,7 +5642,7 @@ public class ConventionController extends AbstractContextAwareController {
 				// Envoi d'une alerte aux personnels du centre gestion
 				// configurés pour les recevoir
 				List<PersonnelCentreGestionDTO> listePersonnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(
-								this.convention.getIdCentreGestion());
+						this.convention.getIdCentreGestion());
 
 				if (listePersonnels != null) {
 					for (PersonnelCentreGestionDTO personnel : listePersonnels) {
@@ -5637,7 +5650,7 @@ public class ConventionController extends AbstractContextAwareController {
 							if (personnel.getMail() != null
 									&& !personnel.getMail().isEmpty()) {
 								getSmtpService().send(new InternetAddress(
-										personnel.getMail()), sujet,
+												personnel.getMail()), sujet,
 										text, text);
 							}
 						}

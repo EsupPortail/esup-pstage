@@ -1,46 +1,43 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel
-			rendered="#{conventionController.convention != null and avenantController.avenant != null}">
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE11.RECAP']} #{conventionController.convention.idConvention}" />
-			</f:facet>
-			<h:form id="formCreaAvenantPage2">
-				<h:panelGrid
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{conventionController.convention != null and  avenantController.avenant != null}">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formConfirmCreaAvenant">
+                <ui:include src="_roadmapSel.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
-					<ui:include src="/stylesheets/stage/_formAvenantPage2.xhtml" />
+                        <ui:include src="/stylesheets/stage/_detailsAvenant.xhtml" />
 
-					<h:panelGrid align="center">
-						<h:commandButton
-							value="#{msgs['CONVENTION.ETAPE11.CONFIRMATION']}"
-							action="#{avenantController.creerAvenant}" />
-						<h:outputText id="erreurAjoutAvenant" value="" />
-						<p:message for="erreurAjoutAvenant">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-					</h:panelGrid>
-					<br />
+                        <t:div styleClass="textCenter">
+                            <p:commandButton value="#{msgs['CONVENTION.ETAPE11.CONFIRMATION']}"
+                                             action="#{avenantController.creerAvenant}"
+                                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                             update="@form" />
+                        </t:div>
 
-					<h:commandButton id="retour" style="float:left;"
-						value="#{msgs['GENERAL.RETOUR']}"
-						action="#{avenantController.rectifierAvenant}">
-						<p:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
-					</h:commandButton>
-					<t:htmlTag value="div" style="height: 20px;" />
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-		<t:div
-			rendered="#{conventionController.convention == null || avenantController.avenant == null}">
-			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
-		</t:div>
-	</ui:define>
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <p:message for="formConfirmCreaAvenant"/>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <p:commandButton id="retour" styleClass="mt20"
+                                         value="#{msgs['GENERAL.RETOUR']}" immediate="true"
+                                         action="#{avenantController.rectifierAvenant}"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+        </p:panel>
+        <t:div rendered="#{conventionController.convention == null || avenantController.avenant == null}">
+            <ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

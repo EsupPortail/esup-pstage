@@ -13,7 +13,7 @@
                 <h:panelGrid columns="2"
                              rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
                     <h:graphicImage alt="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
-                                    value="../../media/images/script.png" />
+                                    value="/media/images/script.png" />
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
                                   escape="false" />
                 </h:panelGrid>
@@ -36,7 +36,7 @@
                                  var="convention" rows="10" rowHover="true" styleClass="mt5"
                                  rowStyleClass="noPointer" paginator="true" tableStyle="table-layout:auto"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15,20" reflow="true"
+                                 rowsPerPageTemplate="5,10,15,20" reflow="true" paginatorAlwaysVisible="false"
                                  rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader || welcomeController.etudiant || welcomeController.enseignantTuteur}">
 
                         <p:column filterBy="#{convention.idConvention}" sortBy="#{convention.idConvention}">

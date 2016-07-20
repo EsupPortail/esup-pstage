@@ -285,7 +285,7 @@
                                     <f:validator binding="#{mtGratificationValidator}" />
                                     <p:ajax event="blur" update="msgGratification"/>
                                 </p:inputText>
-                                <h:selectOneMenu id="UniteGratification" effect="none" style="width: auto;" styleClass="ml5 customPstage"
+                                <h:selectOneMenu id="uniteGratification" effect="none" style="width: auto;" styleClass="ml5 customPstage"
                                                  value="#{conventionController.selUniteGratification}"
                                                  converter="#{uniteGratificationConverter}">
                                     <f:selectItems value="#{nomenclatureController.uniteGratifications}" />
@@ -293,7 +293,7 @@
                                 <h:outputText styleClass="fontBold mr5 ml5" value=" par " />
                                 <h:selectOneMenu id="uniteDureeGratification" effect="none" style="width: auto;" styleClass="customPstage"
                                                  value="#{conventionController.selUniteDureeGratification}"
-                                                 converter="#{uniteDureeConverter}">
+                                                 converter="#{uniteDureeConverter}" required="true">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems value="#{nomenclatureController.unitesDurees}" />
                                 </h:selectOneMenu>
@@ -302,7 +302,7 @@
 
                             <t:htmlTag value="div" style="height:10px;" />
 
-                            <h:outputText value="Monnaie utilisee pour le paiement "
+                            <h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.GRATIFICATION.MONNAIE']}"
                                           styleClass="fontBold" />
                             <t:div styleClass="mt5 verticalAlignDiv">
                                 <h:selectOneMenu id="monnaieGratification" effect="none"

@@ -1,48 +1,46 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel rendered="#{conventionController.convention != null}">
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE11.MODIF']} #{avenantController.avenant.idAvenant}" />
-			</f:facet>
-			<h:form id="formModifAvenantPage1">
-				<h:panelGrid
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{conventionController.convention != null}">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+            </f:facet>
+            <h:form id="formModifAvenant">
+                <ui:include src="_roadmapSel.xhtml" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
-					<ui:include src="/stylesheets/stage/_formAvenantPage1.xhtml" />
+                        <ui:include src="/stylesheets/stage/_formAvenant.xhtml" />
 
-					<h:panelGrid align="center">
-						<h:commandButton value="#{msgs['CONVENTION.ETAPE11.MODIFIER']}"
-							action="#{avenantController.goToModifAvenantPage2}" />
-						<h:outputText id="erreurModification" value="" />
-						<p:message for="erreurModification">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-					</h:panelGrid>
-				</h:panelGrid>
+                        <t:div styleClass="textCenter">
+                            <p:commandButton value="#{msgs['CONVENTION.ETAPE11.MODIFIER']}"
+                                             action="#{avenantController.goToModifAvenantPage2}"
+                                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                             update="@form" />
+                        </t:div>
 
-				<t:htmlTag value="div" style="height: 10px;" />
+                        <t:htmlTag value="div" style="height: 10px;" />
 
-				<h:commandButton id="retour" style="float:left;"
-					value="#{msgs['GENERAL.RETOUR']}" immediate="true"
-					action="#{avenantController.goToDetailAvenant}">
-					<p:tooltip value="#{msgs['CONVENTION.ETAPE11.RETOUR']}" />
-				</h:commandButton>
+                        <p:message for="formModifAvenant" />
 
-				<t:htmlTag value="div" style="height: 20px;" />
-			</h:form>
-			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="./_panel_rechEnseignantAvenant.xhtml" />
-		</p:panel>
-		<t:div rendered="#{conventionController.convention == null}">
-			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
-		</t:div>
-	</ui:define>
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <p:commandButton id="retour" styleClass="mt20"
+                                         value="#{msgs['GENERAL.RETOUR']}" immediate="true"
+                                         action="#{avenantController.goToDetailAvenant}"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="./_panel_rechEnseignantAvenant.xhtml" />
+        </p:panel>
+        <t:div rendered="#{conventionController.convention == null}">
+            <ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/stylesheets/_definedStageTemplate.xhtml">
     <ui:define name="content">
-        <p:panel>
+        <p:panel rendered="#{conventionController.convention != null}">
             <f:facet name="header">
                 <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
             </f:facet>
@@ -14,19 +14,20 @@
                 <t:fieldset>
                     <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
 
-                        <ui:include src="/stylesheets/stage/_formAvenantPage1.xhtml" />
+                        <ui:include src="/stylesheets/stage/_formAvenant.xhtml" />
 
                         <t:div styleClass="textCenter">
                             <p:commandButton value="#{msgs['CONVENTION.ETAPE11.CREER']}"
                                              action="#{avenantController.goToCreaAvenantPage2}"
-                                             update="@form"/>
+                                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                             update="@form" />
                         </t:div>
 
-                        <t:htmlTag value="div" style="height:10px;" />
+                        <t:htmlTag value="div" style="height: 10px;" />
 
                         <p:message for="formCreaAvenant" />
 
-                        <t:htmlTag value="div" style="height:10px;" />
+                        <t:htmlTag value="div" style="height: 10px;" />
 
                         <p:commandButton id="retour" styleClass="mt20"
                                          value="#{msgs['GENERAL.RETOUR']}" immediate="true"

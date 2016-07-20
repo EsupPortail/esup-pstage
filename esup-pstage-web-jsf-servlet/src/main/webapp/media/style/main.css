@@ -1014,8 +1014,8 @@ select.customPstage::-ms-expand {
   margin-right: 0.5em;
 }
 .verticalAlignDiv {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .fz20 {
   font-size: 2rem;

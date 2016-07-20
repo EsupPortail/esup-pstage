@@ -1,0 +1,672 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+    <t:htmlTag value="i" styleClass="fa fa-file-text fz16 fontBlue2"/>
+    <h:outputText value="#{msgs['CONVENTION.ETAPE11.AJOUTER']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+
+    <t:htmlTag value="div" style="height: 5px;" />
+    <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
+    <t:htmlTag value="div" style="height: 15px;" />
+
+    <h:outputText styleClass="fontBold"
+                  value="#{msgs['CONVENTION.ETAPE11.TITRE']} *" />
+    <t:div>
+        <p:inputText id="titre" required="true" styleClass="mt5"
+                     value="#{avenantController.avenant.titreAvenant}">
+            <p:ajax event="blur" update="msgTitre" />
+        </p:inputText>
+        <p:message id="msgTitre" for="titre" />
+    </t:div>
+
+    <t:htmlTag value="div" style="height: 15px;" />
+
+    <!-- Rupture -->
+    <t:div styleClass="verticalAlignDiv">
+        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.RUPTURE']} ?"/>
+        <p:selectOneRadio id="rupture" styleClass="ml5"
+                          value="#{avenantController.avenant.rupture}">
+            <f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+            <f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+            <p:ajax event="click" update="modificationsAvenant" />
+        </p:selectOneRadio>
+    </t:div>
+
+    <!--  	barre grise debut block   -->
+    <t:div styleClass="textCenter clearFloat">
+        <t:htmlTag value="div" style="height: 10px;" />
+        <p:separator style="width:400px; height:2px;" />
+        <t:htmlTag value="div" style="height: 20px;" />
+    </t:div>
+
+    <p:outputPanel id="modificationsAvenant">
+
+        <t:div rendered="#{!avenantController.avenant.rupture}">
+
+            <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+            <h:outputText value="#{msgs['CONVENTION.ETAPE11.MODIF.INFO']}"
+                          styleClass="fontBold"/>
+
+            <t:div styleClass="mt10 ml20">
+                <!-- Sujet du stage -->
+                <t:div id="divSujet">
+                    <t:div styleClass="verticalAlignDiv">
+                        <p:selectBooleanCheckbox id="sujet"
+                                                 value="#{avenantController.avenant.modificationSujet}">
+                            <p:ajax event="valueChange" update="divSujet" />
+                        </p:selectBooleanCheckbox>
+                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.MODIF_SUJET']}" />
+                    </t:div>
+
+                    <!-- modif sujet de stage -->
+                    <t:div styleClass="ml20 mt10"
+                           style="border: solid 1px; padding: 20px; padding-top: 10px;"
+                           rendered="#{avenantController.avenant.modificationSujet}">
+                        <h:outputText styleClass="fontItalic fontBold" value="#{msgs['CONVENTION.ETAPE11.INIT_SUJET']}" />
+                        <t:div styleClass="mt5">
+                            <h:outputText value="#{conventionController.convention.sujetStage}"
+                                          escape="false"/>
+                        </t:div>
+
+                        <t:div styleClass="mt10">
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.NEW_SUJET']}" />
+                            <p:inputTextarea id="textSujet" required="true" styleClass="mt5"
+                                             value="#{avenantController.avenant.sujetStage}">
+                                <p:ajax event="blur" update="msgTextSujet"/>
+                            </p:inputTextarea>
+                            <p:message id="msgTextSujet" for="textSujet"/>
+                        </t:div>
+                    </t:div>
+                </t:div>
+
+                <!-- Periode de stage -->
+                <t:div id="divPeriode" styleClass="mt10">
+                    <!-- Ecrire : Modification de la période de stage : O oui O non -->
+                    <t:div styleClass="verticalAlignDiv">
+                        <p:selectBooleanCheckbox id="periode"
+                                                 value="#{avenantController.avenant.modificationPeriode}">
+                            <p:ajax event="valueChange" update="@form" />
+                        </p:selectBooleanCheckbox>
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE11.MODIF_PERIODE']}"
+                                      styleClass="fontBold"/>
+                    </t:div>
+
+                    <!--<p:message for="divPeriode" />-->
+
+                    <!-- Saisie periode -->
+                    <t:div styleClass="ml20 mt10"
+                           style="border: solid 1px; padding: 20px; padding-top: 10px;"
+                           rendered="#{avenantController.avenant.modificationPeriode}">
+
+                        <!-- periode de stage intial : du   au   -->
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE11.INIT_PERIODE']}"
+                                      styleClass="fontItalic fontBold"/>
+                        <t:div styleClass="mt5">
+                            <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
+
+                            <h:outputText value="#{conventionController.convention.dateDebutStage}"
+                                          styleClass="ml5">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
+
+                            <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}"
+                                          styleClass="ml5"/>
+
+                            <h:outputText value="#{conventionController.convention.dateFinStage}"
+                                          styleClass="ml5">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
+                        </t:div>
+
+                        <!-- Bloc periode stage, nouvelle date debut et fin stage-->
+                        <h:panelGrid columns="3">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_STAGE']}"
+                                          styleClass="fontBold" />
+                            <p:calendar id="dateDebutStage"
+                                        value="#{avenantController.avenant.dateDebutStage}"
+                                        required="true"/>
+                            <p:message for="dateDebutStage" />
+
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_STAGE']}"
+                                          styleClass="fontBold" />
+                            <p:calendar id="dateFinStage"
+                                        value="#{avenantController.avenant.dateFinStage}"
+                                        locale="#{sessionController.locale}"
+                                        required="true" />
+                            <p:message for="dateFinStage"/>
+                        </h:panelGrid>
+
+                        <t:htmlTag value="div" style="height:10px;" />
+
+                        <h:outputText value="#{msgs['CONVENTION.ETAPE11.INIT_INTERRUPTION']}"
+                                      styleClass="fontItalic fontBold"/>
+
+                        <t:div styleClass="mt5" rendered="#{conventionController.convention.interruptionStage}">
+                            <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
+
+                            <h:outputText value="#{conventionController.convention.dateDebutInterruption}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
+
+                            <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
+
+                            <h:outputText value="#{conventionController.convention.dateFinInterruption}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
+                        </t:div>
+                        <t:div styleClass="mt5" rendered="#{!conventionController.convention.interruptionStage}">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION_NULLE']}" />
+                        </t:div>
+
+                        <!-- interruption stage (y/n)  -->
+                        <t:div id="divInterruption">
+                            <t:div styleClass="verticalAlignDiv">
+                                <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.INTERRUPTION']} ?" />
+                                <p:selectOneRadio value="#{avenantController.avenant.interruptionStage}"
+                                                  styleClass="ml5">
+                                    <f:selectItem itemLabel="#{msgs['FORM.OUI']}" itemValue="true" />
+                                    <f:selectItem itemLabel="#{msgs['FORM.NON']}" itemValue="false" />
+                                    <p:ajax  event="click" update="divInterruption" />
+                                </p:selectOneRadio>
+                            </t:div>
+
+                            <p:message for="divInterruption" />
+
+                            <t:div rendered="#{avenantController.avenant.interruptionStage}">
+                                <h:panelGrid columns="3">
+                                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.NEW_DEBUT_INTERRUPTION']}" />
+                                    <p:calendar id="dateDebutInterruptionStage"
+                                                value="#{avenantController.avenant.dateDebutInterruption}"
+                                                required="true"/>
+                                    <p:message for="dateDebutInterruptionStage"/>
+
+                                    <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.NEW_FIN_INTERRUPTION']}" />
+                                    <p:calendar id="dateFinInterruptionStage"
+                                                value="#{avenantController.avenant.dateFinInterruption}"
+                                                required="true"/>
+                                    <p:message for="dateFinInterruptionStage"/>
+                                </h:panelGrid>
+                            </t:div>
+                        </t:div>
+                    </t:div>
+                </t:div>
+
+                <!-- Montant gratification -->
+                <t:div id="divGratif" styleClass="mt10">
+                    <t:div styleClass="verticalAlignDiv">
+                        <p:selectBooleanCheckbox id="montantGratification"
+                                                 value="#{avenantController.avenant.modificationMontantGratification}">
+                            <p:ajax event="valueChange" update="divGratif" />
+                        </p:selectBooleanCheckbox>
+                        <h:outputText styleClass="fontBold"
+                                      value="#{msgs['CONVENTION.ETAPE11.MODIF_GRATIFICATION']}" />
+                    </t:div>
+                    <t:div styleClass="ml20 mt10"
+                           style="border: solid 1px; padding: 20px; padding-top: 10px;"
+                           rendered="#{avenantController.avenant.modificationMontantGratification}">
+                        <h:outputText styleClass="fontItalic fontBold"
+                                      value="#{msgs['CONVENTION.ETAPE11.INIT_GRATIFICATION']}" />
+                        <t:div styleClass="mt5"
+                               rendered="#{conventionController.convention.indemnisation.libelle == beanUtils.indemnisationOui}">
+                            <h:outputText styleClass="fontBold"
+                                          value="#{conventionController.convention.montantGratification} #{conventionController.convention.monnaieGratification} #{conventionController.convention.uniteGratification.libelle} par #{conventionController.convention.uniteDureeGratification.libelle}" />
+                        </t:div>
+                        <t:div styleClass="mt5"
+                               rendered="#{conventionController.convention.indemnisation.libelle != beanUtils.indemnisationOui}">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.GRATIFICATION.AUCUNE']}" />
+                        </t:div>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <h:outputText styleClass="fontBold"
+                                      value="#{msgs['CONVENTION.ETAPE11.NEW_GRATIFICATION']}" />
+
+                        <t:div styleClass="mt5 verticalAlignDiv">
+                            <p:inputText id="montantGratif" size="4" style="width:auto;" styleClass="ml5"
+                                         required="true"
+                                         value="#{avenantController.avenant.montantGratification}"
+                                         validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
+                                <f:validator binding="#{mtGratificationValidator}" />
+                                <p:ajax event="blur" update="msgGratification"/>
+                            </p:inputText>
+                            <h:selectOneMenu id="uniteGratification" effect="none" style="width: auto;" styleClass="ml5 customPstage"
+                                             value="#{avenantController.avenant.uniteGratification}"
+                                             converter="#{uniteGratificationConverter}">
+                                <f:selectItems value="#{nomenclatureController.uniteGratifications}" />
+                            </h:selectOneMenu>
+                            <h:outputText styleClass="fontBold mr5 ml5" value=" par " />
+                            <h:selectOneMenu id="uniteDureeGratification" effect="none" style="width: auto;" styleClass="customPstage"
+                                             value="#{avenantController.avenant.uniteDureeGratification}"
+                                             converter="#{uniteDureeConverter}" required="true">
+                                <f:selectItem itemValue="" />
+                                <f:selectItems value="#{nomenclatureController.unitesDurees}" />
+                            </h:selectOneMenu>
+                        </t:div>
+                        <p:message id="msgGratification" for="montantGratif"/>
+
+                        <t:htmlTag value="div" style="height:10px;" />
+
+                        <h:outputText value="#{msgs['CONVENTION.CREERCONVENTION.GRATIFICATION.MONNAIE']}"
+                                      styleClass="fontBold" />
+                        <t:div styleClass="mt5 verticalAlignDiv">
+                            <h:selectOneMenu id="monnaieGratification" effect="none"
+                                             value="#{conventionController.selMonnaieGratification}"
+                                             style="width: auto;" styleClass="ml5 customPstage">
+                                <f:selectItem itemValue="euros" itemLabel="euros" />
+                                <f:selectItem itemValue="autre" itemLabel="autre"/>
+                                <p:ajax event="valueChange" update="opMonnaieGratification" />
+                            </h:selectOneMenu>
+                            <p:outputPanel id="opMonnaieGratification" styleClass="ml5">
+                                <t:div rendered="#{conventionController.selMonnaieGratification == 'autre'}">
+                                    <h:outputText styleClass="fontBold" value="Devise : " />
+                                    <p:inputText id="autreMonnaie" size="10" style="width: auto;"
+                                                 value="#{conventionController.convention.monnaieGratification}" />
+                                </t:div>
+                            </p:outputPanel>
+                        </t:div>
+                    </t:div>
+                </t:div>
+
+                <!-- Lieu du stage -->
+                <t:div styleClass="mt10">
+                    <t:div styleClass="verticalAlignDiv">
+                        <p:selectBooleanCheckbox id="lieu"
+                                                 value="#{avenantController.avenant.modificationLieu}">
+                            <p:ajax event="valueChange"
+                                    listener="#{avenantController.updateLieu}"
+                                    update="opActionsService"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+                        </p:selectBooleanCheckbox>
+                        <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.MODIF_LIEU']}" />
+                    </t:div>
+                    <p:outputPanel id="opActionsService">
+                        <t:div styleClass="ml20 mt10"
+                               style="border: solid 1px; padding: 20px; padding-top: 5px;"
+                               rendered="#{avenantController.avenant.modificationLieu}">
+                            <p:message for="opActionsService"/>
+
+                            <t:htmlTag value="div" style="height: 10px;" />
+
+                            <t:div styleClass="textCenter"
+                                   rendered="#{empty avenantController.listeServices}">
+                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.VIDE']}" />
+                            </t:div>
+                            <t:div rendered="#{not empty avenantController.listeServices}">
+                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.LISTE']}" />
+                                <t:htmlTag value="div" style="height: 10px;" />
+                                <p:dataTable id="opService"
+                                             value="#{avenantController.listeServices}" var="service"
+                                             rows="5" rowHover="true" rowStyleClass="noPointer" paginator="true"
+                                             tableStyle="table-layout: auto;" reflow="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15,20">
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+                                        </f:facet>
+                                        <t:div styleClass="textCenter">
+                                            <t:div rendered="#{service.idService == etablissementController.serviceSel.idService}">
+                                                <t:htmlTag id="lieuChoisi" value="i" styleClass="fa fa-check fz16 fontBlue2" />
+                                                <p:tooltip for="lieuChoisi" value="#{msgs['CONVENTION.ETAPE11.LIEU.SELECTIONNE']}" />
+                                            </t:div>
+                                            <t:div rendered="#{service.idService != etablissementController.serviceSel.idService}">
+                                                <p:commandLink id="lieuDispo"
+                                                               ajax="false">
+                                                    <t:htmlTag id="appartenance" value="i"
+                                                               styleClass="fa fa-remove fz16 fontRed" />
+                                                    <f:setPropertyActionListener
+                                                            value="#{service}"
+                                                            target="#{etablissementController.serviceSel}" />
+                                                    <f:setPropertyActionListener
+                                                            value="#{conventionController.convention.contact}"
+                                                            target="#{etablissementController.contactSel}" />
+                                                    <p:tooltip for="lieuDispo" value="#{msgs['CONVENTION.ETAPE11.LIEU.CHOIX']}" />
+                                                </p:commandLink>
+                                            </t:div>
+                                        </t:div>
+                                    </p:column>
+
+                                    <p:column sortBy="#{service.nom}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONVENTION.ETAPE11.LIEU.NOM']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <h:outputText value="#{service.nom}" />
+                                        </t:htmlTag>
+                                    </p:column>
+
+                                    <p:column sortBy="#{service.voie}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONVENTION.ETAPE11.LIEU.ADRESSE']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <h:outputText value="#{service.voie}" />
+                                        </t:htmlTag>
+                                    </p:column>
+
+                                    <p:column sortBy="#{service.codePostal}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONVENTION.ETAPE11.LIEU.CODE_POSTAL']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <h:outputText value="#{service.codePostal}" />
+                                        </t:htmlTag>
+                                    </p:column>
+
+                                    <p:column sortBy="#{service.commune}">
+                                        <f:facet name="header">
+                                            <h:outputText
+                                                    value="#{msgs['CONVENTION.ETAPE11.LIEU.VILLE']}" />
+                                        </f:facet>
+                                        <t:htmlTag value="center">
+                                            <h:outputText value="#{service.commune}" />
+                                        </t:htmlTag>
+                                    </p:column>
+                                </p:dataTable>
+                            </t:div>
+
+                            <t:div styleClass="mt10">
+                                <h:outputText value="#{msgs['CONVENTION.ETAPE11.LIEU.MSG_ADD']}" />
+                                <p:commandButton id="addService"
+                                                 value="#{msgs['CONVENTION.ETAPE11.LIEU.ADD']}"
+                                                 oncomplete="PF('ajoutService').show();"
+                                                 action="#{etablissementController.ajoutService}"
+                                                 update="ajoutService">
+                                    <f:setPropertyActionListener value="#{true}"
+                                                                 target="#{etablissementController.memeAdresseStructure}" />
+                                    <f:setPropertyActionListener value="_ajoutServiceEtape0"
+                                                                 target="#{sessionController.ajoutServiceCurrentPage}" />
+                                </p:commandButton>
+                            </t:div>
+                        </t:div>
+
+                        <t:div styleClass="verticalAlignDiv mt10">
+                            <p:selectBooleanCheckbox id="salarie"
+                                                     rendered="#{conventionController.convention.idService == etablissementController.serviceSel.idService}"
+                                                     value="#{avenantController.avenant.modificationSalarie}">
+                                <p:ajax event="valueChange" update="@form"
+                                        listener="#{avenantController.updateContact}"
+                                        onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" />
+                            </p:selectBooleanCheckbox>
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['CONVENTION.ETAPE11.MODIF_SALARIE']}"
+                                          for="salarie" />
+                        </t:div>
+                        <t:div rendered="#{conventionController.convention.idService != etablissementController.serviceSel.idService}">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.SALARIE.AVERTISSEMENT']}" />
+                        </t:div>
+                        <p:outputPanel id="opContactsDataTable">
+                            <t:div styleClass="ml20 mt10"
+                                   style="border: solid 1px; padding: 20px; padding-top: 5px;"
+                                   rendered="#{avenantController.avenant.modificationSalarie || conventionController.convention.idService != etablissementController.serviceSel.idService}">
+
+                                <p:message for="opContactsDataTable"/>
+
+                                <t:htmlTag value="div" style="height: 10px;" />
+
+                                <t:div styleClass="textCenter" rendered="#{empty avenantController.listeSalaries}">
+                                    <h:outputText value="#{msgs['CONVENTION.ETAPE11.SALARIE.VIDE']}" />
+                                </t:div>
+                                <t:div rendered="#{not empty avenantController.listeSalaries}">
+                                    <h:outputText
+                                            value="#{msgs['CONVENTION.ETAPE11.SALARIE.LISTE']}" />
+
+                                    <t:htmlTag value="div" style="height: 10px;" />
+
+                                    <p:dataTable id="contactsDataTable"
+                                                 value="#{avenantController.listeSalaries}" var="salarie"
+                                                 rows="5" rowHover="true" rowStyleClass="noPointer"
+                                                 tableStyle="table-layout: auto;" reflow="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 paginator="true" rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false">
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText
+                                                        value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+                                            </f:facet>
+                                            <t:htmlTag value="center">
+                                                <t:div rendered="#{salarie.id == etablissementController.contactSel.id}">
+                                                    <t:htmlTag id="salarieChoisi" value="i" styleClass="fa fa-check fz16 fontBlue2">
+                                                        <p:tooltip for="salarieChoisi" value="#{msgs['CONVENTION.ETAPE11.SALARIE.SELECTIONNE']}" />
+                                                    </t:htmlTag>
+                                                </t:div>
+                                                <t:div rendered="#{salarie.id != etablissementController.contactSel.id}">
+                                                    <p:commandLink id="salarieDispo"
+                                                                   ajax="false">
+                                                        <t:htmlTag value="i" styleClass="fa fa-remove fz16 fontRed" />
+                                                        <f:setPropertyActionListener value="#{salarie}"
+                                                                                     target="#{etablissementController.contactSel}" />
+                                                        <p:tooltip for="salarieDispo" value="#{msgs['CONVENTION.ETAPE11.CHOIX']}" />
+                                                    </p:commandLink>
+                                                </t:div>
+                                            </t:htmlTag>
+                                        </p:column>
+
+                                        <p:column sortBy="#{salarie.civilite.libelle}">
+                                            <f:facet name="header">
+                                                <h:outputText
+                                                        value="#{msgs['CONTACT.CIVILITE']}" />
+                                            </f:facet>
+                                            <t:htmlTag value="center">
+                                                <h:outputText value="#{salarie.civilite.libelle}" />
+                                            </t:htmlTag>
+                                        </p:column>
+
+                                        <p:column sortBy="#{salarie.nom}">
+                                            <f:facet name="header">
+                                                <h:outputText
+                                                        value="#{msgs['CONTACT.NOM']}" />
+                                            </f:facet>
+                                            <t:htmlTag value="center">
+                                                <h:outputText value="#{salarie.nom}" />
+                                            </t:htmlTag>
+                                        </p:column>
+
+                                        <p:column sortBy="#{salarie.prenom}">
+                                            <f:facet name="header">
+                                                <h:outputText
+                                                        value="#{msgs['CONTACT.PRENOM']}" />
+                                            </f:facet>
+                                            <t:htmlTag value="center">
+                                                <h:outputText value="#{salarie.prenom}" />
+                                            </t:htmlTag>
+                                        </p:column>
+
+                                        <p:column sortBy="#{salarie.fonction}">
+                                            <f:facet name="header">
+                                                <h:outputText
+                                                        value="#{msgs['CONTACT.FONCTION']}" />
+                                            </f:facet>
+                                            <t:htmlTag value="center">
+                                                <h:outputText value="#{salarie.fonction}" />
+                                            </t:htmlTag>
+                                        </p:column>
+
+                                        <p:column sortBy="#{salarie.tel}" style="word-break: break-all;">
+                                            <f:facet name="header">
+                                                <h:outputText
+                                                        value="#{msgs['CONVENTION.ETAPE11.SALARIE.TEL_FAX']}" />
+                                            </f:facet>
+                                            <t:div rendered="#{not empty salarie.tel}">
+                                                <b>Tel : </b>
+                                                <h:outputText id="telC" value="#{salarie.tel}" />
+                                            </t:div>
+                                            <t:div rendered="#{not empty salarie.fax}">
+                                                <b>Fax : </b>
+                                                <h:outputText id="faxC" value="#{salarie.fax}" />
+                                            </t:div>
+                                            <t:div rendered="#{not empty salarie.mail}">
+                                                <b>Mail : </b>
+                                                <h:outputText id="mailC" value="#{salarie.mail}" />
+                                            </t:div>
+                                        </p:column>
+
+                                        <p:column sortBy="#{salarie.mail}">
+                                            <f:facet name="header">
+                                                <h:outputText
+                                                        value="#{msgs['CONTACT.MAIL']}" />
+                                            </f:facet>
+                                            <t:htmlTag value="center">
+                                                <h:outputText value="#{salarie.mail}" />
+                                            </t:htmlTag>
+                                        </p:column>
+                                    </p:dataTable>
+                                </t:div>
+
+                                <t:htmlTag value="div" style="height: 10px;" />
+
+                                <t:div>
+                                    <h:outputText
+                                            value="#{msgs['CONVENTION.ETAPE11.SALARIE.MSG_ADD']}" />
+                                    <p:commandButton id="addSalarie"
+                                                     value="#{msgs['CONVENTION.ETAPE11.SALARIE.ADD']}"
+                                                     action="#{avenantController.ajoutContact}"
+                                                     oncomplete="PF('ajoutContact').show();" update="ajoutContact">
+                                        <f:setPropertyActionListener
+                                                value="_ajoutContactEtape0"
+                                                target="#{sessionController.ajoutContactCurrentPage}" />
+                                        <f:setPropertyActionListener
+                                                value="#{false}"
+                                                target="#{etablissementController.afficherSelectionCentreContact}" />
+                                        <f:setPropertyActionListener
+                                                value="#{etablissementController.serviceSel.idService}"
+                                                target="#{etablissementController.idServiceSel}" />
+                                    </p:commandButton>
+                                </t:div>
+                            </t:div>
+                        </p:outputPanel>
+                    </p:outputPanel>
+                </t:div>
+
+                <!-- Enseignant référent -->
+                <t:div id="divEnseignant" styleClass="mt10">
+                    <t:div styleClass="verticalAlignDiv">
+                        <p:selectBooleanCheckbox id="enseignant"
+                                                 value="#{avenantController.avenant.modificationEnseignant}">
+                            <p:ajax  event="valueChange" update="divEnseignant" />
+                        </p:selectBooleanCheckbox>
+                        <h:outputText styleClass="fontBold"
+                                      value="#{msgs['CONVENTION.ETAPE11.MODIF_ENSEIGNANT']}" />
+                    </t:div>
+                    <t:div styleClass="ml20 mt10"
+                           style="border: solid 1px; padding: 20px; padding-top: 5px;"
+                           rendered="#{avenantController.avenant.modificationEnseignant}">
+                        <p:message for="divEnseignant"/>
+
+                        <t:htmlTag value="div" style="height:10px;" />
+
+                        <h:outputText styleClass="fontItalic fontBold"
+                                      value="#{msgs['CONVENTION.ETAPE11.INIT_ENSEIGNANT']}" />
+                        <t:div styleClass="mt5">
+                            <h:outputText value="#{conventionController.convention.enseignant.prenom} #{conventionController.convention.enseignant.nom}" />
+                        </t:div>
+
+                        <p:commandButton id="search" styleClass="mt10"
+                                         value="#{msgs['CONVENTION.ETAPE11.ENSEIGNANT.RECHERCHE.BOUTON']}"
+                                         oncomplete="PF('rechEnseignantAvenant').show();"
+                                         action="#{avenantController.avantRechercheEnseignant}"
+                                         update="rechEnseignantAvenant" />
+
+                        <t:div styleClass="mt10" rendered="#{not empty avenantController.avenant.enseignant}">
+                            <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ETAPE11.NEW_ENSEIGNANT']}" />
+                            <t:div styleClass="mt5">
+                                <h:outputText value="#{avenantController.avenant.enseignant.prenom} #{avenantController.avenant.enseignant.nom}" />
+                            </t:div>
+                        </t:div>
+
+                    </t:div>
+                </t:div>
+
+                <!-- Autre modification -->
+                <t:div id="divTexteLibre" styleClass="mt10">
+                    <t:div styleClass="verticalAlignDiv">
+                        <p:selectBooleanCheckbox id="texteLibre"
+                                                 value="#{avenantController.modificationTexteLibre}">
+                            <p:ajax event="valueChange" update="divTexteLibre" />
+                        </p:selectBooleanCheckbox>
+                        <h:outputText styleClass="fontBold"
+                                      value="#{msgs['CONVENTION.ETAPE11.MODIF_TEXTELIBRE']}" />
+                    </t:div>
+                    <t:div styleClass="ml20 mt10"
+                           style="border: solid 1px; padding: 20px; padding-top: 10px;"
+                           rendered="#{avenantController.modificationTexteLibre}">
+
+                        <p:message for="divTexteLibre"/>
+
+                        <t:htmlTag value="div" style="height: 10px;" />
+
+                        <h:outputText styleClass="fontBold"
+                                      value="#{msgs['CONVENTION.ETAPE11.MOTIF']} *" />
+                        <p:inputTextarea id="motif" required="true"
+                                         value="#{avenantController.avenant.motifAvenant}">
+                            <p:ajax event="blur" update="msgMotif" />
+                        </p:inputTextarea>
+                        <p:message id="msgMotif" for="motif" />
+                    </t:div>
+                </t:div>
+            </t:div>
+        </t:div>
+
+        <t:div id="divDateRupture" rendered="#{avenantController.avenant.rupture}">
+            <t:htmlTag value="ul" styleClass="formUL columns-2 mt10">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <t:div>
+                            <h:outputText styleClass="fontItalic fontBold" value="#{msgs['CONVENTION.ETAPE11.PERIODE.INFO']}" />
+                            <t:htmlTag value="div" style="height:5px;"/>
+                            <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']}" />
+
+                            <h:outputText value="#{conventionController.convention.dateDebutStage}"
+                                          styleClass="ml5 mr5">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
+
+                            <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.AU']}" />
+
+                            <h:outputText value="#{conventionController.convention.dateFinStage}"
+                                          styleClass="ml5">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="ECT" />
+                            </h:outputText>
+                        </t:div>
+                        <t:div styleClass="mt10">
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE.DATE']} *"
+                                          styleClass="fontBold"/>
+                            <t:htmlTag value="div" style="height:5px;" />
+                            <p:calendar id="dateRupture"
+                                        value="#{avenantController.avenant.dateRupture}"
+                                        locale="#{sessionController.locale}"
+                                        required="true" styleClass="ml5"/>
+                            <p:message id="msgDateRupture" for="dateRupture" />
+                        </t:div>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <t:div>
+                            <h:outputText value="#{msgs['CONVENTION.ETAPE11.RUPTURE.COMMENTAIRE']}"
+                                          styleClass="fontBold" />
+                        </t:div>
+                        <p:inputTextarea  id="commentaireRupture" styleClass="mt5"
+                                          value="#{avenantController.avenant.commentaireRupture}"/>
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
+        </t:div>
+    </p:outputPanel>
+
+    <t:div styleClass="textCenter clearFloat">
+        <t:htmlTag value="div" style="height: 20px;" />
+        <p:separator style="width:400px; height:2px;" />
+        <t:htmlTag value="div" style="height: 20px;" />
+    </t:div>
+
+
+
+</ui:composition>

@@ -1,37 +1,34 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dialog id="devalidAvenant" widgetVar="devalidAvenant"
-		resizable="false" modal="true">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.HEAD']}">
-				<f:param value="#{avenantController.avenant.idAvenant}" />
-			</h:outputText>
-		</f:facet>
-		<h:panelGrid align="center">
-			<t:htmlTag value="div" style="height: 10px;" />
-			<h:outputLabel for="devalidPanel"
-				value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.QUESTION']}" />
-			<t:htmlTag value="div" style="height: 10px;" />
-		</h:panelGrid>
+    <p:dialog id="devalidAvenant" widgetVar="devalidAvenant"
+              resizable="false" modal="true">
+        <f:facet name="header">
+            <h:outputFormat value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.HEAD']}">
+                <f:param value="#{avenantController.avenant.idAvenant}" />
+            </h:outputFormat>
+        </f:facet>
+        <t:div styleClass="textCenter mt10 mb10">
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['CONVENTION.ETAPE11.DEVALIDATION.QUESTION']}" />
+        </t:div>
 
-		<t:htmlTag value="div" style="height: 10px;" />
-		<h:panelGrid align="center" id="devalidPanel" columns="3">
-			<p:commandButton action="#{avenantController.devaliderAvenant}"
-				value="#{msgs['FORM.OUI']}" update="formDetailsAvenant" />
-			<t:htmlTag value="div" style="width: 30px;" />
-			<h:commandButton value="#{msgs['FORM.NON']}"
-				onclick="PF('devalidAvenant').hide();" />
-		</h:panelGrid>
-		<t:htmlTag value="center">
-			<h:outputText id="erreurDevalidAvenant" value="" />
-			<p:message for="erreurDevalidAvenant">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-		</t:htmlTag>
-	</p:dialog>
+        <t:div id="devalidPanel" styleClass="textCenter">
+            <p:commandButton action="#{avenantController.devaliderAvenant}"
+                             value="#{msgs['FORM.OUI']}" update="formDetailsAvenant" />
+
+            <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                             onclick="PF('devalidAvenant').hide();" />
+        </t:div>
+
+        <t:div id="erreurDevalidAvenant">
+            <p:message for="erreurDevalidAvenant"/>
+        </t:div>
+
+        <t:htmlTag value="div" style="height: 20px;" />
+    </p:dialog>
 </ui:composition>

@@ -1235,11 +1235,8 @@ public class EtablissementController extends AbstractContextAwareController {
 				} else {
 					this.formServiceCommunesListening = new ArrayList<>();
 				}
-				System.out.println("codepostal : " + this.formServiceTmpCodePostal);
-				System.out.println("codeCommune : " + this.formService.getCodeCommune());
 				this.formServiceTmpCommuneDTO = getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(
 						this.formServiceTmpCodePostal,this.formService.getCodeCommune());
-				System.out.println("result : " + this.formServiceTmpCommuneDTO);
 				if (this.formServiceTmpCommuneDTO != null) {
 					this.formService.setCommune(this.formServiceTmpCommuneDTO.getLibCommune());
 					this.formService.setCodeCommune(this.formServiceTmpCommuneDTO.getCodeCommune());

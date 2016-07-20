@@ -1,33 +1,34 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dialog id="suppressionAvenant" widgetVar="suppressionAvenant" resizable="false" modal="true">
-		<f:facet name="header">
-			<h:outputText
-				value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.HEAD']} #{avenantController.avenant.idAvenant}" />
-		</f:facet>
-		<h:form id="formSupprAvenant">
-			<h:panelGrid align="center">
-				<t:htmlTag value="div" style="height: 10px;" />
-				<h:outputLabel for="delete"
-					value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.QUESTION']}" />
-				<t:htmlTag value="div" style="height: 10px;" />
-			</h:panelGrid>
-			<t:htmlTag value="div" style="height: 10px;" />
-			<h:panelGrid id="delete" columns="3" align="center">
-				<p:commandButton value="#{msgs['FORM.OUI']}"
-					action="#{avenantController.supprimerAvenant}"
-					update="@form" />
-				<t:htmlTag value="div" style="width: 30px;" />
-				<h:commandButton value="#{msgs['FORM.NON']}"
-					onclick="PF('suppressionAvenant').hide();" />
-			</h:panelGrid>
+    <p:dialog id="suppressionAvenant" widgetVar="suppressionAvenant" resizable="false" modal="true">
+        <f:facet name="header">
+            <h:outputText
+                    value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.HEAD']} #{avenantController.avenant.idAvenant}" />
+        </f:facet>
+        <h:form id="formSupprAvenant">
+            <t:div styleClass="mt10">
+                <h:outputText styleClass="fontBold"
+                              value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.QUESTION']}" />
+            </t:div>
+
+            <t:htmlTag value="div" style="height: 10px;" />
+
+            <t:div id="delete" styleClass="textCenter mb20">
+                <p:commandButton value="#{msgs['FORM.OUI']}"
+                                 action="#{avenantController.supprimerAvenant}"
+                                 update="@form" />
+
+                <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                                 onclick="PF('suppressionAvenant').hide();" />
+            </t:div>
+
             <p:messages />
-		</h:form>
-	</p:dialog>
+
+        </h:form>
+    </p:dialog>
 </ui:composition>

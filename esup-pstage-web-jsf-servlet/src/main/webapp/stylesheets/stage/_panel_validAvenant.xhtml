@@ -1,40 +1,40 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dialog id="validAvenant" widgetVar="validAvenant" resizable="false"
-		modal="true">
-		<f:facet name="header">
-			<h:outputText
-				value="#{msgs['CONVENTION.ETAPE11.VALIDATION.HEAD']}#{avenantController.avenant.idAvenant}" />
-		</f:facet>
-		<p:panel style="border:none">
-			<h:panelGrid align="center">
-				<h:outputText value="#{msgs['CONVENTION.ETAPE11.VALIDATION.INFO']}" />
-				<h:outputText
-					value="#{msgs['CONVENTION.ETAPE11.VALIDATION.AVERTISSEMENT']}" />
-			</h:panelGrid>
-		</p:panel>
-		<t:htmlTag value="center">
-			<h:outputLabel for="validPanel"
-				value="#{msgs['CONVENTION.ETAPE11.VALIDATION.QUESTION']}" />
-		</t:htmlTag>
-		<t:htmlTag value="div" style="height: 10px;" />
-		<h:panelGrid align="center" id="validPanel" columns="3">
-			<p:commandButton action="#{avenantController.validerAvenant}"
-				value="#{msgs['FORM.OUI']}" update="formDetailsAvenant" />
-			<t:htmlTag value="div" style="width: 30px;" />
-			<h:commandButton value="#{msgs['FORM.NON']}"
-				onclick="PF('validAvenant').hide();" />
-		</h:panelGrid>
-		<t:htmlTag value="center">
-			<h:outputText id="erreurValidAvenant" value="" />
-			<p:message for="erreurValidAvenant">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-		</t:htmlTag>
-	</p:dialog>
+    <p:dialog id="validAvenant" widgetVar="validAvenant"
+              resizable="false" modal="true">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CONVENTION.ETAPE11.VALIDATION.HEAD']}#{avenantController.avenant.idAvenant}" />
+        </f:facet>
+
+        <t:htmlTag value="div" style="height: 10px;" />
+
+        <h:outputText value="#{msgs['CONVENTION.ETAPE11.VALIDATION.INFO']}" />
+
+        <t:htmlTag value="div" style="height: 10px;" />
+
+        <h:outputText  value="#{msgs['CONVENTION.ETAPE11.VALIDATION.AVERTISSEMENT']}" />
+
+        <t:div styleClass="textCenter mt10 mb10">
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['CONVENTION.ETAPE11.VALIDATION.QUESTION']}" />
+        </t:div>
+
+        <t:div id="validPanel" styleClass="textCenter">
+            <p:commandButton action="#{avenantController.validerAvenant}"
+                             value="#{msgs['FORM.OUI']}" update="formDetailsAvenant" />
+            <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml40"
+                             onclick="PF('validAvenant').hide();" />
+        </t:div>
+
+        <t:div id="erreurValidAvenant">
+            <p:message for="erreurValidAvenant"/>
+        </t:div>
+
+        <t:htmlTag value="div" style="height: 20px;" />
+    </p:dialog>
 </ui:composition>
