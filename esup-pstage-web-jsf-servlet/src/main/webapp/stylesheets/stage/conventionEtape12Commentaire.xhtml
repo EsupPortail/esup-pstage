@@ -5,11 +5,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/stylesheets/_definedStageTemplate.xhtml">
     <ui:define name="content">
-        <p:panel>
+        <p:panel rendered="#{conventionController.convention != null}">
             <f:facet name="header">
                 <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
             </f:facet>
-            <h:form id="formCommentaire" rendered="#{conventionController.convention != null}">
+            <h:form id="formCommentaire">
                 <ui:include src="_roadmapSel.xhtml" />
                 <t:fieldset>
                     <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
@@ -64,7 +64,11 @@
 
                                 <t:htmlTag value="div" style="height: 10px;" />
 
-                                <h:outputText value="#{msgs['CONVENTION.ETAPE12.WARN']}" escape="false" />
+                                <t:div styleClass="textCenter">
+                                    <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontRed"/>
+                                    <h:outputText value="#{msgs['CONVENTION.ETAPE12.WARN']}"
+                                                  styleClass="fontRed ml5" escape="false" />
+                                </t:div>
 
                                 <t:htmlTag value="div" style="height: 10px;" />
 
