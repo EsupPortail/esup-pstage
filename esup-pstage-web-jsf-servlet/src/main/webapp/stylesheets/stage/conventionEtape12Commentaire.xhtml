@@ -33,12 +33,14 @@
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
                             <t:div rendered="#{conventionController.convention.validationConvention}">
-                                <h:outputText escape="false"
-                                              value="#{conventionController.convention.commentaireStage}"
-                                              rendered="#{not empty conventionController.convention.commentaireStage}" />
-                                <h:outputText
-                                        rendered="#{empty conventionController.convention.commentaireStage}"
-                                        value="#{msgs['CONVENTION.ETAPE12.AUCUN']}" />
+                                <p:fieldset>
+                                    <h:outputText escape="false"
+                                                  value="#{conventionController.convention.commentaireStage}"
+                                                  rendered="#{not empty conventionController.convention.commentaireStage}" />
+                                    <h:outputText
+                                            rendered="#{empty conventionController.convention.commentaireStage}"
+                                            value="#{msgs['CONVENTION.ETAPE12.AUCUN']}" />
+                                </p:fieldset>
                             </t:div>
                             <t:div styleClass="mt10"
                                    rendered="#{!conventionController.convention.validationConvention}">

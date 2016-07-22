@@ -168,7 +168,9 @@ public class EvaluationController extends AbstractContextAwareController {
 	 */
 	public String goToFicheEtudiant() {
 		this.togglePanelActiveItem = "etudiantTogglePanel1";
+
 		ReponseEvaluationDTO reponseEvalTmp = this.conventionController.getConvention().getReponseEvaluation();
+
 		// Si la reponse n'a pas ete initialise a la creation de la convention,
 		// il n'y en a pas encore, on l'initialise donc vide en base
 		if (reponseEvalTmp == null) {
@@ -265,35 +267,29 @@ public class EvaluationController extends AbstractContextAwareController {
 					reponseEvalTmp.setReponseEtuI5(this.conventionController.getSelOrigineStage().getId());
 				}
 
-				getFicheEvaluationDomainService()
-				.updateReponseEvaluationEtudiant(reponseEvalTmp);
+				getFicheEvaluationDomainService().updateReponseEvaluationEtudiant(reponseEvalTmp);
 
-				this.reponsesSupplementaires = new ArrayList<ReponseSupplementaireDTO>();
+				this.reponsesSupplementaires = new ArrayList<>();
 
 				if (this.questionsSupplementairesEtudiant1 != null) {
 					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEtudiant1) {
-						ReponseSupplementaireDTO reponse = question
-								.getReponseSupplementaire();
-						if (reponse != null
-								&& reponse.getIdQuestionSupplementaire() != null) {
+						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+						if (reponse != null && reponse.getIdQuestionSupplementaire() != null) {
 							this.reponsesSupplementaires.add(reponse);
 						}
 					}
 				}
 				if (this.questionsSupplementairesEtudiant2 != null) {
 					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEtudiant2) {
-						ReponseSupplementaireDTO reponse = question
-								.getReponseSupplementaire();
-						if (reponse != null
-								&& reponse.getIdQuestionSupplementaire() != null) {
+						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
+						if (reponse != null && reponse.getIdQuestionSupplementaire() != null) {
 							this.reponsesSupplementaires.add(reponse);
 						}
 					}
 				}
 				if (this.questionsSupplementairesEtudiant3 != null) {
 					for (QuestionSupplementaireDTO question : this.questionsSupplementairesEtudiant3) {
-						ReponseSupplementaireDTO reponse = question
-								.getReponseSupplementaire();
+						ReponseSupplementaireDTO reponse = question.getReponseSupplementaire();
 						if (reponse != null
 								&& reponse.getIdQuestionSupplementaire() != null) {
 							this.reponsesSupplementaires.add(reponse);
@@ -303,13 +299,13 @@ public class EvaluationController extends AbstractContextAwareController {
 
 				if (reponsesSupplementaires != null
 						&& !reponsesSupplementaires.isEmpty()) {
-					getFicheEvaluationDomainService()
-					.updateReponsesSupplementaires(
-							reponsesSupplementaires);
+					getFicheEvaluationDomainService().updateReponsesSupplementaires(reponsesSupplementaires);
 				}
 
-				addInfoMessage("formFicheEtudiant",
-						"CONVENTION.ETAPE13.CREATION");
+				addInfoMessage("formFicheEtudiant", "CONVENTION.ETAPE13.CREATION");
+
+
+
 				if (logger.isInfoEnabled()) {
 					logger.info(getSessionController().getCurrentLogin()
 							+ " met a jour sa reponse a la fiche n°"
