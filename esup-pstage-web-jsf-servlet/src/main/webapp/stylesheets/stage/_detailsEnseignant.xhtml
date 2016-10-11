@@ -3,13 +3,15 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <h:outputText value="#{msgs['CONVENTION.AUCUNENSEIGNANT']}"
-                  rendered="#{empty conventionController.convention.enseignant}"
-                  escape="false" />
+    <t:div styleClass="mt10 ml20"
+           rendered="#{empty conventionController.convention.enseignant}">
+        <h:outputText value="#{msgs['CONVENTION.AUCUNENSEIGNANT']}"
+                      escape="false" />
+    </t:div>
 
     <t:div rendered="#{not empty conventionController.convention.enseignant}">
 
-        <h:panelGrid columns="2" styleClass="ml40 blueHover" cellspacing="5">
+        <h:panelGrid columns="2" styleClass="ml20 blueHover" cellspacing="5">
 
             <h:outputText value="#{msgs['CONVENTION.CIVILITE']}" styleClass="fontBold"
                           rendered="#{not empty conventionController.convention.enseignant.civilite}"/>

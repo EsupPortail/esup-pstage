@@ -6,16 +6,14 @@
 
 				template="/stylesheets/_definedStageTemplate.xhtml">
 	<ui:define name="content">
-		<p:panel
-				rendered="#{welcomeController.superAdmin
+		<p:panel rendered="#{welcomeController.superAdmin
 								|| welcomeController.admin
 								|| welcomeController.writer}">
 			<f:facet name="header">
 				<h:outputText
 						value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.HEADER']}" />
 			</f:facet>
-			<p:outputPanel ajaxRendered="true">
-				<h:form id="formRechConvention" style="max-width: 800px; margin: 0 auto;">
+				<h:form id="formRechConvention" style="max-width: 900px;" styleClass="ml40">
 					<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE']}">
 						<ui:include src="/stylesheets/stage/_limitesResultats.xhtml" />
 						<t:htmlTag value="div" style="height: 10px;" />
@@ -78,7 +76,7 @@
 							<t:div id="panelUfr" styleClass="mt10"
 								   rendered="#{conventionController.ongletCourant == 2}">
 								<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_UFR']}" toggleable="false">
-									<p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage" style="width: auto;"
+									<p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage fix-selectOneMenu" style="width: auto;"
 											value="#{conventionController.critereRechercheConvention.idsUfrs}"
 											rendered="#{not empty conventionController.rechUfrs}">
 										<f:selectItems value="#{conventionController.rechUfrs}" />
@@ -91,7 +89,7 @@
 							<t:div id="panelEtape" styleClass="mt10"
 								   rendered="#{conventionController.ongletCourant == 3}">
 								<p:fieldset legend="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RECHERCHE.LIBELLE_ETAPE']}" toggleable="false">
-									<p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage" style="width: auto;"
+									<p:selectManyMenu filter="true" filterMatchMode="contains" styleClass="customPstage fix-selectOneMenu" style="width: auto;"
 											value="#{conventionController.critereRechercheConvention.idsEtapes}"
 											rendered="#{not empty conventionController.rechEtapes}">
 										<f:selectItems value="#{conventionController.rechEtapes}" />
@@ -104,17 +102,12 @@
 						<t:div styleClass="textCenter">
 							<p:commandButton id="recherche" status="statusRechercheMasse" styleClass="mt10"
 											 action="#{conventionController.rechercherMasseConvention}"
-											 value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}" />
-							<p:ajaxStatus name="statusRechercheMasse">
-								<f:facet name="start">
-									<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
-								</f:facet>
-							</p:ajaxStatus>
+											 value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
+                                             icon="fa fa-search" onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
 						</t:div>
 						<p:messages escape="false" autoUpdate="true"/>
 					</p:fieldset>
 				</h:form>
-			</p:outputPanel>
 		</p:panel>
 		<t:div
 				rendered="#{!(welcomeController.superAdmin

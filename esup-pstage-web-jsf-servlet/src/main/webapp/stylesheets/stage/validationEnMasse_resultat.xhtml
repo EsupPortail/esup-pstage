@@ -1,292 +1,240 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel
-			rendered="#{welcomeController.superAdmin	
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{welcomeController.superAdmin
 								|| welcomeController.admin
 								|| welcomeController.writer}">
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.HEADER']}" />
-			</f:facet>
-			<h:form id="formResultConventions">
-				<h:panelGrid align="center"
-					rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
-					<h:panelGrid columns="2">
-						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
-							value="../../media/images/script.png" />
-						<h:outputText value="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
-							escape="false" />
-					</h:panelGrid>
-				</h:panelGrid>
-				<h:panelGrid align="center"
-					rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
-					<t:htmlTag value="div" style="height:10px;" />
-					<h:panelGrid columns="2">
-						<h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-							value="../../media/images/script.png"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}" />
-						<h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-							rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}"
-							escape="false">
-							<f:param
-								value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
-						</h:outputFormat>
-					</h:panelGrid>
-					<t:htmlTag value="br" />
-					<t:htmlTag value="div" style="height: 5px;" />
-					<p:dataTable id="resultatConventionsDataTable"
-						value="#{conventionController.rechercheConventionPaginator.liste}"
-						var="convention" rows="20" rowHover="true"
-						rowStyleClass="noPointer" paginator="true"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15,20">
-						<p:column id="idConvention" sortBy="#{convention.idConvention}">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.ID']}" />
-							</f:facet>
-							<h:outputText value="#{convention.idConvention}" />
-						</p:column>
-						<p:column id="nomPrenom" sortBy="#{convention.etudiant.nom}"
-							sortable="#{not empty convention.etudiant}">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
-							</f:facet>
-							<h:panelGrid columns="3" style="font-size:12px;"
-								rendered="#{not empty convention.etudiant}">
-								<h:outputText value="#{convention.etudiant.prenom}" />
-								<t:htmlTag value="div" style="width:5px;" />
-								<h:outputText value="#{convention.etudiant.nom}" />
-							</h:panelGrid>
-						</p:column>
-						<p:column id="raisonSociale"
-							sortBy="#{convention.structure.raisonSociale}"
-							sortable="#{not empty convention.structure}">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAB']}" />
-							</f:facet>
-							<h:outputText value="#{convention.structure.raisonSociale}"
-								title="#{convention.structure.raisonSociale}"
-								rendered="#{not empty convention.structure}">
-								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
-							</h:outputText>
-						</p:column>
-						<p:column id="dateDebutStage"
-							sortBy="#{convention.dateDebutStage}"
-							sortable="#{not empty convention.dateDebutStage}">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE']}" />
-							</f:facet>
-							<h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']} " />
-							<h:outputText value="#{convention.dateDebutStage}"
-								rendered="#{not empty convention.dateDebutStage}">
-								<f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
-							</h:outputText>
-							<h:outputText value=" #{msgs['RECHERCHECONVENTION.PERIODE.AU']} " />
-							<h:outputText value="#{convention.dateFinStage}"
-								rendered="#{not empty convention.dateFinStage}">
-								<f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
-							</h:outputText>
-						</p:column>
-						<p:column id="ufr" sortBy="#{convention.ufr.libelle}"
-							title="#{convention.ufr.libelle}"
-							sortable="#{not empty convention.ufr}">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.UFR']}" />
-							</f:facet>
-							<h:outputText value="#{convention.ufr.libelle}"
-								rendered="#{not empty convention.ufr}">
-								<f:converter binding="#{limitCharactersShownUpTo30Converter}" />
-							</h:outputText>
-						</p:column>
-						<p:column id="libelle" sortBy="#{convention.etape.libelle}"
-							sortable="#{not empty convention.etape}">
-							<f:facet name="header">
-								<h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPE']}" />
-							</f:facet>
-							<h:outputText value="#{convention.etape.libelle}"
-								title="#{convention.etape.libelle}"
-								rendered="#{not empty convention.etape}">
-								<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
-							</h:outputText>
-						</p:column>
-						<p:column style="width:30px;">
-							<f:facet name="header">
-								<h:panelGrid align="center">
-									<script type="text/javascript">
-									//<![CDATA[
-										function checkAll(state){
-											var tableElement = document.getElementById('formResultConventions:resultatConventionsDataTable'); // acces a l'element dont l'id est : 'formResultConventions:resultatConventionsDataTable'
-											var inputs = tableElement.getElementsByTagName('input'); // retourne un tableau contenant les elements 'input' de la page HTML
-											alert("inputs.length : "+inputs.length);
-											alert("state : " + state);
-															
-											for (var i = 0; i <= inputs.length; i++){
-												if(inputs[i] != undefined){
-													alert(" ("+i+") : defined");
-													var input = inputs[i];
-													if(input.getAttribute('type') == 'checkbox' && state){
-														alert("case =='checkbox' && state -->  setAttribute('checked', true)  ... verif   input.getAttribute('type') : " + input.getAttribute('type')+"  .... input.getAttribute('checked') : "+input.getAttribute('checked'));
-														input.setAttribute('checked', true);
-														alert("   ... verif   input.getAttribute('type') : " + input.getAttribute('type')+"  .... input.getAttribute('checked') : "+input.getAttribute('checked'));
-													} else {
-														alert("NON -->  removeAtttribut('checked')    ... verif   input.getAttribute('type') : " + input.getAttribute('type')+"  .... input.getAttribute('checked') : "+input.getAttribute('checked'));
-														input.removeAttribute('checked');
-														alert("   ... verif   input.getAttribute('type') : " + input.getAttribute('type')+"  .... input.getAttribute('checked') : "+input.getAttribute('checked'));
-					
-													}
-												}
-											}
-										}
-										
-										function checkAll2(ref){
-											var tableElement = document.getElementById('formResultConventions:resultatConventionsDataTable'); // acces a l'element dont l'id est : 'formResultConventions:resultatConventionsDataTable'
-											var inputs = tableElement.getElementsByTagName('input'); // retourne un tableau contenant les elements 'input' de la page HTML
-															
-											for (var i = 0; i <= inputs.length; i++){
-												var input = inputs[i];
-												if(input!= undefined){													
-													if(input.type == 'checkbox'){
-														input.checked = ref.checked;
-													}
-												}
-											}
-										}			
-										
-										function checkHere(){
-											var t =new Array("a","b","c","d");
-											t.splice(1,1);
-											for (var n=0; n<t.length;n++)
-												alert(t[n]);
-											
-											return true;
-										}
-										
-										//]]>
-									</script>
-									<h:selectBooleanCheckbox id="checkAll"
-										onclick="checkAll2(this)">
-										<!-- onclick="checkAll(this.checked)" -->
-										<p:tooltip value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
-									</h:selectBooleanCheckbox>
-								</h:panelGrid>
-							</f:facet>
-							<t:htmlTag value="center">
-								<h:selectBooleanCheckbox id="checkEntry"
-									value="#{convention.selected}">
-									<p:tooltip value="#{msgs['FORM.SELECTIONNER']}"
-										for="checkEntry" />
-								</h:selectBooleanCheckbox>
-							</t:htmlTag>
-						</p:column>
-					</p:dataTable>
-					<t:htmlTag value="div" style="height: 15px;" />
-					<h:panelGrid align="center">
-						<p:commandButton
-							value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.VALIDER']}"
-							action="#{conventionController.remplirListeConventionsSelectionnees}"
-							oncomplete="PF('confirmValidEnMasse').show();"
-							alt="#{msgs['CONVENTION.VALIDATION.VALIDER']}"
-							update="confirmValidEnMasse" />
-						<t:htmlTag value="div" style="height: 10px;" />
-						<p:ajaxStatus name="statusValidation">
-							<f:facet name="start">
-								<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
-							</f:facet>
-						</p:ajaxStatus>
-					</h:panelGrid>
-					<p:dialog id="confirmValidEnMasse" widgetVar="confirmValidEnMasse">
-						<f:facet name="header">
-							<h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
-						</f:facet>
-						<h:panelGrid align="center"
-							rendered="#{conventionController.sizeListeConventionsSelectionnes!=0}">
-							<h:outputFormat
-								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.CONFIRM2']}"
-								escape="false">
-								<f:param
-									value="#{conventionController.sizeListeConventionsSelectionnes}" />
-							</h:outputFormat>
-							<t:htmlTag value="div" style="height: 10px;" />
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.HEADER']}" />
+            </f:facet>
+            <t:fieldset>
+                <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+                    <h:form id="formResultConventions">
+                        <t:div rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
+                            <t:htmlTag value="i" styleClass="fa fa-remove fz13" />
+                            <h:outputText styleClass="ml5" value="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
+                                          escape="false" />
+                        </t:div>
+                        <t:div rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
+                            <t:div styleClass="mb5">
+                                <t:htmlTag value="i" styleClass="fa fa-file-text-o fontBlue2 fz13"
+                                           rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}" />
+                                <h:outputFormat styleClass="ml5" value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
+                                                rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}"
+                                                escape="false">
+                                    <f:param value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
+                                </h:outputFormat>
+                            </t:div>
 
-							<!-- partie pour l'affichage des conventions selectionnees : idConvention|nom|prenom -->
-							<p:dataTable id="recapListeConventionSelectionnees"
-								value="#{conventionController.listeConventionsSelectionnees}"
-								var="convention" rows="10" rowHover="true"
-								rowStyleClass="noPointer" paginator="true"
-								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15,20">
-								<p:column id="idConvention">
-									<h:outputText value="#{convention.idConvention}" />
-									<t:htmlTag value="div" style="width:5px;" />
-								</p:column>
-								<p:column id="nomPrenom" sortBy="#{convention.etudiant.nom}"
-									sortable="#{not empty convention.etudiant}">
-									<h:panelGrid columns="3" style="font-size:12px;"
-										rendered="#{not empty convention.etudiant}">
-										<h:outputText value="#{convention.etudiant.prenom}" />
-										<t:htmlTag value="div" style="width:5px;" />
-										<h:outputText value="#{convention.etudiant.nom}" />
-									</h:panelGrid>
-								</p:column>
-							</p:dataTable>
+                            <t:htmlTag value="div" style="height: 5px;" />
 
-							<t:htmlTag value="div" style="height: 10px;" />
-							<h:panelGrid columns="3" align="center">
-								<p:commandButton value="#{msgs['FORM.OUI']}"
-									status="statusConfirmValid"
-									oncomplete="PF('confirmValidEnMasse').hide();"
-									update="formResultConventions"
-									action="#{conventionController.validerEnMasse}" />
-								<t:htmlTag value="div" style="width: 50px;" />
-								<p:commandButton value="#{msgs['FORM.NON']}" 
-									immediate="true" onclick="PF('confirmValidEnMasse').hide();" />
-							</h:panelGrid>
-						</h:panelGrid>
+                            <p:dataTable id="resultatConventionsDataTable" styleClass="ml20"
+                                         value="#{conventionController.rechercheConventionPaginator.liste}"
+                                         var="convention" rows="20" rowHover="true"
+                                         rowStyleClass="noPointer" paginator="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
+                                         tableStyle="table-layout: auto;" reflow="true">
+                                <p:column id="idConvention" sortBy="#{convention.idConvention}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['RECHERCHECONVENTION.ID']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{convention.idConvention}" />
+                                </p:column>
+                                <p:column id="nomPrenom" sortBy="#{convention.etudiant.nom}"
+                                          sortable="#{not empty convention.etudiant}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['RECHERCHECONVENTION.ETUDIANT']}" />
+                                    </f:facet>
+                                    <t:htmlTag value="span">
+                                        <h:outputText value="#{convention.etudiant.prenom}" />
+                                        <h:outputText style="padding-left:4px;" value="#{convention.etudiant.nom}" />
+                                    </t:htmlTag>
+                                </p:column>
+                                <p:column id="raisonSociale"
+                                          sortBy="#{convention.structure.raisonSociale}"
+                                          sortable="#{not empty convention.structure}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAB']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{convention.structure.raisonSociale}"
+                                                  title="#{convention.structure.raisonSociale}"
+                                                  rendered="#{not empty convention.structure}">
+                                        <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column id="dateDebutStage"
+                                          sortBy="#{convention.dateDebutStage}"
+                                          sortable="#{not empty convention.dateDebutStage}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{msgs['RECHERCHECONVENTION.PERIODE.DU']} " />
+                                    <h:outputText value="#{convention.dateDebutStage}"
+                                                  rendered="#{not empty convention.dateDebutStage}">
+                                        <f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
+                                    </h:outputText>
+                                    <h:outputText value=" #{msgs['RECHERCHECONVENTION.PERIODE.AU']} " />
+                                    <h:outputText value="#{convention.dateFinStage}"
+                                                  rendered="#{not empty convention.dateFinStage}">
+                                        <f:convertDateTime pattern="dd MMMM yyyy" timeZone="ECT" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column id="ufr" sortBy="#{convention.ufr.libelle}"
+                                          title="#{convention.ufr.libelle}"
+                                          sortable="#{not empty convention.ufr}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['RECHERCHECONVENTION.UFR']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{convention.ufr.libelle}"
+                                                  rendered="#{not empty convention.ufr}">
+                                        <f:converter binding="#{limitCharactersShownUpTo30Converter}" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column id="libelle" sortBy="#{convention.etape.libelle}"
+                                          sortable="#{not empty convention.etape}">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msgs['RECHERCHECONVENTION.ETAPE']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{convention.etape.libelle}"
+                                                  title="#{convention.etape.libelle}"
+                                                  rendered="#{not empty convention.etape}">
+                                        <f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <p:selectBooleanCheckbox id="checkAll"
+                                                                 onchange="selectAll(this);">
+                                            <p:tooltip for="checkAll" value="#{msgs['FORM.SELECTIONNER_TOUT']}" />
+                                        </p:selectBooleanCheckbox>
+                                    </f:facet>
+                                    <p:selectBooleanCheckbox id="checkEntry"
+                                                             value="#{convention.selected}">
+                                        <p:tooltip value="#{msgs['FORM.SELECTIONNER']}"
+                                                   for="checkEntry" />
+                                    </p:selectBooleanCheckbox>
+                                </p:column>
+                            </p:dataTable>
+                            <t:htmlTag value="div" style="height: 15px;" />
+                            <t:div styleClass="textCenter">
+                                <p:commandButton
+                                        value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.VALIDER']}"
+                                        action="#{conventionController.remplirListeConventionsSelectionnees}"
+                                        onstart="PF('statusDialog').show();"
+                                        oncomplete="PF('statusDialog').hide(); PF('confirmValidEnMasse').show();"
+                                        update="confirmValidEnMasse" />
+                            </t:div>
+                        </t:div>
 
-						<h:panelGrid align="center"
-							rendered="#{conventionController.sizeListeConventionsSelectionnes==0}">
-							<h:outputFormat
-								value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.CONFIRM.AUCUN']}"
-								escape="false" />
-							<t:htmlTag value="div" style="height: 10px;" />
-							<h:panelGrid columns="3" align="center">
-								<p:commandButton value="#{msgs['GENERAL.OK']}" 
-									immediate="true" onclick="PF('confirmValidEnMasse').hide();" />
-							</h:panelGrid>
-						</h:panelGrid>
+                        <t:htmlTag value="div" style="height: 10px;" />
+                        <p:messages />
+                        <t:htmlTag value="div" style="height: 10px;" />
 
-						<t:htmlTag value="center">
-							<p:ajaxStatus name="statusConfirmValid">
-								<f:facet name="start">
-									<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
-								</f:facet>
-							</p:ajaxStatus>
-						</t:htmlTag>
-					</p:dialog>
-				</h:panelGrid>
-				<h:panelGrid id="messageResultat" align="center">
-					<p:message for="messageResultat" style="font-weight:bold;">
-						<f:facet name="infoMarker">
-							<h:graphicImage alt="tick" value="../../media/images/tick.png"
-								title="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
-						</f:facet>
-					</p:message>
-				</h:panelGrid>
-				<h:commandButton immediate="true"
-					value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
-					action="rechercheMasseConvention" />
-			</h:form>
-		</p:panel>
-		<t:div
-			rendered="#{!(welcomeController.superAdmin	
+                        <p:commandButton immediate="true"
+                                         value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
+                                         action="rechercheMasseConvention"
+                                         update="@form"/>
+
+                        <p:dialog id="confirmValidEnMasse" widgetVar="confirmValidEnMasse" modal="true" resizable="false">
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs['FORM.CONFIRMATION']}" />
+                            </f:facet>
+                            <t:div styleClass="textCenter"
+                                   rendered="#{conventionController.sizeListeConventionsSelectionnes!=0}">
+                                <h:outputFormat
+                                        value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.CONFIRM2']}"
+                                        escape="false">
+                                    <f:param
+                                            value="#{conventionController.sizeListeConventionsSelectionnes}" />
+                                </h:outputFormat>
+                                <t:htmlTag value="div" style="height: 10px;" />
+
+                                <!-- partie pour l'affichage des conventions selectionnees : idConvention|nom|prenom -->
+                                <p:dataTable id="recapListeConventionSelectionnees"
+                                             value="#{conventionController.listeConventionsSelectionnees}"
+                                             var="convention" rows="10" rowHover="true"
+                                             rowStyleClass="noPointer" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
+                                             tableStyle="table-layout: auto;" reflow="true">
+                                    <p:column>
+                                        <h:outputText value="#{convention.idConvention}" />
+                                    </p:column>
+                                    <p:column sortBy="#{convention.etudiant.nom}"
+                                              sortable="#{not empty convention.etudiant}">
+                                        <t:htmlTag value="span">
+                                            <h:outputText value="#{convention.etudiant.prenom}" />
+                                            <h:outputText style="padding-left:4px;" value="#{convention.etudiant.nom}" />
+                                        </t:htmlTag>
+                                    </p:column>
+                                </p:dataTable>
+
+                                <t:htmlTag value="div" style="height: 10px;" />
+                                <t:div styleClass="textCenter">
+                                    <p:commandButton value="#{msgs['FORM.OUI']}"
+                                                     oncomplete="PF('confirmValidEnMasse').hide();"
+                                                     update="@form"
+                                                     action="#{conventionController.validerEnMasse}" />
+                                    <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml20"
+                                                     immediate="true" onclick="PF('confirmValidEnMasse').hide();" />
+                                </t:div>
+                            </t:div>
+
+                            <t:div styleClass="textCenter"
+                                   rendered="#{conventionController.sizeListeConventionsSelectionnes==0}">
+                                <h:outputFormat
+                                        value="#{msgs['CONVENTION.VALIDATION_EN_MASSE.RESULTAT.CONFIRM.AUCUN']}"
+                                        escape="false" />
+
+                                <t:htmlTag value="div" style="height: 10px;" />
+
+                                <p:commandButton value="#{msgs['GENERAL.OK']}"
+                                                 immediate="true" onclick="PF('confirmValidEnMasse').hide();" />
+                            </t:div>
+
+                        </p:dialog>
+
+                        <script type="text/javascript">
+                            function selectAll(checkAll) {
+                                var checked = checkAll.checked;
+
+                                if (checked) {
+                                    $(':checkbox[id*="checkEntry_input"]').each(function() {
+                                        $(this).context.checked=checked;
+                                    });
+
+                                    $('div[id*="checkEntry"] > div').each(function() {
+                                        $(this).addClass('ui-state-active');
+                                        $(this).children('span').addClass('ui-icon-check');
+                                        $(this).children('span').removeClass('ui-icon-blank');
+                                    });
+                                } else {
+                                    $(':checkbox[id*="checkEntry_input"]').each(function() {
+                                        $(this).context.checked=checked;
+                                    });
+
+                                    $('div[id*="checkEntry"] > div').each(function() {
+                                        $(this).removeClass('ui-state-active');
+                                        $(this).children('span').addClass('ui-icon-blank');
+                                        $(this).children('span').removeClass('ui-icon-check');
+                                    });
+                                }
+                            }
+                        </script>
+                    </h:form>
+                </t:div>
+            </t:fieldset>
+        </p:panel>
+        <t:div rendered="#{!(welcomeController.superAdmin
 								|| welcomeController.admin
 								|| welcomeController.writer)}">
-			<ui:include src="./_redirection_droitsInsuffisants.xhtml" />
-		</t:div>
-	</ui:define>
+            <ui:include src="./_redirection_droitsInsuffisants.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

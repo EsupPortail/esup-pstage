@@ -1,35 +1,34 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid columns="2"
-		rendered="#{empty offreController.listeItemsCurrentCentresGestion}">
-		<h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-			value="../../media/images/warning_50px.png" />
-		<h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01.AUCUNCENTRE']}"
-			style="color:red;" escape="false" />
-	</h:panelGrid>
-	<h:panelGrid
-		rendered="#{not empty offreController.listeItemsCurrentCentresGestion}">
-		<h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01']}" />
-		<h:panelGrid>
-			<p:selectOneMenu id="centreGestion"
-				value="#{offreController.formOffre.idCentreGestion}" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				style="width:300px;">
-				<f:selectItems
-					value="#{offreController.listeItemsCurrentCentresGestion}" />
-			</p:selectOneMenu>
-			<p:commandButton id="button" value="#{msgs['OFFRE.SELECTIONCENTRE']}"
-				update="@form">
-				<f:setPropertyActionListener value="#{2}"
-					target="#{rechercheController.ongletCourant}" />
-				<f:setPropertyActionListener value="_creationOffreEtape02Etab"
-					target="#{sessionController.creationOffreStageCurrentPage}" />
-			</p:commandButton>
-		</h:panelGrid>
-	</h:panelGrid>
+    <t:div rendered="#{empty offreController.listeItemsCurrentCentresGestion}">
+        <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontRed"/>
+        <h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01.AUCUNCENTRE']}"
+                      styleClass="fontRed" escape="false" />
+    </t:div>
+    <t:div rendered="#{not empty offreController.listeItemsCurrentCentresGestion and not empty offreController.formOffre}">
+
+        <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
+        <h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01']}" styleClass="ml5" escape="false"/>
+        <t:div style="padding:10px;" styleClass="ml20">
+            <h:selectOneMenu id="centreGestion" styleClass="customPstage fix-selectOneMenu"
+                             value="#{offreController.formOffre.idCentreGestion}"
+                             required="true">
+                <f:selectItems
+                        value="#{offreController.listeItemsCurrentCentresGestion}" />
+            </h:selectOneMenu>
+            <t:htmlTag value="div" style="height: 10px;" />
+            <p:commandButton id="button" value="#{msgs['OFFRE.SELECTIONCENTRE']}"
+                             update="@form">
+                <f:setPropertyActionListener value="#{2}"
+                                             target="#{rechercheController.ongletCourant}" />
+                <f:setPropertyActionListener value="_creationOffreEtape02Etab"
+                                             target="#{sessionController.creationOffreStageCurrentPage}" />
+            </p:commandButton>
+        </t:div>
+    </t:div>
 </ui:composition>

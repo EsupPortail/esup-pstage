@@ -19,7 +19,7 @@
                         <h:outputText value="#{msgs['EXPORTCONVENTION.AVENANT']}"
                                       styleClass="fontBold fontBlue2 fz16 ml5" escape="false" />
 
-                        <t:div styleClass="mt15"
+                        <t:div styleClass="mt15 ml20"
                                rendered="#{!avenantController.listeAvenantVide and conventionController.convention.validationConvention}">
                             <p:dataTable id="listeAvenant"
                                          value="#{avenantController.listeAvenants}" var="avenant" rows="5"

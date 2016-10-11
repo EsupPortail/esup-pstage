@@ -565,11 +565,6 @@ body {
   color: #094667;
   text-align: left;
 }
-@media (min-device-width: 801px) {
-  #MAIN_CONTENT .ui-panel .ui-panel-titlebar {
-    text-align: center;
-  }
-}
 #MAIN_CONTENT .ui-panel .ui-panel-content {
   border: 0;
   margin: 0;
@@ -813,6 +808,18 @@ body {
   color: #f9f9f9 !important;
   text-shadow: none !important;
 }
+.ui-datatable-reflow .ui-datatable-data td .ui-column-title {
+  padding: .4em;
+  min-width: 30%;
+  display: inline-block;
+  margin: -0.4em 1em -0.4em -0.4em;
+  font-weight: bold;
+}
+@media (min-device-width: 600px) {
+  .ui-datatable-reflow .ui-datatable-data td .ui-column-title {
+    display: none;
+  }
+}
 .columns-2 {
   position: relative;
 }
@@ -917,6 +924,10 @@ body {
     display: none;
   }
 }
+div.questionnaireEvaluation > div:nth-of-type(odd) {
+  background: #f2f2f2;
+  padding: 10px;
+}
 .noBorder tr,
 .noBorder .ui-panelgrid-cell {
   border: none;
@@ -1003,6 +1014,9 @@ select.customPstage {
 }
 select.customPstage::-ms-expand {
   display: none;
+}
+select.customPstage.fix-selectOneMenu {
+  padding-right: 28px;
 }
 .ui-fieldset.legendWarning .ui-fieldset-legend {
   font-family: FontAwesome;

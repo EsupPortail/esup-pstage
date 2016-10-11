@@ -160,10 +160,10 @@
 					<t:div styleClass="row">
 						<t:div styleClass="column column-2" style="line-height: 1.3rem;">
 							<t:htmlTag value="p" styleClass="mt0">
-								<h:outputText styleClass="fontBold"
+								<h:outputText styleClass="fontBold" escape="false"
 											  value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.I.5']}" />
 								<t:htmlTag value="br"/>
-								<h:selectOneMenu id="origineStage" style="margin-left:10px;" styleClass="customPstage"
+								<h:selectOneMenu id="origineStage" style="margin-left:10px;" styleClass="customPstage fix-selectOneMenu"
 												 value="#{conventionController.selOrigineStage}"
 												 converter="#{origineStageConverter}">
 									<f:selectItems value="#{nomenclatureController.origineStages}" />
@@ -547,7 +547,7 @@
 					<t:div styleClass="row">
 						<t:div styleClass="column column-2" style="line-height: 1.3rem;">
 							<t:htmlTag value="p" styleClass="mt0">
-								<h:outputText styleClass="fontBold"
+								<h:outputText styleClass="fontBold" escape="false"
 											  value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ETUDIANT.QUESTIONS.III.1']}" />
 								<t:htmlTag value="br"/>
 								<h:outputText styleClass="fontBold"

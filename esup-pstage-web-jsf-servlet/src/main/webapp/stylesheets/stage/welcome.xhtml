@@ -1,47 +1,47 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
 
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['MENU.ACCUEIL']}" />
-			</f:facet>
-			<t:fieldset style="padding:20px;">
-				<h:outputText escape="false"
-					style="font-weight:bold; font-size:1.2em;"
-					value="#{msgs['GENERAL.ACCUEIL.STAGE.WELCOME']}" />
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['MENU.ACCUEIL']}" />
+            </f:facet>
+            <t:fieldset style="padding:20px;">
+                <h:outputText escape="false"
+                              style="font-weight:bold; font-size:1.2em;"
+                              value="#{msgs['GENERAL.ACCUEIL.STAGE.WELCOME']}" />
 
-				<t:htmlTag value="div" style="height:30px;" />
+                <t:htmlTag value="div" style="height:30px;" />
 
-				<h:outputText value="Documents annexes : " style="font-weight:bold;" />
+                <h:outputText value="Documents annexes : " style="font-weight:bold;" />
 
-				<t:div styleClass="mt5 ml30"
-					style="font-weight:bold; text-decoration:underline;">
-					<h:outputLink target="_blank"
-						value="#{sessionController.mediaPath}/docs/2015-Notice_Convention_Stage-v1.1.pdf">
-						<h:graphicImage value="/media/images/docs.gif"
-							alt="img_notice" />
-						Notice Convention de stage
-					</h:outputLink>
-					<t:htmlTag value="div" style="height:5px;" />
-					<h:outputLink target="_blank"
-						value="#{sessionController.mediaPath}/docs/2015-Notice_Convention_Stage_BILINGUES-v1.1.zip">
-						<h:graphicImage value="/media/images/docs.gif"
-							alt="img_notices_bilingues" />
-						Notices bilingues Convention de stage (Anglais - Espagnol - Allemand)
-					</h:outputLink>
-				</t:div>
-				
-				<h:outputText value="#{msgs['MESSAGE_CNIL_STAGE']}" escape="false"
-					rendered="#{not empty msgs['MESSAGE_CNIL_STAGE']}" />
+                <t:div styleClass="mt5 ml30"
+                       style="font-weight:bold; text-decoration:underline;">
+                    <h:outputLink target="_blank"
+                                  value="#{sessionController.mediaPath}/docs/2015-Notice_Convention_Stage-v1.1.pdf">
+                        <h:graphicImage value="/media/images/docs.gif"
+                                        alt="img_notice" />
+                        Notice Convention de stage
+                    </h:outputLink>
+                    <t:htmlTag value="div" style="height:5px;" />
+                    <h:outputLink target="_blank"
+                                  value="#{sessionController.mediaPath}/docs/2015-Notice_Convention_Stage_BILINGUES-v1.1.zip">
+                        <h:graphicImage value="/media/images/docs.gif"
+                                        alt="img_notices_bilingues" />
+                        Notices bilingues Convention de stage (Anglais - Espagnol - Allemand)
+                    </h:outputLink>
+                </t:div>
 
-			</t:fieldset>
-		</p:panel>
-	</ui:define>
+                <h:outputText value="#{msgs['MESSAGE_CNIL_STAGE']}" escape="false"
+                              rendered="#{not empty msgs['MESSAGE_CNIL_STAGE']}" />
+
+            </t:fieldset>
+        </p:panel>
+    </ui:define>
 </ui:composition>
 
 

@@ -1,73 +1,65 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:panelGrid columns="2">
+    <t:panelGrid columns="2">
 
-		<h:outputLabel for="typeEnvoiMail" value="Type de mail : " />
-		<h:selectOneMenu id="typeEnvoiMail" required="true"
-			value="#{evaluationController.typeMailEval}">
-			<f:selectItem itemValue="1"
-				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEMAIL.1ERENVOI']}" />
-			<f:selectItem itemValue="2"
-				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEMAIL.RAPPEL']}" />
-			<p:ajax event="valueChange" update="formEnvoiMailEval" />
-		</h:selectOneMenu>
-		<t:panelGroup colspan="2">
-			<p:message for="typeEnvoiMail">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-		</t:panelGroup>
+        <h:outputText styleClass="fontBold" value="Type de mail : " />
+        <h:selectOneMenu id="typeEnvoiMail" required="true" styleClass="customPstage fix-selectOneMenu"
+                         value="#{evaluationController.typeMailEval}">
+            <f:selectItem itemValue="1"
+                          itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEMAIL.1ERENVOI']}" />
+            <f:selectItem itemValue="2"
+                          itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEMAIL.RAPPEL']}" />
+            <p:ajax event="valueChange" update="formEnvoiMailEval" />
+        </h:selectOneMenu>
+        <t:panelGroup colspan="2">
+            <p:message for="typeEnvoiMail" />
+        </t:panelGroup>
 
-		<t:panelGroup colspan="2">
-			<t:htmlTag value="div" style="height: 5px;" />
-		</t:panelGroup>
+        <t:panelGroup colspan="2">
+            <t:htmlTag value="div" style="height: 5px;" />
+        </t:panelGroup>
 
-		<h:outputLabel for="typeDestMailEval"
-			value="Destinataires des mails : " />
-		<h:selectOneRadio id="typeDestMailEval"
-			value="#{evaluationController.typeDestMailEval}">
-			<f:selectItem itemValue="1"
-				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEDEST.ETU']}" />
-			<f:selectItem itemValue="2" style="margin-left:10px;"
-				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEDEST.ENS']}" />
-			<f:selectItem itemValue="3" style="margin-left:10px;"
-				itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEDEST.ENT']}" />
-			<p:ajax event="valueChange" update="formEnvoiMailEval" />
-		</h:selectOneRadio>
+        <h:outputText styleClass="fontBold"
+                      value="Destinataires des mails : " />
+        <p:selectOneRadio id="typeDestMailEval"
+                          value="#{evaluationController.typeDestMailEval}">
+            <f:selectItem itemValue="1"
+                          itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEDEST.ETU']}" />
+            <f:selectItem itemValue="2" style="margin-left:10px;"
+                          itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEDEST.ENS']}" />
+            <f:selectItem itemValue="3" style="margin-left:10px;"
+                          itemLabel="#{msgs['RECHERCHEEVALUATION.ENVOIMAIL.TYPEDEST.ENT']}" />
+            <p:ajax event="valueChange" update="formEnvoiMailEval" />
+        </p:selectOneRadio>
 
-		<t:panelGroup colspan="2">
-			<t:htmlTag value="div" style="height:10px;" />
-		</t:panelGroup>
+        <t:panelGroup colspan="2">
+            <t:htmlTag value="div" style="height:10px;" />
+        </t:panelGroup>
 
-		<h:outputLabel for="contenuMail" value="Squelette du mail : " />
-		<t:fieldset id="contenuMail" style="width:400px;">
-			<h:outputText value="#{evaluationController.contenuMailEval}"
-				escape="false" disabled="true" />
-		</t:fieldset>
-	</t:panelGrid>
+        <h:outputText styleClass="fontBold" value="Squelette du mail : " />
+        <t:fieldset id="contenuMail" style="width:400px;">
+            <h:outputText value="#{evaluationController.contenuMailEval}"
+                          escape="false" disabled="true" />
+        </t:fieldset>
+    </t:panelGrid>
 
-	<t:htmlTag value="div" style="height:15px;" />
-	<h:outputText value="#{msgs['FORM.CONFIRMER']} ?"
-		style="float:center; font-weight:bold; font-size:14px;" />
-	<h:panelGrid align="center" columns="3">
-		<p:commandButton status="mailEvalStatus"
-			action="#{evaluationController.envoiMailEvalEnMasse}"
-			value="#{msgs['FORM.OUI']}" update="formEnvoiMailEval" />
-		<t:htmlTag value="div" style="width:30px;" />
-		<p:commandButton value="#{msgs['FORM.NON']}"
-			onclick="PF('envoiMailEvalPanel').hide();" />
-	</h:panelGrid>
-	<t:htmlTag value="div" style="height:5px;" />
-	<t:htmlTag value="center">
-		<p:ajaxStatus name="mailEvalStatus">
-			<f:facet name="start">
-				<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
-			</f:facet>
-		</p:ajaxStatus>
-	</t:htmlTag>
-	<t:htmlTag value="div" style="height:10px;" />
+    <t:htmlTag value="div" style="height:25px;" />
+
+    <t:div styleClass="ml40">
+        <h:outputText value="#{msgs['FORM.CONFIRMER']} ?"
+                      styleClass="fontBold fz16"/>
+        <p:commandButton styleClass="ml20"
+                         action="#{evaluationController.envoiMailEvalEnMasse}"
+                         value="#{msgs['FORM.OUI']}" update="formEnvoiMailEval"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" />
+        <p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml20"
+                         onclick="PF('envoiMailEvalPanel').hide();" />
+    </t:div>
+
+    <t:htmlTag value="div" style="height:10px;" />
 </ui:composition>

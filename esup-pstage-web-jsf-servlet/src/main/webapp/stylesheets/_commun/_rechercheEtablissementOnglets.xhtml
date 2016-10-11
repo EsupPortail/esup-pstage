@@ -59,7 +59,7 @@
                         <h:outputText value="(#{msgs['GENERAL.FACULTATIF']})" escape="false"/>
                         <h:outputText styleClass="ml5" style="font-style: italic;"
                                       value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']} : "/>
-                        <h:selectOneMenu id="rechPays2" effect="none" styleClass="customPstage"
+                        <h:selectOneMenu id="rechPays2" effect="none" styleClass="customPstage fix-selectOneMenu"
                                          value="#{rechercheController.rechPays}"
                                          converter="#{paysConverter}"
                                          valueChangeListener="#{rechercheController.valuePaysChanged}">
@@ -95,7 +95,7 @@
                     <t:htmlTag value="li">
                         <h:outputLabel for="rechTypeStructure"
                                        value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.TYPESTRUCTURE']}" />
-                        <h:selectOneMenu id="rechTypeStructure" required="true" styleClass="customPstage"
+                        <h:selectOneMenu id="rechTypeStructure" required="true" styleClass="customPstage fix-selectOneMenu"
                                          value="#{rechercheController.rechTypeEtablissement}"
                                          converter="#{typeStructureConverter}">
                             <f:selectItems value="#{nomenclatureController.typesStructure}" />
@@ -106,7 +106,7 @@
                     <t:htmlTag value="li">
                         <h:outputLabel for="rechNafN1"
                                        value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET3.SECTEURACTIVITE']}" />
-                        <h:selectOneMenu id="rechNafN1" required="true" styleClass="customPstage"
+                        <h:selectOneMenu id="rechNafN1" required="true" styleClass="customPstage fix-selectOneMenu"
                                          value="#{rechercheController.rechNafN1}"
                                          converter="#{nafN1Converter}">
                             <f:selectItems value="#{nomenclatureController.nafN1}" />
@@ -195,7 +195,7 @@
                     <t:htmlTag value="li">
                         <h:outputLabel for="rechPays"
                                        value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']}" />
-                        <h:selectOneMenu id="rechPays" effect="none" styleClass="customPstage"
+                        <h:selectOneMenu id="rechPays" effect="none" styleClass="customPstage fix-selectOneMenu"
                                          value="#{rechercheController.critereRechercheStructureAdresse.rechPays}"
                                          converter="#{paysConverter}">
                             <f:selectItem itemValue="" />

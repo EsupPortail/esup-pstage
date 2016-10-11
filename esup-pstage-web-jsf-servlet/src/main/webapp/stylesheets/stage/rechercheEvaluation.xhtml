@@ -19,7 +19,7 @@
 							<h:outputLabel
 									value="#{msgs['RECHERCHEEVALUATION.CENTREGESTION']}"
 									for="centreGestion" />
-							<h:selectOneMenu id="centreGestion" styleClass="customPstage" effect="none"
+							<h:selectOneMenu id="centreGestion" styleClass="customPstage fix-selectOneMenu" effect="none"
 											 value="#{evaluationController.rechEvalIdCentre}"
 											 required="true">
 								<f:selectItems
@@ -96,7 +96,7 @@
 						<t:div styleClass="column">
 							<t:htmlTag value="li">
 								<p:outputLabel value="#{msgs['RECHERCHECONVENTION.DATESTAGE.TERMINE.QU']}" for="stageTermine"/>
-								<p:selectOneRadio id="stageTermine" styleClass="customPstage"
+								<p:selectOneRadio id="stageTermine" styleClass="customPstage fix-selectOneMenu"
 												  value="#{conventionController.critereRechercheConvention.dateStage}">
 									<f:selectItem itemValue="#{2}" itemLabel="#{msgs['FORM.OUI']}"/>
 									<f:selectItem itemValue="#{''}" itemLabel="#{msgs['FORM.NON']}"/>

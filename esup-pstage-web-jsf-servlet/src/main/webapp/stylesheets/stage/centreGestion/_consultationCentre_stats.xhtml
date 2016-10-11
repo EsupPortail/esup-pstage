@@ -20,7 +20,7 @@
 						<t:div styleClass="column">
 							<t:htmlTag value="li">
 							<h:outputText value="#{msgs['CONVENTION.STATS.CRITERE.UN']}" />
-							<h:selectOneMenu styleClass="customPstage"
+							<h:selectOneMenu styleClass="customPstage fix-selectOneMenu"
 								value="#{statistiquesConventionController.critereUnLib}"
 								id="idListeStatsCvtCriteres1">
 								<f:selectItems
@@ -31,7 +31,7 @@
 						<t:div styleClass="column">
 							<t:htmlTag value="li">
 							<h:outputText value="#{msgs['CONVENTION.STATS.CRITERE.DEUX']}" />
-							<h:selectOneMenu styleClass="customPstage"
+							<h:selectOneMenu styleClass="customPstage fix-selectOneMenu"
 								value="#{statistiquesConventionController.critereDeuxLib}"
 								id="idListeStatsCvtCriteres2">
 								<f:selectItems
@@ -44,7 +44,7 @@
 					<h:panelGrid align="center" style="padding:5px;">
 						<h:outputText value="#{msgs['CONVENTION.ANNEE']} : " />
 						<t:htmlTag value="center">
-							<h:selectOneMenu styleClass="customPstage"
+							<h:selectOneMenu styleClass="customPstage fix-selectOneMenu"
 								value="#{statistiquesConventionController.annee_scolaire}">
 								<f:selectItems
 									value="#{statistiquesConventionController.anneesConventions}" />
@@ -86,7 +86,7 @@
 						<t:div styleClass="column">
 							<t:htmlTag value="li">
 							<h:outputText value="#{msgs['OFFRES.STATS.CRITERE.UN']}" />
-							<h:selectOneMenu styleClass="customPstage"
+							<h:selectOneMenu styleClass="customPstage fix-selectOneMenu"
 								value="#{statistiquesOffresController.critereUnLib}"
 								id="idListeStatsOffresCriteres1">
 								<f:selectItems
@@ -97,7 +97,7 @@
 						<t:div styleClass="column">
 							<t:htmlTag value="li">
 							<h:outputText value="#{msgs['OFFRES.STATS.CRITERE.DEUX']}" />
-							<h:selectOneMenu styleClass="customPstage"
+							<h:selectOneMenu styleClass="customPstage fix-selectOneMenu"
 								value="#{statistiquesOffresController.critereDeuxLib}"
 								id="idListeStatsOffresCriteres2">
 								<f:selectItems
@@ -109,7 +109,7 @@
 					<h:panelGrid align="center" style="padding:5px;">
 						<h:outputText value="#{msgs['CONVENTION.ANNEE']} : " />
 						<t:htmlTag value="center">
-							<h:selectOneMenu styleClass="customPstage"
+							<h:selectOneMenu styleClass="customPstage fix-selectOneMenu"
 								value="#{statistiquesOffresController.annee_scolaire}">
 								<f:selectItems
 									value="#{statistiquesOffresController.anneesOffres}" />

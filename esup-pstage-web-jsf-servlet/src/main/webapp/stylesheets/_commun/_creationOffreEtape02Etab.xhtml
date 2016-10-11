@@ -5,16 +5,10 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <h:outputStylesheet>
-        .active-row {
-            background-color: #F1F1F1 !important;
-        }
-    </h:outputStylesheet>
+    <h:outputText value="#{msgs['OFFRE.TEXT.ETAPE02']}" />
 
-    <h:panelGrid>
-        <h:outputText value="#{msgs['OFFRE.TEXT.ETAPE02']}" />
-        <t:htmlTag value="div" style="height: 10px;" />
-    </h:panelGrid>
+    <t:htmlTag value="div" style="height: 10px;" />
+
     <t:div>
         <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
         <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />
@@ -54,9 +48,7 @@
                         <p:commandButton id="selectionEtab"
                                          value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
                                          action="#{offreController.goToCreationOffreDetailsEtab}"
-                                         icon="ui-icon-search"
-                                         alt="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-                                         title="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}">
+                                         icon="ui-icon-search">
                             <f:setPropertyActionListener value="#{varRechercheStructure}"
                                                          target="#{rechercheController.resultatRechercheStructure}" />
                             <p:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />

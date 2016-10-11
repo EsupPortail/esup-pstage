@@ -7,7 +7,7 @@
                 <t:htmlTag value="li">
                     <p:outputLabel rendered="#{not empty nomenclatureController.anneesUnivOffres}"
                                    value="#{msgs['RECHERCHEOFFRE.ANNEEU']}" for="anU" />
-                    <h:selectOneMenu id="anU" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="anU" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      rendered="#{not empty nomenclatureController.anneesUnivOffres}"
                                      value="#{offreController.critereRechercheOffre.anneeUniversitaire}">
                         <f:selectItem itemValue="" />
@@ -17,7 +17,7 @@
                 <t:htmlTag value="li">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.NUMOFFRE']}"
                                    for="numOffre" />
-                    <p:inputText id="numOffre" styleClass="customPstage"
+                    <p:inputText id="numOffre" styleClass="customPstage fix-selectOneMenu"
                                  value="#{offreController.critereRechercheOffre.idOffre}"
                                  maxlength="10" />
                 </t:htmlTag>
@@ -26,7 +26,7 @@
                 <t:htmlTag value="li">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.INTITULE']}"
                                    for="intitule" />
-                    <p:inputText id="intitule" style="text-transform:uppercase;" styleClass="customPstage"
+                    <p:inputText id="intitule" style="text-transform:uppercase;" styleClass="customPstage fix-selectOneMenu"
                                  value="#{offreController.critereRechercheOffre.intitule}"
                                  maxlength="200"
                                  converter="#{sansAccentEnMAJConverter}"/>
@@ -34,7 +34,7 @@
                 <t:htmlTag value="li">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPEOFFRE']}"
                                    for="typeContratOffre" />
-                    <h:selectOneMenu id="typeContratOffre" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="typeContratOffre" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      value="#{offreController.rechTypeOuContrat}">
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{offreController.rechTypesContratsOffre}" />
@@ -49,7 +49,7 @@
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUCOMMUNE']}"
                                    for="lieuCommune" />
-                    <p:inputText id="lieuCommune" styleClass="customPstage"
+                    <p:inputText id="lieuCommune" styleClass="customPstage fix-selectOneMenu"
                                  value="#{offreController.critereRechercheOffre.lieuCommune}"
                                  size="50" maxlength="200"
                                  converter="#{sansAccentEnMAJConverter}"/>
@@ -62,7 +62,7 @@
                             <h:outputText value="#{msgs['RECHERCHEOFFRE.LIEUCODEPOSTAL.AIDE']}" />
                         </t:htmlTag>
                     </p:outputLabel>
-                    <p:inputText id="lieuCodePostal" styleClass="customPstage"
+                    <p:inputText id="lieuCodePostal" styleClass="customPstage fix-selectOneMenu"
                                  value="#{offreController.critereRechercheOffre.lieuCodesPostal}"
                                  size="50" maxlength="200" converter="#{listeCodePostalConverter}">
                     </p:inputText>
@@ -72,7 +72,7 @@
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.LIEUPAYS']}"
                                    for="lieuPays" />
-                    <h:selectOneMenu id="lieuPays" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="lieuPays" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      value="#{offreController.critereRechercheOffre.lieuPays}"
                                      converter="#{paysConverter}" >
                         <f:selectItem itemValue="" />
@@ -88,7 +88,7 @@
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.DOMAINEOFFRE']}"
                                    for="fapN1" />
-                    <h:selectOneMenu id="fapN1" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="fapN1" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      value="#{offreController.critereRechercheOffre.fapN1}"
                                      converter="#{fapN1Converter}">
                         <f:selectItem itemValue="" />
@@ -98,7 +98,7 @@
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.SECTEURACTIVITE']}"
                                    for="nafN1" />
-                    <h:selectOneMenu id="nafN1" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="nafN1" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      value="#{offreController.critereRechercheOffre.nafN1}"
                                      converter="#{nafN1Converter}">
                         <f:selectItem itemValue="" />
@@ -110,7 +110,7 @@
                 <t:htmlTag value="li" rendered="#{offreController.rechercheAvancee}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.NIVEAUFORMATION']}"
                                    for="niveauForm" />
-                    <h:selectOneMenu id="niveauForm" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="niveauForm" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      value="#{offreController.critereRechercheOffre.niveauFormation}"
                                      converter="#{niveauFormationConverter}">
                         <f:selectItem itemValue="" />
@@ -125,7 +125,7 @@
                             <h:outputText escape="false" value="#{msgs['RECHERCHEOFFRE.MOTSCLES.AIDE']}" />
                         </t:htmlTag>
                     </p:outputLabel>
-                    <p:inputText id="motsCles" styleClass="customPstage"
+                    <p:inputText id="motsCles" styleClass="customPstage fix-selectOneMenu"
                                  value="#{offreController.critereRechercheOffre.motsCles}" size="50"
                                  maxlength="200" />
                 </t:htmlTag>
@@ -140,7 +140,7 @@
                 <t:htmlTag value="li">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.TYPESTRUCTURE']}"
                                    for="typeStructure" />
-                    <h:selectOneMenu id="typeStructure" effect="none" styleClass="customPstage"
+                    <h:selectOneMenu id="typeStructure" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      value="#{offreController.critereRechercheOffre.typeStructure}"
                                      converter="#{typeStructureConverter}">
                         <f:selectItem itemValue="" />
@@ -151,7 +151,7 @@
                            rendered="#{!sessionController.pageAuthorized and !sessionController.adminPageAuthorized}">
                     <p:outputLabel value="#{msgs['RECHERCHEOFFRE.INCLUREOFFREENTR']}"
                                    for="incOffreEntr" />
-                    <p:selectOneRadio id="incOffreEntr" styleClass="customPstage"
+                    <p:selectOneRadio id="incOffreEntr" styleClass="customPstage fix-selectOneMenu"
                                       value="#{offreController.critereRechercheOffre.inclureOffresEntreprise}">
                         <f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.OUI']}" />
                         <f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.NON']}" />
@@ -164,7 +164,7 @@
                                   escape="false" style="font-weight:bold;" />
                     <t:htmlTag value="ul" style="list-style:none; margin:0; padding-left: 25px; width: 150px;">
                         <t:htmlTag value="li">
-                            <p:selectBooleanCheckbox styleClass="customPstage"
+                            <p:selectBooleanCheckbox styleClass="customPstage fix-selectOneMenu"
                                                      value="#{offreController.critereRechercheOffre.estDiffusee}">
                                 <p:ajax event="change" update="critDiffOP, diffOP" />
                             </p:selectBooleanCheckbox>
@@ -173,7 +173,7 @@
                                     escape="false" />
                         </t:htmlTag>
                         <t:htmlTag value="li">
-                            <p:selectBooleanCheckbox styleClass="customPstage"
+                            <p:selectBooleanCheckbox styleClass="customPstage fix-selectOneMenu"
                                                      value="#{offreController.critereRechercheOffre.diffusionTerminee}">
                                 <p:ajax event="change" update="critDiffOP, diffOP"/>
                             </p:selectBooleanCheckbox>
@@ -182,7 +182,7 @@
                                     escape="false" />
                         </t:htmlTag>
                         <t:htmlTag value="li">
-                            <p:selectBooleanCheckbox styleClass="customPstage"
+                            <p:selectBooleanCheckbox styleClass="customPstage fix-selectOneMenu"
                                                      value="#{offreController.critereRechercheOffre.estSupprimee}">
                                 <p:ajax event="change" update="critDiffOP, diffOP"/>
                             </p:selectBooleanCheckbox>

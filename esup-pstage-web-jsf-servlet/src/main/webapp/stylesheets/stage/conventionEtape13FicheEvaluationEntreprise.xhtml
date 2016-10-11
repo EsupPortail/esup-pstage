@@ -1,864 +1,764 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<ui:include src="_roadmapSel.xhtml" />
-		<p:panel rendered="#{conventionController.convention != null}">
-			<f:facet name="header">
-				<h:outputText
-					value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.HEADER']}" />
-			</f:facet>
-			<h:form id="formFicheEntreprise">
-				<h:outputStylesheet>
-					label {
-					    font-weight: normal !important;
-					}
-				</h:outputStylesheet>
-				<p:togglePanel switchType="ajax"
-					activeItem="#{evaluationController.togglePanelActiveItem}">
-					<p:togglePanelItem id="entrepriseTogglePanel1"
-						name="entrepriseTogglePanel1">
-						<h:panelGrid style="margin-left:100px; padding:10px; width:800px;"
-							border="1">
-							<f:facet name="header">
-								<h:outputText style="font-weight:bold; font-size:20px;"
-									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_1']}" />
-							</f:facet>
-							<t:htmlTag value="div" style="height: 10px;" />
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{conventionController.convention != null}">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.HEADER']}" />
+            </f:facet>
+            <h:form id="formFicheEntreprise">
+                <ui:include src="_roadmapSel.xhtml" />
 
-							<p:separator style="height:2px;" />
+                <t:fieldset>
+                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+                        <p:wizard showNavBar="false" widgetVar="wiz">
+                            <p:tab id="entrepriseTogglePanel1"
+                                   title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_1']}">
+                                <t:div styleClass="ml40 mt25 questionnaireEvaluation">
 
-							<h:panelGrid width="800" columns="2">
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt1}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.1']}" />
-									<h:selectOneRadio id="reponse1" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt1}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse1">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse1bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt1bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                    <t:div id="questionEntreprise1" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt1}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.1']}" />
+                                        <p:selectOneRadio id="reponse1" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt1}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse1"/>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt2}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.2']}" />
-									<h:selectOneRadio id="reponse2" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt2}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse2">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse2bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt2bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse1bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt1bis}" />
+                                    </t:div>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt3}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.3']}" />
-									<h:selectOneRadio id="reponse3" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt3}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse3">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-								</h:panelGrid>
+                                    <t:div id="questionEntreprise2" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt2}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.2']}" />
+                                        <p:selectOneRadio id="reponse2" style="margin-left:10px;"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt2}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse2"/>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt5}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;" escape="false"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.5']}" />
-									<h:selectOneRadio id="reponse5" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt5}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse5">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse5bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt5bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse2bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt2bis}" />
+                                    </t:div>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt9}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.9']}" />
-									<h:selectOneRadio id="reponse9" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt9}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse9">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse9bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt9bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                    <t:div id="questionEntreprise3" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt3}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.3']}" />
+                                        <p:selectOneRadio id="reponse3" style="margin-left:10px;"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt3}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse3"/>
+                                    </t:div>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt11}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.11']}" />
-									<h:selectOneRadio id="reponse11" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt11}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse11">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse11bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt11bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                    <t:div id="questionEntreprise5" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt5}">
+                                        <h:outputText styleClass="fontBold" escape="false"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.5']}" />
+                                        <p:selectOneRadio id="reponse5" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt5}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse5"/>
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse5bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt5bis}" />
+                                    </t:div>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt12}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.12']}" />
-									<h:selectOneRadio id="reponse12" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt12}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse12">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse12bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt12bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                    <t:div id="questionEntreprise9" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt9}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.9']}" />
+                                        <p:selectOneRadio id="reponse9" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt9}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse9"/>
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse9bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt9bis}" />
+                                    </t:div>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt13}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.13']}" />
-									<h:selectOneRadio id="reponse13" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt13}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse13">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse13bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt13bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                    <t:div id="questionEntreprise11" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt11}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.11']}" />
+                                        <p:selectOneRadio id="reponse11" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt11}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse11"/>
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse11bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt11bis}" />
+                                    </t:div>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt14}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.14']}" />
-									<h:selectOneRadio id="reponse14" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt14}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse14">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse14bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt14bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
-							</h:panelGrid>
-							<p:outputPanel style="width:700px;" layout="block">
-								<ui:repeat
-									value="#{evaluationController.questionsSupplementairesEntreprise1}"
-									var="questionSup">
-									<p:panel style="width:300px; float:left; border:none;">
-										<h:outputText style="font-weight:bold;" escape="false"
-											value="#{questionSup.question}" />
-										<h:panelGrid style="margin-left:10px;">
-											<h:inputTextarea id="reponse1"
-												value="#{questionSup.reponseSupplementaire.reponseTxt}"
-												style="width:250px; height:60px; resize:none;"
-												required="true"
-												requiredMessage="#{requiredMessageController.champObligatoire}"
-												rendered="#{questionSup.typeQuestion == 'TXT'}" />
-											<p:message for="reponse1">
-												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-											</p:message>
-											<h:selectOneRadio id="reponse2" required="true"
-												value="#{questionSup.reponseSupplementaire.reponseBool}"
-												rendered="#{questionSup.typeQuestion == 'BOOL'}">
-												<f:selectItem itemValue="#{true}"
-													itemLabel="#{msgs['FORM.OUI']}" />
-												<f:selectItem itemValue="#{false}"
-													itemLabel="#{msgs['FORM.NON']}" />
-											</h:selectOneRadio>
-											<p:message for="reponse2">
-												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-											</p:message>
-										</h:panelGrid>
-										<h:selectOneRadio style="margin-left:10px;" id="reponse3"
-											layout="pageDirection" required="true"
-											value="#{questionSup.reponseSupplementaire.reponseInt}"
-											rendered="#{questionSup.typeQuestion == 'INT'}">
-											<f:selectItem itemValue="1"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-											<f:selectItem itemValue="2"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-											<f:selectItem itemValue="3"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-											<f:selectItem itemValue="4"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-											<f:selectItem itemValue="5"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-										</h:selectOneRadio>
-										<p:message for="reponse3">
-											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-										</p:message>
-									</p:panel>
-								</ui:repeat>
-							</p:outputPanel>
+                                    <t:div id="questionEntreprise12" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt12}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.12']}" />
+                                        <p:selectOneRadio id="reponse12" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt12}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse12"/>
 
-							<t:htmlTag value="div" style="height:10px;" />
-							<t:htmlTag value="center">
-								<p:commandButton id="save1" value="#{msgs['FORM.ENREGISTRER']}"
-									action="#{evaluationController.updateReponseEntreprise}"
-									update="formFicheEntreprise" style="border-color:blue;">
-									<p:tooltip
-										value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
-								</p:commandButton>
-							</t:htmlTag>
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse12bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt12bis}" />
 
-							<t:htmlTag value="div" style="height:20px;" />
+                                    </t:div>
 
-							<p:separator style="height:2px;" />
+                                    <t:div id="questionEntreprise13" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt13}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.13']}" />
+                                        <p:selectOneRadio id="reponse13" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt13}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse13"/>
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse13bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt13bis}" />
+                                    </t:div>
 
-							<h:panelGrid align="center" style="padding:10px;">
-								<p:message for="formFicheEntreprise"
-									style="font-size:16px;font-weight:bold;" />
-							</h:panelGrid>
+                                    <t:div id="questionEntreprise14" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt14}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.14']}" />
+                                        <p:selectOneRadio id="reponse14" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt14}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse14"/>
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse14bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt14bis}" />
+                                    </t:div>
 
-							<h:panelGrid align="center">
-								<p:commandButton value="Suivant &gt;&gt;"
-									action="#{evaluationController.updateReponseEntreprise}"
-									update="formFicheEntreprise"
-									style="font-size:16px; border-color:green;">
-									<f:setPropertyActionListener value="entrepriseTogglePanel2"
-										target="#{evaluationController.togglePanelActiveItem}" />
-								</p:commandButton>
-								<t:htmlTag value="div" style="height:5px;" />
-								<t:htmlTag value="center">
-									1/3
-								</t:htmlTag>
-							</h:panelGrid>
-						</h:panelGrid>
-					</p:togglePanelItem>
-					<p:togglePanelItem id="entrepriseTogglePanel2"
-						name="entrepriseTogglePanel2">
-						<h:panelGrid style="margin-left:100px; padding:10px; width:800px;"
-							border="1">
-							<f:facet name="header">
-								<h:outputText
-									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_2']}"
-									style="font-weight:bold; font-size:20px;" />
-							</f:facet>
-							<t:htmlTag value="div" style="height: 10px;" />
-							<p:separator style="height:2px;" />
-							<h:panelGrid width="800" columns="2">
+                                    <ui:repeat value="#{evaluationController.questionsSupplementairesEntreprise1}"
+                                               var="questionSup">
+                                        <t:div styleClass="mt15">
+                                            <h:outputText styleClass="fontBold" escape="false"
+                                                          value="#{questionSup.question}" />
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt4}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.4']}" />
-									<h:selectOneRadio id="reponse4" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt4}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse4">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse4bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt4bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                            <t:div styleClass="ml10"
+                                                   rendered="#{questionSup.typeQuestion == 'TXT'}">
+                                                <p:inputTextarea id="repSupI1"
+                                                                 value="#{questionSup.reponseSupplementaire.reponseTxt}"
+                                                                 required="true" />
+                                                <p:message for="repSupI1"/>
+                                            </t:div>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt6}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.6']}" />
-									<h:selectOneRadio id="reponse6" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt6}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse6">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse6bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt6bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                            <t:div styleClass="ml10"
+                                                   rendered="#{questionSup.typeQuestion == 'BOOL'}">
+                                                <p:selectOneRadio id="repSupI2" required="true"
+                                                                  value="#{questionSup.reponseSupplementaire.reponseBool}">
+                                                    <f:selectItem itemValue="#{true}"
+                                                                  itemLabel="#{msgs['FORM.OUI']}" />
+                                                    <f:selectItem itemValue="#{false}"
+                                                                  itemLabel="#{msgs['FORM.NON']}" />
+                                                </p:selectOneRadio>
+                                                <p:message for="repSupI2"/>
+                                            </t:div>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt7}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.7']}" />
-									<h:selectOneRadio id="reponse7" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt7}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse7">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse7bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt7bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                            <t:div styleClass="ml10"
+                                                   rendered="#{questionSup.typeQuestion == 'INT'}">
+                                                <p:selectOneRadio id="repSupI3"
+                                                                  layout="pageDirection" required="true"
+                                                                  value="#{questionSup.reponseSupplementaire.reponseInt}">
+                                                    <f:selectItem itemValue="1"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                                    <f:selectItem itemValue="2"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                                    <f:selectItem itemValue="3"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                                    <f:selectItem itemValue="4"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                                    <f:selectItem itemValue="5"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                                </p:selectOneRadio>
+                                                <p:message for="repSupI3"/>
+                                            </t:div>
+                                        </t:div>
+                                    </ui:repeat>
+                                </t:div>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt8}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.8']}" />
-									<h:selectOneRadio id="reponse8" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt8}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse8">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse8bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt8bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                <t:div styleClass="textCenter mt20">
+                                    <p:commandButton id="save1" value="#{msgs['FORM.ENREGISTRER']}"
+                                                     action="#{evaluationController.updateReponseEntreprise}"
+                                                     update="@form" styleClass="fontBlue2"
+                                                     icon="fa fa-save">
+                                        <p:tooltip for="save1" value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
+                                    </p:commandButton>
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt15}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.15']}" />
-									<h:selectOneRadio id="reponse15" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt15}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse15">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse15bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt15bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
-							</h:panelGrid>
+                                    <p:outputPanel id="panelErrors1">
+                                        <t:div styleClass="textCenter mt10 fontRed"
+                                               rendered="#{facesContext.maximumSeverity != null and facesContext.maximumSeverity.ordinal ge 2}">
+                                            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13" />
+                                            <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+                                            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13" />
+                                        </t:div>
+                                    </p:outputPanel>
 
-							<p:outputPanel style="width:700px;" layout="block">
-								<ui:repeat
-									value="#{evaluationController.questionsSupplementairesEntreprise2}"
-									var="questionSup">
-									<p:panel style="width:300px; float:left; border:none;">
-										<h:outputText style="font-weight:bold;" escape="false"
-											value="#{questionSup.question}" />
-										<h:panelGrid style="margin-left:10px;">
-											<h:inputTextarea id="reponse1"
-												value="#{questionSup.reponseSupplementaire.reponseTxt}"
-												style="width:250px; height:60px; resize:none;"
-												required="true"
-												requiredMessage="#{requiredMessageController.champObligatoire}"
-												rendered="#{questionSup.typeQuestion == 'TXT'}" />
-											<p:message for="reponse1">
-												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-											</p:message>
-											<h:selectOneRadio id="reponse2" required="true"
-												value="#{questionSup.reponseSupplementaire.reponseBool}"
-												rendered="#{questionSup.typeQuestion == 'BOOL'}">
-												<f:selectItem itemValue="#{true}"
-													itemLabel="#{msgs['FORM.OUI']}" />
-												<f:selectItem itemValue="#{false}"
-													itemLabel="#{msgs['FORM.NON']}" />
-											</h:selectOneRadio>
-											<p:message for="reponse2">
-												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-											</p:message>
-										</h:panelGrid>
-										<h:selectOneRadio style="margin-left:10px;" id="reponse3"
-											layout="pageDirection" required="true"
-											value="#{questionSup.reponseSupplementaire.reponseInt}"
-											rendered="#{questionSup.typeQuestion == 'INT'}">
-											<f:selectItem itemValue="1"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-											<f:selectItem itemValue="2"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-											<f:selectItem itemValue="3"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-											<f:selectItem itemValue="4"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-											<f:selectItem itemValue="5"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-										</h:selectOneRadio>
-										<p:message for="reponse3">
-											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-										</p:message>
-									</p:panel>
-								</ui:repeat>
-							</p:outputPanel>
-							<t:htmlTag value="div" style="height:10px;" />
-							<t:htmlTag value="center">
-								<p:commandButton id="save2" value="#{msgs['FORM.ENREGISTRER']}"
-									action="#{evaluationController.updateReponseEntreprise}"
-									update="formFicheEntreprise" style="border-color:blue;">
-									<p:tooltip
-										value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
-								</p:commandButton>
-							</t:htmlTag>
-							<t:htmlTag value="div" style="height:20px;" />
-							<p:separator style="height:2px;" />
-							<h:panelGrid align="center" style="padding:10px;">
-								<p:message for="formFicheEntreprise"
-									style="font-size:16px;font-weight:bold;" />
-							</h:panelGrid>
-							<h:panelGrid align="center">
-								<h:panelGrid columns="3">
-									<p:commandButton value="&lt;&lt; Precedent"
-										update="formFicheEntreprise" immediate="true"
-										style="font-size:16px; border-color:red;">
-										<f:setPropertyActionListener value="entrepriseTogglePanel1"
-											target="#{evaluationController.togglePanelActiveItem}" />
-									</p:commandButton>
-									<t:htmlTag value="div" style="width:10px;" />
-									<p:commandButton value="Suivant &gt;&gt;"
-										action="#{evaluationController.updateReponseEntreprise}"
-										update="formFicheEntreprise"
-										style="font-size:16px; border-color:green;">
-										<f:setPropertyActionListener value="entrepriseTogglePanel3"
-											target="#{evaluationController.togglePanelActiveItem}" />
-									</p:commandButton>
-								</h:panelGrid>
-								<t:htmlTag value="div" style="height:5px;" />
-								<t:htmlTag value="center">
-									2/3
-								</t:htmlTag>
-							</h:panelGrid>
-						</h:panelGrid>
-					</p:togglePanelItem>
-					<p:togglePanelItem id="entrepriseTogglePanel3"
-						name="entrepriseTogglePanel3">
-						<h:panelGrid style="margin-left:100px; padding:10px; width:800px;"
-							border="1">
-							<f:facet name="header">
-								<h:outputText
-									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_3']}"
-									style="font-weight:bold; font-size:20px;" />
-							</f:facet>
-							<t:htmlTag value="div" style="height: 10px;" />
-							<p:separator style="height:2px;" />
-							<h:panelGrid width="800" columns="2">
+                                    <t:htmlTag value="div" style="height:10px;" />
 
-								<h:panelGrid style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt16}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.16']}" />
-									<h:selectOneRadio id="reponse16" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt16}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
-									</h:selectOneRadio>
-									<p:message for="reponse16">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid>
-										<h:outputText value="Commentaire (facultatif)" />
-										<h:inputTextarea id="reponse16bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt16bis}" />
-									</h:panelGrid>
-								</h:panelGrid>
+                                    <p:separator style="height:2px;" />
 
-								<h:panelGrid id="questionEnt17" style="margin-left:10px;"
-									rendered="#{conventionController.convention.ficheEvaluation.questionEnt17}">
-									<t:htmlTag value="div" style="height:10px;" />
-									<h:outputText style="font-weight:bold;"
-										value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.17']}" />
-									<h:selectOneRadio id="reponse17" style="margin-left:10px;"
-										layout="pageDirection" required="true"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt17}">
-										<f:selectItem itemValue="1"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-										<f:selectItem itemValue="2"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-										<f:selectItem itemValue="3"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-										<f:selectItem itemValue="4"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-										<f:selectItem itemValue="5"
-											itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-										<p:ajax  event="click" update="questionEnt17" />
-									</h:selectOneRadio>
-									<p:message for="reponse17">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-									<h:panelGrid
-										rendered="#{conventionController.convention.reponseEvaluation.reponseEnt17 == 4
-								|| conventionController.convention.reponseEvaluation.reponseEnt17 == 5}">
-										<h:outputText style="font-style:italic;"
-											value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.RAISONS']}" />
-										<h:inputTextarea id="reponseIII17bis"
-											value="#{conventionController.convention.reponseEvaluation.reponseEnt17bis}"
-											required="true"
-											requiredMessage="#{requiredMessageController.champObligatoire}" />
-										<p:message for="reponseIII17bis">
-											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-										</p:message>
-									</h:panelGrid>
-								</h:panelGrid>
-							</h:panelGrid>
-							<p:outputPanel style="width:700px;" layout="block">
-								<ui:repeat
-									value="#{evaluationController.questionsSupplementairesEntreprise3}"
-									var="questionSup">
-									<p:panel style="width:300px; float:left; border:none;">
-										<h:outputText style="font-weight:bold;" escape="false"
-											value="#{questionSup.question}" />
-										<h:panelGrid style="margin-left:10px;">
-											<h:inputTextarea id="reponse1"
-												value="#{questionSup.reponseSupplementaire.reponseTxt}"
-												style="width:250px; height:60px; resize:none;"
-												required="true"
-												requiredMessage="#{requiredMessageController.champObligatoire}"
-												rendered="#{questionSup.typeQuestion == 'TXT'}" />
-											<p:message for="reponse1">
-												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-											</p:message>
-											<h:selectOneRadio id="reponse2" required="true"
-												value="#{questionSup.reponseSupplementaire.reponseBool}"
-												rendered="#{questionSup.typeQuestion == 'BOOL'}">
-												<f:selectItem itemValue="#{true}"
-													itemLabel="#{msgs['FORM.OUI']}" />
-												<f:selectItem itemValue="#{false}"
-													itemLabel="#{msgs['FORM.NON']}" />
-											</h:selectOneRadio>
-											<p:message for="reponse2">
-												<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-											</p:message>
-										</h:panelGrid>
-										<h:selectOneRadio style="margin-left:10px;" id="reponse3"
-											layout="pageDirection" required="true"
-											value="#{questionSup.reponseSupplementaire.reponseInt}"
-											rendered="#{questionSup.typeQuestion == 'INT'}">
-											<f:selectItem itemValue="1"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
-											<f:selectItem itemValue="2"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
-											<f:selectItem itemValue="3"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
-											<f:selectItem itemValue="4"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
-											<f:selectItem itemValue="5"
-												itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
-										</h:selectOneRadio>
-										<p:message for="reponse3">
-											<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-										</p:message>
-									</p:panel>
-								</ui:repeat>
-							</p:outputPanel>
+                                    <p:message for="@form"
+                                               styleClass="fz13 fontBold" />
 
-							<h:panelGrid style="margin-left:10px;"
-								rendered="#{conventionController.convention.ficheEvaluation.questionEnt19}">
-								<t:htmlTag value="div" style="height:10px;" />
-								<h:outputText style="font-weight:bold;" escape="false"
-									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.19']}" />
-								<h:inputTextarea id="reponse19" style="margin-left:10px;"
-									value="#{conventionController.convention.reponseEvaluation.reponseEnt19}"
-									required="true"
-									requiredMessage="#{requiredMessageController.champObligatoire}" />
-								<p:message for="reponse19">
-									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-							</h:panelGrid>
+                                    <t:htmlTag value="div" style="height:5px;" />
+                                    <h:outputText value="1 / 3" styleClass="fontBold" />
+                                    <t:htmlTag value="div" style="height:5px;" />
 
-							<h:panelGrid style="margin-left:10px;"
-								rendered="#{conventionController.convention.ficheEvaluation.questionEnt10}">
-								<t:htmlTag value="div" style="height:10px;" />
-								<h:outputText style="font-weight:bold;"
-									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.10']}" />
-								<h:selectOneRadio id="reponse10" style="margin-left:10px;"
-									required="true"
-									value="#{conventionController.convention.reponseEvaluation.reponseEnt10}">
-									<f:selectItem itemValue="#{true}"
-										itemLabel="#{msgs['FORM.OUI']}" />
-									<f:selectItem itemValue="#{false}"
-										itemLabel="#{msgs['FORM.NON']}" />
-								</h:selectOneRadio>
-								<p:message for="reponse10">
-									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-							</h:panelGrid>
+                                    <t:div styleClass="fz16">
+                                        <p:commandButton value="#{msgs['FORM.NEXT']} &gt;&gt;"
+                                                         action="#{evaluationController.updateReponseEntreprise}"
+                                                         update="@form" styleClass="fontGreen"
+                                                         onclick="PF('wiz').next(); window.scrollTo(0,0);"/>
+                                    </t:div>
 
-							<h:panelGrid id="questionEnt18" style="margin-left:10px;"
-								rendered="#{conventionController.convention.ficheEvaluation.questionEnt18}">
-								<t:htmlTag value="div" style="height:10px;" />
-								<h:outputText style="font-weight:bold;" escape="false"
-									value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.18']}" />
-								<h:selectOneRadio id="reponse18" style="margin-left:10px;"
-									required="true"
-									value="#{conventionController.convention.reponseEvaluation.reponseEnt18}">
-									<f:selectItem itemValue="#{true}"
-										itemLabel="#{msgs['FORM.OUI']}" />
-									<f:selectItem itemValue="#{false}"
-										itemLabel="#{msgs['FORM.NON']}" />
-									<p:ajax  event="click" update="questionEnt18" />
-								</h:selectOneRadio>
-								<p:message for="reponse18">
-									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-								<h:panelGrid value="div"
-									rendered="#{!conventionController.convention.reponseEvaluation.reponseEnt18}">
-									<h:outputText
-										value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.RAISONS']}" />
-									<h:inputTextarea id="reponse18bis"
-										value="#{conventionController.convention.reponseEvaluation.reponseEnt18bis}"
-										required="true"
-										requiredMessage="#{requiredMessageController.champObligatoire}" />
-									<p:message for="reponse18bis">
-										<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-									</p:message>
-								</h:panelGrid>
-							</h:panelGrid>
+                                    <t:htmlTag value="div" style="height:10px;" />
 
-							<t:htmlTag value="div" style="height:10px;" />
-							<t:htmlTag value="center">
-								<p:commandButton id="save3" value="#{msgs['FORM.ENREGISTRER']}"
-									action="#{evaluationController.updateReponseEntreprise}"
-									update="formFicheEntreprise" style="border-color:blue;">
-									<p:tooltip
-										value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
-								</p:commandButton>
-							</t:htmlTag>
-							<t:htmlTag value="div" style="height:20px;" />
-							<p:separator style="height:2px;" />
-							<h:panelGrid align="center" style="padding:10px;">
-								<p:message for="formFicheEntreprise"
-									style="font-size:16px;font-weight:bold;" />
-							</h:panelGrid>
-							<h:panelGrid align="center">
-								<h:panelGrid columns="3">
-									<p:commandButton value="&lt;&lt; Precedent"
-										update="formFicheEntreprise" immediate="true"
-										style="font-size:16px; border-color:red;">
-										<f:setPropertyActionListener value="entrepriseTogglePanel2"
-											target="#{evaluationController.togglePanelActiveItem}" />
-									</p:commandButton>
-									<t:htmlTag value="div" style="width:10px;" />
-									<p:commandButton value="#{msgs['FORM.TERMINER']}"
-										action="#{evaluationController.validateFicheEntreprise}"
-										style="font-size:16px; border-color:green;" />
-								</h:panelGrid>
-								<t:htmlTag value="div" style="height:5px;" />
-								<t:htmlTag value="center">
-									3/3
-								</t:htmlTag>
-							</h:panelGrid>
-						</h:panelGrid>
-					</p:togglePanelItem>
-				</p:togglePanel>
+                                    <p:separator style="height:2px;"/>
+                                </t:div>
+                            </p:tab>
 
-				<t:htmlTag value="div" style="height: 30px;" />
-				<h:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
-					action="conventionEtape13FicheEvaluation" immediate="true" />
-			</h:form>
-		</p:panel>
-		<t:div rendered="#{conventionController.convention == null}">
-			<ui:include src="./_redirection_accesDirectImpossible.xhtml" />
-		</t:div>
-	</ui:define>
+                            <p:tab id="entrepriseTogglePanel2" title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_2']}">
+                                <t:div styleClass="ml40 mt25 questionnaireEvaluation">
+
+                                    <t:div id="questionEntreprise4" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt4}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.4']}" />
+                                        <p:selectOneRadio id="reponse4" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt4}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse4"/>
+
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse4bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt4bis}" />
+                                    </t:div>
+
+                                    <t:div id="questionEntreprise6" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt6}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.6']}" />
+                                        <p:selectOneRadio id="reponse6" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt6}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse6"/>
+
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse6bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt6bis}" />
+
+                                    </t:div>
+
+                                    <t:div id="questionEntreprise7" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt7}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.7']}" />
+                                        <p:selectOneRadio id="reponse7" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt7}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse7"/>
+
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse7bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt7bis}" />
+                                    </t:div>
+
+                                    <t:div id="questionEntreprise8" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt8}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.8']}" />
+                                        <p:selectOneRadio id="reponse8" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt8}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse8"/>
+
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse8bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt8bis}" />
+                                    </t:div>
+
+                                    <t:div id="questionEntreprise15" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt15}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.15']}" />
+                                        <p:selectOneRadio id="reponse15" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt15}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse15"/>
+
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse15bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt15bis}" />
+                                    </t:div>
+
+                                    <ui:repeat value="#{evaluationController.questionsSupplementairesEntreprise2}"
+                                               var="questionSup">
+                                        <t:div styleClass="mt15">
+                                            <h:outputText styleClass="fontBold" escape="false"
+                                                          value="#{questionSup.question}" />
+
+                                            <t:div styleClass="ml10" rendered="#{questionSup.typeQuestion == 'TXT'}">
+                                                <p:inputTextarea id="repSupII1"
+                                                                 value="#{questionSup.reponseSupplementaire.reponseTxt}"
+                                                                 required="true" />
+                                                <p:message for="repSupII1"/>
+                                            </t:div>
+
+                                            <t:div styleClass="ml10" rendered="#{questionSup.typeQuestion == 'BOOL'}">
+                                                <p:selectOneRadio id="repSupII2" required="true"
+                                                                  value="#{questionSup.reponseSupplementaire.reponseBool}">
+                                                    <f:selectItem itemValue="#{true}"
+                                                                  itemLabel="#{msgs['FORM.OUI']}" />
+                                                    <f:selectItem itemValue="#{false}"
+                                                                  itemLabel="#{msgs['FORM.NON']}" />
+                                                </p:selectOneRadio>
+                                                <p:message for="repSupII2"/>
+                                            </t:div>
+
+                                            <t:div styleClass="ml10" rendered="#{questionSup.typeQuestion == 'INT'}">
+                                                <p:selectOneRadio id="repSupII3"
+                                                                  layout="pageDirection" required="true"
+                                                                  value="#{questionSup.reponseSupplementaire.reponseInt}">
+                                                    <f:selectItem itemValue="1"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                                    <f:selectItem itemValue="2"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                                    <f:selectItem itemValue="3"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                                    <f:selectItem itemValue="4"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                                    <f:selectItem itemValue="5"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                                </p:selectOneRadio>
+                                                <p:message for="repSupII3"/>
+                                            </t:div>
+                                        </t:div>
+                                    </ui:repeat>
+                                </t:div>
+
+                                <t:div styleClass="textCenter mt20">
+                                    <p:commandButton id="save2" value="#{msgs['FORM.ENREGISTRER']}"
+                                                     action="#{evaluationController.updateReponseEntreprise}"
+                                                     update="@form" styleClass="fontBlue2"
+                                                     icon="fa fa-save">
+                                        <p:tooltip for="save2" value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
+                                    </p:commandButton>
+
+                                    <p:outputPanel id="panelErrors2">
+                                        <t:div styleClass="textCenter mt10 fontRed"
+                                               rendered="#{facesContext.maximumSeverity != null and facesContext.maximumSeverity.ordinal ge 2}">
+                                            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13" />
+                                            <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+                                            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13" />
+                                        </t:div>
+                                    </p:outputPanel>
+
+                                    <t:htmlTag value="div" style="height:10px;" />
+
+                                    <p:separator style="height:2px;" />
+
+                                    <p:message for="@form"
+                                               styleClass="fz13 fontBold" />
+
+                                    <t:htmlTag value="div" style="height:5px;" />
+                                    <h:outputText value="2 / 3" styleClass="fontBold" />
+                                    <t:htmlTag value="div" style="height:5px;" />
+
+                                    <t:div styleClass="fz16">
+                                        <p:commandButton value="&lt;&lt; #{msgs['FORM.PREVIOUS']}"
+                                                         update="@form" immediate="true"
+                                                         onclick="PF('wiz').back(); window.scrollTo(0,0);"
+                                                         styleClass="fontRed"/>
+
+                                        <p:commandButton value="#{msgs['FORM.NEXT']} &gt;&gt;"
+                                                         action="#{evaluationController.updateReponseEntreprise}"
+                                                         onclick="PF('wiz').next(); window.scrollTo(0,0);"
+                                                         update="@form"
+                                                         styleClass="ml20 fz16 fontGreen"/>
+                                    </t:div>
+
+                                    <t:htmlTag value="div" style="height:10px;" />
+
+                                    <p:separator style="height:2px;"/>
+                                </t:div>
+                            </p:tab>
+                            <p:tab id="entrepriseTogglePanel3"
+                                   title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_3']}">
+                                <t:div styleClass="ml40 mt25 questionnaireEvaluation">
+
+                                    <t:div id="questionEntreprise16" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt16}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.16']}" />
+                                        <p:selectOneRadio id="reponse16" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt16}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.5']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse16"/>
+
+                                        <h:outputText value="Commentaire (facultatif)" />
+                                        <p:inputTextarea id="reponse16bis"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt16bis}" />
+
+                                    </t:div>
+
+                                    <t:div id="questionEnt17" styleClass="ml10"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt17}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.17']}" />
+                                        <p:selectOneRadio id="reponse17" styleClass="ml10"
+                                                          layout="pageDirection" required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt17}">
+                                            <f:selectItem itemValue="1"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                            <f:selectItem itemValue="2"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                            <f:selectItem itemValue="3"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                            <f:selectItem itemValue="4"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                            <f:selectItem itemValue="5"
+                                                          itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                            <p:ajax  event="click" update="questionEnt17" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse17"/>
+
+                                        <t:div rendered="#{conventionController.convention.reponseEvaluation.reponseEnt17 == 4
+								            || conventionController.convention.reponseEvaluation.reponseEnt17 == 5}">
+                                            <h:outputText styleClass="fontItalic"
+                                                          value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.RAISONS']}" />
+                                            <p:inputTextarea id="reponseIII17bis"
+                                                             value="#{conventionController.convention.reponseEvaluation.reponseEnt17bis}"
+                                                             required="true"
+                                                             requiredMessage="#{requiredMessageController.champObligatoire}" />
+                                            <p:message for="reponseIII17bis"/>
+                                        </t:div>
+                                    </t:div>
+
+                                    <ui:repeat value="#{evaluationController.questionsSupplementairesEntreprise3}"
+                                               var="questionSup">
+                                        <h:outputText styleClass="fontBold" escape="false"
+                                                      value="#{questionSup.question}" />
+                                        <t:div styleClass="mt15">
+                                            <t:div styleClass="ml10"
+                                                   rendered="#{questionSup.typeQuestion == 'TXT'}">
+                                                <p:inputTextarea id="repSupIII1"
+                                                                 value="#{questionSup.reponseSupplementaire.reponseTxt}"
+                                                                 required="true" />
+                                                <p:message for="repSupIII1"/>
+                                            </t:div>
+                                            <t:div styleClass="ml10"
+                                                   rendered="#{questionSup.typeQuestion == 'BOOL'}">
+                                                <p:selectOneRadio id="repSupIII2" required="true"
+                                                                  value="#{questionSup.reponseSupplementaire.reponseBool}">
+                                                    <f:selectItem itemValue="#{true}"
+                                                                  itemLabel="#{msgs['FORM.OUI']}" />
+                                                    <f:selectItem itemValue="#{false}"
+                                                                  itemLabel="#{msgs['FORM.NON']}" />
+                                                </p:selectOneRadio>
+                                                <p:message for="repSupIII2"/>
+                                            </t:div>
+                                            <t:div styleClass="ml10"
+                                                   rendered="#{questionSup.typeQuestion == 'INT'}">
+                                                <p:selectOneRadio styleClass="ml10" id="repSupIII3"
+                                                                  layout="pageDirection" required="true"
+                                                                  value="#{questionSup.reponseSupplementaire.reponseInt}">
+                                                    <f:selectItem itemValue="1"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
+                                                    <f:selectItem itemValue="2"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.2']}" />
+                                                    <f:selectItem itemValue="3"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.3']}" />
+                                                    <f:selectItem itemValue="4"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.4']}" />
+                                                    <f:selectItem itemValue="5"
+                                                                  itemLabel="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.5']}" />
+                                                </p:selectOneRadio>
+                                                <p:message for="repSupIII3"/>
+                                            </t:div>
+                                        </t:div>
+                                    </ui:repeat>
+
+                                    <t:div id="questionEntreprise19" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt19}">
+                                        <h:outputText styleClass="fontBold" escape="false"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.19']}" />
+                                        <p:inputTextarea id="reponse19" styleClass="ml10"
+                                                         value="#{conventionController.convention.reponseEvaluation.reponseEnt19}"
+                                                         required="true" />
+                                        <p:message for="reponse19"/>
+                                    </t:div>
+
+                                    <t:div id="questionEntreprise10" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt10}">
+                                        <h:outputText styleClass="fontBold"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.10']}" />
+                                        <p:selectOneRadio id="reponse10" styleClass="ml10"
+                                                          required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt10}">
+                                            <f:selectItem itemValue="#{true}"
+                                                          itemLabel="#{msgs['FORM.OUI']}" />
+                                            <f:selectItem itemValue="#{false}"
+                                                          itemLabel="#{msgs['FORM.NON']}" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse10"/>
+                                    </t:div>
+
+                                    <t:div id="questionEnt18" styleClass="mt15"
+                                           rendered="#{conventionController.convention.ficheEvaluation.questionEnt18}">
+                                        <h:outputText styleClass="fontBold" escape="false"
+                                                      value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.18']}" />
+                                        <p:selectOneRadio id="reponse18" styleClass="ml10"
+                                                          required="true"
+                                                          value="#{conventionController.convention.reponseEvaluation.reponseEnt18}">
+                                            <f:selectItem itemValue="#{true}"
+                                                          itemLabel="#{msgs['FORM.OUI']}" />
+                                            <f:selectItem itemValue="#{false}"
+                                                          itemLabel="#{msgs['FORM.NON']}" />
+                                            <p:ajax  event="click" update="questionEnt18" />
+                                        </p:selectOneRadio>
+                                        <p:message for="reponse18"/>
+
+                                        <t:div styleClass="ml10"
+                                               rendered="#{!conventionController.convention.reponseEvaluation.reponseEnt18}">
+                                            <h:outputText escape="false" styleClass="fontItalic"
+                                                          value="#{msgs['CENTRE.FICHE_EVALUATION.LIBELLES.RAISONS']}" />
+                                            <p:inputTextarea id="reponse18bis"
+                                                             value="#{conventionController.convention.reponseEvaluation.reponseEnt18bis}"
+                                                             required="true" />
+                                            <p:message for="reponse18bis"/>
+                                        </t:div>
+                                    </t:div>
+                                </t:div>
+
+                                <t:div styleClass="textCenter mt20">
+                                    <p:commandButton id="save3" value="#{msgs['FORM.ENREGISTRER']}"
+                                                     action="#{evaluationController.updateReponseEntreprise}"
+                                                     update="@form" styleClass="fontBlue2"
+                                                     icon="fa fa-save">
+                                        <p:tooltip for="save3" value="#{msgs['CONVENTION.ETAPE13.INFO_ENREGISTRER']}" />
+                                    </p:commandButton>
+
+                                    <p:outputPanel id="panelErrors3">
+                                        <t:div styleClass="textCenter mt10 fontRed"
+                                               rendered="#{facesContext.maximumSeverity != null and facesContext.maximumSeverity.ordinal ge 2}">
+                                            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13" />
+                                            <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+                                            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13" />
+                                        </t:div>
+                                    </p:outputPanel>
+
+                                    <t:htmlTag value="div" style="height:10px;" />
+
+                                    <p:separator style="height:2px;"/>
+
+                                    <p:message for="@form"
+                                               styleClass="fz13 fontBold" />
+
+                                    <t:htmlTag value="div" style="height:5px;" />
+                                    <h:outputText value="3 / 3" styleClass="fontBold" />
+                                    <t:htmlTag value="div" style="height:5px;" />
+
+                                    <t:div styleClass="fz16">
+                                        <p:commandButton value="&lt;&lt; #{msgs['FORM.PREVIOUS']}"
+                                                         update="@form" immediate="true"
+                                                         onclick="PF('wiz').back(); window.scrollTo(0,0);"
+                                                         styleClass="fontRed"/>
+
+                                        <p:commandButton value="#{msgs['FORM.TERMINER']}"
+                                                         action="#{evaluationController.validateFicheEntreprise}"
+                                                         update="@form"
+                                                         styleClass="ml20 fz16 fontGreen" />
+                                    </t:div>
+                                </t:div>
+                            </p:tab>
+                        </p:wizard>
+
+                        <t:htmlTag value="div" style="height: 30px;" />
+
+                        <p:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
+                                         action="conventionEtape13FicheEvaluation"
+                                         immediate="true" update="@form"/>
+                    </t:div>
+                </t:fieldset>
+            </h:form>
+            <t:htmlTag value="div" style="height:300px;" />
+        </p:panel>
+        <t:div rendered="#{conventionController.convention == null}">
+            <ui:include src="./_redirection_accesDirectImpossible.xhtml" />
+        </t:div>
+    </ui:define>
 </ui:composition>

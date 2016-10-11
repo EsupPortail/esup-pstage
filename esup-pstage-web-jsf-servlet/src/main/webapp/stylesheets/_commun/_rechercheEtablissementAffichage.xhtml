@@ -9,163 +9,108 @@
                   rendered="#{empty structure}" />
 
     <t:div rendered="#{not empty structure}">
-        <p:fieldset legend="#{msgs['STRUCTURE.INFOS']}" styleClass="mb10">
-        <t:htmlTag value="ul" styleClass="formUL columns-2">
-            <t:div styleClass="column forceColumn textRight widthAuto prf5">
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold"
-                                  value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.TYPE_STRUCTURE']}"/>
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']}"
-                                  rendered="#{not empty structure.statutJuridique}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.EFFECTIF']}"
-                                  rendered="#{not empty structure.effectif}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.NUM_SIRET']}"
-                                  rendered="#{not empty structure.numeroSiret}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.VOIE']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold"
-                                  rendered="#{not empty structure.batimentResidence}"
-                                  value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold"
-                                  value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.COMMUNE']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.CEDEX']}"
-                                  rendered="#{not empty structure.libCedex}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.PAYS']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.TELEPHONE']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" rendered="#{not empty structure.fax}"
-                                  value="#{msgs['STRUCTURE.FAX']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" rendered="#{not empty structure.mail}"
-                                  value="#{msgs['STRUCTURE.MAIL']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold"
-                                  rendered="#{not empty structure.siteWeb}"
-                                  value="#{msgs['STRUCTURE.SITEWEB']}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.CODE_NAF']}"
-                                  rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText styleClass="fontBold"
-                                  value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"
-                                  rendered="#{not empty structure.activitePrincipale}" />
-                </t:htmlTag>
-            </t:div>
-            <t:div styleClass="column forceColumn textLeft widthAuto plf5">
+        <!--<p:panel rendered="#{not empty structure}">-->
+        <!--<f:facet name="header">-->
+        <!--<h:outputText value="#{msgs['STRUCTURE.INFOS']}" />-->
+        <!--</f:facet>-->
+        <h:panelGrid columns="2" styleClass="ml20" cellspacing="5" style="border: solid 1px;">
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+            <h:outputText id="raisonSociale" value="#{structure.raisonSociale}" />
 
-                <t:htmlTag value="li">
-                    <h:outputText id="raisonSociale" value="#{structure.raisonSociale}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="typeStructure" value="#{structure.typeStructure.libelle}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="statutJuridique"
-                                  value="#{structure.statutJuridique.libelle}"
-                                  rendered="#{not empty structure.statutJuridique}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="effectif" value="#{structure.effectif.libelle}"
-                                  rendered="#{not empty structure.effectif}"/>
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="nsiret" rendered="#{not empty structure.numeroSiret}"
-                                  value="#{structure.numeroSiret}" />
-                </t:htmlTag>
-                <!-- 			<h:outputText styleClass="fontBold" for="groupe" value="#{msgs['STRUCTURE.GROUPE']}" -->
-                <!-- 				rendered="#{not empty structure.groupe}" /> -->
-                <!-- 			<h:outputText id="groupe" rendered="#{not empty structure.groupe}" -->
-                <!-- 				value="#{structure.groupe}" /> -->
-                <t:htmlTag value="li">
-                    <h:outputText id="voie" value="#{structure.voie}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="batimentResidence" value="#{structure.batimentResidence}"
-                                  rendered="#{not empty structure.batimentResidence}"/>
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="codepostal" value="#{structure.codePostal}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="commune" value="#{structure.commune}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="cedex" rendered="#{not empty structure.libCedex}"
-                                  value="#{structure.libCedex}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <t:div>
-                        <h:graphicImage id="flag" rendered="#{not empty structure.pays}"
-                                        value="/media/images/flags/#{structure.pays.iso2}.png"
-                                        alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-                                        title="#{structure.pays.libelle}" />
-                        <h:outputText id="pays" value="#{structure.pays.libelle}" styleClass="mlf5" />
-                    </t:div>
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="tel" value="#{structure.telephone}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="fax" rendered="#{not empty structure.fax}"
-                                  value="#{structure.fax}" />
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputLink id="mail" rendered="#{not empty structure.mail}"
-                                  value="mailto:#{structure.mail}" target="_blank">
-                        <h:outputText value="#{structure.mail}" />
-                    </h:outputLink>
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputLink id="siteWeb" rendered="#{not empty structure.siteWeb}"
-                                  value="#{structure.siteWeb}" target="_blank">
-                        <h:outputText value="#{structure.siteWeb}" />
-                    </h:outputLink>
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <t:div rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}">
-                        <h:outputText id="nafN5"
-                                      value="#{structure.nafN5.code}" />
-                        <h:outputText id="nafN5Lib" styleClass="ml5"
-                                      rendered="#{not empty structure.nafN5.libelle}"
-                                      value="(#{structure.nafN5.libelle})" />
-                    </t:div>
-                </t:htmlTag>
-                <t:htmlTag value="li">
-                    <h:outputText id="activite"
-                                  rendered="#{not empty structure.activitePrincipale}"
-                                  value="#{structure.activitePrincipale}" escape="false" />
-                </t:htmlTag>
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.TYPE_STRUCTURE']}"/>
+            <h:outputText id="typeStructure" value="#{structure.typeStructure.libelle}" />
 
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']}"
+                          rendered="#{not empty structure.statutJuridique}" />
+            <h:outputText id="statutJuridique"
+                          value="#{structure.statutJuridique.libelle}"
+                          rendered="#{not empty structure.statutJuridique}" />
+
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.EFFECTIF']}"
+                          rendered="#{not empty structure.effectif}" />
+            <h:outputText id="effectif" value="#{structure.effectif.libelle}"
+                          rendered="#{not empty structure.effectif}"/>
+
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.NUM_SIRET']}"
+                          rendered="#{not empty structure.numeroSiret}" />
+            <h:outputText id="nsiret" rendered="#{not empty structure.numeroSiret}"
+                          value="#{structure.numeroSiret}" />
+
+            <!-- 			<h:outputText styleClass="fontBold" for="groupe" value="#{msgs['STRUCTURE.GROUPE']}" -->
+            <!-- 				rendered="#{not empty structure.groupe}" /> -->
+            <!-- 			<h:outputText id="groupe" rendered="#{not empty structure.groupe}" -->
+            <!-- 				value="#{structure.groupe}" /> -->
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.VOIE']}" />
+            <h:outputText id="voie" value="#{structure.voie}" />
+
+            <h:outputText styleClass="fontBold"
+                          rendered="#{not empty structure.batimentResidence}"
+                          value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+            <h:outputText id="batimentResidence" value="#{structure.batimentResidence}"
+                          rendered="#{not empty structure.batimentResidence}"/>
+
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+            <h:outputText id="codepostal" value="#{structure.codePostal}" />
+
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.COMMUNE']}" />
+            <h:outputText id="commune" value="#{structure.commune}" />
+
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.CEDEX']}"
+                          rendered="#{not empty structure.libCedex}" />
+            <h:outputText id="cedex" rendered="#{not empty structure.libCedex}"
+                          value="#{structure.libCedex}" />
+
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.PAYS']}" />
+            <t:div>
+                <h:graphicImage id="flag" rendered="#{not empty structure.pays}"
+                                value="/media/images/flags/#{structure.pays.iso2}.png"
+                                alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+                                title="#{structure.pays.libelle}" />
+                <h:outputText id="pays" value="#{structure.pays.libelle}" styleClass="ml5" />
             </t:div>
-        </t:htmlTag>
-        </p:fieldset>
+
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.TELEPHONE']}" />
+            <h:outputText id="tel" value="#{structure.telephone}" />
+
+            <h:outputText styleClass="fontBold" rendered="#{not empty structure.fax}"
+                          value="#{msgs['STRUCTURE.FAX']}" />
+            <h:outputText id="fax" rendered="#{not empty structure.fax}"
+                          value="#{structure.fax}" />
+
+            <h:outputText styleClass="fontBold" rendered="#{not empty structure.mail}"
+                          value="#{msgs['STRUCTURE.MAIL']}" />
+            <h:outputLink id="mail" rendered="#{not empty structure.mail}"
+                          value="mailto:#{structure.mail}" target="_blank">
+                <h:outputText value="#{structure.mail}" />
+            </h:outputLink>
+
+            <h:outputText styleClass="fontBold"
+                          rendered="#{not empty structure.siteWeb}"
+                          value="#{msgs['STRUCTURE.SITEWEB']}" />
+            <h:outputLink id="siteWeb" rendered="#{not empty structure.siteWeb}"
+                          value="#{structure.siteWeb}" target="_blank">
+                <h:outputText value="#{structure.siteWeb}" />
+            </h:outputLink>
+
+            <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.CODE_NAF']}"
+                          rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}" />
+            <t:div rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}">
+                <h:outputText id="nafN5"
+                              value="#{structure.nafN5.code}" />
+                <h:outputText id="nafN5Lib" styleClass="ml5"
+                              rendered="#{not empty structure.nafN5.libelle}"
+                              value="(#{structure.nafN5.libelle})" />
+            </t:div>
+
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"
+                          rendered="#{not empty structure.activitePrincipale}" />
+            <h:outputText id="activite"
+                          rendered="#{not empty structure.activitePrincipale}"
+                          value="#{structure.activitePrincipale}" escape="false" />
+        </h:panelGrid>
+        <!--</p:panel>-->
     </t:div>
 </ui:composition>

@@ -36,9 +36,6 @@
       color: @MainPanelTitleFontColor;
       text-align: left;
 
-      @media (min-device-width: @MediaTablet) {
-        text-align: center;
-      }
     }
 
     .ui-panel-content {
@@ -283,6 +280,18 @@
   text-shadow: none !important;
 }
 
+.ui-datatable-reflow .ui-datatable-data td .ui-column-title {
+  padding: .4em;
+  min-width: 30%;
+  display: inline-block;
+  margin: -.4em 1em -.4em -.4em;
+  font-weight: bold;
+
+  @media (min-device-width: @MediaPhone) {
+    display: none;
+  }
+}
+
 .columns-2 {
   position: relative;
 
@@ -390,6 +399,11 @@
   }
 }
 
+div.questionnaireEvaluation > div:nth-of-type(odd) {
+  background: #f2f2f2;
+  padding:10px;
+}
+
 .noBorder{
   & tr, & .ui-panelgrid-cell {
     border: none;
@@ -485,9 +499,11 @@
    height: 27px;
    background: url('../images/dropdown.png') no-repeat 100% 50% #ffffff;
    background-size: 23px 25px;
-
    &::-ms-expand {
      display: none;
+   }
+   &.fix-selectOneMenu{
+     padding-right:28px;
    }
  }
 

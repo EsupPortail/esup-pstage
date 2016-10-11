@@ -1,24 +1,27 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['OFFRE.CREATION']}" />
-			</f:facet>
-			<h:form id="formCreationOffre">
-				<p:message for="formCreationOffre" />
-				<ui:include
-					src="/stylesheets/_commun/#{sessionController.creationOffreStageCurrentPage}.xhtml" />
-			</h:form>
-			<p:message for="formCreationOffre" />
-			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
-		</p:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['OFFRE.CREATION']}" />
+            </f:facet>
+            <h:form id="formCreationOffre" styleClass="ml40">
+                <p:fieldset>
+                    <t:div styleClass="mt5 ml10" style="max-width: 900px;">
+                        <ui:include src="/stylesheets/_commun/#{sessionController.creationOffreStageCurrentPage}.xhtml" />
+                        <p:message for="formCreationOffre" />
+                    </t:div>
+                </p:fieldset>
+            </h:form>
+            <p:message for="formCreationOffre" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

@@ -443,16 +443,16 @@ public class CentreController extends AbstractContextAwareController {
 		//		centre.setIdModeValidationStage(centre.getModeValidationStage().getId());
 
 		// Ajout temporaire du premier centre superviseur
-		try{
-			(getCentreGestionDomainService().getCentreGestionSuperviseur()).isEmpty();
-		} catch (NullPointerException e){
-			CentreGestionSuperviseurDTO tmp = new CentreGestionSuperviseurDTO();
-			tmp.setNomCentreGestionSuperviseur("SuperViseur Temporaire");
-			getCentreGestionDomainService().addCentreGestionSuperviseur(tmp);
-		}
+//		try{
+//			(getCentreGestionDomainService().getCentreGestionSuperviseur()).isEmpty();
+//		} catch (NullPointerException e){
+//			CentreGestionSuperviseurDTO tmp = new CentreGestionSuperviseurDTO();
+//			tmp.setNomCentreGestionSuperviseur("SuperViseur Temporaire");
+//			getCentreGestionDomainService().addCentreGestionSuperviseur(tmp);
+//		}
 
 		// On recupére l'id du centre superviseur ajouté 
-		centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
+//		centre.setIdCentreGestionSuperViseur(((getCentreGestionDomainService().getCentreGestionSuperviseur()).get(0)).getIdCentreGestionSuperviseur());
 
 		if(logger.isDebugEnabled()){
 			logger.debug("public String ajouterCentre()");

@@ -8,7 +8,7 @@
     <p:fieldset legend="#{msgs['CONVENTION.LANGUECONVENTION']}">
         <t:div styleClass="mt10 mb10">
             <h:selectOneMenu id="langueConvention" required="true"
-                             effect="none" styleClass="customPstage"
+                             effect="none" styleClass="customPstage fix-selectOneMenu"
                              value="#{conventionController.selLangueConvention}"
                              converter="#{langueConventionConverter}">
                 <f:selectItems value="#{nomenclatureController.langueConventions}" />
@@ -285,13 +285,13 @@
                                     <f:validator binding="#{mtGratificationValidator}" />
                                     <p:ajax event="blur" update="msgGratification"/>
                                 </p:inputText>
-                                <h:selectOneMenu id="uniteGratification" effect="none" style="width: auto;" styleClass="ml5 customPstage"
+                                <h:selectOneMenu id="uniteGratification" effect="none" style="width: auto;" styleClass="ml5 customPstage fix-selectOneMenu"
                                                  value="#{conventionController.selUniteGratification}"
                                                  converter="#{uniteGratificationConverter}">
                                     <f:selectItems value="#{nomenclatureController.uniteGratifications}" />
                                 </h:selectOneMenu>
                                 <h:outputText styleClass="fontBold mr5 ml5" value=" par " />
-                                <h:selectOneMenu id="uniteDureeGratification" effect="none" style="width: auto;" styleClass="customPstage"
+                                <h:selectOneMenu id="uniteDureeGratification" effect="none" style="width: auto;" styleClass="customPstage fix-selectOneMenu"
                                                  value="#{conventionController.selUniteDureeGratification}"
                                                  converter="#{uniteDureeConverter}" required="true">
                                     <f:selectItem itemValue="" />

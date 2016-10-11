@@ -176,7 +176,7 @@
         <t:div styleClass="mt5 mb10 ml40">
             <h:panelGrid columns="3">
                 <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ANNEE']}" />
-                <h:selectOneMenu styleClass="customPstage" id="choixAnneeUniv" required="true" effect="none"
+                <h:selectOneMenu styleClass="customPstage fix-selectOneMenu" id="choixAnneeUniv" required="true" effect="none"
                                  value="#{conventionController.selectedAnneeUniv}">
                     <f:selectItem itemValue="" />
                     <f:selectItems value="#{conventionController.listeAnneesUniv}" />
@@ -195,7 +195,7 @@
                     <t:div style="padding:5px;"
                            rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">
                         <h:outputText styleClass="fontBold" for="elp1" value="#{msgs['CONVENTION.ELP']}" />
-                        <h:selectOneMenu id="choixElp1" effect="none" styleClass="customPstage"
+                        <h:selectOneMenu id="choixElp1" effect="none" styleClass="customPstage fix-selectOneMenu"
                                          value="#{conventionController.selectedCodeElp}" required="true"
                                          requiredMessage="#{requiredMessageController.champObligatoire}">
                             <f:selectItem itemValue="" />
@@ -225,7 +225,7 @@
                     <h:panelGrid columns="3" id="etapes">
                         <h:outputText styleClass="fontBold" for="etapes"
                                       value="#{msgs['CONVENTION.VOTREETAPE']}" />
-                        <h:selectOneMenu id="choixEtape" effect="none" required="true" styleClass="customPstage"
+                        <h:selectOneMenu id="choixEtape" effect="none" required="true" styleClass="customPstage fix-selectOneMenu"
                                          value="#{conventionController.selectedCodeEtape}">
                             <f:selectItem itemValue="" />
                             <f:selectItems
@@ -249,7 +249,7 @@
                         <h:panelGrid columns="3"
                                      rendered="#{conventionController.etudiantSupUnElp}">
                             <h:outputText styleClass="fontBold" for="choixElp2" value="#{msgs['CONVENTION.ELP']}" />
-                            <h:selectOneMenu id="choixElp2" effect="none" styleClass="customPstage"
+                            <h:selectOneMenu id="choixElp2" effect="none" styleClass="customPstage fix-selectOneMenu"
                                              value="#{conventionController.selectedCodeElp}" required="true"
                                              requiredMessage="#{requiredMessageController.champObligatoire}">
                                 <f:selectItem itemValue="" />

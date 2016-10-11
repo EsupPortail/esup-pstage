@@ -5384,7 +5384,7 @@ public class ConventionController extends AbstractContextAwareController {
 	/**
 	 * @return String
 	 */
-	public String validerEnMasse() {
+	public void validerEnMasse() {
 		if (logger.isDebugEnabled()) {
 			logger.debug("public String validerEnMasse()");
 		}
@@ -5392,11 +5392,9 @@ public class ConventionController extends AbstractContextAwareController {
 
 			ConventionDTO conventionTmp = new ConventionDTO();
 
-			for (int i = 0; i < this.rechercheConventionPaginator.getListe()
-					.size(); i++) {
+			for (int i = 0; i < this.rechercheConventionPaginator.getListe().size(); i++) {
 
-				conventionTmp = this.rechercheConventionPaginator.getListe()
-						.get(i);
+				conventionTmp = this.rechercheConventionPaginator.getListe().get(i);
 
 				if (conventionTmp.isSelected()) {
 
@@ -5408,10 +5406,9 @@ public class ConventionController extends AbstractContextAwareController {
 						addErrorMessage(null,
 								"CONVENTION.VALIDATION_EN_MASSE.ERREUR",
 								conventionTmp.getIdConvention());
-						return null;
+						return ;
 					} else {
-						if (getSessionController()
-								.isAvertissementEtudiantConvention()) {
+						if (getSessionController().isAvertissementEtudiantConvention()) {
 							String text = getString(
 									"ALERTES_MAIL.AVERTISSEMENT_ETUDIANTS_CONVENTION",
 									conventionTmp.getIdConvention(),
@@ -5425,8 +5422,7 @@ public class ConventionController extends AbstractContextAwareController {
 									&& !conventionTmp.getCourrielPersoEtudiant().isEmpty()) {
 								mail = conventionTmp.getCourrielPersoEtudiant();
 							}
-							getSmtpService().send(new InternetAddress(mail), sujet,
-									text, text);
+							getSmtpService().send(new InternetAddress(mail), sujet, text, text);
 						}
 					}
 					this.rechercheConventionPaginator.getListe().remove(i);
@@ -5455,7 +5451,6 @@ public class ConventionController extends AbstractContextAwareController {
 		addInfoMessage("formResultConventions:messageResultat",
 				"CONVENTION.VALIDATION_EN_MASSE.CONFIRMATION");
 		this.reloadRechercheConventionPaginator();
-		return null;
 
 	}
 
