@@ -18,58 +18,58 @@
         <t:htmlTag value="div" style="height: 10px;" />
 
         <p:fieldset legend="#{msgs['GENERAL.COORDONNEES']}" styleClass="mb10">
-                <t:htmlTag value="ul" styleClass="formUL columns-2">
-                    <t:div styleClass="column">
-                        <t:htmlTag value="li">
-                            <h:outputLabel value="#{msgs['CENTRE.VOIE']} " for="voie"
-                                           rendered="#{not empty centreController.centre.voie}" />
-                            <h:outputText id="voie" value="#{centreController.centre.voie}"
-                                          rendered="#{not empty centreController.centre.voie}" />
-                        </t:htmlTag>
-                        <t:htmlTag value="li">
-                            <h:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']} "
-                                           for="batimentResidence" />
-                            <h:outputText id="batimentResidence"
-                                          value="#{centreController.centre.batimentResidence}" />
-                        </t:htmlTag>
+            <t:htmlTag value="ul" styleClass="formUL columns-2">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:outputLabel value="#{msgs['CENTRE.VOIE']} " for="voie"
+                                       rendered="#{not empty centreController.centre.voie}" />
+                        <h:outputText id="voie" value="#{centreController.centre.voie}"
+                                      rendered="#{not empty centreController.centre.voie}" />
+                    </t:htmlTag>
+                    <t:htmlTag value="li">
+                        <h:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']} "
+                                       for="batimentResidence" />
+                        <h:outputText id="batimentResidence"
+                                      value="#{centreController.centre.batimentResidence}" />
+                    </t:htmlTag>
 
-                        <t:htmlTag value="li">
-                            <h:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} "
-                                           for="codePostal" />
-                            <h:outputText id="codePostal"
-                                          value="#{centreController.centre.codePostal}" />
-                        </t:htmlTag>
-                        <t:htmlTag value="li">
-                            <h:outputLabel value="#{msgs['CENTRE.COMMUNE']} " for="commune" />
-                            <h:outputText id="commune"
-                                          value="#{centreController.centre.commune}" />
-                        </t:htmlTag>
-                    </t:div>
+                    <t:htmlTag value="li">
+                        <h:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']} "
+                                       for="codePostal" />
+                        <h:outputText id="codePostal"
+                                      value="#{centreController.centre.codePostal}" />
+                    </t:htmlTag>
+                    <t:htmlTag value="li">
+                        <h:outputLabel value="#{msgs['CENTRE.COMMUNE']} " for="commune" />
+                        <h:outputText id="commune"
+                                      value="#{centreController.centre.commune}" />
+                    </t:htmlTag>
+                </t:div>
 
-                    <t:div styleClass="column">
-                        <t:htmlTag value="li"
-                                   rendered="#{not empty centreController.centre.mail}">
-                            <h:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail" />
-                            <h:outputText id="mail" value="#{centreController.centre.mail}" />
-                        </t:htmlTag>
-                        <t:htmlTag value="li"
-                                   rendered="#{not empty centreController.centre.siteWeb}">
-                            <h:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb" />
-                            <h:outputText id="siteWeb"
-                                          value="#{centreController.centre.siteWeb}" />
-                        </t:htmlTag>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li"
+                               rendered="#{not empty centreController.centre.mail}">
+                        <h:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail" />
+                        <h:outputText id="mail" value="#{centreController.centre.mail}" />
+                    </t:htmlTag>
+                    <t:htmlTag value="li"
+                               rendered="#{not empty centreController.centre.siteWeb}">
+                        <h:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb" />
+                        <h:outputText id="siteWeb"
+                                      value="#{centreController.centre.siteWeb}" />
+                    </t:htmlTag>
 
-                        <t:htmlTag value="li" rendered="#{not empty centreController.centre.telephone}">
-                            <h:outputLabel value="#{msgs['CENTRE.TEL']} " for="telephone"/>
-                            <h:outputText id="telephone"
-                                          value="#{centreController.centre.telephone}" />
-                        </t:htmlTag>
-                        <t:htmlTag value="li" rendered="#{not empty centreController.centre.fax}" >
-                            <h:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax"/>
-                            <h:outputText id="fax" value="#{centreController.centre.fax}" />
-                        </t:htmlTag>
-                    </t:div>
-                </t:htmlTag>
+                    <t:htmlTag value="li" rendered="#{not empty centreController.centre.telephone}">
+                        <h:outputLabel value="#{msgs['CENTRE.TEL']} " for="telephone"/>
+                        <h:outputText id="telephone"
+                                      value="#{centreController.centre.telephone}" />
+                    </t:htmlTag>
+                    <t:htmlTag value="li" rendered="#{not empty centreController.centre.fax}" >
+                        <h:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax"/>
+                        <h:outputText id="fax" value="#{centreController.centre.fax}" />
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
         </p:fieldset>
 
         <p:fieldset legend="#{msgs['CENTRE.PARAMETRAGE']}">
@@ -204,18 +204,17 @@
 
         <t:htmlTag value="div" style="height:10px;" />
 
-        <t:htmlTag value="center"
+        <t:div styleClass="textCenter fz16"
                    rendered="#{welcomeController.superAdmin
 				|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}">
             <p:commandButton value="#{msgs['FORM.MODIFIER']}"
-                             update="divConsultation"
-                             style="font-size:14px; border-color:green;">
+                             update="divConsultation">
                 <f:setPropertyActionListener value="_consultationCentre_modif"
                                              target="#{sessionController.consultationCentreCurrentPage}" />
                 <f:setPropertyActionListener value="#{true}"
                                              target="#{centreController.rechercheViseur}" />
             </p:commandButton>
             <p:messages />
-        </t:htmlTag>
+        </t:div>
     </h:form>
 </ui:composition>

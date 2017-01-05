@@ -64,6 +64,7 @@
 								rendered="#{not empty etablissementController.serviceSel}" />
 							<t:htmlTag value="center">
 								<p:dataTable value="#{etablissementController.serviceSel}"
+                                             reflow="true" tableStyle="table-layout: auto;"
 									rendered="#{not empty etablissementController.serviceSel}">
 									<ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
 									<p:column>
@@ -150,6 +151,7 @@
 								<p:dataTable id="contactsDataTable" style="width:600px;" rows="10"
 									var="contact" rowKey="rowContact"
 									value="#{etablissementController.listeContacts}"
+                                             reflow="true" tableStyle="table-layout: auto;"
 									rendered="#{not empty etablissementController.serviceSel
 								and not empty etablissementController.listeServices
 								and not empty etablissementController.listeContacts}">

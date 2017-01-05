@@ -39,7 +39,7 @@
 									var="admin" rowKey="rowAdmin" rowHover="true"
 									rowStyleClass="noPointer" paginator="true"
 									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-									rowsPerPageTemplate="5,10,15,20"
+									rowsPerPageTemplate="5,10,15,20" reflow="true" tableStyle="table-layout: auto;"
 									rendered="#{not empty adminController.listeAdminStructure}">
 									<f:facet name="header">
 										<p:columnGroup>

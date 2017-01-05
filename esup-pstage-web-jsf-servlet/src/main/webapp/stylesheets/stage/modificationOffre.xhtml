@@ -1,30 +1,34 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['OFFRE.MODIFICATION']}" />
-			</f:facet>
-			<h:form id="formModificationOffre">
-				<p:messages />
-				<ui:include
-					src="/stylesheets/_commun/#{sessionController.modificationOffreCurrentPage}.xhtml" />
-				<h:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
-					action="#{offreController.retourTo}"
-					alt="#{msgs['FORM.ANNULERETRETOUR']}"
-					title="#{msgs['FORM.ANNULERETRETOUR']}" immediate="true"
-					style="float:right;" />
-			</h:form>
-			<ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelSupprService.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
-			<ui:include src="/stylesheets/_commun/_panelSupprContact.xhtml" />
-		</p:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['OFFRE.MODIFICATION']}" />
+            </f:facet>
+            <h:form id="formModificationOffre"
+                    styleClass="block">
+
+                <p:messages />
+
+                <ui:include src="/stylesheets/_commun/#{sessionController.modificationOffreCurrentPage}.xhtml" />
+
+                <t:htmlTag value="div" style="height: 40px;" />
+
+                <p:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
+                                 action="#{offreController.retourTo}"
+                                 update="@form"
+                                 immediate="true" />
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelSupprService.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_panelSupprContact.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

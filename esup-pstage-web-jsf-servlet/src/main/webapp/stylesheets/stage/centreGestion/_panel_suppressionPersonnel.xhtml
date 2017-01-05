@@ -9,21 +9,21 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CENTRE.PERSONNEL.SUPPRESSION.HEAD']}" />
 		</f:facet>
+        <t:htmlTag value="div" style="height:10px;"/>
 		<h:outputText
 			value="#{msgs['CENTRE.PERSONNEL.SUPPRESSION.RAPPEL']} 
 			#{centreController.personnel.prenom} #{centreController.personnel.nom} 
 			#{msgs['NAVIGATION.ACCESSKEY.ABOUT']}" />
 		<h:form id="formSupprPersonnel">
 			<t:htmlTag value="div" style="height:20px;" />
-			<h:panelGrid align="center" columns="3">
+			<t:div styleClass="textCenter mb20">
 				<p:commandButton value="#{msgs['FORM.OUI']}"
 					action="#{centreController.supprimerPersonnel}"
 					oncomplete="PF('suppressionPersonnel').hide();"
 					update="divConsultation" />
-				<t:htmlTag value="div" style="width:100px;" />
-				<p:commandButton value="#{msgs['FORM.NON']}"
+				<p:commandButton value="#{msgs['FORM.NON']}" styleClass="ml20"
 					onclick="PF('suppressionPersonnel').hide();" />
-			</h:panelGrid>
+            </t:div>
 			<p:message for="formSupprPersonnel" />
 		</h:form>
 	</p:dialog>

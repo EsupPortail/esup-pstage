@@ -5,14 +5,14 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="../_basicStageTemplate.xhtml">
     <ui:define name="content">
-        <p:panel rendered="#{conventionController.convention != null}" style="max-width:900px;">
+        <p:panel rendered="#{conventionController.convention != null}" styleClass="block">
             <f:facet name="header">
                 <h:outputText value="#{msgs['CONVENTION.ETAPE13.HEADER']}" />
             </f:facet>
             <h:form id="formFicheEntreprise">
                 <t:fieldset
                         rendered="#{!conventionController.convention.reponseEvaluation.validationEntreprise}">
-                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+                    <t:div styleClass="mt10 ml30 mb20 block">
                         <p:wizard showNavBar="false" widgetVar="wiz">
                             <p:tab id="entrepriseTogglePanel1"
                                    title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_1']}">

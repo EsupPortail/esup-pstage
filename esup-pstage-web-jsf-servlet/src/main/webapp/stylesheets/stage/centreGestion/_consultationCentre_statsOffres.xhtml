@@ -7,25 +7,25 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<h:form style="padding-top:15px; padding-bottom:20px;">
-		<p:panel id="indicateursStats">
-			<f:facet name="header">
-				<h:outputText value="#{statistiquesOffresController.message}" />
-				<h:outputText value=" pour l'année universitaire "
+        <t:fieldset id="indicateursStats">
+            <legend>
+				<h:outputText styleClass="fz16" value="#{statistiquesOffresController.message}" />
+				<h:outputText styleClass="fz16" value=" pour l'année universitaire "
 					rendered="#{not empty statistiquesOffresController.critereUnLib 
 								|| not empty statistiquesOffresController.critereDeuxLib}" />
-				<h:outputText
+				<h:outputText styleClass="fz16"
 					value="#{statistiquesConventionController.annee_scolaire}"
 					rendered="#{not empty statistiquesOffresController.critereUnLib 
 								|| not empty statistiquesOffresController.critereDeuxLib}" />
-			</f:facet>
+			</legend>
 
 			<t:div>
-				<t:htmlTag value="center">
+                <t:div styleClass="textCenter">
 					<p:commandButton
 						value="#{msgs['CONVENTION.STATS.INFO.ENREGISTRER']}"
 						action="#{statistiquesOffresController.edition}"
-						icon="ui-icon-disk" style="margin:10px;" ajax="false" />
-				</t:htmlTag>
+                        icon="fa fa-file-excel-o" style="margin:10px;" ajax="false" />
+				</t:div>
 				<c:set var="map" value="#{statistiquesOffresController.map}" />
 				<c:choose>
 					<c:when
@@ -48,7 +48,7 @@
 					<c:set var="total" value="#{total+statsItem.number}" />
 				</c:forEach>
 
-				<table>
+				<table style="margin: auto;" cellspacing="10">
 					<tr style="font-size: 14px; font-weight: bold; text-align: center;">
 						<td><h:outputText
 								value="#{statistiquesOffresController.critereUnLib}" /></td>
@@ -108,12 +108,12 @@
 
 				<t:htmlTag value="div" style="height:20px;" />
 
-				<t:htmlTag value="center">
+                <t:div styleClass="textCenter">
 					<p:commandButton id="idLienEnregisterFormatExcel"
 						value="#{msgs['CONVENTION.STATS.INFO.ENREGISTRER']}"
 						action="#{statistiquesOffresController.edition}"
 						icon="fa fa-file-excel-o" ajax="false" />
-				</t:htmlTag>
+				</t:div>
 
 				<t:htmlTag value="div" style="height:25px;" />
 				<p:commandButton update="divConsultation"
@@ -124,6 +124,6 @@
 
 				<t:htmlTag value="div" style="height:5px;" />
 			</t:div>
-		</p:panel>
+		</t:fieldset>
 	</h:form>
 </ui:composition>

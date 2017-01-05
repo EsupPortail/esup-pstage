@@ -10,26 +10,23 @@
                 <h:outputText value="#{msgs['RECHERCHECONVENTION.TITRE']}" />
             </f:facet>
             <h:form id="formRechConvention">
-                <h:panelGrid columns="2"
-                             rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
-                    <t:htmlTag value="i" styleClass="fa fa-file-text fontBlue2 fz13" />
+                <t:div styleClass="ml20"
+                       rendered="#{empty conventionController.rechercheConventionPaginator.liste}">
+                    <t:htmlTag value="i" styleClass="fa fa-file-text-o fontBlue2 fz13" />
                     <h:outputText value="#{msgs['RECHERCHECONVENTION.AUCUNRESULTAT']}"
-                                  escape="false" />
-                </h:panelGrid>
+                                  styleClass="ml5" escape="false" />
+                </t:div>
                 <t:div rendered="#{not empty conventionController.rechercheConventionPaginator.liste}">
+                    <t:htmlTag value="i" styleClass="fa fa-file-text-o"
+                               rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}"/>
+                    <h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
+                                    rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}"
+                                    escape="false" styleClass="ml5">
+                        <f:param
+                                value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
+                    </h:outputFormat>
 
-                    <h:panelGrid columns="2">
-                        <h:graphicImage alt="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-                                        value="/media/images/script.png"
-                                        rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}" />
-                        <h:outputFormat value="#{msgs['RECHERCHECONVENTION.NBRESULTATS']}"
-                                        rendered="#{conventionController.rechercheConventionPaginator.totalItemsCount ge 1}"
-                                        escape="false">
-                            <f:param
-                                    value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
-                        </h:outputFormat>
-                    </h:panelGrid>
-                    <p:dataTable id="rechercheConventionDataTable" style="width:100%;"
+                    <p:dataTable id="rechercheConventionDataTable"
                                  value="#{conventionController.rechercheConventionPaginator.liste}"
                                  var="convention" rows="10" rowHover="true" styleClass="mt5"
                                  rowStyleClass="noPointer" paginator="true" tableStyle="table-layout:auto"
@@ -125,7 +122,7 @@
                                           rendered="#{not empty convention.annee}" />
                         </p:column>
 
-                        <p:column style="background-color:#A5A5A5;">
+                        <p:column styleClass="background-color-grey">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                             </f:facet>
@@ -147,36 +144,36 @@
                             </p:commandLink>
                         </p:column>
                     </p:dataTable>
+                    <t:div styleClass="mt20">
+                        <t:htmlTag value="center">
+                            <p:commandButton value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
+                                             action="#{exportController.goToChoixExportConventionTuteur}"
+                                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                             style="border:solid 1px;" icon="fa fa-file-excel-o"
+                                             rendered="#{welcomeController.enseignantTuteur}">
+                                <f:setPropertyActionListener
+                                        value="#{conventionController.resultatsRechercheConvention}"
+                                        target="#{exportController.resultatsRechercheConvention}" />
+                                <f:setPropertyActionListener
+                                        value="resultatsRechercheConvention"
+                                        target="#{conventionController.retourAction}" />
+                            </p:commandButton>
+                            <p:commandButton
+                                    value="#{msgs['CONVENTION.IMPRESSION.CONVENTIONS']}"
+                                    action="#{conventionController.editPdfConventionsEnMasseZip}"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                    style="border:solid 1px;" icon="fa fa-print" styleClass="ml5"
+                                    rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer|| welcomeController.reader || welcomeController.enseignant}"/>
+                        </t:htmlTag>
+                    </t:div>
                 </t:div>
-                <t:div styleClass="mt20">
-                    <t:htmlTag value="center">
-                        <p:commandButton value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
-                                         action="#{exportController.goToChoixExportConventionTuteur}"
-                                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
-                                         style="border:solid 1px;" icon="fa fa-file-excel-o"
-                                         rendered="#{welcomeController.enseignantTuteur}">
-                            <f:setPropertyActionListener
-                                    value="#{conventionController.resultatsRechercheConvention}"
-                                    target="#{exportController.resultatsRechercheConvention}" />
-                            <f:setPropertyActionListener
-                                    value="resultatsRechercheConvention"
-                                    target="#{conventionController.retourAction}" />
-                        </p:commandButton>
-                        <p:commandButton
-                                value="#{msgs['CONVENTION.IMPRESSION.CONVENTIONS']}"
-                                action="#{conventionController.editPdfConventionsEnMasseZip}"
-                                onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
-                                style="border:solid 1px;" icon="fa fa-print" styleClass="ml5"
-                                rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer|| welcomeController.reader || welcomeController.enseignant}"/>
-                    </t:htmlTag>
 
-                    <t:htmlTag value="div" style="height:10px;" />
+                <t:htmlTag value="div" style="height:10px;" />
 
-                    <p:commandButton
-                            value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
-                            action="rechercheConvention"
-                            rendered="#{!welcomeController.etudiant}" />
-                </t:div>
+                <p:commandButton
+                        value="#{msgs['RECHERCHECONVENTION.NOUVELLERECHERCHE']}"
+                        action="rechercheConvention"
+                        rendered="#{!welcomeController.etudiant}" />
             </h:form>
             <t:htmlTag value="div" style="height: 50px;" />
         </p:panel>

@@ -13,7 +13,7 @@
                     rendered="#{conventionController.convention != null}">
                 <ui:include src="_roadmapSel.xhtml" />
                 <t:fieldset>
-                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+                    <t:div styleClass="mt10 ml30 mb20 block">
 
                         <t:htmlTag value="i" styleClass="fa fa-file-text fz16 fontBlue2"/>
                         <h:outputText value="#{msgs['EXPORTCONVENTION.AVENANT']}"
@@ -160,7 +160,7 @@
                 </t:fieldset>
             </h:form>
             <ui:include src="./_panel_suppressionAvenant.xhtml" />
-            <t:div style="max-width: 900px;"
+            <t:div styleClass="block"
                    rendered="#{conventionController.convention == null}">
                 <ui:include src="./_redirection_accesDirectImpossible.xhtml" />
             </t:div>

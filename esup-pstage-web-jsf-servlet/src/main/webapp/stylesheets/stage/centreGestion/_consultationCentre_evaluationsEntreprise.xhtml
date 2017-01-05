@@ -3,36 +3,26 @@
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:t="http://myfaces.apache.org/tomahawk"
 				xmlns:p="http://primefaces.org/ui">
-	<h:form id="formFicheEntreprise" style="padding-top:15px; padding-bottom:20px;">
-		<h:panelGrid align="center">
-			<h:outputText style="font-weight:bold; font-size:20px;"
-						  value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.HEADER']}" />
-			<t:htmlTag value="div" style="height:10px;" />
-		</h:panelGrid>
+	<h:form id="formFicheEntreprise">
+        <t:htmlTag value="h2" styleClass="textCenter fontBlue2">
+			<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.HEADER']}" />
+        </t:htmlTag>
 		<p:tabView id="tabFicheEntreprise">
 			<p:tab id="etape1Tab"
 				   title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_1']}">
-				<t:htmlTag value="h4" styleClass="textCenter">
-					<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE1']}" />
-				</t:htmlTag>
 				<t:htmlTag value="ul" styleClass="formUL columns-2">
-					<t:div styleClass="column column-2">
+					<t:div styleClass="column column-2 textCenter fz16 background-color-grey padding-5">
 						<h:outputText value="Questions" styleClass="fontBold"/>
 					</t:div>
-					<t:div styleClass="column column-1">
-						<h:graphicImage id="infoActivation" alt="information"
-										value="/media/images/information.png">
-							<p:tooltip for="infoActivation" value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
-						</h:graphicImage>
-						<h:outputText styleClass="fontBold" value="Activation" />
-
-					</t:div>
-
-					<p:separator style="height:2px; margin-top:5px; margin-bottom:10px;" />
+                    <t:div id="infoActivation1" styleClass="column column-1 noPointer fz16 background-color-grey padding-5">
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fontBlue2" />
+                        <h:outputText styleClass="fontBold" value="Activation" />
+                        <p:tooltip for="infoActivation1" value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+                    </t:div>
 
 					<t:div styleClass="row">
 						<t:div styleClass="column column-2" style="line-height: 1.3rem;">
-							<t:htmlTag value="p" styleClass="mt0">
+							<t:htmlTag value="p">
 								<h:outputText styleClass="fontBold" value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.1']}" />
 								<t:htmlTag value="br"/>
 								<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
@@ -313,27 +303,19 @@
 			</p:tab>
 			<p:tab id="etape2Tab"
 				   title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_2']}">
-				<t:htmlTag value="h4" styleClass="textCenter">
-					<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE1']}" />
-				</t:htmlTag>
 				<t:htmlTag value="ul" styleClass="formUL columns-2">
-					<t:div styleClass="column column-2">
+					<t:div styleClass="column column-2 textCenter fz16 background-color-grey padding-5">
 						<h:outputText value="Questions" styleClass="fontBold"/>
 					</t:div>
-					<t:div styleClass="column column-1">
-						<h:graphicImage id="infoActivation2" alt="information"
-										value="/media/images/information.png">
-							<p:tooltip for="infoActivation2" value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
-						</h:graphicImage>
-						<h:outputText styleClass="fontBold" value="Activation" />
-
-					</t:div>
-
-					<p:separator style="height:2px; margin-top:5px; margin-bottom:10px;" />
+                    <t:div id="infoActivation2" styleClass="column column-1 noPointer fz16 background-color-grey padding-5">
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fontBlue2" />
+                        <h:outputText styleClass="fontBold" value="Activation" />
+                        <p:tooltip for="infoActivation2" value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+                    </t:div>
 
 					<t:div styleClass="row">
 						<t:div styleClass="column column-2" style="line-height: 1.3rem;">
-							<t:htmlTag value="p" styleClass="mt0">
+							<t:htmlTag value="p">
 								<h:outputText styleClass="fontBold" value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.4']}" />
 								<t:htmlTag value="br"/>
 								<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.NOTATION.1']}" />
@@ -497,27 +479,19 @@
 			</p:tab>
 			<p:tab id="etape3Tab"
 				   title="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.TITRE_3']}">
-				<t:htmlTag value="h4" styleClass="textCenter">
-					<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE1']}" />
-				</t:htmlTag>
 				<t:htmlTag value="ul" styleClass="formUL columns-2">
-					<t:div styleClass="column column-2">
+					<t:div styleClass="column column-2 textCenter fz16 background-color-grey padding-5">
 						<h:outputText value="Questions" styleClass="fontBold"/>
 					</t:div>
-					<t:div styleClass="column column-1">
-						<h:graphicImage id="infoActivation3" alt="information"
-										value="/media/images/information.png">
-							<p:tooltip for="infoActivation3" value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
-						</h:graphicImage>
-						<h:outputText styleClass="fontBold" value="Activation" />
-
-					</t:div>
-
-					<p:separator style="height:2px; margin-top:5px; margin-bottom:10px;" />
+                    <t:div id="infoActivation3" styleClass="column column-1 noPointer fz16 background-color-grey padding-5">
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fontBlue2" />
+                        <h:outputText styleClass="fontBold" value="Activation" />
+                        <p:tooltip for="infoActivation3" value="#{msgs['CENTRE.FICHE_EVALUATION.COLONNE2']}" />
+                    </t:div>
 
 					<t:div styleClass="row">
 						<t:div styleClass="column column-2" style="line-height: 1.3rem;">
-							<t:htmlTag value="p" styleClass="mt0">
+							<t:htmlTag value="p">
 								<h:outputText styleClass="fontBold" value="#{msgs['CENTRE.FICHE_EVALUATION.FICHE_ENTREPRISE.QUESTIONS.16']}" />
 								<t:htmlTag value="br"/>
 								<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.AVIS.1']}" />
@@ -669,6 +643,7 @@
 			<f:setPropertyActionListener value="_consultationCentre_evaluations"
 										 target="#{sessionController.consultationCentreCurrentPage}" />
 		</p:commandButton>
+        <t:htmlTag value="div" style="height: 30px;" />
 	</h:form>
 	<ui:include src="_panel_editQuestionEval.xhtml" />
 	<ui:include src="_panel_suppressionQuestionEval.xhtml" />

@@ -1,66 +1,74 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
-			</f:facet>
-			<h:form id="formRechOffre">
-				<t:div
-					rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
-					<ui:include src="/stylesheets/_commun/_rechercheOffreNbResultats.xhtml" />
-					<p:dataTable id="rechercheOffreDataTable" styleClass="mt20 mb20"
-						value="#{offreController.rechercheOffrePaginator.liste}"
-						var="offre" rowKey="rowOffre" rows="10" rowHover="true"
-						rowStyleClass="noPointer" paginator="true"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15,20"
-						rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-						<ui:include src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
-						<p:column>
-							<h:commandLink id="recap"
-								action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
-								<t:htmlTag id="detailDiffOffre" value="i" styleClass="fa fa-file-text-o fontBlue2 fz13"/>
-								<p:tooltip for="detailDiffOffre" value="#{msgs['OFFRE.GESTION.DETAILS']}"/>
-								<f:setPropertyActionListener value="#{offre}"
-									target="#{offreController.currentOffre}" />
-								<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-							</h:commandLink>
-						</p:column>
-					</p:dataTable>
-					<p:dataTable id="rechercheOffreDataTableE" styleClass="mt20 mb20"
-						value="#{offreController.rechercheOffrePaginator.liste}"
-						var="offre" rowKey="rowOffre" rows="10" rowHover="true"
-						rowStyleClass="noPointer" paginator="true"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,15,20"
-						rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
-						<ui:include
-							src="/stylesheets/_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
-						<p:column>
-							<h:commandLink id="recap"
-								action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
-								<h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-									value="../../media/images/document.png" />
-								<f:setPropertyActionListener value="#{offre}"
-									target="#{offreController.currentOffre}" />
-								<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-							</h:commandLink>
-						</p:column>
-					</p:dataTable>
-				</t:div>
-				<!--<h:panelGrid>-->
-					<!--<t:htmlTag value="div" style="height: 20px;" />-->
-					<p:commandButton icon="fa fa-search"
-						value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
-						action="#{offreController.goToRechercheOffreStage}" />
-				<!--</h:panelGrid>-->
-			</h:form>
-			<ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
-		</p:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+            </f:facet>
+            <h:form id="formRechOffre">
+                <t:div rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
+
+                    <ui:include src="/stylesheets/_commun/_rechercheOffreNbResultats.xhtml" />
+
+                    <p:dataTable id="rechercheOffreDataTable" styleClass="mt20 mb20"
+                                 value="#{offreController.rechercheOffrePaginator.liste}"
+                                 var="offre" rowKey="rowOffre" rows="10" rowHover="true"
+                                 rowStyleClass="noPointer" paginator="true" paginatorAlwaysVisible="false"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20"
+                                 reflow="true" tableStyle="table-layout: auto;"
+                                 rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+                        <ui:include src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
+                        <p:column styleClass="background-color-grey">
+                            <f:facet name="header">
+                                <h:outputText
+                                        value="#{msgs['GENERAL.ACTIONS']}" />
+                            </f:facet>
+                            <h:commandLink id="recap1"
+                                           action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
+                                <t:htmlTag value="i" styleClass="fa fa-search fontBlue2 fz16"/>
+                                <p:tooltip for="recap1" value="#{msgs['OFFRE.GESTION.DETAILS']}"/>
+                                <f:setPropertyActionListener value="#{offre}"
+                                                             target="#{offreController.currentOffre}" />
+                                <p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+                            </h:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dataTable id="rechercheOffreDataTableE" styleClass="mt20 mb20"
+                                 value="#{offreController.rechercheOffrePaginator.liste}"
+                                 var="offre" rowKey="rowOffre" rows="10" rowHover="true"
+                                 rowStyleClass="noPointer" paginator="true" paginatorAlwaysVisible="false"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15,20"
+                                 reflow="true" tableStyle="table-layout: auto;"
+                                 rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+
+                        <ui:include src="/stylesheets/_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
+
+                        <p:column styleClass="background-color-grey">
+                            <f:facet name="header">
+                                <h:outputText
+                                        value="#{msgs['GENERAL.ACTIONS']}" />
+                            </f:facet>
+                            <h:commandLink id="recap2"
+                                           action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
+                                <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
+                                <f:setPropertyActionListener value="#{offre}"
+                                                             target="#{offreController.currentOffre}" />
+                                <p:tooltip for="recap2" value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+                            </h:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                </t:div>
+                <p:commandButton icon="fa fa-angle-left"
+                                 value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
+                                 action="#{offreController.goToRechercheOffreStage}" />
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

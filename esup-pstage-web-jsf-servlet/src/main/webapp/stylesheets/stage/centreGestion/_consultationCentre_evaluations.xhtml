@@ -1,10 +1,9 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="formFicheEvaluation"
-		style="padding-top:15px; padding-bottom:20px;">
+            styleClass="mt15 mb20">
 		<p:fieldset legend="#{msgs['GENERAL.WARNING']}" styleClass="legendWarning">
 			<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.ALERTE']}"
 				escape="false" />
@@ -12,14 +11,9 @@
 
 		<t:htmlTag value="div" style="height:15px;" />
 
-		<p:fieldset>
-			<legend>
-				<h:outputLabel for="gridFiches"
-					value="#{msgs['CENTRE.FICHE_EVALUATION.EDIT']}" />
-			</legend>
+		<p:fieldset legend="#{msgs['CENTRE.FICHE_EVALUATION.EDIT']}">
 
-			<h:panelGrid id="gridFiches" columns="5" align="center"
-				style="padding-top:10px; padding-bottom:10px;">
+			<h:panelGrid id="gridFiches" columns="5" align="center">
 				<h:column
 					rendered="#{welcomeController.superAdmin 
 							|| sessionController.droitsEvaluationEtudiantMap[centreController.centre.idCentreGestion]}">
@@ -32,9 +26,7 @@
 
 					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
 						rendered="#{!centreController.ficheEvaluation.validationEtudiant}">
-						<h:graphicImage value="/media/images/cross.png"
-							alt="#{msgs['GENERAL.WARNING']}"
-							title="#{msgs['GENERAL.WARNING']}" />
+                        <t:htmlTag value="i" styleClass="fa fa-times fz16 fontRed"/>
 						<h:outputText id="ficheEtudiantInvalide"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE']}">
 							<p:tooltip for="ficheEtudiantInvalide"
@@ -43,8 +35,7 @@
 					</h:panelGrid>
 					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
 						rendered="#{centreController.ficheEvaluation.validationEtudiant}">
-						<h:graphicImage value="/media/images/tick.png"
-							alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
+                        <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
 						<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
 					</h:panelGrid>
 				</h:column>
@@ -68,9 +59,7 @@
 
 					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
 						rendered="#{!centreController.ficheEvaluation.validationEnseignant}">
-						<h:graphicImage value="/media/images/cross.png"
-							alt="#{msgs['GENERAL.WARNING']}"
-							title="#{msgs['GENERAL.WARNING']}" />
+                        <t:htmlTag value="i" styleClass="fa fa-times fz16 fontRed"/>
 						<h:outputText id="ficheEnseignantInvalide"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE']}">
 							<p:tooltip for="ficheEnseignantInvalide"
@@ -80,8 +69,7 @@
 
 					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
 						rendered="#{centreController.ficheEvaluation.validationEnseignant}">
-						<h:graphicImage value="/media/images/tick.png"
-							alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
+                        <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
 						<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
 					</h:panelGrid>
 				</h:column>
@@ -107,9 +95,7 @@
 
 					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
 						rendered="#{!centreController.ficheEvaluation.validationEntreprise}">
-						<h:graphicImage value="/media/images/cross.png"
-							alt="#{msgs['GENERAL.WARNING']}"
-							title="#{msgs['GENERAL.WARNING']}" />
+                        <t:htmlTag value="i" styleClass="fa fa-times fz16 fontRed"/>
 						<h:outputText id="ficheEntrepriseInvalide"
 							value="#{msgs['CENTRE.FICHE_EVALUATION.INVALIDE']}">
 							<p:tooltip for="ficheEntrepriseInvalide"
@@ -119,8 +105,7 @@
 
 					<h:panelGrid columns="2" style="font-weight:bold;" align="center"
 						rendered="#{centreController.ficheEvaluation.validationEntreprise}">
-						<h:graphicImage value="/media/images/tick.png"
-							alt="#{msgs['GENERAL.OK']}" title="#{msgs['GENERAL.OK']}" />
+                        <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
 						<h:outputText value="#{msgs['CENTRE.FICHE_EVALUATION.VALIDE']}" />
 					</h:panelGrid>
 				</h:column>

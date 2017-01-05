@@ -37,21 +37,22 @@
                 <t:htmlTag value="center">
                     <p:commandButton value="#{msgs['FORM.RECHERCHER']}"
                                      action="#{centreController.rechercherPersonnel}"
-                                     update="divRecherchePersonnel"
+                                     update="@form"
                                      onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
                 </t:htmlTag>
             </h:panelGrid>
+            <t:htmlTag value="center">
+                <p:message for="formRecherchePersonnel" />
+            </t:htmlTag>
 
             <t:div id="divRecherchePersonnel"
                    rendered="#{not empty centreController.recherchePersonnels}">
-                <t:htmlTag value="center">
-                    <p:message for="formRecherchePersonnel" />
-                </t:htmlTag>
                 <h:outputText value="#{msgs['CENTRE.PERSONNEL.RESULTAT.HEAD']} : " />
                 <p:dataTable align="center" style="width:500px;"
                              id="listePersonnels" rows="5"
                              value="#{centreController.recherchePersonnels}" var="personnel"
                              rowHover="true" rowStyleClass="noPointer" paginator="true"
+                             reflow="true" tableStyle="table-layout: auto;"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              paginatorAlwaysVisible="false">
 

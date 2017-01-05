@@ -10,11 +10,10 @@
 		    	font-weight: bold;
 			}
 		</h:outputStylesheet>
-		<p:panel
-			rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
+		<p:panel rendered="#{(welcomeController.superAdmin || welcomeController.admin || welcomeController.enseignant
 						|| welcomeController.personnel) and centreController.centre != null}">
 			<f:facet name="header">
-				<h:outputLabel value="#{msgs['CENTRE.CONSULTATION']} "
+				<h:outputText styleClass="fontBold" value="#{msgs['CENTRE.CONSULTATION']} "
 					for="nomCentre" />
 				<h:outputText id="nomCentre"
 					value="#{centreController.centre.nomCentre}" />
@@ -22,7 +21,7 @@
 
 			<ui:include src="_menu_centre.xhtml" />
 
-			<t:div id="divConsultation" styleClass="block centerBlock">
+			<t:div id="divConsultation" styleClass="block ml40">
 				<ui:include
 					src="/stylesheets/stage/centreGestion/#{sessionController.consultationCentreCurrentPage}.xhtml" />
 			</t:div>

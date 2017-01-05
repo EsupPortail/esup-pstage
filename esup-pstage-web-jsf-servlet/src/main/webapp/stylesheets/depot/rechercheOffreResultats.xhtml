@@ -19,24 +19,27 @@
                         <p:dataTable id="listeOffres"
                                      value="#{offreController.rechercheOffrePaginator.visibleItems}"
                                      var="offre" rows="10" rowKey="rowOffre" rowHover="true"
-                                     rowStyleClass="noPointer" paginator="true"
+                                     rowStyleClass="noPointer" paginator="true" paginatorAlwaysVisible="false"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15,20">
+                                     rowsPerPageTemplate="5,10,15,20"
+                                     reflow="true" tableStyle="table-layout: auto;">
                             <ui:include
                                     src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
-                            <p:column>
+                            <p:column styleClass="background-color-grey">
+                                <f:facet name="header">
+                                    <h:outputText
+                                            value="#{msgs['GENERAL.ACTIONS']}" />
+                                </f:facet>
                                 <h:commandLink id="recap"
                                                action="#{offreController.goToRecapitulatifOffreFromOffreLight}">
-                                    <h:graphicImage alt="#{msgs['OFFRE.GESTION.DETAILS']}"
-                                                    value="../../media/images/document.png" />
+                                    <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
                                     <f:setPropertyActionListener value="#{offre}"
                                                                  target="#{offreController.currentOffre}" />
-                                    <p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
+                                    <p:tooltip for="recap" value="#{msgs['OFFRE.GESTION.DETAILS']}" />
                                 </h:commandLink>
                                 <h:commandLink id="modif"
                                                action="#{offreController.goToModificationOffreEtab}">
-                                    <h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-                                                    value="../../media/images/edit.png" />
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
                                     <f:setPropertyActionListener value="resultatsRechercheOffre"
                                                                  target="#{offreController.retour}" />
                                     <f:setPropertyActionListener value="#{offre}"
@@ -47,38 +50,34 @@
                                                                  target="#{etablissementController.afficherSelectionCentreContact}" />
                                     <f:setPropertyActionListener value="_modificationOffreEtape04DetailsEtab"
                                                                  target="#{sessionController.modificationOffreCurrentPage}" />
-                                    <p:tooltip>
-                                        <h:panelGrid>
-                                            <h:outputLabel for="modif" value="#{msgs['FORM.MODIFIER']}" />
-                                            <t:div rendered="#{sessionController.adminPageAuthorized}">
-                                                <t:htmlTag value="br" />
-                                                <t:aliasBean alias="#{objet}" value="#{offre}">
-                                                    <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
-                                                </t:aliasBean>
-                                            </t:div>
-                                        </h:panelGrid>
+                                    <p:tooltip for="modif">
+                                        <h:outputText styleClass="fontBold" value="#{msgs['FORM.MODIFIER']}" />
+                                        <t:div rendered="#{sessionController.adminPageAuthorized}">
+                                            <t:aliasBean alias="#{objet}" value="#{offre}">
+                                                <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+                                            </t:aliasBean>
+                                        </t:div>
                                     </p:tooltip>
                                 </h:commandLink>
                                 <p:commandLink  id="suppr" update="supprOffre"
                                                 oncomplete="PF('supprOffre').show();">
-                                    <h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-                                                    value="../../media/images/delete.png" />
+                                    <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontBlue2"/>
                                     <f:setPropertyActionListener value="resultatsRechercheOffre"
                                                                  target="#{offreController.retour}" />
                                     <f:setPropertyActionListener value="_supprOffreEtape1"
                                                                  target="#{sessionController.suppressionOffreCurrentPage}" />
                                     <f:setPropertyActionListener value="#{offre}"
                                                                  target="#{offreController.currentOffre}" />
-                                    <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
+                                    <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
                                 </p:commandLink>
                             </p:column>
                         </p:dataTable>
                     </t:div>
                     <h:panelGrid>
                         <t:htmlTag value="div" style="height:20px;" />
-                        <h:commandButton
-                                value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
-                                action="#{offreController.goToRechercheOffre}" />
+                        <h:commandButton icon="fa fa-angle-left"
+                                         value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
+                                         action="#{offreController.goToRechercheOffre}" />
                     </h:panelGrid>
                 </h:form>
                 <ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />

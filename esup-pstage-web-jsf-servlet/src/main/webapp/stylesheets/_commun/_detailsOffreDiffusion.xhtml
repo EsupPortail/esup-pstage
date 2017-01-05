@@ -1,205 +1,176 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:outputPanel id="opDiffusion" ajaxRendered="true">
-		<h:panelGrid 
-			rendered="#{!offreController.currentOffre.estDiffusee}">
-			<h:panelGrid  columns="5" style="font-size:12px;">
-				<h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
-					rendered="#{!offreController.currentOffre.estDiffusee}"
-					style="color:orange;" />
-				<t:htmlTag value="div" style="height: 10px;" />
-				<h:outputText value="--" />
-				<t:htmlTag value="div" style="height: 10px;" />
 
-				<p:commandLink  id="diffusion"
-					update="diffusionOffre"
-					oncomplete="PF('diffusionOffre').show();"
-					rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+    <t:div rendered="#{!offreController.currentOffre.estPourvue}">
+        <!--Offre non diffusee-->
+        <t:div rendered="#{!offreController.currentOffre.estDiffusee}" styleClass="mt5">
+            <h:outputText value="#{msgs['OFFRE.DIFFUSION.NESTPASDIFFUSEE']}"
+                          rendered="#{!offreController.currentOffre.estDiffusee}"
+                          styleClass="fontBold fontRed"/>
+
+            <t:htmlTag value="div" style="height: 5px;" />
+
+            <p:commandButton id="diffusion" update="diffusionOffre" styleClass="ml20"
+                             value=" #{msgs['FORM.DIFFUSER']}"
+                             oncomplete="PF('diffusionOffre').show();"
+                             rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-					disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
-					|| (sessionController.moderationActive and sessionController.pageAuthorized)}">
-					<h:graphicImage alt="#{msgs['FORM.DIFFUSER']}"
-						value="../../media/images/flag_green.png"
-						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
-					and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
-					<h:graphicImage alt="#{msgs['FORM.DIFFUSER']}"
-						value="../../media/images/flag_block.png"
-						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre 
-					|| (sessionController.moderationActive and sessionController.pageAuthorized)}" />
-					<h:outputText value=" #{msgs['FORM.DIFFUSER']}" />
-					<f:setPropertyActionListener value="_diffusionOffreEtape1"
-						target="#{sessionController.diffusionOffreCurrentPage}" />
-					<p:tooltip value="#{msgs['FORM.DIFFUSER']}"
-						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
+                             disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
+					|| (sessionController.moderationActive and sessionController.pageAuthorized)}"
+                             icon="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
+					and !(sessionController.moderationActive and sessionController.pageAuthorized) ? 'fa fa-flag fontBlue2' : 'fa fa-flag fontDarkGray'}">
+                <f:setPropertyActionListener value="_diffusionOffreEtape1"
+                                             target="#{sessionController.diffusionOffreCurrentPage}" />
+                <p:tooltip for="diffusion" value="#{msgs['FORM.DIFFUSER']}"
+                           rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
 						and !(sessionController.moderationActive and sessionController.pageAuthorized)}" />
-					<p:tooltip
-						value="#{msgs['OFFRE.ERREUR.NODIFF2']}"
-						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
+                <p:tooltip for="diffusion"
+                           value="#{msgs['OFFRE.ERREUR.NODIFF2']}"
+                           rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre
 						and sessionController.moderationActive and sessionController.pageAuthorized}" />
-					<p:tooltip value="#{msgs['OFFRE.ERREUR.NODIFF']}"
-						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-				</p:commandLink>
-			</h:panelGrid>
-		</h:panelGrid>
-		<h:panelGrid style="font-size:12px;">
-			<h:panelGrid  columns="8" style="font-size:12px;"
-				rendered="#{offreController.currentOffre.estDiffusee}">
-				<h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
-					rendered="#{offreController.currentOffre.estDiffusee}"
-					style="color:green;" />
-				<h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
-					rendered="#{offreController.currentOffre.estDiffusee}"
-					style="color:green;" />
-				<h:outputText
-					value="#{offreController.currentOffre.dateFinDiffusion}"
-					rendered="#{offreController.currentOffre.estDiffusee}"
-					style="color:green;">
-					<f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
-				</h:outputText>
-				<h:outputText
-					value="#{msgs['GENERAL.UPDATEINFOS.PAR']} #{offreController.currentOffre.loginDiffusion}"
-					rendered="#{not empty offreController.currentOffre.loginDiffusion and (sessionController.adminPageAuthorized || welcomeController.superAdmin 
-				|| welcomeController.admin || welcomeController.writer)}" />
-				<h:outputText value=" "
-					rendered="#{!(not empty offreController.currentOffre.loginDiffusion and (sessionController.adminPageAuthorized || welcomeController.superAdmin 
-				|| welcomeController.admin || welcomeController.writer))}" />
-				<t:htmlTag value="div" style="height: 10px;" />
-				<h:outputText value="--" />
-				<t:htmlTag value="div" style="height: 10px;" />
+                <p:tooltip for="diffusion" value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+                           rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+            </p:commandButton>
+        </t:div>
 
-				<p:commandLink  id="stopDiffusion"
-					update="stopDiffusionOffre"
-					oncomplete="PF('stopDiffusionOffre').show();"
-					rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
-				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-					disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-					<h:graphicImage alt="#{msgs['FORM.STOPDIFFUSER']}"
-						value="../../media/images/flag_orange.png"
-						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-					<h:graphicImage alt="#{msgs['FORM.STOPDIFFUSER']}"
-						value="../../media/images/flag_block.png"
-						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-					<h:outputText value=" #{msgs['FORM.STOPDIFFUSER']}" />
-					<f:setPropertyActionListener value="_stopDiffusionOffreEtape1"
-						target="#{sessionController.stopDiffusionOffreCurrentPage}" />
-					<p:tooltip 
-					value="#{msgs['FORM.STOPDIFFUSER']}"
-					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-					<p:tooltip
-					value="#{msgs['OFFRE.ERREUR.NODIFF']}"
-					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-				</p:commandLink>
-			</h:panelGrid>
-			<t:div
-				rendered="#{sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
+        <!--Offre diffusee-->
+        <t:div rendered="#{offreController.currentOffre.estDiffusee}" styleClass="mt5">
+
+            <t:div styleClass="verticalAlignDiv">
+                <h:outputText value="#{msgs['OFFRE.DIFFUSION.ESTDIFFUSEE']}"
+                              rendered="#{offreController.currentOffre.estDiffusee}"
+                              styleClass="fontBold fontGreen" />
+                <t:htmlTag value="div" style="width:5px;" />
+                <h:outputText value="#{msgs['OFFRE.DIFFUSION.JUSQU']} "
+                              rendered="#{offreController.currentOffre.estDiffusee}"
+                              styleClass="fontBold fontGreen" />
+                <t:htmlTag value="div" style="width:5px;" />
+                <h:outputText
+                        value="#{offreController.currentOffre.dateFinDiffusion}"
+                        rendered="#{offreController.currentOffre.estDiffusee}"
+                        styleClass="fontBold fontGreen">
+                    <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+                </h:outputText>
+                <t:htmlTag value="div" style="width:5px;"
+                           rendered="#{not empty offreController.currentOffre.loginDiffusion and (sessionController.adminPageAuthorized || welcomeController.superAdmin
+				|| welcomeController.admin || welcomeController.writer)}" />
+                <h:outputText
+                        value="#{msgs['GENERAL.UPDATEINFOS.PAR']} #{offreController.currentOffre.loginDiffusion}"
+                        rendered="#{not empty offreController.currentOffre.loginDiffusion and (sessionController.adminPageAuthorized || welcomeController.superAdmin
+				|| welcomeController.admin || welcomeController.writer)}"
+                        styleClass="fontBold" />
+                <h:outputText value=" "
+                              rendered="#{!(not empty offreController.currentOffre.loginDiffusion and (sessionController.adminPageAuthorized || welcomeController.superAdmin
+				|| welcomeController.admin || welcomeController.writer))}"
+                              styleClass="fontBold"/>
+            </t:div>
+
+            <t:htmlTag value="div" style="height: 5px;" />
+
+            <p:commandButton id="stopDiffusion" styleClass="ml20"
+                             value="#{msgs['FORM.STOPDIFFUSER']}"
+                             update="stopDiffusionOffre"
+                             oncomplete="PF('stopDiffusionOffre').show();"
+                             rendered="#{offreController.currentOffre.estDiffusee
+                             and (sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+				             welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
+                             disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"
+                             icon="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre ? 'fa fa-ban fz13' : 'fa fa-ban fz13 fontDarkGray'}">
+                <f:setPropertyActionListener value="_stopDiffusionOffreEtape1"
+                                             target="#{sessionController.stopDiffusionOffreCurrentPage}" />
+                <p:tooltip for="stopDiffusion"
+                           value="#{msgs['FORM.STOPDIFFUSER']}"
+                           rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+                <p:tooltip for="stopDiffusion"
+                           value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+                           rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+            </p:commandButton>
+        </t:div>
+
+        <t:htmlTag value="div" style="height: 20px;" />
+
+        <!-- Ciblage -->
+        <t:div rendered="#{sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-				<p:commandLink  id="diffusionCentre"
-					update="diffusionCentreOffre"
-					oncomplete="PF('diffusionCentreOffre').show();"
-					rendered="#{(sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
-				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and !offreController.ciblageInterdit}"
-					disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"
-					action="#{offreController.majListesCentresDiffusion}">
-					<h:graphicImage alt="_" value="../../media/images/target.png"
-						
-						rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-					<h:graphicImage alt="_" value="../../media/images/target_block.png"
-						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-					<h:outputText
-						value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR']}"
-						rendered="#{sessionController.adminPageAuthorized}" />
-					<h:outputText
-						value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE']}"
-						rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
-					<h:outputText
-						value=" #{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE']}"
-						rendered="#{!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)}" />
-					<f:setPropertyActionListener value="_diffusionCentreOffreEtape1"
-						target="#{sessionController.diffusionCentreOffreCurrentPage}" />
-					<p:tooltip
-						value="#{msgs['OFFRE.ERREUR.NODIFF']}"
-						rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
-				</p:commandLink>
-				
-				<p:outputPanel id="opOffreDiffusion">
-					<h:panelGrid  style="font-size:12px;">
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEA']}"
-							rendered="#{not empty offreController.currentOffre.offresDiffusion
-			and (!sessionController.pageAuthorized and (welcomeController.admin || welcomeController.writer))			
-			and (offreController.currentOffre.centreGestion.idCentreGestion != centreController.centreEntreprise.idCentreGestion)}" />
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEPARENTR']}"
-							rendered="#{not empty offreController.currentOffre.offresDiffusion
-			and (!sessionController.pageAuthorized and (welcomeController.admin || welcomeController.writer))			
-			and (offreController.currentOffre.centreGestion.idCentreGestion == centreController.centreEntreprise.idCentreGestion)}" />
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEA']}"
-							rendered="#{not empty offreController.currentOffre.offresDiffusion
-			and (sessionController.pageAuthorized || sessionController.pageAuthorized)}" />
-						<p:dataList var="odiff"
-							rendered="#{not empty offreController.currentOffre.offresDiffusion}"
-							value="#{offreController.currentOffre.offresDiffusion}">
-							<h:outputText value="#{odiff.nomCentre}" />
-						</p:dataList>
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEATLM']}"
-							rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
+            <t:div styleClass="verticalAlignDiv fontBold">
+                <h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEA']}"
+                              rendered="#{not empty offreController.currentOffre.offresDiffusion
+		    	and (!sessionController.pageAuthorized and (welcomeController.admin || welcomeController.writer))
+		    	and (offreController.currentOffre.centreGestion.idCentreGestion != centreController.centreEntreprise.idCentreGestion)}" />
+                <h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEPARENTR']}"
+                              rendered="#{not empty offreController.currentOffre.offresDiffusion
+			    and (!sessionController.pageAuthorized and (welcomeController.admin || welcomeController.writer))
+			    and (offreController.currentOffre.centreGestion.idCentreGestion == centreController.centreEntreprise.idCentreGestion)}" />
+                <h:outputText value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTRESERVEEA']}"
+                              rendered="#{not empty offreController.currentOffre.offresDiffusion
+			    and (sessionController.pageAuthorized || sessionController.pageAuthorized)}" />
+            </t:div>
+            <p:dataList var="odiff" styleClass="mt5 ml20"
+                        rendered="#{not empty offreController.currentOffre.offresDiffusion}"
+                        value="#{offreController.currentOffre.offresDiffusion}">
+                <h:outputText value="#{odiff.nomCentre}" />
+            </p:dataList>
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ESTDIFFUSEEATLM']}"
+                          rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
 							(sessionController.pageAuthorized || sessionController.adminPageAuthorized))}" />
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNEDIFFUSION']}"
-							rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNEDIFFUSION']}"
+                          rendered="#{offreController.currentOffre.estDiffusee and (empty offreController.currentOffre.offresDiffusion and
 							(!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)))}" />
-					</h:panelGrid>
-				</p:outputPanel>
-			</t:div>
-		</h:panelGrid>
-		<h:panelGrid  columns="5" style="font-size:12px;"
-			rendered="#{(sessionController.adminPageAuthorized || sessionController.pageAuthorized || welcomeController.superAdmin 
+
+            <t:htmlTag value="div" style="height: 5px;" />
+
+            <p:commandButton id="diffusionCentre" styleClass="ml20"
+                             update="diffusionCentreOffre" oncomplete="PF('diffusionCentreOffre').show();"
+                             value="#{sessionController.adminPageAuthorized ? msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR']
+                    :(sessionController.pageAuthorized and !sessionController.adminPageAuthorized) ? msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE']
+                    :(!sessionController.adminPageAuthorized and (welcomeController.admin || welcomeController.writer)) ? msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE']: 'empty'}"
+                             rendered="#{(sessionController.adminPageAuthorized || (sessionController.pageAuthorized and sessionController.autoriserEntrepriseAReserverOffre) ||
+				    welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and !offreController.ciblageInterdit}"
+                             disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"
+                             action="#{offreController.majListesCentresDiffusion}"
+                             icon="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre ? 'fa fa-bullseye fz13 fontBlue2' : 'fa fa-bullseye fz13 fontDarkGray'}">
+                <f:setPropertyActionListener value="_diffusionCentreOffreEtape1"
+                                             target="#{sessionController.diffusionCentreOffreCurrentPage}" />
+                <p:tooltip for="diffusionCentre"
+                           value="#{msgs['OFFRE.ERREUR.NODIFF']}"
+                           rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}" />
+            </p:commandButton>
+        </t:div>
+
+        <t:htmlTag value="div" style="height: 20px;" />
+    </t:div>
+
+    <t:div rendered="#{(sessionController.adminPageAuthorized || sessionController.pageAuthorized || welcomeController.superAdmin
 				|| welcomeController.admin || welcomeController.writer)}">
-			<h:outputText value="#{msgs['OFFRE.GESTION.POURVOIROFFRE.POURVUE']}"
-				rendered="#{offreController.currentOffre.estPourvue}"
-				style="color:green;" />
-			<h:outputText
-				value="#{msgs['OFFRE.GESTION.POURVOIROFFRE.NONPOURVUE']}"
-				rendered="#{!offreController.currentOffre.estPourvue}"
-				style="color:orange;" />
-			<t:htmlTag value="div" style="height: 10px;" />
-			<h:outputText value="--" />
-			<t:htmlTag value="div" style="height: 10px;" />
-			<p:commandLink  id="offrePourvue"
-				update="panelOffrePourvue"
-				oncomplete="PF('panelOffrePourvue').show();"
-				rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+        <h:outputText value="#{msgs['OFFRE.GESTION.POURVOIROFFRE.POURVUE']}"
+                      rendered="#{offreController.currentOffre.estPourvue}"
+                      styleClass="fontBold fontGreen" />
+        <h:outputText value="#{msgs['OFFRE.GESTION.POURVOIROFFRE.NONPOURVUE']}"
+                      rendered="#{!offreController.currentOffre.estPourvue}"
+                      styleClass="fontBold fontRed" />
+
+        <t:htmlTag value="div" style="height: 5px;" />
+        <p:commandButton  id="offrePourvue" styleClass="ml20"
+                          update="panelOffrePourvue"
+                          oncomplete="PF('panelOffrePourvue').show();"
+                          value="#{offreController.currentOffre.estPourvue ? msgs['OFFRE.GESTION.POURVOIROFFRE.STOPPOURVUE'] : msgs['OFFRE.GESTION.POURVOIROFFRE.POUVOIR']}"
+                          rendered="#{sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
 				welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-				disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}">
-				<h:graphicImage alt="_" value="../../media/images/lock.png"
-					
-					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and !offreController.currentOffre.estPourvue}" />
-				<h:graphicImage alt="_" value="../../media/images/lock_block.png"
-					
-					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and !offreController.currentOffre.estPourvue}" />
-				<h:graphicImage alt="_" value="../../media/images/lock_open.png"
-					
-					rendered="#{offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and offreController.currentOffre.estPourvue}" />
-				<h:graphicImage alt="_"
-					value="../../media/images/lock_open_block.png"
-					rendered="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre and offreController.currentOffre.estPourvue}" />
-				<h:outputText
-					value=" #{msgs['OFFRE.GESTION.POURVOIROFFRE.POUVOIR']}"
-					rendered="#{!offreController.currentOffre.estPourvue}" />
-				<h:outputText
-					value=" #{msgs['OFFRE.GESTION.POURVOIROFFRE.STOPPOURVUE']}"
-					rendered="#{offreController.currentOffre.estPourvue}" />
-				<f:setPropertyActionListener value="_offrePourvueEtape1"
-					target="#{sessionController.offrePourvueCurrentPage}" />
-			</p:commandLink>
-		</h:panelGrid>
-	</p:outputPanel>
+                          disabled="#{!offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre}"
+                          icon="#{(offreController.listeCurrentIdsCentresGestionContainsIdCGCurrentOffre ?
+                          (offreController.currentOffre.estPourvue ? 'fa fa-unlock fz13 fontBlue2' : 'fa fa-lock fz13 fontBlue2')
+                          : (offreController.currentOffre.estPourvue ? 'fa fa-unlock fz13 fontDarkGray' : 'fa fa-lock fz13 fontDarkGray'))}">
+            <f:setPropertyActionListener value="_offrePourvueEtape1"
+                                         target="#{sessionController.offrePourvueCurrentPage}" />
+        </p:commandButton>
+
+    </t:div>
+    <t:htmlTag value="div" style="height: 5px;" />
 </ui:composition>

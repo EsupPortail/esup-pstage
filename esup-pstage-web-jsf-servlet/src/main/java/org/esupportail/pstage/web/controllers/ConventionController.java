@@ -4401,18 +4401,18 @@ public class ConventionController extends AbstractContextAwareController {
 						retour = null;
 					}
 				} else {
-					addErrorMessage(null, "CONVENTION.SUPPRESSION.ERREUR",
+					addErrorMessage("formSelConvention", "CONVENTION.SUPPRESSION.ERREUR",
 							this.convention.getIdConvention());
 				}
 			}
 
 		} catch (DataDeleteException ae) {
 			logger.error("DataDeleteException", ae.getCause());
-			addErrorMessage(null, "CONVENTION.SUPPRESSION.ERREUR",
+			addErrorMessage("formSelConvention", "CONVENTION.SUPPRESSION.ERREUR",
 					this.convention.getIdConvention());
 		} catch (WebServiceDataBaseException we) {
 			logger.error("WebServiceDataBaseException ", we.getCause());
-			addErrorMessage(null, "CONVENTION.SUPPRESSION.ERREUR",
+			addErrorMessage("formSelConvention", "CONVENTION.SUPPRESSION.ERREUR",
 					this.convention.getIdConvention());
 		}
 		return retour;

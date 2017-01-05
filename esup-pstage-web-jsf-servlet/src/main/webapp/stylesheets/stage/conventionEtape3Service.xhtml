@@ -13,7 +13,7 @@
                 <ui:include src="_roadmapSel.xhtml" />
 
                 <t:fieldset>
-                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+                    <t:div styleClass="mt10 ml30 mb20 block">
 
                         <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
                         <h:outputText value="#{msgs['CONVENTION.ETAPE3.SERVICE']}"
@@ -33,7 +33,8 @@
                             <t:div id="actionsService"
                                    rendered="#{not empty etablissementController.listeServices}">
                                 <p:dataTable value="#{etablissementController.serviceSel}" var="service"
-                                             rowStyleClass="noPointer" styleClass="mt5">
+                                             rowStyleClass="noPointer" styleClass="mt5"
+                                             reflow="true" tableStyle="table-layout: auto;">
 
                                     <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
 

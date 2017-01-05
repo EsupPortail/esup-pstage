@@ -8,8 +8,7 @@
 		<f:facet name="header">
 			<h:outputText value="#{msgs['CENTRE.PERSONNEL.MODIF.HEAD']}" />
 		</f:facet>
-		<h:form id="formAjoutPersonnel"
-			style="min-width:600px; max-width:800px;">
+        <h:form id="formAjoutPersonnel">
 			<h:panelGrid columns="3" style="padding-left:50px;">
 				<h:panelGrid columns="2" cellspacing="5">
 					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}"
@@ -118,14 +117,13 @@
 
 			<t:htmlTag value="div" style="height:20px;" />
 
-			<t:htmlTag value="center">
+			<t:div styleClass="fz16 fontBold textCenter">
 				<p:commandButton action="#{centreController.ajouterPersonnel}"
-					style="font-size:16px; font-weight:bold; border-color:green;"
 					value="#{msgs['FORM.ENREGISTRER']}"
 					oncomplete="PF('ajoutPersonnel').hide();"
 					update="divConsultation" />
 				<p:message for="formAjoutPersonnel" />
-			</t:htmlTag>
+			</t:div>
 			<t:htmlTag value="div" style="height:15px;" />
 			<p:commandButton value="#{msgs['GENERAL.RETOUR']}" oncomplete="PF('ajoutPersonnel').hide();PF('recherchePersonnel').show();" style="margin:20px;"/>
 		</h:form>

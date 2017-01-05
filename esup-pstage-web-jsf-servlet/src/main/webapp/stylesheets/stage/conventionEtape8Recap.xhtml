@@ -13,12 +13,14 @@
                 <ui:include src="_roadmapSel.xhtml" />
 
                 <t:fieldset>
-                    <t:div styleClass="mt10 ml30" style="max-width: 900px;">
+                    <t:div styleClass="mt10 ml30 block">
                         <t:div rendered="#{conventionController.conventionCree}" styleClass="textCenter">
                             <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2" />
                             <h:outputText id="confirmCreationConvention" styleClass="fontBold"
                                           value="#{msgs['CONVENTION.CREERCONVENTION.CONFIRMATION']}" />
                         </t:div>
+
+                        <p:messages />
 
                         <t:div>
                             <p:commandButton id="impression" action="#{conventionController.goToImpressionConvention}"
@@ -33,7 +35,7 @@
                                              icon="fa fa-print" styleClass="ml10"
                                              rendered="#{sessionController.courrierRemerciement
 		                            and conventionController.convention.validationConvention}"/>
-                            <t:div style="float: right;"
+                            <t:div styleClass="floatRight"
                                    rendered="#{welcomeController.superAdmin || welcomeController.etudiant
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitAdmin
                                 || sessionController.droitsAccesMap[conventionController.convention.idCentreGestion] == beanUtils.droitEcriture}">
@@ -78,6 +80,7 @@
                             <t:div styleClass="mt20 mb20 textCenter">
                                 <p:commandButton value="#{msgs['FORM.OUI']}"
                                                  oncomplete="PF('supprConvention').hide();"
+                                                 update="@form"
                                                  action="#{conventionController.goToSuppConvention}"/>
 
                                 <p:commandButton value="#{msgs['FORM.NON']}" immediate="true"
@@ -85,10 +88,6 @@
                                                  styleClass="ml40"/>
                             </t:div>
                         </p:dialog>
-
-                        <t:htmlTag value="div" style="height: 10px;" />
-
-                        <p:messages />
                     </t:div>
                 </t:fieldset>
             </h:form>

@@ -31,7 +31,8 @@
 	<p:dataTable id="strucureExistanteListe" style="width:700px;" rows="5"
 		rendered="#{not empty accordController.listeStructureExistante}"
 		value="#{accordController.listeStructureExistante}"
-		var="structureExistante" rowHover="true" rowStyleClass="noPointer"
+                 reflow="true" tableStyle="table-layout: auto;"
+                 var="structureExistante" rowHover="true" rowStyleClass="noPointer"
 		paginator="true"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rowsPerPageTemplate="5,10,15,20">

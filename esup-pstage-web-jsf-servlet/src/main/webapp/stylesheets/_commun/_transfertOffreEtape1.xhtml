@@ -10,7 +10,8 @@
 		<h:panelGrid>
 			<h:outputText value="#{msgs['OFFRE.GESTION.TRANSFERT.QUESTION']}"
 				escape="false" />
-			<p:dataTable value="#{offreController.currentOffre}">
+			<p:dataTable value="#{offreController.currentOffre}"
+                         reflow="true" tableStyle="table-layout: auto;">
 				<p:column rendered="#{sessionController.adminPageAuthorized}">
 					<f:facet name="header">
 						<h:outputText value="#{msgs['OFFRE.ID']}" />

@@ -393,37 +393,38 @@
 
                 <t:htmlTag value="div" style="height:10px;" />
 
-                <p:commandButton id="rechercherConvention"
-                                 value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
-                                 action="#{conventionController.rechercherConvention}"
-                                 update="@form"
-                                 icon="fa fa-search"
-                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
-                    <f:setPropertyActionListener value="resultatsRechercheConvention"
-                                                 target="#{conventionController.retourAction}" />
-                </p:commandButton>
+                <t:div styleClass="textCenter">
+                    <p:commandButton id="rechercherConvention" style="font-size:1.6rem;"
+                                     value="#{msgs['RECHERCHECONVENTION.RECHERCHER']}"
+                                     action="#{conventionController.rechercherConvention}"
+                                     update="@form" icon="fa fa-search fz13"
+                                     onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();">
+                        <f:setPropertyActionListener value="resultatsRechercheConvention"
+                                                     target="#{conventionController.retourAction}" />
+                    </p:commandButton>
 
-                <p:commandButton id="exportExcel" styleClass="floatRight"
-                                 value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
-                                 icon="fa fa-file-excel-o" ajax="false"
-                                 action="#{exportController.rechercherConvention}">
-                    <f:setPropertyActionListener
-                            value="#{conventionController.critereRechercheConvention}"
-                            target="#{exportController.critereRechercheConvention}" />
-                    <f:setPropertyActionListener
-                            value="#{conventionController.estValidee}"
-                            target="#{exportController.estValidee}" />
-                    <f:setPropertyActionListener
-                            value="#{conventionController.estVerifiee}"
-                            target="#{exportController.estVerifiee}" />
-                    <f:setPropertyActionListener
-                            value="#{conventionController.estEtrangere}"
-                            target="#{exportController.estEtrangere}" />
-                    <f:setPropertyActionListener value="rechercheConvention"
-                                                 target="#{conventionController.retourAction}" />
-                    <p:tooltip id="tooltipExport"
-                               value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" for="exportExcel" />
-                </p:commandButton>
+                    <p:commandButton id="exportExcel" styleClass="floatRight fontGreen"
+                                     value="#{msgs['RECHERCHECONVENTION.TELEXPORT']}"
+                                     icon="fa fa-file-excel-o" ajax="false"
+                                     action="#{exportController.rechercherConvention}">
+                        <f:setPropertyActionListener
+                                value="#{conventionController.critereRechercheConvention}"
+                                target="#{exportController.critereRechercheConvention}" />
+                        <f:setPropertyActionListener
+                                value="#{conventionController.estValidee}"
+                                target="#{exportController.estValidee}" />
+                        <f:setPropertyActionListener
+                                value="#{conventionController.estVerifiee}"
+                                target="#{exportController.estVerifiee}" />
+                        <f:setPropertyActionListener
+                                value="#{conventionController.estEtrangere}"
+                                target="#{exportController.estEtrangere}" />
+                        <f:setPropertyActionListener value="rechercheConvention"
+                                                     target="#{conventionController.retourAction}" />
+                        <p:tooltip id="tooltipExport"
+                                   value="#{msgs['EXPORTCONVENTION.TOOLTIP']}" for="exportExcel" />
+                    </p:commandButton>
+                </t:div>
 
                 <t:htmlTag value="div" style="height:10px;" />
                 <p:messages escape="false" />

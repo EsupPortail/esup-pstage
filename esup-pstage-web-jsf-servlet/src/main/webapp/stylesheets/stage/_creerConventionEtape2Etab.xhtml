@@ -24,6 +24,7 @@
                 <p:dataTable id="rechercheStructureDataTable" styleClass="mt10"
                              value="#{rechercheController.rechercheStructurePaginator.liste}"
                              var="varRechercheStructure" rows="10" rowHover="true"
+                             reflow="true" tableStyle="table-layout: auto;"
                              rowStyleClass="noPointer" paginator="true"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"

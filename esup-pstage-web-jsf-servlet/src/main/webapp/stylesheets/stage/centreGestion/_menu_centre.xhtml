@@ -1,65 +1,94 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:form id="formMenuCentre">
-		<p:tabMenu activeIndex="#{centreController.indexMenu}" style="display:inline-block;">
-			<p:menuitem value="#{msgs['CENTRE.MENU.DETAIL']}" icon="fa fa-star"
-				update="divConsultation,@form">
-				<f:setPropertyActionListener value="0"
-					target="#{centreController.indexMenu}" />
-				<f:setPropertyActionListener value="_consultationCentre_detail"
-					target="#{sessionController.consultationCentreCurrentPage}" />
-			</p:menuitem>
-			<p:menuitem value="#{msgs['CENTRE.MENU.LOGO']}" icon="fa fa-image"
-				update="divConsultation,@form">
-				<f:setPropertyActionListener value="1"
-					target="#{centreController.indexMenu}" />
-				<f:setPropertyActionListener value="_consultationCentre_logo"
-					target="#{sessionController.consultationCentreCurrentPage}" />
-			</p:menuitem>
-			<p:menuitem value="#{msgs['CENTRE.MENU.LISTE_CRITERE']}"
-				icon="fa fa-gear" action="#{centreController.goToListeCritere}"
-				update="divConsultation,@form" onstart="PF('statusDialog').show()"
-				oncomplete="PF('statusDialog').hide()"
-				disabled="#{centreController.centre.niveauCentre.libelle == beanUtils.libelleEtablissement
-					or centreController.centre.niveauCentre.libelle == beanUtils.libelleEntreprise}">
-				<f:setPropertyActionListener value="2"
-					target="#{centreController.indexMenu}" />
-			</p:menuitem>
-			<p:menuitem value="#{msgs['CENTRE.MENU.LISTE_PERSONNEL']}"
-				icon="fa fa-user" action="#{centreController.goToListePersonnel}"
-				update="divConsultation,@form" onstart="PF('statusDialog').show()"
-				oncomplete="PF('statusDialog').hide()"
-				rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
-				<f:setPropertyActionListener value="3"
-					target="#{centreController.indexMenu}" />
-			</p:menuitem>
-			<p:menuitem value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']}"
-				icon="fa fa-bar-chart" update="divConsultation,@form"
-				rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}">
-				<f:setPropertyActionListener value="4"
-					target="#{centreController.indexMenu}" />
-				<f:setPropertyActionListener
-					value="#{centreController.centre.idCentreGestion}"
-					target="#{statistiquesConventionController.idCentreGestion}" />
-				<f:setPropertyActionListener
-					value="#{centreController.centre.idCentreGestion}"
-					target="#{statistiquesOffresController.idCentreGestion}" />
-				<f:setPropertyActionListener value="_consultationCentre_stats"
-					target="#{sessionController.consultationCentreCurrentPage}" />
-			</p:menuitem>
-			<p:menuitem value="#{msgs['CENTRE.MENU.FICHE_EVALUATION']}"
-				icon="fa fa-edit" action="#{centreController.goToFicheEvaluation}"
-				update="divConsultation,@form"
-				rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise
+    <h:form id="formMenuCentre">
+
+        <p:scrollPanel mode="native" styleClass="customPstage" style="text-align: left;">
+            <p:commandButton value="#{msgs['CENTRE.MENU.DETAIL']}" immediate="true"
+                             icon="fa fa-star"
+                             update="divConsultation,@form"
+                             style="color: #{centreController.indexMenu == 0 ? '#2C7094' : 'black'};
+                                opacity: #{centreController.indexMenu == 0 ? 1 : .50};">
+                <f:setPropertyActionListener value="0"
+                                             target="#{centreController.indexMenu}" />
+                <f:setPropertyActionListener value="_consultationCentre_detail"
+                                             target="#{sessionController.consultationCentreCurrentPage}" />
+            </p:commandButton>
+
+            <p:commandButton value="#{msgs['CENTRE.MENU.LOGO']}" immediate="true"
+                             icon="fa fa-image"
+                             update="divConsultation,@form"
+                             style="color: #{centreController.indexMenu == 1 ? '#2C7094' : 'black'};
+                                opacity: #{centreController.indexMenu == 1 ? 1 : .50};">
+                <f:setPropertyActionListener value="1"
+                                             target="#{centreController.indexMenu}" />
+                <f:setPropertyActionListener value="_consultationCentre_logo"
+                                             target="#{sessionController.consultationCentreCurrentPage}" />
+            </p:commandButton>
+
+            <p:commandButton value="#{msgs['CENTRE.MENU.LISTE_CRITERE']}" immediate="true"
+                             icon="fa fa-gear" action="#{centreController.goToListeCritere}"
+                             update="divConsultation,@form" onstart="PF('statusDialog').show()"
+                             oncomplete="PF('statusDialog').hide()"
+                             rendered="#{!(centreController.centre.niveauCentre.libelle == beanUtils.libelleEtablissement
+					or centreController.centre.niveauCentre.libelle == beanUtils.libelleEntreprise)}"
+                             style="color: #{centreController.indexMenu == 2 ? '#2C7094' : 'black'};
+                                opacity: #{centreController.indexMenu == 2 ? 1 : .50};">
+                <f:setPropertyActionListener value="2"
+                                             target="#{centreController.indexMenu}" />
+            </p:commandButton>
+
+            <p:commandButton value="#{msgs['CENTRE.MENU.LISTE_PERSONNEL']}" immediate="true"
+                             icon="fa fa-user" action="#{centreController.goToListePersonnel}"
+                             update="divConsultation,@form" onstart="PF('statusDialog').show()"
+                             oncomplete="PF('statusDialog').hide()"
+                             rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}"
+                             style="color: #{centreController.indexMenu == 3 ? '#2C7094' : 'black'};
+                                opacity: #{centreController.indexMenu == 3 ? 1 : .50};">
+                <f:setPropertyActionListener value="3"
+                                             target="#{centreController.indexMenu}" />
+            </p:commandButton>
+
+            <p:commandButton value="#{msgs['CENTRE.MENU.INDICATEURS_STAT']}" immediate="true"
+                             icon="fa fa-bar-chart" update="divConsultation,@form"
+                             rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise}"
+                             style="color: #{centreController.indexMenu == 4 ? '#2C7094' : 'black'};
+                                opacity: #{centreController.indexMenu == 4 ? 1 : .50};">
+                <f:setPropertyActionListener value="4"
+                                             target="#{centreController.indexMenu}" />
+                <f:setPropertyActionListener
+                        value="#{centreController.centre.idCentreGestion}"
+                        target="#{statistiquesConventionController.idCentreGestion}" />
+                <f:setPropertyActionListener
+                        value="#{centreController.centre.idCentreGestion}"
+                        target="#{statistiquesOffresController.idCentreGestion}" />
+                <f:setPropertyActionListener value="_consultationCentre_stats"
+                                             target="#{sessionController.consultationCentreCurrentPage}" />
+            </p:commandButton>
+
+            <p:commandButton value="#{msgs['CENTRE.MENU.FICHE_EVALUATION']}" immediate="true"
+                             icon="fa fa-edit" action="#{centreController.goToFicheEvaluation}"
+                             update="divConsultation,@form"
+                             rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise
+					    and welcomeController.superAdmin}"
+                             style="color: #{centreController.indexMenu == 5 ? '#2C7094' : 'black'};
+                                opacity: #{centreController.indexMenu == 5 ? 1 : .50};">
+                <f:setPropertyActionListener value="5"
+                                             target="#{centreController.indexMenu}" />
+            </p:commandButton>
+        </p:scrollPanel>
+
+            <p:menuitem value="#{msgs['CENTRE.MENU.FICHE_EVALUATION']}"
+                        icon="fa fa-edit" action="#{centreController.goToFicheEvaluation}"
+                        update="divConsultation,@form"
+                        rendered="#{centreController.centre.niveauCentre.libelle != beanUtils.libelleEntreprise
 					and welcomeController.superAdmin}">
-				<f:setPropertyActionListener value="5"
-					target="#{centreController.indexMenu}" />
-			</p:menuitem>
-		</p:tabMenu>
-	</h:form>
+                <f:setPropertyActionListener value="5"
+                                             target="#{centreController.indexMenu}" />
+            </p:menuitem>
+    </h:form>
 </ui:composition>

@@ -3,47 +3,50 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:t="http://myfaces.apache.org/tomahawk"
                 xmlns:p="http://primefaces.org/ui">
-    <h:panelGrid columns="2" styleClass="fontBold mt20">
-        <h:graphicImage id="imgInfoAccueil"
-                        alt="#{msgs['CENTRE.AJOUT_CENTRE.ACCUEIL']}"
-                        value="/media/images/information.png" />
-        <h:outputText value="#{msgs['CENTRE.AJOUT_CENTRE.ACCUEIL']}" />
-    </h:panelGrid>
+    <t:div styleClass="fontBold mt20">
+        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+        <h:outputText value="#{msgs['CENTRE.AJOUT_CENTRE.ACCUEIL']}" styleClass="ml5" />
+    </t:div>
 
     <t:htmlTag value="div" style="height: 15px;" />
 
     <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
+    <t:htmlTag value="div" style="height: 15px;" />
 
-    <h:panelGrid columns="3">
-        <t:div id="divNom">
-            <h:panelGrid columns="2">
-                <p:outputLabel value="#{msgs['CENTRE.NOM']}" for="nomCentre" />
-                <p:message for="nomCentre" />
-            </h:panelGrid>
-            <p:inputText id="nomCentre" style="text-transform:uppercase;"
-                         value="#{centreController.centre.nomCentre}" size="50"
-                         maxlength="100" required="true"
-                         requiredMessage="#{requiredMessageController.champObligatoire}">
-                <f:converter binding="#{sansAccentEnMAJConverter}" />
-                <p:ajax event="blur" update="divNom" />
-            </p:inputText>
+    <t:htmlTag value="ul" styleClass="formUL columns-2">
+        <t:div styleClass="column">
+            <t:htmlTag value="li">
+                <t:div id="divNom">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="#{msgs['CENTRE.NOM']}" for="nomCentre" />
+                        <p:message for="nomCentre" />
+                    </h:panelGrid>
+                    <p:inputText id="nomCentre" style="text-transform:uppercase;"
+                                 value="#{centreController.centre.nomCentre}" size="50"
+                                 maxlength="100" required="true"
+                                 requiredMessage="#{requiredMessageController.champObligatoire}">
+                        <f:converter binding="#{sansAccentEnMAJConverter}" />
+                        <p:ajax event="blur" update="divNom" />
+                    </p:inputText>
+                </t:div>
+            </t:htmlTag>
         </t:div>
-
-        <p:separator style="height:60px; margin-left:30px; margin-right:30px;" />
-
-        <t:div>
-            <p:outputLabel value="#{msgs['CENTRE.TYPE_CENTRE']}"
-                           for="critereGestion" />
-            <br/>
-            <p:selectOneMenu id="critereGestion" style="margin:5px;"
-                             value="#{centreController.centre.niveauCentre}"
-                             converter="#{niveauCentreConverter}" required="true"
-                             requiredMessage="#{requiredMessageController.champObligatoire}"
-                             effect="none">
-                <f:selectItems value="#{centreController.niveauxCentre}" />
-            </p:selectOneMenu>
+        <t:div styleClass="column">
+            <t:htmlTag value="li">
+                <t:div>
+                    <p:outputLabel value="#{msgs['CENTRE.TYPE_CENTRE']}"
+                                   for="critereGestion" />
+                    <p:selectOneMenu id="critereGestion" style="margin:5px;"
+                                     value="#{centreController.centre.niveauCentre}"
+                                     converter="#{niveauCentreConverter}" required="true"
+                                     requiredMessage="#{requiredMessageController.champObligatoire}"
+                                     effect="none">
+                        <f:selectItems value="#{centreController.niveauxCentre}" />
+                    </p:selectOneMenu>
+                </t:div>
+            </t:htmlTag>
         </t:div>
-    </h:panelGrid>
+    </t:htmlTag>
 
     <t:htmlTag value="div" style="height: 10px;" />
 
@@ -51,104 +54,108 @@
         <legend>
             <h:outputText value="#{msgs['GENERAL.COORDONNEES']}" />
         </legend>
-        <h:panelGrid columns="3">
-            <t:htmlTag id="panelVoie" value="ul" styleClass="formUL">
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
                 <t:htmlTag value="li">
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="#{msgs['CENTRE.VOIE']}" for="voie" />
-                        <p:message for="voie" />
-                    </h:panelGrid>
-                    <p:inputText id="voie" value="#{centreController.centre.voie}"
-                                 size="50" maxlength="200" required="true"
-                                 requiredMessage="#{requiredMessageController.champObligatoire}">
-                        <p:ajax event="blur" update="panelVoie" />
-                    </p:inputText>
+                    <t:htmlTag id="panelVoie" value="ul" styleClass="formUL">
+                        <t:htmlTag value="li">
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="#{msgs['CENTRE.VOIE']}" for="voie" />
+                                <p:message for="voie" />
+                            </h:panelGrid>
+                            <p:inputText id="voie" value="#{centreController.centre.voie}"
+                                         size="50" maxlength="200" required="true"
+                                         requiredMessage="#{requiredMessageController.champObligatoire}">
+                                <p:ajax event="blur" update="panelVoie" />
+                            </p:inputText>
+                        </t:htmlTag>
+
+                        <t:htmlTag value="li">
+                            <p:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']}"
+                                           for="batimentResidence" />
+                            <p:inputText id="batimentResidence"
+                                         value="#{centreController.centre.batimentResidence}" size="50"
+                                         maxlength="200" />
+                        </t:htmlTag>
+                    </t:htmlTag>
                 </t:htmlTag>
-
-                <t:htmlTag value="li">
-                    <p:outputLabel value="#{msgs['CENTRE.BATIMENT_RESIDENCE']}"
-                                   for="batimentResidence" />
-                    <p:inputText id="batimentResidence"
-                                 value="#{centreController.centre.batimentResidence}" size="50"
-                                 maxlength="200" />
-                </t:htmlTag>
-            </t:htmlTag>
-
-            <p:separator style="height:130px; margin-left:30px; margin-right:30px;" />
-
-            <t:div>
-                <h:panelGrid id="panelCodePostal" columns="2">
-                    <p:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']}"
-                                   for="codePostal" />
-                    <p:message for="codePostal" />
-                </h:panelGrid>
-                <p:inputText id="codePostal"
-                             value="#{centreController.centre.codePostal}" size="20"
-                             maxlength="10" required="true"
-                             requiredMessage="#{requiredMessageController.champObligatoire}">
-                    <p:ajax event="blur" update="panelCodePostal,codePostal" />
-                </p:inputText>
-
-                <h:panelGrid id="panelCommune" columns="2">
-                    <p:outputLabel value="#{msgs['CENTRE.COMMUNE']}" for="commune" />
-                    <p:message for="commune" />
-                </h:panelGrid>
-                <p:inputText id="commune" style="text-transform:uppercase;"
-                             value="#{centreController.centre.commune}" size="50"
-                             maxlength="200" required="true"
-                             requiredMessage="#{requiredMessageController.champObligatoire}">
-                    <p:ajax event="blur" update="panelCommune,commune" />
-                </p:inputText>
             </t:div>
-        </h:panelGrid>
-        <h:panelGrid columns="3">
-            <h:panelGrid id="panelWeb">
-                <h:panelGrid columns="2">
+
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <t:div>
+                        <h:panelGrid id="panelCodePostal" columns="2">
+                            <p:outputLabel value="#{msgs['CENTRE.CODE_POSTAL']}"
+                                           for="codePostal" />
+                            <p:message for="codePostal" />
+                        </h:panelGrid>
+                        <p:inputText id="codePostal"
+                                     value="#{centreController.centre.codePostal}" size="20"
+                                     maxlength="10" required="true"
+                                     requiredMessage="#{requiredMessageController.champObligatoire}">
+                            <p:ajax event="blur" update="panelCodePostal,codePostal" />
+                        </p:inputText>
+
+                        <h:panelGrid id="panelCommune" columns="2">
+                            <p:outputLabel value="#{msgs['CENTRE.COMMUNE']}" for="commune" />
+                            <p:message for="commune" />
+                        </h:panelGrid>
+                        <p:inputText id="commune" style="text-transform:uppercase;"
+                                     value="#{centreController.centre.commune}" size="50"
+                                     maxlength="200" required="true"
+                                     requiredMessage="#{requiredMessageController.champObligatoire}">
+                            <p:ajax event="blur" update="panelCommune,commune" />
+                        </p:inputText>
+                    </t:div>
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+        <t:htmlTag value="ul" styleClass="formUL columns-2 clearFloat">
+            <t:div styleClass="column">
+                <t:htmlTag value="li" id="panelWeb">
                     <p:outputLabel value="#{msgs['CENTRE.MAIL']} " for="mail" />
-                    <h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
-                </h:panelGrid>
-                <p:inputText id="mail" value="#{centreController.centre.mail}"
-                             size="50"
-                             validatorMessage="#{requiredMessageController.adresseMailNonValide}"
-                             maxlength="50">
-                    <f:validator binding="#{mailValidator}" />
-                    <p:ajax event="blur" update="panelWeb" />
-                </p:inputText>
-                <p:message for="mail" />
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb" />
+                    <p:inputText id="mail" value="#{centreController.centre.mail}"
+                                 size="50"
+                                 validatorMessage="#{requiredMessageController.adresseMailNonValide}"
+                                 maxlength="50">
+                        <f:validator binding="#{mailValidator}" />
+                        <p:ajax event="blur" update="panelWeb" />
+                    </p:inputText>
+                    <h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" style="font-size: 11px;"/>
+                    <p:message for="mail" />
+
+                    <p:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb" styleClass="mt10"/>
+                    <p:inputText id="siteWeb" value="#{centreController.centre.siteWeb}"
+                                 size="50"
+                                 validatorMessage="#{requiredMessageController.siteWebNonValide}"
+                                 maxlength="200">
+                        <f:validator binding="#{siteWebValidator}" />
+                        <p:ajax event="blur" update="panelWeb" />
+                    </p:inputText>
                     <h:outputText value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
-                                  escape="false" />
-                </h:panelGrid>
-                <p:inputText id="siteWeb" value="#{centreController.centre.siteWeb}"
-                             size="50"
-                             validatorMessage="#{requiredMessageController.siteWebNonValide}"
-                             maxlength="200">
-                    <f:validator binding="#{siteWebValidator}" />
-                    <p:ajax event="blur" update="panelWeb" />
-                </p:inputText>
-                <p:message for="siteWeb" />
-            </h:panelGrid>
+                                  escape="false" style="font-size: 11px;" />
+                    <p:message for="siteWeb" />
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li" id="panelTel">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="#{msgs['CENTRE.TEL']}" for="telephone" />
+                        <p:message for="telephone" />
+                    </h:panelGrid>
+                    <p:inputText id="telephone"
+                                 value="#{centreController.centre.telephone}" size="20"
+                                 maxlength="20" required="true"
+                                 requiredMessage="#{requiredMessageController.champObligatoire}">
+                        <p:ajax event="blur" update="panelTel" />
+                    </p:inputText>
 
-            <p:separator style="height:150px; margin-left:30px; margin-right:30px;" />
-
-            <h:panelGrid id="panelTel">
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="#{msgs['CENTRE.TEL']}" for="telephone" />
-                    <p:message for="telephone" />
-                </h:panelGrid>
-                <p:inputText id="telephone"
-                             value="#{centreController.centre.telephone}" size="20"
-                             maxlength="20" required="true"
-                             requiredMessage="#{requiredMessageController.champObligatoire}">
-                    <p:ajax event="blur" update="panelTel" />
-                </p:inputText>
-
-                <h:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax" />
-                <p:inputText id="fax" value="#{centreController.centre.fax}"
-                             size="20" maxlength="20" />
-            </h:panelGrid>
-        </h:panelGrid>
+                    <h:outputLabel value="#{msgs['CENTRE.FAX']} " for="fax" styleClass="mt10"/>
+                    <p:inputText id="fax" value="#{centreController.centre.fax}"
+                                 size="20" maxlength="20" />
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
     </t:fieldset>
 
     <t:htmlTag value="div" style="height: 10px;" />
@@ -283,15 +290,12 @@
 
         <h:panelGrid id="panelViseur">
             <h:panelGrid columns="2">
-                <h:outputLabel for="searchViseur" escape="false"
-                               value="#{msgs['CENTRE.VISEUR.CHOISIR']}" />
-                <h:graphicImage id="imgInfoViseur"
-                                title="#{msgs['CENTRE.INFO_BULLES.VISEUR']}"
-                                alt="#{msgs['CENTRE.INFO_BULLES.VISEUR']}"
-                                value="/media/images/information.png">
+                <h:outputText escape="false"
+                              value="#{msgs['CENTRE.VISEUR.CHOISIR']}" />
+                <t:htmlTag id="imgInfoViseur" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
                     <p:tooltip value="#{msgs['CENTRE.INFO_BULLES.VISEUR']}"
                                for="imgInfoViseur" />
-                </h:graphicImage>
+                </t:htmlTag>
             </h:panelGrid>
             <p:commandButton id="searchViseur"
                              value="#{msgs['CENTRE.VISEUR.RECHERCHE']}"
@@ -301,12 +305,10 @@
                              update="recherchePersonnel" immediate="true" />
             <h:panelGrid columns="2"
                          rendered="#{not empty centreController.centre.nomViseur}">
-                <h:outputText style="color:green; border:1px solid; padding:2px;"
+                <h:outputText style="padding:2px;"
                               value="#{centreController.centre.nomViseur} #{centreController.centre.prenomViseur}" />
                 <h:panelGrid columns="2">
-                    <p:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-                                    title="#{msgs['GENERAL.FILE']}"
-                                    value="/media/images/cancel.png" />
+                    <t:htmlTag value="i" styleClass="fa fa-times fz16 fontRed"/>
                     <p:commandLink id="removeViseur"
                                    value="#{msgs['CENTRE.VISEUR.RETIRER']}" update="panelViseur"
                                    immediate="true">

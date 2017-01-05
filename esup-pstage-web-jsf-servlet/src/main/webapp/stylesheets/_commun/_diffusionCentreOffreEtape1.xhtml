@@ -1,136 +1,118 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dialog id="pDiffusionCentreOffre" widgetVar="pDiffusionCentreOffre" autosized="true" width="15"
-		height="40" moveable="false" resizeable="false"
-		style="position:absolute;margin-left:auto;margin-right:auto;">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['GENERAL.LOADING']}" />
-		</f:facet>
-		<h:graphicImage value="../../media/images/loadingCircle.gif"
-			style="margin-left:25px;" alt="#{msgs['GENERAL.LOADING']}"
-			title="#{msgs['GENERAL.LOADING']}" />
-	</p:dialog>
-	<p:outputPanel id="rDiffusionCentreOffre">
-		<h:panelGrid style="font-size:12px;" >
-			<h:panelGrid
-				rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
-				style="font-size:12px;">
-				<h:outputText
-					value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONETAB']}"
-					rendered="#{sessionController.adminPageAuthorized}" />
-				<h:outputText
-					value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.SELECTIONETAB']}"
-					rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
-				<h:outputText
-					value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNCENTREETAB']}"
-					rendered="#{empty offreController.listesCentresGestionEtablissement}" />
-				<h:selectOneMenu id="lCgEtab"
-					rendered="#{not empty offreController.listesCentresGestionEtablissement}"
-					value="#{offreController.idCentreEtablissementSelect}"
-					valueChangeListener="#{offreController.valueCentreEtablissementChanged}"
-					converter="#{intConverter}">
-					<f:selectItems
-						value="#{offreController.listesCentresGestionEtablissement}" />
-					<p:ajax update="opLCgUniv"  event="valueChange" />
-				</h:selectOneMenu>
-			</h:panelGrid>
-			<p:outputPanel id="opLCgUniv">
-				<h:outputText
-					value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNCENTRE']}"
-					rendered="#{empty offreController.listesCentresGestionUniversite
-					and offreController.idCentreEtablissementSelect>0}" />
-				<h:panelGrid style="font-size:12px;"
-					rendered="#{not empty offreController.listesCentresGestionUniversite
-				and offreController.idCentreEtablissementSelect>0}">
-					<h:panelGrid style="font-size:12px;">
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONCENTRE']}"
-							rendered="#{sessionController.adminPageAuthorized}" />
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.SELECTIONCENTRE']}"
-							rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE.SELECTIONCENTRE']}"
-							rendered="#{(welcomeController.superAdmin and !sessionController.adminPageAuthorized) || welcomeController.admin || welcomeController.writer}" />
-						<h:selectManyListbox id="lCgUniv"
-							value="#{offreController.idsCentreGestionUniversiteSelect}"
-							converter="#{intConverter}" style="width:500px;height:75px;">
-							<f:selectItems
-								value="#{offreController.listesCentresGestionUniversite}" />
-						</h:selectManyListbox>
-					</h:panelGrid>
-					<h:panelGrid columns="8" style="font-size:12px;">
-						<p:commandLink id="addAll"
-							action="#{offreController.addAllCentresGestionToListeADiffuser}"
-							update="lCgUnivSelect">
-							<h:graphicImage
-								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
-								value="../../media/images/addAll.png" />
-							<p:tooltip
-								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}" />
-						</p:commandLink>
-						<p:commandLink id="add"
-							action="#{offreController.addCentresGestionToListeADiffuser}"
-							update="lCgUnivSelect">
-							<h:graphicImage
-								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}"
-								value="../../media/images/new.png" />
-							<p:tooltip
-								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTER']}" />
-						</p:commandLink>
-						<p:commandLink id="remove"
-							action="#{offreController.deleteCentresGestionFromListeADiffuser}"
-							update="lCgUnivSelect">
-							<h:graphicImage
-								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}"
-								value="../../media/images/del.png" />
-							<p:tooltip
-								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}" />
-						</p:commandLink>
-						<p:commandLink id="removeAll"
-							action="#{offreController.deleteAllCentresGestionFromListeADiffuser}"
-							update="lCgUnivSelect">
-							<h:graphicImage
-								alt="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}"
-								value="../../media/images/forbidden.png" />
-							<p:tooltip
-								value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}" />
-						</p:commandLink>
-					</h:panelGrid>
-					<h:panelGrid style="font-size:12px;">
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.CENTRESELECT']}"
-							rendered="#{sessionController.adminPageAuthorized}" />
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.CENTRESELECT']}"
-							rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
-						<h:outputText
-							value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE.CENTRESELECT']}"
-							rendered="#{(welcomeController.superAdmin and !sessionController.adminPageAuthorized) || welcomeController.admin || welcomeController.writer}" />
-						<h:selectManyListbox id="lCgUnivSelect"
-							value="#{offreController.idsCentreGestionUniversiteADiffuser}"
-							converter="#{intConverter}" style="width:500px;height:75px;">
-							<f:selectItems
-								value="#{offreController.listesCentreGestionUniversiteADiffuser}" />
-						</h:selectManyListbox>
-					</h:panelGrid>
-				</h:panelGrid>
-			</p:outputPanel>
-		</h:panelGrid>
-		<h:panelGrid columns="3" >
-			<p:commandButton action="#{offreController.diffusionCentreOffre}"
-				value="#{msgs['FORM.ENREGISTRER']}"
-				update="formDiffusionCentreOffre"
-				rendered="#{not empty offreController.listesCentresGestionUniversite}" />
-			<t:htmlTag value="div" style="width:100px;" />
-			<p:commandButton value="#{msgs['FORM.ANNULER']}"
-				onclick="PF('diffusionCentreOffre').hide();"
-				immediate="true" />
-		</h:panelGrid>
-	</p:outputPanel>
+    <t:div rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
+           styleClass="mt5 mb10">
+        <h:outputText
+                value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONETAB']}"
+                rendered="#{sessionController.adminPageAuthorized}" />
+        <h:outputText
+                value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.SELECTIONETAB']}"
+                rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
+        <h:outputText
+                value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNCENTREETAB']}"
+                rendered="#{empty offreController.listesCentresGestionEtablissement}" />
+        <h:selectOneMenu id="lCgEtab" styleClass="customPstage fix-selectOneMenu"
+                         rendered="#{not empty offreController.listesCentresGestionEtablissement}"
+                         value="#{offreController.idCentreEtablissementSelect}"
+                         valueChangeListener="#{offreController.valueCentreEtablissementChanged}"
+                         converter="#{intConverter}">
+            <f:selectItems
+                    value="#{offreController.listesCentresGestionEtablissement}" />
+            <p:ajax update="opLCgUniv" event="valueChange" />
+        </h:selectOneMenu>
+    </t:div>
+    <p:outputPanel id="opLCgUniv">
+        <h:outputText styleClass="fontBold"
+                      value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNCENTRE']}"
+                      rendered="#{empty offreController.listesCentresGestionUniversite
+					and offreController.idCentreEtablissementSelect gt 0}" />
+
+        <t:div rendered="#{not empty offreController.listesCentresGestionUniversite
+				and offreController.idCentreEtablissementSelect gt 0}">
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONCENTRE']}"
+                          rendered="#{sessionController.adminPageAuthorized}" />
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.SELECTIONCENTRE']}"
+                          rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE.SELECTIONCENTRE']}"
+                          rendered="#{(welcomeController.superAdmin and !sessionController.adminPageAuthorized) || welcomeController.admin || welcomeController.writer}" />
+
+            <t:htmlTag value="div" style="height: 5px;" />
+
+            <h:selectManyListbox id="lCgUniv"
+                                 value="#{offreController.idsCentreGestionUniversiteSelect}"
+                                 converter="#{intConverter}">
+                <f:selectItems
+                        value="#{offreController.listesCentresGestionUniversite}" />
+            </h:selectManyListbox>
+
+            <t:div styleClass="textCenter mt10 mb10 ml40 verticalAlignDiv">
+                <p:commandLink id="addAll" action="#{offreController.addAllCentresGestionToListeADiffuser}"
+                               update="lCgUnivSelect">
+                    <t:htmlTag value="i" styleClass="fa fa-angle-double-down fz30" />
+                    <p:tooltip for="addAll"
+                               value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}" />
+                </p:commandLink>
+                <t:htmlTag value="div" style="width:20px;" />
+                <p:commandLink id="add"
+                               action="#{offreController.addCentresGestionToListeADiffuser}"
+                               update="lCgUnivSelect">
+                    <t:htmlTag value="i" styleClass="fa fa-angle-down fz30" />
+                    <p:tooltip for="add"
+                               value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTER']}" />
+                </p:commandLink>
+                <t:htmlTag value="div" style="width:20px;" />
+                <p:commandLink id="remove"
+                               action="#{offreController.deleteCentresGestionFromListeADiffuser}"
+                               update="lCgUnivSelect">
+                    <t:htmlTag value="i" styleClass="fa fa-angle-up fz30" />
+                    <p:tooltip for="remove"
+                               value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}" />
+                </p:commandLink>
+                <t:htmlTag value="div" style="width:20px;" />
+                <p:commandLink id="removeAll"
+                               action="#{offreController.deleteAllCentresGestionFromListeADiffuser}"
+                               update="lCgUnivSelect">
+                    <t:htmlTag value="i" styleClass="fa fa-angle-double-up fz30" />
+                    <p:tooltip for="removeAll"
+                               value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}" />
+                </p:commandLink>
+            </t:div>
+
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.CENTRESELECT']}"
+                          rendered="#{sessionController.adminPageAuthorized}" />
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.CENTRESELECT']}"
+                          rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
+            <h:outputText styleClass="fontBold"
+                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE.CENTRESELECT']}"
+                          rendered="#{(welcomeController.superAdmin and !sessionController.adminPageAuthorized) || welcomeController.admin || welcomeController.writer}" />
+
+            <t:htmlTag value="div" style="height: 5px;" />
+
+            <h:selectManyListbox id="lCgUnivSelect"
+                                 value="#{offreController.idsCentreGestionUniversiteADiffuser}"
+                                 converter="#{intConverter}">
+                <f:selectItems
+                        value="#{offreController.listesCentreGestionUniversiteADiffuser}" />
+            </h:selectManyListbox>
+        </t:div>
+    </p:outputPanel>
+    <t:div styleClass="textCenter mt15 mb20">
+        <p:commandButton action="#{offreController.diffusionCentreOffre}"
+                         value="#{msgs['FORM.ENREGISTRER']}"
+                         update="formDiffusionCentreOffre"
+                         rendered="#{not empty offreController.listesCentresGestionUniversite}" />
+        <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                         onclick="PF('diffusionCentreOffre').hide();"
+                         immediate="true" styleClass="ml20"/>
+    </t:div>
 </ui:composition>

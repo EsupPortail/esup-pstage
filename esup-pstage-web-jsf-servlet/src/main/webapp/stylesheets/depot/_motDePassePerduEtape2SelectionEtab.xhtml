@@ -9,7 +9,8 @@
 		<h:outputText value="#{msgs['MOTDEPASSEPERDU.CHOIXETAB']}"
 			rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}" />
 		<p:dataTable id="listeStructuresTrouveeMotDePassePerdu" rows="10"
-			rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"
+                     reflow="true" tableStyle="table-layout: auto;"
+                     rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"
 			value="#{welcomeController.listeStructuresTrouveeMotDePassePerdu}"
 			var="structure">
 			<p:column>

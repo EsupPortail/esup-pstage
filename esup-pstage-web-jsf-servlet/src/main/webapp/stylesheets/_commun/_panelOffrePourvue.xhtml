@@ -2,11 +2,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:p="http://primefaces.org/ui">
 
-	<p:dialog id="panelOffrePourvue" widgetVar="panelOffrePourvue">
+	<p:dialog id="panelOffrePourvue" widgetVar="panelOffrePourvue" resizable="false" modal="true">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.GESTION.POURVOIROFFRE']}" />
 		</f:facet>

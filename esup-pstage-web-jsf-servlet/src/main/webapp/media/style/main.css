@@ -80,14 +80,20 @@ body {
     display: block !important;
   }
 }
-.nopointer {
-  cursor: default !important;
-}
 .alignTop td {
   vertical-align: top;
 }
 .unbold label {
   font-weight: initial;
+}
+.background-color-grey {
+  background-color: #A5A5A5 !important;
+}
+.padding-5 {
+  padding: 5px !important;
+}
+.underline {
+  text-decoration: underline !important;
 }
 .ui-widget {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -461,7 +467,7 @@ body {
     padding: 0;
     height: 100%;
     float: left;
-    text-align: center;
+    text-align: right;
   }
 }
 #TOPBAR #TOPBAR_TITLE h1 {
@@ -1031,6 +1037,9 @@ select.customPstage.fix-selectOneMenu {
   display: flex;
   align-items: center;
 }
+.fz30 {
+  font-size: 3rem;
+}
 .fz20 {
   font-size: 2rem;
 }
@@ -1060,6 +1069,9 @@ select.customPstage.fix-selectOneMenu {
 }
 .fontBlack {
   color: #000000 !important;
+}
+.fontOrange {
+  color: #ffa500 !important;
 }
 .mt0 {
   margin-top: 0px !important;

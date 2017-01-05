@@ -1371,7 +1371,7 @@ public class OffreController extends AbstractContextAwareController {
 						getSmtpService().send(new InternetAddress(this.currentOffre.getContactCand().getMail()),
 								sujet,text,text);
 					} else {
-						addErrorMessage(null, "GENERAL.ERREUR_MAIL");
+						addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ALERTE.ERREUR_MAIL");
 					}
 				}
 
@@ -1399,99 +1399,6 @@ public class OffreController extends AbstractContextAwareController {
 			}
 		}
 		//		return ret;
-	}
-
-	/**
-	 * Ancienne Diffusion de l'offre actuellement sélectionnée pour 3 mois
-	 * @return String
-	 */
-	public String diffuserOffreOld(){
-		String ret="_confirmationDialog";
-		if(this.currentOffre!=null){
-			try{
-				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-				GregorianCalendar gcThreeMonth = (GregorianCalendar) Calendar.getInstance();
-				int annee = Integer.parseInt(dateFormat.format(new Date()).split("/")[2]);
-				int mois = Integer.parseInt(dateFormat.format(new Date()).split("/")[1]);
-				int jour = Integer.parseInt(dateFormat.format(new Date()).split("/")[0]);
-				// date du jour + 3 mois
-				if(mois+2>12){
-					mois=mois+2-12;
-					annee=annee+1;
-				}else{
-					mois=mois+2;
-				}
-				gcThreeMonth.set(annee,mois,jour);
-				getOffreDomainService().updateDiffusionOffre(this.currentOffre.getIdOffre(), getSessionController().getCurrentLogin(),gcThreeMonth.getTime());
-				getOffreDomainService().updateValidationOffre(this.currentOffre.getIdOffre(), getSessionController().getCurrentLogin());
-				addInfoMessage(null, "OFFRE.GESTION.DIFFUSION.CONFIRMATION");
-				getOffreDomainService().updateOffrePourvue(this.currentOffre.getIdOffre(), false);
-				//Màj de l'objet courant
-				this.currentOffre.setEstPourvue(false);
-				this.currentOffre.setEstDiffusee(true);
-				this.currentOffre.setDateDiffusion(new Date());
-				this.currentOffre.setDateFinDiffusion(gcThreeMonth.getTime());
-				this.currentOffre.setEstValidee(true);
-				this.currentOffre.setEtatValidation(1);
-				this.currentOffre.setLoginDiffusion(getSessionController().getCurrentLogin());
-				//Maj listes
-				if(this.listeOffres!=null && ((ArrayList<OffreDTO>)this.listeOffres).contains(this.currentOffre)){
-					this.listeOffres.set(this.listeOffres.indexOf(this.currentOffre), this.currentOffre);
-				}
-				if(this.resultatsRechercheOffre!=null && ((ArrayList<OffreDTO>)this.resultatsRechercheOffre).contains(this.currentOffre)){
-					this.resultatsRechercheOffre.set(this.resultatsRechercheOffre.indexOf(this.currentOffre), this.currentOffre);
-					checkListeResultats();
-				}
-			}catch (DataUpdateException|WebServiceDataBaseException e) {
-				logger.error(e.getCause());
-				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
-			}
-		}
-		return ret;
-	}
-
-	/**
-	 * Ancienne Diffusion de l'offre actuellement sélectionnée pour 1 An
-	 * @return String
-	 */
-	public String diffuserOffre1AnOld(){
-		String ret="_confirmationDialog";
-		if(this.currentOffre!=null){
-			try{
-				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-				GregorianCalendar gcOneYear = (GregorianCalendar) Calendar.getInstance();
-				int annee = Integer.parseInt(dateFormat.format(new Date()).split("/")[2]);
-				int mois = Integer.parseInt(dateFormat.format(new Date()).split("/")[1]);
-				int jour = Integer.parseInt(dateFormat.format(new Date()).split("/")[0]);
-				// date du jour + 1 an
-				annee=annee+1;
-				mois=mois-1;
-				gcOneYear.set(annee, mois, jour);
-				getOffreDomainService().updateDiffusionOffre(this.currentOffre.getIdOffre(), getSessionController().getCurrentLogin(),gcOneYear.getTime());
-				getOffreDomainService().updateValidationOffre(this.currentOffre.getIdOffre(), getSessionController().getCurrentLogin());
-				addInfoMessage(null, "OFFRE.GESTION.DIFFUSION.CONFIRMATION1AN");
-				getOffreDomainService().updateOffrePourvue(this.currentOffre.getIdOffre(), false);
-				//M�j de l'objet courant
-				this.currentOffre.setEstPourvue(false);
-				this.currentOffre.setEstDiffusee(true);
-				this.currentOffre.setDateDiffusion(new Date());
-				this.currentOffre.setDateFinDiffusion(gcOneYear.getTime());
-				this.currentOffre.setEstValidee(true);
-				this.currentOffre.setEtatValidation(1);
-				//Maj listes
-				if(this.listeOffres!=null && ((ArrayList<OffreDTO>)this.listeOffres).contains(this.currentOffre)){
-					this.listeOffres.set(this.listeOffres.indexOf(this.currentOffre), this.currentOffre);
-				}
-				if(this.resultatsRechercheOffre!=null && ((ArrayList<OffreDTO>)this.resultatsRechercheOffre).contains(this.currentOffre)){
-					this.resultatsRechercheOffre.set(this.resultatsRechercheOffre.indexOf(this.currentOffre), this.currentOffre);
-					checkListeResultats();
-				}
-			}catch (DataUpdateException|WebServiceDataBaseException e) {
-				logger.error(e.getCause());
-				addErrorMessage(null, "OFFRE.GESTION.DIFFUSION.ERREUR");
-			}
-		}
-		return ret;
 	}
 
 	/**
@@ -1644,7 +1551,7 @@ public class OffreController extends AbstractContextAwareController {
 	 */
 	public void addCentresGestionToListeADiffuser(){
 		if(this.idsCentreGestionUniversiteSelect!=null && !this.idsCentreGestionUniversiteSelect.isEmpty()){
-			if(this.listesCentreGestionUniversiteADiffuser==null)this.listesCentreGestionUniversiteADiffuser=new ArrayList<SelectItem>();
+			if(this.listesCentreGestionUniversiteADiffuser==null)this.listesCentreGestionUniversiteADiffuser=new ArrayList<>();
 			for(int idCg : this.idsCentreGestionUniversiteSelect){
 				if(containsSelectItem(listesCentreGestionUniversiteADiffuser,idCg)==null){
 					if(idCg>0){

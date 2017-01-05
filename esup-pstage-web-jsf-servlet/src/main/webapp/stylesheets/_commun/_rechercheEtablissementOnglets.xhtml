@@ -45,20 +45,20 @@
                     <t:htmlTag value="li">
                         <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE']}"
                                       escape="false" />
-                        <p:autoComplete styleClass="mt5 mb5 ml5"
+                        <p:autoComplete styleClass="mt5 ml5"
                                         value="#{rechercheController.rechRaisonSociale}"
                                         maxlength="100" size="50"
                                         minQueryLength="3"
                                         completeMethod="#{rechercheController.getRaisonsSociales}"/>
                         <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE_2']}"
-                                      styleClass="ml5" style="font-size:11px; white-space: nowrap;" escape="false" />
+                                      styleClass="ml5" style="font-size:11px;" escape="false" />
                     </t:htmlTag>
                 </t:div>
                 <t:div styleClass="column">
                     <t:htmlTag value="li">
+                        <h:outputText styleClass="ml5"
+                                      value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']} "/>
                         <h:outputText value="(#{msgs['GENERAL.FACULTATIF']})" escape="false"/>
-                        <h:outputText styleClass="ml5" style="font-style: italic;"
-                                      value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET7.PAYS']} : "/>
                         <h:selectOneMenu id="rechPays2" effect="none" styleClass="customPstage fix-selectOneMenu"
                                          value="#{rechercheController.rechPays}"
                                          converter="#{paysConverter}"

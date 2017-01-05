@@ -1,133 +1,135 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui">
-	<p:dialog id="detailPersonnel" widgetVar="detailPersonnel"
-		resizable="false" modal="true">
-		<f:facet name="header">
-			<h:outputText
-				value="#{msgs['CENTRE.PERSONNEL.VOIR.HEAD']} #{centreController.personnel.prenom} #{centreController.personnel.nom}" />
-		</f:facet>
-		<h:form style="min-width:600px; max-width:800px;">
-			<h:panelGrid columns="3" style="padding-left:50px;">
-				<h:panelGrid columns="2" cellspacing="5">
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}" for="nom"/>
-					<h:outputText id="nom" value="#{centreController.personnel.nom}" />
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+    <p:dialog id="detailPersonnel" widgetVar="detailPersonnel"
+              resizable="false" modal="true">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CENTRE.PERSONNEL.VOIR.HEAD']} #{centreController.personnel.prenom} #{centreController.personnel.nom}" />
+        </f:facet>
+        <h:form>
+            <t:htmlTag value="ul" styleClass="formUL columns-2" style="text-align: -moz-center">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:panelGrid columns="2" cellspacing="5">
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}" for="nom"/>
+                            <h:outputText id="nom" value="#{centreController.personnel.nom}" />
 
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.PRENOM']}"
-						for="prenom" />
-					<h:outputText id="prenom"
-						value="#{centreController.personnel.prenom}" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.PRENOM']}"
+                                           for="prenom" />
+                            <h:outputText id="prenom"
+                                          value="#{centreController.personnel.prenom}" />
 
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.MAIL']}"
-						for="mail" />
-					<h:outputText id="mail" value="#{centreController.personnel.mail}" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.MAIL']}"
+                                           for="mail" />
+                            <h:outputText id="mail" value="#{centreController.personnel.mail}" />
 
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.TEL']}"
-						for="tel" />
-					<h:outputText id="tel" value="#{centreController.personnel.tel}" />
-				</h:panelGrid>
-				<h:panelGrid columns="3">
-					<p:spacer width="20" />
-					<p:separator style="height:100px;" />
-					<p:spacer width="20" />
-				</h:panelGrid>
-				<h:panelGrid columns="2" cellspacing="5">
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}"
-						for="compo" />
-					<h:outputText id="compo"
-						value="#{centreController.personnel.affectation.libelle}"
-						rendered="#{not empty centreController.personnel.affectation.libelle}" />
-					<h:outputText style="font-style:italic;" value="vide"
-						rendered="#{empty centreController.personnel.affectation.libelle}" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.TEL']}"
+                                           for="tel" />
+                            <h:outputText id="tel" value="#{centreController.personnel.tel}" />
+                        </h:panelGrid>
+                    </t:htmlTag>
+                </t:div>
 
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.TYPE']}" for="type" />
-					<h:outputText id="type"
-						value="#{centreController.personnel.fonction}"
-						rendered="#{not empty centreController.personnel.fonction}}" />
-					<h:outputText style="font-style:italic;" value="vide"
-						rendered="#{empty centreController.personnel.fonction}" />
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:panelGrid columns="2" cellspacing="5">
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}"
+                                           for="compo" />
+                            <h:outputText id="compo"
+                                          value="#{centreController.personnel.affectation.libelle}"
+                                          rendered="#{not empty centreController.personnel.affectation.libelle}" />
+                            <h:outputText style="font-style:italic;" value="vide"
+                                          rendered="#{empty centreController.personnel.affectation.libelle}" />
 
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.CAMPUS']}"
-						for="campus" />
-					<h:outputText id="campus"
-						value="#{centreController.personnel.campus}"
-						rendered="#{not empty centreController.personnel.campus}" />
-					<h:outputText style="font-style:italic;" value="vide"
-						rendered="#{empty centreController.personnel.campus}" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.TYPE']}" for="type" />
+                            <h:outputText id="type"
+                                          value="#{centreController.personnel.fonction}"
+                                          rendered="#{not empty centreController.personnel.fonction}}" />
+                            <h:outputText style="font-style:italic;" value="vide"
+                                          rendered="#{empty centreController.personnel.fonction}" />
 
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.BATIMENT']}"
-						for="batiment" />
-					<h:outputText id="batiment"
-						value="#{centreController.personnel.batiment}"
-						rendered="#{not empty centreController.personnel.batiment}" />
-					<h:outputText style="font-style:italic;" value="vide"
-						rendered="#{empty centreController.personnel.batiment}" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.CAMPUS']}"
+                                           for="campus" />
+                            <h:outputText id="campus"
+                                          value="#{centreController.personnel.campus}"
+                                          rendered="#{not empty centreController.personnel.campus}" />
+                            <h:outputText style="font-style:italic;" value="vide"
+                                          rendered="#{empty centreController.personnel.campus}" />
 
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.BUREAU']}"
-						for="bureau" />
-					<h:outputText id="bureau"
-						value="#{centreController.personnel.bureau}"
-						rendered="#{not empty centreController.personnel.bureau}" />
-					<h:outputText style="font-style:italic;" value="vide"
-						rendered="#{empty centreController.personnel.bureau}" />
-				</h:panelGrid>
-			</h:panelGrid>
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.BATIMENT']}"
+                                           for="batiment" />
+                            <h:outputText id="batiment"
+                                          value="#{centreController.personnel.batiment}"
+                                          rendered="#{not empty centreController.personnel.batiment}" />
+                            <h:outputText style="font-style:italic;" value="vide"
+                                          rendered="#{empty centreController.personnel.batiment}" />
 
-			<h:panelGrid align="center">
-				<h:panelGrid columns="2" style="font-size:14px;">
-					<h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT']} : "
-						for="droit" />
-					<h:outputText id="droit"
-						value="#{centreController.personnel.droitAdmin.libelle}" />
-				</h:panelGrid>
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.BUREAU']}"
+                                           for="bureau" />
+                            <h:outputText id="bureau"
+                                          value="#{centreController.personnel.bureau}"
+                                          rendered="#{not empty centreController.personnel.bureau}" />
+                            <h:outputText style="font-style:italic;" value="vide"
+                                          rendered="#{empty centreController.personnel.bureau}" />
+                        </h:panelGrid>
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
 
-				<t:htmlTag value="div" style="height:5px;" />
+            <h:panelGrid align="center">
+                <h:panelGrid columns="2" style="font-size:14px;">
+                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT']} : "
+                                   for="droit" />
+                    <h:outputText id="droit"
+                                  value="#{centreController.personnel.droitAdmin.libelle}" />
+                </h:panelGrid>
 
-				<h:panelGrid columns="2">
-					<p:selectBooleanCheckbox disabled="true" id="alertesMail"
-						value="#{centreController.personnel.alertesMail}" />
-					<h:outputLabel for="alertesMail" escape="false"
-						value="#{msgs['CENTRE.PERSONNEL.AJOUT.ALERTES_MAIL']}" />
-				</h:panelGrid>
+                <t:htmlTag value="div" style="height:5px;" />
 
-				<h:panelGrid columns="2">
-					<p:selectBooleanCheckbox disabled="true"
-						id="droitEvaluationEtudiant"
-						value="#{centreController.personnel.droitEvaluationEtudiant}" />
-					<h:outputLabel for="droitEvaluationEtudiant" escape="false"
-						value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ETUDIANT']}" />
-				</h:panelGrid>
+                <h:panelGrid columns="2">
+                    <p:selectBooleanCheckbox disabled="true" id="alertesMail"
+                                             value="#{centreController.personnel.alertesMail}" />
+                    <h:outputLabel for="alertesMail" escape="false"
+                                   value="#{msgs['CENTRE.PERSONNEL.AJOUT.ALERTES_MAIL']}" />
+                </h:panelGrid>
 
-				<h:panelGrid columns="2">
-					<p:selectBooleanCheckbox disabled="true"
-						id="droitEvaluationEnseignant"
-						value="#{centreController.personnel.droitEvaluationEnseignant}" />
-					<h:outputLabel for="droitEvaluationEnseignant" escape="false"
-						value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENSEIGNANT']}" />
-				</h:panelGrid>
+                <h:panelGrid columns="2">
+                    <p:selectBooleanCheckbox disabled="true"
+                                             id="droitEvaluationEtudiant"
+                                             value="#{centreController.personnel.droitEvaluationEtudiant}" />
+                    <h:outputLabel for="droitEvaluationEtudiant" escape="false"
+                                   value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ETUDIANT']}" />
+                </h:panelGrid>
 
-				<h:panelGrid columns="2">
-					<p:selectBooleanCheckbox disabled="true"
-						id="droitEvaluationEntreprise"
-						value="#{centreController.personnel.droitEvaluationEntreprise}" />
-					<h:outputLabel for="droitEvaluationEntreprise" escape="false"
-						value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENTREPRISE']}" />
-				</h:panelGrid>
-			</h:panelGrid>
-			<t:htmlTag value="div" style="height:20px;" />
+                <h:panelGrid columns="2">
+                    <p:selectBooleanCheckbox disabled="true"
+                                             id="droitEvaluationEnseignant"
+                                             value="#{centreController.personnel.droitEvaluationEnseignant}" />
+                    <h:outputLabel for="droitEvaluationEnseignant" escape="false"
+                                   value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENSEIGNANT']}" />
+                </h:panelGrid>
 
-			<t:htmlTag value="center">
-				<p:commandButton id="modify"
-					style="font-size:16px; font-weight:bold; border-color:green;"
-					rendered="#{welcomeController.superAdmin
+                <h:panelGrid columns="2">
+                    <p:selectBooleanCheckbox disabled="true"
+                                             id="droitEvaluationEntreprise"
+                                             value="#{centreController.personnel.droitEvaluationEntreprise}" />
+                    <h:outputLabel for="droitEvaluationEntreprise" escape="false"
+                                   value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_EVALUATION_ENTREPRISE']}" />
+                </h:panelGrid>
+            </h:panelGrid>
+            <t:htmlTag value="div" style="height:20px;" />
+
+            <t:div styleClass="textCenter fz16">
+                <p:commandButton id="modify"
+                                 rendered="#{welcomeController.superAdmin
 						|| sessionController.droitsAccesMap[centreController.centre.idCentreGestion] == beanUtils.droitAdmin}"
-					value="#{msgs['FORM.MODIFIER']}"
-					oncomplete="PF('detailPersonnel').hide(); PF('modifPersonnel').show();"
-					update="modifPersonnel"/>
-			</t:htmlTag>
-			<t:htmlTag value="div" style="height:15px;" />
-		</h:form>
-	</p:dialog>
+                                 value="#{msgs['FORM.MODIFIER']}"
+                                 oncomplete="PF('detailPersonnel').hide(); PF('modifPersonnel').show();"
+                                 update="modifPersonnel"/>
+            </t:div>
+            <t:htmlTag value="div" style="height:15px;" />
+        </h:form>
+    </p:dialog>
 </ui:composition>

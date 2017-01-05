@@ -24,8 +24,7 @@
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15,20"
                                  rendered="#{not empty centreController.centresGestion}">
-                        <p:column width="35px;"
-                                  sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}">
+                        <p:column sortBy="#{sessionController.droitsAccesMap[centre.idCentreGestion]}">
                             <f:facet name="header">
                                 <t:htmlTag id="appartenanceHead" value="b" styleClass="fa fa-user fz16">
                                     <p:tooltip for="appartenanceHead" value="#{msgs['CENTRE.LISTE_CENTRE.APPARTENANCE_TIP']}" />
@@ -43,17 +42,17 @@
                             </t:div>
                         </p:column>
 
-                        <p:column width="35px;" sortBy="#{centre.idCentreGestion}">
+                        <p:column sortBy="#{centre.idCentreGestion}">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['CENTRE.NUMCG']}" />
                             </f:facet>
                             <h:outputText value="#{centre.idCentreGestion}"
-                                          style="font-weight:bold;" />
+                                          styleClass="fontBold" />
                         </p:column>
 
                         <p:column filterBy="#{centre.nomCentre}" filterMatchMode="contains" sortBy="#{centre.nomCentre}">
                             <f:facet name="header">
-                                <h:outputText style="font-weight:bold;"
+                                <h:outputText styleClass="fontBold"
                                               value="#{msgs['CENTRE.LISTE_CENTRE.NOM']}" />
                             </f:facet>
                             <h:outputText value="#{centre.nomCentre}" />
@@ -61,7 +60,7 @@
 
                         <p:column sortBy="#{centre.niveauCentre.libelle}">
                             <f:facet name="header">
-                                <h:outputText style="font-weight:bold;"
+                                <h:outputText styleClass="fontBold"
                                               value="#{msgs['CENTRE.LISTE_CENTRE.CRITERE']}" />
                             </f:facet>
                             <h:outputText value="#{centre.niveauCentre.libelle}" />
@@ -69,7 +68,7 @@
 
                         <p:column sortBy="#{centre.presenceTuteurPro}">
                             <f:facet name="header">
-                                <h:outputText style="font-weight:bold;"
+                                <h:outputText styleClass="fontBold"
                                               value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_PRO']}" />
                             </f:facet>
                             <h:outputText rendered="#{centre.presenceTuteurPro}"
@@ -80,7 +79,7 @@
 
                         <p:column sortBy="#{centre.presenceTuteurEns}">
                             <f:facet name="header">
-                                <h:outputText style="font-weight:bold;"
+                                <h:outputText styleClass="fontBold"
                                               value="#{msgs['CENTRE.LISTE_CENTRE.TUTEUR_ENS']}" />
                             </f:facet>
                             <h:outputText rendered="#{centre.presenceTuteurEns}"
@@ -91,7 +90,7 @@
 
                         <p:column sortBy="#{centre.saisieTuteurProParEtudiant}">
                             <f:facet name="header">
-                                <h:outputText style="font-weight:bold;"
+                                <h:outputText styleClass="fontBold"
                                               value="#{msgs['CENTRE.LISTE_CENTRE.SAISIE_TUTEUR_PRO']}" />
                             </f:facet>
                             <h:outputText rendered="#{centre.saisieTuteurProParEtudiant}"
@@ -125,13 +124,13 @@
 
                         <p:column sortBy="#{centre.confidentialite.libelle}">
                             <f:facet name="header">
-                                <h:outputText style="font-weight:bold;"
+                                <h:outputText styleClass="fontBold"
                                               value="#{msgs['CENTRE.LISTE_CENTRE.CONFIDENTIALITE']}" />
                             </f:facet>
                             <h:outputText value="#{centre.confidentialite.libelle}" />
                         </p:column>
 
-                        <p:column width="50px;" style="background-color:#A5A5A5;">
+                        <p:column styleClass="background-color-grey">
                             <f:facet name="header">
                                 <h:outputText style="white-space:normal;"
                                               value="#{msgs['CENTRE.LISTE_CENTRE.ACTIONS']}" />
@@ -157,7 +156,7 @@
                                            update="suppressionCentre">
                                 <f:setPropertyActionListener value="#{centre}"
                                                              target="#{centreController.centre}" />
-                                <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontDarkGray"/>
+                                <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontBlue2"/>
                                 <p:tooltip value="#{msgs['FORM.SUPPRIMER']}" for="delete" />
                             </p:commandLink>
 
@@ -167,11 +166,10 @@
 
                 <t:htmlTag value="div" style="height: 20px;" />
 
-                <center>
+                <t:div styleClass="textCenter fz16">
                     <p:commandButton id="add" value="#{msgs['CENTRE.AJOUT_CENTRE']}"
-                                     action="#{centreController.goToAjoutCentre}"
-                                     style="font-size:14px; border:solid 1px;" />
-                </center>
+                                     action="#{centreController.goToAjoutCentre}"/>
+                </t:div>
 
                 <t:htmlTag value="div" style="height:30px;" />
 

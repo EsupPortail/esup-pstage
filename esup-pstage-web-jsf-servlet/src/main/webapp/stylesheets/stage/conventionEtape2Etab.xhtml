@@ -13,7 +13,7 @@
                 <ui:include src="_roadmapSel.xhtml" />
 
                 <t:fieldset>
-                    <t:div styleClass="mt10 ml30 mb20" style="max-width: 900px;">
+                    <t:div styleClass="mt10 ml30 mb20 block">
 
                         <t:aliasBean alias="#{structure}"
                                      value="#{conventionController.convention.structure}">
@@ -21,8 +21,6 @@
                             <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
                             <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
                         </t:aliasBean>
-
-                        <t:htmlTag value="div" style="height:15px;" />
 
                         <t:div styleClass="ml20">
                             <p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']} ces informations"
@@ -53,20 +51,23 @@
                         <t:htmlTag value="div" style="height:15px;" />
 
                         <t:div rendered="#{conventionController.convention.structure.temEnServStructure == 'O'}">
-                            <h:outputText value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.ETAT']}" />
+
+                            <h:outputText value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.ETAT']}"
+                                          styleClass="fontItalic" />
+
                             <h:outputText id="verification1" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI']}"
                                           rendered="#{conventionController.convention.structure.estValidee == 1}"
-                                          style="border:0; color:green;" escape="false">
+                                          styleClass="fontGreen" escape="false">
                                 <p:tooltip for="verification1" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.OUI.TOOLTIP']}" />
                             </h:outputText>
                             <h:outputText id="verification2" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON']}"
                                           rendered="#{conventionController.convention.structure.estValidee == 2}"
-                                          style="border:0; color:red;" escape="false">
+                                          styleClass="fontRed" escape="false">
                                 <p:tooltip for="verification2" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.NON.TOOLTIP']}" />
                             </h:outputText>
                             <h:outputText id="verification3" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU']}"
                                           rendered="#{conventionController.convention.structure.estValidee == 0}"
-                                          style="border:0; color:grey;" escape="false">
+                                          style="color:grey;" escape="false">
                                 <p:tooltip for="verification3" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.INCONNU.TOOLTIP']}" />
                             </h:outputText>
                             <p:commandButton id="validerStructure" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}"
@@ -87,7 +88,7 @@
 
                         <h:outputText id="MsgsStructureSupp"
                                       value="#{msgs['STRUCTURE.MODERATION.ETAT.SUPP']}"
-                                      style="font-style: italic;" escape="false"
+                                      styleClass="fontItalic" escape="false"
                                       rendered="#{conventionController.convention.structure.temEnServStructure == 'N'}" />
 
                         <p:dialog id="demandeConfirmModifEtab"
