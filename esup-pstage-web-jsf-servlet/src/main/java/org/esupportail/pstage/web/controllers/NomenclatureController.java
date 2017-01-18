@@ -5,11 +5,14 @@
 package org.esupportail.pstage.web.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 import org.apache.log4j.Logger;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstagedata.domain.dto.AssuranceDTO;
@@ -1744,6 +1747,15 @@ public class NomenclatureController extends AbstractContextAwareController {
 			for(ThemeDTO o : l){
 				ls.add(new SelectItem(o,o.getLibelle()));
 			}
+
+			// AJOUT D'UN TRI PAR ORDRE ALPHABETIQUE
+			Collections.sort(ls, new Comparator<SelectItem>(){
+				@Override
+				public int compare(SelectItem e1, SelectItem e2) {
+					return ((String)e1.getLabel()).compareTo((String)e2.getLabel());
+				}
+			});
+			//FIN AJOUT
 		}
 		return ls;
 	}

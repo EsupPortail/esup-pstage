@@ -460,6 +460,11 @@ public class ConventionController extends AbstractContextAwareController {
 	private List<ConventionDTO> listeConventionsSelectionnees = new ArrayList<ConventionDTO>();
 
 	/**
+	 * Affiche ou non l'encadré d'impression selon les droits du personnel courant
+	 */
+	private boolean autorisationImpressionPersonnel = false;
+
+	/**
 	 * Bean constructor.
 	 */
 	public ConventionController() {
@@ -2090,6 +2095,9 @@ public class ConventionController extends AbstractContextAwareController {
 	 */
 	public String goToCreerConventionEtape5Stage() {
 
+		// Modele par defaut en fonction du pays de l'etablissement d'accueil
+		this.selLangueConvention = new LangueConventionDTO();
+
 		// this.convention.setNbHeuresHebdo("35.00");
 		this.convention.setNbJoursHebdo("5");
 		this.convention.setQuotiteTravail(100);
@@ -2108,14 +2116,14 @@ public class ConventionController extends AbstractContextAwareController {
 		sequenceEtapeEnum = SequenceEtapeEnum.etape5;
 		getSessionController().setCreationConventionEtape5CurrentPage("_creerConventionEtape5Stage");
 
-		this.selLangueConvention = new LangueConventionDTO();
-		this.selLangueConvention.setCode("fr");
+//		this.selLangueConvention = new LangueConventionDTO();
+//		this.selLangueConvention.setCode("fr");
 		if (this.convention.getService() != null) {
 			this.convention.setIdService(this.convention.getService().getIdService());
 
-			if (!this.convention.getService().getPays().equals(getBeanUtils().getFrance())){
-				this.selLangueConvention.setCode("fo");
-			}
+//			if (!this.convention.getService().getPays().equals(getBeanUtils().getFrance())){
+//				this.selLangueConvention.setCode("fo");
+//			}
 		}
 		if (this.convention.getContact() != null) {
 			this.convention.setIdContact(this.convention.getContact().getId());
@@ -3458,6 +3466,17 @@ public class ConventionController extends AbstractContextAwareController {
 					if (centreGestionTmp != null) {
 						this.convention.setCentreGestion(centreGestionTmp);
 						getSessionController().setCentreGestionRattachement(centreGestionTmp);
+						System.out.println("id" + getCurrentUser().getId());
+						System.out.println("cgTmp " + centreGestionTmp.getIdCentreGestion());
+						// Ajout du controle si la personne a le droit d'imprimer la convention avant validation
+						PersonnelCentreGestionDTO p = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionFromUidAndCentre(
+								getSessionController().getCurrentLogin(),centreGestionTmp.getIdCentreGestion());
+						System.out.println("if ? " +p);
+						if (p != null && p.getImpressionConvention()) {
+							this.autorisationImpressionPersonnel = true;
+						} else {
+							this.autorisationImpressionPersonnel = false;
+						}
 					}
 				}
 				if (conventionTmp.getIdEnseignant() > 0) {

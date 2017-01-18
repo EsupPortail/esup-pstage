@@ -89,6 +89,14 @@
                 <t:htmlTag value="div" style="height:5px;" />
 
                 <h:panelGrid columns="2">
+                    <p:selectBooleanCheckbox disabled="true" id="impressionConvention"
+                                             value="#{centreController.personnel.impressionConvention}" />
+                    <h:outputLabel
+                            value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT_IMPRESSION']}"
+                            for="impressionConvention" />
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
                     <p:selectBooleanCheckbox disabled="true" id="alertesMail"
                                              value="#{centreController.personnel.alertesMail}" />
                     <h:outputLabel for="alertesMail" escape="false"

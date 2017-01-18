@@ -125,10 +125,10 @@ public class PersonnelCentreGestionDomainServiceImpl implements PersonnelCentreG
 	}
 
 	/**
-	 * @see org.esupportail.pstage.domain.PersonnelCentreGestionDomainService#getPersonnelCentreGestionFromIdAndCentre(int,int)
+	 * @see org.esupportail.pstage.domain.PersonnelCentreGestionDomainService#getPersonnelCentreGestionFromUidAndCentre(String,int)
 	 */
-	public PersonnelCentreGestionDTO getPersonnelCentreGestionFromIdAndCentre(int idPersonnelCentreGestion, int idCentreGestion){
-		PersonnelCentreGestionDTO p = this.remoteServices.getPersonnelCentreGestionFromIdAndCentre(idPersonnelCentreGestion, idCentreGestion);
+	public PersonnelCentreGestionDTO getPersonnelCentreGestionFromUidAndCentre(String uidPersonnelCentreGestion, int idCentreGestion){
+		PersonnelCentreGestionDTO p = this.remoteServices.getPersonnelCentreGestionFromUidAndCentre(uidPersonnelCentreGestion, idCentreGestion);
 		setObjectsForPersonnel(p);
 		return p;
 	}
@@ -143,7 +143,7 @@ public class PersonnelCentreGestionDomainServiceImpl implements PersonnelCentreG
 	}
 
 	/**
-	 * @see org.esupportail.pstage.domain.PersonnelCentreGestionDomainService#getPersonnelCentreGestionFromNom(nom,String)
+	 * @see org.esupportail.pstage.domain.PersonnelCentreGestionDomainService#getPersonnelCentreGestionFromNom(String,String)
 	 */
 	public PersonnelCentreGestionDTO getPersonnelCentreGestionFromNom(String nom, String codeUniversite){
 		PersonnelCentreGestionDTO p = this.remoteServices.getPersonnelCentreGestionFromNom(nom, codeUniversite);

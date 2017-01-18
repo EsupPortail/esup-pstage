@@ -1294,6 +1294,7 @@ public class CentreController extends AbstractContextAwareController {
 		this.personnel.setAffectation(a);
 		this.personnel.setDroitAdmin(new DroitAdministrationDTO());
 		this.personnel.setCodeAffectation(" ");
+		this.personnel.setImpressionConvention(true);
 	}
 
 	/**

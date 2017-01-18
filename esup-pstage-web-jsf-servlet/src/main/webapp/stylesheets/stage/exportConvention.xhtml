@@ -19,9 +19,7 @@
                         <t:div styleClass="mt15">
                             <h:outputText styleClass="fz13 fontBold"
                                           value="#{msgs['EXPORTCONVENTION.CRITERES.CONVENTION']}" />
-                            <p:pickList styleClass="mt10 ml40" converter="#{exportConventionColonnes}" labelDisplay="inline"
-                                        addLabel="Ajouter" addAllLabel="Ajouter tout"
-                                        removeLabel="Retirer" removeAllLabel="Retirer tout"
+                            <p:pickList styleClass="mt10 ml40" converter="#{exportConventionColonnes}"
                                         var="critConv" itemValue="#{critConv}" responsive="true"
                                         value="#{exportController.conventionColonnesChoisies}">
                                 <f:facet name="sourceCaption">Champs disponibles</f:facet>
@@ -30,14 +28,14 @@
                                     #{msgs[critConv]}
                                 </p:column>
                             </p:pickList>
+                            <!--addLabel="Ajouter" addAllLabel="Ajouter tout"-->
+                            <!--removeLabel="Retirer" removeAllLabel="Retirer tout"-->
                         </t:div>
                         <t:div styleClass="mt25 mb30">
                             <h:outputText styleClass="fz13 fontBold"
                                           value="#{msgs['EXPORTCONVENTION.CRITERES.ETAB']}" />
                             <p:pickList styleClass="mt10 ml40"
-                                        converter="#{conventionEntrepriseColonnesChoisies}" labelDisplay="inline"
-                                        addLabel="Ajouter" addAllLabel="Ajouter tout"
-                                        removeLabel="Retirer" removeAllLabel="Retirer tout"
+                                        converter="#{conventionEntrepriseColonnesChoisies}"
                                         var="critEtab" itemValue="#{critEtab}" responsive="true"
                                         value="#{exportController.conventionEntrepriseColonnesChoisies}">
                                 <f:facet name="sourceCaption">Champs disponibles</f:facet>
@@ -46,6 +44,8 @@
                                     #{msgs[critEtab]}
                                 </p:column>
                             </p:pickList>
+                            <!--addLabel="Ajouter" addAllLabel="Ajouter tout"-->
+                            <!--removeLabel="Retirer" removeAllLabel="Retirer tout"-->
                         </t:div>
                         <t:div styleClass="fz16 textCenter">
                             <p:commandButton ajax="false" icon="fa fa-file-excel-o fz13"

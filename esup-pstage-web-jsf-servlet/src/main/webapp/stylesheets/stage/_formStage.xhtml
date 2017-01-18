@@ -11,6 +11,7 @@
                              effect="none" styleClass="customPstage fix-selectOneMenu"
                              value="#{conventionController.selLangueConvention}"
                              converter="#{langueConventionConverter}">
+                <f:selectItem itemLabel="" itemValue="#{null}" noSelectionOption="true"/>
                 <f:selectItems value="#{nomenclatureController.langueConventions}" />
             </h:selectOneMenu>
             <p:message for="langueConvention"/>
