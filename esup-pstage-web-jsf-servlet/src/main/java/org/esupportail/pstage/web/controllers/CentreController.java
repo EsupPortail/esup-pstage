@@ -1333,6 +1333,9 @@ public class CentreController extends AbstractContextAwareController {
 				a = new AffectationDTO();
 				a.setCodeUniversite(getSessionController().getCodeUniversite());
 
+				// On lui donne d'office le droit d'impression
+				tmp.setImpressionConvention(true);
+
 				if (tmp.getAffectation().getCode() == null && tmp.getAffectation().getLibelle() == null){
 					// Le code et le libelle sont vides
 					a.setLibelle(" ");

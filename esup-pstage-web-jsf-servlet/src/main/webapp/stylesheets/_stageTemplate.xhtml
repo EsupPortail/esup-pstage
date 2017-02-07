@@ -32,12 +32,13 @@
         <p:dialog id="exceptionDialog" header="La page renvoie une erreur '#{pfExceptionHandler.type}'" widgetVar="exceptionDialog"
                   resizable="false" modal="true">
             <h:outputText styleClass="mt20 mb20" value="#{msgs['EXCEPTION.SESSIONEXPIREE']}" />
-
-            <t:div styleClass="textCenter">
-                <p:commandButton action="accueilStage"
-                                 value="Relancer l'application" styleClass="mb20"
-                                 rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" />
-            </t:div>
+            <h:form>
+                <t:div styleClass="textCenter">
+                    <p:commandButton action="accueilStage"
+                                     value="Relancer l'application" styleClass="mb20"
+                                     rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" />
+                </t:div>
+            </h:form>
         </p:dialog>
 
         <ui:insert name="sidebar" />

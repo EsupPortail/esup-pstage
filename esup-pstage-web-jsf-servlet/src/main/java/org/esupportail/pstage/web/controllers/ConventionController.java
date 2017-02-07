@@ -3466,12 +3466,9 @@ public class ConventionController extends AbstractContextAwareController {
 					if (centreGestionTmp != null) {
 						this.convention.setCentreGestion(centreGestionTmp);
 						getSessionController().setCentreGestionRattachement(centreGestionTmp);
-						System.out.println("id" + getCurrentUser().getId());
-						System.out.println("cgTmp " + centreGestionTmp.getIdCentreGestion());
 						// Ajout du controle si la personne a le droit d'imprimer la convention avant validation
 						PersonnelCentreGestionDTO p = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionFromUidAndCentre(
 								getSessionController().getCurrentLogin(),centreGestionTmp.getIdCentreGestion());
-						System.out.println("if ? " +p);
 						if (p != null && p.getImpressionConvention()) {
 							this.autorisationImpressionPersonnel = true;
 						} else {
@@ -7017,5 +7014,13 @@ public class ConventionController extends AbstractContextAwareController {
 
 	public void setServiceSel(ServiceDTO serviceSel) {
 		this.serviceSel = serviceSel;
+	}
+
+	public boolean isAutorisationImpressionPersonnel() {
+		return autorisationImpressionPersonnel;
+	}
+
+	public void setAutorisationImpressionPersonnel(boolean autorisationImpressionPersonnel) {
+		this.autorisationImpressionPersonnel = autorisationImpressionPersonnel;
 	}
 }
