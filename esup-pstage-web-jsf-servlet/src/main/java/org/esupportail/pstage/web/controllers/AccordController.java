@@ -6,10 +6,12 @@ package org.esupportail.pstage.web.controllers;
 
 import gouv.education.apogee.commun.transverse.dto.geographie.CommuneDTO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -28,6 +30,7 @@ import org.esupportail.pstagedata.exceptions.MailAlreadyUsedForStructureExceptio
 import org.esupportail.pstagedata.exceptions.StructureNumSiretException;
 import org.esupportail.pstagedata.exceptions.UnvalidNumSiretException;
 import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.primefaces.event.SelectEvent;
 import org.springframework.util.StringUtils;
 
 
@@ -102,6 +105,10 @@ public class AccordController extends AbstractContextAwareController {
 	 */
 	private List<SelectItem> communesListening=new ArrayList<SelectItem>();
 
+	/**
+	 * rendered en fonction du pays de la page _accordEtape2EtabTrouve.xhtml
+	 */
+	private boolean paysAccordFrance = false;
 
 	/**
 	 * Bean constructor.
@@ -184,19 +191,19 @@ public class AccordController extends AbstractContextAwareController {
 		this.accord.getStructure().setPays(getBeanUtils().getFrance());
 		this.accord.setContact(new ContactDTO());
 		this.accord.getContact().setService(new ServiceDTO());
-		
+
 		this.accordStructureCommuneDTO=new CommuneDTO();
 		this.statutsJuridiquesListening=null;
 
 		this.contactMailConfirmation="";
 
 		getSessionController().setCreationAccordCurrentPage("_accordEtape1PreAccord");
-		
+
 		return "accord";
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void retourPreAccord(){
 		this.structureExistante = null;
@@ -204,61 +211,78 @@ public class AccordController extends AbstractContextAwareController {
 		this.structureDejaExistante = false;
 		getSessionController().setCreationAccordCurrentPage("_accordEtape1PreAccord");
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public void goToEtabTrouve(){
-		//On utilise maintenant "accord"
 		StructureDTO sTmp = this.preAccord.getStructure();
 		this.accord.getStructure().setRaisonSociale(sTmp.getRaisonSociale());
 		this.accord.getStructure().setNumeroSiret(sTmp.getNumeroSiret());
 		this.accord.getStructure().setTypeStructure(sTmp.getTypeStructure());
 		if(sTmp.getTypeStructure()!=null){
 			this.accord.getStructure().setIdTypeStructure(sTmp.getTypeStructure().getId());
-			//this.statutsJuridiquesListening=getStatutsJuridiquesFromIdTypeStructure(sTmp.getTypeStructure().getId());
 		}
 		this.accord.getStructure().setPays(sTmp.getPays());
-//		String retour=null;
+
 		this.etapePrecedente="_accordEtape1PreAccord";
+		getSessionController().setCreationAccordCurrentPage("_accordEtape2EtabTrouve");
+
 		if(logger.isDebugEnabled()){
-			logger.debug("public String goToEtabTrouve() ");
+			logger.debug("goToEtabTrouve() ");
 			logger.debug("this.accord.getStructure() = "+this.accord.getStructure());
 		}
-		if(StringUtils.hasText(sTmp.getRaisonSociale()) && sTmp.getPays()!=null){
-//			retour="_accordEtape3FormulaireAccord";
-			getSessionController().setCreationAccordCurrentPage("_accordEtape3FormulaireAccord");
-			//Si FRANCE
-			if(getBeanUtils().isFrance(this.accord.getStructure().getPays())){
-				StructureDTO stTmp = getStructureDomainService().getStructureFromNumSiret(this.accord.getStructure().getNumeroSiret());
-				if(stTmp!=null){
-//					retour="_accordEtape2EtabTrouve";
-					getSessionController().setCreationAccordCurrentPage("_accordEtape2EtabTrouve");
-					this.structureExistante=stTmp;
-					if(logger.isDebugEnabled()){
-						logger.debug("isFrance=true, this.structureExistante = "+this.structureExistante);
-					}
+		if(StringUtils.hasText(sTmp.getNumeroSiret())){
+			StructureDTO tmpStruct = getStructureDomainService().getStructureFromNumSiret(sTmp.getNumeroSiret());
+			if(tmpStruct!=null){
+				if(logger.isDebugEnabled()){
+					logger.debug("Structure trouvee via son numero SIRET.");
 				}
-			}else{//Sinon pays ETRANGER
-				List<StructureDTO> lStTmp = getStructureDomainService().getStructuresPaysEtrangerFromRaisonSociale(this.accord.getStructure().getRaisonSociale());
-				if(lStTmp!=null){
-					if(lStTmp.size()==1){
-						this.structureExistante=lStTmp.get(0);
-						if(logger.isDebugEnabled()){
-							logger.debug("isFrance=false, this.structureExistante = "+this.structureExistante);
-						}
-					}else{
-						this.listeStructureExistante=lStTmp;
-						if(logger.isDebugEnabled()){
-							logger.debug("isFrance=false, this.listeStructureExistante = "+this.listeStructureExistante);
-						}
-					}
-					getSessionController().setCreationAccordCurrentPage("_accordEtape2EtabTrouve");
-				}
+				this.structureExistante = tmpStruct;
+
+				return ;
 			}
 		}
-		if(logger.isDebugEnabled()){
-			logger.debug("this.etapePrecedente="+this.etapePrecedente);
+		if(StringUtils.hasText(sTmp.getRaisonSociale())){
+
+			List<StructureDTO> lStTmp = getStructureDomainService().getStructuresFromRaisonSociale(this.accord.getStructure().getRaisonSociale());
+
+			if(lStTmp!=null){
+				if(lStTmp.size()==1){
+					if(logger.isDebugEnabled()){
+						logger.debug("Structure trouvee via sa raison sociale.");
+					}
+					this.structureExistante=lStTmp.get(0);
+				}else{
+					if(logger.isDebugEnabled()){
+						logger.debug("Plusieurs structure trouvees via la raison sociale saisie.");
+					}
+					this.listeStructureExistante=lStTmp;
+				}
+
+				return ;
+			}
+		}
+		// Si jamais rien n'est trouve, on affichera "aucune correspondance trouvee"
+	}
+
+	/**
+	 * @return String
+	 */
+	public void onEtablissementAccordSelect(SelectEvent event) {
+		// On est obligés d'assigner le parametre "selection" de la dataTable à accord.structure car
+		// si on lui met structureExistante, lorsque la dataTable N'EST PAS utilisée
+		// dans la page (ie: un seul etab est trouvé), elle met systematiquement la valeur de son
+		// paramètre "selection" à null
+		this.structureDejaExistante = true;
+		this.structureExistante = this.accord.getStructure();
+
+		this.goToFormulaireAccord();
+
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/stylesheets/depot/accord.xhtml");
+		} catch (IOException ioe){
+			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
 		}
 	}
 
@@ -284,31 +308,42 @@ public class AccordController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void goToFormulaireAccord(){
 		if(logger.isDebugEnabled()){
 			logger.debug("public String goToFormulaireAccord()");
 		}
-//		String retour = "_accordEtape3FormulaireAccord";
+
+		if(this.structureDejaExistante){
+			this.accord.setStructure(this.structureExistante);
+		} else {
+			this.accord.setStructure(this.preAccord.getStructure());
+		}
+
 		getSessionController().setCreationAccordCurrentPage("_accordEtape3FormulaireAccord");
-		AccordPartenariatDTO acTmp = getStructureDomainService().getAccordFromIdStructure(this.accord.getStructure().getIdStructure());
-		if(acTmp!=null){
-			this.accordDejaExistant=true;
-			this.contactDemandeCompte=new ContactDTO();
-			this.contactDemandeCompte.setService(new ServiceDTO());
-//			retour="_accordEtape4DemandeCompte";
-			getSessionController().setCreationAccordCurrentPage("_accordEtape4DemandeCompte");
-			if(logger.isDebugEnabled()){
-				logger.debug("this.accordDejaExistant=true");
+
+		if (this.accord.getStructure() != null) {
+
+			AccordPartenariatDTO acTmp = getStructureDomainService().getAccordFromIdStructure(this.accord.getStructure().getIdStructure());
+			if (acTmp != null) {
+				this.accordDejaExistant = true;
+				this.contactDemandeCompte = new ContactDTO();
+				this.contactDemandeCompte.setService(new ServiceDTO());
+				getSessionController().setCreationAccordCurrentPage("_accordEtape4DemandeCompte");
+				if (logger.isDebugEnabled()) {
+					logger.debug("this.accordDejaExistant=true");
+				}
 			}
 		}
+
 		this.etapePrecedente="_accordEtape2EtabTrouve";
+
 		if(logger.isDebugEnabled()){
 			logger.debug("this.etapePrecedente="+this.etapePrecedente);
 		}
+
 		this.contactMailConfirmation="";
-//		return retour;
 	}
 
 	/**
@@ -331,7 +366,7 @@ public class AccordController extends AbstractContextAwareController {
 		}
 	}
 	/**
-	 * @param id 
+	 * @param id
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getStatutsJuridiquesFromIdTypeStructure(int id){
@@ -353,7 +388,6 @@ public class AccordController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String validerAccord()");
 		}
-//		String retour = null;
 		getSessionController().setCreationAccordCurrentPage("_accordEtape3FormulaireAccord");
 		//Mail == Confirmation
 		boolean mailConfirmationOK=false;
@@ -365,22 +399,21 @@ public class AccordController extends AbstractContextAwareController {
 		}
 		boolean nafActiviteOK=false;
 		if(this.structureDejaExistante ||
-			(this.accord.getStructure().getNafN5()!=null 
-					&& this.accord.getStructure().getNafN5().getCode()!=null
-					&& StringUtils.hasText(this.accord.getStructure().getNafN5().getCode())
-					&& !StringUtils.hasText(this.accord.getStructure().getActivitePrincipale())) ||
-					((this.accord.getStructure().getNafN5()==null
-							|| (this.accord.getStructure().getNafN5()!=null && this.accord.getStructure().getNafN5().getCode()==null)
-							|| (this.accord.getStructure().getNafN5()!=null && this.accord.getStructure().getNafN5().getCode()!=null && this.accord.getStructure().getNafN5().getCode().isEmpty()))
-							&& StringUtils.hasText(this.accord.getStructure().getActivitePrincipale())) ||
-					(this.accord.getStructure().getNafN5()!=null 
-							&& this.accord.getStructure().getNafN5().getCode()!=null
-							&& StringUtils.hasText(this.accord.getStructure().getNafN5().getCode())
-							&& StringUtils.hasText(this.accord.getStructure().getActivitePrincipale()))){
+				(this.accord.getStructure().getNafN5()!=null
+						&& this.accord.getStructure().getNafN5().getCode()!=null
+						&& StringUtils.hasText(this.accord.getStructure().getNafN5().getCode())
+						&& !StringUtils.hasText(this.accord.getStructure().getActivitePrincipale())) ||
+				((this.accord.getStructure().getNafN5()==null
+						|| (this.accord.getStructure().getNafN5()!=null && this.accord.getStructure().getNafN5().getCode()==null)
+						|| (this.accord.getStructure().getNafN5()!=null && this.accord.getStructure().getNafN5().getCode()!=null && this.accord.getStructure().getNafN5().getCode().isEmpty()))
+						&& StringUtils.hasText(this.accord.getStructure().getActivitePrincipale())) ||
+				(this.accord.getStructure().getNafN5()!=null
+						&& this.accord.getStructure().getNafN5().getCode()!=null
+						&& StringUtils.hasText(this.accord.getStructure().getNafN5().getCode())
+						&& StringUtils.hasText(this.accord.getStructure().getActivitePrincipale()))){
 			nafActiviteOK=true;
 		}
 		if(mailConfirmationOK && nafActiviteOK){
-//			retour="_accordEtape5Confirmation";
 			getSessionController().setCreationAccordCurrentPage("_accordEtape5Confirmation");
 			//Récupération des ID
 			ContactDTO contactTmp = this.accord.getContact();
@@ -402,13 +435,11 @@ public class AccordController extends AbstractContextAwareController {
 				structureTmp.setCodeNAF_N5(this.accord.getStructure().getNafN5().getCode());
 			else structureTmp.setCodeNAF_N5(null);
 			if(getBeanUtils().isFrance(this.accord.getStructure().getPays()) && getSessionController().isRecupererCommunesDepuisApogee()){
-				//structureTmp.setCodePostal(structureTmp.getCodePostal());
 				if(StringUtils.hasText(this.accordStructureCommuneDTO.getCodeCommune())){
 					structureTmp.setCodeCommune(this.accordStructureCommuneDTO.getCodeCommune());
-					//Récupération de la commune pour en avoir le libellé
 					this.accordStructureCommuneDTO=getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(structureTmp.getCodePostal(), ""+this.accordStructureCommuneDTO.getCodeCommune());
 					if(this.accordStructureCommuneDTO!=null){
-						structureTmp.setCommune(this.accordStructureCommuneDTO.getLibCommune());					
+						structureTmp.setCommune(this.accordStructureCommuneDTO.getLibCommune());
 					}
 				}
 			}
@@ -421,7 +452,7 @@ public class AccordController extends AbstractContextAwareController {
 			ServiceDTO serviceTmp = this.accord.getContact().getService();
 			serviceTmp.setLoginCreation("auto:NouvelAccord");
 			//Copie de l'adresse de la structure pour le nouveau service 
-			serviceTmp=BeanUtils.copieAdresseStructureVersService(structureTmp,serviceTmp);			
+			serviceTmp=BeanUtils.copieAdresseStructureVersService(structureTmp,serviceTmp);
 			if(logger.isDebugEnabled()){
 				logger.debug("this.accord.getContact().getService()="+serviceTmp);
 			}
@@ -512,15 +543,13 @@ public class AccordController extends AbstractContextAwareController {
 					logger.info("Structure déjà existante pour ce numéro siret "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
 				}
 				goToPreAccord();//Reset des objets Accord
-//				retour="_accordEtape1FormulaireAccord";
 				getSessionController().setCreationAccordCurrentPage("_accordEtape1FormulaireAccord");
-				
+
 			}catch (UnvalidNumSiretException ue) {
 				if(logger.isInfoEnabled()){
 					logger.info("Numéro siret invalide pour "+structureTmp+", redirection vers _accordEtape1FormulaireAccord");
 				}
 				goToPreAccord();//Reset des objets Accord
-//				retour="_accordEtape1FormulaireAccord";
 				getSessionController().setCreationAccordCurrentPage("_accordEtape1FormulaireAccord");
 			}catch (AccordAlreadyExistingForStructureException as) {
 				if(logger.isInfoEnabled()){
@@ -528,7 +557,6 @@ public class AccordController extends AbstractContextAwareController {
 				}
 				this.accordDejaExistant=true;
 				this.contactDemandeCompte=this.accord.getContact();
-//				retour="_accordEtape4DemandeCompte";
 				getSessionController().setCreationAccordCurrentPage("_accordEtape4DemandeCompte");
 			}catch (AccordAlreadyExistingForContactException ac) {
 				// Impossible ici
@@ -536,16 +564,18 @@ public class AccordController extends AbstractContextAwareController {
 				logger.info("MailAlreadyUsedForStructureException", e.getCause());
 				addErrorMessage("formAccord:mailC", "CONTACT.GESTION.ERREURACCOUNT");
 				getSessionController().setCreationAccordCurrentPage("_accordEtape3FormulaireAccord");
-//				retour=null;
+				return null;
 			}
 			if(accordEnregistre){
 				if(logger.isInfoEnabled()){
 					logger.info("Accord enregistre.");
 				}
-				addInfoMessage(null, "ACCORD.CONFIRMATION");
+
+//				addInfoMessage("formAccord", "ACCORD.CONFIRMATION");
+
 				if(StringUtils.hasText(getSessionController().getMailingListEntr())){
 					getSmtpService().send(
-							getSessionController().getMailingListEntrIA(), 
+							getSessionController().getMailingListEntrIA(),
 							getString("MAIL.ADMIN.ACCORD.SUJETNOUVELACCORD", getSessionController().getApplicationNameEntreprise(), structureTmp.printAdresse()),
 							getString("MAIL.ADMIN.ACCORD.MESSAGENOUVELACCORD", getSessionController().getApplicationNameEntreprise(), structureTmp.printAdresse()),
 							""
@@ -562,7 +592,6 @@ public class AccordController extends AbstractContextAwareController {
 
 		}
 		return "accord";
-//		return retour;
 	}
 
 	/**
@@ -572,7 +601,6 @@ public class AccordController extends AbstractContextAwareController {
 		if(logger.isDebugEnabled()){
 			logger.debug("public String validerDemandeCompte()");
 		}
-//		String retour = null;
 		//Mail == Confirmation
 		boolean mailConfirmationOK=false;
 		if(this.contactDemandeCompte!=null &&
@@ -582,32 +610,24 @@ public class AccordController extends AbstractContextAwareController {
 			mailConfirmationOK=true;
 		}
 		if(mailConfirmationOK){
-//			retour="_accordEtape5Confirmation";
 			getSessionController().setCreationAccordCurrentPage("_accordEtape5Confirmation");
+
 			addInfoMessage("formAccord", "ACCORD.DEMANDEENVOYE");
+
 			if(StringUtils.hasText(getSessionController().getMailingListEntr())){
-				
-//				String urlAuth = "";
-//				if (getSessionController().getAdminAuthentication().equals("shibb")){
-//					urlAuth = "/stylesheets/shibb/auth.xhtml?id=";
-//				} else {
-//					urlAuth = "/stylesheets/cas/auth.xhtml?id=";
-//				}
-				
-				getSmtpService().send(getSessionController().getMailingListEntrIA(), 
-					getString("MAIL.ADMIN.ACCORD.SUJETDEMANDECOMPTE", getSessionController().getApplicationNameEntreprise(), this.contactDemandeCompte.print(), this.accord.getStructure().printAdresse()),
-					getString("MAIL.ADMIN.ACCORD.MESSAGEDEMANDECOMPTE", getSessionController().getApplicationNameEntreprise(), this.contactDemandeCompte.print(), 
-						this.accord.getStructure().printAdresse()),"");
+				getSmtpService().send(getSessionController().getMailingListEntrIA(),
+						getString("MAIL.ADMIN.ACCORD.SUJETDEMANDECOMPTE", getSessionController().getApplicationNameEntreprise(), this.contactDemandeCompte.print(), this.accord.getStructure().printAdresse()),
+						getString("MAIL.ADMIN.ACCORD.MESSAGEDEMANDECOMPTE", getSessionController().getApplicationNameEntreprise(), this.contactDemandeCompte.print(),
+								this.accord.getStructure().printAdresse()),"");
 			}
 		}else{
 			//Mail != Confirmation
 			addErrorMessage("formAccord:mailConfirmation", "CONTACT.MAIL_CONFIRMATION.VALIDATION");
 		}
-//		return retour;
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public String goToEtapePrecedente(){
 		if(logger.isDebugEnabled()){
@@ -645,7 +665,7 @@ public class AccordController extends AbstractContextAwareController {
 		String s = (String)event.getNewValue();
 		this.accord.getStructure().setNafN5(getNomenclatureDomainService().getNafN5FromCode(s));
 	}
-	
+
 	/**
 	 * @param event
 	 */
@@ -659,7 +679,7 @@ public class AccordController extends AbstractContextAwareController {
 			addErrorMessage("formAccord:dynaCodePostal", "STRUCTURE.CODE_POSTAL.VALIDATION");
 		}
 	}
-	
+
 	/**
 	 * @param codePostal
 	 * @return List<SelectItem>
@@ -676,6 +696,19 @@ public class AccordController extends AbstractContextAwareController {
 			}
 		}
 		return l;
+	}
+
+	/**
+	 * true si le pays choisi est la France
+	 */
+	public boolean isPaysAccordFrance(){
+		if ((this.accord != null
+				&& this.accord.getStructure() != null
+				&& this.accord.getStructure().getPays() != null
+				&& getBeanUtils().isFrance(this.accord.getStructure().getPays()))){
+			return true;
+		}
+		return false;
 	}
 
 	/* ***************************************************************

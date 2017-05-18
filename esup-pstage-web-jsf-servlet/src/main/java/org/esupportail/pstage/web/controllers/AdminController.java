@@ -76,10 +76,6 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	private Set<Integer> keysAdminStructure=new HashSet<Integer>();
 	/**
-	 * 
-	 */
-	private int currentRowAdminStructure;
-	/**
 	 * 0 : Compte local
 	 * 1 : Compte CAS
 	 * 2 : Compte Shibboleth
@@ -128,6 +124,12 @@ public class AdminController extends AbstractContextAwareController {
 	private List<SelectItem> communesListening=new ArrayList<SelectItem>();
 
 	/**
+	 * navigation rules variable pour les differents retours dans la partie admin
+	 * (ex : retour de validation d'accord soit dans la ficheSignaletique, soit dans la consultation)
+	 */
+	private String retourAction;
+
+	/**
 	 * RechercheController
 	 */
 	private RechercheController rechercheController;
@@ -158,6 +160,10 @@ public class AdminController extends AbstractContextAwareController {
 	public void reset() {
 		super.reset();
 		reloadAdministrateurs();
+	}
+
+	public String goToRetourAction(){
+		return this.retourAction;
 	}
 	
 	/**
@@ -226,7 +232,6 @@ public class AdminController extends AbstractContextAwareController {
 	 * @return a String
 	 */
 	public void ajouterAdministrateur(){
-//		String ret=null;
 		boolean ok = false;
 		if(this.formAdminStructure!=null){
 			this.formAdminStructure.setLoginCreation(getSessionController().getCurrentAuthAdminStructure().getLogin());
@@ -245,7 +250,7 @@ public class AdminController extends AbstractContextAwareController {
 							}
 							this.formAdminStructure.setEppn(null);
 							getAdminDomainService().addAdminStructure(this.formAdminStructure);
-							getSessionController().setCreationAdminStructureCurrentPage("/stylesheets/_commun/_confirmationDialog");
+							getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 							ok=true;
 						}else{
 							addErrorMessage("formAdminStructure:mdpAdmin", "ADMINSTRUCTURE.MDP_CONFIRMATION.VALIDATION");
@@ -262,7 +267,7 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setMdp(null);
 						this.formAdminStructure.setEppn(null);
 						getAdminDomainService().addAdminStructure(this.formAdminStructure);
-						getSessionController().setCreationAdminStructureCurrentPage("/stylesheets/_commun/_confirmationDialog");
+						getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 						ok=true;
 					}
 					break;
@@ -276,7 +281,7 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setLogin(null);
 						this.formAdminStructure.setMdp(null);
 						getAdminDomainService().addAdminStructure(this.formAdminStructure);
-						getSessionController().setCreationAdminStructureCurrentPage("/stylesheets/_commun/_confirmationDialog");
+						getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 						ok=true;
 					}
 					break;
@@ -289,19 +294,19 @@ public class AdminController extends AbstractContextAwareController {
 					logger.info("DataAddException ",d.getCause());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
-				getSessionController().setCreationAdminStructureCurrentPage("/stylesheets/_commun/_confirmationDialog");
+				getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 			}catch (WebServiceDataBaseException w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.getCause());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
-				getSessionController().setCreationAdminStructureCurrentPage("/stylesheets/_commun/_confirmationDialog");
+				getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 			}catch (AdminStructureAccountException aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.getCause());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
-				getSessionController().setCreationAdminStructureCurrentPage("/stylesheets/_commun/_confirmationDialog");
+				getSessionController().setCreationAdminStructureCurrentPage("../_commun/_confirmationDialog");
 			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");
@@ -315,7 +320,6 @@ public class AdminController extends AbstractContextAwareController {
 			this.formAdminStructure=new AdminStructureDTO();
 			this.formAdminMdpConfirmation="";
 		}
-//		return ret;
 	}
 	/**
 	 * @return a String
@@ -363,6 +367,7 @@ public class AdminController extends AbstractContextAwareController {
 	public void modifierAdministrateur(){
 //		String ret=null;
 		boolean ok=false;
+
 		if(this.formAdminStructure!=null){
 			this.formAdminStructure.setLoginModif(getSessionController().getCurrentAuthAdminStructure().getLogin());
 			this.formAdminStructure.setDateModif(new Date());
@@ -380,8 +385,7 @@ public class AdminController extends AbstractContextAwareController {
 							}
 							this.formAdminStructure.setEppn(null);
 							getAdminDomainService().updateAdminStructure(this.formAdminStructure);
-//							ret="_modifAdministrateurEtape2Confirmation";
-							getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
+							getSessionController().setModifAdminStructureCurrentPage("../_commun/_confirmationDialog");
 							ok=true;
 						}else{
 							addErrorMessage("formModifAdminStructure:mdpAdmin", "ADMINSTRUCTURE.MDP_CONFIRMATION.VALIDATION");
@@ -398,11 +402,11 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setMdp(null);
 						this.formAdminStructure.setEppn(null);
 						getAdminDomainService().updateAdminStructure(this.formAdminStructure);
-//						ret="_modifAdministrateurEtape2Confirmation";
-						getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
+						getSessionController().setModifAdminStructureCurrentPage("../_commun/_confirmationDialog");
 						ok=true;
 					}
 					break;
+
 					//Shibboleth
 				case 2:
 					if(StringUtils.hasText(this.formAdminStructure.getMail()) 
@@ -413,8 +417,7 @@ public class AdminController extends AbstractContextAwareController {
 						this.formAdminStructure.setLogin(null);
 						this.formAdminStructure.setMdp(null);
 						getAdminDomainService().updateAdminStructure(this.formAdminStructure);
-//						ret="_modifAdministrateurEtape2Confirmation";
-						getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
+						getSessionController().setModifAdminStructureCurrentPage("../_commun/_confirmationDialog");
 						ok=true;
 					}
 					break;
@@ -427,22 +430,19 @@ public class AdminController extends AbstractContextAwareController {
 					logger.info("DataUpdateException ",d.getCause());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", d.getMessage());
-//				ret="_modifAdministrateurEtape2Confirmation";
-				getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
+				getSessionController().setModifAdminStructureCurrentPage("../_commun/_confirmationDialog");
 			}catch (WebServiceDataBaseException w){
 				if(logger.isInfoEnabled()){
 					logger.info("WebServiceDataBaseException ",w.getCause());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", w.getMessage());
-//				ret="_modifAdministrateurEtape2Confirmation";
-				getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
+				getSessionController().setModifAdminStructureCurrentPage("../_commun/_confirmationDialog");
 			}catch (AdminStructureAccountException aa) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureAccountException ", aa.getCause());
 				}
 				addErrorMessage(null, "ADMINSTRUCTURE.ERREUR", aa.getMessage());
-//				ret="_modifAdministrateurEtape2Confirmation";
-				getSessionController().setModifAdminStructureCurrentPage("_modifAdministrateurEtape2Confirmation");
+				getSessionController().setModifAdminStructureCurrentPage("../_commun/_confirmationDialog");
 			}catch (AdminStructureLoginEppnAlreadyUsedException al) {
 				if(logger.isInfoEnabled()){
 					logger.info("AdminStructureLoginEppnAlreadyUsedException ");
@@ -452,19 +452,15 @@ public class AdminController extends AbstractContextAwareController {
 			}
 		}	
 		if(ok){
-			this.listeAdminStructure.set(this.currentRowAdminStructure, this.formAdminStructure);
-			this.keysAdminStructure = Collections.singleton(this.currentRowAdminStructure);
 			this.formAdminStructure=new AdminStructureDTO();
 			this.formAdminMdpConfirmation="";
 		}
-//		return ret;
 	}
 	/**
 	 * 
 	 */
 	public void supprimerAdministrateur(){
-//		String ret="_supprAdministrateurEtape2Confirmation";
-		getSessionController().setSuppressionAdminStructureCurrentPage("_supprAdministrateurEtape2Confirmation");
+		getSessionController().setSuppressionAdminStructureCurrentPage("../_commun/_confirmationDialog");
 		if(this.formAdminStructure!=null){
 			try{
 				if(logger.isInfoEnabled()){
@@ -618,7 +614,7 @@ public class AdminController extends AbstractContextAwareController {
 					addErrorMessage("formValidationAccord", "ACCORD.ERREUR_VALIDATION.STRUCTURESIRET", e.getMessage());
 				}
 			}else{
-				addErrorMessage(null, "ACCORD.DEJAVALIDE");
+				addErrorMessage("formValidationAccord", "ACCORD.DEJAVALIDE");
 			}
 		}
 //		return ret;
@@ -696,8 +692,7 @@ public class AdminController extends AbstractContextAwareController {
 	 * @return a String
 	 */
 	public void validationAccord(){
-//		String ret=null;
-		if(this.accordPartenariatAValider!=null 
+		if(this.accordPartenariatAValider!=null
 				&& !this.accordPartenariatAValider.isEstValide()){
 			AccordPartenariatDTO tmp = getStructureDomainService().getAccordFromId(this.accordPartenariatAValider.getIdAccordPartenariat());
 			if(!tmp.isEstValide()){
@@ -734,8 +729,10 @@ public class AdminController extends AbstractContextAwareController {
 					//Màj accord
 					this.accordPartenariatAValider.setEstValide(true);
 					this.accordPartenariatAValider.setLoginValidation(login);
+					this.accordPartenariatAValider.setDateValidation(new Date());
 					if(!getStructureDomainService().updateAccord(this.accordPartenariatAValider)){
 						addErrorMessage(null, "ACCORD.ERREUR_VALIDATION", "updateAccord");
+						return ;
 					}
 					
 					this.structureAccordAValider.setAccordPartenariat(accordPartenariatAValider);
@@ -744,14 +741,18 @@ public class AdminController extends AbstractContextAwareController {
 						this.structureAccordAValider.getIdStructure()){
 						getSessionController().setCurrentManageStructure(this.structureAccordAValider);
 					}
+
 					if(this.rechercheController.getListeResultatsRechercheStructure()!=null){
 						this.rechercheController.getListeResultatsRechercheStructure().remove(this.structureAccordAValider);
 					}else{
 						this.rechercheController.setListeResultatsRechercheStructure(null);
 						this.rechercheController.setResultatRechercheStructure(null);
 					}
+
+					this.structureAccord = this.structureAccordAValider;
+
+					//Envoi mail sur la mailing list entreprise
 					if(StringUtils.hasText(getSessionController().getMailingListEntr())){
-						//Envoi mail sur la mailing list entreprise
 						String infoPersonne="";
 						if(getSessionController().isAdminPageAuthorized() && getSessionController().getCurrentAuthAdminStructure()!=null){
 							infoPersonne+=getSessionController().getCurrentAuthAdminStructure().getNom()+" "+getSessionController().getCurrentAuthAdminStructure().getPrenom()+" ("+getSessionController().getCurrentLogin()+")";
@@ -767,6 +768,7 @@ public class AdminController extends AbstractContextAwareController {
 								""
 						);
 					}
+					// Envoi mail au contact
 					try {
 						InternetAddress ia = new InternetAddress(this.contactAccordAValider.getMail());
 						ia.validate();
@@ -782,9 +784,11 @@ public class AdminController extends AbstractContextAwareController {
 						}
 						addErrorMessage(null, "MAIL.VALIDATION");
 					}
-//					ret="_validationAccordEtape3Confirmation";
+
 					getSessionController().setValidationAccordCurrentPage("_validationAccordEtape3Confirmation");
-					addInfoMessage(null, "ACCORD.VALIDATION.CONFIRMATION", this.structureAccordAValider.getRaisonSociale(), this.contactAccordAValider.getMail());
+
+//					addInfoMessage(null, "ACCORD.VALIDATION.CONFIRMATION", this.structureAccordAValider.getRaisonSociale(), this.contactAccordAValider.getMail());
+
 					this.structureAccordAValider=null;
 					this.contactAccordAValider=null;
 					this.accordPartenariatAValider=null;
@@ -833,7 +837,6 @@ public class AdminController extends AbstractContextAwareController {
 				addErrorMessage(null, "ACCORD.DEJAVALIDE");
 			}
 		}
-//		return ret;
 	}
 	
 	/**
@@ -841,8 +844,9 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	public String goToConsulterAccord(){
 		String ret=null;
-		if(this.structureAccord!=null && this.structureAccord.getIdStructure()>0
-				&& this.structureAccord.getAccordPartenariat()!=null && this.structureAccord.getAccordPartenariat().getIdAccordPartenariat()>0){
+		if(this.structureAccord!=null && this.structureAccord.getIdStructure() > 0
+				&& this.structureAccord.getAccordPartenariat() != null
+				&& this.structureAccord.getAccordPartenariat().getIdAccordPartenariat() > 0){
 			this.structureAccord.getAccordPartenariat().setContact(
 					getStructureDomainService().getContactFromId(this.structureAccord.getAccordPartenariat().getIdContact()));
 			ret="affichageAccord";
@@ -854,7 +858,6 @@ public class AdminController extends AbstractContextAwareController {
 	 * 
 	 */
 	public void supprimerAccord(){
-//		String ret=null;
 		try{
 			if(this.accordASupprimer!=null && this.accordASupprimer.getAccordPartenariat()!=null
 					&& this.accordASupprimer.getAccordPartenariat().getIdAccordPartenariat()>0){
@@ -898,9 +901,7 @@ public class AdminController extends AbstractContextAwareController {
 			this.rechercheController.setResultatRechercheStructure(null);
 		}
 		this.accordASupprimer=null;
-//		ret="_supprAccordEtape2Confirmation";
-		getSessionController().setSuppressionAccordCurrentPage("_supprAccordEtape2Confirmation");
-//		return ret;
+		getSessionController().setSuppressionAccordCurrentPage("../_commun/_confirmationDialog");
 	}
 
 	/* ***************************************************************
@@ -961,20 +962,6 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	public void setKeysAdminStructure(Set<Integer> keysAdminStructure) {
 		this.keysAdminStructure = keysAdminStructure;
-	}
-
-	/**
-	 * @return the currentRowAdminStructure
-	 */
-	public int getCurrentRowAdminStructure() {
-		return currentRowAdminStructure;
-	}
-
-	/**
-	 * @param currentRowAdminStructure the currentRowAdminStructure to set
-	 */
-	public void setCurrentRowAdminStructure(int currentRowAdminStructure) {
-		this.currentRowAdminStructure = currentRowAdminStructure;
 	}
 
 	/**
@@ -1130,6 +1117,14 @@ public class AdminController extends AbstractContextAwareController {
 	 */
 	public void setRechercheController(RechercheController rechercheController) {
 		this.rechercheController = rechercheController;
+	}
+
+	public String getRetourAction() {
+		return retourAction;
+	}
+
+	public void setRetourAction(String retourAction) {
+		this.retourAction = retourAction;
 	}
 
 

@@ -1,125 +1,97 @@
 <ui:fragment xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	<h:panelGrid align="center" style="font-size:12px;"
-		>
-		<h:outputText value="#{msgs['MOTDEPASSEPERDU.CHOIXETAB']}"
-			rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}" />
-		<p:dataTable id="listeStructuresTrouveeMotDePassePerdu" rows="10"
-                     reflow="true" tableStyle="table-layout: auto;"
-                     rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"
-			value="#{welcomeController.listeStructuresTrouveeMotDePassePerdu}"
-			var="structure">
-			<p:column>
-				<f:facet name="header">
-					<h:outputText 
-						value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
-				</f:facet>
-				<h:outputText value="#{structure.raisonSociale}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText 
-						value="#{msgs['STRUCTURE.NUM_SIRET']}" />
-				</f:facet>
-				<h:outputText value="#{structure.numeroSiret}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText 
-						value="#{msgs['STRUCTURE.VOIE']}" />
-				</f:facet>
-				<h:outputText value="#{structure.voie}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText 
-						value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-				</f:facet>
-				<h:outputText value="#{structure.batimentResidence}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText 
-						value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-				</f:facet>
-				<h:outputText value="#{structure.codePostal}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText 
-						value="#{msgs['STRUCTURE.COMMUNE']}" />
-				</f:facet>
-				<h:outputText value="#{structure.commune}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText 
-						value="#{msgs['STRUCTURE.PAYS']}" />
-				</f:facet>
-				<h:panelGrid columns="2" style="font-size:12px;">
-					<h:graphicImage id="flag" rendered="#{not empty structure.pays}"
-						value="../../media/images/flags/#{structure.pays.iso2}.png"
-						alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-						title="#{structure.pays.libelle}" />
-					<h:outputText value="#{structure.pays.libelle}" />
-				</h:panelGrid>
-			</p:column>
-			<p:column>
-				<p:commandLink id="selectionStructure" update="structureSelected">
-					<f:setPropertyActionListener value="#{structure}"
-						target="#{welcomeController.structureSelectionneeMotDePassePerdu}" />
-					<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
-						value="../../media/images/zoom.png" />
-					<p:tooltip value="#{msgs['FORM.SELECTIONNER']}" />
-				</p:commandLink>
-			</p:column>
-		</p:dataTable>
-	</h:panelGrid>
-	<t:htmlTag value="div" style="height:20px;" />
-	<p:outputPanel id="structureSelected">
-		<t:div
-			rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu}">
-			<h:panelGrid columns="2" align="center" >
-				<h:outputLabel for="raisonSociale"
-					value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
-				<h:outputText id="raisonSociale"
-					value="#{welcomeController.structureSelectionneeMotDePassePerdu.raisonSociale}" />
-				<h:outputLabel for="nsiret" value="#{msgs['STRUCTURE.NUM_SIRET']}" />
-				<h:outputText id="nsiret"
-					value="#{welcomeController.structureSelectionneeMotDePassePerdu.numeroSiret}" />
-				<h:outputLabel for="voie" value="#{msgs['STRUCTURE.VOIE']}" />
-				<h:outputText id="voie"
-					value="#{welcomeController.structureSelectionneeMotDePassePerdu.voie}" />
-				<h:outputLabel for="batimentResidence" rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu.batimentResidence}"
-					value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-				<h:outputText id="batimentResidence" rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu.batimentResidence}"
-					value="#{welcomeController.structureSelectionneeMotDePassePerdu.batimentResidence}" />
-				<h:outputLabel for="codepostal"
-					value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-				<h:outputText id="codepostal"
-					value="#{welcomeController.structureSelectionneeMotDePassePerdu.codePostal}" />
-				<h:outputLabel for="commune" value="#{msgs['STRUCTURE.COMMUNE']}" />
-				<h:outputText id="commune"
-					value="#{welcomeController.structureSelectionneeMotDePassePerdu.commune}" />
-				<h:outputLabel for="pays" value="#{msgs['STRUCTURE.PAYS']}" />
-				<h:panelGrid columns="2">
-					<h:graphicImage id="flag"
-						rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu.pays}"
-						value="../../media/images/flags/#{welcomeController.structureSelectionneeMotDePassePerdu.pays.iso2}.png"
-						alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-						title="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
-					<h:outputText id="pays"
-						value="#{welcomeController.structureSelectionneeMotDePassePerdu.pays.libelle}" />
-				</h:panelGrid>
-				<t:htmlTag value="div" style="height:40px;" />
-				<p:commandButton
-					action="#{welcomeController.goToRecuperationMotDePasse}"
-					update="formMotDePassePerdu" value="#{msgs['FORM.NEXT']}" />
-			</h:panelGrid>
-		</t:div>
-	</p:outputPanel>
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:t="http://myfaces.apache.org/tomahawk"
+             xmlns:p="http://primefaces.org/ui">
+    <t:div styleClass="mt5 mb10">
+        <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontYellow"/>
+        <h:outputText value="#{msgs['MOTDEPASSEPERDU.CHOIXETAB']}" styleClass="fontBold"
+                      rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}" />
+    </t:div>
+    <h:outputText value="#{msgs['MOTDEPASSEPERDU.CHOIXETAB2']}"
+                  rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}" />
+
+    <p:dataTable id="listeStructuresTrouveeMotDePassePerdu" rows="10"
+                 reflow="true" tableStyle="table-layout: auto;" styleClass="mt5"
+                 rendered="#{not empty welcomeController.listeStructuresTrouveeMotDePassePerdu}"
+                 value="#{welcomeController.listeStructuresTrouveeMotDePassePerdu}"
+                 var="structure" rowKey="#{structure.idStructure}"
+                 selectionMode="single" selection="#{welcomeController.structureSelectionneeMotDePassePerdu}">
+
+        <p:ajax event="rowSelect"
+                update="@form" />
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+            </f:facet>
+            <h:outputText value="#{structure.raisonSociale}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+            </f:facet>
+            <h:outputText value="#{structure.numeroSiret}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['STRUCTURE.VOIE']}" />
+            </f:facet>
+            <h:outputText value="#{structure.voie}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+            </f:facet>
+            <h:outputText value="#{structure.batimentResidence}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+            </f:facet>
+            <h:outputText value="#{structure.codePostal}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['STRUCTURE.COMMUNE']}" />
+            </f:facet>
+            <h:outputText value="#{structure.commune}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText
+                        value="#{msgs['STRUCTURE.PAYS']}" />
+            </f:facet>
+            <t:div>
+                <h:graphicImage id="flag" rendered="#{not empty structure.pays}"
+                                value="../../media/images/flags/#{structure.pays.iso2}.png"
+                                styleClass="mrf5"
+                                alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+                                title="#{structure.pays.libelle}" />
+                <h:outputText value="#{structure.pays.libelle}" />
+            </t:div>
+        </p:column>
+    </p:dataTable>
+
+    <t:htmlTag value="div" style="height:20px;" />
+
+    <p:outputPanel id="structureSelected">
+        <t:div styleClass="fz13 textCenter" rendered="#{not empty welcomeController.structureSelectionneeMotDePassePerdu}">
+            <h:outputText value="Selection : " styleClass="fontBold" />
+
+            #{welcomeController.structureSelectionneeMotDePassePerdu.raisonSociale}.
+
+            <t:div style="height:10px;" />
+
+            <p:commandButton value="#{msgs['FORM.CONFIRMERCONTINUER']}"
+                             action="#{welcomeController.goToRecuperationMotDePasse}"
+                             update="formMotDePassePerdu" />
+        </t:div>
+    </p:outputPanel>
 </ui:fragment>

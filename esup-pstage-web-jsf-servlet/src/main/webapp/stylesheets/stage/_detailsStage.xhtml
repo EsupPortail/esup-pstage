@@ -102,19 +102,21 @@
             <h:outputText styleClass="ml5"
                           rendered="#{empty conventionController.convention.idUniteDureeExceptionnelle or conventionController.convention.idUniteDureeExceptionnelle == 0}"
                           value="heure(s)" />
-            <t:div styleClass="ml5"
-                   rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle}">
-                <h:outputText value="heure(s)"
-                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
-                <h:outputText value="jour(s)"
-                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
-                <h:outputText value="semaine(s)"
-                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 3}" />
-                <h:outputText value="mois"
-                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 4}" />
-                <h:outputText value="annee(s)"
-                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 5}" />
-            </t:div>
+            <h:outputText value="heure(s)" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 1}" />
+            <h:outputText value="jour(s)" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 2}" />
+            <h:outputText value="semaine(s)" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 3}" />
+            <h:outputText value="mois" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 4}" />
+            <h:outputText value="annee(s)" styleClass="ml5"
+                          rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle
+                              and conventionController.convention.idUniteDureeExceptionnelle == 5}" />
         </t:div>
 
 

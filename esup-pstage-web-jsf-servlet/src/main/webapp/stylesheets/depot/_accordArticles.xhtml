@@ -1,30 +1,39 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	<h:panelGrid>
-		<t:htmlTag value="div" style="height:20px;" />
-		<h:outputLabel for="article1"
-			value="#{msgs['ACCORD.ARTICLES.ARTICLE1']}" />
-		<h:outputText id="article1" value="#{msgs['ACCORD.ARTICLES.TEXT1']}"
-			escape="false" style="font-size:12px;" />
-		<h:outputLabel for="article2"
-			value="#{msgs['ACCORD.ARTICLES.ARTICLE2']}" escape="false" />
-		<h:outputText id="article2" value="#{msgs['ACCORD.ARTICLES.TEXT2']}"
-			escape="false" style="font-size:12px;" />
-		<h:outputLabel for="article3"
-			value="#{msgs['ACCORD.ARTICLES.ARTICLE3']}" escape="false" />
-		<h:outputText id="article3" value="#{msgs['ACCORD.ARTICLES.TEXT3']}"
-			escape="false" style="font-size:12px;" />
-		<h:outputLabel for="article4"
-			value="#{msgs['ACCORD.ARTICLES.ARTICLE4']}" escape="false" />
-		<h:outputText id="article4" value="#{msgs['ACCORD.ARTICLES.TEXT4']}"
-			escape="false" style="font-size:12px;" />
-		<t:htmlTag value="div" style="height:20px;" />
-		<h:outputText value="#{msgs['ACCORD.DEVENIRPARTENAIRE']}"
-			style="font-size:12px;" escape="false" />
-		<t:htmlTag value="div" style="height:20px;" />
-	</h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <t:htmlTag value="div" style="height:20px;" />
+
+    <h:outputLabel for="article1"
+                   value="#{msgs['ACCORD.ARTICLES.ARTICLE1']}" />
+    <h:outputText id="article1" value="#{msgs['ACCORD.ARTICLES.TEXT1']}"
+                  escape="false" styleClass="ml5" />
+
+    <t:htmlTag value="div" style="height:10px;" />
+
+    <h:outputLabel for="article2"
+                   value="#{msgs['ACCORD.ARTICLES.ARTICLE2']}" escape="false" />
+    <h:outputText id="article2" value="#{msgs['ACCORD.ARTICLES.TEXT2']}"
+                  escape="false" styleClass="ml5" />
+
+    <t:htmlTag value="div" style="height:10px;" />
+
+    <h:outputLabel for="article3"
+                   value="#{msgs['ACCORD.ARTICLES.ARTICLE3']}" escape="false" />
+    <h:outputText id="article3" value="#{msgs['ACCORD.ARTICLES.TEXT3']}"
+                  escape="false" styleClass="ml5" />
+
+    <!--<t:htmlTag value="div" style="height:10px;" />-->
+
+    <!--<h:outputLabel for="article4"-->
+                   <!--value="#{msgs['ACCORD.ARTICLES.ARTICLE4']}" escape="false" />-->
+    <!--<h:outputText id="article4" value="#{msgs['ACCORD.ARTICLES.TEXT4']}"-->
+                  <!--escape="false" styleClass="ml5" />-->
+
+    <t:htmlTag value="div" style="height:20px;" />
+
+    <h:outputText value="#{msgs['ACCORD.DEVENIRPARTENAIRE']} : "
+                  styleClass="fontBold fz13" escape="false" />
 </ui:composition>

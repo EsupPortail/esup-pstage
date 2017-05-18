@@ -1,35 +1,26 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	<p:commandButton value="#{msgs['FORM.PREVIOUS']}" immediate="true">
-		<f:ajax update="formValidationAccord" />
-		<f:setPropertyActionListener
-			value="_validationAccordEtape1FormulaireAccord"
-			target="#{sessionController.validationAccordCurrentPage}" />
-	</p:commandButton>
-	<t:div
-		style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-		<t:htmlTag value="div" style="height:15px;" />
-		<h:panelGrid columns="2" style="font-size:12px;"
-			>
-			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
-				value="../../media/images/help32.png" />
-			<h:outputText value="#{msgs['ACCORD.VALIDATION.AIDE']}"
-				escape="false" />
-		</h:panelGrid>
-		<t:htmlTag value="div" style="height:15px;" />
-		<h:panelGrid columns="3" align="center">
-			<h:commandButton action="#{adminController.validationAccord}"
-				value="#{msgs['FORM.CONFIRMER']}">
-				<f:ajax update="formValidationAccord" />
-			</h:commandButton>
-			<t:htmlTag value="div" style="width:100px;" />
-			<p:commandButton action="rechercheEtablissement"
-				value="#{msgs['FORM.ANNULER']}" />
-		</h:panelGrid>
-		<t:htmlTag value="div" style="height:15px;" />
-	</t:div>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+    <t:div>
+        <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fontBlue2 fz13" />
+        <h:outputText value="#{msgs['ACCORD.VALIDATION.AIDE']}"
+                      escape="false" styleClass="mlf5 fontBold" />
+
+        <t:htmlTag value="div" style="height:15px;" />
+        <t:div styleClass="textCenter">
+            <p:commandButton action="#{adminController.validationAccord}"
+                             value="#{msgs['FORM.CONFIRMER']}"
+                             update="formValidationAccord" />
+        </t:div>
+        <t:htmlTag value="div" style="height:15px;" />
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}" immediate="true"
+                     update="formValidationAccord">
+        <f:setPropertyActionListener
+                value="_validationAccordEtape1FormulaireAccord"
+                target="#{sessionController.validationAccordCurrentPage}" />
+    </p:commandButton>
 </ui:composition>

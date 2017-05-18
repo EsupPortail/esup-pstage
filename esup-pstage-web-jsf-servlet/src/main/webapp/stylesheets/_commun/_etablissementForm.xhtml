@@ -32,14 +32,14 @@
 
                     <h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *" styleClass="fontBold"
                                    for="effectif"/>
-                    <p:selectOneMenu id="effectif" effect="none"
+                    <h:selectOneMenu id="effectif" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      value="#{etablissementController.formStructure.effectif}"
                                      converter="#{effectifConverter}" required="true"
                                      requiredMessage="#{requiredMessageController.champObligatoire}">
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{nomenclatureController.effectifs}" />
                         <p:ajax event="valueChange" update="msgEffectif" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                     <p:message id="msgEffectif" for="effectif"/>
                 </t:htmlTag>
             </t:div>
@@ -62,7 +62,7 @@
                     <t:div>
                         <p:inputText id="siret"
                                      value="#{etablissementController.formStructure.numeroSiret}"
-                                     size="20" maxlength="14"
+                                     maxlength="14"
                                      required="#{(etablissementController.formStructureTmpPays==beanUtils.france || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)
 						and etablissementController.formStructureTmpTypeStructure.siretObligatoire}"
                                      requiredMessage="#{requiredMessageController.champObligatoire}"
@@ -91,16 +91,15 @@
 
                         <h:outputLabel value="#{msgs['STRUCTURE.TYPE_STRUCTURE']} *" styleClass="fontBold"
                                        for="typeStructure" />
-                        <p:selectOneMenu id="typeStructure" effect="none"
+                        <h:selectOneMenu id="typeStructure" styleClass="customPstage fix-selectOneMenu"
                                          value="#{etablissementController.formStructureTmpTypeStructure}"
                                          converter="#{typeStructureConverter}" required="true"
-                                         valueChangeListener="#{etablissementController.valueTypeStructureChanged}"
-                                         requiredMessage="#{requiredMessageController.champObligatoire}">
+                                         valueChangeListener="#{etablissementController.valueTypeStructureChanged}" >
                             <f:selectItem itemValue="" />
                             <f:selectItems value="#{nomenclatureController.typesStructure}" />
                             <p:ajax event="valueChange"
                                     update="opStatutJuridique, siret, olSiret, msgTypeStructure" />
-                        </p:selectOneMenu>
+                        </h:selectOneMenu>
                         <p:message id="msgTypeStructure" for="typeStructure"/>
 
                         <t:htmlTag value="div" style="height:15px;" />
@@ -111,14 +110,14 @@
                                 <h:outputLabel value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']} *"
                                                styleClass="fontBold"
                                                for="statutJuridique" />
-                                <p:selectOneMenu id="statutJuridique" effect="none"
+                                <h:selectOneMenu id="statutJuridique" effect="none" styleClass="customPstage fix-selectOneMenu"
                                                  value="#{etablissementController.formStructureTmpStatutJuridique}"
                                                  converter="#{statutJuridiqueConverter}" required="true">
                                     <f:selectItem itemValue="" />
                                     <f:selectItems
                                             value="#{etablissementController.statutsJuridiquesListening}" />
                                     <p:ajax event="valueChange" update="msgStatutJuridique" />
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                                 <p:message id="msgStatutJuridique" for="statutJuridique"/>
                             </t:div>
                         </p:outputPanel>
@@ -198,7 +197,7 @@
                 <t:htmlTag value="li">
                     <h:outputText value="#{msgs['STRUCTURE.VOIE']} *" styleClass="fontBold" />
                     <p:inputText id="voie"
-                                 value="#{etablissementController.formStructure.voie}" size="50"
+                                 value="#{etablissementController.formStructure.voie}"
                                  maxlength="200" required="true"
                                  requiredMessage="#{requiredMessageController.champObligatoire}">
                         <p:ajax event="blur" update="msgVoie"/>
@@ -285,14 +284,14 @@
                                rendered="#{sessionController.recupererCommunesDepuisApogee and
                                (etablissementController.formStructureTmpPays==beanUtils.france
                                || etablissementController.formStructureTmpPays.cog==beanUtils.cogFrance)}">
-                            <p:selectOneMenu id="dynaCommune" effect="none"
+                            <h:selectOneMenu id="dynaCommune" effect="none" styleClass="customPstage fix-selectOneMenu"
                                              value="#{etablissementController.formStructureTmpCommuneDTO.codeCommune}"
                                              required="true">
                                 <f:selectItem itemValue="" />
                                 <f:selectItems
                                         value="#{etablissementController.communesListening}" />
                                 <p:ajax event="valueChange" update="msgDynaCommune" />
-                            </p:selectOneMenu>
+                            </h:selectOneMenu>
                             <p:message id="msgDynaCommune" for="dynaCommune"/>
                         </t:div>
                     </p:outputPanel>
@@ -300,21 +299,21 @@
                     <t:htmlTag value="div" style="height:15px;" />
 
                     <h:outputText value="#{msgs['STRUCTURE.PAYS']} * " styleClass="fontBold" />
-                    <h:panelGrid id="opFlagNC" columns="2">
+                    <t:div id="opFlagNC" styleClass="verticalAlignDiv">
                         <h:graphicImage id="flagNC"
                                         rendered="#{not empty etablissementController.formStructureTmpPays and not empty etablissementController.formStructureTmpPays.iso2}"
-                                        value="/media/images/flags/#{etablissementController.formStructureTmpPays.iso2}.png"
-                                        alt="    " />
-                        <p:selectOneMenu id="paysNC" required="true" effect="none"
-                                         requiredMessage="#{requiredMessageController.champObligatoire}"
+                                        value="#{sessionController.mediaPath}/images/flags/#{etablissementController.formStructureTmpPays.iso2}.png"
+                                        alt="    "
+                                        styleClass="mrf5" />
+                        <h:selectOneMenu id="paysNC" required="true" effect="none" styleClass="customPstage fix-selectOneMenu"
                                          value="#{etablissementController.formStructureTmpPays}"
                                          converter="#{paysConverter}">
                             <p:ajax event="valueChange"
                                     update="opFlagNC, opSiretOblig, opCodePostal, opCommune, olSiret, siret, arrows, olActprinc, msgPaysNC" />
                             <f:selectItem itemValue="" />
                             <f:selectItems value="#{nomenclatureController.pays}" />
-                        </p:selectOneMenu>
-                    </h:panelGrid>
+                        </h:selectOneMenu>
+                    </t:div>
                     <p:message id="msgPaysNC" for="paysNC" />
                 </t:htmlTag>
             </t:div>
@@ -356,7 +355,7 @@
                     <h:outputText value="#{msgs['STRUCTURE.TELEPHONE']} *" styleClass="fontBold"/>
                     <p:inputText id="telephone"
                                  value="#{etablissementController.formStructure.telephone}"
-                                 size="20" maxlength="20" required="true">
+                                 maxlength="20" required="true">
                         <p:ajax event="blur" update="msgTel"/>
                     </p:inputText>
                     <p:message id="msgTel" for="telephone"/>
@@ -365,7 +364,7 @@
 
                     <h:outputText value="#{msgs['STRUCTURE.FAX']} " styleClass="fontBold" />
                     <p:inputText id="fax"
-                                 value="#{etablissementController.formStructure.fax}" size="20"
+                                 value="#{etablissementController.formStructure.fax}"
                                  maxlength="20" />
                     <p:message for="fax"/>
                 </t:htmlTag>

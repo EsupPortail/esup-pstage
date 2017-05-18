@@ -359,19 +359,21 @@
                             <t:htmlTag value="li" rendered="#{!conventionController.estEtrangere}">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.PAYS']} : "
                                                for="pays" />
-                                <h:selectOneMenu id="pays" effect="none" styleClass="customPstage fix-selectOneMenu"
-                                                 value="#{conventionController.critereRechercheConvention.pays}"
-                                                 converter="#{paysConverter}"
-                                                 var="p" filter="true" filterMatchMode="startsWith">
-                                    <f:selectItems value="#{nomenclatureController.pays}" var="pays" />
-
-                                    <p:column rendered="#{not empty p}">
-                                        <h:graphicImage
-                                                value="/media/images/flags/#{p.iso2}.png"
-                                                alt="    "
-                                                title="#{p.libelle}" /> #{p.libelle}
-                                    </p:column>
-                                </h:selectOneMenu>
+                                <t:div id="opFlagNC" styleClass="verticalAlignDiv">
+                                    <h:graphicImage id="flagNC"
+                                                    rendered="#{not empty conventionController.critereRechercheConvention.pays
+                                                   and not empty conventionController.critereRechercheConvention.pays.iso2}"
+                                                    value="/media/images/flags/#{conventionController.critereRechercheConvention.pays.iso2}.png"
+                                                    alt="" />
+                                    <h:selectOneMenu id="pays" effect="none" styleClass="customPstage fix-selectOneMenu ml5"
+                                                     value="#{conventionController.critereRechercheConvention.pays}"
+                                                     converter="#{paysConverter}">
+                                        <p:ajax event="valueChange"
+                                                update="opFlagNC" />
+                                        <f:selectItem itemValue="" />
+                                        <f:selectItems value="#{nomenclatureController.pays}" />
+                                    </h:selectOneMenu>
+                                </t:div>
                             </t:htmlTag>
                             <t:htmlTag value="li" rendered="#{!conventionController.estEtrangere}">
                                 <p:outputLabel value="#{msgs['RECHERCHECONVENTION.COMMUNE']}"

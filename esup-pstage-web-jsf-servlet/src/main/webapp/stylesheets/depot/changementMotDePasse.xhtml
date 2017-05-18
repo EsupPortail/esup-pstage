@@ -5,9 +5,6 @@
 	xmlns:p="http://primefaces.org/ui"
 	 template="../_basicTemplate.xhtml">
 	<ui:define name="content">
-		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.xhtml" />
-		</h:panelGrid>
 		<h:panelGrid
 			rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
 			<p:panel>
@@ -24,7 +21,6 @@
 					style="font-weight:bold;color:red;"
 					rendered="#{sessionController.adminPageAuthorized}" />
 			</p:panel>
-			<ui:include src="_panelNousContacter.xhtml" />
 		</h:panelGrid>
 	</ui:define>
 </ui:composition>

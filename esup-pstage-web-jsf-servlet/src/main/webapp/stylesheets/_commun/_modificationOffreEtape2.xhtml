@@ -1,33 +1,32 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:t="http://myfaces.apache.org/tomahawk">
 
+    <ui:include src="/stylesheets/_commun/__offreEtape2.xhtml" />
 
-	<ui:include src="/stylesheets/_commun/__offreEtape2.xhtml" />
+    <t:div styleClass="textCenter"
+           rendered="#{!offreController.avecFichierOuLien}">
+        <p:commandButton value="#{msgs['FORM.CONFIRMERCONTINUER']}"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                         update="formModificationOffre, opFCE">
+            <f:setPropertyActionListener value="_modificationOffreEtape3"
+                                         target="#{sessionController.modificationOffreCurrentPage}" />
+            <f:setPropertyActionListener value="false"
+                                         target="#{offreController.modificationContactOffre}" />
+        </p:commandButton>
+    </t:div>
+    <t:div styleClass="textCenter"
+           rendered="#{offreController.avecFichierOuLien}">
+        <p:commandButton value="#{msgs['FORM.ENREGISTRER']} les modifications"
+                         update="formModificationOffre"
+                         action="#{offreController.modificationOffre}" />
+    </t:div>
 
-	<h:panelGrid columns="3">
-		<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
-			alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-			update="formModificationOffre" immediate="true">
-			<f:setPropertyActionListener value="_modificationOffreEtape1"
-				target="#{sessionController.modificationOffreCurrentPage}" />
-			<f:setPropertyActionListener value="_modificationOffreEtape1"
-				target="#{sessionController.modificationOffre3CurrentPage}" />
-			<f:setPropertyActionListener value="_modificationOffreEtape1"
-				target="#{sessionController.modificationOffre3CCurrentPage}" />
-			<f:setPropertyActionListener value="_modificationOffreEtape1"
-				target="#{sessionController.modificationEtabOffreCurrentPage}" />
-		</p:commandButton>
-		<t:htmlTag value="div" style="width: 20px;" />
-		<h:commandButton value="#{msgs['FORM.NEXT']}"
-			action="#{offreController.goToModificationOffreEtape3}"
-			alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"/>
-	</h:panelGrid>
-	<t:htmlTag value="div" style="height: 10px;" />
+    <t:htmlTag value="div" style="height: 10px;" />
+
     <p:outputPanel id="opFCE">
         <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
             <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
@@ -35,4 +34,10 @@
             <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
         </t:div>
     </p:outputPanel>
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}" styleClass="mb20"
+                     update="formModificationOffre" immediate="true">
+        <f:setPropertyActionListener value="_modificationOffreEtape1"
+                                     target="#{sessionController.modificationOffreCurrentPage}" />
+    </p:commandButton>
 </ui:fragment>

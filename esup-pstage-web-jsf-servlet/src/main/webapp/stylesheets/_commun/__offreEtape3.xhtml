@@ -1,84 +1,338 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
-	<h:panelGrid columns="3"
-		rendered="#{offreController.formOffre.idOffre gt 0}"
-		style="float:right;">
-		<h:outputLabel value="#{msgs['OFFRE']} " for="idOffre" />
-		<h:outputLabel value=" #{msgs['OFFRE.ID']}" for="idOffre" />
-		<h:outputText id="idOffre"
-			value="#{offreController.formOffre.idOffre}" />
-	</h:panelGrid>
-	<h:panelGrid align="center">
+    <t:div rendered="#{offreController.formOffre.idOffre gt 0}"
+           styleClass="floatRight">
+        <h:outputLabel value="#{msgs['OFFRE']} " for="idOffre" styleClass="fontBold" />
+        <h:outputLabel value=" #{msgs['OFFRE.ID']}" for="idOffre" styleClass="fontBold" />
+        <h:outputText id="idOffre" value="#{offreController.formOffre.idOffre}" />
+    </t:div>
 
-		<h:panelGrid rendered="#{offreController.fichierOuLien==1}">
-			<h:panelGrid align="center"
-				rendered="#{offreController.formOffre.idFichier le 0}">
+    <t:htmlTag value="ul" styleClass="formUL textCenter mt10">
+        <t:htmlTag value="li" styleClass="verticalAlignDiv autoWidth">
+            <h:outputText value="#{msgs['OFFRE.CACHERETAB']}" escape="false" styleClass="fontBold"/>
+            <p:selectOneRadio value="#{offreController.formOffre.cacherEtablissement}"
+                              required="true">
+                <f:selectItem itemValue="#{false}" itemLabel="#{msgs['FORM.OUI']}" />
+                <f:selectItem itemValue="#{true}" itemLabel="#{msgs['FORM.NON']}" />
+                <p:ajax event="valueChange" update="warningModeCourrier" />
+            </p:selectOneRadio>
+        </t:htmlTag>
+        <p:outputPanel id="warningModeCourrier">
+            <t:div rendered="#{offreController.formOffreContainModeCourrier and offreController.formOffre.cacherEtablissement}">
+                <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed fz13" />
+                <h:outputText value="#{msgs['OFFRE.ERREUR.MODECOURRIER']}"
+                              escape="false"
+                              style="color:red;font-size:12px; word-wrap:break-word;" />
+            </t:div>
+        </p:outputPanel>
+    </t:htmlTag>
+    <t:htmlTag value="ul" styleClass="formUL mt10">
+        <t:htmlTag value="li" styleClass="autoWidth">
+            <p:fieldset legend="#{msgs['OFFRE.SELECTIONCONTACTCAND']}">
+                <t:div styleClass="textCenter mt10 mb20">
+                    <p:commandButton update="selectContactCand"
+                                     oncomplete="PF('selectContactCand').show();"
+                                     value="#{msgs['OFFRE.SELECTIONNERCONTACT']}">
+                        <f:setPropertyActionListener value="0"
+                                                     target="#{etablissementController.idContactSel}" />
+                        <f:setPropertyActionListener value="#{null}"
+                                                     target="#{etablissementController.contactSel}" />
+                        <f:setPropertyActionListener value="0"
+                                                     target="#{etablissementController.idServiceSel}" />
+                        <f:setPropertyActionListener value="#{null}"
+                                                     target="#{etablissementController.serviceSel}" />
+                        <f:setPropertyActionListener value="#{!etablissementController.currentCentresGestionContainsCentreEntr}"
+                                                     target="#{etablissementController.afficherSelectionCentreContact}" />
+                    </p:commandButton>
+                </t:div>
 
-				<h:outputFormat value="#{msgs['GENERAL.FILESIZERESTRICTED']}">
-					<f:param value="#{sessionController.uploadFilesFileSizeLimit}" />
-				</h:outputFormat>
-				<h:outputFormat value="#{msgs['OFFRE.EXTENSIONFICHIER']}">
-					<f:param
-						value="#{sessionController.uploadFilesOffresFileExtensions}" />
-				</h:outputFormat>
+                <p:outputPanel id="opContact">
+                    <p:separator rendered="#{not empty offreController.formOffre.contactCand}" />
 
-				<p:fileUpload id="uploadFile"
-					fileUploadListener="#{sessionController.offreFileUploadBean.fileUploadListener}"
-					acceptedTypes="#{sessionController.uploadFilesOffresFileExtensions}"
-					immediateUpload="true" addLabel="#{msgs['OFFRE.SELECTIONFICHIER']}"
-					ontyperejected="alert('Type de fichier incorrect');"
-					maxFilesQuantity="1" required="true" listHeight="20"
-					requiredMessage="#{requiredMessageController.champObligatoire}" />
+                    <p:panelGrid styleClass="noBorder" rendered="#{not empty offreController.formOffre.contactCand}">
+                        <p:row>
+                            <p:column>
+                                <h:outputText value=" #{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+                                              escape="false" styleClass="fontBold"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{msgs['OFFRE.CACHERAUXETU']}"
+                                              escape="false" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <t:div style="word-break: break-all;" >
+                                    <t:htmlTag value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer"/>
+                                    <h:outputText id="civC" styleClass="mlf5"
+                                                  value="#{offreController.formOffre.contactCand.civilite.libelle}." />
+                                    <h:outputText id="nomC"
+                                                  value="#{offreController.formOffre.contactCand.nom} " />
+                                    <h:outputText id="prenomC" styleClass="ml5"
+                                                  value="#{offreController.formOffre.contactCand.prenom}" />
+                                </t:div>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneRadio id="cnomC" value="#{offreController.formOffre.cacherNomContactCand}">
+                                    <f:selectItem itemValue="#{true}"
+                                                  itemLabel="#{msgs['FORM.OUI']}" />
+                                    <f:selectItem itemValue="#{false}"
+                                                  itemLabel="#{msgs['FORM.NON']}" />
+                                    <p:ajax event="valueChange" />
+                                </p:selectOneRadio>
+                            </p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty offreController.formOffre.contactCand.tel}">
+                            <p:column>
+                                <t:htmlTag value="i" styleClass="fa fa-phone fz13 fontBlue2 noPointer"/>
+                                <h:outputText id="telC" value=" #{offreController.formOffre.contactCand.tel}" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneRadio id="ctelC"
+                                                  value="#{offreController.formOffre.cacherTelContactCand}">
+                                    <f:selectItem itemValue="#{true}"
+                                                  itemLabel="#{msgs['FORM.OUI']}" />
+                                    <f:selectItem itemValue="#{false}"
+                                                  itemLabel="#{msgs['FORM.NON']}" />
+                                    <p:ajax event="valueChange" update="warningModeTelephone" />
+                                </p:selectOneRadio>
+                                <p:outputPanel id="warningModeTelephone">
+                                    <t:div rendered="#{offreController.formOffreContainModeTelephone
+										and offreController.formOffre.cacherTelContactCand}">
+                                        <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed fz13" />
+                                        <h:outputText value="#{msgs['OFFRE.ERREUR.MODETELEPHONE']}"
+                                                      escape="false"
+                                                      style="color:red; word-wrap:break-word;" />
+                                    </t:div>
+                                </p:outputPanel>
+                            </p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty offreController.formOffre.contactCand.fax}">
+                            <p:column>
+                                <t:htmlTag value="i" styleClass="fa fa-print fz13" />
+                                <h:outputText id="faxC" value=" #{offreController.formOffre.contactCand.fax}" />
+                            </p:column>
+                            <p:column>
+                                <t:div>
+                                    <p:selectOneRadio id="cfaxC"
+                                                      value="#{offreController.formOffre.cacherFaxContactCand}">
+                                        <f:selectItem itemValue="#{true}"
+                                                      itemLabel="#{msgs['FORM.OUI']}" />
+                                        <f:selectItem itemValue="#{false}"
+                                                      itemLabel="#{msgs['FORM.NON']}" />
+                                        <p:ajax event="valueChange" />
+                                    </p:selectOneRadio>
+                                </t:div>
+                            </p:column>
+                        </p:row>
+                        <p:row rendered="#{not empty offreController.formOffre.cacherMailContactCand}"
+                               style="word-break: break-all;">
+                            <p:column>
+                                <t:htmlTag value="i" styleClass="fa fa-envelope-o fz13" />
+                                <h:outputText id="mailC" value=" #{offreController.formOffre.contactCand.mail}"  />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneRadio id="cmailC"
+                                                  value="#{offreController.formOffre.cacherMailContactCand}">
+                                    <f:selectItem itemValue="#{true}"
+                                                  itemLabel="#{msgs['FORM.OUI']}" />
+                                    <f:selectItem itemValue="#{false}"
+                                                  itemLabel="#{msgs['FORM.NON']}" />
+                                    <p:ajax event="valueChange" update="warningModeMail"/>
+                                </p:selectOneRadio>
+                                <p:outputPanel id="warningModeMail">
+                                    <t:div rendered="#{offreController.formOffreContainModeMail
+										and offreController.formOffre.cacherMailContactCand}">
+                                        <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed fz13" />
+                                        <h:outputText value="#{msgs['OFFRE.ERREUR.MODEMAIL']}"
+                                                      escape="false"
+                                                      style="color:red; font-size:12px; word-wrap:break-word;" />
+                                    </t:div>
+                                </p:outputPanel>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
 
-				<t:htmlTag value="div" style="height:10px;" />
+                    <p:commandButton id="modifC" value=" #{msgs['OFFRE.SELECTIONCONTACT.MODIFIER']}"
+                                     icon="fa fa-edit fz13 fontBlue2" oncomplete="PF('modifContact').show();"
+                                     update="modifContact" rendered="#{not empty offreController.formOffre.contactCand}"
+                                     styleClass="mt5 mb10 ml20 fz09"
+                                     style="opacity: #{(sessionController.adminPageAuthorized
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactCand.id)) ? 1 : .50};"
+                                     disabled="#{!(sessionController.adminPageAuthorized
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactCand.id))}">
+                        <f:setPropertyActionListener value="#{offreController.formOffre.contactCand}"
+                                                     target="#{etablissementController.formContact}" />
+                        <f:setPropertyActionListener value="#{etablissementController.currentCentresGestionContainsCentreContact}"
+                                                     target="#{etablissementController.afficherSelectionCentreContact}" />
+                        <f:setPropertyActionListener value="_modifContactEtape0"
+                                                     target="#{sessionController.modifContactCurrentPage}" />
+                        <p:tooltip for="modifC" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
+                                   rendered="#{!(sessionController.adminPageAuthorized
+									or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+									or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+									or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactCand.id))}" />
+                    </p:commandButton>
+                </p:outputPanel>
+            </p:fieldset>
+        </t:htmlTag>
 
-				<t:htmlTag value="center">
-					<h:commandButton action="#{offreController.insertUploadedFile}"
-						style="border-color:red;"
-						value="Lier le fichier séléctionné à l'offre" />
-				</t:htmlTag>
-			</h:panelGrid>
+        <t:htmlTag value="li" styleClass="autoWidth">
+            <p:fieldset legend="#{msgs['OFFRE.SELECTIONCONTACTINFO']}">
+                <t:div styleClass="textCenter mt10 mb20">
+                    <p:commandButton update="selectContactInfo"
+                                     oncomplete="PF('selectContactInfo').show();"
+                                     value="#{msgs['OFFRE.SELECTIONNERCONTACT']}">
+                        <f:setPropertyActionListener value="0"
+                                                     target="#{etablissementController.idContactSel}" />
+                        <f:setPropertyActionListener value="#{null}"
+                                                     target="#{etablissementController.contactSel}" />
+                        <f:setPropertyActionListener value="0"
+                                                     target="#{etablissementController.idServiceSel}" />
+                        <f:setPropertyActionListener value="#{null}"
+                                                     target="#{etablissementController.serviceSel}" />
+                        <f:setPropertyActionListener value="#{!etablissementController.currentCentresGestionContainsCentreEntr}"
+                                                     target="#{etablissementController.afficherSelectionCentreContact}" />
+                    </p:commandButton>
+                </t:div>
 
-			<h:panelGrid rendered="#{offreController.formOffre.idFichier gt 0}">
-				<h:outputText value="#{msgs['OFFRE.FICHIERUPLOADE']}" />
-				<h:panelGrid columns="2">
-					<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
-						title="#{msgs['GENERAL.FILE']}"
-						value="../../media/images/docu.png" />
-					<h:outputText value="#{offreController.formOffre.fichier.nomReel}"
-						rendered="#{not empty offreController.formOffre.fichier.nomReel}" />
-					<h:outputText
-						value="#{offreController.formOffre.fichier.nomFichier}"
-						rendered="#{empty offreController.formOffre.fichier.nomReel}" />
-				</h:panelGrid>
-				<h:commandButton action="#{offreController.deleteUploadedFile}"
-					value="#{msgs['OFFRE.MODIFFICHIER']}" />
-			</h:panelGrid>
-		</h:panelGrid>
+                <p:outputPanel id="opContactINFO">
+                    <t:div rendered="#{not empty offreController.formOffre.contactInfo}">
+                        <p:separator/>
 
-		<h:panelGrid columns="2"
-			rendered="#{offreController.fichierOuLien==2}">
-			<h:graphicImage value="../../media/images/lien.png" />
-			<h:panelGrid>
-				<h:outputText value="#{msgs['OFFRE.SAISIELIEN']} *" />
-				<h:inputText id="lien"
-					value="#{offreController.formOffre.lienAttache}" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}"
-					validatorMessage="#{requiredMessageController.siteWebNonValide}"
-					size="50" maxlength="200">
-					<f:validator binding="#{siteWebValidator}" />
-					<p:ajax event="blur" />
-				</h:inputText>
-				<p:message for="lien">
-					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-			</h:panelGrid>
-		</h:panelGrid>
-	</h:panelGrid>
+                        <p:panelGrid styleClass="noBorder">
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value=" #{msgs['CONTACT.GESTION.CONTACTSELECT']}"
+                                                  escape="false" styleClass="fontBold"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{msgs['OFFRE.CACHERAUXETU']}"
+                                                  escape="false" />
+                                </p:column>
+                            </p:row>
+
+
+                            <p:row>
+                                <p:column>
+                                    <t:div>
+                                        <t:htmlTag value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer"/>
+                                        <h:outputText id="civCINFO" styleClass="mlf5"
+                                                      value="#{offreController.formOffre.contactInfo.civilite.libelle}." />
+                                        <h:outputText id="nomCINFO"
+                                                      value="#{offreController.formOffre.contactInfo.nom} " />
+                                        <h:outputText id="prenomCINFO" styleClass="ml5"
+                                                      value="#{offreController.formOffre.contactInfo.prenom}" />
+                                    </t:div>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio id="cnomCINFO" value="#{offreController.formOffre.cacherNomContactInfo}">
+                                        <f:selectItem itemValue="#{true}"
+                                                      itemLabel="#{msgs['FORM.OUI']}" />
+                                        <f:selectItem itemValue="#{false}"
+                                                      itemLabel="#{msgs['FORM.NON']}" />
+                                        <p:ajax event="valueChange" />
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+
+                            <p:row rendered="#{not empty offreController.formOffre.contactInfo.tel}">
+                                <p:column>
+                                    <t:htmlTag value="i" styleClass="fa fa-phone fz13 fontBlue2 noPointer"/>
+                                    <h:outputText id="telCINFO" value=" #{offreController.formOffre.contactInfo.tel}" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio id="ctelCINFO"
+                                                      value="#{offreController.formOffre.cacherTelContactInfo}">
+                                        <f:selectItem itemValue="#{true}"
+                                                      itemLabel="#{msgs['FORM.OUI']}" />
+                                        <f:selectItem itemValue="#{false}"
+                                                      itemLabel="#{msgs['FORM.NON']}" />
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{not empty offreController.formOffre.contactInfo.fax}">
+                                <p:column>
+                                    <t:htmlTag value="i" styleClass="fa fa-print fz13" />
+                                    <h:outputText id="faxCINFO" value=" #{offreController.formOffre.contactInfo.fax}" />
+                                </p:column>
+                                <p:column>
+                                    <t:div>
+                                        <p:selectOneRadio id="cfaxCINFO"
+                                                          value="#{offreController.formOffre.cacherFaxContactInfo}">
+                                            <f:selectItem itemValue="#{true}"
+                                                          itemLabel="#{msgs['FORM.OUI']}" />
+                                            <f:selectItem itemValue="#{false}"
+                                                          itemLabel="#{msgs['FORM.NON']}" />
+                                        </p:selectOneRadio>
+                                    </t:div>
+                                </p:column>
+                            </p:row>
+
+                            <p:row rendered="#{not empty offreController.formOffre.cacherMailContactInfo}">
+                                <p:column>
+                                    <t:htmlTag value="i" styleClass="fa fa-envelope-o fz13" />
+                                    <h:outputText id="mailCINFO" value=" #{offreController.formOffre.contactInfo.mail}" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio id="cmailCINFO"
+                                                      value="#{offreController.formOffre.cacherMailContactInfo}">
+                                        <f:selectItem itemValue="#{true}"
+                                                      itemLabel="#{msgs['FORM.OUI']}" />
+                                        <f:selectItem itemValue="#{false}"
+                                                      itemLabel="#{msgs['FORM.NON']}" />
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                        <p:commandButton id="modifCInfo" value="#{msgs['OFFRE.SELECTIONCONTACT.MODIFIER']}"
+                                         icon="fa fa-edit fz13 fontBlue2" oncomplete="PF('modifContact').show();"
+                                         update="modifContact"
+                                         styleClass="mt5 mb10 ml20 fz09"
+                                         style="opacity: #{(sessionController.adminPageAuthorized
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactCand.login and empty offreController.formOffre.contactCand.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactCand.id)) ? 1 : .50};"
+                                         disabled="#{!(sessionController.adminPageAuthorized
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactInfo.id))}">
+                            <f:setPropertyActionListener value="#{offreController.formOffre.contactInfo}"
+                                                         target="#{etablissementController.formContact}" />
+                            <f:setPropertyActionListener value="#{etablissementController.currentCentresGestionContainsCentreContact}"
+                                                         target="#{etablissementController.afficherSelectionCentreContact}" />
+                            <f:setPropertyActionListener value="_modifContactEtape0"
+                                                         target="#{sessionController.modifContactCurrentPage}" />
+
+                            <p:tooltip for="modifC" value="#{msgs['CONTACT.GESTION.MODIF.CONTACTENTR']}"
+                                       rendered="#{!(sessionController.adminPageAuthorized
+								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer) and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and empty offreController.formOffre.contactInfo.login and empty offreController.formOffre.contactInfo.mdp)
+								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==offreController.formOffre.contactInfo.id))}" />
+                        </p:commandButton>
+
+                        <p:commandButton value=" Annuler cette selection" update="opContactINFO"
+                                         icon="fa fa-times fz13" styleClass="ml10 fz09">
+                            <f:setPropertyActionListener value="#{null}"
+                                                         target="#{offreController.formOffre.contactInfo}" />
+                            <f:setPropertyActionListener
+                                    value="#{!etablissementController.currentCentresGestionContainsCentreEntr}"
+                                    target="#{etablissementController.afficherSelectionCentreContact}" />
+                        </p:commandButton>
+                    </t:div>
+                </p:outputPanel>
+            </p:fieldset>
+        </t:htmlTag>
+    </t:htmlTag>
+    <p:messages />
 </ui:composition>

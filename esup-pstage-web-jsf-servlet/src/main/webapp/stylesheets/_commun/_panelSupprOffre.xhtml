@@ -5,13 +5,12 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dialog id="supprOffre" widgetVar="supprOffre">
+	<p:dialog id="supprOffre" widgetVar="supprOffre" modal="true" resizable="false">
 		<f:facet name="header">
 			<h:outputText value="#{msgs['OFFRE.SUPPR']}" />
 		</f:facet>
 		<h:form id="formSupprOffre">
-			<ui:include id="include"
-				src="/stylesheets/_commun/#{sessionController.suppressionOffreCurrentPage}.xhtml" />
+			<ui:include src="/stylesheets/_commun/#{sessionController.suppressionOffreCurrentPage}.xhtml" />
 		</h:form>
 	</p:dialog>
 </ui:composition>

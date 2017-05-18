@@ -25,16 +25,24 @@
                         <f:param
                                 value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
                     </h:outputFormat>
+                    <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
+                                  value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
 
                     <p:dataTable id="rechercheConventionDataTable"
                                  value="#{conventionController.rechercheConventionPaginator.liste}"
-                                 var="convention" rows="10" rowHover="true" styleClass="mt5"
-                                 rowStyleClass="noPointer" paginator="true" tableStyle="table-layout:auto"
+                                 var="convention" rows="10" rowHover="true" styleClass="mt5"  paginator="true" tableStyle="table-layout:auto"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15,20" reflow="true" paginatorAlwaysVisible="false"
-                                 rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.reader || welcomeController.etudiant || welcomeController.enseignantTuteur}">
+                                 rowKey="#{convention.idConvention}" paginatorPosition="bottom"
+                                 selectionMode="single" selection="#{conventionController.currentConvention}"
+                                 rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer
+                                 || welcomeController.reader || welcomeController.etudiant || welcomeController.enseignantTuteur}">
 
-                        <p:column filterBy="#{convention.idConvention}" sortBy="#{convention.idConvention}">
+                        <p:ajax event="rowSelect" listener="#{conventionController.onConventionSelect}" update="@form"
+                                onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+
+                        <p:column filterBy="#{convention.idConvention}" sortBy="#{convention.idConvention}"
+                                  styleClass="textCenter">
                             <f:facet name="header">
                                 <h:outputText
                                         value="#{msgs['RECHERCHECONVENTION.ID']}" />
@@ -94,7 +102,8 @@
                                 <f:converter binding="#{limitCharactersShownUpTo50Converter}" />
                             </h:outputText>
                         </p:column>
-                        <p:column sortBy="#{convention.validationConvention}">
+                        <p:column sortBy="#{convention.validationConvention}"
+                                  styleClass="textCenter">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.VALIDATION']}" />
                             </f:facet>
@@ -104,7 +113,8 @@
                                           rendered="#{convention.validationConvention == true}" />
                         </p:column>
 
-                        <p:column sortBy="#{convention.nbAvenant}" sortFunction="#{conventionController.sortyByNbAvenant}">
+                        <p:column sortBy="#{convention.nbAvenant}" sortFunction="#{conventionController.sortyByNbAvenant}"
+                                  styleClass="textCenter">
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['RECHERCHECONVENTION.AVENANT']}" />
                             </f:facet>
@@ -126,22 +136,16 @@
                             <f:facet name="header">
                                 <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
                             </f:facet>
-                            <p:commandLink id="recap"
-                                           action="#{conventionController.goToRecapConvention}">
-                                <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
-                                <f:setPropertyActionListener value="#{convention}"
-                                                             target="#{conventionController.currentConvention}" />
-                                <p:tooltip for="recap" value="#{msgs['FORM.CONSULTER']}" />
-                            </p:commandLink>
-
-                            <p:commandLink id="validConvention"
-                                           rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique and !convention.validationPedagogique}"
-                                           action="#{conventionController.goToValidConvention}" styleClass="ml5">
-                                <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
-                                <f:setPropertyActionListener value="#{convention}"
-                                                             target="#{conventionController.currentConvention}" />
-                                <p:tooltip for="validConvention" value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}" />
-                            </p:commandLink>
+                            <t:div styleClass="textCenter">
+                                <p:commandLink id="validConvention"
+                                               rendered="#{welcomeController.enseignantTuteur and sessionController.validationPedagogique and !convention.validationPedagogique}"
+                                               action="#{conventionController.goToValidConvention}" styleClass="ml5">
+                                    <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
+                                    <f:setPropertyActionListener value="#{convention}"
+                                                                 target="#{conventionController.currentConvention}" />
+                                    <p:tooltip for="validConvention" value="#{msgs['RECHERCHECONVENTION.INFOS.TUTEUR.VALIDATION']}" />
+                                </p:commandLink>
+                            </t:div>
                         </p:column>
                     </p:dataTable>
                     <t:div styleClass="mt20">

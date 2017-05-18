@@ -1,6 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
     <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.ETABNONCACHE']}"
@@ -10,7 +12,7 @@
                   escape="false" styleClass="fontOrange"
                   rendered="#{offreController.currentOffre.cacherEtablissement}" />
 
-    <t:div styleClass="mt10"
+    <t:div styleClass="mt5"
            rendered="#{offreController.currentOffreContainModeCourrier and offreController.currentOffre.cacherEtablissement}">
         <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontRed" />
         <h:outputText value="#{msgs['OFFRE.ERREUR.MODECOURRIER']}"
@@ -25,198 +27,151 @@
         <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CANDIDATURE']}"
                       styleClass="fontBold" />
 
-        <t:panelGrid columns="3">
-            <h:panelGrid columns="3">
-                <h:outputText
-                        value="#{offreController.currentOffre.contactCand.civilite.libelle} "
-                        rendered="#{not empty offreController.currentOffre.contactCand.civilite}" />
-                <h:outputText
-                        value="#{offreController.currentOffre.contactCand.nom} " />
-                <h:outputText
-                        value="#{offreController.currentOffre.contactCand.prenom}" />
-            </h:panelGrid>
-            <t:htmlTag value="div" style="width: 50px;" />
-            <h:panelGrid
-                    style="font-size:12px;">
-                <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
-                              escape="false"
-                              rendered="#{offreController.currentOffre.cacherNomContactCand}" />
-            </h:panelGrid>
+        <p:panelGrid styleClass="noBorder">
+            <p:row>
+                <p:column>
+                    <t:div>
+                        <h:outputText value="#{offreController.currentOffre.contactCand.civilite.libelle} "
+                                      rendered="#{not empty offreController.currentOffre.contactCand.civilite}" />
+                        <h:outputText value="#{offreController.currentOffre.contactCand.nom} " styleClass="mlf5" />
+                        <h:outputText value="#{offreController.currentOffre.contactCand.prenom}" styleClass="mlf5" />
+                    </t:div>
+                    <t:div styleClass="fontItalic"
+                           rendered="#{not empty offreController.currentOffre.contactCand.fonction}">
+                        <h:outputText value="#{msgs['CONTACT.FONCTION']} : "/>
+                        <h:outputText value="#{offreController.currentOffre.contactCand.fonction}"/>
+                    </t:div>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+                                  escape="false"
+                                  rendered="#{offreController.currentOffre.cacherNomContactCand}" />
+                </p:column>
+            </p:row>
 
-            <t:panelGroup colspan="3" style="font-size:12px;">
-                <h:panelGrid
-                        columns="2" style="font-size:12px;"
-                        rendered="#{not empty offreController.currentOffre.contactCand.fonction}">
-                    <h:outputText value="#{msgs['CONTACT.FONCTION']} : " />
-                    <h:outputText
-                            value="#{offreController.currentOffre.contactCand.fonction}" />
-                </h:panelGrid>
-            </t:panelGroup>
+            <p:row rendered="#{not empty offreController.currentOffre.contactCand.tel}"
+                   style="word-wrap: break-word;">
+                <p:column>
+                    <t:htmlTag value="i" styleClass="fa fa-phone fz13 fontBlue2 noPointer"/>
+                    <h:outputText value=" #{offreController.currentOffre.contactCand.tel}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+                                  escape="false"
+                                  rendered="#{offreController.currentOffre.cacherTelContactCand}" />
 
-            <t:panelGrid
-                    columns="2" style="font-size:12px;">
-                <h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-                                title="#{msgs['CONTACT.TELEPHONE']}"
-                                value="../../media/images/phone.png" />
-                <h:outputText
-                        value=" #{offreController.currentOffre.contactCand.tel}" />
-            </t:panelGrid>
-            <t:htmlTag value="div" style="width: 50px;" />
-            <h:panelGrid
-                    style="font-size:12px;">
-                <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
-                              escape="false"
-                              rendered="#{offreController.currentOffre.cacherTelContactCand}" />
-            </h:panelGrid>
-
-            <t:panelGroup colspan="3">
-                <h:panelGrid
-                        columns="2"
-                        rendered="#{offreController.currentOffreContainModeTelephone
+                    <t:div rendered="#{offreController.currentOffreContainModeTelephone
 										and offreController.currentOffre.cacherTelContactCand}">
-                    <h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-                                    title="#{msgs['GENERAL.WARNING']}"
-                                    value="../../media/images/warning_20px.png" />
-                    <h:outputText value="#{msgs['OFFRE.ERREUR.MODETELEPHONE']}"
+                        <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed fz13" />
+                        <h:outputText value="#{msgs['OFFRE.ERREUR.MODETELEPHONE']}"
+                                      escape="false" styleClass="fontRed ml5" />
+                    </t:div>
+                </p:column>
+            </p:row>
+
+            <p:row rendered="#{not empty offreController.currentOffre.contactCand.fax}">
+                <p:column>
+                    <t:htmlTag value="i" styleClass="fa fa-print fz13" />
+                    <h:outputText value=" #{offreController.currentOffre.contactCand.fax}" />
+                </p:column>
+                <p:column>
+                    <t:div>
+                        <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+                                      escape="false"
+                                      rendered="#{offreController.currentOffre.cacherFaxContactCand}" />
+                    </t:div>
+                </p:column>
+            </p:row>
+
+            <p:row rendered="#{not empty offreController.currentOffre.contactCand.mail}"
+                   style="word-break: break-all;">
+                <p:column>
+                    <t:htmlTag value="i" styleClass="fa fa-envelope-o fz13" />
+                    <h:outputText
+                            value=" #{offreController.currentOffre.contactCand.mail}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
                                   escape="false"
-                                  style="color:red;font-size:12px;
-										word-wrap:break-word;" />
-                </h:panelGrid>
-            </t:panelGroup>
+                                  rendered="#{offreController.currentOffre.cacherMailContactCand}" />
 
-            <h:panelGrid
-                    columns="2" style="font-size:12px;"
-                    rendered="#{not empty offreController.currentOffre.contactCand.fax}">
-                <h:graphicImage alt="#{msgs['CONTACT.FAX']}"
-                                title="#{msgs['CONTACT.FAX']}"
-                                value="../../media/images/printer.png" />
-                <h:outputText
-                        value=" #{offreController.currentOffre.contactCand.fax}" />
-            </h:panelGrid>
-            <t:htmlTag value="div" style="width: 50px;"
-                       rendered="#{not empty offreController.currentOffre.contactCand.fax}" />
-            <h:panelGrid
-                    style="font-size:12px;"
-                    rendered="#{not empty offreController.currentOffre.contactCand.fax}">
-                <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
-                              escape="false"
-                              rendered="#{offreController.currentOffre.cacherFaxContactCand}" />
-            </h:panelGrid>
-
-            <h:panelGrid columns="2" style="font-size:12px;">
-                <h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-                                title="#{msgs['CONTACT.MAIL']}"
-                                value="../../media/images/email.png" />
-                <h:outputText
-                        value=" #{offreController.currentOffre.contactCand.mail}" />
-            </h:panelGrid>
-            <t:htmlTag value="div" style="width: 50px;" />
-            <h:panelGrid
-                    style="font-size:12px;">
-                <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
-                              escape="false"
-                              rendered="#{offreController.currentOffre.cacherMailContactCand}" />
-            </h:panelGrid>
-
-            <t:panelGroup colspan="3">
-                <h:panelGrid
-                        columns="2"
-                        rendered="#{offreController.currentOffreContainModeMail
+                    <t:div rendered="#{offreController.currentOffreContainModeMail
 										and offreController.currentOffre.cacherMailContactCand}">
-                    <h:graphicImage alt="#{msgs['GENERAL.WARNING']}"
-                                    title="#{msgs['GENERAL.WARNING']}"
-                                    value="../../media/images/warning_20px.png" />
-                    <h:outputText value="#{msgs['OFFRE.ERREUR.MODEMAIL']}"
-                                  escape="false"
-                                  style="color:red;font-size:12px; word-wrap:break-word;" />
-                </h:panelGrid>
-            </t:panelGroup>
-        </t:panelGrid>
+                        <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fontRed fz13" />
+                        <h:outputText value="#{msgs['OFFRE.ERREUR.MODEMAIL']}"
+                                      escape="false" styleClass="fontRed ml5" />
+                    </t:div>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
 
         <t:htmlTag value="div" style="height: 20px;" />
 
-        <t:htmlTag value="em">
-            <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.INFORMATION']}" />
-        </t:htmlTag>
+        <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.INFORMATION']}" styleClass="fontItalic"
+                      rendered="#{not empty offreController.currentOffre.contactInfo}"/>
 
-        <h:panelGrid columns="3" style="font-size:12px;">
-            <h:panelGrid columns="3" style="font-sizh:12px;">
-                <h:outputText
-                        value="#{offreController.currentOffre.contactInfo.civilite.libelle} "
-                        rendered="#{not empty offreController.currentOffre.contactInfo.civilite}" />
-                <h:outputText
-                        value="#{offreController.currentOffre.contactInfo.nom} " />
-                <h:outputText
-                        value="#{offreController.currentOffre.contactInfo.prenom}" />
-            </h:panelGrid>
-            <t:htmlTag value="div" style="width: 50px;" />
-            <h:panelGrid
-                    style="font-size:12px;">
-                <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
-                              escape="false"
-                              rendered="#{offreController.currentOffre.cacherNomContactInfo}" />
-            </h:panelGrid>
+        <p:panelGrid styleClass="noBorder"
+                     rendered="#{not empty offreController.currentOffre.contactInfo}">
+            <p:row>
+                <p:column>
+                    <t:div>
+                        <h:outputText value="#{offreController.currentOffre.contactInfo.civilite.libelle} "
+                                      rendered="#{not empty offreController.currentOffre.contactInfo.civilite}" />
+                        <h:outputText value="#{offreController.currentOffre.contactInfo.nom} " styleClass="mlf5" />
+                        <h:outputText value="#{offreController.currentOffre.contactInfo.prenom}" styleClass="mlf5" />
+                    </t:div>
+                    <t:div styleClass="fontItalic"
+                           rendered="#{not empty offreController.currentOffre.contactInfo.fonction}">
+                        <h:outputText value="#{msgs['CONTACT.FONCTION']} : "/>
+                        <h:outputText value="#{offreController.currentOffre.contactInfo.fonction}"/>
+                    </t:div>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+                                  escape="false"
+                                  rendered="#{offreController.currentOffre.cacherNomContactInfo}" />
+                </p:column>
+            </p:row>
 
-            <t:panelGroup colspan="3">
-                <h:panelGrid
-                        columns="2" style="font-size:12px;"
-                        rendered="#{not empty offreController.currentOffre.contactInfo.fonction}">
-                    <h:outputText value="#{msgs['CONTACT.FONCTION']} : " />
-                    <h:outputText
-                            value="#{offreController.currentOffre.contactInfo.fonction}" />
-                </h:panelGrid>
-            </t:panelGroup>
+            <p:row rendered="#{not empty offreController.currentOffre.contactInfo.tel}"
+                   style="word-wrap: break-word;">
+                <p:column>
+                    <t:htmlTag value="i" styleClass="fa fa-phone fz13 fontBlue2 noPointer"/>
+                    <h:outputText value=" #{offreController.currentOffre.contactInfo.tel}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+                                  escape="false"
+                                  rendered="#{offreController.currentOffre.cacherTelContactInfo}" />
+                </p:column>
+            </p:row>
 
-            <h:panelGrid
-                    columns="2" style="font-size:12px;">
-                <h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-                                title="#{msgs['CONTACT.TELEPHONE']}"
-                                value="../../media/images/phone.png" />
-                <h:outputText
-                        value=" #{offreController.currentOffre.contactInfo.tel}" />
-            </h:panelGrid>
-            <t:htmlTag value="div" style="width: 50px;" />
-            <h:panelGrid
-                    style="font-size:12px;">
-                <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
-                              escape="false"
-                              rendered="#{offreController.currentOffre.cacherTelContactInfo}" />
-            </h:panelGrid>
+            <p:row rendered="#{not empty offreController.currentOffre.contactInfo.fax}">
+                <p:column>
+                    <t:htmlTag value="i" styleClass="fa fa-print fz13" />
+                    <h:outputText value=" #{offreController.currentOffre.contactInfo.fax}" />
+                </p:column>
+                <p:column>
+                    <t:div>
+                        <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+                                      escape="false"
+                                      rendered="#{offreController.currentOffre.cacherFaxContactInfo}" />
+                    </t:div>
+                </p:column>
+            </p:row>
 
-            <h:panelGrid
-                    columns="2" style="font-size:12px;"
-                    rendered="#{not empty offreController.currentOffre.contactInfo.fax}">
-                <h:graphicImage alt="#{msgs['CONTACT.FAX']}"
-                                title="#{msgs['CONTACT.FAX']}"
-                                value="../../media/images/printer.png" />
-                <h:outputText
-                        value=" #{offreController.currentOffre.contactInfo.fax}" />
-            </h:panelGrid>
-            <t:htmlTag value="div" style="width: 50px;"
-                       rendered="#{not empty offreController.currentOffre.contactInfo.fax}" />
-            <h:panelGrid
-                    style="font-size:12px;"
-                    rendered="#{not empty offreController.currentOffre.contactInfo.fax}">
-                <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
-                              escape="false"
-                              rendered="#{offreController.currentOffre.cacherFaxContactInfo}" />
-            </h:panelGrid>
-
-            <h:panelGrid
-                    columns="2" style="font-size:12px;">
-                <h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-                                title="#{msgs['CONTACT.MAIL']}"
-                                value="../../media/images/email.png" />
-                <h:outputText
-                        value=" #{offreController.currentOffre.contactInfo.mail}" />
-            </h:panelGrid>
-            <t:htmlTag value="div" style="width: 50px;" />
-            <h:panelGrid
-                    style="font-size:12px;">
-                <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
-                              escape="false"
-                              rendered="#{offreController.currentOffre.cacherMailContactInfo}" />
-            </h:panelGrid>
-        </h:panelGrid>
+            <p:row rendered="#{not empty offreController.currentOffre.contactInfo.mail}"
+                   style="word-break: break-all;">
+                <p:column>
+                    <t:htmlTag value="i" styleClass="fa fa-envelope-o fz13" />
+                    <h:outputText value=" #{offreController.currentOffre.contactInfo.mail}" />
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{msgs['OFFRE.GESTION.CONTACTS.CACHEAUXETU']}"
+                                  escape="false"
+                                  rendered="#{offreController.currentOffre.cacherMailContactInfo}" />
+                </p:column>
+            </p:row>
+        </p:panelGrid>
     </t:div>
 </ui:composition>

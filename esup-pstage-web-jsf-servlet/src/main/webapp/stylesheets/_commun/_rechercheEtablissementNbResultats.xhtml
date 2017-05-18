@@ -8,6 +8,8 @@
         <h:outputFormat value="#{msgs['RECHERCHEETABLISSEMENT.NBRESULTATS']}" escape="false" styleClass="ml5">
             <f:param value="#{rechercheController.resultatRechercheSize}" />
         </h:outputFormat>
+        <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
+                      value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
     </t:div>
 
     <t:div rendered="#{rechercheController.resultatRechercheSize ge 200}">

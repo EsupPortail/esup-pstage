@@ -1,21 +1,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:t="http://myfaces.apache.org/tomahawk"
                 xmlns:p="http://primefaces.org/ui">
 
     <p:messages />
 
     <t:div styleClass="textCenter">
-        <h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
-                         rendered="#{(welcomeController.personnel || welcomeController.admin) and !sessionController.pageAuthorized and !sessionController.adminPageAuthorized}"
-                         action="recapitulatifOffreEtabCentre"
-                         alt="#{msgs['OFFRE.RECAPITULATIF']}"
-                         title="#{msgs['OFFRE.RECAPITULATIF']}" />
-        <h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
-                         rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
-                         action="recapitulatifOffreEtab" alt="#{msgs['OFFRE.RECAPITULATIF']}"
-                         title="#{msgs['OFFRE.RECAPITULATIF']}" />
+        <p:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}" update="@form"
+                         action="#{offreController.goToRecapitulatifOffrePostCreation}"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" />
     </t:div>
 
 </ui:composition>

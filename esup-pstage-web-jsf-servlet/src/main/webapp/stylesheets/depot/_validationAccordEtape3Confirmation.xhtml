@@ -1,16 +1,22 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	<t:htmlTag value="div" style="height:5px;" />
-	<p:messages />
-	<t:htmlTag value="div" style="height:5px;" />
-	<t:htmlTag value="center">
-		<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-			action="#{rechercheController.goToRechercheEtablissement}"
-			alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-			title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"/>
-	</t:htmlTag>
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <!--<p:messages />-->
+
+    <t:htmlTag value="i" styleClass="fa fa-check fz16 fontGreen" />
+    <h:outputFormat value="#{msgs['ACCORD.VALIDATION.CONFIRMATION']}" styleClass="fz16 fontGreen">
+        <f:param value="#{adminController.structureAccordAValider.raisonSociale}" />
+        <f:param value="#{adminController.contactAccordAValider.mail}" />
+    </h:outputFormat>
+
+    <t:div style="height:10px;" />
+
+    <!--<t:div styleClass="textCenter mb20">-->
+        <!--<p:commandButton value="#{msgs['GENERAL.RETOUR']}"-->
+                         <!--action="#{adminController.goToConsulterAccord}"-->
+                         <!--update="@form"/>-->
+    <!--</t:div>-->
 </ui:composition>

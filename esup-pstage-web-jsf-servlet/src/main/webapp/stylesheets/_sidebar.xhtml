@@ -91,7 +91,6 @@
                                                          target="#{sessionController.currentManageStructure}"/>
                             <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
                             <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
-                            <f:setPropertyActionListener value="#{3}" target="#{offreController.typeAjoutModifOffre}"/>
                             <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
                         </p:menuitem>
                         <p:menuitem value="#{msgs['MENU.OFFRESADIFFUSER']}(#{offreController.offreADiffuser})"
@@ -102,12 +101,11 @@
                                                          target="#{sessionController.currentManageStructure}"/>
                             <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
                             <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
-                            <f:setPropertyActionListener value="#{3}" target="#{offreController.typeAjoutModifOffre}"/>
                             <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
                         </p:menuitem>
                     </p:submenu>
                     <p:submenu label="#{msgs['MENUSTAGE.EVALUATION']}" rendered="#{sessionController.utilisationStage
-				and (welcomeController.superAdmin
+				    and (welcomeController.superAdmin
 						|| not empty sessionController.droitsEvaluationEtudiantMap
 						|| not empty sessionController.droitsEvaluationEnseignantMap
 						|| not empty sessionController.droitsEvaluationEntrepriseMap
@@ -233,7 +231,6 @@
                                                              target="#{sessionController.currentManageStructure}"/>
                                 <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
                                 <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
-                                <f:setPropertyActionListener value="#{3}" target="#{offreController.typeAjoutModifOffre}"/>
                                 <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
                             </h:commandLink>
                         </t:htmlTag>
@@ -245,7 +242,6 @@
                                                              target="#{sessionController.currentManageStructure}"/>
                                 <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeServices}"/>
                                 <f:setPropertyActionListener value="#{null}" target="#{etablissementController.listeContacts}"/>
-                                <f:setPropertyActionListener value="#{3}" target="#{offreController.typeAjoutModifOffre}"/>
                                 <f:setPropertyActionListener value="#{2}" target="#{rechercheController.ongletCourant}"/>
                             </h:commandLink>
                         </t:htmlTag>

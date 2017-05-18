@@ -44,16 +44,6 @@ public class AvenantController extends AbstractContextAwareController {
 	private final Logger logger = Logger.getLogger(this.getClass());
 
 	/**
-	 * True si aucun avenant n'a été ajouté
-	 */
-	private boolean listeAvenantVide;
-	/**
-	 * ListeAvenants
-	 */
-	@SuppressWarnings("unused")
-	private List<AvenantDTO> listeAvenants;
-
-	/**
 	 * ListeServices
 	 */
 	@SuppressWarnings("unused")
@@ -110,16 +100,7 @@ public class AvenantController extends AbstractContextAwareController {
 
 	/* ***************************************************************
 	 * Actions
-	 ****************************************************************/	
-	/**
-	 * @return boolean
-	 */
-	public boolean listeAvenantVide(){
-		if (conventionController.getConvention() != null && (getAvenantDomainService().getNombreAvenant(conventionController.getConvention().getIdConvention()) > 0)){
-			return false;
-		}
-		return true;
-	}
+	 ****************************************************************/
 	/**
 	 * @return String
 	 */
@@ -127,6 +108,7 @@ public class AvenantController extends AbstractContextAwareController {
 		if (logger.isDebugEnabled()) {
 			logger.debug("AvenantController:: goToListeAvenant");
 		}
+
 		return "conventionEtape11ListeAvenant";
 	}
 
@@ -485,6 +467,9 @@ public class AvenantController extends AbstractContextAwareController {
 			// Ajout Avenant
 			int idAvenant = getAvenantDomainService().addAvenant(this.avenant);
 
+			// On l'ajoute à la liste des avenants de la convention
+			this.conventionController.getListeAvenants().add(this.avenant);
+
 			// Si c'est un étudiant qui crée l'avenant et qu'on est configurés en alertes mail pour les tuteurs et gestionnaires
 			if (getSessionController().getCurrentAuthEtudiant() != null && getSessionController().isAvertissementPersonnelCreaAvenant()){
 
@@ -646,6 +631,9 @@ public class AvenantController extends AbstractContextAwareController {
 					logger.debug("Suppression Avenant : "+this.avenant);
 				}
 				getAvenantDomainService().deleteAvenant(this.avenant.getIdAvenant());
+
+				this.conventionController.getListeAvenants().remove(this.avenant);
+
 			}catch (DataDeleteException de) {
 				logger.error("DataDeleteException ",de.getCause());
 				addErrorMessage("formSupprAvenant:erreurSupprAvenant", "CONVENTION.ETAPE11.ERREUR_SUPPRESSION", de.getMessage());
@@ -797,29 +785,6 @@ public class AvenantController extends AbstractContextAwareController {
 	/* ***************************************************************
 	 * Getters / Setters
 	 ****************************************************************/
-
-	/**
-	 * @param listeAvenantVide the listeAvenantVide to set
-	 */
-	public void setListeAvenantVide(boolean listeAvenantVide) {
-		this.listeAvenantVide = listeAvenantVide;
-	}
-	/**
-	 * @return the listeAvenantVide
-	 */
-	public boolean isListeAvenantVide() {
-		listeAvenantVide = this.listeAvenantVide();
-		return listeAvenantVide;
-	}
-
-	/**
-	 * @return the listeAvenants
-	 */
-	public List<AvenantDTO> getListeAvenants() {
-		List<AvenantDTO> l = getAvenantDomainService().getAvenant(conventionController.getConvention().getIdConvention());
-		return l;
-	}
-
 	/**
 	 * @return the listeServices
 	 */

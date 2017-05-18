@@ -9,62 +9,68 @@
 
     <t:htmlTag value="div" style="height: 10px;" />
 
-    <t:div>
+    <t:div id="rechercheEtab" rendered="#{!rechercheController.rechercheEtabOk}">
         <ui:include src="/stylesheets/_commun/_rechercheEtablissementLiensOnglets.xhtml" />
         <ui:include src="/stylesheets/_commun/_rechercheEtablissementOnglets.xhtml" />
     </t:div>
-    <h:panelGrid id="formResultatsRechEtab">
-        <t:div rendered="#{empty offreController.centreGestionDepotAnonyme}">
-            <t:div
-                    rendered="#{rechercheController.afficherBoutonAjoutEtab}">
+
+    <p:outputPanel id="formResultatsRechEtab">
+        <t:div id="opRechercheStructureDataTable">
+            <t:div id="resultatsEtab" rendered="#{rechercheController.rechercheEtabOk
+                    and not empty rechercheController.listeResultatsRechercheStructure
+					and not empty rechercheController.rechercheStructurePaginator}">
+
+                <ui:include src="/stylesheets/_commun/_rechercheEtablissementNbResultats.xhtml" />
+
+                <p:dataTable id="rechercheStructureDataTable" styleClass="mt10"
+                             value="#{rechercheController.listeResultatsRechercheStructure}"
+                             var="varRechercheStructure" rows="20" rowHover="true"
+                             paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+                             rowsPerPageTemplate="5,10,15,20" rowKey="#{varRechercheStructure.idStructure}"
+                             selectionMode="single" selection="#{rechercheController.resultatRechercheStructure}"
+                             reflow="true" tableStyle="table-layout: auto;">
+
+                    <p:ajax event="rowSelect" listener="#{offreController.onCreaOffreEtabSelect}"
+                            update="@form"/>
+
+                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+
+                </p:dataTable>
+            </t:div>
+            <p:messages />
+
+            <t:div styleClass="mt15 ml40 fontItalic"
+                   rendered="#{empty offreController.centreGestionDepotAnonyme
+                and rechercheController.afficherBoutonAjoutEtab}">
                 <h:outputText value="#{msgs['STRUCTURE.AJOUT.CREER']}"
                               escape="false" />
-                <p:commandButton id="ajoutEtab" styleClass="ml5"
+                <p:commandButton id="ajoutEtab" styleClass="ml5 fz09"
                                  icon="fa fa-plus fz13"
                                  value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
                                  action="#{offreController.goToCreationOffreCreaEtab}"
                                  update="formCreationOffre">
                     <f:setPropertyActionListener value="#{true}"
                                                  target="#{etablissementController.memeAdresseStructure}" />
-                    <p:tooltip for="ajoutEtab" value="#{msgs['FORM.CREER']}" />
                 </p:commandButton>
             </t:div>
+
+            <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                             rendered="#{not empty rechercheController.listeResultatsRechercheStructure
+					and not empty rechercheController.rechercheStructurePaginator and rechercheController.rechercheEtabOk}"
+                             immediate="true" update="@form"
+                             styleClass="mt20 mb20">
+                <f:setPropertyActionListener value="false" target="#{rechercheController.rechercheEtabOk}"/>
+            </p:commandButton>
         </t:div>
-        <t:htmlTag value="div" style="height: 20px;" />
+
         <p:message for="formResultatsRechEtab"/>
-        <p:outputPanel id="opRechercheStructureDataTable">
-            <t:div
-                    rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
-                <ui:include
-                        src="/stylesheets/_commun/_rechercheEtablissementNbResultats.xhtml" />
-                <p:dataTable id="rechercheStructureDataTable"
-                             value="#{rechercheController.listeResultatsRechercheStructure}"
-                             var="varRechercheStructure" rows="20" rowHover="true"
-                             rowStyleClass="noPointer" paginator="true"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15,20"
-                             reflow="true" tableStyle="table-layout: auto;">
-                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-                    <p:column>
-                        <p:commandButton id="selectionEtab"
-                                         value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}"
-                                         action="#{offreController.goToCreationOffreDetailsEtab}"
-                                         icon="ui-icon-search">
-                            <f:setPropertyActionListener value="#{varRechercheStructure}"
-                                                         target="#{rechercheController.resultatRechercheStructure}" />
-                            <p:tooltip value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS']}" />
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-            </t:div>
-        </p:outputPanel>
-        <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
-                         alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-                         immediate="true"
-                         rendered="#{offreController.typeAjoutModifOffre gt 2}"
-                         update="formCreationOffre">
-            <f:setPropertyActionListener value="_creationOffreEtape01Centre"
-                                         target="#{sessionController.creationOffreStageCurrentPage}" />
-        </p:commandButton>
-    </h:panelGrid>
+    </p:outputPanel>
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     styleClass="mt20 mb20"
+                     immediate="true"
+                     rendered="#{!rechercheController.rechercheEtabOk}"
+                     update="formCreationOffre">
+        <f:setPropertyActionListener value="_creationOffreEtape01Centre"
+                                     target="#{sessionController.creationOffreStageCurrentPage}" />
+    </p:commandButton>
 </ui:composition>

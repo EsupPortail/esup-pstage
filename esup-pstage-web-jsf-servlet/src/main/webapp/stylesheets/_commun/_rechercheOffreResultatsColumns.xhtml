@@ -3,7 +3,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
 	<p:column sortBy="#{offre.idOffre}">
@@ -26,7 +25,7 @@
 		</f:facet>
 		<h:outputText value="#{offre.typeOffre.libelle}" />
 		<h:outputText value="#{offre.contratOffre.libelle}"
-			rendered="#{not empty offre.contratOffre}" />
+			rendered="#{not empty offre.contratOffre}" styleClass="mlf5"/>
 	</p:column>
 	<p:column sortBy="#{offre.structure.raisonSociale}"
 		rendered="#{not sessionController.pageAuthorized}">
@@ -106,9 +105,9 @@
 		</f:facet>
 		<h:outputText value="#{msgs['FORM.OUI']} /"
 			rendered="#{offre.avecFichier || offre.avecLien}" />
-		<t:htmlTag value="i" styleClass="fa fa-link fz16 fontDarkGray mlf5" id="imageLien" rendered="#{offre.avecLien}"/>
+		<t:htmlTag value="i" styleClass="fa fa-link fz13 mlf5" id="imageLien" rendered="#{offre.avecLien}"/>
 		<p:tooltip for="imageLien" value="#{msgs['OFFRE.LIEN']}" />
-		<t:htmlTag value="i" styleClass="fa fa-file-text fz16 fontBlue2 mlf5" id="imageFichier" rendered="#{offre.avecFichier}"/>
+		<t:htmlTag value="i" styleClass="fa fa-file-text-o fz13 mlf5" id="imageFichier" rendered="#{offre.avecFichier}"/>
 		<p:tooltip for="imageFichier" value="#{msgs['OFFRE.FICHIER']}" />
 		<h:outputText value="#{msgs['FORM.NON']}"
 			rendered="#{!(offre.avecFichier || offre.avecLien)}" />

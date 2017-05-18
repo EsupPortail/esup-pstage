@@ -17,6 +17,8 @@
 
                         <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
                         <h:outputText value="#{msgs['CONVENTION.ETAPE4.CHOIXCONTACT.DEMANDE']}" styleClass="ml5" escape="false"/>
+                        <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
+                                      value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
 
                         <t:htmlTag value="div" style="height: 15px;" />
 
@@ -31,12 +33,16 @@
 
                             <p:dataTable id="contactsDataTable"
                                          value="#{etablissementController.listeContacts}" var="contact"
-                                         rowKey="rowContact" rows="5" rowHover="true"
-                                         rowStyleClass="noPointer" paginator="true"
+                                         rowKey="#{contact.id}" rows="5" rowHover="true"
+                                         paginator="true" paginatorPosition="bottom"
                                          reflow="true" tableStyle="table-layout: auto;"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
+                                         selectionMode="single" selection="#{conventionController.convention.contact}"
                                          rendered="#{not empty etablissementController.listeContacts}">
+
+                                <p:ajax event="rowSelect" listener="#{conventionController.onTuteurProSelect}" update="@form"/>
+
                                 <p:column style="width:20px;">
                                     <f:facet name="header">
                                         <t:htmlTag id="civiliteHeader" value="i" styleClass="fa fa-user fz13 fontBlue2 noPointer">
@@ -81,7 +87,7 @@
                                     </t:div>
                                 </p:column>
 
-                                <p:column style="background-color:#A5A5A5; width:100px;" styleClass="textCenter" rendered="#{(sessionController.adminPageAuthorized
+                                <p:column style="background-color:#A5A5A5;" styleClass="textCenter" rendered="#{(sessionController.adminPageAuthorized
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and empty contact.login and empty contact.mdp)
 								or (sessionController.pageAuthorized and sessionController.currentAuthContact.id==contact.id))
@@ -118,14 +124,14 @@
                                         <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
                                         <p:tooltip for="supprC" value="#{msgs['FORM.SUPPRIMER']}" />
                                     </p:commandLink>
-                                    <p:commandButton  id="selC" styleClass="fontBlue2"
-                                                      value="#{msgs['FORM.SELECTIONNER']}"
-                                                      rendered="#{not empty etablissementController.listeContacts}"
-                                                      action="#{conventionController.goToCreerConventionEtape5Stage}">
-                                        <f:setPropertyActionListener value="#{contact}"
-                                                                     target="#{conventionController.convention.contact}" />
-                                        <p:tooltip value="#{msgs['CONVENTION.SELECCONTACT']}" />
-                                    </p:commandButton>
+                                    <!--<p:commandButton  id="selC" styleClass="fontBlue2"-->
+                                                      <!--value="#{msgs['FORM.SELECTIONNER']}"-->
+                                                      <!--rendered="#{not empty etablissementController.listeContacts}"-->
+                                                      <!--action="#{conventionController.goToCreerConventionEtape5Stage}">-->
+                                        <!--<f:setPropertyActionListener value="#{contact}"-->
+                                                                     <!--target="#{conventionController.convention.contact}" />-->
+                                        <!--<p:tooltip value="#{msgs['CONVENTION.SELECCONTACT']}" />-->
+                                    <!--</p:commandButton>-->
                                 </p:column>
                                 <p:column styleClass="textCenter" rendered="#{!(sessionController.adminPageAuthorized
 								or ((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer || welcomeController.etudiant) and empty contact.login and empty contact.mdp)
@@ -148,17 +154,19 @@
                                     </p:commandLink>
                                 </p:column>
                             </p:dataTable>
-                            <t:div styleClass="mt20 ml40"
+                            <t:div styleClass="mt10 ml40"
                                    rendered="#{not empty etablissementController.serviceSel
 									and not empty etablissementController.listeServices}">
-                                <h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}" styleClass="fontBold" />
-                                <p:commandButton id="ajoutC" icon="fa fa-plus fz13" styleClass="ml5"
+                                <h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}" styleClass="fontItalic" />
+                                <p:commandButton id="ajoutC" icon="fa fa-plus fz13" styleClass="ml5" style="font-size :11px;"
                                                  value="#{msgs['CONTACT.GESTION.AJOUT.CREER_2']}"
                                                  action="#{etablissementController.ajoutContact}"
                                                  oncomplete="PF('ajoutContact').show();"
                                                  update="ajoutContact">
                                     <f:setPropertyActionListener value="#{false}"
                                                                  target="#{etablissementController.afficherSelectionCentreContact}" />
+                                    <f:setPropertyActionListener value="#{etablissementController.serviceSel}"
+                                                                 target="#{etablissementController.formService}" />
                                     <f:setPropertyActionListener value="_ajoutContactEtape0"
                                                                  target="#{sessionController.ajoutContactCurrentPage}" />
                                 </p:commandButton>

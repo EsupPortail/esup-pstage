@@ -46,6 +46,7 @@ import org.esupportail.pstagedata.exceptions.StructureDeleteException;
 import org.esupportail.pstagedata.exceptions.StructureNumSiretException;
 import org.esupportail.pstagedata.exceptions.UnvalidNumSiretException;
 import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.primefaces.event.SelectEvent;
 import org.springframework.util.StringUtils;
 
 /**
@@ -302,45 +303,44 @@ public class EtablissementController extends AbstractContextAwareController {
 		if (getSessionController().getCurrentManageStructure() != null
 				&& this.idServiceSel > 0) {
 			this.listeContacts = getStructureDomainService().getContactsFromIdService(
-							this.idServiceSel,
-							getSessionController().getCurrentIdsCentresGestion(),
-							getSessionController().getCodeUniversite());
+					this.idServiceSel,
+					getSessionController().getCurrentIdsCentresGestion(),
+					getSessionController().getCodeUniversite());
 			if (this.listeContacts != null && !this.listeContacts.isEmpty()) {
 				Collections.sort(this.listeContacts,
 						new Comparator<ContactDTO>() {
-					/**
-					 * @see java.util.Comparator#compare(java.lang.Object,
-					 *      java.lang.Object)
-					 */
-					@Override
-					public int compare(ContactDTO c1, ContactDTO c2) {
-						return c1.getNom().compareTo(c2.getNom());
-					}
-				});
+							/**
+							 * @see java.util.Comparator#compare(java.lang.Object,
+							 *      java.lang.Object)
+							 */
+							@Override
+							public int compare(ContactDTO c1, ContactDTO c2) {
+								return c1.getNom().compareTo(c2.getNom());
+							}
+						});
+
 				// Recup centre si en session
 				for (ContactDTO c : this.listeContacts) {
 					CentreGestionDTO cgTmp = new CentreGestionDTO();
 					cgTmp.setIdCentreGestion(c.getIdCentreGestion());
 					if (getSessionController().getCurrentCentresGestion() != null
-							&& !getSessionController()
-							.getCurrentCentresGestion().isEmpty()
-							&& ((ArrayList<CentreGestionDTO>) getSessionController()
-									.getCurrentCentresGestion())
-									.contains(cgTmp)) {
-						c.setCentreGestion(getSessionController()
-								.getCurrentCentresGestion().get(
-										getSessionController()
-										.getCurrentCentresGestion()
-										.indexOf(cgTmp)));
+							&& !getSessionController().getCurrentCentresGestion().isEmpty()
+							&& ((ArrayList<CentreGestionDTO>) getSessionController().getCurrentCentresGestion()).contains(cgTmp)) {
+						c.setCentreGestion(getSessionController().getCurrentCentresGestion().get(
+								getSessionController().getCurrentCentresGestion().indexOf(cgTmp)));
 					} else {
-						CentreGestionDTO cgEntr = getCentreGestionDomainService()
-								.getCentreEntreprise();
-						if (cgEntr != null
-								&& c.getIdCentreGestion() == cgEntr
-								.getIdCentreGestion()) {
+						CentreGestionDTO cgEntr = getCentreGestionDomainService().getCentreEntreprise();
+						if (cgEntr != null && c.getIdCentreGestion() == cgEntr.getIdCentreGestion()) {
 							c.setCentreGestion(cgEntr);
 						}
 					}
+				}
+
+				// On rempli la liste des selectItems
+				this.contactsItems = new ArrayList<SelectItem>();
+				this.contactsItems.add(new SelectItem(0,""));
+				for (ContactDTO c : this.listeContacts) {
+					this.contactsItems.add(new SelectItem(c.getId(), c.getNom() + " "  + c.getPrenom()));
 				}
 			}
 			this.contactSel = null;
@@ -357,15 +357,21 @@ public class EtablissementController extends AbstractContextAwareController {
 			if (this.listeServices != null) {
 				Collections.sort(this.listeServices,
 						new Comparator<ServiceDTO>() {
-					/**
-					 * @see java.util.Comparator#compare(java.lang.Object,
-					 *      java.lang.Object)
-					 */
-					@Override
-					public int compare(ServiceDTO s1, ServiceDTO s2) {
-						return s1.getNom().compareTo(s2.getNom());
-					}
-				});
+							/**
+							 * @see java.util.Comparator#compare(java.lang.Object,
+							 *      java.lang.Object)
+							 */
+							@Override
+							public int compare(ServiceDTO s1, ServiceDTO s2) {
+								return s1.getNom().compareTo(s2.getNom());
+							}
+						});
+
+				this.servicesItems = new ArrayList<SelectItem>();
+				this.servicesItems.add(new SelectItem(0,""));
+				for (ServiceDTO s : this.listeServices) {
+					this.servicesItems.add(new SelectItem(s.getIdService(), s.getNom()));
+				}
 			}
 		}
 	}
@@ -419,7 +425,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Modification de la fiche signaletique
-	 * 
+	 *
 	 * @return String
 	 */
 	public void modifierFicheSignaletique() {
@@ -437,7 +443,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Bouton annuler de la fiche signal�tique
-	 * 
+	 *
 	 * @return String
 	 */
 	public String annulerModifierFicheSignaletique() {
@@ -468,7 +474,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Ajout d'un établissement
-	 * 
+	 *
 	 * @return a String
 	 */
 	public String ajouterEtablissement() {
@@ -483,22 +489,22 @@ public class EtablissementController extends AbstractContextAwareController {
 				|| (this.formStructure.getNafN5() != null && this.formStructure.getNafN5().getCode() == null)
 				|| (this.formStructure.getNafN5() != null && this.formStructure.getNafN5().getCode() != null
 				&& this.formStructure.getNafN5().getCode().isEmpty())) && StringUtils.hasText(this.formStructure.getActivitePrincipale()))
-						|| (this.formStructure.getNafN5() != null && this.formStructure.getNafN5().getCode() != null
-						&& StringUtils.hasText(this.formStructure.getNafN5().getCode()) && StringUtils.hasText(this.formStructure.getActivitePrincipale()))) {
+				|| (this.formStructure.getNafN5() != null && this.formStructure.getNafN5().getCode() != null
+				&& StringUtils.hasText(this.formStructure.getNafN5().getCode()) && StringUtils.hasText(this.formStructure.getActivitePrincipale()))) {
 			nafActiviteOK = true;
 		}
 		if (nafActiviteOK) {
 			this.formStructure.setPays(this.formStructureTmpPays);
 			this.formStructure
-			.setTypeStructure(this.formStructureTmpTypeStructure);
+					.setTypeStructure(this.formStructureTmpTypeStructure);
 			this.formStructure
-			.setStatutJuridique(this.formStructureTmpStatutJuridique);
+					.setStatutJuridique(this.formStructureTmpStatutJuridique);
 			this.formStructure.setCodePostal(this.formStructureTmpCodePostal);
 			if (getBeanUtils().isFrance(this.formStructureTmpPays)
 					&& getSessionController().isRecupererCommunesDepuisApogee()) {
 				this.formStructure
-				.setCodeCommune(this.formStructureTmpCommuneDTO
-						.getCodeCommune());
+						.setCodeCommune(this.formStructureTmpCommuneDTO
+								.getCodeCommune());
 				// Récupération de la commune pour en avoir le libellé
 				this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain()
 						.getCommuneFromDepartementEtCodeCommune(
@@ -506,8 +512,8 @@ public class EtablissementController extends AbstractContextAwareController {
 								"" + this.formStructure.getCodeCommune());
 				if (this.formStructureTmpCommuneDTO != null) {
 					this.formStructure
-					.setCommune(this.formStructureTmpCommuneDTO
-							.getLibCommune());
+							.setCommune(this.formStructureTmpCommuneDTO
+									.getLibCommune());
 				}
 			}
 			retour = "affichageRechercheEtablissement";
@@ -537,13 +543,13 @@ public class EtablissementController extends AbstractContextAwareController {
 				if (getSessionController().getCurrentAuthEtudiant() == null){
 					getStructureDomainService().updateStructureValidation(structureTmp.getIdStructure(), getSessionController().getCurrentLogin());
 				}
-				
+
 				if (logger.isInfoEnabled()) {
 					logger.info("Ajout structure : " + structureTmp);
 				}
 				addInfoMessage("formAffEtab", "STRUCTURE.AJOUT.CONFIRMATION");
 				this.rechercheController
-				.setResultatRechercheStructure(structureTmp);
+						.setResultatRechercheStructure(structureTmp);
 				// this.formStructure=null;
 				this.formStructureTmpPays = null;
 				this.formStructureTmpTypeStructure = null;
@@ -554,7 +560,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 				if (getSessionController().isMailingListEntrMailAvertissementAjoutEtab()
 						&& StringUtils.hasText(getSessionController()
-								.getMailingListEntr())) {
+						.getMailingListEntr())) {
 					// Envoi mail sur la mailing list entreprise
 					String infoPersonne = "";
 					if (getSessionController().isAdminPageAuthorized()
@@ -587,14 +593,14 @@ public class EtablissementController extends AbstractContextAwareController {
 							getSessionController().getMailingListEntrIA(),
 							getString("MAIL.ADMIN.ETAB.SUJETAJOUT",
 									getSessionController()
-									.getApplicationNameEntreprise(),
+											.getApplicationNameEntreprise(),
 									this.formStructure.printAdresse(),
 									infoPersonne),
-									getString("MAIL.ADMIN.ETAB.MESSAGEAJOUT",
-											getSessionController()
+							getString("MAIL.ADMIN.ETAB.MESSAGEAJOUT",
+									getSessionController()
 											.getApplicationNameEntreprise(),
-											this.formStructure.printAdresse(),
-											infoPersonne), "");
+									this.formStructure.printAdresse(),
+									infoPersonne), "");
 				}
 			} catch (DataAddException ae) {
 				logger.error("DataAddException", ae.getCause());
@@ -638,7 +644,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Liste dynamique mise à jour en fonction du type de structure
-	 * 
+	 *
 	 * @return List<SelectItem>
 	 */
 	public List<SelectItem> getStatutsJuridiquesListening() {
@@ -648,14 +654,13 @@ public class EtablissementController extends AbstractContextAwareController {
 	/**
 	 * Mise � jour de la liste Statut juridique en fonction de la liste Type de
 	 * Structure
-	 * 
+	 *
 	 * @param event
 	 */
 	public void valueTypeStructureChanged(ValueChangeEvent event) {
 		if (event.getNewValue() instanceof TypeStructureDTO) {
 			TypeStructureDTO t = (TypeStructureDTO) event.getNewValue();
-			this.statutsJuridiquesListening = getStatutsJuridiquesFromIdTypeStructure(t
-					.getId());
+			this.statutsJuridiquesListening = getStatutsJuridiquesFromIdTypeStructure(t.getId());
 		} else {
 			this.statutsJuridiquesListening = null;
 		}
@@ -672,7 +677,9 @@ public class EtablissementController extends AbstractContextAwareController {
 		if (l != null && !l.isEmpty()) {
 			ls = new ArrayList<SelectItem>();
 			for (StatutJuridiqueDTO o : l) {
-				ls.add(new SelectItem(o, o.getLibelle()));
+				if (o.getTemEnServ().equalsIgnoreCase("O")) {
+					ls.add(new SelectItem(o, o.getLibelle()));
+				}
 			}
 		}
 		return ls;
@@ -680,7 +687,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Formulaire établissement
-	 * 
+	 *
 	 * @param event
 	 */
 	public void valueCodePostalChanged(ValueChangeEvent event) {
@@ -697,7 +704,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Formulaire service
-	 * 
+	 *
 	 * @param event
 	 */
 	public void formServiceValueCodePostalChanged(ValueChangeEvent event) {
@@ -750,14 +757,33 @@ public class EtablissementController extends AbstractContextAwareController {
 			this.formStructureTmpCodePostal = this.formStructure.getCodePostal();
 			if (getBeanUtils().isFrance(this.formStructureTmpPays)
 					&& getSessionController().isRecupererCommunesDepuisApogee()) {
+
 				List<SelectItem> lTmp = majCommunes(""+this.formStructure.getCodePostal());
+
 				if (lTmp != null && !lTmp.isEmpty()) {
 					this.communesListening = lTmp;
 				} else {
 					this.communesListening = new ArrayList<SelectItem>();
 				}
-				this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(
-								this.formStructureTmpCodePostal, ""+this.formStructure.getCodeCommune());
+
+				if (this.formStructure.getCodeCommune() != null
+						&& !this.formStructure.getCodeCommune().isEmpty()
+						&& Integer.valueOf(this.formStructure.getCodeCommune()) != 0){
+					this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(
+							this.formStructureTmpCodePostal, ""+this.formStructure.getCodeCommune());
+				} else {
+					CommuneDTO c = new CommuneDTO();
+					// Si on n'a pas le codeCommune en base, on le recherche dans la liste de selectItem via le libelle
+					// puis on s'en sert pour initialiser le selectOneMenu
+					for (SelectItem s : communesListening){
+						if (s.getLabel().equalsIgnoreCase(this.formStructure.getCommune())){
+							this.formStructureTmpCommuneDTO = new CommuneDTO();
+							this.formStructureTmpCommuneDTO.setLibCommune(s.getLabel());
+							this.formStructureTmpCommuneDTO.setCodeCommune((String)s.getValue());
+						}
+					}
+				}
+
 				if (this.formStructureTmpCommuneDTO != null) {
 					this.formStructure.setCommune(this.formStructureTmpCommuneDTO.getLibCommune());
 					this.formStructure.setCodeCommune(this.formStructureTmpCommuneDTO.getCodeCommune());
@@ -777,7 +803,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Modification d'un établissement
-	 * 
+	 *
 	 * @return a String
 	 */
 	public String modifierEtablissement() {
@@ -814,8 +840,8 @@ public class EtablissementController extends AbstractContextAwareController {
 				this.formStructure.setCodeCommune(this.formStructureTmpCommuneDTO.getCodeCommune());
 				// Récupération de la commune pour en avoir le libellé
 				this.formStructureTmpCommuneDTO = getGeographieRepositoryDomain().getCommuneFromDepartementEtCodeCommune(
-								this.formStructureTmpCodePostal,
-								"" + this.formStructure.getCodeCommune());
+						this.formStructureTmpCodePostal,
+						"" + this.formStructure.getCodeCommune());
 				if (this.formStructureTmpCommuneDTO != null) {
 					this.formStructure.setCommune(this.formStructureTmpCommuneDTO.getLibCommune());
 				}
@@ -840,7 +866,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			structureTmp.setLoginInfosAJour(getSessionController().getCurrentLogin());
 
 			if (getSessionController().getCurrentAuthEtudiant() != null
-				&& (structureTmp.getEstValidee() == 1 || structureTmp.getEstValidee() == 2)){
+					&& (structureTmp.getEstValidee() == 1 || structureTmp.getEstValidee() == 2)){
 				getStructureDomainService().updateStructureStopValidation(structureTmp.getIdStructure(), getSessionController().getCurrentLogin());
 				this.formStructure.setEstValidee(0);
 			}
@@ -901,12 +927,12 @@ public class EtablissementController extends AbstractContextAwareController {
 										getSessionController().getApplicationNameEntreprise(),
 										this.formStructure.printAdresse(),
 										infoPersonne),
-										getString("MAIL.ADMIN.ETAB.MESSAGEMODIF",
-												getSessionController().getApplicationNameEntreprise(),
-												this.formStructure.getIdStructure(),
-												infoPersonne,
-												structurePreModif.toString(),
-												this.formStructure.toString()),
+								getString("MAIL.ADMIN.ETAB.MESSAGEMODIF",
+										getSessionController().getApplicationNameEntreprise(),
+										this.formStructure.getIdStructure(),
+										infoPersonne,
+										structurePreModif.toString(),
+										this.formStructure.toString()),
 								"");
 					}
 				} else {
@@ -944,34 +970,34 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Suppression d'un établissement
-	 * 
+	 *
 	 * @return a String
 	 */
 	public void supprimerEtablissement() {
 		if (this.formStructure != null
 				&& this.formStructure.getIdStructure() > 0) {
 			try {
-				Boolean delete = getStructureDomainService().deleteStructure(this.formStructure.getIdStructure(),this.getCurrentUser().getId()); 
+				Boolean delete = getStructureDomainService().deleteStructure(this.formStructure.getIdStructure(),this.getCurrentUser().getId());
 				if (delete) {
 					addInfoMessage(null, "STRUCTURE.SUPPRESSION.CONFIRMATION",
 							this.formStructure.getRaisonSociale());
 					if (this.rechercheController.getListeResultatsRechercheStructure() != null
 							&& !this.rechercheController.getListeResultatsRechercheStructure().isEmpty()) {
-					
+
 						this.rechercheController.getListeResultatsRechercheStructure().remove(this.formStructure);
 						this.rechercheController.setResultatRechercheStructure(null);
-						
+
 					} else {
 						this.rechercheController
-						.setListeResultatsRechercheStructure(null);
+								.setListeResultatsRechercheStructure(null);
 						this.rechercheController.setResultatRechercheStructure(null);
 					}
-					
+
 				} else {
 					addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",
 							this.formStructure.getRaisonSociale());
 				}
-				
+
 				getSessionController().setCurrentManageStructure(null);
 				getSessionController().setMenuGestionEtab(false);
 				this.listeServices = null;
@@ -983,7 +1009,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				if (getSessionController()
 						.isMailingListEntrMailAvertissementSupprEtab()
 						&& StringUtils.hasText(getSessionController()
-								.getMailingListEntr())) {
+						.getMailingListEntr())) {
 					// Envoi mail sur la mailing list entreprise
 					String infoPersonne = "";
 					if (getSessionController().isAdminPageAuthorized()
@@ -1016,14 +1042,14 @@ public class EtablissementController extends AbstractContextAwareController {
 							getSessionController().getMailingListEntrIA(),
 							getString("MAIL.ADMIN.ETAB.SUJETSUPPR",
 									getSessionController()
-									.getApplicationNameEntreprise(),
+											.getApplicationNameEntreprise(),
 									this.formStructure.printAdresse(),
 									infoPersonne),
-									getString("MAIL.ADMIN.ETAB.MESSAGESUPPR",
-											getSessionController()
+							getString("MAIL.ADMIN.ETAB.MESSAGESUPPR",
+									getSessionController()
 											.getApplicationNameEntreprise(),
-											this.formStructure.printAdresse(),
-											infoPersonne), "");
+									this.formStructure.printAdresse(),
+									infoPersonne), "");
 				}
 			} catch (StructureDeleteException e) {
 				logger.error("DataDeleteException", e.getCause());
@@ -1033,7 +1059,7 @@ public class EtablissementController extends AbstractContextAwareController {
 						e.getNbOffres(), e.getNbConventions(),
 						e.isAccordExistant() ? getString("FORM.OUI")
 								: getString("FORM.NON"),
-								e.getNbComptesContact());
+						e.getNbComptesContact());
 			} catch (DataDeleteException e) {
 				logger.error("DataDeleteException", e.getCause());
 				addErrorMessage(null, "STRUCTURE.SUPPRESSION.ERREUR",
@@ -1051,7 +1077,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Gestion des contacts et services (entreprise)
-	 * 
+	 *
 	 * @return String
 	 */
 	public String goToGestionContacts() {
@@ -1060,7 +1086,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Gestion des contacts et services (stage)
-	 * 
+	 *
 	 * @return String
 	 */
 	public String goToContactsEtablissement() {
@@ -1070,7 +1096,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Gestion Cvtheque (entreprise)
-	 * 
+	 *
 	 * @return String
 	 */
 	public String goToGestionCvtheque() {
@@ -1153,7 +1179,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Ajout d'un service
-	 * 
+	 *
 	 * @return String
 	 */
 	public void ajouterService() {
@@ -1182,7 +1208,7 @@ public class EtablissementController extends AbstractContextAwareController {
 			this.formService.setLoginCreation(getSessionController().getCurrentLogin());
 			this.formService.setLoginInfosAJour(getSessionController().getCurrentLogin());
 			this.formService.setIdStructure(getSessionController().getCurrentManageStructure().getIdStructure());
-			
+
 			int i = getStructureDomainService().addService(this.formService);
 			this.formService.setIdService(i);
 			if (i > 0) {
@@ -1190,7 +1216,7 @@ public class EtablissementController extends AbstractContextAwareController {
 				reloadServices();
 				this.idServiceSel = i;
 				this.serviceSel = this.formService;
-				
+
 //				if (StringUtils.hasText(this.formService.getTelephone())){
 //					this.serviceSel.setTelephone(this.formService.getTelephone());
 //				}
@@ -1250,7 +1276,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Modification d'un service
-	 * 
+	 *
 	 * @return String
 	 */
 	public void modifierService() {
@@ -1265,10 +1291,10 @@ public class EtablissementController extends AbstractContextAwareController {
 						&& getSessionController()
 						.isRecupererCommunesDepuisApogee()) {
 					this.formService
-					.setCodePostal(this.formServiceTmpCodePostal);
+							.setCodePostal(this.formServiceTmpCodePostal);
 					this.formService
-					.setCodeCommune(this.formServiceTmpCommuneDTO
-							.getCodeCommune());
+							.setCodeCommune(this.formServiceTmpCommuneDTO
+									.getCodeCommune());
 					// Récupération de la commune pour en avoir le libellé
 					this.formServiceTmpCommuneDTO = getGeographieRepositoryDomain()
 							.getCommuneFromDepartementEtCodeCommune(
@@ -1276,8 +1302,8 @@ public class EtablissementController extends AbstractContextAwareController {
 									"" + this.formService.getCodeCommune());
 					if (this.formServiceTmpCommuneDTO != null) {
 						this.formService
-						.setCommune(this.formServiceTmpCommuneDTO
-								.getLibCommune());
+								.setCommune(this.formServiceTmpCommuneDTO
+										.getLibCommune());
 					}
 				}
 			}
@@ -1322,25 +1348,16 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * Suppression d'un service
 	 */
 	public void supprimerService() {
-
 		try {
-			if (getStructureDomainService().deleteService(
-					this.formService.getIdService())) {
+			if (getStructureDomainService().deleteService(this.formService.getIdService())) {
 				addInfoMessage(null, "SERVICE.SUPPR.CONFIRMATION");
-				// reloadServices();
+				reloadServices();
 				if (this.listeServices != null && !this.listeServices.isEmpty()) {
-					this.idServiceSel = this.listeServices.get(0).getIdService();
-					this.serviceSel = this.listeServices.get(0);
-					Iterator<ServiceDTO> its = this.listeServices.iterator();
-					while (its.hasNext()) {
-						ServiceDTO sTmp = its.next();
-						if (sTmp.getIdService() == this.formService
-								.getIdService()) {
-							its.remove();
-							break;
-						}
-					}
-					reloadContacts();
+					this.idServiceSel = 0;
+					this.serviceSel = null;
+					this.formContact = null;
+					this.formService = null;
+//					reloadContacts();
 					if (logger.isInfoEnabled()) {
 						logger.info(getSessionController().getCurrentLogin()
 								+ " supprime le service : "
@@ -1349,8 +1366,6 @@ public class EtablissementController extends AbstractContextAwareController {
 								+ getSessionController()
 								.getCurrentManageStructure());
 					}
-					this.formContact = null;
-					this.formService = null;
 				}
 			} else {
 				addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
@@ -1369,6 +1384,13 @@ public class EtablissementController extends AbstractContextAwareController {
 		} catch (ServiceDeleteException e) {
 			logger.error("ServiceDeleteException", e.getCause());
 			addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
+		} catch (Exception e) {
+			logger.error("Exception",e.getCause());
+			if (e.getMessage().contains("contacts")){
+				addErrorMessage(null, "SERVICE.SUPPR.ERREUR.CONTACT");
+			} else {
+				addErrorMessage(null, "SERVICE.SUPPR.ERREUR");
+			}
 		}
 
 		getSessionController().setSuppressionServiceCurrentPage("_confirmationDialog");
@@ -1377,28 +1399,35 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Mise à jour de la liste des contacts en fonction du service sélectionné
-	 * 
+	 *
 	 * @param event
 	 */
 	public void valueIdServiceChanged(ValueChangeEvent event) {
 		this.idServiceSel = (Integer) event.getNewValue();
-		this.serviceSel = getStructureDomainService().getServiceFromId(idServiceSel);
-		reloadContacts();
-		if (this.listeContacts != null && !this.listeContacts.isEmpty()) {
+		if (this.idServiceSel == 0){
+			this.setServiceSel(null);
 			this.contactSel = null;
 			this.idContactSel = 0;
+		} else {
+			this.serviceSel = getStructureDomainService().getServiceFromId(idServiceSel);
+			reloadContacts();
+
+//			if (this.listeContacts != null && !this.listeContacts.isEmpty()) {
+			// On remet le contact choisi a vide si le service a changé
+			this.contactSel = null;
+			this.idContactSel = 0;
+//			}
 		}
 	}
 
 	/**
 	 * Mise à jour de la liste des contacts en fonction du service sélectionné
-	 * 
+	 *
 	 * @param event
 	 */
 	public void valueIdContactChanged(ValueChangeEvent event) {
 		this.idContactSel = (Integer) event.getNewValue();
-		this.contactSel = getStructureDomainService().getContactFromId(
-				idContactSel);
+		this.contactSel = getStructureDomainService().getContactFromId(idContactSel);
 	}
 
 	/**
@@ -1410,7 +1439,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Ajout d'un contact
-	 * 
+	 *
 	 * @return String
 	 */
 	public void ajouterContact() {
@@ -1481,16 +1510,16 @@ public class EtablissementController extends AbstractContextAwareController {
 							this.listeContacts.add(this.formContact);
 							Collections.sort(this.listeContacts,
 									new Comparator<ContactDTO>() {
-								/**
-								 * @see java.util.Comparator#compare(java.lang.Object,
-								 *      java.lang.Object)
-								 */
-								@Override
-								public int compare(ContactDTO c1,
-										ContactDTO c2) {
-									return c1.getNom().compareTo(c2.getNom());
-								}
-							});
+										/**
+										 * @see java.util.Comparator#compare(java.lang.Object,
+										 *      java.lang.Object)
+										 */
+										@Override
+										public int compare(ContactDTO c1,
+														   ContactDTO c2) {
+											return c1.getNom().compareTo(c2.getNom());
+										}
+									});
 						} else {
 							this.listeContacts = new ArrayList<>();
 							this.listeContacts.add(this.formContact);
@@ -1534,7 +1563,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Modification un contact
-	 * 
+	 *
 	 * @return String
 	 */
 	public void modifierContact() {
@@ -1557,17 +1586,17 @@ public class EtablissementController extends AbstractContextAwareController {
 						if (getSessionController()
 								.getCentreGestionRattachement() != null) {
 							this.formContact
-							.setIdCentreGestion(getSessionController()
-									.getCentreGestionRattachement()
-									.getIdCentreGestion());
+									.setIdCentreGestion(getSessionController()
+											.getCentreGestionRattachement()
+											.getIdCentreGestion());
 						} else {
 							CentreGestionDTO cgEntr = getCentreGestionDomainService()
 									.getCentreEntreprise();
 							if (cgEntr != null) {
 								this.formContact
-								.setIdCentreGestion(getCentreGestionDomainService()
-										.getCentreEntreprise()
-										.getIdCentreGestion());
+										.setIdCentreGestion(getCentreGestionDomainService()
+												.getCentreEntreprise()
+												.getIdCentreGestion());
 							} else {
 								addErrorMessage(null,
 										"CONTACT.GESTION.MODIF.ERREUR");
@@ -1600,14 +1629,14 @@ public class EtablissementController extends AbstractContextAwareController {
 									.getCurrentCentresGestion()
 									.isEmpty()
 									&& ((ArrayList<CentreGestionDTO>) getSessionController()
-											.getCurrentCentresGestion())
-											.contains(cgTmp)) {
+									.getCurrentCentresGestion())
+									.contains(cgTmp)) {
 								this.formContact
-								.setCentreGestion(getSessionController()
-										.getCurrentCentresGestion()
-										.get(getSessionController()
+										.setCentreGestion(getSessionController()
 												.getCurrentCentresGestion()
-												.indexOf(cgTmp)));
+												.get(getSessionController()
+														.getCurrentCentresGestion()
+														.indexOf(cgTmp)));
 							} else {
 								CentreGestionDTO cgEntr = getCentreGestionDomainService()
 										.getCentreEntreprise();
@@ -1621,17 +1650,17 @@ public class EtablissementController extends AbstractContextAwareController {
 							this.listeContacts.add(this.formContact);
 							Collections.sort(this.listeContacts,
 									new Comparator<ContactDTO>() {
-								/**
-								 * @see java.util.Comparator#compare(java.lang.Object,
-								 *      java.lang.Object)
-								 */
-								@Override
-								public int compare(ContactDTO c1,
-										ContactDTO c2) {
-									return c1.getNom().compareTo(
-											c2.getNom());
-								}
-							});
+										/**
+										 * @see java.util.Comparator#compare(java.lang.Object,
+										 *      java.lang.Object)
+										 */
+										@Override
+										public int compare(ContactDTO c1,
+														   ContactDTO c2) {
+											return c1.getNom().compareTo(
+													c2.getNom());
+										}
+									});
 						}
 						addInfoMessage(null,"CONTACT.GESTION.MODIF.CONFIRMATION");
 						if (logger.isInfoEnabled()) {
@@ -1672,7 +1701,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Supprimer un contact
-	 * 
+	 *
 	 * @return String
 	 */
 	public void supprimerContact() {
@@ -1713,7 +1742,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Création d'un compte pour un contact sélectionné
-	 * 
+	 *
 	 * @return String
 	 */
 	public String creerCompte() {
@@ -1732,11 +1761,11 @@ public class EtablissementController extends AbstractContextAwareController {
 						.getId());
 				this.formContact.setIdService(this.idServiceSel);
 				this.formContact
-				.setIdCentreGestion(getCentreGestionDomainService()
-						.getCentreEntreprise().getIdCentreGestion());
+						.setIdCentreGestion(getCentreGestionDomainService()
+								.getCentreEntreprise().getIdCentreGestion());
 				this.formContact.setLogin(Utils.loginGeneration(
 						getSessionController().getCurrentManageStructure()
-						.getRaisonSociale(),
+								.getRaisonSociale(),
 						"" + this.formContact.getId()));
 				String mdpGenere = Utils.encodeMD5(
 						"random" + Math.random() * 10000).substring(0, 8);
@@ -1748,7 +1777,7 @@ public class EtablissementController extends AbstractContextAwareController {
 							"CONTACT.GESTION.COMPTE.CREATION.CONFIRMATION",
 							this.formContact.getNom() + " "
 									+ this.formContact.getPrenom(),
-									this.formContact.getMail());
+							this.formContact.getMail());
 					if (logger.isInfoEnabled()) {
 						logger.info(getSessionController().getCurrentLogin()
 								+ " crée un compte pour le contact : "
@@ -1764,15 +1793,15 @@ public class EtablissementController extends AbstractContextAwareController {
 							ia,
 							getString("MAIL.COMPTECONTACT.CREATION.SUJET",
 									getSessionController()
-									.getApplicationNameEntreprise()),
-									getString(
-											"MAIL.COMPTECONTACT.CREATION.MESSAGE",
-											this.formContact.getLogin(),
-											getBlowfishUtils().decode(
-													this.formContact.getMdp()),
-													getSessionController().getEntrepriseUrl(),
-													getSessionController()
-													.getApplicationNameEntreprise()),
+											.getApplicationNameEntreprise()),
+							getString(
+									"MAIL.COMPTECONTACT.CREATION.MESSAGE",
+									this.formContact.getLogin(),
+									getBlowfishUtils().decode(
+											this.formContact.getMdp()),
+									getSessionController().getEntrepriseUrl(),
+									getSessionController()
+											.getApplicationNameEntreprise()),
 							"");
 					this.formContact = null;
 				} else {
@@ -1803,7 +1832,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * Suppression du compte pour le contact s�lectionnn�
-	 * 
+	 *
 	 * @return String
 	 */
 	public String supprimerCompte() {
@@ -1854,7 +1883,7 @@ public class EtablissementController extends AbstractContextAwareController {
 
 	/**
 	 * R�-initialisation du mot de passe du contact s�lectionn�
-	 * 
+	 *
 	 * @return String
 	 */
 	public void resetMdp() {
@@ -1893,22 +1922,22 @@ public class EtablissementController extends AbstractContextAwareController {
 								this.formContact.getMail());
 						ia.validate();
 						getSmtpService()
-						.send(ia,
-								getString(
-										"MAIL.COMPTECONTACT.RESETMDP.SUJET",
-										getSessionController()
-										.getApplicationNameEntreprise()),
+								.send(ia,
+										getString(
+												"MAIL.COMPTECONTACT.RESETMDP.SUJET",
+												getSessionController()
+														.getApplicationNameEntreprise()),
 										getString(
 												"MAIL.COMPTECONTACT.RESETMDP.MESSAGE",
 												this.formContact.getLogin(),
 												getBlowfishUtils().decode(
 														this.formContact
-														.getMdp()),
-														getSessionController()
+																.getMdp()),
+												getSessionController()
 														.getEntrepriseUrl(),
-														getSessionController()
+												getSessionController()
 														.getApplicationNameEntreprise()),
-								"");
+										"");
 					} catch (AddressException e) {
 						if (logger.isDebugEnabled()) {
 							e.printStackTrace();
@@ -1973,32 +2002,32 @@ public class EtablissementController extends AbstractContextAwareController {
 							if (getStructureDomainService()
 									.updateCompteContact(
 											getSessionController()
-											.getCurrentAuthContact())) {
+													.getCurrentAuthContact())) {
 								InternetAddress cIA;
 								try {
 									cIA = new InternetAddress(
 											getSessionController()
-											.getCurrentAuthContact()
-											.getMail());
+													.getCurrentAuthContact()
+													.getMail());
 									cIA.validate();
 									getSmtpService()
-									.send(cIA,
-											getString(
-													"MAIL.RECAPIDENTS.SUJET",
-													getSessionController()
-													.getApplicationNameEntreprise()),
+											.send(cIA,
+													getString(
+															"MAIL.RECAPIDENTS.SUJET",
+															getSessionController()
+																	.getApplicationNameEntreprise()),
 													getString(
 															"MAIL.RECAPIDENTS.MESSAGE",
 															getSessionController()
-															.getCurrentAuthContact()
-															.getLogin(),
-															getBlowfishUtils()
-															.decode(getSessionController()
 																	.getCurrentAuthContact()
-																	.getMdp()),
-																	getSessionController()
+																	.getLogin(),
+															getBlowfishUtils()
+																	.decode(getSessionController()
+																			.getCurrentAuthContact()
+																			.getMdp()),
+															getSessionController()
 																	.getApplicationNameEntreprise()),
-											"");
+													"");
 									if (logger.isInfoEnabled()) {
 										logger.info("Recuperation de mot de passe pour : "
 												+ getSessionController()
@@ -2008,8 +2037,8 @@ public class EtablissementController extends AbstractContextAwareController {
 											null,
 											"CONTACT.GESTION.COMPTE.CHANGEMENTMOTDEPASSE.CONFIRMATION",
 											getSessionController()
-											.getCurrentAuthContact()
-											.getMail());
+													.getCurrentAuthContact()
+													.getMail());
 								} catch (AddressException e) {
 									logger.error(e.getMessage());
 									e.printStackTrace();
@@ -2049,6 +2078,16 @@ public class EtablissementController extends AbstractContextAwareController {
 			}
 		}
 		//		return ret;
+	}
+
+	/**
+	 * @return String
+	 */
+	public void onEtabAValiderSelect(SelectEvent event) {
+
+		this.avantValidation();
+
+		getSessionController().setValidationStructureCurrentPage("_validStructureEtape1");
 	}
 
 	/* ***************************************************************
@@ -2206,11 +2245,6 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * @return the servicesItems
 	 */
 	public List<SelectItem> getServicesItems() {
-		this.servicesItems = new ArrayList<SelectItem>();
-		for (ServiceDTO s : this.listeServices) {
-			this.servicesItems
-			.add(new SelectItem(s.getIdService(), s.getNom()));
-		}
 		return this.servicesItems;
 	}
 
@@ -2345,11 +2379,6 @@ public class EtablissementController extends AbstractContextAwareController {
 	 * @return the contactsItems
 	 */
 	public List<SelectItem> getContactsItems() {
-		this.contactsItems = new ArrayList<SelectItem>();
-		for (ContactDTO c : this.listeContacts) {
-			this.contactsItems.add(new SelectItem(c.getId(), c.getNom() + " "
-					+ c.getPrenom()));
-		}
 		return this.contactsItems;
 	}
 
@@ -2554,6 +2583,6 @@ public class EtablissementController extends AbstractContextAwareController {
 	public void setCurrentStruct(StructureDTO currentStruct) {
 		this.currentStruct = currentStruct;
 	}
-	
-		
+
+
 }

@@ -9,72 +9,75 @@
             <h:outputText value="#{msgs['CENTRE.PERSONNEL.MODIF.HEAD']}" />
         </f:facet>
         <h:form id="formModifPersonnel">
-            <h:panelGrid columns="3" style="padding-left:50px;">
-                <h:panelGrid columns="2" cellspacing="5">
-                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}"
-                                   for="nomPersonnel" />
-                    <h:outputText id="nomPersonnel"
-                                  value="#{centreController.personnel.nom}" />
+            <t:htmlTag value="ul" styleClass="formUL columns-2 mt10">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:panelGrid columns="2" cellspacing="5">
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.NOM']}"
+                                           for="nomPersonnel" />
+                            <h:outputText id="nomPersonnel"
+                                          value="#{centreController.personnel.nom}" />
 
-                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.PRENOM']}"
-                                   for="prenomPersonnel" />
-                    <h:outputText id="prenomPersonnel"
-                                  value="#{centreController.personnel.prenom}" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.PRENOM']}"
+                                           for="prenomPersonnel" />
+                            <h:outputText id="prenomPersonnel"
+                                          value="#{centreController.personnel.prenom}" />
 
-                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.MAIL']}"
-                                   for="mail" />
-                    <h:outputText id="mail" value="#{centreController.personnel.mail}" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.MAIL']}"
+                                           for="mail" />
+                            <h:outputText id="mail" value="#{centreController.personnel.mail}" />
 
-                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.TEL']}"
-                                   for="tel" />
-                    <p:inputText id="tel" value="#{centreController.personnel.tel}"
-                                 size="20" maxlength="20"/>
-                </h:panelGrid>
-                <h:panelGrid columns="3">
-                    <p:spacer width="20" />
-                    <p:separator style="height:100px;" />
-                    <p:spacer width="20" />
-                </h:panelGrid>
-                <h:panelGrid columns="2" cellspacing="5">
-                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}"
-                                   for="affectation" />
-                    <h:outputText id="affectation"
-                                  value="#{centreController.personnel.affectation.libelle}" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.TEL']}"
+                                           for="tel" />
+                            <p:inputText id="tel" value="#{centreController.personnel.tel}"
+                                         size="20" maxlength="20"/>
+                        </h:panelGrid>
+                    </t:htmlTag>
+                </t:div>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <h:panelGrid columns="2" cellspacing="5">
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.COMPOSANTE']}"
+                                           for="affectation" />
+                            <h:outputText id="affectation"
+                                          value="#{centreController.personnel.affectation.libelle}" />
 
-                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.TYPE']}" for="type" />
-                    <h:outputText id="type"
-                                  value="#{centreController.personnel.fonction}" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.TYPE']}" for="type" />
+                            <h:outputText id="type"
+                                          value="#{centreController.personnel.fonction}" />
 
-                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.CAMPUS']}"
-                                   for="campus" />
-                    <p:inputText id="campus"
-                                 value="#{centreController.personnel.campus}" size="30"
-                                 maxlength="200">
-                    </p:inputText>
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.CAMPUS']}"
+                                           for="campus" />
+                            <p:inputText id="campus"
+                                         value="#{centreController.personnel.campus}" size="30"
+                                         maxlength="200">
+                            </p:inputText>
 
-                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.BATIMENT']}"
-                                   for="batiment" />
-                    <p:inputText id="batiment"
-                                 value="#{centreController.personnel.batiment}" size="30"
-                                 maxlength="200" />
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.BATIMENT']}"
+                                           for="batiment" />
+                            <p:inputText id="batiment"
+                                         value="#{centreController.personnel.batiment}" size="30"
+                                         maxlength="200" />
 
-                    <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.BUREAU']}"
-                                   for="bureau" />
-                    <p:inputText id="bureau"
-                                 value="#{centreController.personnel.bureau}" size="10" />
-                </h:panelGrid>
-            </h:panelGrid>
+                            <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.BUREAU']}"
+                                           for="bureau" />
+                            <p:inputText id="bureau"
+                                         value="#{centreController.personnel.bureau}" size="10"
+                                         maxlength="50"  />
+                        </h:panelGrid>
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
 
             <h:panelGrid align="center">
                 <h:panelGrid columns="2" style="font-size:14px;">
                     <h:outputLabel value="#{msgs['CENTRE.PERSONNEL.AJOUT.DROIT']}"
                                    for="droit" />
-                    <p:selectOneMenu id="droit"
+                    <h:selectOneMenu id="droit" styleClass="customPstage fix-selectOneMenu"
                                      value="#{centreController.personnel.droitAdmin}" required="true"
-                                     converter="#{droitAdminConverter}"
-                                     requiredMessage="#{requiredMessageController.champObligatoire}">
+                                     converter="#{droitAdminConverter}">
                         <f:selectItems value="#{nomenclatureController.droitsAdmin}" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">

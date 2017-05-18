@@ -1,15 +1,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<p:dialog id="supprService" widgetVar="supprService" resizable="false" modal="true" closable="false">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['SERVICE.SUPPR']}" />
-		</f:facet>
-		<h:form id="formSupprService" styleClass="block">
-			<ui:include src="/stylesheets/_commun/#{sessionController.suppressionServiceCurrentPage}.xhtml" />
-		</h:form>
-	</p:dialog>
+    <p:dialog id="supprService" widgetVar="supprService" resizable="false" modal="true" closable="false">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['SERVICE.SUPPR']}" />
+        </f:facet>
+        <h:form id="formSupprService" styleClass="block">
+            <ui:include src="/stylesheets/_commun/#{sessionController.suppressionServiceCurrentPage}.xhtml" />
+        </h:form>
+    </p:dialog>
 </ui:composition>

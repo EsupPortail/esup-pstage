@@ -1,76 +1,63 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['OFFRE.GESTION']}" />
-			</f:facet>
-			<ui:include src="_menuGestionEtab.xhtml" />
-			<t:div styleClass="clearFloat"/>
-			<h:form styleClass="block centerBlock mt15">
-				<p:fieldset legend="#{msgs['OFFRE.GESTION.SELECTIONNEROFFRE']}">
-				<h:outputText
-					value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
-					rendered="#{empty sessionController.currentManageStructure}" />
-				<t:div rendered="#{not empty sessionController.currentManageStructure}">
-					<h:outputText value="#{msgs['OFFRE.GESTION.AUCUNE']}"
-						rendered="#{empty offreController.listeOffres}" escape="false" />
-					<p:outputPanel id="opOffresDataTable">
-						<t:div rendered="#{not empty offreController.listeOffres}">
-							<p:dataTable value="#{offreController.listeOffres}" var="offre"
-								rowKey="rowOffre" rows="15" rowHover="true" tableStyle="table-layout: auto;"
-								rowStyleClass="noPointer" paginator="true" reflow="true"
-								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15,20"
-								rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-								<ui:include
-									src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
-								<p:column>
-									<h:commandLink id="recap"
-										action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
-										<t:htmlTag value="i" styleClass="fa fa-file-text-o fz16"/>
-										<f:setPropertyActionListener value="#{offre}"
-											target="#{offreController.currentOffre}" />
-										<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-									</h:commandLink>
-								</p:column>
-							</p:dataTable>
-							<p:dataTable value="#{offreController.listeOffres}" var="offre"
-								rowKey="rowOffre" rows="15" rowHover="true"
-								rowStyleClass="noPointer" paginator="true"
-								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15,20"
-                                         reflow="true" tableStyle="table-layout: auto;"
-								rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
-								<ui:include
-									src="/stylesheets/_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
-								<p:column>
-									<h:commandLink id="recap"
-										action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
-										<t:htmlTag value="i" styleClass="fa fa-file-text-o fz16"/>
-										<f:setPropertyActionListener value="#{offre}"
-											target="#{offreController.currentOffre}" />
-										<p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-									</h:commandLink>
-								</p:column>
-							</p:dataTable>
-						</t:div>
-					</p:outputPanel>
-				</t:div>
-				</p:fieldset>
-				<t:htmlTag value="br" />
-				<t:htmlTag value="div" style="height: 20px;" />
-				<p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-					action="#{rechercheController.goToRechercheEtablissementStage}"
-					alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-					title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}">
-				</p:commandButton>
-			</h:form>
-			<ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
-		</p:panel>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']} #{sessionController.currentManageStructure.raisonSociale}" />
+            </f:facet>
+            <ui:include src="_menuGestionEtab.xhtml" />
+            <h:form styleClass="block mt15">
+                <p:fieldset legend="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}">
+                    <h:outputText
+                            value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
+                            rendered="#{empty sessionController.currentManageStructure}" />
+                    <t:div rendered="#{not empty sessionController.currentManageStructure}">
+                        <h:outputText value="#{msgs['OFFRE.GESTION.AUCUNE']}"
+                                      rendered="#{empty offreController.listeOffres}" escape="false" />
+                        <p:outputPanel id="opOffresDataTable">
+                            <t:div rendered="#{not empty offreController.listeOffres}">
+                                <t:div styleClass="textCenter">
+                                    <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
+                                                  value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
+                                </t:div>
+                                <p:dataTable value="#{offreController.listeOffres}" var="offre"
+                                             rowKey="#{offre.idOffre}" rows="10" rowHover="true" tableStyle="table-layout: auto;"
+                                             paginator="true" reflow="true" paginatorPosition="bottom"
+                                             paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15,20"
+                                             selectionMode="single" selection="#{offreController.currentOffre}"
+                                             rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+
+                                    <p:ajax event="rowSelect" listener="#{offreController.onOffreSelect}" update="@form" />
+
+                                    <ui:include src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
+                                </p:dataTable>
+                                <p:dataTable value="#{offreController.listeOffres}" var="offre"
+                                             rowKey="#{offre.idOffre}" rows="15" rowHover="true"
+                                             paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15,20" paginatorPosition="bottom"
+                                             reflow="true" tableStyle="table-layout: auto;"
+                                             selectionMode="single" selection="#{offreController.currentOffre}"
+                                             rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+
+                                    <p:ajax event="rowSelect" listener="#{offreController.onOffreSelect}" update="@form" />
+
+                                    <ui:include src="/stylesheets/_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
+                                </p:dataTable>
+                            </t:div>
+                        </p:outputPanel>
+                    </t:div>
+                </p:fieldset>
+
+                <t:htmlTag value="div" style="height: 20px;" />
+
+                <p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+                                 action="#{rechercheController.goToRechercheEtablissementStage}" />
+            </h:form>
+            <ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
+        </p:panel>
+    </ui:define>
 </ui:composition>

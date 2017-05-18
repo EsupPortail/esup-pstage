@@ -51,7 +51,7 @@
                                         minQueryLength="3"
                                         completeMethod="#{rechercheController.getRaisonsSociales}"/>
                         <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET2.RAISONSOCIALE_2']}"
-                                      styleClass="ml5" style="font-size:11px;" escape="false" />
+                                      styleClass="ml5 fz09" escape="false" />
                     </t:htmlTag>
                 </t:div>
                 <t:div styleClass="column">
@@ -245,52 +245,64 @@
         </t:div>
 
         <t:div rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant==6}">
-            <t:div>
+            <t:div styleClass="mt5">
                 <t:htmlTag id="infoBulleRs" value="i" styleClass="fa fa-info-circle fz13 fontBlue2 noPointer">
-                    <p:tooltip for="infoBulleRs" value="#{msgs['RECHERCHEOFFRE.RAISONSOCIALE']}"/>
+                    <p:tooltip for="infoBulleRs" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}"/>
                 </t:htmlTag>
-                <h:outputLabel for="rechRaisonSocialeAccord" styleClass="ml5"
-                               value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
+                <h:outputText styleClass="fontBold ml5"
+                              value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.RAISONSOCIALE']}" />
                 <p:autoComplete id="rechRaisonSocialeAccord" styleClass="ml5"
                                 value="#{rechercheController.rechRaisonSociale}" size="50"
                                 maxlength="100" completeMethod="#{rechercheController.getRaisonsSociales}"
                                 converter="#{sansAccentEnMAJConverter}" />
             </t:div>
 
-            <h:panelGrid columns="3"  id="panelSansAccord" styleClass="mt5 mb5">
-                <h:outputLabel for="rechTypeAccord"
-                               value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.ACCORD']}" />
-                <p:selectOneRadio id="rechTypeAccord"
-                                  value="#{rechercheController.rechTypeAccord}"
-                                  converter="#{intConverter}">
-                    <f:selectItems value="#{rechercheController.listTypeAccord}" />
-                    <p:ajax event="valueChange" update="panelSansAccord" />
-                </p:selectOneRadio>
-                <t:div style="font-size:11px;" rendered="#{rechercheController.rechTypeAccord == 2}">
-                    <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13 fontYellow"/>
-                    <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}" />
+            <t:htmlTag value="ul" styleClass="formUL columns-2 mt15">
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
+                        <t:div id="panelSansAccord" styleClass="mt5 mb5">
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.ACCORD']}" />
+                            <p:selectOneRadio id="rechTypeAccord"
+                                              value="#{rechercheController.rechTypeAccord}"
+                                              converter="#{intConverter}">
+                                <f:selectItems value="#{rechercheController.listTypeAccord}" />
+                                <p:ajax event="valueChange" update="panelSansAccord" />
+                            </p:selectOneRadio>
+                            <t:div styleClass="fz09" rendered="#{rechercheController.rechTypeAccord == 2}">
+                                <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13"/>
+                                <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.SANSACCORD.AIDE']}" />
+                            </t:div>
+                        </t:div>
+                    </t:htmlTag>
                 </t:div>
-            </h:panelGrid>
+                <t:div styleClass="column">
+                    <t:htmlTag value="li">
 
-            <t:div styleClass="mb10">
-                <h:outputLabel for="rechDateDebut"
-                               value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEDEBUT']}" />
-                <p:calendar id="rechDateDebut"
-                            value="#{rechercheController.dateDebut}"
-                            locale="#{sessionController.locale}" />
-                <h:outputLabel for="rechDateFin" styleClass="ml5"
-                               value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEFIN']}" />
-                <p:calendar id="rechDateFin"
-                            value="#{rechercheController.dateFin}"
-                            locale="#{sessionController.locale}" />
+                        <t:div styleClass="mb10 verticalAlignDiv">
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEDEBUT']}" />
+                            <p:calendar id="rechDateDebut" styleClass="autoWidth ml5"
+                                        value="#{rechercheController.dateDebut}"
+                                        locale="#{sessionController.locale}" />
+                        </t:div>
+                        <t:div styleClass="mb10 verticalAlignDiv">
+                            <h:outputText styleClass="fontBold"
+                                          value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET6.DATEFIN']}" />
+                            <p:calendar id="rechDateFin" styleClass="autoWidth ml5"
+                                        value="#{rechercheController.dateFin}"
+                                        locale="#{sessionController.locale}" />
+                        </t:div>
+                    </t:htmlTag>
+                </t:div>
+            </t:htmlTag>
+
+            <t:div styleClass="textCenter">
+                <p:commandButton action="#{rechercheController.rechercheAccord}"
+                                 value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
+                                 update="@form"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
             </t:div>
-
-            <p:message for="rechDateDebut"/>
-
-            <p:commandButton action="#{rechercheController.rechercheAccord}"
-                             value="#{msgs['RECHERCHEETABLISSEMENT.RECHERCHER']}"
-                             update="@form"
-                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
         </t:div>
 
         <t:htmlTag value="div" style="height:10px;"/>

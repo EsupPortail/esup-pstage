@@ -1,48 +1,43 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid>
-		<h:outputText value=" " id="formModifEtab" />
-		<p:message for="formModifEtab">
-			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-		</p:message>
+    <t:div id="formModifEtab">
+        <p:message for="formModifEtab" />
 
-		<h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
-			rendered="#{empty etablissementController.formStructure}" />
-		<t:div rendered="#{not empty etablissementController.formStructure}">
-			<ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
-		</t:div>
+        <h:outputText value="#{msgs['STRUCTURE.AUCUN']}"
+                      rendered="#{empty etablissementController.formStructure}" />
+        <t:div rendered="#{not empty etablissementController.formStructure}">
+            <ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
+        </t:div>
 
-		<h:panelGrid columns="5">
-			<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
-				action="#{offreController.goToCreationOffreDetailsEtab}"
-				alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-				immediate="true" rendered="#{offreController.typeAjoutModifOffre>1}"
-				update="formCreationOffre" />
-			<t:htmlTag value="div" style="width: 20px;" />
-			<p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
-				action="#{offreController.modifierEtablissement}"
-				alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
-				rendered="#{not empty etablissementController.formStructure}"
-				update="formCreationOffre">
-				<f:setPropertyActionListener
-					value="#{etablissementController.formStructure}"
-					target="#{rechercheController.resultatRechercheStructure}" />
-				<p:ajax event="click" update="opFCE" />
-			</p:commandButton>
-			<t:htmlTag value="div" style="width: 20px;" />
-            <p:outputPanel id="opFCE">
-                <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
-                    <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
-                    <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
-                    <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
-                </t:div>
-            </p:outputPanel>
-		</h:panelGrid>
-	</h:panelGrid>
+        <t:div styleClass="textCenter mt10 mb10">
+            <p:commandButton id="modifEtab" value="#{msgs['FORM.MODIFIER']}"
+                             action="#{offreController.modifierEtablissement}"
+                             alt="#{msgs['FORM.MODIFIER']}" title="#{msgs['FORM.MODIFIER']}"
+                             rendered="#{not empty etablissementController.formStructure}"
+                             update="formCreationOffre">
+                <f:setPropertyActionListener
+                        value="#{etablissementController.formStructure}"
+                        target="#{rechercheController.resultatRechercheStructure}" />
+                <p:ajax event="click" update="opFCE" />
+            </p:commandButton>
+        </t:div>
+
+        <p:outputPanel id="opFCE">
+            <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
+                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+                <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+            </t:div>
+        </p:outputPanel>
+
+        <p:commandButton value="#{msgs['FORM.ANNULER']}" styleClass="mb20"
+                         action="#{offreController.goToCreationOffreDetailsEtab}"
+                         immediate="true" update="formCreationOffre"
+                         rendered="#{offreController.creationOffre != 'creationOffre'}" />
+    </t:div>
 </ui:composition>

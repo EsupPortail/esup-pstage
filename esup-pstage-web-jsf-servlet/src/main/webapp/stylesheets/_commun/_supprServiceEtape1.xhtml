@@ -8,10 +8,9 @@
                   escape="false" />
 
     <t:div styleClass="textCenter mt20 mb20">
-        <p:commandButton
-                action="#{etablissementController.supprimerService}"
-                value="#{msgs['FORM.SUPPRIMER']}"
-                update="@form" />
+        <p:commandButton action="#{etablissementController.supprimerService}"
+                         value="#{msgs['FORM.SUPPRIMER']}"
+                         update="@form" />
         <p:commandButton value="#{msgs['FORM.ANNULER']}"
                          onclick="PF('supprService').hide();"
                          immediate="true" styleClass="ml40" />

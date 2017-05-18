@@ -7,7 +7,7 @@
     <ui:define name="content">
         <p:panel>
             <f:facet name="header">
-                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
             </f:facet>
             <h:form id="formListeAvenant"
                     rendered="#{conventionController.convention != null}">
@@ -20,11 +20,11 @@
                                       styleClass="fontBold fontBlue2 fz16 ml5" escape="false" />
 
                         <t:div styleClass="mt15 ml20"
-                               rendered="#{!avenantController.listeAvenantVide and conventionController.convention.validationConvention}">
+                               rendered="#{not empty conventionController.listeAvenants and conventionController.convention.validationConvention}">
                             <p:dataTable id="listeAvenant"
-                                         value="#{avenantController.listeAvenants}" var="avenant" rows="5"
+                                         value="#{conventionController.listeAvenants}" var="avenant" rows="5"
                                          rowHover="true" rowStyleClass="noPointer" paginator="true"
-                                         tableStyle="table-layout: auto;" reflow="true"
+                                         tableStyle="table-layout: auto;" reflow="true" paginatorPosition="bottom"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false">
                                 <p:column sortBy="#{avenant.idAvenant}">
@@ -116,10 +116,10 @@
                                             <t:htmlTag value="i" styleClass="fa fa-search fz16" />
                                             <p:tooltip for="see" value="#{msgs['FORM.CONSULTER']}" />
                                         </p:commandLink>
-                                        <p:commandLink id="delete" rendered="#{!avenant.validationAvenant}"
-                                                       oncomplete="PF('suppressionAvenant').show();"
+                                        <p:commandLink id="delete" oncomplete="PF('suppressionAvenant').show();"
                                                        styleClass="ml5"
-                                                       update="suppressionAvenant">
+                                                       update="suppressionAvenant"
+                                                       rendered="#{!avenant.validationAvenant}">
                                             <f:setPropertyActionListener value="#{avenant}"
                                                                          target="#{avenantController.avenant}" />
                                             <t:htmlTag value="i" styleClass="fa fa-trash fz16" />
@@ -129,13 +129,13 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <t:div styleClass="textCenter mt10 mb10 fontRed" style="font-size: 11px;">
+                            <t:div styleClass="textCenter mt10 mb10 fontRed fz09">
                                 <t:htmlTag value="i" styleClass="fa fa-exclamation-triangle fz13" />
                                 <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.ETAPE11.SUPPRESSION.RAPPEL']}" />
                             </t:div>
                         </t:div>
                         <t:div styleClass="textCenter mt15"
-                               rendered="#{conventionController.convention.validationConvention and avenantController.listeAvenantVide and !welcomeController.etudiant}">
+                               rendered="#{conventionController.convention.validationConvention and empty conventionController.listeAvenants and !welcomeController.etudiant}">
                             <h:outputText value="#{msgs['CONVENTION.ETAPE11.VIDE']}"
                                           styleClass="fontBold"/>
                         </t:div>

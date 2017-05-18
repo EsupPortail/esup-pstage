@@ -5,26 +5,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
-    <p:column rendered="#{sessionController.adminPageAuthorized || welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}"
-              style="background-color:#A5A5A5; min-width:110px;" styleClass="textCenter">
+    <p:column rendered="#{(not empty rechercheController.ongletCourant and rechercheController.ongletCourant !=6) and
+        (sessionController.adminPageAuthorized || welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}"
+              style="min-width:110px;" styleClass="textCenter background-color-grey">
         <f:facet name="header">
             <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
         </f:facet>
         <t:htmlTag value="span">
-            <p:commandLink id="detailStructure" styleClass="mr5"
-                           action="#{rechercheController.goToAffichageRechercheEtablissement}"
-                           rendered="#{!(sessionController.moderationStructures and rechercheController.toVerificationStructures)}">
-                <f:setPropertyActionListener value="#{varRechercheStructure}"
-                                             target="#{rechercheController.resultatRechercheStructure}" />
-                <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
-                <p:tooltip for="detailStructure" value="#{msgs['FORM.CONSULTER']}" />
-            </p:commandLink>
             <p:commandLink id="modifierStructure" styleClass="mr5 ml5"
-                           action="#{etablissementController.goToModificationEtablissement}"
-                           rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant!=6
-				                    or (rechercheController.ongletCourant==6 and
-				                    (empty varRechercheStructure.accordPartenariat
-				                    or (not empty varRechercheStructure.accordPartenariat and varRechercheStructure.accordPartenariat.estValide)))}">
+                           action="#{etablissementController.goToModificationEtablissement}">
                 <f:setPropertyActionListener value="#{varRechercheStructure}"
                                              target="#{etablissementController.formStructure}" />
                 <f:setPropertyActionListener value="#{false}"
@@ -38,19 +27,7 @@
                     </t:aliasBean>
                 </p:tooltip>
             </p:commandLink>
-            <p:commandLink  id="supprimerStructure" styleClass="mr5 ml5"
-                            oncomplete="PF('supprimerStructurePanel').show();"
-                            update="supprimerStructurePanel"
-                            rendered="#{not empty rechercheController.ongletCourant and rechercheController.ongletCourant!=6
-					or (rechercheController.ongletCourant == 6 and empty varRechercheStructure.accordPartenariat)}">
-                <t:htmlTag value="i" styleClass="fa fa-remove fz16 fontBlue2"/>
-                <f:setPropertyActionListener value="#{varRechercheStructure}"
-                                             target="#{etablissementController.formStructure}" />
-                <f:setPropertyActionListener value="_supprStructureEtape1"
-                                             target="#{sessionController.suppressionStructureCurrentPage}" />
-                <p:tooltip for="supprimerStructure" value="#{msgs['FORM.SUPPRIMER']}" />
-            </p:commandLink>
-            <p:commandLink  id="validerStructure" styleClass="ml5"
+            <p:commandLink  id="validerStructure" styleClass="ml5 mr5"
                             oncomplete="PF('validerStructurePanel').show();"
                             rendered="#{empty varRechercheStructure.accordPartenariat and sessionController.moderationStructures}"
                             action="#{etablissementController.avantValidation}"
@@ -61,6 +38,16 @@
                 <f:setPropertyActionListener value="_validStructureEtape1"
                                              target="#{sessionController.validationStructureCurrentPage}" />
                 <p:tooltip for="validerStructure" value="#{msgs['STRUCTURE.MODERATION.VERIFICATION.BOUTON']}" />
+            </p:commandLink>
+            <p:commandLink  id="supprimerStructure" styleClass="mr5 ml5"
+                            oncomplete="PF('supprimerStructurePanel').show();"
+                            update="supprimerStructurePanel">
+                <t:htmlTag value="i" styleClass="fa fa-remove fz16 fontBlue2"/>
+                <f:setPropertyActionListener value="#{varRechercheStructure}"
+                                             target="#{etablissementController.formStructure}" />
+                <f:setPropertyActionListener value="_supprStructureEtape1"
+                                             target="#{sessionController.suppressionStructureCurrentPage}" />
+                <p:tooltip for="supprimerStructure" value="#{msgs['FORM.SUPPRIMER']}" />
             </p:commandLink>
         </t:htmlTag>
     </p:column>

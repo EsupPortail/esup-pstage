@@ -9,19 +9,24 @@
             <f:facet name="header">
                 <h:outputText value="#{msgs['OFFRE.CREATION']}" />
             </f:facet>
-            <h:form id="formCreationOffre" styleClass="ml40">
-                <p:fieldset>
-                    <t:div styleClass="mt5 ml10 block">
+            <h:form id="formCreationOffre">
+                <p:fieldset styleClass="block">
+                    <t:div styleClass="mt10 ml30">
                         <ui:include src="/stylesheets/_commun/#{sessionController.creationOffreStageCurrentPage}.xhtml" />
                         <p:message for="formCreationOffre" />
                     </t:div>
                 </p:fieldset>
             </h:form>
-            <p:message for="formCreationOffre" />
             <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
             <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />
             <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
             <ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_subPanelSelectContactCand.xhtml">
+                <ui:param name="idForm" value="formCreationOffre" />
+            </ui:include>
+            <ui:include src="/stylesheets/_commun/_subPanelSelectContactInfo.xhtml">
+                <ui:param name="idForm" value="formCreationOffre" />
+            </ui:include>
         </p:panel>
     </ui:define>
 </ui:composition>

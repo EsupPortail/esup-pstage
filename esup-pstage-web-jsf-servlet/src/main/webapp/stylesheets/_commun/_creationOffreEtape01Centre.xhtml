@@ -14,6 +14,7 @@
 
         <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
         <h:outputText value="#{msgs['OFFRE.TEXT.ETAPE01']}" styleClass="ml5" escape="false"/>
+
         <t:div style="padding:10px;" styleClass="ml20">
             <h:selectOneMenu id="centreGestion" styleClass="customPstage fix-selectOneMenu"
                              value="#{offreController.formOffre.idCentreGestion}"
@@ -28,6 +29,8 @@
                                              target="#{rechercheController.ongletCourant}" />
                 <f:setPropertyActionListener value="_creationOffreEtape02Etab"
                                              target="#{sessionController.creationOffreStageCurrentPage}" />
+                <f:setPropertyActionListener value="#{false}"
+                                             target="#{rechercheController.rechercheEtabOk}" />
             </p:commandButton>
         </t:div>
     </t:div>

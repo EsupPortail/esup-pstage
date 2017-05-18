@@ -5,6 +5,7 @@
 package org.esupportail.pstage.web.controllers;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ import org.esupportail.pstagedata.domain.dto.StructureDTO;
 import org.esupportail.pstagedata.exceptions.DataAddException;
 import org.esupportail.pstagedata.exceptions.DataUpdateException;
 import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
+import org.primefaces.event.SelectEvent;
 
 /**
  * A visual bean for the welcome page.
@@ -153,6 +155,20 @@ public class EvaluationController extends AbstractContextAwareController {
 	 */
 	private String contenuMailEval;
 
+	public void onConventionSelect(SelectEvent event) {
+
+		this.retourEvaluation = true;
+		String retour = this.goToEvalConvention();
+
+		try {
+			if (retour != null) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("conventionEtape13FicheEvaluation.xhtml");
+			}
+		} catch (IOException ioe){
+			logger.error("Erreur lors de la tentative de redirection de page.");
+			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
+		}
+	}
 
 	/* ************************
 	 * METHODES FICHE ETUDIANT
@@ -1264,19 +1280,12 @@ public class EvaluationController extends AbstractContextAwareController {
 		if (this.getSessionController().getCurrentAuthEnseignant() != null) {
 			if (this.getSessionController().getCurrentAuthEnseignant()
 					.getUidEnseignant() != null) {
-				EnseignantDTO tmpEns = getEnseignantDomainService()
-						.getEnseignantFromUid(
-								this.getSessionController()
-										.getCurrentAuthEnseignant()
-										.getUidEnseignant(),
+				EnseignantDTO tmpEns = getEnseignantDomainService().getEnseignantFromUid(
+								this.getSessionController().getCurrentAuthEnseignant().getUidEnseignant(),
 								getSessionController().getCodeUniversite());
 				if (tmpEns != null) {
-					this.conventionController.setResultatsRechercheConvention(getConventionDomainService()
-							.getConventionsByEnseignant(
-									tmpEns.getId(),
-									getBeanUtils()
-											.getAnneeUniversitaireCourante(
-													new Date())));
+					this.conventionController.setResultatsRechercheConvention(getConventionDomainService().getConventionsByEnseignant(tmpEns.getId(),
+									getBeanUtils().getAnneeUniversitaireCourante(new Date())));
 
 					if (this.conventionController.getResultatsRechercheConvention() != null
 							&& !this.conventionController.getResultatsRechercheConvention().isEmpty()) {

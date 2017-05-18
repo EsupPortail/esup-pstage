@@ -12,7 +12,7 @@
         <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
     </t:aliasBean>
 
-    <t:div styleClass="mt5 ml40">
+    <t:div styleClass="mt5 ml40 fz09">
         <p:commandButton id="modifEtab" icon="fa fa-edit fz13"
                          value="#{msgs['FORM.MODIFIER']} ces informations"
                          action="#{conventionController.goToCreerConventionModifEtab}"
@@ -36,7 +36,7 @@
 
     <t:div styleClass="textCenter mt20">
         <p:commandButton id="selectionEtab"
-                         value="#{msgs['FORM.SELECTIONNERCONTINUER']}"
+                         value="#{msgs['FORM.CONFIRMERCONTINUER']}" styleClass="fontGreen"
                          action="#{conventionController.goToCreerConventionEtape3Service}"
                          rendered="#{not empty rechercheController.resultatRechercheStructure}">
             <f:setPropertyActionListener

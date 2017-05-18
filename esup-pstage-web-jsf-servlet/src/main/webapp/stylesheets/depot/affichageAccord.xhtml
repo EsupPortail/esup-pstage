@@ -1,26 +1,403 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	 template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.xhtml" />
-		</h:panelGrid>
-		<t:div rendered="#{sessionController.adminPageAuthorized}">
-			<h:panelGrid>
-				<p:panel>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['ACCORD.CONSULTATION']}" />
-					</f:facet>
-					<h:form id="formConsultationAccord">
-						<ui:include src="_affichageAccord.xhtml" />
-					</h:form>
-				</p:panel>
-				<ui:include src="_panelNousContacter.xhtml" />
-			</h:panelGrid>
-		</t:div>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <t:div rendered="#{sessionController.adminPageAuthorized}">
+            <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['ACCORD.CONSULTATION']}" />
+                </f:facet>
+                <p:fieldset styleClass="block">
+                    <t:div styleClass="mt10 ml30">
+                        <h:form id="formConsultationAccord">
+
+                            <t:div rendered="#{empty adminController.structureAccord}">
+                                <h:outputText value="#{msgs['ACCORD.AUCUN']}" />
+                            </t:div>
+                            <t:div rendered="#{not empty adminController.structureAccord}">
+                                <ui:include src="_accordArticles.xhtml" />
+
+                                <t:div style="height:10px;" />
+
+                                <p:fieldset legend="General" styleClass="mt10">
+                                    <t:htmlTag value="ul" styleClass="formUL columns-2">
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <t:div>
+                                                    <t:htmlTag id="infoBulleRs" value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2">
+                                                        <p:tooltip for="infoBulleRs" value="#{msgs['INFOSBULLES.RAISON_SOCIALE']}" />
+                                                    </t:htmlTag>
+                                                    <h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']} *"
+                                                                  styleClass="mlf5 fontBold"/>
+                                                </t:div>
+                                                <p:inputText id="raisonSociale" style="text-transform:uppercase;"
+                                                             value="#{adminController.structureAccord.raisonSociale}"
+                                                             maxlength="100" disabled="true" required="true">
+                                                    <f:converter binding="#{sansAccentEnMAJConverter}" />
+                                                </p:inputText>
+                                                <p:message for="raisonSociale"/>
+
+                                                <t:div style="height:10px;" />
+
+                                                <h:outputLabel value="#{msgs['STRUCTURE.EFFECTIF']} *"
+                                                               for="effectif" />
+                                                <h:selectOneMenu id="effectif" styleClass="customPstage fix-selectOneMenu"
+                                                                 value="#{adminController.structureAccord.effectif}"
+                                                                 converter="#{effectifConverter}" required="true"
+                                                                 disabled="true" style="opacity: 0.50;">
+                                                    <f:selectItem itemValue="" />
+                                                    <f:selectItems value="#{nomenclatureController.effectifs}" />
+                                                </h:selectOneMenu>
+                                                <p:message for="effectif"/>
+                                            </t:htmlTag>
+                                        </t:div>
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <h:outputText value="#{msgs['STRUCTURE.NUM_SIRET']} " for="siret" >
+                                                    <t:htmlTag id="infoSiret" value="i"
+                                                               styleClass="fa fa-info-circle fz13 fontBlue1"
+                                                               style="padding: 0 5px; cursor:help;">
+                                                        <p:tooltip value="#{msgs['INFOSBULLES.NUMERO_SIRET']}" escape="false"
+                                                                   for="infoSiret" />
+                                                    </t:htmlTag>
+                                                </h:outputText>
+                                                <p:inputText id="siret"
+                                                             value="#{adminController.structureAccord.numeroSiret}"
+                                                             maxlength="14" disabled="true" />
+                                                <p:message for="siret" />
+
+                                                <t:div style="height:10px;" />
+
+                                                <h:outputText value="#{msgs['STRUCTURE.TYPE_STRUCTURE']}"
+                                                              styleClass="fontBold"/>
+                                                <h:selectOneMenu id="typeStructure" styleClass="customPstage fix-selectOneMenu"
+                                                                 value="#{adminController.structureAccord.typeStructure}"
+                                                                 converter="#{typeStructureConverter}" required="true"
+                                                                 valueChangeListener="#{adminController.valueTypeStructureChanged}"
+                                                                 disabled="true" style="opacity: 0.50;">
+                                                    <f:selectItem itemValue="" />
+                                                    <f:selectItems value="#{nomenclatureController.typesStructure}" />
+                                                    <p:ajax event="valueChange" update="opStatutJuridique" />
+                                                </h:selectOneMenu>
+                                                <p:message for="typeStructure"/>
+
+                                                <p:outputPanel id="opStatutJuridique">
+                                                    <t:div styleClass="mt10" rendered="#{!empty adminController.statutsJuridiquesListening
+							            and !empty adminController.structureAccord.typeStructure}">
+                                                        <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.STATUT_JURIDIQUE']}" />
+                                                        <h:selectOneMenu id="statutJuridique" styleClass="customPstage fix-selectOneMenu"
+                                                                         value="#{adminController.structureAccord.statutJuridique}"
+                                                                         converter="#{statutJuridiqueConverter}" required="true"
+                                                                         disabled="true" style="opacity: 0.50;">
+                                                            <f:selectItem itemValue="" />
+                                                            <f:selectItems value="#{adminController.statutsJuridiquesListening}" />
+                                                        </h:selectOneMenu>
+                                                        <p:message for="statutJuridique" />
+                                                    </t:div>
+                                                </p:outputPanel>
+                                            </t:htmlTag>
+                                        </t:div>
+                                    </t:htmlTag>
+                                </p:fieldset>
+
+                                <p:fieldset legend="#{msgs['STRUCTURE.ACTIVITE']}" styleClass="mt10">
+
+
+                                    <t:div id="arrows" styleClass="textCenter fontBold mb10"
+                                           rendered="#{!etablissementController.codeNafObligatoire ||
+			                (adminController.structureAccord.pays!=beanUtils.france and adminController.structureAccord.pays.cog!=beanUtils.cogFrance)}">
+                                        <t:htmlTag value="i"
+                                                   styleClass="fa fa-arrow-down fz13 fontBlue1"
+                                                   style="padding: 0 5px;"/>
+                                        <h:outputText value="#{msgs['STRUCTURE.CODE_NAF.OBLIGATOIRE']}" styleClass="fontItalic"/>
+                                        <t:htmlTag value="i"
+                                                   styleClass="fa fa-arrow-down fz13 fontBlue1"
+                                                   style="padding: 0 5px;"/>
+                                    </t:div>
+
+
+                                    <t:htmlTag value="ul" styleClass="formUL columns-2">
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <t:htmlTag id="infoBulleApe" value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2">
+                                                    <p:tooltip for="infoBulleApe" value="#{msgs['INFOSBULLES.CODE_APE']}" escape="false"/>
+                                                </t:htmlTag>
+                                                <h:outputText value="#{msgs['STRUCTURE.CODE_NAF']}"
+                                                              styleClass="fontBold mlf5" />
+                                                <t:div>
+                                                    <p:inputText id="ape" style="text-transform:uppercase;"
+                                                                 value="#{adminController.structureAccord.codeNAF_N5}"
+                                                                 validatorMessage="#{requiredMessageController.codeNafNonValide}"
+                                                                 valueChangeListener="#{adminController.valueCodeNafChanged}"
+                                                                 maxlength="6" disabled="true">
+                                                        <f:validator binding="#{codeNAFValidator}" />
+                                                        <f:converter binding="#{codNafN5Converter}" />
+                                                        <p:ajax event="blur" update="opLibelleAPE" />
+                                                    </p:inputText>
+                                                </t:div>
+
+                                                <p:outputPanel id="opLibelleAPE">
+                                                    <t:div rendered="#{not empty adminController.structureAccord.nafN5}">
+                                                        <t:htmlTag value="i" styleClass="fa fa-check fz13 fontBlue2"/>
+                                                        <h:outputText styleClass="mlf5"
+                                                                      value="#{adminController.structureAccord.nafN5.libelle}" />
+                                                    </t:div>
+                                                </p:outputPanel>
+                                                <p:message for="ape"/>
+                                            </t:htmlTag>
+                                        </t:div>
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <h:outputText value="#{msgs['STRUCTURE.ACTIVITE_PRINCIPALE']}"
+                                                              styleClass="fontBold"  />
+
+                                                <t:div id="actprinc">
+                                                    <h:outputText escape="false"
+                                                                  value="#{adminController.structureAccord.activitePrincipale}" />
+                                                    <p:message for="actprinc" />
+                                                </t:div>
+                                            </t:htmlTag>
+                                        </t:div>
+                                    </t:htmlTag>
+                                </p:fieldset>
+
+                                <p:fieldset legend="#{msgs['GENERAL.COORDONNEES']}" styleClass="mt10">
+                                    <t:htmlTag value="ul" styleClass="formUL columns-2">
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <h:outputText styleClass="fontBold"
+                                                              value="#{msgs['STRUCTURE.VOIE']} *" />
+                                                <p:inputText id="voie"
+                                                             value="#{adminController.structureAccord.voie}"
+                                                             maxlength="200" required="true" disabled="true"/>
+                                                <p:message for="voie"/>
+
+                                                <t:div style="height: 10px;" />
+
+                                                <h:outputText styleClass="fontBold"
+                                                              value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+                                                <p:inputText id="batimentResidence"
+                                                             value="#{adminController.structureAccord.batimentResidence}"
+                                                             maxlength="200" disabled="true"/>
+                                                <p:message for="batimentResidence"/>
+
+                                                <t:div style="height: 10px;" />
+
+                                                <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.CEDEX']} " />
+                                                <p:inputText id="cedex"
+                                                             value="#{adminController.structureAccord.libCedex}"
+                                                             maxlength="28" disabled="true" />
+                                                <p:message for="cedex"/>
+                                            </t:htmlTag>
+                                        </t:div>
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']} "
+                                                              styleClass="fontBold" />
+                                                <p:inputText id="codePostal"
+                                                             value="#{adminController.structureAccord.codePostal}"
+                                                             maxlength="10" required="true"
+                                                             disabled="true"/>
+                                                <p:message for="codePostal"/>
+
+                                                <t:div style="height: 10px;" />
+
+                                                <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.COMMUNE']} *" for="commune" />
+                                                <p:inputText id="commune" style="text-transform:uppercase;"
+                                                             value="#{adminController.structureAccord.commune}"
+                                                             maxlength="200" required="true"
+                                                             disabled="true">
+                                                    <f:converter binding="#{sansAccentEnMAJConverter}" />
+                                                </p:inputText>
+                                                <p:message for="commune"/>
+
+                                                <t:div style="height: 10px;" />
+
+                                                <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.PAYS']} *" />
+                                                <t:div id="opFlagNC" styleClass="verticalAlignDiv">
+                                                    <h:graphicImage id="flag"
+                                                                    rendered="#{not empty adminController.structureAccord.pays}"
+                                                                    value="#{sessionController.mediaPath}/images/flags/#{adminController.structureAccord.pays.iso2}.png"
+                                                                    alt="    " styleClass="mrf5" />
+                                                    <h:selectOneMenu id="pays" styleClass="customPstage fix-selectOneMenu"
+                                                                     value="#{adminController.structureAccord.pays}"
+                                                                     converter="#{paysConverter}" disabled="true" required="true"
+                                                                     style="opacity: 0.50;">
+                                                        <f:selectItems value="#{nomenclatureController.pays}" />
+                                                    </h:selectOneMenu>
+                                                </t:div>
+                                                <p:message for="pays"/>
+
+                                            </t:htmlTag>
+                                        </t:div>
+                                    </t:htmlTag>
+
+                                    <p:separator style="height:2px;" styleClass="mt30 mr30 mb20 ml30 clearFloat"/>
+
+                                    <t:htmlTag value="ul" styleClass="formUL columns-2">
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <h:outputText styleClass="fontBold"
+                                                              value="#{msgs['STRUCTURE.MAIL']} " />
+                                                <h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
+                                                <p:inputText id="mail"
+                                                             value="#{adminController.structureAccord.mail}"
+                                                             validatorMessage="#{requiredMessageController.adresseMailNonValide}"
+                                                             maxlength="50" disabled="true">
+                                                    <f:validator binding="#{mailValidator}" />
+                                                </p:inputText>
+                                                <p:message for="mail" />
+
+                                                <t:div style="height: 10px;" />
+
+                                                <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.SITEWEB']} " />
+                                                <h:outputText value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
+                                                              escape="false" />
+                                                <p:inputText id="siteWeb"
+                                                             value="#{adminController.structureAccord.siteWeb}"
+                                                             validatorMessage="#{requiredMessageController.siteWebNonValide}"
+                                                             maxlength="200" disabled="true">
+                                                    <f:validator binding="#{siteWebValidator}" />
+                                                </p:inputText>
+                                                <p:message for="siteWeb"/>
+                                            </t:htmlTag>
+                                        </t:div>
+
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.TELEPHONE']} *" />
+                                                <p:inputText id="telephone"
+                                                             value="#{adminController.structureAccord.telephone}"
+                                                             maxlength="20" required="true"
+                                                             disabled="true"/>
+                                                <p:message for="telephone"/>
+
+                                                <h:outputText styleClass="fontBold"
+                                                              value="#{msgs['STRUCTURE.FAX']} " />
+                                                <p:inputText id="fax"
+                                                             value="#{adminController.structureAccord.fax}"
+                                                             maxlength="20" disabled="true" />
+                                                <p:message for="fax"/>
+                                            </t:htmlTag>
+                                        </t:div>
+                                    </t:htmlTag>
+                                </p:fieldset>
+
+                                <p:fieldset legend="#{msgs['OFFRE.GESTION.CONTACTS']}" styleClass="mt10">
+
+                                    <t:div styleClass="textCenter mb10">
+                                        <h:outputText value="#{msgs['ACCORD.CONTACT']}"
+                                                      styleClass="fontItalic"/>
+                                    </t:div>
+
+                                    <t:htmlTag value="ul" styleClass="formUL columns-2">
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <h:outputText value="#{msgs['CONTACT.CIVILITE']}"
+                                                              styleClass="fontBold"/>
+                                                <h:selectOneMenu id="civilite"
+                                                                 value="#{adminController.structureAccord.accordPartenariat.contact.civilite}"
+                                                                 converter="#{civiliteConverter}" required="true"
+                                                                 requiredMessage="#{requiredMessageController.champObligatoire}"
+                                                                 disabled="true">
+                                                    <f:selectItem itemValue="" />
+                                                    <f:selectItems value="#{nomenclatureController.civilites}" />
+                                                </h:selectOneMenu>
+                                                <p:message for="civilite"/>
+
+                                                <t:div style="height: 10px;"/>
+
+                                                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.NOM']}" />
+                                                <p:inputText id="nom" style="text-transform:uppercase;"
+                                                             value="#{adminController.structureAccord.accordPartenariat.contact.nom}"
+                                                             maxlength="50" required="true" disabled="true">
+                                                    <f:converter binding="#{upperCaseConverter}" />
+                                                </p:inputText>
+                                                <p:message for="nom"/>
+
+                                                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.PRENOM']}" />
+                                                <p:inputText id="prenom" style="text-transform:capitalize;"
+                                                             value="#{adminController.structureAccord.accordPartenariat.contact.prenom}"
+                                                             maxlength="50" required="true" disabled="true">
+                                                    <f:converter binding="#{premiereLettreMAJConverter}" />
+                                                    <p:ajax event="blur" />
+                                                </p:inputText>
+                                                <p:message for="prenom"/>
+
+                                                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.FONCTION']} " />
+                                                <p:inputText id="fonction" maxlength="100"
+                                                             value="#{adminController.structureAccord.accordPartenariat.contact.fonction}"
+                                                             disabled="true" />
+                                                <p:message for="fonction"/>
+                                            </t:htmlTag>
+                                        </t:div>
+
+                                        <t:div styleClass="column">
+                                            <t:htmlTag value="li">
+                                                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.TELEPHONE']} *" />
+                                                <p:inputText id="telC" maxlength="20"
+                                                             value="#{adminController.structureAccord.accordPartenariat.contact.tel}"
+                                                             required="true" disabled="true"/>
+                                                <p:message for="telC"/>
+
+                                                <t:div style="height: 10px;"/>
+
+                                                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.FAX']} " />
+                                                <p:inputText id="faxC" maxlength="20"
+                                                             value="#{adminController.structureAccord.accordPartenariat.contact.fax}"
+                                                             disabled="true" />
+                                                <p:message for="faxC"/>
+
+                                                <t:div style="height: 10px;"/>
+
+                                                <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.MAIL']} *" />
+                                                <p:inputText id="mailC"
+                                                             value="#{adminController.structureAccord.accordPartenariat.contact.mail}"
+                                                             maxlength="50" required="true"
+                                                             validatorMessage="#{requiredMessageController.adresseMailNonValide}"
+                                                             disabled="true">
+                                                    <f:validator binding="#{mailValidator}" />
+                                                </p:inputText>
+                                                <p:message for="mailC"/>
+                                            </t:htmlTag>
+                                        </t:div>
+                                    </t:htmlTag>
+                                </p:fieldset>
+
+                                <t:div styleClass="mt10 mb10">
+                                    <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fontBlue2" />
+                                    <h:outputText id="dateCreationAccord" styleClass="fontBold mlf5"
+                                                  value="#{msgs['ACCORD.DATECREATION']}" escape="false" />
+                                    <h:outputText value="#{adminController.structureAccord.accordPartenariat.dateCreation}">
+                                        <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+                                    </h:outputText>
+                                </t:div>
+
+                                <t:div styleClass="mt10 mb10"
+                                       rendered="#{adminController.structureAccord.accordPartenariat.estValide}" >
+                                    <t:htmlTag value="i" styleClass="fa fa-check fontBlue2" />
+                                    <h:outputText value="#{msgs['ACCORD.DATEVALIDATION']}"
+                                                  escape="false" styleClass="fontBold mlf5"/>
+                                    <h:outputText value="#{adminController.structureAccord.accordPartenariat.dateValidation}">
+                                        <f:convertDateTime pattern="dd MMM yyyy" timeZone="CET" />
+                                    </h:outputText>
+                                    <h:outputText value=", #{adminController.structureAccord.accordPartenariat.loginValidation}" />
+                                </t:div>
+
+                            </t:div>
+
+                            <p:commandButton value="#{msgs['GENERAL.RETOUR']}"
+                                             action="#{adminController.goToRetourAction}"
+                                             update="@form" styleClass="mb20"
+                                             immediate="true"/>
+                        </h:form>
+                    </t:div>
+                </p:fieldset>
+            </p:panel>
+        </t:div>
+    </ui:define>
 </ui:composition>
 

@@ -2,29 +2,30 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:t="http://myfaces.apache.org/tomahawk"
-                xmlns:p="http://primefaces.org/ui"
->
+                xmlns:p="http://primefaces.org/ui">
     <t:div rendered="#{not empty etablissementController.formStructure}">
         <ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
     </t:div>
-    <h:panelGrid columns="5">
-        <p:commandButton value="#{msgs['FORM.ANNULER']}"
-                         action="#{etablissementController.annulerModifierFicheSignaletique}"
-                         alt="#{msgs['FORM.ANNULER']}" title="#{msgs['FORM.ANNULER']}"
-                         immediate="true" />
-        <t:htmlTag value="div" style="width:20px;" />
+
+    <t:div styleClass="mt10 textCenter">
         <p:commandButton value="#{msgs['FORM.MODIFIER']}"
                          rendered="#{not empty etablissementController.formStructure}"
                          action="#{etablissementController.modifierFicheSignaletique}"
                          update="formModifEtab" />
+    </t:div>
 
-        <t:htmlTag value="div" style="width:20px;" />
-        <p:outputPanel id="opFCE">
-            <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
-                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
-                <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
-                <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
-            </t:div>
-        </p:outputPanel>
-    </h:panelGrid>
+    <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                     action="#{etablissementController.annulerModifierFicheSignaletique}"
+                     alt="#{msgs['FORM.ANNULER']}" title="#{msgs['FORM.ANNULER']}"
+                     immediate="true" />
+
+
+    <p:outputPanel id="opFCE">
+        <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
+            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+            <h:outputText value="#{msgs['FORM.FORMERROR']}" styleClass="fontBold mr5 ml5"/>
+            <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
+        </t:div>
+    </p:outputPanel>
+
 </ui:composition>

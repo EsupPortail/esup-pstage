@@ -36,9 +36,15 @@
 
         <t:htmlTag value="div" style="height: 10px;" />
 
-        <p:commandButton value="#{msgs['FORM.NEXT']}"
-                         action="#{offreController.goToModificationOffreDetailsEtab}"
-                         update="@form" styleClass="ml40"
-                         rendered="#{not empty offreController.listeItemsCurrentCentresGestion}" />
+        <t:div styleClass="textCenter mt10 mb20">
+            <p:commandButton value="#{msgs['FORM.ENREGISTRER']} les modifications"
+                             update="formModificationOffre"
+                             action="#{offreController.modificationOffreDetailsEtab}"
+                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" />
+        </t:div>
+        <!--<p:commandButton value="#{msgs['FORM.NEXT']}"-->
+                         <!--action="#{offreController.goToModificationOffreDetailsEtab}"-->
+                         <!--update="@form" styleClass="ml40"-->
+                         <!--rendered="#{not empty offreController.listeItemsCurrentCentresGestion}" />-->
     </t:div>
 </ui:composition>

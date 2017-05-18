@@ -10,16 +10,17 @@
                 <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ONGLET8']}" />
             </f:facet>
             <h:form id="formResultatsRechEtab">
-                <t:div rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
-                    <p:dataTable id="rechercheStructureDataTable"
-                                 value="#{rechercheController.listeResultatsRechercheStructure}"
-                                 var="varRechercheStructure" rows="20" rowHover="true" reflow="true"
-                                 rowStyleClass="noPointer" paginator="true" tableStyle="table-layout: auto;"
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15,20">
-                        <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
-                    </p:dataTable>
+                <t:div rendered="#{empty rechercheController.listeResultatsRechercheStructure}">
+                    <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.AUCUNRESULTAT']}" />
                 </t:div>
+                <p:dataTable id="rechercheStructureDataTable"
+                             value="#{rechercheController.listeResultatsRechercheStructure}"
+                             var="varRechercheStructure" rows="20" rowHover="true" reflow="true"
+                             rowStyleClass="noPointer" paginator="true" tableStyle="table-layout: auto;"
+                             paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15,20" paginatorPosition="bottom"
+                             rendered="#{not empty rechercheController.listeResultatsRechercheStructure}">
+                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatsColumns.xhtml" />
+                </p:dataTable>
             </h:form>
         </p:panel>
     </ui:define>

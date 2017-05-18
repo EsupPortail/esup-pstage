@@ -7,7 +7,7 @@
     <ui:define name="content">
         <p:panel rendered="#{conventionController.convention != null}">
             <f:facet name="header">
-                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
             </f:facet>
             <h:form id="formAccueilFiche">
                 <ui:include src="_roadmapSel.xhtml" />
@@ -180,7 +180,7 @@
 
 
                             <!--debut ens-->
-                            <t:div styleClass="textCenter"
+                            <t:div
                                    rendered="#{welcomeController.superAdmin
                                 || sessionController.droitsEvaluationEnseignantMap[conventionController.convention.idCentreGestion]
                                 || evaluationController.tuteurCurrentConvention}">

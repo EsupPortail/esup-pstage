@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
@@ -33,6 +35,7 @@ import org.esupportail.pstagedata.domain.dto.DroitAdministrationDTO;
 import org.esupportail.pstagedata.domain.dto.EnseignantDTO;
 import org.esupportail.pstagedata.domain.dto.PersonnelCentreGestionDTO;
 import org.esupportail.pstagedata.domain.dto.StructureDTO;
+import org.primefaces.event.SelectEvent;
 import org.springframework.util.StringUtils;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
@@ -195,18 +198,16 @@ public class WelcomeController extends AbstractContextAwareController {
 	 * Envoi vers la 2éme ou 3éme étape de récupération d'un mot de passe
 	 */
 	public String goToMotDePassePerduEtabTrouve(){
-		//		String ret="_motDePassePerduEtape3Confirmation";
+		this.structureSelectionneeMotDePassePerdu = null;
 		getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 		if(StringUtils.hasText(this.mailMotDePassePerdu)){
 			List<StructureDTO> ls = getStructureDomainService().getStructureFromContactMailEntrepriseAvecCompte(this.mailMotDePassePerdu);
 			if(ls!=null){
 				if(ls.size()>1){
-					//					ret="_motDePassePerduEtape2SelectionEtab";
 					getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape2SelectionEtab");
 					this.listeStructuresTrouveeMotDePassePerdu=ls;
 					return "motDePassePerdu";
 				}else{
-					//					ret="_motDePassePerduEtape3Confirmation";
 					getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 					ContactDTO c = getStructureDomainService().getContactEntrepriseAvecCompteFromMailAndIdStructure(this.mailMotDePassePerdu,
 							ls.get(0).getIdStructure());
@@ -237,13 +238,22 @@ public class WelcomeController extends AbstractContextAwareController {
 					}
 				}
 			}else{
-				//				ret="_motDePassePerduEtape3Confirmation";
 				getSessionController().setMdpPerduCurrentPage("_motDePassePerduEtape3Confirmation");
 				addErrorMessage(null, "MOTDEPASSEPERDU.INCONNUE");
 			}
 		}
 		return null;
 	}
+
+	/**
+	 * @return String
+	 */
+//	public void onMdpPerduStructureSelect(SelectEvent event) {
+//		try {
+//		} catch (IOException ioe){
+//			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
+//		}
+//	}
 
 	/**
 	 * Envoi vers l'étape 3 de récupération de mot de passe depuis l'étape 2
@@ -287,7 +297,6 @@ public class WelcomeController extends AbstractContextAwareController {
 	 *
 	 */
 	public void nousContacter(){
-		//		String retour="_nousContacterEtape2";
 		getSessionController().setNousContacterCurrentPage("_nousContacterEtape2");
 		if(!getSessionController().getNousContacter().isNull()){
 			addInfoMessage(null, "GENERAL.NOUS_CONTACTER.CONFIRMATION");
@@ -305,7 +314,6 @@ public class WelcomeController extends AbstractContextAwareController {
 			}
 			getSessionController().setNousContacter(new NousContacter());
 		}
-		//		return retour;
 	}
 
 	/**
@@ -376,7 +384,8 @@ public class WelcomeController extends AbstractContextAwareController {
 				StructureDTO st = getStructureDomainService().getStructureFromIdService(tmp.getIdService());
 				if(st!=null && st.getIdStructure()>0){
 					AccordPartenariatDTO ap = getStructureDomainService().getAccordFromIdStructure(st.getIdStructure());
-					if(ap!=null && ap.isEstValide() && tmp.getMdp().equalsIgnoreCase(this.mdp)){
+					if(ap != null && ap.isEstValide()
+							&& getBlowfishUtils().decode(tmp.getMdp()).equalsIgnoreCase(this.mdp)){
 						getSessionController().setCurrentAuthAdminStructure(null);
 						if(logger.isInfoEnabled()){
 							logger.info("Connection of contact : "+tmp);
@@ -398,10 +407,12 @@ public class WelcomeController extends AbstractContextAwareController {
 						getSessionController().setCurrentAuthEnseignant(null);
 						getSessionController().setCurrentAuthPersonnel(null);
 					}else{
-						addErrorMessage("connexion", "GENERAL.BADLOGINORPASS");
+						addErrorMessage("formConnexion", "GENERAL.BADLOGINORPASS");
+						return null;
 					}
 				}else{
-					addErrorMessage("connexion", "GENERAL.BADLOGINORPASS");
+					addErrorMessage("formConnexion", "GENERAL.BADLOGINORPASS");
+					return null;
 				}
 			}else{
 				getSessionController().setCurrentAuthContact(null);
@@ -417,14 +428,17 @@ public class WelcomeController extends AbstractContextAwareController {
 						l.add(getCentreGestionDomainService().getCentreEntreprise());
 						getSessionController().setCurrentCentresGestion(l);
 					}else{
-						addErrorMessage("connexion", "GENERAL.BADLOGINORPASS");
+						addErrorMessage("formConnexion", "GENERAL.BADLOGINORPASS");
+						return null;
 					}
 				}else{
-					addErrorMessage("connexion", "GENERAL.BADLOGINORPASS");
+					addErrorMessage("formConnexion", "GENERAL.BADLOGINORPASS");
+					return null;
 				}
 			}
 		}else{
-			addErrorMessage("connexion", "GENERAL.LOGINANDPASS");
+			addErrorMessage("formConnexion", "GENERAL.LOGINANDPASS");
+			return null;
 		}
 		return ret;
 	}
@@ -613,11 +627,12 @@ public class WelcomeController extends AbstractContextAwareController {
 				userAffiliation = ldapUser.getAttribute(this.affiliation);
 				if(StringUtils.hasText(userAffiliation) && (employee.contains(userAffiliation) || faculty.contains(userAffiliation))){
 					// Gestion de ses droits pour chaque centre de l'université de l'individu connecté
-					List<PersonnelCentreGestionDTO> liste = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionFromUid(getSessionController().getCurrentStageCasUser().getId(),getSessionController().getCodeUniversite());
+					List<PersonnelCentreGestionDTO> liste = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionFromUid(
+							getSessionController().getCurrentStageCasUser().getId(),getSessionController().getCodeUniversite());
 					if(logger.isDebugEnabled()){
 						logger.info("ldapUser : " + ldapUser);
 						logger.info("Employee : " + employee);
-						logger.debug("Recherche des droits du personnel pour chaque centre de son université ==> " + liste);
+						logger.info("Recherche des droits du personnel pour chaque centre de son université ==> " + liste.size());
 					}
 
 					if (liste != null && !liste.isEmpty()){

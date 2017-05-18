@@ -1,4 +1,4 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
              xmlns:ui="http://java.sun.com/jsf/facelets"
              xmlns:h="http://java.sun.com/jsf/html"
              xmlns:p="http://primefaces.org/ui"
@@ -6,16 +6,14 @@
 
     <p:messages />
 
-    <t:div styleClass="textCenter">
-        <h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
-                         rendered="#{(welcomeController.personnel || welcomeController.admin) and !sessionController.pageAuthorized and !sessionController.adminPageAuthorized}"
-                         action="recapitulatifOffreEtabCentre"
-                         alt="#{msgs['OFFRE.RECAPITULATIF']}"
-                         title="#{msgs['OFFRE.RECAPITULATIF']}" />
-        <h:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"
-                         rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"
-                         action="#{offreController.getRetour}" alt="#{msgs['OFFRE.RECAPITULATIF']}"
-                         title="#{msgs['OFFRE.RECAPITULATIF']}" />
-    </t:div>
+    <!--<t:div styleClass="textCenter">-->
+        <!--<p:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"-->
+                         <!--rendered="#{(welcomeController.personnel || welcomeController.admin)-->
+                         <!--and !sessionController.pageAuthorized and !sessionController.adminPageAuthorized}"-->
+                         <!--action="recapitulatifOffreEtabCentre"/>-->
+        <!--<p:commandButton value="#{msgs['OFFRE.RECAPITULATIF']}"-->
+                         <!--rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}"-->
+                         <!--action="#{offreController.getRetour}" />-->
+    <!--</t:div>-->
 
-</ui:fragment>
+</ui:composition>

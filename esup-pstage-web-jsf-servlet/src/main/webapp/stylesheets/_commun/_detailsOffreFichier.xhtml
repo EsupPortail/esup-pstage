@@ -1,50 +1,35 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:panelGrid rendered="#{offreController.currentOffre.avecFichier
-		and offreController.currentOffre.idFichier gt 0
-							and not empty offreController.currentOffre.fichier}">
-		<h:panelGrid columns="2">
-			<h:outputLink
-				value="get.file?fileId=#{offreController.currentOffre.idFichier}"
-				target="_blank">
-				<h:graphicImage alt="#{msgs['GENERAL.FILE']}"
-					title="#{msgs['GENERAL.FILE']}" value="../../media/images/docu.png"
-					 />
-			</h:outputLink>
-			<h:outputLink
-				value="get.file?fileId=#{offreController.currentOffre.idFichier}"
-				target="_blank">
-				<h:outputText
-					value="#{offreController.currentOffre.fichier.nomFichier}"
-					rendered="#{empty offreController.currentOffre.fichier.nomReel}" />
-				<h:outputText
-					value="#{offreController.currentOffre.fichier.nomReel}"
-					rendered="#{not empty offreController.currentOffre.fichier.nomReel}" />
-			</h:outputLink>
-		</h:panelGrid>
-	</h:panelGrid>
+    <t:div rendered="#{offreController.currentOffre.avecFichier and offreController.currentOffre.idFichier gt 0
+						and not empty offreController.currentOffre.fichier}" styleClass="mlf20 mt10 mb10">
+        <h:outputLink value="get.file?fileId=#{offreController.currentOffre.idFichier}"
+                      target="_blank">
+            <t:htmlTag value="i" styleClass="fa fa-file-text-o fontBlue2 fz20" />
+        </h:outputLink>
 
-	<h:panelGrid rendered="#{offreController.currentOffre.avecLien}">
-		<h:panelGrid columns="2">
-			<h:outputLink value="#{offreController.currentOffre.lienAttache}"
-				target="_blank">
-				<h:graphicImage alt="#{msgs['GENERAL.CLIQUEZICI']}"
-					title="#{msgs['GENERAL.CLIQUEZICI']}"
-					value="../../media/images/lien.png" />
-			</h:outputLink>
-			<h:outputLink value="#{offreController.currentOffre.lienAttache}"
-				target="_blank">
-				<h:outputText value="#{offreController.currentOffre.lienAttache}"
-					title="#{offreController.currentOffre.lienAttache}">
-					<f:converter binding="#{limitCharactersShownUpTo50Converter}" />
-				</h:outputText>
-			</h:outputLink>
-		</h:panelGrid>
-	</h:panelGrid>
+        <h:outputLink value="get.file?fileId=#{offreController.currentOffre.idFichier}"
+                      target="_blank">
+            <h:outputText
+                    value="#{offreController.currentOffre.fichier.nomFichier}"
+                    rendered="#{empty offreController.currentOffre.fichier.nomReel}" />
+            <h:outputText
+                    value="#{offreController.currentOffre.fichier.nomReel}"
+                    rendered="#{not empty offreController.currentOffre.fichier.nomReel}" />
+        </h:outputLink>
+    </t:div>
+
+    <t:div rendered="#{offreController.currentOffre.avecLien}" styleClass="mlf20 mt10 mb10">
+
+        <h:outputLink value="#{offreController.currentOffre.lienAttache}"
+                      target="_blank">
+            <h:outputText value="#{offreController.currentOffre.lienAttache}"
+                          title="#{offreController.currentOffre.lienAttache}">
+                <f:converter binding="#{limitCharactersShownUpTo50Converter}" />
+            </h:outputText>
+        </h:outputLink>
+    </t:div>
 </ui:composition>

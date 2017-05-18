@@ -7,7 +7,7 @@
     <ui:define name="content">
         <p:panel>
             <f:facet name="header">
-                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
             </f:facet>
             <h:form id="formSelConvention">
                 <ui:include src="_roadmapSel.xhtml" />
@@ -35,12 +35,21 @@
 
                         <p:dialog id="selectSignataire" widgetVar="selectSignataire" resizable="false">
 
-                            <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml" />
+                            <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml">
+                                <ui:param name="idOpService" value="opService" />
+                                <ui:param name="idSOMService" value="sOMService" />
+                                <ui:param name="idOpActionsService" value="opActionsService" />
+                                <ui:param name="idOpContactsDataTable" value="opContactsDataTable" />
+                                <ui:param name="idSOMContact" value="sOMContact" />
+                                <ui:param name="idDivButtons" value="divButtons" />
+                            </ui:include>
 
-                            <t:div styleClass="textCenter mt20 mb20">
+                            <t:div id="divButtons" styleClass="textCenter mt20 mb20">
                                 <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
                                                  oncomplete="PF('selectSignataire').hide();"
-                                                 update="@form">
+                                                 update="@form"
+                                                 rendered="#{not empty etablissementController.serviceSel
+                                         and not empty etablissementController.contactSel}">
                                     <f:setPropertyActionListener
                                             value="#{etablissementController.contactSel}"
                                             target="#{conventionController.signataireSel}" />

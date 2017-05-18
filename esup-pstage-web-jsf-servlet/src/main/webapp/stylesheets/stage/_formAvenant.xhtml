@@ -300,7 +300,7 @@
                                 <p:dataTable id="opService"
                                              value="#{avenantController.listeServices}" var="service"
                                              rows="5" rowHover="true" rowStyleClass="noPointer" paginator="true"
-                                             tableStyle="table-layout: auto;" reflow="true"
+                                             tableStyle="table-layout: auto;" reflow="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15,20">
                                     <p:column>
@@ -425,7 +425,8 @@
                                                  rows="5" rowHover="true" rowStyleClass="noPointer"
                                                  tableStyle="table-layout: auto;" reflow="true"
                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 paginator="true" rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false">
+                                                 paginator="true" rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
+                                                 paginatorPosition="bottom">
                                         <p:column>
                                             <f:facet name="header">
                                                 <h:outputText

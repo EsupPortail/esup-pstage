@@ -1,9 +1,20 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
 
-    <p:messages />
+    <t:htmlTag value="i" styleClass="fa fa-check fz16 fontGreen" />
+    <h:outputText value="#{msgs['ACCORD.CONFIRMATION']}" styleClass="fz16 fontGreen"/>
 
-	<p:commandButton action="#{welcomeController.goToAccueilEntr}"
-		value="#{msgs['GENERAL.RETOURACCUEIL']}" />
+    <t:div style="height:10px;" />
+
+    <h:outputText value="#{msgs['ACCORD.CONFIRMATION_2']}" styleClass="fontItalic"/>
+
+    <t:div style="height:10px;" />
+
+    <p:commandButton action="#{welcomeController.goToAccueilEntr}"
+                     update="@form" styleClass="mb20"
+                     value="#{msgs['GENERAL.RETOURACCUEIL']}" />
 
 </ui:composition>

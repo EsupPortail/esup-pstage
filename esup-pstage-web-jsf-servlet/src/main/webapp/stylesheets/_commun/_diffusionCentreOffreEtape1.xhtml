@@ -29,11 +29,9 @@
     <p:outputPanel id="opLCgUniv">
         <h:outputText styleClass="fontBold"
                       value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AUCUNCENTRE']}"
-                      rendered="#{empty offreController.listesCentresGestionUniversite
-					and offreController.idCentreEtablissementSelect gt 0}" />
+                      rendered="#{empty offreController.dualListCiblageCentres and offreController.idCentreEtablissementSelect gt 0}" />
 
-        <t:div rendered="#{not empty offreController.listesCentresGestionUniversite
-				and offreController.idCentreEtablissementSelect gt 0}">
+        <t:div rendered="#{not empty offreController.dualListCiblageCentres}" styleClass="block">
             <h:outputText styleClass="fontBold"
                           value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.SELECTIONCENTRE']}"
                           rendered="#{sessionController.adminPageAuthorized}" />
@@ -42,77 +40,31 @@
                           rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
             <h:outputText styleClass="fontBold"
                           value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE.SELECTIONCENTRE']}"
-                          rendered="#{(welcomeController.superAdmin and !sessionController.adminPageAuthorized) || welcomeController.admin || welcomeController.writer}" />
+                          rendered="#{(welcomeController.superAdmin and !sessionController.adminPageAuthorized)
+                          || welcomeController.admin || welcomeController.writer}" />
 
-            <t:htmlTag value="div" style="height: 5px;" />
+            <t:div styleClass="textCenter mt15">
+                <p:pickList converter="#{centreGestionConverter}"
+                            var="centre" itemValue="#{centre}" responsive="true"
+                            value="#{offreController.dualListCiblageCentres}">
+                    <f:facet name="sourceCaption">Champs disponibles</f:facet>
+                    <f:facet name="targetCaption">Champs choisis</f:facet>
+                    <p:column>
+                        #{centre.nomCentre}
+                    </p:column>
+                </p:pickList>
 
-            <h:selectManyListbox id="lCgUniv"
-                                 value="#{offreController.idsCentreGestionUniversiteSelect}"
-                                 converter="#{intConverter}">
-                <f:selectItems
-                        value="#{offreController.listesCentresGestionUniversite}" />
-            </h:selectManyListbox>
+                <t:div style="height:10px;" />
 
-            <t:div styleClass="textCenter mt10 mb10 ml40 verticalAlignDiv">
-                <p:commandLink id="addAll" action="#{offreController.addAllCentresGestionToListeADiffuser}"
-                               update="lCgUnivSelect">
-                    <t:htmlTag value="i" styleClass="fa fa-angle-double-down fz30" />
-                    <p:tooltip for="addAll"
-                               value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTERTOUT']}" />
-                </p:commandLink>
-                <t:htmlTag value="div" style="width:20px;" />
-                <p:commandLink id="add"
-                               action="#{offreController.addCentresGestionToListeADiffuser}"
-                               update="lCgUnivSelect">
-                    <t:htmlTag value="i" styleClass="fa fa-angle-down fz30" />
-                    <p:tooltip for="add"
-                               value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.AJOUTER']}" />
-                </p:commandLink>
-                <t:htmlTag value="div" style="width:20px;" />
-                <p:commandLink id="remove"
-                               action="#{offreController.deleteCentresGestionFromListeADiffuser}"
-                               update="lCgUnivSelect">
-                    <t:htmlTag value="i" styleClass="fa fa-angle-up fz30" />
-                    <p:tooltip for="remove"
-                               value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVER']}" />
-                </p:commandLink>
-                <t:htmlTag value="div" style="width:20px;" />
-                <p:commandLink id="removeAll"
-                               action="#{offreController.deleteAllCentresGestionFromListeADiffuser}"
-                               update="lCgUnivSelect">
-                    <t:htmlTag value="i" styleClass="fa fa-angle-double-up fz30" />
-                    <p:tooltip for="removeAll"
-                               value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENLEVERTOUT']}" />
-                </p:commandLink>
+                <p:commandButton styleClass="ml40" action="#{offreController.diffusionCentreOffre}"
+                                 value="#{msgs['FORM.ENREGISTRER']}"
+                                 update="formDiffusionCentreOffre" />
+                <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                                 onclick="PF('diffusionCentreOffre').hide();"
+                                 immediate="true" styleClass="ml20"/>
+
+                <t:div style="height:10px;" />
             </t:div>
-
-            <h:outputText styleClass="fontBold"
-                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ADMINENTR.CENTRESELECT']}"
-                          rendered="#{sessionController.adminPageAuthorized}" />
-            <h:outputText styleClass="fontBold"
-                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.ENTREPRISE.CENTRESELECT']}"
-                          rendered="#{sessionController.pageAuthorized and !sessionController.adminPageAuthorized}" />
-            <h:outputText styleClass="fontBold"
-                          value="#{msgs['OFFRE.GESTION.DIFFUSIONCENTRE.STAGE.CENTRESELECT']}"
-                          rendered="#{(welcomeController.superAdmin and !sessionController.adminPageAuthorized) || welcomeController.admin || welcomeController.writer}" />
-
-            <t:htmlTag value="div" style="height: 5px;" />
-
-            <h:selectManyListbox id="lCgUnivSelect"
-                                 value="#{offreController.idsCentreGestionUniversiteADiffuser}"
-                                 converter="#{intConverter}">
-                <f:selectItems
-                        value="#{offreController.listesCentreGestionUniversiteADiffuser}" />
-            </h:selectManyListbox>
         </t:div>
     </p:outputPanel>
-    <t:div styleClass="textCenter mt15 mb20">
-        <p:commandButton action="#{offreController.diffusionCentreOffre}"
-                         value="#{msgs['FORM.ENREGISTRER']}"
-                         update="formDiffusionCentreOffre"
-                         rendered="#{not empty offreController.listesCentresGestionUniversite}" />
-        <p:commandButton value="#{msgs['FORM.ANNULER']}"
-                         onclick="PF('diffusionCentreOffre').hide();"
-                         immediate="true" styleClass="ml20"/>
-    </t:div>
 </ui:composition>

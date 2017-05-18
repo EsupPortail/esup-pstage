@@ -11,7 +11,7 @@
         <t:div rendered="#{!centreController.listePersonnelVide}">
             <p:dataTable id="listePersonnels"
                          value="#{centreController.personnels}" var="personnel" rows="10"
-                         rowHover="true" rowStyleClass="noPointer" paginator="true"
+                         rowHover="true" rowStyleClass="noPointer" paginator="true" paginatorPosition="bottom"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15,20"
                          tableStyle="table-layout: auto;" reflow="true">

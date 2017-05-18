@@ -1,85 +1,61 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	
-	template="/stylesheets/_definedStageTemplate.xhtml">
-	<ui:define name="content">
-		<p:panel>
-			<f:facet name="header">
-				<h:outputText value="#{msgs['CONVENTION.TITRE.CONSIGNES']}" />
-			</f:facet>
-			<h:form id="formConvention">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="/stylesheets/_definedStageTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+            </f:facet>
+            <h:form id="formConvention">
                 <ui:include src="_roadmap.xhtml" />
-				<h:panelGrid
-					style="width:800px;position:relative;margin-left:auto;margin-right:auto;">
-					<p:panel>
-						<f:facet name="header">
-							<h:outputText value="#{msgs['CONVENTION.TITRE']}" />
-						</f:facet>
+                <p:fieldset>
+                    <t:div id="identEtudiant" styleClass="mt20 ml30 block">
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs['CONVENTION.TITRE']}" />
+                        </f:facet>
 
-						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU']}"
-							escape="false" />
-						<t:htmlTag value="div" style="height: 20px;" />
+                        <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNESETU']}"
+                                      escape="false" styleClass="ml5" />
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNESETU1']}"
+                                      escape="false" />
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNESETU2']}"
+                                      escape="false" />
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNESETU3']}"
+                                      escape="false" />
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNESETU4']}"
+                                      escape="false" />
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNESETU5']}"
+                                      escape="false" />
+                        <h:outputText value="#{msgs['CONVENTION.CONSIGNESETU6']}"
+                                      escape="false" />
 
-						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU1']}"
-							escape="false" />
-						<t:htmlTag value="div" style="height: 20px;" />
+                        <t:htmlTag value="div" style="height:5px;" />
 
-						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU2']}"
-							escape="false" />
-						<t:htmlTag value="div" style="height: 20px;" />
+                        <p:messages for="identEtudiant" />
 
-						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU3']}"
-							escape="false" />
-						<t:htmlTag value="div" style="height: 20px;" />
+                        <t:htmlTag value="div" style="height:5px;" />
 
-						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU4']}"
-							escape="false" />
-						<t:htmlTag value="div" style="height: 20px;" />
+                        <p:commandButton status="create" styleClass="fontGreen"
+                                         rendered="#{welcomeController.creationConventionAutorisee}"
+                                         action="#{conventionController.goToCreerConventionEtu}"
+                                         value="#{msgs['MENUSTAGE.CREERCONVENTION']}" />
 
-						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU5']}"
-							escape="false" />
-						<t:htmlTag value="div" style="height: 20px;" />
+                        <t:div style="margin:10px;"
+                               rendered="#{!welcomeController.creationConventionAutorisee}">
+                            <t:htmlTag value="i" styleClass="fa fa-ban fontRed"/>
+                            <h:outputText
+                                    value="#{msgs['CONVENTION.CREERCONVENTION.AUCUNE_INSCRIPTION']}"
+                                    style="color:red;" />
+                        </t:div>
+                        <t:htmlTag value="div" style="height:20px;" />
 
-						<h:outputText value="#{msgs['CONVENTION.CONSIGNESETU6']}"
-							escape="false" />
-						<t:htmlTag value="div" style="height: 10px;" />
-
-						<t:htmlTag value="div" style="width: 10px;" id="identEtudiant" />
-						<p:message for="identEtudiant">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<t:htmlTag value="div" style="height: 5px;" />
-						
-						<h:panelGrid columns="2"
-							
-							rendered="#{welcomeController.creationConventionAutorisee}">
-							<p:commandButton status="create"
-								action="#{conventionController.goToCreerConventionEtu}"
-								value="#{msgs['MENUSTAGE.CREERCONVENTION']}" />
-							<p:ajaxStatus name="create">
-								<f:facet name="start">
-									<ui:include src="/stylesheets/_commun/_veuillezPatienter.xhtml" />
-								</f:facet>
-							</p:ajaxStatus>
-						</h:panelGrid>
-
-						<h:panelGrid columns="2"
-							
-							rendered="#{!welcomeController.creationConventionAutorisee}">
-							<h:graphicImage value="../../media/images/cancel.png"
-								alt="#{msgs['GENERAL.WARNING']}"
-								title="#{msgs['GENERAL.WARNING']}" />
-							<h:outputText
-								value="#{msgs['CONVENTION.CREERCONVENTION.AUCUNE_INSCRIPTION']}"
-								style="color:red;" />
-						</h:panelGrid>
-						<t:htmlTag value="div" style="height:20px;" />
-					</p:panel>
-				</h:panelGrid>
-			</h:form>
-		</p:panel>
-	</ui:define>
+                    </t:div>
+                </p:fieldset>
+            </h:form>
+        </p:panel>
+    </ui:define>
 </ui:composition>

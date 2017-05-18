@@ -8,8 +8,8 @@
     <t:htmlTag value="div" style="height:15px;"/>
 
     <h:outputFormat value="#{msgs['CONVENTION.CREERCONVENTION.CONTACT.AJOUT']}" escape="false">
-        <f:param value="#{conventionController.convention.service.nom}" />
-        <f:param value="#{conventionController.convention.structure.raisonSociale}" />
+        <f:param value="#{etablissementController.formService.nom}" />
+        <f:param value="#{sessionController.currentManageStructure.raisonSociale}" />
     </h:outputFormat>
 
     <t:div styleClass="mt15 fontBold textCenter">

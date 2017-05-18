@@ -1,32 +1,27 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:p="http://primefaces.org/ui"
-				xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<h:form styleClass="block centerBlock">
-		<t:htmlTag value="ul" styleClass="formUL columns-2">
-			<t:div styleClass="column column-1 textCenter">
-				<p:commandButton action="#{rechercheController.goToAffichageRechercheEtablissement}" style="min-width: 90%;"
-								 value="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}" icon="fa fa-list-alt"/>
-			</t:div>
-			<t:div styleClass="column column-1 textCenter">
-				<p:commandButton action="#{etablissementController.goToContactsEtablissement}" style="min-width: 90%;"
-								value="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}" icon="fa fa-book">
-					<f:setPropertyActionListener
-							value="#{rechercheController.resultatRechercheStructure}"
-							target="#{sessionController.currentManageStructure}" />
-				</p:commandButton>
-			</t:div>
-			<t:div styleClass="column column-1 textCenter">
-				<p:commandButton action="#{offreController.goToOffresEtablissement}" style="min-width: 90%;"
-								value="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}" icon="fa fa-list">
-					<f:setPropertyActionListener
-							value="#{rechercheController.resultatRechercheStructure}"
-							target="#{sessionController.currentManageStructure}" />
-				</p:commandButton>
-			</t:div>
-		</t:htmlTag>
-	</h:form>
+    <h:form>
+        <p:commandButton action="#{rechercheController.goToAffichageRechercheEtablissement}"
+                         value="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}" icon="fa fa-list-alt"/>
+        <p:commandButton action="#{etablissementController.goToContactsEtablissement}"
+                         value="#{msgs['MENUSTAGE.GESTIONETAB.CONTACTS']}" icon="fa fa-book"
+                         styleClass="ml10">
+            <f:setPropertyActionListener
+                    value="#{rechercheController.resultatRechercheStructure}"
+                    target="#{sessionController.currentManageStructure}" />
+        </p:commandButton>
+        <p:commandButton action="#{offreController.goToOffresEtablissement}"
+                         value="#{msgs['MENUSTAGE.GESTIONETAB.OFFRES']}" icon="fa fa-list"
+                         styleClass="ml10"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" >
+            <f:setPropertyActionListener
+                    value="#{rechercheController.resultatRechercheStructure}"
+                    target="#{sessionController.currentManageStructure}" />
+        </p:commandButton>
+    </h:form>
 </ui:composition>

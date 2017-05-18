@@ -12,7 +12,7 @@
             <h:form id="formConvention"
                     onkeypress="if (event.keyCode == 13) { document.getElementById('formConvention:confirmForm').click(); return false; }">
                 <ui:include src="_roadmap.xhtml" />
-                <t:fieldset>
+                <p:fieldset>
                     <t:div styleClass="mt20 ml30 block">
 
                         <t:htmlTag value="i" styleClass="fa fa-info-circle fz13 fontBlue2"/>
@@ -29,42 +29,64 @@
                             <h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
                                           styleClass="ml5" escape="false" />
                         </t:div>
-                        <t:div rendered="#{not empty etablissementController.listeServices}">
+
+                        <t:div rendered="#{not empty etablissementController.listeServices}" styleClass=" ml40">
                             <h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
                                           escape="false" />
-                            <p:selectOneMenu id="sOMService" styleClass="mt5"
+                            <h:selectOneMenu id="sOMService" styleClass="customPstage mt5"
                                              value="#{etablissementController.idServiceSel}"
                                              converter="#{intConverter}"
                                              valueChangeListener="#{etablissementController.valueIdServiceChanged}">
                                 <f:selectItems value="#{etablissementController.servicesItems}" />
-                                <p:ajax event="valueChange" update="actionsService" />
-                            </p:selectOneMenu>
-                        </t:div>
+                                <p:ajax event="valueChange" update="@form" />
+                            </h:selectOneMenu>
 
-                        <t:div id="actionsService" styleClass="mt10"
-                               rendered="#{not empty etablissementController.listeServices}">
-                            <h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']}"
-                                          escape="false" />
-                            <p:dataTable value="#{etablissementController.serviceSel}" var="service"
-                                         rows="5" rowHover="true" rowStyleClass="noPointer"
-                                         paginator="true" paginatorAlwaysVisible="false"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                         rowsPerPageTemplate="5,10,15,20" styleClass="mt5"
-                                         reflow="true" tableStyle="table-layout: auto;">
+                            <t:div id="actionsService" styleClass="mt10"
+                                   rendered="#{not empty etablissementController.idServiceSel
+                                        and etablissementController.idServiceSel != 0}">
+                                <h:outputText value="#{msgs['CONTACT.GESTION.SERVICESELECT']} :"
+                                              escape="false" />
 
-                                <ui:include src="/stylesheets/_commun/_serviceColumns.xhtml" />
+                                <p:panelGrid columns="2" styleClass="ml20 mt5 noBorder" cellspacing="5">
+                                    <h:outputText styleClass="fontBold"
+                                                  value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+                                    <h:outputText id="raisonSociale" value="#{etablissementController.serviceSel.nom}" />
 
-                                <p:column style="background-color:#A5A5A5; width:100px;" styleClass="textCenter">
-                                    <f:facet name="header">
-                                        <t:div>
-                                            <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
-                                            <h:outputText value="#{msgs['GENERAL.ACTIONS']}" styleClass="ml5"/>
-                                        </t:div>
-                                    </f:facet>
-                                    <p:commandLink id="modif" oncomplete="PF('modifService').show();"
-                                                   update="modifService"
-                                                   action="#{etablissementController.modifService}"
-                                                   rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+                                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.VOIE']}" />
+                                    <h:outputText id="voie" value="#{etablissementController.serviceSel.voie}" />
+
+                                    <h:outputText styleClass="fontBold"
+                                                  rendered="#{not empty etablissementController.serviceSel.batimentResidence}"
+                                                  value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+                                    <h:outputText id="batimentResidence" value="#{etablissementController.serviceSel.batimentResidence}"
+                                                  rendered="#{not empty etablissementController.serviceSel.batimentResidence}"/>
+
+                                    <h:outputText styleClass="fontBold"
+                                                  value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+                                    <h:outputText id="codepostal" value="#{etablissementController.serviceSel.codePostal}" />
+
+                                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.COMMUNE']}" />
+                                    <h:outputText id="commune" value="#{etablissementController.serviceSel.commune}" />
+
+                                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.PAYS']}" />
+                                    <t:div>
+                                        <h:graphicImage id="flag" rendered="#{not empty etablissementController.serviceSel.pays}"
+                                                        value="/media/images/flags/#{etablissementController.serviceSel.pays.iso2}.png"
+                                                        alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+                                                        title="#{etablissementController.serviceSel.pays.libelle}" />
+                                        <h:outputText id="pays" value="#{etablissementController.serviceSel.pays.libelle}" styleClass="ml5" />
+                                    </t:div>
+
+                                    <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.TELEPHONE']}" />
+                                    <h:outputText id="tel" value="#{etablissementController.serviceSel.telephone}" />
+                                </p:panelGrid>
+
+                                <t:div styleClass="mt5 ml40 mb5" style="font-size :11px;">
+                                    <p:commandButton id="modif" value="#{msgs['FORM.MODIFIER']}"
+                                                     oncomplete="PF('modifService').show();"
+                                                     update="modifService" icon="fa fa-edit fz13 fontBlue2"
+                                                     action="#{etablissementController.modifService}"
+                                                     rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
                                             welcomeController.admin || welcomeController.personnel || welcomeController.writer)
                                             || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
                                             (!sessionController.autoriserEtudiantAModifierEntreprise
@@ -72,43 +94,40 @@
                                             || (service.loginModif==sessionController.currentLogin)))))))}">
                                         <f:setPropertyActionListener value="#{false}"
                                                                      target="#{etablissementController.memeAdresseStructure}" />
-                                        <f:setPropertyActionListener value="#{service}"
+                                        <f:setPropertyActionListener value="#{etablissementController.serviceSel}"
                                                                      target="#{etablissementController.formService}" />
-                                        <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
-                                        <p:tooltip for="modif" value="#{msgs['FORM.MODIFIER']}" />
-                                    </p:commandLink>
+                                    </p:commandButton>
 
-                                    <p:commandLink id="suppr" update="supprService"
-                                                   oncomplete="PF('supprService').show();"
-                                                   rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
+                                    <p:commandButton id="suppr" update="supprService" value="#{msgs['FORM.SUPPRIMER']}"
+                                                     styleClass="ml10"
+                                                     oncomplete="PF('supprService').show();" icon="fa fa-trash-o fz13 fontBlue2"
+                                                     rendered="#{((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
                                             welcomeController.admin || welcomeController.personnel || welcomeController.writer)
                                             || (welcomeController.etudiant and ((sessionController.autoriserEtudiantAModifierEntreprise ||
                                             (!sessionController.autoriserEtudiantAModifierEntreprise
                                             and ((empty service.loginModif and
                                             service.loginCreation==sessionController.currentLogin)
                                             || (service.loginModif==sessionController.currentLogin)))))))}">
-                                        <f:setPropertyActionListener value="#{service}"
+                                        <f:setPropertyActionListener value="#{etablissementController.serviceSel}"
                                                                      target="#{etablissementController.formService}" />
                                         <f:setPropertyActionListener value="_supprServiceEtape1"
                                                                      target="#{sessionController.suppressionServiceCurrentPage}" />
-                                        <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 ml5 fontBlue2"/>
-                                        <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
-                                    </p:commandLink>
-
-                                    <p:commandButton id="selC" styleClass="fontBlue2"
-                                                     value="#{msgs['FORM.SELECTIONNER']}"
-                                                     action="#{conventionController.goToCreerConventionEtape4Contact}">
-                                        <f:setPropertyActionListener
-                                                value="#{service}"
-                                                target="#{conventionController.convention.service}" />
                                     </p:commandButton>
-                                </p:column>
-                            </p:dataTable>
+                                </t:div>
+                            </t:div>
+                        </t:div>
+
+                        <t:div id="selectServiceButton" styleClass="textCenter mt20"
+                               rendered="#{not empty etablissementController.idServiceSel
+                                        and etablissementController.idServiceSel != 0}">
+                            <p:commandButton id="selC" styleClass="fontGreen"
+                                             value="#{msgs['FORM.SELECTIONNERCONTINUER']}"
+                                             action="#{conventionController.goToCreerConventionEtape4Contact}"/>
                         </t:div>
 
                         <t:div styleClass="mt20 ml40">
-                            <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" styleClass="fontBold"/>
-                            <p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="ml5"
+                            <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" styleClass="fontItalic"/>
+                            <p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="ml5" style="font-size :11px;"
                                              value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
                                              action="#{etablissementController.ajoutService}"
                                              oncomplete="PF('ajoutService').show();"
@@ -125,7 +144,7 @@
                                          immediate="true"
                                          styleClass="mt30 mb20"/>
                     </t:div>
-                </t:fieldset>
+                </p:fieldset>
             </h:form>
             <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
             <ui:include src="/stylesheets/_commun/_panelModifService.xhtml" />

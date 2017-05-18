@@ -7,7 +7,7 @@
     <ui:define name="content">
         <p:panel>
             <f:facet name="header">
-                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
             </f:facet>
             <h:form id="formSelConvention">
                 <ui:include src="_roadmapSel.xhtml" />
@@ -35,7 +35,7 @@
                                 <p:dataTable id="contactsDataTable"
                                              value="#{etablissementController.listeContacts}" var="contact"
                                              rowKey="rowContact" rows="5" rowHover="true"
-                                             rowStyleClass="noPointer" paginator="true"
+                                             rowStyleClass="noPointer" paginator="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
                                              tableStyle="table-layout: auto;" reflow="true"

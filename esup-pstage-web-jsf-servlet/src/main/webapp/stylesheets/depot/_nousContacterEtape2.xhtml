@@ -1,17 +1,11 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	<h:panelGrid columns="2" align="center">
-		<h:graphicImage alt="#{msgs['GENERAL.OK']}"
-			title="#{msgs['GENERAL.OK']}" value="../../media/images/valid.png"
-			 />
-		<p:messages>
-			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-		</p:messages>
-	</h:panelGrid>
-	<p:commandButton value="#{msgs['GENERAL.CLOSE']}"
-		onclick="PF('nousContacter').hide();" />
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:messages/>
+
+    <t:div styleClass="textCenter">
+        <p:commandButton value="#{msgs['GENERAL.CLOSE']}"
+                         onclick="PF('nousContacter').hide();" />
+    </t:div>
 </ui:composition>

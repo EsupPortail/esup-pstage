@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:p="http://primefaces.org/ui">
+
+    <t:div id="TOPBAR">
+        <p:commandButton id="TOPBAR_MENU_BUTTON" styleClass="phoneOnly" icon="fa fa-navicon" onclick="toggleSidebar();"/>
+        <p:graphicImage id="TOPBAR_LOGO" value="#{sessionController.mediaPath}/images/logoTablet.png" styleClass="phoneOnly"/>
+        <t:div id="TOPBAR_TITLE">
+            <t:htmlTag value="h1">
+                <h:outputText value="#{msgs['APPLICATION.BIG_TITLE']}"/>
+            </t:htmlTag>
+            <!--<t:htmlTag value="h3">-->
+            <!--<h:outputText value="#{msgs['APPLICATION.TITLE']}"/>-->
+            <!--</t:htmlTag>-->
+        </t:div>
+        <t:div id="TOPBAR_INFO">
+            <t:div styleClass="infos">
+                <!--<t:htmlTag value="span" styleClass="">-->
+                    <!--<h:outputText value="#{sessionController.currentUser.displayName}"/>-->
+                <!--</t:htmlTag>-->
+                <t:htmlTag value="span" styleClass="loginName">
+                    <h:outputText styleClass="fontBold"
+                                  value="#{sessionController.currentAuthAdminStructure.prenom} #{sessionController.currentAuthAdminStructure.nom}"
+                                  rendered="#{sessionController.adminPageAuthorized and not empty sessionController.currentAuthAdminStructure}" />
+                    <h:outputText styleClass="fontBold"
+                                  value="#{sessionController.currentAuthContact.prenom} #{sessionController.currentAuthContact.nom}"
+                                  rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized and not empty sessionController.currentAuthContact}" />
+                </t:htmlTag>
+                <t:htmlTag value="span" styleClass="versionNumber">
+                    <h:graphicImage id="avecAc" alt="rondVert"
+                                    value="../../media/images/bullet_green.png"
+                                    rendered="#{sessionController.pageAuthorized and sessionController.currentManageStructure.idAccordPartenariat > 0}" />
+                    <h:outputLabel for="avecAc" styleClass="fontBold fontItalic"
+                                   value="#{sessionController.currentManageStructure.raisonSociale}"
+                                   rendered="#{sessionController.pageAuthorized}" />
+                </t:htmlTag>
+                <t:htmlTag value="span" styleClass="versionNumber">
+                    <h:outputText value="#{msgs['GENERAL.INFORMATION.VERSION']} #{applicationService.version}"/>
+                </t:htmlTag>
+            </t:div>
+        </t:div>
+    </t:div>
+
+    <t:div id="blackScreen"></t:div>
+
+    <script type="text/javascript">
+        function toggleSidebar() {
+            if(document.getElementById("SIDEBAR_CONTAINER").style.transform == 'translateX(0%)' || document.getElementById("SIDEBAR_CONTAINER").style.transform == "") {
+                document.getElementById("blackScreen").className = 'visible';
+                document.getElementById("SIDEBAR_CONTAINER").style.transform = 'translateX(100%)';
+            } else {
+                document.getElementById("SIDEBAR_CONTAINER").style.transform = 'translateX(0%)';
+                document.getElementById("blackScreen").className = '';
+            }
+        }
+
+        document.getElementById("blackScreen").onclick = function(e) {
+            if(document.getElementById("blackScreen").className == 'visible') {
+                toggleSidebar();
+            }
+        }
+    </script>
+</ui:composition>

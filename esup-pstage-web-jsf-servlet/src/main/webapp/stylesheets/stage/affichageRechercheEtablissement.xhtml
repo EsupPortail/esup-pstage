@@ -7,41 +7,44 @@
     <ui:define name="content">
         <p:panel>
             <f:facet name="header">
-                <h:outputText
-                        value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']}" />
+                <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.DETAILS_TITLE']} #{sessionController.currentManageStructure.raisonSociale}" />
             </f:facet>
             <ui:include src="_menuGestionEtab.xhtml" />
-            <t:div styleClass="clearFloat"/>
-            <h:form id="formAffEtab" styleClass="block centerBlock mt15">
-                <!--<p:fieldset>-->
-                <p:outputPanel id="opAffEtab">
-                    <t:div rendered="#{empty rechercheController.resultatRechercheStructure}">
-                        <h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
-                    </t:div>
-                    <t:div rendered="#{not empty rechercheController.resultatRechercheStructure}">
-                        <!--style="width:450px;position:relative;margin-left:auto;margin-right:auto;">-->
-                        <t:aliasBean alias="#{structure}"
-                                     value="#{rechercheController.resultatRechercheStructure}">
-                            <ui:include
-                                    src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
-                        </t:aliasBean>
-                        <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
-                    </t:div>
-                    <h:panelGrid style="float:right;"
-                                 rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
-                        <t:aliasBean alias="#{objet}"
-                                     value="#{rechercheController.resultatRechercheStructure}">
-                            <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
-                        </t:aliasBean>
-                    </h:panelGrid>
-                </p:outputPanel>
-                <!--</p:fieldset>-->
-                <t:htmlTag value="br" />
-                <t:htmlTag value="div" style="height: 30px;" />
-                <p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-                                 action="#{rechercheController.goToRechercheEtablissementStage}"
-                                 alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-                                 title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}" />
+            <h:form id="formAffEtab" styleClass="block mt15">
+                <p:fieldset legend="#{msgs['MENUSTAGE.GESTIONETAB.FICHESIGNA']}">
+                    <p:outputPanel id="opAffEtab">
+                        <t:div rendered="#{empty rechercheController.resultatRechercheStructure}">
+                            <h:outputText value="#{msgs['STRUCTURE.AUCUN']}" />
+                        </t:div>
+                        <t:div rendered="#{not empty rechercheController.resultatRechercheStructure}"
+                               styleClass="ml40">
+                            <t:aliasBean alias="#{structure}"
+                                         value="#{rechercheController.resultatRechercheStructure}">
+                                <ui:include
+                                        src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+                            </t:aliasBean>
+                            <t:div style="height: 10px;" />
+                            <t:div styleClass="ml20">
+                                <ui:include src="/stylesheets/_commun/_rechercheEtablissementResultatUniqueToolBar.xhtml" />
+                                <t:div style="height: 10px;" />
+                                <t:div rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+                                    <t:aliasBean alias="#{objet}"
+                                                 value="#{rechercheController.resultatRechercheStructure}">
+                                        <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+                                    </t:aliasBean>
+                                </t:div>
+                            </t:div>
+                        </t:div>
+                    </p:outputPanel>
+                </p:fieldset>
+                <t:htmlTag value="div" style="height: 20px;" />
+
+                <p:commandButton action="rechercheEtablissementStage"
+                                 immediate="true" update="@form"
+                                 value=" #{msgs['RECHERCHEOFFRE.RETOURAUXRESULTATS']}"/>
+
+                <p:commandButton value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}" styleClass="ml20"
+                                 action="#{rechercheController.goToRechercheEtablissementStage}"/>
             </h:form>
         </p:panel>
         <ui:include src="/stylesheets/_commun/_panelSupprStructure.xhtml" />

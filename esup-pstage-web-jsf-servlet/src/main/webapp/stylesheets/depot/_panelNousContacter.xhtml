@@ -1,26 +1,27 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui">
-	<h:form>
-		<t:htmlTag value="div" style="height:5px;" />
-		<h:panelGrid columns="2">
-			<h:graphicImage alt="#{msgs['GENERAL.HELP']}"
-				title="#{msgs['GENERAL.HELP']}" value="/media/images/help.png" />
-			<p:commandLink  status="status1" style="color:blue;"
-				action="#{welcomeController.initNousContacter}"
-				oncomplete="PF('nousContacter').show();" update="nousContacter"
-				value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
-		</h:panelGrid>
-	</h:form>
-	<p:dialog id="nousContacter" widgetVar="nousContacter">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
-		</f:facet>
-		<h:form id="formNousContacter">
-			<ui:include
-				src="/stylesheets/depot/#{sessionController.nousContacterCurrentPage}.xhtml" />
-		</h:form>
-	</p:dialog>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form>
+        <t:htmlTag value="i" styleClass="fa fa-question fz13 fontBlue2" />
+        <p:commandLink
+                value="#{msgs['GENERAL.NOUS_CONTACTER']}"
+                status="status1" styleClass="mlf5 fontBlue2 underline"
+                action="#{welcomeController.initNousContacter}"
+                oncomplete="PF('nousContacter').show();"
+                update="nousContacter">
+                <f:setPropertyActionListener value="_nousContacterEtape1" target="#{sessionController.nousContacterCurrentPage}" />
+        </p:commandLink>
+    </h:form>
+
+    <p:dialog id="nousContacter" widgetVar="nousContacter" modal="true" resizable="false">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER']}" />
+        </f:facet>
+        <h:form id="formNousContacter">
+            <ui:include src="/stylesheets/depot/#{sessionController.nousContacterCurrentPage}.xhtml" />
+        </h:form>
+    </p:dialog>
 </ui:composition>

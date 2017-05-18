@@ -1,131 +1,110 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui">
-	<h:panelGrid>
-		<h:outputText value="#{msgs['GENERAL.NOUS_CONTACTER.INFO']}" />
-		<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
-		<h:panelGrid columns="3">
-			<h:panelGrid>
-				<h:outputLabel for="nomNC" value="#{msgs['CONTACT.NOM']} *" />
-				<h:inputText id="nomNC" style="text-transform:uppercase;"
-					value="#{sessionController.nousContacter.contact.nom}" size="30"
-					maxlength="50" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<f:converter binding="#{upperCaseConverter}" />
-					<p:ajax event="blur" />
-				</h:inputText>
-				<p:message for="nomNC">
-					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-			</h:panelGrid>
-			<h:panelGrid columns="3">
-				<t:htmlTag value="div" style="width: 25px;" />
-				<p:separator style="width:2px; height:40px;"/>
-				<t:htmlTag value="div" style="width: 25px;" />
-			</h:panelGrid>
-			<h:panelGrid>
-				<h:outputLabel for="prenomNC" value="#{msgs['CONTACT.PRENOM']} *" />
-				<h:inputText id="prenomNC" style="text-transform:capitalize;"
-					value="#{sessionController.nousContacter.contact.prenom}" size="30"
-					maxlength="50" required="true"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<f:converter binding="#{premiereLettreMAJConverter}" />
-					<p:ajax event="blur" />
-				</h:inputText>
-				<p:message for="prenomNC">
-					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-			</h:panelGrid>
-		</h:panelGrid>
-		<h:panelGrid columns="2">
-			<h:outputLabel for="mailNC" value="#{msgs['CONTACT.MAIL']} *" />
-			<h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" />
-		</h:panelGrid>
-		<h:panelGrid columns="2">
-			<h:inputText id="mailNC"
-				value="#{sessionController.nousContacter.contact.mail}" size="50"
-				maxlength="50" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
-				<f:validator binding="#{mailValidator}" />
-				<p:ajax event="blur" />
-			</h:inputText>
-			<p:message for="mailNC">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-		</h:panelGrid>
-		<h:outputLabel for="sujetNC"
-			value="#{msgs['GENERAL.NOUS_CONTACTER.SUJET']} *" />
-		<h:panelGrid columns="2">
-			<h:inputText id="sujetNC"
-				value="#{sessionController.nousContacter.sujet}" size="50"
-				maxlength="50" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<p:ajax event="blur" />
-			</h:inputText>
-			<p:message for="sujetNC">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-		</h:panelGrid>
-		<h:outputLabel for="messageNC"
-			value="#{msgs['GENERAL.NOUS_CONTACTER.MESSAGE']} *" />
-		<p:editor id="messageNC"
-			value="#{sessionController.nousContacter.message}" width="400"
-			height="200" required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}" />
-		<p:message for="messageNC">
-			<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-		</p:message>
-		<h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="paysNC" />
-		<h:panelGrid columns="5">
-			<p:outputPanel id="opFlagNC">
-				<t:htmlTag value="div" style="width: 16px;"
-					rendered="#{empty sessionController.nousContacter.pays}" />
-				<h:graphicImage id="flagNC"
-					rendered="#{not empty sessionController.nousContacter.pays and not empty sessionController.nousContacter.pays.iso2}"
-					value="../../media/images/flags/#{sessionController.nousContacter.pays.iso2}.png"
-					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-					title="#{sessionController.nousContacter.pays.libelle}" />
-			</p:outputPanel>
-			<t:htmlTag value="div" style="width:5px;" />
-			<h:selectOneMenu id="paysNC" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				value="#{sessionController.nousContacter.pays}"
-				converter="#{paysConverter}">
-				<p:ajax event="change" update="opFlagNC, opCodePostalNC" />
-				<f:selectItem itemValue="" />
-				<f:selectItems value="#{nomenclatureController.pays}" />
-			</h:selectOneMenu>
-			<t:htmlTag value="div" style="width: 10px;" />
-			<p:message for="paysNC">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-		</h:panelGrid>
-		<p:outputPanel id="opCodePostalNC">
-			<h:panelGrid columns="2">
-				<h:outputLabel for="codePostalNC"
-					value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-				<h:outputLabel for="codePostalNC" value=" *"
-					rendered="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}" />
-			</h:panelGrid>
-			<h:panelGrid columns="2">
-				<h:inputText id="codePostalNC" style="text-transform:capitalize;"
-					value="#{sessionController.nousContacter.codePostal}" size="10"
-					maxlength="10"
-					required="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}"
-					requiredMessage="#{requiredMessageController.champObligatoire}">
-					<p:ajax event="blur" />
-				</h:inputText>
-				<p:message for="codePostalNC">
-					<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-				</p:message>
-			</h:panelGrid>
-		</p:outputPanel>
-	</h:panelGrid>
-	<p:commandButton value="#{msgs['FORM.ENVOYER']}"
-		action="#{welcomeController.nousContacter}" update="formNousContacter" />
-	<p:commandButton value="#{msgs['FORM.CANCEL']}"
-		onclick="PF('nousContacter').hide();" />
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:outputLabel for="nomNC" value="#{msgs['CONTACT.NOM']} *" />
+    <p:inputText id="nomNC" style="text-transform:uppercase;"
+                 value="#{sessionController.nousContacter.contact.nom}"
+                 maxlength="50" required="true">
+        <f:converter binding="#{upperCaseConverter}" />
+    </p:inputText>
+    <p:message id="msgNomNC" for="nomNC" />
+
+    <t:div style="height: 10px;" />
+
+    <h:outputLabel for="prenomNC" value="#{msgs['CONTACT.PRENOM']} *" />
+    <p:inputText id="prenomNC" style="text-transform:capitalize;"
+                 value="#{sessionController.nousContacter.contact.prenom}"
+                 maxlength="50" required="true"
+                 requiredMessage="#{requiredMessageController.champObligatoire}">
+        <f:converter binding="#{premiereLettreMAJConverter}" />
+    </p:inputText>
+    <p:message id="msgPrenomNC" for="prenomNC" />
+
+    <t:div style="height: 10px;" />
+
+    <h:outputLabel for="mailNC" value="#{msgs['CONTACT.MAIL']} *" />
+    <h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" styleClass="mlf5" escape="false" />
+    <p:inputText id="mailNC"
+                 value="#{sessionController.nousContacter.contact.mail}"
+                 maxlength="50" required="true"
+                 requiredMessage="#{requiredMessageController.champObligatoire}"
+                 validatorMessage="#{requiredMessageController.adresseMailNonValide}">
+        <f:validator binding="#{mailValidator}" />
+    </p:inputText>
+    <p:message id="msgMailNC" for="mailNC"/>
+
+    <t:div style="height: 10px;" />
+
+    <h:outputLabel for="sujetNC"
+                   value="#{msgs['GENERAL.NOUS_CONTACTER.SUJET']} *" />
+    <p:inputText id="sujetNC"
+                 value="#{sessionController.nousContacter.sujet}"
+                 maxlength="50" required="true"/>
+    <p:message id="msgSujetNC" for="sujetNC"/>
+
+    <t:div style="height: 10px;" />
+
+    <h:outputLabel for="messageNC"
+                   value="#{msgs['GENERAL.NOUS_CONTACTER.MESSAGE']} *" />
+    <p:inputTextarea id="messageNC"
+                     value="#{sessionController.nousContacter.message}"
+                     required="true" />
+    <p:message for="messageNC"/>
+
+    <t:div style="height: 10px;" />
+
+    <h:outputLabel value="#{msgs['STRUCTURE.PAYS']}" for="paysNC" />
+    <t:div styleClass="verticalAlignDiv">
+        <p:outputPanel id="opFlagNC">
+            <t:htmlTag value="div" style="width:16px;"
+                       rendered="#{empty sessionController.nousContacter.pays}" />
+            <h:graphicImage id="flagNC"
+                            rendered="#{not empty sessionController.nousContacter.pays and not empty sessionController.nousContacter.pays.iso2}"
+                            value="../../media/images/flags/#{sessionController.nousContacter.pays.iso2}.png"
+                            alt="" styleClass="mrf5"
+                            title="#{sessionController.nousContacter.pays.libelle}" />
+        </p:outputPanel>
+
+        <h:selectOneMenu id="paysNC" required="true" styleClass="customPstage fix-selectOneMenu"
+                         value="#{sessionController.nousContacter.pays}"
+                         converter="#{paysConverter}">
+            <p:ajax event="valueChange" update="opFlagNC, opCodePostalNC" />
+            <f:selectItems value="#{nomenclatureController.pays}" />
+        </h:selectOneMenu>
+
+        <p:message for="paysNC"/>
+
+    </t:div>
+
+    <t:div style="height: 10px;" />
+
+    <p:outputPanel id="opCodePostalNC">
+        <t:div>
+            <h:outputLabel for="codePostalNC"
+                           value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+            <h:outputLabel for="codePostalNC" value=" *"
+                           rendered="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}" />
+        </t:div>
+        <t:div>
+            <p:inputText id="codePostalNC" style="text-transform:capitalize;"
+                         value="#{sessionController.nousContacter.codePostal}"
+                         maxlength="10"
+                         required="#{(sessionController.nousContacter.pays==beanUtils.france || sessionController.nousContacter.pays.cog==beanUtils.cogFrance)}"/>
+            <p:message id="msgCPNC" for="codePostalNC"/>
+        </t:div>
+    </p:outputPanel>
+
+    <t:div styleClass="mt20 mb20 textCenter">
+        <p:commandButton value="#{msgs['FORM.ENVOYER']}"
+                         action="#{welcomeController.nousContacter}"
+                         update="formNousContacter" />
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.CANCEL']}"
+                     immediate="true" styleClass="ml10 mb20"
+                     onclick="PF('nousContacter').hide();" />
+
 </ui:composition>

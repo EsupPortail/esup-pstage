@@ -1,0 +1,123 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:p="http://primefaces.org/ui">
+
+    <t:div id="SIDEBAR_CONTAINER">
+        <t:div id="SIDEBAR">
+            <t:div id="SIDEBAR_LOGO">
+                <p:graphicImage value="#{sessionController.mediaPath}/images/logoTablet.png" styleClass="tabletOnly"/>
+                <p:graphicImage value="#{sessionController.mediaPath}/images/logoPC.png" styleClass="PCOnly"/>
+            </t:div>
+            <h:form id="SIDEBAR_MENU"
+                    rendered="#{sessionController.pageAuthorized or sessionController.adminPageAuthorized}">
+
+
+                <t:div style="height: 10px;" />
+
+                <p:separator rendered="#{sessionController.pageAuthorized
+                            || (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+                            and sessionController.menuGestionEtab}" />
+
+                <t:div styleClass="ml5" rendered="#{sessionController.currentManageStructure.idAccordPartenariat gt 0
+                            and sessionController.currentManageStructure.accordPartenariat != null}">
+                    <t:htmlTag value="i" styleClass="fa fa-check fz13"
+                               rendered="#{sessionController.currentManageStructure.accordPartenariat.estValide}" />
+                    <h:outputText value="#{msgs['STRUCTURE.ACCORDVALIDE']}" styleClass="fontBold" escape="false"
+                                  rendered="#{sessionController.currentManageStructure.accordPartenariat.estValide}" />
+
+                    <t:htmlTag value="i" styleClass="fa fa-times fz13 fontBold"
+                               rendered="#{!sessionController.currentManageStructure.accordPartenariat.estValide}" />
+                    <h:outputText value="#{msgs['STRUCTURE.ACCORDNONVALIDE']}" styleClass="fontBold" escape="false"
+                                  rendered="#{!sessionController.currentManageStructure.accordPartenariat.estValide}" />
+                </t:div>
+                <p:panelMenu styleClass="customPstage PCOnly"
+                             rendered="#{sessionController.pageAuthorized
+                            || (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+                            and sessionController.menuGestionEtab}">
+                    <p:submenu label="#{sessionController.currentManageStructure.raisonSociale}">
+                        <p:menuitem value="#{msgs['MENU.FICHESIGNALETIQUE']}" icon="fa fa-newspaper-o"
+                                    action="#{etablissementController.goToFicheSignaletique}"/>
+                        <p:menuitem value="#{msgs['MENU.GESTIONCONTACTS']}" icon="fa fa-users"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                    action="#{etablissementController.goToGestionContacts}" />
+                        <p:menuitem value="#{msgs['MENU.GESTIONOFFRES']}" icon="fa fa-list"
+                                    onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                    action="#{offreController.goToGestionOffres}"/>
+                    </p:submenu>
+                </p:panelMenu>
+                <t:div styleClass="phoneOnly menuSidebarPhone"
+                       rendered="#{sessionController.utilisationStage and (welcomeController.personnel || welcomeController.superAdmin || welcomeController.enseignant)}">
+                    <t:htmlTag value="ul">
+                        <t:htmlTag value="li">
+                            <h:outputText value="#{sessionController.currentManageStructure.raisonSociale}" styleClass="fontBold"/>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:commandButton value="#{msgs['MENU.FICHESIGNALETIQUE']}" icon="fa fa-newspaper-o"
+                                             styleClass="customPstage"
+                                             action="#{etablissementController.goToFicheSignaletique}"
+                                             rendered="#{sessionController.pageAuthorized
+                            || (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+                            and sessionController.menuGestionEtab}"/>
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:commandButton value="#{msgs['MENU.GESTIONCONTACTS']}" icon="fa fa-users"
+                                             styleClass="customPstage"
+                                             action="#{etablissementController.goToGestionContacts}"
+                                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                             rendered="#{sessionController.pageAuthorized
+                            || (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+                            and sessionController.menuGestionEtab}" />
+                        </t:htmlTag>
+                        <t:htmlTag value="li">
+                            <p:commandButton value="#{msgs['MENU.GESTIONOFFRES']}" icon="fa fa-list"
+                                             styleClass="customPstage" action="#{offreController.goToGestionOffres}"
+                                             onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                             rendered="#{sessionController.pageAuthorized
+                            || (sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure)
+                            and sessionController.menuGestionEtab}" />
+                        </t:htmlTag>
+                    </t:htmlTag>
+                </t:div>
+                <p:separator rendered="#{sessionController.adminPageAuthorized and not empty sessionController.currentManageStructure
+                            and sessionController.menuGestionEtab}" />
+
+                <p:commandButton value="#{msgs['MENU.CENTREENTREPRISE']}" action="#{centreController.goToCentreEntreprise}"
+                                 icon="fa fa-building-o" styleClass="customPstage"
+                                 rendered="#{sessionController.superAdminPageAuthorized}"/>
+                <p:commandButton value=" #{msgs['MENU.ADMINISTRATEURS']}" action="#{adminController.goToAdministrateurs}"
+                                 icon="fa fa-user" styleClass="customPstage"
+                                 rendered="#{not empty centreController.centreEntreprise and sessionController.superAdminPageAuthorized}" />
+                <p:commandButton value="#{msgs['MENU.RECHERCHEETAB']}"
+                                 icon="fa fa-search" styleClass="customPstage"
+                                 action="#{rechercheController.goToRechercheEtablissement}"
+                                 rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}">
+                    <f:setPropertyActionListener value="#{2}"
+                                                 target="#{rechercheController.ongletCourant}" />
+                </p:commandButton>
+
+                <p:commandButton value="#{msgs['MENU.ACCORDSAVALIDER']} (#{rechercheController.accordAValider})"
+                                 icon="fa fa-check" styleClass="customPstage"
+                                 action="#{rechercheController.goToAccordAValider}"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                 rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}" />
+                <p:commandButton value="#{msgs['MENU.RECHERCHEOFFRE']}"
+                                 icon="fa fa-search" styleClass="customPstage"
+                                 action="#{offreController.goToRechercheOffre}"
+                                 rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}"/>
+                <p:commandButton value="#{msgs['MENU.OFFRESADIFFUSER']} (#{offreController.offreADiffuser})"
+                                 icon="fa fa-check" styleClass="customPstage"
+                                 action="#{offreController.goToOffreADiffuser}"
+                                 onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                                 rendered="#{not empty centreController.centreEntreprise
+                                     and sessionController.moderationActive and sessionController.adminPageAuthorized}"/>
+
+                <p:separator />
+
+                <p:commandButton value=" #{msgs['GENERAL.DECONNEXION']}"
+                                 icon="fa fa-times" styleClass="customPstage"
+                                 action="#{welcomeController.disconnectEntreprise}"
+                                 rendered="#{sessionController.pageAuthorized || sessionController.adminPageAuthorized}" />
+            </h:form>
+        </t:div>
+    </t:div>
+</ui:composition>

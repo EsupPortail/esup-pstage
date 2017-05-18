@@ -1,15 +1,15 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui">
-	
-	<p:dialog id="supprimerAccordPanel" widgetVar="supprimerAccordPanel">
-		<f:facet name="header">
-			<h:outputText value="#{msgs['ACCORD.SUPPRESSION']}" />
-		</f:facet>
-		<h:form id="formSupprAccord">
-			<ui:include src="/stylesheets/depot/#{sessionController.suppressionAccordCurrentPage}.xhtml" />
-		</h:form>
-	</p:dialog>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="supprimerAccordPanel" widgetVar="supprimerAccordPanel" resizable="false" modal="true">
+        <f:facet name="header">
+            <h:outputText value="#{msgs['ACCORD.SUPPRESSION']}" />
+        </f:facet>
+        <h:form id="formSupprAccord">
+            <ui:include src="/stylesheets/depot/#{sessionController.suppressionAccordCurrentPage}.xhtml" />
+        </h:form>
+    </p:dialog>
 </ui:composition>

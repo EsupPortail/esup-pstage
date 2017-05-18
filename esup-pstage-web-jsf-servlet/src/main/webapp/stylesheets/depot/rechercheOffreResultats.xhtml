@@ -4,85 +4,74 @@
                 xmlns:t="http://myfaces.apache.org/tomahawk"
                 xmlns:p="http://primefaces.org/ui" template="../_basicTemplate.xhtml">
     <ui:define name="content">
-        <h:panelGrid style="float:left;">
-            <ui:include src="./_menu.xhtml" />
-        </h:panelGrid>
-        <h:panelGrid>
-            <p:panel>
-                <f:facet name="header">
-                    <h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
-                </f:facet>
-                <h:form id="formRechOffre">
-                    <t:div
-                            rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
-                        <ui:include src="/stylesheets/_commun/_rechercheOffreNbResultats.xhtml" />
-                        <p:dataTable id="listeOffres"
-                                     value="#{offreController.rechercheOffrePaginator.visibleItems}"
-                                     var="offre" rows="10" rowKey="rowOffre" rowHover="true"
-                                     rowStyleClass="noPointer" paginator="true" paginatorAlwaysVisible="false"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15,20"
-                                     reflow="true" tableStyle="table-layout: auto;">
-                            <ui:include
-                                    src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
-                            <p:column styleClass="background-color-grey">
-                                <f:facet name="header">
-                                    <h:outputText
-                                            value="#{msgs['GENERAL.ACTIONS']}" />
-                                </f:facet>
-                                <h:commandLink id="recap"
-                                               action="#{offreController.goToRecapitulatifOffreFromOffreLight}">
-                                    <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
-                                    <f:setPropertyActionListener value="#{offre}"
-                                                                 target="#{offreController.currentOffre}" />
-                                    <p:tooltip for="recap" value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-                                </h:commandLink>
-                                <h:commandLink id="modif"
-                                               action="#{offreController.goToModificationOffreEtab}">
-                                    <t:htmlTag value="i" styleClass="fa fa-edit fz16 fontBlue2"/>
-                                    <f:setPropertyActionListener value="resultatsRechercheOffre"
-                                                                 target="#{offreController.retour}" />
-                                    <f:setPropertyActionListener value="#{offre}"
-                                                                 target="#{offreController.currentOffre}" />
-                                    <f:setPropertyActionListener value="#{2}"
-                                                                 target="#{offreController.typeAjoutModifOffre}" />
-                                    <f:setPropertyActionListener value="#{false}"
-                                                                 target="#{etablissementController.afficherSelectionCentreContact}" />
-                                    <f:setPropertyActionListener value="_modificationOffreEtape04DetailsEtab"
-                                                                 target="#{sessionController.modificationOffreCurrentPage}" />
-                                    <p:tooltip for="modif">
-                                        <h:outputText styleClass="fontBold" value="#{msgs['FORM.MODIFIER']}" />
-                                        <t:div rendered="#{sessionController.adminPageAuthorized}">
-                                            <t:aliasBean alias="#{objet}" value="#{offre}">
-                                                <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
-                                            </t:aliasBean>
-                                        </t:div>
-                                    </p:tooltip>
-                                </h:commandLink>
-                                <p:commandLink  id="suppr" update="supprOffre"
-                                                oncomplete="PF('supprOffre').show();">
-                                    <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontBlue2"/>
-                                    <f:setPropertyActionListener value="resultatsRechercheOffre"
-                                                                 target="#{offreController.retour}" />
-                                    <f:setPropertyActionListener value="_supprOffreEtape1"
-                                                                 target="#{sessionController.suppressionOffreCurrentPage}" />
-                                    <f:setPropertyActionListener value="#{offre}"
-                                                                 target="#{offreController.currentOffre}" />
-                                    <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
-                                </p:commandLink>
-                            </p:column>
-                        </p:dataTable>
-                    </t:div>
-                    <h:panelGrid>
-                        <t:htmlTag value="div" style="height:20px;" />
-                        <h:commandButton icon="fa fa-angle-left"
-                                         value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
-                                         action="#{offreController.goToRechercheOffre}" />
-                    </h:panelGrid>
-                </h:form>
-                <ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
-            </p:panel>
-            <ui:include src="_panelNousContacter.xhtml" />
-        </h:panelGrid>
+        <p:panel>
+            <f:facet name="header">
+                <h:outputText value="#{msgs['RECHERCHEOFFRE.TITRE']}" />
+            </f:facet>
+            <p:fieldset styleClass="block">
+                <t:div styleClass="mt10 ml30">
+                    <h:form id="formRechOffre">
+                        <t:div rendered="#{not empty offreController.rechercheOffrePaginator.visibleItems}">
+
+                            <ui:include src="/stylesheets/_commun/_rechercheOffreNbResultats.xhtml" />
+
+                            <t:div style="height:10px;" />
+
+                            <t:div styleClass="textCenter">
+                                <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
+                                              value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
+                            </t:div>
+                            <p:dataTable id="listeOffres"
+                                         value="#{offreController.rechercheOffrePaginator.liste}"
+                                         var="offre" rows="10" rowKey="#{offre.idOffre}" rowHover="true"
+                                         paginator="true" paginatorAlwaysVisible="false"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15,20" paginatorPosition="bottom"
+                                         reflow="true" tableStyle="table-layout: auto;"
+                                         selectionMode="single" selection="#{offreController.currentOffre}">
+
+                                <p:ajax event="rowSelect" listener="#{offreController.onOffreEtabDepotSelect}" update="@form"
+                                        onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+
+                                <ui:include src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
+
+                                <p:column styleClass="background-color-grey textCenter">
+                                    <f:facet name="header">
+                                        <h:outputText
+                                                value="#{msgs['GENERAL.ACTIONS']}" />
+                                    </f:facet>
+                                    <!--<p:commandLink id="recap"-->
+                                                   <!--action="#{offreController.goToRecapitulatifOffreFromOffreLight}">-->
+                                        <!--<t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>-->
+                                        <!--<f:setPropertyActionListener value="#{offre}"-->
+                                                                     <!--target="#{offreController.currentOffre}" />-->
+                                        <!--<p:tooltip for="recap" value="#{msgs['OFFRE.GESTION.DETAILS']}" />-->
+                                    <!--</p:commandLink>-->
+                                    <p:commandLink  id="suppr" update="supprOffre"
+                                                    styleClass="mlf5"
+                                                    oncomplete="PF('supprOffre').show();">
+                                        <t:htmlTag value="i" styleClass="fa fa-trash-o fz16 fontBlue2"/>
+                                        <f:setPropertyActionListener value="resultatsRechercheOffre"
+                                                                     target="#{offreController.retour}" />
+                                        <f:setPropertyActionListener value="_supprOffreEtape1"
+                                                                     target="#{sessionController.suppressionOffreCurrentPage}" />
+                                        <f:setPropertyActionListener value="#{offre}"
+                                                                     target="#{offreController.currentOffre}" />
+                                        <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+                                    </p:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </t:div>
+                        <t:div styleClass="mt20 mb20">
+                            <p:commandButton icon="fa fa-angle-left"
+                                             value="#{msgs['RECHERCHEOFFRE.NOUVELLERECHERCHER']}"
+                                             action="#{offreController.goToRechercheOffre}"
+                                             update="@form"/>
+                        </t:div>
+                    </h:form>
+                </t:div>
+            </p:fieldset>
+            <ui:include src="/stylesheets/_commun/_panelSupprOffre.xhtml" />
+        </p:panel>
     </ui:define>
 </ui:composition>

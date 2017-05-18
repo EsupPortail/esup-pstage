@@ -7,7 +7,7 @@
     <ui:define name="content">
         <p:panel>
             <f:facet name="header">
-                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention}" />
+                <h:outputText value="#{msgs['CONVENTION.TITRE.DETAIL']} #{conventionController.convention.idConvention} #{conventionController.convention.etudiant.nom} #{conventionController.convention.etudiant.prenom}" />
             </f:facet>
             <h:form id="formSelConvention">
                 <ui:include src="_roadmapSel.xhtml" />
@@ -181,15 +181,16 @@
                             <t:div styleClass="mt5 mb10 ml40">
                                 <h:panelGrid columns="3">
                                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.ANNEE']}" />
-                                    <p:selectOneMenu id="choixAnneeUniv" required="true" effect="none"
-                                                     value="#{conventionController.selectedAnneeUniv}">
+                                    <h:selectOneMenu id="choixAnneeUniv" required="true" effect="none"
+                                                     value="#{conventionController.selectedAnneeUniv}"
+                                                     styleClass="customPstage fix-selectOneMenu">
                                         <f:selectItem itemValue="" />
                                         <f:selectItems value="#{conventionController.listeAnneesUniv}" />
                                         <p:ajax event="valueChange" onstart="PF('statusDialog').show();"
                                                 oncomplete="PF('statusDialog').hide();"
                                                 listener="#{conventionController.loadInfosEtu}"
                                                 update="panelInscription" />
-                                    </p:selectOneMenu>
+                                    </h:selectOneMenu>
                                     <p:message for="choixAnneeUniv" />
                                 </h:panelGrid>
 
@@ -200,15 +201,15 @@
                                         <t:div style="padding:5px;"
                                                rendered="#{conventionController.etudiantUnElp || conventionController.etudiantSupUnElp}">
                                             <h:outputText styleClass="fontBold" for="elp1" value="#{msgs['CONVENTION.ELP']}" />
-                                            <p:selectOneMenu id="choixElp1" effect="none"
+                                            <h:selectOneMenu id="choixElp1" effect="none"
                                                              value="#{conventionController.selectedCodeElp}" required="true"
-                                                             requiredMessage="#{requiredMessageController.champObligatoire}">
+                                                             styleClass="customPstage fix-selectOneMenu">
                                                 <f:selectItem itemValue="" />
                                                 <f:selectItems
                                                         value="#{conventionController.listeELPEtapesSelectItems}" />
                                                 <p:ajax event="valueChange"
                                                         listener="#{conventionController.rechargeElp}" update="elp1" />
-                                            </p:selectOneMenu>
+                                            </h:selectOneMenu>
                                             <h:outputText id="elp1"
                                                           value="#{conventionController.etudiantRef.theCodeElp} - #{conventionController.etudiantRef.theLibElp} - #{conventionController.etudiantRef.theCreditECTS} crédit(s)" />
 
@@ -230,7 +231,8 @@
                                         <h:panelGrid columns="3" id="etapes">
                                             <h:outputText styleClass="fontBold" for="etapes"
                                                           value="#{msgs['CONVENTION.VOTREETAPE']}" />
-                                            <p:selectOneMenu id="choixEtape" effect="none" required="true"
+                                            <h:selectOneMenu id="choixEtape" effect="none" required="true"
+                                                             styleClass="customPstage fix-selectOneMenu"
                                                              value="#{conventionController.selectedCodeEtape}">
                                                 <f:selectItem itemValue="" />
                                                 <f:selectItems
@@ -238,7 +240,7 @@
                                                 <p:ajax event="valueChange"
                                                         listener="#{conventionController.rechargeUfr}"
                                                         update="etapes,ufrs,elementPedago,panelElp" />
-                                            </p:selectOneMenu>
+                                            </h:selectOneMenu>
                                             <p:message for="choixEtape"/>
                                         </h:panelGrid>
                                         <p:outputPanel id="elementPedago" styleClass="mt5">
@@ -254,15 +256,15 @@
                                             <h:panelGrid columns="3"
                                                          rendered="#{conventionController.etudiantSupUnElp}">
                                                 <h:outputText styleClass="fontBold" for="choixElp2" value="#{msgs['CONVENTION.ELP']}" />
-                                                <p:selectOneMenu id="choixElp2" effect="none"
-                                                                 value="#{conventionController.selectedCodeElp}" required="true"
-                                                                 requiredMessage="#{requiredMessageController.champObligatoire}">
+                                                <h:selectOneMenu id="choixElp2" effect="none"
+                                                                 styleClass="customPstage fix-selectOneMenu"
+                                                                 value="#{conventionController.selectedCodeElp}" required="true">
                                                     <f:selectItem itemValue="" />
                                                     <f:selectItems
                                                             value="#{conventionController.listeELPEtapesSelectItems}" />
                                                     <p:ajax event="valueChange"
                                                             listener="#{conventionController.rechargeElp}" />
-                                                </p:selectOneMenu>
+                                                </h:selectOneMenu>
                                                 <p:message for="choixElp2"/>
                                             </h:panelGrid>
                                         </p:outputPanel>

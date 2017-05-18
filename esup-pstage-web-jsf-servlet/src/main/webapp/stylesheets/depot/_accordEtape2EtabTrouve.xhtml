@@ -1,182 +1,168 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui">
-	<h:panelGrid style="float:right;">
-		<h:outputText value="#{msgs['FORM.VOTRESAISIE']}" escape="false" />
-		<h:outputText
-			value="#{accordController.preAccord.structure.raisonSociale}" />
-		<h:outputText
-			value="#{accordController.preAccord.structure.numeroSiret}"
-			rendered="#{not empty accordController.preAccord.structure.numeroSiret}" />
-		<h:panelGrid columns="2"
-			rendered="#{not empty accordController.preAccord.structure.pays}">
-			<h:graphicImage
-				value="../../media/images/flags/#{accordController.preAccord.structure.pays.iso2}.png"
-				alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-				title="#{accordController.preAccord.structure.pays.libelle}" />
-			<h:outputText
-				value="#{accordController.preAccord.structure.pays.libelle}" />
-		</h:panelGrid>
-	</h:panelGrid>
-	<t:htmlTag value="div" style="height:20px;" />
-	<h:outputText value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCE']}"
-		escape="false"
-		rendered="#{empty accordController.listeStructureExistante}" />
-	<h:outputText value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCES']}"
-		escape="false"
-		rendered="#{not empty accordController.listeStructureExistante}" />
-	<t:htmlTag value="div" style="height:30px;" />
-	<p:dataTable id="strucureExistanteListe" style="width:700px;" rows="5"
-		rendered="#{not empty accordController.listeStructureExistante}"
-		value="#{accordController.listeStructureExistante}"
-                 reflow="true" tableStyle="table-layout: auto;"
-                 var="structureExistante" rowHover="true" rowStyleClass="noPointer"
-		paginator="true"
-		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		rowsPerPageTemplate="5,10,15,20">
-		<f:facet name="header">
-			<p:columnGroup>
-				<p:column>
-					<h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{msgs['STRUCTURE.NUM_SIRET']}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{msgs['STRUCTURE.VOIE']}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
-				</p:column>
-				<p:column>
-				</p:column>
-			</p:columnGroup>
-		</f:facet>
-		<p:column>
-			<h:outputText value="#{structureExistante.raisonSociale}" />
-		</p:column>
-		<p:column>
-			<h:outputText value="#{structureExistante.numeroSiret}" />
-		</p:column>
-		<p:column>
-			<h:outputText value="#{structureExistante.batimentResidence}" />
-		</p:column>
-		<p:column>
-			<h:outputText value="#{structureExistante.voie}" />
-		</p:column>
-		<p:column>
-			<h:outputText value="#{structureExistante.codePostal}" />
-		</p:column>
-		<p:column>
-			<h:outputText value="#{structureExistante.commune}" />
-		</p:column>
-		<p:column>
-			<h:panelGrid columns="2">
-				<h:graphicImage id="flag"
-					rendered="#{not empty structureExistante.pays}"
-					value="../../media/images/flags/#{structureExistante.pays.iso2}.png"
-					alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-					title="#{structureExistante.pays.libelle}" />
-				<h:outputText value="#{structureExistante.pays.libelle}" />
-			</h:panelGrid>
-		</p:column>
-		<p:column>
-			<p:commandLink id="selectionStructure"
-				update="structureSelected, structureNonPresente">
-				<f:setPropertyActionListener value="#{structureExistante}"
-					target="#{accordController.structureExistante}" />
-				<h:graphicImage alt="#{msgs['FORM.SELECTIONNER']}"
-					value="../../media/images/zoom.png" />
-				<p:tooltip value="#{msgs['FORM.SELECTIONNER']}" for="selectionStructure" />
-			</p:commandLink>
-		</p:column>
-	</p:dataTable>
-	<t:htmlTag value="div" style="height:20px;" />
-	<p:outputPanel id="structureSelected">
-		<t:div rendered="#{not empty accordController.structureExistante}">
-			<t:div
-				style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-				<t:aliasBean alias="#{structure}"
-					value="#{accordController.structureExistante}">
-                    <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
-                    <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
 
-					<ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
-				</t:aliasBean>
-			</t:div>
-			<t:panelGroup colspan="2"
-				style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-				<h:outputText value="#{msgs['ACCORD.MODIFICATION']}" escape="false" />
-			</t:panelGroup>
-			<t:panelGroup colspan="2"
-				rendered="#{not empty accordController.listeStructureExistante}">
-				<p:commandLink update="structureSelected, structureNonPresente"
-					action="#{accordController.deSelectionner}">
-					<f:setPropertyActionListener value="#{null}"
-						target="#{accordController.structureExistante}" />
-					<h:graphicImage alt="#{msgs['FORM.DESELECTIONNER']}"
-						value="../../media/images/cancel.png" />
-					<h:outputText value="#{msgs['FORM.DESELECTIONNER']}" />
-				</p:commandLink>
-			</t:panelGroup>
-			<t:htmlTag value="div" style="height:20px;" />
-			<h:panelGrid align="center">
-				<h:outputText value="#{msgs['ACCORD.ETABTROUVE_QUESTION']}" />
-				<h:panelGrid columns="2">
-					<h:commandButton action="#{accordController.goToFormulaireAccord}"
-						value="#{msgs['FORM.OUI']}">
-						<f:setPropertyActionListener
-							value="#{accordController.structureExistante}"
-							target="#{accordController.accord.structure}" />
-						<f:setPropertyActionListener value="#{true}"
-							target="#{accordController.structureDejaExistante}" />
-					</h:commandButton>
-					<h:commandButton action="#{accordController.goToFormulaireAccord}"
-						rendered="#{accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
-						value="#{msgs['FORM.NON']}">
-						<f:setPropertyActionListener value="#{null}"
-							target="#{accordController.structureExistante}" />
-						<f:setPropertyActionListener value="#{false}"
-							target="#{accordController.structureDejaExistante}" />
-						<f:setPropertyActionListener
-							value="#{accordController.preAccord.structure}"
-							target="#{accordController.accord.structure}" />
-					</h:commandButton>
-					<p:commandButton
-						action="#{accordController.nousContacterErreurEtablissement}"
-						rendered="#{accordController.accord.structure.pays==beanUtils.france || accordController.accord.structure.pays.cog==beanUtils.cogFrance}"
-						value="#{msgs['ACCORD.ERREUR_ETAB']}"
-						oncomplete="PF('nousContacter').show();" update="nousContacter" />
-				</h:panelGrid>
-			</h:panelGrid>
-		</t:div>
-	</p:outputPanel>
-	<p:outputPanel id="structureNonPresente">
-		<t:div
-			rendered="#{not empty accordController.listeStructureExistante and empty accordController.structureExistante}">
-			<h:panelGrid align="center">
-				<h:outputText value="#{msgs['ACCORD.ETABTROUVE_NONCORRESPONDANT']}" />
-				<p:commandButton action="#{accordController.goToFormulaireAccord}"
-					rendered="#{accordController.accord.structure.pays!=beanUtils.france and accordController.accord.structure.pays.cog!=beanUtils.cogFrance}"
-					value="#{msgs['FORM.NEXT']}">
-					<f:setPropertyActionListener value="#{false}"
-						target="#{accordController.structureDejaExistante}" />
-				</p:commandButton>
-			</h:panelGrid>
-		</t:div>
-	</p:outputPanel>
-	<p:commandButton value="#{msgs['FORM.PREVIOUS']}"
-		action="#{accordController.retourPreAccord}" update="formAccord"
-		immediate="true" />
+    <h:outputText value="#{msgs['FORM.VOTRESAISIE']} : " styleClass="fontBold fontItalic fz13" escape="false" />
+
+    <t:div styleClass="mt5 mb10 ml20">
+        <h:outputText value="#{accordController.preAccord.structure.raisonSociale}" />
+
+        <t:htmlTag value="div" style="height:5px;"
+                   rendered="#{not empty accordController.preAccord.structure.numeroSiret}" />
+
+        <h:outputText value="#{accordController.preAccord.structure.numeroSiret}"
+                      rendered="#{not empty accordController.preAccord.structure.numeroSiret}" />
+
+    </t:div>
+
+    <t:div rendered="#{empty accordController.structureExistante and empty accordController.listeStructureExistante}">
+        <t:htmlTag value="i" styleClass="fa fa-times fz16"/>
+        <h:outputText value="#{msgs['ACCORD.ETABTROUVE_AUCUN']}"
+                      escape="false" styleClass="fontBold fz13 fontItalic" />
+        <t:div style="height: 10px;" />
+        <h:outputText value="#{msgs['ACCORD.ETABTROUVE_AUCUN_2']} :"
+                      escape="false" styleClass="fontItalic" />
+
+        <p:commandButton value="#{msgs['FORM.NEXT']}" styleClass="ml5 fz09"
+                         action="#{accordController.goToFormulaireAccord}"
+                         update="@form">
+            <f:setPropertyActionListener value="#{false}"
+                                         target="#{accordController.structureDejaExistante}" />
+        </p:commandButton>
+    </t:div>
+
+    <t:div rendered="#{not empty accordController.structureExistante
+                or not empty accordController.listeStructureExistante}">
+
+        <t:div rendered="#{not empty accordController.listeStructureExistante}">
+            <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
+            <h:outputText value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCES']}"
+                          escape="false" styleClass="fontBold fz13 fontItalic" />
+            <t:div style="height: 10px;" />
+            <h:outputText value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCES_2']} :"
+                          escape="false" styleClass="fontItalic" />
+        </t:div>
+
+        <p:dataTable id="strucureExistanteListe" rows="5" styleClass="mt5"
+                     rendered="#{not empty accordController.listeStructureExistante}"
+                     value="#{accordController.listeStructureExistante}"
+                     reflow="true" tableStyle="table-layout: auto;"
+                     var="varStruct" rowHover="true" rowKey="#{varStruct.idStructure}"
+                     paginator="true" paginatorAlwaysVisible="false"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     paginatorPosition="bottom" rowsPerPageTemplate="5,10,15,20"
+                     selectionMode="single" selection="#{accordController.accord.structure}">
+            <p:ajax event="rowSelect" listener="#{accordController.onEtablissementAccordSelect}"
+                    update="@form"/>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
+                </f:facet>
+                <h:outputText value="#{varStruct.raisonSociale}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['STRUCTURE.NUM_SIRET']}" />
+                </f:facet>
+                <h:outputText value="#{varStruct.numeroSiret}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['STRUCTURE.VOIE']}" />
+                </f:facet>
+                <h:outputText value="#{varStruct.voie}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['STRUCTURE.BATIMENT_RESIDENCE']}" />
+                </f:facet>
+                <h:outputText value="#{varStruct.batimentResidence}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
+                </f:facet>
+                <h:outputText value="#{varStruct.codePostal}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['STRUCTURE.COMMUNE']}" />
+                </f:facet>
+                <h:outputText value="#{varStruct.commune}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
+                </f:facet>
+                <h:graphicImage id="flag"
+                                rendered="#{not empty varStruct.pays}"
+                                value="../../media/images/flags/#{varStruct.pays.iso2}.png"
+                                alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+                                title="#{varStruct.pays.libelle}" />
+                <h:outputText value="#{varStruct.pays.libelle}" styleClass="mlf5" style="white-space:normal;" />
+            </p:column>
+        </p:dataTable>
+
+        <t:div styleClass="mt20"
+               rendered="#{not empty accordController.listeStructureExistante}">
+            <h:outputText value="#{msgs['ACCORD.ETABTROUVE_NONCORRESPONDANT']}" styleClass="fontItalic"/>
+            <p:commandButton value="#{msgs['FORM.NEXT']}" styleClass="ml5 fz09"
+                             action="#{accordController.goToFormulaireAccord}"
+                             update="@form">
+                <f:setPropertyActionListener value="#{false}"
+                                             target="#{accordController.structureDejaExistante}" />
+            </p:commandButton>
+        </t:div>
+
+        <t:div rendered="#{empty accordController.listeStructureExistante and not empty accordController.structureExistante}"
+               styleClass="mt10">
+            <t:htmlTag value="i" styleClass="fa fa-check fz16 fontBlue2"/>
+            <h:outputText value="#{msgs['ACCORD.ETABTROUVE_CORRESPONDANCE']}"
+                          escape="false" styleClass="fontBold fz13 fontItalic"/>
+
+            <t:div styleClass="ml20">
+                <t:aliasBean alias="#{structure}"
+                             value="#{accordController.structureExistante}">
+                    <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+                </t:aliasBean>
+
+                <t:div style="height:5px;" />
+
+                <h:outputText value="(#{msgs['ACCORD.MODIFICATION']})" escape="false"
+                              styleClass="ml20 fontItalic"/>
+            </t:div>
+
+            <t:htmlTag value="div" style="height:15px;" />
+
+            <h:outputText value="#{msgs['ACCORD.ETABTROUVE_QUESTION']}" styleClass="fontBold fz13 fontItalic"/>
+
+            <t:div styleClass="mt5 mb10 ml40">
+                <p:commandButton value="#{msgs['FORM.OUI']}"
+                                 action="#{accordController.goToFormulaireAccord}"
+                                 update="@form">
+                    <f:setPropertyActionListener value="#{true}"
+                                                 target="#{accordController.structureDejaExistante}" />
+                </p:commandButton>
+
+                <p:commandButton action="#{accordController.goToFormulaireAccord}"
+                                 update="@form"
+                                 value="#{msgs['FORM.NON']}" styleClass="ml20">
+                    <f:setPropertyActionListener value="#{false}"
+                                                 target="#{accordController.structureDejaExistante}" />
+                </p:commandButton>
+
+                <p:commandButton value="#{msgs['ACCORD.ERREUR_ETAB']}"
+                                 action="#{accordController.nousContacterErreurEtablissement}"
+                                 rendered="#{accordController.paysAccordFrance}" styleClass="ml20"
+                                 oncomplete="PF('nousContacter').show();" update="nousContacter" />
+            </t:div>
+        </t:div>
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     action="#{accordController.retourPreAccord}"
+                     update="@form" immediate="true"
+                     styleClass="mt30 mb20" />
 </ui:composition>

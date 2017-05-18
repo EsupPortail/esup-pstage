@@ -4,6 +4,7 @@
  */
 package org.esupportail.pstage.web.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +16,8 @@ import javax.faces.model.SelectItem;
 import org.esupportail.pstage.utils.DonneesStatic;
 import org.esupportail.pstage.utils.Utils;
 import org.esupportail.pstage.web.paginators.RechercheStructurePaginator;
-import org.esupportail.pstagedata.domain.dto.CritereRechercheStructureAdresseDTO;
-import org.esupportail.pstagedata.domain.dto.EtudiantDTO;
-import org.esupportail.pstagedata.domain.dto.NafN1DTO;
-import org.esupportail.pstagedata.domain.dto.PaysDTO;
-import org.esupportail.pstagedata.domain.dto.StructureDTO;
-import org.esupportail.pstagedata.domain.dto.TypeStructureDTO;
+import org.esupportail.pstagedata.domain.dto.*;
+import org.primefaces.event.SelectEvent;
 import org.springframework.util.StringUtils;
 
 
@@ -192,6 +189,11 @@ public class RechercheController extends AbstractContextAwareController {
 	private boolean toStructuresTemFalse = false;
 
 	/**
+	 * Indique si l'on a lancée la recherche d'etablissement ou pas (affichage de la recherche ou des resultats)
+	 */
+	private boolean rechercheEtabOk = false;
+
+	/**
 	 * Bean constructor.
 	 */
 	public RechercheController() {
@@ -210,15 +212,18 @@ public class RechercheController extends AbstractContextAwareController {
 		return this.listeResultatsRechercheStructure.size();
 	}
 
+
 	/**
 	 * @return A String
 	 */
 	public String goToRechercheEtablissement(){
 		this.toVerificationStructures = false;
 		this.toStructuresTemFalse=false;
+		this.rechRaisonSociale = "";
 		if(this.critereRechercheStructureAdresse==null){
 			this.critereRechercheStructureAdresse=initCritereRechercheStructureAdresse();//new CritereRechercheStructureAdresseDTO();
 		}
+		this.listeResultatsRechercheStructure = new ArrayList<StructureDTO>();
 		reloadRechercheStructurePaginator();
 		return "rechercheEtablissement";
 	}
@@ -448,6 +453,7 @@ public class RechercheController extends AbstractContextAwareController {
 	 */
 	public void rechercheActivite(){
 		afficherBoutonAjoutEtab=true;
+
 		if(this.rechTypeEtablissement!=null || this.rechNafN1!=null){
 			this.resultatRechercheStructure = null;
 			this.listeResultatsRechercheStructure = getStructureDomainService().getStructuresFromTypeStructureNafN1EtDepartement(
@@ -571,28 +577,35 @@ public class RechercheController extends AbstractContextAwareController {
 		this.resultatRechercheStructure=null;
 		if(this.dateDebut!=null && this.dateFin!=null){
 			if(this.dateDebut.after(this.dateFin)){
-				addErrorMessage("formRechEtab6:rechDateDebut", "RECHERCHEETABLISSEMENT.ONGLET6.ERREURDATE");
+				addErrorMessage("formRechEtab", "RECHERCHEETABLISSEMENT.ONGLET6.ERREURDATE");
 				return null;
 			}
 		}
+		// On conserve le rechRaisonSociale dans une variable pour ne pas impacter la saisie
+		// (=% qui se retrouve dans l'input quand on fait un retour en arriere)
+		String tmpRaisonSociale = this.rechRaisonSociale;
+		if (tmpRaisonSociale == null){
+			tmpRaisonSociale = "%";
+		}
+
 		switch (this.rechTypeAccord) {
 			//Structures avec accord à valider
 			case 0:
 				this.listeResultatsRechercheStructure=getStructureDomainService()
-						.getStructuresAvecAccordAValiderFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
+						.getStructuresAvecAccordAValiderFromRaisonSociale(tmpRaisonSociale, this.dateDebut, this.dateFin);
 				checkListeResultats();
 				break;
 			//Structures avec accord validé
 			case 1:
 				this.listeResultatsRechercheStructure=getStructureDomainService()
-						.getStructuresAvecAccordValidesFromRaisonSociale(this.rechRaisonSociale, this.dateDebut, this.dateFin);
+						.getStructuresAvecAccordValidesFromRaisonSociale(tmpRaisonSociale, this.dateDebut, this.dateFin);
 				checkListeResultats();
 				break;
 			//Structures sans accord
 			case 2:
 				if(StringUtils.hasText(this.rechRaisonSociale)){
 					this.listeResultatsRechercheStructure=getStructureDomainService()
-							.getStructuresSansAccordFromRaisonSociale(this.rechRaisonSociale);
+							.getStructuresSansAccordFromRaisonSociale(tmpRaisonSociale);
 					checkListeResultats();
 				}
 				break;
@@ -609,6 +622,7 @@ public class RechercheController extends AbstractContextAwareController {
 	public void reloadRechercheStructurePaginator(){
 		this.rechercheStructurePaginator.reset();
 		this.rechercheStructurePaginator.setListe(this.listeResultatsRechercheStructure);
+		this.setRechercheEtabOk(true);
 		this.rechercheStructurePaginator.forceReload();
 	}
 
@@ -671,7 +685,45 @@ public class RechercheController extends AbstractContextAwareController {
 				.getStructuresAvecAccordAValiderFromRaisonSociale(this.rechRaisonSociale, null, null);
 		checkListeResultats();
 		return ret;
-	}	
+	}
+
+	/**
+	 * @return String
+	 */
+	public void onEtablissementStageSelect(SelectEvent event) {
+
+		String retour = this.goToAffichageRechercheEtablissement();
+
+		try {
+			if (retour != null) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/stylesheets/stage/affichageRechercheEtablissement.xhtml");
+			}
+		} catch (IOException ioe){
+			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
+		}
+	}
+
+	/**
+	 * @return String
+	 */
+	public void onEtablissementDepotSelect(SelectEvent event) {
+
+		// On est coté depot, on recupere donc l'eventuel accord avec l'entreprise
+		if (this.resultatRechercheStructure != null) {
+			this.resultatRechercheStructure = getStructureDomainService()
+					.getStructureAvecAccordFromId(this.resultatRechercheStructure.getIdStructure());
+		}
+
+		String retour = this.goToAffichageRechercheEtablissement();
+
+		try {
+			if (retour != null) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/stylesheets/depot/affichageRechercheEtablissement.xhtml");
+			}
+		} catch (IOException ioe) {
+			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
+		}
+	}
 
 	/* ***************************************************************
 	 * Getters / Setters
@@ -1049,5 +1101,12 @@ public class RechercheController extends AbstractContextAwareController {
 		this.toStructuresTemFalse = toStructuresTemFalse;
 	}
 
+	public boolean isRechercheEtabOk() {
+		return rechercheEtabOk;
+	}
+
+	public void setRechercheEtabOk(boolean rechercheEtabOk) {
+		this.rechercheEtabOk = rechercheEtabOk;
+	}
 
 }

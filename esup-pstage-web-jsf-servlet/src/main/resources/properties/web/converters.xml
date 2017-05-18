@@ -152,4 +152,9 @@
           class="org.esupportail.pstage.web.converters.OffreConverter">
         <property name="offreDomainService" ref="offreDomainService" />
     </bean>
+
+	<bean id="centreGestionConverter"
+		  class="org.esupportail.pstage.web.converters.CentreGestionConverter">
+		<property name="centreGestionDomainService" ref="centreGestionDomainService" />
+	</bean>
 </beans>

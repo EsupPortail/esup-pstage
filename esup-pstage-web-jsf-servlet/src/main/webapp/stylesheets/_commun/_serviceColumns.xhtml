@@ -23,7 +23,7 @@
         <h:outputText
                 value="#{etablissementController.serviceSel.batimentResidence}" />
     </p:column>
-    <p:column>
+    <p:column styleClass="textCenter">
         <f:facet name="header">
             <h:outputText value="#{msgs['STRUCTURE.CODE_POSTAL']}" />
         </f:facet>
@@ -35,18 +35,16 @@
         </f:facet>
         <h:outputText value="#{etablissementController.serviceSel.commune}" />
     </p:column>
-    <p:column>
+    <p:column style="white-space:nowrap;">
         <f:facet name="header">
             <h:outputText value="#{msgs['STRUCTURE.PAYS']}" />
         </f:facet>
-        <!--<t:div style="white-space:nowrap;">-->
-            <h:graphicImage id="flag"
-                            rendered="#{not empty etablissementController.serviceSel.pays}"
-                            value="/media/images/flags/#{etablissementController.serviceSel.pays.iso2}.png"
-                            alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
-                            title="#{etablissementController.serviceSel.pays.libelle}" />
-            <h:outputText value="#{etablissementController.serviceSel.pays.libelle}" styleClass="mlf5" style="white-space:normal;" />
-        <!--</t:div>-->
+        <h:graphicImage id="flag"
+                        rendered="#{not empty etablissementController.serviceSel.pays}"
+                        value="/media/images/flags/#{etablissementController.serviceSel.pays.iso2}.png"
+                        alt="#{msgs['GENERAL.MINI_DRAPEAU']}"
+                        title="#{etablissementController.serviceSel.pays.libelle}" />
+        <h:outputText value="#{etablissementController.serviceSel.pays.libelle}" styleClass="mlf5" style="white-space:normal;" />
     </p:column>
     <p:column>
         <f:facet name="header">

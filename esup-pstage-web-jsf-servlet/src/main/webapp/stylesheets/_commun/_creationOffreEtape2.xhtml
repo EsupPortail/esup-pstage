@@ -3,26 +3,12 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
     <ui:include src="__offreEtape2.xhtml" />
 
-    <h:panelGrid columns="5">
-        <h:commandButton value="#{msgs['FORM.PREVIOUS']}"
-                         alt="#{msgs['FORM.PREVIOUS']}" title="#{msgs['FORM.PREVIOUS']}"
-                         immediate="true">
-            <f:setPropertyActionListener value="_creationOffreEtape1"
-                                         target="#{sessionController.creationOffreCurrentPage}" />
-            <f:setPropertyActionListener value="_creationOffreEtape1"
-                                         target="#{sessionController.creationOffreStageCurrentPage}" />
-        </h:commandButton>
-        <t:htmlTag value="div" style="width: 20px;" />
-        <p:commandButton value="#{msgs['FORM.NEXT']}"
-                         action="#{offreController.goToCreationOffreEtape3}"
-                         alt="#{msgs['FORM.NEXT']}" title="#{msgs['FORM.NEXT']}"
-                         update="formCreationOffre, opFCE" />
-        <t:htmlTag value="div" style="width: 20px;" />
+    <t:div styleClass="textCenter">
+
         <p:outputPanel id="opFCE">
             <t:div styleClass="textCenter mb10" rendered="#{facesContext.maximumSeverity != null}">
                 <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
@@ -30,5 +16,36 @@
                 <t:htmlTag value="i" styleClass="fa fa-arrow-up fz13 fontBlue2 " />
             </t:div>
         </p:outputPanel>
-    </h:panelGrid>
+
+        <p:commandButton value="#{msgs['FORM.CONFIRMERCONTINUER']}"
+                         action="#{offreController.goToCreationOffreEtape3}"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"
+                         rendered="#{!offreController.avecFichierOuLien}"
+                         update="@form, opFCE" />
+
+        <t:div styleClass="textCenter"
+               rendered="#{offreController.avecFichierOuLien}">
+            <p:commandButton value="#{msgs['OFFRE.CREATION.TERMINER']}"
+                             action="#{offreController.ajoutOffre}"
+                             update="formCreationOffre">
+                <p:confirm header="#{msgs['OFFRE.CREATION.TERMINER']}" message="#{msgs['OFFRE.CREATION.CONFIRMER']}" />
+            </p:commandButton>
+            <p:confirmDialog global="true">
+                <t:div styleClass="textCenter">
+                    <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no mlf10" icon="ui-icon-close" />
+                </t:div>
+            </p:confirmDialog>
+        </t:div>
+
+    </t:div>
+
+    <p:commandButton value="#{msgs['FORM.PREVIOUS']}"
+                     styleClass="mt20 mb20" update="@form"
+                     immediate="true">
+        <f:setPropertyActionListener value="_creationOffreEtape1"
+                                     target="#{sessionController.creationOffreCurrentPage}" />
+        <f:setPropertyActionListener value="_creationOffreEtape1"
+                                     target="#{sessionController.creationOffreStageCurrentPage}" />
+    </p:commandButton>
 </ui:composition>

@@ -704,52 +704,44 @@ public class ExportController extends AbstractContextAwareController {
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.LIBELLEETAPE")) {
 				return convention.getEtape().getLibelle();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB")) {
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB")) {
 				if (convention.getDateDebutStage() != null){
 					return new SimpleDateFormat("dd/MM/yyyy").format(convention
 							.getDateDebutStage());
 				} else {
 					return "";
 				}
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.DATEFIN")) {
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DATEFIN")) {
 				if (convention.getDateFinStage() != null){
 					return new SimpleDateFormat("dd/MM/yyyy").format(convention
 							.getDateFinStage());
 				} else {
 					return "";
 				}
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.INTERRUPTION")) {
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.INTERRUPTION")) {
 				if (convention.getInterruptionStageExport()) {
 					return "Oui";
 				} else {
 					return "Non";
 				}
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB.INTERRUPT")) {
-				if (convention.getDateDebutInterruption() != null){
-					return new SimpleDateFormat("dd/MM/yyyy").format(convention
-							.getDateDebutInterruption());
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DATEDEB.INTERRUPT")) {
+				if (convention.getInterruptionStageExport() && convention.getDateDebutInterruption() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention.getDateDebutInterruption());
 				} else {
 					return "";
 				}
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.DATEFIN.INTERRUPT")) {
-				if (convention.getDateFinInterruption() != null){
-					return new SimpleDateFormat("dd/MM/yyyy").format(convention
-							.getDateFinInterruption());
+				if (convention.getInterruptionStageExport() && convention.getDateFinInterruption() != null){
+					return new SimpleDateFormat("dd/MM/yyyy").format(convention.getDateFinInterruption());
 				} else {
 					return "";
 				}
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.THEMATIQUE")) {
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.THEMATIQUE")) {
 				return convention.getTheme().getLibelle();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.SUJET")) {
 				return convention.getSujetStage();
-			} else if (nameProperty
-					.equalsIgnoreCase("EXPORTCONVENTION.FONCTION")) {
+			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.FONCTION")) {
 				return convention.getFonctionsEtTaches();
 			} else if (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DETAIL")) {
 				return convention.getDetails();
@@ -780,37 +772,7 @@ public class ExportController extends AbstractContextAwareController {
 				} else {
 					duree = convention.getDureeStage().toString() + " semaines";
 				}
-
 				return duree;
-				// } else if
-				// (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.DUREEEXCEPTION")){
-				// return convention.getDureeExceptionnelle();
-				// } else if
-				// (nameProperty.equalsIgnoreCase("EXPORTCONVENTION.UNITEDUREEEXCEP")){
-				// if (convention.getDureeExceptionnelle() != null &&
-				// !convention.getDureeExceptionnelle().isEmpty()){
-				// if (convention.getIdUniteDureeExceptionnelle() != 0){
-				// switch (convention.getIdUniteDureeExceptionnelle()) {
-				// case 1:
-				// return "heure(s)";
-				// case 2:
-				// return "jour(s)";
-				// case 3:
-				// return "semaine(s)";
-				// case 4:
-				// return "mois";
-				// case 5:
-				// return "annee(s)";
-				// default:
-				// return "";
-				// }
-				// } else {
-				// return "heures";
-				// }
-				// } else {
-				// return "";
-				// }
-
 			} else if (nameProperty
 					.equalsIgnoreCase("EXPORTCONVENTION.UNITEDUREEGRATIF")) {
 				return convention.getUniteDureeGratification().getLibelle();

@@ -27,8 +27,6 @@ public class EmptyDaoService implements DaoService {
 
 	public void addUser(User user) {
 
-		// TODO Auto-generated method stub
-
 
 
 	}
@@ -36,8 +34,6 @@ public class EmptyDaoService implements DaoService {
 
 
 	public void addVersionManager(VersionManager versionManager) {
-
-		// TODO Auto-generated method stub
 
 
 
@@ -47,8 +43,6 @@ public class EmptyDaoService implements DaoService {
 
 	public void deleteUser(User user) {
 
-		// TODO Auto-generated method stub
-
 
 
 	}
@@ -56,8 +50,6 @@ public class EmptyDaoService implements DaoService {
 
 
 	public Paginator<User> getAdminPaginator() {
-
-		// TODO Auto-generated method stub
 
 		return null;
 
@@ -67,8 +59,6 @@ public class EmptyDaoService implements DaoService {
 
 	public User getUser(String id) {
 
-		// TODO Auto-generated method stub
-
 		return null;
 
 	}
@@ -77,7 +67,6 @@ public class EmptyDaoService implements DaoService {
 
 	public List<User> getUsers() {
 
-		// TODO Auto-generated method stub
 
 		return null;
 
@@ -87,8 +76,6 @@ public class EmptyDaoService implements DaoService {
 
 	public List<VersionManager> getVersionManagers() {
 
-		// TODO Auto-generated method stub
-
 		return null;
 
 	}
@@ -96,8 +83,6 @@ public class EmptyDaoService implements DaoService {
 
 
 	public void updateUser(User user) {
-
-		// TODO Auto-generated method stub
 
 
 
@@ -107,9 +92,6 @@ public class EmptyDaoService implements DaoService {
 
 	public void updateVersionManager(VersionManager versionManager) {
 
-		// TODO Auto-generated method stub
-
-
 
 	}
 
@@ -118,8 +100,6 @@ public class EmptyDaoService implements DaoService {
 	@Override
 
 	public VersionManager getVersionManager() {
-
-		// TODO Auto-generated method stub
 
 		return null;
 

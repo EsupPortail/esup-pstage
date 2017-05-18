@@ -29,7 +29,7 @@
 			<artifactId>apo-webservicesclient.jar</artifactId>
 			<version>1.0.0</version>
 			<scope>system</scope>
-			<systemPath>C:/workspace_pstage/esup-pstage/esup-pstage-web-jsf-servlet/src/main/webapp/WEB-INF/lib/apo-webservicesclient480la.jar</systemPath>
+			<systemPath>C:/workspace_pstage/esup-pstage/esup-pstage-web-jsf-servlet/src/main/webapp/WEB-INF/lib/apo-webservicesclient490lba.jar</systemPath>
 		</dependency>
 	</dependencies>
 </project>

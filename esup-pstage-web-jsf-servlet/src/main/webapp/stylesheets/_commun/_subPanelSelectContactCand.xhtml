@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="selectContactCand" widgetVar="selectContactCand" resizable="false" modal="true">
+        <h:form>
+            <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml">
+                <ui:param name="idOpService" value="opService" />
+                <ui:param name="idSOMService" value="sOMService" />
+                <ui:param name="idOpActionsService" value="opActionsService" />
+                <ui:param name="idOpContactsDataTable" value="opContactsDataTable" />
+                <ui:param name="idSOMContact" value="sOMContact" />
+                <ui:param name="idDivButtons" value="divButtons" />
+            </ui:include>
+
+            <t:div id="divButtons" styleClass="textCenter">
+                <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
+                                 oncomplete="PF('selectContactCand').hide();"
+                                 update="${idForm}"
+                                 rendered="#{not empty etablissementController.serviceSel
+                                         and not empty etablissementController.contactSel}">
+                    <f:setPropertyActionListener
+                            value="#{etablissementController.contactSel}"
+                            target="#{offreController.formOffre.contactCand}" />
+                </p:commandButton>
+                <p:commandButton value="#{msgs['FORM.CANCEL']}" styleClass="ml20"
+                                 onclick="PF('selectContactCand').hide();" />
+            </t:div>
+        </h:form>
+    </p:dialog>
+</ui:composition>

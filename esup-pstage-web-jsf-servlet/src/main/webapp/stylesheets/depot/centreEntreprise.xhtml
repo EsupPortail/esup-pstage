@@ -1,27 +1,23 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	 template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<t:div>
-			<h:panelGrid style="float:left;">
-				<ui:include src="./_menu.xhtml" />
-			</h:panelGrid>
-			<h:panelGrid
-				rendered="#{sessionController.superAdminPageAuthorized}">
-				<p:panel>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['MENU.CENTREENTREPRISE']}" />
-					</f:facet>
-					<h:form id="formCentreEntreprise">
-						<ui:include id="include"
-							src="/stylesheets/depot/#{sessionController.modifCentreEntrepriseCurrentPage}.xhtml" />
-					</h:form>
-				</p:panel>
-				<ui:include src="_panelNousContacter.xhtml" />
-			</h:panelGrid>
-		</t:div>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <t:div rendered="#{sessionController.superAdminPageAuthorized}">
+            <p:panel>
+                <f:facet name="header">
+                    <h:outputText value="#{msgs['MENU.CENTREENTREPRISE']}" />
+                </f:facet>
+                <h:form id="formCentreEntreprise">
+                    <p:fieldset styleClass="block">
+                        <t:div styleClass="mt10 ml20 mb20">
+                            <ui:include src="/stylesheets/depot/#{sessionController.modifCentreEntrepriseCurrentPage}.xhtml" />
+                        </t:div>
+                    </p:fieldset>
+                </h:form>
+            </p:panel>
+        </t:div>
+    </ui:define>
 </ui:composition>

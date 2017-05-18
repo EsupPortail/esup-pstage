@@ -53,7 +53,7 @@ public class StatisticCriteria implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//TODO refaire
+
 	public StatisticCriteria() {
 		super();
 		
@@ -76,8 +76,8 @@ public class StatisticCriteria implements Serializable {
 		 secondLevelStatCriteriaForConvention.put("DOM","Domaine d'activit\u00E9 de l'\u00E9tablissement d'accueil");
 		 secondLevelStatCriteriaForConvention.put("JUR","Statut juridique de l'\u00E9tablissement d'accueil");
 		 secondLevelStatCriteriaForConvention.put("SIZE","Taille de l'\u00E9tablissement d'accueil");
-		 secondLevelStatCriteriaForConvention.put("DEPGEO","D\u00E9partement g\u00E9ograhique du lieu de stage");
-		 secondLevelStatCriteriaForConvention.put("PAYS","Pays du lieu de stage");
+		 secondLevelStatCriteriaForConvention.put("DEPGEO","D\u00E9partement du lieu de stage");
+		 secondLevelStatCriteriaForConvention.put("PAYS","Zone g\u00E9ographique du stage");
 		 secondLevelStatCriteriaForConvention.put("DUREE","Dur\u00E9e du stage");
 			
 		 

@@ -8,31 +8,30 @@
     <f:facet name="header">
         <h:outputText value="#{msgs['OFFRE.SELECTIONCONTACT']}" />
     </f:facet>
-    <p:outputPanel id="opService">
-        <h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
-                      rendered="#{empty etablissementController.listeServices}"
-                      escape="false" />
 
-        <t:div rendered="#{not empty etablissementController.listeServices}">
-
-            <h:outputText value="#{msgs['CONTACT.GESTION.SELECTSERVICE']}"
+    <p:fieldset legend="#{msgs['CONTACT.GESTION.SELECTSERVICE']}">
+        <p:outputPanel id="${idOpService}">
+            <h:outputText value="#{msgs['SERVICE.AUCUNSERVICE']}"
+                          rendered="#{empty etablissementController.listeServices}"
                           escape="false" />
 
-            <p:selectOneMenu id="sOMService"
-                             value="#{etablissementController.idServiceSel}"
-                             converter="#{intConverter}"
-                             valueChangeListener="#{etablissementController.valueIdServiceChanged}">
-                <f:selectItems value="#{etablissementController.servicesItems}" />
-                <p:ajax event="valueChange"
-                        update="opContactsDataTable, opActionsService" />
-            </p:selectOneMenu>
+            <t:div rendered="#{not empty etablissementController.listeServices}">
 
-            <t:htmlTag value="div" style="height:5px;"/>
+                <h:selectOneMenu id="${idSOMService}" styleClass="customPstage fix-selectOneMenu"
+                                 value="#{etablissementController.idServiceSel}"
+                                 converter="#{intConverter}"
+                                 valueChangeListener="#{etablissementController.valueIdServiceChanged}">
+                    <f:selectItems value="#{etablissementController.servicesItems}" />
+                    <p:ajax event="valueChange"
+                            update="${idOpContactsDataTable}, ${idOpActionsService}, ${idDivButtons}" />
+                </h:selectOneMenu>
 
-            <p:outputPanel id="opActionsService">
-                <p:commandLink id="modif" oncomplete="PF('modifService').show();"
-                               update="modifService"
-                               rendered="#{not empty etablissementController.idServiceSel
+                <t:htmlTag value="div" style="height:5px;"/>
+
+                <p:outputPanel id="${idOpActionsService}">
+                    <p:commandLink oncomplete="PF('modifService').show();"
+                                   update="modifService"
+                                   rendered="#{(not empty etablissementController.idServiceSel and not empty etablissementController.serviceSel)
                         and empty offreController.centreGestionDepotAnonyme
                         and ((sessionController.adminPageAuthorized || sessionController.pageAuthorized ||
                         welcomeController.admin || welcomeController.personnel || welcomeController.writer)
@@ -42,80 +41,79 @@
                         and ((empty etablissementController.serviceSel.loginModif and
                         etablissementController.serviceSel.loginCreation==sessionController.currentLogin)
                         || (etablissementController.serviceSel.loginModif==sessionController.currentLogin))))))))}">
+                        <f:setPropertyActionListener
+                                value="#{false}"
+                                target="#{etablissementController.memeAdresseStructure}" />
+                        <f:setPropertyActionListener
+                                value="#{etablissementController.serviceSel}"
+                                target="#{etablissementController.formService}" />
+                        <f:setPropertyActionListener
+                                value="#{false}"
+                                target="#{etablissementController.afficherSelectionCentreContact}" />
+                        <f:setPropertyActionListener
+                                value="_modifServiceEtape0"
+                                target="#{sessionController.modifServiceCurrentPage}" />
+                        <t:htmlTag value="i" styleClass="fa fa-edit fontBlue2"/>
+                        <h:outputText value="#{msgs['FORM.MODIFIERDONNEES']} du service choisi" styleClass="fz09" />
+                    </p:commandLink>
+                </p:outputPanel>
+            </t:div>
+
+            <t:div styleClass="mt5">
+                <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" styleClass="fontItalic" />
+                <p:commandButton icon="fa fa-plus fz13" styleClass="ml5 fz09"
+                                 value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
+                                 action="#{etablissementController.ajoutService}"
+                                 oncomplete="PF('ajoutService').show();"
+                                 update="ajoutService">
                     <f:setPropertyActionListener
-                            value="#{false}"
+                            value="#{true}"
                             target="#{etablissementController.memeAdresseStructure}" />
                     <f:setPropertyActionListener
-                            value="#{etablissementController.serviceSel}"
-                            target="#{etablissementController.formService}" />
+                            value="_ajoutServiceEtape0"
+                            target="#{sessionController.ajoutServiceCurrentPage}" />
+                </p:commandButton>
+            </t:div>
+        </p:outputPanel>
+
+    </p:fieldset>
+
+    <p:outputPanel id="${idOpContactsDataTable}">
+        <p:fieldset legend="#{msgs['CONTACT.GESTION.SELECTCONTACT']}" styleClass="mt20 mb20"
+                    rendered="#{not empty etablissementController.serviceSel
+					and not empty etablissementController.listeServices}">
+
+            <h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
+                          rendered="#{empty etablissementController.listeContacts}"
+                          escape="false" />
+
+            <t:div rendered="#{not empty etablissementController.listeContacts}">
+                <h:selectOneMenu id="${idSOMContact}" styleClass="customPstage fix-selectOneMenu"
+                                 value="#{etablissementController.idContactSel}"
+                                 converter="#{intConverter}"
+                                 valueChangeListener="#{etablissementController.valueIdContactChanged}">
+                    <f:selectItems value="#{etablissementController.contactsItems}" />
+                    <p:ajax event="valueChange" update="#{idOpContactsDataTable}, #{idDivButtons}" />
+                </h:selectOneMenu>
+            </t:div>
+            <t:div styleClass="mt5"
+                   rendered="#{not empty etablissementController.serviceSel
+                    and not empty etablissementController.listeServices}">
+                <h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}" styleClass="fontItalic"
+                              escape="false" />
+                <p:commandButton icon="fa fa-plus fz13" styleClass="ml5" style="font-size :11px;"
+                                 value="#{msgs['CONTACT.GESTION.AJOUT.CREER_2']}"
+                                 action="#{etablissementController.ajoutContact}"
+                                 oncomplete="PF('ajoutContact').show();"
+                                 update="ajoutContact">
                     <f:setPropertyActionListener
                             value="#{false}"
                             target="#{etablissementController.afficherSelectionCentreContact}" />
                     <f:setPropertyActionListener
-                            value="_modifServiceEtape0"
-                            target="#{sessionController.modifServiceCurrentPage}" />
-                    <t:htmlTag value="i" styleClass="fa fa-edit fontBlue2"/>
-                    <h:outputText value="#{msgs['FORM.MODIFIERDONNEES']} du service choisi" style="font-size:11px;" />
-                </p:commandLink>
-            </p:outputPanel>
-        </t:div>
-
-        <t:div styleClass="mt5">
-            <h:outputText value="#{msgs['SERVICE.AJOUT.CREER']}" escape="false" />
-            <p:commandButton id="ajout" icon="fa fa-plus fz13" styleClass="ml5"
-                             value="#{msgs['STRUCTURE.AJOUT.CREER_2']}"
-                             action="#{etablissementController.ajoutService}"
-                             oncomplete="PF('ajoutService').show();"
-                             update="ajoutService">
-                <f:setPropertyActionListener
-                        value="#{true}"
-                        target="#{etablissementController.memeAdresseStructure}" />
-                <f:setPropertyActionListener
-                        value="_ajoutServiceEtape0"
-                        target="#{sessionController.ajoutServiceCurrentPage}" />
-            </p:commandButton>
-        </t:div>
-    </p:outputPanel>
-
-    <p:separator style="width:100%; height:2px;" styleClass="mt10 mb10" />
-
-    <p:outputPanel id="opContactsDataTable">
-        <t:div rendered="#{not empty etablissementController.listeContacts}">
-            <h:outputText value="#{msgs['CONTACT.GESTION.SELECTCONTACT']}"
-                          escape="false" />
-            <p:selectOneMenu id="sOMContact"
-                             value="#{etablissementController.idContactSel}"
-                             converter="#{intConverter}"
-                             valueChangeListener="#{etablissementController.valueIdContactChanged}"
-                             required="true">
-                <f:selectItems value="#{etablissementController.contactsItems}" />
-                <p:ajax event="valueChange" update="opContactsDataTable" />
-            </p:selectOneMenu>
-            <p:message for="sOMContact" />
-        </t:div>
-
-        <h:outputText value="#{msgs['CONTACT.GESTION.AUCUN']}"
-                      rendered="#{not empty etablissementController.serviceSel
-					and not empty etablissementController.listeServices
-					and empty etablissementController.listeContacts}"
-                      escape="false" />
-        <t:div styleClass="mt5"
-               rendered="#{not empty etablissementController.serviceSel
-                    and not empty etablissementController.listeServices}">
-            <h:outputText value="#{msgs['CONTACT.GESTION.AJOUT.CREER']}"
-                          escape="false" />
-            <p:commandButton id="ajoutC" icon="fa fa-plus fz13" styleClass="ml5"
-                             value="#{msgs['CONTACT.GESTION.AJOUT.CREER_2']}"
-                             action="#{etablissementController.ajoutContact}"
-                             oncomplete="PF('ajoutContact').show();"
-                             update="ajoutContact">
-                <f:setPropertyActionListener
-                        value="#{false}"
-                        target="#{etablissementController.afficherSelectionCentreContact}" />
-                <f:setPropertyActionListener
-                        value="_ajoutContactEtape0"
-                        target="#{sessionController.ajoutContactCurrentPage}" />
-            </p:commandButton>
-        </t:div>
+                            value="_ajoutContactEtape0"
+                            target="#{sessionController.ajoutContactCurrentPage}" />
+                </p:commandButton>
+            </t:div>
+        </p:fieldset>
     </p:outputPanel>
 </ui:composition>

@@ -1,117 +1,97 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	<h:panelGrid >
-		<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
-		<h:outputLabel for="typeCompte"
-			value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE']}" />
-		<h:selectOneRadio id="typeCompte"
-			value="#{adminController.typeCompteAdminStructure}"
-			converter="#{intConverter}" required="true"
-			requiredMessage="#{requiredMessageController.champObligatoire}">
-			<f:selectItems
-				value="#{adminController.listTypeCompteAdminStructure}" />
-			<p:ajax event="valueChange" update="opFormAdmin"  />
-		</h:selectOneRadio>
-	</h:panelGrid>
-	<p:outputPanel id="opFormAdmin">
-		<h:panelGrid >
-			<h:outputLabel for="nomAdmin" value="#{msgs['ADMINSTRUCTURE.NOM']} *" />
-			<h:inputText id="nomAdmin"
-				value="#{adminController.formAdminStructure.nom}" size="50"
-				maxlength="50" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				style="text-transform:uppercase;">
-				<f:converter binding="#{upperCaseConverter}" />
-				<p:ajax event="blur"/>
-			</h:inputText>
-			<p:message for="nomAdmin">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-			<h:outputLabel for="prenomAdmin"
-				value="#{msgs['ADMINSTRUCTURE.PRENOM']} *" />
-			<h:inputText id="prenomAdmin" style="text-transform:capitalize;"
-				value="#{adminController.formAdminStructure.prenom}" size="50"
-				maxlength="50" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<f:converter binding="#{premiereLettreMAJConverter}" />
-				<p:ajax event="blur"/>
-			</h:inputText>
-			<p:message for="prenomAdmin">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-			<h:outputLabel for="mailAdmin"
-				value="#{msgs['ADMINSTRUCTURE.MAIL']} *" />
-			<h:inputText id="mailAdmin"
-				value="#{adminController.formAdminStructure.mail}" size="50"
-				maxlength="50" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
-				<f:validator binding="#{mailValidator}" />
-				<p:ajax event="blur"/>
-			</h:inputText>
-			<p:message for="mailAdmin">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-			<h:outputLabel for="loginAdmin"
-				value="#{msgs['ADMINSTRUCTURE.LOGIN']} *"
-				rendered="#{adminController.typeCompteAdminStructure==0 || adminController.typeCompteAdminStructure==1}" />
-			<h:inputText id="loginAdmin"
-				value="#{adminController.formAdminStructure.login}"
-				rendered="#{adminController.typeCompteAdminStructure==0 || adminController.typeCompteAdminStructure==1}"
-				size="30" maxlength="50" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<p:ajax event="blur"/>
-			</h:inputText>
-			<p:message for="loginAdmin">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-			<h:outputLabel for="mdpAdmin" value="#{msgs['ADMINSTRUCTURE.MDP']} *"
-				rendered="#{adminController.typeCompteAdminStructure==0}" />
-			<h:inputSecret id="mdpAdmin"
-				value="#{adminController.formAdminStructure.mdp}"
-				rendered="#{adminController.typeCompteAdminStructure==0}" size="20"
-				maxlength="20" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<f:converter binding="#{passwordConverter}" />
-				<p:ajax event="blur"/>
-			</h:inputSecret>
-			<p:message for="mdpAdmin">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-			<h:outputLabel for="cmdpAdmin"
-				value="#{msgs['ADMINSTRUCTURE.MDP_CONFIRMATION']} *"
-				rendered="#{adminController.typeCompteAdminStructure==0}" />
-			<h:inputSecret id="cmdpAdmin"
-				value="#{adminController.formAdminMdpConfirmation}" size="20"
-				maxlength="20"
-				rendered="#{adminController.typeCompteAdminStructure==0}"
-				required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}">
-				<f:converter binding="#{passwordConverter}" />
-				<p:ajax event="blur"/>
-			</h:inputSecret>
-			<p:message for="cmdpAdmin">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-			<h:outputLabel for="eppnAdmin"
-				value="#{msgs['ADMINSTRUCTURE.EPPN']} *"
-				rendered="#{adminController.typeCompteAdminStructure==2}" />
-			<h:inputText id="eppnAdmin"
-				value="#{adminController.formAdminStructure.eppn}"
-				rendered="#{adminController.typeCompteAdminStructure==2}" size="50"
-				maxlength="50" required="true"
-				requiredMessage="#{requiredMessageController.champObligatoire}"
-				validatorMessage="#{requiredMessageController.adresseMailNonValide}">
-				<f:validator binding="#{mailValidator}" />
-				<p:ajax event="blur"/>
-			</h:inputText>
-			<p:message for="eppnAdmin">
-				<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-			</p:message>
-		</h:panelGrid>
-	</p:outputPanel>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:outputText styleClass="fontBold" for="typeCompte"
+                  value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE']}" />
+    <p:selectOneRadio id="typeCompte"
+                      value="#{adminController.typeCompteAdminStructure}"
+                      converter="#{intConverter}" required="true"
+                      requiredMessage="#{requiredMessageController.champObligatoire}">
+        <f:selectItems value="#{adminController.listTypeCompteAdminStructure}" />
+        <p:ajax event="valueChange" update="opFormAdmin"  />
+    </p:selectOneRadio>
+
+    <p:outputPanel id="opFormAdmin">
+        <h:outputText styleClass="fontBold" for="nomAdmin" value="#{msgs['ADMINSTRUCTURE.NOM']} *" />
+        <p:inputText id="nomAdmin"
+                     value="#{adminController.formAdminStructure.nom}"
+                     maxlength="50" required="true"
+                     style="text-transform:uppercase;">
+            <f:converter binding="#{upperCaseConverter}" />
+        </p:inputText>
+        <p:message for="nomAdmin" />
+
+        <t:div style="height:10px;"/>
+
+        <h:outputText styleClass="fontBold" for="prenomAdmin"
+                      value="#{msgs['ADMINSTRUCTURE.PRENOM']} *" />
+        <p:inputText id="prenomAdmin" style="text-transform:capitalize;"
+                     value="#{adminController.formAdminStructure.prenom}"
+                     maxlength="50" required="true">
+            <f:converter binding="#{premiereLettreMAJConverter}" />
+        </p:inputText>
+        <p:message for="prenomAdmin"/>
+
+        <t:div style="height:10px;"/>
+
+        <h:outputText styleClass="fontBold" for="mailAdmin"
+                      value="#{msgs['ADMINSTRUCTURE.MAIL']} *" />
+        <p:inputText id="mailAdmin"
+                     value="#{adminController.formAdminStructure.mail}"
+                     maxlength="50" required="true"
+                     validatorMessage="#{requiredMessageController.adresseMailNonValide}">
+            <f:validator binding="#{mailValidator}" />
+        </p:inputText>
+        <p:message for="mailAdmin"/>
+
+        <t:div style="height:10px;"/>
+
+        <h:outputText styleClass="fontBold" for="loginAdmin"
+                      value="#{msgs['ADMINSTRUCTURE.LOGIN']} *"
+                      rendered="#{adminController.typeCompteAdminStructure==0 || adminController.typeCompteAdminStructure==1}" />
+        <p:inputText id="loginAdmin"
+                     value="#{adminController.formAdminStructure.login}"
+                     rendered="#{adminController.typeCompteAdminStructure==0 || adminController.typeCompteAdminStructure==1}"
+                     maxlength="50" required="true" />
+        <p:message for="loginAdmin"/>
+
+        <t:div style="height:10px;"/>
+
+        <h:outputText styleClass="fontBold" for="mdpAdmin" value="#{msgs['ADMINSTRUCTURE.MDP']} *"
+                      rendered="#{adminController.typeCompteAdminStructure==0}" />
+        <p:password id="mdpAdmin"
+                    value="#{adminController.formAdminStructure.mdp}"
+                    rendered="#{adminController.typeCompteAdminStructure==0}"
+                    maxlength="20" required="true">
+            <f:converter binding="#{passwordConverter}" />
+        </p:password>
+        <p:message for="mdpAdmin"/>
+
+        <h:outputText styleClass="fontBold" for="cmdpAdmin"
+                      value="#{msgs['ADMINSTRUCTURE.MDP_CONFIRMATION']} *"
+                      rendered="#{adminController.typeCompteAdminStructure==0}" />
+        <p:password id="cmdpAdmin" required="true"
+                    value="#{adminController.formAdminMdpConfirmation}"
+                    maxlength="20"
+                    rendered="#{adminController.typeCompteAdminStructure==0}">
+            <f:converter binding="#{passwordConverter}" />
+        </p:password>
+        <p:message for="cmdpAdmin"/>
+
+        <h:outputText styleClass="fontBold" for="eppnAdmin"
+                      value="#{msgs['ADMINSTRUCTURE.EPPN']} *"
+                      rendered="#{adminController.typeCompteAdminStructure==2}" />
+        <p:inputText id="eppnAdmin"
+                     value="#{adminController.formAdminStructure.eppn}"
+                     rendered="#{adminController.typeCompteAdminStructure==2}" size="50"
+                     maxlength="50" required="true"
+                     requiredMessage="#{requiredMessageController.champObligatoire}"
+                     validatorMessage="#{requiredMessageController.adresseMailNonValide}">
+            <f:validator binding="#{mailValidator}" />
+        </p:inputText>
+        <p:message for="eppnAdmin" />
+    </p:outputPanel>
 </ui:composition>

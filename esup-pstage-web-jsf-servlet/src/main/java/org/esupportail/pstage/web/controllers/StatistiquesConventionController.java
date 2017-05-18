@@ -487,7 +487,10 @@ public class StatistiquesConventionController extends AbstractContextAwareContro
 			}
 			else if (critereDeuxCle.equals("PAYS")){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndServiceCountry(idCentreGestion, uneAnnee, etab);
-				message = getString("CONVENTION.STATS.ETAPE.PAYS");
+
+				// MODIFS STATS 2017
+				critereDeuxCle = "zone géographique";
+				message = "Nombre de stages par étape d'étude et par zone géographique";
 			}
 			else if (critereDeuxCle.equals("THEME")){
 				statsItemList = statistiquesDomainService.getNumberOfConventionsByStepAndTheme(idCentreGestion, uneAnnee, etab);

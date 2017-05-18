@@ -36,13 +36,13 @@
                 <t:div>
                     <p:outputLabel value="#{msgs['CENTRE.TYPE_CENTRE']}"
                                    for="critereGestion" />
-                    <p:selectOneMenu id="critereGestion" style="margin:5px;"
+                    <h:selectOneMenu id="critereGestion" style="margin:5px;"
                                      value="#{centreController.centre.niveauCentre}"
                                      converter="#{niveauCentreConverter}" required="true"
-                                     requiredMessage="#{requiredMessageController.champObligatoire}"
+                                     styleClass="customPstage fix-selectOneMenu"
                                      effect="none">
                         <f:selectItems value="#{centreController.niveauxCentre}" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                 </t:div>
             </t:htmlTag>
         </t:div>
@@ -121,7 +121,7 @@
                         <f:validator binding="#{mailValidator}" />
                         <p:ajax event="blur" update="panelWeb" />
                     </p:inputText>
-                    <h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" style="font-size: 11px;"/>
+                    <h:outputText value="#{msgs['CONTACT.MAIL.AIDE']}" escape="false" styleClass="fz09"/>
                     <p:message for="mail" />
 
                     <p:outputLabel value="#{msgs['CENTRE.SITEWEB']} " for="siteWeb" styleClass="mt10"/>
@@ -133,7 +133,7 @@
                         <p:ajax event="blur" update="panelWeb" />
                     </p:inputText>
                     <h:outputText value="#{msgs['STRUCTURE.SITEWEB.AIDE']}"
-                                  escape="false" style="font-size: 11px;" />
+                                  escape="false" styleClass="fz09" />
                     <p:message for="siteWeb" />
                 </t:htmlTag>
             </t:div>
@@ -168,12 +168,11 @@
         <t:div rendered="#{centreController.confidentialiteAffichable}" styleClass="mt5">
             <p:outputLabel value="#{msgs['CENTRE.CONFIDENTIALITE']}"
                            for="confidentialite" />
-            <p:selectOneMenu id="confidentialite"
+            <h:selectOneMenu id="confidentialite" styleClass="customPstage fix-selectOneMenu"
                              value="#{centreController.centre.confidentialite}" required="true"
-                             converter="#{confidentialiteConverter}"
-                             requiredMessage="#{requiredMessageController.champObligatoire}">
+                             converter="#{confidentialiteConverter}">
                 <f:selectItems value="#{centreController.confidentialites}" />
-            </p:selectOneMenu>
+            </h:selectOneMenu>
         </t:div>
 
         <t:htmlTag value="div" style="height: 5px;" />

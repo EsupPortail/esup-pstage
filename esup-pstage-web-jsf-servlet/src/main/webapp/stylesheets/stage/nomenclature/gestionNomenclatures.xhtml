@@ -34,63 +34,63 @@
 			<h:form>
 				<p:tabMenu activeIndex="#{nomenclatureController.indexMenu}"
 					style="display:inline-block;">
-					<p:menuitem value="CaisseRegime" update="@form,divNomenclature">
-						<f:setPropertyActionListener value="0"
-							target="#{nomenclatureController.indexMenu}" />
-						<f:setPropertyActionListener value="_include_caisseRegime"
-							target="#{sessionController.nomenclatureCurrentPage}" />
-					</p:menuitem>
+					<!--<p:menuitem value="CaisseRegime" update="@form,divNomenclature">-->
+						<!--<f:setPropertyActionListener value="0"-->
+							<!--target="#{nomenclatureController.indexMenu}" />-->
+						<!--<f:setPropertyActionListener value="_include_caisseRegime"-->
+							<!--target="#{sessionController.nomenclatureCurrentPage}" />-->
+					<!--</p:menuitem>-->
 					<p:menuitem value="ModeValidationStage"
 						update="@form,divNomenclature">
-						<f:setPropertyActionListener value="1"
+						<f:setPropertyActionListener value="0"
 							target="#{nomenclatureController.indexMenu}" />
 						<f:setPropertyActionListener value="_include_modeValidationStage"
 							target="#{sessionController.nomenclatureCurrentPage}" />
 					</p:menuitem>
 					<p:menuitem value="NiveauFormation" update="@form,divNomenclature">
-						<f:setPropertyActionListener value="2"
+						<f:setPropertyActionListener value="1"
 							target="#{nomenclatureController.indexMenu}" />
 						<f:setPropertyActionListener value="_include_niveauFormation"
 							target="#{sessionController.nomenclatureCurrentPage}" />
 					</p:menuitem>
 					<p:menuitem value="TempsTravail" update="@form,divNomenclature">
-						<f:setPropertyActionListener value="3"
+						<f:setPropertyActionListener value="2"
 							target="#{nomenclatureController.indexMenu}" />
 						<f:setPropertyActionListener value="_include_tempsTravail"
 							target="#{sessionController.nomenclatureCurrentPage}" />
 					</p:menuitem>
 					<p:menuitem value="OrigineStage" update="@form,divNomenclature">
-						<f:setPropertyActionListener value="4"
+						<f:setPropertyActionListener value="3"
 							target="#{nomenclatureController.indexMenu}" />
 						<f:setPropertyActionListener value="_include_origineStage"
 							target="#{sessionController.nomenclatureCurrentPage}" />
 					</p:menuitem>
 					<p:menuitem value="TypeStructure" update="@form,divNomenclature">
-						<f:setPropertyActionListener value="5"
+						<f:setPropertyActionListener value="4"
 							target="#{nomenclatureController.indexMenu}" />
 						<f:setPropertyActionListener value="_include_typeStructure"
 							target="#{sessionController.nomenclatureCurrentPage}" />
 					</p:menuitem>
 					<p:menuitem value="StatutJuridique" update="@form,divNomenclature">
-						<f:setPropertyActionListener value="6"
+						<f:setPropertyActionListener value="5"
 							target="#{nomenclatureController.indexMenu}" />
 						<f:setPropertyActionListener value="_include_statutJuridique"
 							target="#{sessionController.nomenclatureCurrentPage}" />
 					</p:menuitem>
 					<p:menuitem value="TypeOffre" update="@form,divNomenclature">
-						<f:setPropertyActionListener value="7"
+						<f:setPropertyActionListener value="6"
 							target="#{nomenclatureController.indexMenu}" />
 						<f:setPropertyActionListener value="_include_typeOffre"
 							target="#{sessionController.nomenclatureCurrentPage}" />
 					</p:menuitem>
 					<p:menuitem value="ContratOffre" update="@form,divNomenclature">
-						<f:setPropertyActionListener value="8"
+						<f:setPropertyActionListener value="7"
 							target="#{nomenclatureController.indexMenu}" />
 						<f:setPropertyActionListener value="_include_contratOffre"
 							target="#{sessionController.nomenclatureCurrentPage}" />
 					</p:menuitem>
 					<p:menuitem value="Effectif" update="@form,divNomenclature">
-						<f:setPropertyActionListener value="9"
+						<f:setPropertyActionListener value="8"
 							target="#{nomenclatureController.indexMenu}" />
 						<f:setPropertyActionListener value="_include_effectif"
 							target="#{sessionController.nomenclatureCurrentPage}" />

@@ -95,19 +95,18 @@
                     <t:div id="opDynaCommune"
                            rendered="#{(etablissementController.formServiceTmpPays==beanUtils.france || etablissementController.formServiceTmpPays.cog==beanUtils.cogFrance)
 				            and sessionController.recupererCommunesDepuisApogee}">
-                        <p:selectOneMenu id="dynaCommune"
+                        <h:selectOneMenu id="dynaCommune" styleClass="customPstage fix-selectOneMenu"
                                          value="#{etablissementController.formServiceTmpCommuneDTO.codeCommune}"
-                                         required="true"
-                                         requiredMessage="#{requiredMessageController.champObligatoire}">
+                                         required="true">
                             <f:selectItem itemValue="" />
                             <f:selectItems value="#{etablissementController.formServiceCommunesListening}" />
                             <p:ajax event="valueChange" update="@form"/>
-                        </p:selectOneMenu>
+                        </h:selectOneMenu>
                         <p:message for="dynaCommune" />
                     </t:div>
 
                     <h:outputText value="#{msgs['STRUCTURE.PAYS']} *" styleClass="fontBold"/>
-                    <p:selectOneMenu id="pays" effect="none" var="p"
+                    <h:selectOneMenu id="pays" effect="none" var="p" styleClass="customPstage fix-selectOneMenu"
                                      value="#{etablissementController.formServiceTmpPays}"
                                      converter="#{paysConverter}" required="true">
                         <f:selectItems value="#{nomenclatureController.pays}" var="pays" />
@@ -118,7 +117,7 @@
                                     title="#{p.libelle}" /> #{p.libelle}
                         </p:column>
                         <p:ajax event="valueChange" update="colonneAdresse" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                     <p:message for="pays" />
                 </t:htmlTag>
             </t:div>

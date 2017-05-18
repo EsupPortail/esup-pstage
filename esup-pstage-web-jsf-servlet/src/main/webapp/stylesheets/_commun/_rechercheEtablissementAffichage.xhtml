@@ -8,12 +8,9 @@
     <h:outputText value="#{msgs['RECHERCHEETABLISSEMENT.ERREURSELECTION']}"
                   rendered="#{empty structure}" />
 
-    <t:div rendered="#{not empty structure}">
-        <!--<p:panel rendered="#{not empty structure}">-->
-        <!--<f:facet name="header">-->
-        <!--<h:outputText value="#{msgs['STRUCTURE.INFOS']}" />-->
-        <!--</f:facet>-->
-        <h:panelGrid columns="2" styleClass="ml20" cellspacing="5" style="border: solid 1px;">
+    <t:div rendered="#{not empty structure}" styleClass="mt5">
+        <p:panelGrid columns="2" styleClass="ml20 noBorder"
+                     cellspacing="5">
             <h:outputText styleClass="fontBold"
                           value="#{msgs['STRUCTURE.RAISON_SOCIALE']}" />
             <h:outputText id="raisonSociale" value="#{structure.raisonSociale}" />
@@ -37,10 +34,6 @@
             <h:outputText id="nsiret" rendered="#{not empty structure.numeroSiret}"
                           value="#{structure.numeroSiret}" />
 
-            <!-- 			<h:outputText styleClass="fontBold" for="groupe" value="#{msgs['STRUCTURE.GROUPE']}" -->
-            <!-- 				rendered="#{not empty structure.groupe}" /> -->
-            <!-- 			<h:outputText id="groupe" rendered="#{not empty structure.groupe}" -->
-            <!-- 				value="#{structure.groupe}" /> -->
             <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.VOIE']}" />
             <h:outputText id="voie" value="#{structure.voie}" />
 
@@ -81,18 +74,23 @@
 
             <h:outputText styleClass="fontBold" rendered="#{not empty structure.mail}"
                           value="#{msgs['STRUCTURE.MAIL']}" />
-            <h:outputLink id="mail" rendered="#{not empty structure.mail}"
-                          value="mailto:#{structure.mail}" target="_blank">
-                <h:outputText value="#{structure.mail}" />
-            </h:outputLink>
+            <t:div style="word-break: break-all;">
+                <h:outputLink id="mail" rendered="#{not empty structure.mail}"
+                              value="mailto:#{structure.mail}" target="_blank"
+                              style="word-wrap:break-word;">
+                    <h:outputText value="#{structure.mail}" />
+                </h:outputLink>
+            </t:div>
 
             <h:outputText styleClass="fontBold"
                           rendered="#{not empty structure.siteWeb}"
                           value="#{msgs['STRUCTURE.SITEWEB']}" />
-            <h:outputLink id="siteWeb" rendered="#{not empty structure.siteWeb}"
-                          value="#{structure.siteWeb}" target="_blank">
-                <h:outputText value="#{structure.siteWeb}" />
-            </h:outputLink>
+            <t:div style="word-break: break-all;">
+                <h:outputLink id="siteWeb" rendered="#{not empty structure.siteWeb}"
+                              value="#{structure.siteWeb}" target="_blank">
+                    <h:outputText value="#{structure.siteWeb}" />
+                </h:outputLink>
+            </t:div>
 
             <h:outputText styleClass="fontBold" value="#{msgs['STRUCTURE.CODE_NAF']}"
                           rendered="#{not empty structure.nafN5 and not empty structure.nafN5.code}" />
@@ -110,7 +108,7 @@
             <h:outputText id="activite"
                           rendered="#{not empty structure.activitePrincipale}"
                           value="#{structure.activitePrincipale}" escape="false" />
-        </h:panelGrid>
+        </p:panelGrid>
         <!--</p:panel>-->
     </t:div>
 </ui:composition>

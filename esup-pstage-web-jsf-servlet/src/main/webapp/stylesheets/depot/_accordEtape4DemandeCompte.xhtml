@@ -1,154 +1,137 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
 
-	<t:htmlTag value="div" style="height:40px;" />
+    <p:commandButton action="#{accordController.goToEtapePrecedente}"
+                     value="#{msgs['FORM.PREVIOUS']}" immediate="true" />
 
-	<p:commandButton action="#{accordController.goToEtapePrecedente}"
-		value="#{msgs['FORM.PREVIOUS']}" immediate="true" />
-	<t:htmlTag value="br" />
-	<t:htmlTag value="br" />
-	<h:outputText value="#{msgs['ACCORD.EXISTANT.TITRE']}" />
-	<t:htmlTag value="br" />
-	<t:div rendered="#{not empty accordController.accord.structure}">
-		<t:div
-			style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-			<t:aliasBean alias="#{structure}"
-				value="#{accordController.accord.structure}">
-                <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
-                <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
+    <t:div styleClass="mt10 mb10">
+        <t:htmlTag value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2"/>
+        <h:outputText value="#{msgs['ACCORD.EXISTANT.TITRE']}" styleClass="fontItalic fontBold fz13"/>
+    </t:div>
+    <t:div styleClass="ml20">
+        <t:aliasBean alias="#{structure}"
+                     value="#{accordController.accord.structure}">
+            <t:htmlTag value="i" styleClass="fa fa-building fz16 fontBlue2"/>
+            <h:outputText value="#{msgs['STRUCTURE.INFOS']}" styleClass="fontBold fontBlue2 fz16 ml5" escape="false"/>
 
-				<ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
-			</t:aliasBean>
-		</t:div>
-		<t:panelGroup colspan="2"
-			style="width:500px;position:relative;margin-left:auto;margin-right:auto;">
-			<h:outputText value="#{msgs['ACCORD.MODIFICATION']}" escape="false" />
-		</t:panelGroup>
-		<t:htmlTag value="div" style="height:20px;" />
-		<h2>
-			<h:outputText value="#{msgs['ACCORD.EXISTANT']}" escape="false" />
-		</h2>
-		<h:panelGrid columns="2" align="center">
-			<h:panelGrid>
-				<ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
-				<h:panelGrid columns="3">
-					<h:panelGrid>
-						<h:panelGrid columns="2"
-							style="margin-left:auto;margin-right:auto;">
-							<h:outputLabel value="#{msgs['CONTACT.CIVILITE']} *"
-								for="civilite" />
-							<h:selectOneMenu id="civilite"
-								value="#{accordController.contactDemandeCompte.civilite}"
-								converter="#{civiliteConverter}" required="true"
-								requiredMessage="#{requiredMessageController.champObligatoire}">
-								<f:selectItem itemValue="" />
-								<f:selectItems value="#{nomenclatureController.civilites}" />
-								<p:ajax event="blur" />
-							</h:selectOneMenu>
-							<t:panelGroup colspan="2">
-								<p:message for="civilite">
-									<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-								</p:message>
-							</t:panelGroup>
-						</h:panelGrid>
-						<h:outputLabel for="nom" value="#{msgs['CONTACT.NOM']} *" />
-						<h:inputText id="nom" style="text-transform:uppercase;"
-							value="#{accordController.contactDemandeCompte.nom}" size="50"
-							maxlength="50" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<f:converter binding="#{upperCaseConverter}" />
-							<p:ajax event="blur" />
-						</h:inputText>
-						<p:message for="nom">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<h:outputLabel for="prenom" value="#{msgs['CONTACT.PRENOM']} *" />
-						<h:inputText id="prenom" style="text-transform:capitalize;"
-							value="#{accordController.contactDemandeCompte.prenom}" size="50"
-							maxlength="50" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<f:converter binding="#{premiereLettreMAJConverter}" />
-							<p:ajax event="blur" />
-						</h:inputText>
-						<p:message for="prenom">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<h:outputLabel for="fonction" value="#{msgs['CONTACT.FONCTION']} " />
-						<h:inputText id="fonction" size="50" maxlength="100"
-							value="#{accordController.contactDemandeCompte.fonction}" />
-						<p:message for="fonction">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<h:outputLabel for="nomService" value="#{msgs['SERVICE.NOM']} *" />
-						<h:inputText id="nomService" style="text-transform:uppercase;"
-							value="#{accordController.contactDemandeCompte.service.nom}"
-							size="50" maxlength="50" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<f:converter binding="#{upperCaseConverter}" />
-							<p:ajax event="blur" />
-						</h:inputText>
-						<p:message for="nomService">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-					</h:panelGrid>
-					<h:panelGrid columns="3">
-						<t:htmlTag value="div" style="width:25px;" />
-						<p:separator style="width:2px; height:225px;" />
-						<t:htmlTag value="div" style="width:25px;" />
-					</h:panelGrid>
-					<h:panelGrid>
-						<t:htmlTag value="div" style="height:25px;" />
-						<h:outputLabel for="telC" value="#{msgs['CONTACT.TELEPHONE']} *" />
-						<h:inputText id="telC"
-							value="#{accordController.contactDemandeCompte.tel}" size="20"
-							maxlength="20" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}">
-							<p:ajax event="blur" />
-						</h:inputText>
-						<p:message for="telC">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<h:outputLabel for="faxC" value="#{msgs['CONTACT.FAX']} " />
-						<h:inputText id="faxC" size="20" maxlength="20"
-							value="#{accordController.contactDemandeCompte.fax}" />
-						<p:message for="faxC">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<h:outputLabel for="mailC" value="#{msgs['CONTACT.MAIL']} *" />
-						<h:inputText id="mailC"
-							value="#{accordController.contactDemandeCompte.mail}" size="50"
-							maxlength="50" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}"
-							validatorMessage="#{requiredMessageController.adresseMailNonValide}">
-							<f:validator binding="#{mailValidator}" />
-							<p:ajax event="blur" />
-						</h:inputText>
-						<p:message for="mailC">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<h:outputLabel for="mailConfirmation"
-							value="#{msgs['CONTACT.MAIL_CONFIRMATION']} *" />
-						<h:inputText id="mailConfirmation"
-							value="#{accordController.contactMailConfirmation}" size="50"
-							maxlength="50" required="true"
-							requiredMessage="#{requiredMessageController.champObligatoire}"
-							validatorMessage="#{requiredMessageController.adresseMailNonValide}">
-							<f:validator binding="#{mailValidator}" />
-							<p:ajax event="blur" />
-						</h:inputText>
-						<p:message for="mailConfirmation">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-					</h:panelGrid>
-				</h:panelGrid>
-			</h:panelGrid>
-		</h:panelGrid>
-		<p:commandButton action="#{accordController.validerDemandeCompte}"
-			update="formAccord"
-			value="#{msgs['FORM.ENVOYER']}" />
-	</t:div>
+            <ui:include src="/stylesheets/_commun/_rechercheEtablissementAffichage.xhtml" />
+        </t:aliasBean>
+    </t:div>
+
+    <t:htmlTag value="div" style="height:20px;" />
+
+    <h:outputText value="#{msgs['ACCORD.EXISTANT']}" styleClass="fz13 fontItalic fontBold" escape="false" />
+
+    <p:fieldset legend="#{msgs['OFFRE.GESTION.CONTACTS']}" styleClass="mt10">
+        <t:div styleClass="textCenter mb10">
+            <h:outputText value="#{msgs['ACCORD.CONTACT']}"
+                          styleClass="fontItalic"/>
+        </t:div>
+        <t:htmlTag value="ul" styleClass="formUL columns-2">
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText value="#{msgs['CONTACT.CIVILITE']} *"
+                                  styleClass="fontBold"/>
+                    <h:selectOneMenu id="civilite" styleClass="customPstage fix-selectOneMenu"
+                                     value="#{accordController.contactDemandeCompte.civilite}"
+                                     converter="#{civiliteConverter}" required="true">
+                        <f:selectItems value="#{nomenclatureController.civilites}" />
+                    </h:selectOneMenu>
+                    <p:message for="civilite"/>
+
+                    <t:div style="height: 10px;"/>
+
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.NOM']} *" />
+                    <p:inputText id="nom" style="text-transform:uppercase;"
+                                 value="#{accordController.contactDemandeCompte.nom}"
+                                 maxlength="50" required="true">
+                        <f:converter binding="#{upperCaseConverter}" />
+                    </p:inputText>
+                    <p:message for="nom"/>
+
+                    <t:div style="height: 10px;"/>
+
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.PRENOM']} *" />
+                    <p:inputText id="prenom" style="text-transform:capitalize;"
+                                 value="#{accordController.contactDemandeCompte.prenom}"
+                                 maxlength="50" required="true">
+                        <f:converter binding="#{premiereLettreMAJConverter}" />
+                    </p:inputText>
+                    <p:message for="prenom"/>
+
+                    <t:div style="height: 10px;"/>
+
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.FONCTION']} " />
+                    <p:inputText id="fonction" maxlength="100"
+                                 value="#{accordController.contactDemandeCompte.fonction}" />
+                    <p:message for="fonction"/>
+
+                    <t:div style="height: 10px;"/>
+
+                    <t:htmlTag id="infoBulleNomService" value="i" styleClass="fa fa-exclamation-circle fz13 fontBlue2">
+                        <p:tooltip for="infoBulleNomService" value="#{msgs['INFOSBULLES.SERVICE']}" escape="false"/>
+                    </t:htmlTag>
+                    <h:outputText styleClass="fontBold mlf5" value="#{msgs['SERVICE.NOM']} *" />
+                    <p:inputText id="nomService" style="text-transform:uppercase;"
+                                 value="#{accordController.contactDemandeCompte.service.nom}"
+                                 maxlength="50" required="true">
+                        <f:converter binding="#{upperCaseConverter}" />
+                    </p:inputText>
+                    <p:message for="nomService"/>
+                </t:htmlTag>
+            </t:div>
+            <t:div styleClass="column">
+                <t:htmlTag value="li">
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.TELEPHONE']} *" />
+                    <p:inputText id="telC" maxlength="20"
+                                 value="#{accordController.contactDemandeCompte.tel}"
+                                 required="true"/>
+                    <p:message for="telC"/>
+
+                    <t:div style="height: 10px;"/>
+
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.FAX']} " />
+                    <p:inputText id="faxC" maxlength="20"
+                                 value="#{accordController.contactDemandeCompte.fax}" />
+                    <p:message for="faxC"/>
+
+                    <t:div style="height: 10px;"/>
+
+                    <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.MAIL']} *" />
+                    <p:inputText id="mailC"
+                                 value="#{accordController.contactDemandeCompte.mail}"
+                                 maxlength="50" required="true"
+                                 validatorMessage="#{requiredMessageController.adresseMailNonValide}">
+                        <f:validator binding="#{mailValidator}" />
+                    </p:inputText>
+                    <p:message for="mailC"/>
+
+                    <t:div style="height: 10px;"/>
+
+                    <h:outputText styleClass="fontBold"
+                                  value="#{msgs['CONTACT.MAIL_CONFIRMATION']} *" />
+                    <p:inputText id="mailConfirmation"
+                                 value="#{accordController.contactMailConfirmation}"
+                                 maxlength="50" required="true"
+                                 validatorMessage="#{requiredMessageController.adresseMailNonValide}">
+                        <f:validator binding="#{mailValidator}" />
+                    </p:inputText>
+                    <p:message for="mailConfirmation"/>
+                </t:htmlTag>
+            </t:div>
+        </t:htmlTag>
+    </p:fieldset>
+
+    <t:div styleClass="mt10 mb20 textCenter">
+        <p:commandButton action="#{accordController.validerDemandeCompte}"
+                         update="formAccord"
+                         value="#{msgs['FORM.ENVOYER']} la demande"
+                         onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" />
+    </t:div>
+    <p:commandButton immediate="true" value="#{msgs['FORM.PREVIOUS']}"
+                     action="#{accordController.goToEtapePrecedente}"
+                     styleClass="mb20"/>
 </ui:composition>

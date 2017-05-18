@@ -1,62 +1,56 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	<h:panelGrid columns="2" 
-		
-		rendered="#{not empty centreController.centreEntreprise}">
-		<h:outputLabel for="nomEntr"
-			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} : " />
-		<h:outputText id="nomEntr"
-			value="#{centreController.formCentreEntreprise.nomCentre}" />
-		<h:outputLabel for="confEntr"
-			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} : " />
-		<h:outputText id="confEntr"
-			value="#{centreController.formCentreEntreprise.confidentialite.libelle}" />
-		<h:outputLabel for="telEntr"
-			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']} : " />
-		<h:outputText id="telEntr"
-			value="#{centreController.formCentreEntreprise.telephone}" />
-		<h:outputLabel for="faxEntr"
-			value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']} : " />
-		<h:outputText id="faxEntr"
-			value="#{centreController.formCentreEntreprise.fax}" />
-	</h:panelGrid>
-	<h:panelGrid style="float:right;"
-		rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}">
-		<t:aliasBean alias="#{objet}"
-			value="#{centreController.centreEntreprise}">
-			<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
-		</t:aliasBean>
-	</h:panelGrid>
-	<h:panelGrid rendered="#{empty centreController.centreEntreprise}">
-		<h:outputText value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NONEXISTANT']}" />
-	</h:panelGrid>
-	<t:htmlTag value="br" />
-	<t:htmlTag value="div" style="height:10px;" />
-	<p:commandLink
-		rendered="#{empty centreController.centreEntreprise and sessionController.adminPageAuthorized}"
-		update="formCentreEntreprise">
-		<h:graphicImage alt="#{msgs['FORM.CREER']}"
-			title="#{msgs['FORM.CREER']}" value="../../media/images/new.png"
-			 />
-		<h:outputText value=" #{msgs['FORM.CREER']}" />
-		<f:setPropertyActionListener value="_modifCentreEntrepriseEtape2"
-			target="#{sessionController.modifCentreEntrepriseCurrentPage}" />
-	</p:commandLink>
-	<p:commandLink
-		rendered="#{not empty centreController.centreEntreprise and sessionController.adminPageAuthorized}"
-		update="formCentreEntreprise">
-		<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-			title="#{msgs['FORM.MODIFIER']}" value="../../media/images/edit.png"
-			 />
-		<h:outputText value=" #{msgs['FORM.MODIFIER']}" />
-		<f:setPropertyActionListener value="_modifCentreEntrepriseEtape2"
-			target="#{sessionController.modifCentreEntrepriseCurrentPage}" />
-	</p:commandLink>
-	<h:panelGrid align="center" id="msgsEts">
-		<p:messages style="font-size:16px;" />
-	</h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+    <t:div rendered="#{empty centreController.centreEntreprise}">
+        <h:outputText value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NONEXISTANT']}" styleClass="fontBold" />
+        <t:div styleClass="mt5 ml20">
+            <p:commandButton value=" #{msgs['CENTRE.CENTRE_ENTREPRISE.NONEXISTANT.CREER']}"
+                             icon="fa fa-plus fz13"
+                             rendered="#{sessionController.adminPageAuthorized}"
+                             update="formCentreEntreprise">
+                <f:setPropertyActionListener value="_modifCentreEntrepriseEtape2"
+                                             target="#{sessionController.modifCentreEntrepriseCurrentPage}" />
+            </p:commandButton>
+        </t:div>
+    </t:div>
+    <t:div rendered="#{not empty centreController.centreEntreprise}">
+        <h:panelGrid columns="2" styleClass="blueHover">
+            <h:outputText styleClass="fontBold" for="nomEntr"
+                          value="#{msgs['CENTRE.CENTRE_ENTREPRISE.NOM']} " />
+            <h:outputText id="nomEntr"
+                          value="#{centreController.formCentreEntreprise.nomCentre}" />
+            <h:outputText styleClass="fontBold" for="confEntr"
+                          value="#{msgs['CENTRE.CENTRE_ENTREPRISE.CONFIDENTIALITE']} " />
+            <h:outputText id="confEntr"
+                          value="#{centreController.formCentreEntreprise.confidentialite.libelle}" />
+            <h:outputText styleClass="fontBold" for="telEntr"
+                          value="#{msgs['CENTRE.CENTRE_ENTREPRISE.TEL']} " />
+            <h:outputText id="telEntr"
+                          value="#{centreController.formCentreEntreprise.telephone}" />
+            <h:outputText styleClass="fontBold" for="faxEntr"
+                          value="#{msgs['CENTRE.CENTRE_ENTREPRISE.FAX']} " />
+            <h:outputText id="faxEntr"
+                          value="#{centreController.formCentreEntreprise.fax}" />
+        </h:panelGrid>
+        <t:div styleClass="floatRight"
+               rendered="#{sessionController.adminPageAuthorized}">
+            <t:aliasBean alias="#{objet}"
+                         value="#{centreController.centreEntreprise}">
+                <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+            </t:aliasBean>
+        </t:div>
+        <t:div styleClass="fz09 mt5"
+               rendered="#{sessionController.adminPageAuthorized}">
+            <p:commandButton value=" #{msgs['FORM.MODIFIER']}" icon="fa fa-edit fz13"
+                             update="formCentreEntreprise">
+                <f:setPropertyActionListener value="_modifCentreEntrepriseEtape2"
+                                             target="#{sessionController.modifCentreEntrepriseCurrentPage}" />
+            </p:commandButton>
+        </t:div>
+    </t:div>
+
+    <p:messages />
+
 </ui:composition>

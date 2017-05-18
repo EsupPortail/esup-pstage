@@ -1,15 +1,18 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
-	<ui:include src="./_formAdministrateur.xhtml" />
-	<h:panelGrid columns="3" align="center">
-		<p:commandButton action="#{adminController.ajouterAdministrateur}"
-			value="#{msgs['FORM.VALIDER']}" update="@form" />
-		<t:htmlTag value="div" style="width:150px;" />
-		<p:commandButton value="#{msgs['FORM.ANNULER']}" immediate="true"
-			onclick="PF('ajoutAdministrateur').hide();" />
-	</h:panelGrid>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:include src="./_formAdministrateur.xhtml" />
+
+    <t:div styleClass="mt10 textCenter">
+        <p:commandButton action="#{adminController.ajouterAdministrateur}"
+                         value="#{msgs['FORM.CREER']}"
+                         update="@form" />
+    </t:div>
+    <p:commandButton value="#{msgs['FORM.ANNULER']}"
+                     immediate="true"
+                     onclick="PF('ajoutAdministrateur').hide();" />
+
 </ui:composition>

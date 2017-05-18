@@ -5,6 +5,7 @@
 package org.esupportail.pstage.web.controllers;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,6 +15,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -44,6 +47,8 @@ import org.esupportail.pstagedata.exceptions.DataUpdateException;
 import org.esupportail.pstagedata.exceptions.PersonalAlreadyExistingForCentreException;
 import org.esupportail.pstagedata.exceptions.WebServiceDataBaseException;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.springframework.util.StringUtils;
 
 
@@ -63,7 +68,7 @@ public class CentreController extends AbstractContextAwareController {
 	 ****************************************************************/
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8058126798700641595L;
 
@@ -297,6 +302,7 @@ public class CentreController extends AbstractContextAwareController {
 	/* ***************************************************************
 	 * Actions
 	 ****************************************************************/
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -506,10 +512,27 @@ public class CentreController extends AbstractContextAwareController {
 		this.indexMenu = 0;
 		this.listeCriteres = new ArrayList<SelectItem>();
 		this.personnels = new ArrayList<PersonnelCentreGestionDTO>();
-		
+
 		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_detail");
 
 		return "voirCentre";
+	}
+
+	public void onCentreSelect(SelectEvent event) {
+		if(logger.isDebugEnabled()) {
+			logger.debug("Selection du centre " + ((CentreGestionDTO) event.getObject()).getIdCentreGestion()+"");
+		}
+
+		String retour = this.goToVoirCentre();
+
+		try {
+			if (retour != null) {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("consultationCentre.xhtml");
+			}
+		} catch (IOException ioe){
+			logger.error("Erreur lors de la tentative de redirection de page.");
+			addErrorMessage(null, "Erreur lors de la tentative de redirection de page.");
+		}
 	}
 
 	/* ****************************************************************************
@@ -599,7 +622,7 @@ public class CentreController extends AbstractContextAwareController {
 
 	/**
 	 * Action de création du centre entreprise si non existant
-	 * 
+	 *
 	 */
 	public void ajouterCentreEntreprise(){
 		//		String ret=null;
@@ -615,16 +638,16 @@ public class CentreController extends AbstractContextAwareController {
 					addInfoMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
 					getSessionController().setModifCentreEntrepriseCurrentPage("modifCentreEntrepriseEtape1");
 					//					ret="_modifCentreEntrepriseEtape1";
-				} catch (DataAddException d) {	
-					logger.error("DataAddException", d.fillInStackTrace());				
+				} catch (DataAddException d) {
+					logger.error("DataAddException", d.fillInStackTrace());
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", d.getMessage());
 					//					return null;
 				} catch (CentreEntrepriseDejaExistantException e) {
-					logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
+					logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
 					//					return null;
 				} catch (WebServiceDataBaseException e) {
-					logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
+					logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 					addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
 					//					return null;
 				}
@@ -638,7 +661,7 @@ public class CentreController extends AbstractContextAwareController {
 	 */
 	public void modifierCentreEntreprise(){
 
-		if(getCentreEntreprise()!=null && StringUtils.hasText(this.formCentreEntreprise.getNomCentre()) 
+		if(getCentreEntreprise()!=null && StringUtils.hasText(this.formCentreEntreprise.getNomCentre())
 				&& this.formCentreEntreprise.getConfidentialite()!=null){
 			try{
 				this.formCentreEntreprise.setCodeConfidentialite(this.formCentreEntreprise.getConfidentialite().getCode());
@@ -653,13 +676,13 @@ public class CentreController extends AbstractContextAwareController {
 				addInfoMessage("msgsEts", "CENTRE.CENTRE_ENTREPRISE.CONFIRMATION");
 
 			} catch (DataAddException d){
-				logger.error("DataAddException", d.fillInStackTrace());				
+				logger.error("DataAddException", d.fillInStackTrace());
 				addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE");
 			} catch (CentreEntrepriseDejaExistantException e) {
-				logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());	
+				logger.error("CentreEntrepriseDejaExistantException", e.fillInStackTrace());
 				addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
 			} catch (WebServiceDataBaseException e) {
-				logger.error("WebServiceDataBaseException", e.fillInStackTrace());	
+				logger.error("WebServiceDataBaseException", e.fillInStackTrace());
 				addErrorMessage("formCentreEntreprise", "CENTRE.CENTRE_ENTREPRISE.ERREURENTREPRISE", e.getMessage());
 			}
 		}
@@ -697,23 +720,31 @@ public class CentreController extends AbstractContextAwareController {
 	public String supprimerCentre(){
 		if(this.centre!=null){
 			try{
-				if(logger.isInfoEnabled()){
-					logger.info(getSessionController().getCurrentLogin()+" supprime le centre de gestion : "+this.centre);
-				}
 				List<CritereGestionDTO> list = new ArrayList<CritereGestionDTO>();
-				list = getCritereGestionDomainService().getCritereGestionFromIdCentre(this.centre.getIdCentreGestion());
-				if (list != null && !list.isEmpty()){
-					for(CritereGestionDTO crit : list){
-						this.critere = crit;
-						this.repercutionCriteres();
+
+				if (getCentreGestionDomainService().deleteCentreGestion(this.centre.getIdCentreGestion())){
+
+					// On reporte le rattachement des conventions référencées au centre de niveau supérieur (etablissement ou UFR)
+					list = getCritereGestionDomainService().getCritereGestionFromIdCentre(this.centre.getIdCentreGestion());
+					if (list != null && !list.isEmpty()) {
+						for (CritereGestionDTO crit : list) {
+							this.critere = crit;
+							this.repercutionCriteres();
+						}
 					}
+
+					// On retire le centre de la liste pour l'affichage
+					this.centresGestion.remove(centre);
+
+					if (logger.isInfoEnabled()) {
+						logger.info(getSessionController().getCurrentLogin() + " supprime le centre de gestion : " + this.centre);
+					}
+				} else {
+					logger.error("La requête de suppression renvoie False.");
+					addErrorMessage("formSupprCentre", "CENTRE.SUPPRESSION.ERREUR");
+					return null;
 				}
-				// Suppression de la fiche d'évaluation
-				getFicheEvaluationDomainService().deleteFicheEvaluation(getFicheEvaluationDomainService().getFicheEvaluationFromIdCentre(this.centre.getIdCentreGestion()).getIdFicheEvaluation());
 
-				getCentreGestionDomainService().deleteCentreGestion(this.centre.getIdCentreGestion());
-
-				this.centresGestion.remove(centre);
 			} catch (CentreReferenceException e){
 				logger.error("CentreReferenceException ",e.fillInStackTrace());
 				addErrorMessage("formSupprCentre","CENTRE.SUPPRESSION.ERREUR.REFERENCE",e.getMessage());
@@ -990,9 +1021,9 @@ public class CentreController extends AbstractContextAwareController {
 					getConventionDomainService().updateCentreConventionByEtape(code, this.centre.getIdCentreGestion(),getSessionController().getCodeUniversite());
 				}
 			}
-			
+
 			addInfoMessage("formListeCritere", "CENTRE.CRITERE.CONFIRM_AJOUT");
-			
+
 		} catch (DataAddException e) {
 			logger.error(e.fillInStackTrace());
 		} catch (WebServiceDataBaseException e) {
@@ -1037,7 +1068,7 @@ public class CentreController extends AbstractContextAwareController {
 			} else {
 				code = this.critere.getCode();
 			}
-			if (this.toutLesCriteres == null 
+			if (this.toutLesCriteres == null
 					|| this.toutLesCriteres.isEmpty()
 					|| !this.toutLesCriteres.containsKey(code)){
 				this.setCritereNotFound(true);
@@ -1206,7 +1237,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 	/* ****************************************************************************
 	 * SUPPRESSION DU LOGO
-	 *****************************************************************************/	
+	 *****************************************************************************/
 	/**
 	 * @return a String
 	 */
@@ -1239,10 +1270,10 @@ public class CentreController extends AbstractContextAwareController {
 		if(this.personnels == null || this.personnels.isEmpty()){
 			this.personnels = getPersonnelCentreGestionDomainService().getPersonnelCentreGestionList(this.centre.getIdCentreGestion());
 		}
-		
+
 		// On indique au flag correspondant que l'on est en recherche de personnel et pas de viseur (pour modifier le form)
 		this.rechercheViseur = false;
-		
+
 		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_personnels");
 	}
 
@@ -1298,7 +1329,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void rechercherPersonnel(){
 		if(logger.isDebugEnabled()){
@@ -1306,8 +1337,8 @@ public class CentreController extends AbstractContextAwareController {
 		}
 		this.recherchePersonnels = new ArrayList<PersonnelCentreGestionDTO>();
 
-		if (this.codeAffectationPersonnel == null 
-				&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty()) 
+		if (this.codeAffectationPersonnel == null
+				&& (this.personnel.getNom() == null || this.personnel.getNom().isEmpty())
 				&& (this.personnel.getPrenom() == null || this.personnel.getPrenom().isEmpty())){
 			addErrorMessage("formRecherchePersonnel","CENTRE.PERSONNEL.ERREUR_CHAMPS");
 			return;
@@ -1465,7 +1496,7 @@ public class CentreController extends AbstractContextAwareController {
 				}
 				Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
 				if(droitsAccesMap!=null &&
-						!droitsAccesMap.isEmpty() && 
+						!droitsAccesMap.isEmpty() &&
 						!droitsAccesMap.containsKey(this.centre.getIdCentreGestion())){
 					droitsAccesMap.put(this.centre.getIdCentreGestion(), this.personnel.getDroitAdmin());
 					getSessionController().setDroitsAccesMap(droitsAccesMap);
@@ -1561,8 +1592,8 @@ public class CentreController extends AbstractContextAwareController {
 			//Maj droits si l'on modifie la personne connectée
 			if(this.personnel.getUidPersonnel().equals(getSessionController().getCurrentLogin())){
 				Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
-				if (droitsAccesMap!=null 
-						&& !droitsAccesMap.isEmpty() 
+				if (droitsAccesMap!=null
+						&& !droitsAccesMap.isEmpty()
 						&& droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
 					droitsAccesMap.remove(this.personnel.getIdCentreGestion());
 					droitsAccesMap.put(this.personnel.getIdCentreGestion(), this.personnel.getDroitAdmin());
@@ -1653,7 +1684,7 @@ public class CentreController extends AbstractContextAwareController {
 					//Maj droits
 					Map<Integer, DroitAdministrationDTO> droitsAccesMap = getSessionController().getDroitsAccesMap();
 					if(droitsAccesMap!=null &&
-							!droitsAccesMap.isEmpty() && 
+							!droitsAccesMap.isEmpty() &&
 							droitsAccesMap.containsKey(this.personnel.getIdCentreGestion())){
 						droitsAccesMap.remove(this.personnel.getIdCentreGestion());
 						getSessionController().setDroitsAccesMap(droitsAccesMap);
@@ -1662,7 +1693,7 @@ public class CentreController extends AbstractContextAwareController {
 					if (this.personnel.isDroitEvaluationEtudiant()){
 						Map<Integer, Boolean> droitsEvaluationEtudiantMap = getSessionController().getDroitsEvaluationEtudiantMap();
 						if(droitsEvaluationEtudiantMap!=null &&
-								!droitsEvaluationEtudiantMap.isEmpty() && 
+								!droitsEvaluationEtudiantMap.isEmpty() &&
 								droitsEvaluationEtudiantMap.containsKey(this.centre.getIdCentreGestion())){
 							droitsEvaluationEtudiantMap.remove(this.personnel.getIdCentreGestion());
 							getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEtudiantMap);
@@ -1671,7 +1702,7 @@ public class CentreController extends AbstractContextAwareController {
 					if (this.personnel.isDroitEvaluationEnseignant()){
 						Map<Integer, Boolean> droitsEvaluationEnseignantMap = getSessionController().getDroitsEvaluationEnseignantMap();
 						if(droitsEvaluationEnseignantMap!=null &&
-								!droitsEvaluationEnseignantMap.isEmpty() && 
+								!droitsEvaluationEnseignantMap.isEmpty() &&
 								droitsEvaluationEnseignantMap.containsKey(this.centre.getIdCentreGestion())){
 							droitsEvaluationEnseignantMap.remove(this.personnel.getIdCentreGestion());
 							getSessionController().setDroitsEvaluationEnseignantMap(droitsEvaluationEnseignantMap);
@@ -1680,7 +1711,7 @@ public class CentreController extends AbstractContextAwareController {
 					if (this.personnel.isDroitEvaluationEntreprise()){
 						Map<Integer, Boolean> droitsEvaluationEntrepriseMap = getSessionController().getDroitsEvaluationEntrepriseMap();
 						if(droitsEvaluationEntrepriseMap!=null &&
-								!droitsEvaluationEntrepriseMap.isEmpty() && 
+								!droitsEvaluationEntrepriseMap.isEmpty() &&
 								droitsEvaluationEntrepriseMap.containsKey(this.centre.getIdCentreGestion())){
 							droitsEvaluationEntrepriseMap.remove(this.personnel.getIdCentreGestion());
 							getSessionController().setDroitsEvaluationEtudiantMap(droitsEvaluationEntrepriseMap);
@@ -1699,7 +1730,7 @@ public class CentreController extends AbstractContextAwareController {
 
 			this.personnel = new PersonnelCentreGestionDTO();
 		}
-		return "listePersonnels";
+		return "voirCentre";
 	}
 
 	/* ***************************************************************
@@ -1735,7 +1766,7 @@ public class CentreController extends AbstractContextAwareController {
 		}
 
 		return false;
-	}	
+	}
 
 	/**
 	 * @return List<SelectItem>
@@ -1756,7 +1787,7 @@ public class CentreController extends AbstractContextAwareController {
 
 		if (this.centre.getIdCentreGestion() != 0){
 			// Si un centre est stocké dans la variable centre du CentreController(donc en cours de modification)
-			if (etab != null 
+			if (etab != null
 					&& this.centre.getIdCentreGestion() != etab.getIdCentreGestion()){
 				// Si l'Etablissement existe déjé et que ce n'est pas le centre actuellement modifié
 				// On retire la confidentialite libre (qui n'est dispo que pour l'etablissement)
@@ -1932,12 +1963,12 @@ public class CentreController extends AbstractContextAwareController {
 		if(this.listeQuestionsSupplementairesEtudiant3 == null){
 			this.listeQuestionsSupplementairesEtudiant3 = new ArrayList<QuestionSupplementaireDTO>();
 		}
-		
+
 		getSessionController().setConsultationCentreCurrentPage("_consultationCentre_evaluationsEtudiant");
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void updateFicheEtudiant(){
 		if (this.ficheEvaluation != null){
@@ -1971,7 +2002,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void updateFicheEntreprise(){
 		if (this.ficheEvaluation != null){
@@ -2011,7 +2042,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void updateFicheEnseignant(){
 		if (this.ficheEvaluation != null){
@@ -2087,7 +2118,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void ajouterQuestionSupplementaire(){
 		try{
@@ -2101,32 +2132,32 @@ public class CentreController extends AbstractContextAwareController {
 
 				int idPlacement = this.questionSupplementaire.getIdPlacement();
 				switch (idPlacement) {
-				case 1 :
-					this.listeQuestionsSupplementairesEtudiant1.add(this.questionSupplementaire);
-					break;
-				case 2 :
-					this.listeQuestionsSupplementairesEtudiant2.add(this.questionSupplementaire);
-					break;
-				case 3 :
-					this.listeQuestionsSupplementairesEtudiant3.add(this.questionSupplementaire);
-					break;
-				case 4 :
-					this.listeQuestionsSupplementairesEnseignant1.add(this.questionSupplementaire);
-					break;
-				case 5 :
-					this.listeQuestionsSupplementairesEnseignant2.add(this.questionSupplementaire);
-					break;
-				case 6 :
-					this.listeQuestionsSupplementairesEntreprise1.add(this.questionSupplementaire);
-					break;
-				case 7 :
-					this.listeQuestionsSupplementairesEntreprise2.add(this.questionSupplementaire);
-					break;
-				case 8 :
-					this.listeQuestionsSupplementairesEntreprise3.add(this.questionSupplementaire);
-					break;
-				default:
-					break;
+					case 1 :
+						this.listeQuestionsSupplementairesEtudiant1.add(this.questionSupplementaire);
+						break;
+					case 2 :
+						this.listeQuestionsSupplementairesEtudiant2.add(this.questionSupplementaire);
+						break;
+					case 3 :
+						this.listeQuestionsSupplementairesEtudiant3.add(this.questionSupplementaire);
+						break;
+					case 4 :
+						this.listeQuestionsSupplementairesEnseignant1.add(this.questionSupplementaire);
+						break;
+					case 5 :
+						this.listeQuestionsSupplementairesEnseignant2.add(this.questionSupplementaire);
+						break;
+					case 6 :
+						this.listeQuestionsSupplementairesEntreprise1.add(this.questionSupplementaire);
+						break;
+					case 7 :
+						this.listeQuestionsSupplementairesEntreprise2.add(this.questionSupplementaire);
+						break;
+					case 8 :
+						this.listeQuestionsSupplementairesEntreprise3.add(this.questionSupplementaire);
+						break;
+					default:
+						break;
 				}
 
 				addInfoMessage(null, "CENTRE.FICHE_EVALUATION.QUESTION_SUPPLEMENTAIRE.CONFIRMATION_AJOUT");
@@ -2145,7 +2176,7 @@ public class CentreController extends AbstractContextAwareController {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void modifierQuestionSupplementaire(){
 		try {
@@ -2177,32 +2208,32 @@ public class CentreController extends AbstractContextAwareController {
 			if (getFicheEvaluationDomainService().deleteQuestionSupplementaire(this.questionSupplementaire.getIdQuestionSupplementaire())){
 				int idPlacement = this.questionSupplementaire.getIdPlacement();
 				switch (idPlacement) {
-				case 1 :
-					this.listeQuestionsSupplementairesEtudiant1.remove(this.questionSupplementaire);
-					break;
-				case 2 :
-					this.listeQuestionsSupplementairesEtudiant2.remove(this.questionSupplementaire);
-					break;
-				case 3 :
-					this.listeQuestionsSupplementairesEtudiant3.remove(this.questionSupplementaire);
-					break;
-				case 4 :
-					this.listeQuestionsSupplementairesEnseignant1.remove(this.questionSupplementaire);
-					break;
-				case 5 :
-					this.listeQuestionsSupplementairesEnseignant2.remove(this.questionSupplementaire);
-					break;
-				case 6 :
-					this.listeQuestionsSupplementairesEntreprise1.remove(this.questionSupplementaire);
-					break;
-				case 7 :
-					this.listeQuestionsSupplementairesEntreprise2.remove(this.questionSupplementaire);
-					break;
-				case 8 :
-					this.listeQuestionsSupplementairesEntreprise3.remove(this.questionSupplementaire);
-					break;
-				default:
-					break;
+					case 1 :
+						this.listeQuestionsSupplementairesEtudiant1.remove(this.questionSupplementaire);
+						break;
+					case 2 :
+						this.listeQuestionsSupplementairesEtudiant2.remove(this.questionSupplementaire);
+						break;
+					case 3 :
+						this.listeQuestionsSupplementairesEtudiant3.remove(this.questionSupplementaire);
+						break;
+					case 4 :
+						this.listeQuestionsSupplementairesEnseignant1.remove(this.questionSupplementaire);
+						break;
+					case 5 :
+						this.listeQuestionsSupplementairesEnseignant2.remove(this.questionSupplementaire);
+						break;
+					case 6 :
+						this.listeQuestionsSupplementairesEntreprise1.remove(this.questionSupplementaire);
+						break;
+					case 7 :
+						this.listeQuestionsSupplementairesEntreprise2.remove(this.questionSupplementaire);
+						break;
+					case 8 :
+						this.listeQuestionsSupplementairesEntreprise3.remove(this.questionSupplementaire);
+						break;
+					default:
+						break;
 				}
 
 				logger.info(getSessionController().getCurrentLogin()+" supprime la question : "

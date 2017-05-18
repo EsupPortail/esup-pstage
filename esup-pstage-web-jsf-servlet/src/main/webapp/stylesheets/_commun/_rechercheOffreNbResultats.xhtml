@@ -1,37 +1,25 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<!--<t:htmlTag value="br" />-->
-	<!--<t:htmlTag value="div" style="height: 5px;" />-->
-	<!--<h:panelGrid columns="2">-->
-		<!--<h:graphicImage alt="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"-->
-			<!--value="../../media/images/script.png"-->
-			<!--rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 1-->
-						<!--and offreController.rechercheOffrePaginator.totalItemsCount lt 200}" />-->
-		<t:htmlTag value="i" styleClass="fa fa-files-o fontBlue2 mr5"
-						rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 1
+    <t:htmlTag value="i" styleClass="fa fa-files-o fontBlue2 mr5"
+               rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 1
 						and offreController.rechercheOffrePaginator.totalItemsCount lt 200}" />
-		<h:outputFormat value="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
-			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 1
+    <h:outputFormat value="#{msgs['RECHERCHEOFFRE.NBRESULTATS']}"
+                    rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 1
 						and offreController.rechercheOffrePaginator.totalItemsCount lt 200}"
-			escape="false">
-			<f:param
-				value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
-		</h:outputFormat>
-		<t:htmlTag value="i" styleClass="fa fa-files-o fontBlue2 mr5"
-			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 200}" />
-		<h:outputFormat value="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
-			rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 200}"
-			escape="false">
-			<f:param
-				value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
-		</h:outputFormat>
-	<!--</h:panelGrid>-->
-	<!--<t:htmlTag value="br" />-->
-	<!--<t:htmlTag value="div" style="height: 5px;" />-->
+                    escape="false">
+        <f:param
+                value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
+    </h:outputFormat>
+    <t:htmlTag value="i" styleClass="fa fa-files-o fontBlue2 mr5"
+               rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 200}" />
+    <h:outputFormat value="#{msgs['RECHERCHEOFFRE.MAXRESULTATS']}"
+                    rendered="#{offreController.rechercheOffrePaginator.totalItemsCount ge 200}"
+                    escape="false">
+        <f:param
+                value="#{offreController.rechercheOffrePaginator.totalItemsCount}" />
+    </h:outputFormat>
 </ui:composition>

@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
 
-	<t:div rendered="#{not empty objet}" style="font-size:11px;">
+	<t:div rendered="#{not empty objet}" styleClass="fz09">
 		<t:div rendered="#{not empty objet.dateCreation}">
 			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.CREELE']}"/>
 			<h:outputText value="#{objet.dateCreation}">
@@ -12,7 +12,7 @@
 			</h:outputText>
 		</t:div>
 		<t:div rendered="#{not empty objet.loginCreation}">
-			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}"/>
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']} "/>
 			<h:outputText escape="false" value="#{objet.loginCreation}"/>
 		</t:div>
 		<t:div rendered="#{not empty objet.dateModif}">
@@ -22,7 +22,7 @@
 			</h:outputText>
 		</t:div>
 		<t:div rendered="#{not empty objet.dateModif and not empty objet.loginModif}">
-			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']}" />
+			<h:outputText value="#{msgs['GENERAL.UPDATEINFOS.PAR']} " />
 			<h:outputText value="#{objet.loginModif}" />
 		</t:div>
 	</t:div>

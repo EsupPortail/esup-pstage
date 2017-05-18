@@ -1,69 +1,51 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui">
+    <p:column>
+        <f:facet name="header">
+            <t:htmlTag value="i" styleClass="fa fa-user fz16 fontBlue2"/>
+        </f:facet>
+        <h:outputText id="civC"
+                      value="#{etablissementController.formContact.civilite.libelle}" />
+    </p:column>
+    <p:column>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CONTACT.NOM']}" />
+        </f:facet>
+        <h:outputText id="nomC" value="#{etablissementController.formContact.nom}" />
+    </p:column>
+    <p:column>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CONTACT.PRENOM']}" />
+        </f:facet>
+        <h:outputText id="prenomC"
+                      value="#{etablissementController.formContact.prenom}" />
+    </p:column>
+    <p:column>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CONTACT.FONCTION']}" />
+        </f:facet>
+        <h:outputText id="fonctionC"
+                      value="#{etablissementController.formContact.fonction}" />
+    </p:column>
+    <p:column>
+        <f:facet name="header">
+            <h:outputText value="#{msgs['CONTACT.TELFAXMAIL']}" />
+        </f:facet>
+        <t:htmlTag value="i" styleClass="fa fa-phone fz13 mrf10"/>
+        <h:outputText id="telC" value="#{etablissementController.formContact.tel}" />
 
-	<f:facet name="header">
-		<p:columnGroup>
-			<p:column>
-				<h:graphicImage alt="#{msgs['CONTACT.CIVILITE']}"
-					title="#{msgs['CONTACT.CIVILITE']}"
-					value="../../media/images/user_gray.png" />
-			</p:column>
-			<p:column>
-				<h:outputText  value="#{msgs['CONTACT.NOM']}" />
-			</p:column>
-			<p:column>
-				<h:outputText 
-					value="#{msgs['CONTACT.PRENOM']}" />
-			</p:column>
-			<p:column>
-				<h:outputText 
-					value="#{msgs['CONTACT.FONCTION']}" />
-			</p:column>
-			<p:column>
-				<h:outputText 
-					value="#{msgs['CONTACT.TELFAXMAIL']}" />
-			</p:column>
-		</p:columnGroup>
-	</f:facet>
-	<p:column>
-		<h:outputText id="civC"
-			value="#{etablissementController.formContact.civilite.libelle}" />
-	</p:column>
-	<p:column>
-		<h:outputText id="nomC" value="#{etablissementController.formContact.nom}" />
-	</p:column>
-	<p:column>
-		<h:outputText id="prenomC"
-			value="#{etablissementController.formContact.prenom}" />
-	</p:column>
-	<p:column>
-		<h:outputText id="fonctionC"
-			value="#{etablissementController.formContact.fonction}" />
-	</p:column>
-	<p:column>
-		<h:panelGrid>
-			<h:panelGrid columns="2">
-				<h:graphicImage alt="#{msgs['CONTACT.TELEPHONE']}"
-					title="#{msgs['CONTACT.TELEPHONE']}"
-					value="../../media/images/phone.png" />
-				<h:outputText id="telC" value="#{etablissementController.formContact.tel}" />
-			</h:panelGrid>
-			<h:panelGrid columns="2">
-				<h:graphicImage alt="#{msgs['CONTACT.FAX']}"
-					title="#{msgs['CONTACT.FAX']}"
-					value="../../media/images/printer.png" />
-				<h:outputText id="faxC" value="#{etablissementController.formContact.fax}" />
-			</h:panelGrid>
-			<h:panelGrid columns="2">
-				<h:graphicImage alt="#{msgs['CONTACT.MAIL']}"
-					title="#{msgs['CONTACT.MAIL']}"
-					value="../../media/images/email.png" />
-				<h:outputText id="mailC"
-					value="#{etablissementController.formContact.mail}" />
-			</h:panelGrid>
-		</h:panelGrid>
-	</p:column>
+        <t:htmlTag value="br" />
+
+        <t:htmlTag value="i" styleClass="fa fa-print fz13 mrf10"/>
+        <h:outputText id="faxC" value="#{etablissementController.formContact.fax}" />
+
+        <t:htmlTag value="br" />
+
+        <t:htmlTag value="i" styleClass="fa fa-envelope fz13 mrf10"/>
+        <h:outputText id="mailC" value="#{etablissementController.formContact.mail}" />
+    </p:column>
 </ui:composition>

@@ -37,12 +37,21 @@
 
                             <p:dialog id="selectSignataire" widgetVar="selectSignataire" resizable="false">
 
-                                <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml" />
+                                <ui:include src="/stylesheets/_commun/_subPanelSelectContact.xhtml">
+                                    <ui:param name="idOpService" value="opService" />
+                                    <ui:param name="idSOMService" value="sOMService" />
+                                    <ui:param name="idOpActionsService" value="opActionsService" />
+                                    <ui:param name="idOpContactsDataTable" value="opContactsDataTable" />
+                                    <ui:param name="idSOMContact" value="sOMContact" />
+                                    <ui:param name="idDivButtons" value="divButtons" />
+                                </ui:include>
 
-                                <t:div styleClass="textCenter mt20 mb20">
+                                <t:div id="divButtons" styleClass="textCenter mt20 mb20">
                                     <p:commandButton value="#{msgs['FORM.SELECTIONNER']}"
                                                      oncomplete="PF('selectSignataire').hide();"
-                                                     update="@form">
+                                                     update="@form"
+                                                     rendered="#{not empty etablissementController.serviceSel
+                                         and not empty etablissementController.contactSel}">
                                         <f:setPropertyActionListener
                                                 value="#{etablissementController.contactSel}"
                                                 target="#{conventionController.signataireSel}" />
@@ -95,7 +104,7 @@
 
                                 <p:commandButton id="modifC" oncomplete="PF('modifContact').show();"
                                                  value="#{msgs['FORM.MODIFIER']} ces informations"
-                                                 icon="fa fa-edit fz13" styleClass="ml40"
+                                                 icon="fa fa-edit fz13" styleClass="ml40 fz09"
                                                  update="modifContact"
                                                  disabled="#{!(((welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)
 		                        or (welcomeController.etudiant and (sessionController.autoriserEtudiantAModifierEntreprise ||
@@ -123,7 +132,7 @@
 
                                 <t:div styleClass="textCenter mt30">
                                     <p:commandButton action="#{conventionController.goToCreerConventionEtape8Recap}"
-                                                     value="#{msgs['FORM.VALIDER']}" />
+                                                     value="#{msgs['FORM.VALIDER']}" styleClass="fontGreen" />
                                 </t:div>
                             </p:outputPanel>
                         </t:div>

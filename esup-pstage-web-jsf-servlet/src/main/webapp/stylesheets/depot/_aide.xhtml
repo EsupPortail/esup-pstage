@@ -2,13 +2,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	>
+	xmlns:p="http://primefaces.org/ui">
+
 	<h:outputLabel for="panelAide"
 		value="#{msgs['AIDEGENERAL.ENTREPRISE.ADMINISTRATION']}"
 		rendered="#{sessionController.adminPageAuthorized}" escape="false" />
 	<h:panelGrid columns="2" id="panelAide"
-		
 		rendered="#{sessionController.adminPageAuthorized}">
 		<h:graphicImage alt="#{msgs['MENU.ADMINISTRATEURS']}" id="adminIcon"
 			title="#{msgs['MENU.ADMINISTRATEURS']}"
@@ -170,12 +169,12 @@
 			</t:htmlTag>
 		</h:panelGrid>
 	</h:panelGrid>
+
 	<h:outputLabel for="aideIcon"
 		value="#{msgs['AIDEGENERAL.ENTREPRISE.FONCTION']}"
 		rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}"
 		escape="false" />
 	<h:panelGrid columns="2" id="aideIcon"
-		
 		rendered="#{sessionController.pageAuthorized and not sessionController.adminPageAuthorized}">
 		<h:graphicImage alt="#{msgs['MENU.FICHESIGNALETIQUE']}"
 			title="#{msgs['MENU.FICHESIGNALETIQUE']}"
@@ -294,12 +293,13 @@
 			value="../../media/images/information.png" />
 		<h:outputText value=": #{msgs['MENU.AIDEENTREPRISE']}" escape="false" />
 	</h:panelGrid>
-	<h:panelGrid columns="2">
-		<h:graphicImage id="decoIcon" alt="#{msgs['GENERAL.DECONNEXION']}"
-			title="#{msgs['GENERAL.DECONNEXION']}"
-			value="../../media/images/cancel.png" />
-		<h:outputLabel for="decoIcon"
-			value=": #{msgs['AIDEGENERAL.ENTREPRISE.DECONNEXION']}"
-			escape="false" />
-	</h:panelGrid>
+
+	<!--<h:panelGrid columns="2">-->
+		<!--<h:graphicImage id="decoIcon" alt="#{msgs['GENERAL.DECONNEXION']}"-->
+			<!--title="#{msgs['GENERAL.DECONNEXION']}"-->
+			<!--value="../../media/images/cancel.png" />-->
+		<!--<h:outputLabel for="decoIcon"-->
+			<!--value=": #{msgs['AIDEGENERAL.ENTREPRISE.DECONNEXION']}"-->
+			<!--escape="false" />-->
+	<!--</h:panelGrid>-->
 </ui:composition>

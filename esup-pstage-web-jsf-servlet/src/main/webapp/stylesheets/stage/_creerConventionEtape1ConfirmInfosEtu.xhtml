@@ -86,12 +86,12 @@
                       value="#{conventionController.convention.centreGestion.idCentreGestion} - #{conventionController.convention.centreGestion.nomCentre}" />
     </h:panelGrid>
 
-    <t:div styleClass="textCenter">
-        <p:commandButton value="#{msgs['FORM.CONFIRMER']}"
+    <t:div styleClass="mt20 textCenter">
+        <p:commandButton value="#{msgs['FORM.CONFIRMER']}" styleClass="fontGreen"
                          rendered="#{sessionController.utilisationEntreprise}"
                          action="#{conventionController.goToCreerConventionEtape2Offre}"
                          icon="fa fa-check"/>
-        <p:commandButton value="#{msgs['FORM.CONFIRMER']}"
+        <p:commandButton value="#{msgs['FORM.CONFIRMER']}" styleClass="fontGreen"
                          rendered="#{!sessionController.utilisationEntreprise}"
                          action="#{conventionController.goToCreerConventionEtape2Etab}"
                          icon="fa fa-check" />

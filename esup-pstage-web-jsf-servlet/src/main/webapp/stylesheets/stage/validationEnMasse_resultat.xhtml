@@ -29,6 +29,8 @@
                                                 escape="false">
                                     <f:param value="#{conventionController.rechercheConventionPaginator.totalItemsCount}" />
                                 </h:outputFormat>
+                                <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
+                                              value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
                             </t:div>
 
                             <t:htmlTag value="div" style="height: 5px;" />
@@ -36,7 +38,7 @@
                             <p:dataTable id="resultatConventionsDataTable" styleClass="ml20"
                                          value="#{conventionController.rechercheConventionPaginator.liste}"
                                          var="convention" rows="20" rowHover="true"
-                                         rowStyleClass="noPointer" paginator="true"
+                                         rowStyleClass="noPointer" paginator="true" paginatorPosition="bottom"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
                                          tableStyle="table-layout: auto;" reflow="true">
@@ -159,7 +161,7 @@
                                 <p:dataTable id="recapListeConventionSelectionnees"
                                              value="#{conventionController.listeConventionsSelectionnees}"
                                              var="convention" rows="10" rowHover="true"
-                                             rowStyleClass="noPointer" paginator="true"
+                                             rowStyleClass="noPointer" paginator="true" paginatorPosition="bottom"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                              rowsPerPageTemplate="5,10,15,20" paginatorAlwaysVisible="false"
                                              tableStyle="table-layout: auto;" reflow="true">

@@ -9,18 +9,15 @@
             <f:facet name="header">
                 <h:outputText value="#{msgs['OFFRE.MODIFICATION']}" />
             </f:facet>
-            <h:form id="formModificationOffre"
-                    styleClass="block">
+            <h:form id="formModificationOffre" styleClass="block">
+                <p:fieldset>
+                    <ui:include src="/stylesheets/_commun/#{sessionController.modificationOffreCurrentPage}.xhtml" />
+                </p:fieldset>
 
-                <p:messages />
+                <t:htmlTag value="div" style="height:40px;" />
 
-                <ui:include src="/stylesheets/_commun/#{sessionController.modificationOffreCurrentPage}.xhtml" />
-
-                <t:htmlTag value="div" style="height: 40px;" />
-
-                <p:commandButton value="#{msgs['FORM.ANNULERETRETOUR']}"
+                <p:commandButton value="#{msgs['OFFRE.MODIFICATION.RETOUR']}"
                                  action="#{offreController.retourTo}"
-                                 update="@form"
                                  immediate="true" />
             </h:form>
             <ui:include src="/stylesheets/_commun/_panelAjoutService.xhtml" />
@@ -29,6 +26,12 @@
             <ui:include src="/stylesheets/_commun/_panelAjoutContact.xhtml" />
             <ui:include src="/stylesheets/_commun/_panelModifContact.xhtml" />
             <ui:include src="/stylesheets/_commun/_panelSupprContact.xhtml" />
+            <ui:include src="/stylesheets/_commun/_subPanelSelectContactCand.xhtml">
+                <ui:param name="idForm" value="formModificationOffre" />
+            </ui:include>
+            <ui:include src="/stylesheets/_commun/_subPanelSelectContactInfo.xhtml">
+                <ui:param name="idForm" value="formModificationOffre" />
+            </ui:include>
         </p:panel>
     </ui:define>
 </ui:composition>

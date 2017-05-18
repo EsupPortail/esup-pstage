@@ -1,41 +1,35 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui"
-	 template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.xhtml" />
-		</h:panelGrid>
-		<t:div rendered="#{sessionController.adminPageAuthorized}">
-			<h:panelGrid>
-				<p:panel>
-					<f:facet name="header">
-						<h:outputText value="#{msgs['STRUCTURE.AJOUT']}" />
-					</f:facet>
-					<h:form id="formAjoutEtab"
-						rendered="#{not empty etablissementController.formStructure}">
-						<p:message for="formAjoutEtab">
-							<ui:include src="/stylesheets/_commun/_messageErrorMarker.xhtml" />
-						</p:message>
-						<ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
-						<h:panelGrid columns="3">
-							<h:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-								action="#{rechercheController.goToRechercheEtablissement}"
-								alt="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-								title="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
-								immediate="true">
-							</h:commandButton>
-							<t:htmlTag value="div" style="width:20px;" />
-							<h:commandButton value="#{msgs['FORM.CREER']}"
-								action="#{etablissementController.ajouterEtablissement}">
-							</h:commandButton>
-						</h:panelGrid>
-					</h:form>
-				</p:panel>
-				<ui:include src="_panelNousContacter.xhtml" />
-			</h:panelGrid>
-		</t:div>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{sessionController.adminPageAuthorized}">
+            <f:facet name="header">
+                <h:outputText value="#{msgs['STRUCTURE.AJOUT']}" />
+            </f:facet>
+            <p:fieldset styleClass="block">
+                <t:div styleClass="mt10 ml30">
+                    <h:form id="formAjoutEtab"
+                            rendered="#{not empty etablissementController.formStructure}">
+
+                        <ui:include src="/stylesheets/_commun/_etablissementForm.xhtml" />
+
+                        <p:message for="formAjoutEtab"/>
+
+                        <t:div styleClass="textCenter mt10">
+                            <p:commandButton value="#{msgs['FORM.CREER']}" update="@form"
+                                             action="#{etablissementController.ajouterEtablissement}" />
+                        </t:div>
+
+                        <p:commandButton value="#{msgs['RECHERCHEETABLISSEMENT.RETOUR']}"
+                                         action="#{rechercheController.goToRechercheEtablissement}"
+                                         styleClass="mt20 mb20"
+                                         immediate="true"/>
+                    </h:form>
+                </t:div>
+            </p:fieldset>
+        </p:panel>
+    </ui:define>
 </ui:composition>

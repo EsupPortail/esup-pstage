@@ -1,140 +1,114 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:p="http://primefaces.org/ui" template="../_basicTemplate.xhtml">
-	<ui:define name="content">
-		<h:panelGrid style="float:left;">
-			<ui:include src="./_menu.xhtml" />
-		</h:panelGrid>
-		<t:div rendered="#{sessionController.adminPageAuthorized}">
-			<h:panelGrid>
-				<p:panel>
-					<f:facet name="header">
-						<h:outputText value="Administrateurs" />
-					</f:facet>
-					<h:form>
-						<h:panelGrid>
-							<p:outputPanel id="opAdminDataTable">
-								<h:outputText value="#{msgs['ADMINSTRUCTURE.VIDE']}"
-									rendered="#{empty adminController.listeAdminStructure}" />
-								<h:panelGrid columns="3">
-									<h:outputText value="#{msgs['ADMINSTRUCTURE.CREER']}"
-										escape="false" />
-									<p:commandLink  id="ajAdmin"
-										update="@form"
-										action="#{adminController.beforeAjouterAdministrateur}"
-										oncomplete="PF('ajoutAdministrateur').show();">
-										<f:setPropertyActionListener value="#{true}"
-											target="#{etablissementController.memeAdresseStructure}" />
-										<h:graphicImage alt="#{msgs['FORM.CREER']}"
-											title="#{msgs['FORM.CREER']}"
-											value="../../media/images/new.png" />
-										<p:tooltip value="#{msgs['FORM.CREER']}" />
-									</p:commandLink>
-								</h:panelGrid>
-								<t:htmlTag value="div" style="height:5px;" />
-								<p:dataTable id="adminDataTable" style="width:600px;"
-									value="#{adminController.listeAdminStructure}" rows="10"
-									var="admin" rowKey="rowAdmin" rowHover="true"
-									rowStyleClass="noPointer" paginator="true"
-									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-									rowsPerPageTemplate="5,10,15,20" reflow="true" tableStyle="table-layout: auto;"
-									rendered="#{not empty adminController.listeAdminStructure}">
-									<f:facet name="header">
-										<p:columnGroup>
-											<p:column>
-												<h:outputText value="#{msgs['ADMINSTRUCTURE.NOM']}" />
-											</p:column>
-											<p:column>
-												<h:outputText value="#{msgs['ADMINSTRUCTURE.PRENOM']}" />
-											</p:column>
-											<p:column>
-												<h:outputText value="#{msgs['ADMINSTRUCTURE.MAIL']}" />
-											</p:column>
-											<p:column>
-												<h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE']}" />
-											</p:column>
-											<p:column>
-											</p:column>
-										</p:columnGroup>
-									</f:facet>
-									<p:column>
-										<h:outputText id="nomAd" value="#{admin.nom}" />
-									</p:column>
-									<p:column>
-										<h:outputText id="prenomAd" value="#{admin.prenom}" />
-									</p:column>
-									<p:column>
-										<h:outputText id="mailAd" value="#{admin.mail}" />
-									</p:column>
-									<p:column>
-										<h:panelGrid id="loginAd" style="font-size:12px;">
-											<h:outputText
-												value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
-												rendered="#{not empty admin.login and not empty admin.mdp and empty admin.eppn}" />
-											<h:outputText
-												value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{admin.login}"
-												rendered="#{not empty admin.login and not empty admin.mdp and empty admin.eppn}" />
-											<h:outputText
-												value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
-												rendered="#{not empty admin.login and empty admin.mdp and empty admin.eppn}" />
-											<h:outputText
-												value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{admin.login}"
-												rendered="#{not empty admin.login and empty admin.mdp and empty admin.eppn}" />
-											<h:outputText
-												value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
-												rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
-											<h:outputText
-												value="#{msgs['ADMINSTRUCTURE.EPPN']} : #{admin.eppn}"
-												rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
-										</h:panelGrid>
-									</p:column>
-									<p:column>
-										<p:commandLink  id="modif"
-											update="@form"
-											action="#{adminController.beforeModifAdministrateur}"
-											oncomplete="PF('modifAdministrateur').show();">
-											<f:setPropertyActionListener value="#{admin}"
-												target="#{adminController.formAdminStructure}" />
-											<f:setPropertyActionListener value="#{rowAdmin}"
-												target="#{adminController.currentRowAdminStructure}" />
-											<h:graphicImage alt="#{msgs['FORM.MODIFIER']}"
-												value="../../media/images/edit.png" />
-											<p:tooltip>
-												<h:panelGrid>
-													<h:outputLabel for="modif" value="#{msgs['FORM.MODIFIER']}" />
-													<t:htmlTag value="br" />
-													<t:aliasBean alias="#{objet}" value="#{admin}">
-														<ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
-													</t:aliasBean>
-												</h:panelGrid>
-											</p:tooltip>
-										</p:commandLink>
-										<p:commandLink  id="suppr"
-											oncomplete="PF('supprAdministrateur').show();">
-											<f:setPropertyActionListener value="#{admin}"
-												target="#{adminController.formAdminStructure}" />
-											<f:setPropertyActionListener value="#{rowAdmin}"
-												target="#{adminController.currentRowAdminStructure}" />
-											<f:setPropertyActionListener
-												value="_supprAdministrateurEtape1"
-												target="#{sessionController.suppressionAdminStructureCurrentPage}" />
-											<h:graphicImage alt="#{msgs['FORM.SUPPRIMER']}"
-												value="../../media/images/delete.png" />
-											<p:tooltip value="#{msgs['FORM.SUPPRIMER']}" />
-										</p:commandLink>
-									</p:column>
-								</p:dataTable>
-							</p:outputPanel>
-						</h:panelGrid>
-					</h:form>
-				</p:panel>
-				<ui:include src="_panelNousContacter.xhtml" />
-			</h:panelGrid>
-			<ui:include src="_panelAjoutAdministrateur.xhtml" />
-			<ui:include src="_panelModifAdministrateur.xhtml" />
-			<ui:include src="_panelSupprAdministrateur.xhtml" />
-		</t:div>
-	</ui:define>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:p="http://primefaces.org/ui" template="../_basicTemplate.xhtml">
+    <ui:define name="content">
+        <p:panel rendered="#{sessionController.adminPageAuthorized}">
+            <f:facet name="header">
+                <h:outputText value="Administrateurs" />
+            </f:facet>
+            <p:fieldset styleClass="block">
+                <t:div styleClass="mt10 mb20">
+                    <h:form>
+                        <h:outputText value="#{msgs['ADMINSTRUCTURE.VIDE']}"
+                                      rendered="#{empty adminController.listeAdminStructure}" />
+                        <p:dataTable id="adminDataTable"
+                                     value="#{adminController.listeAdminStructure}" rows="10"
+                                     var="admin" rowHover="true"
+                                     rowStyleClass="noPointer" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15,20" reflow="true" tableStyle="table-layout: auto;"
+                                     rendered="#{not empty adminController.listeAdminStructure}">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs['ADMINSTRUCTURE.NOM']}" />
+                                </f:facet>
+                                <h:outputText id="nomAd" value="#{admin.nom}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs['ADMINSTRUCTURE.PRENOM']}" />
+                                </f:facet>
+                                <h:outputText id="prenomAd" value="#{admin.prenom}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs['ADMINSTRUCTURE.MAIL']}" />
+                                </f:facet>
+                                <h:outputText id="mailAd" value="#{admin.mail}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE']}" />
+                                </f:facet>
+                                <h:outputText
+                                        value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_LOCAL']}"
+                                        rendered="#{not empty admin.login and not empty admin.mdp and empty admin.eppn}" />
+                                <h:outputText
+                                        value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{admin.login}" styleClass="mlf5"
+                                        rendered="#{not empty admin.login and not empty admin.mdp and empty admin.eppn}" />
+                                <h:outputText
+                                        value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_CAS']}"
+                                        rendered="#{not empty admin.login and empty admin.mdp and empty admin.eppn}" />
+                                <h:outputText
+                                        value="#{msgs['ADMINSTRUCTURE.LOGIN']} : #{admin.login}" styleClass="mlf5"
+                                        rendered="#{not empty admin.login and empty admin.mdp and empty admin.eppn}" />
+                                <h:outputText
+                                        value="#{msgs['ADMINSTRUCTURE.TYPECOMPTE_SHIBB']}"
+                                        rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
+                                <h:outputText
+                                        value="#{msgs['ADMINSTRUCTURE.EPPN']} : #{admin.eppn}" styleClass="mlf5"
+                                        rendered="#{empty admin.login and empty admin.mdp and not empty admin.eppn}" />
+                            </p:column>
+                            <p:column styleClass="background-color-grey">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs['GENERAL.ACTIONS']}" />
+                                </f:facet>
+                                <p:commandLink id="modif" update="modifAdministrateur"
+                                               action="#{adminController.beforeModifAdministrateur}"
+                                               oncomplete="PF('modifAdministrateur').show();">
+                                    <f:setPropertyActionListener value="#{admin}"
+                                                                 target="#{adminController.formAdminStructure}" />
+                                    <t:htmlTag value="i" styleClass="fa fa-edit fz13 mrf10"/>
+                                    <p:tooltip for="modif">
+                                        <h:outputText value="#{msgs['FORM.MODIFIER']}"
+                                                      styleClass="fontBold"/>
+                                        <t:htmlTag value="br" />
+                                        <t:aliasBean alias="#{objet}" value="#{admin}">
+                                            <ui:include src="/stylesheets/_commun/_updateInfos.xhtml" />
+                                        </t:aliasBean>
+                                    </p:tooltip>
+                                </p:commandLink>
+                                <p:commandLink id="suppr" update="supprAdministrateur"
+                                               oncomplete="PF('supprAdministrateur').show();">
+                                    <t:htmlTag value="i" styleClass="fa fa-trash fz13" />
+                                    <p:tooltip for="suppr" value="#{msgs['FORM.SUPPRIMER']}" />
+                                    <f:setPropertyActionListener value="#{admin}"
+                                                                 target="#{adminController.formAdminStructure}" />
+                                    <f:setPropertyActionListener value="_supprAdministrateurEtape1"
+                                                                 target="#{sessionController.suppressionAdminStructureCurrentPage}" />
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+
+                        <t:div styleClass="mt20 ml20">
+                            <h:outputText value="#{msgs['ADMINSTRUCTURE.CREER']}"
+                                          escape="false" />
+                            <p:commandButton id="ajAdmin" value="#{msgs['FORM.CREER']}"
+                                             update="@form" icon="fa fa-plus fz13"
+                                             action="#{adminController.beforeAjouterAdministrateur}"
+                                             oncomplete="PF('ajoutAdministrateur').show();">
+                                <f:setPropertyActionListener value="#{true}"
+                                                             target="#{etablissementController.memeAdresseStructure}" />
+                            </p:commandButton>
+                        </t:div>
+                    </h:form>
+                </t:div>
+            </p:fieldset>
+        </p:panel>
+        <ui:include src="_panelAjoutAdministrateur.xhtml" />
+        <ui:include src="_panelModifAdministrateur.xhtml" />
+        <ui:include src="_panelSupprAdministrateur.xhtml" />
+    </ui:define>
 </ui:composition>

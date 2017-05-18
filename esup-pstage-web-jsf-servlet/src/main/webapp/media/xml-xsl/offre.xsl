@@ -451,7 +451,7 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								Mission(s) :
+								Mission(s)
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
@@ -468,7 +468,7 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								Domaine de l'offre :
+								Domaine de l'offre
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
@@ -485,7 +485,7 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								Type d'offre :
+								Type d'offre
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">
@@ -719,7 +719,7 @@
 								<fo:block line-height="110%" padding-top="2pt"
 									padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 									font-size="10pt" font-family="Times New Roman,serif">
-									observations
+									Observations
 								</fo:block>
 							</fo:table-cell>
 							<fo:table-cell text-align="left" padding-left="5pt">
@@ -770,46 +770,8 @@
 							<fo:block line-height="110%" padding-top="2pt"
 								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
 								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:text> </xsl:text>
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:if test="@est-prio-eRQTH = 'true'">
-									<xsl:text> L'offre est prioritaire aux étudiants ayant une Reconnaissance de Qualification de Travailleur Handicapé. </xsl:text>
-								</xsl:if>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row>
-						<fo:table-cell background-color="#e6e6e6"
-							text-align="left">
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:text> </xsl:text>
-							</fo:block>
-						</fo:table-cell>
-						<fo:table-cell text-align="left" padding-left="5pt">
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
-								<xsl:if test="@est-access-eRQTH = 'true'">
-									<xsl:text> L'offre est accessible aux étudiants ayant une Reconnaissance de Qualification de Travailleur Handicapé. </xsl:text>
-								</xsl:if>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row>
-						<fo:table-cell background-color="#e6e6e6"
-							text-align="left">
-							<fo:block line-height="110%" padding-top="2pt"
-								padding-bottom="2pt" hyphenate="false" language="fr" country="FR"
-								font-size="10pt" font-family="Times New Roman,serif">
 								Niveau de formation souhaité à
-								partir de :
+								partir de
 							</fo:block>
 						</fo:table-cell>
 						<fo:table-cell text-align="left" padding-left="5pt">

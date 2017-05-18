@@ -48,7 +48,7 @@
             <t:div id="divRecherchePersonnel"
                    rendered="#{not empty centreController.recherchePersonnels}">
                 <h:outputText value="#{msgs['CENTRE.PERSONNEL.RESULTAT.HEAD']} : " />
-                <p:dataTable align="center" style="width:500px;"
+                <p:dataTable align="center" paginatorPosition="bottom"
                              id="listePersonnels" rows="5"
                              value="#{centreController.recherchePersonnels}" var="personnel"
                              rowHover="true" rowStyleClass="noPointer" paginator="true"

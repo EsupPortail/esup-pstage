@@ -4,7 +4,6 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
-
     <p:fieldset legend="#{msgs['CONVENTION.LANGUECONVENTION']}">
         <t:div styleClass="mt10 mb10">
             <h:selectOneMenu id="langueConvention" required="true"
@@ -53,8 +52,10 @@
             <t:div styleClass="column">
                 <t:htmlTag value="li">
                     <h:outputText styleClass="fontBold" value="#{msgs['CONVENTION.FONCTION']} #{msgs['CONVENTION.ETOILE']}" />
-                    <p:inputTextarea id="fonctionsEtTaches"
+                    <h:outputText id="cptFonctionsEtTaches" styleClass="fontItalic"/>
+                    <p:inputTextarea id="fonctionsEtTaches" maxlength="140"
                                      value="#{conventionController.convention.fonctionsEtTaches}"
+                                     counter="cptFonctionsEtTaches" counterTemplate="({0} caractères restants.)"
                                      required="true">
                         <f:validateLength maximum="140" />
                         <p:ajax event="blur" update="msgFonction" />
@@ -66,10 +67,11 @@
                         <p:tooltip for="imgInfoComp" value="#{msgs['INFOSBULLES.COMPETENCES']}" />
                     </t:htmlTag>
                     <h:outputText styleClass="fontBold ml5" value="#{msgs['CONVENTION.COMPETENCES']} #{msgs['CONVENTION.ETOILE']}" />
-                    <p:inputTextarea id="competences"
+                    <h:outputText id="cptCompetences" styleClass="fontItalic"/>
+                    <p:inputTextarea id="competences" maxlength="140"
                                      value="#{conventionController.convention.competences}"
-                                     required="true"
-                                     requiredMessage="#{requiredMessageController.champObligatoire}">
+                                     counter="cptCompetences" counterTemplate="({0} caractères restants.)"
+                                     required="true">
                         <f:validateLength maximum="140" />
                         <p:ajax event="blur" update="msgCompetences"/>
                     </p:inputTextarea>
@@ -92,7 +94,7 @@
                                   value="#{msgs['CONVENTION.DEBUTSTAGE']} #{msgs['CONVENTION.ETOILE']}" />
                     <p:calendar id="dateDebutStage"
                                 value="#{conventionController.convention.dateDebutStage}"
-                                locale="#{sessionController.locale}" datePattern="dd/MM/yyyy"
+                                datePattern="dd/MM/yyyy"
                                 showApplyButton="false" cellWidth="24px" cellHeight="22px"
                                 style="width:200px" required="true" />
                     <p:message for="dateDebutStage"/>
@@ -166,10 +168,21 @@
                         </p:outputPanel>
                     </t:div>
                     <t:div rendered="#{not empty conventionController.convention.idUniteDureeExceptionnelle and conventionController.convention.idUniteDureeExceptionnelle != 0}">
-                        <!--TODO <t:div>-->
                         <t:htmlTag value="li">
                             <h:outputText styleClass="fontBold"
-                                          value="#{msgs['CONVENTION.DUREEEXCEPT.ANCIEN']} #{msgs['CONVENTION.ETOILE']}" />
+                                          value="#{msgs['CONVENTION.DUREEEXCEPT.ANCIEN']} #{msgs['CONVENTION.ETOILE']} (#{msgs['CONVENTION.EN']}" />
+                            <h:outputText value="heure(s) )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
+                            <h:outputText value="jour(s) )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
+                            <h:outputText value="semaine(s) )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 3}" />
+                            <h:outputText value="mois )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 4}" />
+                            <h:outputText value="annee(s) )" styleClass="fontBold"
+                                          rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 5}" />
+
+
                             <p:inputText id="dureeExceptionnelleOld" size="3" styleClass="mt5"
                                          value="#{conventionController.convention.dureeExceptionnelle}"
                                          required="true">
@@ -177,21 +190,6 @@
                                 <f:validateLongRange minimum="1" maximum="9999" />
                             </p:inputText>
                             <p:message for="dureeExceptionnelleOld"/>
-                        </t:htmlTag>
-                        <t:htmlTag value="li">
-                            <t:div styleClass="fontBold">
-                                <h:outputText value="#{msgs['CONVENTION.EN']}" />
-                                <h:outputText value="heure(s)"
-                                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 1}" />
-                                <h:outputText value="jour(s)"
-                                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 2}" />
-                                <h:outputText value="semaine(s)"
-                                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 3}" />
-                                <h:outputText value="mois"
-                                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 4}" />
-                                <h:outputText value="annee(s)"
-                                              rendered="#{conventionController.convention.idUniteDureeExceptionnelle == 5}" />
-                            </t:div>
                         </t:htmlTag>
                     </t:div>
                 </p:outputPanel>
@@ -258,8 +256,8 @@
             </t:htmlTag>
             <h:outputText styleClass="fontBold ml5"
                           value="#{msgs['CONVENTION.INDEMNISATION']} #{msgs['CONVENTION.ETOILE']}" />
-            <h:selectOneMenu id="indemnisation" required="true" style="width:auto;"
-                             effect="none" styleClass="ml5 customPstage"
+            <h:selectOneMenu id="indemnisation" required="true"
+                             styleClass="ml5 customPstage autoWidth"
                              value="#{conventionController.selIndemnisation}"
                              converter="#{indemnisationConverter}">
                 <p:ajax event="valueChange"
@@ -274,25 +272,25 @@
             <t:div styleClass="mt20"
                    rendered="#{conventionController.selIndemnisation.libelle == beanUtils.indemnisationOui}">
                 <t:htmlTag value="ul" styleClass="formUL columns-2">
-                    <t:div styleClass="column" style="padding-left:100px;">
+                    <t:div styleClass="column">
                         <t:htmlTag value="li">
                             <h:outputText value="#{msgs['CONVENTION.SIMTGRATIFICATION']}"
                                           styleClass="fontBold" style="white-space: nowrap;"/>
                             <t:div styleClass="mt5 verticalAlignDiv">
-                                <p:inputText id="montantGratification" size="4" style="width:auto;" styleClass="ml5"
+                                <p:inputText id="montantGratification" size="4" styleClass="autoWidth"
                                              required="true"
                                              value="#{conventionController.convention.montantGratification}"
                                              validatorMessage="#{requiredMessageController.mtGratificationNonValide}">
                                     <f:validator binding="#{mtGratificationValidator}" />
                                     <p:ajax event="blur" update="msgGratification"/>
                                 </p:inputText>
-                                <h:selectOneMenu id="uniteGratification" effect="none" style="width: auto;" styleClass="ml5 customPstage fix-selectOneMenu"
+                                <h:selectOneMenu id="uniteGratification" effect="none" styleClass="ml5 customPstage fix-selectOneMenu autoWidth"
                                                  value="#{conventionController.selUniteGratification}"
                                                  converter="#{uniteGratificationConverter}">
                                     <f:selectItems value="#{nomenclatureController.uniteGratifications}" />
                                 </h:selectOneMenu>
                                 <h:outputText styleClass="fontBold mr5 ml5" value=" par " />
-                                <h:selectOneMenu id="uniteDureeGratification" effect="none" style="width: auto;" styleClass="customPstage fix-selectOneMenu"
+                                <h:selectOneMenu id="uniteDureeGratification" effect="none" styleClass="customPstage fix-selectOneMenu autoWidth"
                                                  value="#{conventionController.selUniteDureeGratification}"
                                                  converter="#{uniteDureeConverter}" required="true">
                                     <f:selectItem itemValue="" />
@@ -308,7 +306,7 @@
                             <t:div styleClass="mt5 verticalAlignDiv">
                                 <h:selectOneMenu id="monnaieGratification" effect="none"
                                                  value="#{conventionController.selMonnaieGratification}"
-                                                 style="width: auto;" styleClass="ml5 customPstage">
+                                                 styleClass="ml5 customPstage autoWidth">
                                     <f:selectItem itemValue="euros" itemLabel="euros" />
                                     <f:selectItem itemValue="autre" itemLabel="autre"/>
                                     <p:ajax event="valueChange" update="opMonnaieGratification" />
@@ -316,7 +314,7 @@
                                 <p:outputPanel id="opMonnaieGratification" styleClass="ml5">
                                     <t:div rendered="#{conventionController.selMonnaieGratification == 'autre'}">
                                         <h:outputText styleClass="fontBold" value="Devise : " />
-                                        <p:inputText id="autreMonnaie" size="10" style="width: auto;"
+                                        <p:inputText id="autreMonnaie" size="10" styleClass="autoWidth"
                                                      value="#{conventionController.convention.monnaieGratification}" />
                                     </t:div>
                                 </p:outputPanel>
@@ -325,9 +323,9 @@
                     </t:div>
                     <t:div styleClass="column">
                         <t:htmlTag value="li">
-                            <h:outputText value="#{msgs['CONVENTION.MODEVERSGRAT']} *" style="white-space: nowrap;"
+                            <h:outputText value="#{msgs['CONVENTION.MODEVERSGRAT']} *"
                                           styleClass="fontBold"/>
-                            <t:div styleClass="mt5 verticalAlignDiv">
+                            <t:div styleClass="mt5">
                                 <h:selectOneMenu id="modeVersGratification" effect="none" styleClass="ml5 customPstage"
                                                  value="#{conventionController.selModeVersGratification}"
                                                  converter="#{modeVersGratificationConverter}">

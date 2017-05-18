@@ -4,35 +4,31 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
-
-    <ui:include src="/stylesheets/_commun/_champsObligatoires.xhtml" />
-
-    <t:div styleClass="textCenter"
+    <t:div styleClass="textCenter mb5"
            rendered="#{etablissementController.afficherSelectionCentreContact}">
         <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.GESTION.CENTREGESTION']} *" />
-        <p:selectOneMenu id="centreGestion" styleClass="ml5"
+        <h:selectOneMenu id="centreGestion" styleClass="ml5 customPstage fix-selectOneMenu"
                          value="#{etablissementController.formContact.idCentreGestion}"
                          required="true">
             <f:selectItem itemValue="" />
             <f:selectItems value="#{offreController.listeItemsCurrentCentresGestion}" />
             <p:ajax event="valueChange" update="@form"/>
-        </p:selectOneMenu>
+        </h:selectOneMenu>
         <p:message for="centreGestion" />
     </t:div>
 
-    <t:htmlTag value="ul" styleClass="formUL columns-2 mt15">
+    <t:htmlTag value="ul" styleClass="formUL columns-2">
         <t:div styleClass="column">
             <t:htmlTag value="li">
                 <t:div>
                     <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.CIVILITE']} *" />
-                    <p:selectOneMenu id="civilite" effect="none"
+                    <h:selectOneMenu id="civilite" effect="none" styleClass="customPstage fix-selectOneMenu"
                                      value="#{etablissementController.formContact.civilite}"
-                                     converter="#{civiliteConverter}" required="true"
-                                     requiredMessage="#{requiredMessageController.champObligatoire}">
+                                     converter="#{civiliteConverter}" required="true">
                         <f:selectItem itemValue="" />
                         <f:selectItems value="#{nomenclatureController.civilites}" />
                         <p:ajax event="valueChange" update="msgCiv" />
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                     <p:message id="msgCiv" for="civilite" />
                 </t:div>
 
@@ -63,16 +59,16 @@
                 <p:message for="msg1o3"/>
 
                 <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.TELEPHONE']} " />
-                <p:inputText id="telC" size="20" maxlength="20"
+                <p:inputText id="telC" maxlength="20"
                              value="#{etablissementController.formContact.tel}" />
 
                 <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.FAX']} " />
-                <p:inputText id="faxC" size="20" maxlength="20"
+                <p:inputText id="faxC" maxlength="20"
                              value="#{etablissementController.formContact.fax}" />
 
                 <h:outputText styleClass="fontBold" value="#{msgs['CONTACT.MAIL']} *" />
                 <p:inputText id="mailC"
-                             value="#{etablissementController.formContact.mail}" size="50"
+                             value="#{etablissementController.formContact.mail}"
                              maxlength="50" required="true"
                              validatorMessage="#{requiredMessageController.adresseMailNonValide}">
                     <f:validator binding="#{mailValidator}" />

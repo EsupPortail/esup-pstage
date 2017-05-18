@@ -20,7 +20,6 @@ public class PersonalComponentRepositoryDomainCustom implements
 
 	@Override
 	public Map<String, String> getComposantesRef(String universityCode) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

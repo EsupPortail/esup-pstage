@@ -32,7 +32,6 @@ public class StudentComponentRepositoryDomainLdap implements
 	}
 
 	public EtabRef getEtabRef(String universityCode) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -42,7 +41,6 @@ public class StudentComponentRepositoryDomainLdap implements
 	}
 
 	public SignataireRef getSigCompoRef(String universityCode, String Composante) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

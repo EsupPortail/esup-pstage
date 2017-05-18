@@ -14,54 +14,41 @@
 
                     <ui:include src="/stylesheets/_commun/_rechercheOffreNbResultats.xhtml" />
 
-                    <p:dataTable id="rechercheOffreDataTable" styleClass="mt20 mb20"
+                    <t:div styleClass="textCenter">
+                        <h:outputText styleClass="fontItalic fontGreen fontBold fz09"
+                                      value="#{msgs['GENERAL.LIGNE.SELECTION']}" />
+                    </t:div>
+                    <p:dataTable id="rechercheOffreDataTable" styleClass="mt5 mb20" dataLocale="en_US"
                                  value="#{offreController.rechercheOffrePaginator.liste}"
-                                 var="offre" rowKey="rowOffre" rows="10" rowHover="true"
-                                 rowStyleClass="noPointer" paginator="true" paginatorAlwaysVisible="false"
+                                 var="offre" rowKey="#{offre.idOffre}" rows="10" rowHover="true"
+                                 paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15,20"
                                  reflow="true" tableStyle="table-layout: auto;"
+                                 selectionMode="single" selection="#{offreController.currentOffre}"
                                  rendered="#{welcomeController.superAdmin || welcomeController.admin || welcomeController.writer}">
+
+                        <p:ajax event="rowSelect" listener="#{offreController.onOffreEtabSelect}" update="@form"
+                                onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
+
                         <ui:include src="/stylesheets/_commun/_rechercheOffreResultatsColumns.xhtml" />
-                        <p:column styleClass="background-color-grey">
-                            <f:facet name="header">
-                                <h:outputText
-                                        value="#{msgs['GENERAL.ACTIONS']}" />
-                            </f:facet>
-                            <h:commandLink id="recap1"
-                                           action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
-                                <t:htmlTag value="i" styleClass="fa fa-search fontBlue2 fz16"/>
-                                <p:tooltip for="recap1" value="#{msgs['OFFRE.GESTION.DETAILS']}"/>
-                                <f:setPropertyActionListener value="#{offre}"
-                                                             target="#{offreController.currentOffre}" />
-                                <p:tooltip value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-                            </h:commandLink>
-                        </p:column>
+
                     </p:dataTable>
                     <p:dataTable id="rechercheOffreDataTableE" styleClass="mt20 mb20"
                                  value="#{offreController.rechercheOffrePaginator.liste}"
-                                 var="offre" rowKey="rowOffre" rows="10" rowHover="true"
-                                 rowStyleClass="noPointer" paginator="true" paginatorAlwaysVisible="false"
+                                 var="offre" rowKey="#{offre.idOffre}" rows="10" rowHover="true"
+                                 paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15,20"
                                  reflow="true" tableStyle="table-layout: auto;"
+                                 selectionMode="single" selection="#{offreController.currentOffre}"
                                  rendered="#{!(welcomeController.superAdmin || welcomeController.admin || welcomeController.writer)}">
+
+                        <p:ajax event="rowSelect" listener="#{offreController.onOffreEtabSelect}" update="@form"
+                                onstart="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"/>
 
                         <ui:include src="/stylesheets/_commun/_rechercheOffreResultatsEtudiantColumns.xhtml" />
 
-                        <p:column styleClass="background-color-grey">
-                            <f:facet name="header">
-                                <h:outputText
-                                        value="#{msgs['GENERAL.ACTIONS']}" />
-                            </f:facet>
-                            <h:commandLink id="recap2"
-                                           action="#{offreController.goToRecapitulatifOffreFromOffreLightAvecCentre}">
-                                <t:htmlTag value="i" styleClass="fa fa-search fz16 fontBlue2"/>
-                                <f:setPropertyActionListener value="#{offre}"
-                                                             target="#{offreController.currentOffre}" />
-                                <p:tooltip for="recap2" value="#{msgs['OFFRE.GESTION.DETAILS']}" />
-                            </h:commandLink>
-                        </p:column>
                     </p:dataTable>
                 </t:div>
                 <p:commandButton icon="fa fa-angle-left"
